@@ -11,7 +11,7 @@ module.exports = {
   entry: "./src/index.js",
   target: "web",
   output: {
-    path: Path.resolve(__dirname, "dist", "main"),
+    path: Path.resolve(__dirname, "dist"),
     filename: "index.js",
     chunkFilename: "[name].bundle.js"
   },
@@ -55,11 +55,7 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: Path.join(__dirname, "configuration.js"),
-        to: Path.join(__dirname, "dist", "main", "configuration.js")
-      },
-      {
-        from: Path.join(__dirname, "configuration.js"),
-        to: Path.join(__dirname, "dist", "dev", "configuration.js")
+        to: Path.join(__dirname, "dist", "configuration.js")
       }
     ]),
     new HtmlWebpackPlugin({
