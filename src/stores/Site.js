@@ -4,6 +4,7 @@ class SiteStore {
   @observable site;
   @observable franchises = {};
   @observable titles = {};
+  @observable authTokens = {};
   @observable activeTitle;
 
   constructor(rootStore) {
@@ -87,9 +88,21 @@ class SiteStore {
           metadataSubtree: "public"
         });
 
+        /*
+        // hls.js / dash.js
         const playoutOptions = await client.PlayoutOptions({
           versionHash: titleVersionHash,
           protocols: ["hls"]
+        });
+        */
+
+        const playoutOptions = await client.BitmovinPlayoutOptions({
+          versionHash: titleVersionHash,
+          protocols: ["dash", "hls"]
+        });
+
+        this.authTokens[titleKey] = await client.GenerateStateChannelToken({
+          versionHash: titleVersionHash
         });
 
         const titleInfo = this.franchises[franchiseKey].titles[titleKey];
@@ -97,10 +110,17 @@ class SiteStore {
         let components = {};
         await Promise.all(
           Object.keys(titleInfo.components).map(async component => {
-            components[component] = await client.LinkUrl({
-              versionHash: titleVersionHash,
-              linkPath: `asset_metadata/components/${component}`
-            });
+            try {
+              components[component] = await client.LinkUrl({
+                versionHash: titleVersionHash,
+                linkPath: `asset_metadata/components/${component}`
+              });
+            } catch (error){
+              // eslint-disable-next-line no-console
+              console.error(`Unable to load component at 'asset_metadata/components/${component}':`);
+              // eslint-disable-next-line no-console
+              console.error(error);
+            }
           })
         );
 

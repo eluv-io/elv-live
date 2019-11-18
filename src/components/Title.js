@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import HLSPlayer from "hls.js";
+// import HLSPlayer from "hls.js";
 
 @inject("siteStore")
 @observer
@@ -11,11 +11,44 @@ class Title extends React.Component {
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
+  componentWillUnmount() {
+    if(this.player) {
+      this.player.destroy();
+      this.player = undefined;
+    }
+  }
+
   InitializeVideo(element) {
-    const sourceUrl = this.props.siteStore.titles[this.props.titleKey].playoutOptions.hls.playoutUrl;
-    const player = new HLSPlayer();
-    player.loadSource(sourceUrl);
-    player.attachMedia(element);
+    if(!element) { return; }
+
+    /*
+      // hls.js
+      const sourceUrl = this.props.siteStore.titles[this.props.titleKey].playoutOptions.hls.playoutUrl;
+      const player = new HLSPlayer();
+      player.loadSource(sourceUrl);
+      player.attachMedia(element);
+    */
+
+    const authToken = this.props.siteStore.authTokens[this.props.titleKey];
+    const config = {
+      //apiKey: "<bitmovin-api-key>",
+      network: {
+        preprocessHttpRequest(type, request) {
+          request.headers.Authorization = `Bearer ${authToken}`;
+          return Promise.resolve(request);
+        }
+      },
+      playback: {
+        autoplay: true
+      }
+    };
+
+    this.player = new bitmovin.player.Player(element, config);
+
+    this.player.load({
+      ...(this.props.siteStore.titles[this.props.titleKey].playoutOptions),
+      poster: this.props.siteStore.titles[this.props.titleKey].components.main_slider_background_desktop
+    });
   }
 
   FullView() {
@@ -32,10 +65,8 @@ class Title extends React.Component {
           {title.name}
         </h3>
 
-        <video
+        <div
           className="title-video"
-          controls
-          poster={title.components.main_slider_background_desktop}
           ref={this.InitializeVideo}
         />
       </div>
