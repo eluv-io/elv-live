@@ -44,7 +44,7 @@ class RootStore {
 
       client.SetSigner({signer});
 
-      client.ToggleLogging(true);
+      //client.ToggleLogging(true);
     } else {
       // Contained in IFrame
       client = new FrameClient({

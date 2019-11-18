@@ -1,5 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import AsyncComponent from "./AsyncComponent";
 // import HLSPlayer from "hls.js";
 
 @inject("siteStore")
@@ -8,6 +9,7 @@ class Title extends React.Component {
   constructor(props) {
     super(props);
 
+    this.PageContent = this.PageContent.bind(this);
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
@@ -44,10 +46,12 @@ class Title extends React.Component {
       }
     };
 
-    const playoutOptions = title.trailers ? title.trailers.default.playoutOptions : title.playoutOptions;
-    const poster = title.trailers ?
-      title.trailers.default.images.thumbnail :
-      title.images.main_slider_background_desktop;
+    let poster = title.images.main_slider_background_desktop;
+    let playoutOptions = title.playoutOptions;
+    if(title.trailers.default) {
+      poster = title.trailers.default.images.thumbnail;
+      playoutOptions = title.trailers.default.playoutOptions;
+    }
 
     this.player = new bitmovin.player.Player(element, config);
     this.player.load({
@@ -56,7 +60,7 @@ class Title extends React.Component {
     });
   }
 
-  FullView() {
+  PageContent() {
     const title = this.props.siteStore.titles[this.props.titleKey];
 
     if(!title) { return; }
@@ -78,32 +82,13 @@ class Title extends React.Component {
     );
   }
 
-  Preview() {
-    const title = this.props.siteStore.titles[this.props.titleKey];
-
-    if(!title) { return; }
-
-    return (
-      <div className="title-preview" onClick={() => this.props.siteStore.SetActiveTitle(this.props.titleKey)}>
-        <img
-          alt={title.name}
-          src={title.images ? title.images.poster : undefined}
-        />
-        <h3>{title.name}</h3>
-      </div>
-    );
-  }
-
   render() {
-    if(this.props.siteStore.activeTitle) {
-      if(this.props.siteStore.activeTitle === this.props.titleKey) {
-        return this.FullView();
-      } else {
-        return null;
-      }
-    }
-
-    return this.Preview();
+    return (
+      <AsyncComponent
+        Load={() => this.props.siteStore.LoadTitle(this.props.franchiseKey, this.props.titleKey)}
+        render={this.PageContent}
+      />
+    );
   }
 }
 
