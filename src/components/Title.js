@@ -19,7 +19,8 @@ class Title extends React.Component {
   }
 
   InitializeVideo(element) {
-    if(!element) { return; }
+    const title = this.props.siteStore.titles[this.props.titleKey];
+    if(!element || !title) { return; }
 
     /*
       // hls.js
@@ -31,7 +32,7 @@ class Title extends React.Component {
 
     const authToken = this.props.siteStore.authTokens[this.props.titleKey];
     const config = {
-      //apiKey: "<bitmovin-api-key>",
+      key: EluvioConfiguration["bitmovin-api-key"],
       network: {
         preprocessHttpRequest(type, request) {
           request.headers.Authorization = `Bearer ${authToken}`;
@@ -39,15 +40,19 @@ class Title extends React.Component {
         }
       },
       playback: {
-        autoplay: true
+        autoplay: false
       }
     };
 
-    this.player = new bitmovin.player.Player(element, config);
+    const playoutOptions = title.trailers ? title.trailers.default.playoutOptions : title.playoutOptions;
+    const poster = title.trailers ?
+      title.trailers.default.images.thumbnail :
+      title.images.main_slider_background_desktop;
 
+    this.player = new bitmovin.player.Player(element, config);
     this.player.load({
-      ...(this.props.siteStore.titles[this.props.titleKey].playoutOptions),
-      poster: this.props.siteStore.titles[this.props.titleKey].components.main_slider_background_desktop
+      ...(playoutOptions),
+      poster
     });
   }
 
@@ -82,7 +87,7 @@ class Title extends React.Component {
       <div className="title-preview" onClick={() => this.props.siteStore.SetActiveTitle(this.props.titleKey)}>
         <img
           alt={title.name}
-          src={title.components.poster}
+          src={title.images ? title.images.poster : undefined}
         />
         <h3>{title.name}</h3>
       </div>
