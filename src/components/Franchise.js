@@ -18,7 +18,7 @@ class Franchise extends React.Component {
       >
         <img
           alt={title.name}
-          src={title.poster}
+          src={title.images.poster.url}
         />
         <h3>{title.name}</h3>
       </div>

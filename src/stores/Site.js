@@ -1,4 +1,4 @@
-import {observable, action, flow, runInAction} from "mobx";
+import {observable, action, flow} from "mobx";
 import UrlJoin from "url-join";
 
 class SiteStore {
@@ -10,23 +10,6 @@ class SiteStore {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
-  }
-
-  async ResolveImageLinks({versionHash, path, imageSpec}) {
-    let images = {};
-
-    if(imageSpec) {
-      await Promise.all(
-        Object.keys(imageSpec).map(async image => {
-          images[image] = await this.rootStore.client.LinkUrl({
-            versionHash,
-            linkPath: UrlJoin(path, image)
-          });
-        })
-      );
-    }
-
-    return images;
   }
 
   @action.bound
@@ -48,6 +31,7 @@ class SiteStore {
     let franchiseInfo = yield client.ContentObjectMetadata({
       versionHash,
       metadataSubtree: "asset_metadata/franchises",
+      produceLinkUrls: true,
       resolveLinks: true
     });
 
@@ -73,40 +57,6 @@ class SiteStore {
     };
 
     this.franchises = franchiseInfo;
-
-    yield Promise.all(
-      Object.keys(this.franchises).map(async franchiseKey => await this.LoadFranchise(franchiseKey))
-    );
-  });
-
-  @action.bound
-  LoadFranchise = flow(function * (franchiseKey) {
-    const client = this.rootStore.client;
-    const franchise = this.franchises[franchiseKey];
-
-    yield Promise.all(
-      Object.keys(franchise.titles).map(async titleKey => {
-        const titleInfo = this.franchises[franchiseKey].titles[titleKey];
-
-        const poster = await client.LinkUrl({
-          versionHash: this.site.versionHash,
-          linkPath: UrlJoin(
-            "asset_metadata",
-            "franchises",
-            franchiseKey,
-            "titles",
-            titleKey,
-            "images",
-            "poster"
-          )
-        });
-
-        runInAction(() => {
-          this.franchises[franchiseKey].titles[titleKey].poster = poster;
-          this.franchises[franchiseKey].titles[titleKey].name = titleInfo.title || titleInfo.name;
-        });
-      })
-    );
   });
 
   @action.bound
@@ -117,11 +67,14 @@ class SiteStore {
     }
 
     const client = this.rootStore.client;
-    const franchise = this.franchises[franchiseKey];
+    const franchiseVersionHash = yield client.LinkTarget({
+      versionHash: this.site.versionHash,
+      linkPath: `asset_metadata/franchises/${franchiseKey}`
+    });
     const titleInfo = this.franchises[franchiseKey].titles[titleKey];
 
     const titleVersionHash = yield client.LinkTarget({
-      versionHash: franchise.versionHash,
+      versionHash: franchiseVersionHash,
       linkPath: UrlJoin(
         "asset_metadata",
         "titles",
@@ -129,7 +82,7 @@ class SiteStore {
       )
     });
 
-    // Resolve images and playout options for trailers
+    // Resolve playout options for trailers
     let trailers = {};
     if(titleInfo.trailers) {
       yield Promise.all(
@@ -141,11 +94,6 @@ class SiteStore {
 
           trailers[key] = {
             ...titleInfo.trailers[key],
-            images: await this.ResolveImageLinks({
-              versionHash: titleVersionHash,
-              path: "asset_metadata/trailers/images",
-              imageSpec: titleInfo.trailers[key].images
-            }),
             playoutOptions: await client.BitmovinPlayoutOptions({
               versionHash: trailerHash,
               protocols: ["dash", "hls"]
@@ -155,7 +103,7 @@ class SiteStore {
       );
     }
 
-    // Resolve images and playout options for clips
+    // Resolve playout options for clips
     let clips = {};
     if(titleInfo.clips) {
       yield Promise.all(
@@ -167,11 +115,6 @@ class SiteStore {
 
           clips[key] = {
             ...titleInfo.clips[key],
-            images: await this.ResolveImageLinks({
-              versionHash: titleVersionHash,
-              path: "asset_metadata/clips/images",
-              imageSpec: titleInfo.clips[key].images
-            }),
             playoutOptions: await client.BitmovinPlayoutOptions({
               versionHash: clipHash,
               protocols: ["dash", "hls"]
@@ -180,6 +123,7 @@ class SiteStore {
         })
       );
     }
+
     /*
       // hls.js / dash.js
       const playoutOptions = await client.PlayoutOptions({
@@ -187,11 +131,6 @@ class SiteStore {
         protocols: ["hls"]
       });
     */
-    const images = yield this.ResolveImageLinks({
-      versionHash: titleVersionHash,
-      path: "asset_metadata/images",
-      imageSpec: titleInfo.images
-    });
 
     const playoutOptions = yield client.BitmovinPlayoutOptions({
       versionHash: titleVersionHash,
@@ -204,7 +143,6 @@ class SiteStore {
 
     this.titles[titleKey] = {
       ...titleInfo,
-      images,
       clips,
       trailers,
       playoutOptions,
