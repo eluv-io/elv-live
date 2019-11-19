@@ -1,4 +1,5 @@
 import {observable, action, flow, runInAction} from "mobx";
+import UrlJoin from "url-join";
 
 class SiteStore {
   @observable site;
@@ -11,7 +12,7 @@ class SiteStore {
     this.rootStore = rootStore;
   }
 
-  async ResolveImageLinks({versionHash, imageSpec}) {
+  async ResolveImageLinks({versionHash, path, imageSpec}) {
     let images = {};
 
     if(imageSpec) {
@@ -19,7 +20,7 @@ class SiteStore {
         Object.keys(imageSpec).map(async image => {
           images[image] = await this.rootStore.client.LinkUrl({
             versionHash,
-            linkPath: `asset_metadata/images/${image}`
+            linkPath: UrlJoin(path, image)
           });
         })
       );
@@ -57,17 +58,9 @@ class SiteStore {
           linkPath: `asset_metadata/franchises/${franchiseKey}`
         });
 
-        const publicInfo = await client.ContentObjectMetadata({
-          versionHash: franchiseVersionHash,
-          metadataSubtree: "public"
-        });
-
         franchiseInfo[franchiseKey] = {
           ...franchiseInfo[franchiseKey],
-          key: franchiseKey,
-          versionHash: franchiseVersionHash,
-          name: publicInfo.name || "",
-          description: publicInfo.description || ""
+          versionHash: franchiseVersionHash
         };
       })
     );
@@ -95,14 +88,17 @@ class SiteStore {
       Object.keys(franchise.titles).map(async titleKey => {
         const titleInfo = this.franchises[franchiseKey].titles[titleKey];
 
-        const titleVersionHash = await client.LinkTarget({
-          versionHash: franchise.versionHash,
-          linkPath: `asset_metadata/titles/${titleKey}`
-        });
-
         const poster = await client.LinkUrl({
-          versionHash: titleVersionHash,
-          linkPath: "asset_metadata/images/poster"
+          versionHash: this.site.versionHash,
+          linkPath: UrlJoin(
+            "asset_metadata",
+            "franchises",
+            franchiseKey,
+            "titles",
+            titleKey,
+            "images",
+            "poster"
+          )
         });
 
         runInAction(() => {
@@ -126,7 +122,11 @@ class SiteStore {
 
     const titleVersionHash = yield client.LinkTarget({
       versionHash: franchise.versionHash,
-      linkPath: `asset_metadata/titles/${titleKey}`
+      linkPath: UrlJoin(
+        "asset_metadata",
+        "titles",
+        titleKey
+      )
     });
 
     // Resolve images and playout options for trailers
@@ -142,7 +142,8 @@ class SiteStore {
           trailers[key] = {
             ...titleInfo.trailers[key],
             images: await this.ResolveImageLinks({
-              versionHash: trailerHash,
+              versionHash: titleVersionHash,
+              path: "asset_metadata/trailers/images",
               imageSpec: titleInfo.trailers[key].images
             }),
             playoutOptions: await client.BitmovinPlayoutOptions({
@@ -167,7 +168,8 @@ class SiteStore {
           clips[key] = {
             ...titleInfo.clips[key],
             images: await this.ResolveImageLinks({
-              versionHash: clipHash,
+              versionHash: titleVersionHash,
+              path: "asset_metadata/clips/images",
               imageSpec: titleInfo.clips[key].images
             }),
             playoutOptions: await client.BitmovinPlayoutOptions({
@@ -187,6 +189,7 @@ class SiteStore {
     */
     const images = yield this.ResolveImageLinks({
       versionHash: titleVersionHash,
+      path: "asset_metadata/images",
       imageSpec: titleInfo.images
     });
 
