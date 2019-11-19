@@ -46,10 +46,10 @@ class Title extends React.Component {
       }
     };
 
-    let poster = title.images.main_slider_background_desktop;
+    let poster = title.images.main_slider_background_desktop.url;
     let playoutOptions = title.playoutOptions;
     if(title.trailers.default) {
-      poster = title.trailers.default.images.thumbnail;
+      poster = title.trailers.default.images.thumbnail.url;
       playoutOptions = title.trailers.default.playoutOptions;
     }
 
