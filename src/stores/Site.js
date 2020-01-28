@@ -1,165 +1,176 @@
-import {observable, action, flow} from "mobx";
+import {observable, action, flow, computed} from "mobx";
+import URI from "urijs";
 import UrlJoin from "url-join";
 
 class SiteStore {
-  @observable site;
-  @observable franchises = {};
-  @observable titles = {};
-  @observable authTokens = {};
-  @observable activeTitle;
+  @observable siteLibraryId;
+
+  @observable siteInfo;
+  @observable titles = [];
+  @observable playlists = [];
+  @observable activeTitle = {
+    playlistIndex: undefined,
+    titleIndex: undefined
+  };
+
+  @observable playoutUrl;
+  @observable authToken;
+
+  @computed get client() {
+    return this.rootStore.client;
+  }
+
+  @computed get siteId() {
+    return this.rootStore.siteId;
+  }
 
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
   @action.bound
-  LoadSite = flow(function * (objectId) {
-    this.site = undefined;
-    this.franchises = {};
-    this.titles = {};
+  LoadSite = flow(function * () {
+    this.siteLibraryId = yield this.client.ContentObjectLibraryId({objectId: this.siteId});
 
-    const client = this.rootStore.client;
-
-    const libraryId = yield client.ContentObjectLibraryId({objectId});
-    const versionHash = (yield client.ContentObject({libraryId, objectId})).hash;
-
-    const siteInfo = yield client.ContentObjectMetadata({
-      versionHash,
-      metadataSubtree: "public"
+    const siteName = yield this.client.ContentObjectMetadata({
+      libraryId: this.siteLibraryId,
+      objectId: this.siteId,
+      metadataSubtree: "public/name"
     });
 
-    let franchiseInfo = yield client.ContentObjectMetadata({
-      versionHash,
-      metadataSubtree: "asset_metadata/franchises",
-      produceLinkUrls: true,
+    let siteInfo = yield this.client.ContentObjectMetadata({
+      libraryId: this.siteLibraryId,
+      objectId: this.siteId,
+      metadataSubtree: "public/asset_metadata",
       resolveLinks: true
     });
 
-    yield Promise.all(
-      Object.keys(franchiseInfo).map(async franchiseKey => {
-        const franchiseVersionHash = await client.LinkTarget({
-          versionHash,
-          linkPath: `asset_metadata/franchises/${franchiseKey}`
-        });
+    siteInfo.name = siteName;
 
-        franchiseInfo[franchiseKey] = {
-          ...franchiseInfo[franchiseKey],
-          versionHash: franchiseVersionHash
+    siteInfo.baseLinkUrl = yield this.client.LinkUrl({
+      libraryId: this.siteLibraryId,
+      objectId: this.siteId,
+      linkPath: "public/asset_metadata"
+    });
+
+    // Produce links for titles and playlists
+
+    // Titles: {[index]: {[title-key]: { ...title }}
+    let titles = [];
+    yield Promise.all(
+      Object.keys(siteInfo.titles).map(async index => {
+        const titleKey = Object.keys(siteInfo.titles[index])[0];
+        let title = siteInfo.titles[index][titleKey];
+
+        title.baseLinkUrl =
+          await this.client.LinkUrl({
+            libraryId: this.siteLibraryId,
+            objectId: this.siteId,
+            linkPath: `public/asset_metadata/titles/${index}/${titleKey}`
+          });
+
+        title.playoutOptionsLinkPath = `public/asset_metadata/titles/${index}/${titleKey}/sources/default`;
+
+        title.titleIndex = parseInt(index);
+
+        titles[title.titleIndex] = title;
+      })
+    );
+
+    // Playlists: {[index]: {[playlist-name]: {[title-key]: { ...title }}}
+    let playlists = [];
+    yield Promise.all(
+      Object.keys(siteInfo.playlists).map(async index => {
+        const playlistName = Object.keys(siteInfo.playlists[index])[0];
+        const playlistIndex = parseInt(index);
+
+        const playlistTitles = await Promise.all(
+          Object.keys(siteInfo.playlists[index][playlistName]).map(async (titleKey, titleIndex) => {
+            let title = siteInfo.playlists[index][playlistName][titleKey];
+
+            title.baseLinkUrl =
+              await this.client.LinkUrl({
+                libraryId: this.siteLibraryId,
+                objectId: this.siteId,
+                linkPath: `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}`
+              });
+
+            title.playoutOptionsLinkPath = `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}/sources/default`;
+
+            title.playlistIndex = playlistIndex;
+            title.titleIndex = titleIndex;
+
+            return title;
+          })
+        );
+
+        playlists[playlistIndex] = {
+          playlistIndex,
+          name: playlistName,
+          titles: playlistTitles
         };
       })
     );
 
-    this.site = {
-      libraryId,
-      objectId,
-      versionHash,
-      name: siteInfo.name
-    };
+    this.titles = titles;
+    this.playlists = playlists;
 
-    this.franchises = franchiseInfo;
+    delete siteInfo.titles;
+    delete siteInfo.playlists;
+
+    this.siteInfo = siteInfo;
   });
 
   @action.bound
-  LoadTitle = flow(function * (franchiseKey, titleKey) {
-    if(this.titles[titleKey]) {
-      // Already loaded
-      return;
+  LoadPlayoutOptions = flow(function * ({playlistIndex, titleIndex}) {
+    let title;
+    if(playlistIndex !== undefined) {
+      title = this.playlists[playlistIndex].titles[titleIndex];
+    } else {
+      title = this.titles[titleIndex];
     }
 
-    const client = this.rootStore.client;
-    const franchiseVersionHash = yield client.LinkTarget({
-      versionHash: this.site.versionHash,
-      linkPath: `asset_metadata/franchises/${franchiseKey}`
-    });
-    const titleInfo = this.franchises[franchiseKey].titles[titleKey];
-
-    const titleVersionHash = yield client.LinkTarget({
-      versionHash: franchiseVersionHash,
-      linkPath: UrlJoin(
-        "asset_metadata",
-        "titles",
-        titleKey
-      )
+    const titleHash = yield this.client.LinkTarget({
+      libraryId: this.siteLibraryId,
+      objectId: this.siteId,
+      linkPath: title.playoutOptionsLinkPath,
     });
 
-    // Resolve playout options for trailers
-    let trailers = {};
-    if(titleInfo.trailers) {
-      yield Promise.all(
-        Object.keys(titleInfo.trailers).map(async key => {
-          const trailerHash = await client.LinkTarget({
-            versionHash: titleVersionHash,
-            linkPath: `asset_metadata/trailers/${key}`
-          });
+    const playoutOptions = yield this.client.PlayoutOptions({
+      versionHash: titleHash,
+      protocols: ["hls"],
+      drms: ["aes-128"]
+    });
 
-          trailers[key] = {
-            ...titleInfo.trailers[key],
-            playoutOptions: await client.BitmovinPlayoutOptions({
-              versionHash: trailerHash,
-              protocols: ["dash", "hls"]
-            })
-          };
-        })
-      );
+    if(playlistIndex !== undefined) {
+      this.playlists[playlistIndex].titles[titleIndex].playoutOptions = playoutOptions;
+    } else {
+      this.titles[titleIndex].playoutOptions = playoutOptions;
     }
-
-    // Resolve playout options for clips
-    let clips = {};
-    if(titleInfo.clips) {
-      yield Promise.all(
-        Object.keys(titleInfo.clips).map(async key => {
-          const clipHash = await client.LinkTarget({
-            versionHash: titleVersionHash,
-            linkPath: `asset_metadata/clips/${key}`
-          });
-
-          clips[key] = {
-            ...titleInfo.clips[key],
-            playoutOptions: await client.BitmovinPlayoutOptions({
-              versionHash: clipHash,
-              protocols: ["dash", "hls"]
-            })
-          };
-        })
-      );
-    }
-
-    /*
-      // hls.js / dash.js
-      const playoutOptions = await client.PlayoutOptions({
-        versionHash: titleVersionHash,
-        protocols: ["hls"]
-      });
-    */
-
-    const playoutOptions = yield client.BitmovinPlayoutOptions({
-      versionHash: titleVersionHash,
-      protocols: ["dash", "hls"]
-    });
-
-    this.authTokens[titleKey] = yield client.GenerateStateChannelToken({
-      versionHash: titleVersionHash
-    });
-
-    this.titles[titleKey] = {
-      ...titleInfo,
-      clips,
-      trailers,
-      playoutOptions,
-      key: titleKey,
-      versionHash: titleVersionHash,
-      name: titleInfo.title || titleInfo.name || ""
-    };
   });
 
   @action.bound
-  SetActiveTitle(titleKey) {
-    this.activeTitle = titleKey;
+  SetActiveTitle({playlistIndex, titleIndex}) {
+    this.activeTitle = {
+      playlistIndex,
+      titleIndex
+    };
   }
 
   @action.bound
   ClearActiveTitle() {
-    this.SetActiveTitle(undefined);
+    this.activeTitle = {
+      playlistIndex: undefined,
+      titleIndex: undefined
+    };
+  }
+
+  @action.bound
+  CreateLink(baseLink, path) {
+    const basePath = URI(baseLink).path();
+    return URI(baseLink)
+      .path(UrlJoin(basePath, path))
+      .toString();
   }
 }
 

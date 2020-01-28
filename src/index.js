@@ -12,11 +12,13 @@ import Logo from "./static/images/Logo.png";
 import GithubIcon from "./static/icons/github.svg";
 import Site from "./components/Site";
 
-@inject("root")
+@inject("rootStore")
 @observer
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    props.rootStore.SetSiteId(EluvioConfiguration["site-id"]);
   }
 
   SourceLink() {
@@ -30,11 +32,11 @@ class App extends React.Component {
   }
 
   App() {
-    if(!this.props.root.client) {
+    if(!this.props.rootStore.client) {
       return <LoadingElement loading={true} fullPage={true}/>;
     }
 
-    return <Site/>;
+    return <Site />;
   }
 
   render() {

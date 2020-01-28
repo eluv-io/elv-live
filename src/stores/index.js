@@ -15,6 +15,8 @@ class RootStore {
   @observable availableProtocols = ["hls"];
   @observable availableDRMs = ["aes-128"];
 
+  @observable siteId;
+
   constructor() {
     this.InitializeClient();
     this.siteStore = new SiteStore(this);
@@ -70,9 +72,14 @@ class RootStore {
     this.availableProtocols = availableProtocols;
     this.balance = balance;
   })
+
+  @action.bound
+  SetSiteId(id) {
+    this.siteId = id;
+  }
 }
 
-const rootStore = new RootStore();
+const root = new RootStore();
 
-export const root = rootStore;
-export const siteStore = rootStore.siteStore;
+export const rootStore = root;
+export const siteStore = root.siteStore;
