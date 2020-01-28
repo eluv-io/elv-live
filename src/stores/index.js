@@ -53,6 +53,8 @@ class RootStore {
         target: window.parent,
         timeout: 30
       });
+
+      client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
     }
 
     this.availableDRMs = yield client.AvailableDRMs();
