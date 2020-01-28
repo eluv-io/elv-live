@@ -130,14 +130,10 @@ class SiteStore {
       title = this.titles[titleIndex];
     }
 
-    const titleHash = yield this.client.LinkTarget({
+    const playoutOptions = yield this.client.PlayoutOptions({
       libraryId: this.siteLibraryId,
       objectId: this.siteId,
       linkPath: title.playoutOptionsLinkPath,
-    });
-
-    const playoutOptions = yield this.client.PlayoutOptions({
-      versionHash: titleHash,
       protocols: ["hls"],
       drms: ["aes-128"]
     });

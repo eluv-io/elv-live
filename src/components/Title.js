@@ -47,7 +47,7 @@ class Title extends React.Component {
       player.loadSource(playoutUrl);
       player.attachMedia(element);
 
-      element.scrollIntoView();
+      element.scrollIntoView({behavior: "smooth"});
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
