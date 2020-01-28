@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
+import HLSPlayer from "hls.js";
 import {inject, observer} from "mobx-react";
-import AsyncComponent from "./AsyncComponent";
-// import HLSPlayer from "hls.js";
+import {ImageIcon, LoadingElement} from "elv-components-js";
+import BackIcon from "../static/icons/back.svg";
 
 @inject("siteStore")
 @observer
@@ -9,87 +11,108 @@ class Title extends React.Component {
   constructor(props) {
     super(props);
 
-    this.PageContent = this.PageContent.bind(this);
+    this.state = {
+      loading: false
+    };
+
+    this.PlayTitle = this.PlayTitle.bind(this);
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
-  componentWillUnmount() {
-    if(this.player) {
-      this.player.destroy();
-      this.player = undefined;
-    }
+  async PlayTitle() {
+    this.setState({loading: true});
+
+    await this.props.siteStore.LoadPlayoutOptions({
+      playlistIndex: this.props.title.playlistIndex,
+      titleIndex: this.props.title.titleIndex
+    });
+    this.props.siteStore.SetActiveTitle({
+      playlistIndex: this.props.title.playlistIndex,
+      titleIndex: this.props.title.titleIndex
+    });
+
+    this.setState({loading: false});
   }
 
   InitializeVideo(element) {
-    const title = this.props.siteStore.titles[this.props.titleKey];
-    if(!element || !title) { return; }
+    if(!element) { return; }
 
-    /*
-      // hls.js
-      const sourceUrl = this.props.siteStore.titles[this.props.titleKey].playoutOptions.hls.playoutUrl;
+    try {
+      const playoutMethods = this.props.title.playoutOptions.hls.playoutMethods;
+      // Prefer AES playout
+      const playoutUrl = (playoutMethods["aes-128"] || playoutMethods.clear).playoutUrl;
+
       const player = new HLSPlayer();
-      player.loadSource(sourceUrl);
+
+      player.loadSource(playoutUrl);
       player.attachMedia(element);
-    */
 
-    const authToken = this.props.siteStore.authTokens[this.props.titleKey];
-    const config = {
-      key: EluvioConfiguration["bitmovin-api-key"],
-      network: {
-        preprocessHttpRequest(type, request) {
-          request.headers.Authorization = `Bearer ${authToken}`;
-          return Promise.resolve(request);
-        }
-      },
-      playback: {
-        autoplay: false
-      }
-    };
-
-    let poster = title.images.main_slider_background_desktop.url;
-    let playoutOptions = title.playoutOptions;
-    if(title.trailers.default) {
-      poster = title.trailers.default.images.thumbnail.url;
-      playoutOptions = title.trailers.default.playoutOptions;
+      element.scrollIntoView();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
-
-    this.player = new bitmovin.player.Player(element, config);
-    this.player.load({
-      ...(playoutOptions),
-      poster
-    });
   }
 
-  PageContent() {
-    const title = this.props.siteStore.titles[this.props.titleKey];
+  render() {
+    if(
+      this.props.siteStore.activeTitle.titleIndex === undefined ||
+      this.props.siteStore.activeTitle.playlistIndex !== this.props.title.playlistIndex
+    ) {
+      // No active title in playlist- Show title thumbnail
+      const thumbnail = this.props.siteStore.CreateLink(
+        this.props.title.baseLinkUrl,
+        "images/thumbnail/default"
+      );
 
-    if(!title) { return; }
+      return (
+        <div className="title" onClick={this.PlayTitle}>
+          <div className="loading-icon">
+            <LoadingElement loading={this.state.loading} render={() => null} />
+          </div>
+          <div className="ar-container">
+            <img
+              src={thumbnail}
+            />
+          </div>
+          <h4>{ this.props.title.display_title }</h4>
+        </div>
+      );
+    }
+
+    // Hide unless this title is the active title in the playlist
+    if(
+      this.props.siteStore.activeTitle.playlistIndex === this.props.title.playlistIndex &&
+      this.props.siteStore.activeTitle.titleIndex !== this.props.title.titleIndex
+    ) {
+      return null;
+    }
+
+    // Active title
 
     return (
-      <div className="title-container">
-        <h3>
-          <button onClick={this.props.siteStore.ClearActiveTitle} className="back-button">
-            Back to Titles
-          </button>
-          {title.name}
-        </h3>
-
-        <div
-          className="title-video"
+      <div className="title">
+        <h4>
+          <ImageIcon
+            className="back-button"
+            label="Back"
+            icon={BackIcon}
+            onClick={this.props.siteStore.ClearActiveTitle}
+          />
+          { this.props.title.display_title }
+        </h4>
+        <video
           ref={this.InitializeVideo}
+          autoPlay
+          controls
         />
       </div>
     );
   }
-
-  render() {
-    return (
-      <AsyncComponent
-        Load={() => this.props.siteStore.LoadTitle(this.props.franchiseKey, this.props.titleKey)}
-        render={this.PageContent}
-      />
-    );
-  }
 }
+
+Title.propTypes = {
+  title: PropTypes.object.isRequired
+};
 
 export default Title;
