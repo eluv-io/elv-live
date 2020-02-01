@@ -14,10 +14,11 @@ class Site extends React.Component {
   }
 
   PageContent() {
+    const activeTitleKey = `active-title-${this.props.siteStore.activeTitleIndices.playlistIndex}-${this.props.siteStore.activeTitleIndices.titleIndex}`;
     return (
       <div className="site" id="site">
         <h2 className="site-name">{ this.props.siteStore.siteInfo.name }</h2>
-        <ActiveTitle />
+        <ActiveTitle key={activeTitleKey} />
         { <TitleReel /> }
         { this.props.siteStore.playlists.map(playlist =>
           <TitleReel

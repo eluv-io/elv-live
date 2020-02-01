@@ -174,10 +174,12 @@ class SiteStore {
   }
 
   @action.bound
-  CreateLink(baseLink, path) {
+  CreateLink(baseLink, path, query={}) {
     const basePath = URI(baseLink).path();
+
     return URI(baseLink)
       .path(UrlJoin(basePath, path))
+      .addQuery(query)
       .toString();
   }
 }

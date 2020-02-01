@@ -38,7 +38,8 @@ class TitleReel extends React.Component {
   TitleIcon(title, index) {
     const thumbnail = this.props.siteStore.CreateLink(
       title.baseLinkUrl,
-      "images/thumbnail/default"
+      "images/thumbnail/thumbnail",
+      { height: 540 }
     );
 
     const visible = index >= this.state.startIndex

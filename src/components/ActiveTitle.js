@@ -13,8 +13,18 @@ class ActiveTitle extends React.Component {
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
+  componentWillUnmount() {
+    if(this.player) {
+      this.player.destroy();
+    }
+  }
+
   InitializeVideo(element) {
     if(!element) { return; }
+
+    if(this.player) {
+      this.player.destroy();
+    }
 
     try {
       const playoutMethods = this.props.siteStore.activeTitle.playoutOptions.hls.playoutMethods;
@@ -26,6 +36,8 @@ class ActiveTitle extends React.Component {
       player.loadSource(playoutUrl);
       player.attachMedia(element);
 
+      this.player = player;
+
       element.scrollIntoView({behavior: "smooth"});
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -36,10 +48,8 @@ class ActiveTitle extends React.Component {
   render() {
     if(!this.props.siteStore.activeTitle) { return null; }
 
-    const key = `active-title-${this.props.siteStore.activeTitle.playlistIndex}-${this.props.siteStore.activeTitle.titleIndex}`;
-
     return (
-      <div className="active-title" key={key}>
+      <div className="active-title">
         <video
           ref={this.InitializeVideo}
           autoPlay
