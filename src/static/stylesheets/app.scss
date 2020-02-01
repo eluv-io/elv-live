@@ -255,10 +255,12 @@ main {
   }
 
   video {
+    background-color: $elv-color-black;
     border-radius: 0.5rem;
     cursor: pointer;
     flex-grow: 1;
     scroll-margin: 10rem;
+    width: 100%;
   }
 
   .synopsis {
