@@ -1,12 +1,18 @@
 @import "~elv-components-js/src/stylesheets/defaults";
 @import "~elv-components-js/src/stylesheets/styles";
 
+$background-color: #161617;
+$text-color: #eaeaea;
+
+$clear: rgba(0, 0, 0, 0);
+$vignette-color: rgba(0, 0, 0, 0.7);
+
 .app-version {
   display: none;
 }
 
 html {
-  color: $elv-color-text-dark;
+  font-family: Helvetica Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 16px;
 }
 
@@ -16,6 +22,7 @@ body,
 main,
 .site,
 .site-titles {
+  background: $background-color;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -24,6 +31,7 @@ main,
 }
 
 * {
+  color: $text-color;
   max-width: 100%;
 }
 
@@ -38,7 +46,6 @@ header {
 
   h1 {
     @include elv-no-select;
-    color: $elv-color-text-light;
     font-size: $elv-font-xl;
     font-weight: normal;
     margin-left: $elv-spacing-m;
@@ -56,46 +63,136 @@ main {
   width: 100%;
 }
 
-h3 {
-  font-weight: 500;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-h4 {
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
 .site-name {
-  color: $elv-color-text-light;
   margin: -2rem 0 2rem;
   text-align: center;
 }
 
-.title-container {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+.title-reel-container {
+  margin-bottom: $elv-spacing-m;
+  position: relative;
 
-  &.title-container-active {
-    grid-template-columns: 1fr;
-    margin: 0 20%;
+  .title-reel-header {
+    margin-bottom: $elv-spacing-xs;
+    padding-left: $elv-spacing-s;
+    width: 100%;
   }
 
-  &:not(.title-container-active) {
-    cursor: pointer;
+  .title-reel {
+    position: relative;
+
+    .reel-arrow {
+      @include elv-no-select;
+      align-items: center;
+      background: linear-gradient(90deg, $clear, $elv-color-black);
+      color: $elv-color-lightgray;
+      cursor: pointer;
+      display: flex;
+      font-size: 2rem;
+      font-weight: 500;
+      height: 100%;
+      justify-content: flex-end;
+      opacity: 0.8;
+      padding: 0 $elv-spacing-s;
+      position: absolute;
+      top: 0;
+      transition: opacity 0.2s ease-in;
+      width: 4rem;
+      z-index: 100;
+
+      &:hover {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      &.hidden {
+        display: none;
+      }
+    }
+
+    .reel-arrow-left {
+      left: 0;
+      transform: scale(-1, 1);
+    }
+
+    .reel-arrow-right {
+      right: 0;
+    }
+  }
+}
+
+.title-reel {
+  border-radius: 1rem;
+  overflow: hidden;
+
+  .title-reel-titles {
+    align-items: center;
+    display: flex;
+    position: relative;
   }
 }
 
 .title {
+  @include elv-no-select;
+  cursor: pointer;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  padding-left: 0.7rem;
   position: relative;
+  transition: flex-grow 0.6s ease-in-out, padding 0.4s ease-in-out;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  .hidden-title + & {
+    padding-left: 0;
+  }
+
+  &.hidden-title {
+    flex-grow: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    .ar-container {
+      .title-vignette {
+        opacity: 1;
+      }
+    }
+
+    h4 {
+      opacity: 1;
+    }
+  }
 
   .ar-container {
     overflow: hidden;
     padding-top: 56.25%;
     position: relative;
     width: 100%;
+
+    .title-loading-indicator,
+    .title-vignette {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transition: box-shadow 0.2s ease-in;
+      width: 100%;
+    }
+
+    .title-loading-indicator {
+      z-index: 11;
+    }
+
+    .title-vignette {
+      background-image: linear-gradient($clear 75%, $vignette-color);
+      opacity: 0;
+      transition: opacity 0.2s ease-in;
+      z-index: 10;
+    }
   }
 
   img {
@@ -108,7 +205,34 @@ h4 {
   }
 
   h4 {
+    @include elv-ellipsis;
+    bottom: $elv-spacing-xs;
+    color: $elv-color-lightergray;
+    margin: 0;
+    opacity: 0;
+    padding: 0 $elv-spacing-xs;
+    position: absolute;
+    transition: opacity 0.2s ease-in;
+    z-index: 11;
+  }
+}
+
+
+.active-title {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  margin-bottom: $elv-spacing-xl;
+  width: 100%;
+
+  h4 {
+    color: $elv-color-lightergray;
+    font-size: $elv-font-xxl;
+    margin-bottom: $elv-spacing-xs;
     position: relative;
+    text-align: center;
+    width: 75%;
 
     .back-button {
       cursor: pointer;
@@ -117,30 +241,34 @@ h4 {
     }
 
     svg {
+      background-color: $elv-color-bg-dark;
+      border-radius: 0.5rem;
+      padding: $elv-spacing-xs;
       stroke: $elv-color-mediumgray;
+      width: 5rem;
 
       &:hover {
-        stroke: $elv-color-darkgray;
+        background-color: $elv-color-darkgray;
+        stroke: $elv-color-lightgray;
       }
     }
   }
 
   video {
-    margin-bottom: 3rem;
-    scroll-margin: 3rem;
-    width: 100%;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    flex-grow: 1;
+    scroll-margin: 10rem;
   }
 
-  .loading-icon {
-    left: 35%;
-    position: absolute;
-    top: 25%;
-    z-index: 1000;
+  .synopsis {
+    color: $elv-color-text-lighter;
+    text-align: center;
+    width: 75%;
   }
 }
 
 footer {
-  color: $elv-color-text-lighter;
   display: flex;
   justify-content: flex-end;
   padding: $elv-spacing-s;
@@ -148,6 +276,7 @@ footer {
 
 .source-link {
   align-items: center;
+  background-color: $elv-color-white;
   border: 1px solid $elv-color-mediumgray;
   border-radius: 3px;
   display: flex;

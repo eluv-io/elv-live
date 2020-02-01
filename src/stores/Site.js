@@ -8,7 +8,7 @@ class SiteStore {
   @observable siteInfo;
   @observable titles = [];
   @observable playlists = [];
-  @observable activeTitle = {
+  @observable activeTitleIndices = {
     playlistIndex: undefined,
     titleIndex: undefined
   };
@@ -22,6 +22,18 @@ class SiteStore {
 
   @computed get siteId() {
     return this.rootStore.siteId;
+  }
+
+  @computed get activeTitle() {
+    const {playlistIndex, titleIndex} = this.activeTitleIndices;
+
+    if(titleIndex === undefined) { return undefined; }
+
+    if(playlistIndex !== undefined) {
+      return this.playlists[playlistIndex].titles[titleIndex];
+    } else {
+      return this.titles[titleIndex];
+    }
   }
 
   constructor(rootStore) {
@@ -147,7 +159,7 @@ class SiteStore {
 
   @action.bound
   SetActiveTitle({playlistIndex, titleIndex}) {
-    this.activeTitle = {
+    this.activeTitleIndices = {
       playlistIndex,
       titleIndex
     };
@@ -155,7 +167,7 @@ class SiteStore {
 
   @action.bound
   ClearActiveTitle() {
-    this.activeTitle = {
+    this.activeTitleIndices = {
       playlistIndex: undefined,
       titleIndex: undefined
     };
