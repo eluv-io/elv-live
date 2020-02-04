@@ -13,19 +13,28 @@ class Site extends React.Component {
     this.PageContent = this.PageContent.bind(this);
   }
 
+  ActiveTitle() {
+    if(!this.props.siteStore.activeTitle) { return null; }
+
+    const key = `active-title-${this.props.siteStore.activeTitleIndices.playlistIndex}-${this.props.siteStore.activeTitleIndices.titleIndex}`;
+
+    return <ActiveTitle key={key} />;
+  }
+
   PageContent() {
-    const activeTitleKey = `active-title-${this.props.siteStore.activeTitleIndices.playlistIndex}-${this.props.siteStore.activeTitleIndices.titleIndex}`;
     return (
       <div className="site" id="site">
         <h2 className="site-name">{ this.props.siteStore.siteInfo.name }</h2>
-        <ActiveTitle key={activeTitleKey} />
-        { <TitleReel /> }
+        { this.ActiveTitle() }
+
         { this.props.siteStore.playlists.map(playlist =>
           <TitleReel
             key={`title-reel-playlist-${playlist.playlistIndex}`}
             playlistIndex={playlist.playlistIndex}
           />
         )}
+
+        <TitleReel />
       </div>
     );
   }

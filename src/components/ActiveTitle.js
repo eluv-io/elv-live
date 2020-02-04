@@ -10,6 +10,15 @@ class ActiveTitle extends React.Component {
   constructor(props) {
     super(props);
 
+    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    this.state = {
+      poster: props.siteStore.CreateLink(
+        this.props.siteStore.activeTitle.baseLinkUrl,
+        "images/main_slider_background_desktop/thumbnail",
+        { height: Math.floor(vh / 1.5) }
+      )
+    };
+
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
@@ -20,7 +29,9 @@ class ActiveTitle extends React.Component {
   }
 
   InitializeVideo(element) {
-    if(!element) { return; }
+    if(!element) {
+      return;
+    }
 
     if(this.player) {
       this.player.destroy();
@@ -53,6 +64,7 @@ class ActiveTitle extends React.Component {
         <video
           ref={this.InitializeVideo}
           autoPlay
+          poster={this.state.poster}
           controls
         />
         <h4>
