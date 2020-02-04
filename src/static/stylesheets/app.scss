@@ -13,7 +13,7 @@ $vignette-color: rgba(0, 0, 0, 0.7);
 
 html {
   font-family: Helvetica Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body,
@@ -63,8 +63,71 @@ main {
   width: 100%;
 }
 
+h2,
+h3,
+h4 {
+  position: relative;
+
+  svg {
+    &.back-button {
+      background-color: $elv-color-bg-dark;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      left: 0;
+      padding: $elv-spacing-xs;
+      position: absolute;
+      stroke: $elv-color-mediumgray;
+      width: 5rem;
+
+      &:hover {
+        background-color: $elv-color-darkgray;
+        stroke: $elv-color-lightgray;
+      }
+    }
+  }
+}
+
+.site-selection {
+  @include elv-no-select;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+
+  h4 {
+    color: $elv-color-text-lightest;
+    font-size: $elv-font-xxl;
+    margin-bottom: $elv-spacing-s;
+  }
+
+  ul {
+    flex-direction: column;
+  }
+
+  li {
+    @include elv-ellipsis;
+    background-color: $elv-color-bg-white;
+    border-radius: 0.5rem;
+    color: $elv-color-text-dark;
+    cursor: pointer;
+    display: block;
+    font-weight: 500;
+    margin-bottom: $elv-spacing-xs;
+    padding: $elv-spacing-s $elv-spacing-xs;
+    text-align: center;
+    width: 20rem;
+
+    &:hover {
+      background-color: $elv-color-mediumblue;
+      color: $elv-color-text-white;
+    }
+  }
+}
+
 .site-name {
-  margin: -2rem 0 2rem;
+  margin: $elv-spacing-s 0;
   text-align: center;
 }
 
@@ -233,41 +296,20 @@ main {
   }
 }
 
-
 .active-title {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 85vh;
-  margin-bottom: $elv-spacing-xl;
+  margin: $elv-spacing-l 0 $elv-spacing-xl;
+  min-height: 85vh;
   width: 100%;
 
   h4 {
     color: $elv-color-lightergray;
     font-size: $elv-font-xxl;
-    margin-bottom: $elv-spacing-xs;
-    position: relative;
+    margin: $elv-spacing-m 0;
     text-align: center;
-    width: 75%;
-
-    .back-button {
-      cursor: pointer;
-      left: 0;
-      position: absolute;
-    }
-
-    svg {
-      background-color: $elv-color-bg-dark;
-      border-radius: 0.5rem;
-      padding: $elv-spacing-xs;
-      stroke: $elv-color-mediumgray;
-      width: 5rem;
-
-      &:hover {
-        background-color: $elv-color-darkgray;
-        stroke: $elv-color-lightgray;
-      }
-    }
+    width: 100%;
   }
 
   video {
@@ -275,13 +317,14 @@ main {
     border-radius: 0.5rem;
     cursor: pointer;
     flex-grow: 1;
-    max-height: 85vh;
+    max-height: 75vh;
     scroll-margin: 10rem;
     width: 100%;
   }
 
   .synopsis {
     color: $elv-color-text-lighter;
+    min-height: 5rem;
     text-align: center;
     width: 75%;
   }
