@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {inject, observer} from "mobx-react";
-import {LoadingElement} from "elv-components-js";
+import {ImageIcon, LoadingElement} from "elv-components-js";
+import FallbackIcon from "../static/icons/video.svg";
 
 @inject("siteStore")
 @observer
@@ -39,7 +40,7 @@ class TitleReel extends React.Component {
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const thumbnail = this.props.siteStore.CreateLink(
       title.baseLinkUrl,
-      "images/thumbnail/thumbnail",
+      "images/main_slider_background_desktop/thumbnail",
       { height: Math.floor(vh / 2) }
     );
 
@@ -58,8 +59,10 @@ class TitleReel extends React.Component {
             render={() => null}
           />
           <div className="title-vignette" />
-          <img
-            src={thumbnail}
+          <ImageIcon
+            className="title-image"
+            icon={thumbnail}
+            alternateIcon={FallbackIcon}
           />
         </div>
         <h4>{title.display_title}</h4>
