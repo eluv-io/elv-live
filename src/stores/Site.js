@@ -42,95 +42,131 @@ class SiteStore {
 
   @action.bound
   LoadSite = flow(function * () {
-    this.siteLibraryId = yield this.client.ContentObjectLibraryId({objectId: this.siteId});
+    try {
+      this.siteLibraryId = yield this.client.ContentObjectLibraryId({objectId: this.siteId});
 
-    const siteName = yield this.client.ContentObjectMetadata({
-      libraryId: this.siteLibraryId,
-      objectId: this.siteId,
-      metadataSubtree: "public/name"
-    });
+      const siteName = yield this.client.ContentObjectMetadata({
+        libraryId: this.siteLibraryId,
+        objectId: this.siteId,
+        metadataSubtree: "public/name"
+      });
 
-    let siteInfo = yield this.client.ContentObjectMetadata({
-      libraryId: this.siteLibraryId,
-      objectId: this.siteId,
-      metadataSubtree: "public/asset_metadata",
-      resolveLinks: true
-    });
+      let siteInfo = yield this.client.ContentObjectMetadata({
+        libraryId: this.siteLibraryId,
+        objectId: this.siteId,
+        metadataSubtree: "public/asset_metadata",
+        resolveLinks: true
+      });
 
-    siteInfo.name = siteName;
+      siteInfo.name = siteName;
 
-    siteInfo.baseLinkUrl = yield this.client.LinkUrl({
-      libraryId: this.siteLibraryId,
-      objectId: this.siteId,
-      linkPath: "public/asset_metadata"
-    });
+      siteInfo.baseLinkUrl = yield this.client.LinkUrl({
+        libraryId: this.siteLibraryId,
+        objectId: this.siteId,
+        linkPath: "public/asset_metadata"
+      });
 
-    // Produce links for titles and playlists
+      this.titles = yield this.LoadTitles(siteInfo.titles);
+      this.playlists = yield this.LoadPlaylists(siteInfo.playlists);
 
+      delete siteInfo.titles;
+      delete siteInfo.playlists;
+
+      this.siteInfo = siteInfo;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load site:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  });
+
+  @action.bound
+  LoadTitles = flow(function * (titleInfo) {
     // Titles: {[index]: {[title-key]: { ...title }}
     let titles = [];
     yield Promise.all(
-      Object.keys(siteInfo.titles).map(async index => {
-        const titleKey = Object.keys(siteInfo.titles[index])[0];
-        let title = siteInfo.titles[index][titleKey];
+      Object.keys(titleInfo).map(async index => {
+        try {
+          const titleKey = Object.keys(titleInfo[index])[0];
+          let title = titleInfo[index][titleKey];
 
-        title.baseLinkUrl =
-          await this.client.LinkUrl({
-            libraryId: this.siteLibraryId,
-            objectId: this.siteId,
-            linkPath: `public/asset_metadata/titles/${index}/${titleKey}`
-          });
+          title.baseLinkUrl =
+            await this.client.LinkUrl({
+              libraryId: this.siteLibraryId,
+              objectId: this.siteId,
+              linkPath: `public/asset_metadata/titles/${index}/${titleKey}`
+            });
 
-        title.playoutOptionsLinkPath = `public/asset_metadata/titles/${index}/${titleKey}/sources/default`;
+          title.playoutOptionsLinkPath = `public/asset_metadata/titles/${index}/${titleKey}/sources/default`;
 
-        title.titleIndex = parseInt(index);
+          title.titleIndex = parseInt(index);
 
-        titles[title.titleIndex] = title;
+          titles[title.titleIndex] = title;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`Failed to load title ${index}`);
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       })
     );
 
+    return titles.filter(title => title);
+  });
+
+  @action.bound
+  LoadPlaylists = flow(function * (playlistInfo) {
     // Playlists: {[index]: {[playlist-name]: {[title-key]: { ...title }}}
     let playlists = [];
     yield Promise.all(
-      Object.keys(siteInfo.playlists).map(async index => {
-        const playlistName = Object.keys(siteInfo.playlists[index])[0];
-        const playlistIndex = parseInt(index);
+      Object.keys(playlistInfo).map(async index => {
+        try {
+          const playlistName = Object.keys(playlistInfo[index])[0];
+          const playlistIndex = parseInt(index);
 
-        const playlistTitles = await Promise.all(
-          Object.keys(siteInfo.playlists[index][playlistName]).map(async (titleKey, titleIndex) => {
-            let title = siteInfo.playlists[index][playlistName][titleKey];
+          const playlistTitles = await Promise.all(
+            Object.keys(playlistInfo[index][playlistName]).map(async (titleKey, titleIndex) => {
+              try {
+                let title = playlistInfo[index][playlistName][titleKey];
 
-            title.baseLinkUrl =
-              await this.client.LinkUrl({
-                libraryId: this.siteLibraryId,
-                objectId: this.siteId,
-                linkPath: `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}`
-              });
+                title.baseLinkUrl =
+                  await this.client.LinkUrl({
+                    libraryId: this.siteLibraryId,
+                    objectId: this.siteId,
+                    linkPath: `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}`
+                  });
 
-            title.playoutOptionsLinkPath = `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}/sources/default`;
+                title.playoutOptionsLinkPath = `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}/sources/default`;
 
-            title.playlistIndex = playlistIndex;
-            title.titleIndex = titleIndex;
+                title.playlistIndex = playlistIndex;
+                title.titleIndex = titleIndex;
 
-            return title;
-          })
-        );
+                return title;
+              } catch (error) {
+                // eslint-disable-next-line no-console
+                console.error(`Failed to load title ${titleIndex} (${titleKey}) in playlist ${index} (${playlistName})`);
+                // eslint-disable-next-line no-console
+                console.error(error);
+              }
+            })
+          );
 
-        playlists[playlistIndex] = {
-          playlistIndex,
-          name: playlistName,
-          titles: playlistTitles
-        };
+          playlists[playlistIndex] = {
+            playlistIndex,
+            name: playlistName,
+            titles: playlistTitles.filter(title => title)
+          };
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`Failed to load playlist ${index}`);
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       })
     );
 
-    this.titles = titles;
-    this.playlists = playlists;
-
-    delete siteInfo.titles;
-    delete siteInfo.playlists;
-
-    this.siteInfo = siteInfo;
+    return playlists.filter(playlist => playlist);
   });
 
   @action.bound

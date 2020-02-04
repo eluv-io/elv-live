@@ -138,6 +138,7 @@ main {
   display: flex;
   flex-grow: 1;
   justify-content: center;
+  max-width: 25%;
   padding-left: 0.7rem;
   position: relative;
   transition: flex-grow 0.6s ease-in-out, padding 0.4s ease-in-out;
@@ -168,6 +169,8 @@ main {
   }
 
   .ar-container {
+    background-color: $elv-color-black;
+    border-bottom: 1px solid transparent;
     overflow: hidden;
     padding-top: 56.25%;
     position: relative;
@@ -195,13 +198,26 @@ main {
     }
   }
 
-  img {
+  .title-image {
+    background-color: $elv-color-black;
     border: 0;
+    height: auto;
     left: 0;
     object-fit: cover;
     position: absolute;
     top: 0;
     width: 100%;
+  }
+
+  svg {
+    &.title-image {
+      fill: $elv-color-darkblue;
+      height: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+    }
   }
 
   h4 {
