@@ -11,10 +11,8 @@ configure({
 
 class RootStore {
   @observable client;
-  @observable balance = 0;
-  @observable availableProtocols = ["hls"];
-  @observable availableDRMs = ["aes-128"];
-
+  @observable sites = [];
+  @observable availableSites = [];
   @observable siteId;
 
   constructor() {
@@ -46,6 +44,10 @@ class RootStore {
 
       client.SetSigner({signer});
 
+      // Generated user will not have any available sites - load default
+      this.sites = [EluvioConfiguration["site-id"]];
+      this.SetSiteId(EluvioConfiguration["site-id"]);
+
       //client.ToggleLogging(true);
     } else {
       // Contained in IFrame
@@ -55,25 +57,77 @@ class RootStore {
       });
 
       client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
+
+      // Find available sites
+      this.sites = yield this.FindSites(client);
+
+      if(this.sites.length === 0) {
+        // No available site - load default
+        this.sites = [EluvioConfiguration["site-id"]];
+        this.SetSiteId(EluvioConfiguration["site-id"]);
+      } else if(this.sites.length === 1) {
+        // Only one site available
+        this.SetSiteId(this.sites[0]);
+      }
     }
 
-    this.availableDRMs = yield client.AvailableDRMs();
+    // Setting the client signals the app to start rendering
+    this.client = client;
+  });
 
-    const balance = parseFloat(
-      yield client.GetBalance({
-        address: yield client.CurrentAccountAddress()
+  FindSites = flow(function * (client) {
+    let sites = [];
+
+    const contentSpaceLibraryId =
+      client.utils.AddressToLibraryId(
+        client.utils.HashToAddress(
+          yield client.ContentSpaceId()
+        )
+      );
+
+    const groupAddresses = yield client.Collection({collectionType: "accessGroups"});
+    yield Promise.all(
+      groupAddresses.map(async groupAddress => {
+        try {
+          const groupSites = await client.ContentObjectMetadata({
+            libraryId: contentSpaceLibraryId,
+            objectId: client.utils.AddressToObjectId(groupAddress),
+            metadataSubtree: "sites"
+          });
+
+          if(!groupSites || !groupSites.length) { return; }
+
+          groupSites.forEach(siteId => sites.push(siteId));
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error("Failed to retrieve group metadata for ", groupAddress);
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       })
     );
 
-    let availableProtocols = ["hls"];
-    if(this.availableDRMs.includes("widevine")) {
-      availableProtocols.push("dash");
-    }
+    return sites.filter((value, index, list) => list.indexOf(value) === index);
+  });
 
-    this.client = client;
-    this.availableProtocols = availableProtocols;
-    this.balance = balance;
-  })
+  LoadAvailableSites = flow(function * () {
+    this.availableSites = yield Promise.all(
+      this.sites.map(async siteId => {
+        const libraryId = await this.client.ContentObjectLibraryId({objectId: siteId});
+
+        const siteName = await this.client.ContentObjectMetadata({
+          libraryId,
+          objectId: siteId,
+          metadataSubtree: "public/name"
+        });
+
+        return {
+          name: siteName,
+          siteId
+        };
+      })
+    );
+  });
 
   @action.bound
   SetSiteId(id) {

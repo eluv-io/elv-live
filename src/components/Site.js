@@ -3,7 +3,10 @@ import AsyncComponent from "./AsyncComponent";
 import {inject, observer} from "mobx-react";
 import ActiveTitle from "./ActiveTitle";
 import TitleReel from "./TitleReel";
+import BackIcon from "../static/icons/back.svg";
+import {ImageIcon} from "elv-components-js";
 
+@inject("rootStore")
 @inject("siteStore")
 @observer
 class Site extends React.Component {
@@ -24,7 +27,15 @@ class Site extends React.Component {
   PageContent() {
     return (
       <div className="site" id="site">
-        <h2 className="site-name">{ this.props.siteStore.siteInfo.name }</h2>
+        <h2 className="site-name" hidden={!!this.props.siteStore.activeTitle}>
+          <ImageIcon
+            className="back-button"
+            title="Back to Site Selection"
+            icon={BackIcon}
+            onClick={() => this.props.rootStore.SetSiteId(undefined)}
+          />
+          { this.props.siteStore.siteInfo.name }
+        </h2>
         { this.ActiveTitle() }
 
         { this.props.siteStore.playlists.map(playlist =>

@@ -11,16 +11,11 @@ import * as Stores from "./stores";
 import Logo from "./static/images/Logo.png";
 import GithubIcon from "./static/icons/github.svg";
 import Site from "./components/Site";
+import SiteSelection from "./components/SiteSelection";
 
 @inject("rootStore")
 @observer
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    props.rootStore.SetSiteId(EluvioConfiguration["site-id"]);
-  }
-
   SourceLink() {
     const sourceUrl = "https://github.com/eluv-io/elv-site-sample";
     return (
@@ -36,7 +31,11 @@ class App extends React.Component {
       return <LoadingElement loading={true} fullPage={true}/>;
     }
 
-    return <Site />;
+    if(this.props.rootStore.siteId) {
+      return <Site />;
+    } else {
+      return <SiteSelection />;
+    }
   }
 
   render() {
