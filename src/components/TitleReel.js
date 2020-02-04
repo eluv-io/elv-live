@@ -22,18 +22,25 @@ class TitleReel extends React.Component {
 
   async PlayTitle(title, index) {
     this.setState({loadingIndex: index});
+    
+    try {
+      await this.props.siteStore.LoadPlayoutOptions({
+        playlistIndex: title.playlistIndex,
+        titleIndex: title.titleIndex
+      });
 
-    await this.props.siteStore.LoadPlayoutOptions({
-      playlistIndex: title.playlistIndex,
-      titleIndex: title.titleIndex
-    });
-
-    this.props.siteStore.SetActiveTitle({
-      playlistIndex: title.playlistIndex,
-      titleIndex: title.titleIndex
-    });
-
-    this.setState({loadingIndex: undefined});
+      this.props.siteStore.SetActiveTitle({
+        playlistIndex: title.playlistIndex,
+        titleIndex: title.titleIndex
+      });
+    } catch(error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.setState({loadingIndex: undefined});
+    }
   }
 
   TitleIcon(title, index) {
