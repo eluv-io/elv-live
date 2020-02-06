@@ -22,7 +22,7 @@ class TitleReel extends React.Component {
 
   async PlayTitle(title, index) {
     this.setState({loadingIndex: index});
-    
+
     try {
       await this.props.siteStore.LoadPlayoutOptions({
         playlistIndex: title.playlistIndex,
