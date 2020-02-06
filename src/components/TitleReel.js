@@ -33,7 +33,7 @@ class TitleReel extends React.Component {
         playlistIndex: title.playlistIndex,
         titleIndex: title.titleIndex
       });
-    } catch(error) {
+    } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load title:");
       // eslint-disable-next-line no-console
