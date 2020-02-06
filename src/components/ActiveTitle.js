@@ -16,7 +16,8 @@ class ActiveTitle extends React.Component {
         this.props.siteStore.activeTitle.baseLinkUrl,
         "images/main_slider_background_desktop/thumbnail",
         { height: Math.floor(vh / 1.5) }
-      )
+      ),
+      showControls: false
     };
 
     this.InitializeVideo = this.InitializeVideo.bind(this);
@@ -38,6 +39,8 @@ class ActiveTitle extends React.Component {
     }
 
     try {
+      element.addEventListener("canplay", () => this.setState({showControls: true}));
+
       const playoutMethods = this.props.siteStore.activeTitle.playoutOptions.hls.playoutMethods;
       // Prefer AES playout
       const playoutUrl = (playoutMethods["aes-128"] || playoutMethods.clear).playoutUrl;
@@ -65,7 +68,7 @@ class ActiveTitle extends React.Component {
           ref={this.InitializeVideo}
           autoPlay
           poster={this.state.poster}
-          controls
+          controls={this.state.showControls}
         />
         <h4>
           <ImageIcon
