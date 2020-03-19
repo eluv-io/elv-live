@@ -24,12 +24,8 @@ class TitleReel extends React.Component {
     this.setState({loadingIndex: index});
 
     try {
-      await this.props.siteStore.LoadPlayoutOptions({
-        playlistIndex: title.playlistIndex,
-        titleIndex: title.titleIndex
-      });
-
       this.props.siteStore.SetActiveTitle({
+        channel: this.props.channels,
         playlistIndex: title.playlistIndex,
         titleIndex: title.titleIndex
       });
@@ -56,6 +52,7 @@ class TitleReel extends React.Component {
 
     return (
       <div
+        key={`title-${index}-${title.display_title}`}
         className={`title ${visible ? "" : "hidden-title"}`}
         onClick={() => this.PlayTitle(title, index)}
       >
@@ -79,8 +76,16 @@ class TitleReel extends React.Component {
 
   render() {
     const playlist = this.props.playlistIndex !== undefined && this.props.siteStore.playlists[this.props.playlistIndex];
-    const reelTitle = playlist && playlist.name || "All Titles";
-    const titles = playlist ? playlist.titles : this.props.siteStore.titles;
+    const reelTitle = playlist && playlist.name || this.props.channels && "Channels" || "All Titles";
+
+    let titles;
+    if(playlist) {
+      titles = playlist.titles;
+    } if(this.props.channels) {
+      titles = this.props.siteStore.channels;
+    } else {
+      titles = this.props.siteStore.titles;
+    }
 
     const showLeft = this.state.startIndex !== 0;
     const showRight = this.state.startIndex + this.state.visible < titles.length;
@@ -119,6 +124,7 @@ class TitleReel extends React.Component {
 }
 
 TitleReel.propTypes = {
+  channels: PropTypes.bool,
   playlistIndex: PropTypes.number
 };
 

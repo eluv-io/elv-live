@@ -7,11 +7,9 @@ class SiteStore {
 
   @observable siteInfo;
   @observable titles = [];
+  @observable channels = [];
   @observable playlists = [];
-  @observable activeTitleIndices = {
-    playlistIndex: undefined,
-    titleIndex: undefined
-  };
+  @observable activeTitle;
 
   @observable playoutUrl;
   @observable authToken;
@@ -22,18 +20,6 @@ class SiteStore {
 
   @computed get siteId() {
     return this.rootStore.siteId;
-  }
-
-  @computed get activeTitle() {
-    const {playlistIndex, titleIndex} = this.activeTitleIndices;
-
-    if(titleIndex === undefined) { return undefined; }
-
-    if(playlistIndex !== undefined) {
-      return this.playlists[playlistIndex].titles[titleIndex];
-    } else {
-      return this.titles[titleIndex];
-    }
   }
 
   constructor(rootStore) {
@@ -67,6 +53,7 @@ class SiteStore {
       });
 
       this.titles = yield this.LoadTitles(siteInfo.titles);
+      this.channels = yield this.LoadTitles(siteInfo.channels);
       this.playlists = yield this.LoadPlaylists(siteInfo.playlists);
 
       delete siteInfo.titles;
@@ -91,16 +78,25 @@ class SiteStore {
           const titleKey = Object.keys(titleInfo[index])[0];
           let title = titleInfo[index][titleKey];
 
-          title.baseLinkUrl =
-            await this.client.LinkUrl({
-              libraryId: this.siteLibraryId,
-              objectId: this.siteId,
-              linkPath: `public/asset_metadata/titles/${index}/${titleKey}`
-            });
-
-          title.playoutOptionsLinkPath = `public/asset_metadata/titles/${index}/${titleKey}/sources/default`;
-
           title.titleIndex = parseInt(index);
+
+          if(title.channel_info) {
+            title.playoutOptionsLinkPath = `public/asset_metadata/channels/${index}/${titleKey}/sources/default`;
+            title.baseLinkUrl =
+              await this.client.LinkUrl({
+                libraryId: this.siteLibraryId,
+                objectId: this.siteId,
+                linkPath: `public/asset_metadata/channels/${index}/${titleKey}`
+              });
+          } else {
+            title.playoutOptionsLinkPath = `public/asset_metadata/titles/${index}/${titleKey}/sources/default`;
+            title.baseLinkUrl =
+              await this.client.LinkUrl({
+                libraryId: this.siteLibraryId,
+                objectId: this.siteId,
+                linkPath: `public/asset_metadata/titles/${index}/${titleKey}`
+              });
+          }
 
           titles[title.titleIndex] = title;
         } catch (error) {
@@ -170,43 +166,32 @@ class SiteStore {
   });
 
   @action.bound
-  LoadPlayoutOptions = flow(function * ({playlistIndex, titleIndex}) {
-    let title;
-    if(playlistIndex !== undefined) {
-      title = this.playlists[playlistIndex].titles[titleIndex];
-    } else {
-      title = this.titles[titleIndex];
-    }
-
-    const playoutOptions = yield this.client.PlayoutOptions({
+  LoadPlayoutOptions = flow(function * () {
+    this.activeTitle.playoutOptions = yield this.client.PlayoutOptions({
       libraryId: this.siteLibraryId,
       objectId: this.siteId,
-      linkPath: title.playoutOptionsLinkPath,
+      linkPath: this.activeTitle.playoutOptionsLinkPath,
       protocols: ["hls"],
-      drms: ["aes-128"]
+      drms: ["aes-128", "clear"]
     });
-
-    if(playlistIndex !== undefined) {
-      this.playlists[playlistIndex].titles[titleIndex].playoutOptions = playoutOptions;
-    } else {
-      this.titles[titleIndex].playoutOptions = playoutOptions;
-    }
   });
 
   @action.bound
-  SetActiveTitle({playlistIndex, titleIndex}) {
-    this.activeTitleIndices = {
-      playlistIndex,
-      titleIndex
-    };
+  SetActiveTitle({channel=false, playlistIndex, titleIndex}) {
+    if(channel) {
+      this.activeTitle = this.channels[titleIndex];
+    } else if(playlistIndex) {
+      this.activeTitle = this.playlists[playlistIndex][titleIndex];
+    } else {
+      this.activeTitle = this.titles[titleIndex];
+    }
+
+    this.LoadPlayoutOptions();
   }
 
   @action.bound
   ClearActiveTitle() {
-    this.activeTitleIndices = {
-      playlistIndex: undefined,
-      titleIndex: undefined
-    };
+    this.activeTitle = undefined;
   }
 
   @action.bound
