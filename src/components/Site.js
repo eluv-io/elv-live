@@ -19,7 +19,7 @@ class Site extends React.Component {
   ActiveTitle() {
     if(!this.props.siteStore.activeTitle) { return null; }
 
-    const key = `active-title-${this.props.siteStore.activeTitleIndices.playlistIndex}-${this.props.siteStore.activeTitleIndices.titleIndex}`;
+    const key = `active-title-${this.props.siteStore.activeTitle.titleIndex}`;
 
     return <ActiveTitle key={key} />;
   }
@@ -46,6 +46,7 @@ class Site extends React.Component {
         )}
 
         <TitleReel />
+        <TitleReel channels />
       </div>
     );
   }
