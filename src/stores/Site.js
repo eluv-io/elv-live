@@ -52,9 +52,17 @@ class SiteStore {
         linkPath: "public/asset_metadata"
       });
 
-      this.titles = yield this.LoadTitles(siteInfo.titles);
-      this.channels = yield this.LoadTitles(siteInfo.channels);
-      this.playlists = yield this.LoadPlaylists(siteInfo.playlists);
+      if(siteInfo.titles) {
+        this.titles = yield this.LoadTitles(siteInfo.titles);
+      }
+
+      if(siteInfo.channels) {
+        this.channels = yield this.LoadTitles(siteInfo.channels);
+      }
+
+      if(siteInfo.playlists) {
+        this.playlists = yield this.LoadPlaylists(siteInfo.playlists);
+      }
 
       delete siteInfo.titles;
       delete siteInfo.playlists;
@@ -70,6 +78,8 @@ class SiteStore {
 
   @action.bound
   LoadTitles = flow(function * (titleInfo) {
+    if(!titleInfo) { return; }
+    
     // Titles: {[index]: {[title-key]: { ...title }}
     let titles = [];
     yield Promise.all(
