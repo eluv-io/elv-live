@@ -81,7 +81,7 @@ class TitleReel extends React.Component {
     let titles;
     if(playlist) {
       titles = playlist.titles;
-    } if(this.props.channels) {
+    } else if(this.props.channels) {
       titles = this.props.siteStore.channels;
     } else {
       titles = this.props.siteStore.titles;
@@ -93,7 +93,7 @@ class TitleReel extends React.Component {
 
     const showLeft = this.state.startIndex !== 0;
     const showRight = this.state.startIndex + this.state.visible < titles.length;
-
+    
     return (
       <div className="title-reel-container">
         <h3 className="title-reel-header">{ reelTitle }</h3>
