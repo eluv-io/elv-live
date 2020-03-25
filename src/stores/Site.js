@@ -9,6 +9,7 @@ class SiteStore {
   @observable titles = [];
   @observable channels = [];
   @observable playlists = [];
+  @observable dashSupported = false;
   @observable activeTitle;
 
   @observable playoutUrl;
@@ -29,6 +30,9 @@ class SiteStore {
   @action.bound
   LoadSite = flow(function * () {
     try {
+      const availableDRMS = yield this.client.AvailableDRMs();
+      this.dashSupported = availableDRMS.includes("widevine");
+
       this.siteLibraryId = yield this.client.ContentObjectLibraryId({objectId: this.siteId});
 
       const siteName = yield this.client.ContentObjectMetadata({
@@ -79,7 +83,7 @@ class SiteStore {
   @action.bound
   LoadTitles = flow(function * (titleInfo) {
     if(!titleInfo) { return; }
-    
+
     // Titles: {[index]: {[title-key]: { ...title }}
     let titles = [];
     yield Promise.all(
@@ -176,28 +180,27 @@ class SiteStore {
   });
 
   @action.bound
-  LoadPlayoutOptions = flow(function * () {
-    this.activeTitle.playoutOptions = yield this.client.PlayoutOptions({
-      libraryId: this.siteLibraryId,
-      objectId: this.siteId,
-      linkPath: this.activeTitle.playoutOptionsLinkPath,
-      protocols: ["hls"],
-      drms: ["aes-128", "clear"]
-    });
-  });
-
-  @action.bound
-  SetActiveTitle({channel=false, playlistIndex, titleIndex}) {
+  SetActiveTitle = flow(function * ({channel=false, playlistIndex, titleIndex}) {
+    let activeTitle;
     if(channel) {
-      this.activeTitle = this.channels[titleIndex];
+      activeTitle = this.channels[titleIndex];
     } else if(playlistIndex) {
-      this.activeTitle = this.playlists[playlistIndex][titleIndex];
+      activeTitle = this.playlists[playlistIndex][titleIndex];
     } else {
-      this.activeTitle = this.titles[titleIndex];
+      activeTitle = this.titles[titleIndex];
     }
 
-    this.LoadPlayoutOptions();
-  }
+    const playoutOptions = yield this.client.PlayoutOptions({
+      libraryId: this.siteLibraryId,
+      objectId: this.siteId,
+      linkPath: activeTitle.playoutOptionsLinkPath,
+      protocols: ["hls", "dash"],
+      drms: ["aes-128", "widevine", "clear"]
+    });
+
+    this.activeTitle = activeTitle;
+    this.activeTitle.playoutOptions = playoutOptions;
+  });
 
   @action.bound
   ClearActiveTitle() {

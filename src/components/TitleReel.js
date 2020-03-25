@@ -24,7 +24,7 @@ class TitleReel extends React.Component {
     this.setState({loadingIndex: index});
 
     try {
-      this.props.siteStore.SetActiveTitle({
+      await this.props.siteStore.SetActiveTitle({
         channel: this.props.channels,
         playlistIndex: title.playlistIndex,
         titleIndex: title.titleIndex
@@ -85,6 +85,10 @@ class TitleReel extends React.Component {
       titles = this.props.siteStore.channels;
     } else {
       titles = this.props.siteStore.titles;
+    }
+
+    if(titles.length === 0) {
+      return null;
     }
 
     const showLeft = this.state.startIndex !== 0;

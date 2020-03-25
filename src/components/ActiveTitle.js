@@ -1,5 +1,6 @@
 import React from "react";
 import HLSPlayer from "hls.js";
+import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
 import BackIcon from "../static/icons/back.svg";
@@ -107,8 +108,12 @@ class ActiveTitle extends React.Component {
   }
 
   componentWillUnmount() {
+    this.DestroyPlayer();
+  }
+
+  DestroyPlayer() {
     if(this.player) {
-      this.player.destroy();
+      this.player.destroy ? this.player.destroy() : this.player.reset();
     }
   }
 
@@ -136,25 +141,48 @@ class ActiveTitle extends React.Component {
   }
 
   InitializeVideo(element) {
-    if(!element) {
-      return;
-    }
+    if(!element) { return; }
 
-    if(this.player) {
-      this.player.destroy();
-    }
+    this.DestroyPlayer();
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
 
-      const playoutMethods = this.props.siteStore.activeTitle.playoutOptions.hls.playoutMethods;
-      // Prefer AES playout
-      const playoutUrl = (playoutMethods["aes-128"] || playoutMethods.clear).playoutUrl;
+      const playoutOptions = this.props.siteStore.activeTitle.playoutOptions; //.hls.playoutMethods;
 
-      const player = new HLSPlayer();
+      let player;
+      if(this.props.siteStore.dashSupported) {
+        // DASH
 
-      player.loadSource(playoutUrl);
-      player.attachMedia(element);
+        player = DashJS.MediaPlayer().create();
+
+        const playoutUrl = (playoutOptions.dash.playoutMethods.widevine || playoutOptions.dash.playoutMethods.clear).playoutUrl;
+        if(playoutOptions.dash.playoutMethods.widevine) {
+          const widevineUrl = playoutOptions.dash.playoutMethods.widevine.drms.widevine.licenseServers[0];
+
+          player.setProtectionData({
+            "com.widevine.alpha": {
+              "serverURL": widevineUrl
+            }
+          });
+        }
+
+        player.initialize(element, playoutUrl);
+      } else {
+        // HLS
+
+        // Prefer AES playout
+        const playoutUrl = (playoutOptions.hls.playoutMethods["aes-128"] || playoutOptions.hls.playoutMethods.clear).playoutUrl;
+
+        if(!HLSPlayer.isSupported()) {
+          element.src = playoutUrl;
+          return;
+        }
+
+        const player = new HLSPlayer();
+        player.loadSource(playoutUrl);
+        player.attachMedia(element);
+      }
 
       this.player = player;
 
