@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "bitmovin-player": "^8.22.0",
+    "dashjs": "^3.0.3",
     "elv-client-js": "git+https://github.com/eluv-io/elv-client-js.git#develop",
     "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git",
     "hls.js": "^0.12.4",
