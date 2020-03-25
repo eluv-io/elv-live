@@ -184,8 +184,8 @@ class SiteStore {
     let activeTitle;
     if(channel) {
       activeTitle = this.channels[titleIndex];
-    } else if(playlistIndex) {
-      activeTitle = this.playlists[playlistIndex][titleIndex];
+    } else if(playlistIndex !== undefined) {
+      activeTitle = this.playlists[playlistIndex].titles[titleIndex];
     } else {
       activeTitle = this.titles[titleIndex];
     }
