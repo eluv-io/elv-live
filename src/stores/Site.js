@@ -127,49 +127,51 @@ class SiteStore {
 
   @action.bound
   LoadPlaylists = flow(function * (playlistInfo) {
-    // Playlists: {[index]: {[playlist-name]: {[title-key]: { ...title }}}
+    // Playlists: {[slug]: { order, name, list: {[title-slug]: { ... }}}
+
     let playlists = [];
     yield Promise.all(
-      Object.keys(playlistInfo).map(async index => {
+      Object.keys(playlistInfo).map(async playlistSlug => {
         try {
-          const playlistName = Object.keys(playlistInfo[index])[0];
-          const playlistIndex = parseInt(index);
+          const {name, order, list} = playlistInfo[playlistSlug];
 
-          const playlistTitles = await Promise.all(
-            Object.keys(playlistInfo[index][playlistName]).map(async (titleKey, titleIndex) => {
+          let titles = [];
+          await Promise.all(
+            Object.keys(list).map(async titleSlug => {
               try {
-                let title = playlistInfo[index][playlistName][titleKey];
+                let title = list[titleSlug];
 
+                const titleLinkPath = `public/asset_metadata/playlists/${playlistSlug}/list/${titleSlug}`;
                 title.baseLinkUrl =
                   await this.client.LinkUrl({
                     libraryId: this.siteLibraryId,
                     objectId: this.siteId,
-                    linkPath: `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}`
+                    linkPath: titleLinkPath
                   });
 
-                title.playoutOptionsLinkPath = `public/asset_metadata/playlists/${index}/${playlistName}/${titleKey}/sources/default`;
+                title.playoutOptionsLinkPath = UrlJoin(titleLinkPath, "sources", "default");
 
-                title.playlistIndex = playlistIndex;
-                title.titleIndex = titleIndex;
+                title.playlistIndex = order;
+                title.titleIndex = title.order;
 
-                return title;
+                titles[parseInt(title.order)] = title;
               } catch (error) {
                 // eslint-disable-next-line no-console
-                console.error(`Failed to load title ${titleIndex} (${titleKey}) in playlist ${index} (${playlistName})`);
+                console.error(`Failed to load title ${titleSlug} in playlist ${order} (${name})`);
                 // eslint-disable-next-line no-console
                 console.error(error);
               }
             })
           );
 
-          playlists[playlistIndex] = {
-            playlistIndex,
-            name: playlistName,
-            titles: playlistTitles.filter(title => title)
+          playlists[parseInt(order)] = {
+            playlistIndex: order,
+            name,
+            titles: titles.filter(title => title)
           };
         } catch (error) {
           // eslint-disable-next-line no-console
-          console.error(`Failed to load playlist ${index}`);
+          console.error(`Failed to load playlist ${playlistSlug}`);
           // eslint-disable-next-line no-console
           console.error(error);
         }
