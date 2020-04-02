@@ -24,10 +24,10 @@
     ]
   },
   "dependencies": {
+    "@eluvio/elv-client-js": "~2.0.0",
     "bitmovin-player": "^8.22.0",
     "dashjs": "^3.0.3",
-    "elv-client-js": "git+https://github.com/eluv-io/elv-client-js.git#develop",
-    "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git",
+    "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git#645165da87ec42845a908a9ce0817db202523866",
     "hls.js": "^0.12.4",
     "luxon": "^1.22.0",
     "mobx": "^5.13.0",

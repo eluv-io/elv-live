@@ -1,6 +1,6 @@
 import {configure, observable, action, flow} from "mobx";
 
-import {FrameClient} from "elv-client-js/src/FrameClient";
+import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
 
 import SiteStore from "./Site";
 
@@ -31,7 +31,7 @@ class RootStore {
       const ElvClient = (yield import(
         /* webpackChunkName: "elv-client-js" */
         /* webpackMode: "lazy" */
-        "elv-client-js"
+        "@eluvio/elv-client-js"
       )).ElvClient;
 
       client = yield ElvClient.FromConfigurationUrl({
