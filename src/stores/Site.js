@@ -45,7 +45,8 @@ class SiteStore {
         libraryId: this.siteLibraryId,
         objectId: this.siteId,
         metadataSubtree: "public/asset_metadata",
-        resolveLinks: true
+        resolveLinks: true,
+        resolveIncludeSource: true
       });
 
       siteInfo.name = siteName;
@@ -112,6 +113,10 @@ class SiteStore {
               });
           }
 
+          if(!title.images || (!title.images.main_slider_background_desktop || !title.images.landscape)) {
+            title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
+          }
+
           titles[title.titleIndex] = title;
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -137,7 +142,7 @@ class SiteStore {
 
           let titles = [];
           await Promise.all(
-            Object.keys(list).map(async titleSlug => {
+            Object.keys(list || {}).map(async titleSlug => {
               try {
                 let title = list[titleSlug];
 
@@ -153,6 +158,10 @@ class SiteStore {
 
                 title.playlistIndex = order;
                 title.titleIndex = title.order;
+
+                if(!title.images || (!title.images.main_slider_background_desktop || !title.images.landscape)) {
+                  title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
+                }
 
                 titles[parseInt(title.order)] = title;
               } catch (error) {
