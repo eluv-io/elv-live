@@ -199,7 +199,8 @@ class ActiveTitle extends React.Component {
     const { schedule, currentIndex, date } = this.Schedule();
 
     let title = this.props.siteStore.activeTitle.display_title;
-    let synopsis = this.props.siteStore.activeTitle.info.synopsis;
+    const info = this.props.siteStore.activeTitle.info || {};
+    let synopsis = info.synopsis;
     if(currentIndex !== undefined) {
       const program = schedule[currentIndex];
       title = program.title || title;
