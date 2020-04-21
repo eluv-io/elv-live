@@ -1,12 +1,12 @@
 {
   "name": "elv-site-sample",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "index.js",
   "license": "MIT",
   "homepage": "https://github.com/eluv-io/elv-site-sample",
   "scripts": {
-"bump-version": "npm --git-tag-version --no-commit-hooks version patch",
+    "bump-version": "npm --git-tag-version --no-commit-hooks version patch",
     "serve": "webpack-dev-server --hot --port 8086",
     "build": "rm -rf dist/main/* && NODE_ENV=production node ./node_modules/webpack-cli/bin/cli.js -p --progress --colors --devtool none",
     "add-build": "git add dist",
