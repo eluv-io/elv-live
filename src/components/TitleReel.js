@@ -41,11 +41,23 @@ class TitleReel extends React.Component {
 
   TitleIcon(title, index) {
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    const thumbnail = this.props.siteStore.CreateLink(
-      title.baseLinkUrl,
-      "images/main_slider_background_desktop/thumbnail",
-      { height: Math.floor(vh / 2) }
-    );
+    const images =  title.images || {};
+    let thumbnail;
+    if(images.landscape) {
+      thumbnail = this.props.siteStore.CreateLink(
+        title.baseLinkUrl,
+        "images/landscape/thumbnail",
+        { height: Math.floor(vh / 2) }
+      );
+    } else if(images.main_slider_background_desktop) {
+      thumbnail = this.props.siteStore.CreateLink(
+        title.baseLinkUrl,
+        "images/main_slider_background_desktop/thumbnail",
+        { height: Math.floor(vh / 2) }
+      );
+    } else {
+      thumbnail = title.imageUrl;
+    }
 
     const visible = index >= this.state.startIndex
       && index < this.state.startIndex + this.state.visible;
@@ -93,7 +105,7 @@ class TitleReel extends React.Component {
 
     const showLeft = this.state.startIndex !== 0;
     const showRight = this.state.startIndex + this.state.visible < titles.length;
-    
+
     return (
       <div className="title-reel-container">
         <h3 className="title-reel-header">{ reelTitle }</h3>
