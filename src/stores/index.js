@@ -15,6 +15,11 @@ class RootStore {
   @observable availableSites = [];
   @observable siteId;
 
+  @observable libraries = {};
+  @observable objects = {};
+
+  @observable error = "";
+
   constructor() {
     this.InitializeClient();
     this.siteStore = new SiteStore(this);
@@ -133,6 +138,89 @@ class RootStore {
   SetSiteId(id) {
     this.siteId = id;
   }
+
+  @action.bound
+  SetError(error) {
+    this.error = error;
+  }
+
+  @action.bound
+  ListLibraries = flow(function * () {
+    const libraryIds = yield this.client.ContentLibraries();
+
+    this.libraries = {};
+
+    (yield Promise.all(
+      libraryIds.map(async libraryId => {
+        try {
+          const metadata = await this.client.ContentObjectMetadata({
+            libraryId,
+            objectId: libraryId.replace("ilib", "iq__")
+          });
+
+          this.libraries[libraryId] = {
+            libraryId,
+            name: metadata.public && metadata.public.name || metadata.name || libraryId,
+            metadata
+          };
+        } catch (error) {
+          return undefined;
+        }
+      })
+    ));
+  });
+
+  @action.bound
+  ListObjects = flow(function * ({libraryId, page=1, perPage=25, filter="", cacheId=""}) {
+    const metadata = yield this.client.ContentObjectMetadata({
+      libraryId,
+      objectId: libraryId.replace("ilib", "iq__")
+    });
+
+    this.libraries[libraryId] = {
+      libraryId,
+      name: metadata.public && metadata.public.name || metadata.name || libraryId,
+      metadata
+    };
+
+    let filters = [];
+    if(filter) {
+      filters.push({key: "/public/name", type: "cnt", filter});
+    }
+
+    let { contents, paging } = yield this.client.ContentObjects({
+      libraryId,
+      filterOptions: {
+        select: [
+          "description",
+          "image",
+          "name",
+          "player_background",
+          "public"
+        ],
+        filter: filters,
+        start: (page-1) * perPage,
+        limit: perPage,
+        sort: "public/name",
+        cacheId
+      }
+    });
+
+    this.objects[libraryId] = (yield Promise.all(
+      contents.map(async object => {
+        const latestVersion = object.versions[0];
+
+        return {
+          objectId: latestVersion.id,
+          versionHash: latestVersion.hash,
+          name: latestVersion.meta.public && latestVersion.meta.public.name || latestVersion.meta.name || latestVersion.id,
+          metadata: latestVersion.meta
+        };
+      })
+    ));
+
+    return paging;
+  });
 }
 
 const root = new RootStore();

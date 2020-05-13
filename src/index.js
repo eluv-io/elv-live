@@ -11,7 +11,7 @@ import * as Stores from "./stores";
 import Logo from "./static/images/Logo.png";
 import GithubIcon from "./static/icons/github.svg";
 import Site from "./components/Site";
-import SiteSelection from "./components/SiteSelection";
+import ContentSelector from "./components/ContentSelector";
 
 @inject("rootStore")
 @observer
@@ -34,7 +34,8 @@ class App extends React.Component {
     if(this.props.rootStore.siteId) {
       return <Site />;
     } else {
-      return <SiteSelection />;
+      //return <SiteSelection />;
+      return <ContentSelector />;
     }
   }
 
@@ -46,13 +47,13 @@ class App extends React.Component {
           <h1>
             Eluvio Site Sample
           </h1>
+
+          { this.SourceLink() }
         </header>
         <main>
+          { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
           { this.App() }
         </main>
-        <footer>
-          { this.SourceLink() }
-        </footer>
       </div>
     );
   }

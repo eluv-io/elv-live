@@ -1,7 +1,8 @@
 @import "~elv-components-js/src/stylesheets/defaults";
 @import "~elv-components-js/src/stylesheets/styles";
+@import "./menu";
 
-$background-color: #282a33;
+$background-color: #15141d;
 $text-color: #eaeaea;
 
 $clear: rgba(0, 0, 0, 0);
@@ -16,6 +17,10 @@ html {
   font-size: 14px;
 }
 
+.app {
+  background: linear-gradient(305deg, darken($elv-color-darkblue, 15%), darken($elv-color-darkblue, 12%), darken($elv-color-darkblue, 20%));
+}
+
 html,
 body,
 .app,
@@ -23,7 +28,6 @@ body,
 main,
 .site,
 .site-titles {
-  background: $background-color;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
@@ -64,6 +68,12 @@ main {
   width: 100%;
 }
 
+.error-message {
+  color: $elv-color-red;
+  position: absolute;
+  top: $elv-spacing-s;
+}
+
 h2,
 h3,
 h4 {
@@ -88,45 +98,6 @@ h4 {
   }
 }
 
-.site-selection {
-  @include elv-no-select;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  width: 100%;
-
-  h4 {
-    color: $elv-color-text-lightest;
-    font-size: $elv-font-xxl;
-    margin-bottom: $elv-spacing-s;
-  }
-
-  ul {
-    flex-direction: column;
-  }
-
-  li {
-    @include elv-ellipsis;
-    background-color: $elv-color-bg-white;
-    border-radius: 0.5rem;
-    color: $elv-color-text-dark;
-    cursor: pointer;
-    display: block;
-    font-weight: 500;
-    margin-bottom: $elv-spacing-xs;
-    padding: $elv-spacing-s $elv-spacing-xs;
-    text-align: center;
-    width: 20rem;
-
-    &:hover {
-      background-color: $elv-color-mediumblue;
-      color: $elv-color-text-white;
-    }
-  }
-}
-
 .site-name {
   margin: $elv-spacing-s 0;
   text-align: center;
@@ -138,7 +109,8 @@ h4 {
   width: 100%;
 }
 
-.title-reel-header {
+.title-reel-header,
+.title-grid-header {
   margin-bottom: $elv-spacing-xs;
   padding-left: $elv-spacing-s;
   width: 100%;
@@ -158,7 +130,7 @@ h4 {
   .reel-arrow {
     @include elv-no-select;
     align-items: center;
-    background: linear-gradient(90deg, $clear, $elv-color-black);
+    background: linear-gradient(90deg, $clear, $elv-color-black 30%);
     color: $elv-color-lightgray;
     cursor: pointer;
     display: flex;
@@ -166,7 +138,7 @@ h4 {
     font-weight: 500;
     height: 100%;
     justify-content: flex-end;
-    opacity: 0.8;
+    opacity: 0.7;
     padding: 0 $elv-spacing-s;
     position: absolute;
     top: 0;
@@ -175,7 +147,7 @@ h4 {
     z-index: 100;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.9;
       visibility: visible;
     }
 
@@ -191,6 +163,20 @@ h4 {
 
   .reel-arrow-right {
     right: 0;
+  }
+}
+
+.title-grid-titles {
+  display: grid;
+  grid-gap: $elv-spacing-xs;
+  grid-template-columns: repeat(5, 1fr);
+
+  .title {
+    min-width: 100%;
+
+    .ar-container {
+      border-radius: 1rem;
+    }
   }
 }
 
@@ -359,12 +345,6 @@ h4 {
   }
 }
 
-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding: $elv-spacing-s;
-}
-
 .source-link {
   align-items: center;
   background-color: $elv-color-white;
@@ -374,6 +354,8 @@ footer {
   font-size: $elv-font-m;
   margin-right: $elv-spacing-xs;
   padding: $elv-spacing-xxs $elv-spacing-xs;
+  position: absolute;
+  right: $elv-spacing-s;
   width: auto;
 
   .github-icon {
