@@ -32,7 +32,7 @@ class App extends React.Component {
     }
 
     if(this.props.rootStore.siteId) {
-      return <Site />;
+      return <Site key={`site-${this.props.rootStore.siteId}`}/>;
     } else {
       //return <SiteSelection />;
       return <ContentSelector />;
