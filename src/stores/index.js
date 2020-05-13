@@ -63,21 +63,30 @@ class RootStore {
 
       client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
 
-      // Find available sites
-      this.sites = yield this.FindSites(client);
+      const appPath = window.location.hash
+        .replace(/^\/*#?\/*/, "")
+        .split("/");
 
-      if(this.sites.length === 0) {
-        // No available site - load default
-        this.sites = [EluvioConfiguration["site-id"]];
-        this.SetSiteId(EluvioConfiguration["site-id"]);
-      } else if(this.sites.length === 1) {
-        // Only one site available
-        this.SetSiteId(this.sites[0]);
+      const initialContentId = appPath[0];
+      if(initialContentId) {
+        this.SetSiteId(initialContentId);
+      } else {
+        // Find available sites
+        this.sites = yield this.FindSites(client);
+
+        if(this.sites.length === 0) {
+          // No available site - load default
+          this.sites = [EluvioConfiguration["site-id"]];
+          this.SetSiteId(EluvioConfiguration["site-id"]);
+        } else if(this.sites.length === 1) {
+          // Only one site available
+          this.SetSiteId(this.sites[0]);
+        }
       }
-    }
 
-    // Setting the client signals the app to start rendering
-    this.client = client;
+      // Setting the client signals the app to start rendering
+      this.client = client;
+    }
   });
 
   FindSites = flow(function * (client) {
@@ -137,6 +146,18 @@ class RootStore {
   @action.bound
   SetSiteId(id) {
     this.siteId = id;
+
+    window.location.hash = `#/${id || ""}`;
+
+    if(this.client && window.self !== window.top) {
+      this.client.SendMessage({
+        options: {
+          operation: "SetFramePath",
+          path: `#/${id || ""}`
+        },
+        noResponse: true
+      });
+    }
   }
 
   @action.bound
