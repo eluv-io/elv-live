@@ -1,4 +1,4 @@
-import {observable, action, flow, computed} from "mobx";
+import {observable, action, flow, computed, runInAction} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 
@@ -14,6 +14,8 @@ class SiteStore {
 
   @observable playoutUrl;
   @observable authToken;
+
+  @observable error = "";
 
   @computed get client() {
     return this.rootStore.client;
@@ -78,6 +80,10 @@ class SiteStore {
       console.error("Failed to load site:");
       // eslint-disable-next-line no-console
       console.error(error);
+
+      this.rootStore.SetSiteId(undefined);
+      this.rootStore.SetError("Invalid site object");
+      setTimeout(() => runInAction(() => this.rootStore.SetError("")), 8000);
     }
   });
 

@@ -1,11 +1,11 @@
 import React from "react";
-import HLSPlayer from "hls.js";
+import HLSPlayer from "../../../node_modules/hls.js/dist/hls";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
-import BackIcon from "../static/icons/back.svg";
+import BackIcon from "../../static/icons/back.svg";
 import {DateTime} from "luxon";
-import FallbackIcon from "../static/icons/video.svg";
+import FallbackIcon from "../../static/icons/video.svg";
 
 @inject("siteStore")
 @observer

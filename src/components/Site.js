@@ -1,10 +1,11 @@
 import React from "react";
 import AsyncComponent from "./AsyncComponent";
 import {inject, observer} from "mobx-react";
-import ActiveTitle from "./ActiveTitle";
-import TitleReel from "./TitleReel";
+import ActiveTitle from "./titles/ActiveTitle";
+import TitleReel from "./titles/TitleReel";
 import BackIcon from "../static/icons/back.svg";
 import {ImageIcon} from "elv-components-js";
+import TitleGrid from "./titles/TitleGrid";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -45,8 +46,9 @@ class Site extends React.Component {
           />
         )}
 
-        <TitleReel />
         <TitleReel channels />
+
+        <TitleGrid />
       </div>
     );
   }
