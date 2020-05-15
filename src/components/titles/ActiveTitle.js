@@ -199,8 +199,7 @@ class ActiveTitle extends React.Component {
     const { schedule, currentIndex, date } = this.Schedule();
 
     let title = this.props.siteStore.activeTitle.display_title;
-    const info = this.props.siteStore.activeTitle.info || {};
-    let synopsis = info.synopsis;
+    let synopsis = (this.props.siteStore.activeTitle.info || {}).synopsis;
     if(currentIndex !== undefined) {
       const program = schedule[currentIndex];
       title = program.title || title;
@@ -222,10 +221,10 @@ class ActiveTitle extends React.Component {
             icon={BackIcon}
             onClick={this.props.siteStore.ClearActiveTitle}
           />
-          { title }
+          { title.toString() }
         </h4>
         <div className="synopsis">
-          { synopsis }
+          { synopsis.toString() }
         </div>
         <ChannelSchedule
           schedule={schedule}
