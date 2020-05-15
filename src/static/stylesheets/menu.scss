@@ -59,9 +59,10 @@
 
   li {
     @include elv-ellipsis;
-    background-color: $elv-color-bg-white;
-    border-radius: 0.5rem;
-    color: $elv-color-text-dark;
+    background-color: transparent;
+    border: 1px solid $elv-color-mediumgray;
+    border-radius: $elv-spacing-xs;
+    color: $elv-color-text-white;
     cursor: pointer;
     display: block;
     font-weight: 500;
