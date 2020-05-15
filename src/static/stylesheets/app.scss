@@ -118,6 +118,47 @@ h4 {
   width: 100%;
 }
 
+.title-grid-container {
+  .loading-indicator {
+    justify-content: center;
+    margin: $elv-spacing-xxl 0 0;
+    width: 100%;
+  }
+}
+
+.title-grid-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .title-search {
+    align-items: center;
+    display: flex;
+    position: relative;
+  }
+
+  .clear-search {
+    height: 1.25rem;
+    position: absolute;
+    right: $elv-spacing-ss;
+
+    svg {
+      stroke: $elv-color-mediumgray;
+    }
+  }
+
+  input {
+    background: $elv-color-darkergray;
+    border: 0;
+    border-radius: $elv-spacing-xxs;
+    color: $elv-color-text-lightest;
+    font-size: $elv-font-xl;
+    margin-right: $elv-spacing-xxs;
+    padding: 0 $elv-spacing-xs;
+    width: 20rem;
+  }
+}
+
 .title-reel {
   border-radius: 1rem;
   overflow: hidden;
@@ -354,10 +395,9 @@ h4 {
   border-radius: 3px;
   display: flex;
   font-size: $elv-font-m;
-  margin-right: $elv-spacing-xs;
   padding: $elv-spacing-xxs $elv-spacing-xs;
   position: absolute;
-  right: $elv-spacing-s;
+  right: $elv-spacing-xs;
   width: auto;
 
   .github-icon {

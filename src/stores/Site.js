@@ -7,6 +7,7 @@ class SiteStore {
 
   @observable siteInfo;
   @observable titles = [];
+  @observable filteredTitles = [];
   @observable channels = [];
   @observable playlists = [];
   @observable dashSupported = false;
@@ -48,8 +49,22 @@ class SiteStore {
         objectId: this.siteId,
         metadataSubtree: "public/asset_metadata",
         resolveLinks: true,
-        resolveIncludeSource: true
+        resolveIncludeSource: true,
+        select: [
+          "titles",
+          "channels",
+          "playlists"
+        ]
       });
+
+      try {
+        siteInfo.indexHash = yield this.client.LinkTarget({
+          libraryId: this.siteLibraryId,
+          objectId: this.siteId,
+          linkPath: "public/asset_metadata/site_index"
+        });
+      // eslint-disable-next-line no-empty
+      } catch (error) {}
 
       siteInfo.name = siteName;
 
@@ -98,6 +113,9 @@ class SiteStore {
         try {
           const titleKey = Object.keys(titleInfo[index])[0];
           let title = titleInfo[index][titleKey];
+
+          title.versionHash = title["."].source;
+          title.objectId = this.rootStore.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
           title.titleIndex = parseInt(index);
 
@@ -217,6 +235,24 @@ class SiteStore {
 
     this.activeTitle = activeTitle;
     this.activeTitle.playoutOptions = playoutOptions;
+  });
+
+  @action.bound
+  SearchTitles = flow(function * ({query}) {
+    if(!this.siteInfo.indexHash) { return; }
+
+    const url = yield this.rootStore.client.Rep({
+      versionHash: this.siteInfo.indexHash,
+      rep: "search",
+      queryParams: {
+        terms: query
+      },
+      noAuth: true
+    });
+
+    this.filteredTitles = ((yield this.rootStore.client.Request({
+      url,
+    })).results || []).map(title => title.id);
   });
 
   @action.bound
