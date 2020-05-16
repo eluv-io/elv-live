@@ -42,11 +42,13 @@ main,
 }
 
 header {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
-  padding: $elv-spacing-xs $elv-spacing-s;
+  min-height: 3rem;
+  padding: 0 $elv-spacing-s;
 
   .logo {
+    cursor: pointer;
     width: auto;
   }
 
