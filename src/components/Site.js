@@ -4,8 +4,9 @@ import {inject, observer} from "mobx-react";
 import ActiveTitle from "./titles/ActiveTitle";
 import TitleReel from "./titles/TitleReel";
 import BackIcon from "../static/icons/back.svg";
-import {ImageIcon} from "elv-components-js";
+import {ImageIcon, LoadingElement} from "elv-components-js";
 import TitleGrid from "./titles/TitleGrid";
+import SearchBar from "./SearchBar";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -20,7 +21,7 @@ class Site extends React.Component {
   ActiveTitle() {
     if(!this.props.siteStore.activeTitle) { return null; }
 
-    const key = `active-title-${this.props.siteStore.activeTitle.titleIndex}`;
+    const key = `active-title-${this.props.siteStore.activeTitle.titleId}`;
 
     return <ActiveTitle key={key} />;
   }
@@ -28,27 +29,39 @@ class Site extends React.Component {
   PageContent() {
     return (
       <div className="site" id="site">
-        <h2 className="site-name" hidden={!!this.props.siteStore.activeTitle}>
+        <h2 className="site-header" hidden={!!this.props.siteStore.activeTitle}>
           <ImageIcon
             className="back-button"
             title="Back to Site Selection"
             icon={BackIcon}
-            onClick={() => this.props.rootStore.SetSiteId(undefined)}
+            onClick={() => this.props.rootStore.PopSiteId(undefined)}
           />
+
           { this.props.siteStore.siteInfo.name }
+
+          <SearchBar />
         </h2>
         { this.ActiveTitle() }
 
-        { this.props.siteStore.playlists.map(playlist =>
-          <TitleReel
-            key={`title-reel-playlist-${playlist.playlistIndex}`}
-            playlistIndex={playlist.playlistIndex}
-          />
-        )}
+        <LoadingElement loading={this.props.siteStore.searching} loadingClassname="loading-indicator">
 
-        <TitleReel channels />
+          { this.props.siteStore.playlists.map(playlist =>
+            <TitleReel
+              key={`title-reel-playlist-${playlist.playlistIndex}`}
+              name={playlist.name}
+              titles={playlist.titles}
+            />
+          )}
 
-        <TitleGrid />
+          <TitleReel name="Channels" titles={this.props.siteStore.channels} />
+
+          <TitleGrid name="Series" titles={this.props.siteStore.series} />
+          <TitleGrid name="Seasons" titles={this.props.siteStore.seasons} />
+
+          <TitleGrid name="Episodes" titles={this.props.siteStore.episodes} />
+
+          <TitleGrid name="All Titles" titles={this.props.siteStore.titles} />
+        </LoadingElement>
       </div>
     );
   }

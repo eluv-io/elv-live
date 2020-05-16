@@ -15,6 +15,8 @@ class RootStore {
   @observable availableSites = [];
   @observable siteId;
 
+  @observable history = [];
+
   @observable libraries = {};
   @observable objects = {};
 
@@ -144,7 +146,11 @@ class RootStore {
   });
 
   @action.bound
-  SetSiteId(id) {
+  SetSiteId(id, pushHistory=true) {
+    if(this.siteId && pushHistory) {
+      this.history.push(this.siteId);
+    }
+
     this.siteId = id;
 
     window.location.hash = `#/${id || ""}`;
@@ -158,6 +164,11 @@ class RootStore {
         noResponse: true
       });
     }
+  }
+
+  @action.bound
+  PopSiteId() {
+    this.SetSiteId(this.history.pop(), false);
   }
 
   @action.bound

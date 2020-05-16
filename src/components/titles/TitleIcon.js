@@ -4,6 +4,7 @@ import {inject, observer} from "mobx-react";
 import {ImageIcon, LoadingElement} from "elv-components-js";
 import FallbackIcon from "../../static/icons/video.svg";
 
+@inject("rootStore")
 @inject("siteStore")
 @observer
 class TitleIcon extends React.Component {
@@ -21,11 +22,12 @@ class TitleIcon extends React.Component {
     try {
       this.setState({loading: true});
 
-      await this.props.siteStore.SetActiveTitle({
-        channel: this.props.channels,
-        playlistIndex: title.playlistIndex,
-        titleIndex: title.titleIndex
-      });
+      // Clicked 'title' is actually a collection
+      if(["site", "series", "season"].includes(title.title_type)) {
+        this.props.rootStore.SetSiteId(title.objectId);
+      } else {
+        await this.props.siteStore.SetActiveTitle(title);
+      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load title:");

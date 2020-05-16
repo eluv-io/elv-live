@@ -18,9 +18,6 @@
     width: 100%;
 
     input {
-      border-radius: $elv-spacing-xxs;
-      color: $elv-color-text-dark;
-      font-size: $elv-font-xl;
       width: 100%;
     }
   }
@@ -28,6 +25,7 @@
   h1 {
     margin-bottom: $elv-spacing-s;
     text-align: center;
+    width: 100%;
   }
 
   h4 {
@@ -60,7 +58,7 @@
   li {
     @include elv-ellipsis;
     background-color: transparent;
-    border: 1px solid $elv-color-mediumgray;
+    border: 1px solid $elv-color-darkgray;
     border-radius: $elv-spacing-xs;
     color: $elv-color-text-white;
     cursor: pointer;
