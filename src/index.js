@@ -4,7 +4,7 @@ import React from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 
-import {IconLink, ImageIcon, LoadingElement} from "elv-components-js";
+import {ImageIcon, LoadingElement} from "elv-components-js";
 
 import * as Stores from "./stores";
 
@@ -34,7 +34,6 @@ class App extends React.Component {
     if(this.props.rootStore.siteId) {
       return <Site key={`site-${this.props.rootStore.siteId}`}/>;
     } else {
-      //return <SiteSelection />;
       return <ContentSelector />;
     }
   }
@@ -43,7 +42,7 @@ class App extends React.Component {
     return (
       <div className="app-container">
         <header>
-          <IconLink href="https://eluv.io" className="logo" icon={Logo} label="Eluvio"/>
+          <ImageIcon className="logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
           <h1>
             Eluvio Site Sample
           </h1>

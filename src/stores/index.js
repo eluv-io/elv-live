@@ -70,6 +70,7 @@ class RootStore {
         .split("/");
 
       const initialContentId = appPath[0];
+
       if(initialContentId) {
         this.SetSiteId(initialContentId);
       } else {
@@ -253,6 +254,11 @@ class RootStore {
 
     return paging;
   });
+
+  @action.bound
+  ReturnToApps() {
+    this.client.SendMessage({options: {operation: "ShowAppsPage"}, noResponse: true});
+  }
 }
 
 const root = new RootStore();
