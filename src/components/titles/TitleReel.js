@@ -11,7 +11,7 @@ class TitleReel extends React.Component {
 
     this.state = {
       startIndex: 0,
-      visible: 5
+      visible: 4
     };
   }
 

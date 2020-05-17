@@ -41,10 +41,10 @@ class Site extends React.Component {
 
           <SearchBar />
         </h2>
+
         { this.ActiveTitle() }
 
         <LoadingElement loading={this.props.siteStore.searching} loadingClassname="loading-indicator">
-
           { this.props.siteStore.playlists.map(playlist =>
             <TitleReel
               key={`title-reel-playlist-${playlist.playlistIndex}`}

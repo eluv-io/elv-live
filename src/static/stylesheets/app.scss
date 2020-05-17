@@ -9,8 +9,15 @@ $clear: rgba(0, 0, 0, 0);
 $vignette-color: rgba(0, 0, 0, 0.9);
 $title-background: rgba(0, 0, 0, 0.65);
 
+$header-height: 3rem;
+
 .app-version {
   display: none;
+}
+
+.hidden {
+  // sass-lint:disable no-important
+  display: none !important;
 }
 
 html {
@@ -32,7 +39,9 @@ main,
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+  height: auto;
   max-width: 100%;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -44,7 +53,8 @@ main,
 header {
   align-items: center;
   display: flex;
-  min-height: 3rem;
+  max-height: $header-height;
+  min-height: $header-height;
   padding: 0 $elv-spacing-s;
 
   .logo {
@@ -91,7 +101,8 @@ input {
 h1,
 h2,
 h3,
-h4 {
+h4,
+nav {
   font-weight: 400;
   position: relative;
 
@@ -147,13 +158,15 @@ h4 {
 .title-reel-container {
   margin-bottom: $elv-spacing-m;
   position: relative;
-  width: 100%;
 }
 
 .title-reel-header,
 .title-grid-header {
-  margin-bottom: $elv-spacing-xs;
-  padding-left: $elv-spacing-s;
+  border-radius: $elv-spacing-xxs;
+  border-top: 2px solid $elv-color-darkblue;
+  font-size: 1.6rem;
+  margin: $elv-spacing-s 0;
+  padding: $elv-spacing-s $elv-spacing-s 0;
   width: 100%;
 }
 
@@ -165,6 +178,16 @@ h4 {
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
+
+  .title {
+    max-width: 25%;
+
+    &:last-child {
+      .ar-container {
+        border-radius: 0 1rem 1rem 0;
+      }
+    }
+  }
 
   .title-reel-titles {
     align-items: center;
@@ -213,14 +236,29 @@ h4 {
 
 .title-grid-titles {
   display: grid;
-  grid-gap: $elv-spacing-xs;
-  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: $elv-spacing-m;
+  grid-template-columns: repeat(4, 1fr);
 
   .title {
     min-width: 100%;
 
-    .ar-container {
-      border-radius: 1rem;
+    &:nth-child(4n + 1) {
+      .ar-container {
+        border-radius: 1rem 0 0 1rem;
+      }
+
+      &:last-child {
+        .ar-container {
+          border-radius: 1rem;
+        }
+      }
+    }
+
+    &:nth-child(4n),
+    &:last-child {
+      .ar-container {
+        border-radius: 0 1rem 1rem 0;
+      }
     }
   }
 }
@@ -231,7 +269,6 @@ h4 {
   display: flex;
   flex-grow: 1;
   justify-content: center;
-  max-width: 34%;
   position: relative;
   transition: flex-grow 0.6s ease-in-out, padding 0.4s ease-in-out;
 
@@ -292,7 +329,7 @@ h4 {
   .title-image {
     background-color: $elv-color-black;
     border: 0;
-    height: auto;
+    height: 100%;
     left: 0;
     object-fit: cover;
     position: absolute;
@@ -331,9 +368,8 @@ h4 {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: $elv-spacing-l 0 $elv-spacing-xl;
-  min-height: 85vh;
-  width: 100%;
+  height: auto;
+  min-height: calc(100vh - #{$header-height});
 
   h4 {
     color: $elv-color-lightergray;
@@ -348,17 +384,158 @@ h4 {
     border-radius: 0.5rem;
     cursor: pointer;
     flex-grow: 1;
-    height: 75vh;
-    max-height: 75vh;
+    max-height: 70vh;
+    min-height: 70vh;
     scroll-margin: 10rem;
     width: 100%;
   }
 
+  .video-info {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+  }
+
   .synopsis {
+    align-self: center;
     color: $elv-color-text-lighter;
     min-height: 5rem;
     text-align: center;
-    width: 75%;
+  }
+}
+
+.active-title-tabs {
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  padding-bottom: $elv-spacing-s;
+  width: 100%;
+
+  button {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    color: $elv-color-lightestgray;
+    cursor: pointer;
+    font-size: $elv-spacing-m;
+    height: 3rem;
+    padding: 0 0 $elv-spacing-xs;
+    transition: border-bottom linear 0.15s, padding linear 0.15s;
+    width: 10vw;
+
+    &:focus {
+      border-bottom: 1px solid $elv-color-text-lightest;
+      outline: 0;
+    }
+
+    &.active-tab {
+      border-bottom: 3px solid $elv-color-text-lightest;
+      padding-bottom: $elv-spacing-ss;
+    }
+  }
+}
+
+.active-title-details-page {
+  display: grid;
+  grid-template-columns: minmax(auto, 30%) 1fr;
+  height: auto;
+  padding: $elv-spacing-m 0;
+  width: 100%;
+
+  .active-title-detail-image {
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    object-position: right;
+    width: 100%;
+  }
+
+  svg {
+    fill: $elv-color-darkblue;
+    stroke: none;
+  }
+}
+
+.active-title-details {
+  height: auto;
+  padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
+
+  * {
+    color: $elv-color-text-white;
+    font-weight: 300;
+  }
+
+  h2 {
+    color: $elv-color-text-white;
+    font-size: 3.5rem;
+    font-weight: 400;
+    margin-bottom: $elv-spacing-m;
+    text-align: left;
+  }
+
+  .synopsis {
+    color: $elv-color-text-white;
+    display: flex;
+    font-size: $elv-font-xxl;
+    line-height: $elv-spacing-l;
+    text-align: left;
+  }
+
+  .details-section {
+    border-radius: $elv-spacing-xxs;
+    margin: $elv-spacing-m 0;
+    padding: $elv-spacing-m 0;
+
+    &:not(:empty) {
+      border-bottom: 2px solid $elv-color-darkblue;
+      border-top: 2px solid $elv-color-darkblue;
+    }
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    font-size: $elv-font-xxl;
+    margin-bottom: $elv-spacing-s;
+
+    * {
+      line-height: $elv-spacing-l;
+      padding: $elv-spacing-xs 0;
+    }
+
+    label {
+      color: $elv-color-mediumgray;
+    }
+  }
+
+  .copyright {
+    color: $elv-color-text-lighter;
+  }
+}
+
+.active-title-metadata {
+  max-height: 100%;
+  padding: $elv-spacing-m 0;
+  width: 100%;
+
+  h2 {
+    color: $elv-color-text-white;
+    margin-bottom: $elv-spacing-s;
+    text-align: center;
+  }
+
+  .metadata-path {
+    font-family: $elv-font-monospace;
+    text-align: center;
+  }
+
+  pre {
+    background: $elv-color-bg-dark;
+    border: 0;
+    margin: $elv-spacing-s auto;
+    max-height: 70vh;
+    overflow-y: auto;
+    width: 85%;
   }
 }
 
@@ -401,7 +578,7 @@ h4 {
   font-size: $elv-font-m;
   padding: $elv-spacing-xxs $elv-spacing-xs;
   position: absolute;
-  right: $elv-spacing-xs;
+  right: $elv-spacing-l;
   width: auto;
 
   .github-icon {

@@ -97,11 +97,9 @@ class ActiveTitle extends React.Component {
     super(props);
 
     this.state = {
-      poster: props.siteStore.CreateLink(
-        this.props.siteStore.activeTitle.baseLinkUrl,
-        "images/main_slider_background_desktop/default"
-      ),
-      showControls: false
+      showControls: false,
+      activeTab: "Video",
+      tabs: ["Video", "Details", "Metadata"]
     };
 
     this.InitializeVideo = this.InitializeVideo.bind(this);
@@ -115,6 +113,30 @@ class ActiveTitle extends React.Component {
     if(this.player) {
       this.player.destroy ? this.player.destroy() : this.player.reset();
     }
+  }
+
+  Tabs() {
+    return (
+      <nav className="active-title-tabs">
+        <ImageIcon
+          className="back-button"
+          title="Back"
+          icon={BackIcon}
+          onClick={this.props.siteStore.ClearActiveTitle}
+        />
+        {
+          this.state.tabs.map(tab =>
+            <button
+              key={`active-title-tab-${tab}`}
+              className={tab === this.state.activeTab ? "active-tab" : ""}
+              onClick={() => this.setState({activeTab: tab})}
+            >
+              { tab }
+            </button>
+          )
+        }
+      </nav>
+    );
   }
 
   Schedule() {
@@ -148,7 +170,9 @@ class ActiveTitle extends React.Component {
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
 
-      const playoutOptions = this.props.siteStore.activeTitle.playoutOptions; //.hls.playoutMethods;
+      const playoutOptions = this.props.siteStore.activeTitle.playoutOptions;
+
+      if(!playoutOptions) { return; }
 
       let player;
       if(this.props.siteStore.dashSupported) {
@@ -193,44 +217,138 @@ class ActiveTitle extends React.Component {
     }
   }
 
-  render() {
-    if(!this.props.siteStore.activeTitle || !this.props.siteStore.activeTitle.playoutOptions) { return null; }
+  MetadataPage() {
+    const title = this.props.siteStore.activeTitle;
 
+    return (
+      <div className="active-title-metadata">
+        <h2>{ title.displayTitle.toString() } - Metadata</h2>
+        <div className="metadata-path">{this.props.siteStore.siteInfo.name} - {title.baseLinkPath}</div>
+        <pre>
+          { JSON.stringify(title.metadata, null, 2)}
+        </pre>
+      </div>
+    );
+  }
+
+  DetailsPage() {
+    const title = this.props.siteStore.activeTitle;
+
+    const titleInfo = title.info || {};
+
+    const Maybe = (value, render) => value ? render() : null;
+
+    return (
+      <div className="active-title-details-page">
+        <ImageIcon icon={title.portraitUrl || title.imageUrl || title.landscapeUrl || FallbackIcon} alternateIcon={FallbackIcon} className="active-title-detail-image" title="Poster" />
+        <div className="active-title-details">
+          <h2>{ title.displayTitle.toString() }</h2>
+          {Maybe(
+            titleInfo.synopsis,
+            () => <div className="synopsis">{ titleInfo.synopsis.toString() }</div>
+          )}
+          <div className="details-section">
+            {Maybe(
+              titleInfo.talent && titleInfo.talent.cast,
+              () => <div className="detail">
+                <label>Cast</label>
+                { titleInfo.talent.cast.map(actor => `${actor.talent_first_name} ${actor.talent_last_name}`).join(", ") }
+              </div>
+            )}
+            {Maybe(
+              titleInfo.runtime,
+              () => <div className="detail">
+                <label>Runtime</label>
+                { titleInfo.runtime } minutes
+              </div>
+            )}
+            {Maybe(
+              titleInfo.release_date,
+              () => <div className="detail">
+                <label>Release Date</label>
+                { new Date(titleInfo.release_date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"}) }
+              </div>
+            )}
+            {Maybe(
+              titleInfo.creator,
+              () => <div className="detail">
+                <label>Creator</label>
+                { titleInfo.creator }
+              </div>
+            )}
+          </div>
+          {Maybe(
+            titleInfo.copyright,
+            () => <div className="copyright">
+              { titleInfo.copyright.toString().startsWith("©") ? "" : "©" } { titleInfo.copyright.toString() }
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  VideoPage() {
     const { schedule, currentIndex, date } = this.Schedule();
 
-    let title = this.props.siteStore.activeTitle.display_title;
-    let synopsis = (this.props.siteStore.activeTitle.info || {}).synopsis;
+    const title = this.props.siteStore.activeTitle;
+    let displayTitle = title.displayTitle;
+    let synopsis = (title.info || {}).synopsis || "";
     if(currentIndex !== undefined) {
       const program = schedule[currentIndex];
-      title = program.title || title;
+      displayTitle = program.title || displayTitle;
       synopsis = program.description !== undefined ? program.description : synopsis;
+    }
+
+    const poster = this.props.siteStore.activeTitle.landscapeUrl || this.props.siteStore.activeTitle.imageUrl;
+
+    // Include poster image to pre-load it for details page
+    return (
+      <React.Fragment>
+        <ImageIcon icon={title.portraitUrl || title.imageUrl || title.landscapeUrl} className="hidden" />
+        <video
+          key={`active-title-video-${title.titleId}`}
+          ref={this.InitializeVideo}
+          autoPlay
+          poster={poster}
+          controls={this.state.showControls}
+        />
+        <div className="video-info">
+          <h4>
+            { displayTitle.toString() }
+          </h4>
+          <div className="synopsis">
+            { synopsis.toString() }
+          </div>
+          <ChannelSchedule
+            schedule={schedule}
+            date={date}
+            currentIndex={currentIndex}
+          />
+        </div>
+      </React.Fragment>
+    );
+  }
+
+  render() {
+    if(!this.props.siteStore.activeTitle) { return null; }
+
+    let page;
+    switch (this.state.activeTab) {
+      case "Video":
+        page = this.VideoPage();
+        break;
+      case "Details":
+        page = this.DetailsPage();
+        break;
+      case "Metadata":
+        page = this.MetadataPage();
     }
 
     return (
       <div className="active-title">
-        <video
-          ref={this.InitializeVideo}
-          autoPlay
-          poster={this.state.poster}
-          controls={this.state.showControls}
-        />
-        <h4>
-          <ImageIcon
-            className="back-button"
-            title="Back"
-            icon={BackIcon}
-            onClick={this.props.siteStore.ClearActiveTitle}
-          />
-          { title.toString() }
-        </h4>
-        <div className="synopsis">
-          { synopsis.toString() }
-        </div>
-        <ChannelSchedule
-          schedule={schedule}
-          date={date}
-          currentIndex={currentIndex}
-        />
+        { this.Tabs() }
+        { page }
       </div>
     );
   }

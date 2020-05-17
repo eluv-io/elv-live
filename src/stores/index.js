@@ -148,6 +148,8 @@ class RootStore {
 
   @action.bound
   SetSiteId(id, pushHistory=true) {
+    this.error = "";
+    
     if(this.siteId && pushHistory) {
       this.history.push(this.siteId);
     }

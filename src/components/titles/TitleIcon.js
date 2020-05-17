@@ -43,24 +43,11 @@ class TitleIcon extends React.Component {
 
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    // TODO: Switch all to regular image links
-    const images =  title.images || {};
-    let thumbnail;
-    if(images.landscape) {
-      thumbnail = this.props.siteStore.CreateLink(
-        title.baseLinkUrl,
-        "images/landscape/thumbnail",
-        { height: Math.floor(vh / 2) }
-      );
-    } else if(images.main_slider_background_desktop) {
-      thumbnail = this.props.siteStore.CreateLink(
-        title.baseLinkUrl,
-        "images/main_slider_background_desktop/thumbnail",
-        { height: Math.floor(vh / 2) }
-      );
-    } else {
-      thumbnail = title.imageUrl;
-    }
+    const thumbnail = this.props.siteStore.CreateLink(
+      title.landscapeUrl || title.imageUrl,
+      "",
+      { height: Math.max(150, Math.floor(vh / 2)) }
+    );
 
     return (
       <div
@@ -80,7 +67,7 @@ class TitleIcon extends React.Component {
             alternateIcon={FallbackIcon}
           />
         </div>
-        <h4>{title.display_title}</h4>
+        <h4>{ title.displayTitle }</h4>
       </div>
     );
   }

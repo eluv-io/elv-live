@@ -86,6 +86,7 @@ class SiteStore {
         metadataSubtree: "public/asset_metadata",
         resolveLinks: true,
         resolveIncludeSource: true,
+        resolveIgnoreErrors: true,
         select: [
           "channels",
           "episodes",
@@ -128,9 +129,11 @@ class SiteStore {
       // eslint-disable-next-line no-console
       console.error("Failed to load site:");
       // eslint-disable-next-line no-console
+      console.error(this.siteLibraryId, this.siteId);
+      // eslint-disable-next-line no-console
       console.error(error);
 
-      this.rootStore.SetSiteId(undefined);
+      this.rootStore.PopSiteId();
       this.rootStore.SetError("Invalid site object");
       setTimeout(() => runInAction(() => this.rootStore.SetError("")), 8000);
     }
@@ -153,9 +156,9 @@ class SiteStore {
 
           title.titleId = Id.next();
 
-
           const linkPath = UrlJoin("public", "asset_metadata", metadataKey, index, titleKey);
           title.playoutOptionsLinkPath = UrlJoin(linkPath, "sources", "default");
+          title.baseLinkPath = linkPath;
           title.baseLinkUrl =
             await this.client.LinkUrl({
               libraryId: this.siteLibraryId,
@@ -163,9 +166,24 @@ class SiteStore {
               linkPath
             });
 
-          if(!title.images || (!title.images.main_slider_background_desktop || !title.images.landscape)) {
-            title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
+          const images = title.images || {};
+          if(images.landscape) {
+            title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "landscape", "default"));
+          } else if(images.main_slider_background_desktop) {
+            title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "main_slider_background_desktop", "default"));
           }
+
+          if(images.poster) {
+            title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "poster", "default"));
+          } else if(images.primary_portrait) {
+            title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "primary_portrait", "default"));
+          } else if(images.portrait) {
+            title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "portrait", "default"));
+          }
+
+          title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
+
+          title.displayTitle = title.display_title || title.title || "";
 
           titles[index] = title;
         } catch (error) {
@@ -202,6 +220,7 @@ class SiteStore {
                 title.objectId = this.rootStore.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
                 const titleLinkPath = `public/asset_metadata/playlists/${playlistSlug}/list/${titleSlug}`;
+                title.baseLinkPath = titleLinkPath;
                 title.baseLinkUrl =
                   await this.client.LinkUrl({
                     libraryId: this.siteLibraryId,
@@ -213,9 +232,20 @@ class SiteStore {
 
                 title.titleId = Id.next();
 
-                if(!title.images || (!title.images.main_slider_background_desktop || !title.images.landscape)) {
-                  title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
+                const images = title.images || {};
+                if(images.landscape) {
+                  title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "landscape", "default"));
+                } else if(images.main_slider_background_desktop) {
+                  title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "main_slider_background_desktop", "default"));
                 }
+
+                if(images.portrait) {
+                  title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "portrait", "default"));
+                }
+
+                title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
+
+                title.displayTitle = title.display_title || title.title || "";
 
                 titles[parseInt(title.order)] = title;
               } catch (error) {
@@ -246,16 +276,33 @@ class SiteStore {
 
   @action.bound
   SetActiveTitle = flow(function * (title) {
-    const playoutOptions = yield this.client.PlayoutOptions({
-      libraryId: this.siteLibraryId,
-      objectId: this.siteId,
-      linkPath: title.playoutOptionsLinkPath,
-      protocols: ["hls", "dash"],
-      drms: ["aes-128", "widevine", "clear"]
-    });
+    let playoutOptions;
+    try {
+      playoutOptions = yield this.client.PlayoutOptions({
+        libraryId: this.siteLibraryId,
+        objectId: this.siteId,
+        linkPath: title.playoutOptionsLinkPath,
+        protocols: ["hls", "dash"],
+        drms: ["aes-128", "widevine", "clear"]
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Error loading playout options:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
 
     this.activeTitle = title;
     this.activeTitle.playoutOptions = playoutOptions;
+
+    this.activeTitle.metadata = yield this.client.ContentObjectMetadata({
+      libraryId: this.siteLibraryId,
+      objectId: this.siteId,
+      metadataSubtree: title.baseLinkPath,
+      resolveLinks: true,
+      resolveIncludeSource: true,
+      resolveIgnoreErrors: true
+    });
   });
 
   @action.bound
@@ -311,6 +358,8 @@ class SiteStore {
 
   @action.bound
   CreateLink(baseLink, path, query={}) {
+    if(!baseLink) { return ""; }
+
     const basePath = URI(baseLink).path();
 
     return URI(baseLink)
