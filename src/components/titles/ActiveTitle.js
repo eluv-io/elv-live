@@ -117,7 +117,7 @@ class ActiveTitle extends React.Component {
 
   Tabs() {
     return (
-      <nav className="active-title-tabs">
+      <nav className="tabs">
         <ImageIcon
           className="back-button"
           title="Back"
@@ -140,6 +140,9 @@ class ActiveTitle extends React.Component {
   }
 
   Schedule() {
+    return {};
+
+    // eslint-disable-next-line no-unreachable
     const channel = this.props.siteStore.activeTitle;
     const date = DateTime.local().toFormat("yyyyLLdd");
 
@@ -147,7 +150,7 @@ class ActiveTitle extends React.Component {
       return { date };
     }
 
-    const schedule = channel.channel_info.schedule.daily_schedules[date];
+    const schedule = channel.channel_info.schedule.daily_schedules[date] || [];
 
     const now = DateTime.local().ts;
     const currentIndex = schedule.findIndex(program =>

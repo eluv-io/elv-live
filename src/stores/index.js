@@ -28,87 +28,47 @@ class RootStore {
   }
 
   @action.bound
-  InitializeClient = flow(function * () {
+  InitializeClient() {
     this.client = undefined;
 
-    let client;
+    let client = new FrameClient({
+      target: window.parent,
+      timeout: 30
+    });
 
-    // Initialize ElvClient or FrameClient
-    if(window.self === window.top) {
-      const ElvClient = (yield import(
-        /* webpackChunkName: "elv-client-js" */
-        /* webpackMode: "lazy" */
-        "@eluvio/elv-client-js"
-      )).ElvClient;
+    client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
 
-      client = yield ElvClient.FromConfigurationUrl({
-        configUrl: EluvioConfiguration["config-url"]
-      });
+    const appPath = window.location.hash
+      .replace(/^\/*#?\/*/, "")
+      .split("/");
 
-      const wallet = client.GenerateWallet();
-      const mnemonic = wallet.GenerateMnemonic();
-      const signer = wallet.AddAccountFromMnemonic({mnemonic});
+    const initialContentId = appPath[0];
 
-      client.SetSigner({signer});
-
-      // Generated user will not have any available sites - load default
-      this.sites = [EluvioConfiguration["site-id"]];
-      this.SetSiteId(EluvioConfiguration["site-id"]);
-
-      //client.ToggleLogging(true);
-    } else {
-      // Contained in IFrame
-      client = new FrameClient({
-        target: window.parent,
-        timeout: 30
-      });
-
-      client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
-
-      const appPath = window.location.hash
-        .replace(/^\/*#?\/*/, "")
-        .split("/");
-
-      const initialContentId = appPath[0];
-
-      if(initialContentId) {
-        this.SetSiteId(initialContentId);
-      } else {
-        // Find available sites
-        this.sites = yield this.FindSites(client);
-
-        if(this.sites.length === 0) {
-          // No available site - load default
-          this.sites = [EluvioConfiguration["site-id"]];
-          this.SetSiteId(EluvioConfiguration["site-id"]);
-        } else if(this.sites.length === 1) {
-          // Only one site available
-          this.SetSiteId(this.sites[0]);
-        }
-      }
-
-      // Setting the client signals the app to start rendering
-      this.client = client;
+    if(initialContentId) {
+      this.SetSiteId(initialContentId);
     }
-  });
 
-  FindSites = flow(function * (client) {
+    // Setting the client signals the app to start rendering
+    this.client = client;
+  }
+
+  async FindSites() {
     let sites = [];
 
     const contentSpaceLibraryId =
-      client.utils.AddressToLibraryId(
-        client.utils.HashToAddress(
-          yield client.ContentSpaceId()
+      this.client.utils.AddressToLibraryId(
+        this.client.utils.HashToAddress(
+          await this.client.ContentSpaceId()
         )
       );
 
-    const groupAddresses = yield client.Collection({collectionType: "accessGroups"});
-    yield Promise.all(
+    const groupAddresses = await this.client.Collection({collectionType: "accessGroups"});
+    await Promise.all(
       groupAddresses.map(async groupAddress => {
         try {
-          const groupSites = await client.ContentObjectMetadata({
+          const groupSites = await this.client.ContentObjectMetadata({
             libraryId: contentSpaceLibraryId,
-            objectId: client.utils.AddressToObjectId(groupAddress),
+            objectId: this.client.utils.AddressToObjectId(groupAddress),
             metadataSubtree: "sites"
           });
 
@@ -125,23 +85,33 @@ class RootStore {
     );
 
     return sites.filter((value, index, list) => list.indexOf(value) === index);
-  });
+  }
 
+  @action.bound
   LoadAvailableSites = flow(function * () {
+    const sites = yield this.FindSites();
+
     this.availableSites = yield Promise.all(
-      this.sites.map(async siteId => {
-        const libraryId = await this.client.ContentObjectLibraryId({objectId: siteId});
+      sites.map(async siteId => {
+        try {
+          const libraryId = await this.client.ContentObjectLibraryId({objectId: siteId});
 
-        const siteName = await this.client.ContentObjectMetadata({
-          libraryId,
-          objectId: siteId,
-          metadataSubtree: "public/name"
-        });
+          const siteName = await this.client.ContentObjectMetadata({
+            libraryId,
+            objectId: siteId,
+            metadataSubtree: "public/name"
+          });
 
-        return {
-          name: siteName,
-          siteId
-        };
+          return {
+            name: siteName,
+            objectId: siteId
+          };
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error("Failed to retrieve available site info:", siteId);
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       })
     );
   });
@@ -149,7 +119,7 @@ class RootStore {
   @action.bound
   SetSiteId(id, pushHistory=true) {
     this.error = "";
-    
+
     if(this.siteId && pushHistory) {
       this.history.push(this.siteId);
     }

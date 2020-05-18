@@ -13,6 +13,7 @@ class ContentSelector extends React.Component {
     super(props);
 
     this.state = {
+      showAvailableSites: true,
       libraryId: "",
       page: 1,
       perPage: 10,
@@ -21,6 +22,29 @@ class ContentSelector extends React.Component {
       cacheId: "",
       count: 0
     };
+  }
+
+  Tabs() {
+    if(!this.props.rootStore.availableSites || this.props.rootStore.availableSites.length === 0) {
+      return null;
+    }
+
+    return (
+      <nav className="tabs">
+        <button
+          className={this.state.showAvailableSites ? "active-tab" : ""}
+          onClick={() => this.setState({showAvailableSites: true})}
+        >
+          Available Sites
+        </button>
+        <button
+          className={this.state.showAvailableSites ? "": "active-tab"}
+          onClick={() => this.setState({showAvailableSites: false})}
+        >
+          All
+        </button>
+      </nav>
+    );
   }
 
   Objects() {
@@ -163,12 +187,46 @@ class ContentSelector extends React.Component {
     );
   }
 
-  render() {
+  AvailableSites() {
     return (
-      <div className="menu-container">
-        <h1>Select a Site</h1>
-        { this.state.libraryId ? this.Objects() : this.Libraries() }
+      <div className="menu-entries" key="menu-entries-available">
+        {
+          <ul>
+            {
+              this.props.rootStore.availableSites
+                .sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
+                .map(object => {
+                  const onClick = () => this.props.rootStore.SetSiteId(object.objectId);
+
+                  return (
+                    <li
+                      tabIndex={0}
+                      onClick={onClick}
+                      onKeyPress={onEnterPressed(onClick)}
+                      key={`content-object-${object.objectId}`}
+                    >
+                      { object.name }
+                    </li>
+                  );
+                })
+            }
+          </ul>
+        }
       </div>
+    );
+  }
+
+  render() {
+    const showAvailable = this.props.rootStore.availableSites && this.props.rootStore.availableSites.length > 0 && this.state.showAvailableSites;
+
+    return (
+      <AsyncComponent Load={this.props.rootStore.LoadAvailableSites}>
+        <div className="menu-container">
+          <h1>Select a Site</h1>
+          { this.Tabs() }
+          { showAvailable ? this.AvailableSites() : (this.state.libraryId ? this.Objects() : this.Libraries()) }
+        </div>
+      </AsyncComponent>
     );
   }
 }

@@ -70,7 +70,8 @@
     width: 100%;
 
     &:hover {
-      background-color: $elv-color-mediumblue;
+      background-color: $elv-color-darkblue;
+      border: 1px solid $elv-color-darkblue;
       color: $elv-color-text-white;
     }
   }
