@@ -3,8 +3,9 @@ import HLSPlayer from "../../../node_modules/hls.js/dist/hls";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
-import BackIcon from "../../static/icons/back.svg";
 import {DateTime} from "luxon";
+
+import CloseIcon from "../../static/icons/x.svg";
 import FallbackIcon from "../../static/icons/video.svg";
 
 @inject("siteStore")
@@ -121,7 +122,7 @@ class ActiveTitle extends React.Component {
         <ImageIcon
           className="back-button"
           title="Back"
-          icon={BackIcon}
+          icon={CloseIcon}
           onClick={this.props.siteStore.ClearActiveTitle}
         />
         {

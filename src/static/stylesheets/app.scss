@@ -9,7 +9,7 @@ $clear: rgba(0, 0, 0, 0);
 $vignette-color: rgba(0, 0, 0, 0.9);
 $title-background: rgba(0, 0, 0, 0.65);
 
-$header-height: 3rem;
+$header-height: 3.5rem;
 
 .app-version {
   display: none;
@@ -45,6 +45,10 @@ main,
   width: 100%;
 }
 
+.app-container {
+  padding: 0 $elv-spacing-l;
+}
+
 * {
   color: $text-color;
   max-width: 100%;
@@ -55,18 +59,13 @@ header {
   display: flex;
   max-height: $header-height;
   min-height: $header-height;
-  padding: 0 $elv-spacing-s;
+  position: relative;
 
   .logo {
     cursor: pointer;
+    display: block;
+    min-height: 100%;
     width: auto;
-  }
-
-  h1 {
-    @include elv-no-select;
-    font-size: $elv-font-xl;
-    font-weight: normal;
-    margin-left: $elv-spacing-m;
   }
 }
 
@@ -77,17 +76,15 @@ main {
   margin-bottom: 15rem;
   max-width: 100%;
   min-height: 80%;
-  padding: 0 $elv-spacing-l;
   width: 100%;
 }
 
 input {
-  background: $elv-color-darkergray;
+  background: $elv-color-bg-dark;
   border: 0;
   border-radius: $elv-spacing-xxs;
   color: $elv-color-text-lightest;
   font-size: $elv-font-xl;
-  margin-right: $elv-spacing-xxs;
   padding: 0 $elv-spacing-xs;
   width: 20rem;
 }
@@ -192,7 +189,6 @@ nav {
 
 .title-reel-header,
 .title-grid-header {
-  border-radius: $elv-spacing-xxs;
   border-top: 2px solid $elv-color-darkblue;
   font-size: 1.6rem;
   margin: $elv-spacing-s 0;
@@ -413,7 +409,8 @@ nav {
     background-color: $elv-color-black;
     border-radius: 0.5rem;
     cursor: pointer;
-    max-height: 70vh;
+    height: 1080px;
+    max-height: 65vh;
     scroll-margin: 10rem;
     width: 100%;
   }
@@ -568,24 +565,30 @@ nav {
 
 .source-link {
   align-items: center;
-  background-color: $elv-color-white;
-  border: 1px solid $elv-color-mediumgray;
+  background: $elv-color-bg-dark;
   border-radius: 3px;
   display: flex;
   font-size: $elv-font-m;
-  padding: $elv-spacing-xxs $elv-spacing-xs;
+  margin-top: $elv-spacing-xxs;
+  padding: $elv-spacing-mxs $elv-spacing-xs;
   position: absolute;
-  right: $elv-spacing-l;
+  right: 0;
   width: auto;
 
+  &.source-link {
+    color: $elv-color-text-lightest;
+  }
+
   .github-icon {
+    fill: $elv-color-white;
     height: $elv-font-xxl;
     margin-right: $elv-spacing-xs;
+    stroke: $elv-color-white;
     width: $elv-font-xxl;
   }
 
   &:hover {
-    background-color: $elv-color-lightestgray;
+    background: $elv-color-darkergray;
   }
 }
 
@@ -595,7 +598,18 @@ nav {
     font-size: 12px;
   }
 
+  .tabs {
+    button {
+      width: 10rem;
+    }
+  }
+
   .active-title {
     min-height: 0;
+
+    video {
+      height: auto;
+      min-height: 0;
+    }
   }
 }

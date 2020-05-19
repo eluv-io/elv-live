@@ -35,15 +35,17 @@ class SearchBar extends React.Component {
       searchTimeout: setTimeout(
         async () => {
           await this.props.siteStore.SearchTitles({query: this.state.search});
-        }, 1000
+        }, 750
       )
     });
   }
 
   render() {
+    if(!this.props.siteStore.siteInfo.searchIndex) { return null; }
+
     return (
       <div className="title-search">
-        <input value={this.state.search} onChange={this.HandleSearchChange} placeholder="Filter titles..."/>
+        <input value={this.state.search} onChange={this.HandleSearchChange} placeholder="Filter titles..." />
         <IconButton icon={ClearSearchIcon} className="clear-search" title="Clear" onClick={() => this.HandleSearchChange({target: { value: "" }})} />
       </div>
     );

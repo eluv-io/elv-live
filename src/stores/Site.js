@@ -1,4 +1,4 @@
-import {observable, action, flow, computed, runInAction} from "mobx";
+import {observable, action, flow, computed, runInAction, toJS} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import Id from "@eluvio/elv-client-js/src/Id";
@@ -97,14 +97,17 @@ class SiteStore {
         ]
       });
 
-      try {
-        siteInfo.indexHash = yield this.client.LinkTarget({
-          libraryId: this.siteLibraryId,
-          objectId: this.siteId,
-          linkPath: "public/site_index"
-        });
-      // eslint-disable-next-line no-empty
-      } catch (error) {}
+      siteInfo.searchIndex = yield this.client.ContentObjectMetadata({
+        libraryId: this.siteLibraryId,
+        objectId: this.siteId,
+        metadataSubtree: "public/site_index"
+      });
+
+      siteInfo.searchNodes = yield this.client.ContentObjectMetadata({
+        libraryId: this.siteLibraryId,
+        objectId: this.siteId,
+        metadataSubtree: "public/search_api"
+      });
 
       siteInfo.name = siteName;
 
@@ -307,15 +310,25 @@ class SiteStore {
 
   @action.bound
   SearchTitles = flow(function * ({query}) {
-    if(!this.siteInfo.indexHash) { return; }
+    if(!this.siteInfo.searchIndex || !this.siteInfo.searchNodes) { return; }
+
+    const client = this.rootStore.client;
 
     try {
       this.searchQuery = query;
       this.searching = true;
       this.searchCounter = this.searchCounter + 1;
 
-      const url = yield this.rootStore.client.Rep({
-        versionHash: this.siteInfo.indexHash,
+      const indexHash = yield client.LatestVersionHash({
+        objectId: this.siteInfo.searchIndex
+      });
+
+      yield client.SetNodes({
+        fabricURIs: toJS(this.siteInfo.searchNodes)
+      });
+
+      const url = yield client.Rep({
+        versionHash: indexHash,
         rep: "search",
         queryParams: {
           terms: query
@@ -323,7 +336,9 @@ class SiteStore {
         noAuth: true
       });
 
-      this.filteredTitles = ((yield this.rootStore.client.Request({
+      yield client.ResetRegion();
+
+      this.filteredTitles = ((yield client.Request({
         url,
       })).results || []).map(title => title.id);
     } catch (error) {
