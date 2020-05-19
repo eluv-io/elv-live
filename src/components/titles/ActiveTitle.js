@@ -179,7 +179,7 @@ class ActiveTitle extends React.Component {
       if(!playoutOptions) { return; }
 
       let player;
-      if(this.props.siteStore.dashSupported) {
+      if(this.props.siteStore.dashSupported && playoutOptions.dash) {
         // DASH
 
         player = DashJS.MediaPlayer().create();
