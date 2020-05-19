@@ -18,18 +18,11 @@ class TitleReel extends React.Component {
   render() {
     if(!this.props.titles || this.props.titles.length === 0) { return null; }
 
-    let titles = this.props.titles;
-    if(this.props.siteStore.searchQuery) {
-      titles = titles.filter(title => this.props.siteStore.filteredTitles.includes(title.objectId));
-    }
-
-    if(titles.length === 0) { return null; }
-
     const showLeft = this.state.startIndex !== 0;
     const showRight = this.state.startIndex + this.state.visible < this.props.titles.length;
 
     return (
-      <div className="title-reel-container">
+      <div className="title-container title-reel-container">
         <h3 className="title-reel-header">{ this.props.name }</h3>
         <div className="title-reel">
           <div
@@ -44,7 +37,7 @@ class TitleReel extends React.Component {
 
           <div className="title-reel-titles">
             {
-              titles.map((title, index) => (
+              this.props.titles.map((title, index) => (
                 <TitleIcon
                   key={`title-reel-title-${this.props.name}-${index}`}
                   title={title}
