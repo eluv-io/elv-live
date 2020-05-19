@@ -29,7 +29,9 @@ class Site extends React.Component {
   PageContent() {
     return (
       <div className="site" id="site">
-        <h2 className="site-header" hidden={!!this.props.siteStore.activeTitle}>
+        { this.ActiveTitle() }
+
+        <h2 className="site-header" hidden={false}>
           <ImageIcon
             className="back-button"
             title="Back to Site Selection"
@@ -42,12 +44,10 @@ class Site extends React.Component {
           <SearchBar />
         </h2>
 
-        { this.ActiveTitle() }
-
         <LoadingElement loading={this.props.siteStore.searching} loadingClassname="loading-indicator">
           { this.props.siteStore.playlists.map(playlist =>
             <TitleReel
-              key={`title-reel-playlist-${playlist.playlistIndex}`}
+              key={`title-reel-playlist-${playlist.playlistId}`}
               name={playlist.name}
               titles={playlist.titles}
             />

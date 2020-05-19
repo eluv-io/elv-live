@@ -43,9 +43,6 @@ class App extends React.Component {
       <div className="app-container">
         <header>
           <ImageIcon className="logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
-          <h1>
-            Eluvio Site Sample
-          </h1>
 
           { this.SourceLink() }
         </header>
