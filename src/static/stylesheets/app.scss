@@ -100,6 +100,10 @@ input {
   top: $elv-spacing-s;
 }
 
+.-elv-loading-element {
+  flex: 1 1 auto;
+}
+
 h1,
 h2,
 h3,
@@ -131,6 +135,7 @@ nav {
   align-items: flex-end;
   display: flex;
   justify-content: center;
+  margin-top: $elv-spacing-s;
   padding-bottom: $elv-spacing-s;
   width: 100%;
 
@@ -140,11 +145,11 @@ nav {
     border-bottom: 3px solid transparent;
     color: $elv-color-lightestgray;
     cursor: pointer;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     height: 3rem;
     padding: 0 0 $elv-spacing-xs;
     transition: border-bottom linear 0.15s, padding linear 0.15s;
-    width: 15rem;
+    width: 12rem;
 
     &:focus {
       border-bottom: 1px solid $elv-color-text-lightest;
@@ -159,18 +164,22 @@ nav {
 
 .site-header {
   @include elv-no-select;
-  align-items: center;
+  align-items: flex-end;
   display: flex;
   font-size: 2.3rem;
   font-weight: 300;
   justify-content: center;
   letter-spacing: 2px;
-  margin: $elv-spacing-s 0 $elv-spacing-l;
   position: relative;
   text-align: center;
 
+  &.with-subheader {
+    margin-bottom: 0;
+  }
+
   .title-search {
     align-items: center;
+    bottom: 0;
     display: flex;
     position: absolute;
     right: 0;
@@ -185,6 +194,14 @@ nav {
       stroke: $elv-color-mediumgray;
     }
   }
+}
+
+.site-subheader {
+  @include elv-no-select;
+  color: $elv-color-text-lighter;
+  font-size: $elv-font-xxl;
+  margin-bottom: $elv-spacing-xxs;
+  text-align: center;
 }
 
 .loading-indicator {
@@ -471,6 +488,14 @@ nav {
   }
 }
 
+.active-title-video-page {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+}
+
 .active-title-details {
   height: auto;
   padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
@@ -530,7 +555,6 @@ nav {
 
 .active-title-metadata {
   max-height: 100%;
-  padding: $elv-spacing-m 0;
   width: 100%;
 
   h2 {

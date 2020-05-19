@@ -14,6 +14,7 @@ import Site from "./components/Site";
 import ContentSelector from "./components/ContentSelector";
 
 @inject("rootStore")
+@inject("siteStore")
 @observer
 class App extends React.Component {
   SourceLink() {
@@ -31,10 +32,14 @@ class App extends React.Component {
       return <LoadingElement loading={true} fullPage={true}/>;
     }
 
-    if(this.props.rootStore.siteId) {
-      return <Site key={`site-${this.props.rootStore.siteId}`}/>;
+    if(this.props.siteStore.currentSite) {
+      return <Site key={`site-${this.props.siteStore.siteId}`} />;
     } else {
-      return <ContentSelector />;
+      return (
+        <LoadingElement loading={this.props.siteStore.loading}>
+          <ContentSelector />
+        </LoadingElement>
+      );
     }
   }
 
