@@ -127,7 +127,12 @@ class ActiveTitle extends React.Component {
             <button
               key={`active-title-tab-${tab}`}
               className={tab === this.state.activeTab ? "active-tab" : ""}
-              onClick={() => this.setState({activeTab: tab})}
+              onClick={() => {
+                this.setState({activeTab: tab});
+                if(this.video) {
+                  this.video.pause();
+                }
+              }}
             >
               { tab }
             </button>
@@ -210,6 +215,7 @@ class ActiveTitle extends React.Component {
       }
 
       this.player = player;
+      this.video = element;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
@@ -220,9 +226,9 @@ class ActiveTitle extends React.Component {
     const title = this.props.siteStore.activeTitle;
 
     return (
-      <div className="active-title-metadata">
+      <div className={`active-title-metadata ${this.state.activeTab === "Metadata" ? "" : "hidden"}`}>
         <h2>{ title.displayTitle.toString() } - Metadata</h2>
-        <div className="metadata-path">{title.isSearchResult ? "" : this.props.siteStore.siteInfo.name + " - "}{title.baseLinkPath}</div>
+        <div className="metadata-path">{title.isSearchResult ? "" : this.props.siteStore.currentSite.name + " - "}{title.baseLinkPath}</div>
         <pre>
           { JSON.stringify(title.metadata, null, 2)}
         </pre>
@@ -238,7 +244,7 @@ class ActiveTitle extends React.Component {
     const Maybe = (value, render) => value ? render() : null;
 
     return (
-      <div className="active-title-details-page">
+      <div className={`active-title-details-page ${this.state.activeTab === "Details" ? "" : "hidden"}`}>
         <ImageIcon icon={title.portraitUrl || title.imageUrl || title.landscapeUrl || FallbackIcon} alternateIcon={FallbackIcon} className="active-title-detail-image" title="Poster" />
         <div className="active-title-details">
           <h2>{ title.displayTitle.toString() }</h2>
@@ -303,7 +309,7 @@ class ActiveTitle extends React.Component {
 
     // Include poster image to pre-load it for details page
     return (
-      <React.Fragment>
+      <div className={`active-title-video-page ${this.state.activeTab === "Video" ? "" : "hidden"}`}>
         <ImageIcon icon={title.portraitUrl || title.imageUrl || title.landscapeUrl} className="hidden" />
         <video
           key={`active-title-video-${title.titleId}`}
@@ -325,29 +331,19 @@ class ActiveTitle extends React.Component {
             currentIndex={currentIndex}
           />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
   render() {
     if(!this.props.siteStore.activeTitle) { return null; }
 
-    let page;
-    switch (this.state.activeTab) {
-      case "Video":
-        page = this.VideoPage();
-        break;
-      case "Details":
-        page = this.DetailsPage();
-        break;
-      case "Metadata":
-        page = this.MetadataPage();
-    }
-
     return (
       <div className="active-title">
         { this.Tabs() }
-        { page }
+        { this.VideoPage() }
+        { this.DetailsPage() }
+        { this.MetadataPage() }
       </div>
     );
   }

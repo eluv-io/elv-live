@@ -7,6 +7,7 @@ import PageBack from "../static/icons/Backward.svg";
 import PageForward from "../static/icons/Forward.svg";
 
 @inject("rootStore")
+@inject("siteStore")
 @observer
 class ContentSelector extends React.Component {
   constructor(props) {
@@ -128,9 +129,10 @@ class ContentSelector extends React.Component {
               <ul>
                 {
                   (this.props.rootStore.objects[this.state.libraryId] || [])
+                    .slice()
                     .sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
                     .map(object => {
-                      const onClick = () => this.props.rootStore.SetSiteId(object.objectId);
+                      const onClick = () => this.props.siteStore.LoadSite(object.objectId);
 
                       return (
                         <li
@@ -153,6 +155,7 @@ class ContentSelector extends React.Component {
 
   Libraries() {
     const libraries = Object.values(this.props.rootStore.libraries)
+      .slice()
       .sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
 
     return (
@@ -194,9 +197,10 @@ class ContentSelector extends React.Component {
           <ul>
             {
               this.props.rootStore.availableSites
+                .slice()
                 .sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
                 .map(object => {
-                  const onClick = () => this.props.rootStore.SetSiteId(object.objectId);
+                  const onClick = () => this.props.siteStore.LoadSite(object.objectId);
 
                   return (
                     <li

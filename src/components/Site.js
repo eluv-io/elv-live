@@ -1,5 +1,4 @@
 import React from "react";
-import AsyncComponent from "./AsyncComponent";
 import {inject, observer} from "mobx-react";
 import ActiveTitle from "./titles/ActiveTitle";
 import TitleReel from "./titles/TitleReel";
@@ -14,12 +13,6 @@ import CloseIcon from "../static/icons/x.svg";
 @inject("siteStore")
 @observer
 class Site extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.PageContent = this.PageContent.bind(this);
-  }
-
   ActiveTitle() {
     return <ActiveTitle key={`active-title-${this.props.siteStore.activeTitle.titleId}`} />;
   }
@@ -39,7 +32,7 @@ class Site extends React.Component {
 
     return (
       <React.Fragment>
-        { this.props.siteStore.playlists.map(playlist =>
+        { this.props.siteStore.currentSite.playlists.map(playlist =>
           <TitleReel
             key={`title-reel-playlist-${playlist.playlistId}`}
             name={playlist.name}
@@ -47,14 +40,14 @@ class Site extends React.Component {
           />
         )}
 
-        <TitleReel name="Channels" titles={this.props.siteStore.channels} />
+        <TitleReel name="Channels" titles={this.props.siteStore.currentSite.channels} />
 
-        <TitleGrid name="Series" titles={this.props.siteStore.series} />
-        <TitleGrid name="Seasons" titles={this.props.siteStore.seasons} />
+        <TitleGrid name="Series" titles={this.props.siteStore.currentSite.series} />
+        <TitleGrid name="Seasons" titles={this.props.siteStore.currentSite.seasons} />
 
-        <TitleGrid name="Episodes" titles={this.props.siteStore.episodes} />
+        <TitleGrid name="Episodes" titles={this.props.siteStore.currentSite.episodes} />
 
-        <TitleGrid name="All Titles" titles={this.props.siteStore.titles} />
+        <TitleGrid name="All Titles" titles={this.props.siteStore.currentSite.titles} />
       </React.Fragment>
     );
   }
@@ -69,10 +62,15 @@ class Site extends React.Component {
       backIcon = BackIcon;
       backText = "Back to All Content";
       backAction = this.props.siteStore.ClearSearch;
+    } else if(this.props.siteStore.sites.length > 1) {
+      const previousSite = this.props.siteStore.sites[this.props.siteStore.sites.length - 2];
+      backIcon = BackIcon;
+      backText = `Back to ${previousSite.name}`;
+      backAction = () => this.props.siteStore.PopSite();
     } else {
       backIcon = BackIcon;
       backText = "Back to Site Selection";
-      backAction = () => this.props.rootStore.PopSiteId();
+      backAction = () => this.props.siteStore.Reset();
     }
 
     return (
@@ -86,30 +84,26 @@ class Site extends React.Component {
     );
   }
 
-  PageContent() {
+  render() {
+    if(!this.props.siteStore.currentSite) { return null; }
+
+    const mainSiteName = this.props.siteStore.sites[0].name;
+    const subHeader = this.props.siteStore.sites.slice(1).map(site => site.name).join(" - ");
+
     return (
       <div className="site" id="site">
-        <h2 className="site-header" hidden={false}>
+        <h2 className={`site-header ${subHeader ? "with-subheader" : ""}`} hidden={false}>
           { this.BackButton() }
-          { this.props.siteStore.siteInfo.name }
+          { mainSiteName }
           <SearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />
         </h2>
 
-        { this.props.siteStore.activeTitle ? this.ActiveTitle() : this.Content() }
-      </div>
-    );
-  }
+        { subHeader ? <h3 className="site-subheader">{ subHeader }</h3> : null }
 
-  render() {
-    return (
-      <AsyncComponent
-        Load={
-          async () => {
-            await this.props.siteStore.LoadSite(this.props.objectId);
-          }
-        }
-        render={this.PageContent}
-      />
+        <LoadingElement loading={this.props.siteStore.loading}>
+          { this.props.siteStore.activeTitle ? this.ActiveTitle() : this.Content() }
+        </LoadingElement>
+      </div>
     );
   }
 }

@@ -24,7 +24,7 @@ class TitleIcon extends React.Component {
 
       // Clicked 'title' is actually a collection
       if(["site", "series", "season"].includes(title.title_type)) {
-        this.props.rootStore.SetSiteId(title.objectId);
+        this.props.siteStore.LoadSite(title.objectId);
       } else {
         await this.props.siteStore.SetActiveTitle(title);
       }

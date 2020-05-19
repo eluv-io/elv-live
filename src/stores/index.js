@@ -13,9 +13,6 @@ class RootStore {
   @observable client;
   @observable sites = [];
   @observable availableSites = [];
-  @observable siteId;
-
-  @observable history = [];
 
   @observable libraries = {};
   @observable objects = {};
@@ -23,8 +20,8 @@ class RootStore {
   @observable error = "";
 
   constructor() {
-    this.InitializeClient();
     this.siteStore = new SiteStore(this);
+    this.InitializeClient();
   }
 
   @action.bound
@@ -44,12 +41,11 @@ class RootStore {
 
     const initialContentId = appPath[0];
 
-    if(initialContentId) {
-      this.SetSiteId(initialContentId);
-    }
-
-    // Setting the client signals the app to start rendering
     this.client = client;
+
+    if(initialContentId) {
+      this.siteStore.LoadSite(initialContentId);
+    }
   }
 
   async FindSites() {
@@ -115,34 +111,6 @@ class RootStore {
       })
     );
   });
-
-  @action.bound
-  SetSiteId(id, pushHistory=true) {
-    this.error = "";
-
-    if(this.siteId && pushHistory) {
-      this.history.push(this.siteId);
-    }
-
-    this.siteId = id;
-
-    window.location.hash = `#/${id || ""}`;
-
-    if(this.client && window.self !== window.top) {
-      this.client.SendMessage({
-        options: {
-          operation: "SetFramePath",
-          path: `#/${id || ""}`
-        },
-        noResponse: true
-      });
-    }
-  }
-
-  @action.bound
-  PopSiteId() {
-    this.SetSiteId(this.history.pop(), false);
-  }
 
   @action.bound
   SetError(error) {
