@@ -5,7 +5,6 @@ import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
 import {DateTime} from "luxon";
 
-import CloseIcon from "../../static/icons/x.svg";
 import FallbackIcon from "../../static/icons/video.svg";
 
 @inject("siteStore")
@@ -106,6 +105,10 @@ class ActiveTitle extends React.Component {
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
+  componentWillMount() {
+    window.scrollTo(0, 0);
+  }
+
   componentWillUnmount() {
     this.DestroyPlayer();
   }
@@ -119,12 +122,6 @@ class ActiveTitle extends React.Component {
   Tabs() {
     return (
       <nav className="tabs">
-        <ImageIcon
-          className="back-button"
-          title="Back"
-          icon={CloseIcon}
-          onClick={this.props.siteStore.ClearActiveTitle}
-        />
         {
           this.state.tabs.map(tab =>
             <button
@@ -213,8 +210,6 @@ class ActiveTitle extends React.Component {
       }
 
       this.player = player;
-
-      element.scrollIntoView(true);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
@@ -227,7 +222,7 @@ class ActiveTitle extends React.Component {
     return (
       <div className="active-title-metadata">
         <h2>{ title.displayTitle.toString() } - Metadata</h2>
-        <div className="metadata-path">{this.props.siteStore.siteInfo.name} - {title.baseLinkPath}</div>
+        <div className="metadata-path">{title.isSearchResult ? "" : this.props.siteStore.siteInfo.name + " - "}{title.baseLinkPath}</div>
         <pre>
           { JSON.stringify(title.metadata, null, 2)}
         </pre>

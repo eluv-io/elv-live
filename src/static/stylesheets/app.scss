@@ -32,6 +32,13 @@ html {
 html,
 body,
 .app,
+.app-container {
+  min-height: 100vh;
+}
+
+html,
+body,
+.app,
 .app-container,
 main,
 .site,
@@ -41,7 +48,6 @@ main,
   flex-direction: column;
   height: auto;
   max-width: 100%;
-  min-height: 100vh;
   width: 100%;
 }
 
@@ -73,7 +79,6 @@ main {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15rem;
   max-width: 100%;
   min-height: 80%;
   width: 100%;
@@ -153,7 +158,14 @@ nav {
 }
 
 .site-header {
-  margin: $elv-spacing-s 0;
+  @include elv-no-select;
+  align-items: center;
+  display: flex;
+  font-size: 2.3rem;
+  font-weight: 300;
+  justify-content: center;
+  letter-spacing: 2px;
+  margin: $elv-spacing-s 0 $elv-spacing-l;
   position: relative;
   text-align: center;
 
@@ -162,7 +174,6 @@ nav {
     display: flex;
     position: absolute;
     right: 0;
-    top: 0;
   }
 
   .clear-search {
@@ -180,6 +191,17 @@ nav {
   justify-content: center;
   margin: $elv-spacing-xxl 0 0;
   width: 100%;
+}
+
+.title-container {
+  &:last-child {
+    margin-bottom: $elv-spacing-xl;
+  }
+
+  .no-titles-message {
+    color: $elv-color-text-light;
+    margin-left: $elv-spacing-s;
+  }
 }
 
 .title-reel-container {
@@ -395,7 +417,6 @@ nav {
   display: flex;
   flex-direction: column;
   height: auto;
-  min-height: calc(100vh - #{$header-height});
 
   h4 {
     color: $elv-color-lightergray;
@@ -410,7 +431,7 @@ nav {
     border-radius: 0.5rem;
     cursor: pointer;
     height: 1080px;
-    max-height: 65vh;
+    max-height: 55vh;
     scroll-margin: 10rem;
     width: 100%;
   }
@@ -438,7 +459,7 @@ nav {
 
   .active-title-detail-image {
     height: auto;
-    max-height: 80vh;
+    max-height: 70vh;
     object-fit: contain;
     object-position: right;
     width: 100%;
@@ -527,7 +548,7 @@ nav {
     background: $elv-color-bg-dark;
     border: 0;
     margin: $elv-spacing-s auto;
-    max-height: 70vh;
+    max-height: 55vh;
     overflow-y: auto;
     width: 85%;
   }

@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
     super(props);
 
     this.state = {
-      search: ""
+      search: this.props.siteStore.searchQuery
     };
 
     this.HandleSearchChange = this.HandleSearchChange.bind(this);
@@ -41,11 +41,11 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    if(!this.props.siteStore.siteInfo.searchIndex) { return null; }
+    if(!this.props.siteStore.searchIndex) { return null; }
 
     return (
       <div className="title-search">
-        <input value={this.state.search} onChange={this.HandleSearchChange} placeholder="Filter titles..." />
+        <input value={this.state.search} onChange={this.HandleSearchChange} placeholder="Filter titles..." autoFocus={this.props.siteStore.searchQuery} />
         <IconButton icon={ClearSearchIcon} className="clear-search" title="Clear" onClick={() => this.HandleSearchChange({target: { value: "" }})} />
       </div>
     );

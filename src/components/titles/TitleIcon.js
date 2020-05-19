@@ -46,7 +46,7 @@ class TitleIcon extends React.Component {
     const thumbnail = this.props.siteStore.CreateLink(
       title.landscapeUrl || title.imageUrl,
       "",
-      { height: Math.max(150, Math.floor(vh / 2)) }
+      { height: Math.max(150, Math.floor(vh / 3)) }
     );
 
     return (

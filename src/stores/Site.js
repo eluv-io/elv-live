@@ -6,8 +6,6 @@ import Id from "@eluvio/elv-client-js/src/Id";
 class SiteStore {
   @observable siteLibraryId;
 
-  @observable filteredTitles = [];
-
   @observable siteInfo;
   @observable dashSupported = false;
   @observable activeTitle;
@@ -20,10 +18,13 @@ class SiteStore {
   @observable titles = [];
   @observable channels = [];
   @observable playlists = [];
+  @observable searchResults = [];
 
   @observable searching = false;
   @observable searchQuery = "";
   @observable searchCounter = 0;
+  @observable searchIndex;
+  @observable searchNodes = [];
 
   @observable error = "";
 
@@ -39,10 +40,8 @@ class SiteStore {
     this.rootStore = rootStore;
   }
 
-  Reset() {
+  Reset(isSubSite=false) {
     this.siteLibraryId = undefined;
-
-    this.filteredTitles = [];
 
     this.siteInfo = undefined;
     this.dashSupported = false;
@@ -61,12 +60,19 @@ class SiteStore {
     this.searchQuery = "";
     this.searchCounter = 0;
 
+    if(!isSubSite) {
+      this.searchIndex = undefined;
+      this.searchNodes = [];
+    }
+
     this.error = "";
   }
 
   @action.bound
   LoadSite = flow(function * () {
-    this.Reset();
+    const isSubSite = this.rootStore.history.length > 0;
+
+    this.Reset(isSubSite);
 
     try {
       const availableDRMS = yield this.client.AvailableDRMs();
@@ -97,17 +103,19 @@ class SiteStore {
         ]
       });
 
-      siteInfo.searchIndex = yield this.client.ContentObjectMetadata({
-        libraryId: this.siteLibraryId,
-        objectId: this.siteId,
-        metadataSubtree: "public/site_index"
-      });
+      if(!isSubSite) {
+        this.searchIndex = yield this.client.ContentObjectMetadata({
+          libraryId: this.siteLibraryId,
+          objectId: this.siteId,
+          metadataSubtree: "public/site_index"
+        });
 
-      siteInfo.searchNodes = yield this.client.ContentObjectMetadata({
-        libraryId: this.siteLibraryId,
-        objectId: this.siteId,
-        metadataSubtree: "public/search_api"
-      });
+        this.searchNodes = yield this.client.ContentObjectMetadata({
+          libraryId: this.siteLibraryId,
+          objectId: this.siteId,
+          metadataSubtree: "public/search_api"
+        });
+      }
 
       siteInfo.name = siteName;
 
@@ -142,6 +150,33 @@ class SiteStore {
     }
   });
 
+  async ImageLinks({baseLinkUrl, versionHash, images}) {
+    images = images || {};
+
+    let landscapeUrl, portraitUrl, imageUrl;
+    if(images.landscape) {
+      landscapeUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "landscape", "default"));
+    } else if(images.main_slider_background_desktop) {
+      landscapeUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "main_slider_background_desktop", "default"));
+    }
+
+    if(images.poster) {
+      portraitUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "poster", "default"));
+    } else if(images.primary_portrait) {
+      portraitUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "primary_portrait", "default"));
+    } else if(images.portrait) {
+      portraitUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "portrait", "default"));
+    }
+
+    imageUrl = await this.client.ContentObjectImageUrl({versionHash});
+
+    return {
+      landscapeUrl,
+      portraitUrl,
+      imageUrl
+    };
+  }
+
   @action.bound
   LoadTitles = flow(function * (metadataKey, titleInfo) {
     if(!titleInfo) { return []; }
@@ -154,6 +189,7 @@ class SiteStore {
           const titleKey = Object.keys(titleInfo[index])[0];
           let title = titleInfo[index][titleKey];
 
+          title.displayTitle = title.display_title || title.title || "";
           title.versionHash = title["."].source;
           title.objectId = this.rootStore.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
@@ -169,24 +205,7 @@ class SiteStore {
               linkPath
             });
 
-          const images = title.images || {};
-          if(images.landscape) {
-            title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "landscape", "default"));
-          } else if(images.main_slider_background_desktop) {
-            title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "main_slider_background_desktop", "default"));
-          }
-
-          if(images.poster) {
-            title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "poster", "default"));
-          } else if(images.primary_portrait) {
-            title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "primary_portrait", "default"));
-          } else if(images.portrait) {
-            title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "portrait", "default"));
-          }
-
-          title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
-
-          title.displayTitle = title.display_title || title.title || "";
+          Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
 
           titles[index] = title;
         } catch (error) {
@@ -219,6 +238,7 @@ class SiteStore {
               try {
                 let title = list[titleSlug];
 
+                title.displayTitle = title.display_title || title.title || "";
                 title.versionHash = title["."].source;
                 title.objectId = this.rootStore.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
@@ -235,20 +255,7 @@ class SiteStore {
 
                 title.titleId = Id.next();
 
-                const images = title.images || {};
-                if(images.landscape) {
-                  title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "landscape", "default"));
-                } else if(images.main_slider_background_desktop) {
-                  title.landscapeUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "main_slider_background_desktop", "default"));
-                }
-
-                if(images.portrait) {
-                  title.portraitUrl = this.CreateLink(title.baseLinkUrl, UrlJoin("images", "portrait", "default"));
-                }
-
-                title.imageUrl = await this.client.ContentObjectImageUrl({versionHash: title["."].source});
-
-                title.displayTitle = title.display_title || title.title || "";
+                Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
 
                 titles[parseInt(title.order)] = title;
               } catch (error) {
@@ -281,9 +288,12 @@ class SiteStore {
   SetActiveTitle = flow(function * (title) {
     let playoutOptions;
     try {
+      const target = title.isSearchResult ?
+        { versionHash: title.versionHash } :
+        { libraryId: this.siteLibraryId, objectId: this.siteId };
+
       playoutOptions = yield this.client.PlayoutOptions({
-        libraryId: this.siteLibraryId,
-        objectId: this.siteId,
+        ...target,
         linkPath: title.playoutOptionsLinkPath,
         protocols: ["hls", "dash"],
         drms: ["aes-128", "widevine", "clear"]
@@ -310,7 +320,11 @@ class SiteStore {
 
   @action.bound
   SearchTitles = flow(function * ({query}) {
-    if(!this.siteInfo.searchIndex || !this.siteInfo.searchNodes) { return; }
+    if(!this.searchIndex || !this.searchNodes) { return; }
+
+    this.ClearActiveTitle();
+
+    if(!query) { return; }
 
     const client = this.rootStore.client;
 
@@ -320,27 +334,59 @@ class SiteStore {
       this.searchCounter = this.searchCounter + 1;
 
       const indexHash = yield client.LatestVersionHash({
-        objectId: this.siteInfo.searchIndex
+        objectId: this.searchIndex
       });
 
       yield client.SetNodes({
-        fabricURIs: toJS(this.siteInfo.searchNodes)
+        fabricURIs: toJS(this.searchNodes)
       });
 
       const url = yield client.Rep({
         versionHash: indexHash,
         rep: "search",
         queryParams: {
-          terms: query
+          terms: query,
+          select: "public/asset_metadata"
         },
         noAuth: true
       });
 
       yield client.ResetRegion();
 
-      this.filteredTitles = ((yield client.Request({
+
+      const results = ((yield client.Request({
         url,
-      })).results || []).map(title => title.id);
+      })).results || []);
+
+      this.searchResults = (yield Promise.all(
+        results.map(async ({id, hash, meta}) => {
+          try {
+            meta = ((meta || {}).public || {}).asset_metadata || {};
+            const linkPath = UrlJoin("public", "asset_metadata");
+            const playoutOptionsLinkPath = UrlJoin(linkPath, "sources", "default");
+            const baseLinkPath = linkPath;
+            const baseLinkUrl = await this.client.LinkUrl({versionHash: hash, linkPath});
+            const imageLinks = await this.ImageLinks({baseLinkUrl, versionHash: hash, images: meta.images});
+
+            return {
+              ...meta,
+              ...imageLinks,
+              isSearchResult: true,
+              displayTitle: meta.display_title || meta.title || "",
+              objectId: id,
+              versionHash: hash,
+              playoutOptionsLinkPath,
+              baseLinkPath,
+              baseLinkUrl
+            };
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error("Error loading search result:", id, hash);
+            // eslint-disable-next-line no-console
+            console.error(error);
+          }
+        })
+      )).filter(result => result);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error performing site search:");
