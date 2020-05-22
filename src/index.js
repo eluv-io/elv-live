@@ -12,6 +12,7 @@ import Logo from "./static/images/Logo.png";
 import GithubIcon from "./static/icons/github.svg";
 import Site from "./components/Site";
 import ContentSelector from "./components/ContentSelector";
+import CodeAccess from "./components/CodeAccess";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -34,6 +35,10 @@ class App extends React.Component {
 
     if(this.props.siteStore.currentSite) {
       return <Site key={`site-${this.props.siteStore.siteId}`} />;
+    } else if(this.props.rootStore.siteSelector) {
+      return (
+        <CodeAccess />
+      );
     } else {
       return (
         <LoadingElement loading={this.props.siteStore.loading}>

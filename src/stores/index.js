@@ -1,13 +1,16 @@
-import {configure, observable, action, flow} from "mobx";
-
+import {configure, observable, action, flow, runInAction} from "mobx";
 import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
-
 import SiteStore from "./Site";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
   enforceActions: "always"
 });
+
+const Hash = (code) => {
+  const chars = code.split("").map(code => code.charCodeAt(0));
+  return chars.reduce((sum, char, i) => (chars[i + 1] ? (sum * 2) + char * chars[i+1] * (i + 1) : sum + char), 0).toString();
+};
 
 class RootStore {
   @observable client;
@@ -17,6 +20,8 @@ class RootStore {
   @observable libraries = {};
   @observable objects = {};
 
+  @observable siteSelector;
+
   @observable error = "";
 
   constructor() {
@@ -25,28 +30,92 @@ class RootStore {
   }
 
   @action.bound
-  InitializeClient() {
+  InitializeClient = flow(function * () {
     this.client = undefined;
 
-    let client = new FrameClient({
-      target: window.parent,
-      timeout: 30
-    });
+    let client;
+    // Initialize ElvClient or FrameClient
+    if(window.self === window.top) {
+      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
-    client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
+      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+
+      const wallet = client.GenerateWallet();
+      const mnemonic = wallet.GenerateMnemonic();
+      const signer = wallet.AddAccountFromMnemonic({mnemonic});
+
+      client.SetSigner({signer});
+    } else {
+      // Contained in IFrame
+      client = new FrameClient({
+        target: window.parent,
+        timeout: 30
+      });
+
+      // Hide header if in frame
+      if(client.SendMessage) {
+        client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
+      }
+    }
 
     const appPath = window.location.hash
       .replace(/^\/*#?\/*/, "")
       .split("/");
 
-    const initialContentId = appPath[0];
+    if(appPath[0] === "code") {
+      const siteSelectorId = appPath[1];
+      this.siteSelector = yield client.LatestVersionHash({objectId: siteSelectorId});
+      this.client = client;
+    } else {
+      const initialContentId = appPath[0];
+
+      this.client = client;
+
+      if(initialContentId) {
+        this.siteStore.LoadSite(initialContentId);
+      }
+    }
+  });
+
+  RedeemCode = flow(function * (code) {
+    const hash = Hash(code);
+
+    const siteInfo = yield this.client.ContentObjectMetadata({
+      versionHash: this.siteSelector,
+      metadataSubtree: `public/codes/${hash}`
+    });
+
+    if(!siteInfo) {
+      this.SetError("Invalid code");
+      return false;
+    }
+
+    let client;
+    try {
+      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      const wallet = client.GenerateWallet();
+
+      const encryptedPrivateKey = atob(siteInfo.ak);
+      const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
+
+      client.SetSigner({signer});
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Error redeeming code:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+
+      this.SetError("Invalid code");
+      return false;
+    }
 
     this.client = client;
 
-    if(initialContentId) {
-      this.siteStore.LoadSite(initialContentId);
-    }
-  }
+    this.siteStore.LoadSite(siteInfo.sites[0].siteId);
+
+    return true;
+  });
 
   async FindSites() {
     let sites = [];
@@ -115,6 +184,12 @@ class RootStore {
   @action.bound
   SetError(error) {
     this.error = error;
+
+    clearTimeout(this.errorTimeout);
+
+    this.errorTimeout = setTimeout(() => {
+      runInAction(() => this.SetError(""));
+    }, 8000);
   }
 
   @action.bound
@@ -197,7 +272,9 @@ class RootStore {
 
   @action.bound
   ReturnToApps() {
-    this.client.SendMessage({options: {operation: "ShowAppsPage"}, noResponse: true});
+    if(this.client.SendMessage) {
+      this.client.SendMessage({options: {operation: "ShowAppsPage"}, noResponse: true});
+    }
   }
 }
 

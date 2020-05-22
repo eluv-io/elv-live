@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -38,10 +37,7 @@ module.exports = {
           keep_fnames: true
         }
       })
-    ],
-    splitChunks: {
-      chunks: "all"
-    }
+    ]
   },
   node: {
     fs: "empty"
@@ -49,9 +45,6 @@ module.exports = {
   mode: "development",
   devtool: "eval-source-map",
   plugins: [
-    new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1,
-    }),
     new CopyWebpackPlugin([
       {
         from: Path.join(__dirname, "configuration.js"),
@@ -61,13 +54,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Eluvio Stream Sample",
       template: Path.join(__dirname, "src", "index.html"),
-      inject: "body",
       cache: false,
       filename: "index.html",
-      inlineSource: ".(js|css)$",
       favicon: "node_modules/elv-components-js/src/icons/favicon.png"
-    }),
-    new HtmlWebpackInlineSourcePlugin()
+    })
     //, new BundleAnalyzerPlugin()
   ],
   module: {

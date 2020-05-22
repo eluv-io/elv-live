@@ -1,7 +1,8 @@
-import {observable, action, flow, computed, runInAction, toJS} from "mobx";
+import {observable, action, flow, computed, toJS} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import Id from "@eluvio/elv-client-js/src/Id";
+import { v4 as UUID } from "uuid";
 
 class SiteStore {
   @observable sites = [];
@@ -69,15 +70,19 @@ class SiteStore {
 
     this.error = "";
 
-    window.location.hash = "";
+    if(!this.rootStore.siteSelector) {
+      window.location.hash = "";
 
-    this.client.SendMessage({
-      options: {
-        operation: "SetFramePath",
-        path: ""
-      },
-      noResponse: true
-    });
+      if(this.client.SendMessage) {
+        this.client.SendMessage({
+          options: {
+            operation: "SetFramePath",
+            path: ""
+          },
+          noResponse: true
+        });
+      }
+    }
   }
 
   @action.bound
@@ -116,6 +121,7 @@ class SiteStore {
           "seasons",
           "series",
           "titles",
+          UUID()
         ]
       });
 
@@ -146,16 +152,18 @@ class SiteStore {
 
       this.sites.push(siteInfo);
 
-      if(this.sites.length === 1) {
+      if(this.sites.length === 1 && !this.rootStore.siteSelector) {
         window.location.hash = `#/${objectId || ""}`;
 
-        this.client.SendMessage({
-          options: {
-            operation: "SetFramePath",
-            path: `#/${objectId || ""}`
-          },
-          noResponse: true
-        });
+        if(this.client.SendMessage) {
+          this.client.SendMessage({
+            options: {
+              operation: "SetFramePath",
+              path: `#/${objectId || ""}`
+            },
+            noResponse: true
+          });
+        }
       }
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -164,7 +172,6 @@ class SiteStore {
       console.error(error);
 
       this.rootStore.SetError("Invalid site object");
-      setTimeout(() => runInAction(() => this.rootStore.SetError("")), 8000);
     } finally {
       this.loading = false;
     }
@@ -208,6 +215,10 @@ class SiteStore {
         try {
           const titleKey = Object.keys(titleInfo[index])[0];
           let title = titleInfo[index][titleKey];
+
+          if(title["."].resolution_error) {
+            return;
+          }
 
           title.displayTitle = title.display_title || title.title || "";
           title.versionHash = title["."].source;
