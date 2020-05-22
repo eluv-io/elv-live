@@ -38,7 +38,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "urijs": "^1.19.1",
-    "url-join": "^4.0.1"
+    "url-join": "^4.0.1",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

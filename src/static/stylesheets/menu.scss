@@ -76,3 +76,51 @@
     }
   }
 }
+
+.code-entry {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  margin-top: 10vh;
+  width: 100%;
+
+  * {
+    font-weight: 300;
+  }
+
+  h2 {
+    margin-bottom: $elv-spacing-m;
+  }
+
+  .code-input {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+
+    input {
+      color: $elv-color-text-white;
+      font-size: $elv-font-xxl;
+      height: 3rem;
+      margin-bottom: $elv-spacing-m;
+      text-align: center;
+      width: 25rem;
+    }
+
+    button {
+      background: $elv-color-darkblue;
+      border: 0;
+      font-size: $elv-font-l;
+      height: 2.5rem;
+      width: 10rem;
+
+      &:not(:active):hover,
+      &:hover {
+        background: $elv-color-mediumblue;
+        border: 0;
+        color: $elv-color-text-white;
+      }
+    }
+  }
+}
