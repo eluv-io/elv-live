@@ -1,18 +1,16 @@
-import "./static/stylesheets/app.scss";
-
 import React from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 
 import {ImageIcon, LoadingElement} from "elv-components-js";
 
-import * as Stores from "./stores";
+import * as Stores from "../../stores";
 
-import Logo from "./static/images/Logo.png";
-import GithubIcon from "./static/icons/github.svg";
-import Site from "./components/Site";
-import ContentSelector from "./components/ContentSelector";
-import CodeAccess from "./components/CodeAccess";
+import Logo from "../../static/images/Logo.png";
+import GithubIcon from "../../static/icons/github.svg";
+import Site from "./Site";
+import ContentSelector from "../ContentSelector";
+import CodeAccess from "../CodeAccess";
 
 @inject("rootStore")
 @inject("siteStore")

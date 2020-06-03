@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/components/original/index.js",
   target: "web",
   output: {
     path: Path.resolve(__dirname, "dist"),
