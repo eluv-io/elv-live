@@ -1,13 +1,15 @@
+import "../../static/stylesheets/original/app.scss";
+
 import React from "react";
 import {inject, observer} from "mobx-react";
-import ActiveTitle from "./titles/ActiveTitle";
-import TitleReel from "./titles/TitleReel";
+import ActiveTitle from "./ActiveTitle";
+import TitleReel from "./TitleReel";
 import {ImageIcon, LoadingElement} from "elv-components-js";
-import TitleGrid from "./titles/TitleGrid";
-import SearchBar from "./SearchBar";
+import TitleGrid from "./TitleGrid";
+import SearchBar from "../SearchBar";
 
-import BackIcon from "../static/icons/back.svg";
-import CloseIcon from "../static/icons/x.svg";
+import BackIcon from "../../static/icons/back.svg";
+import CloseIcon from "../../static/icons/x.svg";
 
 @inject("rootStore")
 @inject("siteStore")
