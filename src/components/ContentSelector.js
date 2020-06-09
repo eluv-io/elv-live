@@ -5,6 +5,7 @@ import {AsyncComponent, IconButton, ImageIcon, onEnterPressed} from "elv-compone
 import BackIcon from "../static/icons/back.svg";
 import PageBack from "../static/icons/Backward.svg";
 import PageForward from "../static/icons/Forward.svg";
+import {Link} from "react-router-dom";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -132,17 +133,14 @@ class ContentSelector extends React.Component {
                     .slice()
                     .sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
                     .map(object => {
-                      const onClick = () => this.props.siteStore.LoadSite(object.objectId);
-
                       return (
-                        <li
-                          tabIndex={0}
-                          onClick={onClick}
-                          onKeyPress={onEnterPressed(onClick)}
-                          key={`content-object-${object.objectId}`}
-                        >
-                          { object.name }
-                        </li>
+                        <Link to={"/" + object.objectId} key={`content-object-${object.objectId}`}>
+                          <li
+                            tabIndex={0}
+                          >
+                            { object.name }
+                          </li>
+                        </Link>
                       );
                     })
                 }
@@ -200,17 +198,15 @@ class ContentSelector extends React.Component {
                 .slice()
                 .sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
                 .map(object => {
-                  const onClick = () => this.props.siteStore.LoadSite(object.objectId);
-
                   return (
-                    <li
-                      tabIndex={0}
-                      onClick={onClick}
-                      onKeyPress={onEnterPressed(onClick)}
-                      key={`content-object-${object.objectId}`}
-                    >
-                      { object.name }
-                    </li>
+                    <Link to={"/" + object.objectId} key={`content-object-${object.objectId}`}>
+                      <li
+                        tabIndex={0}
+                        key={`content-object-${object.objectId}`}
+                      >
+                        { object.name }
+                      </li>
+                    </Link>
                   );
                 })
             }

@@ -8,8 +8,6 @@ class SiteStore {
   @observable sites = [];
   @observable loading = false;
 
-  @observable siteLibraryId;
-
   @observable siteInfo;
   @observable dashSupported = false;
   @observable activeTitle;
@@ -73,20 +71,6 @@ class SiteStore {
     this.searchNodes = [];
 
     this.error = "";
-
-    if(!this.rootStore.siteSelector) {
-      window.location.hash = "";
-
-      if(this.client.SendMessage) {
-        this.client.SendMessage({
-          options: {
-            operation: "SetFramePath",
-            path: ""
-          },
-          noResponse: true
-        });
-      }
-    }
   }
 
   @action.bound
@@ -99,8 +83,23 @@ class SiteStore {
     this.sites.pop();
   }
 
+  SiteParams() {
+    if(this.sites.length === 0) {
+      return {};
+    }
+
+    const site = this.sites.slice(-1)[0];
+
+    return {
+      libraryId: site.libraryId,
+      objectId: site.objectId,
+      versionHash: site.versionHash,
+      writeToken: site.writeToken
+    };
+  }
+
   @action.bound
-  LoadSite = flow(function * (objectId) {
+  LoadSite = flow(function * (objectId, writeToken) {
     try {
       this.loading = true;
 
@@ -108,10 +107,15 @@ class SiteStore {
       const availableDRMS = yield this.client.AvailableDRMs();
       this.dashSupported = availableDRMS.includes("widevine");
 
-      const versionHash = yield this.client.LatestVersionHash({objectId});
+      const siteParams = {
+        libraryId: yield this.client.ContentObjectLibraryId({objectId}),
+        objectId: objectId,
+        versionHash: yield this.client.LatestVersionHash({objectId}),
+        writeToken: writeToken
+      };
 
       let siteInfo = yield this.client.ContentObjectMetadata({
-        versionHash,
+        ...siteParams,
         metadataSubtree: "public/asset_metadata",
         resolveLinks: true,
         resolveIncludeSource: true,
@@ -130,46 +134,34 @@ class SiteStore {
         ]
       });
 
-      if(!isSubSite) {
-        this.searchIndex = yield this.client.ContentObjectMetadata({versionHash, metadataSubtree: "public/site_index"});
-        this.searchNodes = yield this.client.ContentObjectMetadata({versionHash, metadataSubtree: "public/search_api"});
-      }
+      siteInfo = {
+        ...siteInfo,
+        ...siteParams
+      };
 
-      siteInfo.objectId = objectId;
-      siteInfo.versionHash = versionHash;
+      if(!isSubSite) {
+        this.searchIndex = yield this.client.ContentObjectMetadata({...siteParams, metadataSubtree: "public/site_index"});
+        this.searchNodes = yield this.client.ContentObjectMetadata({...siteParams, metadataSubtree: "public/search_api"});
+      }
 
       siteInfo.name =
         siteInfo.display_title ||
         siteInfo.title ||
-        (yield this.client.ContentObjectMetadata({versionHash, metadataSubtree: "public/name"}));
+        (yield this.client.ContentObjectMetadata({...siteParams, metadataSubtree: "public/name"}));
 
-      siteInfo.baseLinkUrl = yield this.client.LinkUrl({versionHash, linkPath: "public/asset_metadata"});
+      siteInfo.baseLinkUrl = yield this.client.LinkUrl({...siteParams, linkPath: "public/asset_metadata"});
 
-      siteInfo.series = yield this.LoadTitles(versionHash, "series", siteInfo.series);
-      siteInfo.seasons = yield this.LoadTitles(versionHash, "seasons", siteInfo.seasons);
-      siteInfo.episodes = yield this.LoadTitles(versionHash, "episodes", siteInfo.episodes);
-      siteInfo.titles = yield this.LoadTitles(versionHash, "titles", siteInfo.titles);
-      siteInfo.channels = yield this.LoadTitles(versionHash, "channels", siteInfo.channels);
-      siteInfo.playlists = yield this.LoadPlaylists(versionHash, siteInfo.playlists);
+      siteInfo.series = yield this.LoadTitles(siteParams, "series", siteInfo.series);
+      siteInfo.seasons = yield this.LoadTitles(siteParams, "seasons", siteInfo.seasons);
+      siteInfo.episodes = yield this.LoadTitles(siteParams, "episodes", siteInfo.episodes);
+      siteInfo.titles = yield this.LoadTitles(siteParams, "titles", siteInfo.titles);
+      siteInfo.channels = yield this.LoadTitles(siteParams, "channels", siteInfo.channels);
+      siteInfo.playlists = yield this.LoadPlaylists(siteParams, siteInfo.playlists);
 
       //delete siteInfo.titles;
       //delete siteInfo.playlists;
 
       this.sites.push(siteInfo);
-
-      if(this.sites.length === 1 && !this.rootStore.siteSelector) {
-        window.location.hash = `#/${objectId || ""}`;
-
-        if(this.client.SendMessage) {
-          this.client.SendMessage({
-            options: {
-              operation: "SetFramePath",
-              path: `#/${objectId || ""}`
-            },
-            noResponse: true
-          });
-        }
-      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load site:", objectId);
@@ -210,7 +202,7 @@ class SiteStore {
   }
 
   @action.bound
-  LoadTitles = flow(function * (versionHash, metadataKey, titleInfo) {
+  LoadTitles = flow(function * (siteParams, metadataKey, titleInfo) {
     if(!titleInfo) { return []; }
 
     // Titles: {[index]: {[title-key]: { ...title }}
@@ -236,7 +228,7 @@ class SiteStore {
           title.playoutOptionsLinkPath = UrlJoin(linkPath, "sources", "default");
           title.baseLinkPath = linkPath;
           title.baseLinkUrl =
-            await this.client.LinkUrl({versionHash, linkPath});
+            await this.client.LinkUrl({...siteParams, linkPath});
 
           Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
 
@@ -254,7 +246,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadPlaylists = flow(function * (versionHash, playlistInfo) {
+  LoadPlaylists = flow(function * (siteParams, playlistInfo) {
     // Playlists: {[slug]: { order, name, list: {[title-slug]: { ... }}}
 
     if(!playlistInfo || Object.keys(playlistInfo).length === 0) { return []; }
@@ -271,6 +263,10 @@ class SiteStore {
               try {
                 let title = list[titleSlug];
 
+                if(title["."].resolution_error) {
+                  return;
+                }
+
                 title.displayTitle = title.display_title || title.title || "";
                 title.versionHash = title["."].source;
                 title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
@@ -278,7 +274,7 @@ class SiteStore {
                 const titleLinkPath = `public/asset_metadata/playlists/${playlistSlug}/list/${titleSlug}`;
                 title.baseLinkPath = titleLinkPath;
                 title.baseLinkUrl =
-                  await this.client.LinkUrl({versionHash, linkPath: titleLinkPath});
+                  await this.client.LinkUrl({...siteParams, linkPath: titleLinkPath});
 
                 title.playoutOptionsLinkPath = UrlJoin(titleLinkPath, "sources", "default");
 
@@ -319,13 +315,19 @@ class SiteStore {
       this.activeTitle.currentOffering = offering;
     }
 
-    const versionHash = this.activeTitle.title.isSearchResult ? this.activeTitle.title.versionHash : this.currentSite.versionHash;
+    let params, linkPath;
+    if(this.activeTitle.isSearchResult) {
+      params = { versionHash: this.activeTitle.versionHash };
+    } else {
+      params = this.SiteParams();
+      linkPath = this.activeTitle.playoutOptionsLinkPath;
+    }
 
     try {
       const playoutOptions = yield this.client.PlayoutOptions({
-        versionHash,
+        ...params,
         offering,
-        linkPath: this.activeTitle.playoutOptionsLinkPath,
+        linkPath,
         protocols: ["hls", "dash"],
         drms: ["aes-128", "widevine", "clear"]
       });
@@ -351,7 +353,7 @@ class SiteStore {
     this.activeTitle = title;
 
     this.activeTitle.metadata = yield this.client.ContentObjectMetadata({
-      versionHash,
+      ...(this.SiteParams()),
       metadataSubtree: title.baseLinkPath,
       resolveLinks: true,
       resolveIncludeSource: true,

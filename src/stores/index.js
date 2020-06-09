@@ -17,10 +17,10 @@ class RootStore {
   @observable sites = [];
   @observable availableSites = [];
 
+  @observable accessCode;
+
   @observable libraries = {};
   @observable objects = {};
-
-  @observable siteSelector;
 
   @observable error = "";
 
@@ -58,65 +58,51 @@ class RootStore {
       }
     }
 
-    const appPath = window.location.hash
-      .replace(/^\/*#?\/*/, "")
-      .split("/");
-
-    if(appPath[0] === "code") {
-      const siteSelectorId = appPath[1];
-      this.siteSelector = yield client.LatestVersionHash({objectId: siteSelectorId});
-      this.client = client;
-    } else {
-      const initialContentId = appPath[0];
-
-      this.client = client;
-
-      if(initialContentId) {
-        this.siteStore.LoadSite(initialContentId);
-      }
-    }
+    this.client = client;
   });
 
-  RedeemCode = flow(function * (code) {
-    const hash = Hash(code);
-
-    const isGlobalSelector = (yield this.client.ContentObjectMetadata({
-      versionHash: this.siteSelector,
-      metadataSubtree: "public/site_selector_type"
-    })) === "global";
-
-    let codeInfo;
-    if(isGlobalSelector) {
-      // Get unresolved meta to determine length of selector list
-      const selectorList = yield this.client.ContentObjectMetadata({
-        versionHash: this.siteSelector,
-        metadataSubtree: "public/site_selectors"
-      });
-
-      for(let i = 0; i < selectorList.length; i++) {
-        codeInfo = yield this.client.ContentObjectMetadata({
-          versionHash: this.siteSelector,
-          metadataSubtree: `public/site_selectors/${i}/${hash}`
-        });
-
-        if(codeInfo && codeInfo.ak) {
-          break;
-        }
-      }
-    } else {
-      codeInfo = yield this.client.ContentObjectMetadata({
-        versionHash: this.siteSelector,
-        metadataSubtree: `public/codes/${hash}`
-      });
-    }
-
-    if(!codeInfo || !codeInfo.ak) {
-      this.SetError("Invalid code");
-      return false;
-    }
-
+  RedeemCode = flow(function * (siteSelectorId, code) {
     let client;
     try {
+      const hash = Hash(code);
+
+      const versionHash = yield this.client.LatestVersionHash({objectId: siteSelectorId});
+
+      const isGlobalSelector = (yield this.client.ContentObjectMetadata({
+        versionHash,
+        metadataSubtree: "public/site_selector_type"
+      })) === "global";
+
+      let codeInfo;
+      if(isGlobalSelector) {
+        // Get unresolved meta to determine length of selector list
+        const selectorList = yield this.client.ContentObjectMetadata({
+          versionHash,
+          metadataSubtree: "public/site_selectors"
+        });
+
+        for(let i = 0; i < selectorList.length; i++) {
+          codeInfo = yield this.client.ContentObjectMetadata({
+            versionHash,
+            metadataSubtree: `public/site_selectors/${i}/${hash}`
+          });
+
+          if(codeInfo && codeInfo.ak) {
+            break;
+          }
+        }
+      } else {
+        codeInfo = yield this.client.ContentObjectMetadata({
+          versionHash,
+          metadataSubtree: `public/codes/${hash}`
+        });
+      }
+
+      if(!codeInfo || !codeInfo.ak) {
+        this.SetError("Invalid code");
+        return false;
+      }
+
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
       const wallet = client.GenerateWallet();
@@ -125,6 +111,11 @@ class RootStore {
       const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
 
       client.SetSigner({signer});
+
+      this.accessCode = code;
+      this.client = client;
+
+      return codeInfo.sites[0].siteId;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
@@ -134,12 +125,6 @@ class RootStore {
       this.SetError("Invalid code");
       return false;
     }
-
-    this.client = client;
-
-    this.siteStore.LoadSite(codeInfo.sites[0].siteId);
-
-    return true;
   });
 
   async FindSites() {
@@ -294,6 +279,21 @@ class RootStore {
 
     return paging;
   });
+
+  @action.bound
+  UpdateRoute(path) {
+    if(!this.client.SendMessage) {
+      return;
+    }
+
+    this.client.SendMessage({
+      options: {
+        operation: "SetFramePath",
+        path: `/#/${path}`.replace("//", "/")
+      },
+      noResponse: true
+    });
+  }
 
   @action.bound
   ReturnToApps() {
