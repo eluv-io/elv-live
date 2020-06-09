@@ -2,14 +2,18 @@ import "../../static/stylesheets/original/app.scss";
 
 import React from "react";
 import {inject, observer} from "mobx-react";
+import Path from "path";
+import {ImageIcon, LoadingElement} from "elv-components-js";
+
+import AsyncComponent from "../AsyncComponent";
 import ActiveTitle from "./ActiveTitle";
 import TitleReel from "./TitleReel";
-import {ImageIcon, LoadingElement} from "elv-components-js";
 import TitleGrid from "./TitleGrid";
 import SearchBar from "../SearchBar";
 
 import BackIcon from "../../static/icons/back.svg";
 import CloseIcon from "../../static/icons/x.svg";
+import {Redirect} from "react-router";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -70,9 +74,14 @@ class Site extends React.Component {
       backText = `Back to ${previousSite.name}`;
       backAction = () => this.props.siteStore.PopSite();
     } else {
+      if(this.props.location.pathname.startsWith("/preview")) { return null; }
+
       backIcon = BackIcon;
       backText = "Back to Site Selection";
-      backAction = () => this.props.siteStore.Reset();
+      backAction = () => {
+        this.props.history.push(Path.dirname(this.props.location.pathname));
+        this.props.siteStore.Reset();
+      };
     }
 
     return (
@@ -87,25 +96,34 @@ class Site extends React.Component {
   }
 
   render() {
-    if(!this.props.siteStore.currentSite) { return null; }
-
-    const mainSiteName = this.props.siteStore.sites[0].name;
-    const subHeader = this.props.siteStore.sites.slice(1).map(site => site.name).join(" - ");
+    if(this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode) {
+      return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
+    }
 
     return (
-      <div className="site" id="site">
-        <h2 className={`site-header ${subHeader ? "with-subheader" : ""}`} hidden={false}>
-          { this.BackButton() }
-          { mainSiteName }
-          <SearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />
-        </h2>
+      <AsyncComponent
+        Load={() => this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
+        render={() => {
+          const mainSiteName = this.props.siteStore.sites[0].name;
+          const subHeader = this.props.siteStore.sites.slice(1).map(site => site.name).join(" - ");
 
-        { subHeader ? <h3 className="site-subheader">{ subHeader }</h3> : null }
+          return (
+            <div className="site" id="site">
+              <h2 className={`site-header ${subHeader ? "with-subheader" : ""}`} hidden={false}>
+                {this.BackButton()}
+                {mainSiteName}
+                <SearchBar key={`search-bar-${this.props.siteStore.searchQuery}`}/>
+              </h2>
 
-        <LoadingElement loading={this.props.siteStore.loading}>
-          { this.props.siteStore.activeTitle ? this.ActiveTitle() : this.Content() }
-        </LoadingElement>
-      </div>
+              {subHeader ? <h3 className="site-subheader">{subHeader}</h3> : null}
+
+              <LoadingElement loading={this.props.siteStore.loading}>
+                {this.props.siteStore.activeTitle ? this.ActiveTitle() : this.Content()}
+              </LoadingElement>
+            </div>
+          );
+        }}
+      />
     );
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Action, LoadingElement, onEnterPressed} from "elv-components-js";
+import {Redirect} from "react-router";
 
 @inject("rootStore")
 @observer
@@ -10,15 +11,26 @@ class CodeAccess extends React.Component {
 
     this.state = {
       code: "",
-      loading: false
+      loading: false,
     };
   }
 
   render() {
+    if(this.state.siteId) {
+      return <Redirect to={`/code/${this.props.match.params.siteSelectorId}/${this.state.siteId}`} />;
+    }
+
     const Submit = async () => {
       this.setState({loading: true});
 
-      if(!await this.props.rootStore.RedeemCode(this.state.code)) {
+      const siteId = await this.props.rootStore.RedeemCode(
+        this.props.match.params.siteSelectorId,
+        this.state.code
+      );
+
+      if(siteId) {
+        this.setState({siteId});
+      } else {
         this.setState({loading: false});
       }
     };
