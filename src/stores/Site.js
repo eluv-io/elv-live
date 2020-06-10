@@ -48,6 +48,10 @@ class SiteStore {
     return this.sites.length > 0 ? this.sites[this.sites.length - 1] : null;
   }
 
+  @computed get rootSite() {
+    return this.sites[0];
+  }
+
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
@@ -221,6 +225,7 @@ class SiteStore {
           }
 
           title.displayTitle = title.display_title || title.title || "";
+
           title.versionHash = title["."].source;
           title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
@@ -308,26 +313,41 @@ class SiteStore {
   });
 
   @action.bound
-  SetActiveTitle = flow(function * (title) {
-    const versionHash = title.isSearchResult ? title.versionHash : this.currentSite.versionHash;
+  LoadActiveTitleOffering = flow(function * (offering) {
+    if(this.activeTitle.playoutOptions && this.activeTitle.playoutOptions[offering]) {
+      this.activeTitle.currentOffering = offering;
+    }
 
-    let playoutOptions;
+    const versionHash = this.activeTitle.title.isSearchResult ? this.activeTitle.title.versionHash : this.currentSite.versionHash;
+
     try {
-      playoutOptions = yield this.client.PlayoutOptions({
+      const playoutOptions = yield this.client.PlayoutOptions({
         versionHash,
-        linkPath: title.playoutOptionsLinkPath,
+        offering,
+        linkPath: this.activeTitle.playoutOptionsLinkPath,
         protocols: ["hls", "dash"],
         drms: ["aes-128", "widevine", "clear"]
       });
+
+      this.activeTitle.playoutOptions = {
+        ...(this.activeTitle.playoutOptions || {}),
+        [offering]: playoutOptions
+      };
+
+      this.activeTitle.currentOffering = offering;
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error("Error loading playout options:");
+      console.error("Error loading playout options for offering " + offering);
       // eslint-disable-next-line no-console
       console.error(error);
     }
+  });
+
+  @action.bound
+  SetActiveTitle = flow(function * (title) {
+    const versionHash = title.isSearchResult ? title.versionHash : this.currentSite.versionHash;
 
     this.activeTitle = title;
-    this.activeTitle.playoutOptions = playoutOptions;
 
     this.activeTitle.metadata = yield this.client.ContentObjectMetadata({
       versionHash,
@@ -336,6 +356,27 @@ class SiteStore {
       resolveIncludeSource: true,
       resolveIgnoreErrors: true
     });
+
+    let availableOfferings = yield this.client.AvailableOfferings({
+      versionHash,
+      linkPath: this.activeTitle.playoutOptionsLinkPath
+    });
+
+    const allowedOfferings = this.rootSite.allowed_offerings;
+    if(allowedOfferings) {
+      Object.keys(availableOfferings).map(offeringKey => {
+        if(!allowedOfferings.includes(offeringKey)) {
+          delete allowedOfferings[offeringKey];
+        }
+      });
+    }
+
+    this.activeTitle.availableOfferings = availableOfferings;
+
+    const initialOffering = availableOfferings.default ? "default" : Object.keys(availableOfferings)[0];
+    if(initialOffering) {
+      yield this.LoadActiveTitleOffering(initialOffering);
+    }
   });
 
   @action.bound
