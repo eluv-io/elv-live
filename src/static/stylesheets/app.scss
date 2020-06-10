@@ -436,11 +436,33 @@ nav {
   height: auto;
 
   h4 {
+    align-items: center;
     color: $elv-color-lightergray;
+    display: flex;
     font-size: $elv-font-xxl;
+    justify-content: center;
     margin: $elv-spacing-m 0;
-    text-align: center;
+    position: relative;
     width: 100%;
+  }
+
+  .active-title-offerings {
+    background: $elv-color-bg-dark;
+    border: 0;
+    border-radius: $elv-spacing-xxs;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-align-last: center;
+    width: 10rem;
+
+    option {
+      text-align: center;
+    }
+
+    &:hover {
+      background: $elv-color-darkergray;
+    }
   }
 
   video {

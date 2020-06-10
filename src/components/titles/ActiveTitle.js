@@ -176,9 +176,12 @@ class ActiveTitle extends React.Component {
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
 
-      const playoutOptions = this.props.siteStore.activeTitle.playoutOptions;
+      const offering = this.props.siteStore.activeTitle.currentOffering;
+      let playoutOptions = this.props.siteStore.activeTitle.playoutOptions;
 
-      if(!playoutOptions) { return; }
+      if(!offering || !playoutOptions || !playoutOptions[offering]) { return; }
+
+      playoutOptions = playoutOptions[offering];
 
       let player;
       if(this.props.siteStore.dashSupported && playoutOptions.dash) {
@@ -220,6 +223,27 @@ class ActiveTitle extends React.Component {
       // eslint-disable-next-line no-console
       console.error(error);
     }
+  }
+
+  Offerings() {
+    const availableOfferings = this.props.siteStore.activeTitle.availableOfferings;
+
+    if(!availableOfferings || Object.keys(availableOfferings).length < 2) {
+      return null;
+    }
+
+    return (
+      <select
+        className="active-title-offerings"
+        onChange={event => this.props.siteStore.LoadActiveTitleOffering(event.target.value)}
+      >
+        {Object.keys(availableOfferings).map(offeringKey =>
+          <option key={`offering-${offeringKey}`} value={offeringKey}>
+            { availableOfferings[offeringKey].display_title || offeringKey }
+          </option>
+        )}
+      </select>
+    );
   }
 
   MetadataPage() {
@@ -297,6 +321,7 @@ class ActiveTitle extends React.Component {
     const { schedule, currentIndex, date } = this.Schedule();
 
     const title = this.props.siteStore.activeTitle;
+
     let displayTitle = title.displayTitle;
     let synopsis = (title.info || {}).synopsis || "";
     if(currentIndex !== undefined) {
@@ -312,7 +337,7 @@ class ActiveTitle extends React.Component {
       <div className={`active-title-video-page ${this.state.activeTab === "Video" ? "" : "hidden"}`}>
         <ImageIcon icon={title.portraitUrl || title.imageUrl || title.landscapeUrl} className="hidden" />
         <video
-          key={`active-title-video-${title.titleId}`}
+          key={`active-title-video-${title.titleId}-${title.currentOffering}`}
           ref={this.InitializeVideo}
           autoPlay
           poster={poster}
@@ -321,6 +346,7 @@ class ActiveTitle extends React.Component {
         <div className="video-info">
           <h4>
             { displayTitle.toString() }
+            { this.Offerings() }
           </h4>
           <div className="synopsis">
             { synopsis.toString() }
