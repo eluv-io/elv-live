@@ -117,6 +117,7 @@ class SiteStore {
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
         select: [
+          "allowed_offerings",
           "title",
           "display_title",
           "channels",
@@ -363,10 +364,11 @@ class SiteStore {
     });
 
     const allowedOfferings = this.rootSite.allowed_offerings;
+
     if(allowedOfferings) {
       Object.keys(availableOfferings).map(offeringKey => {
         if(!allowedOfferings.includes(offeringKey)) {
-          delete allowedOfferings[offeringKey];
+          delete availableOfferings[offeringKey];
         }
       });
     }
