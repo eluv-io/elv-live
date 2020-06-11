@@ -22,6 +22,10 @@ class SiteStore {
   @observable playlists = [];
   @observable searchResults = [];
 
+  //
+  @observable showEpisodes = [];
+  //
+
   @observable searching = false;
   @observable searchQuery = "";
   @observable searchCounter = 0;
@@ -54,6 +58,16 @@ class SiteStore {
     this.rootStore = rootStore;
   }
 
+  ///////////////////////////////////////
+  //Modal
+  @observable modalTitle;
+
+  @action.bound
+  SetModalTitle(title) {
+    this.modalTitle = title;
+  }
+
+  ///////////////////////////////////////
   @action.bound
   Reset() {
     this.sites = [];
@@ -116,6 +130,7 @@ class SiteStore {
 
       let siteInfo = yield this.client.ContentObjectMetadata({
         ...siteParams,
+        linkDepthLimit: 4,
         metadataSubtree: "public/asset_metadata",
         resolveLinks: true,
         resolveIncludeSource: true,
@@ -151,12 +166,30 @@ class SiteStore {
 
       siteInfo.baseLinkUrl = yield this.client.LinkUrl({...siteParams, linkPath: "public/asset_metadata"});
 
+      /*
       siteInfo.series = yield this.LoadTitles(siteParams, "series", siteInfo.series);
       siteInfo.seasons = yield this.LoadTitles(siteParams, "seasons", siteInfo.seasons);
       siteInfo.episodes = yield this.LoadTitles(siteParams, "episodes", siteInfo.episodes);
       siteInfo.titles = yield this.LoadTitles(siteParams, "titles", siteInfo.titles);
       siteInfo.channels = yield this.LoadTitles(siteParams, "channels", siteInfo.channels);
       siteInfo.playlists = yield this.LoadPlaylists(siteParams, siteInfo.playlists);
+
+       */
+
+      siteInfo.titles = yield this.LoadTitles(siteParams, "titles", siteInfo.titles);
+      siteInfo.channels = yield this.LoadTitles(siteParams, "channels", siteInfo.channels);
+      siteInfo.playlists = yield this.LoadPlaylists(siteParams, siteInfo.playlists);
+      siteInfo.series = yield this.LoadTitles(siteParams, "series", siteInfo.series);
+      // let newID = siteInfo.series[0].seasons[0]["caminandes-season-1"].objectId;
+      // console.log(newID);
+      // console.log("print id");
+      // console.log(siteInfo.series[0].seasons);
+
+      // const versionHashSeasons = yield this.client.LatestVersionHash({newID});
+      siteInfo.seasons = yield this.LoadTitles(siteParams, "series/0/caminades-series/seasons", siteInfo.series[0].seasons);
+      siteInfo.episodes = yield this.LoadTitles(siteParams, "series/0/caminades-series/seasons/0/caminandes-season-1/episodes", siteInfo.series[0].seasons[0]["caminandes-season-1"].episodes);
+
+      console.log(siteInfo.series[0].seasons);
 
       //delete siteInfo.titles;
       //delete siteInfo.playlists;
