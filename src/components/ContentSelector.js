@@ -221,8 +221,8 @@ class ContentSelector extends React.Component {
 
     return (
       <AsyncComponent Load={this.props.rootStore.LoadAvailableSites}>
-        <div className="menu-container">
-          <h1>Select a Site</h1>
+        <div className="site-selector">
+          <h1 className="site-selector">Select a Site</h1>
           { this.Tabs() }
           { showAvailable ? this.AvailableSites() : (this.state.libraryId ? this.Objects() : this.Libraries()) }
         </div>

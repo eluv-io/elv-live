@@ -1,0 +1,40 @@
+//YOUTUBE TUTORIAL
+// .new-title-grid {
+//     display: grid;
+//     grid-template-columns: repeat(3,100%);
+
+//     section {
+//         position: relative;
+//         width: 100%;
+
+//         &:nth-child(1) {
+//             background: #7be0ac;
+//             background: rgb(0,0,0);
+//             color: #fff;
+//             font-size: 6rem;
+//             padding: 20px;
+//             text-align: center;
+//             text-decoration: none;
+//             width: 80px;
+//             z-index: 1;
+
+//             &:nth-of-type(1){
+//                 top: 0; bottom: 0; left: 0;
+//                 top: 0; bottom: 0; left: 0;
+//             }
+
+//             &:nth-of-type(2){
+//                 top: 0; bottom: 0; left: 0;
+//                 top: 0; bottom: 0; left: 0;
+//             }
+//         }
+
+//         &:nth-child(2) {
+//             background: #b686e5;
+//         }
+
+//         &:nth-child(3) {
+//             background: #f183a3;
+//         }
+//     }
+// }

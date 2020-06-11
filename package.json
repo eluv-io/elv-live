@@ -8,7 +8,7 @@
   "scripts": {
     "bump-version": "npm --git-tag-version --no-commit-hooks version patch",
     "serve": "webpack-dev-server --hot --port 8086",
-    "serve-new": "webpack-dev-server --hot --port 8086 --entry ./src/components/new/index.js",
+    "serve-new": "webpack-dev-server --hot --port 8086 --entry ./src/components/new/App.js",
     "build": "rm -rf dist/* && NODE_ENV=production node ./node_modules/webpack-cli/bin/cli.js -p --progress --colors --devtool none",
     "add-build": "git add dist",
     "lint": "npm run fix-scss ; npm run lint-scss ; npm run fix-js",
@@ -40,6 +40,8 @@
     "react-dom": "^16.8.6",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "semantic-ui-react": "^0.88.2",
+    "swiper": "^5.4.2",
     "urijs": "^1.19.1",
     "url-join": "^4.0.1",
     "uuid": "^8.1.0"
