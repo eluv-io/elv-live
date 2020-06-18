@@ -80,12 +80,37 @@ class RootStore {
   RedeemCode = flow(function * (code) {
     const hash = Hash(code);
 
-    const siteInfo = yield this.client.ContentObjectMetadata({
+    const isGlobalSelector = (yield this.client.ContentObjectMetadata({
       versionHash: this.siteSelector,
-      metadataSubtree: `public/codes/${hash}`
-    });
+      metadataSubtree: "public/site_selector_type"
+    })) === "global";
 
-    if(!siteInfo) {
+    let codeInfo;
+    if(isGlobalSelector) {
+      // Get unresolved meta to determine length of selector list
+      const selectorList = yield this.client.ContentObjectMetadata({
+        versionHash: this.siteSelector,
+        metadataSubtree: "public/site_selectors"
+      });
+
+      for(let i = 0; i < selectorList.length; i++) {
+        codeInfo = yield this.client.ContentObjectMetadata({
+          versionHash: this.siteSelector,
+          metadataSubtree: `public/site_selectors/${i}/${hash}`
+        });
+
+        if(codeInfo && codeInfo.ak) {
+          break;
+        }
+      }
+    } else {
+      codeInfo = yield this.client.ContentObjectMetadata({
+        versionHash: this.siteSelector,
+        metadataSubtree: `public/codes/${hash}`
+      });
+    }
+
+    if(!codeInfo || !codeInfo.ak) {
       this.SetError("Invalid code");
       return false;
     }
@@ -96,7 +121,7 @@ class RootStore {
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
       const wallet = client.GenerateWallet();
 
-      const encryptedPrivateKey = atob(siteInfo.ak);
+      const encryptedPrivateKey = atob(codeInfo.ak);
       const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
 
       client.SetSigner({signer});
@@ -112,7 +137,7 @@ class RootStore {
 
     this.client = client;
 
-    this.siteStore.LoadSite(siteInfo.sites[0].siteId);
+    this.siteStore.LoadSite(codeInfo.sites[0].siteId);
 
     return true;
   });
