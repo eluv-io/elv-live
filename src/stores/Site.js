@@ -348,8 +348,6 @@ class SiteStore {
 
   @action.bound
   SetActiveTitle = flow(function * (title) {
-    const versionHash = title.isSearchResult ? title.versionHash : this.currentSite.versionHash;
-
     this.activeTitle = title;
 
     this.activeTitle.metadata = yield this.client.ContentObjectMetadata({
@@ -360,10 +358,15 @@ class SiteStore {
       resolveIgnoreErrors: true
     });
 
-    let availableOfferings = yield this.client.AvailableOfferings({
-      versionHash,
-      linkPath: this.activeTitle.playoutOptionsLinkPath
-    });
+    let params, linkPath;
+    if(this.activeTitle.isSearchResult) {
+      params = { versionHash: this.activeTitle.versionHash };
+    } else {
+      params = this.SiteParams();
+      linkPath = this.activeTitle.playoutOptionsLinkPath;
+    }
+
+    let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
 
     const allowedOfferings = this.rootSite.allowed_offerings;
 
