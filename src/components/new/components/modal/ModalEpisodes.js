@@ -2,6 +2,7 @@ import React from "react";
 import SwiperGrid from "../SwiperGrid";
 import {inject, observer} from "mobx-react";
 import { Dropdown } from "semantic-ui-react";
+import AsyncComponent from "../../../AsyncComponent";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -10,28 +11,44 @@ class ModalEpisodes extends React.Component {
   constructor(props) {
     super(props);
 
-    const seasons = [];
-    let allSeasons = this.props.siteStore.currentSite.seasons;
-
-    for(let i = 0; i < allSeasons.length; i++) {
-      seasons.push({
-        key: this.props.siteStore.currentSite.episodes,
-        text: allSeasons[i].title,
-        value: allSeasons[i].title
-      });
-    }
-
     this.state = {
-      seasons,
-      selected: null,
+      selected: 0
     };
   }
 
-  onChange = (e, data) => {
-    console.log(data);
-    this.setState({ selected: data.value });
+  Seasons() {
+    return (this.props.siteStore.assets[this.props.title.versionHash] || {assets: {}}).assets.seasons || [];
   }
-  
+
+  Episodes() {
+    const season = this.Seasons()[this.state.selected];
+    const episodes = (this.props.siteStore.assets[season.versionHash] || {assets: {}}).assets.episodes || [];
+    return (
+      <AsyncComponent
+        key={`episode-list-${this.state.selected}`}
+        Load={async () => {
+          if(this.props.siteStore.assets[season.versionHash]) {
+            return;
+          }
+
+          await this.props.siteStore.LoadAsset(season.baseLinkPath);
+        }}
+        render={() => (
+          <SwiperGrid
+            name=""
+            titles={episodes}
+            modalClose={this.props.modalClose}
+            modalOpen={this.props.modalOpen}
+            playTitle={this.props.playTitle}
+            trailers={true}
+            shouldPlay={true}
+            isEpisode={true}
+          />
+        )}
+      />
+    );
+  }
+
   render() {
     const featuredTitle = this.props.title;
     const dropdownStyle = {
@@ -40,8 +57,13 @@ class ModalEpisodes extends React.Component {
       marginTop: "3rem",
       // color: "rgba(0, 0, 0, 1)"
     };
-    const { seasons, selected } = this.state;
 
+    const seasons = this.Seasons()
+      .map((season, i) => ({
+        key: `season-${i}`,
+        text: season.displayTitle,
+        value: i
+      }));
 
     return (
       <div className={`modal__container ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
@@ -49,15 +71,14 @@ class ModalEpisodes extends React.Component {
           {featuredTitle.displayTitle}
         </h1>
         <Dropdown
-          placeholder={this.state.seasons[0].text}
           fluid
           selection
-          options={this.state.seasons}
-          value= {selected}
+          options={seasons}
+          value={this.state.selected}
           style={dropdownStyle}
-          onChange={this.onChange}
+          onChange={(_, data) => this.setState({selected: parseInt(data.value)})}
         />
-        <SwiperGrid name="" titles={this.props.siteStore.currentSite.episodes} modalClose={this.props.modalClose} modalOpen={this.props.modalOpen} playTitle={this.props.playTitle} trailers={true} shouldPlay={true} isEpisode={true}/>
+        { this.Episodes() }
       </div>
     );
   }

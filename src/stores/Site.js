@@ -4,22 +4,60 @@ import UrlJoin from "url-join";
 import Id from "@eluvio/elv-client-js/src/Id";
 import { v4 as UUID } from "uuid";
 
-class SiteStore {
-  @observable sites = [];
-  @observable loading = false;
+// Note: Update if defaults change in asset manager
+const DEFAULT_ASSOCIATED_ASSETS = [
+  {
+    name: "titles",
+    label: "Titles",
+    indexed: true,
+    slugged: true,
+    defaultable: true,
+    orderable: true
+  },
+  {
+    name: "series",
+    label: "Series",
+    asset_types: ["primary"],
+    title_types: ["series"],
+    for_title_types: ["site", "collection"],
+    indexed: true,
+    slugged: true,
+    defaultable: false,
+    orderable: true
+  },
+  {
+    name: "seasons",
+    label: "Seasons",
+    asset_types: ["primary"],
+    title_types: ["season"],
+    for_title_types: ["series"],
+    indexed: true,
+    slugged: true,
+    defaultable: false,
+    orderable: true
+  },
+  {
+    name: "episodes",
+    label: "Episodes",
+    asset_types: ["primary"],
+    title_types: ["episode"],
+    for_title_types: ["season"],
+    indexed: true,
+    slugged: true,
+    defaultable: false,
+    orderable: true
+  }
+];
 
-  @observable siteInfo;
+class SiteStore {
+  @observable siteHash;
+  @observable assets = {};
+
   @observable dashSupported = false;
   @observable activeTitle;
   @observable playoutUrl;
   @observable authToken;
 
-  @observable series = [];
-  @observable seasons = [];
-  @observable episodes = [];
-  @observable titles = [];
-  @observable channels = [];
-  @observable playlists = [];
   @observable searchResults = [];
 
   //
@@ -39,19 +77,15 @@ class SiteStore {
   }
 
   @computed get siteId() {
-    return (this.currentSite || {}).objectId;
+    return (this.siteParams || {}).objectId;
   }
 
   @computed get activeTitleId() {
     return (this.activeTitle || {}).objectId;
   }
 
-  @computed get currentSite() {
-    return this.sites.length > 0 ? this.sites[this.sites.length - 1] : null;
-  }
-
-  @computed get rootSite() {
-    return this.sites[0];
+  @computed get siteInfo() {
+    return this.assets[this.siteHash];
   }
 
   constructor(rootStore) {
@@ -63,14 +97,18 @@ class SiteStore {
   @observable modalTitle;
 
   @action.bound
-  SetModalTitle(title) {
+  SetModalTitle = flow(function * (title) {
+    if(title) {
+      yield this.LoadAsset(title.baseLinkPath);
+    }
+
     this.modalTitle = title;
-  }
+  });
 
   ///////////////////////////////////////
   @action.bound
   Reset() {
-    this.sites = [];
+    this.assets = {};
 
     this.dashSupported = false;
     this.activeTitle = undefined;
@@ -87,51 +125,58 @@ class SiteStore {
     this.error = "";
   }
 
-  @action.bound
-  ClearSubSites() {
-    this.sites = this.sites.slice(0, 1);
-  }
+  // Load associated assets of specified object from its type
+  async AssociatedAssets(versionHash) {
+    const titleType = await this.client.ContentObjectMetadata({
+      versionHash,
+      metadataSubtree: "public/asset_metadata/title_type"
+    });
 
-  @action.bound
-  PopSite() {
-    this.sites.pop();
-  }
+    const typeHash = (await this.client.ContentObject({versionHash})).type;
+    const latestTypeHash = await this.client.LatestVersionHash({versionHash: typeHash});
 
-  SiteParams() {
-    if(this.sites.length === 0) {
-      return {};
-    }
+    const associatedAssets = (await this.client.ContentObjectMetadata({
+      versionHash: latestTypeHash,
+      metadataSubtree: "public/title_configuration/associated_assets"
+    })) || DEFAULT_ASSOCIATED_ASSETS;
 
-    const site = this.sites.slice(-1)[0];
-
-    return {
-      libraryId: site.libraryId,
-      objectId: site.objectId,
-      versionHash: site.versionHash,
-      writeToken: site.writeToken
-    };
+    return associatedAssets
+      .filter(asset =>
+        !asset.for_title_types ||
+        asset.for_title_types.includes(titleType)
+      )
+      .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
+    this.Reset();
+
+    this.siteParams = {
+      libraryId: yield this.client.ContentObjectLibraryId({objectId}),
+      objectId: objectId,
+      versionHash: yield this.client.LatestVersionHash({objectId}),
+      writeToken: writeToken
+    };
+
+    const availableDRMS = yield this.client.AvailableDRMs();
+    this.dashSupported = availableDRMS.includes("widevine");
+
+    this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
+    this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
+
+    this.siteHash = yield this.LoadAsset("public/asset_metadata");
+  });
+
+  @action.bound
+  LoadAsset = flow(function * (linkPath) {
     try {
-      this.loading = true;
+      const versionHash = yield this.client.LinkTarget({...this.siteParams, linkPath});
+      const associatedAssets = yield this.AssociatedAssets(versionHash);
 
-      const isSubSite = this.sites.length > 0;
-      const availableDRMS = yield this.client.AvailableDRMs();
-      this.dashSupported = availableDRMS.includes("widevine");
-
-      const siteParams = {
-        libraryId: yield this.client.ContentObjectLibraryId({objectId}),
-        objectId: objectId,
-        versionHash: yield this.client.LatestVersionHash({objectId}),
-        writeToken: writeToken
-      };
-
-      let siteInfo = yield this.client.ContentObjectMetadata({
-        ...siteParams,
-        linkDepthLimit: 4,
-        metadataSubtree: "public/asset_metadata",
+      let assetInfo = yield this.client.ContentObjectMetadata({
+        ...this.siteParams,
+        metadataSubtree: linkPath,
         resolveLinks: true,
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
@@ -139,71 +184,40 @@ class SiteStore {
           "allowed_offerings",
           "title",
           "display_title",
-          "channels",
-          "episodes",
           "playlists",
-          "seasons",
-          "series",
-          "titles",
-          UUID()
+          UUID(),
+          ...(associatedAssets.map(asset => asset.name))
         ]
       });
 
-      siteInfo = {
-        ...siteInfo,
-        ...siteParams
+      assetInfo = {
+        ...assetInfo,
+        assets: {},
+        versionHash,
+        associatedAssets
       };
 
-      if(!isSubSite) {
-        this.searchIndex = yield this.client.ContentObjectMetadata({...siteParams, metadataSubtree: "public/site_index"});
-        this.searchNodes = yield this.client.ContentObjectMetadata({...siteParams, metadataSubtree: "public/search_api"});
-      }
+      assetInfo.name = assetInfo.display_title || assetInfo.title;
+      assetInfo.baseLinkUrl = yield this.client.LinkUrl({...this.siteParams, linkPath});
 
-      siteInfo.name =
-        siteInfo.display_title ||
-        siteInfo.title ||
-        (yield this.client.ContentObjectMetadata({...siteParams, metadataSubtree: "public/name"}));
+      yield Promise.all(
+        assetInfo.associatedAssets.map(async asset => {
+          assetInfo.assets[asset.name] = await this.LoadTitles(this.siteParams, UrlJoin(linkPath, asset.name), assetInfo[asset.name]);
+        })
+      );
 
-      siteInfo.baseLinkUrl = yield this.client.LinkUrl({...siteParams, linkPath: "public/asset_metadata"});
+      assetInfo.playlists = yield this.LoadPlaylists(this.siteParams, linkPath, assetInfo.playlists);
 
-      /*
-      siteInfo.series = yield this.LoadTitles(siteParams, "series", siteInfo.series);
-      siteInfo.seasons = yield this.LoadTitles(siteParams, "seasons", siteInfo.seasons);
-      siteInfo.episodes = yield this.LoadTitles(siteParams, "episodes", siteInfo.episodes);
-      siteInfo.titles = yield this.LoadTitles(siteParams, "titles", siteInfo.titles);
-      siteInfo.channels = yield this.LoadTitles(siteParams, "channels", siteInfo.channels);
-      siteInfo.playlists = yield this.LoadPlaylists(siteParams, siteInfo.playlists);
+      this.assets[assetInfo.versionHash] = assetInfo;
 
-       */
-
-      siteInfo.titles = yield this.LoadTitles(siteParams, "titles", siteInfo.titles);
-      siteInfo.channels = yield this.LoadTitles(siteParams, "channels", siteInfo.channels);
-      siteInfo.playlists = yield this.LoadPlaylists(siteParams, siteInfo.playlists);
-      siteInfo.series = yield this.LoadTitles(siteParams, "series", siteInfo.series);
-      // let newID = siteInfo.series[0].seasons[0]["caminandes-season-1"].objectId;
-      // console.log(newID);
-      // console.log("print id");
-      // console.log(siteInfo.series[0].seasons);
-
-      // const versionHashSeasons = yield this.client.LatestVersionHash({newID});
-      siteInfo.seasons = yield this.LoadTitles(siteParams, "series/0/caminades-series/seasons", siteInfo.series[0].seasons);
-      siteInfo.episodes = yield this.LoadTitles(siteParams, "series/0/caminades-series/seasons/0/caminandes-season-1/episodes", siteInfo.series[0].seasons[0]["caminandes-season-1"].episodes);
-
-      console.log(siteInfo.series[0].seasons);
-
-      //delete siteInfo.titles;
-      //delete siteInfo.playlists;
-
-      this.sites.push(siteInfo);
+      return assetInfo.versionHash;
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error("Failed to load site:", objectId);
+      console.error("Failed to load asset:", linkPath);
       // eslint-disable-next-line no-console
       console.error(error);
 
-      this.rootStore.SetError("Invalid site object");
-    } finally {
-      this.loading = false;
+      this.rootStore.SetError("Error");
     }
   });
 
@@ -234,6 +248,28 @@ class SiteStore {
     };
   }
 
+  async LoadTitle(params, title, baseLinkPath) {
+    if(title["."] && title["."].resolution_error) {
+      return;
+    }
+
+    title.displayTitle = title.display_title || title.title || "";
+
+    title.versionHash = title["."] ? title["."].source : params.versionHash;
+    title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
+
+    title.titleId = Id.next();
+
+    title.baseLinkPath = baseLinkPath;
+    title.playoutOptionsLinkPath = UrlJoin(title.baseLinkPath, "sources", "default");
+    title.baseLinkUrl =
+      await this.client.LinkUrl({...params, linkPath: title.baseLinkPath});
+
+    Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
+
+    return title;
+  }
+
   @action.bound
   LoadTitles = flow(function * (siteParams, metadataKey, titleInfo) {
     if(!titleInfo) { return []; }
@@ -246,26 +282,7 @@ class SiteStore {
           const titleKey = Object.keys(titleInfo[index])[0];
           let title = titleInfo[index][titleKey];
 
-          if(title["."].resolution_error) {
-            return;
-          }
-
-          title.displayTitle = title.display_title || title.title || "";
-
-          title.versionHash = title["."].source;
-          title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
-
-          title.titleId = Id.next();
-
-          const linkPath = UrlJoin("public", "asset_metadata", metadataKey, index, titleKey);
-          title.playoutOptionsLinkPath = UrlJoin(linkPath, "sources", "default");
-          title.baseLinkPath = linkPath;
-          title.baseLinkUrl =
-            await this.client.LinkUrl({...siteParams, linkPath});
-
-          Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
-
-          titles[index] = title;
+          titles[index] = await this.LoadTitle(this.siteParams, title, UrlJoin(metadataKey, index, titleKey));
         } catch (error) {
           // eslint-disable-next-line no-console
           console.error(`Failed to load title ${index}`);
@@ -279,7 +296,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadPlaylists = flow(function * (siteParams, playlistInfo) {
+  LoadPlaylists = flow(function * (siteParams, metadataKey, playlistInfo) {
     // Playlists: {[slug]: { order, name, list: {[title-slug]: { ... }}}
 
     if(!playlistInfo || Object.keys(playlistInfo).length === 0) { return []; }
@@ -296,26 +313,11 @@ class SiteStore {
               try {
                 let title = list[titleSlug];
 
-                if(title["."].resolution_error) {
-                  return;
-                }
-
-                title.displayTitle = title.display_title || title.title || "";
-                title.versionHash = title["."].source;
-                title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
-
-                const titleLinkPath = `public/asset_metadata/playlists/${playlistSlug}/list/${titleSlug}`;
-                title.baseLinkPath = titleLinkPath;
-                title.baseLinkUrl =
-                  await this.client.LinkUrl({...siteParams, linkPath: titleLinkPath});
-
-                title.playoutOptionsLinkPath = UrlJoin(titleLinkPath, "sources", "default");
-
-                title.titleId = Id.next();
-
-                Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
-
-                titles[parseInt(title.order)] = title;
+                titles[parseInt(title.order)] = await this.LoadTitle(
+                  this.siteParams,
+                  title,
+                  UrlJoin(metadataKey, "playlists", playlistSlug, "list", titleSlug)
+                );
               } catch (error) {
                 // eslint-disable-next-line no-console
                 console.error(`Failed to load title ${titleSlug} in playlist ${order} (${name})`);
@@ -352,7 +354,7 @@ class SiteStore {
     if(this.activeTitle.isSearchResult) {
       params = { versionHash: this.activeTitle.versionHash };
     } else {
-      params = this.SiteParams();
+      params = this.siteParams;
       linkPath = this.activeTitle.playoutOptionsLinkPath;
     }
 
@@ -384,7 +386,7 @@ class SiteStore {
     this.activeTitle = title;
 
     this.activeTitle.metadata = yield this.client.ContentObjectMetadata({
-      ...(this.SiteParams()),
+      ...(this.siteParams),
       metadataSubtree: title.baseLinkPath,
       resolveLinks: true,
       resolveIncludeSource: true,
@@ -395,13 +397,13 @@ class SiteStore {
     if(this.activeTitle.isSearchResult) {
       params = { versionHash: this.activeTitle.versionHash };
     } else {
-      params = this.SiteParams();
+      params = this.siteParams;
       linkPath = this.activeTitle.playoutOptionsLinkPath;
     }
 
     let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
 
-    const allowedOfferings = this.rootSite.allowed_offerings;
+    const allowedOfferings = this.siteInfo.allowed_offerings;
 
     if(allowedOfferings) {
       Object.keys(availableOfferings).map(offeringKey => {
@@ -457,8 +459,6 @@ class SiteStore {
         yield client.ResetRegion();
       }
 
-      this.ClearSubSites();
-
       const results = ((yield client.Request({
         url,
       })).results || []);
@@ -467,23 +467,10 @@ class SiteStore {
         results.map(async ({id, hash, meta}) => {
           try {
             meta = ((meta || {}).public || {}).asset_metadata || {};
-            const linkPath = UrlJoin("public", "asset_metadata");
-            const playoutOptionsLinkPath = UrlJoin(linkPath, "sources", "default");
-            const baseLinkPath = linkPath;
-            const baseLinkUrl = await this.client.LinkUrl({versionHash: hash, linkPath});
-            const imageLinks = await this.ImageLinks({baseLinkUrl, versionHash: hash, images: meta.images});
+            let title = await this.LoadTitle({versionHash: hash}, meta, "public/asset_metadata");
+            title.isSearchResult = true;
 
-            return {
-              ...meta,
-              ...imageLinks,
-              isSearchResult: true,
-              displayTitle: meta.display_title || meta.title || "",
-              objectId: id,
-              versionHash: hash,
-              playoutOptionsLinkPath,
-              baseLinkPath,
-              baseLinkUrl
-            };
+            return title;
           } catch (error) {
             // eslint-disable-next-line no-console
             console.error("Error loading search result:", id, hash);

@@ -38,7 +38,7 @@ class Site extends React.Component {
 
     return (
       <React.Fragment>
-        { this.props.siteStore.currentSite.playlists.map(playlist =>
+        { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <TitleReel
             key={`title-reel-playlist-${playlist.playlistId}`}
             name={playlist.name}
@@ -46,14 +46,14 @@ class Site extends React.Component {
           />
         )}
 
-        <TitleReel name="Channels" titles={this.props.siteStore.currentSite.channels} />
+        <TitleReel name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} />
 
-        <TitleGrid name="Series" titles={this.props.siteStore.currentSite.series} />
-        <TitleGrid name="Seasons" titles={this.props.siteStore.currentSite.seasons} />
+        <TitleGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} />
+        <TitleGrid name="Seasons" titles={this.props.siteStore.siteInfo.assets.seasons} />
 
-        <TitleGrid name="Episodes" titles={this.props.siteStore.currentSite.episodes} />
+        <TitleGrid name="Episodes" titles={this.props.siteStore.siteInfo.assets.episodes} />
 
-        <TitleGrid name="All Titles" titles={this.props.siteStore.currentSite.titles} />
+        <TitleGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} />
       </React.Fragment>
     );
   }
@@ -68,11 +68,6 @@ class Site extends React.Component {
       backIcon = BackIcon;
       backText = "Back to All Content";
       backAction = this.props.siteStore.ClearSearch;
-    } else if(this.props.siteStore.sites.length > 1) {
-      const previousSite = this.props.siteStore.sites[this.props.siteStore.sites.length - 2];
-      backIcon = BackIcon;
-      backText = `Back to ${previousSite.name}`;
-      backAction = () => this.props.siteStore.PopSite();
     } else {
       if(this.props.location.pathname.startsWith("/preview")) { return null; }
 
@@ -104,18 +99,15 @@ class Site extends React.Component {
       <AsyncComponent
         Load={() => this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
         render={() => {
-          const mainSiteName = this.props.siteStore.sites[0].name;
-          const subHeader = this.props.siteStore.sites.slice(1).map(site => site.name).join(" - ");
+          const mainSiteName = this.props.siteStore.siteInfo.name;
 
           return (
             <div className="site" id="site">
-              <h2 className={`site-header ${subHeader ? "with-subheader" : ""}`} hidden={false}>
+              <h2 className="site-header" hidden={false}>
                 {this.BackButton()}
                 {mainSiteName}
                 <SearchBar key={`search-bar-${this.props.siteStore.searchQuery}`}/>
               </h2>
-
-              {subHeader ? <h3 className="site-subheader">{subHeader}</h3> : null}
 
               <LoadingElement loading={this.props.siteStore.loading}>
                 {this.props.siteStore.activeTitle ? this.ActiveTitle() : this.Content()}

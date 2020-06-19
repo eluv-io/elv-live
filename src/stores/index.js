@@ -14,7 +14,6 @@ const Hash = (code) => {
 
 class RootStore {
   @observable client;
-  @observable sites = [];
   @observable availableSites = [];
 
   @observable accessCode;

@@ -77,7 +77,7 @@ class Site extends React.Component {
   }
 
   Content() {
-    const featuredTitle = this.props.siteStore.currentSite.titles[4]; //Hardcoded a feature title
+    const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; //Hardcoded a feature title
 
     if(this.props.siteStore.searchQuery) {
       return (
@@ -101,7 +101,7 @@ class Site extends React.Component {
       <React.Fragment>
         <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
 
-        { this.props.siteStore.currentSite.playlists.map(playlist =>
+        { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <SwiperGrid
             key={`title-reel-playlist-${playlist.playlistId}`}
             name={playlist.name}
@@ -115,9 +115,9 @@ class Site extends React.Component {
           />
         )}
 
-        <SwiperGrid name="All Titles" titles={this.props.siteStore.currentSite.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Series" titles={this.props.siteStore.currentSite.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Channels" titles={this.props.siteStore.currentSite.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+        <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+        <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
       </React.Fragment>
     );
   }
