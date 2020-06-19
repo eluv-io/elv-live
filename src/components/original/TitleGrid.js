@@ -37,7 +37,7 @@ TitleGrid.propTypes = {
   noTitlesMessage: PropTypes.string,
   titles: PropTypes.arrayOf(
     PropTypes.object
-  ).isRequired
+  )
 };
 
 export default TitleGrid;

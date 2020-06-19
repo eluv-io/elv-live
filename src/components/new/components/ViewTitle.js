@@ -18,7 +18,7 @@ class ViewTitle extends React.Component {
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.scrollTo(0, 0);
   }
 

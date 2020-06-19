@@ -22,7 +22,7 @@ class ActiveTitle extends React.Component {
     this.InitializeVideo = this.InitializeVideo.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.scrollTo(0, 0);
   }
 
@@ -147,7 +147,7 @@ class ActiveTitle extends React.Component {
     return (
       <div className={`active-title-metadata ${this.state.activeTab === "Metadata" ? "" : "hidden"}`}>
         <h2>{ title.displayTitle.toString() } - Metadata</h2>
-        <div className="metadata-path">{title.isSearchResult ? "" : this.props.siteStore.currentSite.name + " - "}{title.baseLinkPath}</div>
+        <div className="metadata-path">{title.isSearchResult ? "" : this.props.siteStore.siteInfo.name + " - "}{title.baseLinkPath}</div>
         <pre>
           { JSON.stringify(title.metadata, null, 2)}
         </pre>
