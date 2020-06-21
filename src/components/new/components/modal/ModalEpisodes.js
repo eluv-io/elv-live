@@ -65,6 +65,8 @@ class ModalEpisodes extends React.Component {
         value: i
       }));
 
+    if(seasons.length === 0) { return null; }
+
     return (
       <div className={`modal__container ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
         <h1 className="modal__title">
