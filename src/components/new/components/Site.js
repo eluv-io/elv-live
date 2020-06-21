@@ -144,6 +144,8 @@ class Site extends React.Component {
       <AsyncComponent
         Load={() => this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
         render={() => {
+          if(!this.props.siteStore.siteInfo) { return null; }
+
           return (
             <div className="site" id="site">
               { this.props.siteStore.activeTitle ? null : this.ViewHeader()}

@@ -1,6 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {AsyncComponent, IconButton, ImageIcon, onEnterPressed} from "elv-components-js";
+import {IconButton, ImageIcon, onEnterPressed} from "elv-components-js";
+import AsyncComponent from "./AsyncComponent";
 
 import BackIcon from "../static/icons/back.svg";
 import PageBack from "../static/icons/Backward.svg";
