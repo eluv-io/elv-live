@@ -28,11 +28,6 @@ class HeroView extends React.Component {
 
     return (
       <div style={backgroundStyle} className="hero-view">
-        {/* <header className="header">
-          <ImageIcon className="logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
-          <NewSearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />
-        </header> */}
-
         <div className="hero-view__container">
           <h1 className="hero-view__container-heading">{ featuredTitle.displayTitle }</h1>
           <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">

@@ -11,49 +11,45 @@ body {
     margin: 0;
     padding: 0;
 }
-
-.swiper-heading { 
-    color: #fff;
-    margin-bottom: -3rem;
-    margin-left: 6rem;
-    margin-top: 2rem;
-}
-
-.swiper-search-heading {
-    color: #fff;
-    margin-bottom: -3rem;
-    margin-left: 6rem;
-    padding-top: 10rem;
-}
+// .swiper-wrapper {
+//     &:hover {
+//         opacity: .3;
+//     }
+// }
 
 .swiper-container {
-    width: 90%;
+    width: 95%;
     height: 100%;
-    margin-left: 6rem;
-    margin-right: 6rem;
-    margin-top: 3rem;
+    padding: 1rem 1rem 1rem 0rem;
 
     &__trailer {
-        overflow: visible;
-        margin-top: 3rem;
-        margin-left: 6rem;
-        background: transparent;
+        padding-top: 2rem;
+        padding-left: 6rem;
     }
-}
 
-:root {
+    &__search {
+        padding-top: 12rem;
+        padding-left: 4.5rem;
+    }
+  }
+  
+  :root {
     --swiper-theme-color: #fff;
-}
-
-img {
+  }
+  
+  img {
     max-width: 100%;
     height: auto;
-}
+  }
 
-.swiper-slide {
+  .swiper-heading {
+      padding-bottom: 1.6rem;
+  }
+  
+  .swiper-slide {
     text-align: center;
     font-size: 18px;
-    // background: $color-background;
+
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -68,58 +64,48 @@ img {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-
-    color: #fff;
-    transition: 250ms all;
-
+  
+  
     cursor: pointer;
-    transition: all 450ms; 
-    transform: center left; 
+    transition: all 350ms; 
+    // transform: center left; 
     height: 25rem;
-    width: 25rem;
-
+    width: 30rem;
+  
     margin-left: .1rem;
     min-height: 0;
     padding-bottom: 4rem;
-        
+    
+    &--icon {
+        padding-right: 2rem;
+    }
+
     &__image {
         float: left;
         width:  100%;
         max-width: 100%;
         height: 100%;
-        object-fit: cover;
-
+        object-fit: cover;  
     }
-
-    &__play-image {
-        float: left;
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-        object-fit: cover;
-        padding: 2rem;
-    }
-
+  
     &__title {
         align-self: flex-start;
         margin-top: .5rem;
     }
-
+  
     &:hover {
-        transform: scale(1.2);
+        opacity: 1 !important;
+        transform: scale(1.15);
         z-index: 1;
     }
-
-    // &:first-child:hover{
-    //     margin:0 40px;
-    // }
-
+  
+    &:first-child:hover{
+        margin: 0 25px;
+    }
+  
     // &:last-child:hover{
     //     margin:0 -40px;
     // }
-}
+  }
 
-.swiper-wrapper {
-    padding: 20px 0;
-}
 

@@ -3,14 +3,15 @@
 
 .site-selector {
     @include elv-no-select;
-    align-items: center;
     color: #fff;
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100%;
-    justify-content: flex-start;
-    width: 30rem;
+    width: 100%;
+    margin-top: 5rem;
 
   .menu-filter {
     margin-bottom: $elv-spacing-xs;

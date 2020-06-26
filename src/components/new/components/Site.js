@@ -10,7 +10,7 @@ import Logo from "../../../static/images/Logo.png";
 import SearchGrid from "./SearchGrid";
 import {Redirect} from "react-router";
 import AsyncComponent from "../../AsyncComponent";
-import SearchBar from "../../SearchBar";
+import HeroGrid from "./HeroGrid";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -81,7 +81,7 @@ class Site extends React.Component {
 
     if(this.props.siteStore.searchQuery) {
       return (
-        <LoadingElement loading={this.props.siteStore.searching} loadingClassname="loading-indicator">
+        <LoadingElement className="loader" loading={this.props.siteStore.searching}>
           <SearchGrid
             noTitlesMessage="No results found"
             name="Search Results"
@@ -100,7 +100,7 @@ class Site extends React.Component {
     return (
       <React.Fragment>
         <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
-
+        {/* <HeroGrid titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
         { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <SwiperGrid
             key={`title-reel-playlist-${playlist.playlistId}`}
@@ -129,7 +129,7 @@ class Site extends React.Component {
   ViewHeader() {
     return (
       <header className="header">
-        <ImageIcon className="logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
+        <ImageIcon className="header__logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
         <NewSearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />
       </header>
     );
@@ -149,7 +149,6 @@ class Site extends React.Component {
           return (
             <div className="site" id="site">
               { this.props.siteStore.activeTitle ? null : this.ViewHeader()}
-
               <LoadingElement loading={this.props.siteStore.loading}>
                 { this.props.siteStore.activeTitle ? this.ShowTitle() : this.Content() }
                 { this.props.siteStore.modalTitle ? this.ViewModal(this.props.siteStore.modalTitle) : null }
@@ -160,22 +159,6 @@ class Site extends React.Component {
       />
     );
   }
-
-  /*
-  render() {
-    return (
-      <div className="site" id="site">
-        { this.props.siteStore.activeTitle ? null : this.ViewHeader()}
-
-        <LoadingElement loading={this.props.siteStore.loading}>
-          { this.props.siteStore.activeTitle ? this.ShowTitle() : this.Content() }
-          { this.props.siteStore.modalTitle ? this.ViewModal(this.props.siteStore.modalTitle) : null }
-        </LoadingElement>
-      </div>
-    );
-  }
-
-   */
 }
 
 export default Site;
