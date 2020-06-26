@@ -1,6 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import SwiperGrid from "../SwiperGrid";
+import SearchGrid from "../SearchGrid";
+
 class ModalTrailers extends React.Component {
   render() {
 
@@ -13,7 +15,7 @@ class ModalTrailers extends React.Component {
           <h1 className="modal__title">
             {featuredTitle.displayTitle}
           </h1>
-          <SwiperGrid name="Trailers" titles={trailers} modalClose={this.props.modalClose} modalOpen={this.props.modalOpen} playTitle={this.props.playTitle} trailers={true} shouldPlay={true} isEpisode={false}/>
+          <SearchGrid name="Trailers" titles={trailers} modalClose={this.props.modalClose} modalOpen={this.props.modalOpen} playTitle={this.props.playTitle} trailers={true} shouldPlay={true} isEpisode={false}/>
         </div>
       </React.Fragment>
     );

@@ -34,10 +34,10 @@ class SearchGrid extends React.Component {
     }
     return (
       <React.Fragment>
-        <h1 className="swiper-search-heading"> 
-          { this.props.name } 
-        </h1>
-        <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container"}>
+        <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container__search"}>
+          <h1 className="swiper-heading"> 
+            { this.props.name } 
+          </h1>
           <div className="swiper-wrapper">
             {
               this.props.titles.map((title, index) => {
@@ -57,8 +57,6 @@ class SearchGrid extends React.Component {
               })
             }
           </div>
-          <div className="swiper-button-next"></div>
-          <div className="swiper-button-prev"></div>
         </div>
       </React.Fragment>
 

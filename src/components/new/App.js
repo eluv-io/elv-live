@@ -7,7 +7,6 @@ import {HashRouter, Route} from "react-router-dom";
 import {ImageIcon, LoadingElement} from "elv-components-js";
 
 import * as Stores from "../../stores";
-import Logo from "../../static/images/Logo.png";
 import Site from "./components/Site";
 import ContentSelector from "../ContentSelector";
 import CodeAccess from "../CodeAccess";
@@ -45,6 +44,8 @@ class Routes extends React.Component {
   }
 }
 
+
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -55,6 +56,7 @@ class App extends React.Component {
         <main>
           { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
           <LoadingElement
+            
             loading={!this.props.rootStore.client}
             render={() => (
               <HashRouter>

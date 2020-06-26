@@ -1,15 +1,15 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import NewTitleIcon from "./NewTitleIcon";
-import PlayTitleIcon from "./PlayTitleIcon";
 import Swiper from "swiper";
+import HeroView from "./HeroView";
 
+@inject("rootStore")
 @inject("siteStore")
 @observer
-class SwiperGrid extends React.Component {
+class HeroGrid extends React.Component {
   componentDidMount(){
     this.swiper = new Swiper(".swiper-container", {
-      slidesPerView: 5,
+      slidesPerView: 1,
       spaceBetween: 20,
       navigation: {
         nextEl: ".swiper-button-next",
@@ -22,17 +22,11 @@ class SwiperGrid extends React.Component {
   render() {
     const noTitles = (!this.props.titles || this.props.titles.length === 0);
     if(!this.props.noTitlesMessage && noTitles) { return null; }
-    
-    let RightIcon;
-    if(this.props.shouldPlay) {
-      RightIcon = PlayTitleIcon;
-    } else {
-      RightIcon = NewTitleIcon;
-    }
+
     return (
       <React.Fragment>
         
-        <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container"}>
+        <div className="swiper-container">
           <h1 className="swiper-heading"> 
             { this.props.name } 
           </h1>
@@ -40,16 +34,11 @@ class SwiperGrid extends React.Component {
             {
               this.props.titles.map((title, index) => {
                 return (
-                  <RightIcon
-                    key = {`title-grid-title-${this.props.name}-${index}`}
-                    large = {false}
+                  <HeroView
                     title = {title}
-                    visible
                     modalClose= {this.props.modalClose} 
                     modalOpen= {this.props.modalOpen} 
                     playTitle= {this.props.playTitle}
-                    episode= {index}
-                    isEpisode = {this.props.isEpisode}
                   />
                 );
               })
@@ -60,10 +49,8 @@ class SwiperGrid extends React.Component {
         </div>
       </React.Fragment>
 
-            
     );
   }
 }
 
-
-export default SwiperGrid;
+export default HeroGrid;

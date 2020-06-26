@@ -3,6 +3,7 @@ import SwiperGrid from "../SwiperGrid";
 import {inject, observer} from "mobx-react";
 import { Dropdown } from "semantic-ui-react";
 import AsyncComponent from "../../../AsyncComponent";
+import SearchGrid from "../SearchGrid";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -54,8 +55,7 @@ class ModalEpisodes extends React.Component {
     const dropdownStyle = {
       width: "20rem",
       marginLeft: "6rem",
-      marginTop: "3rem",
-      // color: "rgba(0, 0, 0, 1)"
+      marginTop: "4rem",
     };
 
     const seasons = this.Seasons()
@@ -72,6 +72,8 @@ class ModalEpisodes extends React.Component {
         <h1 className="modal__title">
           {featuredTitle.displayTitle}
         </h1>
+        
+        { this.Episodes() }
         <Dropdown
           fluid
           selection
@@ -80,7 +82,6 @@ class ModalEpisodes extends React.Component {
           style={dropdownStyle}
           onChange={(_, data) => this.setState({selected: parseInt(data.value)})}
         />
-        { this.Episodes() }
       </div>
     );
   }

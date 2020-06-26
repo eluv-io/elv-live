@@ -5,7 +5,7 @@
     left: 0; 
     opacity: 0;
     position: fixed;
-    top:  0; 
+    top: 0; 
     width: 100%;
     z-index: 500;
       
@@ -19,6 +19,7 @@
  
     &__title {
        font-size: 4rem;
+       padding-top: 3rem;
     }
  
     &__rating {
@@ -30,11 +31,6 @@
        font-size: 2rem;
        padding-top: 1.6rem;
        width: 60%;
-    }
- 
-    &__episode {
-       font-size: 2rem;
-       padding-top: .5rem;
     }
  
     &__overview {
@@ -92,6 +88,7 @@
    padding-bottom: $elv-spacing-s;
    position: absolute;
    width: 100%;
+   padding-top: .8rem;
 
    button {
       background: transparent;
@@ -107,6 +104,7 @@
       text-transform: uppercase;
       transition: border-bottom linear 0.15s, padding linear 0.15s;
       width: 15rem;
+      
 
       &:focus {
       border-bottom: 1px solid $elv-color-text-lightest;
@@ -119,18 +117,17 @@
    }
 }
  
- .show {
-    left: 0;
-    opacity: 1;
-    top: 25%;
-    transition: .5s .3s ease-out;
-    visibility: visible;
-  
- }
+.show {
+   left: 0;
+   opacity: 1;
+   top: 25%;
+   transition: .5s .3s ease-out;
+   visibility: visible;
+}
  
- .hide {
+.hide {
    display: none !important;
- }
+}
  
  
  

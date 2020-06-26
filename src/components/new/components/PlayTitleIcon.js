@@ -26,9 +26,9 @@ class PlayTitleIcon extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="swiper-slide" onClick={() => {this.props.playTitle(title); this.props.modalClose();}}>
+        <div className="swiper-slide--icon" onClick={() => {this.props.playTitle(title); this.props.modalClose();}}>
           <ImageIcon
-            className="swiper-slide__play-image"
+            className="swiper-slide__image"
             icon={thumbnail || FallbackIcon}
             alternateIcon={FallbackIcon}
           />
