@@ -60,9 +60,7 @@ class SiteStore {
 
   @observable searchResults = [];
 
-  //
   @observable showEpisodes = [];
-  //
 
   @observable searching = false;
   @observable searchQuery = "";
@@ -104,6 +102,26 @@ class SiteStore {
 
     this.modalTitle = title;
   });
+
+  //Premiere
+  @observable showPremiere = false;
+  @observable premiereCountdown = false;
+  @observable boughtPremiere = false; 
+
+  @action.bound
+  setPremiere() {
+    this.showPremiere = true;
+  }
+
+  @action.bound
+  setPremiereCountdown() {
+    this.premiereCountdown = true;
+  }
+
+  @action.bound
+  buyPremiere() {
+    this.boughtPremiere = true;
+  }
 
   ///////////////////////////////////////
   @action.bound

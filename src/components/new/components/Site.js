@@ -11,6 +11,7 @@ import SearchGrid from "./SearchGrid";
 import {Redirect} from "react-router";
 import AsyncComponent from "../../AsyncComponent";
 import HeroGrid from "./HeroGrid";
+import MoviePremiere from "./premiere/MoviePremiere";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -76,8 +77,14 @@ class Site extends React.Component {
     return <ViewTitle key={`active-title-${this.props.siteStore.activeTitle.titleId}`} />;
   }
 
+  MoviePremiere() {
+    return <MoviePremiere title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>;
+  }
+
   Content() {
     const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; //Hardcoded a feature title
+    // console.log('series:');
+    // console.log(this.props.siteStore.siteInfo.assets.series);
 
     if(this.props.siteStore.searchQuery) {
       return (
@@ -114,7 +121,7 @@ class Site extends React.Component {
             isEpisode={false}
           />
         )}
-
+      
         <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
         <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
         <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
@@ -130,7 +137,7 @@ class Site extends React.Component {
     return (
       <header className="header">
         <ImageIcon className="header__logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
-        <NewSearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />
+        { this.props.siteStore.showPremiere ? null : <NewSearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />}
       </header>
     );
   }
@@ -139,6 +146,8 @@ class Site extends React.Component {
     if(this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode) {
       return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
     }
+    // This determines whether it's a single movie premiere or library
+    this.props.siteStore.setPremiere();
 
     return (
       <AsyncComponent
@@ -150,7 +159,7 @@ class Site extends React.Component {
             <div className="site" id="site">
               { this.props.siteStore.activeTitle ? null : this.ViewHeader()}
               <LoadingElement loading={this.props.siteStore.loading}>
-                { this.props.siteStore.activeTitle ? this.ShowTitle() : this.Content() }
+                { this.props.siteStore.activeTitle ? this.ShowTitle() : (this.props.siteStore.showPremiere ? this.MoviePremiere() : this.Content())}
                 { this.props.siteStore.modalTitle ? this.ViewModal(this.props.siteStore.modalTitle) : null }
               </LoadingElement>
             </div>
