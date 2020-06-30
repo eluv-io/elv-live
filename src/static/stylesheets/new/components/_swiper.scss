@@ -11,6 +11,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 // .swiper-wrapper {
 //     &:hover {
 //         opacity: .3;
@@ -20,7 +21,7 @@ body {
 .swiper-container {
     width: 95%;
     height: 100%;
-    padding: 1rem 1rem 1rem 0rem;
+    padding: 1rem 1rem 1rem 0;
 
     &__trailer {
         padding-top: 2rem;
