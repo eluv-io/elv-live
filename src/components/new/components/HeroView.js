@@ -27,28 +27,21 @@ class HeroView extends React.Component {
     };
 
     return (
-      <div style={backgroundStyle} className="hero-view">
-        <div className="hero-view__container">
-          <h1 className="hero-view__container-heading">{ featuredTitle.displayTitle }</h1>
-          <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">
-
-            {/* <PlayLogo className="hero-view__container-btnDetails-play" /> */}
-            {/* <PlayLogo /> */}
-            {/* <ImageIcon
-                  label="PlayLogo"
-                  className="hero-view__container-btnPlay-play"
-                  icon={PlayLogo}
-                  onClick={() => this.setState({libraryId: "", cacheId: "", count: 0, page: 1})}
-                /> */}
-                Play
-          </button>
-
-          <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails">
-                View Details
-          </button>
-          <p className="hero-view__container-overview">{synopsis}</p>
+      <React.Fragment>
+        <div style={backgroundStyle} className="hero-background" />
+        <div className="hero-view-container">
+          <h1 className="hero-view-container__heading-hero">{ featuredTitle.displayTitle }</h1>
+          <div className="hero-view-container__button">            
+            <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">
+              Play Now
+            </button>
+            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails">
+              View Details
+            </button>
+          </div>
+          <p className="hero-view-container__overview">{synopsis}</p>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

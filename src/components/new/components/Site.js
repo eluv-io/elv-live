@@ -108,7 +108,7 @@ class Site extends React.Component {
       <React.Fragment>
         <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
         {/* <HeroGrid titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
-        { this.props.siteStore.siteInfo.playlists.map(playlist =>
+        {/* { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <SwiperGrid
             key={`title-reel-playlist-${playlist.playlistId}`}
             name={playlist.name}
@@ -120,11 +120,11 @@ class Site extends React.Component {
             shouldPlay={false}
             isEpisode={false}
           />
-        )}
+        )} */}
       
         <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+        {/* <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/> */}
       </React.Fragment>
     );
   }
@@ -146,6 +146,7 @@ class Site extends React.Component {
     if(this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode) {
       return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
     }
+    
     // This determines whether it's a single movie premiere or library
     this.props.siteStore.setPremiere();
 
@@ -156,7 +157,7 @@ class Site extends React.Component {
           if(!this.props.siteStore.siteInfo) { return null; }
 
           return (
-            <div className="site" id="site">
+            <div className="container">
               { this.props.siteStore.activeTitle ? null : this.ViewHeader()}
               <LoadingElement loading={this.props.siteStore.loading}>
                 { this.props.siteStore.activeTitle ? this.ShowTitle() : (this.props.siteStore.showPremiere ? this.MoviePremiere() : this.Content())}

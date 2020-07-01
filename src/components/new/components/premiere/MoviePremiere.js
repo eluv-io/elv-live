@@ -8,20 +8,7 @@ import Payments from './Payments';
 @observer
 class MoviePremiere extends React.Component {
 
-  beforePremiere(featuredTitle) {
-    return (
-      <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">
-        Watch Trailer
-      </button>
-    );
-  }
-
   nowPremiere() {
-    // return (
-    //   <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">
-    //     Buy from ${cost}
-    //   </button>
-    // );
     return <Payments />;
   }
 
@@ -52,17 +39,25 @@ class MoviePremiere extends React.Component {
     };
 
     return (
-      <div style={backgroundStyle} className="hero-view">
-        <div className="hero-view__container">
-          <h1 className="hero-view__container-heading">{ featuredTitle.displayTitle }</h1>
+      <React.Fragment>
+        <div style={backgroundStyle} className="hero-background" />
+        <div className="hero-view-container">
+          <h1 className="hero-view-container__heading">{ featuredTitle.displayTitle }</h1>
           <Timer />
-          { this.props.siteStore.premiereCountdown ? (this.props.siteStore.boughtPremiere ? this.playPremiere() : this.nowPremiere()) : this.beforePremiere(featuredTitle) }
-          <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails">
-            View Details
-          </button>
-          <p className="hero-view__container-overview">{synopsis}</p>
+          <div className="hero-view-container__button">
+            { this.props.siteStore.premiereCountdown ? (this.props.siteStore.boughtPremiere ? this.playPremiere() : this.nowPremiere()) : null }
+            
+            <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">
+              Watch Trailer
+            </button>
+
+            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails">
+              View Details
+            </button>
+          </div>
+          <p className="hero-view-container__overview">{synopsis}</p>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
