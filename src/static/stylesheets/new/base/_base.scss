@@ -45,3 +45,12 @@ body {
 	box-sizing: border-box;
 	background-color: $color-background;
 }
+
+.container {
+    display: grid;
+    // grid-template-rows: [full-start] 3rem [header-start] minmax(min-content, 4rem) [header-end hero-start] minmax(min-content, 86vh) [full-end hero-end grid-start] minmax(min-content, 30rem) [grid-end];
+    grid-template-rows: [full-start] 3rem [header-start] minmax(min-content, 4rem) [header-end hero-start] minmax(min-content, 86vh) [full-end hero-end];
+
+    grid-template-columns: [full-start] 5rem [header-start hero-start] minmax(min-content, 100%) [header-end hero-end] 5rem [full-end];
+    position: relative; 
+}
