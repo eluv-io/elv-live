@@ -9,7 +9,7 @@ export default class Timer extends Component {
       days: 0,
       hours: 0,
       minutes: 0,
-      seconds: 20,
+      seconds: 10,
     }
 
     renderClock(days, hours, minutes, seconds) {
@@ -40,24 +40,39 @@ export default class Timer extends Component {
 
     componentDidMount() {
       this.myInterval = setInterval(() => {
-          const { seconds, minutes } = this.state
+          const { seconds, minutes, hours, days } = this.state
 
           if (seconds > 0) {
             this.setState(({ seconds }) => ({
               seconds: seconds - 1
             }))
           }
+
           if (seconds === 0) {
             if (minutes === 0) {
-              clearInterval(this.myInterval)
-              this.props.siteStore.setPremiereCountdown();
+              if (hours === 0) {
+                if (days === 0) {
+                  clearInterval(this.myInterval)
+                  this.props.siteStore.setPremiereCountdown();
+                } else {
+                    this.setState(({ days }) => ({
+                      days: days - 1,
+                      hours: 24
+                    }));
+                  }
+              } else {
+                  this.setState(({ hours }) => ({
+                    hours: hours - 1,
+                    minutes: 60
+                  }));
+                } 
             } else {
-              this.setState(({ minutes }) => ({
-                minutes: minutes - 1,
-                seconds: 59
-            }))
-          }
-        } 
+                this.setState(({ minutes }) => ({
+                  minutes: minutes - 1,
+                  seconds: 59
+                }));
+              }
+          } 
       }, 1000);
     };
 

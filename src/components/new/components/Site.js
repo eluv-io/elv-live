@@ -83,8 +83,9 @@ class Site extends React.Component {
 
   Content() {
     const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; //Hardcoded a feature title
-    // console.log('series:');
-    // console.log(this.props.siteStore.siteInfo.assets.series);
+    console.log('series:');
+    console.log(this.props.siteStore.siteInfo.assets.series);
+    console.log(this.props.siteStore.siteInfo.assets.series[1]);
 
     if(this.props.siteStore.searchQuery) {
       return (
@@ -108,7 +109,7 @@ class Site extends React.Component {
       <React.Fragment>
         <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
         {/* <HeroGrid titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
-        {/* { this.props.siteStore.siteInfo.playlists.map(playlist =>
+        { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <SwiperGrid
             key={`title-reel-playlist-${playlist.playlistId}`}
             name={playlist.name}
@@ -120,11 +121,11 @@ class Site extends React.Component {
             shouldPlay={false}
             isEpisode={false}
           />
-        )} */}
+        )}
       
         <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        {/* <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/> */}
+        <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
       </React.Fragment>
     );
   }
@@ -148,7 +149,7 @@ class Site extends React.Component {
     }
     
     // This determines whether it's a single movie premiere or library
-    this.props.siteStore.setPremiere();
+    // this.props.siteStore.setPremiere();
 
     return (
       <AsyncComponent
