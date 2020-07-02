@@ -17,8 +17,7 @@ class SearchGrid extends React.Component {
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
-      },
-      // slidesPerView: 3,
+      }
     });
   }
 
@@ -33,34 +32,30 @@ class SearchGrid extends React.Component {
       RightIcon = NewTitleIcon;
     }
     return (
-      <React.Fragment>
-        <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container__search"}>
-          <h1 className="swiper-heading"> 
-            { this.props.name } 
-          </h1>
-          <div className="swiper-wrapper">
-            {
-              this.props.titles.map((title, index) => {
-                return (
-                  <RightIcon
-                    key={`title-grid-title-${this.props.name}-${index}`}
-                    large = {false}
-                    title={title}
-                    visible
-                    modalClose={this.props.modalClose} 
-                    modalOpen={this.props.modalOpen} 
-                    playTitle={this.props.playTitle}
-                    episode= {index}
-                    isEpisode = {this.props.isEpisode}
-                  />
-                );
-              })
-            }
-          </div>
+      <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container__search"}>
+        <h1 className="swiper-heading"> 
+          { this.props.name } 
+        </h1>
+        <div className="swiper-wrapper">
+          {
+            this.props.titles.map((title, index) => {
+              return (
+                <RightIcon
+                  key={`title-grid-title-${this.props.name}-${index}`}
+                  large = {false}
+                  title={title}
+                  visible
+                  modalClose={this.props.modalClose} 
+                  modalOpen={this.props.modalOpen} 
+                  playTitle={this.props.playTitle}
+                  episode= {index}
+                  isEpisode = {this.props.isEpisode}
+                />
+              );
+            })
+          }
         </div>
-      </React.Fragment>
-
-            
+      </div>
     );
   }
 }

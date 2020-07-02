@@ -8,7 +8,7 @@
 
     //LOGO
     &__logo {
-        position: absolute;
+        // position: absolute;
         grid-column: logo-start / logo-end;
         height: 3rem;
         width: 12rem;
@@ -16,7 +16,7 @@
 
     //SEARCH BAR
     &__search {
-        position: absolute;
+        // position: absolute;
         grid-column: search-start / search-end;
         justify-self: end;
         background: transparent;

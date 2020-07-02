@@ -7,6 +7,7 @@ import Swiper from "swiper";
 @inject("siteStore")
 @observer
 class SwiperGrid extends React.Component {
+
   componentDidMount(){
     this.swiper = new Swiper(".swiper-container", {
       slidesPerView: 5,
@@ -30,37 +31,32 @@ class SwiperGrid extends React.Component {
       RightIcon = NewTitleIcon;
     }
     return (
-      <React.Fragment>
-        
-        <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container"}>
-          <h1 className="swiper-heading"> 
-            { this.props.name } 
-          </h1>
-          <div className="swiper-wrapper">
-            {
-              this.props.titles.map((title, index) => {
-                return (
-                  <RightIcon
-                    key = {`title-grid-title-${this.props.name}-${index}`}
-                    large = {false}
-                    title = {title}
-                    visible
-                    modalClose= {this.props.modalClose} 
-                    modalOpen= {this.props.modalOpen} 
-                    playTitle= {this.props.playTitle}
-                    episode= {index}
-                    isEpisode = {this.props.isEpisode}
-                  />
-                );
-              })
-            }
-          </div>
-          <div className="swiper-button-next"></div>
-          <div className="swiper-button-prev"></div>
+      <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container"}>
+        <h1 className="swiper-heading"> 
+          { this.props.name } 
+        </h1>
+        <div className="swiper-wrapper">
+          {
+            this.props.titles.map((title, index) => {
+              return (
+                <RightIcon
+                  key = {`title-grid-title-${this.props.name}-${index}`}
+                  large = {false}
+                  title = {title}
+                  visible
+                  modalClose= {this.props.modalClose} 
+                  modalOpen= {this.props.modalOpen} 
+                  playTitle= {this.props.playTitle}
+                  episode= {index}
+                  isEpisode = {this.props.isEpisode}
+                />
+              );
+            })
+          }
         </div>
-      </React.Fragment>
-
-            
+        <div className="swiper-button-next"></div>
+        <div className="swiper-button-prev"></div>
+      </div>
     );
   }
 }

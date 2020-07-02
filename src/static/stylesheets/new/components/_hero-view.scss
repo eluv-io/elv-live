@@ -10,13 +10,15 @@
     color: #fff;
     align-self: end;
     display: grid; 
-    grid-template-rows: 40vh [title-start] minmax(min-content, 5rem) [title-end timer-start] minmax(min-content, 5rem) [timer-end button-start] minmax(min-content, 7rem) [button-end overview-start] minmax(min-content, 5rem) [overview-end] 3rem;
+    grid-template-rows: 40% [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] 
+    minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end] 41vh;
     grid-row-gap: 1rem;
 
     &__heading {
         grid-row: title-start / title-end;
         font-size: 6rem;
     }
+
     &__heading-hero {
         grid-row: timer-start / timer-end;
         font-size: 6rem;

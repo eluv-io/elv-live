@@ -1,25 +1,26 @@
-html, body {
-    position: relative;
-    height: 100%;
-}
+// html, body {
+//     position: relative;
+//     height: 100%;
+// }
 
-body {
-    background: #000;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-}
+// body {
+//     background: #000;
+//     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+//     font-size: 14px;
+//     color: #fff;
+//     margin: 0;
+//     padding: 0;
+// }
 
 .swiper-container {
-    width: 95%;
+    width: 100%;
     height: 100%;
-    padding: 1rem 1rem 1rem 0;
+    // padding: 1rem 1rem 1rem 0;
 
-    // grid-column: hero-start / hero-end;
+    grid-column: hero-start / hero-end;
     // grid-row: grid-start / grid-end;
-    
+    justify-content: start;
+    align-content: start;
 
     &__trailer {
         padding-top: 2rem;
@@ -27,8 +28,9 @@ body {
     }
 
     &__search {
-        padding-top: 12rem;
-        padding-left: 4.5rem;
+        grid-column: hero-start / hero-end;
+        grid-row-start: search-start;
+        margin-top: 10vh;
     }
   }
   
