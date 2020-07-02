@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import NewTitleIcon from "./NewTitleIcon";
+import SwiperTitleIcon from "./SwiperTitleIcon";
 import PlayTitleIcon from "./PlayTitleIcon";
 import Swiper from "swiper";
 
@@ -11,14 +11,38 @@ class SwiperGrid extends React.Component {
   componentDidMount(){
     this.swiper = new Swiper(".swiper-container", {
       slidesPerView: 5,
-      spaceBetween: 20,
+      spaceBetween: 10,
+      slidesPerGroup: 5,
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
-      // slidesPerView: 3,
+      breakpoints: {
+        100: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+          slidesPerGroup: 2
+        },
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+          slidesPerGroup: 3
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+          slidesPerGroup: 4
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+          slidesPerGroup: 5
+        },
+      }
     });
   }
+
+
 
   render() {
     const noTitles = (!this.props.titles || this.props.titles.length === 0);
@@ -28,7 +52,7 @@ class SwiperGrid extends React.Component {
     if(this.props.shouldPlay) {
       RightIcon = PlayTitleIcon;
     } else {
-      RightIcon = NewTitleIcon;
+      RightIcon = SwiperTitleIcon;
     }
     return (
       <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container"}>

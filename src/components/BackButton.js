@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
-import CloseIcon from "../../../static/icons/x.svg";
+import CloseIcon from "../static/icons/x.svg";
 
 @inject("siteStore")
 @observer

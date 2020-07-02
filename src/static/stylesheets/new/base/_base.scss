@@ -46,11 +46,14 @@ body {
 	background-color: $color-background;
 }
 
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;   // 1200px
+$bp-large: 62.5em;   // 1000px
+$bp-medium: 50em;    // 800px;
+$bp-small: 43.75em;   // 700px;
+
 .container {
     display: grid;
     grid-template-rows: [full-start] 3vh [header-start] minmax(min-content, 4vh) [header-end hero-start search-start] minmax(min-content, 93vh) [full-end hero-end grid-start] repeat(3, minmax(min-content, max-content)) [grid-end];
-    // grid-template-rows: [full-start] 3vh [header-start] minmax(min-content, 4vh) [header-end hero-start] minmax(min-content, 93vh) [full-end hero-end];
-
     grid-template-columns: [full-start] 4vw [header-start hero-start] 92vw [header-end hero-end] 4vw [full-end];
-    // position: relative; 
 }

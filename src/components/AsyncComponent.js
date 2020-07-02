@@ -2,7 +2,7 @@ import "elv-components-js/src/stylesheets/async-component.scss";
 
 import React from "react";
 import PropTypes from "prop-types";
-import {BallSpin, ErrorHandler} from "elv-components-js";
+import {ErrorHandler} from "elv-components-js";
 import {observer} from "mobx-react";
 
 @observer
@@ -54,7 +54,6 @@ class AsyncComponent extends React.Component {
     if(this.state.loading) {
       return (
         <div className="-elv-async-component -elv-async-component-loading">
-          <BallSpin />
         </div>
       );
     }

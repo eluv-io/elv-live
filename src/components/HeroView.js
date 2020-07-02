@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import PlayLogo from "../../../static/icons/play-button.svg";
+import PlayLogo from "../static/icons/play-button.svg";
 
 @inject("rootStore")
 @inject("siteStore")

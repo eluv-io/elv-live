@@ -9,7 +9,7 @@ export default class Timer extends Component {
       days: 0,
       hours: 0,
       minutes: 0,
-      seconds: 10,
+      seconds: 20
     }
 
     renderClock(days, hours, minutes, seconds) {
@@ -39,7 +39,8 @@ export default class Timer extends Component {
     }
 
     componentDidMount() {
-      this.myInterval = setInterval(() => {
+      if (!this.props.siteStore.premiereCountdown) {
+        this.myInterval = setInterval(() => {
           const { seconds, minutes, hours, days } = this.state
 
           if (seconds > 0) {
@@ -73,7 +74,8 @@ export default class Timer extends Component {
                 }));
               }
           } 
-      }, 1000);
+        }, 1000);
+      };
     };
 
     componentWillUnmount() {
@@ -84,7 +86,7 @@ export default class Timer extends Component {
       const { days, hours, minutes, seconds } = this.state;
       return (
         <div className="hero-view-container__timer">
-          { (days === 0 && hours === 0 && minutes === 0 && seconds === 0)
+          { this.props.siteStore.premiereCountdown
             ? <h1>Premiering Now!</h1>
             : this.renderClock(days, hours, minutes, seconds)
           }

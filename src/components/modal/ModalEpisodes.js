@@ -2,8 +2,7 @@ import React from "react";
 import SwiperGrid from "../SwiperGrid";
 import {inject, observer} from "mobx-react";
 import { Dropdown } from "semantic-ui-react";
-import AsyncComponent from "../../../AsyncComponent";
-import SearchGrid from "../SearchGrid";
+import AsyncComponent from "../AsyncComponent";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -52,13 +51,11 @@ class ModalEpisodes extends React.Component {
 
   render() {
     const featuredTitle = this.props.title;
-    const dropdownStyle = {
-      width: "20rem",
-      marginLeft: "6rem",
-      marginTop: "4rem",
-    };
-
-    // console.log(this.Seasons());
+    // const dropdownStyle = {
+    //   width: "20rem",
+    //   marginLeft: "6rem",
+    //   marginTop: "-10rem",
+    // };
 
     const seasons = this.Seasons()
       .map((season, i) => ({
@@ -70,21 +67,25 @@ class ModalEpisodes extends React.Component {
     if(seasons.length === 0) { return null; }
 
     return (
-      <div className={`modal__container ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
-        <h1 className="modal__title">
-          {featuredTitle.displayTitle}
-        </h1>
-        
-        { this.Episodes() }
-        <Dropdown
-          fluid
-          selection
-          options={seasons}
-          value={this.state.selected}
-          style={dropdownStyle}
-          onChange={(_, data) => this.setState({selected: parseInt(data.value)})}
-        />
-      </div>
+      <React.Fragment>
+        <div className={`modal__container ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
+          <h1 className="modal__title">
+            {featuredTitle.displayTitle}
+          </h1>
+          
+          { this.Episodes() }
+        </div>
+        <div className={`modal__dropdown ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
+          <Dropdown
+            fluid
+            selection
+            options={seasons}
+            value={this.state.selected}
+            onChange={(_, data) => this.setState({selected: parseInt(data.value)})}
+          />
+        </div>
+      </React.Fragment>
+      
     );
   }
 }

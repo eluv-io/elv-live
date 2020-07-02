@@ -1,15 +1,15 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {ImageIcon, LoadingElement} from "elv-components-js";
+import {ImageIcon} from "elv-components-js";
 import SwiperGrid from "./SwiperGrid";
 import ViewTitle from "./ViewTitle";
 import HeroView from "./HeroView";
 import Modal from "./modal/Modal";
-import NewSearchBar from "./NewSearchBar";
-import Logo from "../../../static/images/Logo.png";
+import SearchBar from "./SearchBar";
+import Logo from "../static/images/Logo.png";
 import SearchGrid from "./SearchGrid";
 import {Redirect} from "react-router";
-import AsyncComponent from "../../AsyncComponent";
+import AsyncComponent from "./AsyncComponent";
 import HeroGrid from "./HeroGrid";
 import MoviePremiere from "./premiere/MoviePremiere";
 
@@ -89,19 +89,17 @@ class Site extends React.Component {
 
     if(this.props.siteStore.searchQuery) {
       return (
-        <LoadingElement className="loader" loading={this.props.siteStore.searching}>
-          <SearchGrid
-            noTitlesMessage="No results found"
-            name="Search Results"
-            titles={this.props.siteStore.searchResults}
-            modalClose={this.TurnOffToggle}
-            modalOpen={this.TurnOnToggle}
-            playTitle={this.PlayTitle}
-            trailers={false}
-            shouldPlay={false}
-            isEpisode={false}
-          />
-        </LoadingElement>
+        <SearchGrid
+          noTitlesMessage="No results found"
+          name="Search Results"
+          titles={this.props.siteStore.searchResults}
+          modalClose={this.TurnOffToggle}
+          modalOpen={this.TurnOnToggle}
+          playTitle={this.PlayTitle}
+          trailers={false}
+          shouldPlay={false}
+          isEpisode={false}
+        />
       );
     }
 
@@ -138,7 +136,7 @@ class Site extends React.Component {
     return (
       <header className="header">
         <ImageIcon className="header__logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
-        { this.props.siteStore.showPremiere ? null : <NewSearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />}
+        { this.props.siteStore.showPremiere ? null : <SearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />}
       </header>
     );
   }
@@ -149,7 +147,8 @@ class Site extends React.Component {
     }
     
     // This determines whether it's a single movie premiere or library
-    // this.props.siteStore.setPremiere();
+    this.props.siteStore.setPremiere();
+
 
     return (
       <AsyncComponent
@@ -160,10 +159,8 @@ class Site extends React.Component {
           return (
             <div className="container">
               { this.props.siteStore.activeTitle ? null : this.ViewHeader()}
-              <LoadingElement loading={this.props.siteStore.loading}>
-                { this.props.siteStore.activeTitle ? this.ShowTitle() : (this.props.siteStore.showPremiere ? this.MoviePremiere() : this.Content())}
-                { this.props.siteStore.modalTitle ? this.ViewModal(this.props.siteStore.modalTitle) : null }
-              </LoadingElement>
+              { this.props.siteStore.activeTitle ? this.ShowTitle() : (this.props.siteStore.showPremiere ? this.MoviePremiere() : this.Content())}
+              { this.props.siteStore.modalTitle ? this.ViewModal(this.props.siteStore.modalTitle) : null }
             </div>
           );
         }}
