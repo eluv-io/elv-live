@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
-import FallbackIcon from "../../../static/icons/video.svg";
+import FallbackIcon from "../static/icons/video.svg";
 
-//SAME THING AS NewTitleIcon but with different OnPress
-//TODO: Gonna merge this into NewTitleIcon 
+//SAME THING AS SwiperTitleIcon but with different OnPress
+//TODO: Gonna merge this into SwiperTitleIcon 
 
 @inject("rootStore")
 @inject("siteStore")

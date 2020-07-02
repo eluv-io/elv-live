@@ -5,13 +5,14 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+// entry: "./src/components/original/index.js",
 
 module.exports = {
-  entry: "./src/components/original/index.js",
+  entry: "./src/App.js",
   target: "web",
   output: {
     path: Path.resolve(__dirname, "dist"),
-    filename: "index.js",
+    filename: "App.js",
     chunkFilename: "[name].bundle.js"
   },
   devServer: {

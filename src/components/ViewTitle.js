@@ -1,5 +1,5 @@
 import React from "react";
-import HLSPlayer from "../../../../node_modules/hls.js/dist/hls";
+import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";

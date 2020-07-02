@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import NewTitleIcon from "./NewTitleIcon";
+import SwiperTitleIcon from "./SwiperTitleIcon";
 import PlayTitleIcon from "./PlayTitleIcon";
 import Swiper from "swiper";
 
@@ -29,7 +29,7 @@ class SearchGrid extends React.Component {
     if(this.props.shouldPlay) {
       RightIcon = PlayTitleIcon;
     } else {
-      RightIcon = NewTitleIcon;
+      RightIcon = SwiperTitleIcon;
     }
     return (
       <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container__search"}>

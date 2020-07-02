@@ -1,5 +1,5 @@
-import React from "../../../../../node_modules/react";
-import {inject, observer} from "../../../../../node_modules/mobx-react";
+import React from "react";
+import {inject, observer} from "mobx-react";
 import ModalOverview from "./ModalOverview";
 import ModalTrailers from "./ModalTrailers";
 import ModalDetails from "./ModalDetails";
@@ -21,6 +21,7 @@ class Modal extends React.Component {
       showPlay: true
     };
   }
+
   componentDidMount() {
     if(["series", "season"].includes(this.props.title.title_type)) {
       this.setState({tabs: ["Overview", "Trailers", "Episodes", "Details"]});
@@ -32,7 +33,7 @@ class Modal extends React.Component {
 
   Tabs() {
     return (
-      <nav className="modal_tabs">
+      <nav className="modal__tabs">
         {
           this.state.tabs.map(tab =>
             <button
@@ -71,7 +72,6 @@ class Modal extends React.Component {
         <div
           style={backgroundStyle}
           className={this.props.toggle ? "modal show" : "modal hide"}
-
         >
           { this.Tabs() }
           <BackButton modalClose={this.props.modalClose}/>

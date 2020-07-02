@@ -16,6 +16,49 @@
        padding-top: 3rem;
        width: 70%;
     }
+
+    &__tabs {
+      align-items: flex-end;
+      display: flex;
+      justify-content: center;
+      margin-top: $elv-spacing-s;
+      padding-bottom: $elv-spacing-s;
+      padding-top: .8rem;
+      position: absolute;
+      width: 100%;
+   
+      button {
+         background: transparent;
+         border: 0;
+         border-bottom: 3px solid transparent;
+         color: $elv-color-lightestgray;
+         cursor: pointer;
+         font-size: 1.8rem;
+         height: 3rem;
+         margin-left: 2rem;
+         margin-right: 2rem;
+         padding: 0 0 $elv-spacing-xs;
+         text-transform: uppercase;
+         transition: border-bottom linear 0.15s, padding linear 0.15s;
+         width: 15rem;
+         
+   
+         &:focus {
+         border-bottom: 1px solid $elv-color-text-lightest;
+         outline: 0;
+         }
+   
+         &.active-tab {
+         border-bottom: 3px solid $elv-color-text-lightest;
+         }
+      }
+   }
+
+   &__dropdown {
+      width: 20rem;
+      margin-left: 11rem;
+      margin-top: -10rem;
+   }
  
     &__title {
        font-size: 4rem;
@@ -80,43 +123,6 @@
    }
 }
 
-.modal_tabs {
-   align-items: flex-end;
-   display: flex;
-   justify-content: center;
-   margin-top: $elv-spacing-s;
-   padding-bottom: $elv-spacing-s;
-   padding-top: .8rem;
-   position: absolute;
-   width: 100%;
-
-   button {
-      background: transparent;
-      border: 0;
-      border-bottom: 3px solid transparent;
-      color: $elv-color-lightestgray;
-      cursor: pointer;
-      font-size: 1.8rem;
-      height: 3rem;
-      margin-left: 2rem;
-      margin-right: 2rem;
-      padding: 0 0 $elv-spacing-xs;
-      text-transform: uppercase;
-      transition: border-bottom linear 0.15s, padding linear 0.15s;
-      width: 15rem;
-      
-
-      &:focus {
-      border-bottom: 1px solid $elv-color-text-lightest;
-      outline: 0;
-      }
-
-      &.active-tab {
-      border-bottom: 3px solid $elv-color-text-lightest;
-      }
-   }
-}
- 
 .show {
    left: 0;
    opacity: 1;
@@ -128,6 +134,3 @@
 .hide {
    display: none !important;
 }
- 
- 
- 

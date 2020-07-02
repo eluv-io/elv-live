@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {Action, LoadingElement, onEnterPressed} from "elv-components-js";
+import {Action, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 
 @inject("rootStore")
@@ -45,9 +45,7 @@ class CodeAccess extends React.Component {
             onChange={event => this.setState({code: event.target.value})}
             onKeyPress={onEnterPressed(Submit)}
           />
-          <LoadingElement loading={this.state.loading}>
-            <Action onClick={Submit}>Submit</Action>
-          </LoadingElement>
+          <Action onClick={Submit}>Submit</Action>
         </div>
       </div>
     );

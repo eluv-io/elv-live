@@ -3,16 +3,13 @@ import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
-
-import {ImageIcon, LoadingElement} from "elv-components-js";
-
-import * as Stores from "../../stores";
+import * as Stores from "./stores";
 import Site from "./components/Site";
-import ContentSelector from "../ContentSelector";
-import CodeAccess from "../CodeAccess";
+import ContentSelector from "./components/ContentSelector";
+import CodeAccess from "./components/CodeAccess";
 
 import "swiper/css/swiper.min.css";
-import "../../static/stylesheets/new/main.scss";
+import "./static/stylesheets/new/main.scss";
 
 @inject("rootStore")
 @observer
@@ -55,15 +52,9 @@ class App extends React.Component {
       <div className="app-container">
         <main>
           { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
-          <LoadingElement
-            
-            loading={!this.props.rootStore.client}
-            render={() => (
-              <HashRouter>
-                <Routes />
-              </HashRouter>
-            )}
-          />
+          <HashRouter>
+            <Routes />
+          </HashRouter>
         </main>
       </div>
     );

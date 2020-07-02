@@ -1,6 +1,4 @@
 import React from "react";
-import {IconButton} from "elv-components-js";
-import ClearSearchIcon from "../static/icons/clear.svg";
 import {inject, observer} from "mobx-react";
 
 @inject("siteStore")
@@ -44,9 +42,8 @@ class SearchBar extends React.Component {
     if(!this.props.siteStore.searchIndex) { return null; }
 
     return (
-      <div className="title-search">
-        <input value={this.state.search} onChange={this.HandleSearchChange} placeholder="Filter titles..." autoFocus={this.props.siteStore.searchQuery} />
-        <IconButton icon={ClearSearchIcon} className="clear-search" title="Clear" onClick={() => this.HandleSearchChange({target: { value: "" }})} />
+      <div className="header__search">
+        <input value={this.state.search} className="header__search__input" onChange={this.HandleSearchChange} placeholder="Search Titles" autoFocus={this.props.siteStore.searchQuery} />
       </div>
     );
   }

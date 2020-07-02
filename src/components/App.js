@@ -3,16 +3,13 @@ import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
-
-import {ImageIcon, LoadingElement} from "elv-components-js";
-
-import * as Stores from "../../stores";
-
-import Logo from "../../static/images/Logo.png";
-import GithubIcon from "../../static/icons/github.svg";
+import * as Stores from "../stores";
 import Site from "./Site";
-import ContentSelector from "../ContentSelector";
-import CodeAccess from "../CodeAccess";
+import ContentSelector from "./ContentSelector";
+import CodeAccess from "./CodeAccess";
+
+import "swiper/css/swiper.min.css";
+import "../../static/stylesheets/new/main.scss";
 
 @inject("rootStore")
 @observer
@@ -25,6 +22,7 @@ class Routes extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Switch>
         <Route exact path="/" component={ContentSelector} />
@@ -43,38 +41,20 @@ class Routes extends React.Component {
   }
 }
 
+
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class App extends React.Component {
-  SourceLink() {
-    const sourceUrl = "https://github.com/eluv-io/elv-site-sample";
-    return (
-      <a className="source-link" href={sourceUrl} target="_blank">
-        <ImageIcon className="github-icon" icon={GithubIcon} />
-        Source available on GitHub
-      </a>
-    );
-  }
-
   render() {
     return (
       <div className="app-container">
-        <header>
-          <ImageIcon className="logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
-
-          { this.SourceLink() }
-        </header>
         <main>
           { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
-          <LoadingElement
-            loading={!this.props.rootStore.client}
-            render={() => (
-              <HashRouter>
-                <Routes />
-              </HashRouter>
-            )}
-          />
+          <HashRouter>
+            <Routes />
+          </HashRouter>
         </main>
       </div>
     );

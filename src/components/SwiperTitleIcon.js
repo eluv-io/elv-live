@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {inject, observer} from "mobx-react";
-import {ImageIcon, LoadingElement} from "elv-components-js";
-import FallbackIcon from "../../../static/icons/video.svg";
+import {ImageIcon} from "elv-components-js";
+import FallbackIcon from "../static/icons/video.svg";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class NewTitleIcon extends React.Component {
+class SwiperTitleIcon extends React.Component {
   render() {
 
     //Getting metadata: thumbnail
@@ -36,9 +36,9 @@ class NewTitleIcon extends React.Component {
   }
 }
 
-NewTitleIcon.propTypes = {
+SwiperTitleIcon.propTypes = {
   title: PropTypes.object.isRequired,
   visible: PropTypes.bool.isRequired
 };
 
-export default NewTitleIcon;
+export default SwiperTitleIcon;
