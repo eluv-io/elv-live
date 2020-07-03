@@ -14,7 +14,6 @@ class ModalOverview extends React.Component {
     const runtime = titleInfo.runtime;
     const release_date = titleInfo.release_date;
     const creator = titleInfo.creator;
-    const copyright = titleInfo.copyright;
     
     const Maybe = (value, render) => value ? render() : null;
 

@@ -4,9 +4,6 @@ class ModalDetails extends React.Component {
   render() {
     const featuredTitle = this.props.title;
     const titleInfo = featuredTitle.info || {};
-    const synopsis = titleInfo.synopsis;
-    const runtime = titleInfo.runtime;
-    const release_date = titleInfo.release_date;
     const creator = titleInfo.creator;
     const copyright = titleInfo.copyright;
 

@@ -41,7 +41,6 @@ class Modal extends React.Component {
               className={tab === this.state.activeTab ? "active-tab" : ""}
               onClick={() => {
                 this.setState({activeTab: tab});
-                console.log(this.state.activeTab);
               }}
             >
               { tab }

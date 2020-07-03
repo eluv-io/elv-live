@@ -3,7 +3,6 @@ import React from "react";
 class ModalChannel extends React.Component {
   render() {
     const featuredTitle = this.props.title;
-    const titleInfo = featuredTitle.info || {};
 
     return (
       <div className={`modal__container ${this.props.showTab === "Live Schedule" ? "" : "hide"}`}>

@@ -1,6 +1,4 @@
 import React from "react";
-import {inject, observer} from "mobx-react";
-import SwiperGrid from "../SwiperGrid";
 import SearchGrid from "../SearchGrid";
 
 class ModalTrailers extends React.Component {
