@@ -9,7 +9,7 @@ import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
 
 import "swiper/css/swiper.min.css";
-import "./static/stylesheets/new/main.scss";
+import "./static/stylesheets/main.scss";
 
 @inject("rootStore")
 @observer
@@ -22,7 +22,6 @@ class Routes extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <Switch>
         <Route exact path="/" component={ContentSelector} />

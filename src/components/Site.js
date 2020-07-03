@@ -10,8 +10,8 @@ import Logo from "../static/images/Logo.png";
 import SearchGrid from "./SearchGrid";
 import {Redirect} from "react-router";
 import AsyncComponent from "./AsyncComponent";
-import HeroGrid from "./HeroGrid";
 import MoviePremiere from "./premiere/MoviePremiere";
+import HeroGrid from "./HeroGrid";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -58,8 +58,8 @@ class Site extends React.Component {
       this.props.siteStore.SetModalTitle(title);
       this.setState({toggle: true});
     } catch (error) {
-      console.error("Failed to change title:");
-      console.error(error);
+      // console.error("Failed to change title:");
+      // console.error(error);
     }
   }
 
@@ -68,8 +68,8 @@ class Site extends React.Component {
       this.props.siteStore.SetModalTitle(null);
       this.setState({toggle: false});
     } catch (error) {
-      console.error("Failed to change title:");
-      console.error(error);
+      // console.error("Failed to change title:");
+      // console.error(error);
     }
   }
 
@@ -83,9 +83,6 @@ class Site extends React.Component {
 
   Content() {
     const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; //Hardcoded a feature title
-    console.log('series:');
-    console.log(this.props.siteStore.siteInfo.assets.series);
-    console.log(this.props.siteStore.siteInfo.assets.series[1]);
 
     if(this.props.siteStore.searchQuery) {
       return (

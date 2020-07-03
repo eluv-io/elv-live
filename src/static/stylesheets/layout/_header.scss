@@ -1,10 +1,11 @@
 //GRID HEADER
 .header {
+    display: grid;
     grid-column: header-start / header-end;
     grid-row: header-start / header-end;
-    position: relative;
-    display: grid;
     grid-template-columns: [logo-start] minmax(min-content, 15rem) [logo-end search-start] 1fr [search-end];
+    position: relative;
+    z-index: 50;
 
     //LOGO
     &__logo {
@@ -17,9 +18,9 @@
     //SEARCH BAR
     &__search {
         // position: absolute;
+        background: transparent;
         grid-column: search-start / search-end;
         justify-self: end;
-        background: transparent;
         opacity: .9;
         
         &__input {

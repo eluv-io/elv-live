@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import {inject, observer} from "mobx-react";
 
 @inject("rootStore")
@@ -39,48 +39,48 @@ export default class Timer extends Component {
     }
 
     componentDidMount() {
-      if (!this.props.siteStore.premiereCountdown) {
+      if(!this.props.siteStore.premiereCountdown) {
         this.myInterval = setInterval(() => {
-          const { seconds, minutes, hours, days } = this.state
+          const { seconds, minutes, hours, days } = this.state;
 
-          if (seconds > 0) {
+          if(seconds > 0) {
             this.setState(({ seconds }) => ({
               seconds: seconds - 1
-            }))
+            }));
           }
 
-          if (seconds === 0) {
-            if (minutes === 0) {
-              if (hours === 0) {
-                if (days === 0) {
-                  clearInterval(this.myInterval)
+          if(seconds === 0) {
+            if(minutes === 0) {
+              if(hours === 0) {
+                if(days === 0) {
+                  clearInterval(this.myInterval);
                   this.props.siteStore.setPremiereCountdown();
                 } else {
-                    this.setState(({ days }) => ({
-                      days: days - 1,
-                      hours: 24
-                    }));
-                  }
-              } else {
-                  this.setState(({ hours }) => ({
-                    hours: hours - 1,
-                    minutes: 60
+                  this.setState(({ days }) => ({
+                    days: days - 1,
+                    hours: 24
                   }));
-                } 
-            } else {
-                this.setState(({ minutes }) => ({
-                  minutes: minutes - 1,
-                  seconds: 59
+                }
+              } else {
+                this.setState(({ hours }) => ({
+                  hours: hours - 1,
+                  minutes: 60
                 }));
-              }
+              } 
+            } else {
+              this.setState(({ minutes }) => ({
+                minutes: minutes - 1,
+                seconds: 59
+              }));
+            }
           } 
         }, 1000);
-      };
-    };
+      }
+    }
 
     componentWillUnmount() {
       clearInterval(this.myInterval);
-    };
+    }
 
     render() {
       const { days, hours, minutes, seconds } = this.state;

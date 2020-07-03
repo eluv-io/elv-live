@@ -43,14 +43,17 @@ html {
 body {
 	font-family: 'Hind', sans-serif;
 	box-sizing: border-box;
-	background-color: $color-background;
+	// background-color: $color-background;
 }
 
 // RESPONSIVE BREAKPOINTS
-$bp-largest: 75em;   // 1200px
+$bp-huge-2: 125em;   // 2000px
+$bp-huge: 93.75em;   // 1500px
+$bp-large-2: 75em;   // 1200px
 $bp-large: 62.5em;   // 1000px
 $bp-medium: 50em;    // 800px;
-$bp-small: 43.75em;   // 700px;
+$bp-small-2: 43.75em;   // 700px;
+$bp-small: 31.25em;   // 500px;
 
 .container {
     display: grid;

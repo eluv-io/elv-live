@@ -8,7 +8,8 @@
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true,
-      "modules": true
+      "modules": true,
+      "legacyDecorators": true
     },
     "ecmaVersion": 2018,
     "sourceType": "module"
