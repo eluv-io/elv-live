@@ -8,6 +8,7 @@
 }
 
 :root {
+  // sass-lint:disable
   --swiper-theme-color: #fff;
 }
 
@@ -40,8 +41,8 @@ img {
 
 
   cursor: pointer;
-  transition: all 350ms; 
-  // transform: center left; 
+  transition: all 350ms;
+  // transform: center left;
   height: 30vw;
 
   // &--poster {
@@ -51,7 +52,7 @@ img {
   margin-left: .1rem;
   // min-height: 0;
   padding-bottom: 4rem;
-  
+
   &--icon {
     padding-right: 2rem;
   }
@@ -64,7 +65,7 @@ img {
       max-height: 100%;
       min-height: 100%;
 
-      object-fit: cover;  
+      object-fit: cover;
   }
 
   &__title {
@@ -92,13 +93,14 @@ img {
       @media only screen and (max-width: $bp-small-2) {
           margin: 0 1.9rem;
       }
-  
+
   }
-  
+
 
   // &:last-child:hover{
   //     margin:0 -40px;
   // }
+
   // &__poster {
   //     min-height: 0;
   //     padding-top: 3rem;
