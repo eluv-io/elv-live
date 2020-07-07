@@ -1,17 +1,17 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
-import SwiperGrid from "./SwiperGrid";
+import SwiperGrid from "./grid/SwiperGrid";
 import ViewTitle from "./ViewTitle";
-import HeroView from "./hero/HeroView";
 import Modal from "./modal/Modal";
 import SearchBar from "./SearchBar";
 import Logo from "../static/images/Logo.png";
-import SearchGrid from "./SearchGrid";
+import SearchGrid from "./grid/SearchGrid";
 import {Redirect} from "react-router";
 import AsyncComponent from "./AsyncComponent";
 import MoviePremiere from "./premiere/MoviePremiere";
 import HeroGrid from "./hero/HeroGrid";
+// import HeroView from "./hero/HeroView";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -82,7 +82,7 @@ class Site extends React.Component {
   }
 
   Content() {
-    const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; //Hardcoded a feature title
+    // const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; 
 
     if(this.props.siteStore.searchQuery) {
       return (
@@ -99,7 +99,7 @@ class Site extends React.Component {
         />
       );
     }
-    console.log(this.props.siteStore.siteInfo.playlists[1]);
+    
     return (
       <React.Fragment>
         {/* 
