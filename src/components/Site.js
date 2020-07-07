@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
 import SwiperGrid from "./SwiperGrid";
 import ViewTitle from "./ViewTitle";
-import HeroView from "./HeroView";
+import HeroView from "./hero/HeroView";
 import Modal from "./modal/Modal";
 import SearchBar from "./SearchBar";
 import Logo from "../static/images/Logo.png";
@@ -11,7 +11,7 @@ import SearchGrid from "./SearchGrid";
 import {Redirect} from "react-router";
 import AsyncComponent from "./AsyncComponent";
 import MoviePremiere from "./premiere/MoviePremiere";
-import HeroGrid from "./HeroGrid";
+import HeroGrid from "./hero/HeroGrid";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -99,11 +99,29 @@ class Site extends React.Component {
         />
       );
     }
-
+    console.log(this.props.siteStore.siteInfo.playlists[1]);
     return (
       <React.Fragment>
-        <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
-        {/* <HeroGrid titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
+        {/* 
+          Hero View/Grid Elements:
+          
+          Toggle between Hero View and HeroGrid by choosing HeroView or HeroGrid as the component
+        */}
+
+        {/* <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
+
+        <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
+
+
+        {/* 
+          Swiper Grid/Poster Grid Elements:
+          
+          Toggle between normal and poster grids by setting isPoster to true 
+        */}
+
+        <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
+        <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+
         { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <SwiperGrid
             key={`title-reel-playlist-${playlist.playlistId}`}
@@ -115,12 +133,15 @@ class Site extends React.Component {
             trailers={false}
             shouldPlay={false}
             isEpisode={false}
+            isPoster={false}
           />
         )}
-      
-        <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
-        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false}/>
+
+        {/* Hardcoded Netflix Originals here */}
+        <SwiperGrid name="Netflix Originals" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+
+        <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
+        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
       </React.Fragment>
     );
   }
@@ -142,10 +163,14 @@ class Site extends React.Component {
     if(this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode) {
       return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
     }
-    
-    // This determines whether it's a single movie premiere or library
-    this.props.siteStore.setPremiere();
 
+    ////////////////////////////////////////////////////////////////////////////////
+
+    // This determines whether it's a single movie premiere or library
+
+    // this.props.siteStore.setPremiere();
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     return (
       <AsyncComponent
