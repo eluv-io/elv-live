@@ -13,6 +13,13 @@ import MoviePremiere from "./premiere/MoviePremiere";
 import HeroGrid from "./hero/HeroGrid";
 // import HeroView from "./hero/HeroView";
 
+const FormatName = (name) => {
+  return (name || "")
+    .split(/[_, \s]/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -81,9 +88,69 @@ class Site extends React.Component {
     return <MoviePremiere title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>;
   }
 
-  Content() {
-    // const featuredTitle = this.props.siteStore.siteInfo.assets.titles[4]; 
+  ArrangementEntry(entry, i) {
+    const key = `arrangement-entry-${i}`;
 
+    let name, titles;
+    switch (entry.type) {
+      case "header":
+        return <h1 key={key}>{entry.options.text}</h1>;
+      case "playlist":
+        const playlist = this.props.siteStore.siteInfo.playlists.find(playlist => playlist.slug === entry.playlist_slug);
+        name = entry.label;
+        titles = playlist.titles;
+        break;
+      case "asset":
+        name = entry.label;
+        titles = this.props.siteStore.siteInfo.assets[entry.name];
+        break;
+      default:
+        // eslint-disable-next-line no-console
+        console.error("Unknown Asset Type:", entry.type);
+        // eslint-disable-next-line no-console
+        console.error(entry);
+        return;
+    }
+
+    const variant = entry.options && entry.options.variant;
+    switch (entry.component) {
+      case "feature":
+        return (
+          <HeroGrid
+            key={key}
+            titles={titles}
+            modalClose={this.TurnOffToggle}
+            modalOpen={this.TurnOnToggle}
+            playTitle={this.PlayTitle}
+          />
+        );
+      case "carousel":
+        return (
+          <SwiperGrid
+            key={key}
+            name={name}
+            titles={titles}
+            modalClose={this.TurnOffToggle}
+            modalOpen={this.TurnOnToggle}
+            playTitle={this.PlayTitle}
+            trailers={false}
+            shouldPlay={false}
+            isEpisode={false}
+            isPoster={variant === "portrait"}
+          />
+        );
+      case "grid":
+        // TODO
+        break;
+      default:
+        // eslint-disable-next-line no-console
+        console.error("Unknown component:", entry.component);
+        // eslint-disable-next-line no-console
+        console.error(entry);
+    }
+  }
+
+  Content() {
     if(this.props.siteStore.searchQuery) {
       return (
         <SearchGrid
@@ -99,51 +166,39 @@ class Site extends React.Component {
         />
       );
     }
-    
-    return (
-      <React.Fragment>
-        {/* 
-          Hero View/Grid Elements:
-          
-          Toggle between Hero View and HeroGrid by choosing HeroView or HeroGrid as the component
-        */}
 
-        {/* <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
+    const siteCustomization = this.props.siteStore.siteCustomization || {};
+    let arrangement = siteCustomization.arrangement;
 
-        <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
+    if(!arrangement) {
+      // Default arrangement: Playlists then assets, all medium carousel
+      arrangement = this.props.siteStore.siteInfo.playlists.map(playlist => ({
+        type: "playlist",
+        name: playlist.name,
+        label: playlist.name,
+        playlist_slug: playlist.slug,
+        component: "carousel",
+        options: {
+          variant: "landscape",
+          width: "medium"
+        }
+      }));
 
+      arrangement = arrangement.concat(
+        Object.keys(this.props.siteStore.siteInfo.assets).sort().map(key => ({
+          type: "asset",
+          name: key,
+          label: FormatName(key),
+          component: "carousel",
+          options: {
+            variant: "landscape",
+            width: "medium"
+          }
+        }))
+      );
+    }
 
-        {/* 
-          Swiper Grid/Poster Grid Elements:
-          
-          Toggle between normal and poster grids by setting isPoster to true 
-        */}
-
-        <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
-        <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
-
-        { this.props.siteStore.siteInfo.playlists.map(playlist =>
-          <SwiperGrid
-            key={`title-reel-playlist-${playlist.playlistId}`}
-            name={playlist.name}
-            titles={playlist.titles}
-            modalClose={this.TurnOffToggle}
-            modalOpen={this.TurnOnToggle}
-            playTitle={this.PlayTitle}
-            trailers={false}
-            shouldPlay={false}
-            isEpisode={false}
-            isPoster={false}
-          />
-        )}
-
-        {/* Hardcoded Netflix Originals here */}
-        <SwiperGrid name="Netflix Originals" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
-
-        <SwiperGrid name="Series" titles={this.props.siteStore.siteInfo.assets.series} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
-        <SwiperGrid name="Channels" titles={this.props.siteStore.siteInfo.assets.channels} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
-      </React.Fragment>
-    );
+    return arrangement.map((entry, i) => this.ArrangementEntry(entry, i));
   }
 
   ViewModal(activeTitle) {
@@ -191,4 +246,44 @@ class Site extends React.Component {
   }
 }
 
+// return (
+//   <React.Fragment>
+//     {/* 
+//       Hero View/Grid Elements:
+      
+//       Toggle between Hero View and HeroGrid by choosing HeroView or HeroGrid as the component
+//     */}
+
+//     {/* <HeroView title={featuredTitle} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
+
+//     <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
+
+
+//     {/* 
+//       Swiper Grid/Poster Grid Elements:
+      
+//       Toggle between normal and poster grids by setting isPoster to true 
+//     */}
+
+//     <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
+//     <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+
+//     { this.props.siteStore.siteInfo.playlists.map(playlist =>
+//       <SwiperGrid
+//         key={`title-reel-playlist-${playlist.playlistId}`}
+//         name={playlist.name}
+//         titles={playlist.titles}
+//         modalClose={this.TurnOffToggle}
+//         modalOpen={this.TurnOnToggle}
+//         playTitle={this.PlayTitle}
+//         trailers={false}
+//         shouldPlay={false}
+//         isEpisode={false}
+//         isPoster={false}
+//       />
+//     )}
+//     <SwiperGrid name="Netflix Originals" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+//     </React.Fragment>
+//     );
+    
 export default Site;
