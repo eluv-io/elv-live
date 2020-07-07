@@ -1,5 +1,5 @@
 import React from "react";
-import SearchGrid from "../SearchGrid";
+import SearchGrid from "../grid/SearchGrid";
 
 class ModalTrailers extends React.Component {
   render() {

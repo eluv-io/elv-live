@@ -2,15 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
-import FallbackIcon from "../static/icons/video.svg";
-
-//SAME THING AS SwiperTitleIcon but with different OnPress
-//TODO: Gonna merge this into SwiperTitleIcon 
+import FallbackIcon from "../../static/icons/video.svg";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class PlayTitleIcon extends React.Component {
+class SwiperTitleIcon extends React.Component {
   render() {
 
     //Getting metadata: thumbnail
@@ -26,22 +23,22 @@ class PlayTitleIcon extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="swiper-slide--icon" onClick={() => {this.props.playTitle(title); this.props.modalClose();}}>
+        <div className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} onClick={() => this.props.modalOpen(title)}>
           <ImageIcon
             className="swiper-slide__image"
-            icon={thumbnail || FallbackIcon}
+            icon= {this.props.isPoster ? (title.portraitUrl || thumbnail || FallbackIcon) : (thumbnail || FallbackIcon) }         
             alternateIcon={FallbackIcon}
           />
-          <h3 className="swiper-slide__title"> { this.props.isEpisode === true ? `Episode ${this.props.episode + 1}: ${title.displayTitle}` : `Trailer: ${title.displayTitle}`}</h3>
+          <h3 className={this.props.isPoster ? "swiper-slide__title hide" : "swiper-slide__title"}>{ title.displayTitle }</h3>
         </div>
       </React.Fragment>
     );
   }
 }
 
-PlayTitleIcon.propTypes = {
+SwiperTitleIcon.propTypes = {
   title: PropTypes.object.isRequired,
   visible: PropTypes.bool.isRequired
 };
 
-export default PlayTitleIcon;
+export default SwiperTitleIcon;

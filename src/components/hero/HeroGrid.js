@@ -37,24 +37,27 @@ class HeroGrid extends React.Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
+      // autoplay: true,
+      // autoplaySpeed: 10000,
+      cssEase: "linear",
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
     };
 
     return (
       <Slider {...settings} className="hero-grid-container">
-          {
-            this.props.titles.map((title) => {
-              return (
-                <HeroGridHelper
-                  title = {title}
-                  modalClose= {this.props.modalClose} 
-                  modalOpen= {this.props.modalOpen} 
-                  playTitle= {this.props.playTitle}
-                />
-              );
-            })
-          }
+        {
+          this.props.titles.map((title) => {
+            return (
+              <HeroGridHelper
+                title = {title}
+                modalClose= {this.props.modalClose} 
+                modalOpen= {this.props.modalOpen} 
+                playTitle= {this.props.playTitle}
+              />
+            );
+          })
+        }
       </Slider>
     );
   }
