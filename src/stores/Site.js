@@ -50,6 +50,8 @@ const DEFAULT_ASSOCIATED_ASSETS = [
 ];
 
 class SiteStore {
+  @observable siteCustomization;
+
   @observable siteHash;
   @observable assets = {};
 
@@ -106,7 +108,7 @@ class SiteStore {
   //Premiere
   @observable showPremiere = false;
   @observable premiereCountdown = false;
-  @observable boughtPremiere = false; 
+  @observable boughtPremiere = false;
 
   @action.bound
   setPremiere() {
@@ -182,6 +184,7 @@ class SiteStore {
 
     this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
     this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
+    this.siteCustomization = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/asset_metadata/site_customization"});
 
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
@@ -348,6 +351,7 @@ class SiteStore {
           playlists[parseInt(order)] = {
             playlistId: Id.next(),
             name,
+            slug: playlistSlug,
             titles: titles.filter(title => title)
           };
         } catch (error) {

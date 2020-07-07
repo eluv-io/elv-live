@@ -5,23 +5,22 @@
 }
 
 .hero-view-container {
+    align-self: end;
+    color: #fff;
+    display: grid;
     grid-column: hero-start / hero-end;
     grid-row: hero-start / hero-end;
-    color: #fff;
-    align-self: end;
-    display: grid; 
-    grid-template-rows: 40% [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] 
-    minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end] 41vh;
     grid-row-gap: 1.2rem;
+    grid-template-rows: 40% [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end] 41vh;
 
     &__heading {
-        grid-row: title-start / title-end;
         font-size: 6rem;
+        grid-row: title-start / title-end;
     }
 
     &__heading-hero {
-        grid-row: timer-start / timer-end;
         font-size: 6rem;
+        grid-row: timer-start / timer-end;
     }
 
     &__timer {
@@ -31,9 +30,9 @@
     &__button {
         grid-row: button-start / button-end;
         @media only screen and (max-width: $bp-small) {
+            align-items: flex-start;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
             justify-content: space-between;
             & > * {
                 margin-top: 1rem;
@@ -42,15 +41,15 @@
     }
 
     &__overview {
-        grid-row: overview-start / overview-end;
         font-size: 1.8rem;
+        grid-row: overview-start / overview-end;
         line-height: 1.3;
         width: 55vw;
 
         @media only screen and (max-width: $bp-large) {
             font-size: 1.45rem;
         }
-  
+
         @media only screen and (max-width: $bp-medium) {
             font-size: 1.3rem;
         }
