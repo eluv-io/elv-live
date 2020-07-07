@@ -4,7 +4,7 @@ import {inject, observer} from "mobx-react";
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class HeroGridView extends React.Component {
+class HeroGridHelper extends React.Component {
 
   render() {
     const featuredTitle = this.props.title;
@@ -45,4 +45,4 @@ class HeroGridView extends React.Component {
   }
 }
 
-export default HeroGridView;
+export default HeroGridHelper;

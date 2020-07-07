@@ -1,9 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Slider from "react-slick";
-import HeroGridView from "./HeroGridView";
-import HeroView from "./HeroView";
-import styled from 'styled-components';
+import HeroGridHelper from "./HeroGridHelper";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -21,7 +19,7 @@ function SamplePrevArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", marginLeft: "5rem", zIndex: "12021" }}
+      style={{ ...style, display: "block", marginLeft: "5rem", zIndex:"123" }}
       onClick={onClick}
     />
   );
@@ -45,11 +43,10 @@ class HeroGrid extends React.Component {
 
     return (
       <Slider {...settings} className="hero-grid-container">
-        
           {
             this.props.titles.map((title) => {
               return (
-                <HeroGridView
+                <HeroGridHelper
                   title = {title}
                   modalClose= {this.props.modalClose} 
                   modalOpen= {this.props.modalOpen} 
@@ -58,8 +55,6 @@ class HeroGrid extends React.Component {
               );
             })
           }
-          {/* <HeroGridView title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
-          <HeroGridView title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
       </Slider>
     );
   }

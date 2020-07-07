@@ -45,6 +45,21 @@
         grid-row: overview-start / overview-end;
         font-size: 1.8rem;
         line-height: 1.3;
-        width: 45vw;
+        width: 55vw;
+
+        @media only screen and (max-width: $bp-large) {
+            font-size: 1.45rem;
+        }
+  
+        @media only screen and (max-width: $bp-medium) {
+            font-size: 1.3rem;
+        }
+
+        @media only screen and (max-width: $bp-small-2) {
+            font-size: 1.1rem;
+        }
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1rem;
+        }
     }
 }

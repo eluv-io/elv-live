@@ -57,6 +57,6 @@ $bp-small: 31.25em;   // 500px;
 
 .container {
     display: grid;
-    grid-template-rows: [full-start] 3vh [header-start] minmax(min-content, 4vh) [header-end hero-start search-start] minmax(min-content, 93vh) [full-end hero-end grid-start] repeat(3, minmax(min-content, max-content)) [grid-end];
+    grid-template-rows: [full-start] 3vh [header-start] 4vh [header-end hero-start search-start] 93vh [full-end hero-end];
     grid-template-columns: [full-start] 4vw [header-start hero-start] 92vw [header-end hero-end] 4vw [full-end];
 }

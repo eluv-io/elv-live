@@ -1,0 +1,113 @@
+.movieswiper-container {
+  width: 100%;
+  height: 100%;
+
+  grid-column: hero-start / hero-end;
+  justify-content: start;
+  align-content: start;
+}
+
+:root {
+  --swiper-theme-color: #fff;
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+}
+
+.movieswiper-slide {
+  text-align: center;
+  font-size: 1.6rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+
+
+  cursor: pointer;
+  transition: all 350ms; 
+  // transform: center left; 
+  height: 30vw;
+
+  // &--poster {
+  //     height: 30vw;
+  // }
+
+  margin-left: .1rem;
+  // min-height: 0;
+  padding-bottom: 4rem;
+  
+  &--icon {
+    padding-right: 2rem;
+  }
+
+  &__image {
+      float: left;
+      width:  100%;
+      max-width: 100%;
+      height: 100%;
+      max-height: 100%;
+      min-height: 100%;
+
+      object-fit: cover;  
+  }
+
+  &__title {
+      align-self: flex-start;
+      margin-top: .5rem;
+  }
+
+  &:hover {
+      opacity: 1 !important;
+      transform: scale(1.15);
+      z-index: 1;
+  }
+
+  &:first-child:hover{
+      margin: 0 1.38vw;
+
+      @media only screen and (max-width: $bp-large) {
+          margin: 0 1.6vw;
+      }
+
+      @media only screen and (max-width: $bp-medium) {
+          margin: 0 1.7rem;
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+          margin: 0 1.9rem;
+      }
+  
+  }
+  
+
+  // &:last-child:hover{
+  //     margin:0 -40px;
+  // }
+  // &__poster {
+  //     min-height: 0;
+  //     padding-top: 3rem;
+  //     padding-bottom: 4rem;
+  //     padding-right: 1rem;
+  //     height: 52rem;
+  //     cursor: pointer;
+  //     transition: all 450ms;
+  //     transform: center left;
+  // }
+}
+
