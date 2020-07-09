@@ -9,7 +9,7 @@ import Swiper from "swiper";
 
 @inject("siteStore")
 @observer
-class SearchGrid extends React.Component {
+class TitleGrid extends React.Component {
   componentDidMount(){
     this.swiper = new Swiper(".swiper-container", {
       slidesPerView: 5,
@@ -23,7 +23,6 @@ class SearchGrid extends React.Component {
 
   render() {
     const noTitles = (!this.props.titles || this.props.titles.length === 0);
-    if(!this.props.noTitlesMessage && noTitles) { return null; }
     
     let RightIcon;
     if(this.props.shouldPlay) {
@@ -32,11 +31,12 @@ class SearchGrid extends React.Component {
       RightIcon = SwiperTitleIcon;
     }
     return (
-      <div className={this.props.trailers === true ? "swiper-container__trailer" : "swiper-container__search"}>
-        <h1 className="swiper-heading"> 
-          { this.props.name } 
+      <div className={this.props.trailers === true ? "title-grid__trailer" : "title-grid__search"}>
+        <h1 className="title-heading"> 
+          { noTitles ? this.props.noTitlesMessage :this.props.name } 
         </h1>
-        <div className="swiper-wrapper">
+
+        <div className="title-grid-container">
           {
             this.props.titles.map((title, index) => {
               return (
@@ -50,15 +50,16 @@ class SearchGrid extends React.Component {
                   playTitle={this.props.playTitle}
                   episode= {index}
                   isEpisode = {this.props.isEpisode}
+                  isPoster = {this.props.isPoster}
                 />
               );
             })
           }
         </div>
+
       </div>
     );
   }
 }
 
-
-export default SearchGrid;
+export default TitleGrid;

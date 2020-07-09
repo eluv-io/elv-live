@@ -56,7 +56,7 @@ $bp-small-2: 43.75em;   // 700px;
 $bp-small: 31.25em;   // 500px;
 
 .container {
-    display: grid;
-    grid-template-rows: [full-start] 3vh [header-start] 4vh [header-end hero-start search-start] 93vh [full-end hero-end];
-    grid-template-columns: [full-start] 4vw [header-start hero-start] 92vw [header-end hero-end] 4vw [full-end];
+    display: flex;
+    flex-direction: column;
+    margin: 0 4vw;
 }

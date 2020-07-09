@@ -25,8 +25,8 @@ class HeroView extends React.Component {
     };
 
     return (
-      <React.Fragment>
-        <div style={backgroundStyle} className="hero-background" />
+      <div>
+        <div style={backgroundStyle} className="hero-background"/>
         <div className="hero-view-container">
           <h1 className="hero-view-container__heading-hero">{ featuredTitle.displayTitle }</h1>
           <div className="hero-view-container__button">            
@@ -39,7 +39,7 @@ class HeroView extends React.Component {
           </div>
           <p className="hero-view-container__overview">{synopsis}</p>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

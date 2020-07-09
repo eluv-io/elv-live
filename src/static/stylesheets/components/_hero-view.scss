@@ -1,17 +1,22 @@
 .hero-background {
     background-color: $color-background;
-    grid-column: full-start / full-end;
-    grid-row: full-start / full-end;
+    height: 100vh;
+    width: 100vw;
+    margin: calc(-3vh - 4rem) -4vw;
+    position: absolute;
+
 }
 
 .hero-view-container {
     align-self: end;
     color: #fff;
     display: grid;
-    grid-column: hero-start / hero-end;
-    grid-row: hero-start / hero-end;
+
     grid-row-gap: 1.2rem;
-    grid-template-rows: 40% [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end] 41vh;
+    grid-template-rows: 40% [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end] ;
+    position: relative;
+    margin-top: 30rem;
+
 
     &__heading {
         font-size: 6rem;

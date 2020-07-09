@@ -50,6 +50,7 @@ class HeroGrid extends React.Component {
           this.props.titles.map((title) => {
             return (
               <HeroGridHelper
+                key = {`title-grid-title-${title}`}
                 title = {title}
                 modalClose= {this.props.modalClose} 
                 modalOpen= {this.props.modalOpen} 
