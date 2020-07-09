@@ -7,7 +7,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 500;
+    z-index: 5000;
 
     &__container {
        background: linear-gradient(90deg, #000 50%, transparent);
@@ -124,11 +124,11 @@
 }
 
 .show {
-   left: 0;
-   opacity: 1;
+   // transition: .5s .3s ease-out;
    top: 25%;
-   transition: .5s .3s ease-out;
+   left: 0;
    visibility: visible;
+   opacity: 1;
 }
 
 .hide {

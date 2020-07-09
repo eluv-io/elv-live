@@ -9,7 +9,7 @@ export default class Timer extends Component {
       days: 0,
       hours: 0,
       minutes: 0,
-      seconds: 20
+      seconds: 0
     }
 
     renderClock(days, hours, minutes, seconds) {
@@ -39,6 +39,37 @@ export default class Timer extends Component {
     }
 
     componentDidMount() {
+
+      let premiereTime = this.props.siteStore.premiere.premieresAt;
+      let currentTime = new Date().getTime();
+      console.log(this.props.siteStore.premiere.price);
+      let showTime = premiereTime - currentTime;
+      if (showTime > 0) {
+        // get total seconds between the times
+        let showSeconds = Math.round(showTime / 1000); 
+
+        // calculate (and subtract) whole days
+        let showDays = Math.floor(showSeconds / 86400);
+        showSeconds -= showDays * 86400;
+
+        // calculate (and subtract) whole hours
+        let showHours = Math.floor(showSeconds / 3600) % 24;
+        showSeconds -= showHours * 3600;
+
+        // calculate (and subtract) whole minutes
+        let showMinutes = Math.floor(showSeconds / 60) % 60;
+        showSeconds -= showMinutes * 60;
+
+        // what's left is seconds
+        showSeconds = showSeconds % 60;  // in theory the modulus is not required
+        this.setState({
+          days: showDays,
+          hours: showHours,
+          minutes: showMinutes,
+          seconds: showSeconds
+        });
+      }
+
       if(!this.props.siteStore.premiereCountdown) {
         this.myInterval = setInterval(() => {
           const { seconds, minutes, hours, days } = this.state;

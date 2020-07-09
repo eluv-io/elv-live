@@ -1,9 +1,7 @@
 .hero-grid-container {
-//   height: 100vh;
-//   width: 100vw;
-  grid-column: full-start / full-end;
-  grid-row: full-start / full-end;
-//   background-color: $color-background;
+  height: 100vh;
+  width: 100vw;
+  margin: calc(-3vh - 4rem) -4vw;
 }
 
 .hero-grid-view-container {
@@ -13,8 +11,7 @@
     grid-column: hero-start / hero-end;
     grid-row: hero-start / hero-end;
     grid-row-gap: 1.2rem;
-    grid-template-rows: 60vh [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end];
-
+    grid-template-rows: 60vh [title-start] minmax(4vh, min-content) [title-end timer-start] minmax(4vh, min-content) [timer-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;
     &__heading {
         font-size: 6rem;
         grid-row: title-start / title-end;
@@ -31,7 +28,6 @@
     &__timer {
         grid-row: timer-start / timer-end;
         margin-left: 4vw;
-
     }
 
     &__button {

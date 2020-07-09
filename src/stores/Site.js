@@ -51,6 +51,7 @@ const DEFAULT_ASSOCIATED_ASSETS = [
 
 class SiteStore {
   @observable siteCustomization;
+  @observable premiere;
 
   @observable siteHash;
   @observable assets = {};
@@ -106,14 +107,8 @@ class SiteStore {
   });
 
   //Premiere
-  @observable showPremiere = false;
   @observable premiereCountdown = false;
   @observable boughtPremiere = false;
-
-  @action.bound
-  setPremiere() {
-    this.showPremiere = true;
-  }
 
   @action.bound
   setPremiereCountdown() {
@@ -184,8 +179,26 @@ class SiteStore {
 
     this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
     this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
-    this.siteCustomization = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/asset_metadata/site_customization"});
+    // this.siteCustomization = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/asset_metadata/site_customization"});
 
+    this.siteCustomization = yield this.client.ContentObjectMetadata({
+      ...this.siteParams,
+      metadataSubtree: "public/asset_metadata/site_customization",
+      resolveLinks: true,
+      resolveIncludeSource: true,
+      resolveIgnoreErrors: true
+    });
+    
+    if(this.siteCustomization.premiere) {
+      this.premiere = {
+        title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
+        premieresAt: Date.parse(this.siteCustomization.premiere.premieresAt),
+        price: this.siteCustomization.premiere.price
+      };
+    }
+    
+    console.log(this.premiere);
+    
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
@@ -367,17 +380,17 @@ class SiteStore {
   });
 
   @action.bound
-  LoadActiveTitleOffering = flow(function * (offering) {
-    if(this.activeTitle.playoutOptions && this.activeTitle.playoutOptions[offering]) {
-      this.activeTitle.currentOffering = offering;
+  LoadActiveTitleOffering = flow(function * (offering, title) {
+    if(title.playoutOptions && title.playoutOptions[offering]) {
+      title.currentOffering = offering;
     }
 
     let params, linkPath;
-    if(this.activeTitle.isSearchResult) {
-      params = { versionHash: this.activeTitle.versionHash };
+    if(title.isSearchResult) {
+      params = { versionHash: title.versionHash };
     } else {
       params = this.siteParams;
-      linkPath = this.activeTitle.playoutOptionsLinkPath;
+      linkPath = title.playoutOptionsLinkPath;
     }
 
     try {
@@ -389,12 +402,12 @@ class SiteStore {
         drms: ["aes-128", "widevine", "clear"]
       });
 
-      this.activeTitle.playoutOptions = {
-        ...(this.activeTitle.playoutOptions || {}),
+      title.playoutOptions = {
+        ...(title.playoutOptions || {}),
         [offering]: playoutOptions
       };
 
-      this.activeTitle.currentOffering = offering;
+      title.currentOffering = offering;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error loading playout options for offering " + offering);
@@ -439,7 +452,47 @@ class SiteStore {
 
     const initialOffering = availableOfferings.default ? "default" : Object.keys(availableOfferings)[0];
     if(initialOffering) {
-      yield this.LoadActiveTitleOffering(initialOffering);
+      yield this.LoadActiveTitleOffering(initialOffering, this.activeTitle);
+    }
+  });
+
+  //FOR VIDEO FEATURE
+  @action.bound
+  SetVideoFeature = flow(function * (title) {
+
+    title.metadata = yield this.client.ContentObjectMetadata({
+      ...(this.siteParams),
+      metadataSubtree: title.baseLinkPath,
+      resolveLinks: true,
+      resolveIncludeSource: true,
+      resolveIgnoreErrors: true
+    });
+
+    let params, linkPath;
+    if(title.isSearchResult) {
+      params = { versionHash: title.versionHash };
+    } else {
+      params = this.siteParams;
+      linkPath = title.playoutOptionsLinkPath;
+    }
+
+    let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
+
+    const allowedOfferings = this.siteInfo.allowed_offerings;
+
+    if(allowedOfferings) {
+      Object.keys(availableOfferings).map(offeringKey => {
+        if(!allowedOfferings.includes(offeringKey)) {
+          delete availableOfferings[offeringKey];
+        }
+      });
+    }
+
+    title.availableOfferings = availableOfferings;
+
+    const initialOffering = availableOfferings.default ? "default" : Object.keys(availableOfferings)[0];
+    if(initialOffering) {
+      yield this.LoadActiveTitleOffering(initialOffering, title);
     }
   });
 
