@@ -39,12 +39,11 @@ export default class Timer extends Component {
     }
 
     componentDidMount() {
-
       let premiereTime = this.props.siteStore.premiere.premieresAt;
       let currentTime = new Date().getTime();
-      console.log(this.props.siteStore.premiere.price);
       let showTime = premiereTime - currentTime;
-      if (showTime > 0) {
+      
+      if(showTime > 0) {
         // get total seconds between the times
         let showSeconds = Math.round(showTime / 1000); 
 

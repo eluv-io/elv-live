@@ -7,6 +7,7 @@ import * as Stores from "./stores";
 import Site from "./components/Site";
 import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
+import styled from "styled-components";
 
 import "swiper/css/swiper.min.css";
 import "./static/stylesheets/main.scss";
@@ -40,22 +41,31 @@ class Routes extends React.Component {
   }
 }
 
-
-
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class App extends React.Component {
   render() {
+    // background: ${this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)'};
+    // const backgroundColor = (this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)');
+    // console.log(backgroundColor);
+
+    const ContainerApp = styled.div`
+      min-height: 100vh;    
+      background: ${this.props.siteStore.backgroundColor};
+      color: ${this.props.siteStore.primaryFontColor};
+    }
+    `;
+
     return (
-      <div className="app-container">
+      <ContainerApp>
         <main>
           { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
           <HashRouter>
             <Routes />
           </HashRouter>
         </main>
-      </div>
+      </ContainerApp>
     );
   }
 }

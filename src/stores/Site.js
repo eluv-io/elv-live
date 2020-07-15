@@ -53,6 +53,10 @@ class SiteStore {
   @observable siteCustomization;
   @observable premiere;
 
+  @observable backgroundColor = "rgb(17, 17, 17)";
+  @observable primaryFontColor = "white";
+  @observable logoUrl;
+
   @observable siteHash;
   @observable assets = {};
 
@@ -121,6 +125,20 @@ class SiteStore {
   }
 
   ///////////////////////////////////////
+  // Site Customization 
+
+  @action.bound
+  SetBackgroundColor(color) {
+    this.backgroundColor = color;
+  };
+
+  @action.bound
+  SetPrimaryFontColor(color) {
+    this.primaryFontColor = color;
+  };
+
+  ///////////////////////////////////////
+
   @action.bound
   Reset() {
     this.assets = {};
@@ -160,7 +178,7 @@ class SiteStore {
         !asset.for_title_types ||
         asset.for_title_types.includes(titleType)
       )
-      .sort((a, b) => a.name < b.name ? -1 : 1);
+      .sort((a, b) => a.name < b.name ? -1 : 1);                                                     
   }
 
   @action.bound
@@ -188,16 +206,19 @@ class SiteStore {
       resolveIncludeSource: true,
       resolveIgnoreErrors: true
     });
-    
-    if(this.siteCustomization.premiere) {
+
+    // console.log(this.siteCustomization.logo);
+
+    if(this.siteCustomization.premiere) {                                                       
       this.premiere = {
         title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
         premieresAt: Date.parse(this.siteCustomization.premiere.premieresAt),
         price: this.siteCustomization.premiere.price
       };
     }
-    
-    console.log(this.premiere);
+    if(this.siteCustomization.logo) {
+      this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
+    }
     
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });

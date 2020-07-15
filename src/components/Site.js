@@ -13,7 +13,8 @@ import MoviePremiere from "./premiere/MoviePremiere";
 import HeroGrid from "./hero/HeroGrid";
 import BoxFeature from "./hero/BoxFeature";
 import VideoFeature from "./hero/VideoFeature";
-import HeroView from "./hero/HeroView";
+import BoxGrid from "./hero/BoxGrid";
+import NavigationBar from "./NavigationBar";
 
 const FormatName = (name) => {
   return (name || "")
@@ -40,26 +41,6 @@ class Site extends React.Component {
     this.ShowTitle = this.ShowTitle.bind(this);
     this.Content = this.Content.bind(this);
     this.ViewModal = this.ViewModal.bind(this);
-  }
-
-  async PlayTitle(title) {
-    try {
-      this.setState({loading: true});
-
-      // Clicked 'title' is actually a collection
-      if(["site", "series", "season"].includes(title.title_type)) {
-        this.props.siteStore.LoadSite(title.objectId);
-      } else {
-        await this.props.siteStore.SetActiveTitle(title);
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.setState({loading: false});
-    }
   }
 
   async PlayTitle(title) {
@@ -224,7 +205,7 @@ class Site extends React.Component {
   Content() {
     if(this.props.siteStore.searchQuery) {
       return (
-        // <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+      // <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
 
         <TitleGrid
           noTitlesMessage="No results found"
@@ -243,6 +224,8 @@ class Site extends React.Component {
   
     const siteCustomization = this.props.siteStore.siteCustomization || {};
     let arrangement = siteCustomization.arrangement;
+    this.props.siteStore.SetBackgroundColor(this.props.siteStore.siteCustomization.colors.background);
+    this.props.siteStore.SetPrimaryFontColor(this.props.siteStore.siteCustomization.colors.primary_text);
 
     if(!arrangement) {
       // Default arrangement: Playlists then assets, all medium carousel
@@ -292,54 +275,57 @@ class Site extends React.Component {
         />
       );
     }
+    let titles = this.props.siteStore.siteInfo.assets.titles;
+    let moreTitles = titles.concat(this.props.siteStore.siteInfo.assets.titles);
     return (
-        <React.Fragment>
-          {/* 
+      <React.Fragment>
+        {/* 
             Hero View/Grid Elements:
             
             Toggle between Hero View and HeroGrid by choosing HeroView or HeroGrid as the component
           */}
       
-          {/* <HeroView title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
-          <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
+        {/* <HeroView title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/> */}
+        <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle}/>
           
-          {/* 
+        {/* 
             Swiper Grid/Poster Grid Elements:
             
             Toggle between normal and poster grids by setting isPoster to true 
           */}
+        {/* <BoxGrid titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/> */}
+        
+        <SwiperGrid name="All Titles" titles={moreTitles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
 
-          <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
-
-          <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[1]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
+        <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[1]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
           
-          <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+        <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
           
-          <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
+        <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
 
-          { this.props.siteStore.siteInfo.playlists.map(playlist =>
-            <SwiperGrid
-              key={`title-reel-playlist-${playlist.playlistId}`}
-              name={playlist.name}
-              titles={playlist.titles}
-              modalClose={this.TurnOffToggle}
-              modalOpen={this.TurnOnToggle}
-              playTitle={this.PlayTitle}
-              trailers={false}
-              shouldPlay={false}
-              isEpisode={false}
-              isPoster={false}
-            />
-          )} 
-          <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
+        { this.props.siteStore.siteInfo.playlists.map(playlist =>
+          <SwiperGrid
+            key={`title-reel-playlist-${playlist.playlistId}`}
+            name={playlist.name}
+            titles={playlist.titles}
+            modalClose={this.TurnOffToggle}
+            modalOpen={this.TurnOnToggle}
+            playTitle={this.PlayTitle}
+            trailers={false}
+            shouldPlay={false}
+            isEpisode={false}
+            isPoster={false}
+          />
+        )} 
+        <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
 
-          <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[0]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
+        <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[0]} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} />
 
-          <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
-          <TitleGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
+        <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
+        <TitleGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles} modalClose={this.TurnOffToggle} modalOpen={this.TurnOnToggle} playTitle={this.PlayTitle} trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
 
-        </React.Fragment>
-      );
+      </React.Fragment>
+    );
   }
 
   ViewModal(activeTitle) {
@@ -347,11 +333,9 @@ class Site extends React.Component {
   }
 
   ViewHeader() {
+
     return (
-      <header className="header">
-        <ImageIcon className="header__logo" icon={Logo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
-        { this.props.siteStore.showPremiere ? null : <SearchBar key={`search-bar-${this.props.siteStore.searchQuery}`} />}
-      </header>
+      <NavigationBar />
     );
   }
 
@@ -359,6 +343,7 @@ class Site extends React.Component {
     if(this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode) {
       return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
     }
+    // console.log("hello");
 
     return (
       <AsyncComponent

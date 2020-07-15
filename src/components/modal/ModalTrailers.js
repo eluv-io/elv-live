@@ -1,5 +1,5 @@
 import React from "react";
-import SearchGrid from "../grid/TitleGrid";
+import SwiperGrid from "../grid/SwiperGrid";
 
 class ModalTrailers extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class ModalTrailers extends React.Component {
           <h1 className="modal__title">
             {featuredTitle.displayTitle}
           </h1>
-          <SearchGrid name="Trailers" titles={trailers} modalClose={this.props.modalClose} modalOpen={this.props.modalOpen} playTitle={this.props.playTitle} trailers={true} shouldPlay={true} isEpisode={false}/>
+          <SwiperGrid name="Trailers" titles={trailers} modalClose={this.props.modalClose} modalOpen={this.props.modalOpen} playTitle={this.props.playTitle} trailers={true} shouldPlay={true} isEpisode={false}/>
         </div>
       </React.Fragment>
     );

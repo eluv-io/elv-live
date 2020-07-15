@@ -1,21 +1,21 @@
 .hero-background {
     background-color: $color-background;
     height: 100vh;
-    width: 100vw;
     margin: calc(-3vh - 4rem) -4vw;
     position: absolute;
+    width: 100vw;
 
 }
 
 .hero-view-container {
     align-self: end;
-    color: #fff;
+    // color: #fff;
     display: grid;
 
     grid-row-gap: 1.2rem;
     grid-template-rows: 40% [title-start] minmax(min-content, 4vh) [title-end timer-start] minmax(min-content, 4vh) [timer-end button-start] minmax(min-content, 7vh) [button-end overview-start] minmax(min-content, 4vh) [overview-end] ;
-    position: relative;
     margin-top: 30rem;
+    position: relative;
 
 
     &__heading {

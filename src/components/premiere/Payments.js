@@ -10,7 +10,7 @@ class Payments extends Component {
 
   render() {
     let price = parseFloat(this.props.siteStore.premiere.price) * 100;
-    let description = "$" + this.props.siteStore.premiere.price + " to watch the premiere" 
+    let description = "$" + this.props.siteStore.premiere.price + " to watch the premiere"; 
     return (
       <StripeCheckout
         name = "Movie Premiere"
