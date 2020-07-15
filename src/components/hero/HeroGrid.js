@@ -19,7 +19,7 @@ function SamplePrevArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", marginLeft: "5rem", zIndex:"123" }}
+      style={{ ...style, display: "block", marginLeft: "5rem", zIndex:"5" }}
       onClick={onClick}
     />
   );
@@ -32,7 +32,7 @@ class HeroGrid extends React.Component {
 
   render() {
     var settings = {
-      dots: true,
+      dots: false,
       infinite: true,
       speed: 500,
       slidesToShow: 1,

@@ -37,6 +37,10 @@ class VideoFeature extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.DestroyPlayer();
+  }
+
   DestroyPlayer() {
     if(this.player) {
       this.player.destroy ? this.player.destroy() : this.player.reset();
@@ -108,12 +112,12 @@ class VideoFeature extends React.Component {
 
     const Maybe = (value, render) => value ? render() : null;
 
-    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    const thumbnail = this.props.siteStore.CreateLink(
-      featuredTitle.landscapeUrl || featuredTitle.imageUrl,
-      "",
-      { height: Math.max(150, Math.floor(vh / 3)) }
-    );
+    // const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    // const thumbnail = this.props.siteStore.CreateLink(
+    //   featuredTitle.landscapeUrl || featuredTitle.imageUrl,
+    //   "",
+    //   { height: Math.max(150, Math.floor(vh / 3)) }
+    // );
 
     const backgroundStyle = {
       backgroundSize: "cover",
@@ -123,46 +127,46 @@ class VideoFeature extends React.Component {
     };
 
     return (
-        <div
-          style={backgroundStyle}
-          className= "video-feature"
-        >
-          <div className={"video-feature__video"}>
-            <video
-              id="background-video" 
-              loop
-              autoPlay
-              muted={true}
-              key={`active-title-video-${featuredTitle.titleId}-${featuredTitle.currentOffering}`}
-              ref={this.InitializeVideo}
-              poster={poster}
-              controls={this.state.showControls}
-            />
-          </div>
-
-          <div className="video-feature__container">
-            <h1 className="video-feature__title">
-              {featuredTitle.displayTitle}
-            </h1>
-            <div className="video-feature__button">   
-              <button onClick={() => this.props.playTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
-                {/* <PlayIcon className="modal__btn--icon" /> */}
-                Play Now
-              </button>
-
-              <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails btnDetails__feature">
-                View Details
-              </button>
-            </div>
-
-            {Maybe(
-              synopsis,
-              () => <p className="video-feature__overview">{ synopsis }</p>
-            )}
-            
-          </div>
-          
+      <div
+        style={backgroundStyle}
+        className= "video-feature"
+      >
+        <div className={"video-feature__video"}>
+          <video
+            id="background-video" 
+            loop
+            autoPlay
+            muted={true}
+            key={`active-title-video-${featuredTitle.titleId}-${featuredTitle.currentOffering}`}
+            ref={this.InitializeVideo}
+            poster={poster}
+            controls={this.state.showControls}
+          />
         </div>
+
+        <div className="video-feature__container">
+          <h1 className="video-feature__title">
+            {featuredTitle.displayTitle}
+          </h1>
+          <div className="video-feature__button">   
+            <button onClick={() => this.props.playTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+              {/* <PlayIcon className="modal__btn--icon" /> */}
+                Play Now
+            </button>
+
+            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails btnDetails__feature">
+                View Details
+            </button>
+          </div>
+
+          {Maybe(
+            synopsis,
+            () => <p className="video-feature__overview">{ synopsis }</p>
+          )}
+            
+        </div>
+          
+      </div>
     );
   }
 }

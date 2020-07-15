@@ -1,6 +1,6 @@
 .swiper-container {
     align-content: start;
-    color: #fff;
+    // color: #fff;
     height: 100%;
     justify-content: start;
     margin-top: 7.2rem;
@@ -30,7 +30,7 @@ max-width: 100%;
 
 .swiper-heading {
     padding-bottom: 1.6rem;
-    color: white;
+    // color: #fff;
 }
 
 .swiper-slide {
@@ -44,7 +44,7 @@ max-width: 100%;
     /* Center slide text vertically */
     -webkit-justify-content: center;
     align-items: center;
-    color: #fff;
+    // color: #fff;
     cursor: pointer;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -127,7 +127,7 @@ white-space: nowrap;
 
 &__title {
     align-self: flex-start;
-    color: #fff;
+    // color: #fff;
     margin-top: .5rem;
 }
 

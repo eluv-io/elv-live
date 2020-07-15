@@ -30,45 +30,45 @@ class BoxFeature extends React.Component {
     };
 
     return (
-        <div
-          style={backgroundStyle}
-          className= "box-feature"
-        >
-          <div className={featuredTitle.displayTitle === "Elephants Dream" ? "box-feature__container-elephant" : "box-feature__container"}>
-            <h1 className="box-feature__title">
-              {featuredTitle.displayTitle}
-            </h1>
-            <p className="box-feature__info">
-              {Maybe(
-                rating,
-                () => <span className="box-feature__rating">Rating: { rating }</span>
-              )}
-              {Maybe(
-                release_date,
-                () => <span> | Release Date: { release_date }</span>
-              )}
-              {Maybe(
-                runtime,
-                () => <span> | Runtime: { runtime } minutes</span>
-              )}
-            </p>
-
+      <div
+        style={backgroundStyle}
+        className= "box-feature"
+      >
+        <div className={featuredTitle.displayTitle === "Elephants Dream" ? "box-feature__container-elephant" : "box-feature__container"}>
+          <h1 className="box-feature__title">
+            {featuredTitle.displayTitle}
+          </h1>
+          <p className="box-feature__info">
             {Maybe(
-              synopsis,
-              () => <p className="box-feature__overview">{ synopsis }</p>
+              rating,
+              () => <span className="box-feature__rating">Rating: { rating }</span>
             )}
-            <div className="box-feature__button">   
-              <button onClick={() => this.props.playTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
-                {/* <PlayIcon className="modal__btn--icon" /> */}
-                Play Now
-              </button>
+            {Maybe(
+              release_date,
+              () => <span> | Release Date: { release_date }</span>
+            )}
+            {Maybe(
+              runtime,
+              () => <span> | Runtime: { runtime } minutes</span>
+            )}
+          </p>
 
-              <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails btnDetails__feature">
+          {Maybe(
+            synopsis,
+            () => <p className="box-feature__overview">{ synopsis }</p>
+          )}
+          <div className="box-feature__button">   
+            <button onClick={() => this.props.playTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+              {/* <PlayIcon className="modal__btn--icon" /> */}
+                Play Now
+            </button>
+
+            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails btnDetails__feature">
                 View Details
-              </button>
-            </div>
+            </button>
           </div>
         </div>
+      </div>
     );
   }
 }
