@@ -14,7 +14,17 @@
        height: 100%;
        padding-left: 5rem;
        padding-top: 3rem;
-       width: 70%;
+       width: 90%;
+       @media only screen and (max-width: $bp-medium-2) {
+         background: linear-gradient(90deg, #000 60%, transparent);
+      }
+   
+      @media only screen and (max-width: $bp-medium) {
+         background: linear-gradient(90deg, #000 75%, transparent);
+      }
+      @media only screen and (max-width: $bp-small-2) {
+         background: linear-gradient(90deg, #000 85%, transparent);
+      }
     }
 
     &__tabs {
@@ -63,17 +73,78 @@
     &__title {
        font-size: 4rem;
        padding-top: 3rem;
+       width: 50%;
+       @media only screen and (max-width: $bp-large-3) {
+         font-size: 3.9rem;
+      }
+   
+      @media only screen and (max-width: $bp-large-2) {
+         font-size: 3.8rem;
+      }
+   
+      @media only screen and (max-width: $bp-large) {
+         font-size: 3.7rem;
+      }
+      @media only screen and (max-width: $bp-medium-2) {
+         font-size: 3.6rem;
+         width: 60%;
+      }
+   
+      @media only screen and (max-width: $bp-medium) {
+         font-size: 3.5rem;
+         width: 75%;
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+         width: 85%;
+      }
     }
 
     &__rating {
        color: $color-green-modal;
-       font-size: 2rem;
     }
 
     &__info {
        font-size: 2rem;
        padding-top: 1.6rem;
        width: 60%;
+       @media only screen and (max-width: $bp-large-3) {
+         font-size: 1.95rem;
+      }
+   
+      @media only screen and (max-width: $bp-large-2) {
+         font-size: 1.85rem;
+      }
+   
+      @media only screen and (max-width: $bp-large) {
+         font-size: 1.75rem;
+      }
+      @media only screen and (max-width: $bp-medium-2) {
+         font-size: 1.65rem;
+         width: 60%;
+      }
+   
+      @media only screen and (max-width: $bp-medium) {
+         width: 75%;
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+         width: 85%;
+         font-size: 1.55rem;
+      }
+
+      @media only screen and (max-width: $bp-small) {
+         font-size: 1.5rem;
+      }
+      @media only screen and (max-width: $bp-tiny) {
+         font-size: 1.4rem;
+      }
+    }
+
+    &__creator {
+      @media only screen and (max-width: $bp-small) {
+         display: none !important;
+      }
     }
 
     &__overview {
@@ -82,11 +153,39 @@
        hyphens: auto;
        line-height: 1.2;
        padding-top: 2rem;
-       width: 60%;
+       width: 50%;
 
-       &--cast {
-         font-size: 1.7rem;
+      @media only screen and (max-width: $bp-large-3) {
+         font-size: 1.95rem;
       }
+   
+      @media only screen and (max-width: $bp-large-2) {
+         font-size: 1.85rem;
+      }
+   
+      @media only screen and (max-width: $bp-large) {
+         font-size: 1.75rem;
+      }
+      @media only screen and (max-width: $bp-medium-2) {
+         font-size: 1.65rem;
+         width: 60%;
+      }
+   
+      @media only screen and (max-width: $bp-medium) {
+         width: 75%;
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+         width: 85%;
+         font-size: 1.55rem;
+      }
+      @media only screen and (max-width: $bp-small) {
+         font-size: 1.5rem;
+      }
+      @media only screen and (max-width: $bp-tiny) {
+         font-size: 1.4rem;
+      }
+
     }
 
    &__btn {

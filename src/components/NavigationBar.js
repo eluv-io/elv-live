@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
 import {FaSearch} from "react-icons/fa";
@@ -44,19 +44,19 @@ class NavigationBar extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   /** changes the scrolling state depending on the Y-position */
-  handleScroll = (event) => {
-    if (window.scrollY === 0) {
+  handleScroll = () => {
+    if(window.scrollY === 0) {
       this.setState({ scrolling: false });
     }
-    else if (window.scrollY > 50) {
+    else if(window.scrollY > 50) {
       this.setState({ scrolling: true });
     }
   }
@@ -66,7 +66,7 @@ class NavigationBar extends Component {
     // if(!this.props.siteStore.searchIndex) { return null; }
 
     const { scrolling } = this.state;
-    const customLogo = this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo;
+    const customLogo = (this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo);
     const NavBar = styled.nav`
       &.black {
         background-color: ${this.props.siteStore.backgroundColor};
@@ -80,7 +80,7 @@ class NavigationBar extends Component {
           <ImageIcon className="navigation__container--logo" icon={customLogo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
 
 
-          <div className="navigation__container--search">
+          <div className={this.props.siteStore.premiere ? "navigation__container--search hide" : "navigation__container--search"}>
             <FaSearch className="logo"/>
             <input
               // onChange={showMovies}
@@ -95,7 +95,7 @@ class NavigationBar extends Component {
 
         </ul>
       </NavBar>
-    )
+    );
   }
 }
 

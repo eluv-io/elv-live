@@ -149,12 +149,12 @@ class VideoFeature extends React.Component {
             {featuredTitle.displayTitle}
           </h1>
           <div className="video-feature__button">   
-            <button onClick={() => this.props.playTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
               {/* <PlayIcon className="modal__btn--icon" /> */}
                 Play Now
             </button>
 
-            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails btnDetails__feature">
+            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__feature">
                 View Details
             </button>
           </div>

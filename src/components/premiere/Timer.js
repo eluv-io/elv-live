@@ -115,7 +115,7 @@ export default class Timer extends Component {
     render() {
       const { days, hours, minutes, seconds } = this.state;
       return (
-        <div className="hero-view-container__timer">
+        <div className="premiere-view-container__timer">
           { this.props.siteStore.premiereCountdown
             ? <h1>Premiering Now!</h1>
             : this.renderClock(days, hours, minutes, seconds)

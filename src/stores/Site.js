@@ -97,19 +97,20 @@ class SiteStore {
     this.rootStore = rootStore;
   }
 
-  ///////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
   //Modal
   @observable modalTitle;
 
   @action.bound
-  SetModalTitle = flow(function * (title) {
-    if(title) {
-      yield this.LoadAsset(title.baseLinkPath);
-    }
-
+  SetModalTitle(title) {
     this.modalTitle = title;
-  });
+  };
 
+  @action.bound
+  OffModalTitle() {
+    this.modalTitle = false;
+  };
+  ///////////////////////////////////////
   //Premiere
   @observable premiereCountdown = false;
   @observable boughtPremiere = false;
@@ -130,14 +131,38 @@ class SiteStore {
   @action.bound
   SetBackgroundColor(color) {
     this.backgroundColor = color;
-  };
+  }
 
   @action.bound
   SetPrimaryFontColor(color) {
     this.primaryFontColor = color;
-  };
-
+  }
   ///////////////////////////////////////
+  // Play Video 
+  @observable loading = false;
+
+  @action.bound
+  async PlayTitle(title) {
+    try {
+      this.loading = true;
+
+      // Clicked 'title' is actually a collection
+      if(["site", "series", "season"].includes(title.title_type)) {
+        this.LoadSite(title.objectId);
+      } else {
+        await this.SetActiveTitle(title);
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////
+
 
   @action.bound
   Reset() {

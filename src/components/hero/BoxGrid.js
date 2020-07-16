@@ -2,29 +2,29 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Slider from "react-slick";
 import BoxFeature from "./BoxFeature";
-import Swiper from "swiper";
+// import Swiper from "swiper";
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block"}}
-      onClick={onClick}
-    />
-  );
-}
+// function SampleNextArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, display: "block"}}
+//       onClick={onClick}
+//     />
+//   );
+// }
 
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
+// function SamplePrevArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, display: "block" }}
+//       onClick={onClick}
+//     />
+//   );
+// }
 
 @inject("rootStore")
 @inject("siteStore")
@@ -58,28 +58,26 @@ class BoxGrid extends React.Component {
     };
 
     return (
-      // <div className="swiper-container">
-      //   <div className="swiper-wrapper">
-      //     {
-      //       this.props.titles.map((title) => {
-      //         return (
-      //           <BoxFeature
-      //           key = {`box-feature-${title}`} 
-      //           title={title} 
-      //           modalClose={this.TurnOffToggle} 
-      //           modalOpen={this.TurnOnToggle} 
-      //           playTitle={this.PlayTitle} 
-      //           trailers={false} 
-      //           shouldPlay={false} 
-      //           isEpisode={false} 
-      //         />
-      //         );
-      //       })
-      //     }
-      //   </div> 
-      //   <div className="swiper-button-next"></div>
-      //   <div className="swiper-button-prev"></div>
-      // </div>
+    // <div className="swiper-container">
+    //   <div className="swiper-wrapper">
+    //     {
+    //       this.props.titles.map((title) => {
+    //         return (
+    //           <BoxFeature
+    //           key = {`box-feature-${title}`} 
+    //           title={title} 
+    //           playTitle={this.PlayTitle} 
+    //           trailers={false} 
+    //           shouldPlay={false} 
+    //           isEpisode={false} 
+    //         />
+    //         );
+    //       })
+    //     }
+    //   </div> 
+    //   <div className="swiper-button-next"></div>
+    //   <div className="swiper-button-prev"></div>
+    // </div>
       
       <Slider {...settings}>
         {
@@ -88,8 +86,6 @@ class BoxGrid extends React.Component {
               <BoxFeature
                 key = {`box-feature-${title}`} 
                 title={title} 
-                modalClose={this.TurnOffToggle} 
-                modalOpen={this.TurnOnToggle} 
                 playTitle={this.PlayTitle} 
                 trailers={false} 
                 shouldPlay={false} 

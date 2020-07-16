@@ -31,7 +31,6 @@ body,
 .app,
 .app-container {
     min-height: 100vh;    
-    // background: rgb(17, 17, 17);
 }
 
 html {
@@ -51,6 +50,7 @@ $bp-huge: 93.75em;   // 1500px
 $bp-large-3: 84.5em;   // 1350px
 $bp-large-2: 75em;   // 1200px
 $bp-large: 68.7em;   // 1100px
+$bp-medium-2: 59.375em;    // 950px;
 $bp-medium: 50em;    // 800px;
 $bp-small-2: 43.75em;   // 700px;
 $bp-small: 31.25em;   // 500px;

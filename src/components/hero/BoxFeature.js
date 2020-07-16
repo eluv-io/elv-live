@@ -1,5 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import styled from "styled-components";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -17,21 +18,25 @@ class BoxFeature extends React.Component {
     const Maybe = (value, render) => value ? render() : null;
 
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    
     const thumbnail = this.props.siteStore.CreateLink(
       featuredTitle.landscapeUrl || featuredTitle.imageUrl,
       "",
-      { height: Math.max(150, Math.floor(vh / 3)) }
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
     );
 
-    const backgroundStyle = {
-      backgroundSize: "cover",
-      backgroundImage: `url(${thumbnail})`,
-      marginTop: "7rem",
-    };
+    
+
+    const BoxContainer = styled.div`
+      background-image: url(${thumbnail});
+      margin-top: 7rem;
+      object-position: left center;
+    }
+    `;
 
     return (
-      <div
-        style={backgroundStyle}
+      <BoxContainer
         className= "box-feature"
       >
         <div className={featuredTitle.displayTitle === "Elephants Dream" ? "box-feature__container-elephant" : "box-feature__container"}>
@@ -58,17 +63,17 @@ class BoxFeature extends React.Component {
             () => <p className="box-feature__overview">{ synopsis }</p>
           )}
           <div className="box-feature__button">   
-            <button onClick={() => this.props.playTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
               {/* <PlayIcon className="modal__btn--icon" /> */}
                 Play Now
             </button>
 
-            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails btnDetails__feature">
+            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__feature">
                 View Details
             </button>
           </div>
         </div>
-      </div>
+      </BoxContainer>
     );
   }
 }

@@ -37,9 +37,7 @@ class ModalEpisodes extends React.Component {
           <SwiperGrid
             name=""
             titles={episodes}
-            modalClose={this.props.modalClose}
-            modalOpen={this.props.modalOpen}
-            playTitle={this.props.playTitle}
+            
             trailers={true}
             shouldPlay={true}
             isEpisode={true}

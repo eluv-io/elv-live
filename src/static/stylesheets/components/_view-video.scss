@@ -41,8 +41,25 @@
   cursor: pointer;
   font-weight: 400;
   left: 0;
-  margin-left: 91vw;
-  margin-top: 3rem;
+  margin-left: 92vw;
+  margin-top: 1.5rem;
+  @media only screen and (max-width: $bp-medium-2) {
+    margin-left: 90vw;
+  }
+  @media only screen and (max-width: $bp-medium) {
+    margin-left: 88vw;
+  }
+
+  @media only screen and (max-width: $bp-small-2) {
+    margin-left: 87vw;
+    margin-top: 7rem;
+
+  }
+  @media only screen and (max-width: $bp-small) {
+    margin-left: 85vw;
+
+  }
+
   padding: $elv-spacing-xs;
   position: absolute;
   stroke: $elv-color-mediumgray;

@@ -1,11 +1,12 @@
 .hero-grid-container {
   height: 100vh;
   margin: calc(-3vh - 4rem) -4vw;
-  width: 100vw;
   margin-bottom: 2rem;
+  width: 100vw;
     @media only screen and (max-width: $bp-small) {
         margin-bottom: 10rem;
     }
+
     @media only screen and (max-width: $bp-tiny) {
         margin-bottom: 12rem;
     }
@@ -13,12 +14,13 @@
 
 .hero-grid-view-container {
     align-self: end;
-    // color: #fff;
     display: grid;
-    grid-column: hero-start / hero-end;
-    grid-row: hero-start / hero-end;
+
     grid-row-gap: 1.2rem;
-    grid-template-rows: 60vh [title-start] minmax(4vh, min-content) [title-end timer-start] minmax(4vh, min-content) [timer-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;
+    grid-template-rows: 67vh [title-start] minmax(4vh, min-content) [title-end timer-start] minmax(4vh, min-content) [timer-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;
+
+
+
     &__heading {
         font-size: 6rem;
         grid-row: title-start / title-end;
