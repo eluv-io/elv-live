@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Slider from "react-slick";
-import HeroGridHelper from "./HeroGridHelper";
+import HeroView from "./HeroView";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -49,12 +49,10 @@ class HeroGrid extends React.Component {
         {
           this.props.titles.map((title) => {
             return (
-              <HeroGridHelper
+              <HeroView
                 key = {`title-grid-title-${title}`}
                 title = {title}
-                modalClose= {this.props.modalClose} 
-                modalOpen= {this.props.modalOpen} 
-                playTitle= {this.props.playTitle}
+                
               />
             );
           })

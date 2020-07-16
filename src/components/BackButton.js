@@ -17,7 +17,7 @@ class BackButton extends React.Component {
       backIcon = CloseIcon;
       backText = "Close Modal";
       backClass = "back-button__modal";
-      backAction = () => this.props.modalClose();
+      backAction = this.props.siteStore.OffModalTitle;
     }
 
     return (

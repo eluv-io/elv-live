@@ -2,15 +2,22 @@
   border-radius: 25px;
   box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
   // color: #fff;
-  height: 75vh;
+  height: 70vh;
   left: 0; 
   top: 0; 
   width: 100%;
   z-index: 500;
+  background-size: 100% 100%;
+  @media only screen and (max-width: $bp-medium) {
+    height: 67.5vh;
+  }
+  @media only screen and (max-width: $bp-small) {
+    height: 65vh;
+  }
+
 
   &__container {
     background: linear-gradient(90deg, #deb887 50%, transparent);
-
     border-radius: 25px;
     display: flex;
     flex-direction: column;
@@ -65,7 +72,6 @@
     @media only screen and (max-width: $bp-small) {
         display: none !important;
     }
-
   }
 
   &__overview {
@@ -112,9 +118,11 @@
   @media only screen and (max-width: $bp-large-2) {
     margin-bottom: 30rem;
   }
+
   @media only screen and (max-width: $bp-large) {
     margin-bottom: 25rem;
   }
+
   @media only screen and (max-width: $bp-medium) {
     margin-bottom: 20rem;
   }
@@ -137,9 +145,11 @@
     @media only screen and (max-width: $bp-large-3) {
       height: 95%;
     }
+
     @media only screen and (max-width: $bp-tiny-2) {
       margin-bottom: 2rem;
     }
+
     video {
       // background-color: $elv-color-black;
       border-radius: 0.5rem;

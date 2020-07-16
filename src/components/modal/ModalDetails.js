@@ -14,27 +14,25 @@ class ModalDetails extends React.Component {
         <h1 className="modal__title">
           {featuredTitle.displayTitle}
         </h1>
-          
-        <p className="modal__info">
-          {Maybe(
-            creator,
-            () => <span className="modal__overview modal__overview--cast">Created by: { creator }</span>
-          )}
-        </p>
-        <p className="modal__info">
-          {Maybe(
-            titleInfo.talent && titleInfo.talent.cast,
-            () => <span className="modal__overview modal__overview--cast">
-                Cast: { titleInfo.talent.cast.map(actor => `${actor.talent_first_name} ${actor.talent_last_name}`).join(", ") }
-            </span>
-          )}
-        </p>
-        <p className="modal__info">
-          {Maybe(
-            copyright,
-            () => <span className="modal__overview modal__overview--cast">Copyright: { copyright }</span>
-          )}  
-        </p>
+        
+        {Maybe(
+          creator,
+          () => <p className="modal__overview">Created by: { creator }</p>
+        )}
+
+      
+        {Maybe(
+          titleInfo.talent && titleInfo.talent.cast,
+          () => <p className="modal__overview">
+              Cast: { titleInfo.talent.cast.map(actor => `${actor.talent_first_name} ${actor.talent_last_name}`).join(", ") }
+          </p>
+        )}
+
+      
+        {Maybe(
+          copyright,
+          () => <p className="modal__overview">Copyright: { copyright }</p>
+        )}  
       </div>
     );
   }

@@ -37,7 +37,7 @@ class ModalOverview extends React.Component {
           )}
         </p>
 
-        <p className="modal__info">
+        <p className="modal__info modal__creator">
           {Maybe(
             creator,
             () => <span>Created by: { creator }</span>
@@ -48,7 +48,7 @@ class ModalOverview extends React.Component {
           synopsis,
           () => <p className="modal__overview">{ synopsis }</p>
         )}
-        <button onClick={() => {this.props.playTitle(featuredTitle); this.props.modalClose();}} className={`btnPlay btnPlay__modal ${this.props.showPlay === true ? "" : "hide"}`}>
+        <button onClick={() => {this.props.siteStore.PlayTitle(featuredTitle); this.props.siteStore.OffModalTitle();}} className={`btnPlay btnPlay__modal ${this.props.showPlay === true ? "" : "hide"}`}>
           {/* <PlayIcon className="modal__btn--icon" /> */}
           Play
         </button>

@@ -45,9 +45,7 @@ class TitleGrid extends React.Component {
                   large = {false}
                   title={title}
                   visible
-                  modalClose={this.props.modalClose} 
-                  modalOpen={this.props.modalOpen} 
-                  playTitle={this.props.playTitle}
+                  
                   episode= {index}
                   isEpisode = {this.props.isEpisode}
                   isPoster = {this.props.isPoster}

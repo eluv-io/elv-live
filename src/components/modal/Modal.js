@@ -18,7 +18,7 @@ class Modal extends React.Component {
       loading: false,
       activeTab: "Overview",
       tabs: ["Overview", "Trailers", "Details"],
-      showPlay: true
+      showPlay: true,
     };
   }
 
@@ -28,6 +28,10 @@ class Modal extends React.Component {
       this.setState({showPlay: false});
     } else if(["channel"].includes(this.props.title.title_type)) {
       this.setState({tabs: ["Overview", "Live Schedule", "Details"]});
+    }
+
+    if (this.props.siteStore.premiere) {
+      this.setState({showPlay: false});
     }
   }
 
@@ -51,34 +55,36 @@ class Modal extends React.Component {
     );
   }
 
-  render() {    
+  render() {
     const featuredTitle = this.props.title;
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    
     const thumbnail = this.props.siteStore.CreateLink(
       featuredTitle.landscapeUrl || featuredTitle.imageUrl,
       "",
-      { height: Math.max(150, Math.floor(vh / 3)) }
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
     );
 
     const backgroundStyle = {
-      backgroundSize: "cover",
+      backgroundSize: "100% 100%",
       backgroundImage: `url(${thumbnail})`
     };
 
     return (
       <React.Fragment>
-        {this.props.toggle ? (<div onClick={this.props.modalClose} className="backdrop"></div>) : null}
+        <div onClick={this.props.siteStore.OffModalTitle} className="backdrop" />
         <div
           style={backgroundStyle}
-          className={this.props.toggle ? "modal show" : "modal hide"}
+          className="modal show"
         >
           { this.Tabs() }
-          <BackButton modalClose={this.props.modalClose}/>
-          <ModalOverview title={featuredTitle} showTab={this.state.activeTab} playTitle={this.props.playTitle} modalClose={this.props.modalClose} showPlay={this.state.showPlay}/>
-          <ModalTrailers title={featuredTitle} showTab={this.state.activeTab} playTitle={this.props.playTitle} modalClose={this.props.modalClose}/>
-          <ModalEpisodes title={featuredTitle} showTab={this.state.activeTab} playTitle={this.props.playTitle} modalClose={this.props.modalClose}/>
-          <ModalDetails title={featuredTitle} showTab={this.state.activeTab} playTitle={this.props.playTitle} modalClose={this.props.modalClose}/>
-          <ModalChannel title={featuredTitle} showTab={this.state.activeTab} playTitle={this.props.playTitle} modalClose={this.props.modalClose}/>
+          <BackButton />
+          <ModalOverview title={featuredTitle} showTab={this.state.activeTab}   showPlay={this.state.showPlay}/>
+          <ModalTrailers title={featuredTitle} showTab={this.state.activeTab}  />
+          <ModalEpisodes title={featuredTitle} showTab={this.state.activeTab}  />
+          <ModalDetails title={featuredTitle} showTab={this.state.activeTab}  />
+          <ModalChannel title={featuredTitle} showTab={this.state.activeTab}  />
         </div>
       </React.Fragment>
     );

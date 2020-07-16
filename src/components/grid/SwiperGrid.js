@@ -65,10 +65,7 @@ class SwiperGrid extends React.Component {
                   key = {`title-grid-title-${this.props.name}-${index}`}
                   large = {false}
                   title = {title}
-                  visible
-                  modalClose= {this.props.modalClose}
-                  modalOpen= {this.props.modalOpen}
-                  playTitle= {this.props.playTitle}
+                  visible                  
                   episode= {index}
                   isEpisode = {this.props.isEpisode}
                   isPoster = {this.props.isPoster}

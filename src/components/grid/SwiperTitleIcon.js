@@ -23,7 +23,7 @@ class SwiperTitleIcon extends React.Component {
 
     return (
       <React.Fragment>
-        <div className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} onClick={() => this.props.modalOpen(title)}>
+        <div className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} onClick={() => this.props.siteStore.SetModalTitle(title)}>
           <ImageIcon
             className="swiper-slide__image"
             icon= {this.props.isPoster ? (title.portraitUrl || thumbnail || FallbackIcon) : (thumbnail || FallbackIcon) }         
