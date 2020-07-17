@@ -170,6 +170,8 @@ class Site extends React.Component {
       );
     }
 
+    console.log(arrangement);
+
     return arrangement.map((entry, i) => this.ArrangementEntry(entry, i));
   }
 
@@ -181,15 +183,14 @@ class Site extends React.Component {
           noTitlesMessage="No results found"
           name="Search Results"
           titles={this.props.siteStore.searchResults}          
-          
           trailers={false}
           shouldPlay={false}
           isEpisode={false}
         />
       );
     }
-    let titles = this.props.siteStore.siteInfo.assets.titles;
-    let moreTitles = titles.concat(this.props.siteStore.siteInfo.assets.titles);
+    // let titles = this.props.siteStore.siteInfo.assets.titles;
+    // let moreTitles = titles.concat(this.props.siteStore.siteInfo.assets.titles);
 
     return (
       <React.Fragment>

@@ -48,13 +48,12 @@ class ModalEpisodes extends React.Component {
   }
 
   render() {
-    const featuredTitle = this.props.title;
+    // const featuredTitle = this.props.title;
     // const dropdownStyle = {
     //   width: "20rem",
     //   marginLeft: "6rem",
     //   marginTop: "-10rem",
     // };
-    // console.log(featuredTitle);
 
     const seasons = this.Seasons()
       .map((season, i) => ({
