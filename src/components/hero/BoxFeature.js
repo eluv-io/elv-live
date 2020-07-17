@@ -35,11 +35,23 @@ class BoxFeature extends React.Component {
     }
     `;
 
+    const ColorContainer = styled.div`
+      background: linear-gradient(90deg, ${this.props.backgroundColor} 50%, transparent);
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      padding-left: 5rem;
+      width: 70%;
+    }
+    `;
+
     return (
       <BoxContainer
         className= "box-feature"
       >
-        <div className={featuredTitle.displayTitle === "Elephants Dream" ? "box-feature__container-elephant" : "box-feature__container"}>
+        <ColorContainer>
           <h1 className="box-feature__title">
             {featuredTitle.displayTitle}
           </h1>
@@ -72,7 +84,7 @@ class BoxFeature extends React.Component {
                 View Details
             </button>
           </div>
-        </div>
+        </ColorContainer>
       </BoxContainer>
     );
   }
