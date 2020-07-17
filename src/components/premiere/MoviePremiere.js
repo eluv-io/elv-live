@@ -14,7 +14,7 @@ class MoviePremiere extends React.Component {
 
   playPremiere() {
     return (
-      <button onClick={() => this.props.playTitle(this.props.title)} className="btnPlay">
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay">
         Play Now
       </button>
     );
@@ -58,11 +58,11 @@ class MoviePremiere extends React.Component {
           <div className="premiere-view-container__button">
             { this.props.siteStore.premiereCountdown ? (this.props.siteStore.boughtPremiere ? this.playPremiere() : this.nowPremiere()) : null }
             
-            <button onClick={() => this.props.playTitle(featuredTitle)} className="btnPlay">
+            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className="btnPlay">
               Watch Trailer
             </button>
 
-            <button onClick={() => this.props.modalOpen(featuredTitle)} className="btnDetails">
+            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails">
               View Details
             </button>
           </div>
