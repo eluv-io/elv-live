@@ -104,11 +104,17 @@ class VideoFeature extends React.Component {
     }
   }
 
-  render() {    
+  render() {
     const featuredTitle = this.props.title;
     const titleInfo = featuredTitle.info || {};
     const synopsis = titleInfo.synopsis;
-    const poster = featuredTitle.landscapeUrl || featuredTitle.imageUrl;
+    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const poster = this.props.siteStore.CreateLink(
+      featuredTitle.landscapeUrl || featuredTitle.imageUrl,
+      "",
+      { height: Math.max(500, Math.floor(vh)) }
+    );
+
 
     const Maybe = (value, render) => value ? render() : null;
 
@@ -133,7 +139,7 @@ class VideoFeature extends React.Component {
       >
         <div className={"video-feature__video"}>
           <video
-            id="background-video" 
+            id="background-video"
             loop
             autoPlay
             muted={true}
@@ -148,7 +154,7 @@ class VideoFeature extends React.Component {
           <h1 className="video-feature__title">
             {featuredTitle.displayTitle}
           </h1>
-          <div className="video-feature__button">   
+          <div className="video-feature__button">
             <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
               {/* <PlayIcon className="modal__btn--icon" /> */}
                 Play Now
@@ -163,9 +169,9 @@ class VideoFeature extends React.Component {
             synopsis,
             () => <p className="video-feature__overview">{ synopsis }</p>
           )}
-            
+
         </div>
-          
+
       </div>
     );
   }
