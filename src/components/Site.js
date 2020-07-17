@@ -47,33 +47,35 @@ class Site extends React.Component {
         console.error(entry);
         return;
     }
+    
 
     const variant = entry.options && entry.options.variant;
     switch (entry.component) {
+      case "hero":
+        return (
+          <HeroGrid
+            key={key}
+            titles={titles}         
+          />
+        );
       case "feature":
         switch (variant) {
-          case "full_screen":
-            return (
-              <HeroGrid
-                key={key}
-                titles={titles}         
-              />
-            );
           case "box":
             return (
               <BoxFeature
                 key={key}
-                title={titles[0]}                   
+                title={entry.title}                   
                 trailers={false} 
                 shouldPlay={false} 
                 isEpisode={false}
+                backgroundColor={entry.options.color}
               />
             );
           case "video":
             return (
               <VideoFeature
                 key={key} 
-                title={titles[0]} 
+                title={entry.title} 
                 trailers={false} 
                 shouldPlay={false} 
                 isEpisode={false}
@@ -139,7 +141,7 @@ class Site extends React.Component {
     let arrangement = siteCustomization.arrangement;
     this.props.siteStore.SetBackgroundColor(siteCustomization.colors.background);
     this.props.siteStore.SetPrimaryFontColor(siteCustomization.colors.primary_text);
-
+    
     if(!arrangement) {
       // Default arrangement: Playlists then assets, all medium carousel
       arrangement = this.props.siteStore.siteInfo.playlists.map(playlist => ({
@@ -188,10 +190,11 @@ class Site extends React.Component {
     }
     let titles = this.props.siteStore.siteInfo.assets.titles;
     let moreTitles = titles.concat(this.props.siteStore.siteInfo.assets.titles);
+
     return (
       <React.Fragment>
-        <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles.slice(0,1)}   />
-        <SwiperGrid name="All Titles" titles={moreTitles}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
+        <HeroGrid titles={this.props.siteStore.siteInfo.playlists[1].titles}   />
+        <SwiperGrid name="All Seres" titles={this.props.siteStore.siteInfo.assets.series}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
         <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[1]}    trailers={false} shouldPlay={false} isEpisode={false} />
         <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
         <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]}    trailers={false} shouldPlay={false} isEpisode={false} />
@@ -246,7 +249,7 @@ class Site extends React.Component {
               { this.props.siteStore.activeTitle ? null : <NavigationBar />}
               { this.props.siteStore.activeTitle ? this.ShowVideo() : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
               { this.props.siteStore.modalTitle ? this.ShowModal() : null }
-           </div>
+            </div>
           );
         }}
       />

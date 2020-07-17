@@ -104,12 +104,12 @@ class SiteStore {
   @action.bound
   SetModalTitle(title) {
     this.modalTitle = title;
-  };
+  }
 
   @action.bound
   OffModalTitle() {
     this.modalTitle = false;
-  };
+  }
   ///////////////////////////////////////
   //Premiere
   @observable premiereCountdown = false;
@@ -222,7 +222,6 @@ class SiteStore {
 
     this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
     this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
-    // this.siteCustomization = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/asset_metadata/site_customization"});
 
     this.siteCustomization = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
@@ -232,8 +231,6 @@ class SiteStore {
       resolveIgnoreErrors: true
     });
 
-    // console.log(this.siteCustomization.logo);
-
     if(this.siteCustomization.premiere) {                                                       
       this.premiere = {
         title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
@@ -241,6 +238,17 @@ class SiteStore {
         price: this.siteCustomization.premiere.price
       };
     }
+
+    if(this.siteCustomization.arrangement) {
+      for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
+        const entry = this.siteCustomization.arrangement[i];
+        if(entry.title) {
+          entry.title =
+            yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
+        }
+      }
+    }
+
     if(this.siteCustomization.logo) {
       this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
     }

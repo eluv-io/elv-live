@@ -30,7 +30,7 @@ class Modal extends React.Component {
       this.setState({tabs: ["Overview", "Live Schedule", "Details"]});
     }
 
-    if (this.props.siteStore.premiere) {
+    if(this.props.siteStore.premiere) {
       this.setState({showPlay: false});
     }
   }

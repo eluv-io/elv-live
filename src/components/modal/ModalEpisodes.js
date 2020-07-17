@@ -54,6 +54,7 @@ class ModalEpisodes extends React.Component {
     //   marginLeft: "6rem",
     //   marginTop: "-10rem",
     // };
+    // console.log(featuredTitle);
 
     const seasons = this.Seasons()
       .map((season, i) => ({
