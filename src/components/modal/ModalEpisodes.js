@@ -14,6 +14,8 @@ class ModalEpisodes extends React.Component {
     this.state = {
       selected: 0
     };
+
+    this.PageContent = this.PageContent.bind(this);
   }
 
   Seasons() {
@@ -27,6 +29,7 @@ class ModalEpisodes extends React.Component {
       <AsyncComponent
         key={`episode-list-${this.state.selected}`}
         Load={async () => {
+          // Load season to resolve episode info
           if(this.props.siteStore.assets[season.versionHash]) {
             return;
           }
@@ -37,7 +40,6 @@ class ModalEpisodes extends React.Component {
           <SwiperGrid
             name=""
             titles={episodes}
-            
             trailers={true}
             shouldPlay={true}
             isEpisode={true}
@@ -47,14 +49,7 @@ class ModalEpisodes extends React.Component {
     );
   }
 
-  render() {
-    // const featuredTitle = this.props.title;
-    // const dropdownStyle = {
-    //   width: "20rem",
-    //   marginLeft: "6rem",
-    //   marginTop: "-10rem",
-    // };
-
+  PageContent() {
     const seasons = this.Seasons()
       .map((season, i) => ({
         key: `season-${i}`,
@@ -62,16 +57,14 @@ class ModalEpisodes extends React.Component {
         value: i
       }));
 
-    if(seasons.length === 0) { return null; }
-
     return (
       <React.Fragment>
         <div className={`modal__container ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
           <h1 className="modal__title">
-            {featuredTitle.displayTitle}
+            {this.props.title.displayTitle}
           </h1>
-          
-          { this.Episodes() }
+
+          {this.Episodes()}
         </div>
         <div className={`modal__dropdown ${this.props.showTab === "Episodes" ? "" : "hide"}`}>
           <Dropdown
@@ -83,7 +76,22 @@ class ModalEpisodes extends React.Component {
           />
         </div>
       </React.Fragment>
-      
+    );
+  }
+
+  render() {
+    return (
+      <AsyncComponent
+        Load={async () => {
+          // Load series to resolve season info
+          if(this.props.siteStore.assets[this.props.title.versionHash]) {
+            return;
+          }
+
+          await this.props.siteStore.LoadAsset(this.props.title.baseLinkPath);
+        }}
+        render={this.PageContent}
+      />
     );
   }
 }
