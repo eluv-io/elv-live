@@ -169,9 +169,7 @@ class Site extends React.Component {
         }))
       );
     }
-
-    console.log(arrangement);
-
+    
     return arrangement.map((entry, i) => this.ArrangementEntry(entry, i));
   }
 

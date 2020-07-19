@@ -53,7 +53,7 @@ class SwiperGrid extends React.Component {
       RightIcon = SwiperTitleIcon;
     }
     return (
-      <div className={this.props.trailers ? "swiper-container__trailer" : "swiper-container"}>
+      <div className={this.props.trailers ? "trailer-container" : "swiper-container"}>
         <h1 className="swiper-heading">
           { this.props.name }
         </h1>
