@@ -1,7 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import SwiperTitleIcon from "./SwiperTitleIcon";
-import PlayTitleIcon from "./PlayTitleIcon";
 import Swiper from "swiper";
 
 @inject("siteStore")
