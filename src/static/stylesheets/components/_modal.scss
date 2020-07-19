@@ -1,11 +1,31 @@
 .modal {
     box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
-   //  color: #fff;
-    height: 52rem;
-    left: 0;
-    opacity: 0;
+   //  height: 52rem;
+    height: 50vh;
+
+   @media only screen and (max-height: $bp-large) {
+      height: 55vh;
+      transform: translateY(-2.5vh);
+   }
+
+   @media only screen and (max-height: $bp-medium-2) {
+      height: 60vh;
+      transform: translateY(-5vh);
+   }
+
+   @media only screen and (max-height: $bp-medium) {
+      height: 65vh;
+      transform: translateY(-7.5vh);
+   }
+
+   @media only screen and (max-height: $bp-small-2) {
+      height: 100vh;
+      transform: translateY(-25vh);
+   }
+
+   //  left: 0;
     position: fixed;
-    top: 0;
+   //  top: 0;
     width: 100%;
     z-index: 5000;
 
@@ -65,8 +85,8 @@
    }
 
    &__dropdown {
-      margin-left: 11rem;
-      margin-top: -10rem;
+      margin-left: 5rem;
+      margin-top: -12.5rem;
       width: 20rem;
    }
 

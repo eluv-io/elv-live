@@ -1,5 +1,7 @@
 import React from "react";
 import SwiperGrid from "../grid/SwiperGrid";
+import TitleGrid from "../grid/TitleGrid";
+
 
 class ModalTrailers extends React.Component {
   render() {
@@ -13,7 +15,9 @@ class ModalTrailers extends React.Component {
           <h1 className="modal__title">
             {featuredTitle.displayTitle}
           </h1>
-          <SwiperGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={true} isEpisode={false}/>
+          <TitleGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={false} isEpisode={false} isPoster={false}/>
+
+          {/* <SwiperGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={true} isEpisode={false}/> */}
         </div>
       </React.Fragment>
     );

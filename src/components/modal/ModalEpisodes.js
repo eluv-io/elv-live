@@ -3,6 +3,7 @@ import SwiperGrid from "../grid/SwiperGrid";
 import {inject, observer} from "mobx-react";
 import { Dropdown } from "semantic-ui-react";
 import AsyncComponent from "../AsyncComponent";
+import TitleGrid from "../grid/TitleGrid";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -37,12 +38,13 @@ class ModalEpisodes extends React.Component {
           await this.props.siteStore.LoadAsset(season.baseLinkPath);
         }}
         render={() => (
-          <SwiperGrid
+          <TitleGrid
             name=""
             titles={episodes}
             trailers={true}
             shouldPlay={true}
             isEpisode={true}
+            isPoster={false}
           />
         )}
       />
