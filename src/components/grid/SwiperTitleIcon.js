@@ -30,8 +30,8 @@ class SwiperTitleIcon extends React.Component {
     return (
       <React.Fragment>
         <div 
-          className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} 
-          onClick={() => {this.props.shouldPlay ? this.PlayVideo(title): this.props.siteStore.SetModalTitle(title)}}
+          className={this.props.isPoster ? "swiper-slide swiper-slide__poster swiper-container--movie" : "swiper-slide swiper-container--movie"} 
+          onClick={() => {this.props.shouldPlay ? this.PlayVideo(title): this.props.siteStore.SetModalTitle(title);}}
         >
           <ImageIcon
             className="swiper-slide__image"

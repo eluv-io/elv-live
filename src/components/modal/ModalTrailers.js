@@ -1,7 +1,5 @@
 import React from "react";
-import SwiperGrid from "../grid/SwiperGrid";
 import TitleGrid from "../grid/TitleGrid";
-
 
 class ModalTrailers extends React.Component {
   render() {

@@ -1,5 +1,4 @@
 import React from "react";
-import SwiperGrid from "../grid/SwiperGrid";
 import {inject, observer} from "mobx-react";
 import { Dropdown } from "semantic-ui-react";
 import AsyncComponent from "../AsyncComponent";
