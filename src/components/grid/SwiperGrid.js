@@ -10,9 +10,9 @@ class SwiperGrid extends React.Component {
 
   componentDidMount(){
     this.swiper = new Swiper(".swiper-container", {
-      slidesPerView: 5,
+      slidesPerView: 6,
       spaceBetween: 10,
-      slidesPerGroup: 5,
+      slidesPerGroup: 6,
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
@@ -46,12 +46,12 @@ class SwiperGrid extends React.Component {
     const noTitles = (!this.props.titles || this.props.titles.length === 0);
     if(!this.props.noTitlesMessage && noTitles) { return null; }
 
-    let RightIcon;
-    if(this.props.shouldPlay) {
-      RightIcon = PlayTitleIcon;
-    } else {
-      RightIcon = SwiperTitleIcon;
-    }
+    // let RightIcon;
+    // if(this.props.shouldPlay) {
+    //   RightIcon = PlayTitleIcon;
+    // } else {
+    //   RightIcon = SwiperTitleIcon;
+    // }
     return (
       <div className={this.props.trailers ? "trailer-container" : "swiper-container"}>
         <h1 className="swiper-heading">
@@ -61,7 +61,7 @@ class SwiperGrid extends React.Component {
           {
             this.props.titles.map((title, index) => {
               return (
-                <RightIcon
+                <SwiperTitleIcon
                   key = {`title-grid-title-${this.props.name}-${index}`}
                   large = {false}
                   title = {title}
@@ -69,6 +69,7 @@ class SwiperGrid extends React.Component {
                   episode= {index}
                   isEpisode = {this.props.isEpisode}
                   isPoster = {this.props.isPoster}
+                  shouldPlay = {this.props.shouldPlay}
                 />
               );
             })

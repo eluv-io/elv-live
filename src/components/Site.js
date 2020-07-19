@@ -169,7 +169,7 @@ class Site extends React.Component {
         }))
       );
     }
-    
+
     return arrangement.map((entry, i) => this.ArrangementEntry(entry, i));
   }
 
@@ -196,7 +196,7 @@ class Site extends React.Component {
         <SwiperGrid name="All Seres" titles={this.props.siteStore.siteInfo.assets.series}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
         <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[1]}    trailers={false} shouldPlay={false} isEpisode={false} />
         <SwiperGrid name="Most Viewed" titles={this.props.siteStore.siteInfo.assets.titles}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>
-        <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]}    trailers={false} shouldPlay={false} isEpisode={false} />
+        <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[2]}    trailers={false} shouldPlay={false} isEpisode={false} />
         { this.props.siteStore.siteInfo.playlists.map(playlist =>
           <SwiperGrid
             key={`title-reel-playlist-${playlist.playlistId}`}
@@ -208,7 +208,7 @@ class Site extends React.Component {
             isPoster={false}
           />
         )} 
-        <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[4]}    trailers={false} shouldPlay={false} isEpisode={false} />
+        <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[3]}    trailers={false} shouldPlay={false} isEpisode={false} />
         <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[0]}    trailers={false} shouldPlay={false} isEpisode={false} />
         <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
         <TitleGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={true}/>

@@ -82,7 +82,7 @@ class Modal extends React.Component {
           <BackButton />
           <ModalOverview title={featuredTitle} showTab={this.state.activeTab}   showPlay={this.state.showPlay}/>
           <ModalTrailers title={featuredTitle} showTab={this.state.activeTab}  />
-          <ModalEpisodes title={featuredTitle} showTab={this.state.activeTab}  />
+          {(["series", "season"].includes(this.props.title.title_type)) ? <ModalEpisodes title={featuredTitle} showTab={this.state.activeTab}  /> : null}
           <ModalDetails title={featuredTitle} showTab={this.state.activeTab}  />
           <ModalChannel title={featuredTitle} showTab={this.state.activeTab}  />
         </div>

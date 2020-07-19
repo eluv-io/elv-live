@@ -8,6 +8,12 @@ import FallbackIcon from "../../static/icons/video.svg";
 @inject("siteStore")
 @observer
 class SwiperTitleIcon extends React.Component {
+
+  PlayVideo(title) {
+    this.props.siteStore.PlayTitle(title);
+    this.props.siteStore.OffModalTitle();
+  }
+
   render() {
 
     //Getting metadata: thumbnail
@@ -23,13 +29,17 @@ class SwiperTitleIcon extends React.Component {
 
     return (
       <React.Fragment>
-        <div className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} onClick={() => this.props.siteStore.SetModalTitle(title)}>
+        <div 
+          className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} 
+          onClick={() => {this.props.shouldPlay ? this.PlayVideo(title): this.props.siteStore.SetModalTitle(title)}}
+        >
           <ImageIcon
             className="swiper-slide__image"
             icon= {this.props.isPoster ? (title.portraitUrl || thumbnail || FallbackIcon) : (thumbnail || FallbackIcon) }         
             alternateIcon={FallbackIcon}
           />
-          <h3 className={this.props.isPoster ? "swiper-slide__title hide" : "swiper-slide__title"}>{ title.displayTitle }</h3>
+          <h3 className={this.props.isPoster ? "swiper-slide__title hide" : "swiper-slide__title"}>{ this.props.isEpisode === true ? `Episode ${this.props.episode + 1}: ${title.displayTitle}` : `${title.displayTitle}`}</h3>
+          {/* <h3 className="swiper-slide__title"> { this.props.isEpisode === true ? `Episode ${this.props.episode + 1}: ${title.displayTitle}` : `${title.displayTitle}`}</h3> */}
         </div>
       </React.Fragment>
     );

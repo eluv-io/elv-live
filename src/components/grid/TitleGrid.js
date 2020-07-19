@@ -10,26 +10,9 @@ import Swiper from "swiper";
 @inject("siteStore")
 @observer
 class TitleGrid extends React.Component {
-  componentDidMount(){
-    this.swiper = new Swiper(".swiper-container", {
-      slidesPerView: 5,
-      spaceBetween: 20,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      }
-    });
-  }
-
   render() {
     const noTitles = (!this.props.titles || this.props.titles.length === 0);
     
-    let RightIcon;
-    if(this.props.shouldPlay) {
-      RightIcon = PlayTitleIcon;
-    } else {
-      RightIcon = SwiperTitleIcon;
-    }
     return (
       <div className={this.props.trailers === true ? "title-grid__trailer" : "title-grid__search"}>
         <h1 className="title-heading"> 
@@ -40,12 +23,11 @@ class TitleGrid extends React.Component {
           {
             this.props.titles.map((title, index) => {
               return (
-                <RightIcon
+                <SwiperTitleIcon
                   key={`title-grid-title-${this.props.name}-${index}`}
                   large = {false}
                   title={title}
                   visible
-                  
                   episode= {index}
                   isEpisode = {this.props.isEpisode}
                   isPoster = {this.props.isPoster}

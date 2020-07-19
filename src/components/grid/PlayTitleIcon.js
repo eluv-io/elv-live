@@ -26,7 +26,7 @@ class PlayTitleIcon extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="swiper-slide--icon" onClick={() => {this.props.siteStore.PlayTitle(title); this.props.siteStore.OffModalTitle();}}>
+        <div className={this.props.isPoster ? "swiper-slide swiper-slide__poster" : "swiper-slide"} onClick={() => {this.props.siteStore.PlayTitle(title); this.props.siteStore.OffModalTitle();}}>
           <ImageIcon
             className="swiper-slide__image"
             icon={thumbnail || FallbackIcon}
