@@ -281,7 +281,7 @@ class RootStore {
 
   @action.bound
   UpdateRoute(path) {
-    if(!this.client.SendMessage) {
+    if(!this.client || !this.client.SendMessage) {
       return;
     }
 
@@ -296,7 +296,7 @@ class RootStore {
 
   @action.bound
   ReturnToApps() {
-    if(this.client.SendMessage) {
+    if(this.client && this.client.SendMessage) {
       this.client.SendMessage({options: {operation: "ShowAppsPage"}, noResponse: true});
     }
   }

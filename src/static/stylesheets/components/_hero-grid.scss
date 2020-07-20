@@ -22,6 +22,7 @@
     grid-row: title-start / title-end;
     margin-left: 4vw;
   }  
+
   &__heading-hero {
     font-size: 6rem;
     grid-row: timer-start / timer-end;
@@ -29,14 +30,17 @@
     @media only screen and (max-width: $bp-medium) {
       font-size: 5.5rem;
     }  
+
     @media only screen and (max-width: $bp-small) {
       font-size: 5.3rem;
     }  
   }  
+
   &__timer {
     grid-row: timer-start / timer-end;
     margin-left: 4vw;
   }  
+
   &__button {
     grid-row: button-start / button-end;
     @media only screen and (max-width: $bp-small) {
@@ -50,6 +54,7 @@
     }
     margin-left: 4vw;  
   }  
+
   &__overview {
     font-size: 1.8rem;
     grid-row: overview-start / overview-end;
@@ -60,14 +65,17 @@
     @media only screen and (max-width: $bp-large) {
       font-size: 1.7rem;
     }  
+
     @media only screen and (max-width: $bp-medium) {
       font-size: 1.6rem;
       width: 60vw;
     }  
+
     @media only screen and (max-width: $bp-small-2) {
       font-size: 1.5rem;
       width: 70vw;
     }  
+
     @media only screen and (max-width: $bp-small) {
       font-size: 1.4rem;
     }
