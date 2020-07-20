@@ -23,14 +23,14 @@
 }
 
 .app {
-    
+
 }
 
 html,
 body,
 .app,
 .app-container {
-    min-height: 100vh;    
+    min-height: 100vh;
 }
 
 html {
@@ -61,4 +61,11 @@ $bp-tiny: 21.875em;   // 350px;
     display: flex;
     flex-direction: column;
     margin: 0 4vw;
+}
+
+.error-message {
+    position: fixed;
+    width: 100%;
+    top: 1rem;
+    text-align: center;
 }

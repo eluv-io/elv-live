@@ -18,23 +18,7 @@ class VideoFeature extends React.Component {
   }
 
   async componentDidMount() {
-    try {
-      this.setState({loading: true});
-
-      // Clicked 'title' is actually a collection
-      if(["site", "series", "season"].includes(this.props.title.title_type)) {
-        this.props.siteStore.LoadSite(this.props.title.objectId);
-      } else {
-        await this.props.siteStore.SetVideoFeature(this.props.title);
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.setState({loading: false});
-    }
+    await this.props.siteStore.SetVideoFeature(this.props.title);
   }
 
   componentWillUnmount() {
