@@ -4,6 +4,8 @@ import {ImageIcon} from "elv-components-js";
 import {FaSearch} from "react-icons/fa";
 import styled from "styled-components";
 
+import Logo from "../static/images/Logo.png";
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -84,11 +86,11 @@ class NavigationBar extends Component {
             <FaSearch className="logo"/>
             <input
               // onChange={showMovies}
-              // value={this.state.search} 
+              // value={this.state.search}
               className="navigation__container--search__input"
               // onChange={this.HandleSearchChange}
               type="text"
-              placeholder="Title, genres, series" 
+              placeholder="Title, genres, series"
               // autoFocus={this.props.siteStore.searchQuery}
             />
           </div>
@@ -99,4 +101,4 @@ class NavigationBar extends Component {
   }
 }
 
-export default NavigationBar; 
+export default NavigationBar;

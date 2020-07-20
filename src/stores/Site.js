@@ -49,6 +49,13 @@ const DEFAULT_ASSOCIATED_ASSETS = [
   }
 ];
 
+const DEFAULT_SITE_CUSTOMIZATION = {
+  colors: {
+    background: "#000000",
+    primary_text: "#FFFFFF"
+  }
+};
+
 class SiteStore {
   @observable siteCustomization;
   @observable premiere;
@@ -126,7 +133,7 @@ class SiteStore {
   }
 
   ///////////////////////////////////////
-  // Site Customization 
+  // Site Customization
 
   @action.bound
   SetBackgroundColor(color) {
@@ -138,20 +145,15 @@ class SiteStore {
     this.primaryFontColor = color;
   }
   ///////////////////////////////////////
-  // Play Video 
+  // Play Video
   @observable loading = false;
 
   @action.bound
-  async PlayTitle(title) {
+  PlayTitle = flow(function * (title) {
     try {
       this.loading = true;
 
-      // Clicked 'title' is actually a collection
-      if(["site", "series", "season"].includes(title.title_type)) {
-        this.LoadSite(title.objectId);
-      } else {
-        await this.SetActiveTitle(title);
-      }
+      yield this.SetActiveTitle(title);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load title:");
@@ -160,7 +162,7 @@ class SiteStore {
     } finally {
       this.loading = false;
     }
-  }
+  });
   //////////////////////////////////////////////////////////////////////////////
 
 
@@ -203,11 +205,15 @@ class SiteStore {
         !asset.for_title_types ||
         asset.for_title_types.includes(titleType)
       )
-      .sort((a, b) => a.name < b.name ? -1 : 1);                                                     
+      .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
+    if(this.siteParams && this.siteParams.objectId === objectId) {
+      return;
+    }
+
     this.Reset();
 
     this.siteParams = {
@@ -223,15 +229,15 @@ class SiteStore {
     this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
     this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
 
-    this.siteCustomization = yield this.client.ContentObjectMetadata({
+    this.siteCustomization = (yield this.client.ContentObjectMetadata({
       ...this.siteParams,
       metadataSubtree: "public/asset_metadata/site_customization",
       resolveLinks: true,
       resolveIncludeSource: true,
       resolveIgnoreErrors: true
-    });
+    })) || DEFAULT_SITE_CUSTOMIZATION;
 
-    if(this.siteCustomization.premiere) {                                                       
+    if(this.siteCustomization.premiere) {
       this.premiere = {
         title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
         premieresAt: Date.parse(this.siteCustomization.premiere.premieresAt),
@@ -252,7 +258,7 @@ class SiteStore {
     if(this.siteCustomization.logo) {
       this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
     }
-    
+
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
@@ -336,7 +342,7 @@ class SiteStore {
     };
   }
 
-  async LoadTitle(params, title, baseLinkPath) {
+  LoadTitle = flow(function * (params, title, baseLinkPath) {
     if(title["."] && title["."].resolution_error) {
       return;
     }
@@ -351,12 +357,12 @@ class SiteStore {
     title.baseLinkPath = baseLinkPath;
     title.playoutOptionsLinkPath = UrlJoin(title.baseLinkPath, "sources", "default");
     title.baseLinkUrl =
-      await this.client.LinkUrl({...params, linkPath: title.baseLinkPath});
+      yield this.client.LinkUrl({...params, linkPath: title.baseLinkPath});
 
-    Object.assign(title, await this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
+    Object.assign(title, yield this.ImageLinks({baseLinkUrl: title.baseLinkUrl, versionHash: title.versionHash, images: title.images}));
 
     return title;
-  }
+  });
 
   @action.bound
   LoadTitles = flow(function * (siteParams, metadataKey, titleInfo) {
@@ -471,49 +477,7 @@ class SiteStore {
   });
 
   @action.bound
-  SetActiveTitle = flow(function * (title) {
-    this.activeTitle = title;
-
-    this.activeTitle.metadata = yield this.client.ContentObjectMetadata({
-      ...(this.siteParams),
-      metadataSubtree: title.baseLinkPath,
-      resolveLinks: true,
-      resolveIncludeSource: true,
-      resolveIgnoreErrors: true
-    });
-
-    let params, linkPath;
-    if(this.activeTitle.isSearchResult) {
-      params = { versionHash: this.activeTitle.versionHash };
-    } else {
-      params = this.siteParams;
-      linkPath = this.activeTitle.playoutOptionsLinkPath;
-    }
-
-    let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
-
-    const allowedOfferings = this.siteInfo.allowed_offerings;
-
-    if(allowedOfferings) {
-      Object.keys(availableOfferings).map(offeringKey => {
-        if(!allowedOfferings.includes(offeringKey)) {
-          delete availableOfferings[offeringKey];
-        }
-      });
-    }
-
-    this.activeTitle.availableOfferings = availableOfferings;
-
-    const initialOffering = availableOfferings.default ? "default" : Object.keys(availableOfferings)[0];
-    if(initialOffering) {
-      yield this.LoadActiveTitleOffering(initialOffering, this.activeTitle);
-    }
-  });
-
-  //FOR VIDEO FEATURE
-  @action.bound
-  SetVideoFeature = flow(function * (title) {
-
+  LoadActiveTitle = flow(function * (title) {
     title.metadata = yield this.client.ContentObjectMetadata({
       ...(this.siteParams),
       metadataSubtree: title.baseLinkPath,
@@ -548,6 +512,19 @@ class SiteStore {
     if(initialOffering) {
       yield this.LoadActiveTitleOffering(initialOffering, title);
     }
+
+    return title;
+  });
+
+  @action.bound
+  SetActiveTitle = flow(function * (title) {
+    this.activeTitle = yield this.LoadActiveTitle(title);
+  });
+
+  //FOR VIDEO FEATURE
+  @action.bound
+  SetVideoFeature = flow(function * (title) {
+    return yield this.LoadActiveTitle(title);
   });
 
   @action.bound

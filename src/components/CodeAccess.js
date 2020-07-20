@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {Action, onEnterPressed} from "elv-components-js";
+import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 
 @inject("rootStore")
@@ -12,6 +12,7 @@ class CodeAccess extends React.Component {
     this.state = {
       code: "",
       loading: false,
+      placeholder: "Enter your access code"
     };
   }
 
@@ -37,16 +38,17 @@ class CodeAccess extends React.Component {
 
     return (
       <div className="code-entry">
-        <h2>Enter your access code</h2>
-        <div className="code-input">
+        <LoadingElement loading={this.state.loading}>
           <input
-            placeholder="Access Code"
+            onFocus={() => this.setState({placeholder: ""})}
+            onBlur={() => this.setState({placeholder: "Enter your access code"})}
+            placeholder={this.state.placeholder}
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
             onKeyPress={onEnterPressed(Submit)}
           />
-          <Action onClick={Submit}>Submit</Action>
-        </div>
+          <button onClick={Submit} title="Submit">Submit</button>
+        </LoadingElement>
       </div>
     );
   }

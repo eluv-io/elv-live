@@ -1,0 +1,35 @@
+.code-entry {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.code-entry {
+  flex-direction: column;
+
+  input {
+    width: MIN(50rem, 90vw);
+    height: 5rem;
+    font-size: 2.2rem;
+    text-align: center;
+    letter-spacing: 1.5px;
+    border-radius: 1px;
+
+    &::placeholder {
+      font-variant: all-small-caps;
+    }
+  }
+
+  button {
+    background-color: $color-light-blue;
+    cursor: pointer;
+    width: 15rem;
+    height: 4rem;
+    margin-top: 2rem;
+    border: 0;
+    color: #FFFFFF;
+    border-radius: 2px;
+  }
+}

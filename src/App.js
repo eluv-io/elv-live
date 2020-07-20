@@ -26,12 +26,18 @@ class Routes extends React.Component {
     return (
       <Switch>
         <Route exact path="/" component={ContentSelector} />
-        <Route exact path="/:siteId" component={Site} />
         <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
-        <Route exact path="/code/:siteSelectorId/:siteId" component={Site} />
 
-        <Route exact path="/preview/:siteId" component={Site} />
-        <Route exact path="/preview/:siteId/:writeToken" component={Site} />
+        <Route
+          exact
+          path={[
+            "/code/:siteSelectorId/:siteId",
+            "/preview/:siteId",
+            "/preview/:siteId/:writeToken",
+            "/:siteId",
+          ]}
+          component={Site}
+        />
 
         <Route>
           <Redirect to="/" />
