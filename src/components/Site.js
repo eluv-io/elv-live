@@ -4,7 +4,7 @@ import SwiperGrid from "./grid/SwiperGrid";
 import ViewTitle from "./ViewTitle";
 import Modal from "./modal/Modal";
 import TitleGrid from "./grid/TitleGrid";
-import {Redirect} from "react-router";
+import {Redirect, withRouter} from "react-router";
 import AsyncComponent from "./AsyncComponent";
 import MoviePremiere from "./premiere/MoviePremiere";
 import HeroGrid from "./hero/HeroGrid";
@@ -21,9 +21,9 @@ const FormatName = (name) => {
 
 @inject("rootStore")
 @inject("siteStore")
+@withRouter
 @observer
 class Site extends React.Component {
-
   ArrangementEntry(entry, i) {
     const key = `arrangement-entry-${i}`;
 
@@ -47,7 +47,7 @@ class Site extends React.Component {
         console.error(entry);
         return;
     }
-    
+
 
     const variant = entry.options && entry.options.variant;
     switch (entry.component) {
@@ -55,7 +55,7 @@ class Site extends React.Component {
         return (
           <HeroGrid
             key={key}
-            titles={titles}         
+            titles={titles}
           />
         );
       case "feature":
@@ -64,9 +64,9 @@ class Site extends React.Component {
             return (
               <BoxFeature
                 key={key}
-                title={entry.title}                   
-                trailers={false} 
-                shouldPlay={false} 
+                title={entry.title}
+                trailers={false}
+                shouldPlay={false}
                 isEpisode={false}
                 backgroundColor={entry.options.color}
               />
@@ -74,10 +74,10 @@ class Site extends React.Component {
           case "video":
             return (
               <VideoFeature
-                key={key} 
-                title={entry.title} 
-                trailers={false} 
-                shouldPlay={false} 
+                key={key}
+                title={entry.title}
+                trailers={false}
+                shouldPlay={false}
                 isEpisode={false}
               />
             );
@@ -88,7 +88,7 @@ class Site extends React.Component {
             console.error(entry);
             return;
         }
-        
+
       case "carousel":
         return (
           <SwiperGrid
@@ -104,14 +104,14 @@ class Site extends React.Component {
 
       case "grid":
         return (
-          <TitleGrid 
+          <TitleGrid
             key={key}
             name={name}
-            titles={titles} 
-            trailers={false} 
-            shouldPlay={false} 
+            titles={titles}
+            trailers={false}
+            shouldPlay={false}
             isEpisode={false}
-            isPoster={variant === "portrait"} 
+            isPoster={variant === "portrait"}
           />
         );
       default:
@@ -141,7 +141,7 @@ class Site extends React.Component {
     let arrangement = siteCustomization.arrangement;
     this.props.siteStore.SetBackgroundColor(siteCustomization.colors.background);
     this.props.siteStore.SetPrimaryFontColor(siteCustomization.colors.primary_text);
-    
+
     if(!arrangement) {
       // Default arrangement: Playlists then assets, all medium carousel
       arrangement = this.props.siteStore.siteInfo.playlists.map(playlist => ({
@@ -180,7 +180,7 @@ class Site extends React.Component {
         <TitleGrid
           noTitlesMessage="No results found"
           name="Search Results"
-          titles={this.props.siteStore.searchResults}          
+          titles={this.props.siteStore.searchResults}
           trailers={false}
           shouldPlay={false}
           isEpisode={false}
@@ -207,7 +207,7 @@ class Site extends React.Component {
             isEpisode={false}
             isPoster={false}
           />
-        )} 
+        )}
         <BoxFeature title={this.props.siteStore.siteInfo.assets.titles[3]}    trailers={false} shouldPlay={false} isEpisode={false} />
         <VideoFeature title={this.props.siteStore.siteInfo.assets.titles[0]}    trailers={false} shouldPlay={false} isEpisode={false} />
         <SwiperGrid name="All Titles" titles={this.props.siteStore.siteInfo.assets.titles}    trailers={false} shouldPlay={false} isEpisode={false} isPoster={false}/>
@@ -233,13 +233,13 @@ class Site extends React.Component {
   }
 
   render() {
-    if(this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode) {
+    if(!this.props.rootStore.client || (this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode)) {
       return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
     }
 
     return (
       <AsyncComponent
-        Load={() => this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
+        Load={async () => await this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
 
@@ -255,5 +255,5 @@ class Site extends React.Component {
     );
   }
 }
-    
+
 export default Site;
