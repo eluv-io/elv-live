@@ -32,7 +32,8 @@ class BoxFeature extends React.Component {
       background-image: url(${thumbnail});
       margin-top: 7rem;
       object-position: left center;
-    }
+
+      }
     `;
 
     const ColorContainer = styled.div`

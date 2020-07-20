@@ -8,13 +8,13 @@
   width: 100%;
 
   &__trailer {
-      padding-top: 2.5rem;
+    padding-top: 2.5rem;
   }
 
   &__search {
-      // grid-column: hero-start / hero-end;
-      grid-row-start: search-start;
-      margin-top: 10vh;
+    // grid-column: hero-start / hero-end;
+    grid-row-start: search-start;
+    margin-top: 10vh;
   }
 }
 
