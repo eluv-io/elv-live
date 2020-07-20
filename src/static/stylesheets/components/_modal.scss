@@ -38,7 +38,7 @@
        @media only screen and (max-width: $bp-medium-2) {
          background: linear-gradient(90deg, #000 60%, transparent);
       }
-   
+
       @media only screen and (max-width: $bp-medium) {
          background: linear-gradient(90deg, #000 75%, transparent);
       }
@@ -88,6 +88,24 @@
       margin-left: 5rem;
       margin-top: -12.5rem;
       width: 20rem;
+      @media only screen and (max-height: $bp-large) {
+         margin-top: -13rem;
+      }
+   
+      @media only screen and (max-height: $bp-medium-2) {
+         margin-top: -9rem;
+      }
+   
+      @media only screen and (max-height: $bp-medium) {
+         margin-top: -7rem;
+      }
+   
+      @media only screen and (max-height: $bp-small-2) {
+         margin-top: -20vh;
+      }
+      @media only screen and (max-height: $bp-small) {
+         margin-top: -15vh;
+      }
    }
 
     &__title {

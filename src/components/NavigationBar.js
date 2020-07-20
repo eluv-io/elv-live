@@ -71,6 +71,9 @@ class NavigationBar extends Component {
       &.black {
         background-color: ${this.props.siteStore.backgroundColor};
         width: 100vw;
+        transition-timing-function: ease-in;
+        transition-delay: 10s;
+
       }
     }
     `;

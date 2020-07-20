@@ -4,87 +4,72 @@
   margin-bottom: 2rem;
   width: 100vw;
     @media only screen and (max-width: $bp-small) {
-        margin-bottom: 10rem;
+      margin-bottom: 10rem;
     }
 
     @media only screen and (max-width: $bp-tiny) {
-        margin-bottom: 12rem;
+      margin-bottom: 12rem;
     }
 }
 
 .hero-grid-view-container {
-    align-self: end;
-    display: grid;
-
-    grid-row-gap: 1.2rem;
-    grid-template-rows: 67vh [title-start] minmax(4vh, min-content) [title-end timer-start] minmax(4vh, min-content) [timer-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;
-
-
-
-    &__heading {
-        font-size: 6rem;
-        grid-row: title-start / title-end;
-        margin-left: 4vw;
+  align-self: end;
+  display: grid;  
+  grid-row-gap: 1.2rem;
+  grid-template-rows: 67vh [title-start] minmax(4vh, min-content) [title-end timer-start] minmax(4vh, min-content) [timer-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;  
+  &__heading {
+    font-size: 6rem;
+    grid-row: title-start / title-end;
+    margin-left: 4vw;
+  }  
+  &__heading-hero {
+    font-size: 6rem;
+    grid-row: timer-start / timer-end;
+    margin-left: 4vw;  
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 5.5rem;
+    }  
+    @media only screen and (max-width: $bp-small) {
+      font-size: 5.3rem;
+    }  
+  }  
+  &__timer {
+    grid-row: timer-start / timer-end;
+    margin-left: 4vw;
+  }  
+  &__button {
+    grid-row: button-start / button-end;
+    @media only screen and (max-width: $bp-small) {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      & > * {
+        margin-top: 1rem;
+      }
     }
-
-    &__heading-hero {
-        font-size: 6rem;
-        grid-row: timer-start / timer-end;
-        margin-left: 4vw;
-
-        @media only screen and (max-width: $bp-medium) {
-            font-size: 5.5rem;
-        }
-
-        @media only screen and (max-width: $bp-small) {
-            font-size: 5.3rem;
-        }
-
-    }
-
-    &__timer {
-        grid-row: timer-start / timer-end;
-        margin-left: 4vw;
-    }
-
-    &__button {
-        grid-row: button-start / button-end;
-        @media only screen and (max-width: $bp-small) {
-            align-items: flex-start;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            & > * {
-                margin-top: 1rem;
-            }
-        }
-        margin-left: 4vw;
-
-    }
-
-    &__overview {
-        font-size: 1.8rem;
-        grid-row: overview-start / overview-end;
-        line-height: 1.3;
-        margin-left: 4vw;
-        width: 55vw;
-        
-        @media only screen and (max-width: $bp-large) {
-            font-size: 1.7rem;
-        }
-
-        @media only screen and (max-width: $bp-medium) {
-            font-size: 1.6rem;
-            width: 60vw;
-        }
-
-        @media only screen and (max-width: $bp-small-2) {
-            font-size: 1.5rem;
-            width: 70vw;
-        }
-
-        @media only screen and (max-width: $bp-small) {
-            font-size: 1.4rem;
-        }
+    margin-left: 4vw;  
+  }  
+  &__overview {
+    font-size: 1.8rem;
+    grid-row: overview-start / overview-end;
+    line-height: 1.3;
+    margin-left: 4vw;
+    width: 55vw;
+    
+    @media only screen and (max-width: $bp-large) {
+      font-size: 1.7rem;
+    }  
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 1.6rem;
+      width: 60vw;
+    }  
+    @media only screen and (max-width: $bp-small-2) {
+      font-size: 1.5rem;
+      width: 70vw;
+    }  
+    @media only screen and (max-width: $bp-small) {
+      font-size: 1.4rem;
     }
   }
+}

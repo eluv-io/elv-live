@@ -5,7 +5,7 @@ class ModalTrailers extends React.Component {
   render() {
 
     const featuredTitle = this.props.title;
-    let trailers = [featuredTitle, featuredTitle, featuredTitle]; //Hardcode random trailers
+    let trailers = [featuredTitle]; //Hardcode random trailers
 
     return (
       <React.Fragment>
@@ -13,7 +13,7 @@ class ModalTrailers extends React.Component {
           <h1 className="modal__title">
             {featuredTitle.displayTitle}
           </h1>
-          <TitleGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={false} isEpisode={false} isPoster={false}/>
+          <TitleGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={true} isEpisode={false} isPoster={false}/>
 
           {/* <SwiperGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={true} isEpisode={false}/> */}
         </div>

@@ -29,6 +29,8 @@ class TitleGrid extends React.Component {
                   visible
                   episode= {index}
                   isEpisode = {this.props.isEpisode}
+                  trailers={this.props.trailers}
+                  shouldPlay={this.props.shouldPlay}
                   isPoster = {this.props.isPoster}
                 />
               );
