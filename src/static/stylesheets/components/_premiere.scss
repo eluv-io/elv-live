@@ -25,7 +25,7 @@
     @media only screen and (max-width: $bp-small) {
         grid-template-rows: 35vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
     }
-    
+    margin-bottom: 3rem;
     position: relative;
 
     &__done {
