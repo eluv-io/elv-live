@@ -1,16 +1,16 @@
 .navigation {
+  -moz-transition: ease-in 1s;
+  -o-transition: ease-in 1s;
+  -webkit-transition: ease-in 1s;
   background-color: transparent; 
   height: 8rem;
   margin: 0 -4vw;
   position: fixed;
   transition: all 1s;
-  transition-timing-function: ease-in;
   transition: all 1s ease-in;
-  transition-timing-function: ease-in;
-  -webkit-transition: ease-in 1s;
-  -moz-transition: ease-in 1s;
-  -o-transition: ease-in 1s;
   transition: ease-in 1s;
+  transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
   width: 100vw;
   z-index: 1000;
   // transition-delay: 1s;

@@ -6,7 +6,7 @@
 }
 
 .premiere-view-container {
-    align-self: end;
+    align-self: start;
     display: grid;
     grid-row-gap: 1.2rem;
     grid-template-rows: 50vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
