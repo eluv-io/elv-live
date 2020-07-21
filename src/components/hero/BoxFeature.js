@@ -31,7 +31,6 @@ class BoxFeature extends React.Component {
     const BoxContainer = styled.div`
       background-image: url(${thumbnail});
       margin-top: 7rem;
-      object-position: left center;
 
       }
     `;
@@ -45,6 +44,11 @@ class BoxFeature extends React.Component {
       justify-content: center;
       padding-left: 5rem;
       width: 70%;
+      @media only screen and (max-height: 50em), screen and (max-width: 50em) {
+        background: linear-gradient(90deg, ${this.props.backgroundColor} 70%, transparent);
+        width: 80%;
+      }
+      
     }
     `;
 

@@ -1,5 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import styled from "styled-components";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -34,10 +35,21 @@ class HeroView extends React.Component {
       backgroundPosition: "center"
     };
 
+    const BackgroundStyleContainer = styled.div`
+      background-size: 100% 100%;
+      background-image: linear-gradient(to bottom, ${backgroundColor1} 50%, ${backgroundColor2} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5} 70%, ${backgroundColor6} 80%, ${backgroundColor} 85%), url(${thumbnail});
+      height: 100vh;
+      background-position: center;
+      @media only screen and (max-height: 50em), screen and (max-width: 50em) {
+        background-size: cover;
+      }
+      }
+    `;
+
     return (
       <React.Fragment>
         <div className="hero-grid-view-container">
-          <div style={backgroundStyle} />
+          <BackgroundStyleContainer />
           <h1 className="hero-grid-view-container__heading-hero">{ featuredTitle.displayTitle }</h1>
           <div className="hero-grid-view-container__button">            
             <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className="btnPlay">

@@ -1,14 +1,10 @@
 .hero-grid-container {
   height: 100vh;
   margin: calc(-3vh - 4rem) -4vw;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   width: 100vw;
     @media only screen and (max-width: $bp-small) {
-      margin-bottom: 10rem;
-    }
-
-    @media only screen and (max-width: $bp-tiny) {
-      margin-bottom: 12rem;
+      margin-bottom: 20rem;
     }
 }
 
@@ -73,7 +69,7 @@
 
     @media only screen and (max-width: $bp-small-2) {
       font-size: 1.5rem;
-      width: 70vw;
+      width: 90vw;
     }  
 
     @media only screen and (max-width: $bp-small) {

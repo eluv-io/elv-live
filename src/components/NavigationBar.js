@@ -70,17 +70,26 @@ class NavigationBar extends Component {
     const { scrolling } = this.state;
     const customLogo = (this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo);
     const NavBar = styled.nav`
-      &.black {
+      transition: all 1s ease-in;
+      transition-timing-function: ease-in;
+      -webkit-transition: ease-in 1s;
+      -moz-transition: ease-in 1s;
+      -o-transition: ease-in 1s;
+      transition: ease-in 1s;
+      &.active {
         background-color: ${this.props.siteStore.backgroundColor};
         width: 100vw;
+        transition: all 1s ease-in;
         transition-timing-function: ease-in;
-        transition-delay: 10s;
-
+        -webkit-transition: ease-in 1s;
+        -moz-transition: ease-in 1s;
+        -o-transition: ease-in 1s;
+        transition: ease-in 1s;
       }
     }
     `;
     return (
-      <NavBar className={"navigation " + (scrolling ? "black" : "")} >
+      <NavBar className={"navigation " + (scrolling ? "active" : "")} >
         <ul className="navigation__container">
           <ImageIcon className="navigation__container--logo" icon={customLogo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
 
