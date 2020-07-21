@@ -40,10 +40,11 @@
      @media only screen and (max-width: $bp-medium) {
         background: linear-gradient(90deg, #000 75%, transparent);
      }
+
      @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
-        width: 100%;
-        padding-left: 2rem;
         background: linear-gradient(90deg, #000 100%, transparent);
+        padding-left: 2rem;
+        width: 100%;
      }
   
      }
@@ -102,6 +103,7 @@
      @media only screen and (max-height: $bp-small-2) {
         margin-top: -20vh;
      }
+
      @media only screen and (max-height: $bp-small) {
         margin-top: -15vh;
      }
@@ -122,6 +124,7 @@
      @media only screen and (max-width: $bp-large) {
         font-size: 3.7rem;
      }
+
      @media only screen and (max-width: $bp-medium-2) {
         font-size: 3.6rem;
         width: 60%;
@@ -156,6 +159,7 @@
      @media only screen and (max-width: $bp-large) {
         font-size: 1.75rem;
      }
+
      @media only screen and (max-width: $bp-medium-2) {
         font-size: 1.65rem;
         width: 60%;
@@ -173,6 +177,7 @@
      @media only screen and (max-width: $bp-small) {
         font-size: 1.5rem;
      }
+
      @media only screen and (max-width: $bp-tiny) {
         font-size: 1.4rem;
      }
@@ -203,6 +208,7 @@
      @media only screen and (max-width: $bp-large) {
         font-size: 1.75rem;
      }
+
      @media only screen and (max-width: $bp-medium-2) {
         font-size: 1.65rem;
         width: 60%;
@@ -216,9 +222,11 @@
         font-size: 1.55rem;
         width: 85%;
      }
+
      @media only screen and (max-width: $bp-small) {
         font-size: 1.5rem;
      }
+
      @media only screen and (max-width: $bp-tiny) {
         font-size: 1.4rem;
      }

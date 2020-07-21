@@ -46,6 +46,7 @@ class CodeAccess extends React.Component {
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
             onKeyPress={onEnterPressed(Submit)}
+            autoFocus
           />
           <button onClick={Submit} title="Submit">Submit</button>
         </LoadingElement>

@@ -28,13 +28,6 @@ class HeroView extends React.Component {
     const backgroundColor5 =  backgroundColor + "CC";
     const backgroundColor6 =  backgroundColor+ "E6";
 
-    const backgroundStyle = {
-      backgroundSize: "100% 100%",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 50%, ${backgroundColor2} 55%, ${backgroundColor3}  60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 80%, ${backgroundColor} 85%), url(${thumbnail})`,
-      height: "100vh",
-      backgroundPosition: "center"
-    };
-
     const BackgroundStyleContainer = styled.div`
       background-size: 100% 100%;
       background-image: linear-gradient(to bottom, ${backgroundColor1} 50%, ${backgroundColor2} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5} 70%, ${backgroundColor6} 80%, ${backgroundColor} 85%), url(${thumbnail});
