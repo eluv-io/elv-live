@@ -35,9 +35,14 @@ html {
   font-size: 62.5%; //1rem = 10px, 10px/16px = 62.5%
 }
 
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
 body {
   font-family: 'Hind', sans-serif;
   box-sizing: border-box;
+  // overflow: hidden;
 }
 
 // RESPONSIVE BREAKPOINTS

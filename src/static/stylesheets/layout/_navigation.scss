@@ -3,60 +3,63 @@
   height: 8rem;
   margin: 0 -4vw;
   position: fixed;
-  transition: all 2s;
+  transition: all 1s;
   transition-timing-function: ease-in;
-
+  transition: all 1s ease-in;
+  transition-timing-function: ease-in;
+  -webkit-transition: ease-in 1s;
+  -moz-transition: ease-in 1s;
+  -o-transition: ease-in 1s;
+  transition: ease-in 1s;
   width: 100vw;
   z-index: 1000;
   // transition-delay: 1s;
 
   &__container {
-     align-items: center;
-    //  margin-left: 3.8rem;
-     background-color: transparent;
-     display: flex;
-     height: 6.7rem;
-     justify-content: flex-start;
+   align-items: center;
+   background-color: transparent;
+   display: flex;
+   height: 6.7rem;
+   justify-content: flex-start;
 
-     &--logo { 
-        height: 3rem;
-        margin-left: 4vw;
-        margin-top: 1rem;
-        padding-right: 1rem;
-        width: 12rem;
-     }
+   &--logo { 
+      height: 3rem;
+      margin-left: 4vw;
+      margin-top: 1rem;
+      padding-right: 1rem;
+      width: 12rem;
+   }
 
+   &--search {
+      color: #fff;
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      padding-right: 4vw;
 
-     &--search {
-        color: #fff;
-        display: flex;
-        flex-grow: 1;
-        justify-content: flex-end;
-        margin-top: 1rem;
-        padding-right: 4vw;
+      &__input {
+         background: $color-background;
+         border: 0;
+         border: 1px solid #fff;
+         color: #fff;
+         cursor: pointer;
+         font-size: 1.4rem;
+         opacity: 0;
+         outline: none;
+         padding: 10px;
+         padding-right: 2rem;
+         transition: width .5s;
+         width: 0;
 
-        &__input {
-           background: $color-background;
-           border: 0;
-           border: 1px solid #fff;
-           color: #fff;
-           cursor: pointer;
-           font-size: 1.4rem;
-           opacity: 0;
-           outline: none;
-           padding: 10px;
-           padding-right: 2rem;
-           transition: width .5s;
-           width: 0;
-
-             &:focus {
-                 cursor: text;
-                 opacity: 1;
-                 padding-left: 4rem;
-                 width: 22rem;
-             }
-        }
-     }
+            &:focus {
+               cursor: text;
+               opacity: 1;
+               padding-left: 4rem;
+               width: 22rem;
+            }
+      }
+   }
   }
 }
 
