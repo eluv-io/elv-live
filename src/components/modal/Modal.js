@@ -67,7 +67,7 @@ class Modal extends React.Component {
     );
 
     const backgroundStyle = {
-      backgroundSize: "100% 100%",
+      backgroundSize: "cover",
       backgroundImage: `url(${thumbnail})`
     };
 

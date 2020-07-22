@@ -7,11 +7,9 @@ import {inject, observer} from "mobx-react";
 @observer
 class Payments extends Component {
 
-
   render() {
     let price = parseFloat(this.props.siteStore.premiere.price) * 100;
     let description = "$" + this.props.siteStore.premiere.price + " to watch the premiere"; 
-    // let description = "Test Card:4242424242424242 (12/21)(123)"; 
 
     return (
       <StripeCheckout
