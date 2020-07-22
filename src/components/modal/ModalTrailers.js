@@ -16,33 +16,34 @@ class ModalTrailers extends React.Component {
   Trailers() {
     const title = this.props.siteStore.assets[this.props.title.versionHash];
 
-    if(!title) { return null; }
+    if(!title) { 
+      return null; 
+    }
 
     return (
-      <React.Fragment>
-        <div className={`modal__container ${this.props.showTab === "Trailers" ? "" : "hide"}`}>
-          <h1 className="modal__title">
-            {title.displayTitle}
-          </h1>
-          <TitleGrid name="Trailers" titles={title.assets.trailers || []} trailers={true} shouldPlay={true} isEpisode={false} isPoster={false}/>
-        </div>
-      </React.Fragment>
+      <TitleGrid name="Trailers" titles={title.assets.trailers || []} trailers={true} shouldPlay={true} isEpisode={false} isPoster={false}/>
     );
   }
 
   render() {
     return (
-      <AsyncComponent
-        Load={async () => {
-          // Load series to resolve season info
-          if(this.props.siteStore.assets[this.props.title.versionHash]) {
-            return;
-          }
+        <div className={`modal__container ${this.props.showTab === "Trailers" ? "" : "hide"}`}>
+          <h1 className="modal__title">
+            {this.props.title.displayTitle}
+          </h1>
+          <AsyncComponent
+            Load={async () => {
+              // Load series to resolve season info
+              if(this.props.siteStore.assets[this.props.title.versionHash]) {
+                return;
+              }
 
-          await this.props.siteStore.LoadAsset(this.props.title.baseLinkPath);
-        }}
-        render={this.Trailers}
-      />
+              await this.props.siteStore.LoadAsset(this.props.title.baseLinkPath);
+            }}
+            render={this.Trailers}
+          />
+          {this.props.title.trailers ? null : <h1> No Trailers Available </h1> }
+        </div>
     );
   }
 }
