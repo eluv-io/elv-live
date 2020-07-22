@@ -29,13 +29,13 @@ class SwiperTitleIcon extends React.Component {
 
     return (
       <React.Fragment>
-        <div 
-          className={this.props.isPoster ? "swiper-slide swiper-slide__poster swiper-container--movie" : "swiper-slide swiper-container--movie"} 
+        <div
+          className={this.props.isPoster ? "swiper-slide swiper-slide__poster swiper-container--movie" : "swiper-slide swiper-container--movie"}
           onClick={() => {this.props.shouldPlay ? this.PlayVideo(title): this.props.siteStore.SetModalTitle(title);}}
         >
           <ImageIcon
             className="swiper-slide__image"
-            icon= {this.props.isPoster ? (title.portraitUrl || thumbnail || FallbackIcon) : (thumbnail || FallbackIcon) }         
+            icon= {this.props.isPoster ? (title.portraitUrl || thumbnail || FallbackIcon) : (thumbnail || FallbackIcon) }
             alternateIcon={FallbackIcon}
           />
           <h3 className={this.props.isPoster ? "swiper-slide__title hide" : "swiper-slide__title"}>

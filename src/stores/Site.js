@@ -374,7 +374,7 @@ class SiteStore {
       Object.keys(titleInfo).map(async index => {
         try {
           const titleKey = Object.keys(titleInfo[index])[0];
-          let title = titleInfo[index][titleKey];
+          let title = titleInfo[index]["."] ? titleInfo[index] : titleInfo[index][titleKey];
 
           titles[index] = await this.LoadTitle(this.siteParams, title, UrlJoin(metadataKey, index, titleKey));
         } catch (error) {
