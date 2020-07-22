@@ -1,11 +1,15 @@
 import React from "react";
 import TitleGrid from "../grid/TitleGrid";
+import {inject, observer} from "mobx-react";
 
+@inject("rootStore")
+@inject("siteStore")
+@observer
 class ModalTrailers extends React.Component {
-  render() {
 
+  render() {
     const featuredTitle = this.props.title;
-    let trailers = [featuredTitle]; //Hardcode random trailers
+    let trailers = [featuredTitle];
 
     return (
       <React.Fragment>
@@ -14,8 +18,6 @@ class ModalTrailers extends React.Component {
             {featuredTitle.displayTitle}
           </h1>
           <TitleGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={true} isEpisode={false} isPoster={false}/>
-
-          {/* <SwiperGrid name="Trailers" titles={trailers} trailers={true} shouldPlay={true} isEpisode={false}/> */}
         </div>
       </React.Fragment>
     );

@@ -90,6 +90,7 @@ class VideoFeature extends React.Component {
 
   render() {
     const featuredTitle = this.props.title;
+
     const titleInfo = featuredTitle.info || {};
     const synopsis = titleInfo.synopsis;
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
