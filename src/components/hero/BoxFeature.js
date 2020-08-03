@@ -1,12 +1,25 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import styled from "styled-components";
+import SubscriptionPayment from "../payment/SubscriptionPayment";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class BoxFeature extends React.Component {
+  preSubscribe() {
+    return <SubscriptionPayment isNav={false} isFeature={true}/>;
+  }
 
+  afterSubscribe() {
+    return (
+      <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+        {/* <PlayIcon className="modal__btn--icon" /> */}
+        Play Now
+      </button>
+    );
+  }
+  
   render() {    
     const featuredTitle = this.props.title;
     const titleInfo = featuredTitle.info || {};
@@ -31,7 +44,7 @@ class BoxFeature extends React.Component {
     const BoxContainer = styled.div`
       background-image: url(${thumbnail});
       margin-top: 7rem;
-
+      background-size: cover;
       }
     `;
 
@@ -80,10 +93,8 @@ class BoxFeature extends React.Component {
             () => <p className="box-feature__overview">{ synopsis }</p>
           )}
           <div className="box-feature__button">   
-            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
-              {/* <PlayIcon className="modal__btn--icon" /> */}
-                Play Now
-            </button>
+            
+            { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
             <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__feature">
                 View Details

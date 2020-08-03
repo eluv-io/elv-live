@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Timer from "./Timer";
-import Payments from "./Payments";
+import PremierePayment from "./PremierePayment";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -9,7 +9,7 @@ import Payments from "./Payments";
 class MoviePremiere extends React.Component {
 
   nowPremiere() {
-    return <Payments />;
+    return <PremierePayment />;
   }
 
   playPremiere() {

@@ -23,7 +23,7 @@ class Modal extends React.Component {
   }
 
   componentDidMount() {
-    if(["series", "season"].includes(this.props.title.title_type)) {
+    if(["series", "season"].includes(this.props.title.title_type) && this.props.siteStore.boughtSubscription){
       this.setState({tabs: ["Overview", "Trailers", "Episodes", "Details"]});
       this.setState({showPlay: false});
     } else if(["channel"].includes(this.props.title.title_type)) {

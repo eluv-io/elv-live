@@ -2,6 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
+import SubscriptionPayment from "../payment/SubscriptionPayment";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -80,6 +81,14 @@ class VideoFeature extends React.Component {
         player.attachMedia(element);
       }
 
+      player.updateSettings({
+        'streaming': {
+            'abr': {
+                'limitBitrateByPortal': true
+            }
+        }
+      });
+      
       this.player = player;
       this.video = element;
     } catch (error) {
@@ -87,7 +96,18 @@ class VideoFeature extends React.Component {
       console.error(error);
     }
   }
+  preSubscribe() {
+    return <SubscriptionPayment isNav={false} isFeature={true}/>;
+  }
 
+  afterSubscribe() {
+    return (
+      <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+        {/* <PlayIcon className="modal__btn--icon" /> */}
+        Play Now
+      </button>
+    );
+  }
   render() {
     const featuredTitle = this.props.title;
 
@@ -140,10 +160,7 @@ class VideoFeature extends React.Component {
             {featuredTitle.displayTitle}
           </h1>
           <div className="video-feature__button">
-            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
-              {/* <PlayIcon className="modal__btn--icon" /> */}
-                Play Now
-            </button>
+            { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
             <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__feature">
                 View Details

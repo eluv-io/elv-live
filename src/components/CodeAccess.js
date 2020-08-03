@@ -2,6 +2,9 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
+// import CinemaBackground from '../static/images/codeAccess/cinema.jpg';
+// import SkyfallBackground from '../static/images/codeAccess/skyfall';
+import styled from "styled-components";
 
 @inject("rootStore")
 @observer
@@ -11,8 +14,10 @@ class CodeAccess extends React.Component {
 
     this.state = {
       code: "",
+      email: "",
       loading: false,
-      placeholder: "Enter your access code"
+      email_placeholder: "Enter your email",
+      code_placeholder: "Enter your access code"
     };
   }
 
@@ -26,6 +31,7 @@ class CodeAccess extends React.Component {
 
       const siteId = await this.props.rootStore.RedeemCode(
         this.props.match.params.siteSelectorId,
+        this.state.email,
         this.state.code
       );
 
@@ -36,13 +42,47 @@ class CodeAccess extends React.Component {
       }
     };
 
+    // const codeEntry = styled.div`
+    //   background-size: cover;
+    //   background-image: ${CinemaBackground};
+    //   height: 100vh;
+    //   background-position: center;
+
+    //   align-items: center;
+    //   display: flex;
+    //   height: 100vh;
+    //   justify-content: center;
+    //   width: 100%;
+    //   flex-direction: column;
+    
+    // `;
+
+    // const BackgroundStyleContainer = styled.div`
+    //   align-items: center;
+    //   display: flex;
+    //   height: 100vh;
+    //   justify-content: center;
+    //   width: 100%;
+    //   flex-direction: column;
+    //   }
+    // `;
+
     return (
-      <div className="code-entry">
+      <div className = "code-entry">
         <LoadingElement loading={this.state.loading}>
           <input
-            onFocus={() => this.setState({placeholder: ""})}
-            onBlur={() => this.setState({placeholder: "Enter your access code"})}
-            placeholder={this.state.placeholder}
+            onFocus={() => this.setState({email_placeholder: ""})}
+            onBlur={() => this.setState({email_placeholder: "Enter your email"})}
+            placeholder={this.state.email_placeholder}
+            value={this.state.email}
+            onChange={event => this.setState({email: event.target.value})}
+            onKeyPress={onEnterPressed(Submit)}
+            autoFocus
+          />
+          <input
+            onFocus={() => this.setState({code_placeholder: ""})}
+            onBlur={() => this.setState({code_placeholder: "Enter your access code"})}
+            placeholder={this.state.code_placeholder}
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
             onKeyPress={onEnterPressed(Submit)}

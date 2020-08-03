@@ -16,6 +16,7 @@ class RootStore {
   @observable client;
   @observable availableSites = [];
 
+  @observable email;
   @observable accessCode;
 
   @observable libraries = {};
@@ -60,7 +61,7 @@ class RootStore {
     this.client = client;
   });
 
-  RedeemCode = flow(function * (siteSelectorId, code) {
+  RedeemCode = flow(function * (siteSelectorId, email, code) {
     let client;
     try {
       const hash = Hash(code);
@@ -111,6 +112,7 @@ class RootStore {
 
       client.SetSigner({signer});
 
+      this.email = email;
       this.accessCode = code;
       this.client = client;
 
