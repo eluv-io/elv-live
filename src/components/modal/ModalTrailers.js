@@ -27,23 +27,23 @@ class ModalTrailers extends React.Component {
 
   render() {
     return (
-        <div className={`modal__container ${this.props.showTab === "Trailers" ? "" : "hide"}`}>
-          <h1 className="modal__title">
-            {this.props.title.displayTitle}
-          </h1>
-          <AsyncComponent
-            Load={async () => {
-              // Load series to resolve season info
-              if(this.props.siteStore.assets[this.props.title.versionHash]) {
-                return;
-              }
+      <div className={`modal__container ${this.props.showTab === "Trailers" ? "" : "hide"}`}>
+        <h1 className="modal__title">
+          {this.props.title.displayTitle}
+        </h1>
+        <AsyncComponent
+          Load={async () => {
+            // Load series to resolve season info
+            if(this.props.siteStore.assets[this.props.title.versionHash]) {
+              return;
+            }
 
-              await this.props.siteStore.LoadAsset(this.props.title.baseLinkPath);
-            }}
-            render={this.Trailers}
-          />
-          {this.props.title.trailers ? null : <h1> No Trailers Available </h1> }
-        </div>
+            await this.props.siteStore.LoadAsset(this.props.title.baseLinkPath);
+          }}
+          render={this.Trailers}
+        />
+        {this.props.title.trailers ? null : <h1> No Trailers Available </h1> }
+      </div>
     );
   }
 }

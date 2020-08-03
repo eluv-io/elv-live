@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
 import {FaSearch} from "react-icons/fa";
+import SubscriptionPayment from "./payment/SubscriptionPayment";
 import styled from "styled-components";
-
 import Logo from "../static/images/Logo.png";
 
 @inject("rootStore")
@@ -94,7 +94,8 @@ class NavigationBar extends Component {
           <ImageIcon className="navigation__container--logo" icon={customLogo} label="Eluvio" onClick={this.props.rootStore.ReturnToApps}/>
 
 
-          <div className={this.props.siteStore.premiere ? "navigation__container--search hide" : "navigation__container--search"}>
+          <div className={this.props.siteStore.premiere ? "navigation__container--search hide" : (this.props.siteStore.boughtSubscription ? "navigation__container--newsearch" : "navigation__container--search")}>
+            <SubscriptionPayment isNav={true} />
             <FaSearch className="logo"/>
             <input
               // onChange={showMovies}

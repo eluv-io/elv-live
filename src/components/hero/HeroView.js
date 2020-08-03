@@ -1,11 +1,24 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import styled from "styled-components";
+import SubscriptionPayment from "../payment/SubscriptionPayment";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class HeroView extends React.Component {
+
+  preSubscribe() {
+    return <SubscriptionPayment isNav={false} />;
+  }
+
+  afterSubscribe() {
+    return (
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay">
+        Play Now
+      </button>
+    );
+  }
 
   render() {
     const featuredTitle = this.props.title;
@@ -42,9 +55,8 @@ class HeroView extends React.Component {
           <BackgroundStyleContainer />
           <h1 className="hero-grid-view-container__heading-hero">{ featuredTitle.displayTitle }</h1>
           <div className="hero-grid-view-container__button">            
-            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className="btnPlay">
-              Play Now
-            </button>
+            { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
+
             <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails">
               View Details
             </button>

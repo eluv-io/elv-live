@@ -5,7 +5,7 @@ import {inject, observer} from "mobx-react";
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class Payments extends Component {
+class PremierePayment extends Component {
 
   render() {
     let price = parseFloat(this.props.siteStore.premiere.price) * 100;
@@ -27,4 +27,4 @@ class Payments extends Component {
   }
 }
 
-export default Payments;
+export default PremierePayment;

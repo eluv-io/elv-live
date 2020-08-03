@@ -27,7 +27,6 @@ class Routes extends React.Component {
       <Switch>
         <Route exact path="/" component={ContentSelector} />
         <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
-
         <Route
           exact
           path={[

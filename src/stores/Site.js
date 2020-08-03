@@ -133,6 +133,15 @@ class SiteStore {
   }
 
   ///////////////////////////////////////
+  //Subscription
+  @observable boughtSubscription = false;
+
+  @action.bound
+  buySubscription() {
+    this.boughtSubscription = true;
+  }
+
+  ///////////////////////////////////////
   // Site Customization
 
   @action.bound
