@@ -50,7 +50,7 @@ class BoxFeature extends React.Component {
 
     const ColorContainer = styled.div`
       background: linear-gradient(90deg, ${this.props.backgroundColor} 50%, transparent);
-      border-radius: 25px;
+      border-radius: 7px;
       display: flex;
       flex-direction: column;
       height: 100%;

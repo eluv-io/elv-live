@@ -1,26 +1,42 @@
-// .code-entry {
-//   align-items: center;
-//   display: flex;
-//   height: 100vh;
-//   justify-content: center;
-//   width: 100%;
-// }
+.code-entry-container {
+  display: grid;  
+  grid-template-rows: 30vh; 
+}
 
 .code-entry {
   align-items: center;
   display: flex;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
   flex-direction: column;
+  justify-content: center;
+  background-color: transparent;
+  z-index: 100;
+  background: white;
+  width: MIN(424px, 90vw);
+  height: MIN(38rem, 90vh); 
+  border-radius: 5px;
+  margin: auto;
+
+  &--logo {
+    width: 35rem; 
+    height: 8.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    color: black;
+    font-weight: 500;
+
+  }
+
   input {
     border-radius: 1px;
     font-size: 2.2rem;
-    height: 5rem;
+    height: 48px;
     letter-spacing: 1.5px;
-    text-align: center;
-    width: MIN(50rem, 90vw);
     margin-top: 1rem;
+
+    text-align: center;
+    width: MIN(35rem, 90vw);
 
     &::placeholder {
       font-variant: all-small-caps;
@@ -28,13 +44,18 @@
   }
 
   button {
-    background-color: $color-light-blue;
+    background-color: #D7BB73;
     border: 0;
     border-radius: 2px;
-    color: #fff;
+    color: black;
     cursor: pointer;
-    height: 4rem;
-    margin-top: 2rem;
-    width: 15rem;
+    height: 48px;
+    letter-spacing: 2px;
+    line-height: 18px;
+    text-align: center;
+    margin-top: 4rem;
+    width: MIN(35rem, 90vw);  
+    font-weight: 500;
+    
   }
 }

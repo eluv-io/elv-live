@@ -7,6 +7,7 @@ import * as Stores from "./stores";
 import Site from "./components/Site";
 import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
+import NewCodeAccess from "./components/NewCodeAccess";
 import styled from "styled-components";
 
 import "swiper/css/swiper.min.css";
@@ -25,7 +26,9 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={ContentSelector} />
+        <Route exact path="/" component={NewCodeAccess} />
+        {/* <Route exact path="/" component={ContentSelector} /> */}
+
         <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
         <Route
           exact

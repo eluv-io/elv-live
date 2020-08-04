@@ -4,7 +4,7 @@ import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 // import CinemaBackground from '../static/images/codeAccess/cinema.jpg';
 // import SkyfallBackground from '../static/images/codeAccess/skyfall';
-import styled from "styled-components";
+// import styled from "styled-components";
 
 @inject("rootStore")
 @observer
@@ -41,31 +41,6 @@ class CodeAccess extends React.Component {
         this.setState({loading: false});
       }
     };
-
-    // const codeEntry = styled.div`
-    //   background-size: cover;
-    //   background-image: ${CinemaBackground};
-    //   height: 100vh;
-    //   background-position: center;
-
-    //   align-items: center;
-    //   display: flex;
-    //   height: 100vh;
-    //   justify-content: center;
-    //   width: 100%;
-    //   flex-direction: column;
-    
-    // `;
-
-    // const BackgroundStyleContainer = styled.div`
-    //   align-items: center;
-    //   display: flex;
-    //   height: 100vh;
-    //   justify-content: center;
-    //   width: 100%;
-    //   flex-direction: column;
-    //   }
-    // `;
 
     return (
       <div className = "code-entry">

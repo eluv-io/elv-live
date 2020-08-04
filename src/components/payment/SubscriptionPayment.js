@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import StripeCheckout from "react-stripe-checkout";
 import {inject, observer} from "mobx-react";
+import styled from "styled-components";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -8,7 +9,7 @@ import {inject, observer} from "mobx-react";
 class SubscriptionPayment extends Component {
   navButton() {
     return (
-      <button className="navigation__container__subscribe btnSubscribe">
+      <button className="btnSubscribe navigation__container__subscribe">
         START YOUR SUBSCRIPTION 
       </button>
     );
@@ -16,7 +17,7 @@ class SubscriptionPayment extends Component {
 
   normalButton() {
     return (
-      <button className={ this.props.isFeature ? "btnPlay btnPlay__feature" : "btnPlay"}>
+      <button className={ this.props.isFeature ? "btnPlay btnPlay__feature" : "btnPlay btnPlay__heroPlay"}>
         Subscribe Now
       </button>
     );
@@ -28,7 +29,7 @@ class SubscriptionPayment extends Component {
     let price = 999;
     let description = "$9.99/month"; 
   
-    if (this.props.siteStore.boughtSubscription) {
+    if(this.props.siteStore.boughtSubscription) {
       return null;
     }
 
