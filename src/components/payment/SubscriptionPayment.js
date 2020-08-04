@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import StripeCheckout from "react-stripe-checkout";
 import {inject, observer} from "mobx-react";
-import styled from "styled-components";
 
 @inject("rootStore")
 @inject("siteStore")

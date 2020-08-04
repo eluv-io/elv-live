@@ -5,25 +5,25 @@
 
 .code-entry {
   align-items: center;
+  background: #ffffff;
+  background-color: transparent;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
+  height: MIN(36rem, 90vh); 
   justify-content: center;
-  background-color: transparent;
-  z-index: 100;
-  background: white;
-  width: MIN(424px, 90vw);
-  height: MIN(38rem, 90vh); 
-  border-radius: 5px;
   margin: auto;
+  width: MIN(424px, 90vw);
+  z-index: 100;
 
   &--logo {
-    width: 35rem; 
-    height: 8.75rem;
+    height: 8rem;
     margin-bottom: 1rem;
+    width: 35rem; 
   }
 
   &__title {
-    color: black;
+    color: #000000;
     font-weight: 500;
 
   }
@@ -44,18 +44,18 @@
   }
 
   button {
-    background-color: #D7BB73;
+    background-color: #d7bb73;
     border: 0;
     border-radius: 2px;
-    color: black;
+    color: #000000;
     cursor: pointer;
+    font-weight: 500;
     height: 48px;
     letter-spacing: 2px;
     line-height: 18px;
+    margin-top: 3rem;
     text-align: center;
-    margin-top: 4rem;
     width: MIN(35rem, 90vw);  
-    font-weight: 500;
     
   }
 }

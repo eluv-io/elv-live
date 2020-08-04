@@ -5,7 +5,7 @@ import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 import Site from "./components/Site";
-import ContentSelector from "./components/ContentSelector";
+// import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
 import NewCodeAccess from "./components/NewCodeAccess";
 import styled from "styled-components";

@@ -104,7 +104,7 @@ class VideoFeature extends React.Component {
     return (
       <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
         {/* <PlayIcon className="modal__btn--icon" /> */}
-        Play Now
+        Watch Now
       </button>
     );
   }
@@ -162,7 +162,7 @@ class VideoFeature extends React.Component {
           <div className="video-feature__button">
             { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
-            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__feature">
+            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__featureDetail">
                 View Details
             </button>
           </div>
