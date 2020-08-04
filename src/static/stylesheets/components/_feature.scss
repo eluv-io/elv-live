@@ -1,10 +1,10 @@
 .box-feature {
   background-size: 100% 100%;
-  border-radius: 25px;
+  border-radius: 7px;
   // color: #fff;
   box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
   height: 65rem;
-
+  margin-top: 7rem;
   left: 0; 
   top: 0; 
   width: 100%;
@@ -188,6 +188,96 @@
         margin-top: 1rem;
       }
     }
+  }
+}
+
+.mgm-feature {
+  align-items: center;
+  box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
+  display: flex;
+  height: 488px;
+  left: 0; 
+  top: 0; 
+  width: 100%;
+  z-index: 500;
+  background: #252525;
+  &__container {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5rem;
+    
+    padding-right: 5rem;
+    // border-radius: 25px;
+    width: 40%;
+    height: 488px;
+    background: #252525;
+
+    @media only screen and (max-width: $bp-large-3) {
+      margin-left: 0;
+      padding-right: 0;
+    }
+  }
+  &__image {
+    background-size: cover;
+    overflow: hidden;
+    height: 488px;
+
+    img {
+      // background-color: $elv-color-black;
+      background-size: cover;
+
+    }
+  }
+
+  &__title {
+    font-size: 5rem;
+    font-weight: 600;
+    padding-top: 3rem;
+
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 4.5rem;
+    }
+
+    @media only screen and (max-width: $bp-small-2) {
+      font-size: 4.25rem;
+    }
+
+    @media only screen and (max-width: $bp-tiny-2) {
+      font-size: 4rem;
+    }
+  }
+
+  &__titleIcon {
+    margin-top: 2rem;
+    height: 175px;
+    width: 350px;
+  }
+
+  &__overview {
+    font-size: 2rem;
+    hyphens: auto;
+    line-height: 1.2;
+    padding-top: 2rem;
+    width: 90%;
+    @media only screen and (max-width: $bp-medium) {
+      font-size: 1.9rem;
+    }
+
+    @media only screen and (max-width: $bp-small-2) {
+      font-size: 1.8rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+      font-size: 1.7rem;
+    }
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
   }
 }
 

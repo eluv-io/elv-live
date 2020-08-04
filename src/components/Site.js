@@ -9,6 +9,7 @@ import AsyncComponent from "./AsyncComponent";
 import MoviePremiere from "./premiere/MoviePremiere";
 import HeroGrid from "./hero/HeroGrid";
 import BoxFeature from "./hero/BoxFeature";
+import MgmFeature from "./hero/MgmFeature";
 import VideoFeature from "./hero/VideoFeature";
 import NavigationBar from "./NavigationBar";
 
@@ -62,7 +63,7 @@ class Site extends React.Component {
         switch (variant) {
           case "box":
             return (
-              <BoxFeature
+              <MgmFeature
                 key={key}
                 title={entry.title}
                 trailers={false}

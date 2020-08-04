@@ -1,6 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import SubscriptionPayment from "../payment/SubscriptionPayment";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -10,7 +9,7 @@ class ModalOverview extends React.Component {
   afterSubscribe() {
     return (
       <button onClick={() => {this.props.siteStore.PlayTitle(this.props.title); this.props.siteStore.OffModalTitle();}} className={`btnPlay btnPlay__modal ${this.props.showPlay === true ? "" : "hide"}`}>
-          {/* <PlayIcon className="modal__btn--icon" /> */}
+        {/* <PlayIcon className="modal__btn--icon" /> */}
         Play Now
       </button>
     );

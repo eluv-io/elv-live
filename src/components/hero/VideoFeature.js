@@ -82,10 +82,10 @@ class VideoFeature extends React.Component {
       }
 
       player.updateSettings({
-        'streaming': {
-            'abr': {
-                'limitBitrateByPortal': true
-            }
+        "streaming": {
+          "abr": {
+            "limitBitrateByPortal": true
+          }
         }
       });
       

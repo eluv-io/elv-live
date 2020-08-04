@@ -23,6 +23,14 @@
    justify-content: flex-start;
 
    &--logo { 
+      height: 6.5rem;
+      margin-left: 4vw;
+      margin-top: 3rem;
+      padding-right: 1rem;
+      width: 25rem;
+   }
+
+   &--elv-logo { 
       height: 3rem;
       margin-left: 4vw;
       margin-top: 1rem;
@@ -31,7 +39,7 @@
    }
 
    &--search {
-      color: #fff;
+      // color: #fff;
       display: flex;
       flex-grow: 1;
       justify-content: flex-end;
@@ -64,6 +72,7 @@
             }
       }
    }
+
    &--newsearch {
       color: #fff;
       display: flex;
@@ -104,9 +113,9 @@
 .logo {
   cursor: pointer;
   height: 2.2rem;
+  margin-top: -.2rem;
   transform: translateX(2.7rem) translateY(.5rem);
   width: 2.2rem;
-  margin-top: -.2rem;
 }
 
 .hide {
@@ -118,7 +127,7 @@
    border: 0;
    border-radius: .4vw;
    // border-radius: 15px;  
-   color: #fff;
+   color: inherit;
    cursor: pointer;
    font-size: 2rem;
    font-weight: 700;
@@ -130,5 +139,4 @@
    @media only screen and (max-width: $bp-small) {
      width: 90vw;
    }
-   
 }

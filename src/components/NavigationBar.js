@@ -76,6 +76,7 @@ class NavigationBar extends Component {
       -moz-transition: ease-in 1s;
       -o-transition: ease-in 1s;
       transition: ease-in 1s;
+      color: ${this.props.siteStore.primaryFontColor};
       &.active {
         background-color: ${this.props.siteStore.backgroundColor};
         width: 100vw;

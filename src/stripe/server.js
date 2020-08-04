@@ -1,8 +1,8 @@
-const express = require("express");
-const app = express();
+// const express = require("express");
+// const app = express();
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://newUser:<1soksokaj>@cluster0.juqxb.mongodb.net/users?retryWrites=true&w=majority");
+// const mongoose = require("mongoose");
+// mongoose.connect("mongodb+srv://newUser:<1soksokaj>@cluster0.juqxb.mongodb.net/users?retryWrites=true&w=majority");
 
 
 

@@ -2,6 +2,8 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import styled from "styled-components";
 import SubscriptionPayment from "../payment/SubscriptionPayment";
+import {ImageIcon} from "elv-components-js";
+import Logo from "../../static/images/meridianLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -14,8 +16,8 @@ class HeroView extends React.Component {
 
   afterSubscribe() {
     return (
-      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay">
-        Play Now
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay btnPlay__heroPlay">
+        Watch Movie
       </button>
     );
   }
@@ -50,20 +52,20 @@ class HeroView extends React.Component {
     `;
 
     return (
-      <React.Fragment>
-        <div className="hero-grid-view-container">
-          <BackgroundStyleContainer />
-          <h1 className="hero-grid-view-container__heading-hero">{ featuredTitle.displayTitle }</h1>
-          <div className="hero-grid-view-container__button">            
-            { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
+      <div className="hero-grid-view-container">
+        <BackgroundStyleContainer />
+        <ImageIcon className="hero-grid-view-container__logo" icon={Logo} label="logo"/>
 
-            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails">
-              View Details
-            </button>
-          </div>
-          <p className="hero-grid-view-container__overview">{synopsis}</p>
+        {/* <h1 className="hero-grid-view-container__heading-hero">{ featuredTitle.displayTitle }</h1> */}
+        <div className="hero-grid-view-container__button">            
+          { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
+
+          <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
+            View Details
+          </button>
         </div>
-      </React.Fragment>
+        <p className="hero-grid-view-container__overview">{synopsis}</p>
+      </div>
     );
   }
 }
