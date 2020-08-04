@@ -1,11 +1,10 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {LoadingElement, onEnterPressed} from "elv-components-js";
+import {LoadingElement} from "elv-components-js";
 import {Redirect} from "react-router";
-import CinemaBackground from '../static/images/codeAccess/cinema-background.jpg';
 import styled from "styled-components";
-import billBackground from '../static/images/codeAccess/bill-ted-background.jpg';
-import Logo from '../static/images/codeAccess/mgm-logo.png';
+import billBackground from "../static/images/codeAccess/bill-ted-background.jpg";
+import Logo from "../static/images/codeAccess/mgm-logo.png";
 import {ImageIcon} from "elv-components-js";
 import {Link} from "react-router-dom";
 import AsyncComponent from "./AsyncComponent";
@@ -41,22 +40,22 @@ class NewCodeAccess extends React.Component {
     }
 
     const Submit = () => {
-      if (this.state.code === "eluvio") {
+      if(this.state.code === "eluvio") {
         return (
-          <Link to={"/iq__SufWAMfhP6P2tTUSrmdTjRdPfUM"} key={`content-object-iq__SufWAMfhP6P2tTUSrmdTjRdPfUM`}>
+          <Link to={"/iq__SufWAMfhP6P2tTUSrmdTjRdPfUM"} key={"content-object-iq__SufWAMfhP6P2tTUSrmdTjRdPfUM"}>
             <button>NEXT</button>
           </Link>
         );
-      } else if (this.state.code === "premiere"){
+      } else if(this.state.code === "premiere"){
         return (
-          <Link to={"/iq__thureaA7B7E86jhFL8XamZnVn2M"} key={`content-object-iq__thureaA7B7E86jhFL8XamZnVn2M`}>
+          <Link to={"/iq__thureaA7B7E86jhFL8XamZnVn2M"} key={"content-object-iq__thureaA7B7E86jhFL8XamZnVn2M"}>
             <button>NEXT</button>
           </Link>
         );
       } else {
         return (
           <button>NEXT</button>
-         );
+        );
       }
     };
     

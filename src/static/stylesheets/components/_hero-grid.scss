@@ -34,8 +34,8 @@
   
   &__logo {
     grid-row: title-start / title-start;
-    margin-left: 4vw;  
     height: 15vw;
+    margin-left: 4vw;  
     width: 51rem;
   }  
 
@@ -63,6 +63,7 @@
     grid-row: overview-start / overview-end;
     line-height: 1.3;
     margin-left: 4vw;
+    margin-top: 1rem;
     width: 55vw;
     
     @media only screen and (max-width: $bp-large) {
