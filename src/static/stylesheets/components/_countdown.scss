@@ -4,6 +4,10 @@
   font-size: 3.5rem;
   font-weight: 700;
 	text-align: center;
+	text-transform: uppercase;
+	font-family: inherit;
+	font-family: 'Hind', sans-serif;
+
 	@media only screen and (max-width: $bp-small-2) {
 		font-size: 3rem;
 		font-weight: 600;
@@ -14,13 +18,52 @@
 	}
 }
 
+// #clockdiv > div{
+// 	border-radius: 3px;
+//   display: inline-block;
+//   margin-right: 2rem;
+// 	padding: 10px;
+
+	
+// 	align-self: center;
+// 	background-color: #000;
+// 	border: 1px solid #fff;
+// 	border-radius: 0;
+// 	box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+// 	box-sizing: border-box;
+
+// 	color: #fff;
+// 	// font-size: 16px;
+// 	letter-spacing: 2px;
+// 	line-height: 16px;
+// 	margin-top: 2rem;
+// 	text-align: center;
+// 	height: 10rem;
+// 	width: 11.25rem;
+// }
+
 #clockdiv > div{
-	background: rgba(51,51,51,.5);
 	border-radius: 3px;
   display: inline-block;
   margin-right: 2rem;
-  margin-top: 1rem;
 	padding: 10px;
+
+	
+	align-self: center;
+	background-color: rgba(0,0,0,.5);
+	border: 1px solid white;
+	border-radius: 0;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+	box-sizing: border-box;
+
+	color: white;
+	// font-size: 16px;
+	letter-spacing: 2px;
+	line-height: 16px;
+	margin-top: 2rem;
+	text-align: center;
+	height: 10rem;
+	width: 11.25rem;
 }
 
 #clockdiv div > span{
@@ -29,6 +72,26 @@
 }
 
 .smalltext{
-	font-size: 2rem;
+	margin-top: 2rem;
+	font-size: 1.75rem;
 	padding-top: 5px;
+	text-align: center;
 }
+
+.days,
+.hours,
+.minutes,
+.seconds{
+	margin-top: 2rem;
+	font-size: 4rem;
+}
+
+.bigtext{
+	font-size: 3.5rem;
+	// text-transform: uppercase;
+	font-family: 'Hind', sans-serif;
+	margin-bottom: -1rem;	
+	padding-top: 2rem;
+
+}
+

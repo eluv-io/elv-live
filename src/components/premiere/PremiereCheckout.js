@@ -19,8 +19,8 @@ class PremierePayment extends Component {
         token = {() => this.props.siteStore.buyPremiere()}
         stripeKey={"pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N"}
       >
-        <button className="btnPlay">
-          Buy from ${this.props.siteStore.premiere.price}
+        <button className="btnDetails btnDetails__heroDetail">
+          Buy for ${this.props.siteStore.premiere.price}
         </button>
       </StripeCheckout>
     );

@@ -15,7 +15,7 @@ export default class Timer extends Component {
     renderClock(days, hours, minutes, seconds) {
       return (
         <React.Fragment>
-          <h1>Premiering in: </h1>
+          <h1 className="bigtext">Premiering in: </h1>
           <div id="clockdiv" >
             <div>
               <span className="days"> {days} </span>
@@ -117,7 +117,7 @@ export default class Timer extends Component {
       return (
         <div className="premiere-view-container__timer">
           { this.props.siteStore.premiereCountdown
-            ? <h1>Premiering Now!</h1>
+            ? <h1 className="bigtext">Premiering Now!</h1>
             : this.renderClock(days, hours, minutes, seconds)
           }
         </div>

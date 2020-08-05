@@ -63,6 +63,7 @@ class SiteStore {
   @observable backgroundColor = "rgb(17, 17, 17)";
   @observable primaryFontColor = "white";
   @observable logoUrl;
+  @observable background_image;
 
   @observable siteHash;
   @observable assets = {};
@@ -266,6 +267,10 @@ class SiteStore {
 
     if(this.siteCustomization.logo) {
       this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
+    }
+
+    if(this.siteCustomization.background_image) {
+      this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
     }
 
     this.siteHash = yield this.LoadAsset("public/asset_metadata");

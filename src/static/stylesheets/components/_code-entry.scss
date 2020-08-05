@@ -5,8 +5,7 @@
 
 .code-entry {
   align-items: center;
-  background: #ffffff;
-  background-color: transparent;
+  background-color: #fff;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -17,15 +16,14 @@
   z-index: 100;
 
   &--logo {
-    height: 8rem;
-    margin-bottom: 1rem;
-    width: 35rem; 
+    height: 7rem;
+    margin-bottom: 2rem;
+    width: 32rem; 
   }
 
   &__title {
-    color: #000000;
+    color: #000;
     font-weight: 500;
-
   }
 
   input {
@@ -47,7 +45,7 @@
     background-color: #d7bb73;
     border: 0;
     border-radius: 2px;
-    color: #000000;
+    color: #000;
     cursor: pointer;
     font-weight: 500;
     height: 48px;
