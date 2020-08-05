@@ -1,7 +1,10 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Timer from "./Timer";
-import PremierePayment from "./PremierePayment";
+import PremiereCheckout from "./PremiereCheckout";
+import PremiereTabs from "./PremiereTabs";
+import {ImageIcon} from "elv-components-js";
+import Logo from "../../static/images/meridianLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -9,7 +12,9 @@ import PremierePayment from "./PremierePayment";
 class MoviePremiere extends React.Component {
 
   nowPremiere() {
-    return <PremierePayment />;
+    return (
+      <PremiereCheckout/>
+    );
   }
 
   playPremiere() {
@@ -45,30 +50,32 @@ class MoviePremiere extends React.Component {
       backgroundSize: "cover",
       // backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 65%, ${backgroundColor2} 70%, ${backgroundColor3} 75%, rgb(17, 17, 17, .7) 80%, rgb(17, 17, 17, .8) 85%, rgb(17, 17, 17, .9) 90%, ${backgroundColor} 100%), url(${thumbnail})`,
       backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 50%, ${backgroundColor2} 55%, ${backgroundColor3}  60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 80%, ${backgroundColor} 85%), url(${thumbnail})`,
-      
       backgroundPosition: "center"
     };
 
     return (
-      <React.Fragment>
+      <div >
         <div style={backgroundStyle} className="premiere-background" />
         <div className={ this.props.siteStore.premiereCountdown ? "premiere-view-container premiere-view-container__done" : "premiere-view-container"}>
-          <h1 className="premiere-view-container__heading">{ featuredTitle.displayTitle }</h1>
+          {/* <h1 className="premiere-view-container__heading">{ featuredTitle.displayTitle }</h1> */}
+          <ImageIcon className="premiere-view-container__logo" icon={Logo} label="logo"/>
           <Timer />
           <div className="premiere-view-container__button">
             { this.props.siteStore.premiereCountdown ? (this.props.siteStore.boughtPremiere ? this.playPremiere() : this.nowPremiere()) : null }
             
-            <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className="btnPlay">
+            <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay btnPlay__heroPlay">
               Watch Trailer
             </button>
 
-            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails">
+            {/* <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
               View Details
-            </button>
+            </button> */}
           </div>
-          <p className="premiere-view-container__overview">{synopsis}</p>
+          <div className="premiere-view-container__overview">
+            <PremiereTabs title={featuredTitle}/>
+          </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

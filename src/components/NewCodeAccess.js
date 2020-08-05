@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement} from "elv-components-js";
 import {Redirect} from "react-router";
 import styled from "styled-components";
-import billBackground from "../static/images/codeAccess/bill-ted-background.jpg";
+import default_background from "../static/images/codeAccess/cinema-background.jpg";
 import Logo from "../static/images/codeAccess/mgm-logo.png";
 import {ImageIcon} from "elv-components-js";
 import {Link} from "react-router-dom";
@@ -59,10 +59,12 @@ class NewCodeAccess extends React.Component {
       }
     };
     
+    let backgroundImage = (this.props.siteStore.background_image ? this.props.siteStore.background_image : default_background);
+    console.log(backgroundImage);
 
     const BackgroundStyleContainer = styled.div`
       background-size: cover;
-      background-image: url(${billBackground});
+      background-image: url(${backgroundImage});
       height: 100vh;
       background-position: center;
       opacity: .5;

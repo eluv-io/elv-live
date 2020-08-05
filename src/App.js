@@ -13,6 +13,7 @@ import styled from "styled-components";
 import "swiper/css/swiper.min.css";
 import "./static/stylesheets/main.scss";
 
+
 @inject("rootStore")
 @observer
 @withRouter
@@ -26,6 +27,7 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
+
         <Route exact path="/" component={NewCodeAccess} />
         {/* <Route exact path="/" component={ContentSelector} /> */}
 
