@@ -234,9 +234,9 @@
 
   &__video {
     // background-size: cover;
-    width: 100%;
     height: 100%;
     overflow: hidden;
+    width: 100%;
 
     @media only screen and (max-width: $bp-large-3) {
       height: 95%;
@@ -258,8 +258,8 @@
   &__title {
     font-size: 6rem;
     font-weight: 800;
+    margin: auto;
     padding-top: 8rem;
-    margin:auto;
 
 
     @media only screen and (max-width: $bp-medium) {

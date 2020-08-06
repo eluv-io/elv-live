@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import SwiperGrid from "./grid/SwiperGrid";
 import ViewTitle from "./ViewTitle";
-import Modal from "./modal/Modal";
 import TitleGrid from "./grid/TitleGrid";
 import {Redirect, withRouter} from "react-router";
 import AsyncComponent from "./AsyncComponent";

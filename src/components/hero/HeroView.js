@@ -3,8 +3,6 @@ import {inject, observer} from "mobx-react";
 import styled from "styled-components";
 import SubscriptionPayment from "../payment/SubscriptionPayment";
 import {ImageIcon} from "elv-components-js";
-import Logo from "../../static/images/meridianLogo.png";
-import {Link} from "react-router-dom";
 
 @inject("rootStore")
 @inject("siteStore")
