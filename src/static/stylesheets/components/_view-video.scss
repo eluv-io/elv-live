@@ -5,7 +5,6 @@
   z-index: 1000000;
 
     video {
-      z-index: 1000000;
       background-color: $elv-color-black;
       border-radius: 0.5rem;
       cursor: pointer;
@@ -13,6 +12,7 @@
       max-height: 100vh;
       scroll-margin: 10rem;
       width: 100vw;
+      z-index: 1000000;
     }
 }
 

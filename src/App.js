@@ -9,7 +9,7 @@ import Site from "./components/Site";
 import CodeAccess from "./components/CodeAccess";
 import NewCodeAccess from "./components/NewCodeAccess";
 import styled from "styled-components";
-import ActiveTitle from "./components/premiere/ActiveTitle";
+
 import "swiper/css/swiper.min.css";
 import "./static/stylesheets/main.scss";
 
@@ -29,10 +29,9 @@ class Routes extends React.Component {
       <Switch>
 
         <Route exact path="/" component={NewCodeAccess} />
-        {/* <Route exact path="/movie/:title" component={ActiveTitle} /> */}
 
 
-        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+        <Route exact path="/code/:siteSelectorId" component={NewCodeAccess} />
         <Route
           exact
           path={[

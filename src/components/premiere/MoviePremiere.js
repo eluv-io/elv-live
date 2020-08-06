@@ -4,7 +4,6 @@ import Timer from "./Timer";
 import PremiereCheckout from "./PremiereCheckout";
 import PremiereTabs from "./PremiereTabs";
 import {ImageIcon} from "elv-components-js";
-import Logo from "../../static/images/meridianLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")
