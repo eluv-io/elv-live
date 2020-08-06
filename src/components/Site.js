@@ -7,10 +7,11 @@ import TitleGrid from "./grid/TitleGrid";
 import {Redirect, withRouter} from "react-router";
 import AsyncComponent from "./AsyncComponent";
 import MoviePremiere from "./premiere/MoviePremiere";
+import ActiveTitle from "./premiere/ActiveTitle";
 import HeroGrid from "./hero/HeroGrid";
 import BoxFeature from "./hero/BoxFeature";
 import MgmFeature from "./hero/MgmFeature";
-import VideoFeature from "./hero/VideoFeature";
+import NewVideoFeature from "./hero/NewVideoFeature";
 import NavigationBar from "./NavigationBar";
 
 const FormatName = (name) => {
@@ -74,7 +75,7 @@ class Site extends React.Component {
             );
           case "video":
             return (
-              <VideoFeature
+              <NewVideoFeature
                 key={key}
                 title={entry.title}
                 trailers={false}
@@ -229,9 +230,6 @@ class Site extends React.Component {
     return <MoviePremiere title={this.props.siteStore.premiere.title} />;
   }
 
-  ShowModal() {
-    return <Modal title={this.props.siteStore.modalTitle} />;
-  }
 
   render() {
     if(!this.props.rootStore.client || (this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode)) {
@@ -247,8 +245,8 @@ class Site extends React.Component {
           return (
             <div className="container">
               { this.props.siteStore.activeTitle ? null : <NavigationBar />}
-              { this.props.siteStore.activeTitle ? this.ShowVideo() : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
-              { this.props.siteStore.modalTitle ? this.ShowModal() : null }
+              { this.props.siteStore.modalTitle ? <ActiveTitle /> : this.props.siteStore.activeTitle ? this.ShowVideo() : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
+
             </div>
           );
         }}

@@ -1,32 +1,28 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Timer from "./Timer";
-import PremiereCheckout from "./PremiereCheckout";
 import PremiereTabs from "./PremiereTabs";
 import {ImageIcon} from "elv-components-js";
-import Logo from "../../static/images/meridianLogo.png";
+import NavigationBar from "../NavigationBar";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class MoviePremiere extends React.Component {
-
-  nowPremiere() {
-    return (
-      <PremiereCheckout/>
-    );
+class ActiveTitle extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
 
   playPremiere() {
+
     return (
-      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay">
+      <button onClick={() => {this.props.siteStore.PlayTitle(this.props.siteStore.modalTitle); this.props.siteStore.OffModalTitle();}} className="btnPlay btnDetails__heroDetail">
         Play Now
       </button>
     );
   }
 
   render() {
-    const featuredTitle = this.props.title;
+    const featuredTitle = this.props.siteStore.modalTitle;
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
@@ -58,18 +54,18 @@ class MoviePremiere extends React.Component {
     );
 
     return (
-      <div >
-        <div style={backgroundStyle} className="premiere-background" />
-        <div className={ this.props.siteStore.premiereCountdown ? "premiere-view-container premiere-view-container__done" : "premiere-view-container"}>
-          {/* <h1 className="premiere-view-container__heading">{ featuredTitle.displayTitle }</h1> */}
-          { customLogo ? <ImageIcon className="premiere-view-container__logo" icon={customLogo} label="logo"/> : <h1 className="premiere-view-container__heading"> {featuredTitle.displayTitle} </h1>}
+      <React.Fragment >
+        <NavigationBar />
 
-          <Timer />
-          <div className="premiere-view-container__button">
-            {/* { this.props.siteStore.premiereCountdown ? (this.props.siteStore.boughtPremiere ? this.playPremiere() : this.nowPremiere()) : null } */}
-            { this.props.siteStore.boughtPremiere ? this.playPremiere() : this.nowPremiere() }
+        <div style={backgroundStyle} className="active-background" />
+        <div className="active-view-container active-view-container__done">
+          {/* <h1 className="active-view-container__heading">{ featuredTitle.displayTitle }</h1> */}
+          { customLogo ? <ImageIcon className="active-view-container__logo" icon={customLogo} label="logo"/> : <h1 className="active-view-container__heading"> {featuredTitle.displayTitle} </h1>}
 
-            <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className="btnPlay btnPlay__heroPlay">
+          <div className="active-view-container__button">
+            { this.playPremiere() }
+            
+            <button onClick={() => {this.props.siteStore.PlayTitle(this.props.siteStore.modalTitle); this.props.siteStore.OffModalTitle();}} className="btnPlay btnPlay__heroPlay">
               Watch Trailer
             </button>
 
@@ -77,13 +73,13 @@ class MoviePremiere extends React.Component {
               View Details
             </button> */}
           </div>
-          <div className="premiere-view-container__overview">
+          <div className="active-view-container__overview">
             <PremiereTabs title={featuredTitle}/>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default MoviePremiere;
+export default ActiveTitle;

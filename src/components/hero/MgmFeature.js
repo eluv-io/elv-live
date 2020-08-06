@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import SubscriptionPayment from "../payment/SubscriptionPayment";
 import {ImageIcon} from "elv-components-js";
-import Logo from "../../static/images/meridianLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -14,7 +13,7 @@ class MgmFeature extends React.Component {
 
   afterSubscribe() {
     return (
-      <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className={"btnPlay btnPlay__feature"}>
         {/* <PlayIcon className="modal__btn--icon" /> */}
         WATCH NOW
       </button>
@@ -40,6 +39,12 @@ class MgmFeature extends React.Component {
       { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
     );
 
+    const customLogo = this.props.siteStore.CreateLink(
+      featuredTitle.logoUrl,
+      "",
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+    );
+
   
     const backgroundStyle = {
       backgroundSize: "cover",
@@ -54,10 +59,8 @@ class MgmFeature extends React.Component {
         className= "mgm-feature"
       >
         <div className="mgm-feature__container">
-          {/* <h1 className="mgm-feature__title">
-            {featuredTitle.displayTitle}
-          </h1> */}
-          <ImageIcon className="mgm-feature__titleIcon" icon={Logo} label="logo"/>
+          
+          { customLogo ? <ImageIcon className="mgm-feature__titleIcon" icon={customLogo} label="logo"/> : <h1 className="mgm-feature__title"> {featuredTitle.displayTitle} </h1>}
 
           {/* {Maybe(
             synopsis,

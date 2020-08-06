@@ -53,15 +53,7 @@ class PremiereTabs extends React.Component {
 
   render() {
     const featuredTitle = this.props.title;
-    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     
-    // const thumbnail = this.props.siteStore.CreateLink(
-    //   featuredTitle.landscapeUrl || featuredTitle.imageUrl,
-    //   "",
-    //   { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
-    // );
-
     return (
       <div
         className="premiereTabs"

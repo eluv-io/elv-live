@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SubscriptionPayment from "../payment/SubscriptionPayment";
 import {ImageIcon} from "elv-components-js";
 import Logo from "../../static/images/meridianLogo.png";
+import {Link} from "react-router-dom";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -34,6 +35,12 @@ class HeroView extends React.Component {
       "",
       { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
     );
+
+    const customLogo = this.props.siteStore.CreateLink(
+      featuredTitle.logoUrl,
+      "",
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+    );
     
     const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
     const backgroundColor1 =  backgroundColor + "00";
@@ -51,18 +58,25 @@ class HeroView extends React.Component {
       }
     `;
 
+    const Submit = () => {
+      return (
+        // <Link to={`/movie/:${featuredTitle.displayTitle}`} key={"content-object-iq__SufWAMfhP6P2tTUSrmdTjRdPfUM"}>
+        <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
+          View Details
+        </button>
+        // </Link>
+      );
+    };
+
+
     return (
       <div className="hero-grid-view-container">
         <BackgroundStyleContainer />
-        <ImageIcon className="hero-grid-view-container__logo" icon={Logo} label="logo"/>
-
-        {/* <h1 className="hero-grid-view-container__heading-hero">{ featuredTitle.displayTitle }</h1> */}
+        { customLogo ? <ImageIcon className="hero-grid-view-container__logo" icon={customLogo} label="logo"/> : <h1 className="hero-grid-view-container__heading-hero">{ featuredTitle.displayTitle }</h1>}
         <div className="hero-grid-view-container__button">            
           { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
-          <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
-            View Details
-          </button>
+          {Submit()}
         </div>
         <p className="hero-grid-view-container__overview">{synopsis}</p>
       </div>

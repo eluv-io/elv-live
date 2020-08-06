@@ -1,0 +1,232 @@
+.active-background {
+  height: 100vh;
+  margin: calc(-3vh - 4rem) -4vw;
+  position: absolute;
+  width: 100vw;
+
+}
+
+.active-view-container {
+  align-self: start;
+  display: grid;
+  grid-row-gap: 1.2rem;
+  
+  grid-template-rows: 40vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
+  @media only screen and (max-width: $bp-medium-2) {
+      grid-template-rows: 47.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end] ;
+  }
+
+  @media only screen and (max-width: $bp-medium) {
+      grid-template-rows: 45vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
+  }
+
+  @media only screen and (max-width: $bp-small-2) {
+      grid-template-rows: 40vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
+  }
+
+  @media only screen and (max-width: $bp-small) {
+      grid-template-rows: 35vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
+  }
+  margin-bottom: 3rem;
+  position: relative;
+
+  &__done {
+      margin-top: 10rem;
+      @media only screen and (max-width: $bp-medium) {
+          margin-top: 5rem;
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+          margin-top: 2.5rem;
+      }
+
+      @media only screen and (max-width: $bp-small) {
+          margin-top: 1rem;
+      }
+  }
+
+  &__logo {
+      grid-row: title-start / title-start;
+      height: 22rem;
+      width: 51rem;
+  }  
+
+  &__heading {
+      font-size: 6rem;
+      grid-row: title-start / title-end;
+      @media only screen and (max-width: $bp-large) {
+          font-size: 5.75rem;
+      }
+
+      @media only screen and (max-width: $bp-medium) {
+          font-size: 5.5rem;
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+          font-size: 5rem;
+      }
+
+      @media only screen and (max-width: $bp-small) {
+          font-size: 4.5rem;
+      }
+  }
+
+  &__timer {
+      grid-row: timer-start / timer-end;
+  }
+
+  &__button {
+      grid-row: button-start / button-end;
+      @media only screen and (max-width: $bp-small-2) {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          & > * {
+              margin-top: 1rem;
+          }
+      }
+
+      @media only screen and (max-width: $bp-small-2) {
+          font-size: 3rem;
+          font-weight: 600;
+      }
+
+      @media only screen and (max-width: $bp-small) {
+          font-size: 2.7rem;
+          font-weight: 500;
+      }
+  }
+
+  &__overview {
+      grid-row-start: overview-start;
+      margin-top: 1rem;
+  }
+}
+
+.activeTabs {
+   
+  width: 100%;
+  // z-index: 5000;
+  &__tabs {
+      align-items: flex-end;
+      border-bottom: 2px solid #7f7f7f;
+      color: #fff;
+      display: flex;
+      // padding-bottom: $elv-spacing-s;
+      font-family: inherit;
+      font-family: inherit;
+      font-size: 3.5rem;
+      // height: 5rem;
+      font-weight: 500;
+      justify-content: flex-start;
+      margin-top: $elv-spacing-s;
+      padding-top: 1rem;
+      position: absolute;
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+
+      button {
+
+          background: transparent;
+          border: 0;
+          border-bottom: 3px solid transparent;
+          color: $elv-color-lightestgray;
+          cursor: pointer;
+          font-size: 1.8rem;
+          height: 3rem;
+          // margin-left: 2rem;
+          margin-right: 2rem;
+          padding: 0 0 3rem;
+          text-transform: uppercase;
+          transition: border-bottom linear 0.15s, padding linear 0.15s;
+          width: 25rem;
+          &:focus {
+              border-bottom: 3px solid $elv-color-text-lightest;
+              outline: 0;
+          }
+
+          &.active-tab {
+              border-bottom: 3px solid #fff;
+          }
+      }
+  }
+
+  
+  &__container {
+      display: flex;
+      height: 100%;
+      padding-top: 10rem;
+      width: 100%;
+
+      &__poster {
+          align-self: flex-start;
+
+          height: auto;
+          max-height: 70vh;
+          max-width: 40vw;
+          object-fit: contain;
+          object-position: center;
+          width: 70rem;
+      }
+
+      &__info {
+          margin-left: 10rem;
+          margin-right: 10rem;
+          padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
+
+          * {
+              color: #fff;
+              font-size: 2rem;
+              font-weight: 300;
+          }
+      
+          h1 {
+              font-size: 8rem;
+              font-weight: 800;
+              margin-bottom: $elv-spacing-m;
+              text-align: left;
+          }
+      
+          &__synopsis {
+              text-align: left;
+          }
+      
+          &__details-section {
+              border-radius: $elv-spacing-xxs;
+              margin: $elv-spacing-m 0;
+              padding: $elv-spacing-m 0;
+      
+              &:not(:empty) {
+                  border-bottom: 2px solid #7f7f7f;
+                  // border-bottom: 2px solid $elv-color-darkblue;
+                  border-top: 2px solid #7f7f7f;
+                  
+              }
+          }
+      
+          &__detail {
+              display: flex;
+              flex-direction: column;
+              // font-size: $elv-font-xxl;
+              margin-bottom: $elv-spacing-s;
+          
+              * {
+                  line-height: $elv-spacing-l;
+                  padding: $elv-spacing-xs 0;
+              }
+          
+              label {
+                  color: $elv-color-mediumgray;
+              }
+          }
+      
+          &__copyright {
+              color: $elv-color-text-lighter;
+          }
+      }
+  }
+  
+  
+}
