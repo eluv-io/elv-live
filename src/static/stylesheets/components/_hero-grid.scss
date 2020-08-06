@@ -12,7 +12,7 @@
   align-self: end;
   display: grid;  
   grid-row-gap: 1.2rem;
-  grid-template-rows: 57vh [title-start] minmax(4vh, min-content) [title-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;  
+  grid-template-rows: 57vh [logo-start] minmax(4vh, min-content) [logo-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;  
   &__heading {
     font-size: 6rem;
     grid-row: title-start / title-end;
@@ -21,8 +21,9 @@
 
   &__heading-hero {
     font-size: 6rem;
-    grid-row: timer-start / timer-end;
-    margin-left: 4vw;  
+    grid-row: logo-start / logo-end;
+    margin-left: 4vw;
+    margin-top: 14rem;
     @media only screen and (max-width: $bp-medium) {
       font-size: 5.5rem;
     }  
@@ -33,7 +34,7 @@
   } 
   
   &__logo {
-    grid-row: title-start / title-start;
+    grid-row: logo-start / logo-end;
     height: 12.5vw;
     margin-left: 4vw;  
     width: 51rem;

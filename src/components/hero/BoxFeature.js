@@ -13,10 +13,11 @@ class BoxFeature extends React.Component {
 
   afterSubscribe() {
     return (
-      <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className={"btnPlay btnPlay__feature"}>
         {/* <PlayIcon className="modal__btn--icon" /> */}
         Play Now
       </button>
+
     );
   }
   

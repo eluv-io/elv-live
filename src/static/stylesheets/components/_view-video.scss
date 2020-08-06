@@ -2,8 +2,10 @@
   height: 100vh;
   margin: 0 -4vw;
   width: 100vw;
+  z-index: 1000000;
 
     video {
+      z-index: 1000000;
       background-color: $elv-color-black;
       border-radius: 0.5rem;
       cursor: pointer;
@@ -27,7 +29,7 @@
   stroke: $elv-color-mediumgray;
 
   width: 5rem;
-  z-index: 100000;
+  z-index: 10000000000;
 
   &:hover {
     background-color: $elv-color-darkgray;

@@ -1,13 +1,14 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import SubscriptionPayment from "../payment/SubscriptionPayment";
+import {ImageIcon} from "elv-components-js";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
-import SubscriptionPayment from "../payment/SubscriptionPayment";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class VideoFeature extends React.Component {
+class NewVideoFeature extends React.Component {
   constructor(props) {
     super(props);
 
@@ -96,25 +97,31 @@ class VideoFeature extends React.Component {
       console.error(error);
     }
   }
-  
+
   preSubscribe() {
     return <SubscriptionPayment isNav={false} isFeature={true}/>;
   }
 
   afterSubscribe() {
     return (
-      <button onClick={() => this.props.siteStore.PlayTitle(featuredTitle)} className={"btnPlay btnPlay__feature"}>
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className={"btnPlay btnPlay__feature"}>
         {/* <PlayIcon className="modal__btn--icon" /> */}
-        Watch Now
+        WATCH NOW
       </button>
     );
   }
-  render() {
+  
+  render() {    
     const featuredTitle = this.props.title;
 
-    const titleInfo = featuredTitle.info || {};
-    const synopsis = titleInfo.synopsis;
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    
+    const thumbnail = this.props.siteStore.CreateLink(
+      featuredTitle.landscapeUrl || featuredTitle.imageUrl,
+      "",
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+    );
     const poster = this.props.siteStore.CreateLink(
       featuredTitle.landscapeUrl || featuredTitle.imageUrl,
       "",
@@ -122,28 +129,28 @@ class VideoFeature extends React.Component {
     );
 
 
-    const Maybe = (value, render) => value ? render() : null;
+    const customLogo = this.props.siteStore.CreateLink(
+      featuredTitle.logoUrl,
+      "",
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+    );
 
-    // const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    // const thumbnail = this.props.siteStore.CreateLink(
-    //   featuredTitle.landscapeUrl || featuredTitle.imageUrl,
-    //   "",
-    //   { height: Math.max(150, Math.floor(vh / 3)) }
-    // );
-
+  
     const backgroundStyle = {
       backgroundSize: "cover",
       marginTop: "7rem",
-      // backgroundImage: `url(${thumbnail})`,
-      // opacity: ".1"
-    };
 
+    };
+    
     return (
       <div
         style={backgroundStyle}
-        className= "video-feature"
+        className= "mgm-feature"
       >
-        <div className={"video-feature__video"}>
+        {/* <div className="mgm-feature__image" >
+          <img src={thumbnail} />
+        </div> */}
+        <div className={"mgm-feature__video"}>
           <video
             id="background-video"
             loop
@@ -156,28 +163,26 @@ class VideoFeature extends React.Component {
           />
         </div>
 
-        <div className="video-feature__container">
-          <h1 className="video-feature__title">
-            {featuredTitle.displayTitle}
-          </h1>
-          <div className="video-feature__button">
+        <div className="mgm-feature__container">
+          { customLogo ? <ImageIcon className="mgm-feature__titleIcon" icon={customLogo} label="logo"/> : <h1 className="mgm-feature__title"> {featuredTitle.displayTitle} </h1>}
+
+          {/* {Maybe(
+            synopsis,
+            () => <p className="mgm-feature__overview">{ synopsis }</p>
+          )} */}
+          <div className="mgm-feature__button">
             { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
             <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__featureDetail">
-                View Details
+                VIEW DETAILS
             </button>
           </div>
-
-          {Maybe(
-            synopsis,
-            () => <p className="video-feature__overview">{ synopsis }</p>
-          )}
-
         </div>
 
       </div>
+
     );
   }
 }
 
-export default VideoFeature;
+export default NewVideoFeature;

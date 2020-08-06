@@ -60,7 +60,6 @@ class NewCodeAccess extends React.Component {
     };
     
     let backgroundImage = (this.props.siteStore.background_image ? this.props.siteStore.background_image : default_background);
-    console.log(backgroundImage);
 
     const BackgroundStyleContainer = styled.div`
       background-size: cover;

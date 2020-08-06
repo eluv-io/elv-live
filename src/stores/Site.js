@@ -60,6 +60,7 @@ class SiteStore {
   @observable siteCustomization;
   @observable premiere;
 
+
   @observable backgroundColor = "rgb(17, 17, 17)";
   @observable primaryFontColor = "white";
   @observable logoUrl;
@@ -135,7 +136,7 @@ class SiteStore {
 
   ///////////////////////////////////////
   //Subscription
-  @observable boughtSubscription = false;
+  @observable boughtSubscription = true;
 
   @action.bound
   buySubscription() {
@@ -332,7 +333,7 @@ class SiteStore {
   async ImageLinks({baseLinkUrl, versionHash, images}) {
     images = images || {};
 
-    let landscapeUrl, portraitUrl, imageUrl;
+    let landscapeUrl, portraitUrl, imageUrl, logoUrl;
     if(images.landscape) {
       landscapeUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "landscape", "default"));
     } else if(images.main_slider_background_desktop) {
@@ -347,12 +348,17 @@ class SiteStore {
       portraitUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "portrait", "default"));
     }
 
+    if(images.logo) {
+      logoUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "logo", "default"));
+    }
+
     imageUrl = await this.client.ContentObjectImageUrl({versionHash});
 
     return {
       landscapeUrl,
       portraitUrl,
-      imageUrl
+      imageUrl,
+      logoUrl
     };
   }
 

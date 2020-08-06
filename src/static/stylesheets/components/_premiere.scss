@@ -43,6 +43,7 @@
             margin-top: 1rem;
         }
     }
+
     &__logo {
         grid-row: title-start / title-start;
         height: 22rem;
@@ -108,22 +109,22 @@
     // z-index: 5000;
     &__tabs {
         align-items: flex-end;
+        border-bottom: 2px solid #7f7f7f;
+        color: #fff;
         display: flex;
+        // padding-bottom: $elv-spacing-s;
+        font-family: inherit;
+        font-family: inherit;
+        font-size: 3.5rem;
+        // height: 5rem;
+        font-weight: 500;
         justify-content: flex-start;
         margin-top: $elv-spacing-s;
-        // padding-bottom: $elv-spacing-s;
         padding-top: 1rem;
         position: absolute;
-        width: 100%;
-        // height: 5rem;
-        font-family: inherit;
-        color: #fff;
-        font-size: 3.5rem;
-        font-weight: 500;
         text-align: center;
         text-transform: uppercase;
-        font-family: inherit;
-        border-bottom: 2px solid #7F7F7F;
+        width: 100%;
 
         button {
 
@@ -146,36 +147,36 @@
             }
 
             &.active-tab {
-                border-bottom: 3px solid white;
+                border-bottom: 3px solid #fff;
             }
         }
     }
 
     
     &__container {
+        display: flex;
         height: 100%;
         padding-top: 10rem;
         width: 100%;
-        display: flex;
 
         &__poster {
             align-self: flex-start;
 
+            height: auto;
             max-height: 70vh;
             max-width: 40vw;
-            height: auto;
-            width: 70rem;
             object-fit: contain;
             object-position: center;
+            width: 70rem;
         }
 
         &__info {
-            padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
             margin-left: 10rem;
             margin-right: 10rem;
+            padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
 
             * {
-                color: white;
+                color: #fff;
                 font-size: 2rem;
                 font-weight: 300;
             }
@@ -197,9 +198,9 @@
                 padding: $elv-spacing-m 0;
         
                 &:not(:empty) {
-                    border-bottom: 2px solid #7F7F7F;
+                    border-bottom: 2px solid #7f7f7f;
                     // border-bottom: 2px solid $elv-color-darkblue;
-                    border-top: 2px solid #7F7F7F;
+                    border-top: 2px solid #7f7f7f;
                     
                 }
             }

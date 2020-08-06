@@ -1,12 +1,12 @@
 #clockdiv{
 	color: #fff;
 	display: inline-block;
+	font-family: inherit;
+	font-family: 'Hind', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
 	text-align: center;
 	text-transform: uppercase;
-	font-family: inherit;
-	font-family: 'Hind', sans-serif;
 
 	@media only screen and (max-width: $bp-small-2) {
 		font-size: 3rem;
@@ -43,26 +43,26 @@
 // }
 
 #clockdiv > div{
-	border-radius: 3px;
-  display: inline-block;
-  margin-right: 2rem;
-	padding: 10px;
-
-	
 	align-self: center;
 	background-color: rgba(0,0,0,.5);
-	border: 1px solid white;
+	border: 1px solid #fff;
+	border-radius: 3px;
+
+	
 	border-radius: 0;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
 	box-sizing: border-box;
-
-	color: white;
-	// font-size: 16px;
-	letter-spacing: 2px;
-	line-height: 16px;
-	margin-top: 2rem;
-	text-align: center;
+	color: #fff;
+  display: inline-block;
 	height: 10rem;
+
+	letter-spacing: 2px;
+	// font-size: 16px;
+	line-height: 16px;
+  margin-right: 2rem;
+	margin-top: 2rem;
+	padding: 10px;
+	text-align: center;
 	width: 11.25rem;
 }
 
@@ -72,8 +72,8 @@
 }
 
 .smalltext{
-	margin-top: 2rem;
 	font-size: 1.75rem;
+	margin-top: 2rem;
 	padding-top: 5px;
 	text-align: center;
 }
@@ -82,14 +82,14 @@
 .hours,
 .minutes,
 .seconds{
-	margin-top: 2rem;
 	font-size: 4rem;
+	margin-top: 2rem;
 }
 
 .bigtext{
-	font-size: 3.5rem;
-	// text-transform: uppercase;
 	font-family: 'Hind', sans-serif;
+	// text-transform: uppercase;
+	font-size: 3.5rem;
 	margin-bottom: -1rem;	
 	padding-top: 2rem;
 
