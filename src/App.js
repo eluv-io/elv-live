@@ -6,7 +6,7 @@ import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
-import CodeAccess from "./components/CodeAccess";
+// import CodeAccess from "./components/CodeAccess";
 import NewCodeAccess from "./components/NewCodeAccess";
 import styled from "styled-components";
 
@@ -29,9 +29,8 @@ class Routes extends React.Component {
       <Switch>
 
         <Route exact path="/" component={NewCodeAccess} />
-
-
         <Route exact path="/code/:siteSelectorId" component={NewCodeAccess} />
+        
         <Route
           exact
           path={[
