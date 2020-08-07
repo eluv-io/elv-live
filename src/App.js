@@ -6,8 +6,8 @@ import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
-// import CodeAccess from "./components/CodeAccess";
-import NewCodeAccess from "./components/NewCodeAccess";
+import CodeAccess from "./components/CodeAccess";
+// import NewCodeAccess from "./components/NewCodeAccess";
 import styled from "styled-components";
 
 import "swiper/css/swiper.min.css";
@@ -28,9 +28,9 @@ class Routes extends React.Component {
     return (
       <Switch>
 
-        <Route exact path="/" component={NewCodeAccess} />
-        <Route exact path="/code/:siteSelectorId" component={NewCodeAccess} />
-        
+        <Route exact path="/" component={CodeAccess} />
+        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+
         <Route
           exact
           path={[
@@ -58,6 +58,8 @@ class App extends React.Component {
     // background: ${this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)'};
     // const backgroundColor = (this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)');
     // console.log(backgroundColor);
+
+    // if(!this.props.rootStore.client) { return null; }
 
     const ContainerApp = styled.div`
       min-height: 100vh;    
