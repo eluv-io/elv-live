@@ -1,11 +1,12 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {LoadingElement, onEnterPressed} from "elv-components-js";
+import {LoadingElement } from "elv-components-js";
 import {Redirect} from "react-router";
 // import CinemaBackground from '../static/images/codeAccess/cinema.jpg';
 // import SkyfallBackground from '../static/images/codeAccess/skyfall';
 // import styled from "styled-components";
 
+@inject("siteStore")
 @inject("rootStore")
 @observer
 class CodeAccess extends React.Component {
@@ -42,29 +43,42 @@ class CodeAccess extends React.Component {
       }
     };
 
+    // let backgroundImage = (this.props.siteStore.background_image ? this.props.siteStore.background_image : default_background);
+
+    // const BackgroundStyleContainer = styled.div`
+    //   background-size: cover;
+    //   background-image: url(${backgroundImage});
+    //   height: 100vh;
+    //   background-position: center;
+    //   opacity: .5;
+    //   }
+    // `;
+
     return (
-      <div className = "code-entry">
-        <LoadingElement loading={this.state.loading}>
-          <input
-            onFocus={() => this.setState({email_placeholder: ""})}
-            onBlur={() => this.setState({email_placeholder: "Enter your email"})}
-            placeholder={this.state.email_placeholder}
-            value={this.state.email}
-            onChange={event => this.setState({email: event.target.value})}
-            onKeyPress={onEnterPressed(Submit)}
-            autoFocus
-          />
-          <input
-            onFocus={() => this.setState({code_placeholder: ""})}
-            onBlur={() => this.setState({code_placeholder: "Enter your access code"})}
-            placeholder={this.state.code_placeholder}
-            value={this.state.code}
-            onChange={event => this.setState({code: event.target.value})}
-            onKeyPress={onEnterPressed(Submit)}
-            autoFocus
-          />
-          <button onClick={Submit} title="Submit">Submit</button>
-        </LoadingElement>
+      <div className="code-entry-container">
+        {/* <BackgroundStyleContainer /> */}
+        <div className = "code-entry">
+          <LoadingElement loading={this.state.loading}>
+            {/* <ImageIcon className="code-entry--logo" icon={ (this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo)} label="logo"/> */}
+            <input
+              onFocus={() => this.setState({email_placeholder: ""})}
+              onBlur={() => this.setState({email_placeholder: "Enter your email"})}
+              placeholder={this.state.email_placeholder}
+              value={this.state.email}
+              onChange={event => this.setState({email: event.target.value})}
+              autoFocus
+            />
+            <input
+              onFocus={() => this.setState({code_placeholder: ""})}
+              onBlur={() => this.setState({code_placeholder: "Enter your access code"})}
+              placeholder={this.state.code_placeholder}
+              value={this.state.code}
+              onChange={event => this.setState({code: event.target.value})}
+              autoFocus
+            />
+            {Submit()}
+          </LoadingElement>
+        </div>
       </div>
     );
   }

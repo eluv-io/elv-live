@@ -58,6 +58,21 @@ class NewCodeAccess extends React.Component {
         );
       }
     };
+    // const Submit = async () => {
+    //   this.setState({loading: true});
+
+    //   const siteId = await this.props.rootStore.RedeemCode(
+    //     this.props.match.params.siteSelectorId,
+    //     this.state.email,
+    //     this.state.code
+    //   );
+
+    //   if(siteId) {
+    //     this.setState({siteId});
+    //   } else {
+    //     this.setState({loading: false});
+    //   }
+    // };
     
     let backgroundImage = (this.props.siteStore.background_image ? this.props.siteStore.background_image : default_background);
 
@@ -73,7 +88,7 @@ class NewCodeAccess extends React.Component {
 
     return (
       <AsyncComponent
-        Load={async () => await this.props.siteStore.LoadSite("iq__SufWAMfhP6P2tTUSrmdTjRdPfUM", "")}
+        Load={async () => await this.props.siteStore.LoadSite("iq__YfEF1A8sUvMj5WcMCJEDk4aEwND", "")}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
 
@@ -106,9 +121,6 @@ class NewCodeAccess extends React.Component {
           );
         }}
       />
-
-      
-      
     );
   }
 }
