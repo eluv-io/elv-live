@@ -72,7 +72,7 @@ class MoviePremiere extends React.Component {
               Watch Trailer
             </button>
 
-            {/* <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
+            {/* <button onClick={() => this.props.siteStore.SetSingleTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
               View Details
             </button> */}
           </div>

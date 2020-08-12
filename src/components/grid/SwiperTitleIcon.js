@@ -11,7 +11,7 @@ class SwiperTitleIcon extends React.Component {
 
   PlayVideo(title) {
     this.props.siteStore.PlayTitle(title);
-    this.props.siteStore.OffModalTitle();
+    this.props.siteStore.OffSingleTitle();
   }
 
   render() {
@@ -31,7 +31,7 @@ class SwiperTitleIcon extends React.Component {
       <React.Fragment>
         <div
           className={this.props.isPoster ? "swiper-slide swiper-slide__poster swiper-container--movie" : "swiper-slide swiper-container--movie"}
-          onClick={() => {this.props.shouldPlay ? this.PlayVideo(title): this.props.siteStore.SetModalTitle(title);}}
+          onClick={() => {this.props.shouldPlay ? this.PlayVideo(title): this.props.siteStore.SetSingleTitle(title);}}
         >
           <ImageIcon
             className="swiper-slide__image"

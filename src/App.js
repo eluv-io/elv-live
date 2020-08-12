@@ -27,7 +27,6 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-
         <Route exact path="/" component={CodeAccess} />
         <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
 
@@ -59,7 +58,6 @@ class App extends React.Component {
     // const backgroundColor = (this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)');
     // console.log(backgroundColor);
 
-    // if(!this.props.rootStore.client) { return null; }
 
     const ContainerApp = styled.div`
       min-height: 100vh;    

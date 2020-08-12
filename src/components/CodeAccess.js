@@ -2,13 +2,14 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
-// import CinemaBackground from '../static/images/codeAccess/cinema.jpg';
-// import SkyfallBackground from '../static/images/codeAccess/skyfall';
 import styled from "styled-components";
-import default_background from "../static/images/codeAccess/cinema-background.jpg";
+// import default_background from "../static/images/codeAccess/cinema-background.jpg";
+import default_background from "../static/images/codeAccess/bill-ted-background.jpg";
+
 import {ImageIcon} from "elv-components-js";
 import Logo from "../static/images/codeAccess/mgm-logo.png";
 
+@inject("siteStore")
 @inject("rootStore")
 @observer
 class CodeAccess extends React.Component {
@@ -45,31 +46,6 @@ class CodeAccess extends React.Component {
       }
     };
 
-    // const codeEntry = styled.div`
-    //   background-size: cover;
-    //   background-image: ${CinemaBackground};
-    //   height: 100vh;
-    //   background-position: center;
-
-    //   align-items: center;
-    //   display: flex;
-    //   height: 100vh;
-    //   justify-content: center;
-    //   width: 100%;
-    //   flex-direction: column;
-    
-    // `;
-
-    // const BackgroundStyleContainer = styled.div`
-    //   align-items: center;
-    //   display: flex;
-    //   height: 100vh;
-    //   justify-content: center;
-    //   width: 100%;
-    //   flex-direction: column;
-    //   }
-    // `;
-
     let backgroundImage = default_background;
 
     const BackgroundStyleContainer = styled.div`
@@ -80,6 +56,8 @@ class CodeAccess extends React.Component {
       opacity: .5;
       }
     `;
+
+
     return (
       <div className="code-entry-container">
         <BackgroundStyleContainer />
@@ -94,7 +72,6 @@ class CodeAccess extends React.Component {
               value={this.state.email}
               onChange={event => this.setState({email: event.target.value})}
               onKeyPress={onEnterPressed(Submit)}
-              autoFocus
             />
             <input
               onFocus={() => this.setState({code_placeholder: ""})}
@@ -103,7 +80,6 @@ class CodeAccess extends React.Component {
               value={this.state.code}
               onChange={event => this.setState({code: event.target.value})}
               onKeyPress={onEnterPressed(Submit)}
-              autoFocus
             />
             <button onClick={Submit} title="Submit">Submit</button>
           </LoadingElement>

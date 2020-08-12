@@ -1,6 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import PremiereOverview from "./PremiereOverview";
+import PremiereEpisodes from "./PremiereEpisodes";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -13,17 +14,15 @@ class PremiereTabs extends React.Component {
       loading: false,
       activeTab: "Title Overview",
       tabs: ["Title Overview"],
-      // tabs: ["Title Overview", "Trailers", "Details"],
-      showPlay: true,
+      showPlay: true
     };
   }
 
   componentDidMount() {
-    if(["series", "season"].includes(this.props.title.title_type) && this.props.siteStore.boughtSubscription){
-      this.setState({tabs: ["Overview", "Trailers", "Episodes", "Details"]});
-      this.setState({showPlay: false});
+    if(["series", "season"].includes(this.props.title.title_type)){
+      this.setState({tabs: ["Title Overview", "Episodes"]});
     } else if(["channel"].includes(this.props.title.title_type)) {
-      this.setState({tabs: ["Overview", "Live Schedule", "Details"]});
+      this.setState({tabs: ["Title Overview", "Live Schedule"]});
     }
 
     if(this.props.siteStore.premiere) {
@@ -59,11 +58,8 @@ class PremiereTabs extends React.Component {
         className="premiereTabs"
       >
         { this.Tabs() }
+        {(["series", "season"].includes(this.props.title.title_type)) ? <PremiereEpisodes title={featuredTitle} showTab={this.state.activeTab} /> : null}
         <PremiereOverview title={featuredTitle} showTab={this.state.activeTab} />
-        {/* <ModalTrailers title={featuredTitle} showTab={this.state.activeTab}  />
-        {(["series", "season"].includes(this.props.title.title_type)) ? <ModalEpisodes title={featuredTitle} showTab={this.state.activeTab}  /> : null}
-        <ModalDetails title={featuredTitle} showTab={this.state.activeTab}  />
-        <ModalChannel title={featuredTitle} showTab={this.state.activeTab}  /> */}
       </div>
     );
   }

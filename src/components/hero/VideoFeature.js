@@ -163,7 +163,7 @@ class VideoFeature extends React.Component {
           <div className="video-feature__button">
             { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
-            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__featureDetail">
+            <button onClick={() => this.props.siteStore.SetSingleTitle(featuredTitle)} className="btnDetails btnDetails__featureDetail">
                 View Details
             </button>
           </div>

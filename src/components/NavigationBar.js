@@ -92,7 +92,7 @@ class NavigationBar extends Component {
     return (
       <NavBar className={"navigation " + (scrolling ? "active" : "")} >
         <ul className="navigation__container">
-          <ImageIcon className="navigation__container--logo" icon={customLogo} label="Eluvio" onClick={this.props.siteStore.OffModalTitle}/>
+          <ImageIcon className="navigation__container--logo" icon={customLogo} label="Eluvio" onClick={this.props.siteStore.OffSingleTitle}/>
 
 
           <div className={this.props.siteStore.premiere ? "navigation__container--search hide" : (this.props.siteStore.boughtSubscription ? "navigation__container--newsearch" : "navigation__container--search")}>
