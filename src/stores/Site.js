@@ -71,6 +71,7 @@ class SiteStore {
 
   @observable dashSupported = false;
   @observable activeTitle;
+  @observable activeTrailer;
   @observable playoutUrl;
   @observable authToken;
 
@@ -107,17 +108,17 @@ class SiteStore {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-  //Modal
-  @observable modalTitle;
+  //Single Page Title
+  @observable singleTitle;
 
   @action.bound
-  SetModalTitle(title) {
-    this.modalTitle = title;
+  SetSingleTitle(title) {
+    this.singleTitle = title;
   }
 
   @action.bound
-  OffModalTitle() {
-    this.modalTitle = false;
+  OffSingleTitle() {
+    this.singleTitle = false;
   }
   ///////////////////////////////////////
   //Premiere
@@ -136,7 +137,7 @@ class SiteStore {
 
   ///////////////////////////////////////
   //Subscription
-  @observable boughtSubscription = true;
+  @observable boughtSubscription = false;
 
   @action.bound
   buySubscription() {
@@ -173,6 +174,27 @@ class SiteStore {
     } finally {
       this.loading = false;
     }
+  });
+
+  @action.bound
+  PlayTrailer = flow(function * (title) {
+    try {
+      this.loading = true;
+
+      yield this.SetActiveTrailer(title);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
+  });
+
+  @action.bound
+  SetActiveTrailer = flow(function * (title) {
+    this.activeTrailer = yield this.LoadActiveTitle(title);
   });
   //////////////////////////////////////////////////////////////////////////////
 
@@ -539,6 +561,11 @@ class SiteStore {
   @action.bound
   SetActiveTitle = flow(function * (title) {
     this.activeTitle = yield this.LoadActiveTitle(title);
+  });
+
+  @action.bound
+  SetActiveTrailer = flow(function * (title) {
+    this.activeTrailer = yield this.LoadActiveTitle(title); 
   });
 
   //FOR VIDEO FEATURE

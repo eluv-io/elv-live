@@ -8,7 +8,7 @@ class ModalOverview extends React.Component {
 
   afterSubscribe() {
     return (
-      <button onClick={() => {this.props.siteStore.PlayTitle(this.props.title); this.props.siteStore.OffModalTitle();}} className={`btnPlay btnPlay__modal ${this.props.showPlay === true ? "" : "hide"}`}>
+      <button onClick={() => {this.props.siteStore.PlayTitle(this.props.title); this.props.siteStore.OffSingleTitle();}} className={`btnPlay btnPlay__modal ${this.props.showPlay === true ? "" : "hide"}`}>
         {/* <PlayIcon className="modal__btn--icon" /> */}
         Play Now
       </button>

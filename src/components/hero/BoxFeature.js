@@ -1,7 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import styled from "styled-components";
 import SubscriptionPayment from "../payment/SubscriptionPayment";
+import {ImageIcon} from "elv-components-js";
+import styled from "styled-components";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -14,23 +15,13 @@ class BoxFeature extends React.Component {
   afterSubscribe() {
     return (
       <button onClick={() => this.props.siteStore.PlayTitle(this.props.title)} className={"btnPlay btnPlay__feature"}>
-        {/* <PlayIcon className="modal__btn--icon" /> */}
-        Play Now
+        WATCH NOW
       </button>
-
     );
   }
   
   render() {    
     const featuredTitle = this.props.title;
-    const titleInfo = featuredTitle.info || {};
-    const synopsis = titleInfo.synopsis;
-    const rating = "86%";
-    const runtime = titleInfo.runtime;
-    const release_date = titleInfo.release_date;
-
-    const Maybe = (value, render) => value ? render() : null;
-
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     
@@ -40,29 +31,28 @@ class BoxFeature extends React.Component {
       { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
     );
 
-    
+    const customLogo = this.props.siteStore.CreateLink(
+      featuredTitle.logoUrl,
+      "",
+      { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+    );
+
+  
+
+
 
     const BoxContainer = styled.div`
-      background-image: url(${thumbnail});
       margin-top: 7rem;
       background-size: cover;
       }
     `;
 
-    const ColorContainer = styled.div`
-      background: linear-gradient(90deg, ${this.props.backgroundColor} 50%, transparent);
-      border-radius: 7px;
-      display: flex;
-      flex-direction: column;
+    const PhotoContainer = styled.div`
+      background-image: url(${thumbnail});
+      background-size: cover;
       height: 100%;
-      justify-content: center;
-      padding-left: 5rem;
-      width: 70%;
-      @media only screen and (max-height: 50em), screen and (max-width: 50em) {
-        background: linear-gradient(90deg, ${this.props.backgroundColor} 70%, transparent);
-        width: 80%;
-      }
-      
+      width: 100%;
+      background-position: center;
     }
     `;
 
@@ -70,38 +60,18 @@ class BoxFeature extends React.Component {
       <BoxContainer
         className= "box-feature"
       >
-        <ColorContainer>
-          <h1 className="box-feature__title">
-            {featuredTitle.displayTitle}
-          </h1>
-          <p className="box-feature__info">
-            {Maybe(
-              rating,
-              () => <span className="box-feature__rating">Rating: { rating }</span>
-            )}
-            {Maybe(
-              release_date,
-              () => <span> | Release Date: { release_date }</span>
-            )}
-            {Maybe(
-              runtime,
-              () => <span> | Runtime: { runtime } minutes</span>
-            )}
-          </p>
-
-          {Maybe(
-            synopsis,
-            () => <p className="box-feature__overview">{ synopsis }</p>
-          )}
-          <div className="box-feature__button">   
-            
+        <div className="box-feature__container">
+          { customLogo ? <ImageIcon className="box-feature__titleIcon" icon={customLogo} label="logo"/> : <h1 className="box-feature__title"> {featuredTitle.displayTitle} </h1>}
+          <div className="box-feature__button">
             { this.props.siteStore.boughtSubscription ? this.afterSubscribe() : this.preSubscribe()}
 
-            <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__feature">
-                View Details
+            <button onClick={() => this.props.siteStore.SetSingleTitle(featuredTitle)} className="btnDetails btnDetails__featureDetail">
+                VIEW DETAILS
             </button>
           </div>
-        </ColorContainer>
+        </div>
+
+        <PhotoContainer />
       </BoxContainer>
     );
   }

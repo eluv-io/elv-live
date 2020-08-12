@@ -8,8 +8,8 @@ import AsyncComponent from "./AsyncComponent";
 import MoviePremiere from "./premiere/MoviePremiere";
 import ActiveTitle from "./premiere/ActiveTitle";
 import HeroGrid from "./hero/HeroGrid";
+// import OldBoxFeature from "./hero/OldBoxFeature";
 import BoxFeature from "./hero/BoxFeature";
-import MgmFeature from "./hero/MgmFeature";
 import NewVideoFeature from "./hero/NewVideoFeature";
 import NavigationBar from "./NavigationBar";
 
@@ -63,7 +63,7 @@ class Site extends React.Component {
         switch (variant) {
           case "box":
             return (
-              <MgmFeature
+              <BoxFeature
                 key={key}
                 title={entry.title}
                 trailers={false}
@@ -243,9 +243,8 @@ class Site extends React.Component {
 
           return (
             <div className="container">
-              { this.props.siteStore.activeTitle ? null : <NavigationBar />}
-              { this.props.siteStore.modalTitle ? <ActiveTitle /> : this.props.siteStore.activeTitle ? this.ShowVideo() : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
-
+              { this.props.siteStore.activeTitle ? this.ShowVideo() : <NavigationBar />}
+              { this.props.siteStore.singleTitle ? <ActiveTitle /> : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
             </div>
           );
         }}

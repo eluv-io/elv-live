@@ -10,11 +10,6 @@ class PremiereOverview extends React.Component {
   render() {
     const title = this.props.title;
     const titleInfo = title.info || {};
-    // const synopsis = titleInfo.synopsis;
-    // const rating = "86%";
-    // const runtime = titleInfo.runtime;
-    // const release_date = titleInfo.release_date;
-    // const creator = titleInfo.creator;
 
     const Maybe = (value, render) => value ? render() : null;
 

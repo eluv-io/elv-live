@@ -73,7 +73,7 @@ class Modal extends React.Component {
 
     return (
       <React.Fragment>
-        <div onClick={this.props.siteStore.OffModalTitle} className="backdrop" />
+        <div onClick={this.props.siteStore.OffSingleTitle} className="backdrop" />
         <div
           style={backgroundStyle}
           className="modal show"

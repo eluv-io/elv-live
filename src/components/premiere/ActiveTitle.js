@@ -3,26 +3,58 @@ import {inject, observer} from "mobx-react";
 import PremiereTabs from "./PremiereTabs";
 import {ImageIcon} from "elv-components-js";
 import NavigationBar from "../NavigationBar";
+import SubscriptionPayment from "../payment/SubscriptionPayment";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class ActiveTitle extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isSeries: false,
+    };
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
+    if(["series", "season"].includes(this.props.siteStore.singleTitle.title_type)){
+      this.setState({isSeries: true});
+    }
+  }
+
+
+  preSubscribe() {
+    return <SubscriptionPayment isNav={false} />;
   }
 
   playPremiere() {
-
     return (
-      <button onClick={() => {this.props.siteStore.PlayTitle(this.props.siteStore.modalTitle); this.props.siteStore.OffModalTitle();}} className="btnPlay btnDetails__heroDetail">
+      <button onClick={() => this.props.siteStore.PlayTitle(this.props.siteStore.singleTitle)} className="btnPlay btnDetails__heroPlay">
         Play Now
       </button>
     );
   }
+  
+  RegularButtons() {
+    return (
+      <div className="active-view-container__button">
+        { this.props.siteStore.boughtSubscription ? this.playPremiere() : this.preSubscribe()}
+
+        
+        <button onClick={() => this.props.siteStore.PlayTitle(this.props.siteStore.singleTitle)} className="btnPlay btnDetails__heroDetail">
+          Watch Trailer
+        </button>
+      </div>
+    );
+  }
+
+  
 
   render() {
-    const featuredTitle = this.props.siteStore.modalTitle;
+
+    const featuredTitle = this.props.siteStore.singleTitle;
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
@@ -62,17 +94,8 @@ class ActiveTitle extends React.Component {
           {/* <h1 className="active-view-container__heading">{ featuredTitle.displayTitle }</h1> */}
           { customLogo ? <ImageIcon className="active-view-container__logo" icon={customLogo} label="logo"/> : <h1 className="active-view-container__heading"> {featuredTitle.displayTitle} </h1>}
 
-          <div className="active-view-container__button">
-            { this.playPremiere() }
-            
-            <button onClick={() => {this.props.siteStore.PlayTitle(this.props.siteStore.modalTitle); this.props.siteStore.OffModalTitle();}} className="btnPlay btnPlay__heroPlay">
-              Watch Trailer
-            </button>
+          { this.state.isSeries ? null : this.RegularButtons()}
 
-            {/* <button onClick={() => this.props.siteStore.SetModalTitle(featuredTitle)} className="btnDetails btnDetails__heroDetail">
-              View Details
-            </button> */}
-          </div>
           <div className="active-view-container__overview">
             <PremiereTabs title={featuredTitle}/>
           </div>

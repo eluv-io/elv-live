@@ -12,7 +12,7 @@
   align-self: end;
   display: grid;  
   grid-row-gap: 1.2rem;
-  grid-template-rows: 57vh [logo-start] minmax(4vh, min-content) [logo-end button-start] minmax(4vh, min-content) [button-end overview-start] minmax(4vh, min-content) [overview-end] 5vh;  
+  grid-template-rows: 67.5vh [logo-start] minmax(4vh, min-content) [logo-end button-start] minmax(4vh, min-content) [button-end] minmax(4vh, min-content) 5vh;  
   &__heading {
     font-size: 6rem;
     grid-row: title-start / title-end;
@@ -35,9 +35,26 @@
   
   &__logo {
     grid-row: logo-start / logo-end;
-    height: 12.5vw;
+    height: 20.4rem;
     margin-left: 4vw;  
     width: 51rem;
+    @media only screen and (max-width: $bp-small-3) {
+      height: 18rem;
+      margin: auto;
+      width: 45rem;
+    }  
+
+    @media only screen and (max-width: $bp-small) {
+      height: 16rem;
+      margin: auto;
+      width: 40rem;
+    }
+
+    @media only screen and (max-width: $bp-tiny-2) {
+      height: 12.8rem;
+      margin: auto;
+      width: 32rem;
+    }  
   }  
 
   &__timer {
@@ -47,7 +64,8 @@
 
   &__button {
     grid-row: button-start / button-end;
-    @media only screen and (max-width: $bp-small) {
+
+    @media only screen and (max-width: $bp-small-3) {
       align-items: flex-start;
       display: flex;
       flex-direction: column;

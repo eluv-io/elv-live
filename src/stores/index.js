@@ -23,6 +23,9 @@ class RootStore {
   @observable objects = {};
 
   @observable error = "";
+  
+  @observable background;
+  @observable logo;
 
   constructor() {
     this.siteStore = new SiteStore(this);
@@ -127,6 +130,7 @@ class RootStore {
       return false;
     }
   });
+
 
   async FindSites() {
     let sites = [];
