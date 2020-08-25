@@ -37,10 +37,6 @@ class BoxFeature extends React.Component {
       { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
     );
 
-  
-
-
-
     const BoxContainer = styled.div`
       margin-top: 7rem;
       background-size: cover;
