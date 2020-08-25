@@ -81,7 +81,7 @@ class CodeAccess extends React.Component {
               onChange={event => this.setState({code: event.target.value})}
               onKeyPress={onEnterPressed(Submit)}
             />
-            <button onClick={Submit} title="Submit">Submit</button>
+            <button onClick={Submit} title="Submit">NEXT</button>
           </LoadingElement>
         </div>
       </div>

@@ -243,8 +243,16 @@ class Site extends React.Component {
 
           return (
             <div className="container">
-              { this.props.siteStore.activeTitle ? this.ShowVideo() : <NavigationBar />}
-              { this.props.siteStore.singleTitle ? <ActiveTitle /> : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
+              {/* If there's an activeTitle (playing video full screen), get rid of Nav Bar.  */}
+
+              { this.props.siteStore.activeTitle ? null : <NavigationBar />}
+
+              {/* If there's an activeTitle (playing video full screen), play the title. 
+              If no activeTitle, check if there's a singleTitle (displaying one title) and show that.
+              If no singleTitle, check if it's a premiere and show that. 
+              If no singleTitle or premiere, show Content (Main Sample Site Page).  */}
+              
+              { this.props.siteStore.activeTitle ? this.ShowVideo() : this.props.siteStore.singleTitle ? <ActiveTitle /> : (this.props.siteStore.premiere ? this.ShowPremiere() : this.Content())}
             </div>
           );
         }}

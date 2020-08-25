@@ -15,10 +15,11 @@
   padding-right: 3.5rem;
   padding-top: 1rem;
   text-transform: uppercase;
-  
+
   @media only screen and (max-width: $bp-small) {
     width: 90vw;
   }
+  
 
   &__modal {
     background-color: #e6e6e6;
