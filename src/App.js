@@ -8,6 +8,11 @@ import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
 import NewCodeAccess from "./components/NewCodeAccess";
+import Home from "./components/livestream/Home";
+import Event from "./components/livestream/Event";
+import Stream from "./components/livestream/Stream";
+import Payment from "./components/livestream/Payment";
+
 import styled from "styled-components";
 
 import "swiper/css/swiper.min.css";
@@ -27,9 +32,14 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={NewCodeAccess} />
-        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+        {/* <Route exact path="/" component={NewCodeAccess} /> */}
+        
+        <Route exact path="/" component={Home} />
+        <Route exact path="/event" component={Event} />
+        <Route exact path="/payment" component={Payment} />
+        <Route exact path="/stream" component={Stream} />
 
+        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
         <Route
           exact
           path={[
@@ -65,6 +75,11 @@ class App extends React.Component {
       color: ${this.props.siteStore.primaryFontColor};
     }
     `;
+    // const ContainerApp = styled.div`
+    //   background: black;
+    //   color: white;
+    // }
+    // `;
 
     return (
       <ContainerApp>

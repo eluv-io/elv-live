@@ -1,0 +1,43 @@
+.live-container {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+}
+
+.live-nav {
+  height: 8rem;
+  width: 100%;
+  background-color: black;
+  
+  &__container {
+    align-items: center;
+    display: flex;
+    height: 8rem;
+    justify-content: flex-start;
+ 
+    &--logo { 
+       height: 3rem;
+       margin-left: 15vw;
+       margin-top: 3rem;
+       width: 12rem;
+    }
+  }
+}
+
+.live-hero {
+  height: 70vh;
+  width: 100%;
+  background-color: black;
+}
+
+.live-content {
+  height: 80vh;
+  width: 100%;
+  background-color: white;
+}
+
+.live-footer {
+  height: 5rem;
+  width: 100%;
+  background-color: black;
+}
