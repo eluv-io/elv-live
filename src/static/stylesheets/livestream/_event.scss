@@ -1,0 +1,41 @@
+.event-nav {
+  height: 8rem;
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+
+  &__container {
+    align-items: center;
+    display: flex;
+    height: 8rem;
+    justify-content: flex-start;
+ 
+    &--logo { 
+       height: 3rem;
+       margin-left: 15vw;
+       margin-top: 3rem;
+       width: 12rem;
+    }
+  }
+}
+
+
+.event-container {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  width: 100%;
+  height: auto;
+  
+  &__view {
+    width: 100%;
+    height: 70vh;
+    background-color: blue;  
+  }
+
+  &__info {
+    width: 100%;
+    height: 50vh;
+    background-color: red;  
+  }
+}
