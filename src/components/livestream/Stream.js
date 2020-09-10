@@ -25,7 +25,12 @@ class Stream extends React.Component {
             </div>
 
             <div className="stream-container__streamBox--info">
-              Stream Info
+              <h2 className="stream-container__streamBox--info__subtitle">
+                Liam Payne
+              </h2>
+              <h1 className="stream-container__streamBox--info__title">
+                The LP Show: Act 2
+              </h1>
             </div> 
           </div>
           <div className="stream-container__chat">

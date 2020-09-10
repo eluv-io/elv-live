@@ -53,7 +53,6 @@
     "react-stripe-checkout": "^2.6.3",
     "semantic-ui-react": "^0.88.2",
     "stream-chat-react": "^2.2.2",
-    "stripe": "^8.67.0",
     "styled-components": "^5.1.1",
     "swiper": "^5.4.2",
     "urijs": "^1.19.1",

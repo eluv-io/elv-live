@@ -11,7 +11,9 @@ import NewCodeAccess from "./components/NewCodeAccess";
 import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream";
-import Payment from "./components/livestream/Payment";
+
+import Checkout from './components/livestream/Stripe/Checkout';
+import Success from './components/livestream/Stripe/Success';
 
 import styled from "styled-components";
 
@@ -36,10 +38,12 @@ class Routes extends React.Component {
         
         <Route exact path="/" component={Home} />
         <Route exact path="/event" component={Event} />
-        <Route exact path="/payment" component={Payment} />
         <Route exact path="/stream" component={Stream} />
+        <Route path="/payment" component={Checkout} />
+        <Route path="/success" component={Success} />
 
-        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+
+        {/* <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
         <Route
           exact
           path={[
@@ -49,7 +53,7 @@ class Routes extends React.Component {
             "/:siteId",
           ]}
           component={Site}
-        />
+        /> */}
 
         <Route>
           <Redirect to="/" />
@@ -75,6 +79,7 @@ class App extends React.Component {
       color: ${this.props.siteStore.primaryFontColor};
     }
     `;
+    
     // const ContainerApp = styled.div`
     //   background: black;
     //   color: white;
