@@ -4,16 +4,16 @@ import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
-import Site from "./components/Site";
+// import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
-import CodeAccess from "./components/CodeAccess";
-import NewCodeAccess from "./components/NewCodeAccess";
+// import CodeAccess from "./components/CodeAccess";
+// import NewCodeAccess from "./components/NewCodeAccess";
 import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream";
 
-import Checkout from './components/livestream/Stripe/Checkout';
-import Success from './components/livestream/Stripe/Success';
+import Checkout from "./components/livestream/Stripe/Checkout";
+import Success from "./components/livestream/Stripe/Success";
 
 import styled from "styled-components";
 

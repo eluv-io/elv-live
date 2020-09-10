@@ -40,10 +40,10 @@ class Home extends React.Component {
           
           <div className="live-hero__cardMain">
             <div className="live-hero__cardMain__side">
-                <ImageIcon className="live-hero__picture" icon={artist1} label="artist" />
-                <h4 className="live-hero__heading">
-                  <span className="live-hero__heading-span card__heading-span--4">Liam Payne</span>
-                </h4>
+              <ImageIcon className="live-hero__picture" icon={artist1} label="artist" />
+              <h4 className="live-hero__heading">
+                <span className="live-hero__heading-span card__heading-span--4">Liam Payne</span>
+              </h4>
             </div>
           </div>
         </div>

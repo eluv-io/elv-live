@@ -20,9 +20,13 @@ class Stream extends React.Component {
               <ImageIcon className="stream-container__streamBox--nav__container--logo" icon={Logo} label="Eluvio" />
             </div>
 
-            <div className="stream-container__streamBox--video">
-              Stream Video
-            </div>
+            <iframe src='https://www.youtube.com/embed/98iqKq4D3yg?autoplay=1'
+              frameborder='0'
+              allow='autoplay; encrypted-media'
+              allowfullscreen
+              title='video'
+              className="stream-container__streamBox--video"
+            />
 
             <div className="stream-container__streamBox--info">
               <h2 className="stream-container__streamBox--info__subtitle">

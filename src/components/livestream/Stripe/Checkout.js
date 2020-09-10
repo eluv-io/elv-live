@@ -1,8 +1,8 @@
-import React, { useReducer } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import React, { useReducer } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 
-import './normalize.css';
-import './global.css';
+import "./normalize.css";
+import "./global.css";
 import background from "../../../static/images/livestream/artist1.png";
 import Logo from "../../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
@@ -10,15 +10,15 @@ import {ImageIcon} from "elv-components-js";
 const stripePromise = loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
 
 const formatPrice = ({ amount, currency, quantity }) => {
-  const numberFormat = new Intl.NumberFormat('en-US', {
-    style: 'currency',
+  const numberFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
     currency,
-    currencyDisplay: 'symbol',
+    currencyDisplay: "symbol",
   });
   const parts = numberFormat.formatToParts(amount);
   let zeroDecimalCurrency = true;
-  for (let part of parts) {
-    if (part.type === 'decimal') {
+  for(let part of parts) {
+    if(part.type === "decimal") {
       zeroDecimalCurrency = false;
     }
   }
@@ -29,7 +29,7 @@ const formatPrice = ({ amount, currency, quantity }) => {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'increment':
+    case "increment":
       return {
         ...state,
         quantity: state.quantity + 1,
@@ -39,7 +39,7 @@ function reducer(state, action) {
           quantity: state.quantity + 1,
         }),
       };
-    case 'decrement':
+    case "decrement":
       return {
         ...state,
         quantity: state.quantity - 1,
@@ -49,9 +49,9 @@ function reducer(state, action) {
           quantity: state.quantity - 1,
         }),
       };
-    case 'setLoading':
+    case "setLoading":
       return { ...state, loading: action.payload.loading };
-    case 'setError':
+    case "setError":
       return { ...state, error: action.payload.error };
     default:
       throw new Error();
@@ -75,23 +75,23 @@ const Checkout = () => {
 
   const handleClick = async (event) => {
     // Call your backend to create the Checkout session.
-    dispatch({ type: 'setLoading', payload: { loading: true } });
+    dispatch({ type: "setLoading", payload: { loading: true } });
     // When the customer clicks on the button, redirect them to Checkout.
     const stripe = await stripePromise;
     const { error } = await stripe.redirectToCheckout({
-      mode: 'payment',
+      mode: "payment",
       lineItems: [{ price: state.priceId, quantity: state.quantity }],
-      successUrl: `http://localhost:8086/#/success`,
-      cancelUrl: `http://localhost:8086/#/event`,
+      successUrl: `${window.location.origin}/#/success`,
+      cancelUrl: `${window.location.origin}/#/event`,
       // successUrl: `http://localhost:8086/#/success?session_id={CHECKOUT_SESSION_ID}`,
       // cancelUrl: `${window.location.origin}/canceled`,
     });
     // If `redirectToCheckout` fails due to a browser or network
     // error, display the localized error message to your customer
     // using `error.message`.
-    if (error) {
-      dispatch({ type: 'setError', payload: { error } });
-      dispatch({ type: 'setLoading', payload: { loading: false } });
+    if(error) {
+      dispatch({ type: "setError", payload: { error, event } });
+      dispatch({ type: "setLoading", payload: { loading: false } });
     }
   };
 
@@ -121,7 +121,7 @@ const Checkout = () => {
               <button
                 className="increment-btn"
                 disabled={state.quantity === 1}
-                onClick={() => dispatch({ type: 'decrement' })}
+                onClick={() => dispatch({ type: "decrement" })}
               >
                 -
               </button>
@@ -136,7 +136,7 @@ const Checkout = () => {
               <button
                 className="increment-btn"
                 disabled={state.quantity === 10}
-                onClick={() => dispatch({ type: 'increment' })}
+                onClick={() => dispatch({ type: "increment" })}
               >
                 +
               </button>
@@ -145,7 +145,7 @@ const Checkout = () => {
 
             <button role="link" onClick={handleClick} disabled={state.loading}>
               {state.loading || !state.price
-                ? `Loading...`
+                ? "Loading..."
                 : `Buy for ${state.price}`}
             </button>
             {/* <div className="sr-field-error">{state.error?.message}</div> */}

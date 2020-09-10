@@ -21,50 +21,51 @@
 
 
 .event-container {
-  background-color: black;
-  height: auto;
-  width: 100%;
+  background-color: #000;
   display: flex;
   flex-direction: column;
+  height: auto;
+  width: 100%;
 
   &__info {
-    height: auto;
-    width: 100%;
     display: flex;
     flex-direction: column;
+    height: auto;
+    width: 100%;
     &__title {
-      text-align: center !important;
+      color: #fff;
       // display: inline-block;
       font-size: 2em;
-      line-height: 4rem;
-      margin-top: 8rem;
-      margin-bottom: 8rem; 
-      color: white;
       font-weight: 600;
+      line-height: 4rem;
+      margin-bottom: 8rem; 
+      margin-top: 8rem;
+      text-align: center !important;
     }
+
     &__schedule {
+      align-items: center;
       display: flex;
       flex-direction: column;
-      width: 100%;
       justify-content: center !important;
-      align-items: center;
       margin-bottom: 10rem;
+      width: 100%;
 
       &__post {
-        display: flex;
-        flex-direction: row;
-        width: 60%;
-        height: 80px;
-        margin-bottom: 20px;
         background-color: rgb(12, 12, 12);
         border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        height: 80px;
         justify-content: space-around;
+        margin-bottom: 20px;
+        width: 60%;
 
         &__detail {
+          color: #fff !important;
           font-size: 20px;
           font-weight: 500;
           margin-top: 25px !important;
-          color: white !important;
         }
       }
     }
@@ -72,30 +73,33 @@
 }
 
 .btn3, .btn3:link, .btn3:visited {
-  padding: 12.5px 20px !important;
-  display: inline-block;
+  border: 0;
   border-radius: 100px !important;
-  transition: all .2s;
-  position: relative;
+  color: #000;
+  cursor: pointer; 
+  display: inline-block;
   font-size: 16px !important;
   font-weight: 600 !important;
 
-  border: none;
-  cursor: pointer; 
-  margin-top: 0px;
-  text-align: center; 
-  /* margin: auto; */
-  width: 150px !important;
   height: 50px !important;
-  color: black;
+  margin-top: 0;
   margin-top: 15px !important;
+  padding: 12.5px 20px !important;
+  /* margin: auto; */
+  position: relative;
+  text-align: center; 
+  transition: all .2s;
+  width: 150px !important;
 }
+
 // .btn3:hover {
 //   transform: translateY(-3px);
 //   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+
 // .btn3:hover::after {
 //   transform: scaleX(1.4) scaleY(1.6);
 //   opacity: 0; }
+
 // .btn3:active, .btn3:focus {
 //   outline: none;
 //   transform: translateY(-1px);
