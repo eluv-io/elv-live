@@ -1,7 +1,7 @@
 import React from "react";
 import { Chat, Channel, ChannelHeader, Window } from "stream-chat-react";
 import { MessageList, MessageInput, MessageLivestream } from "stream-chat-react";
-import { MessageInputSmall, MessageInputFlat, Thread } from "stream-chat-react";
+import { MessageInputFlat, Thread } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
 import artist1 from "../../static/images/livestream/artist1.png";
 

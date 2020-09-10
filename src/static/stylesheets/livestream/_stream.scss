@@ -1,5 +1,5 @@
 .stream-container {
-  background-color: #000000;
+  background-color: #000;
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -12,7 +12,7 @@
     width: 75%;
 
     &--nav { 
-      background-color: #000000;
+      background-color: #000;
       height: 7.235rem;
       width: 100%;
       
@@ -32,45 +32,46 @@
     }
 
     &--video { 
-      background-color: grey; 
+      background-color: #808080; 
       height: 80%;
       width: 100%;
     }
 
     &--info { 
-      background-color: black; 
+      background-color: #000; 
       height: 15%;
       width: 100%;
       &__title {
-        text-align: left;
+        color: #fff;
         display: inline-block;
         font-size: 3.5rem;
-        line-height: 1;
         font-weight: 700;
-        color: #fff;
         letter-spacing: -0.01em;
-        text-align: left;
+        line-height: 1;
         margin-left: 2.5rem;
         margin-top: -3rem;
+        text-align: left;
+        text-align: left;
 
       }
+
       &__subtitle {
-        text-align: left;
+        color: #666;
         display: inline-block;
         font-size: 2.5rem;
-        line-height: 3;
         font-weight: normal;
-        color: #666666;
+        line-height: 3;
+        margin-left: 2.5rem;
+        margin-top: 2.5rem;
+        text-align: left;
         text-align: left;
         width: 100%;
-        margin-top: 2.5rem;
-        margin-left: 2.5rem;
       }
     }
   }
 
   &__chat {
-    background-color: #ff0000;  
+    background-color: #f00;  
     height: 100%;
     width: 25%;
   }
