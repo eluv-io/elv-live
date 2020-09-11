@@ -3,11 +3,11 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import styled from "styled-components";
-// import default_background from "../static/images/codeAccess/cinema-background.jpg";
-import default_background from "../static/images/codeAccess/bill-ted-background.jpg";
+import default_background from "../static/images/codeAccess/cinema-background.jpg";
+// import default_background from "../static/images/codeAccess/bill-ted-background.jpg";
 
 import {ImageIcon} from "elv-components-js";
-import Logo from "../static/images/codeAccess/mgm-logo.png";
+import Logo from "../static/images/Logo-Small.png";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -20,14 +20,14 @@ class CodeAccess extends React.Component {
       code: "",
       email: "",
       loading: false,
-      email_placeholder: "Enter your email",
-      code_placeholder: "Enter your access code"
+      email_placeholder: "enter your email",
+      code_placeholder: "ticket code"
     };
   }
 
   render() {
     if(this.state.siteId) {
-      return <Redirect to={`/code/${this.props.match.params.siteSelectorId}/${this.state.siteId}`} />;
+      return <Redirect to={`/stream/${this.props.match.params.siteSelectorId}/${this.state.siteId}`} />;
     }
 
     const Submit = async () => {
@@ -67,7 +67,7 @@ class CodeAccess extends React.Component {
             <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/>
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "Enter your email"})}
+              onBlur={() => this.setState({email_placeholder: "enter your Email"})}
               placeholder={this.state.email_placeholder}
               value={this.state.email}
               onChange={event => this.setState({email: event.target.value})}
@@ -75,7 +75,7 @@ class CodeAccess extends React.Component {
             />
             <input
               onFocus={() => this.setState({code_placeholder: ""})}
-              onBlur={() => this.setState({code_placeholder: "Enter your access code"})}
+              onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
               placeholder={this.state.code_placeholder}
               value={this.state.code}
               onChange={event => this.setState({code: event.target.value})}

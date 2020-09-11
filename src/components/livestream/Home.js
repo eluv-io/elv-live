@@ -4,6 +4,7 @@ import Logo from "../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
 import Card from "./Card";
 import artist1 from "../../static/images/livestream/artist1.png";
+import { Link } from "react-router-dom";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -24,7 +25,10 @@ class Home extends React.Component {
 
         {/* NavBar */}
         <div className="live-nav">
-          <ImageIcon className="live-nav__container--logo" icon={Logo} label="Eluvio" />
+          <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
+          <Link to="/code/iq__YfEF1A8sUvMj5WcMCJEDk4aEwND" className="btn2 btn2--white live-nav--ticket">
+            Redeem Ticket 
+          </Link>
         </div>
 
         {/* Hero View */}
