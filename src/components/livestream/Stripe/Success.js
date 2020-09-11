@@ -21,12 +21,12 @@ const Success = () => {
           <div className="sr-payment-summary">
             <h1 className="title">Your purchase was successful!</h1>
             <h2 className="subtitle">
-              Thanks for your order.
+              Thanks for your order! (Ticket Code: premiere)
             </h2>
           </div>
           
           <div className="sr-section completed-view">
-            <Link to="/stream" className="btn2 btn2--white buttonguy">View Stream</Link>
+            <Link to="/code/iq__YfEF1A8sUvMj5WcMCJEDk4aEwND" className="btn2 btn2--white buttonguy">Redeem Ticket</Link>
           </div>
         </div>
       </div>

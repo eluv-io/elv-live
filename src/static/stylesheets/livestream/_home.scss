@@ -16,25 +16,24 @@
   height: 8rem;
   position: absolute;
   width: 100%;
-  z-index: 999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3rem;
 
-  &__container {
-    align-items: center;
-    display: flex;
-    height: 8rem;
-    justify-content: flex-start;
-    position: absolute;
-    z-index: 999;
+  &--logo { 
+    height: 4rem;
+    margin-left: 15vw;
+    width: auto;
+  }
 
- 
-    &--logo { 
-      height: 3rem;
-      margin-left: 15vw;
-      margin-top: 3rem;
-      position: absolute;
-      width: 12rem;
-      z-index: 1999 !important;
-    }
+  &--ticket { 
+    height: 4.5rem;
+    margin-right: 15vw;
+    width: auto;
+    margin-top: 0 !important;
+    padding: 9px 40px !important;
+    color: black !important;
   }
 }
 

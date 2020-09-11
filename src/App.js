@@ -4,10 +4,10 @@ import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
-// import Site from "./components/Site";
+import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
-// import CodeAccess from "./components/CodeAccess";
-// import NewCodeAccess from "./components/NewCodeAccess";
+import CodeAccess from "./components/CodeAccess";
+import NewCodeAccess from "./components/NewCodeAccess";
 import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream";
@@ -43,11 +43,20 @@ class Routes extends React.Component {
         <Route path="/success" component={Success} />
 
 
-        {/* <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+        
         <Route
           exact
           path={[
-            "/code/:siteSelectorId/:siteId",
+            "/stream/:siteSelectorId/:siteId"
+          ]}
+          component={Stream}
+        />
+
+        {/* <Route
+          exact
+          path={[
+            "/stream/:siteSelectorId/:siteId",
             "/preview/:siteId",
             "/preview/:siteId/:writeToken",
             "/:siteId",

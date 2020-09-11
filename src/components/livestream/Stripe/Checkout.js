@@ -81,7 +81,7 @@ const Checkout = () => {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: state.priceId, quantity: state.quantity }],
-      successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/stream`,
+      successUrl: `${window.location.origin}/#/success`,
       cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/event`,
       // successUrl: `http://localhost:8086/#/success?session_id={CHECKOUT_SESSION_ID}`, https://core.test.contentfabric.io/prod/site-sample-live/#/event
       // cancelUrl: `${window.location.origin}/canceled`,
