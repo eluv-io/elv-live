@@ -20,7 +20,7 @@ class Stream extends React.Component {
               <ImageIcon className="stream-container__streamBox--nav__container--logo" icon={Logo} label="Eluvio" />
             </div>
 
-            <iframe src='https://www.youtube.com/embed/98iqKq4D3yg?autoplay=1'
+            <iframe src='https://www.youtube.com/embed/8JV12x-qeS4?autoplay=1'
               frameborder='0'
               allow='autoplay; encrypted-media'
               allowfullscreen
