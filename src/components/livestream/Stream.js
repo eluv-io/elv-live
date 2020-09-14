@@ -36,14 +36,6 @@ class Stream extends React.Component {
 
                   <ViewStream />
 
-                  {/* <iframe src='https://www.youtube.com/embed/8JV12x-qeS4?autoplay=1'
-                    frameborder='0'
-                    allow='autoplay; encrypted-media'
-                    allowfullscreen
-                    title='video'
-                    className="stream-container__streamBox--video"
-                  /> */}
-
                   <div className="stream-container__streamBox--info">
                     <h2 className="stream-container__streamBox--info__subtitle">
                       Liam Payne
