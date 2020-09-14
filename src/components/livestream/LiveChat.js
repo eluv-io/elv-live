@@ -4,24 +4,33 @@ import { MessageList, MessageInput, MessageLivestream } from "stream-chat-react"
 import { MessageInputFlat, Thread } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
 import artist1 from "../../static/images/livestream/artist1.png";
+import {inject, observer} from "mobx-react";
 
 import "stream-chat-react/dist/css/index.css";
 
+@inject("siteStore")
+@inject("rootStore")
+@observer
 class LiveChat extends React.Component {
   // constructor(props) {
   //   super(props);
   //   this.chatClient = new StreamChat('dc2kwcahqj6v');
-  //   this.userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYmx1ZS1uaWdodC0yIn0.85eBZJi1Z7UbT65_Ib3PbTA8l8Utv0-Ii8Dfyd9NU_M";
-
-  //   // this.chatClient.setBaseURL(process.env.REACT_APP_CHAT_SERVER_ENDPOINT);
+  //   this.username = this.props.rootStore.email;
+    
+  //   // async () => {
+  //   //   this.userToken = await this.chatClient.devToken(this.username);
+  //   // };
+  //   console.log(this.chatClient.devToken(this.username));
+    
   //   this.chatClient.setUser(
   //     {
-  //       id: 'example-user',
-  //       name: "BN",
+  //       id: this.username,
+  //       name: this.username,
   //       image: "https://getstream.io/random_png/?id=blue-night-2&name=Blue+night"
   //     },
   //     this.userToken,
   //   );
+
   //   this.channel = this.chatClient.channel('livestream', "eluvio", {
   //     image: {artist1},
   //     name: "Liam Payne: The LP Show",
@@ -30,28 +39,31 @@ class LiveChat extends React.Component {
 
   //   this.channel.watch();
   // }
+  
 
   render() {
-    const chatClient = new StreamChat("dc2kwcahqj6v");
-    const userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYmx1ZS1uaWdodC0yIn0.85eBZJi1Z7UbT65_Ib3PbTA8l8Utv0-Ii8Dfyd9NU_M";
+   const client = this.props.rootStore.chatClient;
+   const user = this.props.rootStore.chatID;
 
-    chatClient.setUser(
-      {
-        id: "blue-night-2",
-        name: "John Scott",
-        image: "https://getstream.io/random_png/?id=blue-night-2&name=Blue+night"
-      },
-      userToken,
-    );
+   const username = this.props.rootStore.email;
 
-    const channel = chatClient.channel("livestream", "eluvio", {
+   client.setUser(
+    {
+      id: username,
+      name: username,
+      // image: "https://getstream.io/random_png/?id=blue-night-2&name=Blue+night"
+    },
+    user,
+  );
+
+    const channel = client.channel("livestream", "eluvio", {
       image: {artist1},
       name: "Liam Payne: The LP Show",
     });
 
 
     return (
-      <Chat client={chatClient} theme={"livestream dark"}>
+      <Chat client={client} theme={"livestream dark"}>
         <Channel channel={channel} Message={MessageLivestream}>
           <Window hideOnThread>
             <ChannelHeader live />

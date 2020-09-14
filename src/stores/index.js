@@ -1,6 +1,7 @@
 import {configure, observable, action, flow, runInAction} from "mobx";
 import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
 import SiteStore from "./Site";
+import { StreamChat } from "stream-chat";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -17,6 +18,8 @@ class RootStore {
   @observable availableSites = [];
 
   @observable email;
+  @observable chatID;
+  @observable chatClient;
   @observable accessCode;
 
   @observable libraries = {};
@@ -116,6 +119,10 @@ class RootStore {
       client.SetSigner({signer});
 
       this.email = email;
+
+      this.chatClient = new StreamChat('7h9psjzs3nb6');
+      this.chatID = yield this.chatClient.devToken(this.email);
+
       this.accessCode = code;
       this.client = client;
 
