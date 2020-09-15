@@ -12,9 +12,9 @@ const Success = () => {
 
   return (
     <div className="live-container">
-      <div className="live-nav">
+      {/* <div className="live-nav">
         <ImageIcon className="live-nav__container--logo" icon={Logo} label="Eluvio" />
-      </div>
+      </div> */}
 
       <div className="sr-root">
         <div className="sr-main2">
