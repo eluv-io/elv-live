@@ -57,9 +57,13 @@ const DEFAULT_SITE_CUSTOMIZATION = {
 };
 
 class SiteStore {
+  // LIVE STREAM
+  
+  @observable artist;
+  @observable bkimage;
+
   @observable siteCustomization;
   @observable premiere;
-
 
   @observable backgroundColor = "rgb(17, 17, 17)";
   @observable primaryFontColor = "white";
@@ -108,6 +112,17 @@ class SiteStore {
   }
 
   //////////////////////////////////////////////////////////////////////////////
+  //Livestream Event 
+
+  @action.bound
+  SetArtist(artist, bk) {
+    this.artist = artist;
+    this.bkimage = bk; 
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+
+
   //Single Page Title
   @observable singleTitle;
 

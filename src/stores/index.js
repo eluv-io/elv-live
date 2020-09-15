@@ -18,6 +18,7 @@ class RootStore {
   @observable availableSites = [];
 
   @observable email;
+  @observable name;
   @observable chatID;
   @observable chatClient;
   @observable accessCode;
@@ -67,7 +68,7 @@ class RootStore {
     this.client = client;
   });
 
-  RedeemCode = flow(function * (siteSelectorId, email, code) {
+  RedeemCode = flow(function * (siteSelectorId, email, code, name) {
     let client;
     try {
       const hash = Hash(code);
@@ -119,9 +120,10 @@ class RootStore {
       client.SetSigner({signer});
 
       this.email = email;
+      this.name = name;
 
       this.chatClient = new StreamChat('7h9psjzs3nb6');
-      this.chatID = yield this.chatClient.devToken(this.email);
+      this.chatID = yield this.chatClient.devToken(this.name);
 
       this.accessCode = code;
       this.client = client;

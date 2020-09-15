@@ -19,9 +19,11 @@ class CodeAccess extends React.Component {
     this.state = {
       code: "",
       email: "",
+      name: "",
       loading: false,
       email_placeholder: "enter your email",
-      code_placeholder: "ticket code"
+      code_placeholder: "ticket code",
+      name_placeholder: "enter your Chat name"
     };
   }
 
@@ -36,7 +38,8 @@ class CodeAccess extends React.Component {
       const siteId = await this.props.rootStore.RedeemCode(
         this.props.match.params.siteSelectorId,
         this.state.email,
-        this.state.code
+        this.state.code,
+        this.state.name
       );
 
       if(siteId) {
@@ -65,6 +68,14 @@ class CodeAccess extends React.Component {
         <div className = "code-entry">
           <LoadingElement loading={this.state.loading}>
             <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/>
+            <input
+              onFocus={() => this.setState({name_placeholder: ""})}
+              onBlur={() => this.setState({name_placeholder: "Enter your Chat Name"})}
+              placeholder={this.state.name_placeholder}
+              value={this.state.name}
+              onChange={event => this.setState({name: event.target.value})}
+              onKeyPress={onEnterPressed(Submit)}
+            />
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
               onBlur={() => this.setState({email_placeholder: "enter your Email"})}

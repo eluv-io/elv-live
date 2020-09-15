@@ -12,40 +12,12 @@ import "stream-chat-react/dist/css/index.css";
 @inject("rootStore")
 @observer
 class LiveChat extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.chatClient = new StreamChat('dc2kwcahqj6v');
-  //   this.username = this.props.rootStore.email;
-    
-  //   // async () => {
-  //   //   this.userToken = await this.chatClient.devToken(this.username);
-  //   // };
-  //   console.log(this.chatClient.devToken(this.username));
-    
-  //   this.chatClient.setUser(
-  //     {
-  //       id: this.username,
-  //       name: this.username,
-  //       image: "https://getstream.io/random_png/?id=blue-night-2&name=Blue+night"
-  //     },
-  //     this.userToken,
-  //   );
-
-  //   this.channel = this.chatClient.channel('livestream', "eluvio", {
-  //     image: {artist1},
-  //     name: "Liam Payne: The LP Show",
-  //     example: 1,
-  //   });
-
-  //   this.channel.watch();
-  // }
-  
 
   render() {
    const client = this.props.rootStore.chatClient;
    const user = this.props.rootStore.chatID;
 
-   const username = this.props.rootStore.email;
+   const username= this.props.rootStore.name;
 
    client.setUser(
     {

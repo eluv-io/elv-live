@@ -4,10 +4,10 @@ import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
-import Site from "./components/Site";
+// import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
-import NewCodeAccess from "./components/NewCodeAccess";
+
 import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream";
@@ -33,15 +33,12 @@ class Routes extends React.Component {
 
   render() {
     return (
-      <Switch>
-        {/* <Route exact path="/" component={NewCodeAccess} /> */}
-        
+      <Switch>        
         <Route exact path="/" component={Home} />
-        <Route exact path="/event" component={Event} />
+        <Route exact path="/event/:artist" component={Event} />
         <Route exact path="/stream" component={Stream} />
-        <Route path="/payment" component={Checkout} />
+        <Route path="/payment/:artist" component={Checkout} />
         <Route path="/success" component={Success} />
-
 
         <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
         
@@ -52,17 +49,6 @@ class Routes extends React.Component {
           ]}
           component={Stream}
         />
-
-        {/* <Route
-          exact
-          path={[
-            "/stream/:siteSelectorId/:siteId",
-            "/preview/:siteId",
-            "/preview/:siteId/:writeToken",
-            "/:siteId",
-          ]}
-          component={Site}
-        /> */}
 
         <Route>
           <Redirect to="/" />
@@ -77,23 +63,12 @@ class Routes extends React.Component {
 @observer
 class App extends React.Component {
   render() {
-    // background: ${this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)'};
-    // const backgroundColor = (this.props.siteStore.siteCustomization ? this.props.siteStore.siteCustomization.colors.background : 'rgb(17, 17, 17)');
-    // console.log(backgroundColor);
-
-
     const ContainerApp = styled.div`
       min-height: 100vh;    
       background: ${this.props.siteStore.backgroundColor};
       color: ${this.props.siteStore.primaryFontColor};
     }
     `;
-    
-    // const ContainerApp = styled.div`
-    //   background: black;
-    //   color: white;
-    // }
-    // `;
 
     return (
       <ContainerApp>

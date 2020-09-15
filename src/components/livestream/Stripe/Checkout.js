@@ -58,6 +58,7 @@ function reducer(state, action) {
   }
 }
 
+
 const Checkout = () => {
   const [state, dispatch] = useReducer(reducer, {
     priceId: "price_1HPbPYKgR5J3zPrLcOd9Vz2u",
@@ -81,8 +82,8 @@ const Checkout = () => {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: state.priceId, quantity: state.quantity }],
-      successUrl: `${window.location.origin}/#/success`,
-      cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/event`,
+      successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/success`,
+      cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/`,
       // successUrl: `http://localhost:8086/#/success?session_id={CHECKOUT_SESSION_ID}`, https://core.test.contentfabric.io/prod/site-sample-live/#/event
       // cancelUrl: `${window.location.origin}/canceled`,
     });
@@ -94,6 +95,29 @@ const Checkout = () => {
       dispatch({ type: "setLoading", payload: { loading: false } });
     }
   };
+
+  function renderSwitch(param) {
+    switch(param) {
+      case "liampayne":
+        return "Liam Payne";
+
+      case "brandicarlile":
+        return "Brandi Carlile";
+
+      case "kotathefriend":
+        return "Kota the Friend";
+      case "orianthi":
+        return "Orianthi";
+
+      case "walkofftheearth":
+        return "Walk off the Earth";
+
+      case "perfumegenius":
+        return "Perfume Genius";
+      default:
+        return "Artist";
+    }
+  }
 
   return (
     <div className="new-live-container">
@@ -107,13 +131,13 @@ const Checkout = () => {
           <section className="container">
             <div>
               <h1>Purchase a Ticket</h1>
-              <h4>Liam Payne Live At Bill Graham </h4>
+              <h4>{renderSwitch("liampayne")} Live At Bill Graham </h4>
               <div className="pasha-image">
                 <img
                   alt="Random asset from Picsum"
                   src={background}
-                  width="140"
-                  height="160"
+                  width="310"
+                  height="280"
                 />
               </div>
             </div>
