@@ -1,5 +1,6 @@
 ![Eluvio Logo](src/static/images/Logo-Small.png "Eluvio Logo")
   
-# Eluvio Site Object Sample
+# Eluvio Livestream Sample Site
 
-This small application is designed to demonstrate the process of traversing and displaying site objects.
+This application is an end-to-end live streaming service and platform using the Fabric. Users can upload their content to the fabric and then view the content using one of the sample site templates that has customizable components, which is then deployed as their own personal streaming site.
+

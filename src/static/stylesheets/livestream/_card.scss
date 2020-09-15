@@ -211,7 +211,7 @@
   text-align: center; 
   /* margin: auto; */
   width: 240px;
-  color: black;
+  color: black !important;
   font-weight: 600;
 }
 
@@ -237,7 +237,7 @@
   
 .btn2--white {
   background-color: #fff;
-  color: #777; }
+  color:black !important; }
 .btn2--white::after {
   background-color: #fff; }
 

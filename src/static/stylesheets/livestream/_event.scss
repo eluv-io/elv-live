@@ -52,7 +52,7 @@
       width: 100%;
 
       &__post {
-        background-color: rgb(12, 12, 12);
+        background-color: rgb(48, 47, 47);
         border-radius: 10px;
         display: flex;
         flex-direction: row;
@@ -60,6 +60,26 @@
         justify-content: space-around;
         margin-bottom: 20px;
         width: 60%;
+
+        @media only screen and (max-width: $bp-large-3) {
+          width: 75%;
+        }
+        @media only screen and (max-width: $bp-large-2) {
+          width: 85%;
+        }
+        @media only screen and (max-width: $bp-large) {
+          width: 90%;
+        }
+
+        @media only screen and (max-width: $bp-medium) {
+          flex-direction: column;
+          height: 210px;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 60%;
+
+        }
+
 
         &__detail {
           color: #fff !important;
