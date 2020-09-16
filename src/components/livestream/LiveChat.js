@@ -35,14 +35,14 @@ class LiveChat extends React.Component {
 
 
     return (
-      <Chat client={client} theme={"livestream dark"}>
+      <Chat client={client} theme={"livestream dark"} className="stream-container__chat--box">
         <Channel channel={channel} Message={MessageLivestream}>
           <Window hideOnThread>
             <ChannelHeader live />
             <MessageList />
             <MessageInput Input={MessageInputFlat} focus />
           </Window>
-          <Thread fullWidth />
+          <Thread fullWidth autoFocus={false} />
         </Channel>
       </Chat>
     );
