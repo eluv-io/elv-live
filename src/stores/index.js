@@ -109,6 +109,16 @@ class RootStore {
         this.SetError("Invalid code");
         return false;
       }
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(String(email).toLowerCase())) {
+        this.SetError("Invalid email");
+        return false;
+      }
+      const letterNumber = /^[0-9a-zA-Z]+$/;
+      if (!(name.match(letterNumber))) {
+        this.SetError("Invalid Chat Name");
+        return false;
+      }
 
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});

@@ -4,12 +4,20 @@
   flex-direction: row;
   height: 100vh;
   width: 100%;
+  @media only screen and (max-width: 1150px) {
+    height: auto;
+    flex-direction: column;
+  
+  }
 
   &__streamBox {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 75%;
+    @media only screen and (max-width: 1150px) {
+      width: 100%;
+    }
 
     &--nav { 
       background-color: #000;
@@ -27,6 +35,9 @@
           margin-left: 2.5rem;
           margin-top: 2rem;
           width: 12rem;
+          -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* IE 10+ and Edge */
+          user-select: none; /* Standard syntax */
         }
       }
     }
@@ -39,8 +50,15 @@
 
     &--info { 
       background-color: #000; 
-      height: 15%;
+      height: 20%;
       width: 100%;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Standard syntax */
+      @media only screen and (max-width: 1150px) {
+        height: 12rem;
+        width: 100%;
+      }
       &__title {
         color: #fff;
         display: inline-block;
@@ -52,7 +70,10 @@
         margin-top: -3rem;
         text-align: left;
         text-align: left;
-
+        margin-bottom: 1rem;
+        @media only screen and (max-width: 1150px) {
+          margin-bottom: 10rem !important;
+        }
       }
 
       &__subtitle {
@@ -68,11 +89,15 @@
         width: 100%;
       }
     }
+    
   }
 
   &__chat {
-    background-color: #f00;  
     height: 100%;
     width: 25%;
+    @media only screen and (max-width: 1150px) {
+      height: 500px !important;
+      width: 100%;
+    }
   }
 }
