@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import styled from "styled-components";
-import default_background from "../static/images/codeAccess/cinema-background.jpg";
+import default_background from "../static/images/codeAccess/concert.jpg";
 // import default_background from "../static/images/codeAccess/bill-ted-background.jpg";
 
 import {ImageIcon} from "elv-components-js";
@@ -70,7 +70,6 @@ class CodeAccess extends React.Component {
             <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/>
             <input
               onFocus={() => this.setState({name_placeholder: ""})}
-              onBlur={() => this.setState({name_placeholder: "Enter your Chat Name"})}
               placeholder={this.state.name_placeholder}
               value={this.state.name}
               onChange={event => this.setState({name: event.target.value})}
@@ -78,7 +77,6 @@ class CodeAccess extends React.Component {
             />
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "enter your Email"})}
               placeholder={this.state.email_placeholder}
               value={this.state.email}
               onChange={event => this.setState({email: event.target.value})}
@@ -86,7 +84,6 @@ class CodeAccess extends React.Component {
             />
             <input
               onFocus={() => this.setState({code_placeholder: ""})}
-              onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
               placeholder={this.state.code_placeholder}
               value={this.state.code}
               onChange={event => this.setState({code: event.target.value})}

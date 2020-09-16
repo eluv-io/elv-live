@@ -9,8 +9,8 @@ import liamE from "../../static/images/livestream/liam-event.png";
 import brandE from "../../static/images/livestream/brand-ev.jpg";
 import perfE from "../../static/images/livestream/perf-ev.jpg";
 import kotaE from "../../static/images/livestream/kota-ev.jpg";
-import oriE from "../../static/images/livestream/ori-ev.jpg";
-import walkE from "../../static/images/livestream/walk-ev.jpg";
+import oriE from "../../static/images/livestream/ori-ev.jpeg";
+import walkE from "../../static/images/livestream/walk-new.jpg";
 
 import {
   Link
@@ -66,8 +66,8 @@ class Event extends React.Component {
     const BackgroundStyleContainer = styled.div`
       background-size: cover;
       background-image: url(${event});
-      height: 85vh;
-      background-position: center;
+      height: 87.5vh;
+      background-position: top;
       }
     `;
 

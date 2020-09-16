@@ -20,11 +20,21 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 3rem;
+  @media only screen and (max-width: $bp-small-3) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &--logo { 
     height: 4rem;
     margin-left: 15vw;
     width: auto;
+    z-index: 999;
+    @media only screen and (max-width: $bp-small-3) {
+      margin-left: 0rem;
+      margin-bottom: 3rem;
+    }
   }
 
   &--ticket { 
@@ -34,6 +44,9 @@
     margin-top: 0 !important;
     padding: 9px 40px !important;
     color: black !important;
+    @media only screen and (max-width: $bp-small-3) {
+      margin-right: 0rem;
+    }
   }
 }
 
@@ -46,6 +59,15 @@
   margin-left: 15vw;
   margin-right: 15vw;
   width: 70vw;
+  @media only screen and (max-width: $bp-medium) {
+    height: 700px;
+
+  }
+  @media only screen and (max-width: $bp-small-3) {
+    margin-left: 5rem;
+    margin-right: 5rem;
+    height: 650px;
+  }
 
   &__container {
     color: #fff;
@@ -54,7 +76,7 @@
     // flex-wrap: wrap;
     justify-content: flex-start;
     margin-bottom: 10rem;
-    margin-top: 20rem;
+    margin-top: 22.5rem;
     width: 1900px;
     &__title {
       // text-align: center !important;
@@ -63,18 +85,30 @@
       font-size: 5.5em;
       font-weight: 700;
       letter-spacing: -0.01em;
-      line-height: 0.95;
+      line-height: 1;
       text-align: left;
       width: 700px;
-
       @media only screen and (max-width: $bp-huge) {
         font-size: 5em;
         width: 600px;
       }
 
-      @media only screen and (max-width: $bp-large-2) {
-        font-size: 5em;
-        width: 600px;
+      @media only screen and (max-width: $bp-medium) {
+        font-size: 4em;
+        width: 500px;
+      }
+      @media only screen and (max-width: $bp-small-3) {
+        font-size: 3.6em;
+        width: 425px;
+      }
+
+      @media only screen and (max-width: $bp-small) {
+        font-size: 3.2em;
+        width: 400px;
+      }
+      @media only screen and (max-width: $bp-tiny-2) {
+        font-size: 2.7em;
+        width: 325px;
       }
 
 
@@ -93,6 +127,22 @@
       @media only screen and (max-width: $bp-huge) {
         font-size: 1.5em;
       }
+      @media only screen and (max-width: $bp-medium) {
+        font-size: 1.4em;
+        width: 450px;
+      }
+      @media only screen and (max-width: $bp-small-3) {
+        font-size: 1.3em;
+        width: 400px;
+      }
+      @media only screen and (max-width: $bp-small) {
+        font-size: 1.1em;
+        width: 350px;
+      }
+      @media only screen and (max-width: $bp-tiny-2) {
+        font-size: 1em;
+        width: 325px;
+      }
     }
   }
   
@@ -102,25 +152,23 @@
     border: 0;
     // position: relative;
     border-radius: 7.5px;
-    height: 325px;
-    width: 450px;
+    height: 360px;
+    width: 480px;
     margin-left: 5rem;
+    // margin-right: 15vw;
+
     margin-top: 20rem;
     perspective: 1500px;
 
-    @media only screen and (max-width: $bp-large-3) {
-      height: 325px;
-      width: 375px;
+
+    @media only screen and (max-width: 1400px) {
+      height: 285px;
+      width: 380px;
+      margin-top: 25rem;
     }
 
     @media only screen and (max-width: 1250px) {
-      height: 325px;
-      width: 350px;
-    }
-
-    @media only screen and (max-width: $bp-large-2) {
       display: none !important;
-
     }
 
   }
@@ -135,19 +183,14 @@
     // overflow: auto;
     left: 0;
     top: 0;
-    height: 325px;
-    width: 450px;
-    @media only screen and (max-width: $bp-large-3) {
-      height: 325px;
-      width: 375px;
+    height: 360px;
+    width: 480px;
+    @media only screen and (max-width: 1400px) {
+      height: 285px;
+      width: 380px;
     }
 
     @media only screen and (max-width: 1250px) {
-      height: 325px;
-      width: 350px;
-    }
-
-    @media only screen and (max-width: $bp-large-2) {
       display: none !important;
 
     }
@@ -157,19 +200,20 @@
     background-blend-mode: screen;
     background-size: cover;
     border-radius: 10px;
-    height: 325px !important;
-    width: 450px !important;
-    @media only screen and (max-width: $bp-large-3) {
-      height: 325px;
-      width: 375px;
+    height: 360px !important;
+    width: 480px !important;
+
+    @media only screen and (max-width: 1400px) {
+      height: 285px !important;
+      width: 380px !important;
     }
+
+    // @media only screen and (max-width: 1250px) {
+    //   height: 325px;
+    //   width: 350px;
+    // }
 
     @media only screen and (max-width: 1250px) {
-      height: 325px;
-      width: 350px;
-    }
-
-    @media only screen and (max-width: $bp-large-2) {
       display: none !important;
 
     }
@@ -185,8 +229,11 @@
     position: absolute;
     text-align: left;
     text-transform: uppercase;
-    top: 270px;
+    top: 300px;
     width: 100%; 
+    @media only screen and (max-width: 1400px) {
+      top: 225px;
+    }
   }
 
   &__heading-span {

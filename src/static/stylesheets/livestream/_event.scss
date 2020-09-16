@@ -77,8 +77,11 @@
           align-items: center;
           justify-content: space-evenly;
           width: 60%;
-
         }
+        @media only screen and (max-width: $bp-small-3) {
+          width: 90%;
+        }
+
 
 
         &__detail {
