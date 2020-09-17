@@ -1,16 +1,44 @@
+#style-1::-webkit-scrollbar-track {
+  //    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  //    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: transparent;
+}
+.stream-container ::-webkit-scrollbar {
+  display: none;
+  overflow: hidden !important;
+
+}
 .stream-container {
   background-color: #000;
   display: flex;
   flex-direction: row;
   height: 100vh;
-  width: 100vw;
+  overflow: hidden !important;
   @media only screen and (max-width: 750px) {
+    overflow: hidden !important;
+    position: fixed;
     height: 100vh !important;
     max-height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
+    max-height: calc(var(--vh, 1vh) * 100) !important;
     width: 100vw !important;
     max-width: 100vw !important;
     flex-direction: column;
   }
+  ::-webkit-scrollbar {
+    display: none; // Safari and Chrome
+    background-color: transparent;
+
+  }
+
 
   &__streamBox {
     display: flex;
@@ -137,6 +165,7 @@
     }
   }
 }
+
 
 .str-chat {
   @media only screen and (max-width: 750px) {

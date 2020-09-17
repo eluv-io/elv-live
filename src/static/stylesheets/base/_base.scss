@@ -28,6 +28,18 @@ body,
 .app,
 .app-container {
   min-height: 100vh;
+  @media only screen and (max-width: 750px) {
+    // overflow: hidden;
+
+    // height: calc(var(--vh, 1vh) * 100) !important;
+    min-height: calc(var(--vh, 1vh) * 100) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    ::-webkit-scrollbar {
+      width: 0;  /* Remove scrollbar space */
+      background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+  }
 }
 
 html {  
