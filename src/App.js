@@ -65,7 +65,7 @@ class App extends React.Component {
   render() {
     const ContainerApp = styled.div`
       min-height: 100vh;    
-      background: ${this.props.siteStore.backgroundColor};
+      background: black;
       color: ${this.props.siteStore.primaryFontColor};
     }
     `;

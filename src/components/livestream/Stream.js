@@ -16,6 +16,8 @@ class Stream extends React.Component {
     if(!this.props.rootStore.client || (this.props.match.params.siteSelectorId && !this.props.rootStore.accessCode)) {
       return <Redirect to={`/code/${this.props.match.params.siteSelectorId}`} />;
     }
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 
     return (
       <AsyncComponent
@@ -26,28 +28,25 @@ class Stream extends React.Component {
           this.props.siteStore.PlayTitle(this.props.siteStore.premiere.title);
 
           return (
-            <div className="live-container">
-              {/* Stream */}
-              <div className="stream-container">
-                <div className="stream-container__streamBox">
-                  <div className="stream-container__streamBox--nav">
-                    <ImageIcon className="stream-container__streamBox--nav__container--logo" icon={Logo} label="Eluvio" />
-                  </div>
-
-                  <ViewStream />
-
-                  <div className="stream-container__streamBox--info">
-                    <h2 className="stream-container__streamBox--info__subtitle">
-                      Liam Payne
-                    </h2>
-                    <h1 className="stream-container__streamBox--info__title">
-                      The LP Show: Act 2
-                    </h1>
-                  </div> 
+            <div className="stream-container">
+              <div className="stream-container__streamBox">
+                <div className="stream-container__streamBox--nav">
+                  <ImageIcon className="stream-container__streamBox--nav__container--logo" icon={Logo} label="Eluvio" />
                 </div>
-                <div className="stream-container__chat">
-                  <LiveChat /> 
-                </div>
+
+                <ViewStream />
+
+                <div className="stream-container__streamBox--info">
+                  <h2 className="stream-container__streamBox--info__subtitle">
+                    Liam Payne
+                  </h2>
+                  <h1 className="stream-container__streamBox--info__title">
+                    The LP Show: Act 2
+                  </h1>
+                </div> 
+              </div>
+              <div className="stream-container__chat">
+                <LiveChat /> 
               </div>
             </div>
           );

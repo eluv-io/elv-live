@@ -40,7 +40,7 @@ class LiveChat extends React.Component {
           <Window hideOnThread>
             <ChannelHeader live />
             <MessageList />
-            <MessageInput Input={MessageInputFlat} focus />
+            <MessageInput Input={MessageInputFlat} focus={false} />
           </Window>
           <Thread fullWidth autoFocus={false} />
         </Channel>
