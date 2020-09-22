@@ -68,6 +68,9 @@ class Event extends React.Component {
       background-image: url(${event});
       height: 87.5vh;
       background-position: top;
+      @media only screen and (max-width: 750px) {
+        height: 65vh;
+      }
       }
     `;
 

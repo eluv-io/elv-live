@@ -14,6 +14,10 @@
   margin: auto;
   width: MIN(424px, 90vw);
   z-index: 100;
+  @media only screen and (max-width: 750px) {
+    margin: auto;
+    margin-top: -50px !important;
+  }
 
   &--logo {
     height: 7rem;
