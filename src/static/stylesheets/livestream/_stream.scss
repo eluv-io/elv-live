@@ -50,7 +50,7 @@
       width: 65%;
     }
     @media only screen and (max-width: 750px) {
-      height: 50%;
+      height: 40%;
       width: 100%;
     }
 
@@ -155,19 +155,36 @@
   &__chat {
     height: 100%;
     width: 25%;
+    background-color: black;
     @media only screen and (max-width: 1250px) {
       height: 100%;
       width: 35%;
     }
     @media only screen and (max-width: 750px) {
-      height: 50% !important;
+      height: 60% !important;
       width: 100%;
     }
   }
 }
+.str-chat__loading-indicator {
+  margin-top: 50vh !important;
+  margin-left: calc(var(--vw, 1vh) * 13) !important;
+  @media only screen and (max-width: 1250px) {
+    margin-left: calc(var(--vw, 1vh) * 17) !important;
+  }
+  @media only screen and (max-width: 750px) {
+    margin-top: 50% !important;
+    margin-left: 47.5% !important;
+
+  }
+  // margin-right: 225px !important;
+
+  position: absolute;
+}
 
 
 .str-chat {
+  background-color: black;
   @media only screen and (max-width: 750px) {
     height: 100% !important;
   }

@@ -19,6 +19,9 @@ class Stream extends React.Component {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
+    let vw = window.innerWidth * 0.01;
+    document.documentElement.style.setProperty('--vw', `${vw}px`);
+
     return (
       <AsyncComponent
         Load={async () => await this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
