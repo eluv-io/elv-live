@@ -13,6 +13,10 @@ import "stream-chat-react/dist/css/index.css";
 @observer
 class LiveChat extends React.Component {
 
+  componentWillUnmount() {
+    this.props.rootStore.chatClient.disconnect();
+  }
+
   render() {
    const client = this.props.rootStore.chatClient;
    const user = this.props.rootStore.chatID;
@@ -23,13 +27,13 @@ class LiveChat extends React.Component {
     {
       id: username,
       name: username,
-      // image: "https://getstream.io/random_png/?id=blue-night-2&name=Blue+night"
+      image: `https://getstream.io/random_svg/?name=${username}`
     },
     user,
   );
 
     const channel = client.channel("livestream", "eluvio", {
-      image: {artist1},
+      image: artist1,
       name: "Liam Payne: The LP Show",
     });
 
