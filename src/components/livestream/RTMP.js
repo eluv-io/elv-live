@@ -2,10 +2,12 @@ import React from "react";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
+import artist1 from "../../static/images/livestream/artist1.png";
 
+@inject("rootStore")
 @inject("siteStore")
 @observer
-class ViewStream extends React.Component {
+class RTMP extends React.Component {
   constructor(props) {
     super(props);
 
@@ -41,7 +43,7 @@ class ViewStream extends React.Component {
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
-      let title = this.props.siteStore.premiere.title;
+      const title = this.props.siteStore.stream.title;
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
 
@@ -92,15 +94,18 @@ class ViewStream extends React.Component {
   }
 
   render() {
-    const title = this.props.siteStore.premiere.title;
-    const poster = this.props.siteStore.premiere.title.landscapeUrl || this.props.siteStore.premiere.title.imageUrl;
+    console.log("RTMP ACTIVE TITLE:");
+    console.log(this.props.siteStore.stream.title);
+
+    const title = this.props.siteStore.stream.title;
+    // const poster = this.props.siteStore.activeTitle.landscapeUrl || this.props.siteStore.activeTitle.imageUrl;
 
     return (
       <video
         key={`active-title-video-${title.titleId}-${title.currentOffering}`}
         ref={this.InitializeVideo}
         autoPlay
-        poster={poster}
+        poster ={artist1}
         controls={this.state.showControls}
         className={"stream-container__streamBox--video"}
       />
@@ -108,4 +113,4 @@ class ViewStream extends React.Component {
   }
 }
 
-export default ViewStream;
+export default RTMP;
