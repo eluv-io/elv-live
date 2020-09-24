@@ -109,7 +109,7 @@
         }
       }
       &__ticket {
-        background-color: rgb(37, 36, 36);
+        background-color: rgb(52, 52, 52);
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -118,7 +118,7 @@
         justify-content: center;
         margin-top: 20px;
         width: auto;
-        padding: 35px 70px;
+        padding: 32.5px 60px;
 
         // @media only screen and (max-width: $bp-large-3) {
         //   width: 75%;
@@ -172,7 +172,7 @@
           text-align: center !important;
           line-height: 3rem;
           margin-top: 25px !important;
-          margin-bottom: 75px !important;
+          margin-bottom: 70px !important;
           @media only screen and (max-width: $bp-small) {
             font-size: 20px;
           }
