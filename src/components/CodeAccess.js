@@ -29,7 +29,9 @@ class CodeAccess extends React.Component {
 
   render() {
     if(this.state.siteId) {
-      return <Redirect to={`/stream/${this.props.match.params.siteSelectorId}/${this.state.siteId}`} />;
+      // return <Redirect to={`/stream/${this.props.match.params.siteSelectorId}/${this.state.siteId}`} />;
+      return <Redirect to={`/stream/${this.props.match.params.siteSelectorId}`} />;
+
     }
 
     const Submit = async () => {

@@ -32,9 +32,12 @@ class Home extends React.Component {
         {/* NavBar */}
         <div className="live-nav">
           <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
-          <Link to="/code/iq__YfEF1A8sUvMj5WcMCJEDk4aEwND" className="btn2 btn2--white live-nav--ticket">
+          <Link to="/code/iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1" className="btn2 btn2--white live-nav--ticket">
             Redeem Ticket 
           </Link>
+          {/* <Link to="/stream/iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1" className="btn2 btn2--white live-nav--ticket">
+            View Stream 
+          </Link> */}
         </div>
 
         {/* Hero View */}

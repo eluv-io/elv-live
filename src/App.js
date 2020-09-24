@@ -42,10 +42,17 @@ class Routes extends React.Component {
 
         <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
         
-        <Route
+        {/* <Route
           exact
           path={[
             "/stream/:siteSelectorId/:siteId"
+          ]}
+          component={Stream}
+        /> */}
+        <Route
+          exact
+          path={[
+            "/stream/:siteId"
           ]}
           component={Stream}
         />

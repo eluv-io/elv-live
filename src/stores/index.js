@@ -15,6 +15,8 @@ const Hash = (code) => {
 
 class RootStore {
   @observable client;
+  @observable playoutOptions;
+
   @observable availableSites = [];
 
   @observable email;
@@ -48,10 +50,13 @@ class RootStore {
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
       const wallet = client.GenerateWallet();
-      const mnemonic = wallet.GenerateMnemonic();
-      const signer = wallet.AddAccountFromMnemonic({mnemonic});
+      // const mnemonic = wallet.GenerateMnemonic();
+      // const signer = wallet.AddAccountFromMnemonic({mnemonic});
+      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
 
       client.SetSigner({signer});
+      yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
+      
     } else {
       // Contained in IFrame
       client = new FrameClient({
@@ -80,35 +85,35 @@ class RootStore {
         metadataSubtree: "public/site_selector_type"
       })) === "global";
 
-      let codeInfo;
-      if(isGlobalSelector) {
-        // Get unresolved meta to determine length of selector list
-        const selectorList = yield this.client.ContentObjectMetadata({
-          versionHash,
-          metadataSubtree: "public/site_selectors"
-        });
+      // let codeInfo;
+      // if(isGlobalSelector) {
+      //   // Get unresolved meta to determine length of selector list
+      //   const selectorList = yield this.client.ContentObjectMetadata({
+      //     versionHash,
+      //     metadataSubtree: "public/site_selectors"
+      //   });
 
-        for(let i = 0; i < selectorList.length; i++) {
-          codeInfo = yield this.client.ContentObjectMetadata({
-            versionHash,
-            metadataSubtree: `public/site_selectors/${i}/${hash}`
-          });
+      //   for(let i = 0; i < selectorList.length; i++) {
+      //     codeInfo = yield this.client.ContentObjectMetadata({
+      //       versionHash,
+      //       metadataSubtree: `public/site_selectors/${i}/${hash}`
+      //     });
 
-          if(codeInfo && codeInfo.ak) {
-            break;
-          }
-        }
-      } else {
-        codeInfo = yield this.client.ContentObjectMetadata({
-          versionHash,
-          metadataSubtree: `public/codes/${hash}`
-        });
-      }
+      //     if(codeInfo && codeInfo.ak) {
+      //       break;
+      //     }
+      //   }
+      // } else {
+      //   codeInfo = yield this.client.ContentObjectMetadata({
+      //     versionHash,
+      //     metadataSubtree: `public/codes/${hash}`
+      //   });
+      // }
 
-      if(!codeInfo || !codeInfo.ak) {
-        this.SetError("Invalid code");
-        return false;
-      }
+      // if(!codeInfo || !codeInfo.ak) {
+      //   this.SetError("Invalid code");
+      //   return false;
+      // }
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
@@ -119,15 +124,27 @@ class RootStore {
         this.SetError("Invalid Chat Name");
         return false;
       }
-
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-      const wallet = client.GenerateWallet();
 
-      const encryptedPrivateKey = atob(codeInfo.ak);
-      const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
+      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+
+      const wallet = client.GenerateWallet();
+      // const mnemonic = wallet.GenerateMnemonic();
+      // const signer = wallet.AddAccountFromMnemonic({mnemonic});
+      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
 
       client.SetSigner({signer});
+      yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
+
+
+      // const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+      // client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      // const wallet = client.GenerateWallet();
+
+      // const encryptedPrivateKey = atob(codeInfo.ak);
+      // const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
+
+      // client.SetSigner({signer});
 
       this.email = email;
       this.name = name;
@@ -138,7 +155,7 @@ class RootStore {
       this.accessCode = code;
       this.client = client;
 
-      return codeInfo.sites[0].siteId;
+      return "iq__cb5UueuWVEoGNQ9j7ALuWraUn7V";
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
@@ -149,6 +166,87 @@ class RootStore {
       return false;
     }
   });
+  // RedeemCode = flow(function * (siteSelectorId, email, code, name) {
+  //   let client;
+  //   try {
+  //     const hash = Hash(code);
+
+  //     const versionHash = yield this.client.LatestVersionHash({objectId: siteSelectorId});
+
+  //     const isGlobalSelector = (yield this.client.ContentObjectMetadata({
+  //       versionHash,
+  //       metadataSubtree: "public/site_selector_type"
+  //     })) === "global";
+
+  //     let codeInfo;
+  //     if(isGlobalSelector) {
+  //       // Get unresolved meta to determine length of selector list
+  //       const selectorList = yield this.client.ContentObjectMetadata({
+  //         versionHash,
+  //         metadataSubtree: "public/site_selectors"
+  //       });
+
+  //       for(let i = 0; i < selectorList.length; i++) {
+  //         codeInfo = yield this.client.ContentObjectMetadata({
+  //           versionHash,
+  //           metadataSubtree: `public/site_selectors/${i}/${hash}`
+  //         });
+
+  //         if(codeInfo && codeInfo.ak) {
+  //           break;
+  //         }
+  //       }
+  //     } else {
+  //       codeInfo = yield this.client.ContentObjectMetadata({
+  //         versionHash,
+  //         metadataSubtree: `public/codes/${hash}`
+  //       });
+  //     }
+
+  //     if(!codeInfo || !codeInfo.ak) {
+  //       this.SetError("Invalid code");
+  //       return false;
+  //     }
+  //     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //     if (!re.test(String(email).toLowerCase())) {
+  //       this.SetError("Invalid email");
+  //       return false;
+  //     }
+  //     const letterNumber = /^[0-9a-zA-Z]+$/;
+  //     if (!(name.match(letterNumber))) {
+  //       this.SetError("Invalid Chat Name");
+  //       return false;
+  //     }
+
+  //     const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+  //     client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+  //     const wallet = client.GenerateWallet();
+
+  //     const encryptedPrivateKey = atob(codeInfo.ak);
+  //     const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
+
+  //     client.SetSigner({signer});
+
+  //     this.email = email;
+  //     this.name = name;
+
+  //     this.chatClient = new StreamChat('7h9psjzs3nb6');
+  //     this.chatID = yield this.chatClient.devToken(this.name);
+
+  //     this.accessCode = code;
+  //     this.client = client;
+
+  //     return codeInfo.sites[0].siteId;
+  //   } catch (error) {
+  //     // eslint-disable-next-line no-console
+  //     console.error("Error redeeming code:");
+  //     // eslint-disable-next-line no-console
+  //     console.error(error);
+
+  //     this.SetError("Invalid code");
+  //     return false;
+  //   }
+  // });
 
 
   async FindSites() {

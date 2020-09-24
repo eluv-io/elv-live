@@ -63,6 +63,8 @@ class SiteStore {
   @observable bkimage;
 
   @observable siteCustomization;
+  @observable stream;
+  @observable titles;
   @observable premiere;
 
   @observable backgroundColor = "rgb(17, 17, 17)";
@@ -256,6 +258,63 @@ class SiteStore {
       .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
+  // @action.bound
+  // LoadSite = flow(function * (objectId, writeToken) {
+  //   if(this.siteParams && this.siteParams.objectId === objectId) {
+  //     return;
+  //   }
+
+  //   this.Reset();
+
+  //   this.siteParams = {
+  //     libraryId: yield this.client.ContentObjectLibraryId({objectId}),
+  //     objectId: objectId,
+  //     versionHash: yield this.client.LatestVersionHash({objectId}),
+  //     writeToken: writeToken
+  //   };
+
+  //   const availableDRMS = yield this.client.AvailableDRMs();
+  //   this.dashSupported = availableDRMS.includes("widevine");
+
+  //   this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
+  //   this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
+
+  //   this.siteCustomization = (yield this.client.ContentObjectMetadata({
+  //     ...this.siteParams,
+  //     metadataSubtree: "public/asset_metadata/site_customization",
+  //     resolveLinks: true,
+  //     resolveIncludeSource: true,
+  //     resolveIgnoreErrors: true
+  //   })) || DEFAULT_SITE_CUSTOMIZATION;
+
+  //   if(this.siteCustomization.premiere) {
+  //     this.premiere = {
+  //       title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
+  //       premieresAt: Date.parse(this.siteCustomization.premiere.premieresAt),
+  //       price: this.siteCustomization.premiere.price
+  //     };
+  //   }
+
+  //   if(this.siteCustomization.arrangement) {
+  //     for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
+  //       const entry = this.siteCustomization.arrangement[i];
+  //       if(entry.title) {
+  //         entry.title =
+  //           yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
+  //       }
+  //     }
+  //   }
+
+  //   if(this.siteCustomization.logo) {
+  //     this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
+  //   }
+
+  //   if(this.siteCustomization.background_image) {
+  //     this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
+  //   }
+
+  //   this.siteHash = yield this.LoadAsset("public/asset_metadata");
+  // });
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
     if(this.siteParams && this.siteParams.objectId === objectId) {
@@ -263,7 +322,7 @@ class SiteStore {
     }
 
     this.Reset();
-
+    console.log(objectId);
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
       objectId: objectId,
@@ -277,40 +336,22 @@ class SiteStore {
     this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
     this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
 
-    this.siteCustomization = (yield this.client.ContentObjectMetadata({
+    this.titles = (yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: "public/asset_metadata/site_customization",
+      metadataSubtree: "public/asset_metadata/titles",
       resolveLinks: true,
       resolveIncludeSource: true,
       resolveIgnoreErrors: true
-    })) || DEFAULT_SITE_CUSTOMIZATION;
+    }));
+    // console.log("this.titles");
+    // console.log(this.titles);
+    // console.log(this.titles[0]);
+    // console.log(this.titles[0]["rtmp-channel"]);
 
-    if(this.siteCustomization.premiere) {
-      this.premiere = {
-        title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
-        premieresAt: Date.parse(this.siteCustomization.premiere.premieresAt),
-        price: this.siteCustomization.premiere.price
-      };
-    }
-
-    if(this.siteCustomization.arrangement) {
-      for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
-        const entry = this.siteCustomization.arrangement[i];
-        if(entry.title) {
-          entry.title =
-            yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
-        }
-      }
-    }
-
-    if(this.siteCustomization.logo) {
-      this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
-    }
-
-    if(this.siteCustomization.background_image) {
-      this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
-    }
-
+    this.stream = {
+      title: yield this.LoadTitle(this.siteParams, this.titles[0]["rtmp-channel"], "public/asset_metadata/titles/0/rtmp-channel"),
+    };
+    
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
