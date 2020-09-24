@@ -57,20 +57,8 @@
 }
 .card__side--back {
   transform: rotateY(180deg); 
+  background-image: linear-gradient(to right bottom, rgb(4, 6, 34), #000000);
 }
-
-.card__side--back-1 {
-  background-image: linear-gradient(to right bottom, #ffb900, #ff7730);}
-.card__side--back-2 {
-  background-image: linear-gradient(to right bottom, #7ed56f, #28b485); }
-.card__side--back-3 {
-  background-image: linear-gradient(to right bottom, #2998ff, #5643fa); }
-.card__side--back-4 {
-  background-image: linear-gradient(to right bottom, rgb(5, 11, 59), #000000);}
-.card__side--back-5 {
-  background-image: linear-gradient(to right bottom, #D99F0D, #F0B00E); }
-.card__side--back-6 {
-  background-image: linear-gradient(to right bottom, #D5522D, #FF0000); }
 
 .card:hover .card__side--front {
   transform: rotateY(-180deg); }
@@ -114,11 +102,10 @@
   padding: 7px 12px;
   line-height: 180%;
   -webkit-box-decoration-break: clone;
-  box-decoration-break: clone; }
+  box-decoration-break: clone; 
+  background-image: linear-gradient(to right bottom, rgba(3, 33, 55, 0.85), rgba(0, 0, 0, 0.85));
+}
   
-.card__heading-span--4 {
-  background-image: linear-gradient(to right bottom, rgba(3, 33, 55, 0.85), rgba(0, 0, 0, 0.85)); }
-
 .card__details {
   padding: 30px; }
 
@@ -130,10 +117,6 @@
   text-align: center;
   font-size: 15px;
   padding: 10px; }
-/* .card__details ul li:not(:last-child) {
-  border-bottom: 1px solid #eee; 
-} */
-
   .card__cta {
     position: absolute;
     top: 50%;
@@ -198,43 +181,9 @@
   .card__price-value {
     font-size: 40px; } 
 }
-// 472x 360
+
 @media only screen and (max-width: 550px) {
-  // .card {
-  //   height: 240px !important;
-  //   /* border-radius: 3px; */
-  //   background-color: #fff;
-  //   /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);  */
-  // }
 
-  // .card__side {
-  //   height: 240px !important;
-  //   position: relative;
-  //   box-shadow: none; 
-  //   border-radius: 0px !important;
-
-  // }
-
-  // .card__side--back {
-  //   transform: rotateY(0);
-  //   border-radius: 0px !important;
-  //   /* clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);  */
-  // }
-  // .card {
-  //   height: auto;
-  //   /* border-radius: 3px; */
-  //   background-color: #fff;
-  //   /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);  */
-  // }
-
-  // .card__side {
-  //   height: auto;
-  //   position: relative;
-  //   box-shadow: none; 
-  //   border-radius: 0px !important;
-
-  // }
-  // 480*360
   .card {
     height: auto !important;
     width: 325px !important;

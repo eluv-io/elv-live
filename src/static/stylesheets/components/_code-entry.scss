@@ -20,9 +20,12 @@
   }
 
   &--logo {
-    height: 7rem;
+    height: 68.6px;
     margin-bottom: 2rem;
-    width: 32rem;
+    width: 280px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
     @media only screen and (max-width: 415px) {
       height: 5rem;
       margin-bottom: 2rem;

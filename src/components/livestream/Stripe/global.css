@@ -85,7 +85,7 @@ h4 {
   height: auto;
   min-height: 100vh;
   margin: 0 auto;
-  background-color: black;
+  background-image: linear-gradient(to right bottom, rgb(4, 6, 34), #000000) !important;
 }
 .sr-header {
   /* margin-bottom: 20px; */
@@ -388,7 +388,7 @@ pre {
     font-size: 25px;
     line-height: 2.5rem;
     margin-bottom: 8rem; 
-    color: #666666;
+    color: rgb(136, 136, 136);
     font-weight: 600;
   }
 }

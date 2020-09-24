@@ -19,11 +19,11 @@ class Card extends React.Component {
             <ImageIcon className="card__picture" icon={this.props.icon} label="artist" />
 
             <h4 className="card__heading">
-              <span className="card__heading-span card__heading-span--4">{this.props.artist}</span>
+              <span className="card__heading-span">{this.props.artist}</span>
             </h4>
           </div>
 
-          <div className="card__side card__side--back card__side--back-4">
+          <div className="card__side card__side--back">
             <div className="card__cta">
               <div className="card__price-box">
                 <h4 className="card__price-detail">{this.props.date}</h4>
