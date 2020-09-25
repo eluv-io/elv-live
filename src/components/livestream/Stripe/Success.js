@@ -15,14 +15,14 @@ import AsyncComponent from "../../AsyncComponent";
 class Success extends React.Component {
 
   render() {
-
+    let code = this.props.rootStore.OTPcode;
+    console.log(code);
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.rootStore.CreateOTP();
+          this.OTP = await this.props.rootStore.CreateOTP();
         }}
         render={() => {
-
           return (
             <div className="live-container">
               <div className="live-nav">
@@ -41,7 +41,7 @@ class Success extends React.Component {
                   <div className="event-container__info__schedule">
                     <div className="event-container__info__schedule__ticket">
                       <h1 className="event-container__info__schedule__ticket__ticketdetail">Ticket Code: </h1>
-                      <h2 className="event-container__info__schedule__ticket__ticketdetail2">{this.props.rootStore.OTPcode} </h2>
+                      <h2 className="event-container__info__schedule__ticket__ticketdetail2">{this.OTP} </h2>
                       <div className="sr-section completed-view">
                         <Link to="/code" className="btn2 btn2--white buttonguy">Redeem Ticket</Link>
                       </div>  

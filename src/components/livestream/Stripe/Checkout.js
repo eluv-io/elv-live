@@ -79,13 +79,14 @@ const Checkout = () => {
     dispatch({ type: "setLoading", payload: { loading: true } });
     // When the customer clicks on the button, redirect them to Checkout.
     const stripe = await stripePromise;
+    console.log()
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: state.priceId, quantity: state.quantity }],
       successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/success`,
       cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/`,
-      // successUrl: `http://localhost:8086/#/success?session_id={CHECKOUT_SESSION_ID}`, https://core.test.contentfabric.io/prod/site-sample-live/#/event
-      // cancelUrl: `${window.location.origin}/canceled`,
+      // successUrl: `${window.location.origin}/#/success`,
+      // cancelUrl: `${window.location.origin}/#/`,
     });
     // If `redirectToCheckout` fails due to a browser or network
     // error, display the localized error message to your customer
