@@ -32,7 +32,7 @@ class RootStore {
   
   @observable background;
   @observable logo;
-  @observable OTPcode = "abc";
+  @observable OTPcode;
 
 
   constructor() {
@@ -58,7 +58,14 @@ class RootStore {
 
       client.SetSigner({signer});
       yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
-      
+      this.client = client;
+      console.log("CLIENT!!!:");
+      console.log(this.client);
+
+      // this.OTPcode = yield client.GetOTP({
+      //   tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
+      //   otpId: "QOTPBtxGsAkoJFM"
+      // });
     } else {
       // Contained in IFrame
       client = new FrameClient({
@@ -75,17 +82,43 @@ class RootStore {
     this.client = client;
   });
 
-  RedeemCode = flow(function * (email, code, name) {
+  @action.bound
+  RedeemCode = flow(function * (email, Token, name) {
     try {
       // HERE: Function to check OTP password
-      
-      //     if(!codeInfo || !codeInfo.ak) {
-      //       this.SetError("Invalid code");
-      //       return false;
-      //     }
+      if(!this.client) {
+        const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
-      this.accessCode = true; //True or False whether it got redeemed
+        let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
+        const wallet = client.GenerateWallet();
+
+        const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
+
+        client.SetSigner({signer});
+
+        yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
+        this.client = client;
+      }
+
+      // console.log(Token);
+
+
+      this.accessCode = yield this.client.RedeemCode({
+        issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPBtxGsAkoJFM",
+        code: Token
+      });
+
+      // console.log("this.accessCode");
+      // console.log(this.accessCode);
+
+
+      // this.accessCode = true; //True or False whether it got redeemed
+
+      if(!this.accessCode) {
+        this.SetError("Invalid code");
+        return false;
+      }
 
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!re.test(String(email).toLowerCase())) {
@@ -122,7 +155,31 @@ class RootStore {
   @action.bound
   CreateOTP = flow(function * () {
     try {
-      this.OTPcode = "test12345"; //assign new OTP ticket
+      if(!this.client) {
+        const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+
+        let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+
+        const wallet = client.GenerateWallet();
+
+        const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
+
+        client.SetSigner({signer});
+
+        yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
+        this.client = client;
+      }
+  
+
+      let OTP = yield this.client.GetOTP({
+        tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
+        otpId: "QOTPBtxGsAkoJFM"
+      });
+
+      this.OPTCode = OTP.Token;
+      return this.OPTCode;
+
+      // this.OTPcode = Token; //assign new OTP ticket
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to createOTP:");

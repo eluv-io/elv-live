@@ -14,9 +14,9 @@ import AsyncComponent from "../AsyncComponent";
 class Stream extends React.Component {
 
   render() {
-    if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
-      return <Redirect to={`/code`} />;
-    }
+    // if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
+    //   return <Redirect to={`/code`} />;
+    // }
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
