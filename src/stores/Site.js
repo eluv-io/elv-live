@@ -58,7 +58,7 @@ const DEFAULT_SITE_CUSTOMIZATION = {
 
 class SiteStore {
   // LIVE STREAM
-  
+
   @observable artist;
   @observable bkimage;
 
@@ -116,12 +116,12 @@ class SiteStore {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-  //Livestream Event 
+  //Livestream Event
 
   @action.bound
   SetArtist(artist, bk) {
     this.artist = artist;
-    this.bkimage = bk; 
+    this.bkimage = bk;
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -324,7 +324,7 @@ class SiteStore {
     }
 
     this.Reset();
-    console.log(objectId);
+
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
       objectId: objectId,
@@ -349,11 +349,11 @@ class SiteStore {
     // console.log(this.titles);
     // console.log(this.titles[0]);
     // console.log(this.titles[0]["rtmp-channel"]);
-    
+
     this.stream = {
       title: yield this.LoadTitle(this.siteParams, this.titles[0]["rtmp-channel"], "public/asset_metadata/titles/0/rtmp-channel")
     };
-    
+
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
@@ -629,7 +629,7 @@ class SiteStore {
 
   @action.bound
   SetActiveTrailer = flow(function * (title) {
-    this.activeTrailer = yield this.LoadActiveTitle(title); 
+    this.activeTrailer = yield this.LoadActiveTitle(title);
   });
 
   //FOR VIDEO FEATURE
