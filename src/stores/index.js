@@ -32,6 +32,8 @@ class RootStore {
   
   @observable background;
   @observable logo;
+  @observable OTPcode = "abc";
+
 
   constructor() {
     this.siteStore = new SiteStore(this);
@@ -73,47 +75,18 @@ class RootStore {
     this.client = client;
   });
 
-  RedeemCode = flow(function * (siteSelectorId, email, code, name) {
-    let client;
+  RedeemCode = flow(function * (email, code, name) {
     try {
-      const hash = Hash(code);
-
-      const versionHash = yield this.client.LatestVersionHash({objectId: siteSelectorId});
-
-      const isGlobalSelector = (yield this.client.ContentObjectMetadata({
-        versionHash,
-        metadataSubtree: "public/site_selector_type"
-      })) === "global";
-
-      // let codeInfo;
-      // if(isGlobalSelector) {
-      //   // Get unresolved meta to determine length of selector list
-      //   const selectorList = yield this.client.ContentObjectMetadata({
-      //     versionHash,
-      //     metadataSubtree: "public/site_selectors"
-      //   });
-
-      //   for(let i = 0; i < selectorList.length; i++) {
-      //     codeInfo = yield this.client.ContentObjectMetadata({
-      //       versionHash,
-      //       metadataSubtree: `public/site_selectors/${i}/${hash}`
-      //     });
-
-      //     if(codeInfo && codeInfo.ak) {
-      //       break;
+      // HERE: Function to check OTP password
+      
+      //     if(!codeInfo || !codeInfo.ak) {
+      //       this.SetError("Invalid code");
+      //       return false;
       //     }
-      //   }
-      // } else {
-      //   codeInfo = yield this.client.ContentObjectMetadata({
-      //     versionHash,
-      //     metadataSubtree: `public/codes/${hash}`
-      //   });
-      // }
 
-      // if(!codeInfo || !codeInfo.ak) {
-      //   this.SetError("Invalid code");
-      //   return false;
-      // }
+      this.accessCode = true; //True or False whether it got redeemed
+
+
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
@@ -124,27 +97,6 @@ class RootStore {
         this.SetError("Invalid Chat Name");
         return false;
       }
-      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-
-      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-
-      const wallet = client.GenerateWallet();
-      // const mnemonic = wallet.GenerateMnemonic();
-      // const signer = wallet.AddAccountFromMnemonic({mnemonic});
-      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
-
-      client.SetSigner({signer});
-      yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
-
-
-      // const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      // client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-      // const wallet = client.GenerateWallet();
-
-      // const encryptedPrivateKey = atob(codeInfo.ak);
-      // const signer = yield wallet.AddAccountFromEncryptedPK({encryptedPrivateKey, password: code});
-
-      // client.SetSigner({signer});
 
       this.email = email;
       this.name = name;
@@ -152,10 +104,10 @@ class RootStore {
       this.chatClient = new StreamChat('7h9psjzs3nb6');
       this.chatID = yield this.chatClient.devToken(this.name);
 
-      this.accessCode = code;
-      this.client = client;
+      
+      let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";
 
-      return "iq__cb5UueuWVEoGNQ9j7ALuWraUn7V";
+      return siteId;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
@@ -164,6 +116,18 @@ class RootStore {
 
       this.SetError("Invalid code");
       return false;
+    }
+  });
+  
+  @action.bound
+  CreateOTP = flow(function * () {
+    try {
+      this.OTPcode = "test12345"; //assign new OTP ticket
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to createOTP:");
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   });
   // RedeemCode = flow(function * (siteSelectorId, email, code, name) {
