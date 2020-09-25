@@ -17,7 +17,7 @@ class CodeAccess extends React.Component {
     super(props);
 
     this.state = {
-      code: "",
+      code: this.props.rootStore.OTPCode,
       email: "",
       name: "",
       loading: false,
@@ -29,7 +29,6 @@ class CodeAccess extends React.Component {
 
   render() {
     if(this.state.siteId) {
-      console.log('HELLO');
       return <Redirect to={`/stream/${this.state.siteId}`} />;
     }
 
@@ -43,7 +42,6 @@ class CodeAccess extends React.Component {
       );
 
       if(siteId) {
-        console.log(siteId);
         this.setState({siteId});
       } else {
         this.setState({loading: false});

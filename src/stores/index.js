@@ -29,10 +29,10 @@ class RootStore {
   @observable objects = {};
 
   @observable error = "";
-  
+
   @observable background;
   @observable logo;
-  @observable OTPcode;
+  @observable OTPCode;
 
 
   constructor() {
@@ -55,9 +55,7 @@ class RootStore {
       const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
 
       client.SetSigner({signer});
-      yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
       this.client = client;
-
     } else {
       // Contained in IFrame
       client = new FrameClient({
@@ -89,7 +87,6 @@ class RootStore {
 
         client.SetSigner({signer});
 
-        yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
         this.client = client;
       }
       this.accessCode = yield this.client.RedeemCode({
@@ -116,6 +113,7 @@ class RootStore {
       this.name = name;
       this.chatClient = new StreamChat('7h9psjzs3nb6');
       this.chatID = yield this.chatClient.devToken(this.name);
+
       let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";
 
       return siteId;
@@ -129,7 +127,7 @@ class RootStore {
       return false;
     }
   });
-  
+
   @action.bound
   CreateOTP = flow(function * () {
     try {
@@ -144,20 +142,20 @@ class RootStore {
 
         client.SetSigner({signer});
 
-        yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
         this.client = client;
       }
-  
+
 
       let OTP = yield this.client.GetOTP({
         tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
         otpId: "QOTPBtxGsAkoJFM"
       });
 
-      this.OPTCode = OTP.Token;
-      return this.OPTCode;
+      this.OTPCode = OTP.Token;
 
-      // this.OTPcode = Token; //assign new OTP ticket
+      console.log(this.OTPCode);
+
+      // this.OTPCode = Token; //assign new OTP ticket
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to createOTP:");

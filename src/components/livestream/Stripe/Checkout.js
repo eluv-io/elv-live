@@ -84,7 +84,6 @@ const Checkout = () => {
     dispatch({ type: "setLoading", payload: { loading: true } });
     // When the customer clicks on the button, redirect them to Checkout.
     const stripe = await stripePromise;
-    console.log()
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: state.priceId, quantity: state.quantity }],
