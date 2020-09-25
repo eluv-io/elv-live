@@ -52,20 +52,12 @@ class RootStore {
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
       const wallet = client.GenerateWallet();
-      // const mnemonic = wallet.GenerateMnemonic();
-      // const signer = wallet.AddAccountFromMnemonic({mnemonic});
       const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
 
       client.SetSigner({signer});
       yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
       this.client = client;
-      console.log("CLIENT!!!:");
-      console.log(this.client);
 
-      // this.OTPcode = yield client.GetOTP({
-      //   tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
-      //   otpId: "QOTPBtxGsAkoJFM"
-      // });
     } else {
       // Contained in IFrame
       client = new FrameClient({
@@ -100,21 +92,10 @@ class RootStore {
         yield client.SetNodes({fabricURIs: ["https://host-66-220-3-86.contentfabric.io"]});
         this.client = client;
       }
-
-      // console.log(Token);
-
-
       this.accessCode = yield this.client.RedeemCode({
         issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPBtxGsAkoJFM",
         code: Token
       });
-
-      // console.log("this.accessCode");
-      // console.log(this.accessCode);
-
-
-      // this.accessCode = true; //True or False whether it got redeemed
-
       if(!this.accessCode) {
         this.SetError("Invalid code");
         return false;
@@ -133,11 +114,8 @@ class RootStore {
 
       this.email = email;
       this.name = name;
-
       this.chatClient = new StreamChat('7h9psjzs3nb6');
       this.chatID = yield this.chatClient.devToken(this.name);
-
-      
       let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";
 
       return siteId;

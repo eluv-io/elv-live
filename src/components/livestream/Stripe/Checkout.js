@@ -3,7 +3,12 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import "./normalize.css";
 import "./global.css";
-import background from "../../../static/images/livestream/artist1.png";
+import artist1 from "../../../static/images/livestream/artist1.png";
+import artist2 from "../../../static/images/livestream/artist2.png";
+import artist3 from "../../../static/images/livestream/artist3.png";
+import artist4 from "../../../static/images/livestream/artist4.png";
+import artist5 from "../../../static/images/livestream/artist5.png";
+import artist6 from "../../../static/images/livestream/artist6.png";
 import Logo from "../../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
 
@@ -119,6 +124,28 @@ const Checkout = () => {
         return "Artist";
     }
   }
+  function renderSwitchPhoto(param) {
+    switch(param) {
+      case "liampayne":
+        return artist1;
+
+      case "brandicarlile":
+        return artist2;
+
+      case "kotathefriend":
+        return artist4;
+      case "orianthi":
+        return artist5;
+
+      case "walkofftheearth":
+        return artist6;
+
+      case "perfumegenius":
+        return artist3;
+      default:
+        return "Artist";
+    }
+  }
 
   return (
     <div className="new-live-container">
@@ -127,44 +154,44 @@ const Checkout = () => {
       </div>
       <div className="sr-root">
         <div className="sr-main">
-          
+
 
           <section className="container">
             <div>
               <h1>Purchase a Ticket</h1>
-              <h4>{renderSwitch("liampayne")} Live At Bill Graham </h4>
+              <h4>{renderSwitch(window.location.href.substring(window.location.href.lastIndexOf('/') + 1))} Live At Bill Graham </h4>
               <div className="pasha-image">
                 <img
                   alt="Random asset from Picsum"
-                  src={background}
+                  src={renderSwitchPhoto(window.location.href.substring(window.location.href.lastIndexOf('/') + 1))}
                   width="310"
                   height="280"
                 />
               </div>
             </div>
             <div className="quantity-setter">
-              <button
+              {/* <button
                 className="increment-btn"
                 disabled={state.quantity === 1}
                 onClick={() => dispatch({ type: "decrement" })}
               >
                 -
-              </button>
-              <input
+              </button> */}
+              {/* <input
                 type="number"
                 id="quantity-input"
                 min="1"
                 max="10"
                 value={state.quantity}
                 readOnly
-              />
-              <button
+              /> */}
+              {/* <button
                 className="increment-btn"
                 disabled={state.quantity === 10}
                 onClick={() => dispatch({ type: "increment" })}
               >
                 +
-              </button>
+              </button> */}
             </div>
             {/* <p className="sr-legal-text">Number of copies (max 10)</p> */}
 
