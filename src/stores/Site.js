@@ -64,6 +64,8 @@ class SiteStore {
 
   @observable siteCustomization;
   @observable stream;
+  @observable streamPlay;
+
   @observable titles;
   @observable premiere;
 
@@ -347,9 +349,9 @@ class SiteStore {
     // console.log(this.titles);
     // console.log(this.titles[0]);
     // console.log(this.titles[0]["rtmp-channel"]);
-
+    
     this.stream = {
-      title: yield this.LoadTitle(this.siteParams, this.titles[0]["rtmp-channel"], "public/asset_metadata/titles/0/rtmp-channel"),
+      title: yield this.LoadTitle(this.siteParams, this.titles[0]["rtmp-channel"], "public/asset_metadata/titles/0/rtmp-channel")
     };
     
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
@@ -593,7 +595,13 @@ class SiteStore {
     }
 
     let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
-
+    if(Object.keys(availableOfferings).length === 0) {
+      availableOfferings = {
+        default: {
+          display_name: "default"
+        }
+      };
+    }
     const allowedOfferings = this.siteInfo.allowed_offerings;
 
     if(allowedOfferings) {
@@ -616,7 +624,7 @@ class SiteStore {
 
   @action.bound
   SetActiveTitle = flow(function * (title) {
-    this.activeTitle = yield this.LoadActiveTitle(title);
+    this.streamPlay = yield this.LoadActiveTitle(title);
   });
 
   @action.bound

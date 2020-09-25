@@ -39,8 +39,7 @@ class Routes extends React.Component {
         <Route exact path="/stream" component={Stream} />
         <Route path="/payment/:artist" component={Checkout} />
         <Route path="/success" component={Success} />
-
-        <Route exact path="/code/:siteSelectorId" component={CodeAccess} />
+        <Route exact path="/code" component={CodeAccess} />
         
         {/* <Route
           exact

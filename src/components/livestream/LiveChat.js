@@ -18,25 +18,23 @@ class LiveChat extends React.Component {
   }
 
   render() {
-   const client = this.props.rootStore.chatClient;
-   const user = this.props.rootStore.chatID;
+    const client = this.props.rootStore.chatClient;
+    const user = this.props.rootStore.chatID;
 
-   const username= this.props.rootStore.name;
+    const username= this.props.rootStore.name;
 
-   client.setUser(
+    client.setUser(
     {
       id: username,
       name: username,
       image: `https://getstream.io/random_svg/?name=${username}`
     },
-    user,
-  );
+      user,
+    );
 
-    const channel = client.channel("livestream", "eluvio", {
-      image: artist1,
-      name: "Liam Payne: The LP Show",
+    let channel = this.props.rootStore.chatClient.channel("livestream", "eluvio", {
+      name: "The Masked Singer",
     });
-
 
     return (
       <Chat client={client} theme={"livestream dark"} className="stream-container__chat--box">

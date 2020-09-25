@@ -29,22 +29,21 @@ class CodeAccess extends React.Component {
 
   render() {
     if(this.state.siteId) {
-      // return <Redirect to={`/stream/${this.props.match.params.siteSelectorId}/${this.state.siteId}`} />;
-      return <Redirect to={`/stream/${this.props.match.params.siteSelectorId}`} />;
-
+      console.log('HELLO');
+      return <Redirect to={`/stream/${this.state.siteId}`} />;
     }
 
     const Submit = async () => {
       this.setState({loading: true});
 
       const siteId = await this.props.rootStore.RedeemCode(
-        this.props.match.params.siteSelectorId,
         this.state.email,
         this.state.code,
         this.state.name
       );
 
       if(siteId) {
+        console.log(siteId);
         this.setState({siteId});
       } else {
         this.setState({loading: false});

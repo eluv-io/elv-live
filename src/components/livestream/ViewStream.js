@@ -2,6 +2,7 @@ import React from "react";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
+import poster from "../../static/images/livestream/masked2.jpg";
 
 @inject("siteStore")
 @observer
@@ -41,7 +42,7 @@ class ViewStream extends React.Component {
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
-      let title = this.props.siteStore.premiere.title;
+      let title = this.props.siteStore.streamPlay;
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
 
@@ -92,8 +93,7 @@ class ViewStream extends React.Component {
   }
 
   render() {
-    const title = this.props.siteStore.premiere.title;
-    const poster = this.props.siteStore.premiere.title.landscapeUrl || this.props.siteStore.premiere.title.imageUrl;
+    const title = this.props.siteStore.streamPlay;
 
     return (
       <video
