@@ -69,6 +69,8 @@
   // background-size: cover;
   height: 360px !important;
   width: 480px !important;
+  object-fit: cover !important;
+
   background-position: center;
   background-blend-mode: screen;
 }

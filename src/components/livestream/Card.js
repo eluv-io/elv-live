@@ -32,7 +32,7 @@ class Card extends React.Component {
               <Link 
                 to={`/event/${this.props.name}`} 
                 >
-                <button type="button" className="btn2 btn2--white">Buy Tickets</button>
+                <button type="button" className="btn2 btn2--white">Buy Ticket</button>
               </Link>
             </div>
           </div>

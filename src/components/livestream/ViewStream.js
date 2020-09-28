@@ -2,7 +2,7 @@ import React from "react";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
-import poster from "../../static/images/livestream/masked2.jpg";
+import poster from "../../static/images/livestream/masked-singer.jpg";
 
 @inject("siteStore")
 @observer

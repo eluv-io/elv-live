@@ -24,6 +24,8 @@ class RootStore {
   @observable chatID;
   @observable chatClient;
   @observable accessCode;
+  @observable chargeID;
+  @observable redirectCB;
 
   @observable libraries = {};
   @observable objects = {};
@@ -90,7 +92,7 @@ class RootStore {
         this.client = client;
       }
       this.accessCode = yield this.client.RedeemCode({
-        issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPBtxGsAkoJFM",
+        issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPM59kMU5trgj",
         code: Token
       });
       if(!this.accessCode) {
@@ -148,7 +150,7 @@ class RootStore {
 
       let OTP = yield this.client.GetOTP({
         tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
-        otpId: "QOTPBtxGsAkoJFM"
+        otpId: "QOTPM59kMU5trgj"
       });
 
       this.OTPCode = OTP.Token;
@@ -163,6 +165,50 @@ class RootStore {
       console.error(error);
     }
   });
+
+  @action.bound
+  CreateCharge = flow(function * (name, description) {
+    try {
+      let coinbase = require('coinbase-commerce-node');
+      let Client = coinbase.Client;
+      Client.init('7ca60022-a01b-4498-8c35-a2c2aef42605');
+      let Charge = coinbase.resources.Charge;
+
+      var newCharge = new Charge({
+        "name": `${name}`,
+        "description": `${description}`,
+        "local_price": {
+          "amount": "2.00",
+          "currency": "USD"
+        },
+        "pricing_type": "fixed_price",
+        "metadata": {
+          // "customer_id": "id_1005",
+          // "customer_name": "Satoshi Nakamoto"
+        },
+        "redirect_url": "https://core.test.contentfabric.io/prod/site-sample-live/#/success",
+        "cancel_url": "https://core.test.contentfabric.io/prod/site-sample-live/#"
+      });
+
+      let ID;
+      let website; 
+      yield newCharge.save(function (error, response) {
+        console.log(error);
+        console.log(response);
+        ID = response.code;
+        website = response.hosted_url;
+      });
+      this.redirectCB = website;
+      this.chargeID = ID;
+
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to CreateCharge:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  });
+
   // RedeemCode = flow(function * (siteSelectorId, email, code, name) {
   //   let client;
   //   try {
