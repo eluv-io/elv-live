@@ -12,8 +12,8 @@ import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream";
 
-import Checkout from "./components/livestream/Stripe/Checkout";
-import Success from "./components/livestream/Stripe/Success";
+import Checkout from "./components/livestream/Payment/Checkout";
+import Success from "./components/livestream/Payment/Success";
 
 import styled from "styled-components";
 

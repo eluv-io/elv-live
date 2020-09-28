@@ -102,6 +102,9 @@
           margin-top: 25px !important;
           @media only screen and (max-width: $bp-small) {
             font-size: 19px;
+            margin-left: 20px;
+            margin-right: 20px;
+
           }
           @media only screen and (max-width: $bp-tiny-2) {
             font-size: 18px;

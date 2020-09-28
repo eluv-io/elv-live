@@ -249,6 +249,7 @@
     border-radius: 10px;
     height: 360px !important;
     width: 480px !important;
+    object-fit: cover !important;
 
     @media only screen and (max-width: 1640px) {
       height: 320px !important;

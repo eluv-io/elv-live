@@ -3,6 +3,9 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import "./normalize.css";
 import "./global.css";
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
+import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
+
 import artist1 from "../../../static/images/livestream/artist1.png";
 import artist2 from "../../../static/images/livestream/artist2.png";
 import artist3 from "../../../static/images/livestream/artist3.png";
@@ -64,7 +67,7 @@ function reducer(state, action) {
 }
 
 
-const Checkout = () => {
+const Checkout = (props) => {
   const [state, dispatch] = useReducer(reducer, {
     priceId: "price_1HPbPYKgR5J3zPrLcOd9Vz2u",
     basePrice: 999,
@@ -194,10 +197,17 @@ const Checkout = () => {
             </div>
             {/* <p className="sr-legal-text">Number of copies (max 10)</p> */}
 
-            <button role="link" onClick={handleClick} disabled={state.loading}>
+ 
+            <button role="link" onClick={handleClick} disabled={state.loading} className="payment-button">
               {state.loading || !state.price
                 ? "Loading..."
-                : `Buy for ${state.price}`}
+                : `Buy with Credit Card`}
+            </button>
+            <button className="payment-button">
+              <a className="coinbase buy-with-crypto"
+                href={props.location.state ? props.location.state.url : 'https://commerce.coinbase.com/charges/WEBQ9QR6'}>
+                Buy with Crypto
+              </a>
             </button>
             {/* <div className="sr-field-error">{state.error?.message}</div> */}
           </section>
