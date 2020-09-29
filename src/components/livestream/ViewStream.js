@@ -100,7 +100,7 @@ class ViewStream extends React.Component {
         key={`active-title-video-${title.titleId}-${title.currentOffering}`}
         ref={this.InitializeVideo}
         autoPlay
-        poster={poster}
+        // poster={poster}
         controls={this.state.showControls}
         className={"stream-container__streamBox--video"}
       />
