@@ -204,7 +204,7 @@ const Checkout = (props) => {
                 : `Buy with Credit Card`}
             </button>
             <button className="payment-button">
-              <a className="coinbase buy-with-crypto"
+              <a className="coinbase buy-with-crypto" data-cache-disabled="true"
                 href={props.location.state ? props.location.state.url : 'https://commerce.coinbase.com/charges/WEBQ9QR6'}>
                 Buy with Crypto
               </a>
