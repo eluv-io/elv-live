@@ -27,7 +27,7 @@ class Stream extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken);
+          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, this.props.match.params.writeToken);
           await this.props.siteStore.PlayTitle(this.props.siteStore.stream.title);
         }}
         render={() => {
