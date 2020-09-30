@@ -42,6 +42,45 @@ class RootStore {
     this.InitializeClient();
   }
 
+  // THIS IS FOR TEST 
+
+  // @action.bound
+  // InitializeClient = flow(function * () {
+  //   console.log('root');
+  //   this.client = undefined;
+
+  //   let client;
+  //   // Initialize ElvClient or FrameClient
+  //   if(window.self === window.top) {
+  //     const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+
+  //     client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+  //     console.log('cliesnt?');
+
+  //     const wallet = client.GenerateWallet();
+  //     const mnemonic = wallet.GenerateMnemonic();
+  //     const signer = wallet.AddAccountFromMnemonic({mnemonic});
+
+  //     client.SetSigner({signer});
+  //   } else {
+  //     // Contained in IFrame
+  //     client = new FrameClient({
+  //       target: window.parent,
+  //       timeout: 30
+  //     });
+
+  //     // Hide header if in frame
+  //     if(client.SendMessage) {
+  //       client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
+  //     }
+  //   }
+
+  //   this.client = client;
+  // });
+
+
+  // THIS IS FOR DEMO 
+
   @action.bound
   InitializeClient = flow(function * () {
     this.client = undefined;
@@ -54,10 +93,11 @@ class RootStore {
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
       const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
+      const signer = wallet.AddAccount({privateKey: "0x28746b1d64dec6b1f1eafe05f69bd6af62c25b2b402ba4e2a18cae1f604d1130"});
 
       client.SetSigner({signer});
       this.client = client;
+      console.log("Success ROOT");
     } else {
       // Contained in IFrame
       client = new FrameClient({

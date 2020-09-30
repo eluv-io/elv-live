@@ -4,7 +4,7 @@ import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
-// import Site from "./components/Site";
+import Site from "./components/Site";
 // import ContentSelector from "./components/ContentSelector";
 import CodeAccess from "./components/CodeAccess";
 
@@ -33,21 +33,22 @@ class Routes extends React.Component {
 
   render() {
     return (
-      <Switch>        
-        <Route exact path="/" component={Home} />
+      <Switch>
+        <Route
+          exact
+          path={[
+            "/"
+          ]}
+          component={Site}
+        />
+        
+        {/* <Route exact path="/" component={Home} /> */}
         <Route exact path="/event/:artist" component={Event} />
         <Route exact path="/stream" component={Stream} />
         <Route path="/payment/:artist" component={Checkout} />
         <Route path="/success" component={Success} />
         <Route exact path="/code" component={CodeAccess} />
-        
-        {/* <Route
-          exact
-          path={[
-            "/stream/:siteSelectorId/:siteId"
-          ]}
-          component={Stream}
-        /> */}
+
         <Route
           exact
           path={[
