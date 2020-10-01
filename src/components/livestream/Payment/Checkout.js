@@ -161,11 +161,11 @@ const Checkout = (props) => {
           <section className="container">
             <div>
               <h1>Purchase a Ticket</h1>
-              <h4>{renderSwitch(window.location.href.substring(window.location.href.lastIndexOf('/') + 1))} Live At Bill Graham </h4>
+              <h4>{props.location.state.name} Live At Bill Graham </h4>
               <div className="pasha-image">
                 <img
                   alt="Random asset from Picsum"
-                  src={renderSwitchPhoto(window.location.href.substring(window.location.href.lastIndexOf('/') + 1))}
+                  src={props.location.state.icon}
                   width="310"
                   height="280"
                 />

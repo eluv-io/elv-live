@@ -36,6 +36,7 @@
     "bitmovin-player": "^8.22.0",
     "coinbase-commerce-node": "^1.0.4",
     "dashjs": "^3.0.3",
+    "dateformat": "^3.0.3",
     "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git#645165da87ec42845a908a9ce0817db202523866",
     "express": "^4.17.1",
     "hls.js": "^0.12.4",
