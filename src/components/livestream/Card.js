@@ -4,6 +4,7 @@ import {ImageIcon} from "elv-components-js";
 import {
   Link
 } from "react-router-dom";
+import artist1 from "../../static/images/livestream/artist1.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -11,15 +12,25 @@ import {
 class Card extends React.Component {
 
   render() {
+    let nameURL = this.props.name.replace(/\s+/g, '-').toLowerCase();
+    const newTo = { 
+      pathname: `/event/${nameURL}`, 
+      name: this.props.name,
+      description: this.props.description, 
+      icon: this.props.icon, 
+      eventImg: this.props.eventImg,
+      date: this.props.date
+    };
 
     return (
         <div className="card">
           <div className="card__side card__side--front">
 
             <ImageIcon className="card__picture" icon={this.props.icon} label="artist" />
+            {/* <img src={this.props.icon} className="card__picture" /> */}
 
             <h4 className="card__heading">
-              <span className="card__heading-span">{this.props.artist}</span>
+              <span className="card__heading-span">{this.props.name}</span>
             </h4>
           </div>
 
@@ -30,8 +41,8 @@ class Card extends React.Component {
                 <h4 className="card__price-detail">{this.props.description}</h4>
               </div>
               <Link 
-                to={`/event/${this.props.name}`} 
-                >
+                to={newTo}
+              >
                 <button type="button" className="btn2 btn2--white">Buy Ticket</button>
               </Link>
             </div>

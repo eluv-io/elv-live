@@ -93,7 +93,7 @@ class RootStore {
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
       const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x28746b1d64dec6b1f1eafe05f69bd6af62c25b2b402ba4e2a18cae1f604d1130"});
+      const signer = wallet.AddAccount({privateKey: "0xa73275e872822e0b89fb3e4a77dd8d148ae12bd4abdeee2b6f0eef2a5fa25c69"});
 
       client.SetSigner({signer});
       this.client = client;

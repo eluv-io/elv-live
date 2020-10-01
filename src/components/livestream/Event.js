@@ -2,15 +2,11 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Logo from "../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
-import background from "../../static/images/livestream/brand-ev.jpg";
 import styled from "styled-components";
 
-import liamE from "../../static/images/livestream/liam-event.png";
-import brandE from "../../static/images/livestream/brand-ev.jpg";
-import perfE from "../../static/images/livestream/perf-ev.jpg";
-import kotaE from "../../static/images/livestream/kota-ev.jpg";
-import oriE from "../../static/images/livestream/ori-ev.jpeg";
-import walkE from "../../static/images/livestream/walk-new.jpg";
+import background from "../../static/images/livestream/liam-event.png";
+import artist1 from "../../static/images/livestream/artist1.png";
+
 
 import AsyncComponent from "../AsyncComponent";
 
@@ -33,50 +29,15 @@ class Event extends React.Component {
   }
 
   render() {
-    let artist;
-    let event;
-    let description;
-
-    switch(this.props.match.params.artist) {
-      case "liampayne":
-        artist = "Liam Payne";
-        event = liamE;
-        description = "Liam Payne Live At Bill Graham in San Francisco";
-        break;
-      case "brandicarlile":
-        artist = "Brandi Carlile";
-        event = brandE;
-        description = "Brandi Carlile Live At The Cornerstone in Berkeley";
-        break;
-      case "kotathefriend":
-        artist = "Kota the Friend";
-        event = kotaE;
-        description = "Kota the Friend Live At King Fish in Oakland";
-        break;
-      case "orianthi":
-        artist = "Orianthi";
-        event = oriE;
-        description = "Orianthi Live At The Whisky in Hollywood";
-        break;
-      case "walkofftheearth":
-        artist = "Walk off the Earth";
-        event = walkE;
-        description = "Walk off the Earth Live At The Fillmore in San Francisco";
-        break;
-      case "perfumegenius":
-        artist = "Perfume Genius";
-        event = perfE;
-        description = "Perfume Genius Live At Harvelle's in Chicago";
-        break;
-      default:
-        artist = "Artist";
-        event = background;
-        description = "Livestream";
-    }
+    let name = this.props.location.name || "Artist";
+    let eventImg = this.props.location.eventImg || background;
+    let description = this.props.location.description || "Artist Description";
+    let iconImg = this.props.location.icon || artist1;
+    let date =  this.props.location.date || "Sep 28 · 7:00 PM PDT";
 
     const BackgroundStyleContainer = styled.div`
       background-size: cover;
-      background-image: url(${event});
+      background-image: url(${eventImg});
       height: 83.5vh;
       background-position: top;
       @media only screen and (max-width: 750px) {
@@ -88,7 +49,7 @@ class Event extends React.Component {
     return (
       <AsyncComponent
       Load={async () => {
-        await this.props.rootStore.CreateCharge(artist, description);
+        await this.props.rootStore.CreateCharge(name, description);
       }}
       render={() => {
         if(!this.props.rootStore.redirectCB) { return null; }
@@ -105,19 +66,21 @@ class Event extends React.Component {
 
             <div className="event-container__info">
               <div className="event-container__info__title">
-                {artist} - Schedule
+                {name} - Schedule
               </div>
 
               <div className="event-container__info__schedule">
                 <div className="event-container__info__schedule__post">
-                  <h4 className="event-container__info__schedule__post__detail">Sep 28 · 7:00 PM PDT </h4>
+                  <h4 className="event-container__info__schedule__post__detail">{date} </h4>
 
                   <h4 className="event-container__info__schedule__post__detail">{description} </h4>
 
                   <Link to={{
                     pathname: `/payment/${this.props.match.params.artist}`,
                     state: {
-                      url: this.props.rootStore.redirectCB
+                      url: this.props.rootStore.redirectCB,
+                      name: name,
+                      icon: iconImg
                     }
                   }}>
                     <button type="button" className="btn2 btn2--white btn3 btn3--white" onClick={() => this.props.siteStore.SetArtist(artist, event)}>Buy Ticket</button>
