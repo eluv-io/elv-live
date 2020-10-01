@@ -183,20 +183,6 @@ class Site extends React.Component {
       
                 <div className="live-content__container">
                   {this.Content()}
-                  {/* <Card
-                    name={"liampayne"}
-                    artist={"Liam Payne"}
-                    date={"Sep 8 · 7:00 PM PDT"}
-                    description={"Liam Payne Live At Bill Graham in San Francisco"}
-                    icon={artist1}
-                  />
-                  <Card
-                    name={"brandicarlile"}
-                    artist={"Brandi Carlile"}
-                    date={"Sep 12 · 4:00 PM PDT"}
-                    description={"Brandi Carlile Live At The Cornerstone in Berkeley"}
-                    icon={artist2}
-                  /> */}
                 </div>
               </div>
       
