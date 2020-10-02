@@ -276,7 +276,6 @@ class SiteStore {
       writeToken: writeToken
     };
 
-    console.log("2");
 
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
@@ -299,7 +298,6 @@ class SiteStore {
     //     price: this.siteCustomization.premiere.price
     //   };
     // }
-    console.log("3");
 
     if(this.siteCustomization.arrangement) {
       for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
@@ -309,17 +307,12 @@ class SiteStore {
             yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
         }
         if(entry.options.eventImage) {
-          console.log("eventIm");
           entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
           console.log(entry.eventImage);
-
         }
         if(entry.options.featureImage) {
-          console.log("featIm");
-
           entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
           console.log(entry.eventImage);
-
         }
       }
     }

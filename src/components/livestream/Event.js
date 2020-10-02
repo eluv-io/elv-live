@@ -58,7 +58,7 @@ class Event extends React.Component {
         return (
           <div className="event-container">
             <div className="event-nav">
-              <ImageIcon className="event-nav__container--logo" icon={Logo} label="Eluvio" />
+              <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo} label="Eluvio" />
             </div>
 
             <BackgroundStyleContainer />

@@ -148,7 +148,7 @@ class Site extends React.Component {
 
               {/* NavBar */}
               <div className="live-nav">
-                <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
+                <ImageIcon className="live-nav--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
                 <Link to="/code" className="btn2 btn2--white live-nav--ticket">
                   Redeem Ticket 
                 </Link>

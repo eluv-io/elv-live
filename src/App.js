@@ -12,7 +12,7 @@ import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream";
 
-import Checkout from "./components/livestream/Payment/Checkout";
+import Checkout from "./components/livestream/Payment/CheckoutClass";
 import Success from "./components/livestream/Payment/Success";
 
 import styled from "styled-components";
