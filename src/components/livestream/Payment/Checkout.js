@@ -3,7 +3,6 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import "./normalize.css";
 import "./global.css";
-import CoinbaseCommerceButton from 'react-coinbase-commerce';
 import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 
 import artist1 from "../../../static/images/livestream/artist1.png";
