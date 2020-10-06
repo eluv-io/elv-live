@@ -6,7 +6,6 @@ import "./normalize.css";
 import "./global.css";
 import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 
-import artist1 from "../../../static/images/livestream/artist1.png";
 import Logo from "../../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
 
@@ -33,23 +32,23 @@ const formatPrice = ({ amount, currency, quantity }) => {
 @observer
 class CheckoutForm extends React.Component {
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      priceId: "price_1HPbPYKgR5J3zPrLcOd9Vz2u",
-      basePrice: 999,
-      currency: "usd",
-      quantity: 1,
-      price: formatPrice({
-        amount: 999,
-        currency: "usd",
-        quantity: 1,
-      }),
-      loading: false,
-      error: null,
-    };
-  }
+  //   this.state = {
+  //     priceId: "price_1HPbPYKgR5J3zPrLcOd9Vz2u",
+  //     basePrice: 999,
+  //     currency: "usd",
+  //     quantity: 1,
+  //     price: formatPrice({
+  //       amount: 999,
+  //       currency: "usd",
+  //       quantity: 1,
+  //     }),
+  //     loading: false,
+  //     error: null,
+  //   };
+  // }
   
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -58,10 +57,10 @@ class CheckoutForm extends React.Component {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HPbPYKgR5J3zPrLcOd9Vz2u", quantity: 1 }],
-      successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/success`,
-      cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/`,
-      // successUrl: `${window.location.origin}/#/success`,
-      // cancelUrl: `${window.location.origin}/#/`,
+      // successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/success`,
+      // cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/`,
+      successUrl: `${window.location.origin}/#/success`,
+      cancelUrl: `${window.location.origin}/#/`,
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
@@ -72,6 +71,8 @@ class CheckoutForm extends React.Component {
   
 
   render() {
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+
     return (
       <div className="new-live-container">
         <div className="live-nav">
@@ -84,11 +85,11 @@ class CheckoutForm extends React.Component {
             <section className="container">
               <div>
                 <h1>Purchase a Ticket</h1>
-                <h4>{this.props.location.state ? this.props.location.state.name : 'Artist'} Live At Bill Graham </h4>
+                <h4>{eventInfo.name} Live At Bill Graham </h4>
                 <div className="pasha-image">
                   <img
                     alt="Random asset from Picsum"
-                    src={this.props.location.state ? this.props.location.state.icon : artist1}
+                    src={eventInfo.icon}
                     width="310"
                     height="280"
                   />
@@ -101,7 +102,7 @@ class CheckoutForm extends React.Component {
               </button>
               <button className="payment-button">
                 <a className="coinbase buy-with-crypto" data-cache-disabled="true"
-                  href={this.props.location.state ? this.props.location.state.url : this.props.rootStore.redirectCB}>
+                  href="https://commerce.coinbase.com/checkout/86096eab-9719-4817-a813-ac57ba18b022">
                   Buy with Crypto
                 </a>
               </button>

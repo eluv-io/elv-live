@@ -39,7 +39,7 @@ class RootStore {
 
   constructor() {
     this.siteStore = new SiteStore(this);
-    this.InitializeClient();
+    // this.InitializeClient();
   }
 
   // THIS IS FOR TEST 
@@ -97,7 +97,6 @@ class RootStore {
 
       client.SetSigner({signer});
       this.client = client;
-      console.log("Success ROOT");
     } else {
       // Contained in IFrame
       client = new FrameClient({
@@ -118,20 +117,20 @@ class RootStore {
   RedeemCode = flow(function * (email, Token, name) {
     try {
       // HERE: Function to check OTP password
-      if(!this.client) {
-        const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+  
+      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
-        let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      let client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
 
-        const wallet = client.GenerateWallet();
+      const wallet = client.GenerateWallet();
 
-        const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
+      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
 
-        client.SetSigner({signer});
+      client.SetSigner({signer});
 
-        this.client = client;
-      }
-      this.accessCode = yield this.client.RedeemCode({
+      // this.client = client;
+      
+      this.accessCode = yield client.RedeemCode({
         issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPM59kMU5trgj",
         code: Token
       });
@@ -173,29 +172,25 @@ class RootStore {
   @action.bound
   CreateOTP = flow(function * () {
     try {
-      if(!this.client) {
-        const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
-        let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      let client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
 
-        const wallet = client.GenerateWallet();
+      const wallet = client.GenerateWallet();
 
-        const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
+      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
 
-        client.SetSigner({signer});
+      client.SetSigner({signer});
 
-        this.client = client;
-      }
-
-
-      let OTP = yield this.client.GetOTP({
+      // this.client = client;
+      
+      let OTP = yield client.GetOTP({
         tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
         otpId: "QOTPM59kMU5trgj"
       });
 
       this.OTPCode = OTP.Token;
 
-      console.log(this.OTPCode);
 
       // this.OTPCode = Token; //assign new OTP ticket
     } catch (error) {
@@ -207,18 +202,21 @@ class RootStore {
   });
 
   @action.bound
-  CreateCharge = flow(function * (name, description) {
+  CreateCharge = flow(function * (name, description, price) {
     try {
       let coinbase = require('coinbase-commerce-node');
       let Client = coinbase.Client;
       Client.init('7ca60022-a01b-4498-8c35-a2c2aef42605');
       let Charge = coinbase.resources.Charge;
+      
+      // let amountCharge = price;
+      // console.log(amountCharge);
 
       var newCharge = new Charge({
         "name": `${name}`,
         "description": `${description}`,
         "local_price": {
-          "amount": "2.00",
+          "amount": `${price}`,
           "currency": "USD"
         },
         "pricing_type": "fixed_price",
@@ -233,8 +231,8 @@ class RootStore {
       let ID;
       let website; 
       yield newCharge.save(function (error, response) {
-        console.log(error);
-        console.log(response);
+        // console.log(error);
+        // console.log(response);
         ID = response.code;
         website = response.hosted_url;
       });

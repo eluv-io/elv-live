@@ -16,12 +16,14 @@ import Checkout from "./components/livestream/Payment/CheckoutClass";
 import Success from "./components/livestream/Payment/Success";
 
 import styled from "styled-components";
+import AsyncComponent from "./components/AsyncComponent";
 
 import "swiper/css/swiper.min.css";
 import "./static/stylesheets/main.scss";
 
 
 @inject("rootStore")
+@inject("siteStore")
 @observer
 @withRouter
 class Routes extends React.Component {
@@ -33,34 +35,50 @@ class Routes extends React.Component {
 
   render() {
     return (
-      <Switch>
-        <Route
-          exact
-          path={[
-            "/"
-          ]}
-          component={Site}
-        />
-        
-        {/* <Route exact path="/" component={Home} /> */}
-        <Route exact path="/event/:artist" component={Event} />
-        <Route exact path="/stream" component={Stream} />
-        <Route path="/payment/:artist" component={Checkout} />
-        <Route path="/success" component={Success} />
-        <Route exact path="/code" component={CodeAccess} />
+      <AsyncComponent
+        Load={
+          async () => {
+            await this.props.siteStore.LoadSite("iq__b2Qah6AMaP8ToZbouDh8nSEKARe", "");
+          } 
+        }
 
-        <Route
-          exact
-          path={[
-            "/stream/:siteId"
-          ]}
-          component={Stream}
-        />
+        render={() => {
+          // if(!this.props.siteStore.client) { return null; }
 
-        <Route>
-          <Redirect to="/" />
-        </Route>
-      </Switch>
+          return (
+            <Switch>
+              <Route
+                exact
+                path={[
+                  "/"
+                ]}
+                component={Site}
+              />
+              
+              {/* <Route exact path="/" component={Home} /> */}
+              <Route exact path="/event/:artist" component={Event} />
+              <Route exact path="/stream" component={Stream} />
+              <Route path="/payment/:artist" component={Checkout} />
+              <Route path="/success" component={Success} />
+              <Route exact path="/code" component={CodeAccess} />
+
+              <Route
+                exact
+                path={[
+                  "/stream/:siteId"
+                ]}
+                component={Stream}
+              />
+
+              <Route>
+                <Redirect to="/" />
+              </Route>
+            </Switch>
+
+          );
+        }}
+      />
+      
     );
   }
 }
@@ -73,19 +91,41 @@ class App extends React.Component {
     const ContainerApp = styled.div`
       min-height: 100vh;    
       background: black;
-      color: ${this.props.siteStore.primaryFontColor};
     }
     `;
 
     return (
-      <ContainerApp>
-        <main>
-          { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
-          <HashRouter>
-            <Routes />
-          </HashRouter>
-        </main>
-      </ContainerApp>
+      <AsyncComponent
+        Load={
+          async () => {
+            await this.props.rootStore.InitializeClient();
+          } 
+        }
+
+        render={() => {
+          if(!this.props.siteStore.client) { return null; }
+
+          return (
+            <ContainerApp>
+              <main>
+                { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
+                <HashRouter>
+                  <Routes />
+                </HashRouter>
+              </main>
+            </ContainerApp>
+
+          );
+        }}
+      />
+      // <ContainerApp>
+      //   <main>
+      //     { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
+      //     <HashRouter>
+      //       <Routes />
+      //     </HashRouter>
+      //   </main>
+      // </ContainerApp>
     );
   }
 }

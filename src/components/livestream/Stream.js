@@ -24,11 +24,14 @@ class Stream extends React.Component {
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
 
+    let eventInfo = this.props.siteStore.eventAssets.get("madison-beer");
+    const title = eventInfo.stream;
+
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, this.props.match.params.writeToken);
-          await this.props.siteStore.PlayTitle(this.props.siteStore.stream.title);
+          // await this.props.siteStore.LoadStreamSite("iq__b2Qah6AMaP8ToZbouDh8nSEKARe", this.props.match.params.writeToken);
+          await this.props.siteStore.PlayTitle(title);
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }

@@ -29,18 +29,6 @@ const FormatName = (name) => {
     .join(" ");
 };
 
-const ConvertName = (name) => {
-  return name.replace(/\s+/g, '-').toLowerCase();
-};
-
-const ConvertDate = (date) => {
-  // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  // var today  = new Date(date);
-  var dateFormat = require('dateformat');
-  var now = new Date(date);
-  return dateFormat(now, "mmmm dS, yyyy · h:MM TT Z");
-  // return today.toLocaleDateString("en-US", options);
-};
 
 @inject("rootStore")
 @inject("siteStore")
@@ -49,6 +37,7 @@ const ConvertDate = (date) => {
 class Site extends React.Component {
   ArrangementEntry(entry, i) {
     const key = `arrangement-entry-${i}`;
+    let dateFormat = require('dateformat');
 
     let name, titles;
     switch (entry.type) {
@@ -77,11 +66,11 @@ class Site extends React.Component {
       case "event":
         return (
           <Card
+            key={key}
             name={entry.options.title}
-            date={ConvertDate(entry.options.date)}
+            date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
             description={entry.options.description}
             icon={entry.featureImage}
-            eventImg={entry.eventImage}
           />
         );
       default:
@@ -135,68 +124,54 @@ class Site extends React.Component {
     }
 
     return (
-      <AsyncComponent
-        // Load={async () => await this.props.siteStore.LoadSite(this.props.match.params.siteId, this.props.match.params.writeToken)}
-        Load={async () => await this.props.siteStore.LoadSite("iq__b2Qah6AMaP8ToZbouDh8nSEKARe", "")}
+      <div className="live-container">
+        {/* NavBar */}
+        <div className="live-nav">
+          <ImageIcon className="live-nav--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
+          <Link to="/code" className="btn2 btn2--white live-nav--ticket">
+            Redeem Ticket 
+          </Link>
+        </div>
 
-        // Load={() => console.log("hello")}
-        render={() => {
-          // if(!this.props.siteStore.siteInfo) { return null; }
-
-          return (
-            <div className="live-container">
-
-              {/* NavBar */}
-              <div className="live-nav">
-                <ImageIcon className="live-nav--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
-                <Link to="/code" className="btn2 btn2--white live-nav--ticket">
-                  Redeem Ticket 
-                </Link>
-              </div>
-      
-              {/* Hero View */}
-              <div className="live-hero">
-                <div className="live-hero__container">
-                  <h1 className="live-hero__container__title">
-                      Live Concerts From your home. 
-                  </h1>
-                  <h2 className="live-hero__container__subtitle">
-                      Purchase livestream tickets for your favorite artists from the comfort of your home.
-                  </h2>
-                </div>
-                
-                <div className="live-hero__cardMain">
-                  <div className="live-hero__cardMain__side">
-                    <ImageIcon className="live-hero__picture" icon={this.props.siteStore.background_image} label="artist" />
-                    <h4 className="live-hero__heading">
-                      <span className="live-hero__heading-span card__heading-span--4">Liam Payne</span>
-                    </h4>
-                  </div>
-                </div>
-              </div>
-      
-              {/* Content Selection */}
-              <div className="live-content">
-                <div className="live-content__title">
-                  Upcoming Livestreams
-                </div>
-      
-                <div className="live-content__container">
-                  {this.Content()}
-                </div>
-              </div>
-      
-              {/* Footer */}
-              <div className="live-footer">
-                <h3 className="live-footer__title">
-                  Copyright © Eluvio 2020 
-                </h3>
-              </div>
+        {/* Hero View */}
+        <div className="live-hero">
+          <div className="live-hero__container">
+            <h1 className="live-hero__container__title">
+                Live Concerts From your home. 
+            </h1>
+            <h2 className="live-hero__container__subtitle">
+                Purchase livestream tickets for your favorite artists from the comfort of your home.
+            </h2>
+          </div>
+          
+          <div className="live-hero__cardMain">
+            <div className="live-hero__cardMain__side">
+              <ImageIcon className="live-hero__picture" icon={this.props.siteStore.background_image} label="artist" />
+              <h4 className="live-hero__heading">
+                <span className="live-hero__heading-span card__heading-span--4">Madison Beer</span>
+              </h4>
             </div>
+          </div>
+        </div>
 
-          );
-        }}
-      />
+        {/* Content Selection */}
+        <div className="live-content">
+          <div className="live-content__title">
+            Upcoming Livestreams
+          </div>
+
+          <div className="live-content__container">
+            {this.Content()}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="live-footer">
+          <h3 className="live-footer__title">
+            Copyright © Eluvio 2020 
+          </h3>
+        </div>
+      </div>
     );
   }
 }
