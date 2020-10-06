@@ -73,6 +73,9 @@ class SiteStore {
   @observable primaryFontColor = "white";
   @observable logoUrl;
   @observable background_image;
+  @observable eventAssets;
+  @observable chargeID;
+  @observable redirectCB;
 
   @observable siteHash;
   @observable assets = {};
@@ -262,7 +265,6 @@ class SiteStore {
 
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
-    console.log("1");
     if(this.siteParams && this.siteParams.objectId === objectId) {
       return;
     }
@@ -280,8 +282,8 @@ class SiteStore {
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
 
-    this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
-    this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
+    // this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
+    // this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
 
     this.siteCustomization = (yield this.client.ContentObjectMetadata({
       ...this.siteParams,
@@ -298,24 +300,43 @@ class SiteStore {
     //     price: this.siteCustomization.premiere.price
     //   };
     // }
+    let eventMap = new Map();
+    let dateFormat = require('dateformat');
 
     if(this.siteCustomization.arrangement) {
       for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
         const entry = this.siteCustomization.arrangement[i];
-        if(entry.title) {
-          entry.title =
-            yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
-        }
-        if(entry.options.eventImage) {
-          entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
-          console.log(entry.eventImage);
-        }
-        if(entry.options.featureImage) {
-          entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
-          console.log(entry.eventImage);
+        if (entry.component == "event") {
+          if(entry.title) {
+            entry.title =
+              yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
+          }
+          if(entry.options.eventImage) {
+            entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
+          }
+          if(entry.options.featureImage) {
+            entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
+          }
+          // if(entry.options.price) {
+          //   entry.link = yield this.CreateCharge(entry.options.title, entry.options.description, entry.options.price)
+          // }
+
+          eventMap.set(entry.options.title.replace(/\s+/g, '-').toLowerCase(),
+            {
+              name: entry.options.title,
+              date: dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z"),
+              description: entry.options.description,
+              icon: entry.featureImage,
+              eventImg: entry.eventImage,
+              price: entry.options.price,
+              stream: entry.title
+            }
+          );
         }
       }
     }
+
+    this.eventAssets = eventMap;
 
     if(this.siteCustomization.logo) {
       this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});

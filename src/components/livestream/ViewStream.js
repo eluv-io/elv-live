@@ -94,6 +94,7 @@ class ViewStream extends React.Component {
 
   render() {
     const title = this.props.siteStore.streamPlay;
+    console.log(title);
 
     return (
       <video
