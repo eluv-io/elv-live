@@ -84,8 +84,9 @@ class Site extends React.Component {
   Content() {
     const siteCustomization = this.props.siteStore.siteCustomization || {};
     let arrangement = siteCustomization.arrangement;
-    this.props.siteStore.SetBackgroundColor(siteCustomization.colors.background);
-    this.props.siteStore.SetPrimaryFontColor(siteCustomization.colors.primary_text);
+    document.documentElement.style.setProperty('--bgColor', `${siteCustomization.colors.background}`);
+    document.documentElement.style.setProperty('--pText', `${siteCustomization.colors.primary_text}`);
+    document.documentElement.style.setProperty('--sText', `${siteCustomization.colors.secondary_text}`);
 
     if(!arrangement) {
       // Default arrangement: Playlists then assets, all medium carousel
@@ -122,6 +123,7 @@ class Site extends React.Component {
     if(!this.props.rootStore.client) {
       return null;
     }
+    
 
     return (
       <div className="live-container">
@@ -146,7 +148,7 @@ class Site extends React.Component {
           
           <div className="live-hero__cardMain">
             <div className="live-hero__cardMain__side">
-              <ImageIcon className="live-hero__picture" icon={this.props.siteStore.background_image} label="artist" />
+              <ImageIcon className="live-hero__picture" icon={this.props.siteStore.siteCustomization.arrangement[0].eventImage} label="artist" />
               <h4 className="live-hero__heading">
                 <span className="live-hero__heading-span card__heading-span--4">Madison Beer</span>
               </h4>

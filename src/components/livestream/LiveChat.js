@@ -33,7 +33,7 @@ class LiveChat extends React.Component {
     );
 
     let channel = this.props.rootStore.chatClient.channel("livestream", "eluvio", {
-      name: "The Masked Singer",
+      name: "Madison Beer",
     });
 
     return (

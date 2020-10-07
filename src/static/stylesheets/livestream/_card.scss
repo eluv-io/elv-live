@@ -53,11 +53,11 @@
 }
 
 .card__side--front {
-  background-color: #fff; 
+  background-color: var(--bgColor); 
 }
 .card__side--back {
   transform: rotateY(180deg); 
-  background-image: linear-gradient(to right bottom, rgb(4, 6, 34), #000000);
+  background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
 }
 
 .card:hover .card__side--front {
@@ -80,7 +80,7 @@
   font-weight: 300;
   text-transform: uppercase;
   text-align: right;
-  color: #fff;
+  color: var(--pText);
   position: absolute;
   top: 210px;
   right: 25px;
@@ -91,7 +91,7 @@
   font-weight: 300;
   text-transform: uppercase;
   text-align: right;
-  color: #fff;
+  color: var(--pText);
   position: absolute;
   top: 300px;
   right: 15px;
@@ -105,7 +105,7 @@
   line-height: 180%;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone; 
-  background-image: linear-gradient(to right bottom, rgba(3, 33, 55, 0.85), rgba(0, 0, 0, 0.85));
+  background-image: linear-gradient(to right bottom, var(--bgColor), rgba(0, 0, 0, 0.85));
 }
   
 .card__details {

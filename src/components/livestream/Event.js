@@ -4,12 +4,6 @@ import Logo from "../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
 import styled from "styled-components";
 
-import background from "../../static/images/livestream/liam-event.png";
-import artist1 from "../../static/images/livestream/artist1.png";
-
-
-import AsyncComponent from "../AsyncComponent";
-
 import {
   Link
 } from "react-router-dom";

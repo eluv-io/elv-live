@@ -1,5 +1,9 @@
+
 .live-container {
-  background-image: linear-gradient(to right bottom, rgb(4, 6, 34), #000000);
+  background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
+  // background-color: var(--bgColor) !important;
+  // background-color: transparent;
+
   display: flex;
   flex-direction: column;
 }
@@ -13,7 +17,7 @@
 }
 
 .new-live-container {
-  background-image: linear-gradient(to right bottom, rgb(4, 6, 34), #000000);
+  background-image: linear-gradient(to right bottom, rg var(--bgColor), #000000);
   display: flex;
   flex-direction: column;
   max-height: 100vh;
@@ -63,7 +67,8 @@
 }
 
 .live-hero {
-  background-color: linear-gradient(to right bottom, rgb(4, 6, 34), #000000) !important;
+  background-color: transparent !important;
+  // background-color: var(--bgColor) !important;
   display: flex;
   flex-direction: row;
   height: 750px;
@@ -87,7 +92,7 @@
   }
 
   &__container {
-    color: #fff;
+    color: var(--pText);
     display: flex;
     flex-direction: column;
     // flex-wrap: wrap;
@@ -103,7 +108,7 @@
     }
     &__title {
       // text-align: center !important;
-      color: #fff;
+      color: var(--pText);
       display: inline-block;
       font-size: 5.5em;
       font-weight: 700;
@@ -146,7 +151,7 @@
 
     &__subtitle {
       // text-align: center !important;
-      color: rgb(136, 136, 136);
+      color: var(--sText);
       display: inline-block;
       font-size: 1.6em;
       font-weight: normal;
@@ -271,7 +276,7 @@
   }
 
   &__heading {
-    color: #fff;
+    color: var(--pText);
     font-size: 25px;
     font-weight: 300;
     margin-left: 25px;
@@ -350,14 +355,14 @@
 
 .live-footer {
   background-color: transparent;
-  color: #fff !important;
+  color: var(--pText) !important;
   height: 5rem;
   margin-top: 3rem;
   text-align: center !important;
   width: 100%;
 
   &__title {
-    color: #fff !important;
+    color: var(--pText) !important;
     font-size: 1.6rem;
     margin-top: 3rem;
     text-align: center !important;
