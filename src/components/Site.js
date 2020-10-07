@@ -35,51 +35,55 @@ const FormatName = (name) => {
 @withRouter
 @observer
 class Site extends React.Component {
-  ArrangementEntry(entry, i) {
-    const key = `arrangement-entry-${i}`;
-    let dateFormat = require('dateformat');
+  // ArrangementEntry(entry, i) {
+  //   const key = `arrangement-entry-${i}`;
+  //   let dateFormat = require('dateformat');
 
-    let name, titles;
-    switch (entry.type) {
-      case "header":
-        return <h1 key={key}>{entry.options.text}</h1>;
-      case "playlist":
-        const playlist = this.props.siteStore.siteInfo.playlists.find(playlist => playlist.slug === entry.playlist_slug);
-        name = entry.label;
-        // titles = playlist.titles;
-        break;
-      case "asset":
-        name = entry.label;
-        titles = this.props.siteStore.siteInfo.assets[entry.name];
-        break;
-      default:
-        // eslint-disable-next-line no-console
-        console.error("Unknown Asset Type:", entry.type);
-        // eslint-disable-next-line no-console
-        console.error(entry);
-        return;
-    }
+  //   let name, titles;
+  //   switch (entry.type) {
+  //     case "playlist":
+  //       const playlist = this.props.siteStore.siteInfo.playlists.find(playlist => playlist.slug === entry.playlist_slug);
+  //       name = entry.label;
+  //       // titles = playlist.titles;
+  //       break;
+  //     case "asset":
+  //       name = entry.label;
+  //       titles = this.props.siteStore.siteInfo.assets[entry.name];
+  //       break;
+  //     default:
+  //       // eslint-disable-next-line no-console
+  //       console.error("Unknown Asset Type:", entry.type);
+  //       // eslint-disable-next-line no-console
+  //       console.error(entry);
+  //       return;
+  //   }
 
 
-    // const variant = entry.options && entry.options.variant;
-    switch (entry.component) {
-      case "event":
-        return (
-          <Card
-            key={key}
-            name={entry.options.title}
-            date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
-            description={entry.options.description}
-            icon={entry.featureImage}
-          />
-        );
-      default:
-        // eslint-disable-next-line no-console
-        console.error("Unknown component:", entry.component);
-        // eslint-disable-next-line no-console
-        console.error(entry);
-    }
-  }
+  //   // const variant = entry.options && entry.options.variant;
+  //   switch (entry.component) {
+  //     case "event":
+  //       return (
+  //         <Card
+  //           key={key}
+  //           name={entry.options.title}
+  //           date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
+  //           description={entry.options.description}
+  //           icon={entry.featureImage}
+  //         />
+  //       );
+  //     case "header":
+  //       return (
+  //         <div className="live-content__title">
+  //           {entry.options.text}
+  //         </div>
+  //       );
+  //     default:
+  //       // eslint-disable-next-line no-console
+  //       console.error("Unknown component:", entry.component);
+  //       // eslint-disable-next-line no-console
+  //       console.error(entry);
+  //   }
+  // }
 
   Content() {
     const siteCustomization = this.props.siteStore.siteCustomization || {};
@@ -87,43 +91,70 @@ class Site extends React.Component {
     document.documentElement.style.setProperty('--bgColor', `${siteCustomization.colors.background}`);
     document.documentElement.style.setProperty('--pText', `${siteCustomization.colors.primary_text}`);
     document.documentElement.style.setProperty('--sText', `${siteCustomization.colors.secondary_text}`);
+    
+    let headers = [];
+    let cards = [];
+    let headerCount = 0; 
+    let ret = [];
+    let dateFormat = require('dateformat');
 
-    if(!arrangement) {
-      // Default arrangement: Playlists then assets, all medium carousel
-      arrangement = this.props.siteStore.siteInfo.playlists.map(playlist => ({
-        type: "playlist",
-        name: playlist.name,
-        label: playlist.name,
-        playlist_slug: playlist.slug,
-        component: "carousel",
-        options: {
-          variant: "landscape",
-          width: "medium"
+    for (var i = 0; i < arrangement.length; i++) {
+      let entry = arrangement[i];
+      if (arrangement[i].component == "header") {
+        headers.push(
+          <div className="live-content__title">
+            {entry.options.text}
+          </div>
+        );
+        if (i != 0) {
+          headerCount++;
+        } 
+      }
+      else if (arrangement[i].component == "event") {
+        if (cards[headerCount] === undefined || cards[headerCount].length == 0) {
+          cards[headerCount] = [
+            <Card
+              key={i}
+              name={entry.options.title}
+              date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
+              description={entry.options.description}
+              icon={entry.featureImage}
+            />
+          ];
         }
-      }));
-
-      arrangement = arrangement.concat(
-        Object.keys(this.props.siteStore.siteInfo.assets).sort().map(key => ({
-          type: "asset",
-          name: key,
-          label: FormatName(key),
-          component: "carousel",
-          options: {
-            variant: "landscape",
-            width: "medium"
-          }
-        }))
+        else {
+          cards[headerCount].push(
+            <Card
+              key={i}
+              name={entry.options.title}
+              date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
+              description={entry.options.description}
+              icon={entry.featureImage}
+            />
+          );
+        }
+      }
+    }
+    
+    for (var i = 0; i < cards.length; i++) {
+      ret.push(headers[i]);
+      ret.push(
+        <div className="live-content__container">
+          {cards[i]}
+        </div>
       );
     }
-
-    return arrangement.map((entry, i) => this.ArrangementEntry(entry, i));
+    return (
+      <div className="live-content">
+        {ret}
+      </div>
+    )
   }
 
   render() {
     if(!this.props.rootStore.client) {
       return null;
     }
-    
 
     return (
       <div className="live-container">
@@ -148,7 +179,7 @@ class Site extends React.Component {
           
           <div className="live-hero__cardMain">
             <div className="live-hero__cardMain__side">
-              <ImageIcon className="live-hero__picture" icon={this.props.siteStore.siteCustomization.arrangement[0].eventImage} label="artist" />
+              <ImageIcon className="live-hero__picture" icon={this.props.siteStore.siteCustomization.arrangement[1].eventImage} label="artist" />
               <h4 className="live-hero__heading">
                 <span className="live-hero__heading-span card__heading-span--4">Madison Beer</span>
               </h4>
@@ -157,15 +188,7 @@ class Site extends React.Component {
         </div>
 
         {/* Content Selection */}
-        <div className="live-content">
-          <div className="live-content__title">
-            Upcoming Livestreams
-          </div>
-
-          <div className="live-content__container">
-            {this.Content()}
-          </div>
-        </div>
+        {this.Content()}
 
         {/* Footer */}
         <div className="live-footer">

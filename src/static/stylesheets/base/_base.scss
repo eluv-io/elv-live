@@ -84,7 +84,17 @@ $bp-tiny: 21.875em;   // 350px;
 
 .error-message {
   position: fixed;
-  width: 100%;
-  top: 1rem;
+  width: 200px;
+  height: 50px;
+  // margin: auto;
+  top: 50px;
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
   text-align: center;
+  color: red;
+  background-color: white;
+  z-index: 10000;
+  border-radius: 5px;
 }
