@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import Logo from "../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
 import styled from "styled-components";
+import {Redirect} from "react-router";
 
 import {
   Link
@@ -23,6 +24,10 @@ class Event extends React.Component {
   }
 
   render() {
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
+      return <Redirect to='/'/>;
+    }
+    
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
 
     const BackgroundStyleContainer = styled.div`

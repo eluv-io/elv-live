@@ -109,7 +109,7 @@ class App extends React.Component {
           return (
             <ContainerApp>
               <main>
-                { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
+                {/* { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null } */}
                 <HashRouter>
                   <Routes />
                 </HashRouter>

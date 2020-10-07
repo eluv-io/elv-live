@@ -5,27 +5,10 @@ import {inject, observer} from "mobx-react";
 import "./normalize.css";
 import "./global.css";
 import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
+import {Redirect} from "react-router";
 
 import Logo from "../../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
-
-const formatPrice = ({ amount, currency, quantity }) => {
-  const numberFormat = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-    currencyDisplay: "symbol",
-  });
-  const parts = numberFormat.formatToParts(amount);
-  let zeroDecimalCurrency = true;
-  for(let part of parts) {
-    if(part.type === "decimal") {
-      zeroDecimalCurrency = false;
-    }
-  }
-  amount = zeroDecimalCurrency ? amount : amount / 100;
-  const total = (quantity * amount).toFixed(2);
-  return numberFormat.format(total);
-};
 
 @inject("rootStore")
 @inject("siteStore")
@@ -72,6 +55,9 @@ class CheckoutForm extends React.Component {
   
 
   render() {
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
+      return <Redirect to='/'/>;
+    }
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
 
     return (
