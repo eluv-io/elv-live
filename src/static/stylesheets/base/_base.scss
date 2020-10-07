@@ -13,6 +13,10 @@
   --color-grey-dark-2: #777;
   --color-grey-dark-3: #999;
   --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
+
+  --bgColor: black; //var(--bgColor)
+  --pText: white; //var(--pText)
+  --sText: rgb(136, 136, 136); //var(--sText)
 }
 
 .app-version {

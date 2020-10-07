@@ -67,7 +67,6 @@ class SiteStore {
   @observable streamPlay;
 
   @observable titles;
-  @observable premiere;
 
   @observable backgroundColor = "rgb(17, 17, 17)";
   @observable primaryFontColor = "white";
@@ -117,68 +116,6 @@ class SiteStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
-
-  //////////////////////////////////////////////////////////////////////////////
-  //Livestream Event
-
-  @action.bound
-  SetArtist(artist, bk) {
-    this.artist = artist;
-    this.bkimage = bk;
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-
-
-  //Single Page Title
-  @observable singleTitle;
-
-  @action.bound
-  SetSingleTitle(title) {
-    this.singleTitle = title;
-  }
-
-  @action.bound
-  OffSingleTitle() {
-    this.singleTitle = false;
-  }
-  ///////////////////////////////////////
-  //Premiere
-  @observable premiereCountdown = false;
-  @observable boughtPremiere = false;
-
-  @action.bound
-  setPremiereCountdown() {
-    this.premiereCountdown = true;
-  }
-
-  @action.bound
-  buyPremiere() {
-    this.boughtPremiere = true;
-  }
-
-  ///////////////////////////////////////
-  //Subscription
-  @observable boughtSubscription = false;
-
-  @action.bound
-  buySubscription() {
-    this.boughtSubscription = true;
-  }
-
-  ///////////////////////////////////////
-  // Site Customization
-
-  @action.bound
-  SetBackgroundColor(color) {
-    this.backgroundColor = color;
-  }
-
-  @action.bound
-  SetPrimaryFontColor(color) {
-    this.primaryFontColor = color;
-  }
-  ///////////////////////////////////////
   // Play Video
   @observable loading = false;
 
@@ -265,11 +202,10 @@ class SiteStore {
 
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
-    if(this.siteParams && this.siteParams.objectId === objectId) {
-      return;
-    }
-
-    this.Reset();
+    // if(this.siteParams && this.siteParams.objectId === objectId) {
+    //   return;
+    // }
+    // this.Reset();
 
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
@@ -277,8 +213,6 @@ class SiteStore {
       versionHash: yield this.client.LatestVersionHash({objectId}),
       writeToken: writeToken
     };
-
-
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
 
@@ -293,13 +227,10 @@ class SiteStore {
       resolveIgnoreErrors: true
     })) || DEFAULT_SITE_CUSTOMIZATION;
 
-    // if(this.siteCustomization.premiere) {
-    //   this.premiere = {
-    //     title: yield this.LoadTitle(this.siteParams, this.siteCustomization.premiere.title, "public/asset_metadata/site_customization/premiere/title"),
-    //     premieresAt: Date.parse(this.siteCustomization.premiere.premieresAt),
-    //     price: this.siteCustomization.premiere.price
-    //   };
-    // }
+    if(this.siteCustomization.logo) {
+      this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
+    }
+
     let eventMap = new Map();
     let dateFormat = require('dateformat');
 
@@ -317,9 +248,6 @@ class SiteStore {
           if(entry.options.featureImage) {
             entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
           }
-          // if(entry.options.price) {
-          //   entry.link = yield this.CreateCharge(entry.options.title, entry.options.description, entry.options.price)
-          // }
 
           eventMap.set(entry.options.title.replace(/\s+/g, '-').toLowerCase(),
             {
@@ -337,15 +265,6 @@ class SiteStore {
     }
 
     this.eventAssets = eventMap;
-
-    if(this.siteCustomization.logo) {
-      this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
-    }
-
-    if(this.siteCustomization.background_image) {
-      this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
-    }
-
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
@@ -377,10 +296,6 @@ class SiteStore {
       resolveIncludeSource: true,
       resolveIgnoreErrors: true
     }));
-    // console.log("this.titles");
-    // console.log(this.titles);
-    // console.log(this.titles[0]);
-    // console.log(this.titles[0]["rtmp-channel"]);
 
     this.stream = {
       title: yield this.LoadTitle(this.siteParams, this.titles[0]["rtmp-channel"], "public/asset_metadata/titles/0/rtmp-channel")

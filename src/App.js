@@ -88,6 +88,7 @@ class Routes extends React.Component {
 @observer
 class App extends React.Component {
   render() {
+
     const ContainerApp = styled.div`
       min-height: 100vh;    
       background: black;

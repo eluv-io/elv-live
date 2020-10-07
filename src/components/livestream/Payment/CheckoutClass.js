@@ -53,14 +53,15 @@ class CheckoutForm extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
-
+    let URL = window.location.href;
+    let shortURL = URL.substring(0, URL.lastIndexOf("#") + 2);
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HPbPYKgR5J3zPrLcOd9Vz2u", quantity: 1 }],
       // successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/success`,
       // cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/`,
-      successUrl: `${window.location.origin}/#/success`,
-      cancelUrl: `${window.location.origin}/#/`,
+      successUrl: `${shortURL}success`,
+      cancelUrl: `${shortURL}`,
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
@@ -101,7 +102,7 @@ class CheckoutForm extends React.Component {
                 Buy with Credit Card
               </button>
               <button className="payment-button">
-                <a className="coinbase buy-with-crypto" data-cache-disabled="true"
+                <a className="payment-button coinbase buy-with-crypto" data-cache-disabled="true"
                   href="https://commerce.coinbase.com/checkout/86096eab-9719-4817-a813-ac57ba18b022">
                   Buy with Crypto
                 </a>

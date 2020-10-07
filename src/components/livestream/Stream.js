@@ -47,11 +47,11 @@ class Stream extends React.Component {
                 
                 <div className="stream-container__streamBox--info">
                   <h2 className="stream-container__streamBox--info__subtitle">
-                    Liam Payne
+                    Madison Beer
                     {/* Fox Broadcasting Company */}
                   </h2>
                   <h1 className="stream-container__streamBox--info__title">
-                    The LP Show: Act 2
+                    Live At Madison Square Garden
                     {/* The Masked Singer */}
                   </h1>
                 </div> 

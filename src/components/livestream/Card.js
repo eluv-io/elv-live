@@ -14,20 +14,15 @@ class Card extends React.Component {
   render() {
     let nameURL = this.props.name.replace(/\s+/g, '-').toLowerCase();
     const newTo = { 
-      pathname: `/event/${nameURL}`, 
-      name: this.props.name,
-      description: this.props.description, 
-      icon: this.props.icon, 
-      eventImg: this.props.eventImg,
-      date: this.props.date
+      pathname: `/event/${nameURL}`
     };
+    
 
     return (
         <div className="card">
           <div className="card__side card__side--front">
 
             <ImageIcon className="card__picture" icon={this.props.icon} label="artist" />
-            {/* <img src={this.props.icon} className="card__picture" /> */}
 
             <h4 className="card__heading">
               <span className="card__heading-span">{this.props.name}</span>
