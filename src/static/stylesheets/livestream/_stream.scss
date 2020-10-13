@@ -14,8 +14,34 @@
 .stream-container ::-webkit-scrollbar {
   display: none;
   overflow: hidden !important;
-
 }
+.css-1okebmr-indicatorSeparator {
+  display: none !important;
+}
+.css-yk16xz-control {
+  border-radius: 20px !important;
+  text-align: center !important;
+}
+.css-1pahdxg-control {
+  border-radius: 20px !important;
+  text-align: center !important;
+  box-shadow: 0 0 0 1px #030b30 !important;
+  border-color: #030b30 !important;
+}
+.css-26l3qy-menu:active {
+  // background-color: red !important;
+}
+.css-1pahdxg-control:hover {
+  border-color: #030b30 !important;
+}
+.css-g1d714-ValueContainer {
+  text-align: center !important;
+  padding: 2px 25px !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
 .stream-container {
   background-color: #000;
   display: flex;
@@ -58,26 +84,31 @@
       background-color: #000;
       height: 90.7px !important;
       width: 100%;
+      display: flex;
+      height: 6rem;
+      justify-content: space-between;
+      flex-direction: row;
+
       @media only screen and (max-width: 750px) {
         display: none;
       }
-      
-      &__container {
-        align-items: center;
-        display: flex;
-        height: 6rem;
-        justify-content: flex-start;
     
-        &--logo { 
-          height: 3rem;
-          margin-left: 2.5rem;
-          margin-top: 2rem;
-          width: 12rem;
-          -webkit-user-select: none; /* Safari */
-          -ms-user-select: none; /* IE 10+ and Edge */
-          user-select: none; /* Standard syntax */
-        }
+      &__logo { 
+        height: 3rem;
+        margin-left: 2.5rem;
+        margin-top: 2rem;
+        width: 12rem;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
       }
+      &__dropdown { 
+        height: 3rem;
+        margin-top: 2rem;
+        margin-right: 2.5rem;
+        width: 185px;
+      }
+      
     }
 
     &--video { 

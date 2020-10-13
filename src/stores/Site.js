@@ -65,12 +65,15 @@ class SiteStore {
   @observable siteCustomization;
   @observable stream;
   @observable streamPlay;
+  @observable feeds = [];
 
   @observable titles;
 
   @observable backgroundColor = "rgb(17, 17, 17)";
   @observable primaryFontColor = "white";
   @observable logoUrl;
+  @observable darkLogo;
+
   @observable background_image;
   @observable eventAssets;
   @observable chargeID;
@@ -125,6 +128,24 @@ class SiteStore {
       this.loading = true;
 
       yield this.SetActiveTitle(title);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
+  });
+
+  @action.bound
+  SetFeed = flow(function * (title1, title2, title3) {
+    try {
+      this.loading = true;
+      this.feeds.push(yield this.LoadActiveTitle(title1));
+      this.feeds.push(yield this.LoadActiveTitle(title2));
+      this.feeds.push(yield this.LoadActiveTitle(title3));
+
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load title:");
@@ -229,6 +250,9 @@ class SiteStore {
 
     if(this.siteCustomization.logo) {
       this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
+    }
+    if(this.siteCustomization.dark_logo) {
+      this.darkLogo = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/dark_logo"});
     }
 
     let eventMap = new Map();

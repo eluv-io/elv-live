@@ -170,10 +170,10 @@ class Site extends React.Component {
         <div className="live-hero">
           <div className="live-hero__container">
             <h1 className="live-hero__container__title">
-                Live Concerts From your home. 
+                {this.props.siteStore.siteCustomization.header}
             </h1>
             <h2 className="live-hero__container__subtitle">
-                Purchase livestream tickets for your favorite artists from the comfort of your home.
+                {this.props.siteStore.siteCustomization.subheader}
             </h2>
           </div>
           

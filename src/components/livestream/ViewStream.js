@@ -42,7 +42,9 @@ class ViewStream extends React.Component {
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
-      let title = this.props.siteStore.streamPlay;
+      let streamFeedOption = this.props.feedOption.value;
+      let title = this.props.siteStore.feeds[streamFeedOption];
+      
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
 
@@ -93,12 +95,15 @@ class ViewStream extends React.Component {
   }
 
   render() {
-    const title = this.props.siteStore.streamPlay;
-    console.log(title);
+    // const title = this.props.siteStore.streamPlay;
+    let streamFeedOption = this.props.feedOption.value;
+    console.log("feeds:");
+    console.log(this.props.siteStore.feeds);
+    // console.log(title);
 
     return (
       <video
-        key={`active-title-video-${title.titleId}-${title.currentOffering}`}
+        key={`active-title-video-${streamFeedOption}`}
         ref={this.InitializeVideo}
         autoPlay
         // poster={poster}
