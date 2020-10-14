@@ -2,7 +2,7 @@ import React from "react";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
-import poster from "../../static/images/livestream/masked-singer.jpg";
+// import poster from "../../static/images/livestream/masked-singer.jpg";
 
 @inject("siteStore")
 @observer
@@ -42,8 +42,8 @@ class ViewStream extends React.Component {
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
-      let streamFeedOption = this.props.feedOption.value;
-      let title = this.props.siteStore.feeds[streamFeedOption];
+      // let streamFeedOption = this.props.feedOption.value;
+      let title = this.props.siteStore.feeds[this.props.feedOption];
       
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
@@ -96,19 +96,15 @@ class ViewStream extends React.Component {
 
   render() {
     // const title = this.props.siteStore.streamPlay;
-    let streamFeedOption = this.props.feedOption.value;
-    console.log("feeds:");
-    console.log(this.props.siteStore.feeds);
-    // console.log(title);
 
     return (
       <video
-        key={`active-title-video-${streamFeedOption}`}
+        key={`active-title-video-${this.props.feedOption}`}
         ref={this.InitializeVideo}
         autoPlay
         // poster={poster}
         controls={this.state.showControls}
-        className={"stream-container__streamBox--video"}
+        className={this.props.classProp}
       />
     );
   }

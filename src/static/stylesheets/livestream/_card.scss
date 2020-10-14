@@ -241,6 +241,25 @@
 }
 
 /* BUTTONS */
+.btnFan, .btnFan:link, .btnFan:visited {
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 100px;
+  transition: all .2s;
+  position: relative;
+  font-size: 17px;
+  border: none;
+  padding: 0px !important;
+  cursor: pointer; 
+  margin-top: 5px !important;
+  // text-align: center; 
+  // margin: auto;
+  width: 130px;
+  height: 35px !important;
+  color: black !important;
+  font-weight: bold;
+  // text-transform: uppercase;
+}
 
 .btn2, .btn2:link, .btn2:visited {
   text-decoration: none;
@@ -255,10 +274,11 @@
   margin-top: 5px;
   text-align: center; 
   /* margin: auto; */
-  width: 240px;
+  width: 230px;
   color: black !important;
   font-weight: 600;
 }
+
 
 .btn2:hover {
   transform: translateY(-3px);
