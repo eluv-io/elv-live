@@ -1,19 +1,16 @@
 import React from "react";
 import {inject, observer, Provider} from "mobx-react";
-import Logo from "../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
-import LiveChat from "./LiveChat";
 import ViewStream from "./ViewStream";
-
-import {Redirect, Switch, withRouter} from "react-router";
-import AsyncComponent from "../AsyncComponent";
-
+import AsyncComponent from "../../AsyncComponent";
 import Select from 'react-select';
+import StreamTabs from './StreamTabs';
 
 const options = [
   { value: '0', label: 'MULTIVIEW 1' },
   { value: '1', label: 'MULTIVIEW 2' },
-  { value: '2', label: 'ALL VIEWS' },
+  { value: '2', label: 'MULTIVIEW 3' },
+  { value: 'all', label: 'ALL VIEWS' },
 ];
 
 @inject("rootStore")
@@ -27,6 +24,25 @@ class Stream extends React.Component {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
+
+  renderFeed(selectedOption) {
+    // const { selectedOption } = this.state;
+
+    if (selectedOption.value == 'all') {
+      return (
+        <div className="stream-container__streamBox--feedGrid">
+          <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1"/>
+          <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2"/>
+          <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3"/>
+        </div>
+      );
+    } else {
+      return (
+        // <ViewStream title = {this.props.siteStore.feeds[selectedOption.value]} classProp = "stream-container__streamBox--video"/>
+        <ViewStream feedOption={selectedOption.value} classProp = "stream-container__streamBox--video"/>
+      );
+    }
+  }
 
   render() {
     if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
@@ -60,7 +76,7 @@ class Stream extends React.Component {
             <div className="stream-container">
               <div className="stream-container__streamBox">
                 <div className="stream-container__streamBox--nav">
-                  <ImageIcon className="stream-container__streamBox--nav__logo" icon={Logo} label="Eluvio" />
+                  <ImageIcon className="stream-container__streamBox--nav__logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
                   <Select
                     className="stream-container__streamBox--nav__dropdown"
                     value={selectedOption}
@@ -72,11 +88,22 @@ class Stream extends React.Component {
                     isClearable={false}
                     isSearchable={false}
                     autoFocus={false}
+                    // styles={colourStyles}
+
+                    // theme={(theme) => ({
+                    //   ...theme,
+                    //   colors: {
+                    //   ...theme.colors,
+                    //     text: 'black',
+                    //     primary25: 'rgba(0, 0, 0, 0.3)',
+                    //     primary: '#050b29',
+                    //   },
+                    // })}
                   />
                 </div>
 
-                <ViewStream feedOption={selectedOption}/>
-                
+                {this.renderFeed(selectedOption)}
+
                 <div className="stream-container__streamBox--info">
                   <h2 className="stream-container__streamBox--info__subtitle">
                     Madison Beer
@@ -88,9 +115,8 @@ class Stream extends React.Component {
                   </h1>
                 </div> 
               </div>
-              <div className="stream-container__chat">
-                <LiveChat /> 
-              </div>
+
+              <StreamTabs />
             </div>
           );
         }}
