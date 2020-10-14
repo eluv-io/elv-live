@@ -76,7 +76,7 @@ export default function IconLabelTabs() {
           classes={{
             indicator: classes.indicator
           }}
-          style={{height: "64.38px"}}
+          style={{height: "75px"}}
 
         >
           <Tab icon={<SmsIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>LIVE CHAT</span>} />

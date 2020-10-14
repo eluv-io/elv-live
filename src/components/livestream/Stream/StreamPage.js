@@ -5,6 +5,7 @@ import ViewStream from "./ViewStream";
 import AsyncComponent from "../../AsyncComponent";
 import Select from 'react-select';
 import StreamTabs from './StreamTabs';
+import {Redirect} from "react-router";
 
 const options = [
   { value: '0', label: 'MULTIVIEW 1' },
@@ -26,8 +27,6 @@ class Stream extends React.Component {
   };
 
   renderFeed(selectedOption) {
-    // const { selectedOption } = this.state;
-
     if (selectedOption.value == 'all') {
       return (
         <div className="stream-container__streamBox--feedGrid">
@@ -96,7 +95,7 @@ class Stream extends React.Component {
                     //   ...theme.colors,
                     //     text: 'black',
                     //     primary25: 'rgba(0, 0, 0, 0.3)',
-                    //     primary: '#050b29',
+                    //     primary: '#030b30',
                     //   },
                     // })}
                   />

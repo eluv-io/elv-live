@@ -16,9 +16,9 @@ class FanWall extends React.Component {
     return (
       <div className="stream-container__tabs--wall">
         <div className="stream-container__tabs--fanHeading" >
-          <div className="stream-container__tabs--fanHeading--fanTitle" >
+          <h1 className="stream-container__tabs--fanHeading--fanTitle" >
             Virtual Fan Wall
-          </div>
+          </h1>
 
           <button className="stream-container__tabs--fanHeading--fanButton btnFan btn2--white">
             Join Now
