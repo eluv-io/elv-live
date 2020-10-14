@@ -128,19 +128,19 @@ class RootStore {
 
       client.SetSigner({signer});
 
-      // this.accessCode = yield client.RedeemCode({
-      //   issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPM59kMU5trgj",
-      //   code: Token
-      // });
-      this.accessCode = Token;
+      this.accessCode = yield client.RedeemCode({
+        issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPM59kMU5trgj",
+        code: Token
+      });
+      // this.accessCode = Token;
 
       // console.log("this.accessCode");
       // console.log(this.accessCode);
 
-      // if(!this.accessCode) {
-      //   this.SetError("Invalid code");
-      //   return false;
-      // }
+      if(!this.accessCode) {
+        this.SetError("Invalid code");
+        return false;
+      }
 
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!re.test(String(email).toLowerCase())) {

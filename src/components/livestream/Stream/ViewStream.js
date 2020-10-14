@@ -96,6 +96,10 @@ class ViewStream extends React.Component {
 
   render() {
     // const title = this.props.siteStore.streamPlay;
+    let controlsOption = this.state.showControls;
+    if (this.props.classProp !=  "stream-container__streamBox--video") {
+      controlsOption = false; 
+    }
 
     return (
       <video
@@ -103,7 +107,7 @@ class ViewStream extends React.Component {
         ref={this.InitializeVideo}
         autoPlay
         // poster={poster}
-        controls={this.state.showControls}
+        controls={controlsOption}
         className={this.props.classProp}
       />
     );
