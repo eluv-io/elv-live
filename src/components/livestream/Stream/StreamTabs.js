@@ -85,7 +85,7 @@ export default function IconLabelTabs() {
           {/* <Tab icon={<PersonPinIcon />} label="NEARBY" /> */}
         </Tabs>
         <TabPanel value={value} index={0}>
-          <LiveChat /> 
+          {/* <LiveChat />  */}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <FanWall/>

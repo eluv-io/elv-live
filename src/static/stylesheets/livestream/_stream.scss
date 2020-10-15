@@ -265,7 +265,7 @@
       display: grid; 
       grid-template-columns: 50% 50%;
       grid-auto-rows: 125px;
-      grid-template-rows: 140px repeat(auto-fill, 130px);
+      grid-template-rows: 130px repeat(auto-fill, 130px);
 
       @media only screen and (max-width: 750px) {
         height: 100%;
@@ -279,8 +279,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      align-content: center;
+      justify-content: space-evenly;
+      // align-content: center;
       color: white;
   
       @media only screen and (max-width: 750px) {
@@ -288,7 +288,7 @@
       }
       &--fanTitle { 
         height: auto;
-        width: 100%;
+        width: auto;
         color: white;
         font-size: 27px;
         font-weight: 600;
@@ -296,12 +296,15 @@
         // margin-top: 5px;
         text-transform: uppercase;
         text-align: center !important;
+        display: inline-block;
+        // border-bottom: 1px solid white;
+        padding-bottom: 0px;
         @media only screen and (max-width: 750px) {
           height: 100%;
         }
       }
       &--fanButton { 
-        margin-top: 5px;
+        // margin-top: -10px !important;
         @media only screen and (max-width: 750px) {
           height: 100%;
         }

@@ -109,6 +109,7 @@ class ViewStream extends React.Component {
         // poster={poster}
         controls={controlsOption}
         className={this.props.classProp}
+        muted = {this.props.mutedOption}
       />
     );
   }
