@@ -30,23 +30,23 @@ class Stream extends React.Component {
     if (selectedOption.value == 'all') {
       return (
         <div className="stream-container__streamBox--feedGrid">
-          <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1"/>
-          <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2"/>
-          <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3"/>
+          <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
+          <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
+          <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
         </div>
       );
     } else {
       return (
         // <ViewStream title = {this.props.siteStore.feeds[selectedOption.value]} classProp = "stream-container__streamBox--video"/>
-        <ViewStream feedOption={selectedOption.value} classProp = "stream-container__streamBox--video"/>
+        <ViewStream feedOption={selectedOption.value} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
       );
     }
   }
 
   render() {
-    if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
-      return <Redirect to={`/code`} />;
-    }
+    // if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
+    //   return <Redirect to={`/code`} />;
+    // }
 
     const { selectedOption } = this.state;
 

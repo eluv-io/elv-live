@@ -247,11 +247,13 @@
   border-radius: 100px;
   transition: all .2s;
   position: relative;
-  font-size: 17px;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
   border: none;
   padding: 0px !important;
   cursor: pointer; 
-  margin-top: 5px !important;
+  margin-top: -15px !important;
   // text-align: center; 
   // margin: auto;
   width: 130px;
