@@ -18,6 +18,7 @@ function TabPanel(props) {
   return (
     <div
       role="tabpanel"
+      className="stream-container__tabs--bottom"
       hidden={value !== index}
       id={`scrollable-prevent-tabpanel-${index}`}
       aria-labelledby={`scrollable-prevent-tab-${index}`}
@@ -42,7 +43,7 @@ TabPanel.propTypes = {
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    maxWidth: 500,
+    maxWidth: 5000,
     backgroundColor: "black",
 
   },
@@ -85,7 +86,7 @@ export default function IconLabelTabs() {
           {/* <Tab icon={<PersonPinIcon />} label="NEARBY" /> */}
         </Tabs>
         <TabPanel value={value} index={0}>
-          {/* <LiveChat />  */}
+          <LiveChat /> 
         </TabPanel>
         <TabPanel value={value} index={1}>
           <FanWall/>

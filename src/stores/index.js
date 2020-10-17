@@ -157,6 +157,8 @@ class RootStore {
       this.name = name;
       this.chatClient = new StreamChat('dhu8qwk2dmxv');
       this.chatID = yield this.chatClient.devToken(this.name);
+      console.log("this.chatID");
+      console.log(this.chatID);
 
       let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";
 
