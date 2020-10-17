@@ -19,7 +19,7 @@ class FanWall extends React.Component {
             onClick={() => window.open(
               `https://video-app-7593-8841-dev.twil.io/?passcode=04009275938841&feed=false&name=${this.props.rootStore.name}`, 
               "Virtual Fan Wall",
-              "toolbar=no, location=no, status=no, menubar=no, scrollbars=1, resizable=0, width=500, height=700, ")} 
+              "toolbar=no, location=no, status=no, menubar=no, scrollbars=1, resizable=0, width=900, height=675, ")} 
             className="stream-container__tabs--fanHeading--fanButton btnFan btn2--white"
           >
             Join Now
