@@ -11,13 +11,13 @@ import CodeAccess from "./components/CodeAccess";
 import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/Stream/StreamPage";
-import AgoraLanding from "./components/livestream/Stream/AgoraVideo/Landing";
 
 import Checkout from "./components/livestream/Payment/CheckoutClass";
 import Success from "./components/livestream/Payment/Success";
 
 import styled from "styled-components";
 import AsyncComponent from "./components/AsyncComponent";
+
 
 import "swiper/css/swiper.min.css";
 import "./static/stylesheets/main.scss";
@@ -62,7 +62,6 @@ class Routes extends React.Component {
               <Route path="/payment/:artist" component={Checkout} />
               <Route path="/success" component={Success} />
               <Route exact path="/code" component={CodeAccess} />
-              <Route exact path="/agora" component={AgoraLanding} />
 
               <Route
                 exact

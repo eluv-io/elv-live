@@ -1,15 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import fan1 from "../../../static/images/fanWall/wall1.jpg";
-import fan2 from "../../../static/images/fanWall/wall2.jpg";
-import fan3 from "../../../static/images/fanWall/wall3.jpg";
-import fan4 from "../../../static/images/fanWall/wall4.jpg";
+
 
 @inject("siteStore")
 @inject("rootStore")
 @observer
 class FanWall extends React.Component {
-
 
   render() {
 
@@ -19,17 +15,24 @@ class FanWall extends React.Component {
           <h1 className="stream-container__tabs--fanHeading--fanTitle" >
             Virtual Fan Wall
           </h1>
-          <button className="stream-container__tabs--fanHeading--fanButton btnFan btn2--white">
+          <button 
+            onClick={() => window.open(
+              `https://video-app-7593-8841-dev.twil.io/?passcode=04009275938841&feed=false&name=${this.props.rootStore.name}`, 
+              "Virtual Fan Wall",
+              "toolbar=no, location=no, status=no, menubar=no, scrollbars=1, resizable=0, width=500, height=700, ")} 
+            className="stream-container__tabs--fanHeading--fanButton btnFan btn2--white"
+          >
             Join Now
           </button>
         </div>
 
-        <img src={fan1} className="stream-container__tabs--fan" />
-        <img src={fan2} className="stream-container__tabs--fan" />
-        <img src={fan3} className="stream-container__tabs--fan" />
-        <img src={fan4} lassName="stream-container__tabs--fan" />
-        <img src={fan1} className="stream-container__tabs--fan" />
-        <img src={fan2} className="stream-container__tabs--fan" />
+        <iframe 
+          src={`https://video-app-7593-8841-dev.twil.io/?passcode=04009275938841&feed=true&name=${this.props.rootStore.name}`}
+          className="stream-container__tabs--twilio"
+          frameborder="0"
+          allowfullscreen 
+          sandbox 
+        />
   
       </div>
     );
