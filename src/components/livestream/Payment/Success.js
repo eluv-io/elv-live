@@ -6,7 +6,7 @@ import Logo from "../../../static/images/Logo.png";
 // import background from "../../../static/images/livestream/artist1.png";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
-import AsyncComponent from "../../AsyncComponent";
+import AsyncComponent from "../../support/AsyncComponent";
 
 
 @inject("rootStore")

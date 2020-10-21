@@ -49,18 +49,14 @@ class Event extends React.Component {
 
         <BackgroundStyleContainer />
 
-
         <div className="event-container__info">
           <div className="event-container__info__title">
             {eventInfo.name} - Schedule
           </div>
-
           <div className="event-container__info__schedule">
             <div className="event-container__info__schedule__post">
               <h4 className="event-container__info__schedule__post__detail">{eventInfo.date} </h4>
-
               <h4 className="event-container__info__schedule__post__detail">{eventInfo.description} </h4>
-
               <Link to={{
                 pathname: `/payment/${this.props.match.params.artist}`,
                 state: {

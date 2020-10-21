@@ -5,21 +5,17 @@ import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 import Site from "./components/Site";
-// import ContentSelector from "./components/ContentSelector";
-import CodeAccess from "./components/CodeAccess";
+import CodeAccess from "./components/livestream/CodeAccess";
 
-import Home from "./components/livestream/Home";
 import Event from "./components/livestream/Event";
-import Stream from "./components/livestream/Stream/StreamPage";
+import Stream from "./components/livestream/stream/StreamPage";
 
-import Checkout from "./components/livestream/Payment/CheckoutClass";
-import Success from "./components/livestream/Payment/Success";
+import Checkout from "./components/livestream/payment/CheckoutClass";
+import Success from "./components/livestream/payment/Success";
 
 import styled from "styled-components";
-import AsyncComponent from "./components/AsyncComponent";
+import AsyncComponent from "./components/support/AsyncComponent";
 
-
-import "swiper/css/swiper.min.css";
 import "./static/stylesheets/main.scss";
 
 
@@ -44,7 +40,7 @@ class Routes extends React.Component {
         }
 
         render={() => {
-          // if(!this.props.siteStore.client) { return null; }
+          if(!this.props.siteStore.client) { return null; }
 
           return (
             <Switch>
@@ -56,7 +52,6 @@ class Routes extends React.Component {
                 component={Site}
               />
               
-              {/* <Route exact path="/" component={Home} /> */}
               <Route exact path="/event/:artist" component={Event} />
               <Route exact path="/stream" component={Stream} />
               <Route path="/payment/:artist" component={Checkout} />
@@ -120,14 +115,6 @@ class App extends React.Component {
           );
         }}
       />
-      // <ContainerApp>
-      //   <main>
-      //     { this.props.rootStore.error ? <h3 className="error-message">{ this.props.rootStore.error }</h3> : null }
-      //     <HashRouter>
-      //       <Routes />
-      //     </HashRouter>
-      //   </main>
-      // </ContainerApp>
     );
   }
 }

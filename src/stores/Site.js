@@ -57,11 +57,6 @@ const DEFAULT_SITE_CUSTOMIZATION = {
 };
 
 class SiteStore {
-  // LIVE STREAM
-
-  @observable artist;
-  @observable bkimage;
-
   @observable siteCustomization;
   @observable stream;
   @observable streamPlay;
@@ -177,7 +172,6 @@ class SiteStore {
     this.activeTrailer = yield this.LoadActiveTitle(title);
   });
   //////////////////////////////////////////////////////////////////////////////
-
 
   @action.bound
   Reset() {

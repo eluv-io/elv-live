@@ -1,90 +1,17 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import {Redirect, withRouter} from "react-router";
-import AsyncComponent from "./AsyncComponent";
-
-// import MoviePremiere from "./premiere/MoviePremiere";
-// import ActiveTitle from "./premiere/ActiveTitle";
-// import HeroGrid from "./hero/HeroGrid";
-// import OldBoxFeature from "./hero/OldBoxFeature";
-// import BoxFeature from "./hero/BoxFeature";
-// import NewVideoFeature from "./hero/NewVideoFeature";
-// import SwiperGrid from "./grid/SwiperGrid";
-// import ViewTitle from "./ViewTitle";
-// import TitleGrid from "./grid/TitleGrid";
-// import NavigationBar from "./NavigationBar";
+import {withRouter} from "react-router";
 
 import Card from "./livestream/Card";
 import {ImageIcon} from "elv-components-js";
-import Logo from "../static/images/Logo.png";
 import { Link } from "react-router-dom";
-import artist1 from "../static/images/livestream/artist1.png";
-import liamE from "../static/images/livestream/liam-event.png";
-
-const FormatName = (name) => {
-  return (name || "")
-    .split(/[_, \s]/)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
-
 
 @inject("rootStore")
 @inject("siteStore")
 @withRouter
 @observer
 class Site extends React.Component {
-  // ArrangementEntry(entry, i) {
-  //   const key = `arrangement-entry-${i}`;
-  //   let dateFormat = require('dateformat');
-
-  //   let name, titles;
-  //   switch (entry.type) {
-  //     case "playlist":
-  //       const playlist = this.props.siteStore.siteInfo.playlists.find(playlist => playlist.slug === entry.playlist_slug);
-  //       name = entry.label;
-  //       // titles = playlist.titles;
-  //       break;
-  //     case "asset":
-  //       name = entry.label;
-  //       titles = this.props.siteStore.siteInfo.assets[entry.name];
-  //       break;
-  //     default:
-  //       // eslint-disable-next-line no-console
-  //       console.error("Unknown Asset Type:", entry.type);
-  //       // eslint-disable-next-line no-console
-  //       console.error(entry);
-  //       return;
-  //   }
-
-
-  //   // const variant = entry.options && entry.options.variant;
-  //   switch (entry.component) {
-  //     case "event":
-  //       return (
-  //         <Card
-  //           key={key}
-  //           name={entry.options.title}
-  //           date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
-  //           description={entry.options.description}
-  //           icon={entry.featureImage}
-  //         />
-  //       );
-  //     case "header":
-  //       return (
-  //         <div className="live-content__title">
-  //           {entry.options.text}
-  //         </div>
-  //       );
-  //     default:
-  //       // eslint-disable-next-line no-console
-  //       console.error("Unknown component:", entry.component);
-  //       // eslint-disable-next-line no-console
-  //       console.error(entry);
-  //   }
-  // }
-
   Content() {
     const siteCustomization = this.props.siteStore.siteCustomization || {};
     let arrangement = siteCustomization.arrangement;
