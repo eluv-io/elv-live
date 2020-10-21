@@ -4,7 +4,6 @@ import {ImageIcon} from "elv-components-js";
 import {
   Link
 } from "react-router-dom";
-import artist1 from "../../static/images/livestream/artist1.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -17,13 +16,10 @@ class Card extends React.Component {
       pathname: `/event/${nameURL}`
     };
     
-
     return (
         <div className="card">
           <div className="card__side card__side--front">
-
             <ImageIcon className="card__picture" icon={this.props.icon} label="artist" />
-
             <h4 className="card__heading">
               <span className="card__heading-span">{this.props.name}</span>
             </h4>

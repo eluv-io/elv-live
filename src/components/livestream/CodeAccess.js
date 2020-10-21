@@ -3,11 +3,9 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import styled from "styled-components";
-import default_background from "../static/images/codeAccess/concert.jpg";
-// import default_background from "../static/images/codeAccess/bill-ted-background.jpg";
+import default_background from "../../static/images/codeAccess/concert.jpg";
 
 import {ImageIcon} from "elv-components-js";
-import Logo from "../static/images/Logo-Small.png";
 
 @inject("siteStore")
 @inject("rootStore")

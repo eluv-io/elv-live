@@ -10,8 +10,6 @@ import SmsIcon from '@material-ui/icons/Sms';
 import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Paper from '@material-ui/core/Paper';
 
-
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -25,11 +23,6 @@ function TabPanel(props) {
       {...other}
     >
       {children}
-      {/* {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )} */}
     </div>
   );
 }
@@ -40,7 +33,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     maxWidth: 5000,
@@ -51,7 +44,8 @@ const useStyles = makeStyles({
     backgroundColor: 'white',
     color: 'white',
   },
-});
+
+}));
 
 export default function IconLabelTabs() {
   const classes = useStyles();
@@ -68,23 +62,17 @@ export default function IconLabelTabs() {
           value={value}
           onChange={handleChange}
           variant="fullWidth"
-          // indicatorColor="primary"
           textColor="white"
-          // aria-label="icon label tabs example"
           disableFocusRipple = {true}
           disableRipple = {true}
-
           classes={{
             indicator: classes.indicator
           }}
-          style={{height: "75px"}}
-
         >
           <Tab icon={<SmsIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>LIVE CHAT</span>} />
           <Tab icon={<VideocamRoundedIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>FAN WALL</span>} />
- 
-          {/* <Tab icon={<PersonPinIcon />} label="NEARBY" /> */}
         </Tabs>
+        
         <TabPanel value={value} index={0}>
           <LiveChat /> 
         </TabPanel>

@@ -70,20 +70,19 @@
 
   }
 
-
   &__streamBox {
     display: grid;
     height: 100vh;
     width: calc(100vw - 450px);
     grid-template-columns: 100%;
-    grid-template-rows: 75px calc((100% - 75px) - 12.5%) calc((100% - 75px) - 80%);
+    grid-template-rows: 75px calc(100vh - 200px) 125px;
  
-    // @media only screen and (max-width: 1250px) {
-    //   height: 100%;
-    //   width: 65%;
-    // }
+    @media only screen and (max-width: 1250px) {
+      width: calc(100vw - 375px);
+    }
     @media only screen and (max-width: 1000px) {
-      height: 42vh !important;
+      grid-template-columns: 100%;
+      grid-template-rows: 75px calc(42vh - 75px);
       width: 100% !important;
     }
 
@@ -94,12 +93,12 @@
       grid-column: 1;
       grid-row: 1 / 2;
       display: flex;
-      height: 6rem; 
+      // height: 6rem; 
       justify-content: space-between;
       flex-direction: row;
 
       @media only screen and (max-width: 1000px) {
-        display: none;
+        // display: none;
       }
     
       &__logo { 
@@ -132,9 +131,9 @@
       grid-row: 2 / 3;
       object-fit: fill;
 
-      @media only screen and (max-width: 1000px) {
-        height: 100%;
-      }
+      // @media only screen and (max-width: 1000px) {
+      //   height: au;
+      // }
     }
 
     &--feedGrid { 
@@ -245,10 +244,9 @@
     height: 100vh;
     width: 450px;
     background-color: black;
-    // @media only screen and (max-width: 1250px) {
-    //   height: 100%;
-    //   width: 35%;
-    // }
+    @media only screen and (max-width: 1250px) {
+      width: 375px;
+    }
     // @media only screen and (max-width: 1000px) {
     //   height: 60% !important;
     //   width: 100%;
@@ -261,6 +259,10 @@
     &--bottom { 
       height: calc(100vh - 75px);
       width: 100%;
+      @media only screen and (max-width: 1000px) {
+        height: calc(58vh - 62.5px) !important;
+        width: 100% !important;
+      }
     }
     &--chat { 
       // background-color: green; 
@@ -284,6 +286,10 @@
       // grid-template-rows: 130px calc(100% - 130px);
 
       grid-template-rows: 15% 85%;
+      @media only screen and (max-width: 1000px) {
+        grid-template-rows: 25% 75% !important;
+
+      }
       // @media only screen and (max-width: 1000px) {
       //   height: 100%;
       // }
@@ -339,6 +345,13 @@
       width: 100%;
     }
   }
+}
+.MuiTabs-root {
+  height: 75px !important;
+  @media only screen and (max-width: 1000px) {
+    height: 62.5px !important;
+  }
+
 }
 .sr-input:focus, input[type='text']:focus, button:focus, .focused {
   box-shadow: none !important;
@@ -427,8 +440,8 @@
   background-color: black;
   height: calc(100vh - 64.38px) !important;
 
-  @media only screen and (max-width: 750px) {
-    height: 100% !important;
+  @media only screen and (max-width: 1000px) {
+    height: calc(58vh - 64.38px) !important;
   }
 }
 
