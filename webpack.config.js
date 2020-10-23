@@ -61,7 +61,7 @@ module.exports = {
       filename: "index.html",
       favicon: "node_modules/elv-components-js/src/icons/favicon.png"
     })
-    , new BundleAnalyzerPlugin()
+    // , new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [
