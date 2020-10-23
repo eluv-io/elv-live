@@ -47,6 +47,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.4",
     "react-select": "^3.1.0",
+    "stream-chat": "^2.7.0",
     "stream-chat-react": "^2.2.2",
     "styled-components": "^5.1.1",
     "urijs": "^1.19.1",
