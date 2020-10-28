@@ -1,26 +1,18 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Logo from "../../static/images/Logo.png";
 import {ImageIcon} from "elv-components-js";
 import styled from "styled-components";
 import {Redirect} from "react-router";
+import {Link} from "react-router-dom";
 
-import {
-  Link
-} from "react-router-dom";
+import Logo from "../../static/images/Logo.png";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Event extends React.Component {
-  componentWillMount() {
-    window.scrollTo(0,0);
-  }
   componentDidMount() {
     window.scrollTo(0, 0);
-  }
-  componentDidUpdate() {
-    window.scrollTo(0,0);
   }
 
   render() {
@@ -35,9 +27,9 @@ class Event extends React.Component {
       background-image: url(${eventInfo.eventImg});
       height: 87.5vh;
       background-position: top;
-      @media only screen and (max-width: 750px) {
-        height: 65vh;
-      }
+        @media only screen and (max-width: 750px) {
+          height: 65vh;
+        }
       }
     `;
 
@@ -64,11 +56,13 @@ class Event extends React.Component {
                   icon: eventInfo.icon
                 }
               }}>
-                <button type="button" className="btn2 btn2--white btn3 btn3--white" onClick={() => this.props.siteStore.SetArtist(artist, event)}>Buy Ticket</button>
+                <button type="button" className="btn2 btn2--white btn3 btn3--white">Buy Ticket</button>
               </Link>
             </div>
           </div>
         </div>
+        
+        {/* Footer */}
         <div className="live-footer">
           <h3 className="live-footer__title">
             Copyright © Eluvio 2020 

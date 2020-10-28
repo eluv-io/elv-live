@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./normalize.css";
-import "./global.css";
-import Logo from "../../../static/images/Logo.png";
-// import background from "../../../static/images/livestream/artist1.png";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
 import AsyncComponent from "../../support/AsyncComponent";
+
+import "../../../static/stylesheets/base/paymentGlobal.css";
+import Logo from "../../../static/images/Logo.png";
 
 
 @inject("rootStore")
@@ -31,14 +30,11 @@ class Success extends React.Component {
                 <div className="sr-main2">
                   <div className="sr-payment-summary">
                     <h1 className="title">Your purchase was successful!</h1>
-                    <h2 className="subtitle">
-                      Thanks for your order!
-                    </h2>
-
+                    <h2 className="subtitle">Thanks for your order!</h2>
                   </div>
                   <div className="event-container__info__schedule">
                     <div className="event-container__info__schedule__ticket">
-                      <h1 className="event-container__info__schedule__ticket__ticketdetail">Ticket Code: </h1>
+                      <h1 className="event-container__info__schedule__ticket__ticketdetail">Ticket Code:</h1>
                       <h2 className="event-container__info__schedule__ticket__ticketdetail2">{this.props.rootStore.OTPCode} </h2>
                       <div className="sr-section completed-view">
                         <Link to="/code" className="btn2 btn2--white buttonguy">Redeem Ticket</Link>

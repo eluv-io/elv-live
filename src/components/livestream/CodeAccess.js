@@ -3,9 +3,9 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import styled from "styled-components";
-import default_background from "../../static/images/codeAccess/concert.jpg";
-
 import {ImageIcon} from "elv-components-js";
+
+import default_background from "../../static/images/codeAccess/concert.jpg";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -19,9 +19,9 @@ class CodeAccess extends React.Component {
       email: "",
       name: "",
       loading: false,
-      email_placeholder: "enter your email",
-      code_placeholder: "ticket code",
-      name_placeholder: "enter your Chat name"
+      email_placeholder: "Enter Your Email",
+      code_placeholder: "Ticket Code",
+      name_placeholder: "Enter Your Chat Name"
     };
   }
 
@@ -46,17 +46,14 @@ class CodeAccess extends React.Component {
       }
     };
 
-    let backgroundImage = default_background;
-
     const BackgroundStyleContainer = styled.div`
       background-size: cover;
-      background-image: url(${backgroundImage});
+      background-image: url(${default_background});
       height: 100vh;
       background-position: center;
       opacity: .5;
       }
     `;
-
 
     return (
       <div className="code-entry-container">
@@ -69,7 +66,7 @@ class CodeAccess extends React.Component {
             <ImageIcon className="code-entry--logo" icon={this.props.siteStore.darkLogo} label="logo"/>
             <input
               onFocus={() => this.setState({name_placeholder: ""})}
-              onBlur={() => this.setState({name_placeholder: "Enter your Chat Name"})}
+              onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}
               placeholder={this.state.name_placeholder}
               value={this.state.name}
               onChange={event => this.setState({name: event.target.value})}
@@ -77,7 +74,7 @@ class CodeAccess extends React.Component {
             />
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "enter your Email"})}
+              onBlur={() => this.setState({email_placeholder: "Enter Your Email"})}
               placeholder={this.state.email_placeholder}
               value={this.state.email}
               onChange={event => this.setState({email: event.target.value})}
