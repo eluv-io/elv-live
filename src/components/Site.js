@@ -1,17 +1,17 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-
 import {withRouter} from "react-router";
+import { Link } from "react-router-dom";
+import {ImageIcon} from "elv-components-js";
 
 import Card from "./livestream/Card";
-import {ImageIcon} from "elv-components-js";
-import { Link } from "react-router-dom";
 
 @inject("rootStore")
 @inject("siteStore")
 @withRouter
 @observer
 class Site extends React.Component {
+
   Content() {
     const siteCustomization = this.props.siteStore.siteCustomization || {};
     let arrangement = siteCustomization.arrangement;
@@ -20,16 +20,18 @@ class Site extends React.Component {
     document.documentElement.style.setProperty('--sText', `${siteCustomization.colors.secondary_text}`);
     
     let headers = [];
+    let headerCount = 0;  // Using headerCount instead of headers.length because index needs to start at 0 and of edge case with no headers
+
     let cards = [];
-    let headerCount = 0; 
-    let ret = [];
+    let content = [];
+
     let dateFormat = require('dateformat');
 
-    for (var i = 0; i < arrangement.length; i++) {
+    for (let i = 0; i < arrangement.length; i++) {
       let entry = arrangement[i];
       if (arrangement[i].component == "header") {
         headers.push(
-          <div className="live-content__title">
+          <div className="live-content__title" key={i}>
             {entry.options.text}
           </div>
         );
@@ -39,41 +41,56 @@ class Site extends React.Component {
       }
       else if (arrangement[i].component == "event") {
         if (cards[headerCount] === undefined || cards[headerCount].length == 0) {
-          cards[headerCount] = [
-            <Card
-              key={i}
-              name={entry.options.title}
-              date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
-              description={entry.options.description}
-              icon={entry.featureImage}
-            />
-          ];
+          cards[headerCount] = [];
         }
-        else {
-          cards[headerCount].push(
-            <Card
-              key={i}
-              name={entry.options.title}
-              date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
-              description={entry.options.description}
-              icon={entry.featureImage}
-            />
-          );
-        }
+        cards[headerCount].push(
+          <Card
+            key={i}
+            name={entry.options.title}
+            date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
+            description={entry.options.description}
+            icon={entry.featureImage}
+          />
+        );
       }
     }
     
-    for (var i = 0; i < cards.length; i++) {
-      ret.push(headers[i]);
-      ret.push(
-        <div className="live-content__container">
+    for (let i = 0; i < cards.length; i++) {
+      content.push(headers[i]);
+      content.push(
+        <div className="live-content__container" key={`container-${i}`}>
           {cards[i]}
         </div>
       );
     }
+
     return (
       <div className="live-content">
-        {ret}
+        {content}
+      </div>
+    )
+  }
+
+  HeroView() {
+    return (
+      <div className="live-hero">
+        <div className="live-hero__container">
+          <h1 className="live-hero__container__title">
+              {this.props.siteStore.siteCustomization.header}
+          </h1>
+          <h2 className="live-hero__container__subtitle">
+              {this.props.siteStore.siteCustomization.subheader}
+          </h2>
+        </div>
+        
+        <div className="live-hero__cardMain">
+          <div className="live-hero__cardMain__side">
+            <ImageIcon className="live-hero__picture" icon={this.props.siteStore.siteCustomization.arrangement[1].eventImage} label="artist" />
+            <h4 className="live-hero__heading">
+              <span className="live-hero__heading-span card__heading-span--4">{this.props.siteStore.siteCustomization.arrangement[1].options.title}</span>
+            </h4>
+          </div>
+        </div>
       </div>
     )
   }
@@ -94,27 +111,9 @@ class Site extends React.Component {
         </div>
 
         {/* Hero View */}
-        <div className="live-hero">
-          <div className="live-hero__container">
-            <h1 className="live-hero__container__title">
-                {this.props.siteStore.siteCustomization.header}
-            </h1>
-            <h2 className="live-hero__container__subtitle">
-                {this.props.siteStore.siteCustomization.subheader}
-            </h2>
-          </div>
-          
-          <div className="live-hero__cardMain">
-            <div className="live-hero__cardMain__side">
-              <ImageIcon className="live-hero__picture" icon={this.props.siteStore.siteCustomization.arrangement[1].eventImage} label="artist" />
-              <h4 className="live-hero__heading">
-                <span className="live-hero__heading-span card__heading-span--4">Madison Beer</span>
-              </h4>
-            </div>
-          </div>
-        </div>
+        {this.HeroView()}
 
-        {/* Content Selection */}
+        {/* Content from Site Customization */}
         {this.Content()}
 
         {/* Footer */}

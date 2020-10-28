@@ -114,7 +114,6 @@ class SiteStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
-  // Play Video
   @observable loading = false;
 
   @action.bound
@@ -132,46 +131,6 @@ class SiteStore {
       this.loading = false;
     }
   });
-
-  @action.bound
-  SetFeed = flow(function * (title1, title2, title3) {
-    try {
-      this.loading = true;
-      this.feeds.push(yield this.LoadActiveTitle(title1));
-      this.feeds.push(yield this.LoadActiveTitle(title2));
-      this.feeds.push(yield this.LoadActiveTitle(title3));
-
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
-  });
-
-  @action.bound
-  PlayTrailer = flow(function * (title) {
-    try {
-      this.loading = true;
-
-      yield this.SetActiveTrailer(title);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
-  });
-
-  @action.bound
-  SetActiveTrailer = flow(function * (title) {
-    this.activeTrailer = yield this.LoadActiveTitle(title);
-  });
-  //////////////////////////////////////////////////////////////////////////////
 
   @action.bound
   Reset() {
@@ -215,12 +174,14 @@ class SiteStore {
       .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
+  // Loading Site Customization/Assests 
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
-    // if(this.siteParams && this.siteParams.objectId === objectId) {
-    //   return;
-    // }
-    // this.Reset();
+    if(this.siteParams && this.siteParams.objectId === objectId) {
+      return;
+    }
+
+    this.Reset();
 
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
@@ -257,8 +218,7 @@ class SiteStore {
         const entry = this.siteCustomization.arrangement[i];
         if (entry.component == "event") {
           if(entry.title) {
-            entry.title =
-              yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
+            entry.title = yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
           }
           if(entry.options.eventImage) {
             entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
@@ -281,11 +241,11 @@ class SiteStore {
         }
       }
     }
-
     this.eventAssets = eventMap;
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
+  // Used to load RTMP Feed
   @action.bound
   LoadStreamSite = flow(function * (objectId, writeToken) {
     if(this.siteParams && this.siteParams.objectId === objectId) {
@@ -304,9 +264,6 @@ class SiteStore {
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
 
-    this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
-    this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
-
     this.titles = (yield this.client.ContentObjectMetadata({
       ...this.siteParams,
       metadataSubtree: "public/asset_metadata/titles",
@@ -320,6 +277,25 @@ class SiteStore {
     };
 
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
+  });
+  
+  // Used to load multiple feeds 
+  @action.bound
+  SetFeed = flow(function * (title1, title2, title3) {
+    try {
+      this.loading = true;
+      this.feeds.push(yield this.LoadActiveTitle(title1));
+      this.feeds.push(yield this.LoadActiveTitle(title2));
+      this.feeds.push(yield this.LoadActiveTitle(title3));
+
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
   });
 
   @action.bound

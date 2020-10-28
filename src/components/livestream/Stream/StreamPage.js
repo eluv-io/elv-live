@@ -1,11 +1,12 @@
 import React from "react";
-import {inject, observer, Provider} from "mobx-react";
+import {inject, observer} from "mobx-react";
+import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
+import Select from 'react-select';
+
 import ViewStream from "./ViewStream";
 import AsyncComponent from "../../support/AsyncComponent";
-import Select from 'react-select';
 import StreamTabs from './StreamTabs';
-import {Redirect} from "react-router";
 
 const options = [
   { value: '0', label: 'MULTIVIEW 1' },
@@ -21,14 +22,15 @@ class Stream extends React.Component {
   state = {
     selectedOption: options[0],
   };
+
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
   };
 
   renderFeed(selectedOption) {
     if (selectedOption.value == 'all') {
       return (
+        // TODO: For 'all' multiview, make all the streams play at the same time
         <div className="stream-container__streamBox--feedGrid">
           <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
           <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
@@ -37,7 +39,6 @@ class Stream extends React.Component {
       );
     } else {
       return (
-        // <ViewStream title = {this.props.siteStore.feeds[selectedOption.value]} classProp = "stream-container__streamBox--video"/>
         <ViewStream feedOption={selectedOption.value} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
       );
     }
@@ -51,7 +52,6 @@ class Stream extends React.Component {
 
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
 

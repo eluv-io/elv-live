@@ -2,7 +2,6 @@ import React from "react";
 import HLSPlayer from "hls.js";
 import DashJS from "dashjs";
 import {inject, observer} from "mobx-react";
-// import poster from "../../static/images/livestream/masked-singer.jpg";
 
 @inject("siteStore")
 @observer
@@ -31,10 +30,6 @@ class ViewStream extends React.Component {
     }
   }
 
-  Schedule() {
-    return {};
-  }
-
   InitializeVideo(element) {
     if(!element) { return; }
 
@@ -42,7 +37,6 @@ class ViewStream extends React.Component {
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
-      // let streamFeedOption = this.props.feedOption.value;
       let title = this.props.siteStore.feeds[this.props.feedOption];
       
       const offering = title.currentOffering;
@@ -97,7 +91,7 @@ class ViewStream extends React.Component {
   render() {
     // const title = this.props.siteStore.streamPlay;
     let controlsOption = this.state.showControls;
-    if (this.props.classProp !=  "stream-container__streamBox--video") {
+    if (this.props.classProp != "stream-container__streamBox--video") {
       controlsOption = false; 
     }
 

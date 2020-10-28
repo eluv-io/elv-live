@@ -1,7 +1,4 @@
 import React from "react";
-import LiveChat from "./LiveChat";
-import FanWall from './FanWall';
-
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -9,6 +6,9 @@ import Tab from '@material-ui/core/Tab';
 import SmsIcon from '@material-ui/icons/Sms';
 import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Paper from '@material-ui/core/Paper';
+
+import LiveChat from "./LiveChat";
+import FanWall from './FanWall';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,9 +62,8 @@ export default function IconLabelTabs() {
           value={value}
           onChange={handleChange}
           variant="fullWidth"
-          textColor="white"
-          disableFocusRipple = {true}
-          disableRipple = {true}
+          disablefocusripple = "true"
+          disableripple = "true"
           classes={{
             indicator: classes.indicator
           }}
@@ -81,6 +80,5 @@ export default function IconLabelTabs() {
         </TabPanel>
       </Paper>
     </div>
-
   );
 }

@@ -4,20 +4,16 @@ import {inject, observer, Provider} from "mobx-react";
 import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
+
 import Site from "./components/Site";
 import CodeAccess from "./components/livestream/CodeAccess";
-
 import Event from "./components/livestream/Event";
 import Stream from "./components/livestream/stream/StreamPage";
-
-import Checkout from "./components/livestream/payment/CheckoutClass";
+import CheckoutForm from "./components/livestream/Payment/CheckoutForm";
 import Success from "./components/livestream/payment/Success";
-
-import styled from "styled-components";
 import AsyncComponent from "./components/support/AsyncComponent";
 
 import "./static/stylesheets/main.scss";
-
 
 @inject("rootStore")
 @inject("siteStore")
@@ -44,37 +40,20 @@ class Routes extends React.Component {
 
           return (
             <Switch>
-              <Route
-                exact
-                path={[
-                  "/"
-                ]}
-                component={Site}
-              />
-              
-              <Route exact path="/event/:artist" component={Event} />
-              <Route exact path="/stream" component={Stream} />
-              <Route path="/payment/:artist" component={Checkout} />
-              <Route path="/success" component={Success} />
-              <Route exact path="/code" component={CodeAccess} />
-
-              <Route
-                exact
-                path={[
-                  "/stream/:siteId"
-                ]}
-                component={Stream}
-              />
+              <Route exact path = "/" component={Site} />
+              <Route exact path = "/event/:artist" component={Event} />
+              <Route exact path = "/payment/:artist" component={CheckoutForm} />
+              <Route exact path = "/success" component={Success} />
+              <Route exact path = "/code" component={CodeAccess} />
+              <Route exact path = "/stream/:siteId" component={Stream} />
 
               <Route>
                 <Redirect to="/" />
               </Route>
             </Switch>
-
           );
         }}
       />
-      
     );
   }
 }
@@ -84,37 +63,16 @@ class Routes extends React.Component {
 @observer
 class App extends React.Component {
   render() {
-
-    const ContainerApp = styled.div`
-      min-height: 100vh;    
-      background: black;
-    }
-    `;
+    if(!this.props.siteStore.client) { return null; }
 
     return (
-      <AsyncComponent
-        Load={
-          async () => {
-            await this.props.rootStore.InitializeClient();
-          } 
-        }
-
-        render={() => {
-          if(!this.props.siteStore.client) { return null; }
-
-          return (
-            <ContainerApp>
-              <main>
-                {/* { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null } */}
-                <HashRouter>
-                  <Routes />
-                </HashRouter>
-              </main>
-            </ContainerApp>
-
-          );
-        }}
-      />
+      <div className="app">
+        <main>
+          <HashRouter>
+            <Routes />
+          </HashRouter>
+        </main>
+      </div>
     );
   }
 }
