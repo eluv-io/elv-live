@@ -82,6 +82,9 @@ class ViewStream extends React.Component {
 
       this.player = player;
       this.video = element;
+      if (this.props.feedOption == 2) {
+        this.props.siteStore.onFeed();
+      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
