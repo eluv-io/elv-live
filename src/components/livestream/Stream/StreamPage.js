@@ -29,9 +29,10 @@ class Stream extends React.Component {
 
   renderFeed(selectedOption) {
     if (selectedOption.value == 'all') {
+      console.log(this.props.siteStore.showFeed);
       return (
         // TODO: For 'all' multiview, make all the streams play at the same time
-        <div className="stream-container__streamBox--feedGrid">
+        <div className={this.props.siteStore.showFeed ? "stream-container__streamBox--feedGrid" : "hide"}>
           <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
           <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
           <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
@@ -63,7 +64,7 @@ class Stream extends React.Component {
       <AsyncComponent
         Load={async () => {
           // await this.props.siteStore.LoadStreamSite("iq__b2Qah6AMaP8ToZbouDh8nSEKARe", this.props.match.params.writeToken);
-          await this.props.siteStore.SetFeed(eventInfo.stream, eventInfo2.stream, eventInfo3.stream);
+          await this.props.siteStore.SetFeed(eventInfo, eventInfo2, eventInfo3);
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }

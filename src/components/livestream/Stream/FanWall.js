@@ -13,6 +13,7 @@ class FanWall extends React.Component {
           <h1 className="stream-container__tabs--fanHeading--fanTitle" >
             Virtual Fan Wall
           </h1>
+
           {/* Link to join the fan wall */}
           <button 
             onClick={() => window.open(

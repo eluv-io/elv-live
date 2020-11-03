@@ -73,6 +73,7 @@ class RootStore {
       const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
       client.SetSigner({signer});
 
+      // get site/object id from ticket
       this.accessCode = yield client.RedeemCode({
         issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPM59kMU5trgj",
         code: Token
@@ -101,6 +102,7 @@ class RootStore {
       this.chatID = yield this.chatClient.devToken(this.name);
 
       // Hardcoded siteId for Stream, but 
+      // get site/object id from ticket
       let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";
       return siteId;
     } catch (error) {

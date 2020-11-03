@@ -61,6 +61,7 @@ class SiteStore {
   @observable stream;
   @observable streamPlay;
   @observable feeds = [];
+  @observable showFeed = false;
 
   @observable titles;
 
@@ -180,8 +181,7 @@ class SiteStore {
     if(this.siteParams && this.siteParams.objectId === objectId) {
       return;
     }
-
-    this.Reset();
+    // this.Reset();
 
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
@@ -217,9 +217,6 @@ class SiteStore {
       for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
         const entry = this.siteCustomization.arrangement[i];
         if (entry.component == "event") {
-          if(entry.title) {
-            entry.title = yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
-          }
           if(entry.options.eventImage) {
             entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
           }
@@ -235,7 +232,8 @@ class SiteStore {
               icon: entry.featureImage,
               eventImg: entry.eventImage,
               price: entry.options.price,
-              stream: entry.title
+              stream: entry.title,
+              key: i
             }
           );
         }
@@ -284,9 +282,12 @@ class SiteStore {
   SetFeed = flow(function * (title1, title2, title3) {
     try {
       this.loading = true;
-      this.feeds.push(yield this.LoadActiveTitle(title1));
-      this.feeds.push(yield this.LoadActiveTitle(title2));
-      this.feeds.push(yield this.LoadActiveTitle(title3));
+      let entry1 = yield this.LoadTitle(this.siteParams, title1.stream, `public/asset_metadata/site_customization/arrangement/${title1.key}/title`);
+      let entry2 = yield this.LoadTitle(this.siteParams, title2.stream, `public/asset_metadata/site_customization/arrangement/${title2.key}/title`);
+      let entry3 = yield this.LoadTitle(this.siteParams, title3.stream, `public/asset_metadata/site_customization/arrangement/${title3.key}/title`);
+      this.feeds.push(yield this.LoadActiveTitle(entry1));
+      this.feeds.push(yield this.LoadActiveTitle(entry2));
+      this.feeds.push(yield this.LoadActiveTitle(entry3));
 
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -665,6 +666,12 @@ class SiteStore {
   @action.bound
   ClearActiveTitle() {
     this.activeTitle = undefined;
+  }
+
+  @action.bound
+  onFeed() {
+    setTimeout(() => {  console.log("WAITING"); }, 3000);
+    this.showFeed = true; 
   }
 
   @action.bound
