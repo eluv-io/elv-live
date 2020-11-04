@@ -1,3 +1,17 @@
+.modalTrailer {
+  background-color: $elv-color-black;
+  cursor: pointer;
+  height: 600px;
+
+  video {
+    // background-color: $elv-color-black;
+    cursor: pointer;
+    height: 600px;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
 .video-feature {
   align-items: center;
   background-color: #252525;

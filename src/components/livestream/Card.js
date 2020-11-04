@@ -9,6 +9,18 @@ import {Link} from "react-router-dom";
 class Card extends React.Component {
 
   render() {
+    let eventType;
+    // console.log(this.props.eventType);
+    if (this.props.eventType < 5) {
+      eventType = "concert";
+    } 
+    else if (this.props.eventType < 8) {
+      eventType = "film";
+    } 
+    else {
+      eventType = "series";
+    }
+
     return (
         <div className="card">
           <div className="card__side card__side--front">
@@ -24,7 +36,7 @@ class Card extends React.Component {
                 <h4 className="card__price-detail">{this.props.date}</h4>
                 <h4 className="card__price-detail">{this.props.description}</h4>
               </div>
-              <Link to={`/event/${this.props.name.replace(/\s+/g, '-').toLowerCase()}`} >
+              <Link to={`/${eventType}/${this.props.name.replace(/\s+/g, '-').toLowerCase()}`} >
                 <button type="button" className="btn2 btn2--white">Buy Ticket</button>
               </Link>
             </div>

@@ -46,6 +46,7 @@ class Site extends React.Component {
         cards[headerCount].push(
           <Card
             key={i}
+            eventType={i}
             name={entry.options.title}
             date={dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z")}
             description={entry.options.description}
@@ -76,10 +77,13 @@ class Site extends React.Component {
       <div className="live-hero">
         <div className="live-hero__container">
           <h1 className="live-hero__container__title">
-              {this.props.siteStore.siteCustomization.header}
+              {/* {this.props.siteStore.siteCustomization.header} */}
+              {/* Live Concerts From your home. */}
+              Ticketed Events From your home. 
           </h1>
           <h2 className="live-hero__container__subtitle">
-              {this.props.siteStore.siteCustomization.subheader}
+              {/* {this.props.siteStore.siteCustomization.subheader} */}
+              Purchase tickets for upcoming live concerts, film releases, and TV series from the comfort of your home. 
           </h2>
         </div>
         

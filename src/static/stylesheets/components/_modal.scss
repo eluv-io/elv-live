@@ -1,38 +1,50 @@
 .modal {
   box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
   //  height: 52rem;
-     height: 50vh;
+   height: 600px;
+   position: fixed;
+   // margin: auto;
+   width: 75vw;
+   margin-left: 12.5vw;
+   margin-right: 12.5vw;
+   // margin-top: calc(calc(100vh - 600px)/2);
+   // margin-bottom: calc(100vh - 600px);
+
+   z-index: 5000;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   align-content: center;
+   background: transparent;
+
+
+//   @media only screen and (max-height: $bp-large) {
+//      height: 55vh;
+//      transform: translateY(-2.5vh);
+//   }
   
-  @media only screen and (max-height: $bp-large) {
-     height: 55vh;
-     transform: translateY(-2.5vh);
-  }
+//   @media only screen and (max-height: $bp-medium-2) {
+//      height: 60vh;
+//      transform: translateY(-5vh);
+//   }
   
-  @media only screen and (max-height: $bp-medium-2) {
-     height: 60vh;
-     transform: translateY(-5vh);
-  }
+//   @media only screen and (max-height: $bp-medium) {
+//      height: 65vh;
+//      transform: translateY(-7.5vh);
+//   }
   
-  @media only screen and (max-height: $bp-medium) {
-     height: 65vh;
-     transform: translateY(-7.5vh);
-  }
+//   @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
+//      height: 100vh;
+//      transform: translateY(-25vh);
+//   }
   
-  @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
-     height: 100vh;
-     transform: translateY(-25vh);
-  }
-  
-  position: fixed;
-  width: 100%;
-  z-index: 5000;
+
   
   &__container {
-     background: linear-gradient(90deg, #000 50%, transparent);
-     height: 100%;
-     padding-left: 5rem;
-     padding-top: 3rem;
-     width: 90%;
+     background: black;
+     height: 600px;
+     width: 100%;
+     align-self: center;
      @media only screen and (max-width: $bp-medium-2) {
         background: linear-gradient(90deg, #000 60%, transparent);
      }
@@ -271,7 +283,7 @@
   // transition: .5s .3s ease-out;
   left: 0;
   opacity: 1;
-  top: 25%;
+  top: calc(calc(100vh - 600px)/2);
   visibility: visible;
 }
 

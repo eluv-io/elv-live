@@ -212,11 +212,22 @@ class SiteStore {
 
     let eventMap = new Map();
     let dateFormat = require('dateformat');
-
+    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    
     if(this.siteCustomization.arrangement) {
       for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
         const entry = this.siteCustomization.arrangement[i];
+        let titleLogo;
         if (entry.component == "event") {
+          if(entry.title) {
+            entry.title = yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
+            titleLogo = this.CreateLink(
+              entry.title.logoUrl,
+              "",
+              { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+            );
+          }
           if(entry.options.eventImage) {
             entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
           }
@@ -233,6 +244,7 @@ class SiteStore {
               eventImg: entry.eventImage,
               price: entry.options.price,
               stream: entry.title,
+              logo: titleLogo,
               key: i
             }
           );
@@ -297,6 +309,26 @@ class SiteStore {
     } finally {
       this.loading = false;
     }
+  });
+  @action.bound
+  PlayTrailer = flow(function * (title) {
+    try {
+      this.loading = true;
+
+      yield this.SetActiveTrailer(title);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
+  });
+
+  @action.bound
+  SetActiveTrailer = flow(function * (title) {
+    this.activeTrailer = yield this.LoadActiveTitle(title);
   });
 
   @action.bound
