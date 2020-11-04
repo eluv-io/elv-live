@@ -46,9 +46,9 @@ class Stream extends React.Component {
   }
 
   render() {
-    if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
-      return <Redirect to={`/code`} />;
-    }
+    // if(!this.props.rootStore.client || (this.props.match.params.siteId && !this.props.rootStore.accessCode)) {
+    //   return <Redirect to={`/code`} />;
+    // }
     const { selectedOption } = this.state;
 
     let vh = window.innerHeight * 0.01;

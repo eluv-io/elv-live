@@ -5,12 +5,12 @@ import styled from "styled-components";
 import {Redirect} from "react-router";
 import {Link} from "react-router-dom";
 
-import Logo from "../../static/images/Logo.png";
+import Logo from "../../../static/images/Logo.png";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class Event extends React.Component {
+class Concert extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -73,4 +73,4 @@ class Event extends React.Component {
   }
 }
 
-export default Event;
+export default Concert;

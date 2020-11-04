@@ -28,9 +28,13 @@
     }
     margin-bottom: 3rem;
     position: relative;
+    width: 100vw !important;
+
 
     &__done {
         margin-top: 10rem;
+        width: 100vw !important;
+
         @media only screen and (max-width: $bp-medium) {
             margin-top: 5rem;
         }
@@ -126,9 +130,9 @@
         text-align: center;
         text-transform: uppercase;
         width: 100%;
+        font-weight: bold !important;
 
         button {
-
             background: transparent;
             border: 0;
             border-bottom: 3px solid transparent;
@@ -137,17 +141,21 @@
             font-size: 1.8rem;
             height: 3rem;
             // margin-left: 2rem;
+            font-weight: bold !important;
+
             margin-right: 2rem;
             padding: 0 0 3rem;
             text-transform: uppercase;
             transition: border-bottom linear 0.15s, padding linear 0.15s;
             width: 25rem;
+            border-radius: 0px !important;
             &:focus {
                 border-bottom: 3px solid $elv-color-text-lightest;
                 outline: 0;
             }
 
             &.active-tab {
+                // padding-top: 10px;
                 border-bottom: 3px solid #fff;
             }
         }
@@ -157,7 +165,7 @@
         display: flex;
         height: 100%;
         padding-top: 10rem;
-        width: 100%;
+        width: 75vw;
         @media only screen and (max-width: $bp-large) {
             flex-direction: column;
         }
@@ -184,8 +192,8 @@
         }
 
         &__info {
-            margin-left: 10rem;
-            margin-right: 10rem;
+            margin-left: 50px;
+            // margin-right: 10rem;
             padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
             @media only screen and (max-width: $bp-large) {
                 margin-left: 0;
@@ -194,19 +202,24 @@
 
             * {
                 color: #fff;
-                font-size: 2rem;
+                font-size: 18px;
                 font-weight: 300;
             }
         
-            h1 {
-                font-size: 8rem;
+            .h1Props {
+                font-size: 65px;
                 font-weight: 800;
                 margin-bottom: $elv-spacing-m;
+                width: 100%;
                 text-align: left;
+                
+                // overflow: hidden;
+                // white-space:nowrap;
             }
         
             &__synopsis {
                 text-align: left;
+                font-size: 18px;
             }
         
             &__details-section {
@@ -227,6 +240,8 @@
                 flex-direction: column;
                 // font-size: $elv-font-xxl;
                 margin-bottom: $elv-spacing-s;
+                width: 100%;
+                
             
                 * {
                     line-height: $elv-spacing-l;
@@ -234,12 +249,16 @@
                 }
             
                 label {
-                    color: $elv-color-mediumgray;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 18px;
+                    // text-decoration: underline;
                 }
             }
         
             &__copyright {
-                color: $elv-color-text-lighter;
+                color: white;
+                text-transform: capitalize;
             }
         }
     }

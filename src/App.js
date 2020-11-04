@@ -7,7 +7,10 @@ import * as Stores from "./stores";
 
 import Site from "./components/Site";
 import CodeAccess from "./components/livestream/CodeAccess";
-import Event from "./components/livestream/Event";
+import Concert from "./components/livestream/Event/Concert";
+import FilmRelease from "./components/film/FilmRelease";
+import Series from "./components/film/Series";
+
 import Stream from "./components/livestream/stream/StreamPage";
 import CheckoutForm from "./components/livestream/Payment/CheckoutForm";
 import Success from "./components/livestream/payment/Success";
@@ -41,7 +44,10 @@ class Routes extends React.Component {
           return (
             <Switch>
               <Route exact path = "/" component={Site} />
-              <Route exact path = "/event/:artist" component={Event} />
+              <Route exact path = "/concert/:artist" component={Concert} />
+              <Route exact path = "/film/:artist" component={FilmRelease} />
+              <Route exact path = "/series/:artist" component={Series} />
+
               <Route exact path = "/payment/:artist" component={CheckoutForm} />
               <Route exact path = "/success" component={Success} />
               <Route exact path = "/code" component={CodeAccess} />
