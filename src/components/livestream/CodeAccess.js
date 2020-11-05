@@ -5,6 +5,7 @@ import {Redirect} from "react-router";
 import styled from "styled-components";
 import {ImageIcon} from "elv-components-js";
 
+import Logo from "../../static/images/Logo-Small.png";
 import default_background from "../../static/images/codeAccess/concert.jpg";
 
 @inject("siteStore")
@@ -63,7 +64,7 @@ class CodeAccess extends React.Component {
           { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
 
           <LoadingElement loading={this.state.loading}>
-            <ImageIcon className="code-entry--logo" icon={this.props.siteStore.darkLogo} label="logo"/>
+            <ImageIcon className="code-entry--logo" icon={this.props.siteStore.darkLogo || Logo} label="logo"/>
             <input
               onFocus={() => this.setState({name_placeholder: ""})}
               onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}

@@ -7,9 +7,10 @@ import * as Stores from "./stores";
 
 import Site from "./components/Site";
 import CodeAccess from "./components/livestream/CodeAccess";
-import Concert from "./components/livestream/Event/Concert";
-import FilmRelease from "./components/film/FilmRelease";
-import Series from "./components/film/Series";
+
+import Concert from "./components/event/concert/Concert";
+import FilmRelease from "./components/event/film/FilmRelease";
+import Series from "./components/event/series/Series";
 
 import Stream from "./components/livestream/stream/StreamPage";
 import CheckoutForm from "./components/livestream/Payment/CheckoutForm";

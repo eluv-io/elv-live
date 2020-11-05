@@ -1,15 +1,15 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import PremiereTabs from "./PremiereTabs";
+import EventTabs from "../EventTabs";
 import {ImageIcon} from "elv-components-js";
-import CloseIcon from "../../static/icons/x.svg";
-
-// import NavigationBar from "../navigation/NavigationBar";
+import CloseIcon from "../../../static/icons/x.svg";
+import Logo from "../../../static/images/madisonL.png";
 import styled from "styled-components";
-import Trailer from "./Trailer";
+import Trailer from "../Trailer";
 import {
   Link
 } from "react-router-dom";
+import {Redirect} from "react-router";
 
 const FormatName = (name) => {
   return (name || "")
@@ -21,7 +21,7 @@ const FormatName = (name) => {
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class FilmRelease extends React.Component {
+class Concert extends React.Component {
   constructor(props) {
     super(props);
 
@@ -57,12 +57,26 @@ class FilmRelease extends React.Component {
             icon={CloseIcon}
             onClick={() => this.setState({showTrailer: false})}
           />
-          <div className={`modal__container`}>
-            <Trailer/>
+
+          <div className={`modal__container`}>          
+            {this.props.match.params.artist == "madison-beer" ? 
+              <iframe 
+                width="100%" 
+                height="100%"
+                src="https://www.youtube.com/embed/GfsLT7W80AE" 
+                frameBorder="0" 
+                autoPlay
+                muted
+                // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+              />
+            :  
+              <h1 className="merch" > 
+                NO PROMO AVAILABLE
+              </h1>}
           </div>
         </div>
       </React.Fragment>
-
     )
   }
 
@@ -76,7 +90,8 @@ class FilmRelease extends React.Component {
 
     const thumbnail = eventInfo.eventImg;
 
-    const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
+    // const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
+    const backgroundColor =  "#040622";
 
     const backgroundColor1 =  backgroundColor + "00";
     const backgroundColor2 =  backgroundColor + "4C";
@@ -88,22 +103,26 @@ class FilmRelease extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 80%, ${backgroundColor2} 82.55%, ${backgroundColor3}  85%, ${backgroundColor4} 87.5%, ${backgroundColor5}  90%, ${backgroundColor6} 95%, ${backgroundColor} 97%,${backgroundColor} 100%), url(${thumbnail})`,
+      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100%",
     };
 
-    const customLogo = eventInfo.logo;
     return (
-      <div className="event-container">
+      <div className="home-container">
         <div className="event-nav">
           <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo} label="Eluvio" />
         </div>
         <div style={backgroundStyle} className="active-background" />
         <div className="active-view-container active-view-container__done">
-            { customLogo ? <ImageIcon className="active-view-container__logo" icon={customLogo} label="logo"/> : <h1 className="active-view-container__heading"> {featuredTitle.displayTitle} </h1>}
-            
+            {/* {this.props.match.params.artist == "madison-beer" ? <ImageIcon className="active-view-container__logo3" icon={Logo} label="logo"/> : <h1 className="active-view-container__heading"> {eventInfo.name} </h1>} */}
+            <div className="active-view-container__heading">
+              {this.props.match.params.artist == "madison-beer" ? <ImageIcon className="logoMad" icon={Logo} label="logo"/> : <h1 className="name"> {eventInfo.name} </h1>}
+              {/* <h1 className="name"> {eventInfo.name} </h1> */}
+              <h1 className="location">{ eventInfo.description }</h1>
+              <h1 className="time">{ eventInfo.date }</h1>
+            </div>
             <div className="active-view-container__button">
               <Link to={{
                   pathname: `/payment/${this.props.match.params.artist}`,
@@ -112,21 +131,21 @@ class FilmRelease extends React.Component {
                     icon: eventInfo.icon
                   }
                 }}>
-                <button className="btnPlay btnDetails__heroPlay" >
+                <button className="btnPlay btnDetails__heroPlay">
                   Buy Tickets
                 </button>
               </Link>
               
               <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
-                Watch Trailer
+                Watch Promo
               </button>
             </div>
-            <div className="active-view-container__premiere">
+            {/* <div className="active-view-container__premiere">
               {eventInfo.date} 
-            </div>
+            </div> */}
 
           <div className="active-view-container__overview">
-            <PremiereTabs title={featuredTitle} type={"film"}/>
+            <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.artist}/>
           </div>
         </div>
         { this.state.showTrailer ? this.Trailer(): null}
@@ -142,4 +161,4 @@ class FilmRelease extends React.Component {
   }
 }
 
-export default FilmRelease;
+export default Concert;
