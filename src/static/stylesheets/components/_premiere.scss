@@ -176,6 +176,11 @@
             // align-self: flex-start;
         }
 
+        &__merch {
+            width: 100%;
+            height: 100%;
+        }
+
         &__poster {
             align-self: flex-start;
 
@@ -207,11 +212,23 @@
             }
         
             .h1Props {
-                font-size: 65px;
-                font-weight: 800;
+                font-size: 70px !important;
+                color: white;
+                text-shadow: white 0px 0px 3px;
+                text-transform: uppercase;
+                letter-spacing: 6px;
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10+ and Edge */
+                user-select: none; /* Standard syntax */
+                margin: auto;
+                // margin-bottom: -25px;
+                // padding-top: 70px;
+
+                // font-size: 65px;
+                font-weight: 700 !important;
                 margin-bottom: $elv-spacing-m;
                 width: 100%;
-                text-align: left;
+                text-align: center;
                 
                 // overflow: hidden;
                 // white-space:nowrap;
@@ -281,6 +298,5 @@
             padding-top: 5rem;
         }
     }
-    
-    
+
 }

@@ -1,6 +1,7 @@
 
 .live-container {
-  background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
+  // background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
+  background-image: linear-gradient(to right bottom, #040622, #000);
   // background-color: var(--bgColor) !important;
   // background-color: transparent;
 
@@ -17,7 +18,8 @@
 }
 
 .new-live-container {
-  background-image: linear-gradient(to right bottom, rg var(--bgColor), #000000);
+  // background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
+  background-image: linear-gradient(to right bottom, #040622, #000);
   display: flex;
   flex-direction: column;
   max-height: 100vh;

@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class Schedule extends React.Component {
+class SeriesSchedule extends React.Component {
   // componentDidMount() {
   //   window.scrollTo(0, 0);
   // }
@@ -99,4 +99,4 @@ class Schedule extends React.Component {
   }
 }
 
-export default Schedule;
+export default SeriesSchedule;

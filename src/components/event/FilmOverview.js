@@ -12,6 +12,7 @@ class PremiereOverview extends React.Component {
     // const featuredTitle = eventInfo.title;
     const title = this.props.title;
     const titleInfo = title.info || {};
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.name);
 
     const Maybe = (value, render) => value ? render() : null;
 
@@ -24,7 +25,7 @@ class PremiereOverview extends React.Component {
         />
 
         <div className="premiereTabs__container__info">
-          <h1 className="h1Props">{ title.displayTitle.toString() }</h1>
+          <h1 className="h1Props">{ eventInfo.name }</h1>
 
           {Maybe(
             titleInfo.synopsis,

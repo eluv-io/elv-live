@@ -74,10 +74,19 @@ class RootStore {
       client.SetSigner({signer});
 
       // get site/object id from ticket
+      // let OTP = yield client.IssueNTPCode({
+      //   "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
+      //   "ntpId": "QOTPM59kMU5trgj",
+      //   "email": ""
+      // });
+      
       this.accessCode = yield client.RedeemCode({
-        issuer: "/otp/ntp/iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN/QOTPM59kMU5trgj",
-        code: Token
+        "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
+        "ntpId": "QOTPM59kMU5trgj",
+        "code": Token,
+        "email": ""
       });
+      
 
       if(!this.accessCode) {
         this.SetError("Invalid code");
@@ -127,12 +136,14 @@ class RootStore {
       const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
       client.SetSigner({signer});
       
-      let OTP = yield client.GetOTP({
-        tenantId: "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
-        otpId: "QOTPM59kMU5trgj"
+      let OTP = yield client.IssueNTPCode({
+        "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
+        "ntpId": "QOTPM59kMU5trgj",
+        "email": ""
       });
+      
 
-      this.OTPCode = OTP.Token;
+      this.OTPCode = OTP;
 
     } catch (error) {
       // eslint-disable-next-line no-console

@@ -1,13 +1,14 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import PremiereTabs from "./PremiereTabs";
+import PremiereTabs from "../EventTabs";
 import {ImageIcon} from "elv-components-js";
-import CloseIcon from "../../static/icons/x.svg";
-import MaskedLogo from "../../static/images/maskedLogo.png"
+import CloseIcon from "../../../static/icons/x.svg";
+import MaskedLogo from "../../../static/images/maskedLogo.png"
+import {Redirect} from "react-router";
 
 // import NavigationBar from "../navigation/NavigationBar";
 import styled from "styled-components";
-import Trailer from "./Trailer";
+import Trailer from "../Trailer";
 import {
   Link
 } from "react-router-dom";
@@ -77,7 +78,8 @@ class Series extends React.Component {
 
     const thumbnail = eventInfo.icon;
 
-    const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
+    // const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
+    const backgroundColor =  "#040622";
 
     const backgroundColor1 =  backgroundColor + "00";
     const backgroundColor2 =  backgroundColor + "4C";
@@ -95,7 +97,7 @@ class Series extends React.Component {
     const customLogo = MaskedLogo;
 
     return (
-      <div className="event-container">
+      <div className="home-container">
         <div className="event-nav">
           <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo} label="Eluvio" />
         </div>

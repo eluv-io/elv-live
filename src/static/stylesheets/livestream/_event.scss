@@ -17,12 +17,15 @@
        margin-top: 3rem;
        width: auto;
     }
+
   }
 }
 
 
 .event-container {
-  background-color: black;
+  background-color: transparent;
+  // background-image: linear-gradient(to bottom, #040622 38%,#000 55%,  #000 100%);
+  // linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})
   display: flex;
   flex-direction: column;
   height: auto;
@@ -36,8 +39,9 @@
     &__title {
       color: var(--pText);
       // display: inline-block;
-      font-size: 2em;
-      font-weight: 600;
+      font-size: 36px;
+      font-weight: bold;
+      
       line-height: 4rem;
       margin-bottom: 8rem; 
       margin-top: 8rem;
@@ -53,6 +57,37 @@
       @media only screen and (max-width: 415px) {
         font-size: 26px;
       }
+    }
+    &__h1Props {
+
+      font-size: 40px !important;
+      color: white;
+      text-shadow: white 0px 0px 3px;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Standard syntax */
+      margin: auto;
+      padding-top: 8rem;
+
+      // margin-bottom: -25px;
+      // padding-top: 70px;
+
+      // font-size: 65px;
+      font-weight: 700 !important;
+      margin-bottom: $elv-spacing-m;
+      width: 100%;
+      text-align: center;
+      
+      // overflow: hidden;
+      // white-space:nowrap;
+    }
+    &__synopsis {
+      color: white;
+      text-align: left;
+      margin-top: 30px;
+      font-size: 18px;
     }
 
     &__schedule {
@@ -70,12 +105,12 @@
         // flex-direction: row;
         // justify-content: space-around;
         display: grid;
-        grid-template-columns: 0% [date-start] 37.5% [date-end info-start] 35% [info-end button-start] 10% ;
+        grid-template-columns: 0% [date-start] 37.5% [date-end info-start] 37.5% [info-end button-start] 10% ;
         grid-column-gap: 30px;
 
         height: 80px;
         margin-bottom: 20px;
-        width: 80%;
+        width: 85%;
 
         // @media only screen and (max-width: $bp-large-3) {
         //   width: 75%;
@@ -104,8 +139,9 @@
         &__detail {
           color: var(--pText) !important;
           font-size: 20px;
-          font-weight: 500;
+          font-weight: bold;
           margin-top: 25px !important;
+          // text-transform: uppercase;
           grid-column: date-start / date-end;
 
           @media only screen and (max-width: $bp-small) {
@@ -121,8 +157,9 @@
         &__info {
           color: var(--pText) !important;
           font-size: 20px;
-          font-weight: 500;
+          font-weight: bold;
           margin-top: 25px !important;
+          // text-transform: uppercase;
           grid-column: info-start / info-end;
 
           @media only screen and (max-width: $bp-small) {
@@ -233,54 +270,12 @@
   width: 150px !important;
 }
 
-// .btn3:hover {
-//   transform: translateY(-3px);
-//   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
-
-// .btn3:hover::after {
-//   transform: scaleX(1.4) scaleY(1.6);
-//   opacity: 0; }
-
-// .btn3:active, .btn3:focus {
-//   outline: none;
-//   transform: translateY(-1px);
-//   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
-
-// .btn3::after {
-//   content: "";
-//   display: inline-block;
-//   height: 100%;
-//   width: 100%;
-//   border-radius: 100px;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: -1;
-//   transition: all .4s; }
-
-// .btn3--animated {
-//   animation: moveInBottom .5s ease-out .75s;
-//   animation-fill-mode: backwards; }
-
-// .btn3-text:link, .btn3-text:visited {
-//   font-size: 16px;
-//   color: #55c57a;
-//   display: inline-block;
-//   text-decoration: none;
-//   border-bottom: 1px solid #55c57a;
-//   padding: 3px;
-//   transition: all .2s; }
-
-// .btn3-text:hover {
-//   background-color: #55c57a;
-//   color: #fff;
-//   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-//   transform: translateY(-2px); }
-
-// .btn3-text:active {
-//   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-//   transform: translateY(0); }
-
-// .btn3--white {
-//   background-color: #fff;
-//   color: black; }
+.home-container {
+  // background-color: black;
+  background-image: linear-gradient(to bottom, #040622 40%,#000 55%,  #000 100%);
+  // linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+}
