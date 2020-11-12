@@ -28,7 +28,7 @@ class Series extends React.Component {
     super(props);
 
     this.state = {
-      isSeries: false,
+      redirect: false,
       showTrailer: false
     };
   }
@@ -45,6 +45,10 @@ class Series extends React.Component {
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
+    if (this.state.redirect) {
+      let redirectLink = `/payment/${this.props.match.params.artist}`;
+      return <Redirect to={redirectLink} />;
+    }
 
     return (
       <React.Fragment>
@@ -68,9 +72,15 @@ class Series extends React.Component {
     )
   }
 
+
   render() {
     if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
       return <Redirect to='/'/>;
+    }
+
+    if (this.state.redirect) {
+      let redirectLink = `/payment/${this.props.match.params.artist}`;
+      return <Redirect to={redirectLink} />;
     }
 
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
@@ -91,9 +101,12 @@ class Series extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 50%, ${backgroundColor2} 55%, ${backgroundColor3}  60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 80%, ${backgroundColor} 85%), url(${thumbnail})`,
-      backgroundPosition: "center"
+      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})`,
+      backgroundPosition: "top",
+      objectFit: "cover",
+      height: "100%",
     };
+
     const customLogo = MaskedLogo;
 
     return (
@@ -103,20 +116,15 @@ class Series extends React.Component {
         </div>
         <div style={backgroundStyle} className="active-background" />
         <div className="active-view-container active-view-container__done">
-            { customLogo ? <ImageIcon className="active-view-container__logo2" icon={customLogo} label="logo"/> : <h1 className="active-view-container__heading"> {featuredTitle.displayTitle} </h1>}
-   
+            <div className="active-view-container__heading">
+              {customLogo ? <ImageIcon className="logoSeries" icon={customLogo} label="logo"/>  : <h1 className="name"> {eventInfo.name} </h1>}
+              <h1 className="premiereDate">Premiering { eventInfo.date}</h1>
+              <h1 className="time">{ "New Episode every Friday at 7:00 PM PST" }</h1>
+            </div>
             <div className="active-view-container__button">
-              <Link to={{
-                  pathname: `/payment/${this.props.match.params.artist}`,
-                  state: {
-                    name: eventInfo.name,
-                    icon: eventInfo.icon
-                  }
-                }}>
-                <button className="btnPlay btnDetails__heroPlay" >
-                  Buy Season
-                </button>
-              </Link>
+              <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({redirect: true})}>
+                Buy Season    
+              </button>
               
               <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
                 Watch Trailer

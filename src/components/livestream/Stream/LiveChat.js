@@ -20,6 +20,7 @@ class LiveChat extends React.Component {
     const user = this.props.rootStore.chatID;
 
     const username= this.props.rootStore.name;
+    const email= this.props.rootStore.email;
 
     client.setUser(
     {
@@ -30,7 +31,7 @@ class LiveChat extends React.Component {
       user,
     );
 
-    let channel = this.props.rootStore.chatClient.channel("livestream", "eluvio", {
+    let channel = this.props.rootStore.chatClient.channel("livestream", "wall", {
       name: "Madison Beer",
     });
 
