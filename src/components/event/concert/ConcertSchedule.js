@@ -22,7 +22,7 @@ class ConcertSchedule extends React.Component {
       <div className="event-container">
         <div className="event-container__info">
           <div className="event-container__info__title">
-            Upcoming Dates
+            Upcoming Schedule
           </div>
           <div className="event-container__info__schedule">
 

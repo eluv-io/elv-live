@@ -119,7 +119,7 @@ img {
         width: 800px;
         margin: auto;
         padding-top: 70px;
-        margin-bottom: -25px;
+        margin-bottom: 0px;
 
     // @media only screen and (max-width: $bp-small-3) {
     //     height: 18rem;
@@ -147,15 +147,15 @@ img {
         .name{
             font-size: 90px;
             color: white;
-            font-weight: 700;
+            font-weight: bold;
             text-shadow: white 0px 0px 3px;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 7px;
             -webkit-user-select: none; /* Safari */
             -ms-user-select: none; /* IE 10+ and Edge */
             user-select: none; /* Standard syntax */
             // margin: auto;
-            margin-bottom: -15px;
+            margin-bottom: -5px;
             padding-top: 40px;
             text-align: center;
         }
@@ -166,9 +166,76 @@ img {
             height: auto;
             width: 800px;
             margin: auto;
-            margin-bottom: -15px;
+            margin-bottom: -10px;
             padding-top: 40px;
         }
+        .logoSeries {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ and Edge */
+            user-select: none; /* Standard syntax */
+            height: auto;
+            width: 850px;
+            margin: auto;
+            margin-bottom: -25px;
+            padding-top: 0px;
+        }
+        .logoFilm {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ and Edge */
+            user-select: none; /* Standard syntax */
+            height: auto;
+            width: 600px;
+            margin: auto;
+            margin-bottom: 20px;
+            padding-top: 0px;
+          }
+        .logoMer {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ and Edge */
+            user-select: none; /* Standard syntax */
+            height: 190px;
+            width: 600px;
+            margin: auto;
+            margin-bottom: 20px;
+            object-fit: cover !important;
+            object-position: 0px -60px !important;
+            // padding-top: 20px;
+
+
+          }  
+        .premiereDate{
+            font-size: 30px;
+            letter-spacing: 7px;
+            text-shadow: white 0px 0px 3px;
+            font-weight: bold;
+            color: white;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            text-align: center;
+            margin-bottom: 3px;
+            -webkit-user-drag: none;
+            text-transform: uppercase;
+        }
+        .filmDate{
+            font-size: 30px;
+            letter-spacing: 6px;
+            text-shadow: white 0px 0px 3px;
+            font-weight: bold;
+            color: white;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            text-align: center;
+            margin-bottom: -10px;
+
+            -webkit-user-drag: none;
+            text-transform: uppercase;
+        }  
         .location{
             font-size: 40px !important;
             color: white;
@@ -190,7 +257,10 @@ img {
             text-align: center;
         }
         .time{
-            font-size: 24px;
+            font-size: 25px;
+            letter-spacing: 2px;
+            text-shadow: white 0px 0px 3px;
+
             font-weight: bold;
             color: white;
             -webkit-user-select: none;
@@ -199,7 +269,6 @@ img {
             -o-user-select: none;
             user-select: none;
             text-align: center;
-
             -webkit-user-drag: none;
             text-transform: uppercase;
         }
@@ -270,6 +339,7 @@ img {
     flex-direction: row;
     display: flex;
     grid-row: timer-start / timer-end;
+    margin-top: -5px;
 
     @media only screen and (max-width: $bp-small-2) {
         align-items: flex-start;

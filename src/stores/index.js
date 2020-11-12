@@ -79,7 +79,8 @@ class RootStore {
       //   "ntpId": "QOTPM59kMU5trgj",
       //   "email": ""
       // });
-      
+
+
       this.accessCode = yield client.RedeemCode({
         "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
         "ntpId": "QOTPM59kMU5trgj",
@@ -107,9 +108,8 @@ class RootStore {
       this.name = name;
 
       // Creating user account for live chat
-      this.chatClient = new StreamChat('dhu8qwk2dmxv');
+      this.chatClient = new StreamChat('5fn9kaf98an2');
       this.chatID = yield this.chatClient.devToken(this.name);
-
       // Hardcoded siteId for Stream, but 
       // get site/object id from ticket
       let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";

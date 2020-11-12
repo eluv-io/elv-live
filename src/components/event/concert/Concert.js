@@ -26,16 +26,13 @@ class Concert extends React.Component {
     super(props);
 
     this.state = {
-      isSeries: false,
+      redirect: false,
       showTrailer: false
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    // if(["series", "season"].includes(this.props.siteStore.singleTitle.title_type)){
-    //   this.setState({isSeries: true});
-    // }
   }
 
   Trailer() {
@@ -72,21 +69,31 @@ class Concert extends React.Component {
               />
             :  
               <h1 className="merch" > 
-                NO PROMO AVAILABLE
+                Promo is currently unavailable.
               </h1>}
           </div>
         </div>
       </React.Fragment>
     )
   }
+  handleOnClick = () => {
+    this.setState({redirect: true});
+  }
+  
 
   render() {
     if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
       return <Redirect to='/'/>;
     }
-
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
     let featuredTitle = eventInfo.stream;
+
+    if (this.state.redirect) {
+      let redirectLink = `/payment/${this.props.match.params.artist}`;
+      return <Redirect to={redirectLink} />;
+    }
+  
+
 
     const thumbnail = eventInfo.eventImg;
 
@@ -124,17 +131,10 @@ class Concert extends React.Component {
               <h1 className="time">{ eventInfo.date }</h1>
             </div>
             <div className="active-view-container__button">
-              <Link to={{
-                  pathname: `/payment/${this.props.match.params.artist}`,
-                  state: {
-                    name: eventInfo.name,
-                    icon: eventInfo.icon
-                  }
-                }}>
-                <button className="btnPlay btnDetails__heroPlay">
-                  Buy Tickets
-                </button>
-              </Link>
+   
+              <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({redirect: true})}>
+                Buy Tickets
+              </button>
               
               <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
                 Watch Promo

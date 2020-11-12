@@ -41,7 +41,10 @@
       // display: inline-block;
       font-size: 36px;
       font-weight: bold;
-      
+      text-transform: capitalize;
+      letter-spacing: 2px;
+      text-shadow: white 0px 0px 1px;
+
       line-height: 4rem;
       margin-bottom: 8rem; 
       margin-top: 8rem;
@@ -82,12 +85,31 @@
       
       // overflow: hidden;
       // white-space:nowrap;
-    }
+    }  
     &__synopsis {
       color: white;
-      text-align: left;
+      text-align: center;
       margin-top: 30px;
-      font-size: 18px;
+      margin-left: 50px;
+      margin-right: 50px;
+
+      font-size: 22px;
+    }
+    &__ticketDetail {
+      color: white;
+      text-align: center;
+      margin-top: 30px;
+      margin-left: 50px;
+      margin-right: 50px;
+      font-size: 22px;
+    }
+    &__ticketDetail2 {
+      color: white;
+      text-align: center;
+      margin-top: 30px;
+      margin-left: 50px;
+      margin-right: 50px;
+      font-size: 22px;
     }
 
     &__schedule {
@@ -273,6 +295,17 @@
 .home-container {
   // background-color: black;
   background-image: linear-gradient(to bottom, #040622 40%,#000 55%,  #000 100%);
+  // linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+}
+
+
+.home-containerBlack {
+  // background-color: black;
+  background-image: linear-gradient(to bottom, #000 40%,#000 55%,  #000 100%);
   // linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})
   display: flex;
   flex-direction: column;
