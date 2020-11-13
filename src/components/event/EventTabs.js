@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import InfoIcon from '@material-ui/icons/Info';
-
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import Paper from '@material-ui/core/Paper';
 
 // import LiveChat from "./LiveChat";
@@ -16,6 +16,8 @@ import Merch from "./Merch";
 import Schedule from "./series/SeriesSchedule";
 import ConcertSchedule from "./concert/ConcertSchedule";
 import ConcertOverview from "./concert/ConcertOverview";
+import ArtistInfo from "./concert/ArtistInfo";
+
 import SeriesOverview from "./series/SeriesOverview";
 
 function TabPanel(props) {
@@ -74,10 +76,11 @@ class EventTabs extends React.Component {
       )
     } else if (type == "concert") {
       return (
-        <TabPanel value={this.state.tab} index={1}>
-          <ConcertSchedule name={this.props.name} />
-        </TabPanel>
-    
+          <TabPanel value={this.state.tab} index={1}>
+            <ConcertSchedule name={this.props.name} />
+          </TabPanel>
+
+
       )
     } else {
       return null;
@@ -111,9 +114,10 @@ class EventTabs extends React.Component {
               indicator: classes.indicator
             }}
           >
-            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>OVERVIEW</span>} />
+            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>EVENT OVERVIEW</span>} />
             {this.props.type != "film" ? <Tab icon={<ScheduleIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>{this.props.type == "series" ? "EPISODE SCHEDULE" : "UPCOMING SHOWS"}</span>} /> : null}
             <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
+            {this.props.type == "concert" ? <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />: null}
 
           </Tabs>
           
@@ -124,7 +128,13 @@ class EventTabs extends React.Component {
           <TabPanel value={this.state.tab} index={showSchedule}>
             <Merch name={this.props.name}/>
           </TabPanel>
-          
+          <TabPanel value={this.state.tab} index={showSchedule}>
+            <Merch name={this.props.name}/>
+          </TabPanel>
+          {this.props.type == "concert" ? 
+          <TabPanel value={this.state.tab} index={3}>
+            <ArtistInfo title={this.props.title} name={this.props.name}/>    
+          </TabPanel>: null}
         </Paper>
       </div>
     );
