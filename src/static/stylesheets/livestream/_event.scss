@@ -30,12 +30,16 @@
   flex-direction: column;
   height: auto;
   width: 100%;
+  overflow: auto;
 
   &__info {
     display: flex;
     flex-direction: column;
     height: auto;
     width: 100%;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
     &__title {
       color: var(--pText);
       // display: inline-block;
@@ -62,54 +66,142 @@
       }
     }
     &__h1Props {
-
-      font-size: 40px !important;
+      font-size: 70px !important;
       color: white;
       text-shadow: white 0px 0px 3px;
-      text-transform: uppercase;
-      letter-spacing: 6px;
+      // text-transform: uppercase;
+      letter-spacing: 3px !important;
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
       user-select: none; /* Standard syntax */
       margin: auto;
       padding-top: 8rem;
-
-      // margin-bottom: -25px;
-      // padding-top: 70px;
-
-      // font-size: 65px;
-      font-weight: 700 !important;
-      margin-bottom: $elv-spacing-m;
+      white-space: pre-wrap;
+      font-weight: bold;
       width: 100%;
-      text-align: center;
+      text-align: left;
+      line-height: 60px;
+      margin-bottom: 12px;
+      @media only screen and (max-width: 1200px) {
+        font-size: 60px !important;
+        line-height: 50px;
+
+      }
+      @media only screen and (max-width: 1000px) {
+          font-size: 55px !important;
+          line-height: 45px;
+
+      }
+      @media only screen and (max-width: 800px) {
+          font-size: 50px !important;
+          line-height: 40px;
+
+      }
       
-      // overflow: hidden;
-      // white-space:nowrap;
-    }  
+      &__desc {
+        font-size: 35px !important;
+        color: white;
+        text-shadow: white 0px 0px 3px;
+        letter-spacing: 0px !important;
+        font-weight: 600;
+        @media only screen and (max-width: 1200px) {
+          font-size: 30px !important;
+        }
+        @media only screen and (max-width: 1000px) {
+            font-size: 28px !important;
+        }
+        @media only screen and (max-width: 800px) {
+            font-size: 24px !important;
+        }
+      }  
+    }
+  
     &__synopsis {
       color: white;
-      text-align: center;
+      text-align: left;
       margin-top: 30px;
-      margin-left: 50px;
-      margin-right: 50px;
-
+      // margin-left: 50px;
+      margin-right: 30%;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Standard syntax */
+      font-weight: 500;
       font-size: 22px;
     }
+    &__ticketGroup {
+
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      width: 100%;
+      padding-top: 50px;
+      // padding-bottom: 25px;
+      // margin-top: 30px;
+
+      // margin-bottom: 20px;
+      // width: 600px;
+      @media only screen and (max-width: 1680px) {
+        flex-direction: column;
+      }
+      
+    }
     &__ticketDetail {
+      margin: auto;
       color: white;
       text-align: center;
+      background-color: rgb(27, 27, 27);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      height: 325px;
+      padding-top: 25px;
+      padding-bottom: 25px;
       margin-top: 30px;
-      margin-left: 50px;
-      margin-right: 50px;
-      font-size: 22px;
+      margin-bottom: 30px;
+      width: 600px;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Standard syntax */
+      
     }
     &__ticketDetail2 {
       color: white;
       text-align: center;
-      margin-top: 30px;
-      margin-left: 50px;
-      margin-right: 50px;
-      font-size: 22px;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      font-size: 35px !important;
+      color: white;
+      text-shadow: white 0px 0px 2px;
+      letter-spacing: 0px !important;
+      font-weight: 600;
+      text-transform: uppercase;
+
+    }
+    &__ticketDetail3 {
+      display: flex;
+      flex-direction: column;
+      list-style: outside !important;
+      justify-content: center;
+      height: 100px;
+      list-style-position: outside !important;
+      margin-bottom: 15px !important;
+    }
+    &__ticketDetail4 {
+      text-shadow: white 0px 0px 1px;
+
+      // text-transform: uppercase;
+      color: white;
+      text-align: left;
+      margin-top: 5px;
+      margin-left: 60px;
+      font-size: 20px;
+      display: flex;
+      margin-right: 60px;
+      flex-direction: column;
+      list-style-position: outside !important;
+    }
+    &__ticketBTN {
+      margin-top: 15px !important;
     }
 
     &__schedule {
@@ -298,7 +390,7 @@
   // linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})
   display: flex;
   flex-direction: column;
-  height: auto;
+  height: 100%;
   width: 100%;
 }
 
@@ -311,4 +403,20 @@
   flex-direction: column;
   height: auto;
   width: 100%;
+}
+
+.ul, .li {
+  /*
+   * We want the bullets outside of the list,
+   * so the text is aligned. Now the actual bullet
+   * is outside of the list’s container
+   */
+   list-style: outside;
+  list-style-position: outside !important;
+
+  /*
+   * Because the bullet is outside of the list’s
+   * container, indent the list entirely
+   */
+  // margin-left: 1em;
 }

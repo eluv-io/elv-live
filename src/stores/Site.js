@@ -218,7 +218,7 @@ class SiteStore {
     if(this.siteCustomization.arrangement) {
       for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
         const entry = this.siteCustomization.arrangement[i];
-        let titleLogo;
+        let titleLogo, titlePromo;
         if (entry.component == "event") {
           if(entry.title) {
             entry.title = yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
@@ -227,6 +227,13 @@ class SiteStore {
               "",
               { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
             );
+            // if (i == 1) {
+            //   titlePromo = this.CreateLink(
+            //     entry.title.logoUrl,
+            //     "",
+            //     { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+            //   );
+            // }
           }
           if(entry.options.eventImage) {
             entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});

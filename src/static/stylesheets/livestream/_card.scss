@@ -1,4 +1,7 @@
 .card {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   perspective: 1500px;
   -moz-perspective: 1500px;
   position: relative;
@@ -11,6 +14,9 @@
 }
 
 .card__side {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   height: 360px;
   transition: all .8s ease;
   position: absolute;
@@ -26,6 +32,9 @@
 }
 
 .cardMain {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   perspective: 1500px;
   -moz-perspective: 1500px;
   // position: relative;
@@ -38,6 +47,9 @@
 }
 
 .cardMain__side {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
   height: 360px;
   transition: all .8s ease;
   position: absolute;
