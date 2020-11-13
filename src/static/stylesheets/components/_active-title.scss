@@ -18,32 +18,34 @@ img {
   align-self: start;
   display: grid;
   grid-row-gap: 1.2rem;
+  height: 100%;
 //   background-color: black;
 //   margin-left: 10vw;
 //   margin-right: 10vw;
 
   grid-template-rows: 43vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
-  @media only screen and (max-width: $bp-medium-2) {
-      grid-template-rows: 47.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end] ;
-  }
+//   @media only screen and (max-width: $bp-medium-2) {
+//       grid-template-rows: 47.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end] ;
+//   }
 
-  @media only screen and (max-width: $bp-medium) {
-      grid-template-rows: 45vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
-  }
+//   @media only screen and (max-width: $bp-medium) {
+//       grid-template-rows: 45vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
+//   }
 
-  @media only screen and (max-width: $bp-small-2) {
-      grid-template-rows: 40vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
-  }
+//   @media only screen and (max-width: $bp-small-2) {
+//       grid-template-rows: 40vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
+//   }
 
-  @media only screen and (max-width: $bp-small) {
-      grid-template-rows: 35vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
-  }
+//   @media only screen and (max-width: $bp-small) {
+//       grid-template-rows: 35vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content [overview-end];
+//   }
   margin-bottom: 3rem;
   position: relative;
   width: 100vw !important;
 
   &__done {
       margin-top: 10rem;
+      height: auto;
       
       @media only screen and (max-width: $bp-medium) {
           margin-top: 5rem;
@@ -168,6 +170,12 @@ img {
             margin: auto;
             margin-bottom: -10px;
             padding-top: 40px;
+            @media only screen and (max-width: 1200px) {
+                width: 700px;
+            }
+            @media only screen and (max-width: 800px) {
+                width: 600px;
+            }
         }
         .logoSeries {
             -webkit-user-select: none; /* Safari */
@@ -255,6 +263,16 @@ img {
             margin-bottom: 8px;
             width: 100%;
             text-align: center;
+            @media only screen and (max-width: 1200px) {
+                font-size: 32px !important;
+            }
+            @media only screen and (max-width: 1000px) {
+                font-size: 28px !important;
+            }
+            @media only screen and (max-width: 800px) {
+                font-size: 22px !important;
+            }
+
         }
         .time{
             font-size: 25px;
@@ -373,7 +391,7 @@ img {
         margin-left: 12.5vw;
         margin-right: 12.5vw;
         background-color: transparent;
-        height: auto;
+        height: 100%;
 
   }
 }

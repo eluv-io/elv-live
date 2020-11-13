@@ -4,6 +4,7 @@ import PremiereTabs from "../EventTabs";
 import {ImageIcon} from "elv-components-js";
 import CloseIcon from "../../../static/icons/x.svg";
 import {Redirect} from "react-router";
+import AsyncComponent from "../../support/AsyncComponent";
 
 // import NavigationBar from "../navigation/NavigationBar";
 import styled from "styled-components";
@@ -37,18 +38,6 @@ class FilmRelease extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
-    if (!eventInfo.logo) {
-      this.setState({ imageIsReady: true});
-    }
-    else {
-      const img = new Image();
-      const thumbnail = eventInfo.logo;
-      img.src = thumbnail; // by setting an src, you trigger browser download
-      img.onload = () => {
-        // when it finishes loading, update the component state
-        this.setState({ imageIsReady: true, logo: thumbnail });
-      }
-    }
   }
 
   Trailer() {
@@ -115,46 +104,61 @@ class FilmRelease extends React.Component {
       height: "100%",
     };
 
-    if (!this.state.imageIsReady) {
-      return null;
-    }
-    else {
-      return (
-        <div className="home-containerBlack">
-          <div className="event-nav">
-            <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo} label="Eluvio" />
-          </div>
-          <div style={backgroundStyle} className="active-background" />
-          <div className="active-view-container active-view-container__done">
-              <div className="active-view-container__heading">
-                {this.state.logo ? <img className={this.props.match.params.artist != "meridian" ? "logoFilm": "logoMer"} src={this.state.logo} label="logo"/>  : <h1 className="name"> {eventInfo.name} </h1>}
-                <h1 className="filmDate">Premiering { eventInfo.date}</h1>
+    return (
+      <AsyncComponent
+        Load={async () => {
+            const img = new Image();
+            const thumbnail = eventInfo.logo;
+            img.src = thumbnail; // by setting an src, you trigger browser download
+            img.onload = () => {
+              // when it finishes loading, update the component state
+              this.setState({ imageIsReady: true, logo: thumbnail });
+            }
+        }}
+        render={() => {
+          if (!this.state.imageIsReady) {
+            return null;
+          } else {
+            return (
+              <div className="home-containerBlack">
+                <div className="event-nav">
+                  <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo} label="Eluvio" />
+                </div>
+                <div style={backgroundStyle} className="active-background" />
+                <div className="active-view-container active-view-container__done">
+                    <div className="active-view-container__heading">
+                      {this.state.logo ? <img className={this.props.match.params.artist != "meridian" ? "logoFilm": "logoMer"} src={this.state.logo} label="logo"/>  : <h1 className="name"> {eventInfo.name} </h1>}
+                      <h1 className="filmDate">Premiering { eventInfo.date}</h1>
+                    </div>
+                    <div className="active-view-container__button">
+                      <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({redirect: true})}>
+                        Buy Tickets
+                      </button>
+                      
+                      <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+                        Watch Trailer
+                      </button>
+                    </div>
+      
+                    <div className="active-view-container__overview">
+                    <PremiereTabs title={featuredTitle} name={this.props.match.params.artist} type={"film"}/>
+                  </div>
+                </div>
+                { this.state.showTrailer ? this.Trailer(): null}
+          
+      
+                <div className="live-footer">
+                  <h3 className="live-footer__title">
+                    Copyright © Eluvio 2020 
+                  </h3>
+                </div>
               </div>
-              <div className="active-view-container__button">
-                <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({redirect: true})}>
-                  Buy Tickets
-                </button>
-                
-                <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
-                  Watch Trailer
-                </button>
-              </div>
-
-              <div className="active-view-container__overview">
-              <PremiereTabs title={featuredTitle} name={this.props.match.params.artist} type={"film"}/>
-            </div>
-          </div>
-          { this.state.showTrailer ? this.Trailer(): null}
-    
-
-          <div className="live-footer">
-            <h3 className="live-footer__title">
-              Copyright © Eluvio 2020 
-            </h3>
-          </div>
-        </div>
-      );
-    }
+            );
+          }
+        }
+        }
+      />
+    );
   }
 }
 

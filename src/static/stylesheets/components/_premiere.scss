@@ -109,7 +109,15 @@
 
 .premiereTabs {
     position: relative;
+    height: auto;
+    min-height: 100% !important;
+    @media only screen and (max-width: 1680px) {
+        height: 1500px;
+    }
 
+    @media only screen and (max-width: 1100px) {
+        height: 1800px;
+    }
     width: 100%;
     // z-index: 5000;
     &__tabs {
@@ -163,7 +171,7 @@
 
     &__container {
         display: flex;
-        height: 100%;
+        height: auto;
         padding-top: 10rem;
         width: 75vw;
         @media only screen and (max-width: $bp-large) {
@@ -236,7 +244,7 @@
         
             &__synopsis {
                 text-align: left;
-                font-size: 18px;
+                font-size: 24px;
             }
         
             &__details-section {

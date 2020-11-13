@@ -11,11 +11,12 @@ import Paper from '@material-ui/core/Paper';
 
 // import LiveChat from "./LiveChat";
 // import FanWall from './FanWall';
-import FilmOverview from "./FilmOverview";
+import FilmOverview from "./film/FilmOverview";
 import Merch from "./Merch";
 import Schedule from "./series/SeriesSchedule";
 import ConcertSchedule from "./concert/ConcertSchedule";
 import ConcertOverview from "./concert/ConcertOverview";
+import SeriesOverview from "./series/SeriesOverview";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -117,7 +118,7 @@ class EventTabs extends React.Component {
           </Tabs>
           
           <TabPanel value={this.state.tab} index={0}>
-            {this.props.type == "concert" ?  <ConcertOverview title={this.props.title} name={this.props.name}/>  :  <FilmOverview title={this.props.title} name={this.props.name}/> }
+            {this.props.type == "concert" ?  <ConcertOverview title={this.props.title} name={this.props.name}/>  :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
           </TabPanel>
           {this.ScheduleManager(this.props.type)}
           <TabPanel value={this.state.tab} index={showSchedule}>
