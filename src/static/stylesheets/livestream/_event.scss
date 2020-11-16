@@ -31,12 +31,46 @@
   height: auto;
   width: 100%;
   overflow: auto;
+  &__eventInfo {
+
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: 100%;
+    padding-top: 100px;
+    @media only screen and (max-width: 1680px) {
+      flex-direction: column;
+    }
+  }
+  &__photoGroup {
+
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 35%;
+    // padding-top: 100px;
+    @media only screen and (max-width: 1680px) {
+      flex-direction: column;
+    }
+    &__singlePhoto {
+      width: 100%;
+      height: auto;
+      margin: auto;
+      // margin-top: 90px;
+    }
+    &__twoPhoto {
+      width: 100%;
+      height: 50%;
+      margin: auto;
+      // margin-top: 90px;
+    }
+  }
 
   &__info {
     display: flex;
     flex-direction: column;
     height: auto;
-    width: 100%;
+    width: 65%;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
@@ -51,7 +85,7 @@
 
       line-height: 4rem;
       margin-bottom: 8rem; 
-      margin-top: 8rem;
+      // margin-top: 8rem;
       text-align: center !important;
       @media only screen and (max-width: $bp-small) {
         font-size: 30px;
@@ -68,20 +102,20 @@
     &__h1Props {
       font-size: 70px !important;
       color: white;
-      text-shadow: white 0px 0px 3px;
+      text-shadow: white 0px 0px 0px;
       // text-transform: uppercase;
       letter-spacing: 3px !important;
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
       user-select: none; /* Standard syntax */
-      margin: auto;
-      padding-top: 8rem;
+      // margin: auto;
+      // padding-top: 8rem;
       white-space: pre-wrap;
       font-weight: bold;
       width: 100%;
       text-align: left;
       line-height: 60px;
-      margin-bottom: 12px;
+      margin-bottom: 5px;
       @media only screen and (max-width: 1200px) {
         font-size: 60px !important;
         line-height: 50px;
@@ -101,7 +135,7 @@
       &__desc {
         font-size: 35px !important;
         color: white;
-        text-shadow: white 0px 0px 3px;
+        text-shadow: white 0px 0px 0px;
         letter-spacing: 0px !important;
         font-weight: 600;
         @media only screen and (max-width: 1200px) {
@@ -119,7 +153,7 @@
     &__synopsis {
       color: white;
       text-align: left;
-      margin-top: 30px;
+      margin-top: 25px;
       // margin-left: 50px;
       margin-right: 15%;
       -webkit-user-select: none; /* Safari */
@@ -128,9 +162,27 @@
       font-weight: 500;
       font-size: 22px;
     }
+
+    &__bio {
+      color: white;
+      text-align: left;
+      margin-top: 30px;
+      // margin-left: 50px;
+      margin-right: 25%;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Standard syntax */
+      font-weight: 500;
+      font-size: 22px;
+    }
     &__music {
-      margin: auto;
+
+      width:450px;
+      height:330px;
+      // margin: auto;
       margin-top: 50px;
+      margin-left: 100px;
+
 
     }
     &__ticketGroup {
@@ -139,16 +191,21 @@
       flex-direction: row;
       height: auto;
       width: 100%;
-      padding-top: 50px;
-      // padding-bottom: 25px;
-      // margin-top: 30px;
-
-      // margin-bottom: 20px;
-      // width: 600px;
+      padding-top: 100px;
       @media only screen and (max-width: 1680px) {
         flex-direction: column;
       }
-      
+    }
+    &__photoGroup {
+
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      width: 700px;
+      // padding-top: 100px;
+      @media only screen and (max-width: 1680px) {
+        flex-direction: column;
+      }
     }
     &__photo {
       width: 380px;
@@ -156,11 +213,12 @@
       margin: auto;
       margin-top: 90px;
     }
-    &__photo2 {
+    
+    &__profPhoto {
       width: auto;
-      height: 400px;
+      height: auto;
       margin: auto;
-      margin-top: 90px;
+      // margin-top: 90px;
     }
     &__ticketDetail {
       margin: auto;

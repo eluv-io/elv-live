@@ -16,6 +16,8 @@ import Merch from "./Merch";
 import Schedule from "./series/SeriesSchedule";
 import ConcertSchedule from "./concert/ConcertSchedule";
 import ConcertOverview from "./concert/ConcertOverview";
+import RitaOverview from "./concert/RitaOverview";
+
 import ArtistInfo from "./concert/ArtistInfo";
 
 import SeriesOverview from "./series/SeriesOverview";
@@ -74,15 +76,16 @@ class EventTabs extends React.Component {
           <Schedule name={this.props.name} />
         </TabPanel>
       )
-    } else if (type == "concert") {
-      return (
-          <TabPanel value={this.state.tab} index={1}>
-            <ConcertSchedule name={this.props.name} />
-          </TabPanel>
+    } 
+    // else if (type == "concert") {
+    //   return (
+    //       <TabPanel value={this.state.tab} index={2}>
+    //         <ConcertSchedule name={this.props.name} />
+    //       </TabPanel>
 
-
-      )
-    } else {
+    //   )
+    // } 
+    else {
       return null;
     }
   }
@@ -96,7 +99,10 @@ class EventTabs extends React.Component {
       this.setState({tab: newValue});
     };
     let showSchedule = 1;
-    if (this.props.type != "film") {
+    if (this.props.type == "concert") {
+      showSchedule = 2; 
+    }
+    if (this.props.type == "series") {
       showSchedule = 2; 
     }
 
@@ -114,25 +120,26 @@ class EventTabs extends React.Component {
               indicator: classes.indicator
             }}
           >
-            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>EVENT OVERVIEW</span>} />
-            {this.props.type != "film" ? <Tab icon={<ScheduleIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>{this.props.type == "series" ? "EPISODE SCHEDULE" : "UPCOMING SHOWS"}</span>} /> : null}
-            <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
+            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>EVENT</span>} />
             {this.props.type == "concert" ? <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />: null}
+            {this.props.type == "series" ? <Tab icon={<ScheduleIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>{"EPISODE SCHEDULE"}</span>} /> : null}
+            <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
 
           </Tabs>
           
           <TabPanel value={this.state.tab} index={0}>
-            {this.props.type == "concert" ?  <ConcertOverview title={this.props.title} name={this.props.name}/>  :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
+            {this.props.type == "concert" ?  this.props.name == "rita-ora" ? <RitaOverview title={this.props.title} name={this.props.name}/> : <ConcertOverview title={this.props.title} name={this.props.name}/>  :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
           </TabPanel>
+          {this.props.type == "concert" ? 
+            <TabPanel value={this.state.tab} index={1}>
+              <ArtistInfo title={this.props.title} name={this.props.name}/>    
+            </TabPanel>: null
+          }
           {this.ScheduleManager(this.props.type)}
           <TabPanel value={this.state.tab} index={showSchedule}>
             <Merch name={this.props.name}/>
           </TabPanel>
-          {this.props.type == "concert" ? 
-            <TabPanel value={this.state.tab} index={3}>
-              <ArtistInfo title={this.props.title} name={this.props.name}/>    
-            </TabPanel>: null
-          }
+
         </Paper>
       </div>
     );

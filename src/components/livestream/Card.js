@@ -11,10 +11,10 @@ class Card extends React.Component {
   render() {
     let eventType;
     // console.log(this.props.eventType);
-    if (this.props.eventType < 5) {
+    if (this.props.eventType < 3) {
       eventType = "concert";
     } 
-    else if (this.props.eventType < 8) {
+    else if (this.props.eventType < 6) {
       eventType = "film";
     } 
     else {

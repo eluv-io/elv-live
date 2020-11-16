@@ -8,7 +8,7 @@ img {
 }
 
 .active-background {
-  height: 80vh !important;
+  height: 100vh !important;
   margin: 0;
   position: absolute;
   width: 100%;
@@ -147,12 +147,12 @@ img {
         display: grid;
         flex-direction: column;
         .name{
-            font-size: 90px;
+            font-size: 95px;
             color: white;
             font-weight: bold;
             text-shadow: white 0px 0px 3px;
             text-transform: uppercase;
-            letter-spacing: 7px;
+            letter-spacing: 10px;
             -webkit-user-select: none; /* Safari */
             -ms-user-select: none; /* IE 10+ and Edge */
             user-select: none; /* Standard syntax */

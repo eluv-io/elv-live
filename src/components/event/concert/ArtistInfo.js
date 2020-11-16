@@ -2,8 +2,8 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {ImageIcon} from "elv-components-js";
 import {Link} from "react-router-dom";
-import mad1 from "../../../static/images/1MAD.jpg";
-import mad2 from "../../../static/images/2MAD.jpg";
+import rita1 from "../../../static/images/ritaora/ritaConcert.jpg";
+import rita2 from "../../../static/images/ritaora/ritaProf1.jpg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -26,36 +26,32 @@ class ArtistInfo extends React.Component {
           className="premiereTabs__container__poster" 
           title="Poster" 
         /> */}
-        <div className="event-container__info__ticketGroup">
+        <div className="event-container__eventInfo">
+          <div className="event-container__info">
+            <div className="event-container__info__h1Props">
+              <div>{ eventInfo.name }</div>
+            </div>
 
-        <div className="event-container__info">
-          <div className="event-container__info__h1Props">
-            <div>{ eventInfo.name }</div>
-          </div>
-
-            <div className="event-container__info__synopsis">
-            Prior to signing with epic records late last year, madison beer achieved unprecedented success as an independent artist with her partner first access entertainment. Her debut ep as she pleases boasts over 950 million streams and made her the first independent female solo artist to break into the top 20 us pop radio charts, after having debuted in the top 5 on itunes in 18 countries and in the top 10 in 42 countries worldwide. Globally, beer has over 2 billion streams across her catalogue.
-                </div>
-            <div className="event-container__info__synopsis">
-            She’s attracted the endorsement of time, rolling stone, nme, v magazine and billboard who named her among its coveted “21 under 21” list, and has a social following that reaches an audience of over 20 million on instagram and 3 million on twitter. .
+            <div className="event-container__info__bio">
+              On early singles like “Hot Right Now” with DJ Fresh and her own 2012 smash “How We Do (Party),” Rita Ora exudes the headstrong confidence and swagger of an artist who knows exactly what she’s about. She also knows what she can do with a voice that fits just as well with lovelorn ballads as it does with full tilt party-starters.             </div>
+            <div className="event-container__info__bio">
+              That combination of positivity and versatility has helped make Ora—born Rita Sahatçiu in Prishtina in the former Yugoslavia, in 1990—one of the most successful British female solo artists ever. And even though her troubles with her first record label led to a long delay for the follow-up to her 2012 debut Ora, she filled the gap with feature appearances on tracks by Iggy Azalea, Charli XCX, and Avicii, along with a stream of UK Top 10 singles such as the dreamy “Anywhere” and “For You,” a duet with Liam Payne for the soundtrack of Fifty Shades Freed.
             </div>
           </div>
-          <iframe className="event-container__info__music" src="https://open.spotify.com/embed/album/5boeEaUtj7gHXFxKtFFlzL" width="400" height="350" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-    
 
-      </div>
-      <div className="event-container__info__ticketGroup">
-        <img
-              src={mad1}
-              className= "event-container__info__photo2"
-            />     
-               <img
-              src={mad2}
-              className= "event-container__info__photo2"
-            />     
-
-
+          <div className="event-container__photoGroup">
+            <img
+                src={rita1}
+                className= "event-container__info__profPhoto"
+              />     
+                <img
+                src={rita2}
+                className= "event-container__info__profPhoto"
+              />      
+          </div>
         </div>
+
+        <iframe className="event-container__info__music" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWW1gMUqCDV0K" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </div>
     );
   }
