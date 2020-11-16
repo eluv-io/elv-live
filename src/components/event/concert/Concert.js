@@ -6,6 +6,13 @@ import CloseIcon from "../../../static/icons/x.svg";
 import Logo from "../../../static/images/madisonL.png";
 import styled from "styled-components";
 import Trailer from "../Trailer";
+import hero1 from "../../../static/images/ritaora/hero1.jpg";
+import hero2 from "../../../static/images/ritaora/hero2.jpg";
+import hero3 from "../../../static/images/ritaora/hero3.jpg";
+import hero4 from "../../../static/images/ritaora/hero4.jpg";
+import hero5 from "../../../static/images/ritaora/hero5.jpg";
+
+
 import {
   Link
 } from "react-router-dom";
@@ -56,17 +63,26 @@ class Concert extends React.Component {
           />
 
           <div className={`modal__container`}>          
-            {this.props.match.params.artist == "madison-beer" ? 
+            {this.props.match.params.artist == "rita-ora" ? 
+              // <iframe 
+              //   width="100%" 
+              //   height="100%"
+              //   src="https://www.youtube.com/embed/GfsLT7W80AE" 
+              //   frameBorder="0" 
+              //   autoPlay
+              //   muted
+              //   // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              //   allowFullScreen
+              // />
               <iframe 
                 width="100%" 
                 height="100%"
-                src="https://www.youtube.com/embed/GfsLT7W80AE" 
-                frameBorder="0" 
-                autoPlay
-                muted
-                // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-              />
+                src="https://www.youtube.com/embed/FS07b8EUlCs" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+
+               </iframe>
             :  
               <h1 className="merch" > 
                 Promo is currently unavailable.
@@ -95,10 +111,14 @@ class Concert extends React.Component {
   
 
 
-    const thumbnail = eventInfo.eventImg;
+    let thumbnail = eventInfo.eventImg;
 
     // const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
-    const backgroundColor =  "#040622";
+    const backgroundColor =  "#000321";
+    const backgroundHelp =  "#000112";
+    const backgroundHelp2 =  "#00010a";
+
+    const blackColor =  "#000000";
 
     const backgroundColor1 =  backgroundColor + "00";
     const backgroundColor2 =  backgroundColor + "4C";
@@ -106,20 +126,22 @@ class Concert extends React.Component {
     const backgroundColor4 =  backgroundColor + "B3";
     const backgroundColor5 =  backgroundColor + "CC";
     const backgroundColor6 =  backgroundColor+ "E6";
-
+    if (this.props.match.params.artist == "rita-ora") {
+      thumbnail = hero1;
+    }
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})`,
+      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${thumbnail})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100%",
     };
 
     return (
-      <div className="home-container">
+      <div className="home-containerBlack">
         <div className="event-nav">
-          <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl ? this.props.siteStore.logoUrl : Logo} label="Eluvio" />
+          <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
         </div>
         <div style={backgroundStyle} className="active-background" />
         <div className="active-view-container active-view-container__done">

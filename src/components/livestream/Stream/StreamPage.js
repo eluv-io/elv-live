@@ -57,8 +57,8 @@ class Stream extends React.Component {
     document.documentElement.style.setProperty('--vw', `${vw}px`);
 
     let eventInfo = this.props.siteStore.eventAssets.get("madison-beer");
-    let eventInfo2 = this.props.siteStore.eventAssets.get("liam-payne");
-    let eventInfo3 = this.props.siteStore.eventAssets.get("brandi-carlile");
+    let eventInfo2 = this.props.siteStore.eventAssets.get("rita-ora");
+    let eventInfo3 = this.props.siteStore.eventAssets.get("iron-sky");
 
     return (
       <AsyncComponent

@@ -19,7 +19,7 @@ class CheckoutForm extends React.Component {
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
-      lineItems: [{ price: "price_1HPbPYKgR5J3zPrLcOd9Vz2u", quantity: 1 }],
+      lineItems: [{ price: "price_1HnBMFKgR5J3zPrLR96KsCCk", quantity: 1 }],
       successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
       cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`,
     });
@@ -55,7 +55,7 @@ class CheckoutForm extends React.Component {
                   <section className="container">
                     <div>
                       <h1>Purchase a Ticket</h1>
-                      <h4>{eventInfo.name} Live At Bill Graham </h4>
+                      <h4>{eventInfo.name} Live </h4>
                       <div className="pasha-image">
                         <img
                           src={eventInfo.icon}

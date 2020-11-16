@@ -210,6 +210,10 @@ class SiteStore {
       this.darkLogo = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/dark_logo"});
     }
 
+    if(this.siteCustomization.background_image) {
+      this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
+    }
+
     let eventMap = new Map();
     let dateFormat = require('dateformat');
     const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
