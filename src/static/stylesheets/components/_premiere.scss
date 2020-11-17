@@ -109,14 +109,20 @@
 
 .premiereTabs {
     position: relative;
-    height: 1200px;
+    height: 1500px;
     min-height: 100% !important;
     @media only screen and (max-width: 1680px) {
-        height: 1500px;
+        height: 1600px;
     }
 
-    @media only screen and (max-width: 1100px) {
-        height: 1800px;
+    @media only screen and (max-width: 1500px) {
+        height: 1900px;
+    }
+    @media only screen and (max-width: 1300px) {
+        height: 2050px;
+    }
+    @media only screen and (max-width: 1050px) {
+        height: 2250px;
     }
     width: 100%;
     // z-index: 5000;

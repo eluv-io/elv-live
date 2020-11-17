@@ -21,6 +21,195 @@
   }
 }
 
+.ticket-group {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  @media only screen and (max-width: 1680px) {
+    flex-direction: column;
+  }
+}
+
+.ticket-event {
+  max-width: 100%;
+  padding: 40px;
+  border-radius: 12px;
+  background: #f9f7f4;
+  position: relative;
+  display: flex;
+  grid-column: span 1;
+  align-items: flex-start;
+  width: 90%;
+  min-width: auto;
+  margin: 0 auto 50px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+  // margin-left: 10%;
+  // margin-right: 10%;
+}
+
+.ticket-image {
+  display: block;
+  max-width: 250px;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  margin-right: 40px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  border-radius: 10px;
+}
+
+.ticket-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.ticket-top {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.ticket-top-labels {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-bottom: 10px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+}
+
+.ticket-label-available {
+  display: block;
+  width: auto;
+  min-width: 0;
+  margin-bottom: 0;
+  margin-left: 2px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: 400;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase!important;
+  background: #000;
+}
+.ticket-label-loc {
+  display: block;
+  width: auto;
+  min-width: 0;
+  margin-bottom: 0;
+  margin-left: 2px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: 400;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase!important;
+  background: #000;
+}
+
+.ticket-top-title {
+  margin-top: 0;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: sans-serif;
+  letter-spacing: -.2px;
+  text-transform: uppercase;
+}
+.ticket-top-description {
+  font-size: 14px;
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  color: rgba(0,0,0,.6);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: block;
+}
+
+.ticket-bottom {
+  border-radius: 12px;
+  background: #fff;
+  margin-top: 10px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+}
+
+.ticket-bottom-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  height: 50px !important;
+}
+.ticket-bottom-date {
+  display: flex;
+  align-items: center;
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.374px;
+  line-height: 20.5883px;
+}
+.ticket-bottom-price {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.374px;
+  line-height: 20.5883px;
+
+}
+.ticket-bottom-countdown {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.374px;
+  line-height: 20.5883px;
+  width: 120px;
+  text-align: right;
+}
+
+.ticket-bottom-button {
+  height: 50px !important;
+  // padding: 15px 20px;
+  // text-transform: uppercase;
+  font-size: 17px;
+  background: black;
+  font-weight: bold;
+  font-size: 18px;
+  font-style: normal;
+  line-height: 1.47059;
+  letter-spacing: -.022em;
+  color: white;
+  margin-top: 0px !important;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  text-align: center;
+  width: 100%;
+
+}
+
 
 .event-container {
   background-color: transparent;
@@ -31,14 +220,25 @@
   height: auto;
   width: 100%;
   overflow: auto;
+  margin-top: 100px;
   &__eventInfo {
-
     display: flex;
     flex-direction: row;
     height: auto;
-    width: 100%;
+    width: 90%;
+    margin: auto;
     padding-top: 100px;
-    @media only screen and (max-width: 1680px) {
+    background: #f9f7f4;
+    color: black !important;
+
+    max-width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    background: #f9f7f4;
+    position: relative;
+
+    box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+    @media only screen and (max-width: 1500px) {
       flex-direction: column;
     }
   }
@@ -47,22 +247,36 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    width: 35%;
-    // padding-top: 100px;
-    @media only screen and (max-width: 1680px) {
+    width: 430px;
+    
+    @media only screen and (max-width: 1500px) {
+      width: 100%;
+      margin-top: 50px;
+
       flex-direction: column;
     }
     &__singlePhoto {
-      width: 100%;
+      display: block;
+      max-width: 430px;
+      flex-shrink: 0;
+
       height: auto;
+      width: 430px;
+
       margin: auto;
+      border-radius: 10px;
       // margin-top: 90px;
+      
     }
     &__twoPhoto {
       width: 100%;
       height: 50%;
       margin: auto;
       // margin-top: 90px;
+      @media only screen and (max-width: 1500px) {
+        width: auto;
+        height: 300px !important;
+      }
     }
   }
 
@@ -70,12 +284,16 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    width: 65%;
+    width: 62.5%;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
+    margin-right: 10px;
+    @media only screen and (max-width: 1500px) {
+      width: 100%;
+    }
     &__title {
-      color: var(--pText);
+      color: black !important;
       // display: inline-block;
       font-size: 36px;
       font-weight: bold;
@@ -100,27 +318,38 @@
       }
     }
     &__h1Props {
-      font-size: 70px !important;
-      color: white;
-      text-shadow: white 0px 0px 0px;
+      // font-size: 70px !important;
+      color: black !important;
+      // text-shadow: white 0px 0px 0px;
       // text-transform: uppercase;
-      letter-spacing: 3px !important;
-      -webkit-user-select: none; /* Safari */
-      -ms-user-select: none; /* IE 10+ and Edge */
-      user-select: none; /* Standard syntax */
-      // margin: auto;
-      // padding-top: 8rem;
-      white-space: pre-wrap;
-      font-weight: bold;
-      width: 100%;
-      text-align: left;
-      line-height: 60px;
+      // letter-spacing: 5px !important;
+      // -webkit-user-select: none; /* Safari */
+      // -ms-user-select: none; /* IE 10+ and Edge */
+      // user-select: none; /* Standard syntax */
+
+      // // margin: auto;
+      // // padding-top: 8rem;
+      // white-space: pre-wrap;
+      // font-weight: bold;
+      // width: 100%;
+      // text-align: left;
+      line-height: 50px;
       margin-bottom: 5px;
+      
+      margin-top: 0;
+      font-size: 60px;
+      font-weight: 700;
+      font-family: sans-serif;
+      letter-spacing: -.2px;
+      text-transform: uppercase;
+      @media only screen and (max-width: 1600px) {
+        font-size: 53px;
+      }
       @media only screen and (max-width: 1200px) {
         font-size: 60px !important;
         line-height: 50px;
-
       }
+  
       @media only screen and (max-width: 1000px) {
           font-size: 55px !important;
           line-height: 45px;
@@ -133,11 +362,15 @@
       }
       
       &__desc {
-        font-size: 35px !important;
-        color: white;
-        text-shadow: white 0px 0px 0px;
-        letter-spacing: 0px !important;
-        font-weight: 600;
+        margin-top: 0;
+        font-size: 35px;
+        font-weight: 700;
+        font-family: sans-serif;
+        letter-spacing: -.2px;
+        text-transform: uppercase;
+        @media only screen and (max-width: 1600px) {
+          font-size: 32px;
+        }
         @media only screen and (max-width: 1200px) {
           font-size: 30px !important;
         }
@@ -151,29 +384,44 @@
     }
   
     &__synopsis {
-      color: white;
+      color: black !important;
       text-align: left;
-      margin-top: 25px;
-      // margin-left: 50px;
-      margin-right: 15%;
+      margin-top: 15px;
+      // // margin-left: 50px;
+      margin-right:100px;
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
       user-select: none; /* Standard syntax */
+      // font-weight: 500;
+      font-size: 20px;
+
+      // margin-top: 0;
+      // font-size: 20px;
       font-weight: 500;
-      font-size: 22px;
+      font-family: sans-serif;
+      // letter-spacing: -.2px;
+      @media only screen and (max-width: 1600px) {
+        font-size: 18px;
+      }
     }
 
     &__bio {
-      color: white;
+      color: black !important;
       text-align: left;
-      margin-top: 30px;
-      // margin-left: 50px;
-      margin-right: 25%;
+      margin-top: 25px;
+      // // margin-left: 50px;
+      margin-right:100px;
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
       user-select: none; /* Standard syntax */
+      // font-weight: 500;
+      font-size: 20px;
+
+      // margin-top: 0;
+      // font-size: 20px;
       font-weight: 500;
-      font-size: 22px;
+      font-family: sans-serif;
+      // letter-spacing: -.2px;
     }
     &__music {
 
@@ -197,11 +445,10 @@
       }
     }
     &__photoGroup {
-
       display: flex;
       flex-direction: column;
       height: auto;
-      width: 700px;
+      width: 35%;
       // padding-top: 100px;
       @media only screen and (max-width: 1680px) {
         flex-direction: column;
@@ -215,10 +462,27 @@
     }
     
     &__profPhoto {
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 50%;
       margin: auto;
-      // margin-top: 90px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+
+      @media only screen and (max-width: 1500px) {
+        width: 450px;
+        height: 100% !important;
+      }
+    }
+    &__profPhoto2 {
+      width: 100%;
+      height: 50%;
+      margin: auto;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      @media only screen and (max-width: 1500px) {
+        width: 450px;
+        height: 100% !important;
+      }
     }
     &__ticketDetail {
       margin: auto;
