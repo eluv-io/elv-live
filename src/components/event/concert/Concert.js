@@ -12,6 +12,7 @@ import hero3 from "../../../static/images/ritaora/hero3.jpg";
 import hero4 from "../../../static/images/ritaora/hero4.jpg";
 import hero5 from "../../../static/images/ritaora/hero5.jpg";
 
+import Tickets from "../../livestream/Payment/Tickets";
 
 import {
   Link
@@ -33,7 +34,7 @@ class Concert extends React.Component {
     super(props);
 
     this.state = {
-      redirect: false,
+      showPayment: false,
       showTrailer: false
     };
   }
@@ -64,24 +65,14 @@ class Concert extends React.Component {
 
           <div className={`modal__container`}>          
             {this.props.match.params.artist == "rita-ora" ? 
-              // <iframe 
-              //   width="100%" 
-              //   height="100%"
-              //   src="https://www.youtube.com/embed/GfsLT7W80AE" 
-              //   frameBorder="0" 
-              //   autoPlay
-              //   muted
-              //   // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              //   allowFullScreen
-              // />
               <iframe 
                 width="100%" 
                 height="100%"
                 src="https://www.youtube.com/embed/FS07b8EUlCs" 
-                frameborder="0" 
+                frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-
+                allowfullscreen
+              >
                </iframe>
             :  
               <h1 className="merch" > 
@@ -92,9 +83,33 @@ class Concert extends React.Component {
       </React.Fragment>
     )
   }
-  handleOnClick = () => {
-    this.setState({redirect: true});
+  Payment() {
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let featuredTitle = eventInfo.stream;
+    this.props.siteStore.PlayTrailer(featuredTitle);
+
+    return (
+      <React.Fragment>
+        
+        <div onClick={() => this.setState({showPayment: false})} className="backdrop" />
+
+        <div className="modal2 show2" >
+          <ImageIcon
+            key={`back-icon-Close Modal`}
+            className={"back-button__modal"}
+            title={"Close Modal"}
+            icon={CloseIcon}
+            onClick={() => this.setState({showPayment: false})}
+          />
+
+          <div className={`modal2__container`}>          
+            <Tickets/>
+          </div>
+        </div>
+      </React.Fragment>
+    )
   }
+
   
 
   render() {
@@ -103,12 +118,6 @@ class Concert extends React.Component {
     }
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
     let featuredTitle = eventInfo.stream;
-
-    if (this.state.redirect) {
-      let redirectLink = `/payment/${this.props.match.params.artist}`;
-      return <Redirect to={redirectLink} />;
-    }
-  
 
 
     let thumbnail = eventInfo.eventImg;
@@ -154,7 +163,7 @@ class Concert extends React.Component {
             </div>
             <div className="active-view-container__button">
    
-              <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({redirect: true})}>
+              <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
                 Buy Tickets
               </button>
               
@@ -162,16 +171,14 @@ class Concert extends React.Component {
                 Watch Promo
               </button>
             </div>
-            {/* <div className="active-view-container__premiere">
-              {eventInfo.date} 
-            </div> */}
 
           <div className="active-view-container__overview">
             <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.artist}/>
           </div>
         </div>
         { this.state.showTrailer ? this.Trailer(): null}
-   
+        { this.state.showPayment ? this.Payment(): null}
+
 
         <div className="live-footer">
           <h3 className="live-footer__title">

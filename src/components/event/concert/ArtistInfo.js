@@ -46,12 +46,12 @@ class ArtistInfo extends React.Component {
               />     
                 <img
                 src={rita2}
-                className= "event-container__info__profPhoto"
+                className= "event-container__info__profPhoto2"
               />      
           </div>
         </div>
 
-        <iframe className="event-container__info__music" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWW1gMUqCDV0K" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        {/* <iframe className="event-container__info__music" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWW1gMUqCDV0K" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> */}
       </div>
     );
   }

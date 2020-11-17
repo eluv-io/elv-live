@@ -4,6 +4,7 @@ import {ImageIcon} from "elv-components-js";
 import {Link} from "react-router-dom";
 import poster from "../../../static/images/livePOSTER.jpg";
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
+import Tickets from "../../livestream/Payment/Tickets";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -44,53 +45,12 @@ class RitaOverview extends React.Component {
           <div className="event-container__photoGroup">
             <img
               src={concertPoster}
-              className= "event-containe__photoGroup__singlePhoto"
+              className= "event-container__photoGroup__singlePhoto"
             />     
           </div>
         </div>
-
-        <div className="event-container__info__ticketGroup">
-            <div className="event-container__info__ticketDetail">
-              <div className="event-container__info__ticketDetail2">
-                General Admission
-              </div>
-              <ul className="event-container__info__ticketDetail3">
-                <li className="event-container__info__ticketDetail4">- One Virtual Ticket to Live Stream Concert</li>
-              </ul>
-              <Link to={{
-                  pathname: `/payment/${this.props.name}`,
-                  state: {
-                    name: eventInfo.name,
-                    icon: eventInfo.icon
-                  }
-                }}>
-                <button type="button" className="btn2 btn2--white btn3 btn3--white event-container__info__ticketBTN">$15.00</button>
-              </Link>          
-
-            </div>
-
-            <div className="event-container__info__ticketDetail">
-              <div className="event-container__info__ticketDetail2">
-                VIP Package
-              </div>
-              <ul className="event-container__info__ticketDetail3">
-                <li className="event-container__info__ticketDetail4">- One Virtual Ticket to Live Stream Concert</li>
-                <li className="event-container__info__ticketDetail4">- Special Access to Live Chat and Virtual Fan Wall</li>
-                <li className="event-container__info__ticketDetail4">- Exclusive Virtual Meet and Greet with { eventInfo.name }</li>
-
-              </ul>     
-              <Link to={{
-                  pathname: `/payment/${this.props.name}`,
-                  state: {
-                    name: eventInfo.name,
-                    icon: eventInfo.icon
-                  }
-                }}>
-                  <button type="button" className="btn2 btn2--white btn3 btn3--white event-container__info__ticketBTN">$40.00</button>
-                </Link> 
-            </div>
-
-          </div>
+        
+        <Tickets />
       </div>
     );
   }

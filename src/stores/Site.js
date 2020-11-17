@@ -250,6 +250,7 @@ class SiteStore {
             {
               name: entry.options.title,
               date: dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z"),
+              streamTimer: new Date(entry.options.date),
               description: entry.options.description,
               icon: entry.featureImage,
               eventImg: entry.eventImage,
