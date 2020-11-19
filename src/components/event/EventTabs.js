@@ -128,7 +128,7 @@ class EventTabs extends React.Component {
           </Tabs>
           
           <TabPanel value={this.state.tab} index={0}>
-            {this.props.type == "concert" ?  this.props.name == "rita-ora" ? <RitaOverview title={this.props.title} name={this.props.name}/> : <ConcertOverview title={this.props.title} name={this.props.name}/>  :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
+            {this.props.type == "concert" ? <RitaOverview title={this.props.title} name={this.props.name}/> :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
           </TabPanel>
           {this.props.type == "concert" ? 
             <TabPanel value={this.state.tab} index={1}>

@@ -83,6 +83,7 @@ class Concert extends React.Component {
       </React.Fragment>
     )
   }
+
   Payment() {
     let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
     let featuredTitle = eventInfo.stream;
@@ -102,8 +103,10 @@ class Concert extends React.Component {
             onClick={() => this.setState({showPayment: false})}
           />
 
-          <div className={`modal2__container`}>          
-            <Tickets/>
+          <div className={`modal2__container`}>   
+            <div className="ticket-modal">
+              <Tickets/>
+            </div>       
           </div>
         </div>
       </React.Fragment>

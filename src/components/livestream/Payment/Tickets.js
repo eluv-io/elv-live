@@ -21,10 +21,8 @@ class Tickets extends React.Component {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
     const { error } = await stripe.redirectToCheckout({
-      mode: "payment",
-      lineItems: [{ price: "price_1HnBMFKgR5J3zPrLR96KsCCk", quantity: 1 }],
-      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
-      cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}concert/rita-ora`,
+      sessionId: "cs_test_a1TivnMlmYfP6jgwTBLMl5JP1NTBJLOJ9L2uKE7e0zKfdelqSVMeJZEFu4"
+      
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
@@ -37,10 +35,7 @@ class Tickets extends React.Component {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
     const { error } = await stripe.redirectToCheckout({
-      mode: "payment",
-      lineItems: [{ price: "price_1HnBN6KgR5J3zPrLfc0gLRXf", quantity: 1 }],
-      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
-      cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}concert/rita-ora`,
+      sessionId: "cs_test_a1h0Zazc0d6CRmma8R72ZrIsddVBnOfYjPwkKLKFp1rF25rTnHvrIJ9BpX"
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
