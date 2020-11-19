@@ -21,7 +21,7 @@ class RitaOverview extends React.Component {
     const Maybe = (value, render) => value ? render() : null;
 
     return (
-      <div className={"event-container"}>
+      <div className={"profile-container"}>
         {/* <ImageIcon 
           icon={title.portraitUrl || title.imageUrl || title.landscapeUrl } 
           className="premiereTabs__container__poster" 

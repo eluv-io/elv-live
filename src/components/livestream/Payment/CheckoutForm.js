@@ -20,6 +20,7 @@ class CheckoutForm extends React.Component {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HnBMFKgR5J3zPrLR96KsCCk", quantity: 1 }],
+      metadata: {"tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN", "ntpId": "QOTPM59kMU5trgj"},
       successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
       cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`,
     });

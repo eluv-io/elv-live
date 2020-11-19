@@ -291,22 +291,32 @@
    // transition: .5s .3s ease-out;
    left: 0;
    opacity: 1;
-   top: calc(calc(100vh - 800px)/2);
+   top: 7.5vh;
    visibility: visible;
  }
 .hide {
   display: none !important;
 }
 
+.ticket-modal {
+   background-color: transparent;
+   height: 90%;
+   width: 87.5%;
+   margin: auto;
+   // margin-top: 0%; 
+   // margin-bottom: 5%; 
+
+   align-self: center;
+}
 .modal2 {
    box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
    //  height: 52rem;
-    height: 800px;
+    height: 85vh;
     position: fixed;
     // margin: auto;
-    width: 80vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
+    width: 75vw;
+    margin-left: 12.5vw;
+    margin-right: 12.5vw;
     // margin-top: calc(calc(100vh - 600px)/2);
     // margin-bottom: calc(100vh - 600px);
  
@@ -342,10 +352,10 @@
    
    &__container {
       background-color: rgb(236, 231, 223);
-      height: 800px;
+      height: 100%;
       width: 100%;
       align-self: center;
-      border-radius: 15px;
+      // border-radius: 15px;
       @media only screen and (max-width: $bp-medium-2) {
          background: linear-gradient(90deg, #000 60%, transparent);
       }
