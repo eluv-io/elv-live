@@ -20,6 +20,17 @@
 
   }
 }
+
+.stream-countdown {
+  width:100%;
+  height: 100%;
+  text-align: center;
+  margin:auto;
+  font-size: 30px;
+  margin-top: 100px;
+  // letter-spacing: 5px !important;
+
+}
 .profile-container {
   background-color: transparent;
   // background-image: linear-gradient(to bottom, #040622 38%,#000 55%,  #000 100%);
@@ -257,8 +268,13 @@
 }
 .ticket-icon-clock {
   vertical-align: middle !important;
-  font-size: 20px;
-  margin-right: 5px;
+  font-size: 32px;
+  // margin-bottom: 10px;
+
+  margin: auto;
+  margin-right: 10px !important;
+  margin-bottom: 5px !important;
+
 }
 .social-icon-insta {
   vertical-align: middle;
