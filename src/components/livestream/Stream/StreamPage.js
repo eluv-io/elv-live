@@ -7,6 +7,7 @@ import Select from 'react-select';
 import ViewStream from "./ViewStream";
 import AsyncComponent from "../../support/AsyncComponent";
 import StreamTabs from './StreamTabs';
+import Timer from "../Payment/Timer";
 
 const options = [
   { value: '0', label: 'MULTIVIEW 1' },
@@ -54,17 +55,16 @@ class Stream extends React.Component {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
-    console.log("HI");
-
-    console.log(this.props.siteStore.eventAssets.get("rita-ora"));
-    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
+    // console.log("TITLE DATA:");
+    // console.log(this.props.siteStore.eventAssets.get("rita-ora").);
+    // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     let newTitle;
     return (
       <AsyncComponent
         Load={async () => {
           // let place = await this.props.siteStore.LoadActiveTitle(eventInfo.stream);
-          this.props.siteStore.PlayTrailer(eventInfo.stream);
-          // await this.props.siteStore.SetFeed(eventInfo.stream, eventInfo, eventInfo);
+          // this.props.siteStore.PlayTrailer(eventInfo.stream);
+          // await this.props.siteStore.SetFeed(eventInfo, eventInfo, eventInfo);
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
@@ -87,16 +87,18 @@ class Stream extends React.Component {
                     autoFocus={false}
                   />
                 </div>
-                <ViewStream feedOption={0} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
-
-                {/* {this.renderFeed(selectedOption)} */}
+                {/* <ViewStream feedOption={0} classProp = "stream-container__streamBox--video" mutedOption = {false}/> */}
+                {/* stream-countdown */}
+                <div className="stream-container__streamBox--video ">
+                    <Timer />
+                </div>
 
                 <div className="stream-container__streamBox--info">
                   <h2 className="stream-container__streamBox--info__subtitle">
-                    Madison Beer
+                    RITA ORA - RO3 WORLD TOUR
                   </h2>
                   <h1 className="stream-container__streamBox--info__title">
-                    Live At Madison Square Garden
+                    LIVE FROM THE EIFFEL TOWER
                   </h1>
                 </div> 
               </div>

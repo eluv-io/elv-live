@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 @inject("rootStore")
 @inject("siteStore")
 @observer
-export default class Timer extends Component {
+export default class NewTimer extends Component {
     state = {
       days: 0,
       hours: 0,
@@ -18,14 +18,12 @@ export default class Timer extends Component {
     renderClock(days, hours, minutes, seconds) {
       return (
 
-        <IconContext.Provider value={{ className: 'ticket-icon-clock' }}>
           <div>
-            <FaRegClock />
+
             <span >
             {days}:{hours}:{minutes}:{seconds}
           </span>
           </div>
-        </IconContext.Provider>
 
         // <React.Fragment>
         //   <h1 className="bigtext">Premiering in: </h1>
@@ -134,7 +132,7 @@ export default class Timer extends Component {
       const { days, hours, minutes, seconds, premiere } = this.state;
 
       return (
-        <div className="stream-countdown">
+        <div>
           { premiere
             ? <span>Streaming Now!</span>
             : this.renderClock(days, hours, minutes, seconds)

@@ -10,7 +10,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 
 import "../../../static/stylesheets/base/paymentGlobal.css";
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
-import Timer from "./Timer";
+import NewTimer from "./newTimer";
 import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -21,23 +21,33 @@ class Tickets extends React.Component {
   
   handleSubmit = async (event) => {
     event.preventDefault();
-    const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
+    const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
+    let URL = window.location.href;
+    let shortURL = URL.substring(0, URL.lastIndexOf("#") + 2);
     const { error } = await stripe.redirectToCheckout({
-      sessionId: "cs_test_a1pIZpg9exsNTUzTpqUGGbli7e87Vd7oTaqT241U4paGtoFWdXRGfr1ZKr"
-      
+      mode: "payment",
+      lineItems: [{ price: "price_1HpS6pE0yLQ1pYr6CuBre5I4", quantity: 1 }],
+      successUrl: `${shortURL}success`,
+      cancelUrl: `${shortURL}`,
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
-      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
   handleSubmitVIP = async (event) => {
     event.preventDefault();
-    const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
+    const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
+    let URL = window.location.href;
+    let shortURL = URL.substring(0, URL.lastIndexOf("#") + 2);
     const { error } = await stripe.redirectToCheckout({
-      sessionId: "cs_test_a1K8Uzy68MiX9Z2bpmsPQIHWx6BX2F8xYTjLFoY6yb4q4dHPPzlWIheqZ8"
+      mode: "payment",
+      lineItems: [{ price: "price_1HpS77E0yLQ1pYr6bmC8griX", quantity: 1 }],
+      // successUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/success`,
+      // cancelUrl: `https://core.test.contentfabric.io/prod/site-sample-live/#/`,
+      successUrl: `${shortURL}success`,
+      cancelUrl: `${shortURL}`,
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
@@ -75,7 +85,7 @@ class Tickets extends React.Component {
               <div className="ticket-bottom">
                 <div className="ticket-bottom-info">
                   <div className="ticket-bottom-price">
-                    $15
+                    $30
                   </div>
                   <IconContext.Provider value={{ className: 'ticket-icon' }}>
                   <div>
@@ -87,7 +97,7 @@ class Tickets extends React.Component {
                 </IconContext.Provider>
                   
                   <div className="ticket-bottom-countdown">
-                    <Timer/>
+                  <NewTimer/>
                   </div>
                 </div>
                 <button className="ticket-bottom-button" role="link" onClick={this.handleSubmit}>
@@ -133,7 +143,7 @@ class Tickets extends React.Component {
                   </div>
                 </IconContext.Provider>
                   <div className="ticket-bottom-countdown">
-                    <Timer/>
+                    <NewTimer/>
                   </div>
                 </div>
                 <button className="ticket-bottom-button" role="link" onClick={this.handleSubmitVIP}>

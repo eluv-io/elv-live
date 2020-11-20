@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     color: 'white',
   },
-
 }));
 
 export default function IconLabelTabs() {
@@ -69,15 +68,15 @@ export default function IconLabelTabs() {
           }}
         >
           <Tab icon={<SmsIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>LIVE CHAT</span>} />
-          <Tab icon={<VideocamRoundedIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>FAN WALL</span>} />
+          {/* <Tab icon={<VideocamRoundedIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>FAN WALL</span>} /> */}
         </Tabs>
         
         <TabPanel value={value} index={0}>
           <LiveChat /> 
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        {/* <TabPanel value={value} index={1}>
           <FanWall/>
-        </TabPanel>
+        </TabPanel> */}
       </Paper>
     </div>
   );
