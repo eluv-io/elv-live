@@ -37,7 +37,7 @@ class Tickets extends React.Component {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
     const { error } = await stripe.redirectToCheckout({
-      sessionId: "cs_test_a1J3hxPe8B2SQ6j8aSSp2W0yCWUZurhhmkFd8ZScCrYbh36JJHD7HdAKs9"
+      sessionId: "cs_test_a1K8Uzy68MiX9Z2bpmsPQIHWx6BX2F8xYTjLFoY6yb4q4dHPPzlWIheqZ8"
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
