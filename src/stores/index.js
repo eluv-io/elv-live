@@ -91,10 +91,15 @@ class RootStore {
         return false;
       }
 
+      // this.email = email;
+      // this.name = name;
+
+      // // Creating user account for live chat
+      // this.chatClient = new StreamChat('5fn9kaf98an2');
+      // this.chatID = yield this.chatClient.devToken(this.name);
+
       this.email = email;
       this.name = name;
-
-      // Creating user account for live chat
       this.chatClient = new StreamChat('5fn9kaf98an2');
       this.chatID = yield this.chatClient.devToken(this.name);
 

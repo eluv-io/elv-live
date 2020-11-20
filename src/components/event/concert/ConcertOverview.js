@@ -14,7 +14,7 @@ class ConcertOverview extends React.Component {
   render() {
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
     // const featuredTitle = eventInfo.title;
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
 
     const Maybe = (value, render) => value ? render() : null;
 

@@ -12,7 +12,7 @@ class SeriesOverview extends React.Component {
     // const featuredTitle = eventInfo.title;
     const title = this.props.title;
     const titleInfo = title.info || {};
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
 
     const Maybe = (value, render) => value ? render() : null;
 
