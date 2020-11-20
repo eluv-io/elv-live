@@ -36,7 +36,7 @@ class CheckoutForm extends React.Component {
       return <Redirect to='/'/>;
     }
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     return (
       <AsyncComponent
         Load={

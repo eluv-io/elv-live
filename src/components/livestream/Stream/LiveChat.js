@@ -20,7 +20,6 @@ class LiveChat extends React.Component {
     const user = this.props.rootStore.chatID;
 
     const username= this.props.rootStore.name;
-    const email= this.props.rootStore.email;
 
     client.setUser(
     {

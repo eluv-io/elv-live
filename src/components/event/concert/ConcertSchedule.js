@@ -16,7 +16,7 @@ class ConcertSchedule extends React.Component {
     //   return <Redirect to='/'/>;
     // }
     
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
 
     return (
       <div className="event-container">

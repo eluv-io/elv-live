@@ -37,12 +37,12 @@ class FilmRelease extends React.Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
   }
 
   Trailer() {
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
 
@@ -75,7 +75,7 @@ class FilmRelease extends React.Component {
       return <Redirect to='/'/>;
     }
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     let featuredTitle = eventInfo.stream;
 
     if (this.state.redirect) {

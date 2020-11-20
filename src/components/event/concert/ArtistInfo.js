@@ -17,7 +17,7 @@ class ArtistInfo extends React.Component {
   render() {
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
     // const featuredTitle = eventInfo.title;
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
 
     const Maybe = (value, render) => value ? render() : null;
 
@@ -62,36 +62,7 @@ class ArtistInfo extends React.Component {
             </p>
           </div>   
         {/* </div> */}
-
-        {/* <div className="info-group"> */}
-          <div className="info-box">
-            <div className="info-title">Spotify</div>
-            <iframe className="info-music" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWW1gMUqCDV0K" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-          </div>   
-          <div className="info-box">
-            <div className="info-title">Instagram</div>
-            <Feed userName="ritaora" className="info-insta" classNameLoading="Loading" limit="8"/>
-          </div>
-
-          <div className="info-box">
-            <div className="info-title">Twitter</div>
-            <div className="info-twitter">
-              
-            <TwitterTimelineEmbed
-                sourceType="timeline"
-                screenName="RitaOra"
-                options={{height: 339, width: '100%' ,tweetLimit: 4 }}
-                noFooter = {true}
-                theme= 'dark'
-                placeholder= "Loading Tweets"
-              />
-            </div>
-          </div>   
-        {/* </div> */}
-
-        {/* <div className="info-group"> */}
-          
-          <div className="info-box-socLARGE">
+        <div className="info-box-socLARGE">
 
               <div className="info-title">Social</div>
               <div className="info-social-box">
@@ -185,6 +156,35 @@ class ArtistInfo extends React.Component {
               </a>
             </div>   
           </div>
+        {/* <div className="info-group"> */}
+          <div className="info-box">
+            <div className="info-title">Spotify</div>
+            <iframe className="info-music" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWW1gMUqCDV0K" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </div>   
+          {/* <div className="info-box">
+            <div className="info-title">Instagram</div>
+            <Feed userName="ritaora" className="info-insta" classNameLoading="Loading" limit="8"/>
+          </div> */}
+
+          <div className="info-box">
+            <div className="info-title">Twitter</div>
+            <div className="info-twitter">
+              
+            <TwitterTimelineEmbed
+                sourceType="profile"
+                screenName="RitaOra"
+                options={{height: 385, width: '100%' ,tweetLimit: 4 }}
+                noFooter = {true}
+                theme= 'dark'
+                placeholder= "Loading Tweets"
+              />
+            </div>
+          </div>   
+        {/* </div> */}
+
+        {/* <div className="info-group"> */}
+          
+          
 
           <div className="image-box">
             <div className="info-title">Photo Gallery</div>

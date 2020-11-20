@@ -42,7 +42,7 @@ class Series extends React.Component {
 
   Trailer() {
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
     if (this.state.redirect) {
@@ -83,7 +83,7 @@ class Series extends React.Component {
       return <Redirect to={redirectLink} />;
     }
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     let featuredTitle = eventInfo.stream;
 
     const thumbnail = eventInfo.icon;
