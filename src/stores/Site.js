@@ -62,6 +62,7 @@ class SiteStore {
   @observable streamPlay;
   @observable feeds = [];
   @observable showFeed = false;
+  @observable stream;
 
   @observable titles;
 
@@ -216,28 +217,21 @@ class SiteStore {
 
     let eventMap = new Map();
     let dateFormat = require('dateformat');
-    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     
     if(this.siteCustomization.arrangement) {
       for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
         const entry = this.siteCustomization.arrangement[i];
-        let titleLogo, titlePromo;
+        let titleLogo;
         if (entry.component == "event") {
           if(entry.title) {
             entry.title = yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
-            titleLogo = this.CreateLink(
-              entry.title.logoUrl,
-              "",
-              { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
-            );
-            // if (i == 1) {
-            //   titlePromo = this.CreateLink(
-            //     entry.title.logoUrl,
-            //     "",
-            //     { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
-            //   );
-            // }
+            if(entry.title.logoUrl) {
+              titleLogo = this.CreateLink(
+                entry.title.logoUrl,
+                "",
+                { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
+              );
+            }
           }
           if(entry.options.eventImage) {
             entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
@@ -270,11 +264,11 @@ class SiteStore {
   // Used to load RTMP Feed
   @action.bound
   LoadStreamSite = flow(function * (objectId, writeToken) {
-    if(this.siteParams && this.siteParams.objectId === objectId) {
-      return;
-    }
+    // if(this.siteParams && this.siteParams.objectId === objectId) {
+    //   return;
+    // }
 
-    this.Reset();
+    // this.Reset();
 
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
@@ -294,10 +288,8 @@ class SiteStore {
       resolveIgnoreErrors: true
     }));
 
-    this.stream = {
-      title: yield this.LoadTitle(this.siteParams, this.titles[0]["rtmp-channel"], "public/asset_metadata/titles/0/rtmp-channel")
-    };
-
+    this.stream = yield this.LoadTitle(this.siteParams, this.titles[0]["caminandesllamigos"], "public/asset_metadata/titles/0/caminandesllamigos");
+    this.feeds.push(yield this.LoadActiveTitle(this.stream.title));
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
   
@@ -306,12 +298,12 @@ class SiteStore {
   SetFeed = flow(function * (title1, title2, title3) {
     try {
       this.loading = true;
-      let entry1 = yield this.LoadTitle(this.siteParams, title1.stream, `public/asset_metadata/site_customization/arrangement/${title1.key}/title`);
-      let entry2 = yield this.LoadTitle(this.siteParams, title2.stream, `public/asset_metadata/site_customization/arrangement/${title2.key}/title`);
-      let entry3 = yield this.LoadTitle(this.siteParams, title3.stream, `public/asset_metadata/site_customization/arrangement/${title3.key}/title`);
+      let entry1 = yield this.LoadTitle(this.siteParams, this.siteCustomization.arrangement[1].title, `public/asset_metadata/site_customization/arrangement/1/title`);
+      // let entry2 = yield this.LoadTitle(this.siteParams, title2.stream, `public/asset_metadata/site_customization/arrangement/${title2.key}/title`);
+      // let entry3 = yield this.LoadTitle(this.siteParams, title3.stream, `public/asset_metadata/site_customization/arrangement/${title3.key}/title`);
       this.feeds.push(yield this.LoadActiveTitle(entry1));
-      this.feeds.push(yield this.LoadActiveTitle(entry2));
-      this.feeds.push(yield this.LoadActiveTitle(entry3));
+      // this.feeds.push(yield this.LoadActiveTitle(entry2));
+      // this.feeds.push(yield this.LoadActiveTitle(entry3));
 
     } catch (error) {
       // eslint-disable-next-line no-console

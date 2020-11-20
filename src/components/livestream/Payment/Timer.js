@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {inject, observer} from "mobx-react";
+import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -15,9 +17,15 @@ export default class Timer extends Component {
 
     renderClock(days, hours, minutes, seconds) {
       return (
-        <span>
-          {days}:{hours}:{minutes}:{seconds}
-        </span>
+        <IconContext.Provider value={{ className: 'ticket-icon-clock' }}>
+          <div>
+            <FaRegClock />
+            <span>
+            {days}:{hours}:{minutes}:{seconds}
+          </span>
+          </div>
+        </IconContext.Provider>
+
         // <React.Fragment>
         //   <h1 className="bigtext">Premiering in: </h1>
         //   <div id="clockdiv" >

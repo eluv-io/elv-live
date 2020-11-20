@@ -16,7 +16,6 @@ import Merch from "./Merch";
 import Schedule from "./series/SeriesSchedule";
 import ConcertSchedule from "./concert/ConcertSchedule";
 import ConcertOverview from "./concert/ConcertOverview";
-import RitaOverview from "./concert/RitaOverview";
 
 import ArtistInfo from "./concert/ArtistInfo";
 
@@ -128,7 +127,7 @@ class EventTabs extends React.Component {
           </Tabs>
           
           <TabPanel value={this.state.tab} index={0}>
-            {this.props.type == "concert" ? <RitaOverview title={this.props.title} name={this.props.name}/> :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
+            {this.props.type == "concert" ? <ConcertOverview title={this.props.title} name={this.props.name}/> :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
           </TabPanel>
           {this.props.type == "concert" ? 
             <TabPanel value={this.state.tab} index={1}>
