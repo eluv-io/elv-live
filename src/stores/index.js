@@ -94,14 +94,12 @@ class RootStore {
       // this.email = email;
       // this.name = name;
 
-      // // Creating user account for live chat
-      // this.chatClient = new StreamChat('5fn9kaf98an2');
-      // this.chatID = yield this.chatClient.devToken(this.name);
+      let chatClient = new StreamChat('xpkg6xgvwrnn');
+      const token = chatClient.devToken(name);
+      chatClient.setUser({ id: name, name: name,
+        image: `https://getstream.io/random_svg/?name=${name}` }, token);
 
-      this.email = email;
-      this.name = name;
-      this.chatClient = new StreamChat('5fn9kaf98an2');
-      this.chatID = yield this.chatClient.devToken(this.name);
+      this.chatClient = chatClient;
 
       return true;
     } catch (error) {
@@ -132,7 +130,7 @@ class RootStore {
       });
       
 
-      this.OTPCode = OTP;
+      this.OTPCode = OTP.token;
 
     } catch (error) {
       // eslint-disable-next-line no-console
