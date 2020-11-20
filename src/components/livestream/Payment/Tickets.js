@@ -23,7 +23,7 @@ class Tickets extends React.Component {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
     const { error } = await stripe.redirectToCheckout({
-      sessionId: "cs_test_a1TivnMlmYfP6jgwTBLMl5JP1NTBJLOJ9L2uKE7e0zKfdelqSVMeJZEFu4"
+      sessionId: "cs_test_a1pIZpg9exsNTUzTpqUGGbli7e87Vd7oTaqT241U4paGtoFWdXRGfr1ZKr"
       
     });
     if (error) {
@@ -37,7 +37,7 @@ class Tickets extends React.Component {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51Gy1tWKgR5J3zPrLdO0DgqBKqES5Kmfe7qlKYspFxoiZbGizeQIqh8uXfYqa45wIZGfChMn2R3tLhEwonIsWZHok00k4BiqN3N");
     const { error } = await stripe.redirectToCheckout({
-      sessionId: "cs_test_a1h0Zazc0d6CRmma8R72ZrIsddVBnOfYjPwkKLKFp1rF25rTnHvrIJ9BpX"
+      sessionId: "cs_test_a1J3hxPe8B2SQ6j8aSSp2W0yCWUZurhhmkFd8ZScCrYbh36JJHD7HdAKs9"
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");
