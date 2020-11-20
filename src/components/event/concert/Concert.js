@@ -64,20 +64,17 @@ class Concert extends React.Component {
           />
 
           <div className={`modal__container`}>          
-            {this.props.match.params.name == "rita-ora" ? 
-              <iframe 
-                width="100%" 
-                height="100%"
-                src="https://www.youtube.com/embed/FS07b8EUlCs" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-              >
-               </iframe>
-            :  
-              <h1 className="merch" > 
-                Promo is currently unavailable.
-              </h1>}
+            
+            <iframe 
+              width="100%" 
+              height="100%"
+              src="https://www.youtube.com/embed/FS07b8EUlCs" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+            >
+              </iframe>
+         
           </div>
         </div>
       </React.Fragment>

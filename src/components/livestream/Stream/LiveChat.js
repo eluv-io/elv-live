@@ -17,20 +17,8 @@ class LiveChat extends React.Component {
 
   render() {
     const client = this.props.rootStore.chatClient;
-    const user = this.props.rootStore.chatID;
 
-    const username= this.props.rootStore.name;
-
-    client.setUser(
-    {
-      id: username,
-      name: username,
-      image: `https://getstream.io/random_svg/?name=${username}`
-    },
-      user,
-    );
-
-    let channel = this.props.rootStore.chatClient.channel("livestream", "ritaora", {
+    let channel = client.channel("livestream", "rita", {
       name: "Rita Ora",
     });
 
