@@ -11,6 +11,8 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import "../../../static/stylesheets/base/paymentGlobal.css";
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
 import Timer from "./Timer";
+import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -75,9 +77,15 @@ class Tickets extends React.Component {
                   <div className="ticket-bottom-price">
                     $15
                   </div>
-                  <div className="ticket-bottom-date">
+                  <IconContext.Provider value={{ className: 'ticket-icon' }}>
+                  <div>
+                    <FaRegCalendarAlt />
+                    <span className="ticket-bottom-date">
                     January 28th, 8:00 PM – 10:00 PM PST
+                  </span>
                   </div>
+                </IconContext.Provider>
+                  
                   <div className="ticket-bottom-countdown">
                     <Timer/>
                   </div>
@@ -116,9 +124,14 @@ class Tickets extends React.Component {
                   <div className="ticket-bottom-price">
                     $50
                   </div>
-                  <div className="ticket-bottom-date">
-                    January 28th, 8:00 PM – 10:00 PM PST
+                  <IconContext.Provider value={{ className: 'ticket-icon' }}>
+                  <div>
+                    <FaRegCalendarAlt />
+                    <span className="ticket-bottom-date">
+                      January 28th, 8:00 PM – 10:00 PM PST
+                    </span>
                   </div>
+                </IconContext.Provider>
                   <div className="ticket-bottom-countdown">
                     <Timer/>
                   </div>

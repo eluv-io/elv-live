@@ -29,13 +29,12 @@ class Stream extends React.Component {
 
   renderFeed(selectedOption) {
     if (selectedOption.value == 'all') {
-      console.log(this.props.siteStore.showFeed);
       return (
         // TODO: For 'all' multiview, make all the streams play at the same time
         <div className={this.props.siteStore.showFeed ? "stream-container__streamBox--feedGrid" : "hide"}>
           <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
-          <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
-          <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
+          {/* <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
+          <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/> */}
         </div>
       );
     } else {
@@ -55,16 +54,17 @@ class Stream extends React.Component {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
+    console.log("HI");
 
-    let eventInfo = this.props.siteStore.eventAssets.get("madison-beer");
-    let eventInfo2 = this.props.siteStore.eventAssets.get("rita-ora");
-    let eventInfo3 = this.props.siteStore.eventAssets.get("iron-sky");
-
+    console.log(this.props.siteStore.eventAssets.get("rita-ora"));
+    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
+    let newTitle;
     return (
       <AsyncComponent
         Load={async () => {
-          // await this.props.siteStore.LoadStreamSite("iq__b2Qah6AMaP8ToZbouDh8nSEKARe", this.props.match.params.writeToken);
-          await this.props.siteStore.SetFeed(eventInfo, eventInfo2, eventInfo3);
+          // let place = await this.props.siteStore.LoadActiveTitle(eventInfo.stream);
+          this.props.siteStore.PlayTrailer(eventInfo.stream);
+          // await this.props.siteStore.SetFeed(eventInfo.stream, eventInfo, eventInfo);
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
@@ -87,8 +87,9 @@ class Stream extends React.Component {
                     autoFocus={false}
                   />
                 </div>
+                <ViewStream feedOption={0} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
 
-                {this.renderFeed(selectedOption)}
+                {/* {this.renderFeed(selectedOption)} */}
 
                 <div className="stream-container__streamBox--info">
                   <h2 className="stream-container__streamBox--info__subtitle">

@@ -38,12 +38,13 @@ class RootStore {
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-
-      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-
+      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://test.net955203.contentfabric.io/config"});
+      // let wallet = client.GenerateWallet();
+      // let signer = wallet.AddAccountFromMnemonic({
+      //   mnemonic: wallet.GenerateMnemonic()
+      // });
       const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0xa73275e872822e0b89fb3e4a77dd8d148ae12bd4abdeee2b6f0eef2a5fa25c69"});
-
+      const signer = wallet.AddAccount({privateKey: "0x3e01aa41ee4bd8f2e09a31086039ab397ec2829691f748d6cfab3b70b8771632"});
       client.SetSigner({signer});
       this.client = client;
     } else {
@@ -67,28 +68,14 @@ class RootStore {
     try {
       // Need to reinitialize client because tickets are on demo but site is on prod 
       // TODO: Have tickets and site on same config
-      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      let client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
-      client.SetSigner({signer});
-
-      // get site/object id from ticket
-      // let OTP = yield client.IssueNTPCode({
-      //   "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
-      //   "ntpId": "QOTPM59kMU5trgj",
-      //   "email": ""
-      // });
-
-
-      this.accessCode = yield client.RedeemCode({
-        "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
-        "ntpId": "QOTPM59kMU5trgj",
+      
+      this.accessCode = yield this.client.RedeemCode({
+        "tenantId": "iten3PumhoQT6LG4VTDZozu83a6qw9JS",
+        "ntpId": "QOTPiWk1yVskFZB",
         "code": Token,
         "email": ""
       });
       
-
       if(!this.accessCode) {
         this.SetError("Invalid code");
         return false;
@@ -110,10 +97,8 @@ class RootStore {
       // Creating user account for live chat
       this.chatClient = new StreamChat('5fn9kaf98an2');
       this.chatID = yield this.chatClient.devToken(this.name);
-      // Hardcoded siteId for Stream, but 
-      // get site/object id from ticket
-      let siteId = "iq__uwWvF1Wy9EeqWXiRU9bR3zRSJe1";
-      return siteId;
+
+      return true;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
@@ -130,15 +115,14 @@ class RootStore {
     try {
       // Need to reinitialize client because tickets are on demo but site is on prod
       // TODO: Have tickets and site on same config
-      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      let client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x06407eef6fa8c78afb550b4e24a88956f1a07b4a74ff76ffaacdacb4187892d6"});
-      client.SetSigner({signer});
+
+      const wallet = this.client.GenerateWallet();
+      const signer = wallet.AddAccount({privateKey: "28746b1d64dec6b1f1eafe05f69bd6af62c25b2b402ba4e2a18cae1f604d1130"});
+      this.client.SetSigner({signer});
       
-      let OTP = yield client.IssueNTPCode({
-        "tenantId": "iten3Ag8TH7xwjyjkvTRqThtsUSSP1pN",
-        "ntpId": "QOTPM59kMU5trgj",
+      let OTP = yield this.client.IssueNTPCode({
+        "tenantId": "iten3PumhoQT6LG4VTDZozu83a6qw9JS",
+        "ntpId": "QOTPiWk1yVskFZB",
         "email": ""
       });
       

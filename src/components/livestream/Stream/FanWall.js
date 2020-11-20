@@ -14,7 +14,7 @@ class FanWall extends React.Component {
             Virtual Fan Wall
           </h1>
 
-          {/* Link to join the fan wall */}
+          Link to join the fan wall
           <button 
             onClick={() => window.open(
               `https://video-app-7593-8841-dev.twil.io?passcode=68932075938841&feed=false&name=${this.props.rootStore.name}`, 
@@ -27,13 +27,13 @@ class FanWall extends React.Component {
         </div>
 
         {/* Fan Wall Live Feed */}
-        <iframe 
+        {/* <iframe 
           src={`https://video-app-7593-8841-dev.twil.io?passcode=68932075938841&feed=true&name=${this.props.rootStore.name}`}
           className="stream-container__tabs--twilio"
           frameBorder="0"
           allowFullScreen 
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-        />
+        /> */}
       </div>
     );
   }

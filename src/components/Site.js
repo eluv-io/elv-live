@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 
 import Card from "./livestream/Card";
+import ritaHero from "../static/images/ritaora/hero5.jpg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -89,9 +90,9 @@ class Site extends React.Component {
         
         <div className="live-hero__cardMain">
           <div className="live-hero__cardMain__side">
-            <ImageIcon className="live-hero__picture" icon={this.props.siteStore.siteCustomization.arrangement[1].eventImage} label="artist" />
+            <ImageIcon className="live-hero__picture" icon={ritaHero} label="artist" />
             <h4 className="live-hero__heading">
-              <span className="live-hero__heading-span card__heading-span--4">{this.props.siteStore.siteCustomization.arrangement[1].options.title}</span>
+              <span className="live-hero__heading-span card__heading-span--4">RITA ORA</span>
             </h4>
           </div>
         </div>
