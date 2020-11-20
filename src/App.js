@@ -45,11 +45,11 @@ class Routes extends React.Component {
           return (
             <Switch>
               <Route exact path = "/" component={Site} />
-              <Route exact path = "/concert/:artist" component={Concert} />
-              <Route exact path = "/film/:artist" component={FilmRelease} />
-              <Route exact path = "/series/:artist" component={Series} />
+              
+              <Route exact path = "/concert/:name" component={Concert} />
+              <Route exact path = "/film/:name" component={FilmRelease} />
+              <Route exact path = "/series/:name" component={Series} />
 
-              <Route exact path = "/payment/:artist" component={CheckoutForm} />
               <Route exact path = "/success" component={Success} />
               <Route exact path = "/code" component={CodeAccess} />
               <Route exact path = "/stream/:siteId" component={Stream} />

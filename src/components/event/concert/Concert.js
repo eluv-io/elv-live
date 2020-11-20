@@ -45,7 +45,7 @@ class Concert extends React.Component {
 
   Trailer() {
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
 
@@ -64,7 +64,7 @@ class Concert extends React.Component {
           />
 
           <div className={`modal__container`}>          
-            {this.props.match.params.artist == "rita-ora" ? 
+            {this.props.match.params.name == "rita-ora" ? 
               <iframe 
                 width="100%" 
                 height="100%"
@@ -85,7 +85,7 @@ class Concert extends React.Component {
   }
 
   Payment() {
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
 
@@ -116,10 +116,10 @@ class Concert extends React.Component {
   
 
   render() {
-    if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
       return <Redirect to='/'/>;
     }
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
 
 
@@ -138,7 +138,7 @@ class Concert extends React.Component {
     const backgroundColor4 =  backgroundColor + "B3";
     const backgroundColor5 =  backgroundColor + "CC";
     const backgroundColor6 =  backgroundColor+ "E6";
-    if (this.props.match.params.artist == "rita-ora") {
+    if (this.props.match.params.name == "rita-ora") {
       thumbnail = hero1;
     }
 
@@ -157,9 +157,9 @@ class Concert extends React.Component {
         </div>
         <div style={backgroundStyle} className="active-background" />
         <div className="active-view-container active-view-container__done">
-            {/* {this.props.match.params.artist == "madison-beer" ? <ImageIcon className="active-view-container__logo3" icon={Logo} label="logo"/> : <h1 className="active-view-container__heading"> {eventInfo.name} </h1>} */}
+            {/* {this.props.match.params.name == "madison-beer" ? <ImageIcon className="active-view-container__logo3" icon={Logo} label="logo"/> : <h1 className="active-view-container__heading"> {eventInfo.name} </h1>} */}
             <div className="active-view-container__heading">
-              {this.props.match.params.artist == "madison-beer" ? <ImageIcon className="logoMad" icon={Logo} label="logo"/> : <h1 className="name"> {eventInfo.name} </h1>}
+              {this.props.match.params.name == "madison-beer" ? <ImageIcon className="logoMad" icon={Logo} label="logo"/> : <h1 className="name"> {eventInfo.name} </h1>}
               {/* <h1 className="name"> {eventInfo.name} </h1> */}
               <h1 className="location">{ eventInfo.description }</h1>
               <h1 className="time">{ eventInfo.date }</h1>
@@ -176,7 +176,7 @@ class Concert extends React.Component {
             </div>
 
           <div className="active-view-container__overview">
-            <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.artist}/>
+            <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.name}/>
           </div>
         </div>
         { this.state.showTrailer ? this.Trailer(): null}

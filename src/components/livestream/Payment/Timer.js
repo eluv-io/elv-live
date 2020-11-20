@@ -18,7 +18,7 @@ export default class Timer extends Component {
     renderClock(days, hours, minutes, seconds) {
       return (
 
-        <IconContext.Provider value={{ className: 'ticket-icon-clock' }}>
+        <IconContext.Provider value={{ className: this.props.classProp }}>
           <div>
             <FaRegClock />
             <span >
@@ -26,28 +26,6 @@ export default class Timer extends Component {
           </span>
           </div>
         </IconContext.Provider>
-
-        // <React.Fragment>
-        //   <h1 className="bigtext">Premiering in: </h1>
-        //   <div id="clockdiv" >
-        //     <div>
-        //       <span className="days"> {days} </span>
-        //       <div className="smalltext">Days</div>
-        //     </div>
-        //     <div>
-        //       <span className="hours"> {hours} </span>
-        //       <div className="smalltext">Hours</div>
-        //     </div>
-        //     <div>
-        //       <span className="minutes"> {minutes}</span>
-        //       <div className="smalltext">Minutes</div>
-        //     </div>
-        //     <div>
-        //       <span className="seconds"> {seconds} </span>
-        //       <div className="smalltext">Seconds</div>
-        //     </div>
-        //   </div>
-        // </React.Fragment>
       );
     }
 
@@ -134,7 +112,7 @@ export default class Timer extends Component {
       const { days, hours, minutes, seconds, premiere } = this.state;
 
       return (
-        <div className="stream-countdown">
+        <div className={this.props.divProp}>
           { premiere
             ? <span>Streaming Now!</span>
             : this.renderClock(days, hours, minutes, seconds)
