@@ -37,12 +37,12 @@ class FilmRelease extends React.Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
   }
 
   Trailer() {
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
 
@@ -71,15 +71,15 @@ class FilmRelease extends React.Component {
   }
 
   render() {
-    if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
       return <Redirect to='/'/>;
     }
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
 
     if (this.state.redirect) {
-      let redirectLink = `/payment/${this.props.match.params.artist}`;
+      let redirectLink = `/payment/${this.props.match.params.name}`;
       return <Redirect to={redirectLink} />;
     }
     const thumbnail = eventInfo.eventImg;
@@ -127,7 +127,7 @@ class FilmRelease extends React.Component {
                 <div style={backgroundStyle} className="active-background" />
                 <div className="active-view-container active-view-container__done">
                     <div className="active-view-container__heading">
-                      {this.state.logo ? <img className={this.props.match.params.artist != "meridian" ? "logoFilm": "logoMer"} src={this.state.logo} label="logo"/>  : <h1 className="name"> {eventInfo.name} </h1>}
+                      {this.state.logo ? <img className={this.props.match.params.name != "meridian" ? "logoFilm": "logoMer"} src={this.state.logo} label="logo"/>  : <h1 className="name"> {eventInfo.name} </h1>}
                       <h1 className="filmDate">Premiering { eventInfo.date}</h1>
                     </div>
                     <div className="active-view-container__button">
@@ -141,7 +141,7 @@ class FilmRelease extends React.Component {
                     </div>
       
                     <div className="active-view-container__overview">
-                    <PremiereTabs title={featuredTitle} name={this.props.match.params.artist} type={"film"}/>
+                    <PremiereTabs title={featuredTitle} name={this.props.match.params.name} type={"film"}/>
                   </div>
                 </div>
                 { this.state.showTrailer ? this.Trailer(): null}

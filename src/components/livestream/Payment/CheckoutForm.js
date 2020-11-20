@@ -32,11 +32,11 @@ class CheckoutForm extends React.Component {
   };
 
   render() {
-    if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
       return <Redirect to='/'/>;
     }
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     return (
       <AsyncComponent
         Load={

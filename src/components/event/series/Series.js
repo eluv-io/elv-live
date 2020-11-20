@@ -42,11 +42,11 @@ class Series extends React.Component {
 
   Trailer() {
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
     this.props.siteStore.PlayTrailer(featuredTitle);
     if (this.state.redirect) {
-      let redirectLink = `/payment/${this.props.match.params.artist}`;
+      let redirectLink = `/payment/${this.props.match.params.name}`;
       return <Redirect to={redirectLink} />;
     }
 
@@ -74,16 +74,16 @@ class Series extends React.Component {
 
 
   render() {
-    if (!this.props.siteStore.eventAssets.has(this.props.match.params.artist)) {
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
       return <Redirect to='/'/>;
     }
 
     if (this.state.redirect) {
-      let redirectLink = `/payment/${this.props.match.params.artist}`;
+      let redirectLink = `/payment/${this.props.match.params.name}`;
       return <Redirect to={redirectLink} />;
     }
 
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.artist);
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
 
     const thumbnail = eventInfo.icon;
@@ -132,7 +132,7 @@ class Series extends React.Component {
             </div>
 
           <div className="active-view-container__overview">
-            <PremiereTabs title={featuredTitle} type={"series"} name={this.props.match.params.artist}/>
+            <PremiereTabs title={featuredTitle} type={"series"} name={this.props.match.params.name}/>
           </div>
         </div>
         { this.state.showTrailer ? this.Trailer(): null}

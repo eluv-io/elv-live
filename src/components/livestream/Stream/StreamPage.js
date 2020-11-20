@@ -90,15 +90,15 @@ class Stream extends React.Component {
                 {/* <ViewStream feedOption={0} classProp = "stream-container__streamBox--video" mutedOption = {false}/> */}
                 {/* stream-countdown */}
                 <div className="stream-container__streamBox--video ">
-                    <Timer />
+                    <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/>
                 </div>
 
                 <div className="stream-container__streamBox--info">
                   <h2 className="stream-container__streamBox--info__subtitle">
-                    RITA ORA - RO3 WORLD TOUR
+                    Rita Ora 
                   </h2>
                   <h1 className="stream-container__streamBox--info__title">
-                    LIVE FROM THE EIFFEL TOWER
+                    RO3 World Tour - Eiffel Tower
                   </h1>
                 </div> 
               </div>

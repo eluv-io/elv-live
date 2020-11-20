@@ -78,11 +78,12 @@ class ArtistInfo extends React.Component {
             <div className="info-twitter">
               
             <TwitterTimelineEmbed
-                sourceType="profile"
+                sourceType="timeline"
                 screenName="RitaOra"
-                options={{height: 339, width: '100%' }}
+                options={{height: 339, width: '100%' ,tweetLimit: 4 }}
                 noFooter = {true}
                 theme= 'dark'
+                placeholder= "Loading Tweets"
               />
             </div>
           </div>   
@@ -100,7 +101,7 @@ class ArtistInfo extends React.Component {
     
               <a href="https://www.youtube.com/user/ritaora" target="_blank" className="info-social__first">
                 
-              <IconContext.Provider value={{ className: 'social-icon',color: " #c4302b" }}>
+              <IconContext.Provider value={{ className: 'social-icon social-icon-yt',color: " #c4302b" }}>
                   <div>
                   <FaYoutube />
                   <span className="info-social-title">Youtube</span> 
