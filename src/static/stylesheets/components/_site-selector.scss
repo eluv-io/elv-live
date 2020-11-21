@@ -29,11 +29,11 @@
     }
   }
 
-  h1 {
-    margin-bottom: $elv-spacing-s;
-    text-align: center;
-    width: 100%;
-  }
+  // h1 {
+  //   margin-bottom: $elv-spacing-s;
+  //   text-align: center;
+  //   width: 100%;
+  // }
 
   h4 {
     @include elv-ellipsis;
