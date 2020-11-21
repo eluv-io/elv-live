@@ -75,28 +75,33 @@ class Site extends React.Component {
 
   HeroView() {
     return (
-      <div className="live-hero">
-        <div className="live-hero__container">
-          <h1 className="live-hero__container__title">
-              {/* {this.props.siteStore.siteCustomization.header} */}
-              {/* Live Concerts From your home. */}
-              Ticketed Events From your home. 
-          </h1>
-          <h2 className="live-hero__container__subtitle">
-              {/* {this.props.siteStore.siteCustomization.subheader} */}
-              Purchase tickets for upcoming live concerts, film releases, and TV series from the comfort of your home. 
-          </h2>
+      <div className="divbody">
+        <div className="block">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-        
-        <div className="live-hero__cardMain">
-          <div className="live-hero__cardMain__side">
-            <ImageIcon className="live-hero__picture" icon={ritaHero} label="artist" />
-            <h4 className="live-hero__heading">
-              <span className="live-hero__heading-span card__heading-span--4">RITA ORA</span>
+        <div className="hero-view-container">
+          <div className="text">
+            <h1 className="texth1">The New Standard for Live Streaming</h1>
+            <p className="textp" >
+              Eluvio Live streams all the world's events to you. Purchase tickets and stream live concerts, premieres, and performances. In beautiful 4K quality, directly from the artist, subscription free.
+            </p>
+          </div>
+
+          <div className="img-wrapper">
+            <img className="actual-img" src={ritaHero} />
+            <h4 className="photo-heading">
+              <span className="photo-heading-span">RITA ORA</span>
             </h4>
           </div>
+
         </div>
+
+
       </div>
+      
     )
   }
 

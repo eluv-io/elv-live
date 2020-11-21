@@ -195,7 +195,7 @@ margin:auto;
 .card__side--back {
   transform: rotateY(180deg); 
   // background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
-  background-image: linear-gradient(to right bottom, #040622, #000);
+  background-image: linear-gradient(to right bottom, #192196, #040622);
 }
 
 .card:hover .card__side--front {
@@ -243,7 +243,8 @@ margin:auto;
   line-height: 180%;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone; 
-  background-image: linear-gradient(to right bottom, var(--bgColor), rgba(0, 0, 0, 0.85));
+  // background-image: linear-gradient(to right bottom,#040622, #192196);
+  background-color: #040622;
 }
   
 .card__details {
