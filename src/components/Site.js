@@ -88,11 +88,9 @@ class Site extends React.Component {
         </div>
         <div className="hero-view-container">
           <div className="text">
-            <h1 className="texth1">The New Standard for Live Streaming</h1>
-            <p className="textp2" >
-              Eluvio Live streams all the world's events to you in beautiful 4K quality, directly from the artist, and subscription free. 
-              {/* Eluvio Live streams all the world's events to you. Purchase tickets and stream the most iconic concerts, film and television premieres, and live performances in beautiful 4K quality, directly from the artist, and subscription free. Enabled by the Eluvio Content Fabric (link to eluv.io), the world’s first decentralized and most advanced technology platform for internet video.  */}
-            </p>
+            <h1 className="texth1">Streaming the World’s Events to You</h1>
+            <h1 className="texth2">Beautiful 4K Quality, Direct from Artist, Subscription Free</h1>
+
             <p className="textp" >
               Purchase tickets and stream the most iconic concerts, film premieres, and live performances. Enabled by the Eluvio Content Fabric, the world’s first decentralized and most advanced technology platform for internet video. 
               {/* Eluvio Live streams all the world's events to you. Purchase tickets and stream the most iconic concerts, film and television premieres, and live performances in beautiful 4K quality, directly from the artist, and subscription free. Enabled by the Eluvio Content Fabric (link to eluv.io), the world’s first decentralized and most advanced technology platform for internet video.  */}
@@ -125,7 +123,7 @@ class Site extends React.Component {
         <div className="live-nav">
           <ImageIcon className="live-nav--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
           <div className="live-nav__btn-group">
-            <a href="https://eluv.io/register" className="btn2 btn2--white live-nav--event">
+            <a href="https://eluv.io/register" target="_blank" className="btn2 btn2--white live-nav--event">
               Stream an Event
             </a>
             <Link to="/code" className="btn2 btn2--white live-nav--ticket">
