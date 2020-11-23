@@ -11,7 +11,7 @@ class Card extends React.Component {
   render() {
     let eventType;
     // console.log(this.props.eventType);
-    if (this.props.eventType < 3) {
+    if (this.props.eventType < 2) {
       eventType = "concert";
     } 
     else if (this.props.eventType < 6) {
@@ -36,7 +36,7 @@ class Card extends React.Component {
                 <h4 className="card__price-detail">{this.props.date}</h4>
                 <h4 className="card__price-detail">{this.props.description}</h4>
               </div>
-              <Link to={`/rita-ora/d457a576`} >
+              <Link to={`/${this.props.name.replace(/\s+/g, '-').toLowerCase()}/d457a576`} >
                 <button type="button" className="btn2 btn2--white">View Event</button>
               </Link>
             </div>

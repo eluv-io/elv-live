@@ -13,6 +13,8 @@ import FilmRelease from "./components/event/film/FilmRelease";
 import Series from "./components/event/series/Series";
 
 import Stream from "./components/livestream/stream/StreamPage";
+import TestStream from "./components/livestream/stream/newStreamPage";
+
 import CheckoutForm from "./components/livestream/Payment/CheckoutForm";
 import Success from "./components/livestream/payment/Success";
 import AsyncComponent from "./components/support/AsyncComponent";
@@ -45,14 +47,13 @@ class Routes extends React.Component {
           return (
             <Switch>
               <Route exact path = "/d457a576" component={Site} />
-    
-              <Route exact path = "/rita-ora/d457a576" component={Concert} />
-              {/* <Route exact path = "/film/:name" component={FilmRelease} />
-              <Route exact path = "/series/:name" component={Series} /> */}
 
-              <Route exact path = "/success/d457a576" component={Success} />
+              <Route exact path = "/:name/d457a576" component={Concert} />
+              <Route exact path = "/d457a576/success" component={Success} />
               <Route exact path = "/code" component={CodeAccess} />
               <Route exact path = "/stream/:siteId" component={Stream} />
+              <Route exact path = "/teststream" component={TestStream} />
+
 
               {/* <Route>
                 <Redirect to="/" />
