@@ -43,7 +43,7 @@ class Tickets extends React.Component {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HpS77E0yLQ1pYr6bmC8griX", quantity: 1 }],
-      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success/d457a576`,
+      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success`,
       cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`,
       clientReferenceId: "prod_IQIiMc4NHvH3DF"
     });
