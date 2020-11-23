@@ -101,7 +101,7 @@ class RootStore {
 
       this.chatClient = chatClient;
 
-      return true;
+      return "rita-ora";
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");

@@ -92,8 +92,10 @@ class Site extends React.Component {
             <h1 className="texth2">Beautiful 4K Quality, Direct from Artist, Subscription Free</h1>
 
             <p className="textp" >
-              Purchase tickets and stream the most iconic concerts, film premieres, and live performances. Enabled by the Eluvio Content Fabric, the world’s first decentralized and most advanced technology platform for internet video. 
-              {/* Eluvio Live streams all the world's events to you. Purchase tickets and stream the most iconic concerts, film and television premieres, and live performances in beautiful 4K quality, directly from the artist, and subscription free. Enabled by the Eluvio Content Fabric (link to eluv.io), the world’s first decentralized and most advanced technology platform for internet video.  */}
+              Purchase tickets and stream the most iconic concerts, film and television premieres, and live broadcast events.
+            </p>
+            <p className="textp" >
+              Enabled by the Eluvio Content Fabric, the world’s first decentralized and most advanced technology platform for internet video. 
             </p>
           </div>
 
