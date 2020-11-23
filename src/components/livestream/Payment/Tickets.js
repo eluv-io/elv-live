@@ -25,7 +25,7 @@ class Tickets extends React.Component {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HpS6pE0yLQ1pYr6CuBre5I4", quantity: 1 }],
-      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success`,
+      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`,
       clientReferenceId: "prod_IQIiC3jywpIUKu"
     });
@@ -43,7 +43,7 @@ class Tickets extends React.Component {
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HpS77E0yLQ1pYr6bmC8griX", quantity: 1 }],
-      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success`,
+      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success?session_id={CHECKOUT_SESSION_ID}`,
       cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`,
       clientReferenceId: "prod_IQIiMc4NHvH3DF"
     });
