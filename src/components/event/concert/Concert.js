@@ -113,13 +113,11 @@ class Concert extends React.Component {
   
 
   render() {
-    // if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
-    //   return <Redirect to='/'/>;
-    // }
-    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
+    if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
+      return <Redirect to='/'/>;
+    }
+    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
     let featuredTitle = eventInfo.stream;
-
-
     let thumbnail = eventInfo.eventImg;
 
     // const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
@@ -152,29 +150,40 @@ class Concert extends React.Component {
         <div className="event-nav">
           <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
         </div>
+
         <div style={backgroundStyle} className="active-background" />
+
         <div className="active-view-container active-view-container__done">
-            {/* {this.props.match.params.name == "madison-beer" ? <ImageIcon className="active-view-container__logo3" icon={Logo} label="logo"/> : <h1 className="active-view-container__heading"> {eventInfo.name} </h1>} */}
             <div className="active-view-container__heading">
-              {this.props.match.params.name == "madison-beer" ? <ImageIcon className="logoMad" icon={Logo} label="logo"/> : <h1 className="name"> {eventInfo.name} </h1>}
-              {/* <h1 className="name"> {eventInfo.name} </h1> */}
+              <h1 className="name"> {eventInfo.name} </h1>
               <h1 className="location">{ eventInfo.description }</h1>
               <h1 className="time">{ eventInfo.date }</h1>
             </div>
-            <div className="active-view-container__button">
-   
-              <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
-                Buy Tickets
-              </button>
-              
-              <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
-                Watch Promo
-              </button>
-            </div>
+            
 
-          <div className="active-view-container__overview">
-            <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.name}/>
-          </div>
+
+
+          {this.props.match.params.name === "rita-ora" ? 
+            <React.Fragment>
+              <div className="active-view-container__button">
+                <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
+                  Buy Tickets
+                </button>
+          
+                <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+                  Watch Promo
+                </button>
+              </div> 
+              <div className="active-view-container__overview">
+                <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.name}/>
+              </div>
+            </React.Fragment>
+          : 
+            <div className="active-view-container__button">
+              <h1 className="coming-soon">More Info Coming Soon</h1>
+            </div>
+          }
+         
         </div>
         { this.state.showTrailer ? this.Trailer(): null}
         { this.state.showPayment ? this.Payment(): null}

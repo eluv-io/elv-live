@@ -74,6 +74,8 @@
     display: grid;
     height: 100vh;
     width: calc(100vw - 450px);
+    // width: 100vw;
+
     grid-template-columns: 100%;
     grid-template-rows: 75px calc(100vh - 200px) 125px;
  
