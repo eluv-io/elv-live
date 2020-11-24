@@ -75,31 +75,32 @@ class RootStore {
         "code": Token,
         "email": ""
       });
+
       
       if(!this.accessCode) {
         this.SetError("Invalid code");
         return false;
       }
 
-      if (!re.test(String(email).toLowerCase())) {
-        this.SetError("Invalid email");
-        return false;
-      }
+      // if (!re.test(String(email).toLowerCase())) {
+      //   this.SetError("Invalid email");
+      //   return false;
+      // }
 
-      if (!(name.match(letterNumber))) {
-        this.SetError("Invalid Chat Name");
-        return false;
-      }
+      // if (!(name.match(letterNumber))) {
+      //   this.SetError("Invalid Chat Name");
+      //   return false;
+      // }
 
       // this.email = email;
       // this.name = name;
 
-      let chatClient = new StreamChat('xpkg6xgvwrnn');
-      const token = chatClient.devToken(name);
-      chatClient.setUser({ id: name, name: name,
-        image: `https://getstream.io/random_svg/?name=${name}` }, token);
+      // let chatClient = new StreamChat('xpkg6xgvwrnn');
+      // const token = chatClient.devToken(name);
+      // chatClient.setUser({ id: name, name: name,
+      //   image: `https://getstream.io/random_svg/?name=${name}` }, token);
 
-      this.chatClient = chatClient;
+      // this.chatClient = chatClient;
 
       return "rita-ora";
     } catch (error) {
