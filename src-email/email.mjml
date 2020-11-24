@@ -1,59 +1,87 @@
 <mjml>
-  <mj-body background-color="#ccd3e0" font-size="13px">
+  <mj-body background-color="#ccd3e0" >
     <mj-section background-color="#fff" padding-bottom="20px" padding-top="20px">
       <mj-column width="100%">
         <mj-image src="Logo-Small.png" alt="" align="center" border="none" width="180px" padding-left="0px" padding-right="0px" padding-bottom="10px" padding-top="10px"></mj-image>
+        <mj-divider border-color="black" border-width="1px" border-style="solid" padding-left="20px" padding-right="20px" padding-bottom="30px" padding-top="15px"></mj-divider>
+
       </mj-column>
     </mj-section>
-    <mj-section background-color="#f3f3f3" padding-bottom="0px" padding-top="0">
+    <mj-section background-color="#f3f3f3" padding-bottom="10px" padding-top="10px" >
       <mj-column width="100%">
-        <mj-text align="center" font-size="13px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="18px" padding-top="28px">
-        <span style="font-size:20px; font-weight:bold; padding-bottom:10px">ORDER CONFIRMATION</span>
-            <br/>
-            <span style="font-size:15px;">[[FirstName]], thank you for your order!</span>
-            <br/>
-            <span style="font-size:15px; padding-bottom:10px">We've received your order and your purchase was successful! You can find your purchase information and access code below.</span>   
+      
+        <mj-text align="center" font-size="24px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"  padding-top="25px" padding-bottom="25px">
+          <span style="font-weight:bold;">ORDER CONFIRMATION</span>
+        </mj-text>
+        <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="110px" padding-right="110px"  padding-top="7px">
+          <span >[[Name]], thank you for your order!</span>
+        </mj-text>
+        <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="110px" padding-right="110px"  padding-top="7px" padding-bottom="25px">
+          <span>Your purchase for </span>   
+          <strong>Rita Ora - GENERAL ADMISSION</strong>
+          <span >was successful! You can find your purchase information and digital ticket code below.</span>   
         </mj-text>
       </mj-column>
     </mj-section>
 
-    <mj-section background-color="#356cc7" padding-bottom="5px" padding-top="0">
+    <mj-section background-color="white" padding-bottom="10px" padding-top="10px" >
+    
       <mj-column width="100%">
-        <mj-divider border-color="#ffffff" border-width="2px" border-style="solid" padding-left="20px" padding-right="20px" padding-bottom="0px" padding-top="0"></mj-divider>
-        <mj-text align="center" color="#FFF" font-size="13px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="28px" padding-top="28px"><span style="font-size:20px; font-weight:bold">ORDER CONFIRMATION</span>
-          <br/>
-          <span style="font-size:15px">Please find the receipt below.</span></mj-text>
+        <mj-text align="center" font-size="24px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"  padding-top="25px" padding-bottom="15px">
+          <span style="font-weight:bold;">Order Summary</span>
+        </mj-text>
+      </mj-column>
+
+    </mj-section>
+
+    <mj-section background-color="white" padding-bottom="50px" padding-left="10px" padding-right="10px" padding-top="10px" padding-bottom="50px">
+      <mj-column >
+        <mj-table font-size="16px">
+          <tr style="border-bottom:.0px solid #000000;text-align:left;padding:15px 0;">
+            <th style="padding: 0px 30px 0 0;">Items</th>
+            <th style="padding: 0px 0px 0 0;">Name</th>
+            <th style="padding: 0 30px 0 0px;">Qty</th>
+            <th style="padding: 0 0 0 0px;">Price</th>
+          </tr>
+          <tr>
+            <td style="padding: 10px 30px 0 0;">
+                <img src="ro3.jpg" alt="" align="center" border="none" width="120px" height="120px" padding-left="0px" padding-right="0px" padding-bottom="10px" padding-top="10px"></img>
+            </td>
+            <td style="padding: 0px 0px 0 0;">Rita Ora - GENERAL ADMISSION</td>
+            <td style="padding: 0 30px 0 0px;">1</td>
+            <td style="padding: 0 0 0 0px;">$30</td>
+          </tr>
+          <tr>
+          </tr>
+        </mj-table>
+      </mj-column>
+      <!-- <mj-column>
+        <mj-text align="left" color="black" font-size="15px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="0px" padding-right="25px" padding-bottom="0px"><strong>Order Confirmation #</strong></mj-text>
+      </mj-column>
+      <mj-column>
+        <mj-text align="right" color="black" font-size="15px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="0px" padding-bottom="0px"><strong>{2345678}</strong></mj-text>
+      </mj-column> -->
+    </mj-section>
+
+    <mj-section background-color="#222"  padding-bottom="5px">
+      <mj-column>
+        <mj-text align="center" color="#FFF" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>Premiering</strong></mj-text>
+        <mj-text align="center" color="#FFF" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="0px" padding-top="10px">January 28th, 2021 - 8:00 PM PST</mj-text>
       </mj-column>
     </mj-section>
-    <mj-section background-color="#568feb" padding-bottom="15px">
+
+    <mj-section background-color="#222" padding-bottom="5px">
       <mj-column>
-        <mj-text align="center" color="#FFF" font-size="15px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="0px"><strong>Order Number</strong></mj-text>
-        <mj-text align="center" color="#FFF" font-size="13px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="20px" padding-top="10px">[[OrderNumber]]</mj-text>
-      </mj-column>
-      <mj-column>
-        <mj-text align="center" color="#FFF" font-size="15px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="0px"><strong>Order Date</strong></mj-text>
-        <mj-text align="center" color="#FFF" font-size="13px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="20px" padding-top="10px">[[OrderDate]]</mj-text>
-      </mj-column>
-      <mj-column>
-        <mj-text align="center" color="#FFF" font-size="15px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="0px"><strong>Total Price</strong></mj-text>
-        <mj-text align="center" color="#FFF" font-size="13px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="20px" padding-top="10px">[[TotalPrice]]</mj-text>
+        <mj-text align="center" color="#FFF" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>Ticket Code</strong></mj-text>
+        <mj-text align="center" color="#FFF" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="30px" padding-top="10px">[[Code]]</mj-text>
       </mj-column>
     </mj-section>
-    <mj-section background-color="#356CC7" padding-bottom="20px" padding-top="20px">
-      <mj-column width="50%">
-        <mj-button background-color="#ffae00" color="#FFF" font-size="14px" align="center" font-weight="bold" border="none" padding="15px 30px" border-radius="10px" href="https://mjml.io" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="10px">Download Receipt</mj-button>
-      </mj-column>
-      <mj-column width="50%">
-        <mj-button background-color="#ffae00" color="#FFF" font-size="14px" align="center" font-weight="bold" border="none" padding="15px 30px" border-radius="10px" href="https://mjml.io" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="12px">Track My Order</mj-button>
-      </mj-column>
-    </mj-section>
-    <mj-section background-color="#356cc7" padding-bottom="5px" padding-top="0">
+
+    <mj-section background-color="#222" padding-bottom="50px" padding-top="5px">
       <mj-column width="100%">
-        <mj-divider border-color="#ffffff" border-width="2px" border-style="solid" padding-left="20px" padding-right="20px" padding-bottom="0px" padding-top="0"></mj-divider>
-        <mj-text align="center" color="#FFF" font-size="15px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="20px" padding-top="20px">Best,
-          <br/>
-          <span style="font-size:15px">The [[CompanyName]] Team</span></mj-text>
+        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" padding="15px 30px" border-radius="100px" href="https://live.eluv.io/#/code" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="10px">Redeem Ticket</mj-button>
       </mj-column>
     </mj-section>
+
   </mj-body>
 </mjml>
