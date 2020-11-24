@@ -44,6 +44,8 @@ class Routes extends React.Component {
 
           return (
             <Switch>
+              <Route exact path = "/test" component={Success} />
+
               <Route exact path = "/d457a576" component={Site} />
 
               <Route exact path = "/:name/d457a576" component={Concert} />

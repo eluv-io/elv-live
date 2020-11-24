@@ -14,6 +14,11 @@ import Logo from "../../../static/images/Logo.png";
 class Success extends React.Component {
 
   render() {
+    const params = window.location.href;
+    let sessionId = params.substr(params.length - 66); // => "Tabs1"
+    let sessionIdShort = params.substr(params.length - 16); // => "Tabs1"
+
+    console.log(sessionId);
     return (
       <AsyncComponent
         Load={async () => {
@@ -27,21 +32,44 @@ class Success extends React.Component {
               </div>
 
               <div className="sr-root">
-                <div className="sr-main2">
-                  <div className="sr-payment-summary">
-                    <h1 className="title">Your purchase was successful!</h1>
-                    <h2 className="subtitle">Thanks for your order!</h2>
+                {/* <div className="success-root">
+                  <h1 className="payment-overview-title">Thank you for your order</h1>
+
+                  <div className="payment-overview">
+                    <h1 className="payment-overview-title">ORDER CONFIRMATION </h1>
+                    <p className="payment-overview-p">We've received your order and are proccessing your payment! We will send an email with your digital tickets to [USER EMAIL] within the next 30 minutes.</p>
                   </div>
+
                   <div className="event-container__info__schedule">
                     <div className="event-container__info__schedule__ticket">
                       <h1 className="event-container__info__schedule__ticket__ticketdetail">Ticket Code:</h1>
-                      <h2 className="event-container__info__schedule__ticket__ticketdetail2">{this.props.rootStore.OTPCode} </h2>
+                      <h2 className="event-container__info__schedule__ticket__ticketdetail2">8BC128 </h2>
                       <div className="sr-section completed-view">
                         <Link to="/code" className="btn2 btn2--white buttonguy">Redeem Ticket</Link>
                       </div>
                     </div>
                   </div>
-                </div>
+            
+                </div> */}
+
+
+                <div className="success-root">
+                  <div className="payment-overview">
+                    <h1 className="payment-overview-title">Thank you for your order!</h1>
+                    <h2 className="payment-overview-p">We've received your order and are proccessing your payment! An email with your digital ticket will be sent to your email within the next 30 minutes. </h2>
+                  </div>
+                  <div className="code-reveal">
+                    <div className="code-reveal__ticket">
+                      <h2 className="payment-overview-order">ORDER CONFIRMATION #:</h2>
+                      <h2 className="payment-overview-order2">{sessionIdShort}</h2>
+                      <h1 className="code-reveal__ticket__ticketdetail">Ticket Code:</h1>
+                      <h2 className="code-reveal__ticket__ticketdetail2">{this.props.rootStore.OTPCode} </h2>
+                      <div className="sr-section completed-view">
+                        <Link to="/code" className="btn2 btn2--white buttonguy">Redeem Ticket</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
               </div>
             </div>
           );

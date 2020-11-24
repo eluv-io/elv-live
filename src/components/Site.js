@@ -105,10 +105,7 @@ class Site extends React.Component {
               <span className="photo-heading-span">RITA ORA</span>
             </h4>
           </div>
-
         </div>
-
-
       </div>
       
     )
