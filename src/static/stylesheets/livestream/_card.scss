@@ -15,7 +15,7 @@
   height: auto;
   width: 100%;
   max-width: 1350px;
-margin:auto;
+  margin:auto;
   display: flex;
   flex-direction: row !important;
   color: #000;
@@ -61,6 +61,14 @@ margin:auto;
   background: transparent !important;
   border: none !important;
   // border-radius: 7.5px;
+  @media only screen and (max-width: 620px) {
+    height: 390px;
+    width: 350px;
+  } 
+  @media only screen and (max-width: 450px) {
+    height: 290px;
+    width: 250px !important;
+  } 
 }
 .merch-item:hover {
   filter: brightness(1) !important;
@@ -73,10 +81,18 @@ margin:auto;
   -moz-perspective: 1500px;
   position: relative;
   height: 400px;  
-  width: 400px;
+  width: 100%;
   background: transparent !important;
   border: none !important;
   // border-radius: 7.5px;
+  @media only screen and (max-width: 620px) {
+    height: 350px !important;
+    width: 350px !important;
+  } 
+  @media only screen and (max-width: 450px) {
+    height: 250px !important;
+    width: 250px !important;
+  } 
 }
 
 .merch-detail {
@@ -92,7 +108,12 @@ margin:auto;
   font-weight: bold;
   text-transform: uppercase;
   height: 40px;
-  width: 400px;
+  width: 100%;
+  @media only screen and (max-width: 620px) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  } 
 }
 .merch-name {
   margin: 0;
@@ -101,6 +122,14 @@ margin:auto;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  @media only screen and (max-width: 450px) {
+    font-size: 16px;
+
+  } 
+  @media only screen and (max-width: 350px) {
+    font-size: 14px;
+
+  } 
 }
 .merch-price {
   margin: 0;
@@ -109,6 +138,14 @@ margin:auto;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  @media only screen and (max-width: 450px) {
+    font-size: 16px;
+
+  } 
+  @media only screen and (max-width: 350px) {
+    font-size: 14px;
+
+  } 
 }
 .merch-description {
   -webkit-user-select: none; /* Safari */
