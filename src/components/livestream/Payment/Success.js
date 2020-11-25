@@ -56,7 +56,7 @@ class Success extends React.Component {
                 <div className="success-root">
                   <div className="payment-overview">
                     <h1 className="payment-overview-title">Thank you for your order!</h1>
-                    <h2 className="payment-overview-p">We've received your order and are proccessing your payment! An email with your digital ticket will be sent to your email within the next 30 minutes. </h2>
+                    <h2 className="payment-overview-p">We've received your order and are proccessing your payment! An email with your digital ticket will be sent to you shortly. </h2>
                   </div>
                   <div className="code-reveal">
                     <div className="code-reveal__ticket">
