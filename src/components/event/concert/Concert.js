@@ -3,28 +3,11 @@ import {inject, observer} from "mobx-react";
 import EventTabs from "../EventTabs";
 import {ImageIcon} from "elv-components-js";
 import CloseIcon from "../../../static/icons/x.svg";
-import Logo from "../../../static/images/madisonL.png";
-import styled from "styled-components";
-import Trailer from "../Trailer";
 import hero1 from "../../../static/images/ritaora/hero1.jpg";
-import hero2 from "../../../static/images/ritaora/hero2.jpg";
-import hero3 from "../../../static/images/ritaora/hero3.jpg";
-import hero4 from "../../../static/images/ritaora/hero4.jpg";
-import hero5 from "../../../static/images/ritaora/hero5.jpg";
-
 import Tickets from "../../livestream/Payment/Tickets";
 
-import {
-  Link
-} from "react-router-dom";
 import {Redirect} from "react-router";
 
-const FormatName = (name) => {
-  return (name || "")
-    .split(/[_, \s]/)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
 
 @inject("rootStore")
 @inject("siteStore")
@@ -110,7 +93,6 @@ class Concert extends React.Component {
     )
   }
 
-  
 
   render() {
     if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
@@ -145,6 +127,11 @@ class Concert extends React.Component {
       height: "100%",
     };
 
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    let vw = window.innerWidth * 0.01;
+    document.documentElement.style.setProperty('--vw', `${vw}px`);
+    
     return (
       <div className="home-containerBlack">
         <div className="event-nav">
@@ -153,7 +140,7 @@ class Concert extends React.Component {
 
         <div style={backgroundStyle} className="active-background" />
 
-        <div className="active-view-container active-view-container__done">
+        <div className="active-view-container">
             <div className="active-view-container__heading">
               <h1 className="name"> {eventInfo.name} </h1>
               <h1 className="location">{ eventInfo.description }</h1>

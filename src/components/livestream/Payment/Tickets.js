@@ -59,17 +59,18 @@ class Tickets extends React.Component {
         <div className="ticket-group">
           <div className="ticket-event">
             <div className="ticket-image">
-              <img src={concertPoster} className="ticket-image"/>
+              <img src={concertPoster} className="ticket-image-img"/>
             </div>
             <div className="ticket-detail">
               <div className="ticket-top">
                 <div className="ticket-top-labels"> 
-                  <span className="ticket-label-available">
-                    LIMITED TICKETS AVAILABLE
-                  </span>
                   <span className="ticket-label-loc">
                     Global
                   </span>
+                  <span className="ticket-label-available">
+                    LIMITED TICKETS AVAILABLE
+                  </span>
+
                 </div>
                 <h3 className="ticket-top-title">
                   General Admission
@@ -85,11 +86,11 @@ class Tickets extends React.Component {
                     $30
                   </div>
                   <IconContext.Provider value={{ className: 'ticket-icon' }}>
-                  <div>
+                  <div className="ticket-bottom-date">
                     <FaRegCalendarAlt />
                     <span className="ticket-bottom-date">
-                    January 28th, 8:00 PM – 10:00 PM PST
-                  </span>
+                      January 28th, 8:00 PM – 10:00 PM PST
+                    </span>
                   </div>
                 </IconContext.Provider>
                   
@@ -105,17 +106,17 @@ class Tickets extends React.Component {
           </div>
           
           <div className="ticket-event">
-            <div className="ticket-image">
-              <img src={concertPoster} className="ticket-image"/>
+           <div className="ticket-image">
+              <img src={concertPoster} className="ticket-image-img"/>
             </div>
             <div className="ticket-detail">
               <div className="ticket-top">
                 <div className="ticket-top-labels"> 
+                <span className="ticket-label-loc">
+                    Global
+                  </span>
                   <span className="ticket-label-available">
                     LIMITED TICKETS AVAILABLE
-                  </span>
-                  <span className="ticket-label-loc">
-                    Global
                   </span>
                 </div>
                 <h3 className="ticket-top-title">
@@ -132,7 +133,7 @@ class Tickets extends React.Component {
                     $50
                   </div>
                   <IconContext.Provider value={{ className: 'ticket-icon' }}>
-                  <div>
+                  <div className="ticket-bottom-date">
                     <FaRegCalendarAlt />
                     <span className="ticket-bottom-date">
                       January 28th, 8:00 PM – 10:00 PM PST

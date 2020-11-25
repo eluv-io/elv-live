@@ -70,7 +70,7 @@
   grid-template-columns: repeat(3, 32%);
   // grid-template-rows: 512px 458px 480.75px;
   grid-template-rows: minmax(512px, 1fr) minmax(500px, 1fr) minmax(480.75px, 1fr);
-  gap: 2% 2%;
+  gap: 25px 25px;
   max-width: 1350px;
   margin: auto;
   margin-top: 100px;
@@ -78,7 +78,10 @@
   @media only screen and (max-width: 1200px) {
     grid-template-columns: repeat(2, 48%);
     // grid-template-rows: 512px 458px 480.75px;
-    gap: 4% 4%;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(auto-fit, max-content);
+
+    gap: 25px 0px;
 
     grid-template-rows: auto;
   }
@@ -125,6 +128,8 @@
   // margin-left: 10%;
   // margin-right: 10%;
   grid-column: span 2;
+  
+
 
 }
 
@@ -374,16 +379,21 @@
   margin: auto;
   margin-top: 20px;
 
-  @media only screen and (max-width: 1500px) {
-    // width: 100%;
-    // margin-top: 50px;
+  @media only screen and (max-width: 800px) {
+    width: 100%;
+    height: auto;
 
-    // flex-direction: column;
+    flex-direction: column;
   }
   &__photo-box {
     width: 50%;
     height: 100% !important;
     object-fit: cover !important;
+    @media only screen and (max-width: 800px) {
+      width: 100%;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
   }
  
 }
@@ -408,6 +418,9 @@
   box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
   // margin-left: 10%;
   // margin-right: 10%;
+  @media only screen and (max-width: 1200px) {
+    grid-column: span 2;
+  }
   @media only screen and (max-width: 900px) {
     grid-column: span 2;
   }
@@ -603,6 +616,10 @@
   box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
   // margin-left: 10%;
   // margin-right: 10%;
+  @media only screen and (max-width: 1000px) {
+    flex-direction: column;
+    height: auto !important;
+  }
 }
 
 .ticket-image {
@@ -616,6 +633,28 @@
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
   // border-radius: 10px;
+  @media only screen and (max-width: 1000px) {
+    max-width: 100%;
+  }
+}
+
+
+.ticket-image-img {
+  display: block;
+  max-width: 250px;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  margin-right: 40px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  // border-radius: 10px;
+  @media only screen and (max-width: 1000px) {
+    max-width: 350px;
+    margin: auto;
+    margin-bottom: 20px;
+  }
 }
 
 .ticket-detail {
@@ -642,6 +681,12 @@
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
+  @media only screen and (max-width: 500px) {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    // align-items: center;
+  }
 }
 
 .ticket-label-available {
@@ -658,6 +703,10 @@
   font-size: 12px;
   text-transform: uppercase!important;
   background: #000;
+  @media only screen and (max-width: 500px) {
+    margin-bottom: 2px;
+    width: max-content;
+  }
 }
 .ticket-label-loc {
   display: block;
@@ -673,6 +722,11 @@
   font-size: 12px;
   text-transform: uppercase!important;
   background: #000;
+  @media only screen and (max-width: 500px) {
+    margin-bottom: 3.5px;
+    width: max-content;
+  }
+  
 }
 
 .ticket-top-title {
@@ -709,6 +763,11 @@
   justify-content: space-between;
   padding: 15px 20px;
   height: 50px !important;
+  @media only screen and (max-width: 650px) {
+    flex-direction: column;
+    height: auto !important;
+  }
+
 }
 .ticket-bottom-date {
   color: black;
@@ -716,6 +775,12 @@
   font-weight: 700;
   letter-spacing: -0.374px;
   line-height: 20.5883px;
+  @media only screen and (max-width: 650px) {
+    text-align: center !important;  
+  }
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 }
 .ticket-bottom-price {
   color: black;
@@ -723,6 +788,12 @@
   font-weight: 700;
   letter-spacing: -0.374px;
   line-height: 20.5883px;
+  @media only screen and(max-width: 650px) {
+    margin-bottom: 15px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 0px;
+  }
 
 }
 .ticket-bottom-countdown {
@@ -733,6 +804,9 @@
   line-height: 20.5883px;
   width: 120px;
   text-align: right;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 }
 
 .ticket-bottom-button {
@@ -785,6 +859,14 @@
     box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
     @media only screen and (max-width: 1500px) {
       flex-direction: column;
+    }
+    @media only screen and (max-width: 800px) {
+      flex-direction: column;
+      padding: 20px;
+    }
+    @media only screen and (max-width: 420px) {
+      flex-direction: column;
+      padding: 15px;
     }
   }
 
@@ -898,21 +980,9 @@
       }
     }
     &__h1Props {
-      // font-size: 70px !important;
+ 
       color: black !important;
-      // text-shadow: white 0px 0px 0px;
-      // text-transform: uppercase;
-      // letter-spacing: 5px !important;
-      // -webkit-user-select: none; /* Safari */
-      // -ms-user-select: none; /* IE 10+ and Edge */
-      // user-select: none; /* Standard syntax */
 
-      // // margin: auto;
-      // // padding-top: 8rem;
-      // white-space: pre-wrap;
-      // font-weight: bold;
-      // width: 100%;
-      // text-align: left;
       line-height: 50px;
       margin-bottom: 5px;
       
@@ -938,9 +1008,22 @@
       @media only screen and (max-width: 800px) {
           font-size: 50px !important;
           line-height: 40px;
-
       }
-      
+      @media only screen and (max-width: 700px) {
+        font-size: 40px !important;
+        line-height: 40px;
+        letter-spacing: -2.2px;
+      }
+      @media only screen and (max-width: 540px) {
+        font-size: 32px !important;
+        line-height: 35px;
+        letter-spacing: -2.2px;
+      }
+      @media only screen and (max-width: 420px) {
+        font-size: 28px !important;
+        line-height: 35px;
+        letter-spacing: -1px;
+      }
       &__desc {
         margin-top: 0;
         font-size: 35px;
@@ -958,7 +1041,18 @@
             font-size: 28px !important;
         }
         @media only screen and (max-width: 800px) {
-            font-size: 24px !important;
+            font-size: 27px !important;
+        }
+        @media only screen and (max-width: 700px) {
+          font-size: 26px !important;
+        }
+        @media only screen and (max-width: 540px) {
+          font-size: 22px !important;
+          letter-spacing: -1px;
+        }
+        @media only screen and (max-width: 420px) {
+          font-size: 21px !important;
+          letter-spacing: -1px;
         }
       }  
     }
@@ -967,7 +1061,6 @@
       color: black !important;
       text-align: left;
       margin-top: 15px;
-      // // margin-left: 50px;
       margin-right:100px;
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
@@ -982,6 +1075,14 @@
       // letter-spacing: -.2px;
       @media only screen and (max-width: 1600px) {
         font-size: 18px;
+      }
+      @media only screen and (max-width: 800px) {
+        font-size: 18px;
+        margin-right:50px;
+      }
+      @media only screen and (max-width: 600px) {
+        font-size: 18px;
+        margin-right:20px;
       }
     }
 
@@ -1321,13 +1422,13 @@
 
 
 .home-containerBlack {
-  // background-color: black;
-  background-image: linear-gradient(to bottom, #000 40%,#000 55%,  #000 100%);
+  background-color: black;
+  // background-image: linear-gradient(to bottom, #000 40%,#000 55%,  #000 100%);
   // linear-gradient(to bottom, ${backgroundColor1} 75%, ${backgroundColor3} 80%, ${backgroundColor4} 85%, ${backgroundColor5}  87%, ${backgroundColor6} 90%, ${backgroundColor} 100%), url(${thumbnail})
   display: flex;
   flex-direction: column;
-  height: auto;
-  width: 100%;
+  // height: auto;
+  // width: 100%;
 }
 
 .ul, .li {

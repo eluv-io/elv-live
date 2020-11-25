@@ -123,7 +123,7 @@ class Site extends React.Component {
           <ImageIcon className="live-nav--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
           <div className="live-nav__btn-group">
             <a href="https://eluv.io/register" target="_blank" className="btn2 btn2--white live-nav--event">
-              Stream an Event
+              Create Event
             </a>
             <Link to="/code" className="btn2 btn2--white live-nav--ticket">
               Redeem Ticket 

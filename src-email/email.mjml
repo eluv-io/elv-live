@@ -2,7 +2,7 @@
   <mj-body background-color="#ccd3e0">
     <mj-section background-color="#fff" padding-bottom="20px" padding-top="20px">
       <mj-column width="100%">
-        <mj-image src="logo.png" alt="" align="center" border="none" width="180px" padding-left="0px" padding-right="0px" padding-bottom="10px" padding-top="10px"></mj-image>
+        <mj-image src="cid:logo.png" alt="" align="center" border="none" width="180px" padding-left="0px" padding-right="0px" padding-bottom="10px" padding-top="10px"></mj-image>
         <mj-divider border-color="black" border-width="1px" border-style="solid" padding-left="20px" padding-right="20px" padding-bottom="30px" padding-top="15px"></mj-divider>
 
       </mj-column>
@@ -50,7 +50,7 @@
 
       <mj-section background-color="white" padding-bottom="50px" padding-top="5px">
         <mj-column width="35%" padding-left="2%" padding-right="2%" padding-bottom="2%" padding-top="2%">
-          <mj-image src="ritaImage.jpg" alt="" align="center" border="none"></mj-image>
+          <mj-image src="cid:ritaImage.jpg" alt="" align="center" border="none"></mj-image>
         </mj-column>
         <mj-column width="60%" padding-left="2%" padding-right="2%" padding-bottom="2%" padding-top="2%">
           <mj-text align="left" color="black" font-size="16px" font-family="Ubuntu, Helvetica, Arial, sans-serif"><strong>{{product}}</strong></mj-text>
