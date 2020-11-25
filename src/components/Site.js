@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 
 import Card from "./livestream/Card";
+import Logo from "../static/images/Logo.png";
 import ritaHero from "../static/images/ritaora/hero5.jpg";
+import ritaHome from "../static/images/ritaora/rita-home.jpg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -88,11 +90,11 @@ class Site extends React.Component {
         </div>
         <div className="hero-view-container">
           <div className="text">
-            <h1 className="texth1">Streaming the World’s Events to You</h1>
-            <h1 className="texth2">Beautiful 4K Quality, Direct from Artist, Subscription Free</h1>
+            <h1 className="texth1">Eluvio Live</h1>
+            <h1 className="texth2">Beautiful Quality, Direct from Artist, Subscription Free</h1>
 
             <p className="textp" >
-              Purchase tickets and stream the most iconic concerts, film and television premieres, and live broadcast events.
+            Purchase tickets and stream the most iconic concerts, premieres, and broadcasts.
             </p>
             <p className="textp" >
               Enabled by the Eluvio Content Fabric, the world’s first decentralized and most advanced technology platform for internet video. 
@@ -120,7 +122,7 @@ class Site extends React.Component {
       <div className="live-container">
         {/* NavBar */}
         <div className="live-nav">
-          <ImageIcon className="live-nav--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
+          <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
           <div className="live-nav__btn-group">
             <a href="https://eluv.io/register" target="_blank" className="btn2 btn2--white live-nav--event">
               Create Event
@@ -136,7 +138,24 @@ class Site extends React.Component {
         {this.HeroView()}
 
         {/* Content from Site Customization */}
-        {this.Content()}
+        {/* {this.Content()} */}
+        <div className="live-content">
+        <div className="live-content__title" key={1}>
+          Live Events
+        </div>
+        <div className="live-content__container" key={`container-1`}>
+  
+        <Card
+            key={0}
+            eventType={"concert"}
+            name={"Rita Ora"}
+            date={"January 28th, 2021 · 8:00 PM PST"}
+            description={"Streaming Live from the Eiffel Tower"}
+            icon={ritaHome}
+          />
+
+        </div>
+      </div>
 
         {/* Footer */}
         <div className="live-footer">

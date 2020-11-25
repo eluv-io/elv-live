@@ -38,8 +38,6 @@ class Tickets extends React.Component {
   handleSubmitVIP = async (event) => {
     event.preventDefault();
     const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
-    let URL = window.location.href;
-    let shortURL = URL.substring(0, URL.lastIndexOf("#") + 2);
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
       lineItems: [{ price: "price_1HpS77E0yLQ1pYr6bmC8griX", quantity: 1 }],

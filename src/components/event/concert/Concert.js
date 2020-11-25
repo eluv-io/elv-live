@@ -7,7 +7,9 @@ import hero1 from "../../../static/images/ritaora/hero1.jpg";
 import Tickets from "../../livestream/Payment/Tickets";
 
 import {Redirect} from "react-router";
+import Logo from "../../../static/images/Logo.png";
 
+import heroImg from "../../../static/images/ritaora/hero1.jpg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -28,9 +30,9 @@ class Concert extends React.Component {
 
   Trailer() {
 
-    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
-    let featuredTitle = eventInfo.stream;
-    this.props.siteStore.PlayTrailer(featuredTitle);
+    // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
+    // let featuredTitle = eventInfo.stream;
+    // this.props.siteStore.PlayTrailer(featuredTitle);
 
     return (
       <React.Fragment>
@@ -65,9 +67,7 @@ class Concert extends React.Component {
   }
 
   Payment() {
-    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
-    let featuredTitle = eventInfo.stream;
-    this.props.siteStore.PlayTrailer(featuredTitle);
+
 
     return (
       <React.Fragment>
@@ -95,12 +95,11 @@ class Concert extends React.Component {
 
 
   render() {
-    if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
-      return <Redirect to='/'/>;
-    }
-    let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
-    let featuredTitle = eventInfo.stream;
-    let thumbnail = eventInfo.eventImg;
+    // if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
+    //   return <Redirect to='/'/>;
+    // }
+    // let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    let thumbnail = heroImg;
 
     // const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
     const backgroundColor =  "#000321";
@@ -115,9 +114,6 @@ class Concert extends React.Component {
     const backgroundColor4 =  backgroundColor + "B3";
     const backgroundColor5 =  backgroundColor + "CC";
     const backgroundColor6 =  backgroundColor+ "E6";
-    if (this.props.match.params.name == "rita-ora") {
-      thumbnail = hero1;
-    }
 
     const backgroundStyle = {
       backgroundSize: "cover",
@@ -131,24 +127,22 @@ class Concert extends React.Component {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
-    
+
     return (
       <div className="home-containerBlack">
         <div className="event-nav">
-          <ImageIcon className="event-nav__container--logo" icon={this.props.siteStore.logoUrl} label="Eluvio" />
+          <ImageIcon className="event-nav__container--logo" icon={Logo} label="Eluvio" />
         </div>
 
         <div style={backgroundStyle} className="active-background" />
 
         <div className="active-view-container">
             <div className="active-view-container__heading">
-              <h1 className="name"> {eventInfo.name} </h1>
-              <h1 className="location">{ eventInfo.description }</h1>
-              <h1 className="time">{ eventInfo.date }</h1>
+              <h1 className="name"> {"Rita Ora"} </h1>
+              <h1 className="location">{ "Streaming Live from the Eiffel Tower" }</h1>
+              <h1 className="time">{ "January 28th, 2021 · 8:00 PM PST" }</h1>
             </div>
             
-
-
 
           {this.props.match.params.name === "rita-ora" ? 
             <React.Fragment>
@@ -162,7 +156,7 @@ class Concert extends React.Component {
                 </button>
               </div> 
               <div className="active-view-container__overview">
-                <EventTabs title={featuredTitle} type={"concert"} name={this.props.match.params.name}/>
+                <EventTabs title={null} type={"concert"} name={"rita-ora"}/>
               </div>
             </React.Fragment>
           : 

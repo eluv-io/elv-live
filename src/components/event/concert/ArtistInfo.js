@@ -17,8 +17,8 @@ class ArtistInfo extends React.Component {
   render() {
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
     // const featuredTitle = eventInfo.title;
-    let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
-
+    // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
+    // console.log(eventInfo);
     const Maybe = (value, render) => value ? render() : null;
 
     return (
