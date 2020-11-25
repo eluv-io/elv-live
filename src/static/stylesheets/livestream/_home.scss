@@ -19,10 +19,11 @@
 
 .new-live-container {
   // background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
-  background-image: linear-gradient(to right bottom, #040622, #000);
+  background-image: linear-gradient(110deg, #192196 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%);
   display: flex;
   flex-direction: column;
   max-height: 100vh;
+  height: 100vh;
 }
 
 .live-nav {
@@ -371,6 +372,66 @@
   font-family: "Helvetica Neue", Arial, sans-serif !important;
   margin-bottom: 22px !important;
   width: auto;
+  @media only screen and (max-width: 1350px) {
+    font-size: 20px!important;
+    line-height: 30px!important;
+
+  }
+  @media only screen and (max-width: 1000px) {
+    font-size: 20px!important;
+    max-width: 70%!important;
+    line-height: 30px!important;
+
+  }
+  @media only screen and (max-width: 800px) {
+    font-size: 20px!important;
+    max-width: 80%!important;
+    line-height: 30px!important;
+
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 18px!important;
+    max-width: 100%!important;
+    line-height: 28px!important;
+  }
+  @media only screen and (max-width: 500px) {
+    font-size: 19px!important;
+    max-width: 100%!important;
+    line-height: 26px!important;
+    color: #f1feff!important;
+
+  }
+  // @media only screen and (max-width: 415px) {
+  //   font-size: 17px!important;
+  //   max-width: 100%!important;
+  //   line-height: 24px!important;
+  // }
+  // @media only screen and (max-width: 400px) {
+  //   font-size: 17px!important;
+  //   max-width: 100%!important;
+  //   line-height: 28px!important;
+  // }
+
+
+
+}
+
+.texta {
+	color: #d9fcff!important;
+	font-size: 22px!important;
+	max-width: 60%!important;
+  line-height: 34px!important;
+  opacity: 0;
+  animation: fadein 1s!important;
+  animation-delay: 0.8s!important;
+  animation-fill-mode: forwards!important;
+  font-family: "Open Sans", sans-serif !important;
+  letter-spacing: 0px;
+  font-weight: 900 !important;
+  font-family: "Helvetica Neue", Arial, sans-serif !important;
+  margin-bottom: 22px !important;
+  width: auto;
+  text-decoration: underline;
   @media only screen and (max-width: 1350px) {
     font-size: 20px!important;
     line-height: 30px!important;

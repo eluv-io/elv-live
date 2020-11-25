@@ -64,9 +64,9 @@
   flex-direction: row;
   z-index: 500000;
 
-  @media only screen and (max-width: 1000px) {
-    // display: none;
-  }
+  // @media only screen and (max-width: 1000px) {
+  //   // display: none;
+  // }
 
   &__logo { 
     height: 32.5px;
@@ -89,6 +89,17 @@
     width: auto;
   }
 
+  &__button-grp2 { 
+    margin-top: 12.25px;
+    margin-bottom: 21.25px;
+    margin-right: 10px;
+
+    @media only screen and (max-width: 1000px) {
+      display: none;
+    }
+
+  }
+
   &__dropdown { 
     height: 32.5px ;
     margin-top: 21.25px;
@@ -108,17 +119,17 @@
   width: 100%;
 
   overflow: hidden !important;
-  @media only screen and (max-width: 1000px) {
-    overflow: hidden !important;
-    position: fixed;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    height: calc(var(--vh, 1vh) * 100) !important;
-    max-height: calc(var(--vh, 1vh) * 100) !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    flex-direction: column;
-  }
+  // @media only screen and (max-width: 1000px) {
+  //   overflow: hidden !important;
+  //   position: fixed;
+  //   height: 100vh !important;
+  //   max-height: 100vh !important;
+  //   height: calc(var(--vh, 1vh) * 100) !important;
+  //   max-height: calc(var(--vh, 1vh) * 100) !important;
+  //   width: 100vw !important;
+  //   max-width: 100vw !important;
+  //   flex-direction: column;
+  // }
   ::-webkit-scrollbar {
     display: none; // Safari and Chrome
     background-color: transparent;
@@ -134,14 +145,14 @@
     grid-template-columns: 100%;
     grid-template-rows: calc(100% - 125px) 125px;
  
-    @media only screen and (max-width: 1250px) {
-      width: calc(100vw - 375px);
-    }
-    @media only screen and (max-width: 1000px) {
-      grid-template-columns: 100%;
-      grid-template-rows: 75px calc(42vh - 75px);
-      width: 100% !important;
-    }
+    // @media only screen and (max-width: 1250px) {
+    //   width: calc(100vw - 375px);
+    // }
+    // @media only screen and (max-width: 1000px) {
+    //   grid-template-columns: 100%;
+    //   grid-template-rows: 75px calc(42vh - 75px);
+    //   width: 100% !important;
+    // }
 
     &--nav { 
       background-color: #000;
@@ -208,9 +219,9 @@
       grid-template-columns: 65% 35%;
       grid-template-rows: 50% 50%;
 
-      @media only screen and (max-width: 1000px) {
-        height: 100%;
-      }
+      // @media only screen and (max-width: 1000px) {
+      //   height: 100%;
+      // }
     }
     &--video1 { 
       grid-column: 1 / 2;
@@ -246,9 +257,9 @@
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
       user-select: none; /* Standard syntax */
-      @media only screen and (max-width: 1000px) {
-        display: none;
-      }
+      // @media only screen and (max-width: 1000px) {
+      //   display: none;
+      // }
       &__title {
         color: #fff;
         display: inline-block;
@@ -261,16 +272,21 @@
         text-align: left;
         text-align: left;
         margin-bottom: 1rem;
-        @media only screen and (max-width: 1000px) {
-          font-size: 2.5rem;
-          font-weight: 700;
-          letter-spacing: -0.01em;
-          line-height: 1;
-          margin-left: 2.5rem;
-          margin-top: 0rem;
-          text-align: left;
-          text-align: left;
-          margin-bottom: .5rem;
+        // @media only screen and (max-width: 1000px) {
+        //   font-size: 2.5rem;
+        //   font-weight: 700;
+        //   letter-spacing: -0.01em;
+        //   line-height: 1;
+        //   margin-left: 2.5rem;
+        //   margin-top: 0rem;
+        //   text-align: left;
+        //   text-align: left;
+        //   margin-bottom: .5rem;
+        // }
+        @media only screen and (max-width: 600px) {
+          font-size: 26px;
+
+
         }
       }
 
@@ -285,17 +301,10 @@
         text-align: left;
         text-align: left;
         width: 100%;
-        @media only screen and (max-width: 1000px) {
-          color: #666;
-          display: inline-block;
-          font-size: 1.6rem;
-          font-weight: normal;
-          line-height: 1;
-          margin-left: 2.5rem;
-          margin-top: 0rem !important;
-          text-align: left;
-          text-align: left;
-          width: 100%;
+        @media only screen and (max-width: 600px) {
+          font-size: 26px;
+
+
         }
       }
     }
@@ -306,25 +315,25 @@
     height: 100%;
     width: 100%;
     background-color: black;
-    @media only screen and (max-width: 1250px) {
-      width: 375px;
-    }
+    // @media only screen and (max-width: 1250px) {
+    //   width: 375px;
+    // }
     // @media only screen and (max-width: 1000px) {
     //   height: 60% !important;
     //   width: 100%;
     // }
-    @media only screen and (max-width: 1000px) {
-      height: 58vh !important;
-      width: 100% !important;
-    }
+    // @media only screen and (max-width: 1000px) {
+    //   height: 58vh !important;
+    //   width: 100% !important;
+    // }
 
     &--bottom { 
       height: calc(100% - 75px);
       width: 100%;
-      @media only screen and (max-width: 1000px) {
-        height: calc(58vh - 62.5px) !important;
-        width: 100% !important;
-      }
+      // @media only screen and (max-width: 1000px) {
+      //   height: calc(58vh - 62.5px) !important;
+      //   width: 100% !important;
+      // }
     }
     &--bottom2 { 
       height: auto!important;
@@ -355,10 +364,10 @@
       // grid-template-rows: 130px calc(100% - 130px);
 
       grid-template-rows: 15% 85%;
-      @media only screen and (max-width: 1000px) {
-        grid-template-rows: 25% 75% !important;
+      // @media only screen and (max-width: 1000px) {
+      //   grid-template-rows: 25% 75% !important;
 
-      }
+      // }
       // @media only screen and (max-width: 1000px) {
       //   height: 100%;
       // }
@@ -401,9 +410,9 @@
       height: 100%;
       width: 100%;
 
-      @media only screen and (max-width: 750px) {
-        height: 100%;
-      }
+      // @media only screen and (max-width: 750px) {
+      //   height: 100%;
+      // }
     }
     &--twilio { 
       // grid-column: 2;
@@ -417,9 +426,9 @@
 }
 .MuiTabs-root {
   height: 75px !important;
-  @media only screen and (max-width: 1000px) {
-    height: 62.5px !important;
-  }
+  // @media only screen and (max-width: 1000px) {
+  //   height: 62.5px !important;
+  // }
 
 }
 .sr-input:focus, input[type='text']:focus, button:focus, .focused {
@@ -509,9 +518,9 @@
   background-color: black;
   height: calc(100vh - 75px) !important;
 
-  @media only screen and (max-width: 1000px) {
-    height: calc(58vh - 75px) !important;
-  }
+  // @media only screen and (max-width: 1000px) {
+  //   height: calc(58vh - 75px) !important;
+  // }
 }
 
 

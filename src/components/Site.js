@@ -90,14 +90,14 @@ class Site extends React.Component {
         </div>
         <div className="hero-view-container">
           <div className="text">
-            <h1 className="texth1">Eluvio Live</h1>
+            <h1 className="texth1">Streaming the World's Events to You</h1>
             <h1 className="texth2">Beautiful Quality, Direct from Artist, Subscription Free</h1>
 
             <p className="textp" >
             Purchase tickets and stream the most iconic concerts, premieres, and broadcasts.
             </p>
             <p className="textp" >
-              Enabled by the Eluvio Content Fabric, the world’s first decentralized and most advanced technology platform for internet video. 
+              Enabled by the <a className="texta" href="https://eluv.io/" target="_blank">Eluvio Content Fabric</a>, the world’s first decentralized and most advanced technology platform for internet video. 
             </p>
           </div>
 
@@ -140,21 +140,21 @@ class Site extends React.Component {
         {/* Content from Site Customization */}
         {/* {this.Content()} */}
         <div className="live-content">
-        <div className="live-content__title" key={1}>
-          Live Events
-        </div>
-        <div className="live-content__container" key={`container-1`}>
-  
-        <Card
-            key={0}
-            eventType={"concert"}
-            name={"Rita Ora"}
-            date={"January 28th, 2021 · 8:00 PM PST"}
-            description={"Streaming Live from the Eiffel Tower"}
-            icon={ritaHome}
-          />
+          <div className="live-content__title" key={1}>
+            Live Events
+          </div>
+          <div className="live-content__container" key={`container-1`}>
+    
+          <Card
+              key={0}
+              eventType={"concert"}
+              name={"Rita Ora"}
+              date={"January 28th, 2021 · 8:00 PM PST"}
+              description={"Streaming Live from the Eiffel Tower"}
+              icon={ritaHome}
+            />
 
-        </div>
+          </div>
       </div>
 
         {/* Footer */}

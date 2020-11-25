@@ -37,8 +37,8 @@ class ViewStream extends React.Component {
 
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
-      // let title = this.props.siteStore.feeds[this.props.feedOption];
-      let title = this.props.siteStore.activeTrailer;
+      let title = this.props.siteStore.feeds[this.props.feedOption];
+      // let title = this.props.siteStore.activeTrailer;
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
 

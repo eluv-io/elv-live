@@ -21,6 +21,8 @@ import AsyncComponent from "../../support/AsyncComponent";
 import StreamTabs from './StreamTabs';
 import { withStyles } from "@material-ui/core/styles";
 
+
+import ViewStream from "./ViewStream";
 const drawerWidth = 450;
 
 
@@ -34,7 +36,8 @@ const options = [
 const styles = theme => ({
   root: {
     display: 'flex',
-    background: "black"
+    background: "black",
+    height: "100vh"
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -99,16 +102,16 @@ const styles = theme => ({
 class Stream extends React.Component {
 
   state = {
-    selectedOption: options[0],
+    selectedOption: options[0].value,
     open: false
   };
 
 
   renderFeed(selectedOption) {
-    if (selectedOption.value == 'all') {
+    if (selectedOption == 'all') {
       return (
         // TODO: For 'all' multiview, make all the streams play at the same time
-        <div className={this.props.siteStore.showFeed ? "stream-container__streamBox--feedGrid" : "hide"}>
+        <div className="stream-container__streamBox--feedGrid">
           <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
           <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
           <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
@@ -116,16 +119,20 @@ class Stream extends React.Component {
       );
     } else {
       return (
-        <ViewStream feedOption={selectedOption.value} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
+        <ViewStream feedOption={selectedOption} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
       );
     }
   }
+
 
   render() {
     if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
       return <Redirect to={`/code`} />;
     }
   
+
+
+
     const handleDrawerOpen = () => {
       this.setState({open: true});
     };
@@ -133,13 +140,11 @@ class Stream extends React.Component {
     const handleDrawerClose = () => {
       this.setState({open: false});
     };
-     
-    // handle onChange event of the dropdown
+    const { classes } = this.props;
+
     const handleChange = e => {
       this.setState({selectedOption: e.value});
     }
-
-    const { classes } = this.props;
 
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -149,9 +154,8 @@ class Stream extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          // let place = await this.props.siteStore.LoadActiveTitle(eventInfo.stream);
-          // this.props.siteStore.PlayTrailer(eventInfo.stream);
-          // await this.props.siteStore.SetFeed(eventInfo, eventInfo, eventInfo);
+          await this.props.siteStore.LoadStreamSite("iq__2d9aum1MAZK7aSVXp6vF8sk4EKU3", "");
+          await this.props.siteStore.SetFeed();
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
@@ -165,45 +169,47 @@ class Stream extends React.Component {
                 })}
               >
                 <Toolbar>
-                  <div className="stream-nav">
-                    <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
-                    <div className="stream-nav__button-grp">
-                      <Select
-                        className="stream-nav__dropdown"
-                        defaultValue={options[0]}
-                        options={options}
-                        onChange={handleChange}
-                        isDisabled={false}
-                        isLoading={false}
-                        isClearable={false}
-                        isSearchable={false}
-                        autoFocus={false}
-                      />
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="end"
-                        onClick={handleDrawerOpen}
-                        className={clsx(this.state.open && classes.hide)}
-                        size="medium"
-                      >
-                        <MenuIcon />
-                      </IconButton>
+                <div className="stream-nav">
+                        <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
+                        <div className="stream-nav__button-grp">
+                          <Select
+                            className="stream-nav__dropdown"
+                            defaultValue={options[0]}
+                            options={options}
+                            onChange={handleChange}
+                            isDisabled={false}
+                            isLoading={false}
+                            isClearable={false}
+                            isSearchable={false}
+                            autoFocus={false}
+                          />
+                          <div className="stream-nav__button-grp2">
+                            <IconButton
+                              color="inherit"
+                              aria-label="open drawer"
+                              edge="end"
+                              onClick={handleDrawerOpen}
+                              className={clsx(this.state.open && classes.hide)}
+                              size="medium"
+                            >
+                              <MenuIcon />
+                            </IconButton>
 
-                      <IconButton
-                        color="inherit"
-                        aria-label="close drawer"
-                        edge="end"
-                        onClick={handleDrawerClose}
-                        className={clsx(!(this.state.open) && classes.hide)}
-                        size="medium"
-                      >
-                        {<ChevronRightIcon />}
-                      </IconButton>
-                    </div>
-                  </div>
+                            <IconButton
+                              color="inherit"
+                              aria-label="close drawer"
+                              edge="end"
+                              onClick={handleDrawerClose}
+                              className={clsx(!(this.state.open) && classes.hide)}
+                              size="medium"
+                            >
+                              {<ChevronRightIcon />}
+                            </IconButton>
+                          </div>
 
-                </Toolbar>
+                        </div>
+                      </div>            
+                          </Toolbar>
                 </AppBar>
                 <main
                   className={clsx(classes.content, {
@@ -214,9 +220,10 @@ class Stream extends React.Component {
 
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
-                      <div className="stream-container__streamBox--video ">
-                        <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/>
-                      </div>
+                      {/* <div className="stream-container__streamBox--video "> */}
+                      {this.renderFeed(this.state.selectedOption)}
+                        {/* <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/> */}
+                      {/* </div> */}
 
                       <div className="stream-container__streamBox--info">
                         <h2 className="stream-container__streamBox--info__subtitle">

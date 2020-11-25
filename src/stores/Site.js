@@ -61,6 +61,7 @@ class SiteStore {
   @observable stream;
   @observable streamPlay;
   @observable feeds = [];
+  @observable titleFeed = [];
   @observable showFeed = false;
   @observable stream;
 
@@ -193,9 +194,6 @@ class SiteStore {
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
 
-    // this.searchIndex = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/site_index"});
-    // this.searchNodes = yield this.client.ContentObjectMetadata({...this.siteParams, metadataSubtree: "public/search_api"});
-
     this.siteCustomization = (yield this.client.ContentObjectMetadata({
       ...this.siteParams,
       metadataSubtree: "public/asset_metadata/site_customization",
@@ -264,12 +262,6 @@ class SiteStore {
   // Used to load RTMP Feedn ew Date("January 28, 2021 20:00:00");
   @action.bound
   LoadStreamSite = flow(function * (objectId, writeToken) {
-    // if(this.siteParams && this.siteParams.objectId === objectId) {
-    //   return;
-    // }
-
-    // this.Reset();
-
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
       objectId: objectId,
@@ -288,22 +280,33 @@ class SiteStore {
       resolveIgnoreErrors: true
     }));
 
-    this.stream = yield this.LoadTitle(this.siteParams, this.titles[0]["caminandesllamigos"], "public/asset_metadata/titles/0/caminandesllamigos");
-    this.feeds.push(yield this.LoadActiveTitle(this.stream.title));
+
+    let feedArr = [];
+    if (this.titles) {
+      for(let i = 0; i < 4 ; i++) {
+        let entry = this.titles[i];
+        let entryTitle;
+        if(entry) {
+          console.log(entry[Object.keys(entry)[0]]);
+          entryTitle = yield this.LoadTitle(this.siteParams, entry[Object.keys(entry)[0]], `public/asset_metadata/titles/${i}/${entry[Object.keys(entry)[0]].slug}`);
+          feedArr.push(entryTitle);
+        }
+      }
+    }
+
+    this.titleFeed = feedArr;
+    console.log(this.titleFeed);
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
   
   // Used to load multiple feeds 
   @action.bound
-  SetFeed = flow(function * (title1, title2, title3) {
+  SetFeed = flow(function * () {
     try {
       this.loading = true;
-      let entry1 = yield this.LoadTitle(this.siteParams, this.siteCustomization.arrangement[1].title, `public/asset_metadata/site_customization/arrangement/1/title`);
-      // let entry2 = yield this.LoadTitle(this.siteParams, title2.stream, `public/asset_metadata/site_customization/arrangement/${title2.key}/title`);
-      // let entry3 = yield this.LoadTitle(this.siteParams, title3.stream, `public/asset_metadata/site_customization/arrangement/${title3.key}/title`);
-      this.feeds.push(yield this.LoadActiveTitle(entry1));
-      // this.feeds.push(yield this.LoadActiveTitle(entry2));
-      // this.feeds.push(yield this.LoadActiveTitle(entry3));
+      this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[0]));
+      this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[1]));
+      this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[2]));
 
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -426,7 +429,7 @@ class SiteStore {
     }
 
     title.displayTitle = title.display_title || title.title || "";
-
+    // console.log(title.displayTitle);
     title.versionHash = title["."] ? title["."].source : params.versionHash;
     title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
@@ -571,6 +574,11 @@ class SiteStore {
       params = this.siteParams;
       linkPath = title.playoutOptionsLinkPath;
     }
+    console.log("params:");
+    console.log(params);
+    console.log("linkPath:");
+    console.log(linkPath);
+
 
     let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
     if(Object.keys(availableOfferings).length === 0) {
@@ -721,6 +729,7 @@ class SiteStore {
       .addQuery(query)
       .toString();
   }
+  
 }
 
 export default SiteStore;
