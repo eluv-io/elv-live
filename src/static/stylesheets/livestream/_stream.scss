@@ -326,6 +326,13 @@
         width: 100% !important;
       }
     }
+    &--bottom2 { 
+      height: auto!important;
+      width: 100% !important;
+      // box-sizing: border-box;
+      // outline: none;
+      // display:block;
+      }
     &--chat { 
       // background-color: green; 
       height: 100%;

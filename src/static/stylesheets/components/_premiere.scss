@@ -109,29 +109,29 @@
 
 .premiereTabs {
     position: relative;
-    height: 1800px;
-    min-height: 100% !important;
+    height: max-content !important;
+    // min-height: 100% !important;
 
 
-    @media only screen and (max-width: 1500px) {
-        height: 1900px;
-    }
-    @media only screen and (max-width: 1300px) {
-        height: 2050px;
-    }
-    @media only screen and (max-width: 1200px) {
-        height: 2750px;
-    }
+    // @media only screen and (max-width: 1500px) {
+    //     height: 1900px;
+    // }
+    // @media only screen and (max-width: 1300px) {
+    //     height: 2050px;
+    // }
+    // @media only screen and (max-width: 1200px) {
+    //     height: 2750px;
+    // }
     
-    @media only screen and (max-width: 900px) {
-        height: 3600px;
-    }
-    @media only screen and (max-width: 600px) {
-        height: 4000px;
-    }
-    @media only screen and (max-width: 400px) {
-        height: 4400px;
-    }
+    // @media only screen and (max-width: 900px) {
+    //     height: 3600px;
+    // }
+    // @media only screen and (max-width: 600px) {
+    //     height: 4000px;
+    // }
+    // @media only screen and (max-width: 400px) {
+    //     height: 4400px;
+    // }
     width: 100%;
     // z-index: 5000;
     &__tabs {
@@ -185,7 +185,7 @@
 
     &__container {
         display: flex;
-        height: auto;
+        height: max-content !important;
         padding-top: 10rem;
         width: 75vw;
         @media only screen and (max-width: $bp-large) {

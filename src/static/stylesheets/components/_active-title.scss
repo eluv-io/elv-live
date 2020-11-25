@@ -13,7 +13,13 @@ img {
   position: absolute;
   width: 100%;
 }
-
+.event-tabs-height {
+    height: max-content!important;
+    width: 100% !important;
+    box-sizing: border-box;
+    outline: none;
+    display:block;
+}
 .active-view-container {
   align-self: start;
   display: grid;
@@ -22,7 +28,7 @@ img {
 //   background-color: black;
 //   margin-left: 10vw;
 //   margin-right: 10vw;
-
+    height: max-content;
   grid-template-rows: 53.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
   grid-template-columns: repeat(auto-fill, 100vw);
 
@@ -395,7 +401,7 @@ img {
         margin-left: 12.5vw;
         margin-right: 12.5vw;
         background-color: transparent;
-        height: 100%;
+        height: max-content;
 
   }
 }

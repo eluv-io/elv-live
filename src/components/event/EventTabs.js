@@ -27,7 +27,7 @@ function TabPanel(props) {
   return (
     <div
       role="tabpanel"
-      className="stream-container__tabs--bottom"
+      className="stream-container__tabs--bottom2"
       hidden={value !== index}
       id={`scrollable-prevent-tabpanel-${index}`}
       aria-labelledby={`scrollable-prevent-tab-${index}`}
