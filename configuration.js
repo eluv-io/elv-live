@@ -6,7 +6,7 @@ const EluvioConfiguration = {
   // "config-url": "https://main.net955305.contentfabric.io/config",
 
   // Demo
-  // "config-url": "https://demov3.net955210.contentfabric.io/config",
+  "config-url": "https://demov3.net955210.contentfabric.io/config",
 
   "version": "local"
 };

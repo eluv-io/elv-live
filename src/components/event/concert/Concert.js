@@ -34,8 +34,9 @@ class Concert extends React.Component {
     // let featuredTitle = eventInfo.stream;
     // this.props.siteStore.PlayTrailer(featuredTitle);
 
-    return (
-      <React.Fragment>
+      return (
+      
+        <React.Fragment>
         
         <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
 
@@ -63,13 +64,16 @@ class Concert extends React.Component {
           </div>
         </div>
       </React.Fragment>
-    )
+      )
+    
+
   }
 
   Payment() {
 
-
+    
     return (
+      
       <React.Fragment>
         
         <div onClick={() => this.setState({showPayment: false})} className="backdrop" />
@@ -150,10 +154,20 @@ class Concert extends React.Component {
                 <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
                   Buy Tickets
                 </button>
-          
-                <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+                {/* {window.innerHeight > 1000 ?      <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+                  Watch Promo
+                </button> : 
+                <a href="https://store.ritaora.com/products/phoenix-tour-tee-black" target="_blank" className="btnPlay btnDetails__heroDetail">
+<button className="btnPlay btnDetails__heroDetail">
                   Watch Promo
                 </button>
+              </a>
+              
+                } */}
+               <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+                  Watch Promo
+                </button> 
+
               </div> 
               <div className="active-view-container__overview">
                 <EventTabs title={null} type={"concert"} name={"rita-ora"}/>

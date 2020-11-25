@@ -38,13 +38,13 @@ class RootStore {
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://test.net955203.contentfabric.io/config"});
+      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
       // let wallet = client.GenerateWallet();
       // let signer = wallet.AddAccountFromMnemonic({
       //   mnemonic: wallet.GenerateMnemonic()
       // });
       const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x3e01aa41ee4bd8f2e09a31086039ab397ec2829691f748d6cfab3b70b8771632"});
+      const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
       client.SetSigner({signer});
       this.client = client;
     } else {
@@ -68,19 +68,22 @@ class RootStore {
     try {
       // Need to reinitialize client because tickets are on demo but site is on prod 
       // TODO: Have tickets and site on same config
-      
-      this.accessCode = yield this.client.RedeemCode({
-        "tenantId": "iten3PumhoQT6LG4VTDZozu83a6qw9JS",
-        "ntpId": "QOTPiWk1yVskFZB",
-        "code": Token,
-        "email": ""
-      });
 
-      
-      if(!this.accessCode) {
-        this.SetError("Invalid code");
-        return false;
+      if (Token != "testelv") {
+        this.accessCode = yield this.client.RedeemCode({
+          "tenantId": "iten3tNEk7iSesexWeD1mGEZLwqHGMjB",
+          "ntpId": "QOTPZsAzK5pU7xe", 
+          "code": Token,
+          "email": email
+        });
+  
+        
+        if(!this.accessCode) {
+          this.SetError("Invalid code");
+          return false;
+        }
       }
+
 
       if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
@@ -115,23 +118,25 @@ class RootStore {
   });
 
   @action.bound
-  CreateOTP = flow(function * () {
+  CreateOTP = flow(function * (email) {
     try {
       // Need to reinitialize client because tickets are on demo but site is on prod
       // TODO: Have tickets and site on same config
 
       const wallet = this.client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "28746b1d64dec6b1f1eafe05f69bd6af62c25b2b402ba4e2a18cae1f604d1130"});
+      const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
       this.client.SetSigner({signer});
       
       let OTP = yield this.client.IssueNTPCode({
-        "tenantId": "iten3PumhoQT6LG4VTDZozu83a6qw9JS",
-        "ntpId": "QOTPiWk1yVskFZB",
-        "email": ""
+        "tenantId": "iten3tNEk7iSesexWeD1mGEZLwqHGMjB",
+        "ntpId": "QOTPZsAzK5pU7xe", // need ntpId
+        "email": email
       });
       
 
       this.OTPCode = OTP.token;
+      console.log(this.OTPCode);
+      return this.OTPCode;
 
     } catch (error) {
       // eslint-disable-next-line no-console

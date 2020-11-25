@@ -453,7 +453,7 @@
   text-align: center; 
   /* margin: auto; */
   width: 230px;
-  color: black !important;
+  color: black ;
   font-weight: 600;
 }
 
@@ -470,7 +470,7 @@
   transform: translateY(-1px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
 .btn2--darkblue {
-  background-color: #0a2239;
+  background-color: black;
   color: #fff; }
 .btn2--darkblue::after {
   background-color: #0a2239;
@@ -502,8 +502,8 @@
   background-color: #2998ff; }
 
 .btn2--darkblue {
-  background-color: #0a2239;
-  color: #fff; }
+  background-color: black;
+  color: #fff !important;  }
 .btn2--darkblue::after {
   background-color: #0a2239;
   color: #fff;

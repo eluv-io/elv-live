@@ -15,7 +15,6 @@
   color: white !important;
 } 
 
-
 .success-root {
   width: 600px;
   height: auto;
@@ -25,12 +24,18 @@
   align-self: center;
   background-color: #f9f7f4;
   margin: auto;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  @media only screen and (max-width:700px) {
+    width: 90%;
+  }
 }
 
 
 .payment-overview{
   width: 100%;
-  height: 250px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -39,6 +44,14 @@
   // background-color: grey;
   margin: auto;
   padding: 10px 50px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  @media only screen and (max-width:700px) {
+    padding: 10px 20px;
+  }
 
 }
 
@@ -46,9 +59,13 @@
   text-align: center !important;
   font-size: 38px;
   line-height: 3rem;
-  // margin-bottom: 8rem;
+  margin-bottom: 5rem;
   color: black;
   font-weight: bold;
+  
+  @media only screen and (max-width:700px) {
+    font-size: 28px;
+  }
   
 }
 
@@ -56,30 +73,50 @@
   text-align: center !important;
   font-size: 22px;
   line-height: 3rem;
-  // margin-bottom: 8rem;
+  margin-bottom: 50px;
   color: black;
   font-weight: normal;
   line-height:"22px";
+  @media only screen and (max-width:700px) {
+    font-size: 17px;
+  }
+  @media only screen and (max-width:400px) {
+    font-size: 17px;
+  }
 }
 .payment-overview-order{
   text-align: center !important;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 3rem;
-  // margin-bottom: 8rem;
-  color: white;
+  margin-bottom: 2rem;
+  color: black;
+  line-height:"22px";
   font-weight: bold;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  @media only screen and (max-width:700px) {
+    font-size: 20px;
+  }
+  @media only screen and (max-width:400px) {
+    font-size: 18px;
+  }
 }
 
 .payment-overview-order2{
   text-align: center !important;
-  font-size: 20px;
+  font-size: 40px;
   line-height: 3rem;
-  overflow: hidden;
-  color: white;
+  margin-bottom: 5rem;
+  color: black;
   font-weight: bold;
-  margin-top: 5px;
-
-  margin-bottom: 10px;
+  line-height:"22px";
+  -webkit-user-select: text; /* Safari */
+  -ms-user-select: text; /* IE 10+ and Edge */
+  user-select: text; /* Standard syntax */
+  @media only screen and (max-width:700px) {
+    font-size: 36px;
+  }
 }
 
 
@@ -92,7 +129,7 @@
   width: 100%;
   
   &__ticket {
-    background-color: #222;
+    background-color: transparent;
     border-radius: 0px;
     display: flex;
     flex-direction: column;

@@ -35,7 +35,8 @@ class CodeAccess extends React.Component {
       <AsyncComponent
         Load={
           async () => {
-            await this.props.siteStore.LoadSite("iq__x4HLAH3VbZCcD5ggMTiGF4yrMBg", "");
+            
+            // await this.props.siteStore.LoadSite("iq__2d9aum1MAZK7aSVXp6vF8sk4EKU3", "");
           } 
         }
 
@@ -66,7 +67,7 @@ class CodeAccess extends React.Component {
             background-image: url(${default_background});
             height: 100vh;
             background-position: center;
-            opacity: .5;
+            opacity: .9;
             }
           `;
 
