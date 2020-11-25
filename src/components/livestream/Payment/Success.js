@@ -62,8 +62,8 @@ class Success extends React.Component {
                     <div className="code-reveal__ticket">
                       <h2 className="payment-overview-order">ORDER CONFIRMATION #:</h2>
                       <h2 className="payment-overview-order2">{sessionIdShort}</h2>
-                      <h1 className="code-reveal__ticket__ticketdetail">Ticket Code:</h1>
-                      <h2 className="code-reveal__ticket__ticketdetail2">{this.props.rootStore.OTPCode} </h2>
+                      {/* <h1 className="code-reveal__ticket__ticketdetail">Ticket Code:</h1>
+                      <h2 className="code-reveal__ticket__ticketdetail2">{this.props.rootStore.OTPCode} </h2> */}
                       <div className="sr-section completed-view">
                         <Link to="/code" className="btn2 btn2--white buttonguy">Redeem Ticket</Link>
                       </div>

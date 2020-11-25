@@ -91,10 +91,11 @@
       align-content: space-between;
       align-items: center;
       justify-items: center;
-      opacity: 0;
-      animation: up 1s;
-      animation-delay: 1s;
-      animation-fill-mode: forwards!important;
+      
+      // opacity: 0;
+      // animation: up 1s;
+      // animation-delay: 1s;
+      // animation-fill-mode: forwards!important;
     }
   }
 
@@ -528,17 +529,26 @@
   background-color: black !important;
 }
 
+// @keyframes up2 {
+// 	0% {
+// 		transform: translateY(-70px) translateX(-0px);
+// 		opacity: 0;
+// 	}
+// 	100% {
+// 		transform: translateY(0px) translateX(-0px);
+// 		opacity: 1;
+// 	}
+// }
 @keyframes up {
 	0% {
-		transform: translateY(-70px) translateX(-0px);
+		transform: translateY(-180px) translateX(-0px);
 		opacity: 0;
 	}
 	100% {
-		transform: translateY(0px) translateX(-0px);
+		transform: translateY(-110px) translateX(-0px);
 		opacity: 1;
 	}
 }
-
 @keyframes fadein {
   0% {
     opacity: 0;

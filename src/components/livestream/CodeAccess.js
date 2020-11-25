@@ -5,6 +5,8 @@ import {Redirect} from "react-router";
 import styled from "styled-components";
 import {ImageIcon} from "elv-components-js";
 
+import AsyncComponent from "../support/AsyncComponent";
+
 import Logo from "../../static/images/Logo-Small.png";
 import default_background from "../../static/images/codeAccess/concert.jpg";
 
@@ -27,76 +29,133 @@ class CodeAccess extends React.Component {
   }
 
   render() {
-    if(this.state.siteId) {
-      return <Redirect to={`/stream/${this.state.siteId}`} />;
-    }
-
-    const Submit = async () => {
-      this.setState({loading: true});
-
-      const siteId = await this.props.rootStore.RedeemCode(
-        this.state.email,
-        this.state.code,
-        this.state.name
-      );
-
-      if(siteId) {
-        this.setState({siteId});
-      } else {
-        this.setState({loading: false});
-      }
-    };
-
-    const BackgroundStyleContainer = styled.div`
-      background-size: cover;
-      background-image: url(${default_background});
-      height: 100vh;
-      background-position: center;
-      opacity: .5;
-      }
-    `;
+    if(!this.props.siteStore.client) { return null; }
 
     return (
-      <div className="code-entry-container">
-        <BackgroundStyleContainer />
+      <AsyncComponent
+        Load={
+          async () => {
+            await this.props.siteStore.LoadSite("iq__x4HLAH3VbZCcD5ggMTiGF4yrMBg", "");
+          } 
+        }
 
-        <div className = "code-entry">
-          { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
+        render={() => {
+          if(!this.props.siteStore.client) { return null; }
+          if(this.state.siteId) {
+            return <Redirect to={`/stream/${this.state.siteId}`} />;
+          }
+      
+          const Submit = async () => {
+            this.setState({loading: true});
+      
+            const siteId = await this.props.rootStore.RedeemCode(
+              this.state.email,
+              this.state.code,
+              this.state.name
+            );
+      
+            if(siteId) {
+              this.setState({siteId});
+            } else {
+              this.setState({loading: false});
+            }
+          };
+      
+          const BackgroundStyleContainer = styled.div`
+            background-size: cover;
+            background-image: url(${default_background});
+            height: 100vh;
+            background-position: center;
+            opacity: .5;
+            }
+          `;
 
-          <LoadingElement loading={this.state.loading}>
-            <ImageIcon className="code-entry--logo" icon={this.props.siteStore.darkLogo || Logo} label="logo"/>
-            <input
-              onFocus={() => this.setState({name_placeholder: ""})}
-              onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}
-              placeholder={this.state.name_placeholder}
-              value={this.state.name}
-              onChange={event => this.setState({name: event.target.value})}
-              onKeyPress={onEnterPressed(Submit)}
-            />
-            <input
-              onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "Enter Your Email"})}
-              placeholder={this.state.email_placeholder}
-              value={this.state.email}
-              onChange={event => this.setState({email: event.target.value})}
-              onKeyPress={onEnterPressed(Submit)}
-            />
-            <input
-              onFocus={() => this.setState({code_placeholder: ""})}
-              onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
-              placeholder={this.state.code_placeholder}
-              value={this.state.code}
-              onChange={event => this.setState({code: event.target.value})}
-              onKeyPress={onEnterPressed(Submit)}
-            />
-            <button onClick={Submit} title="Submit">NEXT</button>
-          </LoadingElement>
-        </div>
-        {/* <div className="pTicket">
-          Don't have a ticket? Click here to purchase 
-        </div> */}
-      </div>
+          return (
+            <div className="code-entry-container">
+            <BackgroundStyleContainer />
+    
+            <div className = "code-entry">
+              { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
+    
+              <LoadingElement loading={this.state.loading}>
+                <ImageIcon className="code-entry--logo" icon={this.props.siteStore.darkLogo || Logo} label="logo"/>
+                <input
+                  onFocus={() => this.setState({name_placeholder: ""})}
+                  onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}
+                  placeholder={this.state.name_placeholder}
+                  value={this.state.name}
+                  onChange={event => this.setState({name: event.target.value})}
+                  onKeyPress={onEnterPressed(Submit)}
+                />
+                <input
+                  onFocus={() => this.setState({email_placeholder: ""})}
+                  onBlur={() => this.setState({email_placeholder: "Enter Your Email"})}
+                  placeholder={this.state.email_placeholder}
+                  value={this.state.email}
+                  onChange={event => this.setState({email: event.target.value})}
+                  onKeyPress={onEnterPressed(Submit)}
+                />
+                <input
+                  onFocus={() => this.setState({code_placeholder: ""})}
+                  onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
+                  placeholder={this.state.code_placeholder}
+                  value={this.state.code}
+                  onChange={event => this.setState({code: event.target.value})}
+                  onKeyPress={onEnterPressed(Submit)}
+                />
+                <button onClick={Submit} title="Submit">NEXT</button>
+              </LoadingElement>
+            </div>
+            {/* <div className="pTicket">
+              Don't have a ticket? Click here to purchase 
+            </div> */}
+          </div>
+          );
+        }}
+      />
     );
+
+    // return (
+    //   <div className="code-entry-container">
+    //     <BackgroundStyleContainer />
+
+    //     <div className = "code-entry">
+    //       { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
+
+    //       <LoadingElement loading={this.state.loading}>
+    //         <ImageIcon className="code-entry--logo" icon={this.props.siteStore.darkLogo || Logo} label="logo"/>
+    //         <input
+    //           onFocus={() => this.setState({name_placeholder: ""})}
+    //           onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}
+    //           placeholder={this.state.name_placeholder}
+    //           value={this.state.name}
+    //           onChange={event => this.setState({name: event.target.value})}
+    //           onKeyPress={onEnterPressed(Submit)}
+    //         />
+    //         <input
+    //           onFocus={() => this.setState({email_placeholder: ""})}
+    //           onBlur={() => this.setState({email_placeholder: "Enter Your Email"})}
+    //           placeholder={this.state.email_placeholder}
+    //           value={this.state.email}
+    //           onChange={event => this.setState({email: event.target.value})}
+    //           onKeyPress={onEnterPressed(Submit)}
+    //         />
+    //         <input
+    //           onFocus={() => this.setState({code_placeholder: ""})}
+    //           onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
+    //           placeholder={this.state.code_placeholder}
+    //           value={this.state.code}
+    //           onChange={event => this.setState({code: event.target.value})}
+    //           onKeyPress={onEnterPressed(Submit)}
+    //         />
+    //         <button onClick={Submit} title="Submit">NEXT</button>
+    //       </LoadingElement>
+    //     </div>
+    //     {/* <div className="pTicket">
+    //       Don't have a ticket? Click here to purchase 
+    //     </div> */}
+    //   </div>
+    // );
   }
 }
 

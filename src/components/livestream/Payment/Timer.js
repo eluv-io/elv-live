@@ -42,8 +42,8 @@ export default class Timer extends Component {
     }
 
     componentDidMount() {
-      let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
-      let premiereTime = eventInfo.streamTimer;
+      // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
+      let premiereTime = new Date("January 28, 2021 20:00:00");
       // console.log(premiereTime);
       let currentTime = new Date().getTime();
       let showTime = premiereTime - currentTime;
