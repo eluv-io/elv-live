@@ -117,12 +117,12 @@
     //   top: 475px;
     // }
     @media only screen and (max-width: 500px) {
+      top: 430px;
       margin-top: 50px;
 
-      top: 450px;
     }
     @media only screen and (max-width: 360px) {
-      top: 550px;
+      top: 480px;
     }
   }
   &--event { 
@@ -143,12 +143,10 @@
     //   top: 375px;
     // }
     @media only screen and (max-width: 500px) {
-      margin-top: 50px;
-
-      top: 440px;
+      top: 430px;
     }
     @media only screen and (max-width: 360px) {
-      top: 550px;
+      top: 480px;
     }
   }
 }
@@ -238,8 +236,8 @@
     margin-top: 10%;
   }
   @media only screen and (max-width: 650px) {
-    margin-top: 80%;
-    width: 80%;
+    margin-top: -12%;
+    width: 85%;
   }
   @media only screen and (max-width: 500px) {
     margin-top: -12%;
@@ -283,24 +281,21 @@
   @media only screen and (max-width: 650px) {
     font-size: 50px;
   }
-  @media only screen and (max-width: 600px) {
-    font-size: 45px;
-  }
-  @media only screen and (max-width: 500px) {
-    font-size: 42px;
-    margin-bottom: 50px;
 
+  @media only screen and (max-width: 500px) {
+    font-size: 50px;
+    margin-bottom: 50px;
   }
   @media only screen and (max-width: 450px) {
-    font-size: 38px;
+    font-size: 50px;
   }
-  @media only screen and (max-width: 415px) {
-    font-size: 38px;
-  }
-  @media only screen and (max-width: 400px) {
-    font-size: 32px;
-    letter-spacing: -1.5px!important;
-  }
+  // @media only screen and (max-width: 415px) {
+  //   font-size: 38px;
+  // }
+  // @media only screen and (max-width: 400px) {
+  //   font-size: 32px;
+  //   letter-spacing: -1.5px!important;
+  // }
 }
 
 .texth2 {

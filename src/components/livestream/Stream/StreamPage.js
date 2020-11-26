@@ -133,9 +133,6 @@ class Stream extends React.Component {
       return <Redirect to={`/code`} />;
     }
   
-
-
-
     const handleDrawerOpen = () => {
       this.setState({open: true});
     };

@@ -38,7 +38,6 @@ class ViewStream extends React.Component {
     try {
       element.addEventListener("canplay", () => this.setState({showControls: true}));
       let title = this.props.siteStore.feeds[this.props.feedOption];
-      // let title = this.props.siteStore.activeTrailer;
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
 
@@ -82,9 +81,7 @@ class ViewStream extends React.Component {
 
       this.player = player;
       this.video = element;
-      if (this.props.feedOption == 2) {
-        this.props.siteStore.onFeed();
-      }
+
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
