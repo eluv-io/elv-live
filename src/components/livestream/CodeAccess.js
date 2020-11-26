@@ -18,10 +18,11 @@ class CodeAccess extends React.Component {
     super(props);
 
     this.state = {
-      code: this.props.rootStore.OTPCode,
+      code: "",
       email: "",
       name: "",
       loading: false,
+      loading2: false,
       email_placeholder: "Enter Your Email",
       code_placeholder: "Ticket Code",
       name_placeholder: "Enter Your Chat Name"
@@ -31,17 +32,28 @@ class CodeAccess extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
+
     return (
       <AsyncComponent
         Load={
           async () => {
-            
-            // await this.props.siteStore.LoadSite("iq__2d9aum1MAZK7aSVXp6vF8sk4EKU3", "");
+            const params = window.location.href;
+            let sessionIdShort = params.substr(params.length - 6); // => "Tabs1"
+            if (sessionIdShort != "scode=" && sessionIdShort != "#/code") {
+              this.setState({code: sessionIdShort});
+              this.setState({loading2: true});
+            }
+            else {
+              this.setState({loading2: true});
+            }
+
           } 
         }
 
         render={() => {
           if(!this.props.siteStore.client) { return null; }
+          if(!this.state.loading2) { return null; }
+
           if(this.state.siteId) {
             return <Redirect to={`/stream/${this.state.siteId}`} />;
           }
