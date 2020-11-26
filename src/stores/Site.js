@@ -183,7 +183,7 @@ class SiteStore {
     if(this.siteParams && this.siteParams.objectId === objectId) {
       return;
     }
-    // this.Reset();
+    this.Reset();
 
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
@@ -295,7 +295,6 @@ class SiteStore {
     }
 
     this.titleFeed = feedArr;
-    // console.log(this.titleFeed);
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
   
@@ -304,9 +303,11 @@ class SiteStore {
   SetFeed = flow(function * () {
     try {
       this.loading = true;
+      console.log(this.titleFeed);
       this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[0]));
       this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[1]));
       this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[2]));
+      console.log(this.feeds);
 
     } catch (error) {
       // eslint-disable-next-line no-console
