@@ -43,7 +43,7 @@
         <mj-text align="center" color="#FFF" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="0px" padding-top="10px">January 28th, 2021 - 8:00 PM PST</mj-text>
         <mj-text align="center" color="#FFF" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-top="25px" padding-bottom="10px"><strong>Ticket Code</strong></mj-text>
         <mj-text align="center" color="#FFF" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px" padding-top="10px">{{passcode}}</mj-text>
-        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="100px" href="https://live.eluv.io/#/code" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">Redeem Ticket</mj-button>
+        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="100px" href={{redeem-url}} font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">Redeem Ticket</mj-button>
       </mj-column>
 
     </mj-section>
