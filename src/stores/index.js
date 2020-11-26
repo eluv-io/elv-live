@@ -64,11 +64,11 @@ class RootStore {
     try {
       // Need to reinitialize client because tickets are on demo but site is on prod 
       // TODO: Have tickets and site on same config
-      let client
+      let client;
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
       client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      
-      this.accessCode = yield this.client.RedeemCode({
+
+      this.accessCode = yield client.RedeemCode({
         code: Token,
         email: email,
         ntpId: "QOTPZsAzK5pU7xe",
