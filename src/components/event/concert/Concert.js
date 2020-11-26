@@ -71,7 +71,6 @@ class Concert extends React.Component {
 
   Payment() {
 
-    
     return (
       
       <React.Fragment>

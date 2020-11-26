@@ -37,7 +37,8 @@ const styles = theme => ({
   root: {
     display: 'flex',
     background: "black",
-    height: "100vh"
+    height: "100vh",
+    overflow: "hidden"
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -76,6 +77,8 @@ const styles = theme => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
+    height: "75px",
+    minHeight: "56px"
   },
   content: {
     flexGrow: 1,
@@ -84,7 +87,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginRight: -drawerWidth,
-    height: "calc(100vh - 75px)"
+    height: "100vh"
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -92,7 +95,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginRight: 0,
-    height: "calc(100vh - 75px)"
+    height: "100vh"
   },
 });
 

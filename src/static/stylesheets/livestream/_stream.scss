@@ -115,10 +115,10 @@
   background-color: #000;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100% - 75px);
   width: 100%;
 
-  overflow: hidden !important;
+  // overflow: hidden !important;
   // @media only screen and (max-width: 1000px) {
   //   overflow: hidden !important;
   //   position: fixed;
@@ -141,9 +141,12 @@
     height: 100%;
     // width: calc(100vw - 450px);
     width: 100%;
-
+    @media only screen and (max-width: 500px) {
+      height: calc(100vh - 75px);
+    }
+    overflow: hidden !important;
     grid-template-columns: 100%;
-    grid-template-rows: calc(100% - 125px) 125px;
+    grid-template-rows: calc(100vh - 200px) 125px;
  
     // @media only screen and (max-width: 1250px) {
     //   width: calc(100vw - 375px);
@@ -204,9 +207,9 @@
       display: flex;
       align-content: center;
       justify-content: center;
-      // @media only screen and (max-width: 1000px) {
-      //   height: au;
-      // }
+      @media only screen and (max-width: 500px) {
+        height: calc(100% - 125px);
+      }
     }
 
     &--feedGrid { 

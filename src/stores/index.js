@@ -39,10 +39,6 @@ class RootStore {
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
       client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      // let wallet = client.GenerateWallet();
-      // let signer = wallet.AddAccountFromMnemonic({
-      //   mnemonic: wallet.GenerateMnemonic()
-      // });
       const wallet = client.GenerateWallet();
       const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
       client.SetSigner({signer});
@@ -68,22 +64,24 @@ class RootStore {
     try {
       // Need to reinitialize client because tickets are on demo but site is on prod 
       // TODO: Have tickets and site on same config
+      this.accessCode = yield this.client.RedeemCode({
+        code: Token,
+        email: email,
+        ntpId: "QOTPZsAzK5pU7xe",
+        tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
+      });
 
-      if (Token != "testelv") {
-        this.accessCode = yield this.client.RedeemCode({
-          "tenantId": "iten3tNEk7iSesexWeD1mGEZLwqHGMjB",
-          "ntpId": "QOTPZsAzK5pU7xe", 
-          "code": Token,
-          "email": email
-        });
-  
-        
-        if(!this.accessCode) {
-          this.SetError("Invalid code");
-          return false;
-        }
+      // this.accessCode = yield this.client.RedeemCode({
+      //   code: "AcUe5b",
+      //   email: "alec.jo@eluv.io",
+      //   ntpId: "QOTPZsAzK5pU7xe",
+      //   tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
+      // });
+
+      if(!this.accessCode) {
+        this.SetError("Invalid code");
+        return false;
       }
-
 
       if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");

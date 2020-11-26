@@ -287,7 +287,7 @@ class SiteStore {
         let entry = this.titles[i];
         let entryTitle;
         if(entry) {
-          console.log(entry[Object.keys(entry)[0]]);
+          // console.log(entry[Object.keys(entry)[0]]);
           entryTitle = yield this.LoadTitle(this.siteParams, entry[Object.keys(entry)[0]], `public/asset_metadata/titles/${i}/${entry[Object.keys(entry)[0]].slug}`);
           feedArr.push(entryTitle);
         }
@@ -295,7 +295,7 @@ class SiteStore {
     }
 
     this.titleFeed = feedArr;
-    console.log(this.titleFeed);
+    // console.log(this.titleFeed);
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
   
@@ -574,11 +574,6 @@ class SiteStore {
       params = this.siteParams;
       linkPath = title.playoutOptionsLinkPath;
     }
-    console.log("params:");
-    console.log(params);
-    console.log("linkPath:");
-    console.log(linkPath);
-
 
     let availableOfferings = yield this.client.AvailableOfferings({...params, linkPath});
     if(Object.keys(availableOfferings).length === 0) {

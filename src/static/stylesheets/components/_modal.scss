@@ -293,6 +293,9 @@
    opacity: 1;
    top: 7.5vh;
    visibility: visible;
+   @media only screen and (max-width: 1100px) {
+      top: 0;
+   }
  }
 .hide {
   display: none !important;
@@ -300,11 +303,10 @@
 
 .ticket-modal {
    background-color: transparent;
-   height: 90%;
+   height:auto;
    width: 87.5%;
    margin: auto;
-   // margin-top: 0%; 
-   // margin-bottom: 5%; 
+
 
    align-self: center;
 }
@@ -326,6 +328,13 @@
     align-items: center;
     align-content: center;
     background: transparent;
+    @media only screen and (max-width: 1100px) {
+      margin-left: 0vw;
+      margin-right: 0vw;
+      width: 100%;
+      height: 100%;
+
+   }
  
  
  //   @media only screen and (max-height: $bp-large) {
@@ -356,18 +365,23 @@
       width: 100%;
       align-self: center;
       // border-radius: 15px;
-      @media only screen and (max-width: $bp-medium-2) {
-         background: linear-gradient(90deg, #000 60%, transparent);
-      }
+      // @media only screen and (max-width: 1200px) {
+      //    background: linear-gradient(90deg, #000 60%, transparent);
+      // }
    
-      @media only screen and (max-width: $bp-medium) {
-         background: linear-gradient(90deg, #000 75%, transparent);
-      }
+      // @media only screen and (max-width: $bp-medium) {
+      //    background: linear-gradient(90deg, #000 75%, transparent);
+      // }
  
-      @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
-         background: linear-gradient(90deg, #000 100%, transparent);
-         padding-left: 2rem;
+      // @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
+      //    background: linear-gradient(90deg, #000 100%, transparent);
+      //    padding-left: 2rem;
+      //    width: 100%;
+      // }
+      @media only screen and (max-width: 1100px) {
+
          width: 100%;
+         height: auto;
       }
    
       }
