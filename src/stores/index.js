@@ -75,12 +75,6 @@ class RootStore {
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
 
-      // this.accessCode = yield this.client.RedeemCode({
-      //   code: "AcUe5b",
-      //   email: "alec.jo@eluv.io",
-      //   ntpId: "QOTPZsAzK5pU7xe",
-      //   tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
-      // });
 
       if(!this.accessCode) {
         this.SetError("Invalid code");

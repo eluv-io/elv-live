@@ -114,15 +114,29 @@ class Stream extends React.Component {
     if (selectedOption == 'all') {
       return (
         // TODO: For 'all' multiview, make all the streams play at the same time
+        // <div className="stream-container__streamBox--feedGrid">
+        //   <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
+        //   <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
+        //   <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
+        // </div>
         <div className="stream-container__streamBox--feedGrid">
-          <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
-          <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
-          <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
+          <div className="stream-container__streamBox--videobox1">
+            <ViewStream feedOption={0} classProp = "stream-container__streamBox--video" mutedOption = {true} showControls = {false}/>
+          </div>
+          <div className="stream-container__streamBox--videobox2">
+            <ViewStream feedOption={1} classProp = "stream-container__streamBox--video" mutedOption = {true} showControls = {false}/>
+          </div>
+          <div className="stream-container__streamBox--videobox3">
+            <ViewStream feedOption={2} classProp = "stream-container__streamBox--video" mutedOption = {true} showControls = {false}/>
+          </div>
         </div>
+
       );
     } else {
       return (
-        <ViewStream feedOption={selectedOption} classProp = "stream-container__streamBox--video" mutedOption = {false}/>
+        <div className="stream-container__streamBox--videoBox ">
+          <ViewStream feedOption={selectedOption} classProp = "stream-container__streamBox--video" mutedOption = {false} showControls = {true}/>
+        </div>
       );
     }
   }
