@@ -67,7 +67,8 @@ class RootStore {
       let client
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
       client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      this.accessCode = yield client.RedeemCode({
+      
+      this.accessCode = yield this.client.RedeemCode({
         code: Token,
         email: email,
         ntpId: "QOTPZsAzK5pU7xe",
