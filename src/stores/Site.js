@@ -280,19 +280,29 @@ class SiteStore {
       resolveIgnoreErrors: true
     }));
 
+    let feedArr = yield Promise.all(
+      (Object.keys(this.titles || {})).map(async titleIndex => {
+        const title = this.titles[titleIndex];
+        return await this.LoadTitle(
+          this.siteParams,
+          title[Object.keys(title)[0]], `public/asset_metadata/titles/${titleIndex}/${title[Object.keys(title)[0]].slug}`
+        );
+      })
+    );
 
-    let feedArr = [];
-    if (this.titles) {
-      for(let i = 0; i < 4 ; i++) {
-        let entry = this.titles[i];
-        let entryTitle;
-        if(entry) {
-          // console.log(entry[Object.keys(entry)[0]]);
-          entryTitle = yield this.LoadTitle(this.siteParams, entry[Object.keys(entry)[0]], `public/asset_metadata/titles/${i}/${entry[Object.keys(entry)[0]].slug}`);
-          feedArr.push(entryTitle);
-        }
-      }
-    }
+
+    // let feedArr = [];
+    // if (this.titles) {
+    //   for(let i = 0; i < 4 ; i++) {
+    //     let entry = this.titles[i];
+    //     let entryTitle;
+    //     if(entry) {
+    //       // console.log(entry[Object.keys(entry)[0]]);
+    //       entryTitle = yield this.LoadTitle(this.siteParams, entry[Object.keys(entry)[0]], `public/asset_metadata/titles/${i}/${entry[Object.keys(entry)[0]].slug}`);
+    //       feedArr.push(entryTitle);
+    //     }
+    //   }
+    // }
 
     this.titleFeed = feedArr;
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
@@ -302,12 +312,18 @@ class SiteStore {
   @action.bound
   SetFeed = flow(function * () {
     try {
-      this.loading = true;
-      console.log(this.titleFeed);
-      this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[0]));
-      this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[1]));
-      this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[2]));
-      console.log(this.feeds);
+
+      this.feeds = yield Promise.all([
+        this.LoadActiveTitle(this.titleFeed[0]),
+        this.LoadActiveTitle(this.titleFeed[1]),
+        this.LoadActiveTitle(this.titleFeed[2])
+      ]);
+      // this.loading = true;
+      // console.log(this.titleFeed);
+      // this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[0]));
+      // this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[1]));
+      // this.feeds.push(yield this.LoadActiveTitle(this.titleFeed[2]));
+      // console.log(this.feeds);
 
     } catch (error) {
       // eslint-disable-next-line no-console
