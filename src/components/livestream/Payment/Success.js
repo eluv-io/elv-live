@@ -39,7 +39,7 @@ class Success extends React.Component {
                 {/* <h1 className="code-reveal__ticket__ticketdetail">Ticket Code:</h1>
                 <h2 className="code-reveal__ticket__ticketdetail2">{this.props.rootStore.OTPCode} </h2> */}
                 <div className="sr-section completed-view">
-                  <Link to="/rita-ora/d457a576" className="btn2 btn2--darkblue buttonguy">Back To Event</Link>
+                  <Link to="/code" className="btn2 btn2--darkblue buttonguy">Redeem Code</Link>
                 </div>
               </div>
             </div>
