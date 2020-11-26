@@ -90,7 +90,7 @@ class Site extends React.Component {
         </div>
         <div className="hero-view-container">
           <div className="text">
-            <h1 className="texth1">Streaming the World's Events to You</h1>
+            <h1 className="texth1">Eluvio Live</h1>
             <h1 className="texth2">Beautiful Quality, Direct from Artist, Subscription Free</h1>
 
             <p className="textp" >
@@ -141,7 +141,7 @@ class Site extends React.Component {
         {/* {this.Content()} */}
         <div className="live-content">
           <div className="live-content__title" key={1}>
-            Live Events
+            Up Next
           </div>
           <div className="live-content__container" key={`container-1`}>
     
