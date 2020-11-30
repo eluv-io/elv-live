@@ -13,6 +13,7 @@ const letterNumber = /^[0-9a-zA-Z]+$/;
 
 class RootStore {
   @observable client;
+  @observable ticketClient;
 
   @observable email;
   @observable name;
@@ -38,7 +39,10 @@ class RootStore {
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+
       client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
+      this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
+
       const wallet = client.GenerateWallet();
       const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
       client.SetSigner({signer});
@@ -62,26 +66,18 @@ class RootStore {
   @action.bound
   RedeemCode = flow(function * (email, Token, name) {
     try {
-      // Need to reinitialize client because tickets are on demo but site is on prod 
-      // TODO: Have tickets and site on same config
-      let client;
-      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-
-      this.accessCode = yield client.RedeemCode({
+      this.accessCode = yield this.ticketClient.RedeemCode({
         code: Token,
         email: email,
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
 
-
       if(!this.accessCode) {
         this.SetError("Invalid code");
         return false;
       }
       
-
       if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
         return false;
