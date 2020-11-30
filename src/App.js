@@ -24,11 +24,6 @@ import "./static/stylesheets/main.scss";
 @observer
 @withRouter
 class Routes extends React.Component {
-  // componentDidUpdate(prevProps) {
-  //   if(this.props.location.pathname !== prevProps.location.pathname) {
-  //     this.props.rootStore.UpdateRoute(this.props.location.pathname);
-  //   }
-  // }
 
   render() {
     return (
@@ -44,39 +39,8 @@ class Routes extends React.Component {
         </Route> */}
       </Switch>
     );
-  //   return (
-  //     <AsyncComponent
-  //       Load={
-  //         async () => {
-  //           await this.props.siteStore.LoadSite("iq__x4HLAH3VbZCcD5ggMTiGF4yrMBg", "");
-  //         } 
-  //       }
-
-  //       render={() => {
-  //         if(!this.props.siteStore.client) { return null; }
-
-  //         return (
-  //           <Switch>
-  //             <Route exact path = "/test" component={Success} />
-
-  //             <Route exact path = "/d457a576" component={Site} />
-
-  //             <Route exact path = "/:name/d457a576" component={Concert} />
-  //             <Route exact path = "/d457a576/success" component={Success} />
-  //             <Route exact path = "/code" component={CodeAccess} />
-  //             <Route exact path = "/stream/:siteId" component={Stream} />
-
-  //             {/* <Route>
-  //               <Redirect to="/" />
-  //             </Route> */}
-  //           </Switch>
-  //         );
-  //       }}
-  //     />
-  //   );
-  }
-
-}
+  };
+};
 
 @inject("rootStore")
 @inject("siteStore")

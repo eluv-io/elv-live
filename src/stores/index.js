@@ -42,9 +42,10 @@ class RootStore {
 
       client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
       this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-
+  
       const wallet = client.GenerateWallet();
       const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
+  
       client.SetSigner({signer});
       this.client = client;
     } else {
@@ -107,35 +108,6 @@ class RootStore {
 
       this.SetError("Invalid code");
       return false;
-    }
-  });
-
-  @action.bound
-  CreateOTP = flow(function * (email) {
-    try {
-      // Need to reinitialize client because tickets are on demo but site is on prod
-      // TODO: Have tickets and site on same config
-
-      const wallet = this.client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
-      this.client.SetSigner({signer});
-      
-      let OTP = yield this.client.IssueNTPCode({
-        "tenantId": "iten3tNEk7iSesexWeD1mGEZLwqHGMjB",
-        "ntpId": "QOTPZsAzK5pU7xe", // need ntpId
-        "email": email
-      });
-      
-
-      this.OTPCode = OTP.token;
-      console.log(this.OTPCode);
-      return this.OTPCode;
-
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to createOTP:");
-      // eslint-disable-next-line no-console
-      console.error(error);
     }
   });
 
