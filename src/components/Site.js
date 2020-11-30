@@ -146,14 +146,13 @@ class Site extends React.Component {
           <div className="live-content__container" key={`container-1`}>
     
           <Card
-              key={0}
-              eventType={"concert"}
-              name={"Rita Ora"}
-              date={"January 28th, 2021 · 8:00 PM PST"}
-              description={"Streaming Live from the Eiffel Tower"}
-              icon={ritaHome}
-            />
-
+            key={0}
+            eventType={"concert"}
+            name={"Rita Ora"}
+            date={"January 28th, 2021 · 8:00 PM PST"}
+            description={"Streaming Live from the Eiffel Tower"}
+            icon={ritaHome}
+          />
           </div>
       </div>
 

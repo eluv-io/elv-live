@@ -169,7 +169,6 @@ class Stream extends React.Component {
       <AsyncComponent
         Load={async () => {
           await this.props.siteStore.LoadStreamSite("iq__2d9aum1MAZK7aSVXp6vF8sk4EKU3", "");
-          await this.props.siteStore.SetFeed();
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
@@ -183,47 +182,47 @@ class Stream extends React.Component {
                 })}
               >
                 <Toolbar>
-                <div className="stream-nav">
-                        <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
-                        <div className="stream-nav__button-grp">
-                          <Select
-                            className="stream-nav__dropdown"
-                            defaultValue={options[0]}
-                            options={options}
-                            onChange={handleChange}
-                            isDisabled={false}
-                            isLoading={false}
-                            isClearable={false}
-                            isSearchable={false}
-                            autoFocus={false}
-                          />
-                          <div className="stream-nav__button-grp2">
-                            <IconButton
-                              color="inherit"
-                              aria-label="open drawer"
-                              edge="end"
-                              onClick={handleDrawerOpen}
-                              className={clsx(this.state.open && classes.hide)}
-                              size="medium"
-                            >
-                              <MenuIcon />
-                            </IconButton>
+                  <div className="stream-nav">
+                    <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
+                    <div className="stream-nav__button-grp">
+                      <Select
+                        className="stream-nav__dropdown"
+                        defaultValue={options[0]}
+                        options={options}
+                        onChange={handleChange}
+                        isDisabled={false}
+                        isLoading={false}
+                        isClearable={false}
+                        isSearchable={false}
+                        autoFocus={false}
+                      />
+                      <div className="stream-nav__button-grp2">
+                        <IconButton
+                          color="inherit"
+                          aria-label="open drawer"
+                          edge="end"
+                          onClick={handleDrawerOpen}
+                          className={clsx(this.state.open && classes.hide)}
+                          size="medium"
+                        >
+                          <MenuIcon />
+                        </IconButton>
 
-                            <IconButton
-                              color="inherit"
-                              aria-label="close drawer"
-                              edge="end"
-                              onClick={handleDrawerClose}
-                              className={clsx(!(this.state.open) && classes.hide)}
-                              size="medium"
-                            >
-                              {<ChevronRightIcon />}
-                            </IconButton>
-                          </div>
-
-                        </div>
-                      </div>            
-                          </Toolbar>
+                        <IconButton
+                          color="inherit"
+                          aria-label="close drawer"
+                          edge="end"
+                          onClick={handleDrawerClose}
+                          className={clsx(!(this.state.open) && classes.hide)}
+                          size="medium"
+                        >
+                          {<ChevronRightIcon />}
+                        </IconButton>
+                      </div>
+                    </div>
+                  </div>            
+                </Toolbar>
+                
                 </AppBar>
                 <main
                   className={clsx(classes.content, {

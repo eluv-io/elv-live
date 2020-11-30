@@ -5,7 +5,7 @@ import rita2 from "../../../static/images/ritaora/ritaProf1.jpg";
 import rita3 from "../../../static/images/ritaora/ritaProf1.jpg";
 
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
-import Feed from "react-instagram-authless-feed";
+// import Feed from "react-instagram-authless-feed";
 import { FaDesktop, FaYoutube, FaInstagram,FaTwitter,FaFacebookSquare,FaSoundcloud, FaApple, FaSpotify} from "react-icons/fa";
 import { IconContext } from "react-icons";
 
