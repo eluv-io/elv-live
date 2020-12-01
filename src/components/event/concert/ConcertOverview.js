@@ -1,8 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {ImageIcon} from "elv-components-js";
-import {Link} from "react-router-dom";
-import poster from "../../../static/images/livePOSTER.jpg";
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
 import Tickets from "../../livestream/Payment/Tickets";
 

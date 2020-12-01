@@ -58,12 +58,7 @@ const DEFAULT_SITE_CUSTOMIZATION = {
 
 class SiteStore {
   @observable siteCustomization;
-  @observable stream;
-  @observable streamPlay;
   @observable feeds = [];
-  @observable titleFeed = [];
-  @observable showFeed = false;
-  @observable stream;
 
   @observable titles;
 
@@ -120,22 +115,6 @@ class SiteStore {
   @observable loading = false;
 
   @action.bound
-  PlayTitle = flow(function * (title) {
-    try {
-      this.loading = true;
-
-      yield this.SetActiveTitle(title);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
-  });
-
-  @action.bound
   Reset() {
     this.assets = {};
 
@@ -177,7 +156,7 @@ class SiteStore {
       .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
-  // Loading Site Customization/Assests 
+  // Loading Site Customization
   @action.bound
   LoadSite = flow(function * (objectId, writeToken) {
     if(this.siteParams && this.siteParams.objectId === objectId) {
@@ -259,6 +238,7 @@ class SiteStore {
     this.siteHash = yield this.LoadAsset("public/asset_metadata");
   });
 
+  // Loading streams/titles from objectId and placing them into this.feeds for multiview selection
   @action.bound
   LoadStreamSite = flow(function * (objectId, writeToken) {
     this.siteParams = {
@@ -270,6 +250,7 @@ class SiteStore {
     const sitePromise = this.LoadAsset("public/asset_metadata");
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
+
     this.titles = (yield this.client.ContentObjectMetadata({
       ...this.siteParams,
       metadataSubtree: "public/asset_metadata/titles",
@@ -277,7 +258,9 @@ class SiteStore {
       resolveIncludeSource: true,
       resolveIgnoreErrors: true
     }));
+
     this.siteHash = yield sitePromise;
+
     this.feeds = yield Promise.all(
       (Object.keys(this.titles || {})).map(async titleIndex => {
         const title = this.titles[titleIndex];
@@ -289,13 +272,13 @@ class SiteStore {
       })
     );
   });
-  
+
   @action.bound
-  PlayTrailer = flow(function * (title) {
+  PlayTitle = flow(function * (title) {
     try {
       this.loading = true;
 
-      yield this.SetActiveTrailer(title);
+      this.activeTitle = yield this.SetActiveTitle(title);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load title:");
@@ -305,10 +288,22 @@ class SiteStore {
       this.loading = false;
     }
   });
+  
 
   @action.bound
-  SetActiveTrailer = flow(function * (title) {
-    this.activeTrailer = yield this.LoadActiveTitle(title);
+  PlayTrailer = flow(function * (title) {
+    try {
+      this.loading = true;
+
+      this.activeTrailer = yield this.LoadActiveTitle(title);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load title:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
   });
 
   @action.bound
@@ -402,7 +397,6 @@ class SiteStore {
     }
 
     title.displayTitle = title.display_title || title.title || "";
-    // console.log(title.displayTitle);
     title.versionHash = title["."] ? title["."].source : params.versionHash;
     title.objectId = this.client.utils.DecodeVersionHash(title.versionHash).objectId;
 
@@ -576,21 +570,6 @@ class SiteStore {
     return title;
   });
 
-  @action.bound
-  SetActiveTitle = flow(function * (title) {
-    this.streamPlay = yield this.LoadActiveTitle(title);
-  });
-
-  @action.bound
-  SetActiveTrailer = flow(function * (title) {
-    this.activeTrailer = yield this.LoadActiveTitle(title);
-  });
-
-  //FOR VIDEO FEATURE
-  @action.bound
-  SetVideoFeature = flow(function * (title) {
-    return yield this.LoadActiveTitle(title);
-  });
 
   @action.bound
   SearchTitles = flow(function * ({query}) {
@@ -678,12 +657,6 @@ class SiteStore {
   @action.bound
   ClearActiveTitle() {
     this.activeTitle = undefined;
-  }
-
-  @action.bound
-  onFeed() {
-    setTimeout(() => {  console.log("WAITING"); }, 3000);
-    this.showFeed = true; 
   }
 
   @action.bound
