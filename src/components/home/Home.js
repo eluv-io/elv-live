@@ -4,10 +4,10 @@ import {withRouter} from "react-router";
 import { Link } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 
-import Card from "./livestream/Card";
-import Logo from "../static/images/Logo.png";
-import ritaHero from "../static/images/ritaora/hero5.jpg";
-import ritaHome from "../static/images/ritaora/rita-home.jpg";
+import Card from "./Card";
+import Logo from "../../static/images/Logo.png";
+import ritaHero from "../../static/images/ritaora/hero5.jpg";
+import ritaHome from "../../static/images/ritaora/rita-home.jpg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -81,28 +81,28 @@ class Site extends React.Component {
 
   HeroView() {
     return (
-      <div className="divbody">
-        <div className="block">
+      <div className="hero-view">
+        <div className="hero-view-background">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
         </div>
         <div className="hero-view-container">
-          <div className="text">
-            <h1 className="texth1">Eluvio Live</h1>
-            <h1 className="texth2">Beautiful Quality, Direct from Artist, Subscription Free</h1>
+          <div className="hero-text">
+            <h1 className="hero-texth1">Eluvio Live</h1>
+            <h1 className="hero-texth2">Beautiful Quality, Direct from Artist, Subscription Free</h1>
 
-            <p className="textp" >
+            <p className="hero-textp">
             Purchase tickets and stream the most iconic concerts, premieres, and broadcasts.
             </p>
-            <p className="textp" >
-              Enabled by the <a className="texta" href="https://eluv.io/" target="_blank">Eluvio Content Fabric</a>, the world’s first decentralized and most advanced technology platform for internet video. 
+            <p className="hero-textp">
+              Enabled by the <a className="hero-texta" href="https://eluv.io/" target="_blank">Eluvio Content Fabric</a>, the world’s first decentralized and most advanced technology platform for internet video. 
             </p>
           </div>
 
-          <div className="img-wrapper">
-            <img className="actual-img" src={ritaHero} />
+          <div className="hero-img-wrapper">
+            <img className="hero-img" src={ritaHero} />
             <h4 className="photo-heading">
               <span className="photo-heading-span">RITA ORA</span>
             </h4>
@@ -140,7 +140,7 @@ class Site extends React.Component {
         {/* Content from Site Customization */}
         {/* {this.Content()} */}
         <div className="live-content">
-          <div className="live-content__title" key={1}>
+          <div className="live-content__title" key={`title-1`}>
             Up Next
           </div>
           <div className="live-content__container" key={`container-1`}>

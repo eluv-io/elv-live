@@ -27,11 +27,24 @@ class CodeAccess extends React.Component {
       code_placeholder: "Ticket Code",
       name_placeholder: "Enter Your Chat Name"
     };
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleCodeChange = this.handleCodeChange.bind(this);
+
   }
   componentDidMount() {
     const parsed = parse(this.props.location.search);
     this.setState({code: parsed.passcode});
     this.setState({email: parsed.email});
+  }
+  handleNameChange(event) {
+    this.setState({name: event.target.value});
+  }
+  handleEmailChange(event) {
+    this.setState({email: event.target.value});
+  }
+  handleCodeChange(event) {
+    this.setState({code: event.target.value});
   }
 
   render() {
@@ -80,7 +93,7 @@ class CodeAccess extends React.Component {
               onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}
               placeholder={this.state.name_placeholder}
               value={this.state.name}
-              onChange={event => this.setState({name: event.target.value})}
+              onChange={this.handleNameChange} 
               onKeyPress={onEnterPressed(Submit)}
             />
             <input
@@ -88,7 +101,7 @@ class CodeAccess extends React.Component {
               onBlur={() => this.setState({email_placeholder: "Enter Your Email"})}
               placeholder={this.state.email_placeholder}
               value={this.state.email}
-              onChange={event => this.setState({email: event.target.value})}
+              onChange={this.handleEmailChange} 
               onKeyPress={onEnterPressed(Submit)}
             />
             <input
@@ -96,7 +109,7 @@ class CodeAccess extends React.Component {
               onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
               placeholder={this.state.code_placeholder}
               value={this.state.code}
-              onChange={event => this.setState({code: event.target.value})}
+              onChange={this.handleCodeChange} 
               onKeyPress={onEnterPressed(Submit)}
             />
             <button onClick={Submit} title="Submit">NEXT</button>

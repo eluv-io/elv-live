@@ -34,8 +34,8 @@ export default class Timer extends Component {
           <div>
             <FaRegClock />
             <span >
-            {days}:{hours}:{minutes}:{seconds}
-          </span>
+              {days}:{hours}:{minutes}:{seconds}
+            </span>
           </div>
         </IconContext.Provider>
       );

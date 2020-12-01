@@ -32,36 +32,34 @@ class Concert extends React.Component {
     // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
     // let featuredTitle = eventInfo.stream;
     // this.props.siteStore.PlayTrailer(featuredTitle);
-
       return (
         <React.Fragment>
-        
-        <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
+          <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
 
-        <div className="modal show" >
-          <ImageIcon
-            key={`back-icon-Close Modal`}
-            className={"back-button__modal"}
-            title={"Close Modal"}
-            icon={CloseIcon}
-            onClick={() => this.setState({showTrailer: false})}
-          />
+          <div className="modal show" >
+            <ImageIcon
+              key={`back-icon-Close Modal`}
+              className={"back-button__modal"}
+              title={"Close Modal"}
+              icon={CloseIcon}
+              onClick={() => this.setState({showTrailer: false})}
+            />
 
-          <div className={`modal__container`}>          
-            
-            <iframe 
-              width="100%" 
-              height="100%"
-              src="https://www.youtube.com/embed/FS07b8EUlCs" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen
-            >
-              </iframe>
-         
+            <div className={`modal__container`}>          
+              
+              <iframe 
+                width="100%" 
+                height="100%"
+                src="https://www.youtube.com/embed/FS07b8EUlCs" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+              >
+                </iframe>
+          
+            </div>
           </div>
-        </div>
-      </React.Fragment>
+       </React.Fragment>
       )
     
 
@@ -72,9 +70,7 @@ class Concert extends React.Component {
     return (
       
       <React.Fragment>
-        
         <div onClick={() => this.setState({showPayment: false})} className="backdrop" />
-
         <div className="modal2 show2" >
           <ImageIcon
             key={`back-icon-Close Modal`}
@@ -83,7 +79,6 @@ class Concert extends React.Component {
             icon={CloseIcon}
             onClick={() => this.setState({showPayment: false})}
           />
-
           <div className={`modal2__container`}>   
             <div className="ticket-modal">
               <Tickets/>
@@ -100,13 +95,11 @@ class Concert extends React.Component {
     //   return <Redirect to='/'/>;
     // }
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    
     let thumbnail = heroImg;
-
-    // const backgroundColor =  this.props.siteStore.siteCustomization.colors.background;
     const backgroundColor =  "#000321";
     const backgroundHelp =  "#000112";
     const backgroundHelp2 =  "#00010a";
-
     const blackColor =  "#000000";
 
     const backgroundColor1 =  backgroundColor + "00";

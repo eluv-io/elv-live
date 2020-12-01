@@ -1,19 +1,14 @@
 import React from "react";
-import {inject, observer} from "mobx-react";
 import merchFront from "../../static/images/ritaora/merchFront.jpg";
 import merchBack from "../../static/images/ritaora/merchBack.jpg";
 import merchFront2 from "../../static/images/ritaora/merchFront2.jpg";
 import merchBack2 from "../../static/images/ritaora/merchBack2.jpg";
 import merchFront3 from "../../static/images/ritaora/merchFront3.jpg";
 import merchBack3 from "../../static/images/ritaora/merchBack3.jpg";
-@inject("rootStore")
-@inject("siteStore")
-@observer
-class Merch extends React.Component {
 
+class Merch extends React.Component {
   render() {
     return (
-
         <div className={"merch-container"}>
           <a href="https://store.ritaora.com/products/phoenix-tour-tee-black" target="_blank" className="merch-item">
             <img className="merch-image" src={merchFront} label="merchFront" onMouseOver={e => (e.currentTarget.src =merchBack)} onMouseOut={e => (e.currentTarget.src =merchFront)}/>
@@ -59,7 +54,6 @@ class Merch extends React.Component {
             </div>
           </a>
         </div>
-
     );
   }
 }

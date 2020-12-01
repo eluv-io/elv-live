@@ -5,7 +5,7 @@ import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 
-import Site from "./components/Site";
+import Site from "./components/home/Home";
 import CodeAccess from "./components/livestream/CodeAccess";
 import Concert from "./components/event/concert/Concert";
 import Stream from "./components/livestream/stream/StreamPage";

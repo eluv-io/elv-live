@@ -9,18 +9,6 @@ import {Link} from "react-router-dom";
 class Card extends React.Component {
 
   render() {
-    let eventType;
-    // console.log(this.props.eventType);
-    if (this.props.eventType < 2) {
-      eventType = "concert";
-    } 
-    else if (this.props.eventType < 6) {
-      eventType = "film";
-    } 
-    else {
-      eventType = "series";
-    }
-
     return (
         <div className="card">
           <div className="card__side card__side--front">

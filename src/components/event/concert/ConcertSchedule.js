@@ -7,15 +7,8 @@ import {Link} from "react-router-dom";
 @inject("siteStore")
 @observer
 class ConcertSchedule extends React.Component {
-  // componentDidMount() {
-  //   window.scrollTo(0, 0);
-  // }
-
   render() {
-    // if (!this.props.siteStore.eventAssets.has(this.props.name)) {
-    //   return <Redirect to='/'/>;
-    // }
-    
+
     let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
 
     return (

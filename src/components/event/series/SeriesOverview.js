@@ -17,24 +17,24 @@ class SeriesOverview extends React.Component {
     const Maybe = (value, render) => value ? render() : null;
 
     return (
-      <div className={`premiereTabs__container`}>
+      <div className={`tabs__container`}>
         {/* <ImageIcon 
           icon={eventInfo.portraitUrl || title.imageUrl || title.landscapeUrl } 
-          className="premiereTabs__container__poster" 
+          className="tabs__container__poster" 
           title="Poster" 
         /> */}
 
-        <div className="premiereTabs__container__info">
+        <div className="tabs__container__info">
           <h1 className="h1Props">{ eventInfo.name }</h1>
 
           {Maybe(
             titleInfo.synopsis,
-            () => <div className="premiereTabs__container__info__synopsis">{ eventInfo.description }</div>
+            () => <div className="tabs__container__info__synopsis">{ eventInfo.description }</div>
           )}
-          <div className="premiereTabs__container__info__details-section">
+          <div className="tabs__container__info__details-section">
             {Maybe(
               titleInfo.talent && titleInfo.talent.cast,
-              () => <div className="premiereTabs__container__info__detail">
+              () => <div className="tabs__container__info__detail">
                 <label>Cast: </label>
                 {/* &nbsp; */}
                 { titleInfo.talent.cast.slice(0, 5).map(actor => `${actor.talent_first_name} ${actor.talent_last_name}`).join(", ") }
@@ -42,7 +42,7 @@ class SeriesOverview extends React.Component {
             )}
             {Maybe(
               titleInfo.runtime,
-              () => <div className="premiereTabs__container__info__detail">
+              () => <div className="tabs__container__info__detail">
                 <label>Runtime: </label>
                 {/* &nbsp; */}
                 { titleInfo.runtime } minutes
@@ -50,14 +50,14 @@ class SeriesOverview extends React.Component {
             )}
             {/* {Maybe(
               titleInfo.release_date,
-              () => <div className="premiereTabs__container__info__detail">
+              () => <div className="tabs__container__info__detail">
                 <label>Release Date</label>
                 { new Date(titleInfo.release_date).toLocaleDateString("en-US", {year: "numeric", month: "long", day: "numeric"}) }
               </div>
             )} */}
             {Maybe(
               titleInfo.creator,
-              () => <div className="premiereTabs__container__info__detail">
+              () => <div className="tabs__container__info__detail">
                 <label>Creators: </label>
                 {/* &nbsp; */}
                 { titleInfo.creator }
@@ -66,7 +66,7 @@ class SeriesOverview extends React.Component {
           </div>
           {Maybe(
             titleInfo.copyright,
-            () => <div className="premiereTabs__container__info__copyright">
+            () => <div className="tabs__container__info__copyright">
               { titleInfo.copyright.toString().startsWith("©") ? "" : "©" } { titleInfo.copyright.toString() }
             </div>
           )}

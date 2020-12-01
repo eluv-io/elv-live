@@ -1,0 +1,110 @@
+
+.tabs {
+  position: relative;
+  height: max-content !important;
+  width: 100%;
+
+  &__container {
+      display: flex;
+      height: max-content !important;
+      padding-top: 10rem;
+      width: 75vw;
+      @media only screen and (max-width: $bp-large) {
+          flex-direction: column;
+      }
+
+      &__dropdown {
+          margin-top: 2rem;
+          width: 20rem;
+      }
+
+      &__merch {
+          width: 100%;
+          height: 100%;
+      }
+
+      &__poster {
+          align-self: flex-start;
+          height: auto;
+          max-height: 70vh;
+          max-width: 40vw;
+          object-fit: contain;
+          object-position: center;
+          width: 70rem;
+          @media only screen and (max-width: $bp-large) {
+              align-self: center;
+              max-width: 100vw;
+          }
+      }
+
+      &__info {
+          margin-left: 50px;
+          padding: 0 $elv-spacing-m $elv-spacing-l $elv-spacing-l;
+          @media only screen and (max-width: $bp-large) {
+              margin-left: 0;
+              margin-right: 0;
+          }
+
+          * {
+              color: #fff;
+              font-size: 18px;
+              font-weight: 300;
+          }
+      
+          .h1Props {
+              font-size: 70px !important;
+              color: white;
+              text-shadow: white 0px 0px 3px;
+              text-transform: uppercase;
+              letter-spacing: 6px;
+              -webkit-user-select: none; /* Safari */
+              -ms-user-select: none; /* IE 10+ and Edge */
+              user-select: none; /* Standard syntax */
+              margin: auto;
+              font-weight: 700 !important;
+              margin-bottom: $elv-spacing-m;
+              width: 100%;
+              text-align: center;
+          }
+      
+          &__synopsis {
+              text-align: left;
+              font-size: 24px;
+          }
+      
+          &__details-section {
+              border-radius: $elv-spacing-xxs;
+              margin: $elv-spacing-m 0;
+              padding: $elv-spacing-m 0;
+      
+              &:not(:empty) {
+                  border-bottom: 2px solid #7f7f7f;
+                  border-top: 2px solid #7f7f7f;
+                  
+              }
+          }
+      
+          &__detail {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: $elv-spacing-s;
+              width: 100%;
+              * {
+                  line-height: $elv-spacing-l;
+                  padding: $elv-spacing-xs 0;
+              }
+          
+              label {
+                  color: white;
+                  font-weight: bold;
+                  font-size: 18px;
+              }
+          }
+      
+          &__copyright {
+              color: white;
+              text-transform: capitalize;
+          }
+      }
+  }
+}

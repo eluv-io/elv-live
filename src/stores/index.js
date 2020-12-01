@@ -38,7 +38,7 @@ class RootStore {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
       client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-      this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      // this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
   
       const wallet = client.GenerateWallet();
       const signer = wallet.AddAccount({privateKey: EluvioConfiguration["wallet-private-key"]});
@@ -70,13 +70,16 @@ class RootStore {
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
-      console.log("this.accessCode");
-      console.log(this.accessCode);
 
       if(!this.accessCode) {
         this.SetError("Invalid code");
         return false;
       }
+
+      const wallet = this.client.GenerateWallet();
+      const signer = wallet.AddAccount({privateKey: EluvioConfiguration["wallet-private-key"]});
+
+      this.client.SetSigner({signer});
       
       if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
@@ -91,7 +94,7 @@ class RootStore {
       // this.email = email;
       this.name = name;
 
-      return `rita-ora`;
+      return this.accessCode;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
