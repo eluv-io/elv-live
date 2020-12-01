@@ -381,6 +381,7 @@ class SiteStore {
       logoUrl = this.CreateLink(baseLinkUrl, UrlJoin("images", "logo", "default"));
     }
 
+
     imageUrl = await this.client.ContentObjectImageUrl({versionHash});
 
     return {

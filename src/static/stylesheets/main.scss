@@ -8,16 +8,12 @@
 @import "pages/reset";
 
 // //COMPONENTS
-@import "components/premiere";
 @import "components/backdrop";
 @import "components/modal";
 @import "components/site-selector";
 @import "components/button";
 @import "components/swiper";
 @import "components/view-video";
-@import "components/countdown";
-@import "components/hero-grid";
-@import "components/feature";
 @import "components/title-grid";
 @import "components/code-entry";
 @import "components/active-title";
@@ -28,6 +24,9 @@
 @import "livestream/event";
 @import "livestream/card";
 @import "livestream/payment";
+@import "livestream/merch";
+@import "livestream/button";
+@import "livestream/tabs";
 
 //LAYOUT
 @import "layout/navigation";

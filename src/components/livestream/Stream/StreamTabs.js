@@ -53,6 +53,9 @@ export default function IconLabelTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  // const handleChange = e => {
+  //   this.setState({tab: e.value});
+  // }
 
   return (
     <div className="stream-container__tabs">

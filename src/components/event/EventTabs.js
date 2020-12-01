@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -9,17 +10,9 @@ import InfoIcon from '@material-ui/icons/Info';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import Paper from '@material-ui/core/Paper';
 
-// import LiveChat from "./LiveChat";
-// import FanWall from './FanWall';
-import FilmOverview from "./film/FilmOverview";
-import Merch from "./Merch";
-import Schedule from "./series/SeriesSchedule";
-import ConcertSchedule from "./concert/ConcertSchedule";
 import ConcertOverview from "./concert/ConcertOverview";
-
 import ArtistInfo from "./concert/ArtistInfo";
-
-import SeriesOverview from "./series/SeriesOverview";
+import Merch from "./Merch";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,8 +49,6 @@ const styles = theme => ({
   },
 });
 
-
-
 class EventTabs extends React.Component {
   constructor(props) {
     super(props);
@@ -66,48 +57,16 @@ class EventTabs extends React.Component {
       tab: 0,
     };
   }
-
-  ScheduleManager(type) {
-
-    if (type == "series") {
-      return (
-        <TabPanel value={this.state.tab} index={1}>
-          <Schedule name={this.props.name} />
-        </TabPanel>
-      )
-    } 
-    // else if (type == "concert") {
-    //   return (
-    //       <TabPanel value={this.state.tab} index={2}>
-    //         <ConcertSchedule name={this.props.name} />
-    //       </TabPanel>
-
-    //   )
-    // } 
-    else {
-      return null;
-    }
-  }
   
   render() {
-    // const classes = useStyles();
-    // const [value, setValue] = React.useState(0);
     const { classes } = this.props;
 
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
     };
-    let showSchedule = 1;
-    if (this.props.type == "concert") {
-      showSchedule = 2; 
-    }
-    if (this.props.type == "series") {
-      showSchedule = 2; 
-    }
-
 
     return (
-      <div className="premiereTabs">
+      <div className="tabs">
         <Paper square className={classes.root}>
           <Tabs
             value={this.state.tab}
@@ -120,29 +79,23 @@ class EventTabs extends React.Component {
             }}
           >
             <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>EVENT</span>} />
-            {this.props.type == "concert" ? <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />: null}
-            {this.props.type == "series" ? <Tab icon={<ScheduleIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>{"EPISODE SCHEDULE"}</span>} /> : null}
+            <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />
             <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
-
           </Tabs>
           
           <TabPanel value={this.state.tab} index={0}>
-            {this.props.type == "concert" ? <ConcertOverview title={this.props.title} name={this.props.name}/> :  this.props.type == "film"  ? <FilmOverview title={this.props.title} name={this.props.name}/> : <SeriesOverview title={this.props.title} name={this.props.name}/>}
+            <ConcertOverview title={this.props.title} name={this.props.name}/>
           </TabPanel>
-          {this.props.type == "concert" ? 
-            <TabPanel value={this.state.tab} index={1}>
-              <ArtistInfo title={this.props.title} name={this.props.name}/>    
-            </TabPanel>: null
-          }
-          {this.ScheduleManager(this.props.type)}
-          <TabPanel value={this.state.tab} index={showSchedule}>
+          <TabPanel value={this.state.tab} index={1}>
+            <ArtistInfo title={this.props.title} name={this.props.name}/>    
+          </TabPanel>
+          <TabPanel value={this.state.tab} index={2}>
             <Merch name={this.props.name}/>
           </TabPanel>
-
         </Paper>
       </div>
     );
-        }
+  }
 }
 EventTabs.propTypes = {
   classes: PropTypes.object.isRequired,

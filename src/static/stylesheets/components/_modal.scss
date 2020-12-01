@@ -1,14 +1,13 @@
 .modal {
   box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
-  //  height: 52rem;
+
    height: 600px;
    position: fixed;
-   // margin: auto;
+
    width: 75vw;
    margin-left: 12.5vw;
    margin-right: 12.5vw;
-   // margin-top: calc(calc(100vh - 600px)/2);
-   // margin-bottom: calc(100vh - 600px);
+
 
    z-index: 5000;
    display: flex;
@@ -17,27 +16,6 @@
    align-content: center;
    background: transparent;
 
-
-//   @media only screen and (max-height: $bp-large) {
-//      height: 55vh;
-//      transform: translateY(-2.5vh);
-//   }
-  
-//   @media only screen and (max-height: $bp-medium-2) {
-//      height: 60vh;
-//      transform: translateY(-5vh);
-//   }
-  
-//   @media only screen and (max-height: $bp-medium) {
-//      height: 65vh;
-//      transform: translateY(-7.5vh);
-//   }
-  
-//   @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
-//      height: 100vh;
-//      transform: translateY(-25vh);
-//   }
-  
 
   
   &__container {
@@ -603,4 +581,21 @@
       }
    }
  }  
-   
+
+ .modalTrailer {
+   background-color: $elv-color-black;
+   cursor: pointer;
+   height: 600px;
+ 
+   video {
+     // background-color: $elv-color-black;
+     cursor: pointer;
+     height: 600px;
+     object-fit: cover;
+     width: 100%;
+   }
+ }
+ 
+ .hide {
+   display: none !important;
+ }

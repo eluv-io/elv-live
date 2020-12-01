@@ -23,7 +23,7 @@ class ArtistInfo extends React.Component {
       <div className={"artist-profile-container"}>
         {/* <ImageIcon 
           icon={title.portraitUrl || title.imageUrl || title.landscapeUrl } 
-          className="premiereTabs__container__poster" 
+          className="tabs__container__poster" 
           title="Poster" 
         /> */}
         {/* <div className="info-group"> */}
