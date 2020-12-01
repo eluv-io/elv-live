@@ -1,7 +1,6 @@
 import {configure, observable, action, flow, runInAction} from "mobx";
 import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
 import SiteStore from "./Site";
-import { StreamChat } from "stream-chat";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -12,8 +11,8 @@ const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0
 const letterNumber = /^[0-9a-zA-Z]+$/;
 
 class RootStore {
-  @observable client;
-  @observable ticketClient;
+  @observable client = undefined;
+  @observable ticketClient = undefined;
 
   @observable email;
   @observable name;
@@ -24,7 +23,6 @@ class RootStore {
   @observable redirectCB;
 
   @observable error = "";
-  @observable OTPCode;
 
   constructor() {
     this.InitializeClient();
@@ -33,22 +31,21 @@ class RootStore {
 
   @action.bound
   InitializeClient = flow(function * () {
-    this.client = undefined;
 
     let client;
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
-      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
+      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
   
       const wallet = client.GenerateWallet();
-      const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
-  
+      const signer = wallet.AddAccount({privateKey: EluvioConfiguration["wallet-private-key"]});
+
       client.SetSigner({signer});
-      this.client = client;
     } else {
+      console.log("frame client build");
       // Contained in IFrame
       client = new FrameClient({
         target: window.parent,
@@ -67,12 +64,14 @@ class RootStore {
   @action.bound
   RedeemCode = flow(function * (email, Token, name) {
     try {
-      this.accessCode = yield this.ticketClient.RedeemCode({
+      this.accessCode = yield this.client.RedeemCode({
         code: Token,
         email: email,
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
+      console.log("this.accessCode");
+      console.log(this.accessCode);
 
       if(!this.accessCode) {
         this.SetError("Invalid code");
@@ -89,17 +88,10 @@ class RootStore {
         return false;
       }
 
-      this.email = email;
+      // this.email = email;
       this.name = name;
 
-      let chatClient = new StreamChat('xpkg6xgvwrnn');
-      const token = chatClient.devToken(name);
-      chatClient.setUser({ id: name, name: name,
-        image: `https://getstream.io/random_svg/?name=${name}` }, token);
-
-      this.chatClient = chatClient;
-
-      return "rita-ora";
+      return `rita-ora`;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
@@ -111,6 +103,7 @@ class RootStore {
     }
   });
 
+  // Coinbase Charge Creation. Currently not in use
   @action.bound
   CreateCharge = flow(function * (name, description, price) {
     try {

@@ -7,15 +7,13 @@ import * as Stores from "./stores";
 
 import Site from "./components/Site";
 import CodeAccess from "./components/livestream/CodeAccess";
-
 import Concert from "./components/event/concert/Concert";
-import FilmRelease from "./components/event/film/FilmRelease";
-import Series from "./components/event/series/Series";
-
 import Stream from "./components/livestream/stream/StreamPage";
-
 import Success from "./components/livestream/payment/Success";
-import AsyncComponent from "./components/support/AsyncComponent";
+
+// import AsyncComponent from "./components/support/AsyncComponent";
+// import FilmRelease from "./components/event/film/FilmRelease";
+// import Series from "./components/event/series/Series";
 
 import "./static/stylesheets/main.scss";
 

@@ -1,11 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import rita1 from "../../../static/images/ritaora/ritaConcert.jpg";
-import rita2 from "../../../static/images/ritaora/ritaProf1.jpg";
-import rita3 from "../../../static/images/ritaora/ritaProf1.jpg";
+import rita1 from "../../../static/images/ritaora/hero4.jpg";
+import rita2 from "../../../static/images/ritaora/hero2.jpg";
 
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
-// import Feed from "react-instagram-authless-feed";
 import { FaDesktop, FaYoutube, FaInstagram,FaTwitter,FaFacebookSquare,FaSoundcloud, FaApple, FaSpotify} from "react-icons/fa";
 import { IconContext } from "react-icons";
 

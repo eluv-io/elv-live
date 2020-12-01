@@ -106,19 +106,15 @@ class Stream extends React.Component {
 
   state = {
     selectedOption: options[0].value,
-    open: false
+    open: false,
+    name: ""
   };
+
 
 
   renderFeed(selectedOption) {
     if (selectedOption == 'all') {
       return (
-        // TODO: For 'all' multiview, make all the streams play at the same time
-        // <div className="stream-container__streamBox--feedGrid">
-        //   <ViewStream feedOption={0} classProp = "stream-container__streamBox--video1" mutedOption = {true}/>
-        //   <ViewStream feedOption={1} classProp = "stream-container__streamBox--video2" mutedOption = {true}/>
-        //   <ViewStream feedOption={2} classProp = "stream-container__streamBox--video3" mutedOption = {true}/>
-        // </div>
         <div className="stream-container__streamBox--feedGrid">
           <div className="stream-container__streamBox--videobox1">
             <ViewStream feedOption={0} classProp = "stream-container__streamBox--video" mutedOption = {true} showControls = {false}/>
@@ -134,7 +130,7 @@ class Stream extends React.Component {
       );
     } else {
       return (
-        <div className="stream-container__streamBox--videoBox ">
+        <div className="stream-container__streamBox--videoBox">
           <ViewStream feedOption={selectedOption} classProp = "stream-container__streamBox--video" mutedOption = {false} showControls = {true}/>
         </div>
       );

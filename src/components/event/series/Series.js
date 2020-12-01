@@ -3,15 +3,8 @@ import {inject, observer} from "mobx-react";
 import PremiereTabs from "../EventTabs";
 import {ImageIcon} from "elv-components-js";
 import CloseIcon from "../../../static/icons/x.svg";
-import MaskedLogo from "../../../static/images/maskedLogo.png"
 import {Redirect} from "react-router";
-
-// import NavigationBar from "../navigation/NavigationBar";
-import styled from "styled-components";
 import Trailer from "../Trailer";
-import {
-  Link
-} from "react-router-dom";
 
 const FormatName = (name) => {
   return (name || "")
@@ -107,7 +100,7 @@ class Series extends React.Component {
       height: "100%",
     };
 
-    const customLogo = MaskedLogo;
+    const customLogo = null;
 
     return (
       <div className="home-container">
