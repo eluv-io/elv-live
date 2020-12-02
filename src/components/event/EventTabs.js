@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 
 import ConcertOverview from "./concert/ConcertOverview";
 import ArtistInfo from "./concert/ArtistInfo";
-import Merch from "./Merch";
+import Merch from "./concert/ConcertMerch";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +66,7 @@ class EventTabs extends React.Component {
     };
 
     return (
-      <div className="tabs">
+      <div className="event-tabs">
         <Paper square className={classes.root}>
           <Tabs
             value={this.state.tab}

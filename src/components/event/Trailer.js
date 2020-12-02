@@ -180,7 +180,7 @@ class ViewTrailer extends React.Component {
     if(!this.props.siteStore.activeTrailer) { return null; }
 
     return (
-      <div className={"modalTrailer"}>
+      <div className={"modal-trailer"}>
         <video
           id="background-video"
           loop

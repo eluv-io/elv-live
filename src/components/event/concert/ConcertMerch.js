@@ -1,10 +1,10 @@
 import React from "react";
-import merchFront from "../../static/images/ritaora/merchFront.jpg";
-import merchBack from "../../static/images/ritaora/merchBack.jpg";
-import merchFront2 from "../../static/images/ritaora/merchFront2.jpg";
-import merchBack2 from "../../static/images/ritaora/merchBack2.jpg";
-import merchFront3 from "../../static/images/ritaora/merchFront3.jpg";
-import merchBack3 from "../../static/images/ritaora/merchBack3.jpg";
+import merchFront from "../../../static/images/ritaora/merchFront.jpg";
+import merchBack from "../../../static/images/ritaora/merchBack.jpg";
+import merchFront2 from "../../../static/images/ritaora/merchFront2.jpg";
+import merchBack2 from "../../../static/images/ritaora/merchBack2.jpg";
+import merchFront3 from "../../../static/images/ritaora/merchFront3.jpg";
+import merchBack3 from "../../../static/images/ritaora/merchBack3.jpg";
 
 class Merch extends React.Component {
   render() {

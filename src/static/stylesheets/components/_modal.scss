@@ -1,22 +1,16 @@
 .modal {
-  box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
-
+   box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
    height: 600px;
    position: fixed;
-
    width: 75vw;
    margin-left: 12.5vw;
    margin-right: 12.5vw;
-
-
    z-index: 5000;
    display: flex;
    justify-content: center;
    align-items: center;
    align-content: center;
    background: transparent;
-
-
   
   &__container {
      background: black;
@@ -36,225 +30,7 @@
         padding-left: 2rem;
         width: 100%;
      }
-  
-     }
-  
-   &__tabs {
-      align-items: flex-end;
-      display: flex;
-      justify-content: center;
-      margin-top: $elv-spacing-s;
-      padding-bottom: $elv-spacing-s;
-      padding-top: .8rem;
-      position: absolute;
-      width: 100%;
-      
-      button {
-         background: transparent;
-         border: 0;
-         border-bottom: 3px solid transparent;
-         color: $elv-color-lightestgray;
-         cursor: pointer;
-         font-size: 1.8rem;
-         height: 3rem;
-         margin-left: 2rem;
-         margin-right: 2rem;
-         padding: 0 0 $elv-spacing-xs;
-         text-transform: uppercase;
-         transition: border-bottom linear 0.15s, padding linear 0.15s;
-         width: 15rem;
-         &:focus {
-            border-bottom: 1px solid $elv-color-text-lightest;
-            outline: 0;
-         }
-
-         &.active-tab {
-            border-bottom: 3px solid $elv-color-text-lightest;
-         }
-     }
-  }
-  
-  &__dropdown {
-     margin-left: 5rem;
-     margin-top: -12.5rem;
-     width: 20rem;
-     @media only screen and (max-height: $bp-large) {
-        margin-top: -13rem;
-     }
-  
-     @media only screen and (max-height: $bp-medium-2) {
-        margin-top: -9rem;
-     }
-  
-     @media only screen and (max-height: $bp-medium) {
-        margin-top: -7rem;
-     }
-  
-     @media only screen and (max-height: $bp-small-2) {
-        margin-top: -20vh;
-     }
-
-     @media only screen and (max-height: $bp-small) {
-        margin-top: -15vh;
-     }
-  }
-  
-     &__title {
-        font-size: 4rem;
-        padding-top: 3rem;
-        width: 50%;
-        @media only screen and (max-width: $bp-large-3) {
-        font-size: 3.9rem;
-     }
-  
-     @media only screen and (max-width: $bp-large-2) {
-        font-size: 3.8rem;
-     }
-  
-     @media only screen and (max-width: $bp-large) {
-        font-size: 3.7rem;
-     }
-
-     @media only screen and (max-width: $bp-medium-2) {
-        font-size: 3.6rem;
-        width: 60%;
-     }
-  
-     @media only screen and (max-width: $bp-medium) {
-        font-size: 3.5rem;
-        width: 75%;
-     }
-  
-     @media only screen and (max-width: $bp-small-2) {
-        width: 85%;
-     }
-     }
-  
-     &__rating {
-        color: $color-green-modal;
-     }
-  
-     &__info {
-        font-size: 2rem;
-        padding-top: 1.6rem;
-        width: 60%;
-        @media only screen and (max-width: $bp-large-3) {
-        font-size: 1.95rem;
-     }
-  
-     @media only screen and (max-width: $bp-large-2) {
-        font-size: 1.85rem;
-     }
-  
-     @media only screen and (max-width: $bp-large) {
-        font-size: 1.75rem;
-     }
-
-     @media only screen and (max-width: $bp-medium-2) {
-        font-size: 1.65rem;
-        width: 60%;
-     }
-  
-     @media only screen and (max-width: $bp-medium) {
-        width: 75%;
-     }
-  
-     @media only screen and (max-width: $bp-small-2) {
-        font-size: 1.55rem;
-        width: 85%;
-     }
-  
-     @media only screen and (max-width: $bp-small) {
-        font-size: 1.5rem;
-     }
-
-     @media only screen and (max-width: $bp-tiny) {
-        font-size: 1.4rem;
-     }
-     }
-  
-     &__creator {
-     @media only screen and (max-width: $bp-small) {
-        display: none !important;
-     }
-     }
-  
-     &__overview {
-        color: $color-modal-grey-2;
-        font-size: 2rem;
-        hyphens: auto;
-        line-height: 1.2;
-        padding-top: 2rem;
-        width: 50%;
-  
-     @media only screen and (max-width: $bp-large-3) {
-        font-size: 1.95rem;
-     }
-  
-     @media only screen and (max-width: $bp-large-2) {
-        font-size: 1.85rem;
-     }
-  
-     @media only screen and (max-width: $bp-large) {
-        font-size: 1.75rem;
-     }
-
-     @media only screen and (max-width: $bp-medium-2) {
-        font-size: 1.65rem;
-        width: 60%;
-     }
-  
-     @media only screen and (max-width: $bp-medium) {
-        width: 75%;
-     }
-  
-     @media only screen and (max-width: $bp-small-2) {
-        font-size: 1.55rem;
-        width: 85%;
-     }
-
-     @media only screen and (max-width: $bp-small) {
-        font-size: 1.5rem;
-     }
-
-     @media only screen and (max-width: $bp-tiny) {
-        font-size: 1.4rem;
-     }
-  
-     }
-  
-  &__btn {
-     background-color: transparent;
-     border: .5px solid $color-modal-grey-2;
-     border-radius: 2px;
-     // color: #fff;
-     cursor: pointer;
-     font-size: 2rem;
-     font-weight: 700;
-     margin-right: 1rem;
-     margin-top: 2rem;
-     padding: 1rem 2rem 1rem 2rem;
-     transition: all .2s;
-  
-     &:hover {
-        transform: scale(1.09);
-     }
-  
-     &--red {
-        background-color: $color-red-2;
-        border: 0;
-        height: 50px;
-        margin-right: 1rem;
-        width: 100px;
-     }
-  
-     &--icon {
-        fill: #fff;
-        height: 1.4rem;
-        padding-right: 1rem;
-        width: 1.4rem;
-     }
-  }
+   }
 }  
   
 .show {
@@ -265,7 +41,7 @@
   visibility: visible;
 }
 
-.show2 {
+.ticket-modal-show {
    // transition: .5s .3s ease-out;
    left: 0;
    opacity: 1;
@@ -275,327 +51,88 @@
       top: 0;
    }
  }
+
 .hide {
   display: none !important;
 }
 
 .ticket-modal {
-   background-color: transparent;
-   height:auto;
-   width: 87.5%;
-   margin: auto;
-
-
-   align-self: center;
-}
-.modal2 {
    box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
-   //  height: 52rem;
-    height: 85vh;
-    position: fixed;
-    // margin: auto;
-    width: 75vw;
-    margin-left: 12.5vw;
-    margin-right: 12.5vw;
-    // margin-top: calc(calc(100vh - 600px)/2);
-    // margin-bottom: calc(100vh - 600px);
- 
-    z-index: 5000000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    background: transparent;
-    @media only screen and (max-width: 1100px) {
+   height: 85vh;
+   position: fixed;
+   width: 75vw;
+   margin-left: 12.5vw;
+   margin-right: 12.5vw;
+   z-index: 5000000000;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   align-content: center;
+   background-color: rgb(236, 231, 223);
+
+   @media only screen and (max-width: 1100px) {
       margin-left: 0vw;
       margin-right: 0vw;
       width: 100%;
       height: 100%;
-
    }
- 
- 
- //   @media only screen and (max-height: $bp-large) {
- //      height: 55vh;
- //      transform: translateY(-2.5vh);
- //   }
-   
- //   @media only screen and (max-height: $bp-medium-2) {
- //      height: 60vh;
- //      transform: translateY(-5vh);
- //   }
-   
- //   @media only screen and (max-height: $bp-medium) {
- //      height: 65vh;
- //      transform: translateY(-7.5vh);
- //   }
-   
- //   @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
- //      height: 100vh;
- //      transform: translateY(-25vh);
- //   }
-   
- 
-   
-   &__container {
-      background-color: rgb(236, 231, 223);
-      height: 100%;
-      width: 100%;
-      align-self: center;
-      // border-radius: 15px;
-      // @media only screen and (max-width: 1200px) {
-      //    background: linear-gradient(90deg, #000 60%, transparent);
-      // }
-   
-      // @media only screen and (max-width: $bp-medium) {
-      //    background: linear-gradient(90deg, #000 75%, transparent);
-      // }
- 
-      // @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
-      //    background: linear-gradient(90deg, #000 100%, transparent);
-      //    padding-left: 2rem;
-      //    width: 100%;
-      // }
-      @media only screen and (max-width: 1100px) {
 
+   &__container {
+      background-color: transparent;
+      height:auto;
+      width: 87.5%;
+      margin: auto;
+      align-self: center;
+
+      @media only screen and (max-width: 1100px) {
          width: 100%;
          height: auto;
-      }
-   
-      }
-   
-    &__tabs {
-       align-items: flex-end;
-       display: flex;
-       justify-content: center;
-       margin-top: $elv-spacing-s;
-       padding-bottom: $elv-spacing-s;
-       padding-top: .8rem;
-       position: absolute;
-       width: 100%;
-       
-       button {
-          background: transparent;
-          border: 0;
-          border-bottom: 3px solid transparent;
-          color: $elv-color-lightestgray;
-          cursor: pointer;
-          font-size: 1.8rem;
-          height: 3rem;
-          margin-left: 2rem;
-          margin-right: 2rem;
-          padding: 0 0 $elv-spacing-xs;
-          text-transform: uppercase;
-          transition: border-bottom linear 0.15s, padding linear 0.15s;
-          width: 15rem;
-          &:focus {
-             border-bottom: 1px solid $elv-color-text-lightest;
-             outline: 0;
-          }
- 
-          &.active-tab {
-             border-bottom: 3px solid $elv-color-text-lightest;
-          }
-      }
-   }
-   
-   &__dropdown {
-      margin-left: 5rem;
-      margin-top: -12.5rem;
-      width: 20rem;
-      @media only screen and (max-height: $bp-large) {
-         margin-top: -13rem;
-      }
-   
-      @media only screen and (max-height: $bp-medium-2) {
-         margin-top: -9rem;
-      }
-   
-      @media only screen and (max-height: $bp-medium) {
-         margin-top: -7rem;
-      }
-   
-      @media only screen and (max-height: $bp-small-2) {
-         margin-top: -20vh;
-      }
- 
-      @media only screen and (max-height: $bp-small) {
-         margin-top: -15vh;
-      }
-   }
-   
-      &__title {
-         font-size: 4rem;
-         padding-top: 3rem;
-         width: 50%;
-         @media only screen and (max-width: $bp-large-3) {
-         font-size: 3.9rem;
-      }
-   
-      @media only screen and (max-width: $bp-large-2) {
-         font-size: 3.8rem;
-      }
-   
-      @media only screen and (max-width: $bp-large) {
-         font-size: 3.7rem;
-      }
- 
-      @media only screen and (max-width: $bp-medium-2) {
-         font-size: 3.6rem;
-         width: 60%;
-      }
-   
-      @media only screen and (max-width: $bp-medium) {
-         font-size: 3.5rem;
-         width: 75%;
-      }
-   
-      @media only screen and (max-width: $bp-small-2) {
-         width: 85%;
-      }
-      }
-   
-      &__rating {
-         color: $color-green-modal;
-      }
-   
-      &__info {
-         font-size: 2rem;
-         padding-top: 1.6rem;
-         width: 60%;
-         @media only screen and (max-width: $bp-large-3) {
-         font-size: 1.95rem;
-      }
-   
-      @media only screen and (max-width: $bp-large-2) {
-         font-size: 1.85rem;
-      }
-   
-      @media only screen and (max-width: $bp-large) {
-         font-size: 1.75rem;
-      }
- 
-      @media only screen and (max-width: $bp-medium-2) {
-         font-size: 1.65rem;
-         width: 60%;
-      }
-   
-      @media only screen and (max-width: $bp-medium) {
-         width: 75%;
-      }
-   
-      @media only screen and (max-width: $bp-small-2) {
-         font-size: 1.55rem;
-         width: 85%;
-      }
-   
-      @media only screen and (max-width: $bp-small) {
-         font-size: 1.5rem;
-      }
- 
-      @media only screen and (max-width: $bp-tiny) {
-         font-size: 1.4rem;
-      }
-      }
-   
-      &__creator {
-      @media only screen and (max-width: $bp-small) {
-         display: none !important;
-      }
-      }
-   
-      &__overview {
-         color: $color-modal-grey-2;
-         font-size: 2rem;
-         hyphens: auto;
-         line-height: 1.2;
-         padding-top: 2rem;
-         width: 50%;
-   
-      @media only screen and (max-width: $bp-large-3) {
-         font-size: 1.95rem;
-      }
-   
-      @media only screen and (max-width: $bp-large-2) {
-         font-size: 1.85rem;
-      }
-   
-      @media only screen and (max-width: $bp-large) {
-         font-size: 1.75rem;
-      }
- 
-      @media only screen and (max-width: $bp-medium-2) {
-         font-size: 1.65rem;
-         width: 60%;
-      }
-   
-      @media only screen and (max-width: $bp-medium) {
-         width: 75%;
-      }
-   
-      @media only screen and (max-width: $bp-small-2) {
-         font-size: 1.55rem;
-         width: 85%;
-      }
- 
-      @media only screen and (max-width: $bp-small) {
-         font-size: 1.5rem;
-      }
- 
-      @media only screen and (max-width: $bp-tiny) {
-         font-size: 1.4rem;
-      }
-   
-      }
-   
-   &__btn {
-      background-color: transparent;
-      border: .5px solid $color-modal-grey-2;
-      border-radius: 2px;
-      // color: #fff;
-      cursor: pointer;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-right: 1rem;
-      margin-top: 2rem;
-      padding: 1rem 2rem 1rem 2rem;
-      transition: all .2s;
-   
-      &:hover {
-         transform: scale(1.09);
-      }
-   
-      &--red {
-         background-color: $color-red-2;
-         border: 0;
-         height: 50px;
-         margin-right: 1rem;
-         width: 100px;
-      }
-   
-      &--icon {
-         fill: #fff;
-         height: 1.4rem;
-         padding-right: 1rem;
-         width: 1.4rem;
       }
    }
  }  
 
- .modalTrailer {
+.modal-trailer {
    background-color: $elv-color-black;
    cursor: pointer;
    height: 600px;
- 
    video {
-     // background-color: $elv-color-black;
-     cursor: pointer;
-     height: 600px;
-     object-fit: cover;
-     width: 100%;
+      cursor: pointer;
+      height: 600px;
+      object-fit: cover;
+      width: 100%;
    }
- }
+}
  
- .hide {
+.hide {
    display: none !important;
+}
+
+.backdrop {
+   background-color: rgba($color-background, 0.7);
+   height: 100%;
+   left: 0;
+   position: fixed;
+   top: 0;
+   transition: all 0.5s;
+   width: 100%;
+   z-index: 1001;
+}
+
+.back-button-modal {
+   background-color: $elv-color-bg-dark;
+   border-radius: 0rem;
+   cursor: pointer;
+   font-weight: 400;
+   right: 17.5px;
+   top: 17.5px;
+   padding: $elv-spacing-xs;
+   position: absolute;
+   stroke: $elv-color-mediumgray;
+   width: 5rem;
+   z-index: 100000;
+ 
+   &:hover {
+     background-color: $elv-color-darkgray;
+     stroke: $elv-color-lightgray;
+   }
  }

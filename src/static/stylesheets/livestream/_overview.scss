@@ -1,0 +1,271 @@
+.overview-container {
+  background-color: transparent;
+  height: auto;
+  width: 100%;
+  overflow: auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__eventInfo {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: 100%;
+    margin: auto;
+    padding-top: 100px;
+    background: #f9f7f4;
+    color: black !important;
+    max-width: 1350px;
+    padding: 40px;
+    background: #f9f7f4;
+    position: relative;
+    box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+
+    @media only screen and (max-width: 1500px) {
+      flex-direction: column;
+    }
+    @media only screen and (max-width: 800px) {
+      flex-direction: column;
+      padding: 20px;
+    }
+    @media only screen and (max-width: 420px) {
+      flex-direction: column;
+      padding: 15px;
+    }
+  }
+
+  &__photoGroup {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 37.5%;
+    height: 100%;
+    
+    @media only screen and (max-width: 1500px) {
+      width: 100%;
+      margin-top: 50px;
+
+      flex-direction: column;
+    }
+
+    &__singlePhoto {
+      display: block;
+      max-width: 430px;
+      flex-shrink: 0;
+      height: 100;
+      width: 100%;
+      object-fit: cover !important;
+      margin: auto;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 62.5%;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
+    margin-right: 10px;
+
+    @media only screen and (max-width: 1500px) {
+      width: 100%;
+    }
+
+    &__title {
+      color: black !important;
+      line-height: 50px;
+      margin-bottom: 5px;
+      margin-top: 0;
+      font-size: 60px;
+      font-weight: 700;
+      font-family: sans-serif;
+      letter-spacing: -.2px;
+      text-transform: uppercase;
+      @media only screen and (max-width: 1600px) {
+        font-size: 53px;
+      }
+      @media only screen and (max-width: 1200px) {
+        font-size: 60px !important;
+        line-height: 50px;
+      }
+  
+      @media only screen and (max-width: 1000px) {
+          font-size: 55px !important;
+          line-height: 45px;
+
+      }
+      @media only screen and (max-width: 800px) {
+          font-size: 50px !important;
+          line-height: 40px;
+      }
+      @media only screen and (max-width: 700px) {
+        font-size: 40px !important;
+        line-height: 40px;
+        letter-spacing: -2.2px;
+      }
+      @media only screen and (max-width: 540px) {
+        font-size: 32px !important;
+        line-height: 35px;
+        letter-spacing: -2.2px;
+      }
+      @media only screen and (max-width: 420px) {
+        font-size: 28px !important;
+        line-height: 35px;
+        letter-spacing: -1px;
+      }
+      &__desc {
+        margin-top: 0;
+        font-size: 35px;
+        font-weight: 700;
+        font-family: sans-serif;
+        letter-spacing: -.2px;
+        text-transform: uppercase;
+        @media only screen and (max-width: 1600px) {
+          font-size: 32px;
+        }
+        @media only screen and (max-width: 1200px) {
+          font-size: 30px !important;
+        }
+        @media only screen and (max-width: 1000px) {
+            font-size: 28px !important;
+        }
+        @media only screen and (max-width: 800px) {
+            font-size: 27px !important;
+        }
+        @media only screen and (max-width: 700px) {
+          font-size: 26px !important;
+        }
+        @media only screen and (max-width: 540px) {
+          font-size: 22px !important;
+          letter-spacing: -1px;
+        }
+        @media only screen and (max-width: 420px) {
+          font-size: 21px !important;
+          letter-spacing: -1px;
+        }
+      }  
+    }
+  
+    &__synopsis {
+      color: black !important;
+      text-align: left;
+      margin-top: 15px;
+      margin-right:100px;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Standard syntax */
+      font-size: 20px;
+      font-weight: 500;
+      font-family: sans-serif;
+      @media only screen and (max-width: 1600px) {
+        font-size: 18px;
+      }
+      @media only screen and (max-width: 800px) {
+        font-size: 18px;
+        margin-right:50px;
+      }
+      @media only screen and (max-width: 600px) {
+        font-size: 18px;
+        margin-right:20px;
+      }
+    }
+
+    &__photoGroup {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      width: 37.5%;
+
+      &__singlePhoto {
+        width: 380px;
+        height: auto;
+        margin: auto;
+        margin-top: 90px;
+      }
+      @media only screen and (max-width: 1680px) {
+        flex-direction: column;
+      }
+    }
+
+    &__photo {
+      width: 380px;
+      height: auto;
+      margin: auto;
+      margin-top: 90px;
+    }
+
+    &__schedule {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center !important;
+      margin-bottom: 10rem;
+      width: 100%;
+      
+      &__post {
+        background-color: rgb(48, 47, 47);
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 0% [date-start] 37.5% [date-end info-start] 37.5% [info-end button-start] 10% ;
+        grid-column-gap: 30px;
+        height: 80px;
+        margin-bottom: 20px;
+        width: 85%;
+
+        @media only screen and (max-width: $bp-large-2) {
+          width: 100%;
+        }
+        @media only screen and (max-width: $bp-medium) {
+          display: flex;
+          flex-direction: column;
+          height: 220px;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 80%;
+        }
+        @media only screen and (max-width: $bp-small-3) {
+          width: 90%;
+        }
+
+        &__detail {
+          color: var(--pText) !important;
+          font-size: 20px;
+          font-weight: bold;
+          margin-top: 25px !important;
+          grid-column: date-start / date-end;
+          @media only screen and (max-width: $bp-small) {
+            font-size: 19px;
+            margin-left: 20px;
+            margin-right: 20px;
+
+          }
+          @media only screen and (max-width: $bp-tiny-2) {
+            font-size: 18px;
+          }
+        }
+
+        &__info {
+          color: var(--pText) !important;
+          font-size: 20px;
+          font-weight: bold;
+          margin-top: 25px !important;
+          grid-column: info-start / info-end;
+
+          @media only screen and (max-width: $bp-small) {
+            font-size: 19px;
+            margin-left: 20px;
+            margin-right: 20px;
+
+          }
+          @media only screen and (max-width: $bp-tiny-2) {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
