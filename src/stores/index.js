@@ -37,13 +37,11 @@ class RootStore {
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
 
-      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      // this.ticketClient = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-  
+      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});  
       const wallet = client.GenerateWallet();
       const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
-
       client.SetSigner({signer});
+      
     } else {
       console.log("frame client build");
       // Contained in IFrame

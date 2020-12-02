@@ -6,7 +6,6 @@ import styled from "styled-components";
 import {ImageIcon} from "elv-components-js";
 import { parse } from 'query-string';
 
-import AsyncComponent from "../support/AsyncComponent";
 import Logo from "../../static/images/Logo-Small.png";
 import default_background from "../../static/images/codeAccess/concert.jpg";
 
@@ -115,9 +114,7 @@ class CodeAccess extends React.Component {
             <button onClick={Submit} title="Submit">NEXT</button>
           </LoadingElement>
         </div>
-        {/* <div className="pTicket">
-          Don't have a ticket? Click here to purchase 
-        </div> */}
+        
       </div>
     );
   }

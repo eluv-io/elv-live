@@ -1,22 +1,16 @@
-// //ABSTRACTS
+//ABSTRACTS
 @import "abstracts/variables";
 
-// //BASE
+//BASE
 @import "base/base";
 
-// //PAGES
+//PAGES
 @import "pages/reset";
 
-// //COMPONENTS
-@import "components/backdrop";
+//COMPONENTS
 @import "components/modal";
-@import "components/site-selector";
 @import "components/button";
-@import "components/swiper";
-@import "components/view-video";
-@import "components/title-grid";
 @import "components/code-entry";
-@import "components/active-title";
 
 //LIVESTREAM
 @import "livestream/home";
@@ -25,8 +19,7 @@
 @import "livestream/card";
 @import "livestream/payment";
 @import "livestream/merch";
-@import "livestream/button";
 @import "livestream/tabs";
+@import "livestream/artist";
+@import "livestream/overview";
 
-//LAYOUT
-@import "layout/navigation";

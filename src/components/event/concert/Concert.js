@@ -39,14 +39,13 @@ class Concert extends React.Component {
           <div className="modal show" >
             <ImageIcon
               key={`back-icon-Close Modal`}
-              className={"back-button__modal"}
+              className={"back-button-modal"}
               title={"Close Modal"}
               icon={CloseIcon}
               onClick={() => this.setState({showTrailer: false})}
             />
 
             <div className={`modal__container`}>          
-              
               <iframe 
                 width="100%" 
                 height="100%"
@@ -54,35 +53,28 @@ class Concert extends React.Component {
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen
-              >
-                </iframe>
-          
+              />          
             </div>
           </div>
        </React.Fragment>
-      )
-    
-
+    )
   }
 
   Payment() {
 
     return (
-      
       <React.Fragment>
         <div onClick={() => this.setState({showPayment: false})} className="backdrop" />
-        <div className="modal2 show2" >
+        <div className="ticket-modal ticket-modal-show">
           <ImageIcon
             key={`back-icon-Close Modal`}
-            className={"back-button__modal"}
+            className={"back-button-modal"}
             title={"Close Modal"}
             icon={CloseIcon}
             onClick={() => this.setState({showPayment: false})}
           />
-          <div className={`modal2__container`}>   
-            <div className="ticket-modal">
-              <Tickets/>
-            </div>       
+          <div className={`ticket-modal__container`}>   
+            <Tickets/>
           </div>
         </div>
       </React.Fragment>
@@ -114,7 +106,10 @@ class Concert extends React.Component {
       backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${thumbnail})`,
       backgroundPosition: "center",
       objectFit: "cover",
-      height: "100%",
+      height: "100vh",
+      margin: "0",
+      position: "absolute",
+      width: "100%"
     };
 
     let vh = window.innerHeight * 0.01;
@@ -123,42 +118,34 @@ class Concert extends React.Component {
     document.documentElement.style.setProperty('--vw', `${vw}px`);
 
     return (
-      <div className="home-containerBlack">
+      <div className="event">
         <div className="event-nav">
-          <ImageIcon className="event-nav__container--logo" icon={Logo} label="Eluvio" />
+          <ImageIcon className="event-nav__logo" icon={Logo} label="Eluvio" />
         </div>
 
-        <div style={backgroundStyle} className="active-background" />
+        <div style={backgroundStyle} />
 
-        <div className="active-view-container">
-            <div className="active-view-container__heading">
-              <h1 className="name"> {"Rita Ora"} </h1>
-              <h1 className="location">{ "Streaming Live from the Eiffel Tower" }</h1>
-              <h1 className="time">{ "January 28th, 2021 · 8:00 PM PST" }</h1>
-            </div>
-            
+        <div className="event-container">
+          <div className="event-container__heading">
+            <h1 className="name"> {"Rita Ora"} </h1>
+            <h1 className="location">{ "Streaming Live from the Eiffel Tower" }</h1>
+            <h1 className="time">{ "January 28th, 2021 · 8:00 PM PST" }</h1>
+          </div>
+          
+          <div className="event-container__button">
+            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
+              Buy Tickets
+            </button>
+            <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+              Watch Promo
+            </button> 
+          </div> 
 
-          {this.props.match.params.name === "rita-ora" ? 
-            <React.Fragment>
-              <div className="active-view-container__button">
-                <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
-                  Buy Tickets
-                </button>
-                <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
-                  Watch Promo
-                </button> 
-              </div> 
-              <div className="active-view-container__overview">
-                <EventTabs title={null} type={"concert"} name={"rita-ora"}/>
-              </div>
-            </React.Fragment>
-          : 
-            <div className="active-view-container__button">
-              <h1 className="coming-soon">More Info Coming Soon</h1>
-            </div>
-          }
-         
+          <div className="event-container__overview">
+            <EventTabs title={null} type={"concert"} name={"rita-ora"}/>
+          </div>
         </div>
+
         { this.state.showTrailer ? this.Trailer(): null}
         { this.state.showPayment ? this.Payment(): null}
 
