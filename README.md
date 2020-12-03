@@ -4,7 +4,7 @@
 
 The Eluvio platform is a premium video platform built using the most advanced technology in decentralized principles, just-in-time streaming and maximum quality at scale.
 
-Eluvio Live is a premium service for ticketed live events focused on best in class iconic concerts, premieres, and live performances.
+This is the Web Application for Eluvio Live: a premium service for ticketed live events focused on best in class iconic concerts, premieres, and live performances.
 
 ## Built With
 
