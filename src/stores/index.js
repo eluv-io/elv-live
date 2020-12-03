@@ -36,14 +36,11 @@ class RootStore {
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-
       client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});  
       const wallet = client.GenerateWallet();
       const signer = wallet.AddAccount({privateKey: "0x4021e66228a04beb8693ee91b17ef3f01c5023a8b97072b46954b6011e7b92f5"});
       client.SetSigner({signer});
-      
     } else {
-      console.log("frame client build");
       // Contained in IFrame
       client = new FrameClient({
         target: window.parent,
@@ -71,72 +68,69 @@ class RootStore {
 
       if(!this.accessCode) {
         this.SetError("Invalid code");
-        return false;
       }
-      
-      if (!re.test(String(email).toLowerCase())) {
+      else if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
-        return false;
       }
-
-      if (!(name.match(letterNumber))) {
+      else if (!(name.match(letterNumber))) {
         this.SetError("Invalid Chat Name");
-        return false;
+      } 
+      else {
+        // this.email = email;
+        this.name = name;
+        return this.accessCode;
       }
 
-      // this.email = email;
-      this.name = name;
-
-      return this.accessCode;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error redeeming code:");
       // eslint-disable-next-line no-console
       console.error(error);
-
+      
       this.SetError("Invalid code");
       return false;
     }
   });
 
-  // Coinbase Charge Creation. Currently not in use
-  @action.bound
-  CreateCharge = flow(function * (name, description, price) {
-    try {
-      let coinbase = require('coinbase-commerce-node');
-      let coinClient = coinbase.Client;
-      coinClient.init('7ca60022-a01b-4498-8c35-a2c2aef42605');
+  // Coinbase Charge Creation- currently not in use
 
-      var newCharge = new coinbase.resources.Charge({
-        "name": `${name}`,
-        "description": `${description}`,
-        "local_price": {
-          "amount": `${price}`,
-          "currency": "USD"
-        },
-        "pricing_type": "fixed_price",
-        "metadata": {
-          // "customer_id": "id_1005",
-          // "customer_name": "Satoshi Nakamoto"
-        },
-        "redirect_url": `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
-        "cancel_url": `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`
-      });
-      let tempCharge, redirect;
+  // @action.bound
+  // CreateCharge = flow(function * (name, description, price) {
+  //   try {
+  //     let coinbase = require('coinbase-commerce-node');
+  //     let coinClient = coinbase.Client;
+  //     coinClient.init('7ca60022-a01b-4498-8c35-a2c2aef42605');
 
-      yield newCharge.save(function (error, response) {
-        tempCharge = response.code;
-        redirect = response.hosted_url;
-      });
-      this.chargeID = tempCharge;
-      this.redirectCB = redirect;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to CreateCharge:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
-  });
+  //     var newCharge = new coinbase.resources.Charge({
+  //       "name": `${name}`,
+  //       "description": `${description}`,
+  //       "local_price": {
+  //         "amount": `${price}`,
+  //         "currency": "USD"
+  //       },
+  //       "pricing_type": "fixed_price",
+  //       "metadata": {
+  //         // "customer_id": "id_1005",
+  //         // "customer_name": "Satoshi Nakamoto"
+  //       },
+  //       "redirect_url": `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
+  //       "cancel_url": `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`
+  //     });
+  //     let tempCharge, redirect;
+
+  //     yield newCharge.save(function (error, response) {
+  //       tempCharge = response.code;
+  //       redirect = response.hosted_url;
+  //     });
+  //     this.chargeID = tempCharge;
+  //     this.redirectCB = redirect;
+  //   } catch (error) {
+  //     // eslint-disable-next-line no-console
+  //     console.error("Failed to CreateCharge:");
+  //     // eslint-disable-next-line no-console
+  //     console.error(error);
+  //   }
+  // });
 
   @action.bound
   SetError(error) {

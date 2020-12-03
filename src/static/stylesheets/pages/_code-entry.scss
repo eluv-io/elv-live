@@ -14,12 +14,12 @@
   margin: auto;
   width: MIN(424px, 90vw);
   z-index: 100;
+
   @media only screen and (max-width: 750px) {
     margin: auto;
     margin-top: -50px !important;
   }
   
-
   &--logo {
     height: 58px;
     margin-bottom: 2rem;
@@ -45,9 +45,9 @@
     height: 48px;
     letter-spacing: 1.5px;
     margin-top: 1rem;
-
     text-align: center;
     width: MIN(35rem, 90vw);
+
     @media only screen and (max-width: 415px) {
       font-size: 2rem;
       width: 280px;
@@ -71,9 +71,14 @@
     margin-top: 3rem;
     text-align: center;
     width: MIN(35rem, 90vw);
+
     @media only screen and (max-width: 415px) {
       width: 280px;
     } 
-
   }
+}
+
+input, textarea, pre {
+  border: 1px solid #ddd;
+  padding: 0 .25rem;
 }
