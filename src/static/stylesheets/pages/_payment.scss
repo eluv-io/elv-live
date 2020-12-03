@@ -1,8 +1,5 @@
 .payment-button {
   border: 0;
-  // padding: 12px 16px;
-  // margin-top: 16px;
-  // font-weight: 600;
   width: 100% !important;
   height: auto !important;
   cursor: pointer;
@@ -14,6 +11,14 @@
 .coinbase {
   color: white !important;
 } 
+
+.success-container {
+  background-image: linear-gradient(110deg, #192196 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%);
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  height: 100vh;
+}
 
 .success-root {
   width: 600px;
@@ -32,7 +37,6 @@
   }
 }
 
-
 .payment-overview{
   width: 100%;
   height: auto;
@@ -41,7 +45,6 @@
   justify-content: space-evenly;
   align-content: space-around;
   align-self: center;
-  // background-color: grey;
   margin: auto;
   padding: 10px 50px;
   margin-top: 30px;
@@ -52,7 +55,6 @@
   @media only screen and (max-width:700px) {
     padding: 10px 20px;
   }
-
 }
 
 .payment-overview-title{
@@ -66,7 +68,6 @@
   @media only screen and (max-width:700px) {
     font-size: 28px;
   }
-  
 }
 
 .payment-overview-p{
@@ -119,7 +120,6 @@
   }
 }
 
-
 .code-reveal {
   align-items: center;
   display: flex;
@@ -138,49 +138,7 @@
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 30px;
-
     width: auto;
     padding: 32.5px 60px;
-
-    &__ticketdetail {
-      color: var(--pText) !important;
-      font-size: 40px !important;
-      font-weight: 800 !important;
-      text-align: center !important;
-      line-height: 3rem;
-      margin-top: 25px !important;
-      margin-bottom: 15px !important;
-      // text-decoration: underline;
-      @media only screen and (max-width: $bp-small) {
-        font-size: 25px;
-      }
-      @media only screen and (max-width: $bp-tiny-2) {
-        font-size: 20px;
-      }
-    }
-
-
-
-    &__ticketdetail2 {
-      background-color: white;
-      color: black !important;
-      border-radius: 10px;
-      width: auto;
-      height:auto;
-      padding: 17.5px 22.5px;
-
-      font-size: 35px !important;
-      font-weight: 800 !important;
-      text-align: center !important;
-      line-height: 3rem;
-      margin-top: 25px !important;
-      margin-bottom: 70px !important;
-      @media only screen and (max-width: $bp-small) {
-        font-size: 20px;
-      }
-      @media only screen and (max-width: $bp-tiny-2) {
-        font-size: 16px;
-      }
-    }
   }
 }

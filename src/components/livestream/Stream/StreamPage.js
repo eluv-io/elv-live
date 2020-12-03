@@ -6,25 +6,20 @@ import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
 import Select from 'react-select';
 
-import Logo from "../../../static/images/Logo.png";
-
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-
-import Timer from "../Payment/Timer";
+import { withStyles } from "@material-ui/core/styles";
 
 import AsyncComponent from "../../support/AsyncComponent";
 import StreamTabs from './StreamTabs';
-import { withStyles } from "@material-ui/core/styles";
-
-
+import Logo from "../../../static/images/Logo.png";
 import ViewStream from "./ViewStream";
-const drawerWidth = 450;
 
+const drawerWidth = 450;
 
 const options = [
   { value: '0', label: 'MULTIVIEW 1' },
@@ -74,7 +69,6 @@ const styles = theme => ({
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
     height: "75px",
@@ -110,8 +104,6 @@ class Stream extends React.Component {
     name: ""
   };
 
-
-
   renderFeed(selectedOption) {
     if (selectedOption == 'all') {
       return (
@@ -126,7 +118,6 @@ class Stream extends React.Component {
             <ViewStream feedOption={2} classProp = "stream-container__streamBox--video" mutedOption = {true} showControls = {false}/>
           </div>
         </div>
-
       );
     } else {
       return (
@@ -136,7 +127,6 @@ class Stream extends React.Component {
       );
     }
   }
-
 
   render() {
     if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
@@ -229,10 +219,8 @@ class Stream extends React.Component {
 
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
-                      {/* <div className="stream-container__streamBox--video "> */}
                       {this.renderFeed(this.state.selectedOption)}
-                        {/* <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/> */}
-                      {/* </div> */}
+                      {/* <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/> */}
 
                       <div className="stream-container__streamBox--info">
                         <h2 className="stream-container__streamBox--info__subtitle">

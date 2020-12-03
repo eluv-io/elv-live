@@ -1,0 +1,201 @@
+.event {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-nav {
+  background-color: transparent;
+  height: 8rem;
+  position: absolute;
+  width: 100%;
+  z-index: 9999999;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+
+  &__logo {
+    height: 4rem;
+    margin-left: 12.5vw;
+    margin-top: 3rem;
+    width: auto;
+  }
+}
+
+.event-container {
+  align-self: start;
+  display: grid;
+  grid-row-gap: 1.2rem;
+  height: max-content;
+  grid-template-rows: 53.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
+  grid-template-columns: repeat(auto-fill, 100vw);
+  margin-bottom: 3rem;
+  position: relative;
+  width: 100% !important;
+
+  &__heading {
+    grid-row: title-start / title-end;
+    display: grid;
+    flex-direction: column;
+
+    .name{
+        font-size: calc(min(calc(max(15vw, 55px)), 95px));
+        color: white;
+        font-weight: bold;
+        text-shadow: white 0px 0px 3px;
+        text-transform: uppercase;
+        letter-spacing: 10px;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
+        margin-bottom: -5px;
+        padding-top: 40px;
+        text-align: center;
+    }
+    .logoSeries {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
+        height: auto;
+        width: 850px;
+        margin: auto;
+        margin-bottom: -25px;
+        padding-top: 0px;
+    }
+    .logoFilm {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
+        height: auto;
+        width: 600px;
+        margin: auto;
+        margin-bottom: 20px;
+        padding-top: 0px;
+      }
+    .logoMer {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
+        height: 190px;
+        width: 600px;
+        margin: auto;
+        margin-bottom: 20px;
+        object-fit: cover !important;
+        object-position: 0px -60px !important;
+      }  
+    .premiereDate{
+        font-size: 30px;
+        letter-spacing: 7px;
+        text-shadow: white 0px 0px 3px;
+        font-weight: bold;
+        color: white;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        text-align: center;
+        margin-bottom: 3px;
+        -webkit-user-drag: none;
+        text-transform: uppercase;
+    }
+    .filmDate{
+        font-size: 30px;
+        letter-spacing: 6px;
+        text-shadow: white 0px 0px 3px;
+        font-weight: bold;
+        color: white;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        text-align: center;
+        margin-bottom: -10px;
+
+        -webkit-user-drag: none;
+        text-transform: uppercase;
+    }  
+    .location{
+        font-size: 35px !important;
+        color: white;
+        text-shadow: white 0px 0px 3px;
+        text-transform: uppercase;
+        letter-spacing: 10px;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10+ and Edge */
+        user-select: none; /* Standard syntax */
+        font-weight: 700 !important;
+        margin-bottom: 8px;
+        width: 100%;
+        text-align: center;
+        @media only screen and (max-width: 1200px) {
+            font-size: 32px !important;
+        }
+        @media only screen and (max-width: 1000px) {
+            font-size: 28px !important;
+        }
+        @media only screen and (max-width: 800px) {
+            margin-top: 10px;
+            font-size: 26px !important;
+            letter-spacing: 4px;
+            line-height: 40px;
+        }
+    }
+
+    .time{
+        font-size: 25px;
+        font-size: calc(min(calc(max(15vw, 18px)), 25px));
+        letter-spacing: 2px;
+        text-shadow: white 0px 0px 3px;
+        font-weight: bold;
+        color: white;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        text-align: center;
+        -webkit-user-drag: none;
+        text-transform: uppercase;
+        @media only screen and (max-width: 500px) {
+            font-size: 22px;
+            letter-spacing: -.5px;
+        }
+      }
+    }
+
+  &__button {
+    margin: auto;
+    flex-direction: row;
+    display: flex;
+    grid-row: timer-start / timer-end;
+    margin-top: -5px;
+    @media only screen and (max-width: 800px) {
+        display: none !important;
+    }
+  }
+  &__overview {
+    grid-row-start: overview-start;
+    margin-top: 10px;
+    margin-left: 12.5vw;
+    margin-right: 12.5vw;
+    background-color: transparent;
+    height: max-content;
+  }
+}
+
+.stream-countdown {
+  width:100%;
+  height: auto;
+  text-align: center;
+  margin:auto;
+  font-size: 40px;
+  margin: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+}

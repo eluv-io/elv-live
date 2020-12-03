@@ -1,6 +1,3 @@
-@import "~elv-components-js/src/stylesheets/defaults";
-@import "~elv-components-js/src/stylesheets/styles";
-
 :root {
   --color-primary: #eb2f64;
   --color-primary-light: #f36;
@@ -47,7 +44,6 @@ html {
 body {
   font-family: sans-serif;
   box-sizing: border-box;
-  // overflow: hidden;
 }
 
 // RESPONSIVE BREAKPOINTS

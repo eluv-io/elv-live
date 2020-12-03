@@ -1,25 +1,21 @@
-//ABSTRACTS
-@import "abstracts/variables";
-
 //BASE
 @import "base/base";
-
-//PAGES
-@import "pages/reset";
+@import "base/variables";
+@import "base/reset";
 
 //COMPONENTS
 @import "components/modal";
 @import "components/button";
-@import "components/code-entry";
+@import "components/ticket";
+@import "components/card";
+@import "components/tabs";
 
-//LIVESTREAM
-@import "livestream/home";
-@import "livestream/stream";
-@import "livestream/event";
-@import "livestream/card";
-@import "livestream/payment";
-@import "livestream/merch";
-@import "livestream/tabs";
-@import "livestream/artist";
-@import "livestream/overview";
-
+//PAGES
+@import "pages/home";
+@import "pages/stream";
+@import "pages/event";
+@import "pages/payment";
+@import "pages/merch";
+@import "pages/artist-profile";
+@import "pages/overview";
+@import "pages/code-entry";

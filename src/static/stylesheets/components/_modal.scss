@@ -1,5 +1,5 @@
 .modal {
-   box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
+   box-shadow: 0 1.5rem 4rem rgba(black, .15);
    height: 600px;
    position: fixed;
    width: 75vw;
@@ -34,15 +34,17 @@
 }  
   
 .show {
-  // transition: .5s .3s ease-out;
   left: 0;
   opacity: 1;
   top: calc(calc(100vh - 600px)/2);
   visibility: visible;
 }
 
+.hide {
+   display: none !important;
+}
+
 .ticket-modal-show {
-   // transition: .5s .3s ease-out;
    left: 0;
    opacity: 1;
    top: 7.5vh;
@@ -51,10 +53,6 @@
       top: 0;
    }
  }
-
-.hide {
-  display: none !important;
-}
 
 .ticket-modal {
    box-shadow: 0 1.5rem 4rem rgba($color-dark, .15);
@@ -102,10 +100,6 @@
       width: 100%;
    }
 }
- 
-.hide {
-   display: none !important;
-}
 
 .backdrop {
    background-color: rgba($color-background, 0.7);
@@ -136,3 +130,4 @@
      stroke: $elv-color-lightgray;
    }
  }
+

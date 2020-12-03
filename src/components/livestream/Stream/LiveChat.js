@@ -33,7 +33,6 @@ class LiveChat extends React.Component {
       <AsyncComponent
         Load={async () => {
             let name = this.props.rootStore.name;
-
             let chatClient = new StreamChat('xpkg6xgvwrnn');
             const token = chatClient.devToken(name);
             chatClient.setUser({ id: name, name: name,
@@ -44,7 +43,6 @@ class LiveChat extends React.Component {
             });
             this.setState({chatClient: chatClient});
             this.setState({channel: channel});
-
         }}
         render={() => {
           if (!this.state.chatClient || !this.state.channel) {
@@ -66,7 +64,6 @@ class LiveChat extends React.Component {
         }
         }
       />
-      
     );
   }
 }

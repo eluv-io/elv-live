@@ -22,4 +22,4 @@ npm install
 npm run serve 
 ```
 
-Web App is now running locally at http://localhost:8086/
+Web Application is now running locally at http://localhost:8086/

@@ -180,7 +180,7 @@ class ViewStream extends React.Component {
   render() {
     return (
       <video
-        key={`active-title-video-${this.props.feedOption}`}
+        key={`active-stream-${this.props.feedOption}`}
         ref={this.InitializeVideo}
         autoPlay
         // poster={poster}

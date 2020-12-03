@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
-import Tickets from "../../livestream/Payment/Tickets";
+import Ticket from "../../livestream/Payment/Ticket";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -40,7 +40,24 @@ class ConcertOverview extends React.Component {
           </div>
         </div>
         
-        <Tickets />
+        <div className="ticket-group">
+          <Ticket 
+          name="General Admission" 
+          description="General Admission includes one (1) Virtual Ticket to the Live Stream Concert. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
+          price="$30"
+          priceID="price_1HpS6pE0yLQ1pYr6CuBre5I4"
+          prodID = "prod_IQIiC3jywpIUKu"
+          date ="January 28th, 8:00 PM – 10:00 PM PST"
+          />
+          <Ticket 
+            name="VIP Package" 
+            description="VIP Package includes one (1) Virtual Ticket to the Live Stream Concert, Special Access to Live Chat and Virtual Fan Wall, and an Exclusive Virtual Meet and Greet with Rita Ora. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
+            price="$50"
+            priceID="price_1HpS77E0yLQ1pYr6bmC8griX"
+            prodID = "prod_IQIiMc4NHvH3DF"
+            date ="January 28th, 8:00 PM – 10:00 PM PST"
+          />
+        </div>
       </div>
     );
   }

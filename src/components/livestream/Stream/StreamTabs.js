@@ -4,11 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SmsIcon from '@material-ui/icons/Sms';
-import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
+// import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Paper from '@material-ui/core/Paper';
 
 import LiveChat from "./LiveChat";
-import FanWall from './FanWall';
+// import FanWall from './FanWall';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,9 +53,7 @@ export default function IconLabelTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  // const handleChange = e => {
-  //   this.setState({tab: e.value});
-  // }
+
 
   return (
     <div className="stream-container__tabs">
@@ -80,6 +78,7 @@ export default function IconLabelTabs() {
         {/* <TabPanel value={value} index={1}>
           <FanWall/>
         </TabPanel> */}
+        
       </Paper>
     </div>
   );
