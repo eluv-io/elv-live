@@ -4,41 +4,89 @@ import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
 import { parse } from 'query-string';
 import Logo from "../../../static/images/Logo.png";
+import axios from "axios";
+import AsyncComponent from "../../support/AsyncComponent";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Success extends React.Component {
 
-  render() {
-    let sessionId, sessionIdShort;
-    let parsed = parse(this.props.location.search);
+  constructor(props) {
+    super(props);
 
-    if (parsed.session_id) {
-      sessionId = parsed.session_id;
-      sessionIdShort = sessionId.substr(sessionId.length - 8);
+    this.state = {
+      data: [],
+      loading: false,
+      sessionId: ""
+    };
+  }
+
+  render() {
+    if (this.props.location.search == "") {
+      return null;
     }
     
     return (
-      <div className="success-container">
-        <div className="live-nav">
-          <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
-        </div>
+        <AsyncComponent
+            Load={async () => {
+              const sessionId = parse(this.props.location.search).session_id;
+              const response = await axios.get(
+                `https://rocky-peak-15236.herokuapp.com/stripe-retrieve-session/${sessionId}`
+              );
+              this.setState({data: response.data});
+            }}
+            render={() => {
+              let price = "$" + parseFloat(this.state.data.productPrice)/100;
 
-        <div className="success-root">
-          <div className="payment-overview">
-            <h1 className="payment-overview-title">Thank you for your order!</h1>
-            <h2 className="payment-overview-p">We've received your order and are proccessing your payment! An email with your digital ticket will be sent to you shortly. </h2>
-          </div>
-          <div className="code-reveal">
-            <div className="code-reveal__ticket">
-              <h2 className="payment-overview-order">ORDER CONFIRMATION #</h2>
-              <h2 className="payment-overview-order2">{sessionIdShort}</h2>
-              <Link to="/rita-ora/d457a576" className="btn2 btn2--black">Back to Event</Link>
-            </div>
-          </div>
-        </div>
-      </div>
+              return (
+                <div className="success-container">
+                  <div className="live-nav">
+                    <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
+                  </div>
+          
+                  <div className="success-root">
+                    <div className="summary">
+                      <div className="payment-overview">
+                        <h1 className="payment-overview-title">Thanks for your order!</h1>
+                        <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to <b className="boldText">{this.state.data.customerEmail}</b> shortly. </h2>
+                      </div>
+
+                      <div className="back-btn-container">
+                        <Link to="/rita-ora/d457a576" className="eventBTN">Back to Event</Link>
+                      </div>
+                      <div className="header">
+                        <h1>Order Summary</h1>
+                        <div className="line-item confirm">
+                          <p className="confirm-label">Confirmation #</p>
+                          <p className="confirm-price">{this.state.data.confirmationNum}</p>
+                        </div>
+                      </div>
+                      <div className="order-items">
+                        <div className="line-item">
+                          <img className="line-image" src={this.state.data.productImage}/>
+                          <div className="line-label"> 
+                            <p className="product">{this.state.data.productName} </p> 
+                            <p className="sku">{this.state.data.productDescription} </p> 
+                          </div>
+                          <p className="price"> {this.state.data.prodQty} x {price} </p> 
+                        </div>
+                      </div>
+                      <div className="order-total">
+
+                        <div className="line-item total">
+                          <p className="total-label">Total</p>
+                          <p className="total-price">{price} </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+              }
+            }
+            
+          />
     );
   }
 }
