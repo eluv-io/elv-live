@@ -1,24 +1,16 @@
-.code-entry-container {
-  display: grid;  
-  grid-template-rows: 30vh; 
-}
-
 .code-entry {
-  align-items: center;
   background-color: #fff;
+  height: MIN(40rem, 90vh); 
+  width: MIN(424px, 90vw);
+
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  height: MIN(40rem, 90vh); 
+  align-items: center;
   justify-content: center;
   margin: auto;
-  width: MIN(424px, 90vw);
-  z-index: 100;
+  z-index: 10000;
 
-  @media only screen and (max-width: 750px) {
-    margin: auto;
-    margin-top: -50px !important;
-  }
   
   &--logo {
     height: 58px;

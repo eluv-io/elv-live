@@ -5,7 +5,8 @@ import {Redirect, Switch, withRouter} from "react-router";
 import {HashRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 
-import Site from "./components/home/Home";
+import Home from "./components/home/Home";
+import ContactForm from "./components/home/ContactForm";
 import CodeAccess from "./components/livestream/CodeAccess";
 import Concert from "./components/event/concert/Concert";
 import Stream from "./components/livestream/stream/StreamPage";
@@ -26,9 +27,11 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path = "/d457a576" component={Site} />
+        <Route exact path = "/d457a576" component={Home} />
+        <Route path = "/d457a576/contact" component={ContactForm} />
         <Route path = "/:name/d457a576" component={Concert} />
-        <Route path = "/d457a576/success" component={Success} />
+        <Route path = "/d457a576/success/:id" component={Success} />
+        <Route path = "/d457a576/contact" component={Success} />
         <Route path = "/code" component={CodeAccess} />
         <Route path = "/stream/:siteId" component={Stream} />
 

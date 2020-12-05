@@ -17,23 +17,39 @@
   display: flex;
   flex-direction: column;
   max-height: 100vh;
+  max-width: 100vw;
+  min-height: -webkit-fill-available;
+  width: 100vw;
   height: 100vh;
+  overflow: none;
+  @media only screen and (max-width:350px) {
+    max-height: auto;
+    max-width: 100vw;
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
+    overflow: scroll;
+  }
 }
 
 .success-root {
   width: 650px;
   height: auto;
+  max-height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-self: center;
-
   margin: auto;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
   @media only screen and (max-width:700px) {
     width: 90%;
+  }
+  @media only screen and (max-width:350px) {
+    max-height: 100%;
+    z-index: 9999999;
   }
 }
 
@@ -56,6 +72,9 @@
   @media only screen and (max-width:700px) {
     padding: 10px 20px;
   }
+  @media only screen and (max-width:500px) {
+    padding: 0px 15px;
+  }
 }
 
 .payment-overview-title{
@@ -70,7 +89,12 @@
   font-size: 42px;
   font-weight: 300;
   @media only screen and (max-width:700px) {
-    font-size: 28px;
+    font-size: 30px;
+    margin-bottom: 3rem;
+
+  }
+  @media only screen and (max-width:500px) {
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -89,8 +113,9 @@
   @media only screen and (max-width:700px) {
     font-size: 17px;
   }
-  @media only screen and (max-width:400px) {
-    font-size: 17px;
+  @media only screen and (max-width:500px) {
+    font-size: 16px;
+    margin-bottom: 30px;
   }
 }
 
@@ -105,27 +130,25 @@
   border: none;
   cursor: pointer;
   margin-top: 15px;
-  margin-top: 15px;
-
   text-align: center;
   width: 230px;
   color: black;
   font-weight: 600;
   color: #fff !important;
-
-
   display: block;
   background: #4b55e7;
   color: #fff;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  // border-radius: 5px;
   border: 0;
   font-weight: 700;
-  // width: 100%;
-
   outline: none;
   cursor: pointer;
   transition: all 0.15s ease;
+  @media only screen and (max-width:500px) {
+    font-size: 18px;
+    padding: 10px 10px;
+    width: 200px;
+  }
 }
 .boldText {
   font-weight: bold !important;
@@ -195,8 +218,10 @@
   margin-bottom: 50px;
   background-color: transparent;
   margin-top: 10px;
-
   width: 100%;
+  @media only screen and (max-width:500px) {
+    margin-bottom: 20px;
+  }
 }
 
 .top-summary {
@@ -213,7 +238,7 @@
 .summary {
   // width: 450px;
   width: 100%;
-  height: auto;
+  height: 100%;
   background: #fff ;
   box-shadow: 0 2px 19px 4px rgba(0, 0, 0, 0.04) ;
   p {
@@ -240,6 +265,9 @@
     line-height: 75px;
     font-weight: 400;
     font-size: 28px;
+    @media only screen and (max-width:500px) {
+      font-size: 26px;
+    }
   }
 }
 .order-items {
@@ -260,6 +288,8 @@
   padding: 30px 30px 0 30px;
   @media only screen and (max-width:500px) {
     flex-direction: column;
+    padding: 10px 30px 0 30px;
+
   }
 }
 
@@ -271,8 +301,7 @@
   background: #f6f9fc;
   border-radius: 3px;
   @media only screen and (max-width:500px) {
-    align-self: center;
-    margin-right: 0px;
+    display: none;
 
   }
 }
@@ -285,6 +314,9 @@
   font-size: 20px !important;
   font-weight: 400;
   margin-top: 25px !important;
+  @media only screen and (max-width:500px) {
+    font-size: 18px !important;
+  }
 }
 .sku{
   font-size: 18px !important;
@@ -292,6 +324,9 @@
   font-weight: 400;
   margin-top: 5px !important;
   margin-right: 10px;
+  @media only screen and (max-width:500px) {
+    font-size: 16px !important;
+  }
 }
 
 .price{
@@ -307,6 +342,8 @@
     align-self: left;
     text-align: left;
     padding-left: 0px;
+    font-size: 18px !important;
+    margin-top: 10px !important;
   }
 
 }
@@ -379,9 +416,11 @@
   font-size: 20px !important;
   line-height: 1.4em;
   color: black !important;
-  // @media only screen and (max-width:600px) {
-  //   font-size: 18px !important;
-  // }
+  @media only screen and (max-width:500px) {
+    margin-top: 7.5px !important;
+    font-size: 18px !important;
+
+  }
 }
 
 .confirm-price{
@@ -402,5 +441,11 @@
   @media only screen and (max-width:600px) {
     padding-left: 0px;
     align-self: left;
-    text-align: left;  }
+    text-align: left;  
+  }
+  @media only screen and (max-width:500px) {
+    margin-top: 0px !important;
+    font-size: 18px !important;
+
+  }
 }

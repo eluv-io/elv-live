@@ -23,14 +23,14 @@ class Success extends React.Component {
   }
 
   render() {
-    if (this.props.location.search == "") {
+    if (!this.props.match.params.id) {
       return null;
     }
     
     return (
         <AsyncComponent
             Load={async () => {
-              const sessionId = parse(this.props.location.search).session_id;
+              const sessionId = this.props.match.params.id;
               const response = await axios.get(
                 `https://rocky-peak-15236.herokuapp.com/stripe-retrieve-session/${sessionId}`
               );
