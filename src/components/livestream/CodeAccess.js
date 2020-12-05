@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
-import styled from "styled-components";
 import {ImageIcon} from "elv-components-js";
 import { parse } from 'query-string';
 
@@ -29,19 +28,22 @@ class CodeAccess extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCodeChange = this.handleCodeChange.bind(this);
-
   }
+
   componentDidMount() {
     const parsed = parse(this.props.location.search);
     this.setState({code: parsed.passcode});
     this.setState({email: parsed.email});
   }
+
   handleNameChange(event) {
     this.setState({name: event.target.value});
   }
+
   handleEmailChange(event) {
     this.setState({email: event.target.value});
   }
+
   handleCodeChange(event) {
     this.setState({code: event.target.value});
   }
@@ -69,18 +71,21 @@ class CodeAccess extends React.Component {
       }
     };
 
-    const BackgroundStyleContainer = styled.div`
-      background-size: cover;
-      background-image: url(${default_background});
-      height: 100vh;
-      background-position: center;
-      opacity: .9;
-      }
-    `;
+    const divStyle = {
+      backgroundSize: "cover",
+      backgroundImage: `url(${default_background})`,
+      height: "100vh",
+      maxHeight: "100vh",
+      minHeight: "100vh",
+      minHeight: "-webkit-fill-available",
+      width: "100vw",
+      backgroundPosition: "center",
+      opacity: .9,
+      display: "flex"
+    };
 
     return (
-      <div className="code-entry-container">
-        <BackgroundStyleContainer />
+      <div style={divStyle}>
 
         <div className = "code-entry">
           { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }

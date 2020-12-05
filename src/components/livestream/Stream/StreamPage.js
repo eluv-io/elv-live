@@ -154,7 +154,7 @@ class Stream extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId , "");
+          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, "");
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
