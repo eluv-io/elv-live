@@ -376,6 +376,15 @@
   -ms-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  
+}
+.photo-heading-span {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  line-height: 180%;
+  padding: 7px 12px;
+  white-space: nowrap;
+  background-color: black !important;
 }
 
 .hero-img-wrapper {
@@ -406,14 +415,7 @@
   object-fit: cover !important;
 }
 
-.photo-heading-span {
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  line-height: 180%;
-  padding: 7px 12px;
-  white-space: nowrap;
-  background-color: black !important;
-}
+
 
 @keyframes up {
 	0% {
