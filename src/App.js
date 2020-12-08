@@ -12,6 +12,8 @@ import Concert from "./components/event/concert/Concert";
 import Stream from "./components/livestream/stream/StreamPage";
 import Success from "./components/livestream/payment/Success";
 
+import Test from "./components/home/Test";
+
 // import AsyncComponent from "./components/support/AsyncComponent";
 // import FilmRelease from "./components/event/film/FilmRelease";
 // import Series from "./components/event/series/Series";
@@ -34,6 +36,7 @@ class Routes extends React.Component {
         <Route path = "/d457a576/contact" component={Success} />
         <Route path = "/code" component={CodeAccess} />
         <Route path = "/stream/:siteId" component={Stream} />
+        {/* <Route path = "/test" component={Test} /> */}
 
         {/* <Route>
           <Redirect to="/" />
