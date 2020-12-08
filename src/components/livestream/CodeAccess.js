@@ -31,7 +31,7 @@ class CodeAccess extends React.Component {
   }
 
   componentDidMount() {
-    const parsed = parse(this.props.location.search);
+    const parsed = parse(decodeURIComponent(this.props.location.search));
     this.setState({code: parsed.passcode});
     this.setState({email: parsed.email});
   }

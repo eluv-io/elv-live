@@ -68,7 +68,7 @@
     grid-template-rows: calc(100vh - 200px) 125px;
 
     &--videoBox { 
-      background-color: black; 
+      background: black; 
       height:calc(100vh - 200px);
       width: 100%;
       margin: auto;
@@ -90,6 +90,7 @@
       top: 0;
       left: 0;
       object-fit: cover !important;
+      background: black; 
     }
 
     &--feedGrid { 
@@ -257,10 +258,11 @@
   grid-template-columns: repeat(3, 33.33%);
   grid-template-rows: repeat(3, 33.33%);
   position: relative;
+  background: black; 
 }
 
 .videobox1 { 
-  // background-color: red; 
+  background: black; 
   height:auto;
   // grid-column: 1 / 3;
   // grid-row: 1 / 3;
@@ -274,7 +276,7 @@
   z-index: 5;
 }
 .videobox2 { 
-  // background-color: blue; 
+  background: black; 
   height:auto;
   width: 100%;
   // grid-column: 1 / 2;
@@ -292,7 +294,7 @@
 
 .videobox3 { 
   height:auto;
-  // background-color: green; 
+  background: black; 
   // grid-column: 2 / 3;
   // grid-row: 3 / 4;
   grid-area: 3 / 2 / 4 / 3; //<row-start> / <column-start> / <row-end> / <column-end>
@@ -324,7 +326,7 @@
 }
 .videobox5 { 
   height:auto;
-  // background-color: grey; 
+  background: black; 
   // grid-column: 3 / 4;
   // grid-row: 2 / 3;
   grid-area: 2 / 3 / 3 / 4; //<row-start> / <column-start> / <row-end> / <column-end>
@@ -359,7 +361,7 @@
   // top: 0;
   // left: 0;
   object-fit: cover !important;
-  background-color: black;
+  background: black; 
 }
 
 .video-heading{

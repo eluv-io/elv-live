@@ -149,44 +149,44 @@ class Stream extends React.Component {
 
         return (
           <div className="feedGrid">
-            {this.state.openMultiView ?           
+            {this.state.openMultiView != "0" ?           
             <div className="video-close" onClick={handleClose}>
               <span className="video-close-span">Return to all Views</span>
             </div> 
             : null}
   
             <div className="videobox1" onClick={handleClick}>
-              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {false} showControls = {false}/>
+              <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {false} showControls = {false}/>
               <h4 className="video-heading">
                 <span className="video-heading-span">MAIN</span>
               </h4>
             </div>
             <div className="videobox2" onClick={handleClick}>
-              <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
                 <span className="video-heading-span">FULLSHOT</span>
               </h4>
             </div>
             <div className="videobox3" onClick={handleClick}>
-              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
                 <span className="video-heading-span">SKYVIEW</span>
               </h4>
             </div>
             <div className="videobox4" onClick={handleClick}>
-              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
                 <span className="video-heading-span">CROWD</span>
               </h4>
             </div>
             <div className="videobox5" onClick={handleClick}>
-              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
                 <span className="video-heading-span">VVIP</span>
               </h4>
             </div>
             <div className="videobox6" onClick={handleClick}>
-              <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
                 <span className="video-heading-span">CLOSER</span>
               </h4>
