@@ -13,7 +13,12 @@
 } 
 
 .success-container {
-  background-image: linear-gradient(110deg, #192196 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%);
+  // background-image: linear-gradient(110deg, #192196 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%);
+
+  background-image: linear-gradient(160deg, #0610a1 8%,#4553ff 30%, #07c2e7 50%, #05d5ff  70%,#d694c6 92%);
+  // background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+  //           linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+  //           linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
   display: flex;
   flex-direction: column;
   max-height: 100vh;
