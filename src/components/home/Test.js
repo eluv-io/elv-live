@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
-import Select from 'react-select';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,20 +17,15 @@ import AsyncComponent from "../support/AsyncComponent";
 import StreamTabs from '../livestream/Stream/StreamTabs';
 import Logo from "../../static/images/Logo.png";
 import ViewStream from "../livestream/Stream/ViewStream";
+import Switch from "../support/Switch";
+import LiveChat from "../livestream/Stream/LiveChat";
 
 const drawerWidth = 450;
-
-const options = [
-  { value: '0', label: 'MULTIVIEW 1' },
-  { value: '1', label: 'MULTIVIEW 2' },
-  { value: '2', label: 'MULTIVIEW 3' },
-  { value: 'all', label: 'ALL VIEWS' },
-];
 
 const styles = theme => ({
   root: {
     display: 'flex',
-    background: "black",
+    background: "rgba(245, 235, 225, .8)",
     height: "100vh",
     overflow: "hidden"
   },
@@ -40,7 +34,7 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: "black",
+    background: "transparent",
     height: "75px"
   },
   appBarShift: {
@@ -50,7 +44,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginRight: drawerWidth,
-    background: "black",
+    background: "transparent",
     height: "75px"
   },
   title: {
@@ -97,20 +91,24 @@ const styles = theme => ({
 @inject("siteStore")
 @observer
 class Stream extends React.Component {
+  
+  constructor(props) {
+    super(props);
 
-  state = {
-    selectedOption: options[0].value,
-    open: false,
-    name: "",
-    openMultiView: false,
-    openedView: undefined,
-    openedGridSpecs: ""
-  };
+    this.state = {
+      open: false,
+      name: "",
+      openMultiView: false,
+      openedView: undefined,
+      openedGridSpecs: "",
+      switchValue: false
+    };
+  }
 
   render() {
-    if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
-      return <Redirect to={`/code`} />;
-    }
+    // if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
+    //   return <Redirect to={`/code`} />;
+    // }
   
     const handleDrawerOpen = () => {
       this.setState({open: true});
@@ -121,17 +119,13 @@ class Stream extends React.Component {
     };
     const { classes } = this.props;
 
-    const handleChange = e => {
-      this.setState({selectedOption: e.value});
-    }
-
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
 
-    const renderFeed = (selectedOption) => {
-      if (selectedOption == 'all') {
+    const renderFeed = (switchValue) => {
+      if (switchValue) {
         const handleClick = event => {
           this.setState({openMultiView: true, openedGridSpecs: event.currentTarget.style.gridArea,openedView: event.currentTarget.style});
           event.currentTarget.style.gridArea = '1 / 1 / 4 / 4';
@@ -151,44 +145,44 @@ class Stream extends React.Component {
           <div className="feedGrid">
             {this.state.openMultiView ?           
             <div className="video-close" onClick={handleClose}>
-              <span className="video-close-span">Return to all Views</span>
+              <span className="video-close-span">All Views</span>
             </div> 
             : null}
   
             <div className="videobox1" onClick={handleClick}>
-              <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {false} showControls = {false}/>
               <h4 className="video-heading">
-                <span className="video-heading-span">MAIN</span>
+                <span className="video-heading-span">Main</span>
               </h4>
             </div>
             <div className="videobox2" onClick={handleClick}>
               <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
-                <span className="video-heading-span">FULLSHOT</span>
+                <span className="video-heading-span">Side</span>
               </h4>
             </div>
             <div className="videobox3" onClick={handleClick}>
               <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
-                <span className="video-heading-span">SKYVIEW</span>
+                <span className="video-heading-span">Sky View</span>
               </h4>
             </div>
             <div className="videobox4" onClick={handleClick}>
-              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
-                <span className="video-heading-span">CROWD</span>
+                <span className="video-heading-span">Audience</span>
               </h4>
             </div>
             <div className="videobox5" onClick={handleClick}>
               <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
-                <span className="video-heading-span">VVIP</span>
+                <span className="video-heading-span">Artist</span>
               </h4>
             </div>
             <div className="videobox6" onClick={handleClick}>
-              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
+              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
               <h4 className="video-heading">
-                <span className="video-heading-span">CLOSER</span>
+                <span className="video-heading-span">Zoom</span>
               </h4>
             </div>
           </div>
@@ -196,7 +190,7 @@ class Stream extends React.Component {
       } else {
         return (
           <div className="stream-container__streamBox--videoBox">
-            <ViewStream feedOption={selectedOption} classProp = "stream-container__streamBox--video" mutedOption = {false} showControls = {true}/>
+            <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {false} showControls = {true}/>
           </div>
         );
       }
@@ -205,10 +199,15 @@ class Stream extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, "");
+          await this.props.rootStore.RedeemCode(
+            "alec.jo@berkeley.edu",
+            "gL5995",
+            "Alec"
+          );
+          // await this.props.siteStore.LoadStreamSite(siteId, "");
         }}
         render={() => {
-          if(!this.props.siteStore.siteInfo) { return null; }
+          // if(!this.props.siteStore.siteInfo) { return null; }
 
           return (
             <div className={classes.root}>
@@ -220,19 +219,23 @@ class Stream extends React.Component {
               >
                 <Toolbar>
                   <div className="stream-nav">
-                    <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
+                    {/* <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" /> */}
+                    <h1 className="stream-nav__title"> Eluvio Live </h1>
                     <div className="stream-nav__button-grp">
-                      <Select
-                        className="stream-nav__dropdown"
-                        defaultValue={options[0]}
-                        options={options}
-                        onChange={handleChange}
-                        isDisabled={false}
-                        isLoading={false}
-                        isClearable={false}
-                        isSearchable={false}
-                        autoFocus={false}
-                      />
+
+                      <div className="switch-container">
+                      <span className="switch-text">
+                          MultiView
+                        </span>
+                        <Switch
+                          isOn={this.state.switchValue}
+                          onColor="linear-gradient(160deg, #0610a1 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%)"
+                          handleToggle={() => this.setState({switchValue: !(this.state.switchValue)})}
+                        />
+          
+
+                      </div>
+
                       <div className="stream-nav__button-grp2">
                         <IconButton
                           color="inherit"
@@ -242,7 +245,7 @@ class Stream extends React.Component {
                           className={clsx(this.state.open && classes.hide)}
                           size="medium"
                         >
-                          <MenuIcon />
+                          <MenuIcon style={{ color: "black" }} />
                         </IconButton>
 
                         <IconButton
@@ -253,7 +256,7 @@ class Stream extends React.Component {
                           className={clsx(!(this.state.open) && classes.hide)}
                           size="medium"
                         >
-                          {<ChevronRightIcon />}
+                          <ChevronRightIcon style={{ color: "black" }} />
                         </IconButton>
                       </div>
                     </div>
@@ -270,7 +273,7 @@ class Stream extends React.Component {
 
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
-                      {renderFeed(this.state.selectedOption)}
+                      {renderFeed(this.state.switchValue)}
                       {/* <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/> */}
 
                       <div className="stream-container__streamBox--info">
@@ -294,7 +297,7 @@ class Stream extends React.Component {
                     paper: classes.drawerPaper,
                   }}
                 >
-                  <StreamTabs />
+                  <LiveChat />
                 </Drawer>
               </div>
           );

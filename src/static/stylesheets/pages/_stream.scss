@@ -1,5 +1,9 @@
+@import url(//db.onlinewebfonts.com/c/30a71dcf9a1c39558ca4e97c92a4b2fa?family=Noe+Display+Bold);
+
+@font-face {font-family: "NoeDisplayBold"; src: url("//db.onlinewebfonts.com/t/30a71dcf9a1c39558ca4e97c92a4b2fa.eot"); src: url("//db.onlinewebfonts.com/t/30a71dcf9a1c39558ca4e97c92a4b2fa.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/30a71dcf9a1c39558ca4e97c92a4b2fa.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/30a71dcf9a1c39558ca4e97c92a4b2fa.woff") format("woff"), url("//db.onlinewebfonts.com/t/30a71dcf9a1c39558ca4e97c92a4b2fa.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/30a71dcf9a1c39558ca4e97c92a4b2fa.svg#Noe Display Bold") format("svg"); }
+
 .stream-nav { 
-  background-color: #000;
+	// background: linear-gradient(140deg, #0610a1 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%);
   height: 75px;
   width: 100% !important;
   display: flex;
@@ -10,12 +14,29 @@
   &__logo { 
     height: 32.5px;
     margin-left: 6px;
-    margin-top: 21.25px;
-    margin-bottom: 21.25px;
+    margin-top: 22px;
+    margin-bottom: 22px;
     width: 130px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
+  }
+  &__title { 
+    font-family: NoeDisplayBold, sans-serif;
+    font-size: 34px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    color: black;
+    // height: 31px;
+    width: auto;
+    // margin: auto;
+    margin-left: 6px;
+    margin-top: 22px !important;
+    margin-bottom: 22px;
+    // width: 130px;
+    // -webkit-user-select: none; /* Safari */
+    // -ms-user-select: none; /* IE 10+ and Edge */
+    // user-select: none; /* Standard syntax */
   }
   &__button-grp { 
     height: 100%;
@@ -23,11 +44,13 @@
     flex-direction: row;
     margin-right: 15px;
     width: auto;
+    justify-content: center;
+    align-items: center;
   }
 
   &__button-grp2 { 
-    margin-top: 12.25px;
-    margin-bottom: 21.25px;
+    // margin-top: 12.25px;
+    // margin-bottom: 21.25px;
     margin-right: 10px;
     @media only screen and (max-width: 1000px) {
       display: none;
@@ -45,7 +68,7 @@
 }
 
 .stream-container {
-  background-color: #000;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   height: calc(100% - 75px);
@@ -65,11 +88,11 @@
     }
     overflow: hidden !important;
     grid-template-columns: 100%;
-    grid-template-rows: calc(100vh - 200px) 125px;
+    grid-template-rows: calc(100vh - 175px) 100px;
 
     &--videoBox { 
-      background: black; 
-      height:calc(100vh - 200px);
+      background-color: rgba(245, 235, 225, .8);
+      height:calc(100vh - 175px);
       width: 100%;
       margin: auto;
       text-align: center;
@@ -94,7 +117,7 @@
     }
 
     &--feedGrid { 
-      height:calc(100vh - 200px);
+      height:calc(100vh - 175px);
       width: 100%;
       grid-column: 1 ;
       grid-row: 1 / 2;
@@ -138,7 +161,8 @@
     }
 
     &--info { 
-      background-color: #000; 
+      background-color: rgba(245, 235, 225, .8);
+      // background-color: #f5ebe1;
       height: 100%;
       width: 100%;
       grid-column: 1;
@@ -148,33 +172,37 @@
       user-select: none; /* Standard syntax */
 
       &__title {
-        color: #fff;
+        color: black;
         display: inline-block;
         font-size: 37.5px;
         font-weight: 700;
-        letter-spacing: -0.01em;
+        letter-spacing: 0px;
         line-height: 1;
         margin-left: 30px;
         margin-top: -1rem;
         text-align: left;
         text-align: left;
-        margin-bottom: 1rem;
+        margin-bottom: 10px !important;
+        font-family: NoeDisplayBold, sans-serif !important;
+
         @media only screen and (max-width: 600px) {
           font-size: 26px;
         }
       }
 
       &__subtitle {
-        color: #666;
+        color: rgba(0, 0, 0,.6);
         display: inline-block;
         font-size: 30px;
         font-weight: normal;
-        line-height: 2;
+        line-height: 1.75;
         margin-left: 30px;
-        margin-top: 1rem !important;
+        margin-top: 10px !important;
         text-align: left;
         text-align: left;
         width: 100%;
+        font-family: NoeDisplayBold, sans-serif !important;
+
         @media only screen and (max-width: 600px) {
           font-size: 26px;
         }
@@ -250,7 +278,7 @@
 }
 
 .feedGrid { 
-  height:calc(100vh - 200px);
+  height:calc(100vh - 175px);
   width: 100%;
   grid-column: 1;
   grid-row: 1 / 2;
@@ -368,7 +396,7 @@
   position: absolute;
   bottom: 20px;
   left: 20px;
-  background-color: white !important;
+  background-color: rgba(245, 235, 225, 1) !important;
   opacity: .9;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -384,6 +412,8 @@
   line-height: 180%;
   white-space: nowrap;  
   color: black !important;
+  font-family: NoeDisplayBold, sans-serif !important;
+  text-transform: capitalize;
   font-size: 16px;
   font-weight: bold;
 }
@@ -393,7 +423,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: white !important;
+  background-color: rgba(245, 235, 225, 1) !important;
   opacity: .9;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -408,13 +438,14 @@
   box-decoration-break: clone;
   line-height: 180%;
   white-space: nowrap;  
+  font-family: NoeDisplayBold, sans-serif !important;
   color: black !important;
   font-size: 16px;
   font-weight: bold;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
-// Styling for Live Chat and tabs
+// Styling for tabs
 
 .MuiDrawer-paperAnchorDockedRight {
   border-left: none !important;
@@ -428,274 +459,3 @@
   height: 75px !important;
 }
 
-
-.css-1okebmr-indicatorSeparator {
-  display: none !important;
-}
-
-.css-1pahdxg-control {
-  border-radius: 20px !important;
-  text-align: center !important;
-  box-shadow: 0 0 0 1px #030b30 !important;
-  border-color: #030b30 !important;
-}
-
-.css-g1d714-ValueContainer {
-  text-align: center !important;
-  padding: 2px 15px !important;
-  font-size: 18px !important;
-  font-weight: 600 !important;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-  color: black !important;
-}
-
-.css-yk16xz-control {
-  border-radius: 20px !important;
-}
-
-.css-1hwfws3 {
-  text-align: center !important;
-  padding: 2px 15px !important;
-  font-size: 18px !important;
-  font-weight: 600 !important;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-}
-.sr-input:focus, input[type='text']:focus, button:focus, .focused {
-  box-shadow: none !important;
-}
-
-.str-chat__message-livestream-content > *{
-  color: white !important;
-  font-size: 14px !important;
-}
-.str-chat__message-livestream-author {
-  color: white !important;
-  font-size: 16px !important;
-  font-size: 1500 !important;
-}
-
-.livestream.dark.str-chat .str-chat__message-livestream{
-  color: white !important;
-}
-.dark.str-chat .str-chat__date-separator-line {
-  background-color: rgba(255, 255, 255, .5) !important;
-}
-.str-chat__date-separator-date {
-  color: white !important;
-}
-.str-chat__input-flat-emojiselect svg {
-  opacity: .75 !important
-}
-.rta__textarea .str-chat__textarea__textarea {
-  color: white !important;
-  opacity: .75 !important
-}
-.str-chat__input-flat-emojiselect {
-  top: calc(100% - 47px) !important;
-  @media only screen and (max-width: 750px) {
-    top: calc(100% - 36px) !important;
-  }
-}
-
-.str-chat__loading-indicator {
-  margin-top: 50vh !important;
-  margin-left: calc(var(--vw, 1vh) * 12) !important;
-  @media only screen and (max-width: 1250px) {
-    margin-left: calc(var(--vw, 1vh) * 17) !important;
-  }
-  @media only screen and (max-width: 750px) {
-    margin-top: 50% !important;
-    margin-left: 47.5% !important;
-
-  }
-
-  position: absolute;
-}
-.rfu-file-upload-button {
-  display: none !important;
-}
-
-.str-chat__avatar-fallback {
-  background-color:rgb(0,20,85) !important;
-  color: white !important;
-}
-
-.str-chat__avatar--rounded {
-  display: none !important;
-}
-.str-chat__avatar--circle {
-  margin-top: 2.25px !important;
-}
-.dark.str-chat .str-chat__input-flat textarea {
-  background-color: rgb(0,0,0) !important;
-}
-
-.str-chat {
-  background-color: black;
-  height: calc(100vh - 75px) !important;
-}
-
-
-.str-chat__input-flat {
-  background-color: rgb(15,15,15) !important;
-}
-
-.str-chat__header-livestream {
-  background-color: rgb(15,15,15) !important;
-  height: 55px !important;
-
-  @media only screen and (max-width: 750px) {
-    max-height: 50px !important;
-    height: auto;
-  }
-}
-
-
-.str-chat__header-livestream-left {
-  @media only screen and (max-width: 750px) {
-    font-size: 12px;
-    flex: 2;
-  }
-}
-.str-chat__input-flat .str-chat__textarea > textarea:focus {
-  box-shadow: 0 0 0 2px white !important;
-}
-
-.livestream.str-chat.dark .str-chat__header-livestream-left--title {
-  @media only screen and (max-width: 750px) {
-    font-size: 14px;
-  }
-}
-
-.str-chat__header-hamburger {
-  @media only screen and (max-width: 750px) {
-    display: none;
-  }
-}
-
-.livestream.str-chat .str-chat__list {
-  background-color: rgb(3, 3, 3) !important;
-  @media only screen and (max-width: 750px) {
-    padding: 5px 5px;
-  }
-}
-
-.str-chat__message-livestream {
-  @media only screen and (max-width: 750px) {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    display: flex;
-    width: 100%;
-    margin: 0 0;
-    padding: 5px 10px;
-    border: 1px solid rgba(0, 0, 0, 0);
-    position: relative;
-  }
-}
-
-.str-chat__message-livestream-content > * {
-  @media only screen and (max-width: 750px) {
-    font-size: 12px;
-    line-height: 12px;
-    margin: 0;
-  }
-
-}
-
-.str-chat__message-livestream-text--is-emoji {
-  @media only screen and (max-width: 750px) {
-    font-size: 16px;
-    line-height: 16px;
-  }
-}
-
-.str-chat__input-flat {
-  @media only screen and (max-width: 750px) {
-    padding: 5px 20px;
-    height: auto;
-  }
-
-}
-.str-chat__input-flat-wrapper {
-  @media only screen and (max-width: 750px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-  }
-
-}
-.str-chat__input-flat--textarea-wrapper {
-  @media only screen and (max-width: 750px) {
-    height: 50px;
-
-  }
-}
-
-.str-chat__input-flat-emojiselect {
-  @media only screen and (max-width: 750px) {
-    position: absolute;
-    top: calc(100% - 35px);
-    left: 25px;
-  }
-
-}
-
-.str-chat__input-flat .rfu-file-upload-button {
-  @media only screen and (max-width: 750px) {
-    position: absolute;
-    top: calc(100% - 31px);
-    right: 25px;
-  }
-}
-
-.rta {
-  @media only screen and (max-width: 750px) {
-    font-size: 12px;
-  }
-}
-
-.str-chat__input-flat .str-chat__textarea > textarea {
-  @media only screen and (max-width: 750px) {
-    padding: 20px 69px;
-    height: 40px !important;
-    font-size: 14px;
-    line-height: 14px;
-  }
-
-}
-
-.dark.str-chat .str-chat__input-flat textarea {
-  @media only screen and (max-width: 750px) {
-    height: 40px !important;
-  }
-}
-
-.active-title-video {
-  height: 100vh;
-  margin: 0 -4vw;
-  width: 100vw;
-  z-index: 1000000;
-
-  video {
-    background-color: $elv-color-black;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    height: 100vh;
-    max-height: 100vh;
-    scroll-margin: 10rem;
-    width: 100vw;
-    z-index: 1000000;
-  }
-}
-
-#style-1::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-#style-1::-webkit-scrollbar {
-  background-color: transparent;
-}
-
-#style-1::-webkit-scrollbar-thumb {
-  background-color: transparent;
-}

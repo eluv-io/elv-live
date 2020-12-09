@@ -1,12 +1,20 @@
 import React from "react";
 import { Chat, Channel, ChannelHeader, Window } from "stream-chat-react";
 import { MessageList, MessageInput, MessageLivestream } from "stream-chat-react";
-import { MessageInputFlat, Thread } from "stream-chat-react";
+import { MessageInputSmall, MessageInputLarge, MessageInputFlat,MessageInputSimple,Thread } from "stream-chat-react";
 import {inject, observer} from "mobx-react";
 import { StreamChat } from "stream-chat";
 import AsyncComponent from "../../support/AsyncComponent";
 
 import "stream-chat-react/dist/css/index.css";
+
+
+// a very minimalistic message component
+class MyMessageComponent extends React.Component {
+  render() {
+    return <div><b>{this.props.message.user.name}</b> {this.props.message.text}</div>;
+  }
+}
 
 @inject("siteStore")
 @inject("rootStore")
@@ -28,7 +36,10 @@ class LiveChat extends React.Component {
   }
 
   render() {
-
+    const noDate = () => {
+        return (
+         null);
+        }
     return (
       <AsyncComponent
         Load={async () => {
@@ -38,8 +49,8 @@ class LiveChat extends React.Component {
             chatClient.setUser({ id: name, name: name,
               image: `https://getstream.io/random_svg/?name=${name}` }, token);
 
-            let channel = chatClient.channel("livestream", "rita-ora-new", {
-              name: "Rita Ora World Tour",
+            let channel = chatClient.channel("livestream", "rita-ora-test6", {
+              name: "Rita Ora Chat",
             });
             this.setState({chatClient: chatClient});
             this.setState({channel: channel});
@@ -49,12 +60,13 @@ class LiveChat extends React.Component {
             return null;
           } else {
             return (
-              <Chat client={this.state.chatClient} theme={"livestream dark"} className="stream-container__tabs--chat">
+              // <Chat client={this.state.chatClient} theme={"livestream light"} className="stream-container__tabs--chat">
+              <Chat client={this.state.chatClient} theme={"livestream light"}>
                 <Channel channel={this.state.channel} Message={MessageLivestream}>
                   <Window hideOnThread>
                     <ChannelHeader live />
-                    <MessageList />
-                    <MessageInput Input={MessageInputFlat} focus={false} />
+                    <MessageList dateSeparator={noDate}/>
+                    <MessageInput Input={MessageInputSimple} focus={false} />
                   </Window>
                   <Thread fullWidth autoFocus={false} />
                 </Channel>

@@ -1,0 +1,97 @@
+@import 'node_modules/stream-chat-react/dist/scss/ChatDown.scss';
+
+.str-chat__list {
+  background-color: rgba(245, 235, 225, .4) !important;
+  // border-top: 1px solid;
+  // border-bottom: 1px solid;
+  // border-color: grey;
+}
+
+.str-chat__container .str-chat__main-panel {
+  background-color: rgba(245, 235, 225, 0) !important;
+  // border-left: 1.75px solid;
+  // border-color: grey;
+
+} 
+.str-chat__header-livestream {
+  // background: rgba(243, 222, 200, .7) !important;
+  background-color: rgba(245, 235, 225, .8) !important;
+  // background: white;
+  // box-shadow: 1px 1px 1px 1px rgba(99, 75, 75, 0.2) !important;
+  height: 75px;
+}
+.str-chat__input-flat{
+  background-color: rgba(245, 235, 225, .8) !important;
+  height: 100px !important;
+  // box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 2) !important;
+
+}
+.str-chat__input-flat-wrapper {
+  margin-top: 14px !important;
+  // margin-bottom: 18.5px !important;
+
+  // display: relative !important;
+}
+.str-chat__date-separator {
+  display: none;
+}
+.str-chat__message-livestream-actions{
+  display: none !important;
+}
+.str-chat__message-livestream-left {
+  display: none !important;
+
+}
+.str-chat__message-livestream-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.str-chat__emojiselect-wrapper {
+  display: none !important;
+}
+.str-chat__textarea {
+  height: 60px !important;
+}
+.str-chat__textarea__textarea{
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+
+}
+
+
+.str-chat__textarea > textarea {
+  min-height: 56px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 20px 69px;
+  font-size: 15px;
+  line-height: 17px;
+  border: none;
+  margin: 0;
+  &:focus {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, .65) !important;
+  }
+}
+
+.str-chat__message-livestream:hover {
+  background: rgba(255, 255, 255, 0.0);
+  border: 1px solid rgba(0, 0, 0, 0.0);
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.00);
+  border-radius: 6px;
+}
+
+.livestream.str-chat .str-chat__list .str-chat__reverse-infinite-scroll {
+  padding-top: 20px !important;
+}
+
+// .str-chat__list {
+//   -ms-overflow-style: none;  /* IE and Edge */
+//   scrollbar-width: none;  /* Firefox */
+// }
+
+// .str-chat__list::-webkit-scrollbar {
+//   display: none;
+// }
