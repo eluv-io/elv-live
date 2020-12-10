@@ -49,8 +49,8 @@ class LiveChat extends React.Component {
             chatClient.setUser({ id: name, name: name,
               image: `https://getstream.io/random_svg/?name=${name}` }, token);
 
-            let channel = chatClient.channel("livestream", "rita-ora-test6", {
-              name: "Rita Ora Chat",
+            let channel = chatClient.channel("livestream", "rita-ora-test7", {
+              name: "Rita Ora",
             });
             this.setState({chatClient: chatClient});
             this.setState({channel: channel});

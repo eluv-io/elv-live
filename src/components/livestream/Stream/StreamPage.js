@@ -3,8 +3,6 @@ import clsx from 'clsx';
 
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
-import {ImageIcon} from "elv-components-js";
-import Select from 'react-select';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,18 +13,19 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withStyles } from "@material-ui/core/styles";
 
 import AsyncComponent from "../../support/AsyncComponent";
-import StreamTabs from './StreamTabs';
-import Logo from "../../../static/images/Logo.png";
-import ViewStream from "./ViewStream";
 import LiveChat from "./LiveChat";
 import Switch from "../../support/Switch";
+import MultiView from "./MultiView";
+import MultiViewJson from './example.json';
+import ViewStream from "./ViewStream";
+// import StreamTabs from './StreamTabs';
 
 const drawerWidth = 450;
 
 const styles = theme => ({
   root: {
     display: 'flex',
-    background: "rgba(245, 235, 225, .8)",
+    background: "rgba(245, 239, 234, .8)",
     height: "100vh",
     overflow: "hidden"
   },
@@ -118,6 +117,22 @@ class Stream extends React.Component {
     const handleDrawerClose = () => {
       this.setState({open: false});
     };
+
+    const handleViewOpen = event => {
+      this.setState({openMultiView: true, openedGridSpecs: event.currentTarget.style.gridArea,openedView: event.currentTarget.style});
+      event.currentTarget.style.gridArea = '1 / 1 / span 3 / span 3';
+      event.currentTarget.style.zIndex = '10';
+      console.log('box clicked!');
+    }
+
+    const handleViewClose = () => {
+      console.log(this.state.openedView)
+      this.state.openedView.gridArea = this.state.openedGridSpecs;
+      this.state.openedView.zIndex = '5';
+      this.setState({openMultiView: false, openedGridSpecs: "",openedView: undefined});
+      console.log('box closed!');
+    }
+
     const { classes } = this.props;
 
     let vh = window.innerHeight * 0.01;
@@ -127,75 +142,17 @@ class Stream extends React.Component {
 
     const renderFeed = (switchValue) => {
       if (switchValue) {
-        const handleClick = event => {
-          this.setState({openMultiView: true, openedGridSpecs: event.currentTarget.style.gridArea,openedView: event.currentTarget.style});
-          event.currentTarget.style.gridArea = '1 / 1 / 4 / 4';
-          event.currentTarget.style.zIndex = '10';
-          console.log('box clicked!');
-        }
-    
-        const handleClose = () => {
-          console.log(this.state.openedView)
-          this.state.openedView.gridArea = this.state.openedGridSpecs;
-          this.state.openedView.zIndex = '5';
-          this.setState({openMultiView: false, openedGridSpecs: "",openedView: undefined});
-          console.log('box closed!');
-        }
-
+        return <MultiView config={MultiViewJson} handleViewOpen={handleViewOpen} handleViewClose={handleViewClose} isOpen={this.state.openMultiView} />    
+      }
+      else {
         return (
-          <div className="feedGrid">
-            {this.state.openMultiView ?           
-            <div className="video-close" onClick={handleClose}>
-              <span className="video-close-span">All Views</span>
-            </div> 
-            : null}
-  
-            <div className="videobox1" onClick={handleClick}>
-              <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {false} showControls = {false}/>
-              <h4 className="video-heading">
-                <span className="video-heading-span">Main</span>
-              </h4>
-            </div>
-            <div className="videobox2" onClick={handleClick}>
-              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
-              <h4 className="video-heading">
-                <span className="video-heading-span">Side</span>
-              </h4>
-            </div>
-            <div className="videobox3" onClick={handleClick}>
-              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
-              <h4 className="video-heading">
-                <span className="video-heading-span">Sky View</span>
-              </h4>
-            </div>
-            <div className="videobox4" onClick={handleClick}>
-              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
-              <h4 className="video-heading">
-                <span className="video-heading-span">Audience</span>
-              </h4>
-            </div>
-            <div className="videobox5" onClick={handleClick}>
-              <ViewStream feedOption={2} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
-              <h4 className="video-heading">
-                <span className="video-heading-span">Artist</span>
-              </h4>
-            </div>
-            <div className="videobox6" onClick={handleClick}>
-              <ViewStream feedOption={1} classProp = "testvideo" mutedOption = {true} showControls = {false}/>
-              <h4 className="video-heading">
-                <span className="video-heading-span">Zoom</span>
-              </h4>
-            </div>
+          <div className="singleFeed">
+            <ViewStream feedOption={0} classProp = "stream-video" mutedOption = {false} showControls = {true}/>
           </div>
-        );
-      } else {
-        return (
-          <div className="stream-container__streamBox--videoBox">
-            <ViewStream feedOption={0} classProp = "testvideo" mutedOption = {false} showControls = {true}/>
-          </div>
-        );
+        )
       }
     }
+
 
     return (
       <AsyncComponent
@@ -228,8 +185,6 @@ class Stream extends React.Component {
                           onColor="linear-gradient(160deg, #0610a1 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%)"
                           handleToggle={() => this.setState({switchValue: !(this.state.switchValue)})}
                         />
-          
-
                       </div>
 
                       <div className="stream-nav__button-grp2">
@@ -270,7 +225,6 @@ class Stream extends React.Component {
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
                       {renderFeed(this.state.switchValue)}
-                      {/* <Timer classProp="ticket-icon-clock" divProp="stream-countdown"/> */}
 
                       <div className="stream-container__streamBox--info">
                         <h2 className="stream-container__streamBox--info__subtitle">
