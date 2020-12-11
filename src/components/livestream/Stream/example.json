@@ -17,15 +17,15 @@
       "gridArea": "3 / 2 / span 1 / span 1"
     },
     { "title": "Audience",
-      "feedOption": 1,
+      "feedOption": 3,
       "gridArea": "3 / 3 / span 1 / span 1"
     },
     { "title": "Artist",
-      "feedOption": 2,
+      "feedOption": 4,
       "gridArea": "2 / 3 / span 1 / span 1"
     },
     { "title": "Zoom",
-      "feedOption": 1,
+      "feedOption": 5,
       "gridArea": "1 / 3 / span 1 / span 1"
     }
  ]

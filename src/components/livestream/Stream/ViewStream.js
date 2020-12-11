@@ -32,14 +32,12 @@ class ViewStream extends React.Component {
 
   InitializeVideo(element) {
     if(!element) { return; }
-
     this.DestroyPlayer();
-
     this.video = element;
 
     try {
-      element.addEventListener("canplay", () => this.setState({showControls: true}));
-      let title = this.props.siteStore.feeds[this.props.feedOption];
+      // element.addEventListener("canplay", () => this.setState({showControls: true}));
+      let title = this.props.siteStore.feeds[this.props.feed];
       const offering = title.currentOffering;
       let playoutOptions = title.playoutOptions;
 
@@ -50,11 +48,17 @@ class ViewStream extends React.Component {
       let player;
       if(this.props.siteStore.dashSupported && playoutOptions.dash) {
         // DASH
-
         this.setState({protocol: "dash"});
 
         player = DashJS.MediaPlayer().create();
 
+        player.updateSettings({
+          'streaming': {
+              'abr': {
+                  'limitBitrateByPortal': true
+              }
+          }
+        });
         const playoutUrl = (playoutOptions.dash.playoutMethods.widevine || playoutOptions.dash.playoutMethods.clear).playoutUrl;
         if(playoutOptions.dash.playoutMethods.widevine) {
           const widevineUrl = playoutOptions.dash.playoutMethods.widevine.drms.widevine.licenseServers[0];
@@ -65,49 +69,11 @@ class ViewStream extends React.Component {
             }
           });
         }
-
-        player.on(
-          DashJS.MediaPlayer.events.CAN_PLAY,
-          () => {
-            this.setState({
-              audioTracks: {
-                current: player.getCurrentTrackFor("audio").index,
-                available: player.getTracksFor("audio").map(audioTrack =>
-                  ({
-                    index: audioTrack.index,
-                    label: audioTrack.labels && audioTrack.labels.length > 0 ? audioTrack.labels[0].text : audioTrack.lang
-                  })
-                )
-              }
-            });
-          }
-        );
-
-        player.on(
-          DashJS.MediaPlayer.events.TEXT_TRACK_ADDED,
-          () => {
-
-            const available = player.getTracksFor("text").map(textTrack =>
-              ({
-                index: textTrack.index,
-                label: textTrack.labels && textTrack.labels.length > 0 ? textTrack.labels[0].text : textTrack.lang
-              })
-            );
-
-            this.setState({
-              textTracks: {
-                current: available.findIndex(track => track.index === player.getCurrentTrackFor("text").index),
-                available
-              }
-            });
-          }
-        );
-
         player.initialize(element, playoutUrl);
       } else {
         // HLS
 
-        this.setState({protocol: "hls"});
+        // this.setState({protocol: "hls"});
 
         if(!HLSPlayer.isSupported()) {
           if(this.props.siteStore.availableDRMs.includes("fairplay")) {
@@ -132,38 +98,12 @@ class ViewStream extends React.Component {
           playoutOptions.hls.playoutMethods.clear
         ).playoutUrl;
 
-        player = new HLSPlayer();
-
-        player.on(HLSPlayer.Events.AUDIO_TRACK_SWITCHED, () => {
-          this.setState({
-            audioTracks: {
-              current: player.audioTrack,
-              available: player.audioTrackController.tracks.map(audioTrack =>
-                ({
-                  index: audioTrack.id,
-                  label: audioTrack.name
-                })
-              )
-            }
-          });
-        });
-
-        player.on(HLSPlayer.Events.SUBTITLE_TRACK_LOADED, () => {
-          this.setState({
-            textTracks: {
-              current: player.subtitleTrack,
-              available: Array.from(this.video.textTracks)
-            }
-          });
-        });
-
-        player.on(HLSPlayer.Events.SUBTITLE_TRACK_SWITCH, () => {
-          this.setState({
-            textTracks: {
-              current: player.subtitleTrack,
-              available: Array.from(this.video.textTracks)
-            }
-          });
+        player = new HLSPlayer({
+          // maxBufferLength: 30,
+          // maxBufferSize: 300,
+          enableWorker: true,
+          //startLevel: streamIndex === this.state.activeStream ? -1 : 0,
+          capLevelToPlayerSize: true
         });
 
         player.loadSource(playoutUrl);
@@ -180,13 +120,14 @@ class ViewStream extends React.Component {
   render() {
     return (
       <video
-        key={`active-stream-${this.props.feedOption}`}
+        key={`active-stream-${this.props.feed}`}
+        id={`active-stream-${this.props.feed}`}
         ref={this.InitializeVideo}
         autoPlay
         // poster={poster}
-        controls={this.props.showControls}
-        className={this.props.classProp}
-        muted = {this.props.mutedOption}
+        controls
+        className={(this.props.activeStream === this.props.feed) || (this.props.activeStream === 6) ? "active-stream" : "hide-stream"}
+        muted = {this.props.feed === 0 ? false : true}
       />
     );
   }

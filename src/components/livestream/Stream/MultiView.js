@@ -1,26 +1,35 @@
 import React from 'react';
 import ViewStream from "./ViewStream";
+import CloseIcon from "../../../static/icons/x.svg";
+import {ImageIcon} from "elv-components-js";
 
-const MultiView = ({ config, handleViewOpen, handleViewClose, isOpen }) => {
+const MultiView = ({ config, setStream, activeStream, isOpen }) => {
+  
+  // For 6 views, 0-5: individual views, 6: mosaic view
 
-    return (
-      <div className="feedGrid" style={{ gridTemplateColumns: config["grid"]["columns"],gridTemplateRows: config["grid"]["rows"]}} >
-        {isOpen ?           
-          <div id={`exitExpand`} className="video-close" onClick={handleViewClose}>
-            <span className="video-close-span">All Views</span>
-          </div> 
-          : null}
+  return (
+    <div className="feedGrid" style={{ gridTemplateColumns: config["grid"]["columns"],gridTemplateRows: config["grid"]["rows"]}} >
+      {(isOpen) && activeStream != 6 ?           
+          <ImageIcon
+            key={`back-icon-Close Modal`}
+            className={"back-button-stream"}
+            title={"Close Modal"}
+            icon={CloseIcon}
+            onClick={() => setStream(6)}
+          />
+        : null}
 
-       {Object.entries(config["streams"]).map(([key, value]) => (
-          <div key={key} id={`videobox${key}`} className={`videobox`} style={{ gridArea: value.gridArea}} onClick={handleViewOpen}>
-            <ViewStream feedOption={value.feedOption} classProp = "stream-video" mutedOption = {false} showControls = {false}/>
-            <h4 className="video-heading">
-              <span className="video-heading-span">{value.title}</span>
-            </h4>
-          </div>
-        ))}
-      </div>
-    );
+      {Object.entries(config["streams"]).map(([key, value]) => (
+        <div key={key} id={`videobox${key}`} className={activeStream === value.feedOption ? `singleVideoBox` : activeStream === 6 ? `videobox` : "hideVideoBox"} style={{ gridArea: value.gridArea}} onClick={() => setStream(value.feedOption)}>
+          <ViewStream feed={value.feedOption} activeStream={activeStream} />
+          {activeStream === 6 ? <h4 className="video-heading">
+            <span className="video-heading-span">{value.title}</span>
+      </h4> : null}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default MultiView;
+

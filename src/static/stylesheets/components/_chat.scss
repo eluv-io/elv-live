@@ -88,9 +88,10 @@
 
 }
 .str-chat__header-livestream-left--livelabel {
-  font-size: 17px;
-  margin-left: 3px;
-  
+  font-size: 15px;
+  // margin: auto;
+  margin-left: 5px;
+  // align-self: center;
   // color: white;
   // background-color: rgb(255,0,0);
   // width: auto;
@@ -102,7 +103,7 @@
   // font-size: 18px;
   // color: white;
   // background-color: white;
-  top: -3px !important;
+  top: -2px !important;
   // display: none;
 }
 .str-chat__message-livestream:hover {
