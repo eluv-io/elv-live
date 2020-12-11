@@ -17,7 +17,6 @@ import LiveChat from "./LiveChat";
 import Switch from "../../support/Switch";
 import MultiView from "./MultiView";
 import MultiViewJson from './example.json';
-import ViewStream from "./ViewStream";
 // import StreamTabs from './StreamTabs';
 
 const drawerWidth = 450;
@@ -98,10 +97,8 @@ class Stream extends React.Component {
     this.state = {
       open: false,
       name: "",
-      openMultiView: false,
-      openedView: undefined,
-      openedGridSpecs: "",
-      switchValue: false
+      switchValue: false,
+      activeStream: 0
     };
   }
 
@@ -118,19 +115,27 @@ class Stream extends React.Component {
       this.setState({open: false});
     };
 
-    const handleViewOpen = event => {
-      this.setState({openMultiView: true, openedGridSpecs: event.currentTarget.style.gridArea,openedView: event.currentTarget.style});
-      event.currentTarget.style.gridArea = '1 / 1 / span 3 / span 3';
-      event.currentTarget.style.zIndex = '10';
-      console.log('box clicked!');
+    const setStream = (streamIndex) => {
+      this.setState({activeStream: streamIndex});
+      if (streamIndex === 6) {
+        for (let i = 0; i < 6; i++) {
+          document.getElementById(`active-stream-${i}`).controls = false;
+          document.getElementById(`active-stream-${i}`).play = true;
+        }
+        // document.getElementById(`active-stream-0`).play = false;
+      } else {
+        setTimeout(() => {
+          document.getElementById(`active-stream-${streamIndex}`).controls = true}, 500);
+      }
     }
 
-    const handleViewClose = () => {
-      console.log(this.state.openedView)
-      this.state.openedView.gridArea = this.state.openedGridSpecs;
-      this.state.openedView.zIndex = '5';
-      this.setState({openMultiView: false, openedGridSpecs: "",openedView: undefined});
-      console.log('box closed!');
+    const handleSwitch = () => {
+      this.setState({switchValue: !(this.state.switchValue)})
+      if (this.state.switchValue === false) {
+        setStream(6);
+      } else {
+        setStream(0);
+      }
     }
 
     const { classes } = this.props;
@@ -139,19 +144,6 @@ class Stream extends React.Component {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     let vw = window.innerWidth * 0.01;
     document.documentElement.style.setProperty('--vw', `${vw}px`);
-
-    const renderFeed = (switchValue) => {
-      if (switchValue) {
-        return <MultiView config={MultiViewJson} handleViewOpen={handleViewOpen} handleViewClose={handleViewClose} isOpen={this.state.openMultiView} />    
-      }
-      else {
-        return (
-          <div className="singleFeed">
-            <ViewStream feedOption={0} classProp = "stream-video" mutedOption = {false} showControls = {true}/>
-          </div>
-        )
-      }
-    }
 
 
     return (
@@ -172,18 +164,17 @@ class Stream extends React.Component {
               >
                 <Toolbar>
                   <div className="stream-nav">
-                    {/* <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" /> */}
-                    <h1 className="stream-nav__title"> Eluvio Live </h1>
+                    <h1 style={{fontFamily: 'Noe Display Bold'}} className="stream-nav__title"> Eluvio Live </h1>
                     <div className="stream-nav__button-grp">
 
                       <div className="switch-container">
-                      <span className="switch-text">
+                      <span style={{fontFamily: 'Noe Display Bold'}} className="switch-text">
                           MultiView
                         </span>
                         <Switch
                           isOn={this.state.switchValue}
                           onColor="linear-gradient(160deg, #0610a1 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%)"
-                          handleToggle={() => this.setState({switchValue: !(this.state.switchValue)})}
+                          handleToggle={handleSwitch}
                         />
                       </div>
 
@@ -224,13 +215,13 @@ class Stream extends React.Component {
 
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
-                      {renderFeed(this.state.switchValue)}
+                    <MultiView config={MultiViewJson} setStream={setStream} activeStream={this.state.activeStream} isOpen={this.state.switchValue} />
 
                       <div className="stream-container__streamBox--info">
-                        <h2 className="stream-container__streamBox--info__subtitle">
+                        <h2 style={{fontFamily: 'Noe Display Bold'}} className="stream-container__streamBox--info__subtitle">
                           Rita Ora 
                         </h2>
-                        <h1 className="stream-container__streamBox--info__title">
+                        <h1 style={{fontFamily: 'Noe Display Bold'}} className="stream-container__streamBox--info__title">
                           RO3 World Tour - Eiffel Tower
                         </h1>
                       </div> 

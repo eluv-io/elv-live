@@ -65,6 +65,7 @@ class RootStore {
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
+      // console.log(this.accessCode);
 
       if(!this.accessCode) {
         this.SetError("Invalid code");

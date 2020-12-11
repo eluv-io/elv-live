@@ -19,7 +19,7 @@
     user-select: none; /* Standard syntax */
   }
   &__title { 
-    font-family: NoeDisplayBold, sans-serif;
+    font-family: "Noe Display Bold", sans-serif;
     // font-family: 'Abril Fatface', cursive;
     font-size: 34px;
     line-height: 100%;
@@ -31,6 +31,9 @@
     margin-left: 6px;
     margin-top: 22px !important;
     margin-bottom: 22px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Standard syntax */
     // width: 130px;
     // -webkit-user-select: none; /* Safari */
     // -ms-user-select: none; /* IE 10+ and Edge */
@@ -136,7 +139,7 @@
         text-align: left;
         text-align: left;
         margin-bottom: 10px !important;
-        font-family: NoeDisplayBold, sans-serif !important;
+        font-family: "Noe Display Bold", sans-serif !important;
 
         @media only screen and (max-width: 600px) {
           font-size: 26px;
@@ -154,7 +157,7 @@
         text-align: left;
         text-align: left;
         width: 100%;
-        font-family: NoeDisplayBold, sans-serif !important;
+        font-family: "Noe Display Bold", sans-serif !important;
 
         @media only screen and (max-width: 600px) {
           font-size: 26px;
@@ -231,21 +234,16 @@
 }
 
 
-.singleFeed { 
-  background-color: rgba(245, 235, 225, .8);
-  height:calc(100vh - 175px);
-  width: 100%;
-  margin: auto;
-  text-align: center;
-  color: white;
-  font-size: 30px;
-  grid-column: 1;
-  grid-row: 1 / 2;
-  object-fit: cover;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
+// .singleFeed { 
+//   height:calc(100vh - 175px);
+//   width: 100%;
+//   grid-column: 1;
+//   grid-row: 1 / 2;
+//   object-fit: cover;
+//   display: flex;
+//   align-content: center;
+//   justify-content: center;
+// }
 
 .feedGrid { 
   height:calc(100vh - 175px);
@@ -258,6 +256,7 @@
   position: relative;
   background: black; 
 }
+
 .videobox { 
   background: black; 
   height:auto;
@@ -269,6 +268,37 @@
   align-items: center;
   position: relative;
   z-index: 5;
+}
+
+.singleVideoBox { 
+  background: black; 
+  height:auto;
+  grid-area: 1 / 1 / span 3 / span 3 !important; //<row-start> / <column-start> / <row-end> / <column-end>
+  width: 100%;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.hideVideoBox { 
+  // background: black; 
+  // height:auto;
+  // grid-area: 1 / 1 / span 3 / span 3 !important; //<row-start> / <column-start> / <row-end> / <column-end>
+  // width: 100%;
+  // object-fit: cover;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // position: relative;
+  // z-index: 5;
+
+  height: 1px;
+  width: 1px;
+  visibility: hidden;
+  position: absolute;
 }
 
 .videobox0 { 
@@ -363,11 +393,18 @@
   position: relative;
   z-index: 5;
 }
-.stream-video { 
+.active-stream { 
   width: 100%;
   height: 100%;
   object-fit: cover !important;
   background: black; 
+}
+
+.hide-stream {
+  height: 1px;
+  width: 1px;
+  visibility: hidden;
+  position: absolute;
 }
 
 .video-heading{
@@ -375,34 +412,54 @@
   bottom: 20px;
   left: 20px;
   background-color: rgba(245, 235, 225, 1) !important;
-  opacity: .9;
+  opacity: 1;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  padding: 2px 10px;
+  padding: 4px 10px;
 
 }
 
 .video-heading-span {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  line-height: 180%;
+  line-height: 160%;
   white-space: nowrap;  
   color: black !important;
-  font-family: NoeDisplayBold, sans-serif !important;
+  font-family: "Noe Display Bold", sans-serif !important;
   text-transform: capitalize;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
 }
 
+.back-button-stream {
+  background-color: $elv-color-bg-dark;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  top: 30px;
+  right: 30px;
+  // margin-left: 3vw;
+  // margin-top: 3rem;
+  padding: $elv-spacing-xs;
+  position: absolute;
+  stroke: white;
+  width: 5.5rem;
+  height: 30px;
+  z-index: 10000000000;
+  &:hover {
+    background-color: $elv-color-darkgray;
+    // stroke: $elv-color-lightgray;
+  }
+}
 
 .video-close{
   position: absolute;
   top: 20px;
   right: 20px;
   background-color: rgba(245, 235, 225, 1) !important;
-  opacity: .9;
+  opacity: 1;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
@@ -416,9 +473,9 @@
   box-decoration-break: clone;
   line-height: 180%;
   white-space: nowrap;  
-  font-family: NoeDisplayBold, sans-serif !important;
+  font-family: "Noe Display Bold", sans-serif !important;
   color: black !important;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
   // text-transform: uppercase;
 }
