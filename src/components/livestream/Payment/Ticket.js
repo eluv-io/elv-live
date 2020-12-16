@@ -26,8 +26,8 @@ class Ticket extends React.Component {
         {
           priceID: priceID,
           qty: 1,
-          cancel_url:`${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}rita-ora/d457a576`, 
-          success_url: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success/{CHECKOUT_SESSION_ID}`, 
+          cancel_url:`${window.location.origin}/d457a576/rita-ora`, 
+          success_url: `${window.location.origin}/d457a576/success/{CHECKOUT_SESSION_ID}`, 
           client_reference_id: prodID
         }
       );
@@ -51,10 +51,13 @@ class Ticket extends React.Component {
     const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
     const { error } = await stripe.redirectToCheckout({
       mode: "payment",
-      lineItems: [{ price: priceID, quantity: 1 }],
-      successUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}d457a576/success/{CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}rita-ora/d457a576`,
-      clientReferenceId: prodID
+      lineItems: [{ price: priceID, quantity: 1 }, { price: "price_1HynknE0yLQ1pYr6q7F7B4iC", quantity: 1 }, { price: "price_1HyngME0yLQ1pYr6U9C3Vr8K", quantity: 1 }],
+      successUrl: `${window.location.origin}/d457a576/success/{CHECKOUT_SESSION_ID}`, 
+      cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
+      clientReferenceId: prodID,
+      shippingAddressCollection: {
+        allowedCountries: ['US', 'CA'],
+      }
     });
     if (error) {
       console.error("Failed to handleSubmit for Stripe:");

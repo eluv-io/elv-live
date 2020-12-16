@@ -5,6 +5,8 @@ import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
 import { parse } from 'query-string';
 
+import Navigation from "../home/Navigation";
+
 import Logo from "../../static/images/Logo-Small.png";
 import default_background from "../../static/images/codeAccess/concert.jpg";
 
@@ -52,7 +54,7 @@ class CodeAccess extends React.Component {
     if(!this.props.siteStore.client) { return null; }
 
     if(this.state.siteId) {
-      return <Redirect to={`/stream/${this.state.siteId}`} />;
+      return <Redirect to={`/d457a576/stream/${this.state.siteId}`} />;
     }
 
     const Submit = async () => {
@@ -86,6 +88,7 @@ class CodeAccess extends React.Component {
 
     return (
       <div style={divStyle}>
+        <Navigation />
 
         <div className = "code-entry">
           { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }

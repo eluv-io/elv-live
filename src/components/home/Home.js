@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 
 import Card from "./Card";
+import Navigation from "./Navigation";
 import Logo from "../../static/images/Logo.png";
 import ritaHero from "../../static/images/ritaora/hero5.jpg";
 import ritaHome from "../../static/images/ritaora/rita-home.jpg";
@@ -13,7 +14,7 @@ import ritaHome from "../../static/images/ritaora/rita-home.jpg";
 @inject("siteStore")
 @withRouter
 @observer
-class Site extends React.Component {
+class Home extends React.Component {
   
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -121,18 +122,7 @@ class Site extends React.Component {
     return (
       <div className="live-container">
         {/* NavBar */}
-        <div className="live-nav">
-          <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
-          <div className="live-nav__btn-group">
-            {/* <a href="https://eluv.io/register" target="_blank" className="btn2 btn2--white live-nav--event">
-              Create Event
-            </a> */}
-            <Link to="/code" className="btn2 btn2--white live-nav--ticket">
-              Redeem Ticket 
-            </Link>
-          </div>
-
-        </div>
+        <Navigation />
 
         {/* Hero View */}
         {this.HeroView()}
@@ -167,4 +157,4 @@ class Site extends React.Component {
   }
 }
 
-export default Site;
+export default Home;

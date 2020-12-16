@@ -24,7 +24,7 @@ class Card extends React.Component {
                 <h4 className="card__price-detail">{this.props.date}</h4>
                 <h4 className="card__price-detail">{this.props.description}</h4>
               </div>
-              <Link to={`/${this.props.name.replace(/\s+/g, '-').toLowerCase()}/d457a576`} >
+              <Link to={`/d457a576/${this.props.name.replace(/\s+/g, '-').toLowerCase()}`} >
                 <button type="button" className="btn2 btn2--white">View Event</button>
               </Link>
             </div>

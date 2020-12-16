@@ -1,15 +1,16 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import EventTabs from "../EventTabs";
-import {ImageIcon} from "elv-components-js";
-import CloseIcon from "../../../static/icons/x.svg";
-import hero1 from "../../../static/images/ritaora/hero1.jpg";
-import Ticket from "../../livestream/Payment/Ticket";
-
 import {Redirect} from "react-router";
-import Logo from "../../../static/images/Logo.png";
+import {ImageIcon} from "elv-components-js";
 
+import EventTabs from "../EventTabs";
+import Ticket from "../../livestream/Payment/Ticket";
+import Navigation from  "../../home/Navigation";
+
+import Logo from "../../../static/images/Logo.png";
 import heroImg from "../../../static/images/ritaora/hero1.jpg";
+import hero1 from "../../../static/images/ritaora/hero1.jpg";
+import CloseIcon from "../../../static/icons/x.svg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -137,9 +138,11 @@ class Concert extends React.Component {
 
     return (
       <div className="event">
-        <div className="event-nav">
+        {/* <div className="event-nav">
           <ImageIcon className="event-nav__logo" icon={Logo} label="Eluvio" />
-        </div>
+        </div> */}
+        <Navigation />
+
 
         <div style={backgroundStyle} />
 
