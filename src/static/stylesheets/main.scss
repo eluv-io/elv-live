@@ -14,14 +14,17 @@
 @import "components/tabs";
 @import "components/switch";
 @import "components/chat";
+@import "components/navigation";
 
 //PAGES
 @import "pages/home";
 @import "pages/stream";
 @import "pages/event";
-@import "pages/payment";
+@import "pages/success";
 @import "pages/merch";
 @import "pages/artist-profile";
 @import "pages/overview";
 @import "pages/code-entry";
 @import "pages/contact-form";
+@import "pages/support";
+@import "pages/payment";

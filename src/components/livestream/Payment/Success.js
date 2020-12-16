@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
-import { parse } from 'query-string';
 import Logo from "../../../static/images/Logo.png";
 import axios from "axios";
 import AsyncComponent from "../../support/AsyncComponent";
+import Navigation from "../../home/Navigation";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -41,9 +41,7 @@ class Success extends React.Component {
 
               return (
                 <div className="success-container">
-                  <div className="live-nav">
-                    <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
-                  </div>
+                  <Navigation/>
           
                   <div className="success-root">
                     <div className="summary">
@@ -53,7 +51,7 @@ class Success extends React.Component {
                       </div>
 
                       <div className="back-btn-container">
-                        <Link to="/rita-ora/d457a576" className="eventBTN">Back to Event</Link>
+                        <Link to="/d457a576/rita-ora" className="eventBTN">Back to Event</Link>
                       </div>
                       <div className="header">
                         <h1>Order Summary</h1>

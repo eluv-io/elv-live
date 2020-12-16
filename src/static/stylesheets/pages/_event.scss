@@ -4,23 +4,23 @@
   flex-direction: column;
 }
 
-.event-nav {
-  background-color: transparent;
-  height: 8rem;
-  position: absolute;
-  width: 100%;
-  z-index: 9999999;
-  align-items: center;
-  display: flex;
-  justify-content: flex-start;
+// .event-nav {
+//   background-color: transparent;
+//   height: 8rem;
+//   position: absolute;
+//   width: 100%;
+//   z-index: 9999999;
+//   align-items: center;
+//   display: flex;
+//   justify-content: flex-start;
 
-  &__logo {
-    height: 4rem;
-    margin-left: 12.5vw;
-    margin-top: 3rem;
-    width: auto;
-  }
-}
+//   &__logo {
+//     height: 4rem;
+//     margin-left: 12.5vw;
+//     margin-top: 3rem;
+//     width: auto;
+//   }
+// }
 
 .event-container {
   align-self: start;

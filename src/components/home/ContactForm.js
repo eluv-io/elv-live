@@ -13,8 +13,8 @@ class ContactForm extends React.Component {
     
     return (
         <div className="contact-page">
-          <div className="live-nav">
-            <ImageIcon className="live-nav--logo" icon={Logo} label="Eluvio" />
+          <div className="main-nav">
+            <ImageIcon className="main-nav--logo" icon={Logo} label="Eluvio" />
           </div>
   
           <div className="contact-container">

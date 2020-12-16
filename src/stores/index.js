@@ -93,46 +93,6 @@ class RootStore {
     }
   });
 
-  // Coinbase Charge Creation- currently not in use
-
-  // @action.bound
-  // CreateCharge = flow(function * (name, description, price) {
-  //   try {
-  //     let coinbase = require('coinbase-commerce-node');
-  //     let coinClient = coinbase.Client;
-  //     coinClient.init('7ca60022-a01b-4498-8c35-a2c2aef42605');
-
-  //     var newCharge = new coinbase.resources.Charge({
-  //       "name": `${name}`,
-  //       "description": `${description}`,
-  //       "local_price": {
-  //         "amount": `${price}`,
-  //         "currency": "USD"
-  //       },
-  //       "pricing_type": "fixed_price",
-  //       "metadata": {
-  //         // "customer_id": "id_1005",
-  //         // "customer_name": "Satoshi Nakamoto"
-  //       },
-  //       "redirect_url": `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}success`,
-  //       "cancel_url": `${window.location.href.substring(0, window.location.href.lastIndexOf("#") + 2)}`
-  //     });
-  //     let tempCharge, redirect;
-
-  //     yield newCharge.save(function (error, response) {
-  //       tempCharge = response.code;
-  //       redirect = response.hosted_url;
-  //     });
-  //     this.chargeID = tempCharge;
-  //     this.redirectCB = redirect;
-  //   } catch (error) {
-  //     // eslint-disable-next-line no-console
-  //     console.error("Failed to CreateCharge:");
-  //     // eslint-disable-next-line no-console
-  //     console.error(error);
-  //   }
-  // });
-
   @action.bound
   SetError(error) {
     this.error = error;

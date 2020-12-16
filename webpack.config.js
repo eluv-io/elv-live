@@ -13,17 +13,19 @@ module.exports = {
   output: {
     path: Path.resolve(__dirname, "dist"),
     filename: "App.js",
-    chunkFilename: "[name].bundle.js"
+    chunkFilename: "[name].bundle.js",
+    publicPath: '/'
   },
   devServer: {
     disableHostCheck: true,
     inline: true,
-    port: 8084,
+    port: 8086,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "Content-Type, Accept",
       "Access-Control-Allow-Methods": "POST"
-    }
+    },
+    historyApiFallback: true
   },
   resolve: {
     alias: {
