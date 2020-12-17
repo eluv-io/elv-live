@@ -42,12 +42,12 @@ class ConcertOverview extends React.Component {
         
         <div className="ticket-group">
           <Ticket 
-          name="General Admission" 
-          description="General Admission includes one (1) Virtual Ticket to the Live Stream Concert. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
-          price="$30"
-          priceID="price_1HpS6pE0yLQ1pYr6CuBre5I4"
-          prodID = "prod_IQIiC3jywpIUKu"
-          date ="January 28th, 8:00 PM – 10:00 PM PST"
+            name="General Admission" 
+            description="General Admission includes one (1) Virtual Ticket to the Live Stream Concert. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
+            price="$30"
+            priceID="price_1HpS6pE0yLQ1pYr6CuBre5I4"
+            prodID = "prod_IQIiC3jywpIUKu"
+            date ="January 28th, 8:00 PM – 10:00 PM PST"
           />
           <Ticket 
             name="VIP Package" 

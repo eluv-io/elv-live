@@ -11,6 +11,9 @@ import Logo from "../../../static/images/Logo.png";
 import heroImg from "../../../static/images/ritaora/hero1.jpg";
 import hero1 from "../../../static/images/ritaora/hero1.jpg";
 import CloseIcon from "../../../static/icons/x.svg";
+import PaymentOverview from "../../home/PaymentOverview";
+import Footer from "../../home/Footer";
+
 
 @inject("rootStore")
 @inject("siteStore")
@@ -21,7 +24,9 @@ class Concert extends React.Component {
 
     this.state = {
       showPayment: false,
-      showTrailer: false
+      showTrailer: false,
+      prodID: "",
+      priceID: ""
     };
   }
 
@@ -65,17 +70,17 @@ class Concert extends React.Component {
 
     return (
       <React.Fragment>
-        <div onClick={() => this.setState({showPayment: false})} className="backdrop" />
+        <div onClick={this.props.siteStore.turnOffModal} className="backdrop" />
         <div className="ticket-modal ticket-modal-show">
           <ImageIcon
             key={`back-icon-Close Modal`}
             className={"back-button-modal"}
             title={"Close Modal"}
             icon={CloseIcon}
-            onClick={() => this.setState({showPayment: false})}
+            onClick={this.props.siteStore.turnOffModal}
           />
           <div className={`ticket-modal__container`}>
-           <div className="ticket-group">
+           {/* <div className="ticket-group">
              <Ticket 
               name="General Admission" 
               description="General Admission includes one (1) Virtual Ticket to the Live Stream Concert. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
@@ -92,8 +97,9 @@ class Concert extends React.Component {
               prodID = "prod_IQIiMc4NHvH3DF"
               date ="January 28th, 8:00 PM – 10:00 PM PST"
             />
-            </div>
-   
+          </div> */}
+          <PaymentOverview priceID={this.state.priceID} prodID={this.state.prodID}/> 
+  
           </div>
         </div>
       </React.Fragment>
@@ -106,6 +112,8 @@ class Concert extends React.Component {
     //   return <Redirect to='/'/>;
     // }
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+
+    console.log("this.props.siteStore.modalOn", this.props.siteStore.modalOn);
     
     let thumbnail = heroImg;
     const backgroundColor =  "#000321";
@@ -154,7 +162,7 @@ class Concert extends React.Component {
           </div>
           
           <div className="event-container__button">
-            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.setState({showPayment: true})}>
+            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.props.siteStore.turnOnModal("price_1HpS6pE0yLQ1pYr6CuBre5I4", "prod_IQIiC3jywpIUKu")}>
               Buy Tickets
             </button>
             <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
@@ -163,19 +171,15 @@ class Concert extends React.Component {
           </div> 
 
           <div className="event-container__overview">
-            <EventTabs title={null} type={"concert"} name={"rita-ora"}/>
+            <EventTabs title={null} type={"concert"} name={"rita-ora"} />
           </div>
         </div>
 
         { this.state.showTrailer ? this.Trailer(): null}
-        { this.state.showPayment ? this.Payment(): null}
+        { this.props.siteStore.modalOn ? this.Payment(): null}
 
 
-        <div className="live-footer">
-          <h3 className="live-footer__title">
-            Copyright © Eluvio 2020 
-          </h3>
-        </div>
+        <Footer />
       </div>
     );
   }

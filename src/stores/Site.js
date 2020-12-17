@@ -60,8 +60,11 @@ class SiteStore {
   @observable siteCustomization;
   @observable feeds = [];
 
-  @observable titles;
+  @observable titles; 
+  @observable priceId = "price_1HpS6pE0yLQ1pYr6CuBre5I4"; 
+  @observable prodId = "prod_IQIiC3jywpIUKu"; 
 
+  @observable modalOn = false;
   @observable backgroundColor = "rgb(17, 17, 17)";
   @observable primaryFontColor = "white";
   @observable logoUrl;
@@ -285,6 +288,37 @@ class SiteStore {
       console.error(error);
     } finally {
       this.loading = false;
+    }
+  });
+
+  @action.bound
+  turnOnModal = flow(function * (price, prod) {
+    try {
+      console.log("ON");
+      this.modalOn = true;
+      this.priceId = price;
+      this.prodId = prod;
+
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load Modal:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  });
+
+  @action.bound
+  turnOffModal = flow(function * () {
+    try {
+      console.log("OFF");
+      this.modalOn = false;
+
+
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load offModal:");
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   });
   
