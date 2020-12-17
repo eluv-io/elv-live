@@ -26,7 +26,7 @@
     letter-spacing: 0px;
     color: black;
     // height: 31px;
-    width: auto;
+    width: 100%;
     // margin: auto;
     margin-left: 6px;
     margin-top: 22px !important;
@@ -126,6 +126,8 @@
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10+ and Edge */
       user-select: none; /* Standard syntax */
+      display: flex;
+      flex-direction: row;
 
       &__title {
         color: black;

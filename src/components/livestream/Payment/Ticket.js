@@ -75,7 +75,7 @@ class Ticket extends React.Component {
     let date = this.props.date;
 
     return (
-      <div className="ticket-event">
+      <div className="ticket-event" id={name} ref={this.props.refProp} >
         <div className="ticket-image">
           <img src={concertPoster2} className="ticket-image-img"/>
         </div>

@@ -58,6 +58,7 @@ class ConcertOverview extends React.Component {
             priceID="price_1HpS77E0yLQ1pYr6bmC8griX"
             prodID = "prod_IQIiMc4NHvH3DF"
             date ="February 28th, 8:00 PM PST"
+            refProp={this.props.refProp}
           />
         </div>
       </div>

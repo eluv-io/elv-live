@@ -6,6 +6,7 @@ import Logo from "../../../static/images/Logo.png";
 import axios from "axios";
 import AsyncComponent from "../../support/AsyncComponent";
 import Navigation from "../../home/Navigation";
+import AddToCalendar from 'react-add-to-calendar';
 
 @inject("rootStore")
 @inject("siteStore")
@@ -26,6 +27,14 @@ class Success extends React.Component {
     if (!this.props.match.params.id) {
       return null;
     }
+
+    let calendarEvent = {
+      title: 'Rita Ora - Live From The Eiffel Tower',
+      description: 'Rita Ora will be making history on February 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.',
+      location: 'Paris, France (Virtual)',
+      startTime: '2021-02-28T20:15:00-04:00',
+      endTime: '2021-02-28T21:45:00-04:00'
+  };
     
     return (
         <AsyncComponent
@@ -50,9 +59,6 @@ class Success extends React.Component {
                         <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to <b className="boldText">{this.state.data.customerEmail}</b> shortly. </h2>
                       </div>
 
-                      <div className="back-btn-container">
-                        <Link to="/d457a576/rita-ora" className="eventBTN">Back to Event</Link>
-                      </div>
                       <div className="header">
                         <h1>Order Summary</h1>
                         <div className="line-item confirm">
@@ -77,6 +83,12 @@ class Success extends React.Component {
                           <p className="total-price">{price} </p>
                         </div>
                       </div>
+
+                      <div className="back-btn-container">
+                        {/* <Link to="/d457a576/rita-ora" className="eventBTN">Back to Event</Link> */}
+                        <AddToCalendar event={calendarEvent}/>
+                      </div>
+
                     </div>
                   </div>
                 </div>

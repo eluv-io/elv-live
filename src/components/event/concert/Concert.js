@@ -11,7 +11,7 @@ import Logo from "../../../static/images/Logo.png";
 import heroImg from "../../../static/images/ritaora/hero1.jpg";
 import hero1 from "../../../static/images/ritaora/hero1.jpg";
 import CloseIcon from "../../../static/icons/x.svg";
-import PaymentOverview from "../../home/PaymentOverview";
+import PaymentOverview from "../../livestream/Payment/PaymentOverview";
 import Footer from "../../home/Footer";
 
 
@@ -26,7 +26,9 @@ class Concert extends React.Component {
       showPayment: false,
       showTrailer: false,
       prodID: "",
-      priceID: ""
+      priceID: "",
+      tab: 0
+
     };
   }
 
@@ -105,6 +107,31 @@ class Concert extends React.Component {
       </React.Fragment>
     )
   }
+  handleNavigate = myRef => {
+    
+    /* 
+    Access the "current element" of this sections ref. 
+    Treat this as the element of the div for this section.
+    */
+  //  let domElement = document.getElementById("General Admission");
+  //   domElement.scrollIntoView();
+    if (this.state.tab != 0) {
+      this.setState({tab: 0});
+      let domElement = document.getElementById("tabs");
+      domElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      let el = myRef.current;
+      console.log(el);
+      el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+
+
+    // window.scrollTo({
+    //   behavior: "smooth",
+    //   left: 0,
+    //   top: el.offsetTop
+    // });
+  };
 
 
   render() {
@@ -112,9 +139,13 @@ class Concert extends React.Component {
     //   return <Redirect to='/'/>;
     // }
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    const myRef = React.createRef();
 
-    console.log("this.props.siteStore.modalOn", this.props.siteStore.modalOn);
-    
+    const handleChange = (event, newValue) => {
+      this.setState({tab: newValue});
+    };
+    // executeScroll = () => this.myRef.current.scrollIntoView()
+
     let thumbnail = heroImg;
     const backgroundColor =  "#000321";
     const backgroundHelp =  "#000112";
@@ -162,7 +193,7 @@ class Concert extends React.Component {
           </div>
           
           <div className="event-container__button">
-            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.props.siteStore.turnOnModal("price_1HpS6pE0yLQ1pYr6CuBre5I4", "prod_IQIiC3jywpIUKu")}>
+            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate(myRef)}>
               Buy Tickets
             </button>
             <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
@@ -171,7 +202,7 @@ class Concert extends React.Component {
           </div> 
 
           <div className="event-container__overview">
-            <EventTabs title={null} type={"concert"} name={"rita-ora"} />
+            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} name={"rita-ora"} refProp={myRef} />
           </div>
         </div>
 

@@ -401,7 +401,7 @@
   width: 100%  !important;
   overflow: hidden;
   &__title {
-    // font-family: 'Codystar', cursive;
+    font-family: "SF Display", "Helvetica Neue";
     color: black !important;
     font-size: 32px;
     font-weight: 600;
@@ -472,10 +472,12 @@
   letter-spacing: -.022em;
   text-rendering: optimizelegibility;
   margin-top: 30px;
+  margin-bottom: 30px;
+
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
-  margin-left: 50px;
+  // margin-left: 50px;
   overflow: hidden;
 
 
@@ -553,4 +555,83 @@
   margin-top: 75px !important;
   width: 100%;
   text-align: center;
+}
+
+
+.tcont {
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+}
+
+.sponsor-container-footer2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 100%;
+  margin:auto;
+  align-self: center;
+  
+  color: black;
+  font-weight: 400;
+  font-size: 17px;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  line-height: 1.47059;
+  letter-spacing: -.022em;
+  text-rendering: optimizelegibility;
+  margin-top: 10px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+  margin-left: 50px;
+  overflow: hidden;
+  margin-left: 400px;
+
+
+}
+
+.sponsor-title-footer2 {
+  // font-family: "Noe Display Bold", sans-serif;
+  // font-family: 'Codystar', cursive;
+  color: black !important;
+
+  // margin-top: 20px !important;
+  font-weight: bold !important;
+  
+  color: black !important;
+  font-size: 20px;
+  font-weight: 600;
+  align-self: center;
+  margin-bottom: 20px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  // text-transform: ;
+}
+
+
+.sponsor-img-container-footer2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-self: center;
+  overflow: hidden;
+  height: 180px;
+  // margin-top: -35px;
+}
+
+.big-sponsor-img-footer2 {
+  width: 275px;
+  height: auto;
+  margin-top: -60px;
+  // margin-bottom: -50px;
+  // margin-right: 15px;
+  // border: 1px solid #000;
+  // border-radius: 40px;
+  // object-fit: cover;
+  overflow: hidden;
+
 }
