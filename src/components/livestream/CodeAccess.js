@@ -22,7 +22,6 @@ class CodeAccess extends React.Component {
       email: "",
       name: "",
       loading: false,
-      loading2: false,
       email_placeholder: "Enter Your Email",
       code_placeholder: "Ticket Code",
       name_placeholder: "Enter Your Chat Name"
@@ -94,7 +93,9 @@ class CodeAccess extends React.Component {
           { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
 
           <LoadingElement loading={this.state.loading}>
-            <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/>
+            {/* <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/> */}
+            <h1 className="code-entry__title">Welcome</h1>
+
             <input
               onFocus={() => this.setState({name_placeholder: ""})}
               onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}

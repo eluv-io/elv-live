@@ -1,0 +1,415 @@
+.payment-container {
+  display: flex;
+  // flex-direction: column;
+  // grid-gap: 40px;
+  // gap: 40px;
+  flex-direction: row;
+  grid-template-columns: 1fr 450px;
+  grid-gap: 80px;
+  gap: 80px;
+  padding: 105px 20px 30px;
+  width: 100%;
+  max-width: 980px;
+  min-height: 100vh;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 30px 20px;
+
+  overflow: hidden;
+}
+
+
+.payment-event-overview {
+  flex: 1 1;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-right: 60px;
+  display: block;
+}
+
+.payment-inner-overview {
+  display: flex;
+  min-height: calc(100vh - 150px);
+  position: sticky;
+  top: 105px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.payment-info {
+  padding-right: 60px;
+  flex: 1 1;
+  min-height: calc(100vh - 150px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  color: black;
+  font-weight: 400;
+  font-size: 17px;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  line-height: 1.47059;
+  letter-spacing: -.022em;
+  text-rendering: optimizelegibility;
+}
+.payment-info-img-container {
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  // margin-right: 40px;
+  max-width: 225px;
+  margin: 0 0 40px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: hsla(0,0%,100%,.8);
+  box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
+  align-self: center;
+}
+
+.payment-info-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.payment-info-artist {
+  display: block;
+  margin: 0 0 5px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.payment-info-event {
+  margin: 0 0 0px;
+  padding: 0;
+  text-align: left;
+  line-height: 1.2;
+  word-break: break-word;
+  font-size: 34px;
+  letter-spacing: -1px;
+  font-family: "Noe Display Bold", sans-serif;
+
+
+}
+.payment-info-date {
+  font-size: 14px;
+  margin: 0;
+
+  font-weight: 500;
+
+}
+.payment-info-description {
+
+  display: -webkit-box;
+  margin-left: 0;
+  text-align: left;
+
+  position: relative;
+  margin-top: 25px;
+  overflow: hidden;
+  color: rgba(0,0,0,.6);
+  font-size: 15px;
+  // text-align: center;
+  white-space: pre-line;
+
+  display: -webkit-box;
+  margin-left: 0;
+  text-align: left;
+  
+}
+
+
+.sponsor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  color: black;
+  font-weight: 400;
+  font-size: 17px;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  line-height: 1.47059;
+  letter-spacing: -.022em;
+  text-rendering: optimizelegibility;
+  margin-top: 50px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
+
+}
+
+
+.sponsor-title {
+  display: block;
+  margin: 0 0 10px;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+
+.sponsor-img-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: -35px;
+
+}
+.big-sponsor-img {
+  width: 300px;
+  height: auto;
+  margin-top: -105px;
+  margin-bottom: -50px;
+
+  // margin-right: 15px;
+  // border: 1px solid #000;
+  // border-radius: 40px;
+  // object-fit: cover;
+}
+.sponsor-img1 {
+  width: 110px;
+  height: auto;
+  margin-right: 20px;
+}
+.sponsor-img2 {
+  width: 150px;
+  height: auto;
+  margin-top: -30px;
+
+  // margin-right: 30px;
+  margin-left: 20px;
+}
+
+
+
+
+
+
+
+.payment-checkout {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  display: block;
+}
+
+
+.checkout-section {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 30px 18px;
+  border-radius: 12px;
+  background: hsla(0,0%,100%,0.72)  ;
+  // box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  backdrop-filter: saturate(1.8) blur(20px);
+  padding: 40px;
+
+  color: black;
+  font-weight: 400;
+  font-size: 17px;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  line-height: 1.47059;
+  letter-spacing: -.022em;
+  text-rendering: optimizelegibility;
+}
+
+.currency-quantity-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 5px;
+  gap: 5px;
+}
+
+.currency-select{
+  position: relative;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.quantity-select{
+  position: relative;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.checkout-checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+}
+
+.checkout-checkbox-input {
+  // position: absolute;
+  // top: 3px;
+  // left: 0;
+  // width: 16px;
+  // height: 16px;
+  // cursor: pointer;
+  // // opacity: 0;
+  margin-right: 25px;
+  margin-top: 2.6px;
+
+  position: relative;
+  display: inline-block;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.checkout-checkbox-label {
+  align-self: flex-start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.checkout-checkbox-heading {
+  line-height: 120%;
+  margin: -2px 0 0;
+  font-size: 18px;
+  letter-spacing: -.05px;
+  font-weight: 700;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+.checkout-checkbox-bundle {
+  display: flex;
+  align-items: flex-start;
+}
+.checkout-checkbox-bundle-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+  border: 1px solid #000;
+  border-radius: 40px;
+  object-fit: cover;
+}
+.checkout-checkbox-bundle-info {
+  text-align: left;
+  width: 100%;
+}
+.checkout-checkbox-bundle-name {
+  font-weight: 500;
+}
+.checkout-checkbox-bundle-description {
+  margin: 0 0 10px;
+  color: rgba(0,0,0,.6);
+  font-size: 14px;
+}
+.checkout-checkbox-bundle-size {
+  margin: 0 0 10px;
+  color: rgba(0,0,0,.6);
+  font-size: 14px;
+}
+
+
+
+.checkout-email-form {
+  position: relative;
+  margin-bottom: 8px;
+  input {
+    // border-radius: 1px;
+    font-size: 2.2rem;
+    // height: 48px;
+    // letter-spacing: 1.5px;
+    // margin-top: 1rem;
+    // text-align: center;
+    // width: MIN(35rem, 90vw);
+
+    display: inline-block;
+    width: 100%;
+    height: 3.3em;
+    padding: 0px 20px 0;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+    color: rgb(49, 49, 53);
+    font-size: 17px;
+    // line-height: 1.23543;
+    // letter-spacing: -.022em;
+    text-transform: none;
+    vertical-align: top;
+    word-spacing: normal;
+    cursor: text;
+
+
+
+    background: hsla(0,0%,100%,0.72)  ;
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    backdrop-filter: saturate(1.8) blur(20px);
+
+
+    transition: all .125s ease 0s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-rendering: auto;
+    -webkit-rtl-ordering: logical;
+
+
+
+    @media only screen and (max-width: 415px) {
+      font-size: 2rem;
+      width: 280px;
+    } 
+
+    &::placeholder {
+      // font-variant: all-small-caps;
+      color: black;
+
+    }
+  }
+}
+.checkout-email-info {
+  font-size: 14px;
+  color: rgba(0,0,0,.6);
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+
+.checkout-button {
+  display: inline-block;
+  max-width: 100%;
+  padding: 1rem;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  background: #252525;
+  outline: none;
+  box-shadow: 0 1px 1px rgba(37,37,37,.12), 0 2px 5px rgba(37,37,37,.12), 0 0 1px rgba(37,37,37,.12);
+  cursor: pointer;
+  // transition: background .2s ease,box-shadow .2s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 15px;
+}

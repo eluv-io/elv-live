@@ -44,7 +44,7 @@ class LiveChat extends React.Component {
       <AsyncComponent
         Load={async () => {
             let name = this.props.rootStore.name;
-            let chatClient = new StreamChat('xpkg6xgvwrnn');
+            let chatClient = new StreamChat('mt6wsqe77eb2');
             const token = chatClient.devToken(name);
             chatClient.setUser({ id: name, name: name,
               image: `https://getstream.io/random_svg/?name=${name}` }, token);

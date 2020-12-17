@@ -116,7 +116,7 @@ class Ticket extends React.Component {
               <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
               </div>
             </div>
-            <button className="ticket-bottom-button" role="link" onClick={this.handleSubmit(priceID, prodID)}>
+            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal(priceID, prodID)}>
               Buy Ticket
             </button>
             {/* <button className="ticket-bottom-button" role="link" onClick={this.handleClick}>
