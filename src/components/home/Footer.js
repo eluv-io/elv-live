@@ -18,23 +18,18 @@ class Footer extends React.Component {
     return (
       <div className="live-footer">
       <div className="footer-container">
-       <div className="footer-info">
+       {/* <div className="footer-info">
           <h3 className="live-footer__title">
             Eluvio Live
           </h3>
-          {/* <h3 className="live-footer__title">
-            eluv.io Live
-          </h3> */}
-          {/* <ImageIcon className="live-footer__logo" icon={DarkLogo} label="Eluvio" /> */}
-
           <h3 className="live-footer__p">
            Purchase tickets and stream the most iconic concerts, premieres, and broadcasts. 
           </h3>
           
-        </div>
+        </div> */}
           <div className="sponsor-container-footer"> 
             <span className="sponsor-title-footer ">
-              In Partnership With
+            In Partnership With
             </span>
             {/* <img src={loreal} className="big-sponsor-img" /> */}
             <div className="sponsor-img-container-footer"> 

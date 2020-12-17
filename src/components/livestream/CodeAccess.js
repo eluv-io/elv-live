@@ -22,9 +22,9 @@ class CodeAccess extends React.Component {
       email: "",
       name: "",
       loading: false,
-      email_placeholder: "Enter Your Email",
+      email_placeholder: "Email",
       code_placeholder: "Ticket Code",
-      name_placeholder: "Enter Your Chat Name"
+      name_placeholder: "Chat Name"
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -98,7 +98,7 @@ class CodeAccess extends React.Component {
 
             <input
               onFocus={() => this.setState({name_placeholder: ""})}
-              onBlur={() => this.setState({name_placeholder: "Enter Your Chat Name"})}
+              onBlur={() => this.setState({name_placeholder: "Chat Name"})}
               placeholder={this.state.name_placeholder}
               value={this.state.name}
               onChange={this.handleNameChange} 
@@ -106,7 +106,7 @@ class CodeAccess extends React.Component {
             />
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "Enter Your Email"})}
+              onBlur={() => this.setState({email_placeholder: "Email"})}
               placeholder={this.state.email_placeholder}
               value={this.state.email}
               onChange={this.handleEmailChange} 

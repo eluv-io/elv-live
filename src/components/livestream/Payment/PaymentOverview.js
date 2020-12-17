@@ -7,15 +7,15 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-import Navigation from "./Navigation";
-import concertPoster from "../../static/images/ritaora/ro3.jpg";
-import concertPoster2 from "../../static/images/ritaora/sro3.png";
+import Navigation from "../../home/Navigation";
+import concertPoster from "../../../static/images/ritaora/ro3.jpg";
+import concertPoster2 from "../../../static/images/ritaora/sro3.png";
 
-import unicefImg from "../../static/images/ritaora/unicef.png";
-import merchImg from "../../static/images/ritaora/merchFront.jpg";
-import loreal from "../../static/images/sponsor/loreal.png";
-import mercedes from "../../static/images/sponsor/mercedes.png";
-import kerastase from "../../static/images/sponsor/keraAd.png";
+import unicefImg from "../../../static/images/ritaora/unicef.png";
+import merchImg from "../../../static/images/ritaora/merchFront.jpg";
+import loreal from "../../../static/images/sponsor/loreal.png";
+import mercedes from "../../../static/images/sponsor/mercedes.png";
+import kerastase from "../../../static/images/sponsor/keraAd.png";
 
 
 @inject("rootStore")
@@ -103,9 +103,9 @@ class PaymentOverview extends React.Component {
                   Rita Ora will be making history on February 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
                 </p>
                 <div className="sponsor-container"> 
-                  <span className="sponsor-title payment-info-artist">
+                  {/* <span className="sponsor-title payment-info-artist">
                     Our Sponsor
-                  </span>
+                  </span> */}
                   <img src={loreal} className="big-sponsor-img" />
                   {/* <div className="sponsor-img-container"> 
                     <img src={mercedes} className="sponsor-img1" />

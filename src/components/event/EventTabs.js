@@ -53,24 +53,26 @@ class EventTabs extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      tab: 0,
-    };
+    // this.state = {
+    // };
   }
   
   render() {
     const { classes } = this.props;
 
-    const handleChange = (event, newValue) => {
-      this.setState({tab: newValue});
-    };
+    // const this.props.handleChange = (event, newValue) => {
+    //   this.setState({tab: newValue});
+    // };
+
+    
+    
 
     return (
-      <div className="event-tabs">
+      <div className="event-tabs" id="tabs">
         <Paper square className={classes.root}>
           <Tabs
-            value={this.state.tab}
-            onChange={handleChange}
+            value={this.props.tab}
+            onChange={this.props.handleChange}
             variant="fullWidth"
             disablefocusripple = "true"
             disableripple = "true"
@@ -83,13 +85,13 @@ class EventTabs extends React.Component {
             <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
           </Tabs>
           
-          <TabPanel value={this.state.tab} index={0}>
-            <ConcertOverview title={this.props.title} name={this.props.name} />
+          <TabPanel value={this.props.tab} index={0}>
+            <ConcertOverview title={this.props.title} name={this.props.name} refProp={this.props.refProp} />
           </TabPanel>
-          <TabPanel value={this.state.tab} index={1}>
+          <TabPanel value={this.props.tab} index={1}>
             <ArtistInfo title={this.props.title} name={this.props.name}/>    
           </TabPanel>
-          <TabPanel value={this.state.tab} index={2}>
+          <TabPanel value={this.props.tab} index={2}>
             <Merch name={this.props.name}/>
           </TabPanel>
         </Paper>

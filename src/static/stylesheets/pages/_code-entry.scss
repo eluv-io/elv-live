@@ -1,6 +1,6 @@
 .code-entry {
-  background-color: #fff;
-  height: MIN(40rem, 90vh); 
+  background:rgba(255, 255, 255, 0.95);
+  height: MIN(30rem, 90vh); 
   width: MIN(424px, 90vw);
 
   border-radius: 5px;
@@ -36,9 +36,10 @@
       color: black;
       font-weight: bold;
       box-sizing: border-box;
-      font-family: "Noe Display Bold", sans-serif;
+      font-family: "SF Display", "Helvetica Neue";
       font-size: 60px;
       font-weight: 300;
+      display: none;
       
       // @media only screen and (max-width:700px) {
       //   font-size: 30px;

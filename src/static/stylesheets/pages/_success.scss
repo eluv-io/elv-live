@@ -69,7 +69,7 @@
   margin: auto;
   padding: 10px 50px;
   margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
@@ -220,9 +220,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center !important;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   background-color: transparent;
-  margin-top: 10px;
+  margin-top: 5px;
   width: 100%;
   @media only screen and (max-width:500px) {
     margin-bottom: 20px;
@@ -305,6 +305,8 @@
   margin-right: 15px;
   background: #f6f9fc;
   border-radius: 3px;
+  object-fit: contain;
+  background: transparent;
   @media only screen and (max-width:500px) {
     display: none;
 
@@ -375,7 +377,8 @@
   border-top: 1px solid #f3f3ff;
   display: flex;
   flex-direction: row;
-  padding: 30px 30px 0 30px;
+  padding: 30px 30px 30px 30px;
+  border-bottom: 1px solid #f3f3ff;
 }
 .total-label{
   color: black !important;
@@ -452,5 +455,135 @@
     margin-top: 0px !important;
     font-size: 18px !important;
 
+  }
+}
+
+
+.react-add-to-calendar {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .004);
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  width: 100%;
+
+  // text-decoration: none;
+  // padding: 12.5px 20px;
+  // display: inline-block;
+  border-radius: 100px;
+  // transition: all .2s;
+  position: relative;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  // margin-top: 15px;
+  text-align: center;
+  // width: 330px;
+  color: black;
+  font-weight: 600;
+  color: #fff !important;
+  display: block;
+  background: #4b55e7;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 0;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  
+  // background: #4b55e7;
+  // border: 1px solid #fff;
+  // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  // box-sizing: border-box;
+  // color: #fff;
+  // font-size: 20px;
+  height: 50px;
+  // letter-spacing: 2px;
+  // line-height: 16px;
+  // margin-top: 2rem;
+  // text-align: center;
+  width: 250px;
+
+
+  &__wrapper {
+      zoom: 1;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;     
+      margin-top: 10px;
+
+      a:hover {
+        color: white;
+        text-decoration: none;
+    }
+    span {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold !important;
+        text-transform: capitalize;
+        font-family: sans-serif;
+    }
+
+  }
+
+  &__button {
+      // padding: 10px;
+      // background-color: #f9f9f9;
+      // border: 1px solid #aab9d4;
+      // border-radius: 3px;
+      color: white;
+      
+height: 100%;     
+ // width: 100%;
+margin-top: 5px;
+
+      // &--light {
+      //     background-color: #fff;
+      // }
+  }
+
+  &__icon {
+      &--right {
+          padding-left: 5px;
+      }
+
+      &--left {
+          padding-right: 5px;
+      }
+  }
+
+  &__dropdown {
+      position: absolute;
+      top: 50px;
+      left: 7.5%;
+      width: 85%;
+      padding: 5px 0 5px 0px;
+      box-shadow: 1px 3px 6px rgba(0, 0, 0, .15);
+      border: 1px solid #a8a8a8;
+      background-color: #fff;
+      text-align: left;
+
+      ul {
+          list-style: none;
+          margin: 0;
+          // padding-left: 35px;
+          font-size: 15px;
+          padding:auto;
+
+          li {
+            padding-top: 2.5px;
+            padding-bottom: 2.5px;
+
+              a {
+                  color: #000;
+                  text-decoration: none;
+
+                  i {
+                      padding-right: 10px;
+                  }
+              }
+          }
+      }
   }
 }

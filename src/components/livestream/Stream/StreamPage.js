@@ -21,6 +21,7 @@ import MultiViewJson from './example.json';
 // import StreamTabs from './StreamTabs';
 import DarkLogo from "../../../static/images/logo/darkLogo.png";
 import NavyLogo from "../../../static/images/logo/navyLogo.png";
+import loreal from "../../../static/images/sponsor/loreal.png";
 
 const drawerWidth = 450;
 
@@ -223,12 +224,24 @@ class Stream extends React.Component {
                     <MultiView config={MultiViewJson} setStream={setStream} activeStream={this.state.activeStream} isOpen={this.state.switchValue} />
 
                       <div className="stream-container__streamBox--info">
-                        <h2  className="stream-container__streamBox--info__subtitle">
-                        L’Oréal Luxe Presents 
-                        </h2>
-                        <h1  className="stream-container__streamBox--info__title">
-                          Rita Ora's RO3 World Tour - Eiffel Tower
-                        </h1>
+                        <div className="tcont">
+                          <h2  className="stream-container__streamBox--info__subtitle">
+                            Rita Ora Presents 
+                          </h2>
+                          <h1  className="stream-container__streamBox--info__title">
+                            RO3 World Tour - Eiffel Tower
+                          </h1>
+                        </div>
+
+                        <div className="sponsor-container-footer2"> 
+                          <span className="sponsor-title-footer2 ">
+                            Presented By 
+                          </span>
+                          <div className="sponsor-img-container-footer2"> 
+                              <img src={loreal} className="big-sponsor-img-footer2" />
+                          </div>
+                        </div>
+                       
                       </div> 
                     </div>
                   </div>
