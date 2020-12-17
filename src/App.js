@@ -30,14 +30,12 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path = "/test" component={PaymentOverview} />
         <Route path = "/d457a576/stream/:siteId" component={Stream} />
         <Route path = "/d457a576/success/:id" component={Success} />
         <Route path = "/d457a576/code" component={CodeAccess} />
         <Route path = "/d457a576/contact" forceRefresh={true} component={ContactForm} />
-        <Route path = "/d457a576/support" component={Support} />
+        <Route path = "/d457a576/support" component={PaymentOverview} />
         <Route path = "/d457a576/:name" component={Concert} />
-
         {/* <Route>
           <Redirect to="/" />
         </Route> */}

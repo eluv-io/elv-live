@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withStyles } from "@material-ui/core/styles";
+import {ImageIcon} from "elv-components-js";
 
 import AsyncComponent from "../../support/AsyncComponent";
 import LiveChat from "./LiveChat";
@@ -18,6 +19,8 @@ import Switch from "../../support/Switch";
 import MultiView from "./MultiView";
 import MultiViewJson from './example.json';
 // import StreamTabs from './StreamTabs';
+import DarkLogo from "../../../static/images/logo/darkLogo.png";
+import NavyLogo from "../../../static/images/logo/navyLogo.png";
 
 const drawerWidth = 450;
 
@@ -164,11 +167,13 @@ class Stream extends React.Component {
               >
                 <Toolbar>
                   <div className="stream-nav">
-                    <h1 style={{fontFamily: 'Noe Display Bold'}} className="stream-nav__title"> Eluvio Live </h1>
+                    {/* <h1 className="stream-nav__title"> Eluvio Live </h1> */}
+                    <ImageIcon className="stream-nav__logo" icon={NavyLogo} label="Eluvio" />
+
                     <div className="stream-nav__button-grp">
 
                       <div className="switch-container">
-                      <span style={{fontFamily: 'Noe Display Bold'}} className="switch-text">
+                      <span className="switch-text">
                           MultiView
                         </span>
                         <Switch
@@ -218,11 +223,11 @@ class Stream extends React.Component {
                     <MultiView config={MultiViewJson} setStream={setStream} activeStream={this.state.activeStream} isOpen={this.state.switchValue} />
 
                       <div className="stream-container__streamBox--info">
-                        <h2 style={{fontFamily: 'Noe Display Bold'}} className="stream-container__streamBox--info__subtitle">
-                          Rita Ora 
+                        <h2  className="stream-container__streamBox--info__subtitle">
+                        L’Oréal Luxe Presents 
                         </h2>
-                        <h1 style={{fontFamily: 'Noe Display Bold'}} className="stream-container__streamBox--info__title">
-                          RO3 World Tour - Eiffel Tower
+                        <h1  className="stream-container__streamBox--info__title">
+                          Rita Ora's RO3 World Tour - Eiffel Tower
                         </h1>
                       </div> 
                     </div>

@@ -11,15 +11,15 @@
   &__logo { 
     height: 32.5px;
     margin-left: 6px;
-    margin-top: 22px;
-    margin-bottom: 22px;
+    margin-top: 20px;
+    margin-bottom: 25px;
     width: 130px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Standard syntax */
   }
   &__title { 
-    font-family: "Noe Display Bold", sans-serif;
+    // font-family: "Noe Display Bold", sans-serif;
     // font-family: 'Abril Fatface', cursive;
     font-size: 34px;
     line-height: 100%;
@@ -135,11 +135,12 @@
         letter-spacing: 0px;
         line-height: 1;
         margin-left: 30px;
-        margin-top: -1rem;
+        margin-top: -.65rem;
         text-align: left;
         text-align: left;
         margin-bottom: 10px !important;
-        font-family: "Noe Display Bold", sans-serif !important;
+        // font-family: 'Poppins', sans-serif !important;
+        font-family: sans-serif !important;
 
         @media only screen and (max-width: 600px) {
           font-size: 26px;
@@ -149,7 +150,7 @@
       &__subtitle {
         color: rgba(0, 0, 0,.7);
         display: inline-block;
-        font-size: 30px;
+        font-size: 27px;
         font-weight: normal;
         line-height: 1.75;
         margin-left: 30px;
@@ -157,7 +158,8 @@
         text-align: left;
         text-align: left;
         width: 100%;
-        font-family: "Noe Display Bold", sans-serif !important;
+        font-family: sans-serif !important;
+        // font-family: 'Poppins', sans-serif !important;
 
         @media only screen and (max-width: 600px) {
           font-size: 26px;

@@ -55,11 +55,12 @@
 
 .ticket-image-img {
   display: block;
-  max-width: 250px;
+  max-width: 190px;
   flex-shrink: 0;
   position: relative;
   width: 100%;
-  margin-right: 40px;
+  margin: auto;
+  // margin-right: 40px;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */

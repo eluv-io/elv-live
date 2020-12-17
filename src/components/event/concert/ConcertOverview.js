@@ -1,6 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
+import concertPoster2 from "../../../static/images/ritaora/sro3.png";
+
 import Ticket from "../../livestream/Payment/Ticket";
 
 @inject("rootStore")
@@ -34,7 +36,7 @@ class ConcertOverview extends React.Component {
 
           <div className="overview-container__photoGroup">
             <img
-              src={concertPoster}
+              src={concertPoster2}
               className= "overview-container__photoGroup__singlePhoto"
             />     
           </div>
@@ -47,7 +49,7 @@ class ConcertOverview extends React.Component {
             price="$30"
             priceID="price_1HpS6pE0yLQ1pYr6CuBre5I4"
             prodID = "prod_IQIiC3jywpIUKu"
-            date ="January 28th, 8:00 PM – 10:00 PM PST"
+            date ="February 28th, 8:00 PM PST"
           />
           <Ticket 
             name="VIP Package" 
@@ -55,7 +57,7 @@ class ConcertOverview extends React.Component {
             price="$50"
             priceID="price_1HpS77E0yLQ1pYr6bmC8griX"
             prodID = "prod_IQIiMc4NHvH3DF"
-            date ="January 28th, 8:00 PM – 10:00 PM PST"
+            date ="February 28th, 8:00 PM PST"
           />
         </div>
       </div>

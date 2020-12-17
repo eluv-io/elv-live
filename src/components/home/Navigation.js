@@ -16,10 +16,11 @@ class Navigation extends React.Component {
     return (
       <div className="navigation">
         <div className="main-nav">
-          <h1 className="main-nav--logoTitle"> Eluvio Live </h1>
+          {/* <h1 className="main-nav--logoTitle"> Eluvio Live </h1> */}
 
           {/* <ImageIcon className="main-nav--logo" icon={DarkLogo} label="Eluvio" /> */}
-          
+          <ImageIcon className="main-nav--logo" icon={DarkLogo} label="Eluvio" />
+
           <div className="main-nav__link-group">
             {/* <a href="https://eluv.io/register" target="_blank" className="btn2 btn2--white main-nav--event">
               Create Event
