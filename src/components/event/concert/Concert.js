@@ -158,7 +158,7 @@ class Concert extends React.Component {
           <div className="event-container__heading">
             <h1 className="name"> {"Rita Ora"} </h1>
             <h1 className="location">{ "Streaming Live from the Eiffel Tower" }</h1>
-            <h1 className="time">{ "January 28th, 2021 · 8:00 PM PST" }</h1>
+            <h1 className="time">{ "February 28th, 2021 · 8:00 PM PST" }</h1>
           </div>
           
           <div className="event-container__button">

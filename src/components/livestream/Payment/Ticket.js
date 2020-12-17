@@ -2,6 +2,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {inject, observer} from "mobx-react";
 import axios from "axios";
+import concertPoster2 from "../../../static/images/ritaora/sro3.png";
 
 import concertPoster from "../../../static/images/ritaora/ro3.jpg";
 import Timer from "./Timer";
@@ -76,7 +77,7 @@ class Ticket extends React.Component {
     return (
       <div className="ticket-event">
         <div className="ticket-image">
-          <img src={concertPoster} className="ticket-image-img"/>
+          <img src={concertPoster2} className="ticket-image-img"/>
         </div>
         <div className="ticket-detail">
           <div className="ticket-top">

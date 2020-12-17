@@ -9,6 +9,8 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Navigation from "./Navigation";
 import concertPoster from "../../static/images/ritaora/ro3.jpg";
+import concertPoster2 from "../../static/images/ritaora/sro3.png";
+
 import unicefImg from "../../static/images/ritaora/unicef.png";
 import merchImg from "../../static/images/ritaora/merchFront.jpg";
 import loreal from "../../static/images/sponsor/loreal.png";
@@ -86,7 +88,7 @@ class PaymentOverview extends React.Component {
             <div className="payment-inner-overview"> */}
               <div className="payment-info">
                 <div className="payment-info-img-container">
-                  <img src={concertPoster} className="payment-info-img" />
+                  <img src={concertPoster2} className="payment-info-img" />
                 </div>
                 <span className="payment-info-artist">
                   Rita Ora Presents
@@ -95,20 +97,20 @@ class PaymentOverview extends React.Component {
                   RO3 Tour - Eiffel Tower 
                 </h3>
                 <p className="payment-info-date">
-                  January 28th, 2021 - 6:00 PM - 7:30 PM PST
+                  February 28th, 8:00 PM PST
                 </p>
                 <p className="payment-info-description">
-                  Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
+                  Rita Ora will be making history on February 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
                 </p>
                 <div className="sponsor-container"> 
                   <span className="sponsor-title payment-info-artist">
-                    Our Sponsors
+                    Our Sponsor
                   </span>
                   <img src={loreal} className="big-sponsor-img" />
-                  <div className="sponsor-img-container"> 
+                  {/* <div className="sponsor-img-container"> 
                     <img src={mercedes} className="sponsor-img1" />
                     <img src={kerastase} className="sponsor-img2" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               
@@ -146,7 +148,7 @@ class PaymentOverview extends React.Component {
                     Unicef Donation
                   </h5>  
                   <span>
-                    $5.00
+                    $10.00
                   </span>
                 </div>
               </div>
