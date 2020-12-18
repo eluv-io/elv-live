@@ -34,9 +34,7 @@ class Routes extends React.Component {
         <Route path = "/d457a576/code" forceRefresh={true} component={CodeAccess} />
         <Route path = "/d457a576/contact" component={ContactForm} />
         <Route path = "/d457a576/support" component={Support} />
-        <Route path = "/d457a576/:name" component={Concert} />
-        <Route path = "/" forceRefresh={true} component={CodeAccess} />
-
+        <Route path = "/d457a576/:name" forceRefresh={true} component={Concert} />
         {/* <Route>
           <Redirect to="/" />
         </Route> */}

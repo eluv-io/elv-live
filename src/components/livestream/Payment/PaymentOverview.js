@@ -16,7 +16,9 @@ import merchImg from "../../../static/images/ritaora/merchFront.jpg";
 import loreal from "../../../static/images/sponsor/loreal.png";
 import mercedes from "../../../static/images/sponsor/mercedes.png";
 import kerastase from "../../../static/images/sponsor/keraAd.png";
+import Select from 'react-select';
 
+    
 
 @inject("rootStore")
 @inject("siteStore")
@@ -78,6 +80,15 @@ class PaymentOverview extends React.Component {
         console.error(error);
       }
     }
+    
+    const options = [
+      { value: 'S', label: 'S' },
+      { value: 'M', label: 'M' },
+      { value: 'L', label: 'L' },
+      { value: 'XL', label: 'XL' },
+      { value: 'XXL', label: 'XXL' },
+    ];
+    
 
     
     return (
@@ -160,7 +171,7 @@ class PaymentOverview extends React.Component {
                     Support Unicef
                   </span>  
                   <p className="checkout-checkbox-bundle-description">
-                    Add a donation to help sponsor the Unicef, an organization we have partnered with this Holiday Season to provide humanitarian and developmental aid to children worldwide.
+                    Add a donation to help sponsor the Unicef, an organization we have partnered with to provide humanitarian aid to children worldwide.
                   </p>  
                 </div>
               </div>
@@ -195,9 +206,10 @@ class PaymentOverview extends React.Component {
                   <p className="checkout-checkbox-bundle-description">
                    Rita Ora's 'RO3 Live Dream T-Shirt' features a hd print of 'Phoenix' logo on the front of a black washed unisex t-shirt. *all merch to ship following the event*
                   </p>  
-                  {/* <div className="checkout-checkbox-bundle-size">
-                    Size Selection
-                  </div>   */}
+                  <div className="checkout-checkbox-bundle-size">
+                   <Select options={options} defaultValue={options[0]}
+/>
+                  </div>  
                 </div>
               </div>
             </div>

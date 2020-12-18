@@ -44,7 +44,7 @@ class Concert extends React.Component {
         <React.Fragment>
           <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
 
-          <div className="modal show" >
+          <div className="modal show">
             <ImageIcon
               key={`back-icon-Close Modal`}
               className={"back-button-modal"}
@@ -82,55 +82,23 @@ class Concert extends React.Component {
             onClick={this.props.siteStore.turnOffModal}
           />
           <div className={`ticket-modal__container`}>
-           {/* <div className="ticket-group">
-             <Ticket 
-              name="General Admission" 
-              description="General Admission includes one (1) Virtual Ticket to the Live Stream Concert. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
-              price="$30"
-              priceID="price_1HpS6pE0yLQ1pYr6CuBre5I4"
-              prodID = "prod_IQIiC3jywpIUKu"
-              date ="January 28th, 8:00 PM – 10:00 PM PST"
-            />
-            <Ticket 
-              name="VIP Package" 
-              description="VIP Package includes one (1) Virtual Ticket to the Live Stream Concert, Special Access to Live Chat and Virtual Fan Wall, and an Exclusive Virtual Meet and Greet with Rita Ora. Ticket can be redeemed on these platforms: WATCH ONLINE: You can watch the show online through Eluvio site. WATCH ON THE APP: The Eluvio app is available on all smartphones. WATCH ON TV: The Eluvio app is available on Apple TV and Roku."
-              price="$50"
-              priceID="price_1HpS77E0yLQ1pYr6bmC8griX"
-              prodID = "prod_IQIiMc4NHvH3DF"
-              date ="January 28th, 8:00 PM – 10:00 PM PST"
-            />
-          </div> */}
-          <PaymentOverview priceID={this.state.priceID} prodID={this.state.prodID}/> 
-  
+           <PaymentOverview priceID={this.state.priceID} prodID={this.state.prodID}/> 
           </div>
+
         </div>
       </React.Fragment>
     )
   }
   handleNavigate = myRef => {
-    
-    /* 
-    Access the "current element" of this sections ref. 
-    Treat this as the element of the div for this section.
-    */
-  //  let domElement = document.getElementById("General Admission");
-  //   domElement.scrollIntoView();
+  
     if (this.state.tab != 0) {
       this.setState({tab: 0});
       let domElement = document.getElementById("tabs");
       domElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
       let el = myRef.current;
-      console.log(el);
       el.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-
-
-    // window.scrollTo({
-    //   behavior: "smooth",
-    //   left: 0,
-    //   top: el.offsetTop
-    // });
   };
 
 
@@ -144,7 +112,6 @@ class Concert extends React.Component {
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
     };
-    // executeScroll = () => this.myRef.current.scrollIntoView()
 
     let thumbnail = heroImg;
     const backgroundColor =  "#000321";
@@ -177,9 +144,6 @@ class Concert extends React.Component {
 
     return (
       <div className="event">
-        {/* <div className="event-nav">
-          <ImageIcon className="event-nav__logo" icon={Logo} label="Eluvio" />
-        </div> */}
         <Navigation />
 
 

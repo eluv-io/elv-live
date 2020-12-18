@@ -85,7 +85,7 @@ class EventTabs extends React.Component {
             <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
           </Tabs>
           
-          <TabPanel value={this.props.tab} index={0}>
+          <TabPanel value={this.props.tab} index={0} >
             <ConcertOverview title={this.props.title} name={this.props.name} refProp={this.props.refProp} />
           </TabPanel>
           <TabPanel value={this.props.tab} index={1}>

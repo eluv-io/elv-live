@@ -1,4 +1,4 @@
-![Eluvio Logo](src/static/images/Logo-Small.png "Eluvio Logo")
+![Eluvio Logo](src/static/images/logo/lightLogo.png "Eluvio Logo")
   
 # Eluvio Live
 
