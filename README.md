@@ -1,5 +1,3 @@
-![Eluvio Logo](src/static/images/logo/lightLogo.png "Eluvio Logo")
-  
 # Eluvio Live
 
 This is the Web Application for Eluvio Live: a platform for ticketed live events focused on concerts, premieres, and live performances.
