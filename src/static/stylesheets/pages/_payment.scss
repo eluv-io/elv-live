@@ -302,11 +302,11 @@
   align-items: flex-start;
 }
 .checkout-checkbox-bundle-img {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   margin-right: 15px;
-  border: 1px solid #000;
-  border-radius: 40px;
+  // border: 1px solid rgba(0, 0, 0, 0.603);
+  // border-radius: 40px;
   object-fit: cover;
 }
 .checkout-checkbox-bundle-info {
@@ -325,6 +325,13 @@
   margin: 0 0 10px;
   color: rgba(0,0,0,.6);
   font-size: 14px;
+  z-index: 199;
+}
+.css-yk16xz-control {
+  :hover{
+    border-color: black !important;
+
+  }
 }
 
 
