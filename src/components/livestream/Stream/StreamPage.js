@@ -19,9 +19,9 @@ import Switch from "../../support/Switch";
 import MultiView from "./MultiView";
 import MultiViewJson from './example.json';
 // import StreamTabs from './StreamTabs';
-import DarkLogo from "../../../static/images/logo/darkLogo.png";
-import NavyLogo from "../../../static/images/logo/navyLogo.png";
-import loreal from "../../../static/images/sponsor/loreal.png";
+import DarkLogo from "../../../assets/images/logo/darkLogo.png";
+import NavyLogo from "../../../assets/images/logo/navyLogo.png";
+import loreal from "../../../assets/images/sponsor/loreal.png";
 
 const drawerWidth = 450;
 

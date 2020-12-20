@@ -1,6 +1,6 @@
 import React from 'react';
 import ViewStream from "./ViewStream";
-import CloseIcon from "../../../static/icons/x.svg";
+import CloseIcon from "../../../assets/icons/x.svg";
 import {ImageIcon} from "elv-components-js";
 
 const MultiView = ({ config, setStream, activeStream, isOpen }) => {

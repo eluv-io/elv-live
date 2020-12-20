@@ -2,9 +2,9 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {inject, observer} from "mobx-react";
 import axios from "axios";
-import concertPoster2 from "../../../static/images/ritaora/sro3.png";
+import concertPoster2 from "../../../assets/images/ritaora/sro3.png";
 
-import concertPoster from "../../../static/images/ritaora/ro3.jpg";
+import concertPoster from "../../../assets/images/ritaora/ro3.jpg";
 import Timer from "./Timer";
 import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
 import { IconContext } from "react-icons";
@@ -67,12 +67,7 @@ class Ticket extends React.Component {
   }
 
   render() {
-    let name = this.props.name;
-    let description = this.props.description;
-    let price = this.props.price;
-    let priceID = this.props.priceID;
-    let prodID = this.props.prodID;
-    let date = this.props.date;
+    let {name, description, price, priceID, prodID, date} = this.props;
 
     return (
       <div className="ticket-event" id={name} ref={this.props.refProp} >
@@ -117,7 +112,7 @@ class Ticket extends React.Component {
               <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
               </div>
             </div>
-            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal(priceID, prodID)}>
+            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal(priceID, prodID, name)}>
               Buy Ticket
             </button>
             {/* <button className="ticket-bottom-button" role="link" onClick={this.handleClick}>

@@ -61,8 +61,9 @@ class SiteStore {
   @observable feeds = [];
 
   @observable titles; 
-  @observable priceId = "price_1HpS6pE0yLQ1pYr6CuBre5I4"; 
-  @observable prodId = "prod_IQIiC3jywpIUKu"; 
+  @observable priceId = ""; 
+  @observable prodId = ""; 
+  @observable prodName = ""; 
 
   @observable modalOn = false;
   @observable backgroundColor = "rgb(17, 17, 17)";
@@ -292,12 +293,13 @@ class SiteStore {
   });
 
   @action.bound
-  turnOnModal = flow(function * (price, prod) {
+  turnOnModal = flow(function * (price, prod, prodName) {
     try {
       console.log("ON");
       this.modalOn = true;
       this.priceId = price;
       this.prodId = prod;
+      this.prodName = prodName;
 
     } catch (error) {
       // eslint-disable-next-line no-console

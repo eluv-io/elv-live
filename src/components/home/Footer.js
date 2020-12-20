@@ -1,12 +1,12 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import loreal from "../../static/images/sponsor/loreal.png";
-import mercedes from "../../static/images/sponsor/mercedes.png";
-import kerastase from "../../static/images/sponsor/keraAd.png";
+import loreal from "../../assets/images/sponsor/loreal.png";
+import mercedes from "../../assets/images/sponsor/mercedes.png";
+import kerastase from "../../assets/images/sponsor/keraAd.png";
 import {ImageIcon} from "elv-components-js";
-import DarkLogo from "../../static/images/logo/darkLogo.png";
-import NavyLogo from "../../static/images/logo/navyLogo.png";
+import DarkLogo from "../../assets/images/logo/darkLogo.png";
+import NavyLogo from "../../assets/images/logo/navyLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")

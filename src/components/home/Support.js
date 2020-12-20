@@ -7,7 +7,7 @@ import Collapsible from 'react-collapsible';
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-import Logo from "../../static/images/Logo.png";
+import Logo from "../../assets/images/Logo.png";
 
 @inject("rootStore")
 @inject("siteStore")

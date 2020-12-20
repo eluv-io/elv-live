@@ -7,18 +7,14 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-import Navigation from "../../home/Navigation";
-import concertPoster from "../../../static/images/ritaora/ro3.jpg";
-import concertPoster2 from "../../../static/images/ritaora/sro3.png";
+import concertPoster2 from "../../../assets/images/ritaora/sro3.png";
 
-import unicefImg from "../../../static/images/ritaora/unicef.png";
-import merchImg from "../../../static/images/ritaora/merchFront.jpg";
-import loreal from "../../../static/images/sponsor/loreal.png";
-import mercedes from "../../../static/images/sponsor/mercedes.png";
-import kerastase from "../../../static/images/sponsor/keraAd.png";
+import unicefImg from "../../../assets/images/ritaora/unicef.png";
+import merchImg from "../../../assets/images/ritaora/merchFront.jpg";
+import loreal from "../../../assets/images/sponsor/loreal.png";
 import Select from 'react-select';
 
-    
+import { sizeOptions, countryOptions, qtyOptions } from "../../../assets/data/checkout";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -33,10 +29,27 @@ class PaymentOverview extends React.Component {
       email_placeholder: "Email",
       donationChecked: false,
       merchChecked: false,
-      merchSize: false
+      merchSize: false,
+      selectedCountry: countryOptions[235],
+      selectedQty: qtyOptions[0],
+      selectedSize: sizeOptions[0],
     };
+    this.handleCountryChange = this.handleCountryChange.bind(this);
+    this.handleQtyChange = this.handleQtyChange.bind(this);
+    this.handleSizeChange = this.handleSizeChange.bind(this);
 
   }
+
+
+  handleCountryChange(value) {
+    this.setState({selectedCountry: value});
+  };
+  handleQtyChange(value) {
+    this.setState({selectedQty: value});
+  };
+  handleSizeChange(value) {
+    this.setState({selectedSize: value});
+  };
 
 
   render() {
@@ -49,47 +62,68 @@ class PaymentOverview extends React.Component {
     const handledMerchChange = () => {
       this.setState({merchChecked: !(this.state.merchChecked)})
     }
-
     const handleSubmit = (priceID, prodID) => async event => {
       event.preventDefault();
       const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
       let totalItems = [
-        { price: priceID, quantity: 1 }
+        { price: priceID, quantity: this.state.selectedQty.value}
       ];
       if (this.state.merchChecked) {
-        totalItems.push({ price: "price_1HynknE0yLQ1pYr6q7F7B4iC", quantity: 1 });
+        totalItems.push({ price: this.state.selectedSize.value, quantity: 1 });
       }
       if (this.state.donationChecked) {
         totalItems.push({ price: "price_1HyngME0yLQ1pYr6U9C3Vr8K", quantity: 1 });
       }
-      
-      const { error } = await stripe.redirectToCheckout({
-        mode: "payment",
-        lineItems: totalItems,
-        successUrl: `${window.location.origin}/d457a576/success/{CHECKOUT_SESSION_ID}`, 
-        cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
-        clientReferenceId: prodID,
-        shippingAddressCollection: {
-          allowedCountries: ['US', 'CA'],
-        },
-        customerEmail: this.state.email
 
-      });
+      if (this.state.merchChecked) {
+        const { error } = await stripe.redirectToCheckout({
+          mode: "payment",
+          lineItems: totalItems,
+          successUrl: `${window.location.origin}/d457a576/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
+          cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
+          clientReferenceId: prodID,
+          shippingAddressCollection: {
+            allowedCountries: [this.state.selectedCountry.value],
+          },
+          customerEmail: this.state.email
+  
+        });
+      } 
+      else {
+        const { error } = await stripe.redirectToCheckout({
+          mode: "payment",
+          lineItems: totalItems,
+          successUrl: `${window.location.origin}/d457a576/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
+          cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
+          clientReferenceId: prodID,
+          customerEmail: this.state.email
+        });
+      }
+
       if (error) {
         console.error("Failed to handleSubmit for Stripe:");
         console.error(error);
       }
     }
-    
-    const options = [
-      { value: 'S', label: 'S' },
-      { value: 'M', label: 'M' },
-      { value: 'L', label: 'L' },
-      { value: 'XL', label: 'XL' },
-      { value: 'XXL', label: 'XXL' },
-    ];
-    
 
+    const customStyles = {
+      option: (provided, state) => ({
+        ...provided,
+        padding: 20,
+      }),
+      menu: () => ({
+        // none of react-select's styles are passed to <Control />
+        zIndex: 20098120921902190210912900192,
+      }),
+      menuPortal: () => ({
+        // none of react-select's styles are passed to <Control />
+        zIndex: 20098120921902190210912900192,
+      }),
+      menuList: (provided, state) => ({
+        zIndex: 20098120921902190210912900192,
+      })
+    }
+    
     
     return (
 
@@ -133,19 +167,50 @@ class PaymentOverview extends React.Component {
           <div className="payment-checkout">
 
             {/* Currency and Quantity Selector */}
-            {/* <div className="checkout-section">
+            <div className="checkout-section">
+              <div className="checkout-checkbox-label">
+                <h5 className="checkout-checkbox-heading">
+                  {this.props.siteStore.prodName}
+                </h5>  
+              </div>
               <div className="currency-quantity-container">
                 <div className="currency-select">
-                  Currency Select 
+                   <Select 
+                    className='react-select-container' 
+                    classNamePrefix="react-select" 
+                    options={countryOptions} 
+                    value={this.state.selectedCountry} 
+                    onChange={this.handleCountryChange}
+                    theme={theme => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: {
+                        ...theme.colors,
+                        primary25: 'rgba(230, 212, 165,.4)',
+                        primary: '#cfb46b',
+                      },
+                    })}
+                    />
                 </div>
                 <div className="quantity-select">
-                  Quantity Select 
+                  <Select className='react-select-container'  classNamePrefix="react-select" options={qtyOptions} value={this.state.selectedQty} onChange={this.handleQtyChange}
+                  theme={theme => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary25: 'rgba(230, 212, 165,.4)',
+                      primary: '#cfb46b',
+                    },
+                  })}
+                  />
                 </div>
               </div>
-            </div> */}
+            </div>
 
             {/* Donation Selector */}
             <div className="checkout-section">
+
               <div className="checkout-checkbox-container">
                <input
                     checked={this.state.donationChecked}
@@ -200,16 +265,27 @@ class PaymentOverview extends React.Component {
               <div className="checkout-checkbox-bundle">
                 <img src={merchImg} className="checkout-checkbox-bundle-img" />
                 <div className="checkout-checkbox-bundle-info">
-                  <span className="checkout-checkbox-bundle-name">
-                    RO3 Tour T-Shirt
-                  </span>  
-                  <p className="checkout-checkbox-bundle-description">
-                   Rita Ora's 'RO3 Live Dream T-Shirt' features a hd print of 'Phoenix' logo on the front of a black washed unisex t-shirt. *all merch to ship following the event*
-                  </p>  
-                  <div className="checkout-checkbox-bundle-size">
-                   <Select options={options} defaultValue={options[0]}
-/>
+                 <div className="checkout-checkbox-bundle-size">
+                   <span className="checkout-checkbox-bundle-name">
+                      RO3 Tour T-Shirt
+                    </span>  
+                    <Select className='react-select-container'  classNamePrefix="react-select" options={sizeOptions} defaultValue={sizeOptions[0]} value={this.state.selectedSize} onChange={this.handleSizeChange}
+                    theme={theme => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: {
+                        ...theme.colors,
+                        primary25: 'rgba(230, 212, 165,.4)',
+                        primary: '#cfb46b',
+                      },
+                    })}
+                    />
                   </div>  
+         
+                  <p className="checkout-checkbox-bundle-description">
+                   The 'RO3 Live Dream T-Shirt' features a HD print of the 'Phoenix' logo on the front of a black unisex t-shirt. *all merch to ship following the event*
+                  </p>  
+                  
                 </div>
               </div>
             </div>

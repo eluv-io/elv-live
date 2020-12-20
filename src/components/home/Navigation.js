@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
-import LightLogo from "../../static/images/logo/lightLogo.png";
-import DarkLogo from "../../static/images/logo/darkLogo.png";
-import NavyLogo from "../../static/images/logo/navyLogo.png";
+import LightLogo from "../../assets/images/logo/lightLogo.png";
+import DarkLogo from "../../assets/images/logo/darkLogo.png";
+import NavyLogo from "../../assets/images/logo/navyLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")
