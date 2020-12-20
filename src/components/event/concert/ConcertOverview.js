@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import concertPoster from "../../../static/images/ritaora/ro3.jpg";
-import concertPoster2 from "../../../static/images/ritaora/sro3.png";
+import concertPoster from "../../../assets/images/ritaora/ro3.jpg";
+import concertPoster2 from "../../../assets/images/ritaora/sro3.png";
 
 import Ticket from "../../livestream/Payment/Ticket";
 

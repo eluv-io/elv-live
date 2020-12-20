@@ -7,10 +7,10 @@ import EventTabs from "../EventTabs";
 import Ticket from "../../livestream/Payment/Ticket";
 import Navigation from  "../../home/Navigation";
 
-import Logo from "../../../static/images/Logo.png";
-import heroImg from "../../../static/images/ritaora/hero1.jpg";
-import hero1 from "../../../static/images/ritaora/hero1.jpg";
-import CloseIcon from "../../../static/icons/x.svg";
+import Logo from "../../../assets/images/Logo.png";
+import heroImg from "../../../assets/images/ritaora/hero1.jpg";
+import hero1 from "../../../assets/images/ritaora/hero1.jpg";
+import CloseIcon from "../../../assets/icons/x.svg";
 import PaymentOverview from "../../livestream/Payment/PaymentOverview";
 import Footer from "../../home/Footer";
 

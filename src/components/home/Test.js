@@ -15,7 +15,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import AsyncComponent from "../support/AsyncComponent";
 import StreamTabs from '../livestream/Stream/StreamTabs';
-import Logo from "../../static/images/Logo.png";
+import Logo from "../../assets/images/Logo.png";
 import ViewStream from "../livestream/Stream/ViewStream";
 import Switch from "../support/Switch";
 import LiveChat from "../livestream/Stream/LiveChat";

@@ -6,9 +6,9 @@ import {ImageIcon} from "elv-components-js";
 
 import Card from "./Card";
 import Navigation from "./Navigation";
-import Logo from "../../static/images/Logo.png";
-import ritaHero from "../../static/images/ritaora/hero5.jpg";
-import ritaHome from "../../static/images/ritaora/rita-home.jpg";
+import Logo from "../../assets/images/Logo.png";
+import ritaHero from "../../assets/images/ritaora/hero5.jpg";
+import ritaHome from "../../assets/images/ritaora/rita-home.jpg";
 
 @inject("rootStore")
 @inject("siteStore")

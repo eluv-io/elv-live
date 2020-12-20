@@ -7,8 +7,8 @@ import { parse } from 'query-string';
 
 import Navigation from "../home/Navigation";
 
-import Logo from "../../static/images/Logo-Small.png";
-import default_background from "../../static/images/codeAccess/concert.jpg";
+import Logo from "../../assets/images/Logo-Small.png";
+import default_background from "../../assets/images/codeAccess/concert.jpg";
 
 @inject("siteStore")
 @inject("rootStore")

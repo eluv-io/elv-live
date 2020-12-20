@@ -18,7 +18,7 @@ import Success from "./components/livestream/payment/Success";
 // import Series from "./components/event/series/Series";
 // import Home from "./components/home/Home";
 
-import "./static/stylesheets/main.scss";
+import "./assets/styles/main.scss";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -30,9 +30,9 @@ class Routes extends React.Component {
     return (
       <Switch>
         <Route path = "/d457a576/stream/:siteId" component={Stream} />
-        <Route path = "/d457a576/success/:id" component={Success} />
+        <Route path = "/d457a576/success/:email/:id" component={Success} />
         <Route path = "/d457a576/code" forceRefresh={true} component={CodeAccess} />
-        <Route path = "/d457a576/contact" component={ContactForm} />
+        {/* <Route path = "/d457a576/contact" component={ContactForm} /> */}
         <Route path = "/d457a576/support" component={Support} />
         <Route path = "/d457a576/:name" forceRefresh={true} component={Concert} />
         {/* <Route>

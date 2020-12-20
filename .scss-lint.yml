@@ -1,7 +1,7 @@
 files:
-  include: "src/static/stylesheets/*.scss"
+  include: "src/assets/styles/*.scss"
   ignore:
-    - "src/static/stylesheets/fonts.scss"
+    - "src/assets/styles/fonts.scss"
 rules:
   class-name-format:
   - 2

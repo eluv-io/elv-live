@@ -1,7 +1,7 @@
 {
   "name": "elv-live-web",
   "version": "2.0.12",
-  "description": "![Eluvio Logo](src/static/images/Logo-Small.png \"Eluvio Logo\")",
+  "description": "![Eluvio Logo](src/assets/images/Logo-Small.png \"Eluvio Logo\")",
   "main": "App.js",
   "license": "MIT",
   "homepage": "https://github.com/eluv-io/elv-live-web",
@@ -31,6 +31,7 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@stripe/stripe-js": "^1.3.2",
+    "antd": "^4.9.4",
     "axios": "^0.21.0",
     "bitmovin-player": "^8.22.0",
     "dashjs": "^3.0.3",
