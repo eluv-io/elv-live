@@ -57,7 +57,7 @@ class RootStore {
   });
 
   @action.bound
-  RedeemCode = flow(function * (email, Token, name) {
+  RedeemCode = flow(function * (email, Token) {
     try {
       this.accessCode = yield this.client.RedeemCode({
         code: Token,
@@ -73,12 +73,12 @@ class RootStore {
       else if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
       }
-      else if (!(name.match(letterNumber))) {
-        this.SetError("Invalid Chat Name");
-      } 
+      // else if (!(name.match(letterNumber))) {
+      //   this.SetError("Invalid Chat Name");
+      // } 
       else {
         // this.email = email;
-        this.name = name;
+        // this.name = name;
         return this.accessCode;
       }
 

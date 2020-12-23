@@ -24,9 +24,7 @@ class CodeAccess extends React.Component {
       loading: false,
       email_placeholder: "Email",
       code_placeholder: "Ticket Code",
-      name_placeholder: "Chat Name"
     };
-    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCodeChange = this.handleCodeChange.bind(this);
   }
@@ -35,10 +33,6 @@ class CodeAccess extends React.Component {
     const parsed = parse(decodeURIComponent(this.props.location.search));
     this.setState({code: parsed.passcode});
     this.setState({email: parsed.email});
-  }
-
-  handleNameChange(event) {
-    this.setState({name: event.target.value});
   }
 
   handleEmailChange(event) {
@@ -61,8 +55,7 @@ class CodeAccess extends React.Component {
 
       const siteId = await this.props.rootStore.RedeemCode(
         this.state.email,
-        this.state.code,
-        this.state.name
+        this.state.code
       );
 
       if(siteId) {
@@ -95,15 +88,6 @@ class CodeAccess extends React.Component {
           <LoadingElement loading={this.state.loading}>
             {/* <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/> */}
             <h1 className="code-entry__title">Welcome</h1>
-
-            <input
-              onFocus={() => this.setState({name_placeholder: ""})}
-              onBlur={() => this.setState({name_placeholder: "Chat Name"})}
-              placeholder={this.state.name_placeholder}
-              value={this.state.name}
-              onChange={this.handleNameChange} 
-              onKeyPress={onEnterPressed(Submit)}
-            />
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
               onBlur={() => this.setState({email_placeholder: "Email"})}

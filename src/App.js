@@ -48,7 +48,7 @@ class Routes extends React.Component {
 @observer
 class App extends React.Component {
   render() {
-    // if(!this.props.siteStore.client) { return null; }
+    if(!this.props.siteStore.client) { return null; }
 
     return (
       <div className="app">

@@ -9,7 +9,7 @@ const MultiView = ({ config, setStream, activeStream, isOpen }) => {
 
   return (
     <div className="feedGrid" style={{ gridTemplateColumns: config["grid"]["columns"],gridTemplateRows: config["grid"]["rows"]}} >
-      {(isOpen) && activeStream != 6 ?           
+      {/* {(isOpen) && activeStream != 6 ?           
           <ImageIcon
             key={`back-icon-Close Modal`}
             className={"back-button-stream"}
@@ -17,14 +17,14 @@ const MultiView = ({ config, setStream, activeStream, isOpen }) => {
             icon={CloseIcon}
             onClick={() => setStream(6)}
           />
-        : null}
+        : null} */}
 
       {Object.entries(config["streams"]).map(([key, value]) => (
         <div key={key} id={`videobox${key}`} className={activeStream === value.feedOption ? `singleVideoBox` : activeStream === 6 ? `videobox` : "hideVideoBox"} style={{ gridArea: value.gridArea}} onClick={() => setStream(value.feedOption)}>
           <ViewStream feed={value.feedOption} activeStream={activeStream} />
-          {activeStream === 6 ? <h4 className="video-heading">
+          {/* {activeStream === 6 ? <h4 className="video-heading">
             <span className="video-heading-span">{value.title}</span>
-      </h4> : null}
+      </h4> : null} */}
         </div>
       ))}
     </div>
