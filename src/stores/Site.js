@@ -537,7 +537,7 @@ class SiteStore {
     }
 
     try {
-      const playoutOptions = yield this.client.PlayoutOptions({
+      const playoutOptions = yield this.client.BitmovinPlayoutOptions({
         ...params,
         offering,
         linkPath,
@@ -545,10 +545,18 @@ class SiteStore {
         drms: ["aes-128", "widevine", "clear"]
       });
 
-      title.playoutOptions = {
-        ...(title.playoutOptions || {}),
-        [offering]: playoutOptions
-      };
+      title.playoutOptions = playoutOptions;
+      // const playoutOptions = await client.BitmovinPlayoutOptions({
+      //   objectId,
+      //   versionHash,
+      //   protocols: ["hls", "dash"],
+      // drms: [DRM]
+      // });
+
+      // title.playoutOptions = {
+      //   ...(title.playoutOptions || {}),
+      //   [offering]: playoutOptions
+      // };
 
       title.currentOffering = offering;
     } catch (error) {

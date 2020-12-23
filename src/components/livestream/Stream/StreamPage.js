@@ -17,6 +17,7 @@ import AsyncComponent from "../../support/AsyncComponent";
 import LiveChat from "./LiveChat";
 import Switch from "../../support/Switch";
 import MultiView from "./MultiView";
+import BitmovinPlayer from "./BitmovinPlayer";
 import MultiViewJson from './example.json';
 // import StreamTabs from './StreamTabs';
 import DarkLogo from "../../../assets/images/logo/darkLogo.png";
@@ -29,8 +30,6 @@ const styles = theme => ({
   root: {
     display: 'flex',
     background: "rgba(245, 239, 234, .8)",
-    height: "100vh",
-    overflow: "hidden"
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -78,15 +77,13 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginRight: -drawerWidth,
-    height: "100vh"
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: 0,
-    height: "100vh"
+    marginRight: 0
   },
 });
 
@@ -108,7 +105,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
-      return <Redirect to={`/code`} />;
+      return <Redirect to={`/d457a576/code`} />;
     }
   
     const handleDrawerOpen = () => {
@@ -119,28 +116,27 @@ class Stream extends React.Component {
       this.setState({open: false});
     };
 
-    const setStream = (streamIndex) => {
-      this.setState({activeStream: streamIndex});
-      if (streamIndex === 6) {
-        for (let i = 0; i < 6; i++) {
-          document.getElementById(`active-stream-${i}`).controls = false;
-          document.getElementById(`active-stream-${i}`).play = true;
-        }
-        // document.getElementById(`active-stream-0`).play = false;
-      } else {
-        setTimeout(() => {
-          document.getElementById(`active-stream-${streamIndex}`).controls = true}, 500);
-      }
-    }
+    // const setStream = (streamIndex) => {
+    //   this.setState({activeStream: streamIndex});
+    //   if (streamIndex === 6) {
+    //     for (let i = 0; i < 6; i++) {
+    //       document.getElementById(`active-stream-${i}`).controls = false;
+    //       document.getElementById(`active-stream-${i}`).play = true;
+    //     }
+    //     // document.getElementById(`active-stream-0`).play = false;
+    //   } else if (this.state.switchValue) {
+    //     this.setState({switchValue: false})
+    //     setTimeout(() => {
+    //       document.getElementById(`active-stream-${streamIndex}`).controls = true}, 500);
+    //   }
+    // }
 
-    const handleSwitch = () => {
-      this.setState({switchValue: !(this.state.switchValue)})
-      if (this.state.switchValue === false) {
-        setStream(6);
-      } else {
-        setStream(0);
-      }
-    }
+    // const handleSwitch = () => {
+    //   this.setState({switchValue: !(this.state.switchValue)})
+    //   if (this.state.switchValue === false) {
+    //     setStream(6);
+    //   }
+    // }
 
     const { classes } = this.props;
 
@@ -172,17 +168,6 @@ class Stream extends React.Component {
                     <ImageIcon className="stream-nav__logo" icon={NavyLogo} label="Eluvio" />
 
                     <div className="stream-nav__button-grp">
-
-                      <div className="switch-container">
-                      <span className="switch-text">
-                          MultiView
-                        </span>
-                        <Switch
-                          isOn={this.state.switchValue}
-                          onColor="linear-gradient(160deg, #0610a1 7%,#4553ff 32.5%, #07c2e7 60%, #05d5ff  70%,#d694c6 95%)"
-                          handleToggle={handleSwitch}
-                        />
-                      </div>
 
                       <div className="stream-nav__button-grp2">
                         <IconButton
@@ -221,27 +206,26 @@ class Stream extends React.Component {
 
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
-                    <MultiView config={MultiViewJson} setStream={setStream} activeStream={this.state.activeStream} isOpen={this.state.switchValue} />
+                    <BitmovinPlayer />
 
                       <div className="stream-container__streamBox--info">
-                        <div className="tcont">
-                          <h2  className="stream-container__streamBox--info__subtitle">
+                        <div className="stream-info-container">
+                          <h2  className="stream-info-container__subtitle">
                             Rita Ora Presents 
                           </h2>
-                          <h1  className="stream-container__streamBox--info__title">
+                          <h1  className="stream-info-container__title">
                             RO3 World Tour - Eiffel Tower
                           </h1>
                         </div>
 
-                        <div className="sponsor-container-footer2"> 
-                          <span className="sponsor-title-footer2 ">
+                        <div className="sponsor-info-container"> 
+                          <span className="sponsor-info-container__title">
                             Presented By 
                           </span>
-                          <div className="sponsor-img-container-footer2"> 
-                              <img src={loreal} className="big-sponsor-img-footer2" />
+                          <div className="sponsor-info-container__img-container"> 
+                            <img src={loreal} className="stream-sponsor-img" />
                           </div>
                         </div>
-                       
                       </div> 
                     </div>
                   </div>
