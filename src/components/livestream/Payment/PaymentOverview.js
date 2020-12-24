@@ -7,14 +7,15 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-import concertPoster2 from "../../../assets/images/ritaora/sro3.png";
+// import concertPoster2 from "../../../assets/images/ritaora/sponsorRO3.png";
 
 import unicefImg from "../../../assets/images/ritaora/unicef.png";
 import merchImg from "../../../assets/images/ritaora/merchFront.jpg";
 import loreal from "../../../assets/images/sponsor/loreal.png";
 import Select from 'react-select';
 
-import { sizeOptions, countryOptions, qtyOptions } from "../../../assets/data/checkout";
+// import { sizeOptions, countryOptions, qtyOptions } from "../../../assets/data/checkout";
+import { checkout,event } from "../../../assets/data";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -30,14 +31,13 @@ class PaymentOverview extends React.Component {
       donationChecked: false,
       merchChecked: false,
       merchSize: false,
-      selectedCountry: countryOptions[235],
-      selectedQty: qtyOptions[0],
-      selectedSize: sizeOptions[0],
+      selectedCountry: checkout.countryOptions[235],
+      selectedQty: checkout.qtyOptions[0],
+      selectedSize: checkout.sizeOptions[0],
     };
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
-
   }
 
 
@@ -98,64 +98,32 @@ class PaymentOverview extends React.Component {
         console.error(error);
       }
     }
-
-    const customStyles = {
-      option: (provided, state) => ({
-        ...provided,
-        padding: 20,
-      }),
-      menu: () => ({
-        // none of react-select's styles are passed to <Control />
-        zIndex: 20098120921902190210912900192,
-      }),
-      menuPortal: () => ({
-        // none of react-select's styles are passed to <Control />
-        zIndex: 20098120921902190210912900192,
-      }),
-      menuList: (provided, state) => ({
-        zIndex: 20098120921902190210912900192,
-      })
-    }
-    
     
     return (
 
 
         <div className="payment-container">
-          {/* <div className="payment-event-overview">
-            <div className="payment-inner-overview"> */}
-              <div className="payment-info">
-                <div className="payment-info-img-container">
-                  <img src={concertPoster2} className="payment-info-img" />
-                </div>
-                <span className="payment-info-artist">
-                  Rita Ora Presents
-                </span>
-                <h3 className="payment-info-event">
-                  RO3 Tour - Eiffel Tower 
-                </h3>
-                <p className="payment-info-date">
-                  February 28th, 8:00 PM PST
-                </p>
-                <p className="payment-info-description">
-                  Rita Ora will be making history on February 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
-                </p>
-                <div className="sponsor-container"> 
-                  {/* <span className="sponsor-title payment-info-artist">
-                    Our Sponsor
-                  </span> */}
-                  <img src={loreal} className="big-sponsor-img" />
-                  {/* <div className="sponsor-img-container"> 
-                    <img src={mercedes} className="sponsor-img1" />
-                    <img src={kerastase} className="sponsor-img2" />
-                  </div> */}
-                </div>
-              </div>
+          <div className="payment-info">
+            <div className="payment-info-img-container">
+              <img src={event.eventInfo["event-poster"]} className="payment-info-img" />
+            </div>
+            <span className="payment-info-artist">
+              {event.eventInfo["artist"]} Presents
+            </span>
+            <h3 className="payment-info-event">
+              {event.eventInfo["event-header"]} -  {event.eventInfo["location"]} 
+            </h3>
+            <p className="payment-info-date">
+            {event.eventInfo["date"]} 
+            </p>
+            <p className="payment-info-description">
+              {event.eventInfo["description"][0]}                 
+            </p>
+            <div className="sponsor-container"> 
+              <img src={loreal} className="big-sponsor-img" />
+            </div>
+          </div>
               
-            {/* </div>
-
-          </div> */}
-
 
           <div className="payment-checkout">
 
@@ -171,7 +139,7 @@ class PaymentOverview extends React.Component {
                    <Select 
                     className='react-select-container' 
                     classNamePrefix="react-select" 
-                    options={countryOptions} 
+                    options={checkout.countryOptions} 
                     value={this.state.selectedCountry} 
                     onChange={this.handleCountryChange}
                     theme={theme => ({
@@ -186,7 +154,7 @@ class PaymentOverview extends React.Component {
                     />
                 </div>
                 <div className="quantity-select">
-                  <Select className='react-select-container'  classNamePrefix="react-select" options={qtyOptions} value={this.state.selectedQty} onChange={this.handleQtyChange}
+                  <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.selectedQty} onChange={this.handleQtyChange}
                   theme={theme => ({
                     ...theme,
                     borderRadius: 0,
@@ -214,22 +182,22 @@ class PaymentOverview extends React.Component {
                   />
                 <div className="checkout-checkbox-label">
                   <h5 className="checkout-checkbox-heading">
-                    Unicef Donation
+                    {checkout.checkoutAddOns[0]["name"]}
                   </h5>  
                   <span>
-                    $10.00
+                  {checkout.checkoutAddOns[0]["price"]}
                   </span>
                 </div>
               </div>
 
               <div className="checkout-checkbox-bundle">
-                <img src={unicefImg} className="checkout-checkbox-bundle-img" />
+                <img src={checkout.checkoutAddOns[0]["img"]} className="checkout-checkbox-bundle-img" />
                 <div className="checkout-checkbox-bundle-info">
                   <span className="checkout-checkbox-bundle-name">
-                    Support Unicef
+                  {checkout.checkoutAddOns[0]["heading"]}
                   </span>  
                   <p className="checkout-checkbox-bundle-description">
-                    Add a donation to help sponsor the Unicef, an organization we have partnered with to provide humanitarian aid to children worldwide.
+                  {checkout.checkoutAddOns[0]["description"]}
                   </p>  
                 </div>
               </div>
@@ -247,22 +215,22 @@ class PaymentOverview extends React.Component {
                   />
                 <div className="checkout-checkbox-label">
                   <h5 className="checkout-checkbox-heading">
-                   RO3 Tour Merchandise
+                  {checkout.checkoutAddOns[1]["name"]}
                   </h5>  
                   <span>
-                    $25.00
+                  {checkout.checkoutAddOns[1]["price"]}
                   </span>
                 </div>
               </div>
 
               <div className="checkout-checkbox-bundle">
-                <img src={merchImg} className="checkout-checkbox-bundle-img" />
+                <img src={checkout.checkoutAddOns[1]["img"]} className="checkout-checkbox-bundle-img" />
                 <div className="checkout-checkbox-bundle-info">
                  <div className="checkout-checkbox-bundle-size">
                    <span className="checkout-checkbox-bundle-name">
-                      RO3 Tour T-Shirt
+                   {checkout.checkoutAddOns[1]["header"]}
                     </span>  
-                    <Select className='react-select-container'  classNamePrefix="react-select" options={sizeOptions} defaultValue={sizeOptions[0]} value={this.state.selectedSize} onChange={this.handleSizeChange}
+                    <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
                     theme={theme => ({
                       ...theme,
                       borderRadius: 0,
@@ -276,7 +244,7 @@ class PaymentOverview extends React.Component {
                   </div>  
          
                   <p className="checkout-checkbox-bundle-description">
-                   The 'RO3 Live Dream T-Shirt' features a HD print of the 'Phoenix' logo on the front of a black unisex t-shirt. *all merch to ship following the event*
+                  {checkout.checkoutAddOns[1]["description"]}
                   </p>  
                   
                 </div>

@@ -5,8 +5,8 @@ import {Redirect, Switch, withRouter} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 
-import ContactForm from "./components/home/ContactForm";
 import Support from "./components/home/Support";
+// import Test from "./components/home/Test";
 
 import CodeAccess from "./components/livestream/CodeAccess";
 import Concert from "./components/event/concert/Concert";
@@ -32,7 +32,6 @@ class Routes extends React.Component {
         <Route path = "/d457a576/stream/:siteId" component={Stream} />
         <Route path = "/d457a576/success/:email/:id" component={Success} />
         <Route path = "/d457a576/code" forceRefresh={true} component={CodeAccess} />
-        {/* <Route path = "/d457a576/contact" component={ContactForm} /> */}
         <Route path = "/d457a576/support" component={Support} />
         <Route path = "/d457a576/:name" forceRefresh={true} component={Concert} />
         {/* <Route>

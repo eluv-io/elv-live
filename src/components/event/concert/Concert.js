@@ -7,12 +7,13 @@ import EventTabs from "../EventTabs";
 import Ticket from "../../livestream/Payment/Ticket";
 import Navigation from  "../../home/Navigation";
 
-import Logo from "../../../assets/images/Logo.png";
+import Logo from "../../../assets/images/logo/darkLogo.png";
 import heroImg from "../../../assets/images/ritaora/hero1.jpg";
 import hero1 from "../../../assets/images/ritaora/hero1.jpg";
 import CloseIcon from "../../../assets/icons/x.svg";
 import PaymentOverview from "../../livestream/Payment/PaymentOverview";
 import Footer from "../../home/Footer";
+import { eventInfo } from "../../../assets/data/event";
 
 
 @inject("rootStore")
@@ -37,9 +38,7 @@ class Concert extends React.Component {
   }
 
   Trailer() {
-    // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
-    // let featuredTitle = eventInfo.stream;
-    // this.props.siteStore.PlayTrailer(featuredTitle);
+
       return (
         <React.Fragment>
           <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
@@ -57,7 +56,7 @@ class Concert extends React.Component {
               <iframe 
                 width="100%" 
                 height="100%"
-                src="https://www.youtube.com/embed/FS07b8EUlCs" 
+                src={eventInfo["trailer-url"]}
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
@@ -128,7 +127,7 @@ class Concert extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${thumbnail})`,
+      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${eventInfo["hero-img"]})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100vh",
@@ -151,9 +150,9 @@ class Concert extends React.Component {
 
         <div className="event-container">
           <div className="event-container__heading">
-            <h1 className="name"> {"Rita Ora"} </h1>
-            <h1 className="location">{ "Streaming Live from the Eiffel Tower" }</h1>
-            <h1 className="time">{ "February 28th, 2021 · 8:00 PM PST" }</h1>
+            <h1 className="name"> {eventInfo["artist"]} </h1>
+            <h1 className="location">{ `Streaming Live from the ${eventInfo["location"]}` }</h1>
+            <h1 className="time">{ eventInfo["date"] }</h1>
           </div>
           
           <div className="event-container__button">

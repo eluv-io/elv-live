@@ -2,9 +2,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {inject, observer} from "mobx-react";
 import axios from "axios";
-import concertPoster2 from "../../../assets/images/ritaora/sro3.png";
 
-import concertPoster from "../../../assets/images/ritaora/ro3.jpg";
 import Timer from "./Timer";
 import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
 import { IconContext } from "react-icons";
@@ -67,12 +65,12 @@ class Ticket extends React.Component {
   }
 
   render() {
-    let {name, description, price, priceID, prodID, date} = this.props;
+    let {name, description, price, priceID, prodID, date, poster} = this.props;
 
     return (
       <div className="ticket-event" id={name} ref={this.props.refProp} >
         <div className="ticket-image">
-          <img src={concertPoster2} className="ticket-image-img"/>
+          <img src={poster} className="ticket-image-img"/>
         </div>
         <div className="ticket-detail">
           <div className="ticket-top">

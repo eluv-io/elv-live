@@ -1,29 +1,28 @@
 @import 'node_modules/stream-chat-react/dist/scss/ChatDown.scss';
+$color-font: #171818;
+$color-background1: rgba(245, 235, 225, .2);
+$color-background2: rgba(245, 235, 225, .3);
 
-.str-chat__list {
-  background-color: rgba(245, 235, 225, .2) !important;
+
+.str-chat__list  {
   // border-top: 1px solid;
   // border-bottom: 1px solid;
-  // border-color: grey;
+  border-color: grey;
 }
 
-.str-chat__container .str-chat__main-panel {
-  background-color: rgba(245, 235, 225, 0) !important;
-  // border-left: 1.75px solid;
-  // border-color: grey;
+.str-chat__container  .str-chat__main-panel {
+  // background-color: rgba(245, 235, 225, 0) !important;
+  border-color: grey;
 
 } 
-.str-chat__header-livestream {
-  // background: rgba(243, 222, 200, .7) !important;
-  background-color: rgba(245, 235, 225, .3) !important;
-  // background: white;
-  // box-shadow: 1px 1px 1px 1px rgba(99, 75, 75, 0.2) !important;
-  height: 75px;
+.str-chat__header-livestream  {
+
+  height: 75px !important;
 }
 .str-chat__input-flat{
-  background-color: rgba(245, 235, 225, .3) !important;
+  // background-color: rgba(245, 235, 225, .3) !important;
   height: 100px !important;
-  // box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 2) !important;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .45) !important;
 
 }
 .str-chat__input-flat-wrapper {
@@ -134,3 +133,17 @@
 //   background-color: rgba(245, 235, 225, .2) !important;
 
 // }
+
+
+.str-chat.livestream.dark {
+    background: #1a1a1a;
+}
+
+.str-chat.livestream.light {
+  background: rgba(245, 235, 225, .4);
+}
+
+.str-chat__input-flat {
+  background: rgba(245, 235, 225, .3);
+
+}

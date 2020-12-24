@@ -5,7 +5,7 @@ import { MessageInputSmall, MessageInputLarge, MessageInputFlat,MessageInputSimp
 import {inject, observer} from "mobx-react";
 import { StreamChat } from "stream-chat";
 import { Permission, AnyResource, AnyRole, Allow, Deny} from 'stream-chat';
-
+import { GrChatOption} from "react-icons/gr";
 import AsyncComponent from "../../support/AsyncComponent";
 
 import "stream-chat-react/dist/css/index.css";
@@ -69,18 +69,20 @@ class LiveChat extends React.Component {
 
     let chatClient = this.state.chatClient;
     let channel = this.state.channel;
+
+    console.log(this.props.onDarkMode);
     if (!this.state.onChat) {
       return (
         // <Chat client={this.state.chatClient} theme={"livestream light"} className="stream-container__tabs--chat">
-        <Chat client={chatClient} theme={"livestream light"}>
+        <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
           <Channel channel={channel} Message={MessageLivestream} LoadingIndicator={noDate}>
             <Window hideOnThread>
               <ChannelHeader live />
               <MessageList dateSeparator={noDate}/>
               {this.state.onChat ? 
                 <MessageInput Input={MessageInputSimple} focus={false} /> :
-                <div className="stream-chat-signup">
-                  <div className="stream-chat-form">
+                <div className={this.props.onDarkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light" } >
+                  <div className="stream-chat-form" >
                     <input
                       onFocus={() => this.setState({name_placeholder: ""})}
                       onBlur={() => this.setState({name_placeholder: "Name"})}
@@ -90,7 +92,7 @@ class LiveChat extends React.Component {
                     />
                   </div>
                   <button className="enter-chat-button" role="link" onClick={handleSubmit()}>
-                    Join Chat
+                    <GrChatOption style={{ height: "25px", width: "25px",marginRight: "10px"  }} /> Join Chat
                   </button>
                 </div> 
               }
@@ -106,7 +108,7 @@ class LiveChat extends React.Component {
       let channel2 = this.state.channel2;
       return (
         // <Chat client={this.state.chatClient} theme={"livestream light"} className="stream-container__tabs--chat">
-        <Chat client={chatClient} theme={"livestream light"}>
+        <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
           <Channel channel={channel2} Message={MessageLivestream} LoadingIndicator={noDate}>
             <Window hideOnThread>
               <ChannelHeader live />

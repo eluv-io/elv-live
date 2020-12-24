@@ -3,7 +3,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import { Player, PlayerEvent } from 'bitmovin-player';
 import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from 'bitmovin-player-ui';
-import MultiviewButton from  "./MultiviewButton"; 
+import CustomToggleButton from  "./CustomToggleButton"; 
 
 @inject("siteStore")
 @observer
@@ -15,11 +15,11 @@ class BitmovinPlayer extends React.Component {
       showControls: false,
       switchValue: 0,
       player: null,
-      playoutOptions: []
+      playoutOptions: [],
     };
 
     this.LoadBitmovin = this.LoadBitmovin.bind(this);
-    this.handleSwitch = this.handleSwitch.bind(this);
+    this.handleMultiViewSwitch = this.handleMultiViewSwitch.bind(this);
     this.DestroyPlayer = this.DestroyPlayer.bind(this);
 
   }
@@ -29,7 +29,7 @@ class BitmovinPlayer extends React.Component {
     this.LoadBitmovin();
   }
   
-  handleSwitch() {
+  handleMultiViewSwitch() {
     let source, feedOption;
 
     if (this.state.switchValue == (this.props.siteStore.feeds.length -1)) {
@@ -59,7 +59,6 @@ class BitmovinPlayer extends React.Component {
         }
       }
     );
-
   }
 
   componentWillUnmount() {
@@ -110,7 +109,8 @@ class BitmovinPlayer extends React.Component {
             new VolumeToggleButton(),
             new VolumeSlider(),
             new Spacer(),
-            new MultiviewButton(this.handleSwitch),
+            new CustomToggleButton(this.handleMultiViewSwitch, 'ui-airplaytogglebutton ui-multiviewtogglebutton'),
+            new CustomToggleButton(this.props.handleDarkToggle, 'ui-vrtogglebutton ui-darkmodetogglebutton'),
             new FullscreenToggleButton(),
           ],
           cssClasses: ['controlbar-bottom'],
