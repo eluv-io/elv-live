@@ -6,13 +6,13 @@ import React from 'react';
  * A button that toggles Apple AirPlay.
  */
 
-export default class MultiviewButton extends ToggleButton{
+export default class CustomToggleButton extends ToggleButton{
 
-  constructor(handleToggle) {
+  constructor(handleToggle, cssClass) {
     super(ToggleButtonConfig);
 
     this.config = this.mergeConfig(ToggleButtonConfig, {
-      cssClass: 'ui-airplaytogglebutton ui-multiviewtogglebutton',
+      cssClass: cssClass,
     }, this.config);
 
     this.state={

@@ -6,7 +6,7 @@ import {ImageIcon} from "elv-components-js";
 
 import Card from "./Card";
 import Navigation from "./Navigation";
-import Logo from "../../assets/images/Logo.png";
+import Logo from "../../assets/images/logo/darkLogo.png";
 import ritaHero from "../../assets/images/ritaora/hero5.jpg";
 import ritaHome from "../../assets/images/ritaora/rita-home.jpg";
 

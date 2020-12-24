@@ -1,3 +1,20 @@
+const checkoutAddOns = [
+  {
+    "name": "Unicef Donation",
+    "heading": "Support Unicef",
+    "description": "Add a donation to help sponsor the Unicef, an organization we have partnered with to provide humanitarian aid to children worldwide.",
+    "price": "$10.00",
+    "img": require("../images/ritaora/unicef.png"),
+  },
+  {
+    "name": "RO3 Tour Merchandise",
+    "heading": "RO3 Tour T-Shirt",
+    "description": "The 'RO3 Live Dream T-Shirt' features a HD print of the 'Phoenix' logo on the front of a black unisex t-shirt. *all merch to ship following the event*",
+    "price": "$25.00",
+    "img": require("../images/ritaora/merchFront.jpg"),
+  },
+];
+
 const sizeOptions = [
   { value: 'sku_IbXPOqonmAOAZk', label: 'S' },
   { value: 'sku_IbXPEdSryr5x74', label: 'M' },
@@ -1012,73 +1029,4 @@ const countryOptions = [
   }
 ];
 
-export { sizeOptions, countryOptions, qtyOptions };
-// curl https://api.stripe.com/v1/products \
-//   -u sk_test_51HpRJ7E0yLQ1pYr6cso90yY7EgBmOtv0Nv0BlWSDmqMtw9q5VJvcIAwdnCu4Bk7asYJ8yOtpYzaRylgWcPx69Rzl000bnwMyaA: \
-//   -d name="RO3 Tour Exclusive T-Shirt" \
-//   -d description="Rita Ora's 'RO3 Live Dream T-Shirt' features a hd print of 'Phoenix' logo on the front of a black washed unisex t-shirt. *all merch to ship following the event*" \
-//   -d "attributes[0]"="size" \
-//   -d "attributes[1]"="name" \
-//   -d type=good 
-//   {
-//     "id": "prod_IbXIkyEvkpWYyK",
-//     "object": "product",
-//     "active": true,
-//     "attributes": [
-//       "size",
-//       "name"
-//     ],
-//     "caption": null,
-//     "created": 1608441151,
-//     "deactivate_on": [
-  
-//     ],
-//     "description": "Rita Ora's 'RO3 Live Dream T-Shirt' features a hd print of 'Phoenix' logo on the front of a black washed unisex t-shirt. *all merch to ship following the event*",
-//     "images": [
-  
-//     ],
-//     "livemode": false,
-//     "metadata": {
-//     },
-//     "name": "RO3 Tour Exclusive T-Shirt",
-//     "package_dimensions": null,
-//     "shippable": true,
-//     "type": "good",
-//     "updated": 1608441151,
-//     "url": null
-//   }
-
-
-
-
-// curl https://api.stripe.com/v1/skus \
-//   -u sk_test_51HpRJ7E0yLQ1pYr6cso90yY7EgBmOtv0Nv0BlWSDmqMtw9q5VJvcIAwdnCu4Bk7asYJ8yOtpYzaRylgWcPx69Rzl000bnwMyaA: \
-//   -d "attributes[size]"="X-Large" \
-//   -d "attributes[name]"="RO3 Tour Exclusive T-Shirt (X-Large)" \
-//   -d price=2500 \
-//   -d currency=usd \
-//   -d "inventory[type]"=infinite \
-//   -d product=prod_IbXIkyEvkpWYyK
-// {
-//   "id": "sku_IbX9ChydvTG4rN",
-//   "object": "sku",
-//   "active": true,
-//   "attributes": {
-//     "size": "Small"
-//   },
-//   "created": 1608440629,
-//   "currency": "usd",
-//   "image": null,
-//   "inventory": {
-//     "quantity": 500,
-//     "type": "finite",
-//     "value": null
-//   },
-//   "livemode": false,
-//   "metadata": {
-//   },
-//   "package_dimensions": null,
-//   "price": 2500,
-//   "product": "prod_IbX9LmCjgJ0kP8",
-//   "updated": 1608440629
-// }
+export { sizeOptions, countryOptions, qtyOptions,checkoutAddOns };

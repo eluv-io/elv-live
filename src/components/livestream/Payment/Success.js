@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
-import Logo from "../../../assets/images/Logo.png";
+import Logo from "../../../assets/images/logo/darkLogo.png";
 import axios from "axios";
 import AsyncComponent from "../../support/AsyncComponent";
 import Navigation from "../../home/Navigation";

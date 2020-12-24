@@ -2,13 +2,10 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
-import {ImageIcon} from "elv-components-js";
 import { parse } from 'query-string';
 
 import Navigation from "../home/Navigation";
-
-import Logo from "../../assets/images/Logo-Small.png";
-import default_background from "../../assets/images/codeAccess/concert.jpg";
+import { siteInfo } from "../../assets/data";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -67,7 +64,7 @@ class CodeAccess extends React.Component {
 
     const divStyle = {
       backgroundSize: "cover",
-      backgroundImage: `url(${default_background})`,
+      backgroundImage: `url(${siteInfo["code-background-img"]})`,
       height: "100vh",
       maxHeight: "100vh",
       minHeight: "100vh",
@@ -86,8 +83,6 @@ class CodeAccess extends React.Component {
           { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
 
           <LoadingElement loading={this.state.loading}>
-            {/* <ImageIcon className="code-entry--logo" icon={Logo} label="logo"/> */}
-            <h1 className="code-entry__title">Welcome</h1>
             <input
               onFocus={() => this.setState({email_placeholder: ""})}
               onBlur={() => this.setState({email_placeholder: "Email"})}

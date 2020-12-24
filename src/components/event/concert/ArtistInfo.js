@@ -6,6 +6,7 @@ import rita2 from "../../../assets/images/ritaora/hero2.jpg";
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
 import { FaDesktop, FaYoutube, FaInstagram,FaTwitter,FaFacebookSquare,FaSoundcloud, FaApple, FaSpotify} from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { artistInfo } from "../../../assets/data/event";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -22,50 +23,38 @@ class ArtistInfo extends React.Component {
       <div className={"artist-info-container"}>
         <div className="profile-box">
           <div className="info-title">Rita Ora</div>
-          <div className="profile-bio">
-            On early singles like “Hot Right Now” with DJ Fresh and her own 2012
-            smash “How We Do (Party),” Rita Ora exudes the headstrong confidence
-            and swagger of an artist who knows exactly what she’s about. She also
-            knows what she can do with a voice that fits just as well with
-            lovelorn ballads as it does with full tilt party-starters.{" "}
-          </div>
-          <div className="profile-bio">
-            That combination of positivity and versatility has helped make
-            Ora—born Rita Sahatçiu in Prishtina in the former Yugoslavia, in
-            1990—one of the most successful British female solo artists ever. And
-            even though her troubles with her first record label led to a long
-            delay for the follow-up to her 2012 debut Ora, she filled the gap with
-            feature appearances on tracks by Iggy Azalea, Charli XCX, and Avicii,
-            along with a stream of UK Top 10 singles such as the dreamy “Anywhere”
-            and “For You,” a duet with Liam Payne for the soundtrack of Fifty
-            Shades Freed.
-          </div>
+          {artistInfo["intro"].map((text, index) =>
+            <div className="profile-bio" key={index}>
+              {text}
+            </div>
+            )}
         </div>
   
         <div className="info-box">
           <div className="info-title">Bio</div>
           <p className="profile-facts__first">
-            <span className="profile-facts__bold">Full Name: </span> Rita Sahatçiu
-            Ora
+            <span className="profile-facts__bold">Full Name: </span> 
+            {artistInfo["bio"]["full-name"]}
           </p>
           <p className="profile-facts">
-            <span className="profile-facts__bold">Age: </span> 30 (November 26,
-            1990)
+            <span className="profile-facts__bold">Age: </span> 
+            {artistInfo["bio"]["age"]} ({artistInfo["bio"]["birth-date"]})
           </p>
           <p className="profile-facts">
-            <span className="profile-facts__bold">Gender: </span> Female
+            <span className="profile-facts__bold">Gender: </span>            
+            {artistInfo["bio"]["gender"]}
           </p>
           <p className="profile-facts">
-            <span className="profile-facts__bold">Birth Place: </span> Pristina,
-            SFR Yugoslavia
+            <span className="profile-facts__bold">Birth Place: </span>            
+            {artistInfo["bio"]["birth-place"]}
           </p>
           <p className="profile-facts">
-            <span className="profile-facts__bold">Nationality: </span> British
+            <span className="profile-facts__bold">Nationality: </span>            
+            {artistInfo["bio"]["nationality"]}
           </p>
           <p className="profile-facts">
-            <span className="profile-facts__bold">Trivia: </span> She worked with
-            artists such as Drake and Kanye West on her debut album and became the
-            artist with the most U.K. #1 singles of 2012.
+            <span className="profile-facts__bold">Trivia: </span>            
+            {artistInfo["bio"]["trivia"]}
           </p>
         </div>
   
@@ -73,7 +62,7 @@ class ArtistInfo extends React.Component {
           <div className="info-title">Social</div>
           <div className="info-social-box">
             <a
-              href="https://www.youtube.com/user/ritaora"
+              href={artistInfo["social-media"]["youtube"]}
               target="_blank"
               className="info-social-link__first"
             >
@@ -90,7 +79,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://www.instagram.com/ritaora/?hl=en"
+              href={artistInfo["social-media"]["instagram"]}
               target="_blank"
               className="info-social-link"
             >
@@ -107,7 +96,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://twitter.com/RitaOra"
+              href={artistInfo["social-media"]["twitter"]}
               target="_blank"
               className="info-social-link"
             >
@@ -121,7 +110,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://www.how-to-be-lonely-digital.co.uk/"
+              href={artistInfo["social-media"]["website"]}
               target="_blank"
               className="info-social-link"
             >
@@ -133,7 +122,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://www.facebook.com/RitaOra"
+              href={artistInfo["social-media"]["facebook"]}
               target="_blank"
               className="info-social-link"
             >
@@ -147,7 +136,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://soundcloud.com/ritaora"
+              href={artistInfo["social-media"]["soundcloud"]}
               target="_blank"
               className="info-social-link"
             >
@@ -161,7 +150,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://music.apple.com/us/artist/rita-ora/355898104"
+              href={artistInfo["social-media"]["apple-music"]}
               target="_blank"
               className="info-social-link"
             >
@@ -175,7 +164,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href="https://open.spotify.com/artist/5CCwRZC6euC8Odo6y9X8jr"
+              href={artistInfo["social-media"]["spotify"]}
               target="_blank"
               className="info-social-link"
             >
@@ -195,7 +184,7 @@ class ArtistInfo extends React.Component {
           <div className="info-title">Spotify</div>
           <iframe
             className="info-music"
-            src="https://open.spotify.com/embed/playlist/37i9dQZF1DWW1gMUqCDV0K"
+            src={artistInfo["spotify-embed"]}
             frameBorder="0"
             allowtransparency="true"
             allow="encrypted-media"
@@ -207,7 +196,7 @@ class ArtistInfo extends React.Component {
           <div className="info-twitter">
             <TwitterTimelineEmbed
               sourceType="profile"
-              screenName="RitaOra"
+              screenName={artistInfo["twitter-handle"]}
               options={{ height: 385, width: "100%", tweetLimit: 4 }}
               noFooter={true}
               theme="dark"
@@ -219,8 +208,10 @@ class ArtistInfo extends React.Component {
         <div className="image-box">
           <div className="info-title">Photo Gallery</div>
           <div className="photo-group">
-            <img src={rita1} className="photo-group__photo-box" />
-            <img src={rita2} className="photo-group__photo-box" />
+           {artistInfo["photo-gallery"].map((img, index) =>
+            <img src={img} className="photo-group__photo-box" key={index}/>
+            )}
+
           </div>
         </div>
   

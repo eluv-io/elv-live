@@ -18,18 +18,25 @@ import LiveChat from "./LiveChat";
 import Switch from "../../support/Switch";
 import MultiView from "./MultiView";
 import BitmovinPlayer from "./BitmovinPlayer";
-import MultiViewJson from './example.json';
+import { multiviewConfig } from "../../../assets/data";
+
 // import StreamTabs from './StreamTabs';
-import DarkLogo from "../../../assets/images/logo/darkLogo.png";
+import lightLogo from "../../../assets/images/logo/lightLogo.png";
 import NavyLogo from "../../../assets/images/logo/navyLogo.png";
 import loreal from "../../../assets/images/sponsor/loreal.png";
 
 const drawerWidth = 450;
 
 const styles = theme => ({
-  root: {
+  lightRoot: {
     display: 'flex',
     background: "rgba(245, 239, 234, .8)",
+    color: "black"
+  },
+  darkRoot: {
+    display: 'flex',
+    background: "#121212",
+    color: "white"
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -99,15 +106,17 @@ class Stream extends React.Component {
       open: false,
       name: "",
       switchValue: false,
-      activeStream: 0
+      activeStream: 0,
+      darkSwitch: false
     };
   }
 
   render() {
-    if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
-      return <Redirect to={`/d457a576/code`} />;
-    }
-  
+    // if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
+    //   return <Redirect to={`/d457a576/code`} />;
+    // }
+    if(!this.props.siteStore.client) { return null; }
+
     const handleDrawerOpen = () => {
       this.setState({open: true});
     };
@@ -115,6 +124,10 @@ class Stream extends React.Component {
     const handleDrawerClose = () => {
       this.setState({open: false});
     };
+    const handleDarkModeSwitch = () => {
+      this.setState({darkSwitch: (!this.state.darkSwitch)})
+      // console.log(this.state.darkSwitch);
+    }
 
     // const setStream = (streamIndex) => {
     //   this.setState({activeStream: streamIndex});
@@ -149,13 +162,19 @@ class Stream extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, "");
+          const siteId = await this.props.rootStore.RedeemCode(
+            "alec.jo@berkeley.edu",
+            "gL5995"
+          );
+          await this.props.siteStore.LoadStreamSite(siteId, "");
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }
 
           return (
-            <div className={classes.root}>
+            <div className={clsx(classes.lightRoot, {
+              [classes.darkRoot]: this.state.darkSwitch,
+            })}>
               <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -165,7 +184,7 @@ class Stream extends React.Component {
                 <Toolbar>
                   <div className="stream-nav">
                     {/* <h1 className="stream-nav__title"> Eluvio Live </h1> */}
-                    <ImageIcon className="stream-nav__logo" icon={NavyLogo} label="Eluvio" />
+                    <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ?lightLogo : NavyLogo} label="Eluvio" />
 
                     <div className="stream-nav__button-grp">
 
@@ -178,7 +197,7 @@ class Stream extends React.Component {
                           className={clsx(this.state.open && classes.hide)}
                           size="medium"
                         >
-                          <MenuIcon style={{ color: "black" }} />
+                          <MenuIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
                         </IconButton>
 
                         <IconButton
@@ -189,7 +208,7 @@ class Stream extends React.Component {
                           className={clsx(!(this.state.open) && classes.hide)}
                           size="medium"
                         >
-                          <ChevronRightIcon style={{ color: "black" }} />
+                          <ChevronRightIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
                         </IconButton>
                       </div>
                     </div>
@@ -206,20 +225,20 @@ class Stream extends React.Component {
 
                   <div className="stream-container">
                     <div className="stream-container__streamBox">
-                    <BitmovinPlayer />
+                    <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
 
                       <div className="stream-container__streamBox--info">
                         <div className="stream-info-container">
-                          <h2  className="stream-info-container__subtitle">
+                          <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
                             Rita Ora Presents 
                           </h2>
-                          <h1  className="stream-info-container__title">
+                          <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
                             RO3 World Tour - Eiffel Tower
                           </h1>
                         </div>
 
                         <div className="sponsor-info-container"> 
-                          <span className="sponsor-info-container__title">
+                          <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
                             Presented By 
                           </span>
                           <div className="sponsor-info-container__img-container"> 
@@ -240,7 +259,7 @@ class Stream extends React.Component {
                     paper: classes.drawerPaper,
                   }}
                 >
-                  <LiveChat />
+                  <LiveChat onDarkMode={this.state.darkSwitch}/>
                 </Drawer>
               </div>
           );

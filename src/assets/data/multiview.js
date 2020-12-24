@@ -1,4 +1,4 @@
-{
+const multiviewConfig = {
   "grid": {
     "columns": "3",
     "rows": "3"
@@ -29,4 +29,6 @@
       "gridArea": "1 / 3 / span 1 / span 1"
     }
  ]
-}
+};
+
+export { multiviewConfig };
