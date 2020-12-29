@@ -109,7 +109,7 @@ class BitmovinPlayer extends React.Component {
             new VolumeToggleButton(),
             new VolumeSlider(),
             new Spacer(),
-            new CustomToggleButton(this.handleMultiViewSwitch, 'ui-airplaytogglebutton ui-multiviewtogglebutton'),
+            new CustomToggleButton(this.handleMultiViewSwitch, 'ui-airplaytogglebutton ui-multiviewToggleButton'),
             new CustomToggleButton(this.props.handleDarkToggle, 'ui-vrtogglebutton ui-darkmodetogglebutton'),
             new FullscreenToggleButton(),
           ],

@@ -19,17 +19,33 @@ class CodeAccess extends React.Component {
       email: "",
       name: "",
       loading: false,
+      access: false,
       email_placeholder: "Email",
       code_placeholder: "Ticket Code",
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCodeChange = this.handleCodeChange.bind(this);
+
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const parsed = parse(decodeURIComponent(this.props.location.search));
+
+    if (parsed.access == "true") {
+      this.setState({loading: true});
+      const siteId = await this.props.rootStore.RedeemCode(
+        parsed.email,
+        parsed.passcode
+      );
+  
+      if(siteId) {
+        this.setState({siteId});
+      } else {
+        this.setState({loading: false});
+      }    
+    }
     this.setState({code: parsed.passcode});
-    this.setState({email: parsed.email});
+    this.setState({email: parsed.email}); 
   }
 
   handleEmailChange(event) {
@@ -107,5 +123,5 @@ class CodeAccess extends React.Component {
     );
   }
 }
-
+// http://localhost:8086/d457a576/code?passcode%3DAcUe5b%26email%3Dalec.jo%40eluv.io%26access%3Dtrue
 export default CodeAccess;

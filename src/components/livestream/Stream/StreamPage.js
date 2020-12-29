@@ -64,10 +64,11 @@ const styles = theme => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "inherit"
   },
   drawerHeader: {
     display: 'flex',
@@ -75,7 +76,8 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-start',
     height: "75px",
-    minHeight: "56px"
+    minHeight: "56px",
+    backgroundColor: "inherit"
   },
   content: {
     flexGrow: 1,
@@ -112,9 +114,9 @@ class Stream extends React.Component {
   }
 
   render() {
-    // if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
-    //   return <Redirect to={`/d457a576/code`} />;
-    // }
+    if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
+      return <Redirect to={`/d457a576/code`} />;
+    }
     if(!this.props.siteStore.client) { return null; }
 
     const handleDrawerOpen = () => {
@@ -126,7 +128,6 @@ class Stream extends React.Component {
     };
     const handleDarkModeSwitch = () => {
       this.setState({darkSwitch: (!this.state.darkSwitch)})
-      // console.log(this.state.darkSwitch);
     }
 
     // const setStream = (streamIndex) => {
@@ -162,11 +163,11 @@ class Stream extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          const siteId = await this.props.rootStore.RedeemCode(
-            "alec.jo@berkeley.edu",
-            "gL5995"
-          );
-          await this.props.siteStore.LoadStreamSite(siteId, "");
+          // const siteId = await this.props.rootStore.RedeemCode(
+          //   "alec.jo@berkeley.edu",
+          //   "gL5995"
+          // );
+          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, "");
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }

@@ -34,6 +34,7 @@ class PaymentOverview extends React.Component {
       selectedCountry: checkout.countryOptions[235],
       selectedQty: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
+      error: ""
     };
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
@@ -51,7 +52,6 @@ class PaymentOverview extends React.Component {
     this.setState({selectedSize: value});
   };
 
-
   render() {
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
@@ -63,40 +63,49 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)})
     }
     const handleSubmit = (priceID, prodID) => async event => {
-      event.preventDefault();
-      const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
-      
-      let totalItems = [
-        { price: priceID, quantity: this.state.selectedQty.value}
-      ];
-      if (this.state.merchChecked) {
-        totalItems.push({ price: this.state.selectedSize.value, quantity: 1 });
-      }
-      if (this.state.donationChecked) {
-        totalItems.push({ price: "price_1HyngME0yLQ1pYr6U9C3Vr8K", quantity: 1 });
-      }
-
-      let stripeParams = {
-        mode: "payment",
-        lineItems: totalItems,
-        successUrl: `${window.location.origin}/d457a576/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
-        cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
-        clientReferenceId: prodID,
-        customerEmail: this.state.email
-      };
-
-      if (this.state.merchChecked) {
-        stripeParams.shippingAddressCollection = {
-          allowedCountries: [this.state.selectedCountry.value],
+      try {
+        event.preventDefault();
+        const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
+        
+        let totalItems = [
+          { price: priceID, quantity: this.state.selectedQty.value}
+        ];
+        if (this.state.merchChecked) {
+          totalItems.push({ price: this.state.selectedSize.value, quantity: 1 });
         }
-      } 
+        if (this.state.donationChecked) {
+          totalItems.push({ price: "price_1HyngME0yLQ1pYr6U9C3Vr8K", quantity: 1 });
+        }
+  
+        let stripeParams = {
+          mode: "payment",
+          lineItems: totalItems,
+          successUrl: `${window.location.origin}/d457a576/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
+          cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
+          clientReferenceId: prodID,
+          customerEmail: this.state.email
+        };
+  
+        if (this.state.merchChecked) {
+          stripeParams.shippingAddressCollection = {
+            allowedCountries: [this.state.selectedCountry.value],
+          }
+        } 
+        const { error } = await stripe.redirectToCheckout(stripeParams);
+        
+      } catch (error) {
+        this.setState({error: "Enter a valid email to continue to Payment."});
+        
+        let errorTimeout = setTimeout(() => {
+          runInAction(() => this.setState({error: ""}));
+        }, 8000);
+    
+        clearTimeout(errorTimeout);
 
-      const { error } = await stripe.redirectToCheckout(stripeParams);
-
-      if (error) {
         console.error("Failed to handleSubmit for Stripe:");
         console.error(error);
       }
+
     }
     
     return (
@@ -228,7 +237,7 @@ class PaymentOverview extends React.Component {
                 <div className="checkout-checkbox-bundle-info">
                  <div className="checkout-checkbox-bundle-size">
                    <span className="checkout-checkbox-bundle-name">
-                   {checkout.checkoutAddOns[1]["header"]}
+                   {checkout.checkoutAddOns[1]["heading"]}
                     </span>  
                     <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
                     theme={theme => ({
@@ -272,6 +281,10 @@ class PaymentOverview extends React.Component {
             <button className="checkout-button" role="link" onClick={handleSubmit(this.props.siteStore.priceId, this.props.siteStore.prodId)}>
               Continue to Payment
             </button>
+            <div className="checkout-error">
+              {this.state.error}
+            </div>
+
 
           </div>
         </div>
