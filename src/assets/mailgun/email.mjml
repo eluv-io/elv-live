@@ -1,0 +1,87 @@
+<mjml>
+
+  <mj-body background-color="#ccd3e0">
+ <mj-section background-color="white" padding-bottom="10px" padding-top="10px">
+      <mj-column width="100%">
+        <mj-image align="center" padding="10px 25px" src="../images/logo/darkLogo.png" width="128px"></mj-image>
+        <!-- <mj-text align="center" font-size="28px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-top="25px" padding-bottom="25px">
+          <span style="font-weight:bold;">RO3 World Tour - Eiffel Tower</span>
+        </mj-text>
+        <mj-image align="center" padding="10px 25px" src="../images/ritaora/sponsorR03.png" width="200px" ></mj-image> -->
+        
+        <mj-text align="center" font-size="16px" color="black" padding-top="30px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="5%" padding-right="5%" padding-top="7px">
+          <span>{{name}},</span>
+          <br/>
+          <span>Thank you for your order!</span>
+        </mj-text>
+        <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="7px" padding-bottom="25px">
+          <span>Your purchase was successful! You can find your purchase information and digital ticket code below. </span>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#ece7df" padding-bottom="20px" padding-top="25px">
+      <mj-column width="100%">
+ 
+        <mj-image align="center" border-radius="12px" padding="10px 25px" src="../images/ritaora/sponsorR03.png" width="230px" ></mj-image>
+        <mj-text align="left" font-size="20px" color="black" font-family="sans-serif" padding-left="50px" padding-right="50px" padding-top="25px" padding-bottom="0px">
+          <span style="font-weight:bold;">RITA ORA PRESENTS</span>
+        </mj-text>
+        <mj-text align="left" font-size="28px" color="black" font-family="sans-serif" padding-left="50px" padding-right="50px" padding-top="5px" padding-bottom="0px">
+          <span style="font-weight:bold;">RO3 World Tour - Eiffel Tower</span>
+        </mj-text>
+        <!-- <mj-text align="center" font-size="16px" color="black" padding-top="35px" font-family="Ubuntu, Helvetica, Arial, sans-serif">
+          <strong>Product</strong>
+        </mj-text> -->
+        
+        <!-- <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif"><strong>Rita Ora - General Admission
+{{product}}</strong>
+        </mj-text> -->
+
+        <mj-text align="left" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="20px" padding-bottom="15px">
+          <span>
+            The button below contains your unique ticket link. Please don't share this link as it can only be used by one device at a time. 
+          </span>
+        </mj-text>
+        <mj-text align="left" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="7px" padding-bottom="15px">
+          <span>
+            You can also enter your unique ticket code on our Apple TV app for the best streaming experience on all Apple TV supported devices.
+          </span>
+        </mj-text>
+        <mj-text align="left" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="7px" padding-bottom="25px">
+          <span>
+           <a href="https://live.eluv.io/d457a576/calendar">Add to Calendar.</a>  
+            Please visit our 
+            <a color="black" href="https://live.eluv.io/d457a576/support" target="_blank"> FAQ </a>
+            for more info on how to watch the event. 
+            Contact 
+            <a href="mailto:help@eluv.io">help@eluv.io</a>  
+            with any questions.
+    
+           
+          </span>
+        </mj-text>
+
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#222" padding-bottom="5px">
+      <mj-column>
+        <mj-text align="center" color="white" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-top="25px" padding-bottom="10px"><strong>Order Confirmation #</strong></mj-text>
+        <mj-text align="center" color="white" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="20px" padding-top="10px">{{ticket-id}}</mj-text>
+        <mj-text align="center" color="white" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>Premiering</strong></mj-text>
+        <mj-text align="center" color="white" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="0px" padding-top="10px">February 28th, 2021 · 8:00 PM PST</mj-text>
+        <mj-text align="center" color="white" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-top="25px" padding-bottom="10px"><strong>Ticket Code</strong></mj-text>
+        <mj-text align="center" color="white" font-size="22px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px" padding-top="10px">{{passcode}}</mj-text>
+        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="50px" href={{redeem-url}} font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">Enter Event</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="white" padding-bottom="5px">
+      <mj-column>
+        <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="25px"><strong>Eluvio</strong></mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>
