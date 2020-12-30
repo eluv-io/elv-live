@@ -13,11 +13,7 @@ import Concert from "./components/event/concert/Concert";
 import Stream from "./components/livestream/stream/StreamPage";
 import Success from "./components/livestream/payment/Success";
 import Calendar from "./components/livestream/payment/Calendar";
-
-// import AsyncComponent from "./components/support/AsyncComponent";
-// import FilmRelease from "./components/event/film/FilmRelease";
-// import Series from "./components/event/series/Series";
-// import Home from "./components/home/Home";
+import AsyncComponent from "./components/utils/AsyncComponent";
 
 import "./assets/styles/main.scss";
 
@@ -30,12 +26,12 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path = "/d457a576/stream/:siteId" component={Stream} />
-        <Route path = "/d457a576/success/:email/:id" component={Success} />
-        <Route path = "/d457a576/calendar" component={Calendar} />
-        <Route path = "/d457a576/code" forceRefresh={true} component={CodeAccess} />
-        <Route path = "/d457a576/support" component={Support} />
-        <Route path = "/d457a576/:name" forceRefresh={true} component={Concert} />
+        <Route path = "/stream/:siteId" component={Stream} />
+        <Route path = "/success/:email/:id" component={Success} />
+        <Route path = "/calendar" component={Calendar} />
+        <Route path = "/code" forceRefresh={true} component={CodeAccess} />
+        <Route path = "/support" component={Support} />
+        <Route path = "/:name" forceRefresh={true} component={Concert} />
         {/* <Route>
           <Redirect to="/" />
         </Route> */}
@@ -51,14 +47,28 @@ class App extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
+
     return (
-      <div className="app">
-        <main>
-          <BrowserRouter>
-            <Routes />
-          </BrowserRouter>
-        </main>
-      </div>
+      <AsyncComponent
+        Load={async () => {
+          await this.props.siteStore.LoadSite("ilib2bLJtRJG3LW9yScSNStbjkSqF2hH","iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv");
+        }}
+        loadingSpin={false}
+        render={() => {
+          return (
+            <div className="app">
+            <main>
+              <BrowserRouter basename={this.props.siteStore.basePath}>
+                <Routes />
+              </BrowserRouter>
+            </main>
+          </div>
+          );
+          }
+        }
+        
+      />
+
     );
   }
 }

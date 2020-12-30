@@ -6,7 +6,7 @@ import rita2 from "../../../assets/images/ritaora/hero2.jpg";
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
 import { FaDesktop, FaYoutube, FaInstagram,FaTwitter,FaFacebookSquare,FaSoundcloud, FaApple, FaSpotify} from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { artistInfo } from "../../../assets/data/event";
+// import { artistInfo } from "../../../assets/data/event";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -18,43 +18,47 @@ class ArtistInfo extends React.Component {
     // const featuredTitle = eventInfo.title;
     // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
     // const Maybe = (value, render) => value ? render() : null;
+    let siteInfo = this.props.siteStore.eventSites[this.props.name];
+    let eventInfo = siteInfo["eventInfo"][0];
+    let artistInfo = siteInfo["artistInfo"][0];
+    let artistBio = artistInfo["bio"][0];
 
     return (
       <div className={"artist-info-container"}>
         <div className="profile-box">
           <div className="info-title">Rita Ora</div>
-          {artistInfo["intro"].map((text, index) =>
-            <div className="profile-bio" key={index}>
-              {text}
+          {/* {artistInfo["intro"].map((text, index) => */}
+            <div className="profile-bio" >
+              {artistInfo["intro"]}
             </div>
-            )}
+            {/* )} */}
         </div>
   
         <div className="info-box">
           <div className="info-title">Bio</div>
           <p className="profile-facts__first">
             <span className="profile-facts__bold">Full Name: </span> 
-            {artistInfo["bio"]["full-name"]}
+            {artistBio["full-name"]}
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Age: </span> 
-            {artistInfo["bio"]["age"]} ({artistInfo["bio"]["birth-date"]})
+            {artistBio["age"]} ({artistBio["birth-date"]})
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Gender: </span>            
-            {artistInfo["bio"]["gender"]}
+            {artistBio["gender"]}
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Birth Place: </span>            
-            {artistInfo["bio"]["birth-place"]}
+            {artistBio["birth-place"]}
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Nationality: </span>            
-            {artistInfo["bio"]["nationality"]}
+            {artistBio["nationality"]}
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Trivia: </span>            
-            {artistInfo["bio"]["trivia"]}
+            {artistBio["trivia"]}
           </p>
         </div>
   
@@ -62,7 +66,7 @@ class ArtistInfo extends React.Component {
           <div className="info-title">Social</div>
           <div className="info-social-box">
             <a
-              href={artistInfo["social-media"]["youtube"]}
+              href={artistInfo["social-media-links"][0]["youtube"]}
               target="_blank"
               className="info-social-link__first"
             >
@@ -79,7 +83,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["instagram"]}
+              href={artistInfo["social-media-links"][0]["instagram"]}
               target="_blank"
               className="info-social-link"
             >
@@ -96,7 +100,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["twitter"]}
+              href={artistInfo["social-media-links"][0]["twitter"]}
               target="_blank"
               className="info-social-link"
             >
@@ -110,7 +114,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["website"]}
+              href={artistInfo["social-media-links"][0]["website"]}
               target="_blank"
               className="info-social-link"
             >
@@ -122,7 +126,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["facebook"]}
+              href={artistInfo["social-media-links"][0]["facebook"]}
               target="_blank"
               className="info-social-link"
             >
@@ -136,7 +140,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["soundcloud"]}
+              href={artistInfo["social-media-links"][0]["soundcloud"]}
               target="_blank"
               className="info-social-link"
             >
@@ -150,7 +154,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["apple-music"]}
+              href={artistInfo["social-media-links"][0]["apple-music"]}
               target="_blank"
               className="info-social-link"
             >
@@ -164,7 +168,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media"]["spotify"]}
+              href={artistInfo["social-media-links"][0]["spotify"]}
               target="_blank"
               className="info-social-link"
             >
@@ -208,9 +212,12 @@ class ArtistInfo extends React.Component {
         <div className="image-box">
           <div className="info-title">Photo Gallery</div>
           <div className="photo-group">
-           {artistInfo["photo-gallery"].map((img, index) =>
-            <img src={img} className="photo-group__photo-box" key={index}/>
-            )}
+           {/* {artistInfo["photo-gallery"].map((img, index) =>
+            <img src={rita1} className="photo-group__photo-box" key={index}/>
+            )} */}
+                        <img src={rita1} className="photo-group__photo-box" key={1}/>
+                        <img src={rita2} className="photo-group__photo-box" key={2}/>
+
 
           </div>
         </div>

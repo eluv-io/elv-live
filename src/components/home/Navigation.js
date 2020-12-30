@@ -25,13 +25,13 @@ class Navigation extends React.Component {
             {/* <a href="https://eluv.io/register" target="_blank" className="btn2 btn2--white main-nav--event">
               Create Event
             </a> */}
-            <NavLink to="/d457a576/rita-ora" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
+            <NavLink to="/rita-ora" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
               Event
             </NavLink>
-            <NavLink to="/d457a576/support" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
+            <NavLink to="/support" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
               Support
             </NavLink>
-            <NavLink to="/d457a576/code" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
+            <NavLink to="/code" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
               Redeem Ticket 
             </NavLink>
            

@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 import { StreamChat } from "stream-chat";
 import { Permission, AnyResource, AnyRole, Allow, Deny} from 'stream-chat';
 import { GrChatOption} from "react-icons/gr";
-import AsyncComponent from "../../support/AsyncComponent";
+import AsyncComponent from "../../utils/AsyncComponent";
 
 import "stream-chat-react/dist/css/index.css";
 

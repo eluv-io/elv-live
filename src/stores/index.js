@@ -56,6 +56,26 @@ class RootStore {
     this.client = client;
   });
 
+  // @action.bound
+  // InitializeClient = flow(function * () {
+
+  //   let client;
+  //   // Initialize ElvClient or FrameClient
+
+  //   const configUrl = "https://main.net955305.contentfabric.io/config";
+  //   const anonToken = `{"qspace_id" : "ispc2RUoRe9eR2v33HARQUVSp1rYXzw1"}`;
+
+  //   const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
+
+  //   const staticToken = Buffer.from(anonToken, "base64");
+  //   client = yield ElvClient.FromConfigurationUrl({
+  //     configUrl,
+  //     staticToken
+  //   });
+
+  //   this.client = client;
+  // });
+
   @action.bound
   RedeemCode = flow(function * (email, Token) {
     try {
@@ -73,12 +93,7 @@ class RootStore {
       else if (!re.test(String(email).toLowerCase())) {
         this.SetError("Invalid email");
       }
-      // else if (!(name.match(letterNumber))) {
-      //   this.SetError("Invalid Chat Name");
-      // } 
       else {
-        // this.email = email;
-        // this.name = name;
         return this.accessCode;
       }
 

@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 // import { Link } from "react-router-dom";
 // import {ImageIcon} from "elv-components-js";
 // import axios from "axios";
-// import AsyncComponent from "../../support/AsyncComponent";
+// import AsyncComponent from "../../utils/AsyncComponent";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import { loadStripe } from "@stripe/stripe-js";
 

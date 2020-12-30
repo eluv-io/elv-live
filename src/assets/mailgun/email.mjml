@@ -9,18 +9,16 @@
         </mj-text>
         <mj-image align="center" padding="10px 25px" src="../images/ritaora/sponsorR03.png" width="200px" ></mj-image> -->
         
-        <mj-text align="center" font-size="16px" color="black" padding-top="30px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="5%" padding-right="5%" padding-top="7px">
-          <span>{{name}},</span>
+        <mj-text align="center" font-size="28px" color="black" padding-top="40px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="40px" padding-left="5%" padding-right="5%" >
+          <span style="font-weight:bold;">{{name}},</span>
           <br/>
           <span>Thank you for your order!</span>
         </mj-text>
-        <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="7px" padding-bottom="25px">
-          <span>Your purchase was successful! You can find your purchase information and digital ticket code below. </span>
-        </mj-text>
+
       </mj-column>
     </mj-section>
 
-    <mj-section background-color="#ece7df" padding-bottom="20px" padding-top="25px">
+    <mj-section background-color="white" padding-bottom="20px" padding-top="25px">
       <mj-column width="100%">
  
         <mj-image align="center" border-radius="12px" padding="10px 25px" src="../images/ritaora/sponsorR03.png" width="230px" ></mj-image>
@@ -40,27 +38,10 @@
 
         <mj-text align="left" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="20px" padding-bottom="15px">
           <span>
-            The button below contains your unique ticket link. Please don't share this link as it can only be used by one device at a time. 
+            The button below contains your unique ticket link. Use the link to watch on desktop or mobile browser. You can also use the ticket code to watch on Apple TV or Roku.  Download the Eluvio Live app on the platform of your choice, and enter the ticket code when prompted.
           </span>
         </mj-text>
-        <mj-text align="left" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="7px" padding-bottom="15px">
-          <span>
-            You can also enter your unique ticket code on our Apple TV app for the best streaming experience on all Apple TV supported devices.
-          </span>
-        </mj-text>
-        <mj-text align="left" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="7px" padding-bottom="25px">
-          <span>
-           <a href="https://live.eluv.io/d457a576/calendar">Add to Calendar.</a>  
-            Please visit our 
-            <a color="black" href="https://live.eluv.io/d457a576/support" target="_blank"> FAQ </a>
-            for more info on how to watch the event. 
-            Contact 
-            <a href="mailto:help@eluv.io">help@eluv.io</a>  
-            with any questions.
-    
-           
-          </span>
-        </mj-text>
+        
 
       </mj-column>
     </mj-section>
@@ -79,7 +60,21 @@
 
     <mj-section background-color="white" padding-bottom="5px">
       <mj-column>
-        <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="25px"><strong>Eluvio</strong></mj-text>
+       <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="24px" padding-left="110px" padding-right="110px" padding-top="7px" padding-bottom="25px">
+          <span>
+           <a href="https://live.eluv.io/d457a576/calendar">Add to Calendar.</a>  
+            Visit our 
+            <a color="black" href="https://live.eluv.io/d457a576/support" target="_blank"> FAQ </a>
+            for more info. 
+            Contact 
+            <a href="mailto:help@eluv.io">help@eluv.io</a>  
+            with any questions.
+          </span>
+        </mj-text>
+        
+        <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="25px">
+          <strong>Eluvio</strong>
+        </mj-text>
       </mj-column>
     </mj-section>
 

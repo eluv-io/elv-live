@@ -6,7 +6,7 @@ import Collapsible from 'react-collapsible';
 
 import Navigation from "./Navigation";
 import Footer from "./Footer";
-import { faq } from "../../assets/data";
+// import { faq } from "../../assets/data";
 
 import Logo from "../../assets/images/logo/darkLogo.png";
 
@@ -16,6 +16,7 @@ import Logo from "../../assets/images/logo/darkLogo.png";
 class Support extends React.Component {
 
   render() {
+    let faqInfo = this.props.siteStore.faqData;
     
     return (
         <div className="support-page">
@@ -26,7 +27,7 @@ class Support extends React.Component {
               <h1 className="support-header--title">Fan FAQ</h1>
             </div>
             <div className="support-body">
-              {faq.faqData.map((obj, index) =>
+              {faqInfo.map((obj, index) =>
                 <Collapsible transitionTime={150} trigger={obj.question} key={index}>
                   <p>{obj.answer}</p>
                 </Collapsible>

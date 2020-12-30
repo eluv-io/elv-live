@@ -3,6 +3,7 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 import Id from "@eluvio/elv-client-js/src/Id";
 import { v4 as UUID } from "uuid";
+import axios from "axios";
 
 // Note: Update if defaults change in asset manager
 const DEFAULT_ASSOCIATED_ASSETS = [
@@ -57,6 +58,13 @@ const DEFAULT_SITE_CUSTOMIZATION = {
 };
 
 class SiteStore {
+  // Eluvio Live Data Store
+  @observable basePath = "/"; 
+  @observable faqData = [];
+  @observable eventSites;
+  @observable eventImages;
+
+
   @observable siteCustomization;
   @observable feeds = [];
 
@@ -160,21 +168,21 @@ class SiteStore {
       .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
-  // Loading data from Site Customization
-
+  // // Loading data from Site Customization
   // @action.bound
-  // LoadSite = flow(function * (objectId, writeToken) {
+  // LoadSiteOld = flow(function * (objectId, writeToken) {
   //   if(this.siteParams && this.siteParams.objectId === objectId) {
   //     return;
   //   }
   //   this.Reset();
 
-  //   this.siteParams = {
-  //     libraryId: yield this.client.ContentObjectLibraryId({objectId}),
-  //     objectId: objectId,
-  //     versionHash: yield this.client.LatestVersionHash({objectId}),
-  //     writeToken: writeToken
-  //   };
+    // this.siteParams = {
+    //   libraryId: yield this.client.ContentObjectLibraryId({objectId}),
+    //   objectId: objectId,
+    //   versionHash: yield this.client.LatestVersionHash({objectId}),
+    //   writeToken: writeToken
+    // };
+    
   //   const availableDRMS = yield this.client.AvailableDRMs();
   //   this.dashSupported = availableDRMS.includes("widevine");
 
@@ -194,7 +202,7 @@ class SiteStore {
   //   }
   //   if(this.siteCustomization.background_image) {
   //     this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
-  //   }
+  // //   }
 
   //   let eventMap = new Map();
   //   let dateFormat = require('dateformat');
@@ -239,8 +247,49 @@ class SiteStore {
   //     }
   //   }
   //   this.eventAssets = eventMap;
-  //   this.siteHash = yield this.LoadAsset("public/asset_metadata");
-  // });
+  // //   this.siteHash = yield this.LoadAsset("public/asset_metadata");
+  // // });
+  
+
+  @action.bound
+  LoadSite = flow(function * (libraryId, objectId) {
+    try {
+
+      const response = yield axios.get(
+        `https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&select=sites&select=app&resolve=true&link_depth=1`
+      );
+      let appData = response.data.app;
+
+      if(appData.base_path) {
+        this.basePath = "/" + appData.base_path;
+      }
+
+      if(appData.faq) {
+        this.faqData = appData.faq;
+      }
+      this.eventSites = response.data.sites;
+      // let imageMap = new Map();
+
+      // for (const [key, value] of Object.entries(this.eventSites["rita-ora"]["images"])) {
+      //   console.log(key);
+      //   let imageResponse = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/${key}/default`});
+      //   imageMap.set(key,imageResponse);
+      // }
+
+      // this.eventImages = imageMap;
+
+      // if(entry.options.eventImage) {
+      //   entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
+      // }
+      // if(entry.options.featureImage) {
+      //   entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
+      // }
+
+    } catch (error) {
+      console.log("ERROR App Metadata Get ", error);
+    }
+    // Eluvio Live Data Store
+  });
 
   // Loading streams/titles from objectId and placing them into this.feeds for multiview selection
   @action.bound

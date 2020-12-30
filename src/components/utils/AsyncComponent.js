@@ -50,11 +50,15 @@ class AsyncComponent extends React.Component {
       // Throw error synchronously for ErrorHandler to catch
       throw this.state.error;
     }
+    let loadingSpin = true;
+    if (!this.props.loadingSpin) {
+      loadingSpin = false;
+    }
 
     if(this.state.loading) {
       return (
         <div className="spin-container">
-          <BallSpin />
+          {loadingSpin ? <BallSpin /> : null}
         </div>
       );
     }

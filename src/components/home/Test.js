@@ -6,7 +6,7 @@ import {Redirect} from "react-router";
 
 
 
-import AsyncComponent from "../support/AsyncComponent";
+import AsyncComponent from "../utils/AsyncComponent";
 import BitmovinPlayer from '../livestream/Stream/BitmovinPlayer';
 
 
