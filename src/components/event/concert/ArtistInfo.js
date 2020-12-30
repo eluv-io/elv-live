@@ -13,14 +13,36 @@ import { IconContext } from "react-icons";
 @observer
 class ArtistInfo extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      photoGallery: [],
+    };
+  }
+
+  async componentDidMount() {
+
+    let siteGallery = this.props.siteStore.eventSites[this.props.name]["gallery"];
+    let photoGallery = [];
+
+    for (var key in siteGallery) {
+      console.log(key);
+      let photo = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/gallery/${key}/gallery`});
+      photoGallery.push(photo);
+    }
+
+    this.setState({photoGallery: photoGallery});
+  }
+
   render() {
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
     // const featuredTitle = eventInfo.title;
     // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
     // const Maybe = (value, render) => value ? render() : null;
     let siteInfo = this.props.siteStore.eventSites[this.props.name];
-    let eventInfo = siteInfo["eventInfo"][0];
-    let artistInfo = siteInfo["artistInfo"][0];
+    let eventInfo = siteInfo["event_info"][0];
+    let artistInfo = siteInfo["artist_info"][0];
     let artistBio = artistInfo["bio"][0];
 
     return (
@@ -38,11 +60,11 @@ class ArtistInfo extends React.Component {
           <div className="info-title">Bio</div>
           <p className="profile-facts__first">
             <span className="profile-facts__bold">Full Name: </span> 
-            {artistBio["full-name"]}
+            {artistBio["full_name"]}
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Age: </span> 
-            {artistBio["age"]} ({artistBio["birth-date"]})
+            {artistBio["age"]} ({artistBio["birth_date"]})
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Gender: </span>            
@@ -50,7 +72,7 @@ class ArtistInfo extends React.Component {
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Birth Place: </span>            
-            {artistBio["birth-place"]}
+            {artistBio["birth_place"]}
           </p>
           <p className="profile-facts">
             <span className="profile-facts__bold">Nationality: </span>            
@@ -66,7 +88,7 @@ class ArtistInfo extends React.Component {
           <div className="info-title">Social</div>
           <div className="info-social-box">
             <a
-              href={artistInfo["social-media-links"][0]["youtube"]}
+              href={artistInfo["social_media_links"][0]["youtube"]}
               target="_blank"
               className="info-social-link__first"
             >
@@ -83,7 +105,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["instagram"]}
+              href={artistInfo["social_media_links"][0]["instagram"]}
               target="_blank"
               className="info-social-link"
             >
@@ -100,7 +122,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["twitter"]}
+              href={artistInfo["social_media_links"][0]["twitter"]}
               target="_blank"
               className="info-social-link"
             >
@@ -114,7 +136,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["website"]}
+              href={artistInfo["social_media_links"][0]["website"]}
               target="_blank"
               className="info-social-link"
             >
@@ -126,7 +148,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["facebook"]}
+              href={artistInfo["social_media_links"][0]["facebook"]}
               target="_blank"
               className="info-social-link"
             >
@@ -140,7 +162,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["soundcloud"]}
+              href={artistInfo["social_media_links"][0]["soundcloud"]}
               target="_blank"
               className="info-social-link"
             >
@@ -154,7 +176,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["apple-music"]}
+              href={artistInfo["social_media_links"][0]["applemusic"]}
               target="_blank"
               className="info-social-link"
             >
@@ -168,7 +190,7 @@ class ArtistInfo extends React.Component {
               </IconContext.Provider>
             </a>
             <a
-              href={artistInfo["social-media-links"][0]["spotify"]}
+              href={artistInfo["social_media_links"][0]["spotify"]}
               target="_blank"
               className="info-social-link"
             >
@@ -188,7 +210,7 @@ class ArtistInfo extends React.Component {
           <div className="info-title">Spotify</div>
           <iframe
             className="info-music"
-            src={artistInfo["spotify-embed"]}
+            src={artistInfo["spotify_embed"]}
             frameBorder="0"
             allowtransparency="true"
             allow="encrypted-media"
@@ -200,7 +222,7 @@ class ArtistInfo extends React.Component {
           <div className="info-twitter">
             <TwitterTimelineEmbed
               sourceType="profile"
-              screenName={artistInfo["twitter-handle"]}
+              screenName={artistInfo["twitter_handle"]}
               options={{ height: 385, width: "100%", tweetLimit: 4 }}
               noFooter={true}
               theme="dark"
@@ -212,11 +234,9 @@ class ArtistInfo extends React.Component {
         <div className="image-box">
           <div className="info-title">Photo Gallery</div>
           <div className="photo-group">
-           {/* {artistInfo["photo-gallery"].map((img, index) =>
-            <img src={rita1} className="photo-group__photo-box" key={index}/>
-            )} */}
-                        <img src={rita1} className="photo-group__photo-box" key={1}/>
-                        <img src={rita2} className="photo-group__photo-box" key={2}/>
+           {this.state.photoGallery.map((img, index) =>
+            <img src={img} className="photo-group__photo-box" key={index}/>
+            )}
 
 
           </div>

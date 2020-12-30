@@ -16,10 +16,10 @@ const checkoutAddOns = [
 ];
 
 const sizeOptions = [
-  { value: 'sku_IbXPOqonmAOAZk', label: 'S' },
-  { value: 'sku_IbXPEdSryr5x74', label: 'M' },
-  { value: 'sku_IbXPdkfaG8qqHv', label: 'L' },
-  { value: 'sku_IbXQb8QDwXrOjc', label: 'XL' },
+  { value: 's', label: 'S' },
+  { value: 'm', label: 'M' },
+  { value: 'l', label: 'L' },
+  { value: 'xl', label: 'XL' },
 ];
 
 const qtyOptions = [

@@ -9,13 +9,11 @@ import { loadStripe } from "@stripe/stripe-js";
 
 // import concertPoster2 from "../../../assets/images/ritaora/sponsorRO3.png";
 
-import unicefImg from "../../../assets/images/ritaora/unicef.png";
-import merchImg from "../../../assets/images/ritaora/merchFront.jpg";
 import loreal from "../../../assets/images/sponsor/loreal.png";
 import Select from 'react-select';
 
 // import { sizeOptions, countryOptions, qtyOptions } from "../../../assets/data/checkout";
-import { checkout,event } from "../../../assets/data";
+import { checkout } from "../../../assets/data";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -34,11 +32,29 @@ class PaymentOverview extends React.Component {
       selectedCountry: checkout.countryOptions[235],
       selectedQty: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
-      error: ""
+      error: "",
+      eventPoster: undefined,
+      donationImage: undefined,
+      merchImage: undefined,
+      eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
+      checkoutMerch: this.props.siteStore.eventSites[this.props.name]["checkout_merch"][0],
+      donation: this.props.siteStore.eventSites[this.props.name]["donation"][0],
+      sponsorInfo: this.props.siteStore.eventSites[this.props.name]["sponsor"][0],
+
     };
+
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
+  }
+
+  async componentDidMount() {
+    let donationImage = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/checkout-donation/default`});
+    let merchImage = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/checkout-merch/default`});
+    let eventPoster = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/event-poster/default`});
+    this.setState({eventPoster: eventPoster});
+    this.setState({donationImage: donationImage});
+    this.setState({merchImage: merchImage});
   }
 
 
@@ -53,6 +69,10 @@ class PaymentOverview extends React.Component {
   };
 
   render() {
+    let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
+
+
+
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
     }
@@ -71,17 +91,17 @@ class PaymentOverview extends React.Component {
           { price: priceID, quantity: this.state.selectedQty.value}
         ];
         if (this.state.merchChecked) {
-          totalItems.push({ price: this.state.selectedSize.value, quantity: 1 });
+          totalItems.push({ price: checkoutMerch["stripe_sku_sizes"][0][this.state.selectedSize.value], quantity: 1 });
         }
         if (this.state.donationChecked) {
-          totalItems.push({ price: "price_1HyngME0yLQ1pYr6U9C3Vr8K", quantity: 1 });
+          totalItems.push({ price: donation["stripe_price_id"], quantity: 1 });
         }
   
         let stripeParams = {
           mode: "payment",
           lineItems: totalItems,
-          successUrl: `${window.location.origin}/d457a576/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
-          cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
+          successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
+          cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
           clientReferenceId: prodID,
           customerEmail: this.state.email
         };
@@ -105,7 +125,6 @@ class PaymentOverview extends React.Component {
         console.error("Failed to handleSubmit for Stripe:");
         console.error(error);
       }
-
     }
     
     return (
@@ -114,23 +133,25 @@ class PaymentOverview extends React.Component {
         <div className="payment-container">
           <div className="payment-info">
             <div className="payment-info-img-container">
-              <img src={event.eventInfo["event-poster"]} className="payment-info-img" />
+              <img src={eventPoster} className="payment-info-img" />
             </div>
             <span className="payment-info-artist">
-              {event.eventInfo["artist"]} Presents
+              {eventInfo["artist"]} Presents
             </span>
             <h3 className="payment-info-event">
-              {event.eventInfo["event-header"]} -  {event.eventInfo["location"]} 
+              {eventInfo["event_header"]} -  {eventInfo["location"]} 
             </h3>
             <p className="payment-info-date">
-            {event.eventInfo["date"]} 
+            {eventInfo["date"]} 
             </p>
             <p className="payment-info-description">
-              {event.eventInfo["description"][0]}                 
+              {eventInfo["description"]}                 
             </p>
+            
+            {sponsorInfo.checkout ?      
             <div className="sponsor-container"> 
-              <img src={loreal} className="big-sponsor-img" />
-            </div>
+              <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
+            </div>:null}
           </div>
               
 
@@ -191,22 +212,22 @@ class PaymentOverview extends React.Component {
                   />
                 <div className="checkout-checkbox-label">
                   <h5 className="checkout-checkbox-heading">
-                    {checkout.checkoutAddOns[0]["name"]}
+                    {donation["name"]}
                   </h5>  
                   <span>
-                  {checkout.checkoutAddOns[0]["price"]}
+                  {donation["price"]}
                   </span>
                 </div>
               </div>
 
               <div className="checkout-checkbox-bundle">
-                <img src={checkout.checkoutAddOns[0]["img"]} className="checkout-checkbox-bundle-img" />
+                <img src={donationImage} className="checkout-checkbox-bundle-img" />
                 <div className="checkout-checkbox-bundle-info">
                   <span className="checkout-checkbox-bundle-name">
-                  {checkout.checkoutAddOns[0]["heading"]}
+                  {donation["heading"]}
                   </span>  
                   <p className="checkout-checkbox-bundle-description">
-                  {checkout.checkoutAddOns[0]["description"]}
+                  {donation["description"]}
                   </p>  
                 </div>
               </div>
@@ -224,20 +245,20 @@ class PaymentOverview extends React.Component {
                   />
                 <div className="checkout-checkbox-label">
                   <h5 className="checkout-checkbox-heading">
-                  {checkout.checkoutAddOns[1]["name"]}
+                  {checkoutMerch["name"]}
                   </h5>  
                   <span>
-                  {checkout.checkoutAddOns[1]["price"]}
+                  {checkoutMerch["price"]}
                   </span>
                 </div>
               </div>
 
               <div className="checkout-checkbox-bundle">
-                <img src={checkout.checkoutAddOns[1]["img"]} className="checkout-checkbox-bundle-img" />
+                <img src={merchImage} className="checkout-checkbox-bundle-img" />
                 <div className="checkout-checkbox-bundle-info">
                  <div className="checkout-checkbox-bundle-size">
                    <span className="checkout-checkbox-bundle-name">
-                   {checkout.checkoutAddOns[1]["heading"]}
+                   {checkoutMerch["heading"]}
                     </span>  
                     <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
                     theme={theme => ({
@@ -253,7 +274,7 @@ class PaymentOverview extends React.Component {
                   </div>  
          
                   <p className="checkout-checkbox-bundle-description">
-                  {checkout.checkoutAddOns[1]["description"]}
+                  {checkoutMerch["description"]}
                   </p>  
                   
                 </div>

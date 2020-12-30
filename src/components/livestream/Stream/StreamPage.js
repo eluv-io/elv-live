@@ -109,7 +109,8 @@ class Stream extends React.Component {
       name: "",
       switchValue: false,
       activeStream: 0,
-      darkSwitch: false
+      darkSwitch: false,
+
     };
   }
 
@@ -151,6 +152,9 @@ class Stream extends React.Component {
     //     setStream(6);
     //   }
     // }
+    console.log(this.props.siteStore.eventSites["rita-ora"]);
+    let streamInfo= this.props.siteStore.eventSites["rita-ora"]["stream_app"][0];
+    let sponsorInfo= this.props.siteStore.eventSites["rita-ora"]["sponsor"][0];
 
     const { classes } = this.props;
 
@@ -231,21 +235,21 @@ class Stream extends React.Component {
                       <div className="stream-container__streamBox--info">
                         <div className="stream-info-container">
                           <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
-                            Rita Ora Presents 
+                            {streamInfo["subheader"]}
                           </h2>
                           <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
-                            RO3 World Tour - Eiffel Tower
+                          {streamInfo["header"]}
                           </h1>
                         </div>
 
-                        <div className="sponsor-info-container"> 
+                        {sponsorInfo.stream ? <div className="sponsor-info-container"> 
                           <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
-                            Presented By 
+                            {sponsorInfo["stream_text"]}
                           </span>
                           <div className="sponsor-info-container__img-container"> 
-                            <img src={loreal} className="stream-sponsor-img" />
+                            <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
                           </div>
-                        </div>
+                        </div> : null}
                       </div> 
                     </div>
                   </div>

@@ -160,6 +160,16 @@
       font-size: 20px;
       font-weight: 500;
       font-family: sans-serif;
+
+      position: relative;
+      overflow: hidden;
+      // text-align: center;
+      white-space: pre-line;
+    
+      display: -webkit-box;
+      margin-left: 0;
+      text-align: left;
+
       @media only screen and (max-width: 1600px) {
         font-size: 18px;
       }

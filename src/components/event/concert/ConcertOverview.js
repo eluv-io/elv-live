@@ -10,23 +10,31 @@ import Ticket from "../../livestream/Payment/Ticket";
 @observer
 class ConcertOverview extends React.Component {
 
-  render() {
-    // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
-    // const featuredTitle = eventInfo.title;
-    // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
-    let siteInfo = this.props.siteStore.eventSites[this.props.name];
-    console.log(siteInfo);
-    let eventInfo = siteInfo["eventInfo"][0];
-    let ticketInfo = siteInfo["ticketPackages"];
+  constructor(props) {
+    super(props);
 
-    const Maybe = (value, render) => value ? render() : null;
+    this.state = {
+      eventPoster: undefined,
+      eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
+      ticketPackages: this.props.siteStore.eventSites[this.props.name]["ticket_packages"],
+    };
+  }
+
+  async componentDidMount() {
+    window.scrollTo(0, 0);
+    let eventPoster = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/event-poster/default`});
+    this.setState({eventPoster: eventPoster});
+  }
+
+  render() {
+    let {eventInfo, eventPoster, ticketPackages } = this.state;
 
     return (
       <div className={"overview-container"}>
         <div className="overview-container__eventInfo">
           <div className="overview-container__info">
             <div className="overview-container__info__title">
-              <div>{eventInfo["event-header"]}</div>
+              <div>{eventInfo["event_header"]}</div>
               <div className="overview-container__info__title__desc">{eventInfo["location"]}</div>
             </div>
             {/* {eventInfo["description"].map((description, index) => */}
@@ -38,22 +46,22 @@ class ConcertOverview extends React.Component {
 
           <div className="overview-container__photoGroup">
             <img
-              src={concertPoster2}
+              src={eventPoster}
               className= "overview-container__photoGroup__singlePhoto"
             />     
           </div>
         </div>
         
         <div className="ticket-group">
-          {ticketInfo.map((obj, index) => (
+          {ticketPackages.map((obj, index) => (
             <Ticket
               name={obj["name"]}
               description={obj["description"]}
               price={obj["price"]}
-              priceID={obj["stripe-priceID"]}
-              prodID = {obj["stripe-prodID"]}
+              priceID={obj["stripe_price_id"]}
+              prodID = {obj["stripe_prod_id"]}
               date ={eventInfo["date"]}
-              poster={concertPoster2}
+              poster={eventPoster}
               key={index}
               refProp={index == 1 ? this.props.refProp: null}
             />

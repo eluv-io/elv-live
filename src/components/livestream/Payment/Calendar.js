@@ -17,25 +17,18 @@ class Calendar extends React.Component {
     super(props);
 
     this.state = {
-      data: [],
-      loading: false,
-      sessionId: ""
+      calendarData: this.props.siteStore.eventSites["rita-ora"]["calendar"][0]
     };
   }
 
   render() {
-    // if (!this.props.match.params.id) {
-    //   return null;
-    // }
-    const sessionId = this.props.match.params.id;
-    const sessionEmail = this.props.match.params.email;
-
+    let calendarData = this.state.calendarData;
     let calendarEvent = {
-      title: 'Rita Ora - Live From The Eiffel Tower',
-      description: 'Rita Ora will be making history on February 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.',
-      location: 'Paris, France (Virtual)',
-      startTime: '2021-02-28T20:15:00-04:00',
-      endTime: '2021-02-28T21:45:00-04:00'
+      title: calendarData["title"],
+      description: calendarData["description"],
+      location: calendarData["location"],
+      startTime: calendarData["start_time"],
+      endTime: calendarData["end_time"]
   };
     
     return (
