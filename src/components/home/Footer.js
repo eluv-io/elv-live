@@ -1,20 +1,14 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import loreal from "../../assets/images/sponsor/loreal.png";
-import mercedes from "../../assets/images/sponsor/mercedes.png";
-import kerastase from "../../assets/images/sponsor/keraAd.png";
-import {ImageIcon} from "elv-components-js";
-import DarkLogo from "../../assets/images/logo/darkLogo.png";
-import NavyLogo from "../../assets/images/logo/navyLogo.png";
-
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Footer extends React.Component {
 
   render() {
-    
+    let sponsorInfo = this.props.siteStore.eventSites["rita-ora"]["sponsor"][0];
+    console.log(sponsorInfo);
     return (
       <div className="live-footer">
       <div className="footer-container">
@@ -27,15 +21,17 @@ class Footer extends React.Component {
           </h3>
           
         </div> */}
+        {sponsorInfo.footer ? 
           <div className="sponsor-container-footer"> 
             <span className="sponsor-title-footer ">
-            In Partnership With
+              {sponsorInfo.footer_text}
             </span>
             {/* <img src={loreal} className="big-sponsor-img" /> */}
             <div className="sponsor-img-container-footer"> 
-                <img src={loreal} className="big-sponsor-img-footer" />
+                <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
             </div>
           </div>
+          : null}
         
         
       </div>

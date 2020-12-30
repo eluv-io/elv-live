@@ -1,7 +1,6 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {inject, observer} from "mobx-react";
-import axios from "axios";
 
 import Timer from "./Timer";
 import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
@@ -11,58 +10,6 @@ import { IconContext } from "react-icons";
 @inject("siteStore")
 @observer
 class Ticket extends React.Component {
-
-  // Calling Server-Side Code to generate Checkout Session
-  handleClick = async (event) => {
-    event.preventDefault();
-    const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
-
-    let priceID = this.props.priceID;
-    let prodID = this.props.prodID;
-    try {
-      const response = await axios.post(
-        `https://rocky-peak-15236.herokuapp.com/stripe-create-session`,
-        {
-          priceID: priceID,
-          qty: 1,
-          cancel_url:`${window.location.origin}/d457a576/rita-ora`, 
-          success_url: `${window.location.origin}/d457a576/success/{CHECKOUT_SESSION_ID}`, 
-          client_reference_id: prodID
-        }
-      );
-      console.log("Stripe Post | data", response.data.success);
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: response.data.id,
-      });
-  
-      if (error) {
-        console.error("Failed to handleSubmit for Stripe:");
-        console.error(error);
-      }
-    } catch (error) {
-      console.log("CheckoutForm.js 28 | ", error);
-    }
-  };
-
-  // Client-Only Integration of Stripe Checkout Session 
-  handleSubmit = (priceID, prodID) => async event => {
-    event.preventDefault();
-    const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
-    const { error } = await stripe.redirectToCheckout({
-      mode: "payment",
-      lineItems: [{ price: priceID, quantity: 1 }, { price: "price_1HynknE0yLQ1pYr6q7F7B4iC", quantity: 1 }, { price: "price_1HyngME0yLQ1pYr6U9C3Vr8K", quantity: 1 }],
-      successUrl: `${window.location.origin}/d457a576/success/{CHECKOUT_SESSION_ID}`, 
-      cancelUrl: `${window.location.origin}/d457a576/rita-ora`, 
-      clientReferenceId: prodID,
-      shippingAddressCollection: {
-        allowedCountries: ['US', 'CA'],
-      }
-    });
-    if (error) {
-      console.error("Failed to handleSubmit for Stripe:");
-      console.error(error);
-    }
-  }
 
   render() {
     let {name, description, price, priceID, prodID, date, poster} = this.props;
@@ -113,9 +60,6 @@ class Ticket extends React.Component {
             <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal(priceID, prodID, name)}>
               Buy Ticket
             </button>
-            {/* <button className="ticket-bottom-button" role="link" onClick={this.handleClick}>
-              Buy Ticket
-            </button> */}
           </div>
         </div>
       </div>

@@ -62,7 +62,8 @@ class SiteStore {
   @observable basePath = "/"; 
   @observable faqData = [];
   @observable eventSites;
-  @observable eventImages;
+  @observable sponsorImage;
+  @observable codeImage;
 
 
   @observable siteCustomization;
@@ -255,35 +256,29 @@ class SiteStore {
   LoadSite = flow(function * (libraryId, objectId) {
     try {
 
+      this.siteParams = {
+        libraryId: yield this.client.ContentObjectLibraryId({objectId}),
+        objectId: objectId,
+        versionHash: yield this.client.LatestVersionHash({objectId}),
+        writeToken: ""
+      };
+
       const response = yield axios.get(
         `https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&select=sites&select=app&resolve=true&link_depth=1`
       );
+
       let appData = response.data.app;
 
       if(appData.base_path) {
-        this.basePath = "/" + appData.base_path;
+        this.basePath = '/' + appData.base_path;
       }
-
       if(appData.faq) {
         this.faqData = appData.faq;
       }
+
       this.eventSites = response.data.sites;
-      // let imageMap = new Map();
-
-      // for (const [key, value] of Object.entries(this.eventSites["rita-ora"]["images"])) {
-      //   console.log(key);
-      //   let imageResponse = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/${key}/default`});
-      //   imageMap.set(key,imageResponse);
-      // }
-
-      // this.eventImages = imageMap;
-
-      // if(entry.options.eventImage) {
-      //   entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
-      // }
-      // if(entry.options.featureImage) {
-      //   entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
-      // }
+      this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/images/code_background/default`});
+      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/main-sponsor/default`});
 
     } catch (error) {
       console.log("ERROR App Metadata Get ", error);

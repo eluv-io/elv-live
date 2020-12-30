@@ -80,7 +80,7 @@ class CodeAccess extends React.Component {
 
     const divStyle = {
       backgroundSize: "cover",
-      backgroundImage: `url(${siteInfo["code-background-img"]})`,
+      backgroundImage: `url(${this.props.siteStore.codeImage})`,
       height: "100vh",
       maxHeight: "100vh",
       minHeight: "100vh",

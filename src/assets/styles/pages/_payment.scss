@@ -138,6 +138,11 @@
   display: -webkit-box;
   margin-left: 0;
   text-align: left;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;  
+
   @media only screen and (max-width: 1000px) {
     text-align: center;
   } 

@@ -2,6 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
+import axios from "axios";
 
 import EventTabs from "../EventTabs";
 import Ticket from "../../livestream/Payment/Ticket";
@@ -15,6 +16,13 @@ import PaymentOverview from "../../livestream/Payment/PaymentOverview";
 import Footer from "../../home/Footer";
 // import { eventInfo } from "../../../assets/data/event";
 
+function getBase64(url) {
+  return axios
+    .get(url, {
+      responseType: 'arraybuffer'
+    })
+    .then(response => Buffer.from(response.data, 'binary').toString('base64'))
+}
 
 @inject("rootStore")
 @inject("siteStore")
@@ -28,14 +36,18 @@ class Concert extends React.Component {
       showTrailer: false,
       prodID: "",
       priceID: "",
-      tab: 0
-
+      tab: 0,
+      heroBackground: undefined,
+      eventInfo: this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
+    let heroBackground = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.match.params.name}/images/hero-background/default`});
+    this.setState({heroBackground: heroBackground});
   }
+
 
   Trailer() {
 
@@ -56,7 +68,7 @@ class Concert extends React.Component {
               <iframe 
                 width="100%" 
                 height="100%"
-                src={this.props.siteStore.eventSites[this.props.match.params.name]["eventInfo"][0]["trailer-url"]}
+                src={this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]["trailer_url"]}
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
@@ -81,7 +93,7 @@ class Concert extends React.Component {
             onClick={this.props.siteStore.turnOffModal}
           />
           <div className={`ticket-modal__container`}>
-           <PaymentOverview priceID={this.state.priceID} prodID={this.state.prodID}/> 
+           <PaymentOverview name={this.props.match.params.name} priceID={this.state.priceID} prodID={this.state.prodID}/> 
           </div>
 
         </div>
@@ -105,11 +117,8 @@ class Concert extends React.Component {
     if (!this.props.siteStore.eventSites[this.props.match.params.name]) {
       return <Redirect to='/'/>;
     }
-    let siteInfo = this.props.siteStore.eventSites[this.props.match.params.name];
-    let eventInfo = siteInfo["eventInfo"][0];
-    // let heroBackground = this.props.siteStore.eventImages["hero-background"];
 
-    console.log("eventInfo",eventInfo);
+    let {eventInfo, heroBackground } = this.state;
 
     const myRef = React.createRef();
 
@@ -117,7 +126,6 @@ class Concert extends React.Component {
       this.setState({tab: newValue});
     };
 
-    let thumbnail = heroImg;
     const backgroundColor =  "#000321";
     const backgroundHelp =  "#000112";
     const backgroundHelp2 =  "#00010a";
@@ -132,7 +140,7 @@ class Concert extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${heroImg})`,
+      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${heroBackground})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100vh",
