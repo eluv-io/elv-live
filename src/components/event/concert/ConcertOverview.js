@@ -1,9 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 // import concertPoster from "../../../assets/images/ritaora/ro3.jpg";
-// import concertPoster2 from "../../../assets/images/ritaora/sponsorRO3.png";
+import concertPoster2 from "../../../assets/images/ritaora/sponsorR03.png";
 import Ticket from "../../livestream/Payment/Ticket";
-import { eventInfo, ticketInfo } from "../../../assets/data/event";
+// import { eventInfo, ticketInfo } from "../../../assets/data/event";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -14,6 +14,10 @@ class ConcertOverview extends React.Component {
     // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
     // const featuredTitle = eventInfo.title;
     // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
+    let siteInfo = this.props.siteStore.eventSites[this.props.name];
+    console.log(siteInfo);
+    let eventInfo = siteInfo["eventInfo"][0];
+    let ticketInfo = siteInfo["ticketPackages"];
 
     const Maybe = (value, render) => value ? render() : null;
 
@@ -25,16 +29,16 @@ class ConcertOverview extends React.Component {
               <div>{eventInfo["event-header"]}</div>
               <div className="overview-container__info__title__desc">{eventInfo["location"]}</div>
             </div>
-            {eventInfo["description"].map((description, index) =>
-              <div className="overview-container__info__synopsis" key={index}>
-                {description}          
+            {/* {eventInfo["description"].map((description, index) => */}
+              <div className="overview-container__info__synopsis" >
+                {eventInfo["description"]}          
               </div>
-            )}
+            {/* // )} */}
           </div>
 
           <div className="overview-container__photoGroup">
             <img
-              src={eventInfo["event-poster"]}
+              src={concertPoster2}
               className= "overview-container__photoGroup__singlePhoto"
             />     
           </div>
@@ -48,8 +52,8 @@ class ConcertOverview extends React.Component {
               price={obj["price"]}
               priceID={obj["stripe-priceID"]}
               prodID = {obj["stripe-prodID"]}
-              date ={obj["date"]}
-              poster={eventInfo["event-poster"]}
+              date ={eventInfo["date"]}
+              poster={concertPoster2}
               key={index}
               refProp={index == 1 ? this.props.refProp: null}
             />

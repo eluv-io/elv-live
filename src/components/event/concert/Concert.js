@@ -13,7 +13,7 @@ import hero1 from "../../../assets/images/ritaora/hero1.jpg";
 import CloseIcon from "../../../assets/icons/x.svg";
 import PaymentOverview from "../../livestream/Payment/PaymentOverview";
 import Footer from "../../home/Footer";
-import { eventInfo } from "../../../assets/data/event";
+// import { eventInfo } from "../../../assets/data/event";
 
 
 @inject("rootStore")
@@ -56,7 +56,7 @@ class Concert extends React.Component {
               <iframe 
                 width="100%" 
                 height="100%"
-                src={eventInfo["trailer-url"]}
+                src={this.props.siteStore.eventSites[this.props.match.params.name]["eventInfo"][0]["trailer-url"]}
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
@@ -102,10 +102,15 @@ class Concert extends React.Component {
 
 
   render() {
-    // if (!this.props.siteStore.eventAssets.has(this.props.match.params.name)) {
-    //   return <Redirect to='/'/>;
-    // }
-    // let eventInfo = this.props.siteStore.eventAssets.get(this.props.match.params.name);
+    if (!this.props.siteStore.eventSites[this.props.match.params.name]) {
+      return <Redirect to='/'/>;
+    }
+    let siteInfo = this.props.siteStore.eventSites[this.props.match.params.name];
+    let eventInfo = siteInfo["eventInfo"][0];
+    // let heroBackground = this.props.siteStore.eventImages["hero-background"];
+
+    console.log("eventInfo",eventInfo);
+
     const myRef = React.createRef();
 
     const handleChange = (event, newValue) => {
@@ -127,7 +132,7 @@ class Concert extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${eventInfo["hero-img"]})`,
+      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${heroImg})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100vh",
@@ -165,7 +170,7 @@ class Concert extends React.Component {
           </div> 
 
           <div className="event-container__overview">
-            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} name={"rita-ora"} refProp={myRef} />
+            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} name={this.props.match.params.name} refProp={myRef} />
           </div>
         </div>
 

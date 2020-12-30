@@ -60,7 +60,7 @@ class CodeAccess extends React.Component {
     if(!this.props.siteStore.client) { return null; }
 
     if(this.state.siteId) {
-      return <Redirect to={`/d457a576/stream/${this.state.siteId}`} />;
+      return <Redirect to={`/stream/${this.state.siteId}`} />;
     }
 
     const Submit = async () => {

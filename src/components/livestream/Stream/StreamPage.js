@@ -13,9 +13,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withStyles } from "@material-ui/core/styles";
 import {ImageIcon} from "elv-components-js";
 
-import AsyncComponent from "../../support/AsyncComponent";
+import AsyncComponent from "../../utils/AsyncComponent";
 import LiveChat from "./LiveChat";
-import Switch from "../../support/Switch";
+import Switch from "../../utils/Switch";
 import MultiView from "./MultiView";
 import BitmovinPlayer from "./BitmovinPlayer";
 import { multiviewConfig } from "../../../assets/data";
@@ -115,7 +115,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
-      return <Redirect to={`/d457a576/code`} />;
+      return <Redirect to={`/code`} />;
     }
     if(!this.props.siteStore.client) { return null; }
 
