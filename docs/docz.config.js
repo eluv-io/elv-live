@@ -1,4 +1,4 @@
-// doczrc.js
+// Config file for Docs
 
 export default {
   menu: [

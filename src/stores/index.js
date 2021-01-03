@@ -17,7 +17,6 @@ class RootStore {
   @observable email;
   @observable name;
   @observable chatID;
-  @observable chatClient;
   @observable accessCode;
   @observable chargeID;
   @observable redirectCB;
@@ -36,10 +35,12 @@ class RootStore {
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});  
+      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"}); 
+
       const wallet = client.GenerateWallet();
       const mnemonic = wallet.GenerateMnemonic();
       const signer = wallet.AddAccountFromMnemonic({mnemonic});
+
       client.SetSigner({signer});
     } else {
       // Contained in IFrame
@@ -66,26 +67,16 @@ class RootStore {
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
-      console.log(this.accessCode);
 
       if(!this.accessCode) {
         this.SetError("Invalid code");
       }
-      else if (!re.test(String(email).toLowerCase())) {
-        this.SetError("Invalid email");
-      }
-      else {
-        return this.accessCode;
-      }
+     
+      return this.accessCode;
 
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Error redeeming code:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-      
+      console.error("Error redeeming code:", error);
       this.SetError("Invalid code");
-      return false;
     }
   });
 

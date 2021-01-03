@@ -7,8 +7,9 @@ node_modules/
 dist/*
 !*/.keep
 
-
 deploy.sh
 
 scratch/
 !.keep
+
+.docz/

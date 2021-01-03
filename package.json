@@ -18,7 +18,7 @@
     "lint-scss": "sass-lint/bin/sass-lint.js -c .scss-lint.yml -v -q",
     "fix-js": "npm run lint-js -- --fix",
     "fix-scss": "sass-lint-auto-fix/dist/index.js",
-    "docz:dev": "docz dev",
+    "docz:dev": "docz dev --config=./docs/docz.config.js",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve"
   },

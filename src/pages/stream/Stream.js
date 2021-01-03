@@ -111,11 +111,10 @@ class Stream extends React.Component {
   }
 
   render() {
-    if(!this.props.rootStore.client || (!this.props.rootStore.accessCode && !this.props.rootStore.chatClient)) {
+    if (!this.props.rootStore.client || !this.props.rootStore.accessCode) {
       return <Redirect to={`/code`} />;
     }
-    if(!this.props.siteStore.client) { return null; }
-
+    
     const handleDrawerOpen = () => {
       this.setState({open: true});
     };
