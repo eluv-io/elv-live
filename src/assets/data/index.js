@@ -5,7 +5,7 @@ import * as event from './event';
 
 
 const siteInfo = {
-    "main-sponsor-img": require("../images/sponsor/loreal.png"),
+    "main_sponsor-img": require("../images/sponsor/loreal.png"),
     "code-background-img": require("../images/code/concert.jpg")
   };
 
