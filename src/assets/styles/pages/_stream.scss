@@ -19,8 +19,6 @@
     user-select: none; /* Standard syntax */
   }
   &__title { 
-    // font-family: "Noe Display Bold", sans-serif;
-    // font-family: 'Abril Fatface', cursive;
     font-size: 34px;
     line-height: 100%;
     letter-spacing: 0px;
@@ -409,7 +407,7 @@
   line-height: 160%;
   white-space: nowrap;  
   color: black !important;
-  font-family: "Noe Display Bold", sans-serif !important;
+  font-family: sans-serif !important;
   text-transform: capitalize;
   font-size: 17px;
   font-weight: bold;
@@ -455,7 +453,7 @@
   box-decoration-break: clone;
   line-height: 180%;
   white-space: nowrap;  
-  font-family: "Noe Display Bold", sans-serif !important;
+  font-family: sans-serif !important;
   color: black !important;
   font-size: 17px;
   font-weight: bold;

@@ -1,7 +1,7 @@
 {
   "name": "elv-live-web",
   "version": "2.0.12",
-  "description": "![Eluvio Logo](src/assets/images/logo/darkLogo.png \"Eluvio Logo\")",
+  "description": "",
   "main": "App.js",
   "license": "MIT",
   "homepage": "https://github.com/eluv-io/elv-live-web",
@@ -17,7 +17,10 @@
     "lint-js": ".bin/eslint \"src/**/*.js\"",
     "lint-scss": "sass-lint/bin/sass-lint.js -c .scss-lint.yml -v -q",
     "fix-js": "npm run lint-js -- --fix",
-    "fix-scss": "sass-lint-auto-fix/dist/index.js"
+    "fix-scss": "sass-lint-auto-fix/dist/index.js",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
   },
   "pre-commit": {
     "run": [
@@ -39,6 +42,7 @@
     "bitmovin-player-ui": "^3.22.0",
     "dashjs": "^3.0.3",
     "dateformat": "^3.0.3",
+    "docz": "^2.3.1",
     "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git#645165da87ec42845a908a9ce0817db202523866",
     "getstream": "^6.2.2",
     "hls.js": "^0.12.4",
@@ -57,9 +61,12 @@
     "react-scripts": "^3.4.4",
     "react-select": "^3.1.0",
     "react-twitter-embed": "^3.0.3",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.1",
     "styled-components": "^5.1.1",
     "urijs": "^1.19.1",
     "url-join": "^4.0.1",
+    "url-loader": "^4.1.1",
     "uuid": "^8.1.0"
   },
   "devDependencies": {

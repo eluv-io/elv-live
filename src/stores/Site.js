@@ -169,89 +169,6 @@ class SiteStore {
       .sort((a, b) => a.name < b.name ? -1 : 1);
   }
 
-  // // Loading data from Site Customization
-  // @action.bound
-  // LoadSiteOld = flow(function * (objectId, writeToken) {
-  //   if(this.siteParams && this.siteParams.objectId === objectId) {
-  //     return;
-  //   }
-  //   this.Reset();
-
-    // this.siteParams = {
-    //   libraryId: yield this.client.ContentObjectLibraryId({objectId}),
-    //   objectId: objectId,
-    //   versionHash: yield this.client.LatestVersionHash({objectId}),
-    //   writeToken: writeToken
-    // };
-    
-  //   const availableDRMS = yield this.client.AvailableDRMs();
-  //   this.dashSupported = availableDRMS.includes("widevine");
-
-  //   this.siteCustomization = (yield this.client.ContentObjectMetadata({
-  //     ...this.siteParams,
-  //     metadataSubtree: "public/asset_metadata/site_customization",
-  //     resolveLinks: true,
-  //     resolveIncludeSource: true,
-  //     resolveIgnoreErrors: true
-  //   })) || DEFAULT_SITE_CUSTOMIZATION;
-
-  //   if(this.siteCustomization.logo) {
-  //     this.logoUrl = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/logo"});
-  //   }
-  //   if(this.siteCustomization.dark_logo) {
-  //     this.darkLogo = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/dark_logo"});
-  //   }
-  //   if(this.siteCustomization.background_image) {
-  //     this.background_image = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/site_customization/background_image"});
-  // //   }
-
-  //   let eventMap = new Map();
-  //   let dateFormat = require('dateformat');
-    
-  //   if(this.siteCustomization.arrangement) {
-  //     for(let i = 0; i < this.siteCustomization.arrangement.length ; i++) {
-  //       const entry = this.siteCustomization.arrangement[i];
-  //       let titleLogo;
-  //       if (entry.component == "event") {
-  //         if(entry.title) {
-  //           entry.title = yield this.LoadTitle(this.siteParams, entry.title, `public/asset_metadata/site_customization/arrangement/${i}/title`);
-  //           if(entry.title.logoUrl) {
-  //             titleLogo = this.CreateLink(
-  //               entry.title.logoUrl,
-  //               "",
-  //               { height: Math.max(150, Math.min(Math.floor(vh), Math.floor(vw))) }
-  //             );
-  //           }
-  //         }
-  //         if(entry.options.eventImage) {
-  //           entry.eventImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/eventImage`});
-  //         }
-  //         if(entry.options.featureImage) {
-  //           entry.featureImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/site_customization/arrangement/${i}/options/featureImage`});
-  //         }
-
-  //         eventMap.set(entry.options.title.replace(/\s+/g, '-').toLowerCase(),
-  //           {
-  //             name: entry.options.title,
-  //             date: dateFormat(new Date(entry.options.date), "mmmm dS, yyyy · h:MM TT Z"),
-  //             streamTimer: new Date(entry.options.date),
-  //             description: entry.options.description,
-  //             icon: entry.featureImage,
-  //             eventImg: entry.eventImage,
-  //             price: entry.options.price,
-  //             stream: entry.title,
-  //             logo: titleLogo,
-  //             key: i
-  //           }
-  //         );
-  //       }
-  //     }
-  //   }
-  //   this.eventAssets = eventMap;
-  // //   this.siteHash = yield this.LoadAsset("public/asset_metadata");
-  // // });
-  
-
   @action.bound
   LoadSite = flow(function * (libraryId, objectId) {
     try {
@@ -278,7 +195,7 @@ class SiteStore {
 
       this.eventSites = response.data.sites;
       this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/images/code_background/default`});
-      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/main-sponsor/default`});
+      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/main_sponsor/default`});
 
     } catch (error) {
       console.log("ERROR App Metadata Get ", error);

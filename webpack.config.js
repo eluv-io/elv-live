@@ -50,12 +50,6 @@ module.exports = {
   mode: "development",
   devtool: "eval-source-map",
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: Path.join(__dirname, "configuration.js"),
-        to: Path.join(__dirname, "dist", "configuration.js")
-      }
-    ]),
     new HtmlWebpackPlugin({
       title: "Eluvio Stream Sample",
       template: Path.join(__dirname, "src", "index.html"),
@@ -84,7 +78,8 @@ module.exports = {
             }
           },
           "sass-loader"
-        ]
+        ],
+        
       },
       {
         test: /\.(js|mjs)$/,

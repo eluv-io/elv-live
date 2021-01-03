@@ -1,21 +1,21 @@
 import React from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
-import {Redirect, Switch, withRouter} from "react-router";
+import {Switch, withRouter} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
 import * as Stores from "./stores";
 
-import Support from "./components/home/Support";
-// import Test from "./components/home/Test";
+import Support from "./pages/support/Support";
+import CodeAccess from "./pages/code/CodeAccess";
+import Concert from "./pages/event/Event";
+import Stream from "./pages/stream/Stream";
+import Success from "./pages/confirmation/Success";
+import Calendar from "./pages/confirmation/Calendar";
 
-import CodeAccess from "./components/livestream/CodeAccess";
-import Concert from "./components/event/concert/Concert";
-import Stream from "./components/livestream/stream/StreamPage";
-import Success from "./components/livestream/payment/Success";
-import Calendar from "./components/livestream/payment/Calendar";
 import AsyncComponent from "./components/utils/AsyncComponent";
 
 import "./assets/styles/main.scss";
+
 
 @inject("rootStore")
 @inject("siteStore")
@@ -29,9 +29,10 @@ class Routes extends React.Component {
         <Route path = "/stream/:siteId" component={Stream} />
         <Route path = "/success/:email/:id" component={Success} />
         <Route path = "/calendar" component={Calendar} />
-        <Route path = "/code" forceRefresh={true} component={CodeAccess} />
+        <Route path = "/code" component={CodeAccess} />
         <Route path = "/support" component={Support} />
-        <Route path = "/:name" forceRefresh={true} component={Concert} />
+        <Route path = "/:name" component={Concert} />
+
         {/* <Route>
           <Redirect to="/" />
         </Route> */}
@@ -47,7 +48,6 @@ class App extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
-
     return (
       <AsyncComponent
         Load={async () => {
@@ -57,18 +57,15 @@ class App extends React.Component {
         render={() => {
           return (
             <div className="app">
-            <main>
-              <BrowserRouter basename={this.props.siteStore.basePath}>
-                <Routes />
-              </BrowserRouter>
-            </main>
-          </div>
+              <main>
+                <BrowserRouter basename={this.props.siteStore.basePath}>
+                  <Routes />
+                </BrowserRouter>
+              </main>
+            </div> 
           );
-          }
-        }
-        
+        }}
       />
-
     );
   }
 }

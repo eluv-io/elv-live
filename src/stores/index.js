@@ -57,26 +57,6 @@ class RootStore {
     this.client = client;
   });
 
-  // @action.bound
-  // InitializeClient = flow(function * () {
-
-  //   let client;
-  //   // Initialize ElvClient or FrameClient
-
-  //   const configUrl = "https://main.net955305.contentfabric.io/config";
-  //   const anonToken = `{"qspace_id" : "ispc2RUoRe9eR2v33HARQUVSp1rYXzw1"}`;
-
-  //   const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-
-  //   const staticToken = Buffer.from(anonToken, "base64");
-  //   client = yield ElvClient.FromConfigurationUrl({
-  //     configUrl,
-  //     staticToken
-  //   });
-
-  //   this.client = client;
-  // });
-
   @action.bound
   RedeemCode = flow(function * (email, Token) {
     try {
@@ -86,7 +66,7 @@ class RootStore {
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
-      // console.log(this.accessCode);
+      console.log(this.accessCode);
 
       if(!this.accessCode) {
         this.SetError("Invalid code");
