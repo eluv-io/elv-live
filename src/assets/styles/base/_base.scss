@@ -1,3 +1,8 @@
+::-webkit-scrollbar {
+  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0;  /* Remove scrollbar space */
+}
+
 :root {
   --color-primary: #eb2f64;
   --color-primary-light: #f36;
@@ -9,7 +14,7 @@
   --color-grey-dark-1: #333;
   --color-grey-dark-2: #777;
   --color-grey-dark-3: #999;
-  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
   --bgColor: #000; //var(--bgColor)
   --pText: #fff; //var(--pText)
   --sText: rgb(136, 136, 136); //var(--sText)
@@ -20,8 +25,8 @@
 }
 
 .app {
-  min-height: 100vh;    
   background: #fff;
+  min-height: 100vh;
 }
 
 html,
@@ -31,21 +36,15 @@ body,
   min-height: 100vh;
 }
 
-html {  
+html {
   box-sizing: border-box;
   font-size: 62.5%; //1rem = 10px, 10px/16px = 62.5%
   scroll-behavior: smooth;
-
-}
-
-::-webkit-scrollbar {
-  width: 0;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
 body {
-  font-family: sans-serif;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 // RESPONSIVE BREAKPOINTS
@@ -69,17 +68,17 @@ $bp-tiny: 21.875em;   // 350px;
 }
 
 .error-message {
-  position: fixed;
-  width: 200px;
-  height: 50px;
-  top: 50px;
-  padding-top: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #f00;
   font-size: 20px;
   font-weight: bold;
-  text-transform: uppercase;
+  height: 50px;
+  padding-top: 10px;
+  position: fixed;
   text-align: center;
-  color: #f00;
-  background-color: #fff;
+  text-transform: uppercase;
+  top: 50px;
+  width: 200px;
   z-index: 10000;
-  border-radius: 5px;
 }

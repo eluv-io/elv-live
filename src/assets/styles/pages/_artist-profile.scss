@@ -21,13 +21,11 @@
   }
 }
 
-// Profile Box 
+// Profile Box
 .profile-box {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   align-items: flex-start;
   background: #f9f7f4;
-  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+  box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
   flex-direction: column;
   grid-column: span 1;
@@ -36,30 +34,29 @@
   min-width: auto;
   padding: 30px;
   position: relative;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
 }
 
 .profile-bio {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   color: #000 !important;
-  display: -webkit-box;
   font-family: sans-serif;
   font-size: 22px;
   font-weight: 500;
   margin-left: 0;
   margin-top: 25px;
-
   overflow: hidden;
   position: relative;
   // text-align: center;
   text-align: left;
-
   text-align: left;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   white-space: pre-line;
-  
+
   @media only screen and (max-width: 1760px) {
     font-size: 20px !important;
   }
@@ -73,14 +70,12 @@
   }
 }
 
-// Info Box 
+// Info Box
 .info-box {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   align-items: flex-start;
   background: #f9f7f4;
   border-radius: 0;
-  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+  box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
   flex-direction: column;
   grid-column: span 1;
@@ -88,8 +83,11 @@
   min-width: auto;
   padding: 30px;
   position: relative;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
+
   @media only screen and (max-width: 1200px) {
     grid-column: span 2;
   }
@@ -97,12 +95,10 @@
 
 .info-title {
   color: #000 !important;
-
   font-family: sans-serif;
   font-size: 36px;
-  
   font-weight: 700;
-  letter-spacing: -.2px;
+  letter-spacing: -0.2px;
   line-height: 36px;
   margin-bottom: 5px;
   margin-top: 0;
@@ -110,7 +106,6 @@
   @media only screen and (max-width: 1600px) {
     font-size: 34px;
     line-height: 34px;
-
   }
 
   @media only screen and (max-width: 1200px) {
@@ -121,7 +116,6 @@
   @media only screen and (max-width: 1000px) {
     font-size: 31px;
     line-height: 31px;
-
   }
 
   @media only screen and (max-width: 800px) {
@@ -130,21 +124,22 @@
   }
 }
 
-// Profile Facts 
+// Profile Facts
 .profile-facts {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   color: #000 !important;
   font-family: sans-serif;
   font-size: 22px;
   font-weight: normal;
   margin-top: 10px;
   text-align: left;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
-  
+
   &__bold {
     font-weight: bold;
     text-transform: capitalize;
+
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
     }
@@ -159,12 +154,12 @@
   }
 
   &__first {
-    -ms-user-select: none; /* IE 10+ and Edge */
-    -webkit-user-select: none; /* Safari */
     font-family: sans-serif;
     font-size: 22px;
     font-weight: normal;
     margin-top: 25px;
+    user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Safari */
     user-select: none; /* Standard syntax */
 
     @media only screen and (max-width: 1760px) {
@@ -211,9 +206,7 @@
   width: auto;
 }
 
-.info-social-link{
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
+.info-social-link {
   color: #000 !important;
   font-family: sans-serif;
   font-size: 22px;
@@ -221,6 +214,8 @@
   letter-spacing: 1.25px;
   margin-bottom: 12px;
   text-align: left;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
 
   &__bold {
@@ -229,8 +224,6 @@
   }
 
   &__first {
-    -ms-user-select: none; /* IE 10+ and Edge */
-    -webkit-user-select: none; /* Safari */
     color: #000 !important;
     font-family: sans-serif;
     font-size: 22px;
@@ -238,7 +231,10 @@
     letter-spacing: 1.25px;
     margin-bottom: 12px;
     margin-top: 20px;
+    user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Safari */
     user-select: none; /* Standard syntax */
+
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
     }
@@ -250,7 +246,6 @@
     @media only screen and (max-width: 1400px) {
       font-size: 18px !important;
     }
-
   }
 
   @media only screen and (max-width: 1760px) {
@@ -313,17 +308,17 @@
   margin-bottom: 5px !important;
   margin-right: 10px !important;
   vertical-align: middle !important;
-
 }
 
 .social-icon-insta {
-  -webkit-background-clip: text;
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
-  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  background-clip: text;
   background-clip: text;
   color: transparent;
   font-size: 32px;
   vertical-align: middle;
+
   @media only screen and (max-width: 1760px) {
     font-size: 30px !important;
     vertical-align: middle !important;
@@ -331,13 +326,11 @@
 
   @media only screen and (max-width: 1600px) {
     font-size: 28px !important;
-
     vertical-align: middle !important;
   }
 
   @media only screen and (max-width: 1400px) {
     font-size: 27px !important;
-
     vertical-align: middle !important;
   }
 }
@@ -345,6 +338,7 @@
 .social-icon-apple {
   font-size: 32px;
   vertical-align: top !important;
+
   @media only screen and (max-width: 1760px) {
     font-size: 30px !important;
     vertical-align: middle !important;
@@ -352,24 +346,20 @@
 
   @media only screen and (max-width: 1600px) {
     font-size: 28px !important;
-
     vertical-align: middle !important;
   }
 
   @media only screen and (max-width: 1400px) {
     font-size: 27px !important;
-
     vertical-align: middle !important;
   }
 }
 
-// Image Box 
+// Image Box
 .image-box {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   align-items: flex-start;
   background: #f9f7f4;
-  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+  box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
   flex-direction: column;
   grid-column: span 1;
@@ -378,6 +368,8 @@
   min-width: auto;
   padding: 30px;
   position: relative;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
 }
@@ -394,7 +386,6 @@
   @media only screen and (max-width: 800px) {
     flex-direction: column;
     height: auto;
-
     width: 100%;
   }
 
@@ -421,11 +412,11 @@
 
 // Twitter/Instagram
 .info-twitter {
-  -ms-overflow-style: none;  /* IE and Edge */
   height: 385px;
   margin: auto;
   margin-top: 20px;
-  overflow: scroll; 
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
   overflow-x: hidden; /* Hide horizontal scrollbar */
   scrollbar-width: none;  /* Firefox */
   width: 100%;
@@ -436,22 +427,23 @@
 }
 
 .info-insta {
-  -ms-overflow-style: none;  /* IE and Edge */
   display: grid;
   gap: 2.5%;
   grid-template-columns: 48.75% 48.75%;
   height: 339px;
   margin: auto;
   margin-top: 20px;
-  overflow: scroll; 
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
   overflow-x: hidden; /* Hide horizontal scrollbar */
   scrollbar-width: none;  /* Firefox */
   width: 100%;
-  & > a { 
+
+  & > a {
     height: 100% !important;
     width: 100% !important;
 
-    & > img { 
+    & > img {
       width: 100% !important;
     }
   }
