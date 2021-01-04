@@ -1,8 +1,10 @@
 files:
-  include: "src/assets/styles/components/_card.scss"
+  include: "src/assets/styles/**/*.scss"
+  ignore:
+    - "src/assets/styles/base/*.scss"
 rules:
   class-name-format:
-    - 2
+    - 0
     - convention: hyphenatedlowercase
   leading-zero:
     - 0

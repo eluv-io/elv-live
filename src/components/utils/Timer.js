@@ -16,16 +16,16 @@ export default class Timer extends Component {
     }
 
     renderClock(days, hours, minutes, seconds) {
-      if (days < 10) {
+      if(days < 10) {
         days = "0" + days.toString();
       }
-      if (hours < 10) {
+      if(hours < 10) {
         hours = "0" + hours.toString();
       }
-      if (minutes < 10) {
+      if(minutes < 10) {
         minutes = "0" + minutes.toString();
       }
-      if (seconds < 10) {
+      if(seconds < 10) {
         seconds = "0" + seconds.toString();
       }
       return (

@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { FaDesktop, FaYoutube, FaInstagram,FaTwitter,FaFacebookSquare,FaSoundcloud, FaApple, FaSpotify} from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -23,8 +23,7 @@ class ArtistInfo extends React.Component {
     let siteGallery = this.props.siteStore.eventSites[this.props.name]["gallery"];
     let photoGallery = [];
 
-    for (var key in siteGallery) {
-      console.log(key);
+    for(var key in siteGallery) {
       let photo = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/gallery/${key}/gallery`});
       photoGallery.push(photo);
     }
@@ -33,10 +32,6 @@ class ArtistInfo extends React.Component {
   }
 
   render() {
-    // let eventInfo = this.props.siteStore.eventAssets.get(this.props.title);
-    // const featuredTitle = eventInfo.title;
-    // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");;
-    // const Maybe = (value, render) => value ? render() : null;
     let siteInfo = this.props.siteStore.eventSites[this.props.name];
     let eventInfo = siteInfo["event_info"][0];
     let artistInfo = siteInfo["artist_info"][0];
@@ -47,10 +42,10 @@ class ArtistInfo extends React.Component {
         <div className="profile-box">
           <div className="info-title">Rita Ora</div>
           {/* {artistInfo["intro"].map((text, index) => */}
-            <div className="profile-bio" >
-              {artistInfo["intro"]}
-            </div>
-            {/* )} */}
+          <div className="profile-bio" >
+            {artistInfo["intro"]}
+          </div>
+          {/* )} */}
         </div>
   
         <div className="info-box">
@@ -231,8 +226,8 @@ class ArtistInfo extends React.Component {
         <div className="image-box">
           <div className="info-title">Photo Gallery</div>
           <div className="photo-group">
-           {this.state.photoGallery.map((img, index) =>
-            <img src={img} className="photo-group__photo-box" key={index}/>
+            {this.state.photoGallery.map((img, index) =>
+              <img src={img} className="photo-group__photo-box" key={index}/>
             )}
 
 

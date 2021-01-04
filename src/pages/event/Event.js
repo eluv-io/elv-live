@@ -33,32 +33,32 @@ class Concert extends React.Component {
   }
 
   Trailer() {
-      return (
-        <React.Fragment>
-          <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
+    return (
+      <React.Fragment>
+        <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
 
-          <div className="modal show">
-            <ImageIcon
-              key={`back-icon-close-modal`}
-              className={"back-button-modal"}
-              title={"Close Modal"}
-              icon={CloseIcon}
-              onClick={() => this.setState({showTrailer: false})}
-            />
+        <div className="modal show">
+          <ImageIcon
+            key={"back-icon-close-modal"}
+            className={"back-button-modal"}
+            title={"Close Modal"}
+            icon={CloseIcon}
+            onClick={() => this.setState({showTrailer: false})}
+          />
 
-            <div className={`modal__container`}>          
-              <iframe 
-                width="100%" 
-                height="100%"
-                src={this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]["trailer_url"]}
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-              />          
-            </div>
+          <div className={"modal__container"}>          
+            <iframe 
+              width="100%" 
+              height="100%"
+              src={this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]["trailer_url"]}
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowFullScreen
+            />          
           </div>
-       </React.Fragment>
-    )
+        </div>
+      </React.Fragment>
+    );
   }
 
   Payment() {
@@ -67,33 +67,33 @@ class Concert extends React.Component {
         <div onClick={this.props.siteStore.turnOffModal} className="backdrop" />
         <div className="ticket-modal ticket-modal-show">
           <ImageIcon
-            key={`back-icon-Close Modal`}
+            key={"back-icon-Close Modal"}
             className={"back-button-modal"}
             title={"Close Modal"}
             icon={CloseIcon}
             onClick={this.props.siteStore.turnOffModal}
           />
-          <div className={`ticket-modal__container`}>
-           <PaymentOverview name={this.props.match.params.name} /> 
+          <div className={"ticket-modal__container"}>
+            <PaymentOverview name={this.props.match.params.name} /> 
           </div>
         </div>
       </React.Fragment>
-    )
+    );
   }
   handleNavigate = myRef => {
-    if (this.state.tab != 0) {
+    if(this.state.tab != 0) {
       this.setState({tab: 0});
       let domElement = document.getElementById("tabs");
-      domElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      domElement.scrollIntoView({ behavior: "smooth", block: "center" });
     } else {
       let el = myRef.current;
-      el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      el.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   };
 
 
   render() {
-    if (!this.props.siteStore.eventSites[this.props.match.params.name]) {
+    if(!this.props.siteStore.eventSites[this.props.match.params.name]) {
       return <Redirect to='/'/>;
     }
 

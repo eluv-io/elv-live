@@ -1,8 +1,8 @@
 import React from "react";
 
 import {inject, observer} from "mobx-react";
-import { Player, PlayerEvent } from 'bitmovin-player';
-import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from 'bitmovin-player-ui';
+import { Player, PlayerEvent } from "bitmovin-player";
+import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from "bitmovin-player-ui";
 import CustomToggleButton from  "./CustomToggleButton"; 
 
 @inject("siteStore")
@@ -32,20 +32,22 @@ class BitmovinPlayer extends React.Component {
   handleMultiViewSwitch() {
     let source, feedOption;
 
-    if (this.state.switchValue == (this.props.siteStore.feeds.length -1)) {
+    if(this.state.switchValue == (this.props.siteStore.feeds.length -1)) {
       feedOption = 0;
     } else {
       feedOption = this.state.switchValue + 1;
     }
 
-    this.setState({switchValue: feedOption})
-    console.log(this.state.switchValue);
+    this.setState({switchValue: feedOption});
 
     source = this.props.siteStore.feeds[feedOption].playoutOptions;
 
     this.state.player.load(source).then(
       () => {
-        console.log('Successfully created Bitmovin Player instance');
+        /* eslint-disable no-console */
+        console.log("Successfully created Bitmovin Player instance");
+        /* eslint-enable no-console */
+
       },
       (error) => {
         this.DestroyPlayer();
@@ -73,12 +75,8 @@ class BitmovinPlayer extends React.Component {
 
 
   LoadBitmovin() {
-
-
-    console.log(this.props.siteStore.feeds);
-
     const conf = {
-      key: '532a4784-591a-4039-8497-5feb80e5dd66',
+      key: "532a4784-591a-4039-8497-5feb80e5dd66",
       playback: {
         muted: true,
         autoplay: true,
@@ -88,7 +86,7 @@ class BitmovinPlayer extends React.Component {
 
     };
 
-    let playerContainer = document.getElementById('player-container');
+    let playerContainer = document.getElementById("player-container");
     let player = new Player(playerContainer, conf);
 
 
@@ -99,9 +97,9 @@ class BitmovinPlayer extends React.Component {
           components: [
             new PlaybackTimeLabel({ timeLabelMode: PlaybackTimeLabelMode.CurrentTime, hideInLivePlayback: true }),
             new SeekBar({ label: new SeekBarLabel() }),
-            new PlaybackTimeLabel({ timeLabelMode: PlaybackTimeLabelMode.TotalTime, cssClasses: ['text-right'] }),
+            new PlaybackTimeLabel({ timeLabelMode: PlaybackTimeLabelMode.TotalTime, cssClasses: ["text-right"] }),
           ],
-          cssClasses: ['controlbar-top'],
+          cssClasses: ["controlbar-top"],
         }),
         new Container({
           components: [
@@ -109,11 +107,11 @@ class BitmovinPlayer extends React.Component {
             new VolumeToggleButton(),
             new VolumeSlider(),
             new Spacer(),
-            new CustomToggleButton(this.handleMultiViewSwitch, 'ui-airplaytogglebutton ui-multiviewToggleButton'),
-            new CustomToggleButton(this.props.handleDarkToggle, 'ui-vrtogglebutton ui-darkmodetogglebutton'),
+            new CustomToggleButton(this.handleMultiViewSwitch, "ui-airplaytogglebutton ui-multiviewToggleButton"),
+            new CustomToggleButton(this.props.handleDarkToggle, "ui-vrtogglebutton ui-darkmodetogglebutton"),
             new FullscreenToggleButton(),
           ],
-          cssClasses: ['controlbar-bottom'],
+          cssClasses: ["controlbar-bottom"],
         }),
       ],
     });
@@ -136,13 +134,13 @@ class BitmovinPlayer extends React.Component {
     
     const myUiManager = new UIManager(player, myUi);
     
-    this.setState({player: player})
+    this.setState({player: player});
 
     let source = this.props.siteStore.feeds[0].playoutOptions;
 
     player.load(source).then(
       () => {
-        console.log('Successfully created Bitmovin Player instance');
+        console.log("Successfully created Bitmovin Player instance");
       },
       (error) => {
         this.DestroyPlayer();
@@ -154,7 +152,7 @@ class BitmovinPlayer extends React.Component {
         }
       }
     );
-  };
+  }
 
   render() {
 
@@ -162,8 +160,8 @@ class BitmovinPlayer extends React.Component {
 
     return (
       <div
-        key={`player-container`}
-        id={`player-container`}
+        key={"player-container"}
+        id={"player-container"}
         className="feedGrid"
         // muted = {this.props.feed === 0 ? false : true}
       />

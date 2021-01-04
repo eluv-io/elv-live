@@ -1,102 +1,111 @@
 .card {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard syntax */
-  perspective: 1500px;
   -moz-perspective: 1500px;
-  position: relative;
-  height: 360px;
-  width: 480px;
-  margin: 20px 20px;
+  -ms-user-select: none; /* IE 10+ and Edge */
+  -webkit-user-select: none; /* Safari */
   background: transparent !important;
-  border: none !important;
+  border: 0 !important;
   border-radius: 7.5px;
+  height: 360px;
+  margin: 20px 20px;
+  perspective: 1500px;
+  position: relative;
+  user-select: none; /* Standard syntax */
+  width: 480px;
 }
 
 .card__side {
-  -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard syntax */
-  height: 360px;
-  transition: all .8s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   -webkit-backface-visibility: hidden;
+  -webkit-user-select: none; /* Safari */
   backface-visibility: hidden;
-  overflow: hidden;
-  border: none !important;
+  border: 0 !important;
   border-radius: 7.5px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); 
+  height: 360px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all .8s ease;
+  user-select: none; /* Standard syntax */
+  width: 100%;
 }
 
 .card__side--front {
   background-color: var(--bgColor); 
 }
+
 .card__side--back {
-  transform: rotateY(180deg); 
-  // background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
   background-image: linear-gradient(to right bottom, #192196, #040622);
+  // background-image: linear-gradient(to right bottom, var(--bgColor), #000000);
+  transform: rotateY(180deg); 
 }
 
 .card:hover .card__side--front {
   transform: rotateY(-180deg); }
+
 .card:hover .card__side--back {
   transform: rotateY(0); }
 
 .card__picture {
-  height: 360px !important;
-  width: 480px !important;
-  object-fit: cover !important;
-  background-position: center;
   background-blend-mode: screen;
+  background-position: center;
+  height: 360px !important;
+  object-fit: cover !important;
+  width: 480px !important;
 }
 
 
 .card__heading {
+  color: var(--pText);
   font-size: 25px;
   font-weight: 300;
-  text-transform: uppercase;
-  text-align: right;
-  color: var(--pText);
   position: absolute;
-  top: 300px;
   right: 15px;
+  text-align: right;
+  text-transform: uppercase;
+  top: 300px;
   width: 100%;
   @media only screen and (max-width: 550px) {
     top: 180px;
   } 
 }
+
 .card__heading-span {
-  padding: 7px 12px;
-  line-height: 180%;
   -webkit-box-decoration-break: clone;
-  box-decoration-break: clone; 
   background-color: #040622;
+  box-decoration-break: clone; 
+  line-height: 180%;
+  padding: 7px 12px;
 }
   
 .card__cta {
-  position: absolute;
-  top: 50%;
   left: 50%;
+  position: absolute;
+  text-align: center; 
+  top: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  text-align: center; }
+}
+
+
 .card__price-box {
-  text-align: center;
   color: #fff;
-  margin-bottom: 40px; }
+  margin-bottom: 40px; 
+  text-align: center;
+}
+
 .card__price-only {
   font-size: 14px;
   text-transform: uppercase; }
+
 .card__price-detail {
-  color: white;
+  color: #fff;
   font-size: 20px;
   font-weight: 500;
-  margin-top: 30px;
   margin-left: 5px;
   margin-right: 5px;
+  margin-top: 30px;
   @media only screen and (max-width: 550px) {
     font-size: 18px;
   } 
@@ -104,82 +113,89 @@
 
 @media only screen and (max-width: 56.25em), only screen and (hover: none) {
   .card {
-    height: auto;
     background-color: #fff;
+    height: auto;
   }
 
   .card__side {
+    border-radius: 0 !important;
+    box-shadow: none; 
     height: auto;
     position: relative;
-    box-shadow: none; 
-    border-radius: 0px !important;
 
   }
 
   .card__side--back {
+    border-radius: 0 !important;
     transform: rotateY(0);
-    border-radius: 0px !important;
   }
 
   .card:hover .card__side--front {
     transform: rotateY(0); }
+
   .card__cta {
+    left: 0;
+    padding: 70px 40px 40px 40px; }
     position: relative;
     top: 0%;
-    left: 0;
     transform: translate(0);
     width: 100%;
-    padding: 70px 40px 40px 40px; }
+
   .card__price-box {
     margin-bottom: 30px; }
+
   .card__price-value {
-    font-size: 40px; } 
+    font-size: 40px; }
 }
 
 @media only screen and (max-width: 550px) {
 
   .card {
+    background-color: #fff;
     height: auto !important;
     width: 325px !important;
-    background-color: #fff;
   }
 
   .card__side {
-    height: 243.75px !important;
-    width: 325px !important;
-    position: relative;
+    border-radius: 0 !important;
     box-shadow: none; 
-    border-radius: 0px !important;
+    height: 243.75px !important;
+    position: relative;
+    width: 325px !important;
   }
   
 
   .card__side--back {
+    border-radius: 0 !important;
     height: 310px !important;
-    width: 325px !important;
     transform: rotateY(0);
-    border-radius: 0px !important;
+    width: 325px !important;
   }
+
   .card__picture {
+    background-blend-mode: screen;
+    background-position: center;
     height: 243.75px !important;
     width: 325px !important;
-    background-position: center;
-    background-blend-mode: screen;
   }
 
   .card__side--front {
     height: 243.75px !important;
-    width: 325px !important;
     transform: rotateY(0); 
+    width: 325px !important;
   }
+
   .card__cta {
+    left: 0;
+    padding: 70px 40px 40px 40px; }
     position: relative;
     top: 0%;
-    left: 0;
     transform: translate(0);
     width: 100%;
-    padding: 70px 40px 40px 40px; }
+
   .card__price-box {
     margin-bottom: 30px; }
+
   .card__price-value {
     font-size: 36px;
   } 

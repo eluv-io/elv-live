@@ -10,8 +10,8 @@
   --color-grey-dark-2: #777;
   --color-grey-dark-3: #999;
   --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
-  --bgColor: black; //var(--bgColor)
-  --pText: white; //var(--pText)
+  --bgColor: #000; //var(--bgColor)
+  --pText: #fff; //var(--pText)
   --sText: rgb(136, 136, 136); //var(--sText)
 }
 
@@ -78,8 +78,8 @@ $bp-tiny: 21.875em;   // 350px;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
-  color: red;
-  background-color: white;
+  color: #f00;
+  background-color: #fff;
   z-index: 10000;
   border-radius: 5px;
 }

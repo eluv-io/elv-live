@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Navigation from "../../components/layout/Navigation";
-import AddToCalendar from 'react-add-to-calendar';
+import AddToCalendar from "react-add-to-calendar";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -31,30 +31,30 @@ class Success extends React.Component {
     
     return (
 
-        <div className="success-container">
-          <Navigation/>
+      <div className="success-container">
+        <Navigation/>
   
-          <div className="success-root">
-            <div className="summary">
-              <div className="payment-overview">
-                <h1 className="payment-overview-title">Thanks for your order!</h1>
-                <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to <b className="boldText">{sessionEmail}</b> shortly. </h2>
-              </div>
+        <div className="success-root">
+          <div className="summary">
+            <div className="payment-overview">
+              <h1 className="payment-overview-title">Thanks for your order!</h1>
+              <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to <b className="boldText">{sessionEmail}</b> shortly. </h2>
+            </div>
 
-              <div className="header">
-                <div className="line-item confirm">
-                  <p className="confirm-label">Confirmation #</p>
-                  <p className="confirm-price">{sessionId.substring(10,22)}</p>
-                </div>
+            <div className="header">
+              <div className="line-item confirm">
+                <p className="confirm-label">Confirmation #</p>
+                <p className="confirm-price">{sessionId.substring(10,22)}</p>
               </div>
+            </div>
 
-              <div className="back-btn-container">
-                <AddToCalendar event={calendarEvent}/>
-              </div>
+            <div className="back-btn-container">
+              <AddToCalendar event={calendarEvent}/>
             </div>
           </div>
         </div>
-      );
+      </div>
+    );
   }
 }
 
