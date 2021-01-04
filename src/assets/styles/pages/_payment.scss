@@ -10,8 +10,8 @@
   overflow: scroll;
   overflow: hidden;
   padding: 30px 20px;
-
   width: 100%;
+
   @media only screen and (max-width: 1000px) {
     display: flex;
     flex-direction: column;
@@ -21,9 +21,8 @@
     min-height: 100vh;
     padding: 50px 30px;
     width: 100%;
- }
+  }
 }
-
 
 .payment-event-overview {
   display: block;
@@ -49,30 +48,29 @@
   align-items: flex-start;
   // min-height: calc(100vh - 150px);
   color: #000;
-
   display: flex;
   flex: 1 1;
   flex-direction: column;
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
   height: 100%;
-  letter-spacing: -.022em;
+  letter-spacing: -0.022em;
   line-height: 1.47059;
-  text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
   width: 100%;
+
   @media only screen and (max-width: 1000px) {
     align-items: center;
-  } 
+  }
 }
 
 .payment-info-img-container {
   align-self: center;
-  background: hsla(0,0%,100%,.8);
+  background: hsla(0, 0%, 100%, 0.8);
   border-radius: 12px;
-  box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
+  box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.04), 20px 20px 20px rgba(0, 0, 0, 0.02);
   // margin-right: 40px;
   flex-shrink: 0;
   margin: 0 0 40px;
@@ -94,8 +92,8 @@
   display: block;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: .5px;
-  margin: 0 0 0;
+  letter-spacing: 0.5px;
+  margin: 0;
   text-transform: uppercase;
 }
 
@@ -104,87 +102,73 @@
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.2;
-  margin: 0 0 0;
+  margin: 0;
   padding: 0;
   text-align: center;
   word-break: break-word;
+
   @media only screen and (max-width: 500px) {
     font-size: 24px;
-  } 
-
+  }
 }
 
 .payment-info-date {
   font-size: 14px;
   font-weight: 500;
-
   margin: 0;
-
 }
 
 .payment-info-description {
-
-  -webkit-box-orient: vertical;  
-  -webkit-line-clamp: 4;
-  color: rgba(0,0,0,.6);
-
-  display: -webkit-box;
-  display: -webkit-box;
-  display: -webkit-box;
+  box-orient: vertical;
+  color: rgba(0, 0, 0, 0.6);
   font-size: 15px;
+  -webkit-line-clamp: 4;
   margin-left: 0;
   // text-align: center;
   margin-left: 0;
-
   margin-top: 25px;
   overflow: hidden;
   position: relative;
-
   text-align: left;
   text-align: left;
   white-space: pre-line;
 
   @media only screen and (max-width: 1000px) {
     text-align: center;
-  } 
-  
+  }
 }
 
-
 .sponsor-container {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   align-items: center;
   color: #000;
-
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
-  letter-spacing: -.022em;
+  letter-spacing: -0.022em;
   line-height: 1.47059;
   margin-top: 50px;
-  text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
+
   @media only screen and (max-width: 1000px) {
     // display: none;
-  } 
-
+  }
 }
-
 
 .sponsor-title {
   display: block;
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   margin: 0 0 10px;
   text-transform: uppercase;
 }
-
 
 .sponsor-img-container {
   align-items: flex-start;
@@ -192,7 +176,6 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: -35px;
-
 }
 
 .big-sponsor-img {
@@ -222,12 +205,6 @@
   width: 150px;
 }
 
-
-
-
-
-
-
 .payment-checkout {
   display: block;
   flex-shrink: 0;
@@ -237,24 +214,22 @@
   width: 100%;
 }
 
-
 .checkout-section {
-  background: hsla(0,0%,100%,0.72)  ;
+  background: hsla(0, 0%, 100%, 0.72);
   border-radius: 12px;
   color: #000;
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   // box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
   // -webkit-backdrop-filter: saturate(1.8) blur(20px);
   // backdrop-filter: saturate(1.8) blur(20px);
   font-size: 17px;
-
   font-style: normal;
   font-weight: 400;
-  letter-spacing: -.022em;
+  letter-spacing: -0.022em;
   line-height: 1.47059;
   margin-bottom: 10px;
   padding: 22px 40px;
-  text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
   width: 100%;
 }
 
@@ -267,7 +242,7 @@
   margin-top: 10px;
 }
 
-.currency-select{
+.currency-select {
   height: auto;
   margin-bottom: 8px;
   position: relative;
@@ -275,7 +250,7 @@
   z-index: 1091898181818;
 }
 
-.quantity-select{
+.quantity-select {
   margin-bottom: 8px;
   position: relative;
   text-align: left;
@@ -286,7 +261,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-
 }
 
 .checkout-checkbox-input {
@@ -299,7 +273,6 @@
   // // opacity: 0;
   border: 1px solid #ccc;
   border-radius: 4px;
-
   box-sizing: content-box;
   display: inline-block;
   height: 16px;
@@ -315,15 +288,13 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-
 }
 
-
 .checkout-checkbox-heading {
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: -.05px;
+  letter-spacing: -0.05px;
   line-height: 120%;
   margin: -2px 0 0;
 }
@@ -353,7 +324,7 @@
 }
 
 .checkout-checkbox-bundle-description {
-  color: rgba(0,0,0,.6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   margin: 0 0 10px;
 }
@@ -367,35 +338,33 @@
   display: flex;
   justify-content: center;
   margin-bottom: 7.5px;
-
 }
 
 .css-yk16xz-control {
-  :hover{
+  :hover {
     border-color: #000 !important;
   }
 }
 
-
 .checkout-email-form {
   margin-bottom: 8px;
   position: relative;
+
   input {
     // border-radius: 1px;
-    -moz-appearance: none;
+    appearance: none;
     // height: 48px;
     // letter-spacing: 1.5px;
     // margin-top: 1rem;
     // text-align: center;
     // width: MIN(35rem, 90vw);
 
-    -webkit-appearance: none;
-    -webkit-backdrop-filter: saturate(1.8) blur(20px);
-    -webkit-rtl-ordering: logical;
+    appearance: none;
     appearance: none;
     backdrop-filter: saturate(1.8) blur(20px);
-    background: hsla(0,0%,100%,0.72)  ;
-    border: 1px solid rgba(0,0,0,.1);
+    backdrop-filter: saturate(1.8) blur(20px);
+    background: hsla(0, 0%, 100%, 0.72);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     // line-height: 1.23543;
     // letter-spacing: -.022em;
@@ -403,52 +372,44 @@
     cursor: text;
     display: inline-block;
     font-size: 2.2rem;
-
-
-
     font-size: 17px;
     height: 3.3em;
-    padding: 0 20px 0;
-
-
+    padding: 0 20px;
+    -webkit-rtl-ordering: logical;
     text-rendering: auto;
     text-transform: none;
-    transition: all .125s ease 0s;
+    transition: all 0.125s ease 0s;
     vertical-align: top;
     width: 100%;
     word-spacing: normal;
 
-
-
     @media only screen and (max-width: 415px) {
       font-size: 2rem;
       width: 280px;
-    } 
+    }
 
     &::placeholder {
       // font-variant: all-small-caps;
       color: #000;
-
     }
   }
 }
 
 .checkout-email-info {
-  color: rgba(0,0,0,.6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 14px;
   padding-bottom: 10px;
   text-align: center;
 }
 
-
 .checkout-button {
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  appearance: none;
+  appearance: none;
   appearance: none;
   background: #252525;
   border: 0;
   border-radius: 12px;
-  box-shadow: 0 1px 1px rgba(37,37,37,.12), 0 2px 5px rgba(37,37,37,.12), 0 0 1px rgba(37,37,37,.12);
+  box-shadow: 0 1px 1px rgba(37, 37, 37, 0.12), 0 2px 5px rgba(37, 37, 37, 0.12), 0 0 1px rgba(37, 37, 37, 0.12);
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -458,7 +419,6 @@
   margin-top: 20px;
   max-width: 100%;
   outline: none;
-
   padding: 1rem;
   padding: 12px 18px;
   text-align: center;
@@ -473,13 +433,12 @@
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
-  letter-spacing: .006em;
+  letter-spacing: 0.006em;
   line-height: 1.5;
   margin-bottom: 12px;
   margin-top: 12px;
   text-align: center;
 }
-
 
 // <div class="react-select-container">
 //   <div class="react-select__control">
@@ -495,60 +454,53 @@
 .react-select-container {
   height: 30px !important;
   width: 100% !important;
-
 }
 
 .react-select {
   position: absolute !important;
-  &__input{
+
+  &__input {
     // display: none !important;
     color: transparent !important;
   }
 
-  &__control{
+  &__control {
     height: 30px !important;
     min-height: 30px !important;
-
   }
 
-  &__value-container{
+  &__value-container {
     height: 30px !important;
-
-
   }
 
-  &__indicators{
+  &__indicators {
     height: 30px !important;
-
-
   }
 
   &__menu{
 
   }
 
-  &__menu-list{
-    -webkit-overflow-scrolling: touch;
+  &__menu-list {
     box-sizing: border-box;
     max-height: 120px !important;
+    -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     padding-bottom: 4px;
     padding-top: 4px;
     position: relative;
-
   }
 
   &__indicator-separator {
     display: none;
   }
 
-  &__single-value{
+  &__single-value {
     font-size: 14px !important;
   }
 
-  &__option{
+  &__option {
     font-size: 14px !important;
     padding: 5px 12px !important;
-
   }
 }

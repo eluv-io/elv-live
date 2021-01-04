@@ -1,28 +1,28 @@
 //BASE
-@import "base/base";
-@import "base/variables";
-@import "base/reset";
+@import 'base/base';
+@import 'base/variables';
+@import 'base/reset';
 
 //COMPONENTS
-@import "components/modal";
-@import "components/button";
-@import "components/ticket";
-@import "components/card";
-@import "components/tabs";
-@import "components/switch";
-@import "components/chat";
-@import "components/navigation";
-@import "components/bitmovin-player";
+@import 'components/modal';
+@import 'components/button';
+@import 'components/ticket';
+@import 'components/card';
+@import 'components/tabs';
+@import 'components/switch';
+@import 'components/chat';
+@import 'components/navigation';
+@import 'components/bitmovin-player';
 
 //PAGES
-@import "pages/home";
-@import "pages/stream";
-@import "pages/event";
-@import "pages/success";
-@import "pages/merch";
-@import "pages/artist-profile";
-@import "pages/overview";
-@import "pages/code-entry";
-@import "pages/contact-form";
-@import "pages/support";
-@import "pages/payment";
+@import 'pages/home';
+@import 'pages/stream';
+@import 'pages/event';
+@import 'pages/success';
+@import 'pages/merch';
+@import 'pages/artist-profile';
+@import 'pages/overview';
+@import 'pages/code-entry';
+@import 'pages/contact-form';
+@import 'pages/support';
+@import 'pages/payment';

@@ -2,54 +2,52 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
-
   display: flex;
   flex-direction: column;
-  height: 250px; 
+  height: 250px;
   justify-content: center;
   margin: auto;
-  width: MIN(424px, 90vw);
+  width: calc(min(424px, 90vw));
   z-index: 10000;
 
-  
   &--logo {
-    -ms-user-select: none; /* IE 10+ and Edge */
-    -webkit-user-select: none; /* Safari */
     height: 58px;
     margin-bottom: 2rem;
+    user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* Safari */
     user-select: none; /* Standard syntax */
     width: auto;
+
     @media only screen and (max-width: 415px) {
       height: 5rem;
       margin-bottom: 2rem;
       width: auto;
-    } 
+    }
   }
 
   &__title {
     // color: #000;
     // font-weight: 500;
 
-      box-sizing: border-box;
-      color: #000;
-      display: none;
-      font-family: "SF Display", "Helvetica Neue";
-      font-size: 60px;
-      font-weight: bold;
-      font-weight: 300;
-      line-height: 3rem;
-      margin-bottom: 25px;
-      text-align: center !important;
-      
-      // @media only screen and (max-width:700px) {
-      //   font-size: 30px;
-      //   margin-bottom: 3rem;
-    
-      // }
-      // @media only screen and (max-width:500px) {
-      //   margin-bottom: 2.5rem;
-      // }
-    
+    box-sizing: border-box;
+    color: #000;
+    display: none;
+    font-family: 'SF Display', 'Helvetica Neue';
+    font-size: 60px;
+    font-weight: bold;
+    font-weight: 300;
+    line-height: 3rem;
+    margin-bottom: 25px;
+    text-align: center !important;
+
+    // @media only screen and (max-width:700px) {
+    //   font-size: 30px;
+    //   margin-bottom: 3rem;
+
+    // }
+    // @media only screen and (max-width:500px) {
+    //   margin-bottom: 2.5rem;
+    // }
   }
 
   input {
@@ -59,12 +57,12 @@
     letter-spacing: 1.5px;
     margin-top: 1rem;
     text-align: center;
-    width: MIN(35rem, 90vw);
+    width: calc(min(35rem, 90vw));
 
     @media only screen and (max-width: 415px) {
       font-size: 2rem;
       width: 280px;
-    } 
+    }
 
     &::placeholder {
       font-variant: all-small-caps;
@@ -84,15 +82,17 @@
     line-height: 18px;
     margin-top: 3rem;
     text-align: center;
-    width: MIN(35rem, 90vw);
+    width: calc(min(35rem, 90vw));
 
     @media only screen and (max-width: 415px) {
       width: 280px;
-    } 
+    }
   }
 }
 
-input, textarea, pre {
+input,
+textarea,
+pre {
   border: 1px solid #ddd;
-  padding: 0 .25rem;
+  padding: 0 0.25rem;
 }

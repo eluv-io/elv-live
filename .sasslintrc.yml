@@ -9,8 +9,17 @@ rules:
   leading-zero:
     - 0
   nesting-depth:
-    - 1
+    - 0
     - max-depth: 3
   quotes:
     - 1
     - style: double
+  indentation: 
+    - 1
+    - size: 2
+  no-important: 
+    - 0
+  no-css-comments: 
+    - 0
+  no-value-vendor-prefix: 
+    - 0

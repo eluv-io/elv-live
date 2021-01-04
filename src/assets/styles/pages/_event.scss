@@ -27,7 +27,7 @@
   display: grid;
   grid-row-gap: 1.2rem;
   grid-template-columns: repeat(auto-fill, 100vw);
-  grid-template-rows: 53.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
+  grid-template-rows: 53.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content;
   height: max-content;
   margin-bottom: 3rem;
   position: relative;
@@ -38,140 +38,141 @@
     flex-direction: column;
     grid-row: title-start / title-end;
 
-    .name{
-        -ms-user-select: none; /* IE 10+ and Edge */
-        -webkit-user-select: none; /* Safari */
-        color: #fff;
-        font-size: calc(min(calc(max(15vw, 55px)), 95px));
-        font-weight: bold;
-        letter-spacing: 10px;
-        margin-bottom: -5px;
-        padding-top: 40px;
-        text-align: center;
-        text-shadow: #fff 0 0 3px;
-        text-transform: uppercase;
-        user-select: none; /* Standard syntax */
+    .name {
+      color: #fff;
+      font-size: calc(min(calc(max(15vw, 55px)), 95px));
+      font-weight: bold;
+      letter-spacing: 10px;
+      margin-bottom: -5px;
+      padding-top: 40px;
+      text-align: center;
+      text-shadow: #fff 0 0 3px;
+      text-transform: uppercase;
+      user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Safari */
+      user-select: none; /* Standard syntax */
     }
 
     .logoSeries {
-        -ms-user-select: none; /* IE 10+ and Edge */
-        -webkit-user-select: none; /* Safari */
-        height: auto;
-        margin: auto;
-        margin-bottom: -25px;
-        padding-top: 0;
-        user-select: none; /* Standard syntax */
-        width: 850px;
+      height: auto;
+      margin: auto;
+      margin-bottom: -25px;
+      padding-top: 0;
+      user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Safari */
+      user-select: none; /* Standard syntax */
+      width: 850px;
     }
 
     .logoFilm {
-        -ms-user-select: none; /* IE 10+ and Edge */
-        -webkit-user-select: none; /* Safari */
-        height: auto;
-        margin: auto;
-        margin-bottom: 20px;
-        padding-top: 0;
-        user-select: none; /* Standard syntax */
-        width: 600px;
-      }
+      height: auto;
+      margin: auto;
+      margin-bottom: 20px;
+      padding-top: 0;
+      user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Safari */
+      user-select: none; /* Standard syntax */
+      width: 600px;
+    }
 
     .logoMer {
-        -ms-user-select: none; /* IE 10+ and Edge */
-        -webkit-user-select: none; /* Safari */
-        height: 190px;
-        margin: auto;
-        margin-bottom: 20px;
-        object-fit: cover !important;
-        object-position: 0 -60px !important;
-        user-select: none; /* Standard syntax */
-        width: 600px;
-      }  
-
-    .premiereDate{
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -webkit-user-drag: none;
-        -webkit-user-select: none;
-        color: #fff;
-        font-size: 30px;
-        font-weight: bold;
-        letter-spacing: 7px;
-        margin-bottom: 3px;
-        text-align: center;
-        text-shadow: #fff 0 0 3px;
-        text-transform: uppercase;
-        user-select: none;
+      height: 190px;
+      margin: auto;
+      margin-bottom: 20px;
+      object-fit: cover !important;
+      object-position: 0 -60px !important;
+      user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Safari */
+      user-select: none; /* Standard syntax */
+      width: 600px;
     }
 
-    .filmDate{
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -webkit-user-drag: none;
-        -webkit-user-select: none;
-        color: #fff;
-        font-size: 30px;
-        font-weight: bold;
-        letter-spacing: 6px;
-        margin-bottom: -10px;
-        text-align: center;
-        text-shadow: #fff 0 0 3px;
-
-        text-transform: uppercase;
-        user-select: none;
-    }  
-
-    .location{
-        -ms-user-select: none; /* IE 10+ and Edge */
-        -webkit-user-select: none; /* Safari */
-        color: #fff;
-        font-size: 35px !important;
-        font-weight: 700 !important;
-        letter-spacing: 10px;
-        margin-bottom: 8px;
-        text-align: center;
-        text-shadow: #fff 0 0 3px;
-        text-transform: uppercase;
-        user-select: none; /* Standard syntax */
-        width: 100%;
-        @media only screen and (max-width: 1200px) {
-            font-size: 32px !important;
-        }
-
-        @media only screen and (max-width: 1000px) {
-            font-size: 28px !important;
-        }
-
-        @media only screen and (max-width: 800px) {
-            font-size: 26px !important;
-            letter-spacing: 4px;
-            line-height: 40px;
-            margin-top: 10px;
-        }
+    .premiereDate {
+      color: #fff;
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 7px;
+      margin-bottom: 3px;
+      text-align: center;
+      text-shadow: #fff 0 0 3px;
+      text-transform: uppercase;
+      -webkit-user-drag: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
     }
 
-    .time{
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -webkit-user-drag: none;
-        -webkit-user-select: none;
-        color: #fff;
-        font-size: 25px;
-        font-size: calc(min(calc(max(15vw, 18px)), 25px));
-        font-weight: bold;
-        letter-spacing: 2px;
-        text-align: center;
-        text-shadow: #fff 0 0 3px;
-        text-transform: uppercase;
-        user-select: none;
-        @media only screen and (max-width: 500px) {
-            font-size: 22px;
-            letter-spacing: -.5px;
-        }
+    .filmDate {
+      color: #fff;
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      margin-bottom: -10px;
+      text-align: center;
+      text-shadow: #fff 0 0 3px;
+      text-transform: uppercase;
+      -webkit-user-drag: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+    }
+
+    .location {
+      color: #fff;
+      font-size: 35px !important;
+      font-weight: 700 !important;
+      letter-spacing: 10px;
+      margin-bottom: 8px;
+      text-align: center;
+      text-shadow: #fff 0 0 3px;
+      text-transform: uppercase;
+      user-select: none; /* IE 10+ and Edge */
+      user-select: none; /* Safari */
+      user-select: none; /* Standard syntax */
+      width: 100%;
+
+      @media only screen and (max-width: 1200px) {
+        font-size: 32px !important;
+      }
+
+      @media only screen and (max-width: 1000px) {
+        font-size: 28px !important;
+      }
+
+      @media only screen and (max-width: 800px) {
+        font-size: 26px !important;
+        letter-spacing: 4px;
+        line-height: 40px;
+        margin-top: 10px;
       }
     }
+
+    .time {
+      color: #fff;
+      font-size: 25px;
+      font-size: calc(min(calc(max(15vw, 18px)), 25px));
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-align: center;
+      text-shadow: #fff 0 0 3px;
+      text-transform: uppercase;
+      -webkit-user-drag: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+      user-select: none;
+
+      @media only screen and (max-width: 500px) {
+        font-size: 22px;
+        letter-spacing: -0.5px;
+      }
+    }
+  }
 
   &__button {
     display: flex;
@@ -179,8 +180,9 @@
     grid-row: timer-start / timer-end;
     margin: auto;
     margin-top: -5px;
+
     @media only screen and (max-width: 800px) {
-        display: none !important;
+      display: none !important;
     }
   }
 
@@ -195,8 +197,6 @@
 }
 
 .stream-countdown {
-  -ms-user-select: none; /* IE 10+ and Edge */
-  -webkit-user-select: none; /* Safari */
   align-content: center;
   display: flex;
   font-size: 40px;
@@ -205,6 +205,8 @@
   margin: auto;
   margin: auto;
   text-align: center;
+  user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
 }
