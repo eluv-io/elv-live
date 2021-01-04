@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 import Timer from "../../../components/utils/Timer";
-import { FaRegCalendarAlt, FaRegClock} from "react-icons/fa";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
 @inject("rootStore")

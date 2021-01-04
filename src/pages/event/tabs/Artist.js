@@ -33,7 +33,6 @@ class ArtistInfo extends React.Component {
 
   render() {
     let siteInfo = this.props.siteStore.eventSites[this.props.name];
-    let eventInfo = siteInfo["event_info"][0];
     let artistInfo = siteInfo["artist_info"][0];
     let artistBio = artistInfo["bio"][0];
 

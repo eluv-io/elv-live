@@ -1,6 +1,4 @@
-import { PlayerAPI } from "bitmovin-player";
-import { ToggleButton, ToggleButtonConfig,UIInstanceManager,i18n } from "bitmovin-player-ui";
-import React from "react";
+import { ToggleButton, ToggleButtonConfig } from "bitmovin-player-ui";
 
 /**
  * A button that toggles Apple AirPlay.

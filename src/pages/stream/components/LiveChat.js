@@ -1,10 +1,9 @@
 import React from "react";
 import { Chat, Channel, ChannelHeader, Window } from "stream-chat-react";
 import { MessageList, MessageInput, MessageLivestream } from "stream-chat-react";
-import { MessageInputSmall, MessageInputLarge, MessageInputFlat,MessageInputSimple,Thread } from "stream-chat-react";
+import { MessageInputSimple, Thread } from "stream-chat-react";
 import {inject, observer} from "mobx-react";
 import { StreamChat } from "stream-chat";
-import { Permission, AnyResource, AnyRole, Allow, Deny} from "stream-chat";
 import { GrChatOption} from "react-icons/gr";
 
 import "stream-chat-react/dist/css/index.css";
@@ -29,7 +28,8 @@ class LiveChat extends React.Component {
 
   async componentDidMount() {
     let chatClient = new StreamChat("mt6wsqe77eb2");
-    const connectResponse = await chatClient.setAnonymousUser();
+    await chatClient.setAnonymousUser();
+
     let channel = chatClient.channel("livestream", "rita-ora-test7", {
       name: "Rita Ora",
     });
@@ -56,7 +56,11 @@ class LiveChat extends React.Component {
       if(name != "") {
         this.setState({onChat: true});
         this.state.chatClient.disconnect();
+
+        /* eslint-disable no-unused-vars */
         const connectResponse = await this.state.chatClient.setGuestUser({ id: name, name: name });
+        /* eslint-enable no-unused-vars */
+        
         let channel = chatClient.channel("livestream", "rita-ora-test7", {
           name: "Rita Ora",
         });
