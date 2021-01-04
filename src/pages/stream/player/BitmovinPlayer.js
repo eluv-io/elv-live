@@ -1,7 +1,7 @@
 import React from "react";
 
 import {inject, observer} from "mobx-react";
-import { Player, PlayerEvent } from "bitmovin-player";
+import { Player } from "bitmovin-player";
 import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from "bitmovin-player-ui";
 import CustomToggleButton from  "./CustomToggleButton"; 
 
@@ -131,9 +131,14 @@ class BitmovinPlayer extends React.Component {
         PlayerUtils.PlayerState.Finished,
       ],
     });
-    
+    /* eslint-disable no-unused-vars */
+
     const myUiManager = new UIManager(player, myUi);
     
+    /* eslint-enable no-unused-vars */
+
+
+
     this.setState({player: player});
 
     let source = this.props.siteStore.feeds[0].playoutOptions;

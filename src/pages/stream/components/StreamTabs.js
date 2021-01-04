@@ -31,7 +31,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     maxWidth: 5000,

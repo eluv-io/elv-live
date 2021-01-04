@@ -5,7 +5,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ScheduleIcon from "@material-ui/icons/Schedule";
 import InfoIcon from "@material-ui/icons/Info";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Paper from "@material-ui/core/Paper";
@@ -37,7 +36,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
     maxWidth: 5000,
