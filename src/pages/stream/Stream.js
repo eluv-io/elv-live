@@ -111,10 +111,10 @@ class Stream extends React.Component {
   }
 
   render() {
-    if (!this.props.rootStore.client || !this.props.rootStore.accessCode) {
+    if (!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
       return <Redirect to={`/code`} />;
     }
-    
+
     const handleDrawerOpen = () => {
       this.setState({open: true});
     };
@@ -153,20 +153,10 @@ class Stream extends React.Component {
 
     const { classes } = this.props;
 
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    let vw = window.innerWidth * 0.01;
-    document.documentElement.style.setProperty('--vw', `${vw}px`);
-
-
     return (
       <AsyncComponent
         Load={async () => {
-          // const siteId = await this.props.rootStore.RedeemCode(
-          //   "alec.jo@berkeley.edu",
-          //   "gL5995"
-          // );
-          await this.props.siteStore.LoadStreamSite(this.props.match.params.siteId, "");
+          await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
         }}
         render={() => {
           if(!this.props.siteStore.siteInfo) { return null; }

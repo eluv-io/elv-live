@@ -2,22 +2,14 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
-import axios from "axios";
-
-import EventTabs from "./components/tabs/EventTabs";
-import Navigation from  "../../components/layout/Navigation";
 
 import CloseIcon from "../../assets/icons/x.svg";
-import PaymentOverview from "./components/payment/PaymentOverview";
-import Footer from "../../components/layout/Footer";
+import { eventHeroView } from "../../assets/data/event";
 
-function getBase64(url) {
-  return axios
-    .get(url, {
-      responseType: 'arraybuffer'
-    })
-    .then(response => Buffer.from(response.data, 'binary').toString('base64'))
-}
+import EventTabs from "./tabs/EventTabs";
+import Navigation from  "../../components/layout/Navigation";
+import PaymentOverview from "./payment/PaymentOverview";
+import Footer from "../../components/layout/Footer";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -27,10 +19,7 @@ class Concert extends React.Component {
     super(props);
 
     this.state = {
-      showPayment: false,
       showTrailer: false,
-      prodID: "",
-      priceID: "",
       tab: 0,
       heroBackground: undefined,
       eventInfo: this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]
@@ -43,16 +32,14 @@ class Concert extends React.Component {
     this.setState({heroBackground: heroBackground});
   }
 
-
   Trailer() {
-
       return (
         <React.Fragment>
           <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
 
           <div className="modal show">
             <ImageIcon
-              key={`back-icon-Close Modal`}
+              key={`back-icon-close-modal`}
               className={"back-button-modal"}
               title={"Close Modal"}
               icon={CloseIcon}
@@ -75,7 +62,6 @@ class Concert extends React.Component {
   }
 
   Payment() {
-
     return (
       <React.Fragment>
         <div onClick={this.props.siteStore.turnOffModal} className="backdrop" />
@@ -88,15 +74,13 @@ class Concert extends React.Component {
             onClick={this.props.siteStore.turnOffModal}
           />
           <div className={`ticket-modal__container`}>
-           <PaymentOverview name={this.props.match.params.name} priceID={this.state.priceID} prodID={this.state.prodID}/> 
+           <PaymentOverview name={this.props.match.params.name} /> 
           </div>
-
         </div>
       </React.Fragment>
     )
   }
   handleNavigate = myRef => {
-  
     if (this.state.tab != 0) {
       this.setState({tab: 0});
       let domElement = document.getElementById("tabs");
@@ -121,21 +105,9 @@ class Concert extends React.Component {
       this.setState({tab: newValue});
     };
 
-    const backgroundColor =  "#000321";
-    const backgroundHelp =  "#000112";
-    const backgroundHelp2 =  "#00010a";
-    const blackColor =  "#000000";
-
-    const backgroundColor1 =  backgroundColor + "00";
-    const backgroundColor2 =  backgroundColor + "4C";
-    const backgroundColor3 =  backgroundColor+ "66";
-    const backgroundColor4 =  backgroundColor + "B3";
-    const backgroundColor5 =  backgroundColor + "CC";
-    const backgroundColor6 =  backgroundColor+ "E6";
-
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${backgroundColor1} 55%, ${backgroundColor3} 60%, ${backgroundColor4} 65%, ${backgroundColor5}  70%, ${backgroundColor6} 75%, ${backgroundColor} 80%,  ${backgroundHelp} 85%,  ${backgroundHelp2} 90%, ${blackColor} 100%), url(${heroBackground})`,
+      backgroundImage: `linear-gradient(to bottom, ${eventHeroView.backgroundColor1} 55%, ${eventHeroView.backgroundColor3} 60%, ${eventHeroView.backgroundColor4} 65%, ${eventHeroView.backgroundColor5}  70%, ${eventHeroView.backgroundColor6} 75%, ${eventHeroView.backgroundColor7} 80%,  ${eventHeroView.backgroundColor8} 85%,  ${eventHeroView.backgroundColor9} 90%, ${eventHeroView.backgroundColor10} 100%), url(${heroBackground})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100vh",
@@ -144,15 +116,10 @@ class Concert extends React.Component {
       width: "100%"
     };
 
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    let vw = window.innerWidth * 0.01;
-    document.documentElement.style.setProperty('--vw', `${vw}px`);
 
     return (
       <div className="event">
         <Navigation />
-
 
         <div style={backgroundStyle} />
 
@@ -179,7 +146,6 @@ class Concert extends React.Component {
 
         { this.state.showTrailer ? this.Trailer(): null}
         { this.props.siteStore.modalOn ? this.Payment(): null}
-
 
         <Footer />
       </div>

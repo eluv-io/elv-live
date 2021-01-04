@@ -1,4 +1,4 @@
-// Config file for Docs
+// Config file for Documentation
 
 export default {
   menu: [
@@ -7,7 +7,6 @@ export default {
     'Dependencies',
     'Styling'
   ],
-  files: '**/*.{md,markdown,mdx}',
+  files: '**/*.{markdown,mdx}',
   title: "Eluvio Live"
-  // or files: ['**/*.{md,markdown,mdx}']
 }

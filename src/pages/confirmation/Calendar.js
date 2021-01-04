@@ -38,7 +38,6 @@ class Calendar extends React.Component {
               </div>
 
               <div className="back-btn-container">
-                {/* <Link to="/d457a576/rita-ora" className="eventBTN">Back to Event</Link> */}
                 <AddToCalendar event={calendarEvent}/>
               </div>
 
