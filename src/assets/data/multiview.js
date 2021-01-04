@@ -28,7 +28,7 @@ const multiviewConfig = {
       "feedOption": 5,
       "gridArea": "1 / 3 / span 1 / span 1"
     }
- ]
+  ]
 };
 
 export { multiviewConfig };

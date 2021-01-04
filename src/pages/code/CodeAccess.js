@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
-import { parse } from 'query-string';
+import { parse } from "query-string";
 
 import Navigation from "../../components/layout/Navigation";
 
@@ -30,7 +30,7 @@ class CodeAccess extends React.Component {
   async componentDidMount() {
     const parsed = parse(decodeURIComponent(this.props.location.search));
 
-    if (parsed.access == "true") {
+    if(parsed.access == "true") {
       this.setState({loading: true});
       const siteId = await this.props.rootStore.RedeemCode(
         parsed.email,
@@ -82,8 +82,7 @@ class CodeAccess extends React.Component {
       backgroundImage: `url(${this.props.siteStore.codeImage})`,
       height: "100vh",
       maxHeight: "100vh",
-      minHeight: "100vh",
-      minHeight: "-webkit-fill-available",
+      minHeight: "100vh -webkit-fill-available",
       width: "100vw",
       backgroundPosition: "center",
       opacity: .9,

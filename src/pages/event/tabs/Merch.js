@@ -26,17 +26,17 @@ class Merch extends React.Component {
     let checkoutMerch = this.props.siteStore.eventSites[this.props.name]["merch_tab"];
 
     return (
-        <div className={"merch-container"}>
-          {checkoutMerch.map((obj, index) =>
-            <a href={obj["url"]} target="_blank" className="merch-item" key={index}>
-              <img className="merch-image" src={this.state.merchImage} label="merchFront" onMouseOver={e => (e.currentTarget.src = this.state.merchBack)} onMouseOut={e => (e.currentTarget.src =this.state.merchImage)}/>
-              <div className="merch-detail">
-                <span className="merch-name">{obj["name"]}</span>
-                <span className="merch-price">{obj["price"]}</span>
-              </div>
-            </a>
-          )}
-        </div>
+      <div className={"merch-container"}>
+        {checkoutMerch.map((obj, index) =>
+          <a href={obj["url"]} target="_blank" className="merch-item" key={index}>
+            <img className="merch-image" src={this.state.merchImage} label="merchFront" onMouseOver={e => (e.currentTarget.src = this.state.merchBack)} onMouseOut={e => (e.currentTarget.src =this.state.merchImage)}/>
+            <div className="merch-detail">
+              <span className="merch-name">{obj["name"]}</span>
+              <span className="merch-price">{obj["price"]}</span>
+            </div>
+          </a>
+        )}
+      </div>
     );
   }
 }

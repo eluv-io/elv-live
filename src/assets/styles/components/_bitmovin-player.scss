@@ -17,30 +17,34 @@
 
 
 .bmpui-seekbar-playbackposition-marker {
-  background-color:white !important;
-  border: .1875em solid white !important;
+  background-color: #fff !important;
+  border: .1875em solid #fff !important;
 }
+
 .bmpui-seekbar-playbackposition {
-  background-color:white !important;
+  background-color: #fff !important;
 
 }
+
 .bmpui-seekbar-bufferlevel {
-  background-color:rgba(255, 255, 255, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
 
 }
 
 .bmpui-ui-airplaytogglebutton:focus, .bmpui-ui-audiotracksettingstogglebutton:focus, .bmpui-ui-button:focus, .bmpui-ui-casttogglebutton:focus, .bmpui-ui-clickoverlay:focus, .bmpui-ui-closebutton:focus, .bmpui-ui-fullscreentogglebutton:focus, .bmpui-ui-hugeplaybacktogglebutton:focus, .bmpui-ui-hugereplaybutton:focus, .bmpui-ui-listbox .bmpui-ui-listbox-button:focus, .bmpui-ui-piptogglebutton:focus, .bmpui-ui-playbacktogglebutton:focus, .bmpui-ui-settingspanelpagebackbutton:focus, .bmpui-ui-settingspanelpageopenbutton:focus, .bmpui-ui-settingstogglebutton:focus, .bmpui-ui-skin-ads .bmpui-ui-ads-status .bmpui-ui-button-ad-skip:focus, .bmpui-ui-subtitlesettingsresetbutton:focus, .bmpui-ui-subtitlesettingstogglebutton:focus, .bmpui-ui-volumetogglebutton:focus, .bmpui-ui-vrtogglebutton:focus, .bmpui-ui-watermark:focus {
-  box-shadow: 0 0 0 2px rgba(27,127,204,.0);
+  box-shadow: 0 0 0 2px rgba(27,127,204,0);
   outline: none;
 }
 
 .bmpui-ui-uicontainer.bmpui-controls-shown .bmpui-ui-hugeplaybacktogglebutton:focus {
   box-shadow: inset -4px -3px 2px 9px transparent;
 }
+
 .bmpui-ui-airplaytogglebutton {
   margin-right: 5px !important;
 
 }
+
 .bmpui-ui-vrtogglebutton {
   margin-right: 5px !important;
 

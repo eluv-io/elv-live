@@ -35,9 +35,9 @@ class ConcertOverview extends React.Component {
               <div className="overview-container__info__title__desc">{eventInfo["location"]}</div>
             </div>
             {/* {eventInfo["description"].map((description, index) => */}
-              <div className="overview-container__info__synopsis" >
-                {eventInfo["description"]}          
-              </div>
+            <div className="overview-container__info__synopsis" >
+              {eventInfo["description"]}          
+            </div>
             {/* // )} */}
           </div>
 

@@ -1,6 +1,6 @@
-import { PlayerAPI } from 'bitmovin-player';
-import { ToggleButton, ToggleButtonConfig,UIInstanceManager,i18n } from 'bitmovin-player-ui';
-import React from 'react';
+import { PlayerAPI } from "bitmovin-player";
+import { ToggleButton, ToggleButtonConfig,UIInstanceManager,i18n } from "bitmovin-player-ui";
+import React from "react";
 
 /**
  * A button that toggles Apple AirPlay.
@@ -17,13 +17,12 @@ export default class CustomToggleButton extends ToggleButton{
 
     this.state={
       handleToggle: handleToggle,
-    }
+    };
   }
 
   configure() {
 
     this.onClick.subscribe(() => {
-      console.log("handleToggle");
       this.state.handleToggle();
     });
   }

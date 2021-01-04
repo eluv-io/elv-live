@@ -95,18 +95,18 @@ class SiteStore {
       let appData = response.data.app;
 
       if(appData.base_path) {
-        this.basePath = '/' + appData.base_path;
+        this.basePath = "/" + appData.base_path;
       }
       if(appData.faq) {
         this.faqData = appData.faq;
       }
 
       this.eventSites = response.data.sites;
-      this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/asset_metadata/images/code_background/default`});
-      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/main_sponsor/default`});
+      this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/code_background/default"});
+      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/sites/rita-ora/images/main_sponsor/default"});
 
     } catch (error) {
-      console.log("ERROR LoadSite", error);
+      console.error("ERROR LoadSite", error);
     }
     // Eluvio Live Data Store
   });
@@ -165,7 +165,6 @@ class SiteStore {
   @action.bound
   turnOnModal = flow(function * (price, prod, prodName) {
     try {
-      console.log("ON");
       this.modalOn = true;
       this.priceId = price;
       this.prodId = prod;
@@ -182,10 +181,8 @@ class SiteStore {
   @action.bound
   turnOffModal = flow(function * () {
     try {
-      console.log("OFF");
       this.modalOn = false;
-
-
+      
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load offModal:");

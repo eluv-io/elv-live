@@ -4,7 +4,7 @@ import { MessageList, MessageInput, MessageLivestream } from "stream-chat-react"
 import { MessageInputSmall, MessageInputLarge, MessageInputFlat,MessageInputSimple,Thread } from "stream-chat-react";
 import {inject, observer} from "mobx-react";
 import { StreamChat } from "stream-chat";
-import { Permission, AnyResource, AnyRole, Allow, Deny} from 'stream-chat';
+import { Permission, AnyResource, AnyRole, Allow, Deny} from "stream-chat";
 import { GrChatOption} from "react-icons/gr";
 
 import "stream-chat-react/dist/css/index.css";
@@ -28,18 +28,17 @@ class LiveChat extends React.Component {
   }
 
   async componentDidMount() {
-    let chatClient = new StreamChat('mt6wsqe77eb2');
+    let chatClient = new StreamChat("mt6wsqe77eb2");
     const connectResponse = await chatClient.setAnonymousUser();
-    console.log(connectResponse);
     let channel = chatClient.channel("livestream", "rita-ora-test7", {
       name: "Rita Ora",
     });
     this.setState({chatClient: chatClient});
     this.setState({channel: channel});
- }
+  }
 
   componentWillUnmount() {
-    if (this.state.chatClient) {
+    if(this.state.chatClient) {
       this.state.chatClient.disconnect();
     }
   }
@@ -49,28 +48,26 @@ class LiveChat extends React.Component {
   }
 
   render() {
-    const noDate = () => {return null}
+    const noDate = () => {return null;};
 
     const handleSubmit = () => async event => {
       event.preventDefault();
       let name = this.state.chatName;
-      if (name != "") {
+      if(name != "") {
         this.setState({onChat: true});
         this.state.chatClient.disconnect();
         const connectResponse = await this.state.chatClient.setGuestUser({ id: name, name: name });
-        console.log(connectResponse);
         let channel = chatClient.channel("livestream", "rita-ora-test7", {
           name: "Rita Ora",
         });
         this.setState({channel2: channel});
       } 
-    }
+    };
 
     let chatClient = this.state.chatClient;
     let channel = this.state.channel;
 
-    console.log(this.props.onDarkMode);
-    if (!this.state.onChat) {
+    if(!this.state.onChat) {
       return (
         // <Chat client={this.state.chatClient} theme={"livestream light"} className="stream-container__tabs--chat">
         <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
@@ -101,7 +98,7 @@ class LiveChat extends React.Component {
         </Chat>
       );
     } else {
-      if (!this.state.channel2) {
+      if(!this.state.channel2) {
         return null;
       }
       let channel2 = this.state.channel2;
@@ -112,7 +109,7 @@ class LiveChat extends React.Component {
             <Window hideOnThread>
               <ChannelHeader live />
               <MessageList dateSeparator={noDate}/>
-                <MessageInput Input={MessageInputSimple} focus={false} /> 
+              <MessageInput Input={MessageInputSimple} focus={false} /> 
             </Window>
             <Thread fullWidth autoFocus={false} />
           </Channel>

@@ -43,7 +43,7 @@ class Ticket extends React.Component {
                 {price}
               </div>
 
-              <IconContext.Provider value={{ className: 'ticket-icon' }}>
+              <IconContext.Provider value={{ className: "ticket-icon" }}>
                 <div className="ticket-bottom-date">
                   <FaRegCalendarAlt />
                   <span className="ticket-bottom-date">
@@ -53,7 +53,7 @@ class Ticket extends React.Component {
               </IconContext.Provider>
               
               <div className="ticket-bottom-countdown">
-              <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
+                <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
               </div>
             </div>
             <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal(priceID, prodID, name)}>

@@ -1,5 +1,5 @@
 .event {
-  background-color: black;
+  background-color: #000;
   display: flex;
   flex-direction: column;
 }
@@ -26,138 +26,146 @@
   align-self: start;
   display: grid;
   grid-row-gap: 1.2rem;
-  height: max-content;
-  grid-template-rows: 53.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
   grid-template-columns: repeat(auto-fill, 100vw);
+  grid-template-rows: 53.5vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content ;
+  height: max-content;
   margin-bottom: 3rem;
   position: relative;
   width: 100% !important;
 
   &__heading {
-    grid-row: title-start / title-end;
     display: grid;
     flex-direction: column;
+    grid-row: title-start / title-end;
 
     .name{
-        font-size: calc(min(calc(max(15vw, 55px)), 95px));
-        color: white;
-        font-weight: bold;
-        text-shadow: white 0px 0px 3px;
-        text-transform: uppercase;
-        letter-spacing: 10px;
-        -webkit-user-select: none; /* Safari */
         -ms-user-select: none; /* IE 10+ and Edge */
-        user-select: none; /* Standard syntax */
+        -webkit-user-select: none; /* Safari */
+        color: #fff;
+        font-size: calc(min(calc(max(15vw, 55px)), 95px));
+        font-weight: bold;
+        letter-spacing: 10px;
         margin-bottom: -5px;
         padding-top: 40px;
         text-align: center;
-    }
-    .logoSeries {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10+ and Edge */
+        text-shadow: #fff 0 0 3px;
+        text-transform: uppercase;
         user-select: none; /* Standard syntax */
+    }
+
+    .logoSeries {
+        -ms-user-select: none; /* IE 10+ and Edge */
+        -webkit-user-select: none; /* Safari */
         height: auto;
-        width: 850px;
         margin: auto;
         margin-bottom: -25px;
-        padding-top: 0px;
-    }
-    .logoFilm {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10+ and Edge */
+        padding-top: 0;
         user-select: none; /* Standard syntax */
+        width: 850px;
+    }
+
+    .logoFilm {
+        -ms-user-select: none; /* IE 10+ and Edge */
+        -webkit-user-select: none; /* Safari */
         height: auto;
-        width: 600px;
         margin: auto;
         margin-bottom: 20px;
-        padding-top: 0px;
-      }
-    .logoMer {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10+ and Edge */
+        padding-top: 0;
         user-select: none; /* Standard syntax */
-        height: 190px;
         width: 600px;
+      }
+
+    .logoMer {
+        -ms-user-select: none; /* IE 10+ and Edge */
+        -webkit-user-select: none; /* Safari */
+        height: 190px;
         margin: auto;
         margin-bottom: 20px;
         object-fit: cover !important;
-        object-position: 0px -60px !important;
-      }  
-    .premiereDate{
-        font-size: 30px;
-        letter-spacing: 7px;
-        text-shadow: white 0px 0px 3px;
-        font-weight: bold;
-        color: white;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        user-select: none;
-        text-align: center;
-        margin-bottom: 3px;
-        -webkit-user-drag: none;
-        text-transform: uppercase;
-    }
-    .filmDate{
-        font-size: 30px;
-        letter-spacing: 6px;
-        text-shadow: white 0px 0px 3px;
-        font-weight: bold;
-        color: white;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        user-select: none;
-        text-align: center;
-        margin-bottom: -10px;
-
-        -webkit-user-drag: none;
-        text-transform: uppercase;
-    }  
-    .location{
-        font-size: 35px !important;
-        color: white;
-        text-shadow: white 0px 0px 3px;
-        text-transform: uppercase;
-        letter-spacing: 10px;
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10+ and Edge */
+        object-position: 0 -60px !important;
         user-select: none; /* Standard syntax */
-        font-weight: 700 !important;
-        margin-bottom: 8px;
-        width: 100%;
+        width: 600px;
+      }  
+
+    .premiereDate{
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        letter-spacing: 7px;
+        margin-bottom: 3px;
         text-align: center;
+        text-shadow: #fff 0 0 3px;
+        text-transform: uppercase;
+        user-select: none;
+    }
+
+    .filmDate{
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        color: #fff;
+        font-size: 30px;
+        font-weight: bold;
+        letter-spacing: 6px;
+        margin-bottom: -10px;
+        text-align: center;
+        text-shadow: #fff 0 0 3px;
+
+        text-transform: uppercase;
+        user-select: none;
+    }  
+
+    .location{
+        -ms-user-select: none; /* IE 10+ and Edge */
+        -webkit-user-select: none; /* Safari */
+        color: #fff;
+        font-size: 35px !important;
+        font-weight: 700 !important;
+        letter-spacing: 10px;
+        margin-bottom: 8px;
+        text-align: center;
+        text-shadow: #fff 0 0 3px;
+        text-transform: uppercase;
+        user-select: none; /* Standard syntax */
+        width: 100%;
         @media only screen and (max-width: 1200px) {
             font-size: 32px !important;
         }
+
         @media only screen and (max-width: 1000px) {
             font-size: 28px !important;
         }
+
         @media only screen and (max-width: 800px) {
-            margin-top: 10px;
             font-size: 26px !important;
             letter-spacing: 4px;
             line-height: 40px;
+            margin-top: 10px;
         }
     }
 
     .time{
-        font-size: 25px;
-        font-size: calc(min(calc(max(15vw, 18px)), 25px));
-        letter-spacing: 2px;
-        text-shadow: white 0px 0px 3px;
-        font-weight: bold;
-        color: white;
-        -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -o-user-select: none;
-        user-select: none;
-        text-align: center;
         -webkit-user-drag: none;
+        -webkit-user-select: none;
+        color: #fff;
+        font-size: 25px;
+        font-size: calc(min(calc(max(15vw, 18px)), 25px));
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-align: center;
+        text-shadow: #fff 0 0 3px;
         text-transform: uppercase;
+        user-select: none;
         @media only screen and (max-width: 500px) {
             font-size: 22px;
             letter-spacing: -.5px;
@@ -166,36 +174,37 @@
     }
 
   &__button {
-    margin: auto;
-    flex-direction: row;
     display: flex;
+    flex-direction: row;
     grid-row: timer-start / timer-end;
+    margin: auto;
     margin-top: -5px;
     @media only screen and (max-width: 800px) {
         display: none !important;
     }
   }
+
   &__overview {
+    background-color: transparent;
     grid-row-start: overview-start;
-    margin-top: 10px;
+    height: max-content;
     margin-left: 12.5vw;
     margin-right: 12.5vw;
-    background-color: transparent;
-    height: max-content;
+    margin-top: 10px;
   }
 }
 
 .stream-countdown {
-  width:100%;
-  height: auto;
-  text-align: center;
-  margin:auto;
-  font-size: 40px;
-  margin: auto;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
+  -webkit-user-select: none; /* Safari */
+  align-content: center;
+  display: flex;
+  font-size: 40px;
+  height: auto;
+  justify-content: center;
+  margin: auto;
+  margin: auto;
+  text-align: center;
   user-select: none; /* Standard syntax */
+  width: 100%;
 }

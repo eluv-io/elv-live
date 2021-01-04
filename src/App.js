@@ -38,8 +38,8 @@ class Routes extends React.Component {
         </Route> */}
       </Switch>
     );
-  };
-};
+  }
+}
 
 @inject("rootStore")
 @inject("siteStore")

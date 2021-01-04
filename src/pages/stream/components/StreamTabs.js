@@ -1,10 +1,10 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import SmsIcon from '@material-ui/icons/Sms';
-import Paper from '@material-ui/core/Paper';
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import SmsIcon from "@material-ui/icons/Sms";
+import Paper from "@material-ui/core/Paper";
 
 import LiveChat from "./LiveChat";
 
@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
   },
   indicator: {
-    backgroundColor: 'white',
-    color: 'white',
+    backgroundColor: "white",
+    color: "white",
   },
 }));
 
@@ -66,7 +66,7 @@ export default function IconLabelTabs() {
             indicator: classes.indicator
           }}
         >
-          <Tab icon={<SmsIcon style={{ color: "white",fontSize: "22 !important"  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>LIVE CHAT</span>} />
+          <Tab icon={<SmsIcon style={{ color: "white",fontSize: "22 !important"  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>LIVE CHAT</span>} />
           {/* <Tab icon={<VideocamRoundedIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>FAN WALL</span>} /> */}
         </Tabs>
         

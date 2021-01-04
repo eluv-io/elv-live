@@ -11,7 +11,7 @@ class Footer extends React.Component {
     return (
       <div className="live-footer">
         <div className="footer-container">
-        {/* <div className="footer-info">
+          {/* <div className="footer-info">
             <h3 className="live-footer__title">
               Eluvio Live
             </h3>
@@ -21,7 +21,7 @@ class Footer extends React.Component {
           </div> */}
           {sponsorInfo.footer ? 
             <div className="sponsor-container-footer"> 
-              <span className="sponsor-title-footer ">
+              <span className="sponsor-title-footer">
                 {sponsorInfo.footer_text}
               </span>
               <div className="sponsor-img-container-footer"> 

@@ -1,71 +1,73 @@
 // Artist Profile Container
 .artist-info-container {
-  background-color: transparent;
-  height: 100%;
-  width: 100%;
-  display: grid;
   align-items: center;
+  background-color: transparent;
+  display: grid;
+  gap: 25px 25px;
   grid-template-columns: repeat(3, 32%);
   grid-template-rows: minmax(512px, 1fr) minmax(500px, 1fr) minmax(480.75px, 1fr);
-  gap: 25px 25px;
-  max-width: 1350px;
+  height: 100%;
   margin: auto;
   margin-top: 100px;
+  max-width: 1350px;
+  width: 100%;
 
   @media only screen and (max-width: 1200px) {
+    gap: 25px 0;
     grid-template-columns: repeat(2, 48%);
     grid-template-columns: 100%;
     grid-template-rows: repeat(auto-fit, max-content);
-    gap: 25px 0px;
     grid-template-rows: auto;
   }
 }
 
 // Profile Box 
 .profile-box {
-  padding:30px;
+  -ms-user-select: none; /* IE 10+ and Edge */
+  -webkit-user-select: none; /* Safari */
+  align-items: flex-start;
   background: #f9f7f4;
-  position: relative;
+  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
   display: flex;
   flex-direction: column;
   grid-column: span 1;
-  align-items: flex-start;
-  width: 100%;
+  grid-column: span 2;
   height: 100%;
   min-width: auto;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
+  padding: 30px;
+  position: relative;
   user-select: none; /* Standard syntax */
-  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
-  grid-column: span 2;
+  width: 100%;
 }
 
 .profile-bio {
-  color: black !important;
-  text-align: left;
-  margin-top: 25px;
-  -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari */
+  color: #000 !important;
+  display: -webkit-box;
+  font-family: sans-serif;
   font-size: 22px;
   font-weight: 500;
-  font-family: sans-serif;
-
-  position: relative;
-  overflow: hidden;
-  // text-align: center;
-  white-space: pre-line;
-
-  display: -webkit-box;
   margin-left: 0;
+  margin-top: 25px;
+
+  overflow: hidden;
+  position: relative;
+  // text-align: center;
   text-align: left;
+
+  text-align: left;
+  user-select: none; /* Standard syntax */
+  white-space: pre-line;
   
   @media only screen and (max-width: 1760px) {
     font-size: 20px !important;
   }
+
   @media only screen and (max-width: 1600px) {
     font-size: 19px !important;
   }
+
   @media only screen and (max-width: 1400px) {
     font-size: 18px !important;
   }
@@ -73,70 +75,72 @@
 
 // Info Box 
 .info-box {
-  padding:30px;
-  border-radius: 0px;
+  -ms-user-select: none; /* IE 10+ and Edge */
+  -webkit-user-select: none; /* Safari */
+  align-items: flex-start;
   background: #f9f7f4;
-  position: relative;
+  border-radius: 0;
+  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
   display: flex;
   flex-direction: column;
   grid-column: span 1;
-  align-items: flex-start;
-  width: 100%;
   height: 100%;
   min-width: auto;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
+  padding: 30px;
+  position: relative;
   user-select: none; /* Standard syntax */
-  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
+  width: 100%;
   @media only screen and (max-width: 1200px) {
     grid-column: span 2;
   }
 }
 
 .info-title {
-  color: black !important;
+  color: #000 !important;
 
+  font-family: sans-serif;
+  font-size: 36px;
+  
+  font-weight: 700;
+  letter-spacing: -.2px;
   line-height: 36px;
   margin-bottom: 5px;
-  
   margin-top: 0;
-  font-size: 36px;
-  font-weight: 700;
-  font-family: sans-serif;
-  letter-spacing: -.2px;
   // text-transform: uppercase;
   @media only screen and (max-width: 1600px) {
-    line-height: 34px;
     font-size: 34px;
+    line-height: 34px;
 
   }
+
   @media only screen and (max-width: 1200px) {
-    line-height: 32px;
     font-size: 32px;
+    line-height: 32px;
   }
 
   @media only screen and (max-width: 1000px) {
-    line-height: 31px;
     font-size: 31px;
+    line-height: 31px;
 
   }
+
   @media only screen and (max-width: 800px) {
-    line-height: 30px;
     font-size: 30px;
+    line-height: 30px;
   }
 }
 
 // Profile Facts 
 .profile-facts {
-  color: black !important;
-  text-align: left;
-  margin-top: 10px;
-  -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari */
+  color: #000 !important;
+  font-family: sans-serif;
   font-size: 22px;
   font-weight: normal;
-  font-family: sans-serif;
+  margin-top: 10px;
+  text-align: left;
+  user-select: none; /* Standard syntax */
   
   &__bold {
     font-weight: bold;
@@ -144,29 +148,33 @@
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
     }
+
     @media only screen and (max-width: 1600px) {
       font-size: 19px !important;
     }
+
     @media only screen and (max-width: 1400px) {
       font-size: 18px !important;
     }
   }
 
   &__first {
-    margin-top: 25px;
-    -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    font-family: sans-serif;
     font-size: 22px;
     font-weight: normal;
-    font-family: sans-serif;
+    margin-top: 25px;
+    user-select: none; /* Standard syntax */
 
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
     }
+
     @media only screen and (max-width: 1600px) {
       font-size: 19px !important;
     }
+
     @media only screen and (max-width: 1400px) {
       font-size: 18px !important;
     }
@@ -175,9 +183,11 @@
   @media only screen and (max-width: 1760px) {
     font-size: 20px !important;
   }
+
   @media only screen and (max-width: 1600px) {
     font-size: 19px !important;
   }
+
   @media only screen and (max-width: 1400px) {
     font-size: 18px !important;
   }
@@ -185,33 +195,33 @@
 
 // Social Media Box
 .info-social-box {
-  width: auto;
-  height: auto;
-  min-width: auto;
+  align-items: flex-start;
   background: transparent;
-  padding:0px;
-  margin:auto;
-  border-radius: 0px;
   background: #f9f7f4;
-  position: relative;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
   grid-column: span 1;
-  align-items: flex-start;
+  height: auto;
+  margin: auto;
   min-width: auto;
+  min-width: auto;
+  padding: 0;
+  position: relative;
+  width: auto;
 }
 
 .info-social-link{
-  color: black !important;
-  text-align: left;
-  margin-bottom: 12px;
-  -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari */
+  color: #000 !important;
+  font-family: sans-serif;
   font-size: 22px;
   font-weight: normal;
-  font-family: sans-serif;
   letter-spacing: 1.25px;
+  margin-bottom: 12px;
+  text-align: left;
+  user-select: none; /* Standard syntax */
 
   &__bold {
     font-weight: bold;
@@ -219,62 +229,68 @@
   }
 
   &__first {
-    margin-top: 20px;
-    -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    color: #000 !important;
+    font-family: sans-serif;
     font-size: 22px;
     font-weight: normal;
-    font-family: sans-serif;
-    color: black !important;
     letter-spacing: 1.25px;
     margin-bottom: 12px;
+    margin-top: 20px;
+    user-select: none; /* Standard syntax */
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
     }
+
     @media only screen and (max-width: 1600px) {
       font-size: 19px !important;
     }
+
     @media only screen and (max-width: 1400px) {
       font-size: 18px !important;
     }
 
   }
+
   @media only screen and (max-width: 1760px) {
     font-size: 20px !important;
   }
+
   @media only screen and (max-width: 1600px) {
     font-size: 19px !important;
   }
+
   @media only screen and (max-width: 1400px) {
     font-size: 18px !important;
   }
 }
 
 .info-social-link-title {
-  margin-left: 5px;
   font-weight: bold;
+  margin-left: 5px;
   text-transform: uppercase;
 }
 
 .social-icon {
-  vertical-align: middle !important;
   font-size: 32px;
   margin: auto;
   margin-bottom: 4px;
+  vertical-align: middle !important;
   // padding-bottom: 3px;
   @media only screen and (max-width: 1760px) {
-    vertical-align: middle !important;
     font-size: 30px !important;
+    vertical-align: middle !important;
   }
 
   @media only screen and (max-width: 1600px) {
-    vertical-align: middle !important;
     font-size: 28px !important;
-  }
-  @media only screen and (max-width: 1400px) {
     vertical-align: middle !important;
+  }
+
+  @media only screen and (max-width: 1400px) {
     font-size: 27px !important;
+    vertical-align: middle !important;
   }
 }
 
@@ -283,132 +299,136 @@
 }
 
 .ticket-icon {
-  vertical-align: middle !important;
   font-size: 20px;
-  margin-right: 5px;
   margin-bottom: 2.25px;
+  margin-right: 5px;
+  vertical-align: middle !important;
 }
 
 .ticket-icon-clock {
-  vertical-align: middle !important;
   font-size: 32px;
+  margin: auto;
   // margin-bottom: 10px;
 
-  margin: auto;
-  margin-right: 10px !important;
   margin-bottom: 5px !important;
+  margin-right: 10px !important;
+  vertical-align: middle !important;
 
 }
 
 .social-icon-insta {
-  vertical-align: middle;
-  font-size: 32px;
-  color: transparent;
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background-clip: text;
   -webkit-background-clip: text;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  background-clip: text;
+  color: transparent;
+  font-size: 32px;
+  vertical-align: middle;
   @media only screen and (max-width: 1760px) {
-    vertical-align: middle !important;
     font-size: 30px !important;
+    vertical-align: middle !important;
   }
+
   @media only screen and (max-width: 1600px) {
-    vertical-align: middle !important;
-
     font-size: 28px !important;
-  }
-  @media only screen and (max-width: 1400px) {
-    vertical-align: middle !important;
 
+    vertical-align: middle !important;
+  }
+
+  @media only screen and (max-width: 1400px) {
     font-size: 27px !important;
+
+    vertical-align: middle !important;
   }
 }
 
 .social-icon-apple {
-  vertical-align: top !important;
   font-size: 32px;
+  vertical-align: top !important;
   @media only screen and (max-width: 1760px) {
-    vertical-align: middle !important;
     font-size: 30px !important;
+    vertical-align: middle !important;
   }
+
   @media only screen and (max-width: 1600px) {
-    vertical-align: middle !important;
-
     font-size: 28px !important;
-  }
-  @media only screen and (max-width: 1400px) {
-    vertical-align: middle !important;
 
+    vertical-align: middle !important;
+  }
+
+  @media only screen and (max-width: 1400px) {
     font-size: 27px !important;
+
+    vertical-align: middle !important;
   }
 }
 
 // Image Box 
 .image-box {
-  padding:30px;
+  -ms-user-select: none; /* IE 10+ and Edge */
+  -webkit-user-select: none; /* Safari */
+  align-items: flex-start;
   background: #f9f7f4;
-  position: relative;
+  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
   display: flex;
   flex-direction: column;
   grid-column: span 1;
-  align-items: flex-start;
-  width: 100%;
+  grid-column: span 3;
   height: 100%;
   min-width: auto;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
+  padding: 30px;
+  position: relative;
   user-select: none; /* Standard syntax */
-  box-shadow: 4px 12px 40px 6px rgba(0,0,0,.09);
-  grid-column: span 3;
+  width: 100%;
 }
 
 .photo-group {
   display: flex;
   flex-direction: row;
   height: auto;
-  width: 100%;
   height: 360px;
   margin: auto;
   margin-top: 20px;
+  width: 100%;
 
   @media only screen and (max-width: 800px) {
-    width: 100%;
+    flex-direction: column;
     height: auto;
 
-    flex-direction: column;
+    width: 100%;
   }
 
   &__photo-box {
-    width: 50%;
     height: 100% !important;
     object-fit: cover !important;
+    width: 50%;
 
     @media only screen and (max-width: 800px) {
-      width: 100%;
       height: 100% !important;
       object-fit: cover !important;
+      width: 100%;
     }
   }
 }
 
 // Spotify
 .info-music {
-  width: 100%;
-  height:385px;
+  height: 385px;
   margin: auto;
   margin-top: 20px;
+  width: 100%;
 }
 
 // Twitter/Instagram
 .info-twitter {
-  width:100%;
-  height:385px;
+  -ms-overflow-style: none;  /* IE and Edge */
+  height: 385px;
   margin: auto;
   margin-top: 20px;
   overflow: scroll; 
   overflow-x: hidden; /* Hide horizontal scrollbar */
-  -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  width: 100%;
 }
 
 .info-twitter::-webkit-scrollbar {
@@ -416,20 +436,20 @@
 }
 
 .info-insta {
-  width:100%;
-  height:339px;
+  -ms-overflow-style: none;  /* IE and Edge */
+  display: grid;
+  gap: 2.5%;
+  grid-template-columns: 48.75% 48.75%;
+  height: 339px;
   margin: auto;
   margin-top: 20px;
   overflow: scroll; 
   overflow-x: hidden; /* Hide horizontal scrollbar */
-  -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-  display: grid;
-  grid-template-columns: 48.75% 48.75%;
-  gap: 2.5%;
+  width: 100%;
   & > a { 
-    width: 100% !important;
     height: 100% !important;
+    width: 100% !important;
 
     & > img { 
       width: 100% !important;

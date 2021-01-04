@@ -1,15 +1,15 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Drawer from "@material-ui/core/Drawer";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { withStyles } from "@material-ui/core/styles";
 import {ImageIcon} from "elv-components-js";
 
@@ -25,17 +25,17 @@ const drawerWidth = 450;
 
 const styles = theme => ({
   lightRoot: {
-    display: 'flex',
+    display: "flex",
     background: "rgba(245, 239, 234, .8)",
     color: "black"
   },
   darkRoot: {
-    display: 'flex',
+    display: "flex",
     background: "#121212",
     color: "white"
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -44,7 +44,7 @@ const styles = theme => ({
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -56,7 +56,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -67,24 +67,24 @@ const styles = theme => ({
     backgroundColor: "inherit"
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     height: "75px",
     minHeight: "56px",
     backgroundColor: "inherit"
   },
   content: {
     flexGrow: 1,
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginRight: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -111,8 +111,8 @@ class Stream extends React.Component {
   }
 
   render() {
-    if (!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={`/code`} />;
+    if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
+      return <Redirect to={"/code"} />;
     }
 
     const handleDrawerOpen = () => {
@@ -123,8 +123,8 @@ class Stream extends React.Component {
       this.setState({open: false});
     };
     const handleDarkModeSwitch = () => {
-      this.setState({darkSwitch: (!this.state.darkSwitch)})
-    }
+      this.setState({darkSwitch: (!this.state.darkSwitch)});
+    };
 
     // const setStream = (streamIndex) => {
     //   this.setState({activeStream: streamIndex});
@@ -147,7 +147,6 @@ class Stream extends React.Component {
     //     setStream(6);
     //   }
     // }
-    console.log(this.props.siteStore.eventSites["rita-ora"]);
     let streamInfo= this.props.siteStore.eventSites["rita-ora"]["stream_app"][0];
     let sponsorInfo= this.props.siteStore.eventSites["rita-ora"]["sponsor"][0];
 
@@ -205,53 +204,53 @@ class Stream extends React.Component {
                   </div>            
                 </Toolbar>
                 
-                </AppBar>
-                <main
-                  className={clsx(classes.content, {
-                    [classes.contentShift]: this.state.open,
-                  })}
-                >
-                  <div className={classes.drawerHeader} />
+              </AppBar>
+              <main
+                className={clsx(classes.content, {
+                  [classes.contentShift]: this.state.open,
+                })}
+              >
+                <div className={classes.drawerHeader} />
 
-                  <div className="stream-container">
-                    <div className="stream-container__streamBox">
+                <div className="stream-container">
+                  <div className="stream-container__streamBox">
                     <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
 
-                      <div className="stream-container__streamBox--info">
-                        <div className="stream-info-container">
-                          <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
-                            {streamInfo["subheader"]}
-                          </h2>
-                          <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
+                    <div className="stream-container__streamBox--info">
+                      <div className="stream-info-container">
+                        <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
+                          {streamInfo["subheader"]}
+                        </h2>
+                        <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
                           {streamInfo["header"]}
-                          </h1>
+                        </h1>
+                      </div>
+
+                      {sponsorInfo.stream ? <div className="sponsor-info-container"> 
+                        <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
+                          {sponsorInfo["stream_text"]}
+                        </span>
+                        <div className="sponsor-info-container__img-container"> 
+                          <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
                         </div>
-
-                        {sponsorInfo.stream ? <div className="sponsor-info-container"> 
-                          <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
-                            {sponsorInfo["stream_text"]}
-                          </span>
-                          <div className="sponsor-info-container__img-container"> 
-                            <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
-                          </div>
-                        </div> : null}
-                      </div> 
-                    </div>
+                      </div> : null}
+                    </div> 
                   </div>
+                </div>
 
-                </main>
-                <Drawer
-                  className={classes.drawer}
-                  variant="persistent"
-                  anchor="right"
-                  open={this.state.open}
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                >
-                  <LiveChat onDarkMode={this.state.darkSwitch}/>
-                </Drawer>
-              </div>
+              </main>
+              <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="right"
+                open={this.state.open}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+              >
+                <LiveChat onDarkMode={this.state.darkSwitch}/>
+              </Drawer>
+            </div>
           );
         }}
       />

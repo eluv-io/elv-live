@@ -1,34 +1,34 @@
 .react-switch-checkbox {
   height: 0;
-  width: 0;
   visibility: hidden;
+  width: 0;
 }
 
 .react-switch-label {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  width: 54px;
-  height: 28px;
   background: rgba(83, 83, 83, 0.75);
   border-radius: 56px;
+  cursor: pointer;
+  display: flex;
+  height: 28px;
+  justify-content: space-between;
   position: relative;
   transition: background-color .2s;
+  width: 54px;
   // margin: auto;
 }
 
 .react-switch-label .react-switch-button {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
   content: '';
+  height: 24px;
+  left: 2px;
   position: absolute;
   top: 2px;
-  left: 2px;
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
   transition: 0.2s;
-  background: #fff;
-  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  width: 24px;
 }
 
 .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
@@ -41,27 +41,28 @@
 }
 
 .switch-container {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  width: auto;
   height: 100%;
   justify-content: center;
-  align-items: center;
-  margin-right:50px;
+  margin-right: 50px;
+  width: auto;
 }
+
 .switch-text {
-  font-size: 22px;
-  color: black;
+  -ms-user-select: none; /* IE 10+ and Edge */
+  -webkit-user-select: none; /* Safari */
+  color: #000;
   font-family: sans-serif !important;
+  font-size: 22px;
   font-weight: bold;
-  line-height: 1;
+  height: 28px;
   letter-spacing: .2px;
+  // text-transform: uppercase;
+  line-height: 1;
   margin-right: 20px;
   margin-top: 10px;
-  // text-transform: uppercase;
-  height: 28px;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
 }
 

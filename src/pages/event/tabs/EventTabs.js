@@ -1,14 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import { withStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import InfoIcon from '@material-ui/icons/Info';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import Paper from '@material-ui/core/Paper';
+import { withStyles } from "@material-ui/core/styles";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import InfoIcon from "@material-ui/icons/Info";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import Paper from "@material-ui/core/Paper";
 
 import ConcertOverview from "./Overview";
 import ArtistInfo from "./Artist";
@@ -44,8 +44,8 @@ const styles = theme => ({
     backgroundColor: "transparent",
   },
   indicator: {
-    backgroundColor: 'white',
-    color: 'white',
+    backgroundColor: "white",
+    color: "white",
   },
 });
 
@@ -70,9 +70,9 @@ class EventTabs extends React.Component {
               indicator: classes.indicator
             }}
           >
-            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>EVENT</span>} />
-            <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />
-            <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: 'white', fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
+            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>EVENT</span>} />
+            <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />
+            <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
           </Tabs>
           
           <TabPanel value={this.props.tab} index={0} >
