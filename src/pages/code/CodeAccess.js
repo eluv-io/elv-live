@@ -122,5 +122,5 @@ class CodeAccess extends React.Component {
     );
   }
 }
-// http://localhost:8086/d457a576/code?passcode%3DAcUe5b%26email%3Dalec.jo%40eluv.io%26access%3Dtrue
+
 export default CodeAccess;

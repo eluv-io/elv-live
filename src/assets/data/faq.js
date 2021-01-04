@@ -1,3 +1,4 @@
+// place holder FAQ
 const faqData = [
   {
     question: "Where do I go to buy a ticket?",

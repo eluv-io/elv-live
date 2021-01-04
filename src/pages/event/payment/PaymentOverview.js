@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import { loadStripe } from "@stripe/stripe-js";
 
 import Select from 'react-select';
-import { checkout } from "../../../../assets/data";
+import { checkout } from "../../../assets/data";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -264,7 +264,7 @@ class PaymentOverview extends React.Component {
                   </div>  
          
                   <p className="checkout-checkbox-bundle-description">
-                  {checkoutMerch["description"]}
+                    {checkoutMerch["description"]}
                   </p>  
                   
                 </div>

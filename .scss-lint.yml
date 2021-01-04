@@ -1,17 +1,14 @@
 files:
-  include: "src/assets/styles/*.scss"
-  ignore:
-    - "src/assets/styles/fonts.scss"
+  include: "src/assets/styles/components/_card.scss"
 rules:
   class-name-format:
-  - 2
-  - convention: hyphenatedlowercase
+    - 2
+    - convention: hyphenatedlowercase
   leading-zero:
-  - 0
+    - 0
   nesting-depth:
     - 1
-    -
-      max-depth: 3
+    - max-depth: 3
   quotes:
-  - 1
-  - style: double
+    - 1
+    - style: double

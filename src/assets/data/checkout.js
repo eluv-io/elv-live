@@ -1,20 +1,3 @@
-const checkoutAddOns = [
-  {
-    "name": "Unicef Donation",
-    "heading": "Support Unicef",
-    "description": "Add a donation to help sponsor the Unicef, an organization we have partnered with to provide humanitarian aid to children worldwide.",
-    "price": "$10.00",
-    "img": require("../images/ritaora/unicef.png"),
-  },
-  {
-    "name": "RO3 Tour Merchandise",
-    "heading": "RO3 Tour T-Shirt",
-    "description": "The 'RO3 Live Dream T-Shirt' features a HD print of the 'Phoenix' logo on the front of a black unisex t-shirt. *all merch to ship following the event*",
-    "price": "$25.00",
-    "img": require("../images/ritaora/merchFront.jpg"),
-  },
-];
-
 const sizeOptions = [
   { value: 's', label: 'S' },
   { value: 'm', label: 'M' },
@@ -1029,4 +1012,4 @@ const countryOptions = [
   }
 ];
 
-export { sizeOptions, countryOptions, qtyOptions,checkoutAddOns };
+export { sizeOptions, countryOptions, qtyOptions };

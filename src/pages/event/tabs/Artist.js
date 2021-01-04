@@ -4,7 +4,6 @@ import {inject, observer} from "mobx-react";
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
 import { FaDesktop, FaYoutube, FaInstagram,FaTwitter,FaFacebookSquare,FaSoundcloud, FaApple, FaSpotify} from "react-icons/fa";
 import { IconContext } from "react-icons";
-// import { artistInfo } from "../../../assets/data/event";
 
 @inject("rootStore")
 @inject("siteStore")

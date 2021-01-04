@@ -27,7 +27,7 @@ class Success extends React.Component {
       location: calendarData["location"],
       startTime: calendarData["start_time"],
       endTime: calendarData["end_time"]
-  };
+    };
     
     return (
 
@@ -42,7 +42,6 @@ class Success extends React.Component {
               </div>
 
               <div className="header">
-                {/* <h1>Order Summary</h1> */}
                 <div className="line-item confirm">
                   <p className="confirm-label">Confirmation #</p>
                   <p className="confirm-price">{sessionId.substring(10,22)}</p>
@@ -52,7 +51,6 @@ class Success extends React.Component {
               <div className="back-btn-container">
                 <AddToCalendar event={calendarEvent}/>
               </div>
-
             </div>
           </div>
         </div>

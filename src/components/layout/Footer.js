@@ -8,35 +8,29 @@ class Footer extends React.Component {
 
   render() {
     let sponsorInfo = this.props.siteStore.eventSites["rita-ora"]["sponsor"][0];
-    console.log(sponsorInfo);
     return (
       <div className="live-footer">
-      <div className="footer-container">
-       {/* <div className="footer-info">
-          <h3 className="live-footer__title">
-            Eluvio Live
-          </h3>
-          <h3 className="live-footer__p">
-           Purchase tickets and stream the most iconic concerts, premieres, and broadcasts. 
-          </h3>
-          
-        </div> */}
-        {sponsorInfo.footer ? 
-          <div className="sponsor-container-footer"> 
-            <span className="sponsor-title-footer ">
-              {sponsorInfo.footer_text}
-            </span>
-            {/* <img src={loreal} className="big-sponsor-img" /> */}
-            <div className="sponsor-img-container-footer"> 
+        <div className="footer-container">
+        {/* <div className="footer-info">
+            <h3 className="live-footer__title">
+              Eluvio Live
+            </h3>
+            <h3 className="live-footer__p">
+            Purchase tickets and stream the most iconic concerts, premieres, and broadcasts. 
+            </h3>
+          </div> */}
+          {sponsorInfo.footer ? 
+            <div className="sponsor-container-footer"> 
+              <span className="sponsor-title-footer ">
+                {sponsorInfo.footer_text}
+              </span>
+              <div className="sponsor-img-container-footer"> 
                 <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
+              </div>
             </div>
-          </div>
-          : null}
-        
-        
-      </div>
- 
-    </div>
+            : null}
+        </div>
+      </div>  
 
     );
   }

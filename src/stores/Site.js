@@ -5,85 +5,25 @@ import Id from "@eluvio/elv-client-js/src/Id";
 import { v4 as UUID } from "uuid";
 import axios from "axios";
 
-// Note: Update if defaults change in asset manager
-const DEFAULT_ASSOCIATED_ASSETS = [
-  {
-    name: "titles",
-    label: "Titles",
-    indexed: true,
-    slugged: true,
-    defaultable: true,
-    orderable: true
-  },
-  {
-    name: "series",
-    label: "Series",
-    asset_types: ["primary"],
-    title_types: ["series"],
-    for_title_types: ["site", "collection"],
-    indexed: true,
-    slugged: true,
-    defaultable: false,
-    orderable: true
-  },
-  {
-    name: "seasons",
-    label: "Seasons",
-    asset_types: ["primary"],
-    title_types: ["season"],
-    for_title_types: ["series"],
-    indexed: true,
-    slugged: true,
-    defaultable: false,
-    orderable: true
-  },
-  {
-    name: "episodes",
-    label: "Episodes",
-    asset_types: ["primary"],
-    title_types: ["episode"],
-    for_title_types: ["season"],
-    indexed: true,
-    slugged: true,
-    defaultable: false,
-    orderable: true
-  }
-];
-
-const DEFAULT_SITE_CUSTOMIZATION = {
-  colors: {
-    background: "#000000",
-    primary_text: "#FFFFFF"
-  }
-};
-
 class SiteStore {
-  // Eluvio Live Data Store
+  // Eluvio Live - Data Store
   @observable basePath = "/"; 
   @observable faqData = [];
   @observable eventSites;
   @observable sponsorImage;
   @observable codeImage;
 
-
-  @observable siteCustomization;
+  // Eluvio Live - Event Stream  
+  @observable titles; 
   @observable feeds = [];
 
-  @observable titles; 
+  // Eluvio Live - Modal
+  @observable modalOn = false;  
   @observable priceId = ""; 
   @observable prodId = ""; 
   @observable prodName = ""; 
 
-  @observable modalOn = false;
-  @observable backgroundColor = "rgb(17, 17, 17)";
-  @observable primaryFontColor = "white";
   @observable logoUrl;
-  @observable darkLogo;
-
-  @observable background_image;
-  @observable eventAssets;
-  @observable chargeID;
-  @observable redirectCB;
 
   @observable siteHash;
   @observable assets = {};
@@ -93,16 +33,6 @@ class SiteStore {
   @observable activeTrailer;
   @observable playoutUrl;
   @observable authToken;
-
-  @observable searchResults = [];
-
-  @observable showEpisodes = [];
-
-  @observable searching = false;
-  @observable searchQuery = "";
-  @observable searchCounter = 0;
-  @observable searchIndex;
-  @observable searchNodes = [];
 
   @observable error = "";
 
@@ -146,28 +76,6 @@ class SiteStore {
     this.error = "";
   }
 
-  // Load associated assets of specified object from its type
-  async AssociatedAssets(versionHash) {
-    const titleType = await this.client.ContentObjectMetadata({
-      versionHash,
-      metadataSubtree: "public/asset_metadata/title_type"
-    });
-
-    const typeHash = (await this.client.ContentObject({versionHash})).type;
-    const latestTypeHash = await this.client.LatestVersionHash({versionHash: typeHash});
-
-    const associatedAssets = (await this.client.ContentObjectMetadata({
-      versionHash: latestTypeHash,
-      metadataSubtree: "public/title_configuration/associated_assets"
-    })) || DEFAULT_ASSOCIATED_ASSETS;
-
-    return associatedAssets
-      .filter(asset =>
-        !asset.for_title_types ||
-        asset.for_title_types.includes(titleType)
-      )
-      .sort((a, b) => a.name < b.name ? -1 : 1);
-  }
 
   @action.bound
   LoadSite = flow(function * (libraryId, objectId) {
@@ -198,20 +106,21 @@ class SiteStore {
       this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/rita-ora/images/main_sponsor/default`});
 
     } catch (error) {
-      console.log("ERROR App Metadata Get ", error);
+      console.log("ERROR LoadSite", error);
     }
     // Eluvio Live Data Store
   });
 
   // Loading streams/titles from objectId and placing them into this.feeds for multiview selection
   @action.bound
-  LoadStreamSite = flow(function * (objectId, writeToken) {
+  LoadStreamObject = flow(function * (objectId) {
     this.siteParams = {
       libraryId: yield this.client.ContentObjectLibraryId({objectId}),
       objectId: objectId,
       versionHash: yield this.client.LatestVersionHash({objectId}),
-      writeToken: writeToken
+      writeToken: ""
     };
+
     const sitePromise = this.LoadAsset("public/asset_metadata");
     const availableDRMS = yield this.client.AvailableDRMs();
     this.dashSupported = availableDRMS.includes("widevine");
@@ -284,22 +193,30 @@ class SiteStore {
       console.error(error);
     }
   });
-  
 
-  @action.bound
-  PlayTrailer = flow(function * (title) {
-    try {
-      this.loading = true;
-      this.activeTrailer = yield this.LoadActiveTitle(title);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
-  });
+
+  // Load associated assets of specified object from its type
+  async AssociatedAssets(versionHash) {
+    const titleType = await this.client.ContentObjectMetadata({
+      versionHash,
+      metadataSubtree: "public/asset_metadata/title_type"
+    });
+
+    const typeHash = (await this.client.ContentObject({versionHash})).type;
+    const latestTypeHash = await this.client.LatestVersionHash({versionHash: typeHash});
+
+    const associatedAssets = (await this.client.ContentObjectMetadata({
+      versionHash: latestTypeHash,
+      metadataSubtree: "public/title_configuration/associated_assets"
+    })) || DEFAULT_ASSOCIATED_ASSETS;
+
+    return associatedAssets
+      .filter(asset =>
+        !asset.for_title_types ||
+        asset.for_title_types.includes(titleType)
+      )
+      .sort((a, b) => a.name < b.name ? -1 : 1);
+  }
 
   @action.bound
   LoadAsset = flow(function * (linkPath) {
@@ -507,18 +424,6 @@ class SiteStore {
       });
 
       title.playoutOptions = playoutOptions;
-      // const playoutOptions = await client.BitmovinPlayoutOptions({
-      //   objectId,
-      //   versionHash,
-      //   protocols: ["hls", "dash"],
-      // drms: [DRM]
-      // });
-
-      // title.playoutOptions = {
-      //   ...(title.playoutOptions || {}),
-      //   [offering]: playoutOptions
-      // };
-
       title.currentOffering = offering;
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -573,95 +478,6 @@ class SiteStore {
 
     return title;
   });
-
-
-  @action.bound
-  SearchTitles = flow(function * ({query}) {
-    if(!this.searchIndex || !this.searchNodes) { return; }
-
-    this.ClearActiveTitle();
-
-    if(!query) { return; }
-
-    const client = this.client;
-
-    try {
-      this.searchQuery = query;
-      this.searching = true;
-      this.searchCounter = this.searchCounter + 1;
-
-      const indexHash = yield client.LatestVersionHash({
-        objectId: this.searchIndex
-      });
-
-      yield client.SetNodes({
-        fabricURIs: toJS(this.searchNodes)
-      });
-
-      let url;
-      try {
-        url = yield client.Rep({
-          versionHash: indexHash,
-          rep: "search",
-          queryParams: {
-            terms: query,
-            select: "public/asset_metadata"
-          },
-          noAuth: true
-        });
-      } finally {
-        yield client.ResetRegion();
-      }
-
-      const results = ((yield client.Request({
-        url,
-      })).results || []);
-
-      this.searchResults = (yield Promise.all(
-        results.map(async ({id, hash, meta}) => {
-          try {
-            meta = ((meta || {}).public || {}).asset_metadata || {};
-            let title = await this.LoadTitle({versionHash: hash}, meta, "public/asset_metadata");
-            title.isSearchResult = true;
-
-            return title;
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error("Error loading search result:", id, hash);
-            // eslint-disable-next-line no-console
-            console.error(error);
-          }
-        })
-      )).filter(result => result);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Error performing site search:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.searchCounter = this.searchCounter - 1;
-
-      // Only clear searching flag if no other searches are ongoing
-      if(this.searchCounter === 0) {
-        this.searching = false;
-      }
-    }
-  });
-
-  @action.bound
-  ClearSearch = flow(function * () {
-    while(this.searchCounter > 0) {
-      yield new Promise(resolve => setTimeout(resolve, 500));
-    }
-
-    this.searchQuery = "";
-    this.searching = false;
-  });
-
-  @action.bound
-  ClearActiveTitle() {
-    this.activeTitle = undefined;
-  }
 
   @action.bound
   CreateLink(baseLink, path, query={}) {

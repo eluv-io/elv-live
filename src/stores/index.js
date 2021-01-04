@@ -7,20 +7,9 @@ configure({
   enforceActions: "always"
 });
 
-const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const letterNumber = /^[0-9a-zA-Z]+$/;
-
 class RootStore {
-  @observable client = undefined;
-  @observable ticketClient = undefined;
-
-  @observable email;
-  @observable name;
-  @observable chatID;
-  @observable accessCode;
-  @observable chargeID;
-  @observable redirectCB;
-
+  @observable client;
+  @observable streamAccess = false;
   @observable error = "";
 
   constructor() {
@@ -61,18 +50,20 @@ class RootStore {
   @action.bound
   RedeemCode = flow(function * (email, Token) {
     try {
-      this.accessCode = yield this.client.RedeemCode({
+      let codeObjectID = yield this.client.RedeemCode({
         code: Token,
         email: email,
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });
 
-      if(!this.accessCode) {
-        this.SetError("Invalid code");
+      if(!codeObjectID) {
+        this.SetError("Returned empty object ID");
+      } else {
+        this.streamAccess = true; 
       }
-     
-      return this.accessCode;
+
+      return codeObjectID;
 
     } catch (error) {
       console.error("Error redeeming code:", error);
@@ -89,21 +80,6 @@ class RootStore {
     this.errorTimeout = setTimeout(() => {
       runInAction(() => this.SetError(""));
     }, 8000);
-  }
-
-  @action.bound
-  UpdateRoute(path) {
-    if(!this.client || !this.client.SendMessage) {
-      return;
-    }
-
-    this.client.SendMessage({
-      options: {
-        operation: "SetFramePath",
-        path: `/#/${path}`.replace("//", "/")
-      },
-      noResponse: true
-    });
   }
 }
 
