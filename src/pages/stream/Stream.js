@@ -226,14 +226,14 @@ class Stream extends React.Component {
                         </h1>
                       </div>
 
-                      {sponsorInfo.stream ? <div className="sponsor-info-container"> 
+                      <div className="sponsor-info-container"> 
                         <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
                           {sponsorInfo["stream_text"]}
                         </span>
                         <div className="sponsor-info-container__img-container"> 
                           <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
                         </div>
-                      </div> : null}
+                      </div> 
                     </div> 
                   </div>
                 </div>
