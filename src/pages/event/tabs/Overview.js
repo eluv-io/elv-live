@@ -13,7 +13,7 @@ class ConcertOverview extends React.Component {
     this.state = {
       eventPoster: undefined,
       eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
-      ticketPackages: this.props.siteStore.eventSites[this.props.name]["ticket_packages"],
+      products: this.props.siteStore.eventSites[this.props.name]["products"],
     };
   }
 
@@ -24,7 +24,8 @@ class ConcertOverview extends React.Component {
   }
 
   render() {
-    let {eventInfo, eventPoster, ticketPackages } = this.state;
+    let {eventInfo, eventPoster, products } = this.state;
+    let testMode = this.props.siteStore.stripeTestMode;
 
     return (
       <div className={"overview-container"}>
@@ -50,13 +51,13 @@ class ConcertOverview extends React.Component {
         </div>
         
         <div className="ticket-group">
-          {ticketPackages.map((obj, index) => (
+          {products.map((obj, index) => (
             <Ticket
               name={obj["name"]}
               description={obj["description"]}
-              price={obj["price"]}
-              priceID={obj["stripe_price_id"]}
-              prodID = {obj["stripe_prod_id"]}
+              price={`$${obj["price"][0]["amount"] / 100}`}
+              priceID={testMode ? obj["payment_ids"][0]["stripe_test"][0]["price_id"]: obj["payment_ids"][0]["stripe"][0]["price_id"]}
+              prodID = {testMode ? obj["payment_ids"][0]["stripe_test"][0]["prod_id"]: obj["payment_ids"][0]["stripe"][0]["prod_id"]}
               date ={eventInfo["date"]}
               poster={eventPoster}
               key={index}

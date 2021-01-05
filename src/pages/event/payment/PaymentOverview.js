@@ -28,7 +28,7 @@ class PaymentOverview extends React.Component {
       merchImage: undefined,
       eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
       checkoutMerch: this.props.siteStore.eventSites[this.props.name]["checkout_merch"][0],
-      donation: this.props.siteStore.eventSites[this.props.name]["donation"][0],
+      donation: this.props.siteStore.eventSites[this.props.name]["checkout_donate"][0],
       sponsorInfo: this.props.siteStore.eventSites[this.props.name]["sponsor"][0],
 
     };
@@ -77,17 +77,23 @@ class PaymentOverview extends React.Component {
     const handleSubmit = (priceID, prodID) => async event => {
       try {
         event.preventDefault();
-        const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
+        const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
         
         let checkoutCart = [
           { price: priceID, quantity: this.state.selectedQty.value}
         ];
+        let merchInd = 1
+        let donateInd = "stripe_price_id";
+        if (this.props.siteStore.stripeTestMode) {
+          merchInd = 0;
+          donateInd = "stripe_test_price_id";
+        }
 
         if(this.state.merchChecked) {
-          checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][0][this.state.selectedSize.value], quantity: 1 });
+          checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
         }
         if(this.state.donationChecked) {
-          checkoutCart.push({ price: donation["stripe_price_id"], quantity: 1 });
+          checkoutCart.push({ price: donation[donateInd], quantity: 1 });
         }
   
         let stripeParams = {
@@ -139,7 +145,9 @@ class PaymentOverview extends React.Component {
             {eventInfo["date"]} 
           </p>
           <p className="payment-info-description">
-            {eventInfo["description"]}                 
+            {/* {eventInfo["description"]}         */}
+            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3. Tickets and VIP packages for this historic streaming event are on sale now.
+         
           </p>
           <div className="sponsor-container"> 
             <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
