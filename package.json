@@ -56,6 +56,8 @@
     "react-scripts": "^3.4.4",
     "react-select": "^3.1.0",
     "react-twitter-embed": "^3.0.3",
+    "stream-chat": "^2.11.1",
+    "stream-chat-react": "^3.4.4",
     "urijs": "^1.19.1",
     "url-join": "^4.0.1",
     "url-loader": "^4.1.1",

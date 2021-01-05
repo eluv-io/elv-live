@@ -16,8 +16,8 @@ class Merch extends React.Component {
   }
 
   async componentDidMount() {
-    let merchImage = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/checkout-merch/default`});
-    let merchBack = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/merch-back/default`});
+    let merchImage = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/checkout_merch/default`});
+    let merchBack = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/merch_back/default`});
     this.setState({merchBack: merchBack});
     this.setState({merchImage: merchImage});
   }
