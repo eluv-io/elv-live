@@ -19,7 +19,6 @@ class Footer extends React.Component {
             Purchase tickets and stream the most iconic concerts, premieres, and broadcasts. 
             </h3>
           </div> */}
-          {sponsorInfo.footer ? 
             <div className="sponsor-container-footer"> 
               <span className="sponsor-title-footer">
                 {sponsorInfo.footer_text}
@@ -28,7 +27,6 @@ class Footer extends React.Component {
                 <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
               </div>
             </div>
-            : null}
         </div>
       </div>  
 

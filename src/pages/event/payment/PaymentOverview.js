@@ -79,19 +79,20 @@ class PaymentOverview extends React.Component {
         event.preventDefault();
         const stripe = await loadStripe("pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6");
         
-        let totalItems = [
+        let checkoutCart = [
           { price: priceID, quantity: this.state.selectedQty.value}
         ];
+
         if(this.state.merchChecked) {
-          totalItems.push({ price: checkoutMerch["stripe_sku_sizes"][0][this.state.selectedSize.value], quantity: 1 });
+          checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][0][this.state.selectedSize.value], quantity: 1 });
         }
         if(this.state.donationChecked) {
-          totalItems.push({ price: donation["stripe_price_id"], quantity: 1 });
+          checkoutCart.push({ price: donation["stripe_price_id"], quantity: 1 });
         }
   
         let stripeParams = {
           mode: "payment",
-          lineItems: totalItems,
+          lineItems: checkoutCart,
           successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
           cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
           clientReferenceId: prodID,
@@ -140,11 +141,9 @@ class PaymentOverview extends React.Component {
           <p className="payment-info-description">
             {eventInfo["description"]}                 
           </p>
-            
-          {sponsorInfo.checkout ?      
-            <div className="sponsor-container"> 
-              <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
-            </div>:null}
+          <div className="sponsor-container"> 
+            <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
+          </div>
         </div>
               
 
