@@ -13,6 +13,10 @@ class SiteStore {
   @observable sponsorImage;
   @observable codeImage;
 
+  // Eluvio Live - Data Store
+  @observable stripePublicKey;
+  @observable stripeTestMode;
+
   // Eluvio Live - Event Stream  
   @observable titles; 
   @observable feeds = [];
@@ -80,7 +84,6 @@ class SiteStore {
   @action.bound
   LoadSite = flow(function * (libraryId, objectId) {
     try {
-
       this.siteParams = {
         libraryId: yield this.client.ContentObjectLibraryId({objectId}),
         objectId: objectId,
@@ -104,6 +107,20 @@ class SiteStore {
       this.eventSites = response.data.sites;
       this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/code_background/default"});
       this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/sites/rita-ora/images/main_sponsor/default"});
+      console.log(this.eventSites["rita-ora"]);
+
+      if (this.eventSites["rita-ora"]["stripe_config"][0]["test_mode"] == "") {
+        this.stripeTestMode = false;
+      } else {
+        this.stripeTestMode = true;
+      }
+
+      if (this.stripeTestMode) {
+        this.stripePublicKey = this.eventSites["rita-ora"]["stripe_config"][0]["test_public_key"]; 
+      } else {
+        this.stripePublicKey = this.eventSites["rita-ora"]["stripe_config"][0]["public_key"]; 
+      }
+
 
     } catch (error) {
       console.error("ERROR LoadSite", error);

@@ -19,8 +19,7 @@ func SendSimpleMessage(domain, apiKey string) (string, error) {
 	message.AddTemplateVariable("ticket-id", ticketId)
 	message.AddTemplateVariable("name", name)
 
-  // Im not sure what variable you store email in, so just plug in that in the end
-  email := ??
+  // Need the to input the passcode and email into url
 	message.AddTemplateVariable("redeem-url", "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true")
 	
   // I'm not sure if "./filename.jpg" is how you import files in Go
