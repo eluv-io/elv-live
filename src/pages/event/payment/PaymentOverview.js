@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Select from "react-select";
 import { checkout } from "../../../assets/data";
+import { retryRequest, calculateSleep } from "../../../components/utils/retryRequest";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -73,60 +74,73 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
-
     const handleSubmit = (priceID, prodID) => async event => {
-      try {
-        event.preventDefault();
-        const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
-        
-        let checkoutCart = [
-          { price: priceID, quantity: this.state.selectedQty.value}
-        ];
-        let merchInd = 1
-        let donateInd = "stripe_price_id";
-        if (this.props.siteStore.stripeTestMode) {
-          merchInd = 0;
-          donateInd = "stripe_test_price_id";
-        }
-
-        if(this.state.merchChecked) {
-          checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
-        }
-        if(this.state.donationChecked) {
-          checkoutCart.push({ price: donation[donateInd], quantity: 1 });
-        }
-  
-        let stripeParams = {
-          mode: "payment",
-          lineItems: checkoutCart,
-          successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
-          cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
-          clientReferenceId: prodID,
-          customerEmail: this.state.email
-        };
-  
-        if(this.state.merchChecked) {
-          stripeParams.shippingAddressCollection = {
-            allowedCountries: [this.state.selectedCountry.value],
-          };
-        } 
-        const { error } = await stripe.redirectToCheckout(stripeParams);
-        if(error) {
-          this.setState({error: "Error with Stripe"});
-        }
-        
-      } catch (error) {
-        this.setState({error: "Enter a valid email to continue to Payment."});
-        
-        let errorTimeout = setTimeout(() => {
-          runInAction(() => this.setState({error: ""}));
-        }, 8000);
-    
-        clearTimeout(errorTimeout);
-
-        console.error("Failed to handleSubmit for Stripe:");
-        console.error(error);
+      const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
+      
+      let checkoutCart = [
+        { price: priceID, quantity: this.state.selectedQty.value}
+      ];
+      let merchInd = 1
+      let donateInd = "stripe_price_id";
+      if (this.props.siteStore.stripeTestMode) {
+        merchInd = 0;
+        donateInd = "stripe_test_price_id";
       }
+
+      if(this.state.merchChecked) {
+        checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
+      }
+      if(this.state.donationChecked) {
+        checkoutCart.push({ price: donation[donateInd], quantity: 1 });
+      }
+
+      let stripeParams = {
+        mode: "payment",
+        lineItems: checkoutCart,
+        successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
+        cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
+        clientReferenceId: prodID,
+        customerEmail: this.state.email
+      };
+
+      if(this.state.merchChecked) {
+        stripeParams.shippingAddressCollection = {
+          allowedCountries: [this.state.selectedCountry.value],
+        };
+      } 
+
+      try {
+        await stripe.redirectToCheckout(stripeParams);
+
+      } catch (error) {
+        console.log("redirectToCheckout Error! name: ", error.name, ", message:", error.message);
+
+        if (error.message == "Invalid email address:"){
+          this.setState({error: "Enter a valid email to continue to Payment."});
+        } else {
+          this.setState({error: message});
+
+          await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
+        }
+
+
+
+        // error.message Invalid email address: 
+        // error.name IntegrationError
+
+        // {
+        //   "error": {
+        //     "code": "email_invalid",
+        //     "doc_url": "https://stripe.com/docs/error-codes/email-invalid",
+        //     "message": "Invalid email address: ",
+        //     "param": "customer_email",
+        //     "type": "invalid_request_error"
+        //   }
+        // }
+        
+        // {"error":{"code":"rate_limit","doc_url":"https://stripe.com/docs/error-codes/rate-limit","message":"Testmode request rate limit exceeded, the rate limits in testmode are lower than livemode. You can learn more about rate limits here https://stripe.com/docs/rate-limits.","type":"invalid_request_error"}}
+      }
+
     };
     
     return (
