@@ -1,45 +1,52 @@
 // randomized exponential backoff approach
 // calc_retry( max_retries, max_backoff, this_retry_number)
 // return calculated retry interval
+
 const INITIAL_DELAY = 100; // Initial delay of 100 milliseconds
-const MAX_DELAY = 1000;
-const EXP_FACTOR = 2;
+const MAX_DELAY = 1000; // Maximum delay of 1000 milliseconds
+const EXP_FACTOR = 2; // Exponential factor of 2
+const JITTER_OPTION = "FullJitter"; // Randomized Jitter Option
 
 
-export const calculateDelay = (retryCount, maxRetries) => {
-  if ((maxRetries - retryCount - 1) < 0) {
-    console.log(`Reached maxRetries of ${maxRetries}. Current Retry Count: ${retryCount}`)
-    return 0; 
+const applyJitter = (delay, option=JITTER_OPTION) => {
+  switch(option) {
+    case "FullJitter":
+      // Randomized range between 0 and delay.
+      return Math.floor(Math.random() * delay);
+    case "EqualJitter":
+      // Randomized range between (delay * .5) and (delay * 1.5)
+      return Math.floor(Math.random() * delay) + (delay / 2);
+    default:
+      // No Jitter
+      return delay; 
   }
+};
 
-  // Calculate exponential backoff as (2^retries * 100) milliseconds. Don't allow the number to exceed MAX_DELAY.
-  let exponential_backoff = Math.min(INITIAL_DELAY * (EXP_FACTOR ** retryCount), MAX_DELAY);
-  console.log(`exponential backoff ${exponential_backoff}`);
+export const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DELAY, expFactor=EXP_FACTOR) => {
+  // Calculate exponential backoff as initial delay * (exponential factor ^ retries) milliseconds.
+  let exponential_backoff = initialDelay * (expFactor ** retryCount);
 
-  // Apply some randomization in the range of (delay_seconds / 2) to (delay_seconds). Math.floor(Math.random() * delay_seconds) + (delay_seconds / 2)   
-  let randomization_backoff = Math.floor(Math.random() * exponential_backoff) + (exponential_backoff / 2);
-  console.log(`randomization_backoff ${randomization_backoff}`);
+  // Apply some randomization (defaults to use FullJitter)   
+  let randomization_backoff = applyJitter(exponential_backoff);
 
-  // Ensure it never delays less than the MAX_DELAY seconds.
-  let delay_seconds = Math.max(MAX_DELAY, randomization_backoff);
-  console.log(`delay_seconds ${delay_seconds}`);
+  // Don't allow the delay to exceed maxDelay ms.
+  let delay = Math.min(randomization_backoff, maxDelay);
 
-  return delay_seconds;
+  return delay;
 };
 
 export const retryRequest = async (request, params, maxRetries, retryCount = 0) => {
-
-  if (retryCount > maxRetries) {
-    throw new Error(`Reached max retries of ${maxRetries}. Current Retry Count: ${retryCount}`);
+  // Throws Error when reaching Max Retry limit
+  if ((maxRetries - retryCount) <= 0) {
+    throw new Error(`Reached Max Retries of ${maxRetries}`);
   }
 
   try {
-    console.log(`retryRequest retryCount: ${retryCount}`)
-    await request(params);
+    console.log(`ATTEMPTING - Retry Request #: ${retryCount}`)
+    return await request(params);
   } catch (error) {
-    console.log(`request e: ${error}`);
+    console.log(`UNSUCCESSFUL - Retry Request ${retryCount} Error: ${error}`);
     await new Promise(resolve => setTimeout(resolve, calculateDelay(retryCount, maxRetries, 1000) ));
-
     return retryRequest(request, params, maxRetries, retryCount + 1, error);
   }
 };
@@ -48,7 +55,14 @@ export const retryRequest = async (request, params, maxRetries, retryCount = 0) 
 // How should I pick the backoff parameters?
 
 // Let's assume that they delay chosen at any point is based on an initial timeout (T), an exponential factor (F), the number of retries so far (N), a random number (R), and a maximum timeout (M). Then:
+
 // delay = MIN( R * T * F ^ N , M )
+
+// R should be a random number in the range [1-2], so that its effect is to spread out the load over time, but always more conservative than plain backoff.
+// T (initial timeout): should be set at the outer limits of expected response time for the service. For example, if your service responds in 1ms on average but in 10ms for 99% of requests, then set t=10ms.
+// F (exponential factor) - doesn't matter much, so choose 2 as a nice round number. (It's the exponential nature that counts.)
+// M (maximum timeout) - should be as low as possible to keep your customers happy, but high enough that the system can definitely handle requests from all clients at that sustained rate.
+// N (number of retries so far)
 
 // AWS
 // https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
