@@ -29,8 +29,24 @@ module.exports = {
   },
   resolve: {
     alias: {
-      configuration: Path.join(__dirname, "configuration.json")
-    }
+      Assets: Path.resolve(__dirname, "src/assets"),
+      Data: Path.resolve(__dirname, "src/assets/data"),
+      Icons: Path.resolve(__dirname, "src/assets/icons"),
+      Styles: Path.resolve(__dirname, "src/assets/styles"),
+      Images: Path.resolve(__dirname, "src/assets/images"),
+      Components: Path.resolve(__dirname, "src/components"),
+      Layout: Path.resolve(__dirname, "src/components/layout"),
+      Utils: Path.resolve(__dirname, "src/components/utils"),
+      Pages: Path.resolve(__dirname, "src/pages"),
+      Code: Path.resolve(__dirname, "src/pages/code"),
+      Confirmation: Path.resolve(__dirname, "src/pages/confirmation"),
+      Event: Path.resolve(__dirname, "src/pages/event"),
+      Home: Path.resolve(__dirname, "src/pages/home"),
+      Stream: Path.resolve(__dirname, "src/pages/stream"),
+      Support: Path.resolve(__dirname, "src/pages/support"),
+      Stores: Path.resolve(__dirname, "src/stores")    
+    },
+    // extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
   },
   optimization: {
     minimizer: [

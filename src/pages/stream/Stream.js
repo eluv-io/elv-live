@@ -13,13 +13,13 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { withStyles } from "@material-ui/core/styles";
 import {ImageIcon} from "elv-components-js";
 
-import AsyncComponent from "../../components/utils/AsyncComponent";
+import AsyncComponent from "Utils/AsyncComponent";
 import LiveChat from "./components/LiveChat";
 import BitmovinPlayer from "./player/BitmovinPlayer";
 
 // import StreamTabs from './StreamTabs';
-import lightLogo from "../../assets/images/logo/lightLogo.png";
-import NavyLogo from "../../assets/images/logo/navyLogo.png";
+import lightLogo from "Images/logo/lightLogo.png";
+import NavyLogo from "Images/logo/navyLogo.png";
 
 const drawerWidth = 450;
 

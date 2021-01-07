@@ -5,10 +5,10 @@
 // import {ImageIcon} from "elv-components-js";
 
 // import Card from "./components/Card";
-// import Navigation from "../../components/layout/Navigation";
-// import Logo from "../../assets/images/logo/darkLogo.png";
-// import ritaHero from "../../assets/images/ritaora/hero5.jpg";
-// import ritaHome from "../../assets/images/ritaora/rita-home.jpg";
+// import Navigation from "Layout/Navigation";
+// import Logo from "Images/logo/darkLogo.png";
+// import ritaHero from "Images/ritaora/hero5.jpg";
+// import ritaHome from "Images/ritaora/rita-home.jpg";
 
 // @inject("rootStore")
 // @inject("siteStore")

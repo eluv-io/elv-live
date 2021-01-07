@@ -3,13 +3,13 @@ import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import {ImageIcon} from "elv-components-js";
 
-import CloseIcon from "../../assets/icons/x.svg";
-import { eventHeroView } from "../../assets/data/event";
+import CloseIcon from "Icons/x.svg";
+import { eventHeroView } from "Data/event";
 
-import EventTabs from "./tabs/EventTabs";
-import Navigation from  "../../components/layout/Navigation";
-import PaymentOverview from "./payment/PaymentOverview";
-import Footer from "../../components/layout/Footer";
+import EventTabs from "Event/tabs/EventTabs";
+import Navigation from  "Layout/Navigation";
+import PaymentOverview from "Event/payment/PaymentOverview";
+import Footer from "Layout/Footer";
 
 @inject("rootStore")
 @inject("siteStore")

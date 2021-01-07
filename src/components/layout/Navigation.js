@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
-import DarkLogo from "../../assets/images/logo/darkLogo.png";
+import DarkLogo from "Images/logo/darkLogo.png";
 
 @inject("rootStore")
 @inject("siteStore")

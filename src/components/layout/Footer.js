@@ -19,14 +19,14 @@ class Footer extends React.Component {
             Purchase tickets and stream the most iconic concerts, premieres, and broadcasts. 
             </h3>
           </div> */}
-            <div className="sponsor-container-footer"> 
-              <span className="sponsor-title-footer">
-                {sponsorInfo.footer_text}
-              </span>
-              <div className="sponsor-img-container-footer"> 
-                <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
-              </div>
+          <div className="sponsor-container-footer"> 
+            <span className="sponsor-title-footer">
+              {sponsorInfo.footer_text}
+            </span>
+            <div className="sponsor-img-container-footer"> 
+              <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
             </div>
+          </div>
         </div>
       </div>  
 

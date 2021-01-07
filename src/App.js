@@ -3,18 +3,18 @@ import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 import {Switch, withRouter} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
-import * as Stores from "./stores";
+import * as Stores from "Stores";
 
-import Support from "./pages/support/Support";
-import CodeAccess from "./pages/code/CodeAccess";
-import Concert from "./pages/event/Event";
-import Stream from "./pages/stream/Stream";
-import Success from "./pages/confirmation/Success";
-import Calendar from "./pages/confirmation/Calendar";
+import Support from "Support/Support";
+import CodeAccess from "Code/CodeAccess";
+import Concert from "Event/Event";
+import Stream from "Stream/Stream";
+import Success from "Confirmation/Success";
+import Calendar from "Confirmation/Calendar";
 
-import AsyncComponent from "./components/utils/AsyncComponent";
+import AsyncComponent from "Utils/AsyncComponent";
 
-import "./assets/styles/main.scss";
+import "Styles/main.scss";
 
 
 @inject("rootStore")
