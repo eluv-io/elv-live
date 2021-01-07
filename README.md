@@ -21,12 +21,11 @@ React Application for Eluvio Live: a platform for ticketed live events focused o
     npm run serve
     ```
 
-    Your site is now running at `http://localhost:8086`.
+    Web Application is now running locally at `http://localhost:8086`.
 
     *Note: The main event page is `http://localhost:8086/d457a576/rita-ora` as the baseurl is set to d457a576 before the launch. 
 
 
-Web Application is now running locally at http://localhost:8086/
 
 
 ## File Structure
