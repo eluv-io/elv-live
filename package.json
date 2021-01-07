@@ -1,5 +1,5 @@
 {
-  "name": "elv-live-web",
+  "name": "elv-live",
   "version": "2.0.12",
   "description": "React App for Eluvio Live",
   "main": "App.js",
@@ -14,7 +14,7 @@
     "lint": "npm run fix-scss ; npm run lint-scss ; npm run fix-js",
     "lint-show": "npm run lint-scss ; npm run lint-js",
     "lint-js": "eslint \"src/**/*.js\"",
-    "fix-js": "npm run lint-js --fix",
+    "fix-js": "eslint \"src/**/*.js\" --fix",
     "lint-scss": "stylelint '**/*.scss' --config .stylelintrc.yml",
     "fix-scss": "stylelint '**/*.scss' --config .stylelintrc.yml --fix",
     "docz:dev": "docz dev --config=./docs/docz.config.js",

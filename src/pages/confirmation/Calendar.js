@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Navigation from "../../components/layout/Navigation";
+import Navigation from "Layout/Navigation";
 import AddToCalendar from "react-add-to-calendar";
 
 @inject("rootStore")

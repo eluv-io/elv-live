@@ -3,8 +3,7 @@ import {inject, observer} from "mobx-react";
 import { loadStripe } from "@stripe/stripe-js";
 
 import Select from "react-select";
-import { checkout } from "../../../assets/data";
-import { retryRequest, calculateSleep } from "../../../components/utils/retryRequest";
+import { checkout } from "Data";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -60,7 +59,7 @@ class PaymentOverview extends React.Component {
   }
 
   render() {
-    let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
+    let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster} = this.state;
 
 
 
@@ -74,15 +73,15 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
-    const handleSubmit = (priceID, prodID) => async event => {
+    const handleSubmit = (priceID, prodID) => async () => {
       const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       
       let checkoutCart = [
         { price: priceID, quantity: this.state.selectedQty.value}
       ];
-      let merchInd = 1
+      let merchInd = 1;
       let donateInd = "stripe_price_id";
-      if (this.props.siteStore.stripeTestMode) {
+      if(this.props.siteStore.stripeTestMode) {
         merchInd = 0;
         donateInd = "stripe_test_price_id";
       }
@@ -114,11 +113,11 @@ class PaymentOverview extends React.Component {
 
       } catch (error) {
         console.log("redirectToCheckout Error! name: ", error.name, ", message:", error.message);
-        if (error.message == "Invalid email address: "){
+        if(error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
         } else {
           this.setState({error: error.message});
-          await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
+          // await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
         }
       }
 

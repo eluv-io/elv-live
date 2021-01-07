@@ -4,7 +4,7 @@ import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 
-import Navigation from "../../components/layout/Navigation";
+import Navigation from "Layout/Navigation";
 
 @inject("siteStore")
 @inject("rootStore")

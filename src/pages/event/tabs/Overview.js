@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Ticket from "../payment/Ticket";
+import Ticket from "Event/payment/Ticket";
 
 @inject("rootStore")
 @inject("siteStore")
