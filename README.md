@@ -18,7 +18,7 @@ React Application for Eluvio Live: a platform for ticketed live events focused o
 2.  **Start developing.**
 
     ```sh
-      npm run serve
+    npm run serve
     ```
 
     Your site is now running at `http://localhost:8086`.
