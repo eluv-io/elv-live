@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
 import { useHistory } from "react-router";
 
-const PaypalButton = ({ product, email }) => {
+const PaypalButton = ({ product, email, turnOffModal }) => {
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
   const [stateEmail, setEmail] = useState(email);
@@ -38,6 +38,7 @@ const PaypalButton = ({ product, email }) => {
        },
        onApprove: function(data, actions) {
         // const order = await actions.order.capture();
+        turnOffModal();
         history.push({
           pathname: `/success/test@gmail.com/testID123`
          });

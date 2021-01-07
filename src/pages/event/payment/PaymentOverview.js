@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Select from "react-select";
 import { checkout } from "Data";
-// import {retryRequest} from "Utils/retryRequest";
+import {retryRequest} from "Utils/retryRequest";
 import PaypalButton from "./PaypalButton";
 
 @inject("rootStore")
@@ -49,8 +49,6 @@ class PaymentOverview extends React.Component {
     this.setState({eventPoster: eventPoster});
     this.setState({donationImage: donationImage});
     this.setState({merchImage: merchImage});
-
-
   }
 
 
@@ -322,7 +320,7 @@ class PaymentOverview extends React.Component {
                 </div>
               : "Continue to Checkout"}
           </button>
-          {/* <PaypalButton product={paypalProduct} email={this.state.email} /> */}
+          <PaypalButton product={paypalProduct} email={this.state.email} turnOffModal={this.props.siteStore.turnOffModal}/>
           <div className="checkout-error">
             {this.state.error}
           </div>
