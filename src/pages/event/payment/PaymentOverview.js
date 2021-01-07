@@ -114,31 +114,12 @@ class PaymentOverview extends React.Component {
 
       } catch (error) {
         console.log("redirectToCheckout Error! name: ", error.name, ", message:", error.message);
-
-        if (error.message == "Invalid email address:"){
+        if (error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
         } else {
-          this.setState({error: message});
-
+          this.setState({error: error.message});
           await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
         }
-
-
-
-        // error.message Invalid email address: 
-        // error.name IntegrationError
-
-        // {
-        //   "error": {
-        //     "code": "email_invalid",
-        //     "doc_url": "https://stripe.com/docs/error-codes/email-invalid",
-        //     "message": "Invalid email address: ",
-        //     "param": "customer_email",
-        //     "type": "invalid_request_error"
-        //   }
-        // }
-        
-        // {"error":{"code":"rate_limit","doc_url":"https://stripe.com/docs/error-codes/rate-limit","message":"Testmode request rate limit exceeded, the rate limits in testmode are lower than livemode. You can learn more about rate limits here https://stripe.com/docs/rate-limits.","type":"invalid_request_error"}}
       }
 
     };
