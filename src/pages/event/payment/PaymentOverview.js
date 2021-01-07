@@ -5,6 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import Select from "react-select";
 import { checkout } from "Data";
 import {retryRequest} from "Utils/retryRequest";
+import PaypalButton from "./PaypalButton";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -31,12 +32,14 @@ class PaymentOverview extends React.Component {
       checkoutMerch: this.props.siteStore.eventSites[this.props.name]["checkout_merch"][0],
       donation: this.props.siteStore.eventSites[this.props.name]["checkout_donate"][0],
       sponsorInfo: this.props.siteStore.eventSites[this.props.name]["sponsor"][0],
+      retryCheckout: false
 
     };
 
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
+
   }
 
   async componentDidMount() {
@@ -60,10 +63,16 @@ class PaymentOverview extends React.Component {
   }
 
   render() {
-    let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster} = this.state;
+    let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
 
+    let paypalProduct = {
+      price: 420,
+      name: 'General Admission',
+      description: "Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.",
+      image: eventPoster
+    };
 
-
+  
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
     };
@@ -74,15 +83,15 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
-    const handleSubmit = (priceID, prodID) => async () => {
+    const handleSubmit = (priceID, prodID) => async event => {
       const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       
       let checkoutCart = [
         { price: priceID, quantity: this.state.selectedQty.value}
       ];
-      let merchInd = 1;
+      let merchInd = 1
       let donateInd = "stripe_price_id";
-      if(this.props.siteStore.stripeTestMode) {
+      if (this.props.siteStore.stripeTestMode) {
         merchInd = 0;
         donateInd = "stripe_test_price_id";
       }
@@ -114,11 +123,18 @@ class PaymentOverview extends React.Component {
 
       } catch (error) {
         console.log("redirectToCheckout Error! name: ", error.name, ", message:", error.message);
-        if(error.message == "Invalid email address: "){
+        error.message = "Testmode request rate limit exceeded, the rate limits in testmode are lower than livemode. You can learn more about rate limits here https://stripe.com/docs/rate-limits.";
+        if (error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
         } else {
-          this.setState({error: error.message});
-          await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
+          this.setState({retryCheckout: true});
+          try {
+            await retryRequest(stripe.redirectToCheckout, stripeParams, 10);
+          } catch(error) {
+            this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+          }
+          console.log("retryResponse: ", response);
+          this.setState({retryCheckout: false});
         }
       }
 
@@ -289,14 +305,21 @@ class PaymentOverview extends React.Component {
               />
             </div>
             <p className="checkout-email-info">
-                  Please make sure that you entered your email address correctly as it will be used to send the digital ticket.
+              Please make sure that you entered your email address correctly as it will be used to send the digital ticket.
             </p>
           </div>
 
           {/* Stripe Checkout Redirect Button*/}
           <button className="checkout-button" role="link" onClick={handleSubmit(this.props.siteStore.priceId, this.props.siteStore.prodId)}>
-              Continue to Payment
+              {this.state.retryCheckout ? 
+                <div className="spin-checkout-container">
+                  <div class="la-ball-clip-rotate la-sm">
+                      <div></div>
+                  </div>
+                </div>
+              : "Continue to Checkout"}
           </button>
+          <PaypalButton product={paypalProduct} email={this.state.email} />
           <div className="checkout-error">
             {this.state.error}
           </div>
