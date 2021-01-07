@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Select from "react-select";
 import { checkout } from "Data";
-import {retryRequest} from "Utils/retryRequest";
+// import {retryRequest} from "Utils/retryRequest";
 import PaypalButton from "./PaypalButton";
 
 @inject("rootStore")
@@ -49,6 +49,8 @@ class PaymentOverview extends React.Component {
     this.setState({eventPoster: eventPoster});
     this.setState({donationImage: donationImage});
     this.setState({merchImage: merchImage});
+
+
   }
 
 
@@ -66,7 +68,7 @@ class PaymentOverview extends React.Component {
     let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
 
     let paypalProduct = {
-      price: 420,
+      price: 35,
       name: 'General Admission',
       description: "Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.",
       image: eventPoster
@@ -123,19 +125,20 @@ class PaymentOverview extends React.Component {
 
       } catch (error) {
         console.log("redirectToCheckout Error! name: ", error.name, ", message:", error.message);
-        error.message = "Testmode request rate limit exceeded, the rate limits in testmode are lower than livemode. You can learn more about rate limits here https://stripe.com/docs/rate-limits.";
+        // error.message = "Testmode request rate limit exceeded, the rate limits in testmode are lower than livemode. You can learn more about rate limits here https://stripe.com/docs/rate-limits.";
         if (error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
-        } else {
-          this.setState({retryCheckout: true});
-          try {
-            await retryRequest(stripe.redirectToCheckout, stripeParams, 10);
-          } catch(error) {
-            this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
-          }
-          console.log("retryResponse: ", response);
-          this.setState({retryCheckout: false});
-        }
+        } 
+        // else {
+        //   this.setState({retryCheckout: true});
+        //   try {
+        //     await retryRequest(stripe.redirectToCheckout, stripeParams, 10);
+        //   } catch(error) {
+        //     this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+        //   }
+        //   console.log("retryResponse: ", response);
+        //   this.setState({retryCheckout: false});
+        // }
       }
 
     };
@@ -319,7 +322,7 @@ class PaymentOverview extends React.Component {
                 </div>
               : "Continue to Checkout"}
           </button>
-          <PaypalButton product={paypalProduct} email={this.state.email} />
+          {/* <PaypalButton product={paypalProduct} email={this.state.email} /> */}
           <div className="checkout-error">
             {this.state.error}
           </div>

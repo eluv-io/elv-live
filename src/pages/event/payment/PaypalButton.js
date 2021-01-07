@@ -17,10 +17,10 @@ const PaypalButton = ({ product, email }) => {
         // This function sets up the details of the transaction, including the amount and line item details.
         return actions.order.create({
           purchase_units: [{
-            description: "product.description",
+            description:"RO3 Paypal Test",
             amount: {
               currency_code: 'USD',
-              value: 420
+              value: 30
             }
           }]
         });
@@ -37,20 +37,19 @@ const PaypalButton = ({ product, email }) => {
         disallowed: [ paypal.FUNDING.CREDIT ]
        },
        onApprove: function(data, actions) {
-          history.push({
-            pathname: `/success/alec.jo@berkeley.edu/12345test`
+        // const order = await actions.order.capture();
+        history.push({
+          pathname: `/success/test@gmail.com/testID123`
          });
-          // const order = await actions.order.capture();
-          // setPaidFor(true);
-          // console.log(order);
-        },
+      },
+
         // onError: err => {
         //   setError(err);
         //   console.error(err);
         // },
       })
       .render(paypalRef.current);
-  }, [product.description, product.price]);
+  }, []);
 
   if (paidFor) {
     return (
@@ -62,7 +61,6 @@ const PaypalButton = ({ product, email }) => {
 
   return (
     <div>
-      {/* {error && <div>Uh oh, an error occurred! {error.message}</div>} */}
       <div ref={paypalRef} />
     </div>
   );
