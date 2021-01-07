@@ -36,7 +36,7 @@ module.exports = {
       Images: Path.resolve(__dirname, "src/assets/images"),
       Components: Path.resolve(__dirname, "src/components"),
       Layout: Path.resolve(__dirname, "src/components/layout"),
-      Utils: Path.resolve(__dirname, "src/components/utils"),
+      Common: Path.resolve(__dirname, "src/components/common"),
       Pages: Path.resolve(__dirname, "src/pages"),
       Code: Path.resolve(__dirname, "src/pages/code"),
       Confirmation: Path.resolve(__dirname, "src/pages/confirmation"),
@@ -44,7 +44,8 @@ module.exports = {
       Home: Path.resolve(__dirname, "src/pages/home"),
       Stream: Path.resolve(__dirname, "src/pages/stream"),
       Support: Path.resolve(__dirname, "src/pages/support"),
-      Stores: Path.resolve(__dirname, "src/stores")    
+      Stores: Path.resolve(__dirname, "src/stores"),
+      Utils: Path.resolve(__dirname, "src/utils")        
     },
     // extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
   },

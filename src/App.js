@@ -12,7 +12,7 @@ import Stream from "Stream/Stream";
 import Success from "Confirmation/Success";
 import Calendar from "Confirmation/Calendar";
 
-import AsyncComponent from "Utils/AsyncComponent";
+import AsyncComponent from "Common/AsyncComponent";
 
 import "Styles/main.scss";
 
