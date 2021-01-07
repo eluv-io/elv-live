@@ -9,7 +9,7 @@ React Application for Eluvio Live: a platform for ticketed live events focused o
     After cloning the repository, navigate into the project's directory to install the necessary npm packages.
 
     ```sh
-      git clone https://github.com/eluv-io/elv-live-web.git
+    git clone https://github.com/eluv-io/elv-live-web.git
     
     cd elv-live-web
     npm install  
