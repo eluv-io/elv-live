@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Select from "react-select";
 import { checkout } from "Data";
+import {retryRequest} from "Utils/retryRequest";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -117,7 +118,7 @@ class PaymentOverview extends React.Component {
           this.setState({error: "Enter a valid email to continue to Payment."});
         } else {
           this.setState({error: error.message});
-          // await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
+          await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
         }
       }
 
