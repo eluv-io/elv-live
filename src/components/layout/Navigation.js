@@ -16,7 +16,7 @@ class Navigation extends React.Component {
           <ImageIcon className="main-nav--logo" icon={DarkLogo} label="Eluvio" />
 
           <div className="main-nav__link-group">
-            <NavLink to="/rita-ora" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
+            <NavLink to={`/${this.props.siteStore.eventSlug}`} activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
               Event
             </NavLink>
             <NavLink to="/support" activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">

@@ -1,6 +1,7 @@
 import {configure, observable, action, flow, runInAction} from "mobx";
 import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
 import SiteStore from "./Site";
+import {EluvioConfiguration} from "EluvioConfiguration";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -24,7 +25,8 @@ class RootStore {
     // Initialize ElvClient or FrameClient
     if(window.self === window.top) {
       const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"}); 
+      // client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"}); 
+      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]}); 
 
       const wallet = client.GenerateWallet();
       const mnemonic = wallet.GenerateMnemonic();
