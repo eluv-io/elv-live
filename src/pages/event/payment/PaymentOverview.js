@@ -127,16 +127,16 @@ class PaymentOverview extends React.Component {
         if (error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
         } 
-        // else {
-        //   this.setState({retryCheckout: true});
-        //   try {
-        //     await retryRequest(stripe.redirectToCheckout, stripeParams, 10);
-        //   } catch(error) {
-        //     this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
-        //   }
-        //   console.log("retryResponse: ", response);
-        //   this.setState({retryCheckout: false});
-        // }
+        else {
+          this.setState({retryCheckout: true});
+          try {
+            await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
+          } catch(error) {
+            this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+          }
+          console.log("retryResponse: ", response);
+          this.setState({retryCheckout: false});
+        }
       }
 
     };
