@@ -11,16 +11,21 @@
  * 
  * @constant {number} EXP_FACTOR - Exponential Factor
  * Doesn't matter much as it's the exponential nature that counts. Chose 2 as it's a nice round number. 
+ *
+ * @constant {number} MAX_RETRIES - Maximum Retry Limit
+ * Need more testing to find optimal retry limit
  * 
  * @constant {string} JITTER_OPTION - Jitter Configuration 
- * Addresses thundering herd problemby adding some amount of random “jitter” to each request's exponential backoff (initial_delay * exp_factor ^ retry_count)
+ * Addresses thundering herd problem by adding some amount of random “jitter” to each request's exponential backoff (initial_delay * exp_factor ^ retry_count)
  * Options: 
  *    1. FullJitter: Randomized range between 0 and delay => random_between(0, exponential_backoff)
  *    2. EqualJitter: Randomized range between (delay * .5) and (delay * 1.5) => exponential_backoff/2 + random_between(0, exponential_backoff)
  */
+
 const INITIAL_DELAY = 100; 
 const MAX_DELAY = 2000; 
 const EXP_FACTOR = 2; 
+const MAX_RETRIES = 10; 
 const JITTER_OPTION = "FullJitter"; 
 
 /**
@@ -78,7 +83,7 @@ const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DEL
  * @return {Object} Returns Response Object from request if request goes through
  * @return {Error} Returns Error if max retry limit is reached before a successful request
  */
-export const retryRequest = async (request, params, maxRetries, retryCount = 0) => {
+export const retryRequest = async (request, params, maxRetries=MAX_RETRIES, retryCount = 0) => {
   // Throws Error when Max Retry limit is reached
   if ((maxRetries - retryCount) <= 0) {
     throw new Error("Reached Max Retries");
