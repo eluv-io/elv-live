@@ -13,7 +13,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { withStyles } from "@material-ui/core/styles";
 import {ImageIcon} from "elv-components-js";
 
-import AsyncComponent from "Utils/AsyncComponent";
+import AsyncComponent from "Common/AsyncComponent";
 import LiveChat from "./components/LiveChat";
 import BitmovinPlayer from "./player/BitmovinPlayer";
 
