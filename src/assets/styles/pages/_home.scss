@@ -12,6 +12,17 @@
   width: 100vw;
 }
 
+.spin-checkout-container {
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
 .hero-view {
   background-color: #fff;
   font-family: sans-serif !important;
