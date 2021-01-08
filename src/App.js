@@ -7,12 +7,13 @@ import * as Stores from "Stores";
 
 import Support from "Support/Support";
 import CodeAccess from "Code/CodeAccess";
-import Concert from "Event/Event";
+import Event from "Event/Event";
 import Stream from "Stream/Stream";
 import Success from "Confirmation/Success";
 import Calendar from "Confirmation/Calendar";
 
 import AsyncComponent from "Common/AsyncComponent";
+import {EluvioConfiguration} from "EluvioConfiguration";
 
 import "Styles/main.scss";
 
@@ -31,7 +32,7 @@ class Routes extends React.Component {
         <Route path = "/calendar" component={Calendar} />
         <Route path = "/code" component={CodeAccess} />
         <Route path = "/support" component={Support} />
-        <Route path = "/:name" component={Concert} />
+        <Route path = {`/:name`} component={Event} />
 
         {/* <Route>
           <Redirect to="/" />
@@ -51,7 +52,7 @@ class App extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadSite("ilib2bLJtRJG3LW9yScSNStbjkSqF2hH","iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv");
+          await this.props.siteStore.LoadSite(EluvioConfiguration["library-id"],EluvioConfiguration["object-id"]);
         }}
         loadingSpin={false}
         render={() => {

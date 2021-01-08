@@ -14,15 +14,14 @@ import Footer from "Layout/Footer";
 @inject("rootStore")
 @inject("siteStore")
 @observer
-class Concert extends React.Component {
+class Event extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       showTrailer: false,
       tab: 0,
-      heroBackground: undefined,
-      eventInfo: this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]
+      heroBackground: undefined
     };
   }
 
@@ -96,8 +95,9 @@ class Concert extends React.Component {
     if(!this.props.siteStore.eventSites[this.props.match.params.name]) {
       return <Redirect to='/'/>;
     }
+    let eventInfo = this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0];
 
-    let {eventInfo, heroBackground } = this.state;
+    let {heroBackground } = this.state;
 
     const myRef = React.createRef();
 
@@ -153,4 +153,4 @@ class Concert extends React.Component {
   }
 }
 
-export default Concert;
+export default Event;

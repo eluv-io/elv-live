@@ -33,7 +33,6 @@ class PaymentOverview extends React.Component {
       donation: this.props.siteStore.eventSites[this.props.name]["checkout_donate"][0],
       sponsorInfo: this.props.siteStore.eventSites[this.props.name]["sponsor"][0],
       retryCheckout: false
-
     };
 
     this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -127,17 +126,17 @@ class PaymentOverview extends React.Component {
         if (error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
         } 
-        else {
-          this.setState({retryCheckout: true});
+        // else {
+        //   this.setState({retryCheckout: true});
 
-          try {
-            await retryRequest(stripe.redirectToCheckout, stripeParams);
-          } catch(error) {
-            this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
-          }
-          console.log("retryResponse: ", response);
-          this.setState({retryCheckout: false});
-        }
+        //   try {
+        //     await retryRequest(stripe.redirectToCheckout, stripeParams);
+        //   } catch(error) {
+        //     this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+        //   }
+        //   console.log("retryResponse: ", response);
+        //   this.setState({retryCheckout: false});
+        // }
       }
 
     };

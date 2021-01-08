@@ -48,7 +48,7 @@ module.exports = {
       Utils: Path.resolve(__dirname, "src/utils"),
       EluvioConfiguration: Path.join(__dirname, "configuration.js")
     },
-    // extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
+    extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
   },
   optimization: {
     minimizer: [

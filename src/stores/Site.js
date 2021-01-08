@@ -91,12 +91,14 @@ class SiteStore {
         versionHash: yield this.client.LatestVersionHash({objectId}),
         writeToken: ""
       };
+      console.log(libraryId);
 
       const response = yield axios.get(
         `https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&select=sites&select=app&resolve=true&link_depth=1`
       );
 
       let appData = response.data.app;
+      console.log(appData);
 
       if(appData.base_path && (appData.base_path != "")) {
         this.basePath = appData.base_path;
@@ -106,10 +108,10 @@ class SiteStore {
       }
       if(appData.stripe_config && (appData.stripe_config[0]["test_mode"] == "")) {
         this.stripeTestMode = false;
-        this.stripePublicKey = appData.stripe_config[0]["test_public_key"]; 
+        this.stripePublicKey = appData.stripe_config[0]["public_key"]; 
       } else {
         this.stripeTestMode = true;
-        this.stripePublicKey = appData.stripe_config[0]["public_key"]; 
+        this.stripePublicKey = appData.stripe_config[0]["test_public_key"]; 
       }
 
       this.eventSites = response.data.sites;
