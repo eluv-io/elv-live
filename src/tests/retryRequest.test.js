@@ -1,4 +1,21 @@
 import {retryRequest} from '../utils/retryRequest';
+import { loadStripe } from "@stripe/stripe-js";
+
+
+const TEST_STRIPE_PK = "pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6";
+const PROD_STRIPE_PK = "pk_live_51HpRJ7E0yLQ1pYr6v0HIvWK21VRXiP7sLrEqGJB35wg6Z0kJDorQxl45kc4QBCwkfEAP3A6JJhAg9lHDTOY3hdRx00kYwfA3Ff";
+const TEST_PRICE_ID = "price_1HpS6pE0yLQ1pYr6CuBre5I4";
+const TEST_PRICE_ID = "price_1I64lcE0yLQ1pYr6rzq87qvS";
+
+const stripe = await loadStripe(TEST_STRIPE_PK);
+
+const stripeParams = {
+  mode: "payment",
+  lineItems:  { price: TEST_PRICE_ID, quantity: 1},
+  successUrl: `https://live.eluv.io/d457a576/success/{CHECKOUT_SESSION_ID}`, 
+  cancelUrl: `https://live.eluv.io/d457a576/success/{CHECKOUT_SESSION_ID}`, 
+};    
+
 
 jest.setTimeout(30000);
 
@@ -28,6 +45,7 @@ async function mockRedirectToCheckout(successCount) {
     throw new Error(rateError.message);
   }
 }
+
 
 test('SUCCESS - the retryRequest call should succeed on 3rd try', async () => {
   globalRetryCount = 0;

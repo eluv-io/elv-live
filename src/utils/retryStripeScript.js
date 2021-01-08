@@ -1,5 +1,9 @@
-// Helper functions to retry Async Requests based on a randomized exponential backoff approach
+// Need to figure out how to get the Stripe JS SDK
+// Include something like this: <script src="https://js.stripe.com/v3" async></script>
 
+
+
+// Retry Implementation
 const INITIAL_DELAY = 100; // Initial delay of 100 milliseconds
 const MAX_DELAY = 2000; // Maximum delay of 2000 milliseconds
 const EXP_FACTOR = 2; // Exponential factor of 2
@@ -49,7 +53,7 @@ const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DEL
  *
  * TODO
  */
-export const retryRequest = async (request, params, maxRetries, retryCount = 0) => {
+const retryRequest = async (request, params, maxRetries, retryCount = 0) => {
   // Throws Error when reaching Max Retry limit
   if ((maxRetries - retryCount) <= 0) {
     throw new Error("Reached Max Retries");
@@ -72,3 +76,44 @@ export const retryRequest = async (request, params, maxRetries, retryCount = 0) 
   }
 };
 
+
+
+// Start of Script Code
+
+
+const TEST_STRIPE_PK = "pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6";
+const PROD_STRIPE_PK = "pk_live_51HpRJ7E0yLQ1pYr6v0HIvWK21VRXiP7sLrEqGJB35wg6Z0kJDorQxl45kc4QBCwkfEAP3A6JJhAg9lHDTOY3hdRx00kYwfA3Ff";
+const TEST_PRICE_ID = "price_1HpS6pE0yLQ1pYr6CuBre5I4";
+const TEST_PRICE_ID = "price_1I64lcE0yLQ1pYr6rzq87qvS";
+
+let stripe = Stripe(TEST_STRIPE_PK);
+
+
+let stripeParams = {
+  mode: "payment",
+  lineItems:  { price: TEST_PRICE_ID, quantity: 1},
+  successUrl: `https://live.eluv.io/d457a576/success/{CHECKOUT_SESSION_ID}`, 
+  cancelUrl: `https://live.eluv.io/d457a576/success/{CHECKOUT_SESSION_ID}`, 
+};    
+
+async function runScript() {
+
+  try {
+    await stripe.redirectToCheckout(stripeParams);
+  
+  } catch (error) {
+    console.log("redirectToCheckout failed! error: ", error);
+      try {
+        console.log("Begin Retry");
+        await retryRequest(stripe.redirectToCheckout, stripeParams, 15);
+      } catch(error) {
+        console.log("retryRequest fail! error: ", error);
+      }
+    }
+};
+
+console.log("START SCRIPT");
+
+runScript();
+
+console.log("END SCRIPT");
