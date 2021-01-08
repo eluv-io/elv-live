@@ -12,7 +12,7 @@ class Success extends React.Component {
     super(props);
 
     this.state = {
-      calendarData: this.props.siteStore.eventSites["rita-ora"]["calendar"][0],
+      calendarData: this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["calendar"][0],
     };
   }
 

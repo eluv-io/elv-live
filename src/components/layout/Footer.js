@@ -7,7 +7,7 @@ import {inject, observer} from "mobx-react";
 class Footer extends React.Component {
 
   render() {
-    let sponsorInfo = this.props.siteStore.eventSites["rita-ora"]["sponsor"][0];
+    let sponsorInfo = this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["sponsor"][0];
     return (
       <div className="live-footer">
         <div className="footer-container">
