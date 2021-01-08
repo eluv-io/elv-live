@@ -147,8 +147,8 @@ class Stream extends React.Component {
     //     setStream(6);
     //   }
     // }
-    let streamInfo= this.props.siteStore.eventSites["rita-ora"]["stream_app"][0];
-    let sponsorInfo= this.props.siteStore.eventSites["rita-ora"]["sponsor"][0];
+    let streamInfo= this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["stream_app"][0];
+    let sponsorInfo= this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["sponsor"][0];
 
     const { classes } = this.props;
 

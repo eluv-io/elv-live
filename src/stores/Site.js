@@ -12,6 +12,7 @@ class SiteStore {
   @observable eventSites;
   @observable sponsorImage;
   @observable codeImage;
+  @observable eventSlug;
 
   // Eluvio Live - Data Store
   @observable stripePublicKey;
@@ -103,24 +104,18 @@ class SiteStore {
       if(appData.faq) {
         this.faqData = appData.faq;
       }
+      if(appData.stripe_config && (appData.stripe_config[0]["test_mode"] == "")) {
+        this.stripeTestMode = false;
+        this.stripePublicKey = appData.stripe_config[0]["test_public_key"]; 
+      } else {
+        this.stripeTestMode = true;
+        this.stripePublicKey = appData.stripe_config[0]["public_key"]; 
+      }
 
       this.eventSites = response.data.sites;
       this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/code_background/default"});
-      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/sites/rita-ora/images/main_sponsor/default"});
-      console.log(this.eventSites["rita-ora"]);
-
-      if (this.eventSites["rita-ora"]["stripe_config"][0]["test_mode"] == "") {
-        this.stripeTestMode = false;
-      } else {
-        this.stripeTestMode = true;
-      }
-
-      if (this.stripeTestMode) {
-        this.stripePublicKey = this.eventSites["rita-ora"]["stripe_config"][0]["test_public_key"]; 
-      } else {
-        this.stripePublicKey = this.eventSites["rita-ora"]["stripe_config"][0]["public_key"]; 
-      }
-
+      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/main_sponsor/default"});
+      this.eventSlug = Object.keys(this.eventSites)[0];
 
     } catch (error) {
       console.error("ERROR LoadSite", error);

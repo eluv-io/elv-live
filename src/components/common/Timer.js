@@ -42,7 +42,6 @@ export default class Timer extends Component {
     }
 
     componentDidMount() {
-      // let eventInfo = this.props.siteStore.eventAssets.get("rita-ora");
       let premiereTime = new Date(this.props.premiereTime);
       let currentTime = new Date().getTime();
       let showTime = premiereTime - currentTime;
