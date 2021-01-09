@@ -5,7 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import Select from "react-select";
 import { checkout } from "Data";
 import {retryRequest} from "Utils/retryRequest";
-// import PaypalButton from "./PaypalButton";
+import PaypalButton from "./PaypalButton";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -126,17 +126,17 @@ class PaymentOverview extends React.Component {
         if (error.message == "Invalid email address: "){
           this.setState({error: "Enter a valid email to continue to Payment."});
         } 
-        // else {
-        //   this.setState({retryCheckout: true});
+        else {
+          this.setState({retryCheckout: true});
 
-        //   try {
-        //     await retryRequest(stripe.redirectToCheckout, stripeParams);
-        //   } catch(error) {
-        //     this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
-        //   }
-        //   console.log("retryResponse: ", response);
-        //   this.setState({retryCheckout: false});
-        // }
+          try {
+            await retryRequest(stripe.redirectToCheckout, stripeParams);
+          } catch(error) {
+            this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+          }
+          console.log("retryResponse: ", response);
+          this.setState({retryCheckout: false});
+        }
       }
 
     };
@@ -320,7 +320,7 @@ class PaymentOverview extends React.Component {
                 </div>
               : "Continue to Checkout"}
           </button>
-          {/* <PaypalButton product={paypalProduct} email={this.state.email} turnOffModal={this.props.siteStore.turnOffModal}/> */}
+          <PaypalButton product={paypalProduct} email={this.state.email} turnOffModal={this.props.siteStore.turnOffModal}/>
           <div className="checkout-error">
             {this.state.error}
           </div>
