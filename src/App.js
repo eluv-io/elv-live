@@ -13,7 +13,7 @@ import Success from "Confirmation/Success";
 import Calendar from "Confirmation/Calendar";
 
 import AsyncComponent from "Common/AsyncComponent";
-import {EluvioConfiguration} from "EluvioConfiguration";
+import {EluvioConfiguration} from "./config";
 
 import "Styles/main.scss";
 

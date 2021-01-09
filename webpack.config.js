@@ -46,7 +46,7 @@ module.exports = {
       Support: Path.resolve(__dirname, "src/pages/support"),
       Stores: Path.resolve(__dirname, "src/stores"),
       Utils: Path.resolve(__dirname, "src/utils"),
-      EluvioConfiguration: Path.join(__dirname, "configuration.js")
+      // EluvioConfiguration: Path.join(__dirname, "configuration.js")
     },
     extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
   },
