@@ -2,7 +2,7 @@
   <mj-body background-color="#ccd3e0">
  <mj-section background-color="white" padding-bottom="10px" padding-top="10px">
       <mj-column width="100%">
-        <!-- <mj-image align="center" padding="10px 25px" src="cid:logo.png" width="128px"></mj-image> -->
+        <mj-image align="center" padding="10px 25px" src="https://host-66-220-3-86.contentfabric.io/qlibs/ilib2bLJtRJG3LW9yScSNStbjkSqF2hH/q/iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv/meta/public/asset_metadata/images/dark_logo/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true" width="128px"></mj-image>
         <mj-text align="center" font-size="28px" color="black" padding-top="40px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="40px" padding-left="5%" padding-right="5%" >
           <span style="font-weight:bold;">{{cust-name}},</span>
           <br/>
@@ -14,7 +14,7 @@
 
     <mj-section background-color="white" padding-bottom="20px" padding-top="25px">
       <mj-column width="100%">
-        <!-- <mj-image align="center" padding="10px 25px" border-radius="5px" padding="10px 25px" src="cid:poster.png" width="250px" ></mj-image> -->
+        <mj-image align="center" padding="10px 25px" border-radius="5px" padding="10px 25px" src="https://host-66-220-3-86.contentfabric.io/qlibs/ilib2bLJtRJG3LW9yScSNStbjkSqF2hH/q/iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv/meta/public/sites/ritaora/images/event_poster/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true" width="250px" ></mj-image>
         <mj-text align="left" font-size="20px" color="black" font-family="sans-serif" padding-left="50px" padding-right="50px" padding-top="25px" padding-bottom="0px">
           <span style="font-weight:bold;">RITA ORA PRESENTS</span>
         </mj-text>
@@ -42,7 +42,7 @@
         <mj-text align="center" color="white" font-size="20px" font-family="Helvetica" padding-left="5px" padding-right="5px" padding-bottom="0px" padding-top="10px">March 10, 2021 · 8:00 PM PST</mj-text>
         <mj-text align="center" color="white" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-top="25px" padding-bottom="10px"><strong>Ticket Code</strong></mj-text>
         <mj-text align="center" color="white" font-size="20px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="40px" padding-top="10px">{{passcode}}</mj-text>
-        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="50px" href="https://live.eluv.io/d457a576/code" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">Enter Event</mj-button>
+        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="50px" href={{redeem-url}} font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">Enter Event</mj-button>
       </mj-column>
     </mj-section>
 
