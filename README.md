@@ -2,7 +2,14 @@
 
 React Application for Eluvio Live: a platform for ticketed live events focused on concerts, premieres, and live performances.
 
-## Quick start
+## Documentation
+
+- [Overview](https://github.com/qluvio/elv-live/wiki/Overview)
+- [Dependencies](https://github.com/qluvio/elv-live/wiki/Dependencies)
+- [Pages](https://github.com/qluvio/elv-live/wiki/Pages)
+- [Styling](https://github.com/qluvio/elv-live/wiki/Styling)
+
+## Getting Started
 
 1.  **Clone repository.**
 
@@ -23,9 +30,7 @@ React Application for Eluvio Live: a platform for ticketed live events focused o
 
     Web Application is now running locally at `http://localhost:8086`.
 
-    *Note: The main event page is `http://localhost:8086/d457a576/rita-ora` as the baseurl is set to d457a576 before the launch. 
-
-
+    *Note: The main event page is `http://localhost:8086/d457a576/ritaora` as the baseurl is set to d457a576 before the launch. 
 
 
 ## File Structure
