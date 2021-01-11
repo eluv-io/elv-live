@@ -93,7 +93,7 @@ class Event extends React.Component {
 
   render() {
     if(!this.props.siteStore.eventSites[this.props.match.params.name]) {
-      return <Redirect to='/'/>;
+      return <Redirect to={`${this.props.siteStore.basePath}`}/>;
     }
     let eventInfo = this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0];
 

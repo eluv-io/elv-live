@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
+import {Link} from "react-router-dom";
 
 import Navigation from "Layout/Navigation";
 
@@ -15,11 +16,8 @@ class CodeAccess extends React.Component {
 
     this.state = {
       code: "",
-      email: "",
-      name: "",
       loading: false,
       access: false,
-      email_placeholder: "Email",
       code_placeholder: "Ticket Code",
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -59,14 +57,13 @@ class CodeAccess extends React.Component {
     if(!this.props.siteStore.client) { return null; }
 
     if(this.state.siteId) {
-      return <Redirect to={`/stream/${this.state.siteId}`} />;
+      return <Redirect to={`${this.props.siteStore.basePath}/stream/${this.state.siteId}`} />;
     }
 
     const Submit = async () => {
       this.setState({loading: true});
 
       const siteId = await this.props.rootStore.RedeemCode(
-        this.state.email,
         this.state.code
       );
 
@@ -79,13 +76,13 @@ class CodeAccess extends React.Component {
 
     const divStyle = {
       backgroundSize: "cover",
-      backgroundImage: `url(${this.props.siteStore.codeImage})`,
+      backgroundImage: `linear-gradient(160deg, rgba(6, 16, 161, .85) 8%, rgba(69, 83, 255, .85) 30%, rgba(7, 194, 231, .85) 50%, rgba(5, 213, 255, .85)  70%, rgba(214, 148, 198, .85) 92%)`,
+      // backgroundImage: `linear-gradient(160deg, #0610a1 8%, #4553ff 30%, #07c2e7 50%, #05d5ff 70%, #d694c6 92%)`,
       height: "100vh",
       maxHeight: "100vh",
       minHeight: "100vh -webkit-fill-available",
       width: "100vw",
       backgroundPosition: "center",
-      opacity: .9,
       display: "flex"
     };
 
@@ -95,16 +92,25 @@ class CodeAccess extends React.Component {
 
         <div className = "code-entry">
           { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
+          <div className="code-header">
+            <h2 className="code-header-title">
+              Redeem Ticket
+            </h2>
+            <Link to={`${this.props.siteStore.basePath}/${this.props.siteStore.eventSlug}`} className="code-header-p">
+             Don't have a ticket yet? 
+              <b className="code-header-bold"> Purchase here.</b>
+            </Link>
+          </div>
 
           <LoadingElement loading={this.state.loading}>
-            <input
+            {/* <input
               onFocus={() => this.setState({email_placeholder: ""})}
               onBlur={() => this.setState({email_placeholder: "Email"})}
               placeholder={this.state.email_placeholder}
               value={this.state.email}
               onChange={this.handleEmailChange} 
               onKeyPress={onEnterPressed(Submit)}
-            />
+            /> */}
             <input
               onFocus={() => this.setState({code_placeholder: ""})}
               onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
@@ -113,7 +119,7 @@ class CodeAccess extends React.Component {
               onChange={this.handleCodeChange} 
               onKeyPress={onEnterPressed(Submit)}
             />
-            <button onClick={Submit} title="Submit">NEXT</button>
+            <button onClick={Submit} title="Submit">Enter Event</button>
           </LoadingElement>
         </div>
         

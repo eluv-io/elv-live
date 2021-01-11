@@ -27,12 +27,12 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path = "/stream/:siteId" component={Stream} />
-        <Route path = "/success/:email/:id" component={Success} />
-        <Route path = "/calendar" component={Calendar} />
-        <Route path = "/code" component={CodeAccess} />
-        <Route path = "/support" component={Support} />
-        <Route path = "/:name" component={Event} />
+        <Route exact path = {`${this.props.siteStore.basePath}/stream/:siteId`} component={Stream} />
+        <Route exact path = {`${this.props.siteStore.basePath}/success/:email/:id`} component={Success} />
+        <Route exact path = {`${this.props.siteStore.basePath}/calendar`} component={Calendar} />
+        <Route exact path = {`${this.props.siteStore.basePath}/code`} component={CodeAccess} />
+        <Route exact path = {`${this.props.siteStore.basePath}/support`} component={Support} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:name`} component={Event} />
 
         {/* <Route>
           <Redirect to="/" />
@@ -59,7 +59,7 @@ class App extends React.Component {
           return (
             <div className="app">
               <main>
-                <BrowserRouter basename={this.props.siteStore.basePath}>
+                <BrowserRouter>
                   <Routes />
                 </BrowserRouter>
               </main>
