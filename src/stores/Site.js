@@ -97,9 +97,10 @@ class SiteStore {
 
       let appData = response.data.app;
 
-      if(appData.base_path && (appData.base_path != "")) {
+      if(appData.base_path && (appData.base_path != "") && (appData.base_path.charAt(0) == "/")) {
         this.basePath = appData.base_path;
       }
+
       if(appData.faq) {
         this.faqData = appData.faq;
       }

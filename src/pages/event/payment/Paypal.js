@@ -136,7 +136,7 @@ class Paypal extends React.Component {
 
     if(this.state.redirectStatus) {
       this.props.turnOffModal();
-      let redirectURL = `/success/${this.props.email}/testID123asdbu9189nsod8923nh923eh9n`;
+      let redirectURL = `${this.props.siteStore.basePath}/success/${this.props.email}/testID123asdbu9189nsod8923nh923eh9n`;
       return <Redirect to={redirectURL}/>;
     }
 

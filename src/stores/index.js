@@ -49,11 +49,10 @@ class RootStore {
   });
 
   @action.bound
-  RedeemCode = flow(function * (email, Token) {
+  RedeemCode = flow(function * (Token) {
     try {
       let codeObjectID = yield this.client.RedeemCode({
         code: Token,
-        email: email,
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
       });

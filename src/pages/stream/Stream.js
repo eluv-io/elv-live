@@ -112,7 +112,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={"/code"} />;
+      return <Redirect to={`${this.props.siteStore.basePath}/code`} />;
     }
 
     const handleDrawerOpen = () => {
