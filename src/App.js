@@ -32,7 +32,7 @@ class Routes extends React.Component {
         <Route path = "/calendar" component={Calendar} />
         <Route path = "/code" component={CodeAccess} />
         <Route path = "/support" component={Support} />
-        <Route path = {`/:name`} component={Event} />
+        <Route path = "/:name" component={Event} />
 
         {/* <Route>
           <Redirect to="/" />

@@ -5,7 +5,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import Select from "react-select";
 import { checkout } from "Data";
 import {retryRequest} from "Utils/retryRequest";
-import PaypalButton from "./PaypalButton";
+// import PaypalButton from "./PaypalButton";
+import Paypal from "./Paypal";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -38,6 +39,8 @@ class PaymentOverview extends React.Component {
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
 
   }
 
@@ -50,7 +53,11 @@ class PaymentOverview extends React.Component {
     this.setState({merchImage: merchImage});
   }
 
-
+  validateEmail (email) {
+    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regexp.test(email);
+  }
+  
   handleCountryChange(value) {
     this.setState({selectedCountry: value});
   }
@@ -60,18 +67,14 @@ class PaymentOverview extends React.Component {
   handleSizeChange(value) {
     this.setState({selectedSize: value});
   }
+  handleError(value) {
+    this.setState({error: value});
+  }
 
   render() {
     let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
 
-    let paypalProduct = {
-      price: 35,
-      name: 'General Admission',
-      description: "Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.",
-      image: eventPoster
-    };
 
-  
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
     };
@@ -82,7 +85,11 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
-    const handleSubmit = (priceID, prodID) => async event => {
+    const handleStripeSubmit = (priceID, prodID) => async event => {
+      if (!this.validateEmail(this.state.email)) {
+        this.setState({error: "Enter a valid email to continue to Payment!"});
+        return;
+      }
       const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       
       let checkoutCart = [
@@ -140,6 +147,7 @@ class PaymentOverview extends React.Component {
       }
 
     };
+
     
     return (
       <div className="payment-container">
@@ -173,7 +181,7 @@ class PaymentOverview extends React.Component {
           <div className="checkout-section">
             <div className="checkout-checkbox-label">
               <h5 className="checkout-checkbox-heading">
-                {this.props.siteStore.prodName}
+                {this.props.siteStore.currentProduct.name}
               </h5>  
             </div>
             <div className="currency-quantity-container">
@@ -297,6 +305,7 @@ class PaymentOverview extends React.Component {
           <div className="checkout-section">
             <div className="checkout-email-form">
               <input
+                id="email-check" 
                 onFocus={() => this.setState({email_placeholder: ""})}
                 onBlur={() => this.setState({email_placeholder: "Email"})}
                 placeholder={this.state.email_placeholder}
@@ -311,7 +320,7 @@ class PaymentOverview extends React.Component {
           </div>
 
           {/* Stripe Checkout Redirect Button*/}
-          <button className="checkout-button" role="link" onClick={handleSubmit(this.props.siteStore.priceId, this.props.siteStore.prodId)}>
+          <button className="checkout-button" role="link" onClick={handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
               {this.state.retryCheckout ? 
                 <div className="spin-checkout-container">
                   <div class="la-ball-clip-rotate la-sm">
@@ -320,8 +329,18 @@ class PaymentOverview extends React.Component {
                 </div>
               : "Continue to Checkout"}
           </button>
-          <PaypalButton product={paypalProduct} email={this.state.email} turnOffModal={this.props.siteStore.turnOffModal}/>
-          <div className="checkout-error">
+
+            <Paypal 
+              product={this.props.siteStore.currentProduct} 
+              merchChecked={this.state.merchChecked} 
+              donationChecked={this.state.donationChecked} 
+              email={this.state.email} 
+              handleError={this.handleError} 
+              turnOffModal={this.props.siteStore.turnOffModal}
+              validateEmail={this.validateEmail}
+            />
+
+          <div id="checkout-id" className="checkout-error">
             {this.state.error}
           </div>
 
