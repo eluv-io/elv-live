@@ -40,7 +40,7 @@ class Ticket extends React.Component {
           <div className="ticket-bottom">
             <div className="ticket-bottom-info">
               <div className="ticket-bottom-price">
-                {price}
+                {`$${price / 100}`}
               </div>
 
               <IconContext.Provider value={{ className: "ticket-icon" }}>
@@ -56,7 +56,7 @@ class Ticket extends React.Component {
                 <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
               </div>
             </div>
-            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal(priceID, prodID, name)}>
+            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal( name, description, price, priceID, prodID)}>
               Buy Ticket
             </button>
           </div>

@@ -24,9 +24,7 @@ class SiteStore {
 
   // Eluvio Live - Modal
   @observable modalOn = false;  
-  @observable priceId = ""; 
-  @observable prodId = ""; 
-  @observable prodName = ""; 
+  @observable currentProduct; 
 
   @observable logoUrl;
 
@@ -98,7 +96,6 @@ class SiteStore {
       );
 
       let appData = response.data.app;
-      console.log(appData);
 
       if(appData.base_path && (appData.base_path != "")) {
         this.basePath = appData.base_path;
@@ -177,12 +174,17 @@ class SiteStore {
   });
 
   @action.bound
-  turnOnModal = flow(function * (price, prod, prodName) {
+  turnOnModal = flow(function * ( name, description, price, priceId, prodId) {
     try {
       this.modalOn = true;
-      this.priceId = price;
-      this.prodId = prod;
-      this.prodName = prodName;
+      this.currentProduct = {
+        name: name,
+        description: description,
+        price: price,
+        priceId: priceId,
+        prodId: prodId
+      };
+
 
     } catch (error) {
       // eslint-disable-next-line no-console

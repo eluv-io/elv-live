@@ -17,9 +17,6 @@
     "fix-js": "eslint \"src/**/*.js\" --fix",
     "lint-scss": "stylelint '**/*.scss' --config .stylelintrc.yml",
     "fix-scss": "stylelint '**/*.scss' --config .stylelintrc.yml --fix",
-    "docz:dev": "docz dev --config=./docs/docz.config.js",
-    "docz:build": "docz build",
-    "docz:serve": "docz build && docz serve",
     "test": "jest"
   },
   "pre-commit": {
@@ -39,7 +36,6 @@
     "bitmovin-player": "^8.50.0",
     "bitmovin-player-ui": "^3.22.0",
     "dateformat": "^3.0.3",
-    "docz": "^2.3.1",
     "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git#645165da87ec42845a908a9ce0817db202523866",
     "getstream": "^6.2.2",
     "mobx": "^5.13.0",

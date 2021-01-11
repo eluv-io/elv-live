@@ -55,7 +55,7 @@ class ConcertOverview extends React.Component {
             <Ticket
               name={obj["name"]}
               description={obj["description"]}
-              price={`$${obj["price"][0]["amount"] / 100}`}
+              price={obj["price"][0]["amount"]}
               priceID={testMode ? obj["payment_ids"][0]["stripe_test"][0]["price_id"]: obj["payment_ids"][0]["stripe"][0]["price_id"]}
               prodID = {testMode ? obj["payment_ids"][0]["stripe_test"][0]["prod_id"]: obj["payment_ids"][0]["stripe"][0]["prod_id"]}
               date ={eventInfo["date"]}
