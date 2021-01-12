@@ -67,4 +67,3 @@ A quick look at the top-level files and directories.
     ├── .webpack.config.js                # Webpack Configuration file
     ├── .gitignore                        # Tells git which files it should not track 
     └── .scss-lint.yml                    # SCSS-lint Configuration file
-
