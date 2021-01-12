@@ -86,10 +86,10 @@ class PaymentOverview extends React.Component {
     };
 
     const handleStripeSubmit = (priceID, prodID) => async event => {
-      if (!this.validateEmail(this.state.email)) {
-        this.setState({error: "Enter a valid email to continue to Payment!"});
-        return;
-      }
+      // if (!this.validateEmail(this.state.email)) {
+      //   this.setState({error: "Enter a valid email to continue to Payment!"});
+      //   return;
+      // }
       const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       
       let checkoutCart = [
@@ -128,22 +128,24 @@ class PaymentOverview extends React.Component {
         await stripe.redirectToCheckout(stripeParams);
 
       } catch (error) {
-        // console.log("redirectToCheckout Error! name: ", error.name, ", message:", error.message);
-        // error.message = "Testmode request rate limit exceeded, the rate limits in testmode are lower than livemode. You can learn more about rate limits here https://stripe.com/docs/rate-limits.";
-        if (error.message == "Invalid email address: "){
-          this.setState({error: "Enter a valid email to continue to Payment."});
-        } 
-        else {
-          this.setState({retryCheckout: true});
 
+          console.log("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
+          log.info("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
+
+          this.setState({retryCheckout: true});
+          let retryResponse; 
           try {
-            await retryRequest(stripe.redirectToCheckout, stripeParams);
+            console.log("RETRY START: Retrying redirectToCheckout");
+
+            retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
+            console.log("RETRY END (SUCCESS). Response:", retryResponse);
+
           } catch(error) {
             this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+            console.log("RETRY END (FAILURE). Response:", retryResponse, ", Error:", error);
           }
-          console.log("retryResponse: ", response);
           this.setState({retryCheckout: false});
-        }
+        
       }
 
     };

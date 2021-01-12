@@ -23,9 +23,9 @@
  */
 
 const INITIAL_DELAY = 100; 
-const MAX_DELAY = 2000; 
+const MAX_DELAY = 3000; 
 const EXP_FACTOR = 2; 
-const MAX_RETRIES = 10; 
+const MAX_RETRIES = 15; 
 const JITTER_OPTION = "FullJitter"; 
 
 /**
@@ -64,11 +64,11 @@ const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DEL
   // Calculate exponential backoff as initial delay * (exponential factor ^ retries) milliseconds.
   let exponential_backoff = initialDelay * (expFactor ** retryCount);
 
-  // Apply some randomization (defaults to use FullJitter)   
-  let randomization_backoff = applyJitter(exponential_backoff);
-
   // Don't allow the delay to exceed maxDelay ms.
-  let delay = Math.min(randomization_backoff, maxDelay);
+  let delay = Math.min(exponential_backoff, maxDelay);
+
+  // Apply some randomization (defaults to use FullJitter)   
+  delay = applyJitter(delay);
 
   return delay;
 };
@@ -86,21 +86,26 @@ const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DEL
 export const retryRequest = async (request, params, maxRetries=MAX_RETRIES, retryCount = 0) => {
   // Throws Error when Max Retry limit is reached
   if ((maxRetries - retryCount) <= 0) {
+    console.log("Reached Max Retries");
     throw new Error("Reached Max Retries");
   }
 
   // Calculate delay (ms) for timeout based on current retry count
   let delay = calculateDelay(retryCount);
-
   // Time out based on calculated delay 
+  console.log("Retry Request Count #", retryCount, " -- Calculated Delay: ", delay, " ms");
   await new Promise(resolve => setTimeout(resolve, delay));
 
+  let response;
   try {
     // Retrying Request and return result if successful
-    return await request(params);
+    response = await request(params);
+    console.log("SUCCESS: Retry Request #", retryCount);
 
+    return response;
   } catch (error) {
     // If request errors, iterate retryCount by 1 before retrying the request
+    console.log("FAIL: Retry Request #", retryCount);
     return retryRequest(request, params, maxRetries, retryCount + 1);
   }
 };
