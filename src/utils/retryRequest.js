@@ -23,7 +23,7 @@
  */
 
 const INITIAL_DELAY = 100; 
-const MAX_DELAY = 3000; 
+const MAX_DELAY = 2500; 
 const EXP_FACTOR = 2; 
 const MAX_RETRIES = 15; 
 const JITTER_OPTION = "FullJitter"; 

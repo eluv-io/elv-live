@@ -74,7 +74,6 @@ class PaymentOverview extends React.Component {
   render() {
     let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
 
-
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
     };
@@ -86,10 +85,10 @@ class PaymentOverview extends React.Component {
     };
 
     const handleStripeSubmit = (priceID, prodID) => async event => {
-      // if (!this.validateEmail(this.state.email)) {
-      //   this.setState({error: "Enter a valid email to continue to Payment!"});
-      //   return;
-      // }
+      if (!this.validateEmail(this.state.email)) {
+        this.setState({error: "Enter a valid email to continue to Payment!"});
+        return;
+      }
       const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       
       let checkoutCart = [
@@ -130,7 +129,6 @@ class PaymentOverview extends React.Component {
       } catch (error) {
 
           console.log("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
-          log.info("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
 
           this.setState({retryCheckout: true});
           let retryResponse; 
