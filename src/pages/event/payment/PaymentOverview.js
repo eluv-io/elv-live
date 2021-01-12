@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import Select from "react-select";
 import { checkout } from "Data";
-import {retryRequest} from "Utils/retryRequest";
+// import {retryRequest} from "Utils/retryRequest";
 // import PaypalButton from "./PaypalButton";
 import Paypal from "./Paypal";
 
@@ -86,10 +86,10 @@ class PaymentOverview extends React.Component {
     };
 
     const handleStripeSubmit = (priceID, prodID) => async event => {
-      // if (!this.validateEmail(this.state.email)) {
-      //   this.setState({error: "Enter a valid email to continue to Payment!"});
-      //   return;
-      // }
+      if (!this.validateEmail(this.state.email)) {
+        this.setState({error: "Enter a valid email to continue to Payment!"});
+        return;
+      }
       const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       
       let checkoutCart = [
@@ -130,14 +130,13 @@ class PaymentOverview extends React.Component {
       } catch (error) {
 
           console.log("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
-          log.info("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
 
           this.setState({retryCheckout: true});
           let retryResponse; 
-          try {
-            console.log("RETRY START: Retrying redirectToCheckout");
+          console.log("RETRY START: Retrying redirectToCheckout");
 
-            retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
+          try {
+            // retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
             console.log("RETRY END (SUCCESS). Response:", retryResponse);
 
           } catch(error) {
@@ -145,9 +144,7 @@ class PaymentOverview extends React.Component {
             console.log("RETRY END (FAILURE). Response:", retryResponse, ", Error:", error);
           }
           this.setState({retryCheckout: false});
-        
       }
-
     };
 
     
@@ -332,7 +329,7 @@ class PaymentOverview extends React.Component {
               : "Continue to Checkout"}
           </button>
 
-            <Paypal 
+            {/* <Paypal 
               product={this.props.siteStore.currentProduct} 
               merchChecked={this.state.merchChecked} 
               donationChecked={this.state.donationChecked} 
@@ -340,7 +337,7 @@ class PaymentOverview extends React.Component {
               handleError={this.handleError} 
               turnOffModal={this.props.siteStore.turnOffModal}
               validateEmail={this.validateEmail}
-            />
+            /> */}
 
           <div id="checkout-id" className="checkout-error">
             {this.state.error}
