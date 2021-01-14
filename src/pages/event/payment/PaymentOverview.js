@@ -41,6 +41,8 @@ class PaymentOverview extends React.Component {
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleError = this.handleError.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
+    this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
+    this.createOrder = this.createOrder.bind(this);
 
   }
 
@@ -70,6 +72,114 @@ class PaymentOverview extends React.Component {
   handleError(value) {
     this.setState({error: value});
   }
+  
+  handleStripeSubmit = (priceID, prodID) => async event => {
+    if (!this.validateEmail(this.state.email)) {
+      this.setState({error: "Enter a valid email to continue to Payment!"});
+      return;
+    }
+    const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
+    
+    let checkoutCart = [
+      { price: priceID, quantity: this.state.selectedQty.value}
+    ];
+    let merchInd = 1
+    let donateInd = "stripe_price_id";
+    if (this.props.siteStore.stripeTestMode) {
+      merchInd = 0;
+      donateInd = "stripe_test_price_id";
+    }
+
+    if(this.state.merchChecked) {
+      checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
+    }
+    if(this.state.donationChecked) {
+      checkoutCart.push({ price: donation[donateInd], quantity: 1 });
+    }
+    let checkoutID = this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.state.email); 
+
+    let stripeParams = {
+      mode: "payment",
+      lineItems: checkoutCart,
+      successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/${checkoutID}`, 
+      cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
+      clientReferenceId: checkoutID,
+      customerEmail: this.state.email
+    };
+
+    if(this.state.merchChecked) {
+      stripeParams.shippingAddressCollection = {
+        allowedCountries: [this.state.selectedCountry.value],
+      };
+    } 
+
+    try {
+      await stripe.redirectToCheckout(stripeParams);
+
+    } catch (error) {
+
+        console.log("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
+
+        this.setState({retryCheckout: true});
+        let retryResponse; 
+        try {
+          console.log("RETRY START: Retrying redirectToCheckout");
+
+          retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
+          console.log("RETRY END (SUCCESS). Response:", retryResponse);
+
+        } catch(error) {
+          this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+          console.log("RETRY END (FAILURE). Response:", retryResponse, ", Error:", error);
+        }
+        this.setState({retryCheckout: false});
+    }
+  };
+
+  createOrder(data, actions) {
+
+    let checkoutCart = [
+      {
+        name: this.props.product.name,
+        unit_amount: {value: `${this.props.product.price / 100}`, currency_code: 'USD'},
+        quantity: '1',
+      }
+    ];
+    let totalPrice = this.props.product.price;
+
+    if(this.props.merchChecked) {
+      let merchPrice = 2500; //this.state.checkoutMerch["price"];
+      checkoutCart.push({
+        name: 'Merch',
+        unit_amount: {value: `${merchPrice / 100}`, currency_code: 'USD'},
+        quantity: '1',
+      });
+      totalPrice += merchPrice;
+    }
+
+    if(this.props.donationChecked) {
+      let donationPrice = 1000; //this.state.donation["price"]
+      checkoutCart.push({
+        name: 'Donation',
+        unit_amount: {value: `${donationPrice / 100}`, currency_code: 'USD'},
+        quantity: '1',
+      });
+      totalPrice += donationPrice;
+    }
+
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+            value: `${totalPrice / 100}`,
+            currency_code: 'USD',
+        },
+        items: checkoutCart
+      }],
+      payer: {
+        email_address: this.props.email
+      }
+      });
+  }
 
   render() {
     let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
@@ -84,69 +194,7 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
-    const handleStripeSubmit = (priceID, prodID) => async event => {
-      if (!this.validateEmail(this.state.email)) {
-        this.setState({error: "Enter a valid email to continue to Payment!"});
-        return;
-      }
-      const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
-      
-      let checkoutCart = [
-        { price: priceID, quantity: this.state.selectedQty.value}
-      ];
-      let merchInd = 1
-      let donateInd = "stripe_price_id";
-      if (this.props.siteStore.stripeTestMode) {
-        merchInd = 0;
-        donateInd = "stripe_test_price_id";
-      }
 
-      if(this.state.merchChecked) {
-        checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
-      }
-      if(this.state.donationChecked) {
-        checkoutCart.push({ price: donation[donateInd], quantity: 1 });
-      }
-
-      let stripeParams = {
-        mode: "payment",
-        lineItems: checkoutCart,
-        successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/{CHECKOUT_SESSION_ID}`, 
-        cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
-        clientReferenceId: prodID,
-        customerEmail: this.state.email
-      };
-
-      if(this.state.merchChecked) {
-        stripeParams.shippingAddressCollection = {
-          allowedCountries: [this.state.selectedCountry.value],
-        };
-      } 
-
-      try {
-        await stripe.redirectToCheckout(stripeParams);
-
-      } catch (error) {
-
-          console.log("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
-
-          this.setState({retryCheckout: true});
-          let retryResponse; 
-          try {
-            console.log("RETRY START: Retrying redirectToCheckout");
-
-            retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
-            console.log("RETRY END (SUCCESS). Response:", retryResponse);
-
-          } catch(error) {
-            this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
-            console.log("RETRY END (FAILURE). Response:", retryResponse, ", Error:", error);
-          }
-          this.setState({retryCheckout: false});
-        
-      }
-
-    };
 
     
     return (
@@ -320,7 +368,7 @@ class PaymentOverview extends React.Component {
           </div>
 
           {/* Stripe Checkout Redirect Button*/}
-          <button className="checkout-button" role="link" onClick={handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
+          <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
               {this.state.retryCheckout ? 
                 <div className="spin-checkout-container">
                   <div class="la-ball-clip-rotate la-sm">
@@ -330,7 +378,8 @@ class PaymentOverview extends React.Component {
               : "Continue to Checkout"}
           </button>
 
-            <Paypal 
+            <Paypal
+              // createOrder={this.createOrder} 
               product={this.props.siteStore.currentProduct} 
               merchChecked={this.state.merchChecked} 
               donationChecked={this.state.donationChecked} 

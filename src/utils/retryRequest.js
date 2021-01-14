@@ -76,8 +76,8 @@ const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DEL
 /**
  * Retries asynchronous requests with exponential backoff and random jitter 
  *
- * @param {number} request The number of retries so far
- * @param {number} params Initial timeout
+ * @param {number} request async request function
+ * @param {number} params request input params
  * @param {number} maxRetries Maximum Retry Limit
  * @param {number} retryCount The number of retries so far 
  * @return {Object} Returns Response Object from request if request goes through

@@ -66,18 +66,20 @@ class Paypal extends React.Component {
 
 
   createOrder(data, actions) {
+    console.log("CREATE ORDER");
 
     let checkoutCart = [
       {
-        name: 'General Admission',
+        name: this.props.product.name,
         unit_amount: {value: `${this.props.product.price / 100}`, currency_code: 'USD'},
         quantity: '1',
+        sku: this.props.siteStore.currentProduct.otpID
       }
     ];
     let totalPrice = this.props.product.price;
 
     if(this.props.merchChecked) {
-      let merchPrice = 2500;//this.state.checkoutMerch["price"];
+      let merchPrice = 2500; //this.state.checkoutMerch["price"];
       checkoutCart.push({
         name: 'Merch',
         unit_amount: {value: `${merchPrice / 100}`, currency_code: 'USD'},
@@ -94,30 +96,41 @@ class Paypal extends React.Component {
         quantity: '1',
       });
       totalPrice += donationPrice;
-
     }
 
+    console.log("this.props.siteStore.currentProduct.otpID", this.props.siteStore.currentProduct.otpID);
+
     return actions.order.create({
-      purchase_units: [{
-        // description: this.props.product.description,
+      purchase_units: [
+        {
+          reference_id: this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.props.email),
+          custom_id: this.props.siteStore.currentProduct.otpID,
         amount: {
             value: `${totalPrice / 100}`,
             currency_code: 'USD',
             breakdown: {
-                item_total: {value: `${totalPrice / 100}`, currency_code: 'USD'}
-            }
+              item_total: {value: `${totalPrice / 100}`, currency_code: 'USD'}
+          }
         },
         items: checkoutCart
-    }],
-    payer: {
-      email_address: this.props.email
-    }
-    });
+      }],
+      payer: {
+        email_address: this.props.email
+      },
+
+      });
   }
 
   onApprove(data, actions) {
+    // return actions.order.capture().then(function(details) {
+    //   // This function shows a transaction success message to your buyer.
+    //   alert('Transaction completed by ' + details.payer.name.given_name);
+    // });
     this.setState({redirectStatus: true});
-    return actions.order.capture();
+    return actions.order.capture().then(function(details)  {
+      // This function shows a transaction success message to your buyer.
+      alert('Transaction completed by ' + details.payer.name.given_name);
+     });
   }
 
   onError(err) {
@@ -136,7 +149,11 @@ class Paypal extends React.Component {
 
     if(this.state.redirectStatus) {
       this.props.turnOffModal();
-      let redirectURL = `${this.props.siteStore.basePath}/success/${this.props.email}/testID123asdbu9189nsod8923nh923eh9n`;
+      console.log("REDIRECT this.props.siteStore.currentProduct.otpID", this.props.siteStore.currentProduct.otpID);
+
+      let checkoutID = this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.props.email); 
+
+      let redirectURL = `${this.props.siteStore.basePath}/success/${this.props.email}/${checkoutID}`;
       return <Redirect to={redirectURL}/>;
     }
 
@@ -162,3 +179,4 @@ class Paypal extends React.Component {
 }
 
 export default Paypal;
+
