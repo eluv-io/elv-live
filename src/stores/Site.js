@@ -4,6 +4,8 @@ import UrlJoin from "url-join";
 import Id from "@eluvio/elv-client-js/src/Id";
 import { v4 as UUID } from "uuid";
 import axios from "axios";
+import { ethers } from "ethers";
+const createKeccakHash = require("keccak");
 
 class SiteStore {
   // Eluvio Live - Data Store
@@ -159,6 +161,25 @@ class SiteStore {
     );
   });
 
+  // func genTIDPrefix(otpId, ident string, sz int) string {
+  //   h := crypto.Keccak256([]byte(fmt.Sprintf("%v:%v", otpId, ident)))
+  //   if sz < len(h) {
+  //     h = h[0:sz]
+  //   }
+  //   return base58.Encode(h)
+  // }
+
+  @action.bound
+  generateCheckoutID(otpID, email, sz = 10) {
+    let id = createKeccakHash('keccak256').update(`${otpID}:${email}`).digest();
+
+    if (sz <  id.length) {
+      id = id.slice(0, sz);
+    }
+    
+    return ethers.utils.base58.encode(id); 
+  };
+
   @action.bound
   PlayTitle = flow(function * (title) {
     try {
@@ -175,7 +196,7 @@ class SiteStore {
   });
 
   @action.bound
-  turnOnModal = flow(function * ( name, description, price, priceId, prodId) {
+  turnOnModal = flow(function * ( name, description, price, priceId, prodId, otpID) {
     try {
       this.modalOn = true;
       this.currentProduct = {
@@ -183,7 +204,9 @@ class SiteStore {
         description: description,
         price: price,
         priceId: priceId,
-        prodId: prodId
+        prodId: prodId,
+        otpID: otpID
+        
       };
 
 

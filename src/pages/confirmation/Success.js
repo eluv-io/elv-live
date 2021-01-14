@@ -44,7 +44,7 @@ class Success extends React.Component {
             <div className="header">
               <div className="line-item confirm">
                 <p className="confirm-label">Confirmation #</p>
-                <p className="confirm-price">{sessionId.substring(10,22)}</p>
+                <p className="confirm-price">{sessionId}</p>
               </div>
             </div>
 

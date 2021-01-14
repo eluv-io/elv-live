@@ -61,6 +61,7 @@ class ConcertOverview extends React.Component {
               date ={eventInfo["date"]}
               poster={eventPoster}
               key={index}
+              otpID={obj["otp_id"]}
               refProp={index == 1 ? this.props.refProp: null}
             />
           ))}

@@ -11,7 +11,7 @@ import { IconContext } from "react-icons";
 class Ticket extends React.Component {
 
   render() {
-    let {name, description, price, priceID, prodID, date, poster} = this.props;
+    let {name, description, price, priceID, prodID, date, poster, otpID} = this.props;
 
     return (
       <div className="ticket-event" id={name} ref={this.props.refProp} >
@@ -56,7 +56,7 @@ class Ticket extends React.Component {
                 <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
               </div>
             </div>
-            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal( name, description, price, priceID, prodID)}>
+            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal( name, description, price, priceID, prodID, otpID)}>
               Buy Ticket
             </button>
           </div>
