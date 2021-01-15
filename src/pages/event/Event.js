@@ -107,7 +107,8 @@ class Event extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(to bottom, ${eventHeroView.backgroundColor1} 55%, ${eventHeroView.backgroundColor3} 60%, ${eventHeroView.backgroundColor4} 65%, ${eventHeroView.backgroundColor5}  70%, ${eventHeroView.backgroundColor6} 75%, ${eventHeroView.backgroundColor7} 80%,  ${eventHeroView.backgroundColor8} 85%,  ${eventHeroView.backgroundColor9} 90%, ${eventHeroView.backgroundColor10} 100%), url(${heroBackground})`,
+      backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 85%, white 100%), url(${heroBackground})`,
+      // backgroundImage:  `linear-gradient(to bottom, ${eventHeroView.backgroundColor1} 55%, ${eventHeroView.backgroundColor3} 60%, ${eventHeroView.backgroundColor4} 65%, ${eventHeroView.backgroundColor5}  70%, ${eventHeroView.backgroundColor6} 75%, ${eventHeroView.backgroundColor7} 80%,  ${eventHeroView.backgroundColor8} 85%,  ${eventHeroView.backgroundColor9} 90%, ${eventHeroView.backgroundColor10} 100%), url(${heroBackground})`,
       backgroundPosition: "center",
       objectFit: "cover",
       height: "100vh",

@@ -1,6 +1,6 @@
 .merch-container {
   background-color: transparent;
-  color: #000;
+  color: black;
   display: flex;
   flex-direction: row !important;
   flex-wrap: wrap;
@@ -13,7 +13,7 @@
 }
 
 .merch-title {
-  color: #fff;
+  color: black;
   font-size: 50px !important;
   font-weight: bold;
   line-height: 50px;
@@ -66,6 +66,7 @@
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
+  border-radius: 10px;
 
   @media only screen and (max-width: 620px) {
     height: 350px !important;
@@ -80,7 +81,7 @@
 
 .merch-detail {
   box-pack: justify;
-  color: rgb(241, 243, 250);
+  color: black;
   display: flex;
   font-size: 19px;
   font-weight: bold;

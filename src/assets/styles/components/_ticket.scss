@@ -17,8 +17,8 @@
 
 .ticket-event {
   align-items: flex-start;
-  background: #f9f7f4;
-  box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
+  // background: #f9f7f4;
+  // box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
   grid-column: span 1;
   margin: 0 auto 50px;
@@ -31,6 +31,9 @@
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
+  height: 380px;
+  background: #FFFFFF;
+  border-radius: 10px;
 
   @media only screen and (max-width: 1000px) {
     flex-direction: column;
@@ -47,7 +50,8 @@
   user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
-  width: 100%;
+  width: 250px;
+  height: 100%;
 
   @media only screen and (max-width: 1000px) {
     max-width: 100%;
@@ -58,14 +62,17 @@
   display: block;
   flex-shrink: 0;
   margin: auto;
-  max-width: 190px;
+  // max-width: 200px;
   // margin-right: 40px;
   position: relative;
   user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
-  width: 100%;
+  height: 100%;
+  width: auto;
+
   // border-radius: 10px;
+  object-fit: cover;
   @media only screen and (max-width: 1000px) {
     margin: auto;
     margin-bottom: 20px;
@@ -85,7 +92,7 @@
 .ticket-top {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
 }
 
 .ticket-top-labels {
@@ -93,10 +100,13 @@
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
+
+  // width: auto;
+
 
   @media only screen and (max-width: 500px) {
     flex-direction: column;
@@ -106,9 +116,9 @@
 }
 
 .ticket-label-available {
-  background: #000;
+  background: transparent;
   border-radius: 3px;
-  color: #fff;
+  color: black;
   display: block;
   font-size: 12px;
   font-weight: 400;
@@ -119,6 +129,23 @@
   padding: 2px 5px;
   text-transform: uppercase !important;
   width: auto;
+
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 200;
+font-size: 16px;
+line-height: 100%;
+/* identical to box height, or 16px */
+
+letter-spacing: 0.065em;
+text-transform: uppercase;
+
+color: #000000;
+padding: 8px 10px;
+
 
   @media only screen and (max-width: 500px) {
     margin-bottom: 2px;
@@ -127,9 +154,9 @@
 }
 
 .ticket-label-loc {
-  background: #000;
+  background: transparent;
   border-radius: 3px;
-  color: #fff;
+  color: black;
   display: block;
   font-size: 12px;
   font-weight: 400;
@@ -141,6 +168,24 @@
   text-transform: uppercase !important;
   width: auto;
 
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 200;
+font-size: 16px;
+line-height: 100%;
+/* identical to box height, or 16px */
+
+letter-spacing: 0.065em;
+text-transform: uppercase;
+padding: 8px 10px;
+
+color: #000000;
+  margin-right: 10px;
+
   @media only screen and (max-width: 500px) {
     margin-bottom: 3.5px;
     width: max-content;
@@ -148,23 +193,48 @@
 }
 
 .ticket-top-title {
-  font-family: sans-serif;
-  font-size: 30px;
-  font-weight: 700;
-  letter-spacing: -0.2px;
-  margin-top: 0;
+  // font-family: sans-serif;
+  // font-size: 30px;
+  // font-weight: 700;
+  // letter-spacing: -0.2px;
+  // margin-top: 0;
   text-transform: uppercase;
+
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 48px;
+line-height: 156.5%;
+/* or 75px */
+
+letter-spacing: 0.07em;
+text-transform: uppercase;
+
+color: #000000;
 }
 
 .ticket-top-description {
   box-orient: vertical;
   color: rgba(0, 0, 0, 0.6);
   display: block;
-  font-size: 14px;
-  -webkit-line-clamp: 2;
-  margin-bottom: 20px;
+  margin-top: 5px;
   overflow: hidden;
   position: relative;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  padding-right: 30px;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 140%;
+/* or 25px */
+
+letter-spacing: 0.03em;
+
+color: #000000;
 }
 
 .ticket-bottom {
@@ -174,6 +244,10 @@
   user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: auto;
 }
 
 .ticket-bottom-info {
@@ -183,11 +257,31 @@
   justify-content: space-between;
   padding: 15px 20px;
 
+  background: #F2EEEA;
+  border-radius: 15px;
+  width: 600px;
   @media only screen and (max-width: 650px) {
     flex-direction: column;
     height: auto !important;
   }
 }
+
+.ticket-bottom-location {
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.374px;
+  line-height: 20.5883px;
+
+  @media only screen and (max-width: 650px) {
+    text-align: center !important;
+  }
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
 
 .ticket-bottom-date {
   color: #000;
@@ -206,19 +300,23 @@
 }
 
 .ticket-bottom-price {
-  color: #000;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.374px;
-  line-height: 20.5883px;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 21px;
+  text-align: center;
 
-  @media only screen and(max-width: 650px) {
-    margin-bottom: 15px;
-  }
+  color: #000000;
+  margin: auto;
 
-  @media only screen and (max-width: 600px) {
-    margin-bottom: 0;
-  }
+  // @media only screen and(max-width: 650px) {
+  //   margin-bottom: 15px;
+  // }
+
+  // @media only screen and (max-width: 600px) {
+  //   margin-bottom: 0;
+  // }
 }
 
 .ticket-bottom-countdown {
@@ -236,18 +334,31 @@
 }
 
 .ticket-bottom-button {
-  background: #000;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  // background: #000;
+  // border-bottom-left-radius: 12px;
+  // border-bottom-right-radius: 12px;
   color: #fff;
-  font-size: 17px;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: bold;
-  height: 50px !important;
-  letter-spacing: -0.022em;
-  line-height: 1.47059;
-  margin-top: 0 !important;
+  // font-size: 17px;
+  // font-size: 18px;
+  // font-style: normal;
+  // font-weight: bold;
+  // height: 50px !important;
+  // letter-spacing: -0.022em;
+  // line-height: 1.47059;
+  // margin-top: 0 !important;
   text-align: center;
-  width: 100%;
+  background: #000000;
+  border-radius: 3px;
+  width: 180px;
+
+  font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+
+color: #FFFFFF;
+
 }

@@ -4,11 +4,44 @@ import {inject, observer} from "mobx-react";
 import Timer from "Common/Timer";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import Select from "react-select";
+
+
+const offerings = [
+  {
+    value: "AF",
+    label: "Afghanistan"
+  },
+  {
+    value: "AX",
+    label: "Åland Islands"
+  },
+  {
+    value: "AL",
+    label: "Albania"
+  }   
+];
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Ticket extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedOffering: offerings[0],
+    };
+
+    this.handleOfferingChange = this.handleOfferingChange.bind(this);
+
+  }
+  
+  handleOfferingChange(value) {
+    this.setState({selectedOffering: value});
+  }
+
 
   render() {
     let {name, description, price, priceID, prodID, date, poster, otpID} = this.props;
@@ -38,10 +71,36 @@ class Ticket extends React.Component {
 
           </div>
           <div className="ticket-bottom">
+           {/* <div className="ticket-bottom-info"> */}
+                {/* <Select 
+                  className='react-select-container' 
+                  classNamePrefix="react-select" 
+                  options={offerings} 
+                  value={this.state.selectedOffering} 
+                  onChange={this.handleOfferingChange}
+                  theme={theme => ({
+                    ...theme,
+                    borderRadius: 15,
+                    width: 600,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "rgba(230, 212, 165,.4)",
+                      primary: "#cfb46b",
+                    },
+                    valueContainer: base => ({
+                      ...base,
+                      background: "#F2EEEA",
+                      color: 'black',
+                      width: '100%',
+                    }),
+                  })}
+                /> */}
+            {/* </div> */}
             <div className="ticket-bottom-info">
-              <div className="ticket-bottom-price">
-                {`$${price / 100}`}
+            <div className="ticket-bottom-location">
+                {`North America`}
               </div>
+
 
               <IconContext.Provider value={{ className: "ticket-icon" }}>
                 <div className="ticket-bottom-date">
@@ -55,7 +114,11 @@ class Ticket extends React.Component {
               <div className="ticket-bottom-countdown">
                 <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
               </div>
+
             </div>
+            <div className="ticket-bottom-price">
+                {`$${price / 100} USD`}
+              </div>
             <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal( name, description, price, priceID, prodID, otpID)}>
               Buy Ticket
             </button>
