@@ -188,6 +188,15 @@
   padding-top: 1rem;
   text-transform: uppercase;
 
+  font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 150%;
+/* or 21px */
+
+text-align: center;
+letter-spacing: 0.07em;
   @media only screen and (max-width: $bp-small) {
     width: 90vw;
   }

@@ -436,18 +436,21 @@
 }
 
 .live-footer {
-  backdrop-filter: saturate(1.8) blur(20px);
-  backdrop-filter: saturate(1.8) blur(20px);
-  background: #f5f3f0;
-  height: 180px !important;
-  margin-top: 1rem;
+  outline-color: transparent;
+  box-sizing: none;
+  background-clip: none;
+  // backdrop-filter: saturate(1.8) blur(20px);
+  // backdrop-filter: saturate(1.8) blur(20px);
+  background: #92877A;
+  height: 220px !important;
+  // margin-top: 1rem;
   overflow: hidden;
   text-align: center !important;
   user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100% !important;
-
+  top: -10px;
   &__title {
     color: #000 !important;
     font-family: 'SF Display', 'Helvetica Neue';
@@ -483,23 +486,47 @@
 
 .footer-container {
   display: flex;
+  flex-direction: column;
   // justify-content: center !important;
   // align-items: center !important;
   height: auto;
   margin: auto;
   overflow: hidden;
-  width: 60%;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+}
+.footer-item {
+  font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 150%;
+/* identical to box height, or 24px */
+padding: 0px 35px;
+letter-spacing: 0.07em;
+
+color: #000000;
 }
 
 .footer-info {
   display: flex;
-  flex-direction: column;
-  height: auto;
-  margin-top: 30px;
-  width: 50%;
+  flex-direction: row;
+  justify-content: center;
+  // height: auto;
+  // margin-top: 30px;
+  width: 75vw;
+  // padding-top: 20px;
+  margin: auto;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+
 }
 
 .footer-sponsors {
+
   display: flex;
   height: auto;
   margin: auto;
@@ -545,6 +572,7 @@
 }
 
 .sponsor-img-container-footer {
+
   align-items: flex-start;
   align-self: center;
   display: flex;
@@ -556,15 +584,16 @@
 }
 
 .big-sponsor-img-footer {
+
   height: auto;
-  margin-top: -115px;
+  margin-top: -90px;
   overflow: hidden;
   // margin-bottom: -50px;
   // margin-right: 15px;
   // border: 1px solid #000;
   // border-radius: 40px;
   // object-fit: cover;
-  width: 300px;
+  width: 250px;
 }
 
 .sponsor-img1-footer {
