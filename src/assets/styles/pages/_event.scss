@@ -1,5 +1,5 @@
 .event {
-  background-color: #000;
+  background-color: #92877A;
   display: flex;
   flex-direction: column;
 }
@@ -25,9 +25,9 @@
 .event-container {
   align-self: start;
   display: grid;
-  grid-row-gap: 1.2rem;
+  grid-row-gap: .5rem;
   grid-template-columns: repeat(auto-fill, 100vw);
-  grid-template-rows: 57vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content;
+  grid-template-rows: 60vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content;
   height: max-content;
   // margin-bottom: 3rem;
   position: relative;
@@ -223,6 +223,11 @@
     @media only screen and (max-width: 800px) {
       display: none !important;
     }
+  }
+  &__countdown {
+    margin: auto;
+    grid-row: timer-start / timer-end;
+
   }
 
   &__overview {

@@ -441,7 +441,7 @@
   background-clip: none;
   // backdrop-filter: saturate(1.8) blur(20px);
   // backdrop-filter: saturate(1.8) blur(20px);
-  background: #92877A;
+  background: transparent;
   height: 220px !important;
   // margin-top: 1rem;
   overflow: hidden;
@@ -450,7 +450,7 @@
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100% !important;
-  top: -10px;
+  top: 10px;
   &__title {
     color: #000 !important;
     font-family: 'SF Display', 'Helvetica Neue';

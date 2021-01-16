@@ -7,6 +7,9 @@ import { checkout } from "Data";
 import {retryRequest} from "Utils/retryRequest";
 // import PaypalButton from "./PaypalButton";
 import Paypal from "./Paypal";
+import Timer from "Common/Timer";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -207,14 +210,17 @@ class PaymentOverview extends React.Component {
             {eventInfo["artist"]} Presents
           </span>
           <h3 className="payment-info-event">
-            {eventInfo["event_header"]} -  {eventInfo["location"]} 
+            {eventInfo["event_header"]}
           </h3>
-          <p className="payment-info-date">
+          <h3 className="payment-info-location">
+          {eventInfo["location"]} 
+          </h3>
+          {/* <h3 className="payment-info-date">
             {eventInfo["date"]} 
-          </p>
+          </h3> */}
           <p className="payment-info-description">
             {/* {eventInfo["description"]}         */}
-            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3. Tickets and VIP packages for this historic streaming event are on sale now.
+            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3. 
          
           </p>
           <div className="sponsor-container"> 
@@ -230,8 +236,27 @@ class PaymentOverview extends React.Component {
             <div className="checkout-checkbox-label">
               <h5 className="checkout-checkbox-heading">
                 {this.props.siteStore.currentProduct.name}
-              </h5>  
-            </div>
+              </h5>
+              {/* <span>
+                  {`$${this.props.siteStore.currentProduct.price / 100}`}
+
+                </span>   */}
+
+                </div>
+                <div className="checkout-checkbox-details">
+                 <div className="">
+                    {`North America · `}                 {eventInfo["date"]} 
+                  </div>
+
+
+    
+  
+                  
+                  {/* <div className="ticket-bottom-countdown">
+                    <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
+                  </div> */}
+
+                  </div>  
             <div className="currency-quantity-container">
               <div className="currency-select">
                 <Select 
@@ -242,7 +267,7 @@ class PaymentOverview extends React.Component {
                   onChange={this.handleCountryChange}
                   theme={theme => ({
                     ...theme,
-                    borderRadius: 0,
+                    borderRadius: 10,
                     colors: {
                       ...theme.colors,
                       primary25: "rgba(230, 212, 165,.4)",
@@ -255,12 +280,19 @@ class PaymentOverview extends React.Component {
                 <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.selectedQty} onChange={this.handleQtyChange}
                   theme={theme => ({
                     ...theme,
-                    borderRadius: 0,
+                    borderRadius: 10,
                     colors: {
                       ...theme.colors,
                       primary25: "rgba(230, 212, 165,.4)",
                       primary: "#cfb46b",
                     },
+                    valueContainer: base => ({
+                      ...base,
+                      background: "#F2EEEA",
+                      color: 'black',
+                      width: '100%',
+                      padding: "10px"
+                    })
                   })}
                 />
               </div>
@@ -331,12 +363,13 @@ class PaymentOverview extends React.Component {
                   <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
                     theme={theme => ({
                       ...theme,
-                      borderRadius: 0,
+                      borderRadius: 10,
                       colors: {
                         ...theme.colors,
                         primary25: "rgba(230, 212, 165,.4)",
                         primary: "#cfb46b",
                       },
+                      
                     })}
                   />
                 </div>  
@@ -366,6 +399,9 @@ class PaymentOverview extends React.Component {
               Please make sure that you entered your email address correctly as it will be used to send the digital ticket.
             </p>
           </div>
+          <div id="checkout-id" className="checkout-error">
+            {this.state.error}
+          </div>
 
           {/* Stripe Checkout Redirect Button*/}
           <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
@@ -389,9 +425,7 @@ class PaymentOverview extends React.Component {
               validateEmail={this.validateEmail}
             />
 
-          <div id="checkout-id" className="checkout-error">
-            {this.state.error}
-          </div>
+
 
 
         </div>

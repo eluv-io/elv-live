@@ -9,7 +9,7 @@
   max-width: 980px;
   overflow: scroll;
   overflow: hidden;
-  padding: 30px 20px;
+  // padding: 30px 20px;
   width: 100%;
 
   @media only screen and (max-width: 1000px) {
@@ -45,7 +45,7 @@
 
 .payment-info {
   // padding-right: 60px;
-  align-items: flex-start;
+  align-items: center;
   // min-height: calc(100vh - 150px);
   color: #000;
   display: flex;
@@ -60,6 +60,7 @@
   line-height: 1.47059;
   text-rendering: optimizeLegibility;
   width: 100%;
+  min-width: 350px;
 
   @media only screen and (max-width: 1000px) {
     align-items: center;
@@ -69,7 +70,7 @@
 .payment-info-img-container {
   align-self: center;
   background: hsla(0, 0%, 100%, 0.8);
-  border-radius: 12px;
+  border-radius: 0px;
   box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.04), 20px 20px 20px rgba(0, 0, 0, 0.02);
   // margin-right: 40px;
   flex-shrink: 0;
@@ -95,6 +96,18 @@
   letter-spacing: 0.5px;
   margin: 0;
   text-transform: uppercase;
+  text-align: center;
+
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 200;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+text-align: center;
+letter-spacing: 0.2em;
+
 }
 
 .payment-info-event {
@@ -107,15 +120,61 @@
   text-align: center;
   word-break: break-word;
 
+
+font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 28px;
+line-height: 122.71%;
+/* or 34px */
+
+text-align: center;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+margin-top: 10px;
+
+
+  @media only screen and (max-width: 500px) {
+    font-size: 24px;
+  }
+}
+
+.payment-info-location {
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 122.71%;
+  /* identical to box height, or 22px */
+  
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 5px;
+
+/* or 34px */
+
+text-align: center;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+
   @media only screen and (max-width: 500px) {
     font-size: 24px;
   }
 }
 
 .payment-info-date {
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 119.9%;
+  /* or 19px */
+  
+  text-align: center;
+  text-transform: uppercase;
+margin-top: 15px;
+
 }
 
 .payment-info-description {
@@ -132,6 +191,16 @@
   text-align: left;
   text-align: left;
   white-space: pre-line;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 130.3%;
+/* or 21px */
+
+text-align: center;
+
+color: #000000;
 
   @media only screen and (max-width: 1000px) {
     text-align: center;
@@ -210,13 +279,15 @@
   flex-shrink: 0;
   height: 100%;
   margin: 0 auto;
-  max-width: 450px;
+  max-width: 550px;
   width: 100%;
 }
 
 .checkout-section {
-  background: hsla(0, 0%, 100%, 0.72);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
+  // opacity: 0.85;
+
   color: #000;
   font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   // box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
@@ -231,6 +302,9 @@
   padding: 22px 40px;
   text-rendering: optimizeLegibility;
   width: 100%;
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+  
 }
 
 .currency-quantity-container {
@@ -275,11 +349,11 @@
   border-radius: 4px;
   box-sizing: content-box;
   display: inline-block;
-  height: 16px;
+  height: 19px;
   margin-right: 25px;
   margin-top: 2.6px;
   position: relative;
-  width: 16px;
+  width: 19px;
 }
 
 .checkout-checkbox-label {
@@ -297,6 +371,26 @@
   letter-spacing: -0.05px;
   line-height: 120%;
   margin: -2px 0 0;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+
+letter-spacing: 0.07em;
+text-transform: uppercase;
+}
+.checkout-checkbox-details {
+  display: flex;
+  justify-content: space-between;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 19px;
+text-transform: capitalize;
+margin-top: 10px;
 }
 
 .checkout-checkbox-bundle {
@@ -305,12 +399,12 @@
 }
 
 .checkout-checkbox-bundle-img {
-  height: 80px;
+  height: 100px;
   margin-right: 15px;
   object-fit: cover;
   // border: 1px solid rgba(0, 0, 0, 0.603);
   // border-radius: 40px;
-  width: 80px;
+  width: 100px;
 }
 
 .checkout-checkbox-bundle-info {
@@ -321,12 +415,27 @@
 .checkout-checkbox-bundle-name {
   font-weight: 500;
   width: 150%;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 100%;
 }
 
 .checkout-checkbox-bundle-description {
   color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   margin: 0 0 10px;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 100%;
+/* or 16px */
+
+letter-spacing: 0.03em;
+
+color: #000000;
 }
 
 .checkout-checkbox-bundle-size {
@@ -390,7 +499,8 @@
 
     &::placeholder {
       // font-variant: all-small-caps;
-      color: #000;
+      color: rgba(0, 0, 0, 0.804);
+      padding-left: 10px;
     }
   }
 }
@@ -400,6 +510,15 @@
   font-size: 14px;
   padding-bottom: 10px;
   text-align: center;
+  font-family: Helvetica;
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 100%;
+/* or 16px */
+
+text-align: center;
+letter-spacing: 0.03em;
 }
 
 .checkout-button {
@@ -423,15 +542,93 @@
   padding: 12px 18px;
   text-align: center;
   text-decoration: none;
-  width: 100%;
+  width: 300px;
   height: 45px;
   margin-bottom: 10px;
+
+  background: #000000;
+border: 2px solid #000000;
+box-sizing: border-box;
+box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.12);
+border-radius: 3px;
+font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+
+
+letter-spacing: 0.14em;
+text-transform: uppercase;
+margin: auto;
+margin-left: 25%;
+margin-left: 125px;
+margin-top: 15px;
+width: 300px;
+font-family: Helvetica;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 19px;
+/* identical to box height */
+
+letter-spacing: 0.14em;
+text-transform: uppercase;
+
+color: #FFFFFF;
+
   &:hover {
     background: #000;
     box-shadow: 0 1px 1px rgba(37,37,37,.12), 0 2px 5px rgba(37,37,37,.12), 0 0 1px rgba(37,37,37,.12), 0 3px 9px rgba(0,0,0,.12);
   }
 }
+.paypal-button {
+//   appearance: none;
+//   appearance: none;
+//   appearance: none;
+//   background: #252525;
+//   border: 0;
+//   border-radius: 23px;
+//   box-shadow: 0 1px 1px rgba(37, 37, 37, 0.12), 0 2px 5px rgba(37, 37, 37, 0.12), 0 0 1px rgba(37, 37, 37, 0.12);
+//   color: #fff;
+//   cursor: pointer;
+//   display: inline-block;
+//   font-size: 15px;
+//   font-weight: 700;
+//   // transition: background .2s ease,box-shadow .2s ease;
+//   margin-top: 20px;
+//   max-width: 100%;
+//   outline: none;
+//   padding: 1rem;
+//   padding: 12px 18px;
+//   text-align: center;
+//   text-decoration: none;
+//   width: 300px;
+//   height: 45px;
+//   margin-bottom: 10px;
 
+//   background: #000000;
+// border: 2px solid #000000;
+// box-sizing: border-box;
+// box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.12);
+// border-radius: 3px;
+// font-family: Helvetica;
+// font-style: normal;
+// font-weight: normal;
+// font-size: 16px;
+// line-height: 19px;
+/* identical to box height */
+// width
+
+// letter-spacing: 0.14em;
+// text-transform: uppercase;
+// margin: auto;
+margin-left: 125px;
+margin-top: 10px;
+width: 300px;
+
+}
 .checkout-error {
   // display: none;
   color: rgb(222, 7, 28);

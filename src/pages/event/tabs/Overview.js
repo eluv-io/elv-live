@@ -61,7 +61,7 @@ class ConcertOverview extends React.Component {
                 value={{ className: "social-icon",
                 color: "black",
 
-                color: "#1DB954" 
+                // color: "#1DB954" 
               }}
               >
                 <div>
@@ -78,7 +78,7 @@ class ConcertOverview extends React.Component {
                 value={{ className: "social-icon", 
                 color: "black",
 
-                color: "#ff7700" 
+                // color: "#ff7700" 
               }}
               >
                 <div>
@@ -108,7 +108,7 @@ class ConcertOverview extends React.Component {
                 value={{
                   className: "social-icon social-icon-yt",
                   color: " #c4302b",
-                  // color: "black",
+                  color: "black",
 
                 }}
               >
@@ -126,7 +126,7 @@ class ConcertOverview extends React.Component {
                 value={{
                   className: "social-icon social-icon-insta",
                   color: " #c4302b",             
-                      //  color: "black",
+                       color: "black",
 
                 }}
               >
@@ -142,8 +142,8 @@ class ConcertOverview extends React.Component {
             >
               <IconContext.Provider
                 value={{ className: "social-icon",
-                // color: "black",
-                color: "#1DA1F2"
+                color: "black",
+                // color: "#1DA1F2"
                }}
               >
                 <div>
@@ -158,9 +158,9 @@ class ConcertOverview extends React.Component {
             >
               <IconContext.Provider
                 value={{ className: "social-icon", 
-                // color: "black",
+                color: "black",
 
-                color: "#4267B2" 
+                // color: "#4267B2" 
               }}
               >
                 <div>
