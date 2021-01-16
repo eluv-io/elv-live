@@ -27,7 +27,7 @@
   display: grid;
   grid-row-gap: .5rem;
   grid-template-columns: repeat(auto-fill, 100vw);
-  grid-template-rows: 60vh [title-start] min-content [title-end timer-start] min-content [timer-end button-start] min-content [button-end overview-start] min-content;
+  grid-template-rows: 58vh [title-start] min-content [title-end button-start] min-content [button-end timer-start] min-content [timer-end overview-start] min-content;
   height: max-content;
   // margin-bottom: 3rem;
   position: relative;
@@ -41,7 +41,7 @@
 
     .name {
       // color: #fff;
-      font-size: calc(min(calc(max(15vw, 55px)), 85px));
+      font-size: calc(min(calc(max(15vw, 55px)), 90px));
       // font-weight: bold;
       // letter-spacing: 10px;
       // margin-bottom: -5px;
@@ -49,12 +49,12 @@
       // text-align: center;
       // text-shadow: #fff 0 0 3px;
       text-transform: uppercase;
-      height: 120px;
+      height: 100px;
       font-family: Helvetica;
       font-style: normal;
       font-weight: 300;
       // font-size: 64px;
-      line-height: 170%;
+      line-height: 130%;
       /* identical to box height, or 109px */
 
       text-align: center;
@@ -201,7 +201,7 @@
       /* identical to box height, or 41px */
 
       text-align: center;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.095em;
 
       color: #000000;
 
@@ -216,9 +216,9 @@
   &__button {
     display: flex;
     flex-direction: row;
-    grid-row: timer-start / timer-end;
+    grid-row: button-start / button-end;
     margin: auto;
-    margin-top: -5px;
+    margin-top: -20px;
 
     @media only screen and (max-width: 800px) {
       display: none !important;
@@ -227,7 +227,45 @@
   &__countdown {
     margin: auto;
     grid-row: timer-start / timer-end;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 
+    font-size: calc(min(calc(max(15vw, 18px)), 25px));
+    // font-weight: bold;
+    // letter-spacing: 2px;
+    // text-align: center;
+    // text-shadow: #fff 0 0 3px;
+    // text-transform: uppercase;
+    // -webkit-user-drag: none;
+    user-select: none;
+    user-select: none;
+    user-select: none;
+    user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 300;
+    // font-size: 24px;
+    line-height: 100%;
+    /* identical to box height, or 41px */
+
+    text-align: center;
+    letter-spacing: 0.05em;
+
+    color: #000000;
+
+
+    @media only screen and (max-width: 500px) {
+      font-size: 22px;
+      letter-spacing: -0.5px;
+    }
   }
 
   &__overview {

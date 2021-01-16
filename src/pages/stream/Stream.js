@@ -20,6 +20,7 @@ import BitmovinPlayer from "./player/BitmovinPlayer";
 // import StreamTabs from './StreamTabs';
 import lightLogo from "Images/logo/lightLogo.png";
 import NavyLogo from "Images/logo/navyLogo.png";
+import Logo from "Images/logo/eluvioLive.png";
 
 const drawerWidth = 450;
 
@@ -173,7 +174,8 @@ class Stream extends React.Component {
                 <Toolbar>
                   <div className="stream-nav">
                     {/* <h1 className="stream-nav__title"> Eluvio Live </h1> */}
-                    <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? lightLogo : NavyLogo} label="Eluvio" />
+                    <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
+                    {/* <ImageIcon className="main-nav--logo" icon={Logo} label="Eluvio" /> */}
 
                     <div className="stream-nav__button-grp">
 
