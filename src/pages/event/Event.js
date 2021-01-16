@@ -5,7 +5,9 @@ import {ImageIcon} from "elv-components-js";
 
 import CloseIcon from "Icons/x.svg";
 import { eventHeroView } from "Data/event";
-
+import Timer from "Common/Timer";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { IconContext } from "react-icons";
 import EventTabs from "Event/tabs/EventTabs";
 import Navigation from  "Layout/Navigation";
 import PaymentOverview from "Event/payment/PaymentOverview";
@@ -107,7 +109,7 @@ class Event extends React.Component {
 
     const backgroundStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 85%, white 100%), url(${heroBackground})`,
+      backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 80%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%), url(${heroBackground})`,
       // backgroundImage:  `linear-gradient(to bottom, ${eventHeroView.backgroundColor1} 55%, ${eventHeroView.backgroundColor3} 60%, ${eventHeroView.backgroundColor4} 65%, ${eventHeroView.backgroundColor5}  70%, ${eventHeroView.backgroundColor6} 75%, ${eventHeroView.backgroundColor7} 80%,  ${eventHeroView.backgroundColor8} 85%,  ${eventHeroView.backgroundColor9} 90%, ${eventHeroView.backgroundColor10} 100%), url(${heroBackground})`,
       backgroundPosition: "center",
       objectFit: "cover",
@@ -139,6 +141,10 @@ class Event extends React.Component {
               Watch Promo
             </button> 
           </div> 
+          <div className="event-container__countdown">
+            <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
+          </div>
+
 
           <div className="event-container__overview">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} name={this.props.match.params.name} refProp={myRef} />

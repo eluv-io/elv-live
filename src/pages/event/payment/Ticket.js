@@ -111,8 +111,8 @@ class Ticket extends React.Component {
                 </div>
               </IconContext.Provider>
               
-              <div className="ticket-bottom-countdown">
-                <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
+              <div className="ticket-bottom-icon">
+                {"."}
               </div>
 
             </div>

@@ -1,6 +1,6 @@
 .support-page {
   // background-image: linear-gradient(160deg, #0610a1 8%,#4553ff 30%, #07c2e7 50%, #05d5ff  70%,#d694c6 92%);
-  background: #f5f3f0;
+  background: #E0DDD4;
   // flex-direction: column;
   display: block;
   min-height: 100vh;
@@ -8,13 +8,16 @@
 }
 
 .support-container {
-  background: transparent;
+  background: #EBEAE7;
   display: block;
   height: auto;
   margin: auto;
-  margin-top: 225px;
+  margin-top: 150px;
   max-width: 1100px;
   width: 65%;
+  padding: 40px;
+  border-radius: 10px;
+  margin-bottom: 150px;
 
   @media only screen and (max-width: 700px) {
     width: 90%;
@@ -47,8 +50,21 @@
     font-weight: bold;
     font-weight: 600;
     line-height: 3rem;
-    margin-bottom: 5rem;
+
+
     text-align: center !important;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 64px;
+    // line-height: 156.5%;
+    // /* or 75px */
+
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    color: #000000;
+    padding-bottom: 10rem;
 
     @media only screen and (max-width: 700px) {
       font-size: 30px;

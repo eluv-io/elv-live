@@ -76,7 +76,7 @@ class CodeAccess extends React.Component {
 
     const divStyle = {
       backgroundSize: "cover",
-      backgroundImage: `linear-gradient(160deg, rgba(6, 16, 161, .85) 8%, rgba(69, 83, 255, .85) 30%, rgba(7, 194, 231, .85) 50%, rgba(5, 213, 255, .85)  70%, rgba(214, 148, 198, .85) 92%)`,
+      background: "#E0DDD4",
       // backgroundImage: `linear-gradient(160deg, #0610a1 8%, #4553ff 30%, #07c2e7 50%, #05d5ff 70%, #d694c6 92%)`,
       height: "100vh",
       maxHeight: "100vh",

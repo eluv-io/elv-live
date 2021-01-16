@@ -159,14 +159,15 @@ class Paypal extends React.Component {
 
     let buttonStyle = {
       color:  'gold',
-      shape:  'pill',
+      shape:  'rect',
       label:  'paypal',
       size: 'responsive',
-      height: 45
+      height: 45,
     };
 
     return (
-      <PayPalButton
+      <div className="paypal-button">
+              <PayPalButton
         onInit={(data, actions) => this.onInit(data, actions)}
         onClick={() => this.onClick()}
         createOrder={(data, actions) => this.createOrder(data, actions)}
@@ -174,6 +175,9 @@ class Paypal extends React.Component {
         onError={(err) => this.onError(err)}
         style={buttonStyle}
       />
+
+      </div>
+
     );
   }
 }
