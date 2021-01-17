@@ -95,10 +95,10 @@ class PaymentOverview extends React.Component {
     }
 
     if(this.state.merchChecked) {
-      checkoutCart.push({ price: checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
+      checkoutCart.push({ price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
     }
     if(this.state.donationChecked) {
-      checkoutCart.push({ price: donation[donateInd], quantity: 1 });
+      checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
     }
     let checkoutID = this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.state.email); 
 

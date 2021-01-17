@@ -64,6 +64,7 @@
 
   @media only screen and (max-width: 1000px) {
     align-items: center;
+    max-height: 800px;
   }
 }
 
@@ -555,8 +556,12 @@ letter-spacing: 0.03em;
 //   </div>
 // </div>
 .react-select-container {
-  height: 44px !important;
+  min-height: 44px !important;
   width: 100% !important;
+  @media only screen and (max-width: 1400px) {
+    height: auto !important;
+
+  }
 }
 
 .react-select {
@@ -572,18 +577,29 @@ letter-spacing: 0.03em;
     height: 44px !important;
     min-height: 44px !important;
     background: #F2EEEA !important;
+    @media only screen and (max-width: 1400px) {
+      height: auto !important;
+  
+    }
   }
 
   &__value-container {
     height: 44px !important;
     // padding: 10px !important;
     margin-left: 5px !important;
-
+    @media only screen and (max-width: 1400px) {
+      height: auto !important;
+  
+    }
      overflow: visible !important;
   }
 
   &__indicators {
     height: 44px !important;
+    @media only screen and (max-width: 1400px) {
+      height: auto !important;
+  
+    }
   }
 
   &__menu{
