@@ -37,6 +37,7 @@
     "bitmovin-player-ui": "^3.22.0",
     "dateformat": "^3.0.3",
     "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git#645165da87ec42845a908a9ce0817db202523866",
+    "emotion": "^11.0.0",
     "ethers": "^5.0.25",
     "getstream": "^6.2.2",
     "keccak": "^3.0.1",

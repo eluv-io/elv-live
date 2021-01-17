@@ -102,7 +102,6 @@ class CodeAccess extends React.Component {
             </Link>
           </div>
 
-          <LoadingElement loading={this.state.loading}>
             {/* <input
               onFocus={() => this.setState({email_placeholder: ""})}
               onBlur={() => this.setState({email_placeholder: "Email"})}
@@ -119,8 +118,14 @@ class CodeAccess extends React.Component {
               onChange={this.handleCodeChange} 
               onKeyPress={onEnterPressed(Submit)}
             />
-            <button onClick={Submit} title="Submit">Enter Event</button>
-          </LoadingElement>
+            <button onClick={Submit} title="Submit">
+            <LoadingElement loading={this.state.loading}>
+
+              
+              Enter Event
+              </LoadingElement>
+
+              </button>
         </div>
         
       </div>

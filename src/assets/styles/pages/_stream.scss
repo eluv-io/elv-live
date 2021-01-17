@@ -9,10 +9,10 @@
   z-index: 500000;
 
   &__logo {
-    height: 25px;
+    height: 22px;
     margin-bottom: 25px;
     margin-left: 6px;
-    margin-top: 25px;
+    margin-top: 26.5px;
     user-select: none; /* IE 10+ and Edge */
     user-select: none; /* Safari */
     user-select: none; /* Standard syntax */
@@ -489,6 +489,9 @@
     text-align: left;
     // font-family: 'Poppins', sans-serif !important;
     text-align: left;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
 
     @media only screen and (max-width: 600px) {
       font-size: 26px;
@@ -508,6 +511,9 @@
     text-align: left;
     text-align: left;
     width: 100%;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
     // font-family: 'Poppins', sans-serif !important;
 
     @media only screen and (max-width: 600px) {
@@ -543,11 +549,15 @@
   &__title {
     align-self: center;
     font-size: 20px;
-    font-weight: bold !important;
-    font-weight: 600;
-    // margin-bottom: 20px !important;
-    font-weight: bold !important;
+    // font-weight: bold !important;
+    // font-weight: 600;
+    // // margin-bottom: 20px !important;
+    // font-weight: bold !important;
     text-align: center !important;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    display: none;
   }
 
   &__img-container {

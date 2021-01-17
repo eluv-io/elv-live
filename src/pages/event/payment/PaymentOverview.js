@@ -10,6 +10,7 @@ import Paypal from "./Paypal";
 import Timer from "Common/Timer";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import StripeLogo from "Images/logo/logo-stripe.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -106,7 +107,7 @@ class PaymentOverview extends React.Component {
       lineItems: checkoutCart,
       successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/${checkoutID}`, 
       cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
-      clientReferenceId: checkoutID,
+      clientReferenceId: prodID,
       customerEmail: this.state.email
     };
 
@@ -238,14 +239,18 @@ class PaymentOverview extends React.Component {
                 {this.props.siteStore.currentProduct.name}
               </h5>
               {/* <span>
-                  {`$${this.props.siteStore.currentProduct.price / 100}`}
+                  {`${this.props.siteStore.currentProduct.offering["price"]}`}
 
                 </span>   */}
+                              <span>
+                  {`$${this.props.siteStore.currentProduct.price / 100}.00`}
+
+                </span>  
 
                 </div>
                 <div className="checkout-checkbox-details">
                  <div className="">
-                    {`North America · `}                 {eventInfo["date"]} 
+                    {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}                
                   </div>
 
 
@@ -311,7 +316,7 @@ class PaymentOverview extends React.Component {
                 type="checkbox"
               />
               <div className="checkout-checkbox-label">
-                <h5 className="checkout-checkbox-heading">
+                <h5 className="checkout-checkbox-heading2">
                   {donation["name"]}
                 </h5>  
                 <span>
@@ -344,7 +349,7 @@ class PaymentOverview extends React.Component {
                 type="checkbox"
               />
               <div className="checkout-checkbox-label">
-                <h5 className="checkout-checkbox-heading">
+                <h5 className="checkout-checkbox-heading2">
                   {checkoutMerch["name"]}
                 </h5>  
                 <span>
@@ -360,7 +365,7 @@ class PaymentOverview extends React.Component {
                   <span className="checkout-checkbox-bundle-name">
                     {checkoutMerch["heading"]}
                   </span>  
-                  <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
+                  {/* <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
                     theme={theme => ({
                       ...theme,
                       borderRadius: 10,
@@ -371,7 +376,7 @@ class PaymentOverview extends React.Component {
                       },
                       
                     })}
-                  />
+                  /> */}
                 </div>  
          
                 <p className="checkout-checkbox-bundle-description">
@@ -399,11 +404,10 @@ class PaymentOverview extends React.Component {
               Please make sure that you entered your email address correctly as it will be used to send the digital ticket.
             </p>
           </div>
-          <div id="checkout-id" className="checkout-error">
-            {this.state.error}
-          </div>
+
 
           {/* Stripe Checkout Redirect Button*/}
+          <div className="checkout-button-container" >
           <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
               {this.state.retryCheckout ? 
                 <div className="spin-checkout-container">
@@ -411,9 +415,12 @@ class PaymentOverview extends React.Component {
                       <div></div>
                   </div>
                 </div>
-              : "Continue to Checkout"}
+              : <div className="stripe-checkout-button">
+             {"Pay with Card"}
+             <img className="stripe-checkout-logo"src={StripeLogo}/>
+          </div>}
+            
           </button>
-
             <Paypal
               // createOrder={this.createOrder} 
               product={this.props.siteStore.currentProduct} 
@@ -424,6 +431,12 @@ class PaymentOverview extends React.Component {
               turnOffModal={this.props.siteStore.turnOffModal}
               validateEmail={this.validateEmail}
             />
+                      <div id="checkout-id" className="checkout-error">
+            {this.state.error}
+          </div>
+
+          </div>
+
 
 
 

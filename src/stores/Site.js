@@ -196,7 +196,7 @@ class SiteStore {
   });
 
   @action.bound
-  turnOnModal = flow(function * ( name, description, price, priceId, prodId, otpID) {
+  turnOnModal = flow(function * ( name, description, price, priceId, prodId, otpID, offering) {
     try {
       this.modalOn = true;
       this.currentProduct = {
@@ -205,7 +205,8 @@ class SiteStore {
         price: price,
         priceId: priceId,
         prodId: prodId,
-        otpID: otpID
+        otpID: otpID,
+        offering: offering
         
       };
 

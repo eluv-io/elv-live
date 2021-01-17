@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
-import Logo from "Images/logo/eluvioLive.png";
+import Logo from "Images/logo/eluvioLive2.png";
 
 @inject("rootStore")
 @inject("siteStore")
