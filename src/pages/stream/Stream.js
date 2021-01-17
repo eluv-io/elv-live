@@ -3,6 +3,7 @@ import clsx from "clsx";
 
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
+import { NavLink, withRouter } from "react-router-dom";
 
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -20,7 +21,7 @@ import BitmovinPlayer from "./player/BitmovinPlayer";
 // import StreamTabs from './StreamTabs';
 import lightLogo from "Images/logo/lightLogo.png";
 import NavyLogo from "Images/logo/navyLogo.png";
-import Logo from "Images/logo/eluvioLive.png";
+import Logo from "Images/logo/eluvioLive2.png";
 
 const drawerWidth = 450;
 
@@ -174,7 +175,9 @@ class Stream extends React.Component {
                 <Toolbar>
                   <div className="stream-nav">
                     {/* <h1 className="stream-nav__title"> Eluvio Live </h1> */}
+                    <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.eventSlug}`}  >
                     <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
+            </NavLink>
                     {/* <ImageIcon className="main-nav--logo" icon={Logo} label="Eluvio" /> */}
 
                     <div className="stream-nav__button-grp">

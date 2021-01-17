@@ -2,6 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import { Link, withRouter } from "react-router-dom";
 
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -16,12 +17,12 @@ class Footer extends React.Component {
           <Link to={`${this.props.siteStore.basePath}/support`}  className="footer-item">
               Support FAQ
             </Link>
-              <Link  className="footer-item">
+              {/* <Link  className="footer-item">
               Contact
             </Link>
             <Link className="footer-item">
               About
-            </Link>
+            </Link> */}
    
           </div>
           <div className="sponsor-container-footer"> 

@@ -162,7 +162,7 @@ class Paypal extends React.Component {
       shape:  'rect',
       label:  'paypal',
       size: 'responsive',
-      height: 45,
+      height: 50,
     };
 
     return (

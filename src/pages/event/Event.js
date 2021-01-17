@@ -142,7 +142,7 @@ class Event extends React.Component {
             </button> 
           </div> 
           <div className="event-container__countdown">
-            <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
+            <Timer classProp="ticket-icon" premiereTime="March 15, 2021 20:00:00"/>
           </div>
 
 
