@@ -30,7 +30,7 @@ class PaymentOverview extends React.Component {
       merchChecked: false,
       merchSize: false,
       selectedCountry: checkout.countryOptions[235],
-      selectedQty: checkout.qtyOptions[0],
+      ticketQty: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
       error: "",
       donationImage: undefined,
@@ -48,7 +48,6 @@ class PaymentOverview extends React.Component {
     this.handleError = this.handleError.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
     this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
-    this.createOrder = this.createOrder.bind(this);
 
   }
 
@@ -61,7 +60,7 @@ class PaymentOverview extends React.Component {
     this.setState({selectedCountry: value});
   }
   handleQtyChange(value) {
-    this.setState({selectedQty: value});
+    this.setState({ticketQty: value});
   }
   handleSizeChange(value) {
     this.setState({selectedSize: value});
@@ -78,7 +77,7 @@ class PaymentOverview extends React.Component {
     const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
     
     let checkoutCart = [
-      { price: priceID, quantity: this.state.selectedQty.value}
+      { price: priceID, quantity: this.state.ticketQty.value}
     ];
     let merchInd = 1
     let donateInd = "stripe_price_id";
@@ -132,51 +131,6 @@ class PaymentOverview extends React.Component {
         this.setState({retryCheckout: false});
     }
   };
-
-  createOrder(data, actions) {
-
-    let checkoutCart = [
-      {
-        name: this.props.product.name,
-        unit_amount: {value: `${this.props.product.price / 100}`, currency_code: 'USD'},
-        quantity: '1',
-      }
-    ];
-    let totalPrice = this.props.product.price;
-
-    if(this.props.merchChecked) {
-      let merchPrice = 2500; //this.state.checkoutMerch["price"];
-      checkoutCart.push({
-        name: 'Merch',
-        unit_amount: {value: `${merchPrice / 100}`, currency_code: 'USD'},
-        quantity: '1',
-      });
-      totalPrice += merchPrice;
-    }
-
-    if(this.props.donationChecked) {
-      let donationPrice = 1000; //this.state.donation["price"]
-      checkoutCart.push({
-        name: 'Donation',
-        unit_amount: {value: `${donationPrice / 100}`, currency_code: 'USD'},
-        quantity: '1',
-      });
-      totalPrice += donationPrice;
-    }
-
-    return actions.order.create({
-      purchase_units: [{
-        amount: {
-            value: `${totalPrice / 100}`,
-            currency_code: 'USD',
-        },
-        items: checkoutCart
-      }],
-      payer: {
-        email_address: this.props.email
-      }
-      });
-  }
 
   render() {
     let {checkoutMerch, donation, eventInfo } = this.state;
@@ -237,7 +191,7 @@ class PaymentOverview extends React.Component {
 
                 </span>   */}
                               <span>
-                  {`$${this.props.siteStore.currentProduct.price / 100}.00`}
+                  {`$${this.props.siteStore.currentProduct.price / 100}`}
 
                 </span>  
 
@@ -276,7 +230,7 @@ class PaymentOverview extends React.Component {
                 />
               </div>
               <div className="quantity-select">
-                <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.selectedQty} onChange={this.handleQtyChange}
+                <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.ticketQty} onChange={this.handleQtyChange}
                   theme={theme => ({
                     ...theme,
                     borderRadius: 10,
@@ -314,7 +268,7 @@ class PaymentOverview extends React.Component {
                   {donation["name"]}
                 </h5>  
                 <span>
-                  {donation["price"]}
+                  {`$${donation["price"]/100}`}
                 </span>
               </div>
             </div>
@@ -347,7 +301,7 @@ class PaymentOverview extends React.Component {
                   {checkoutMerch["name"]}
                 </h5>  
                 <span>
-                  {checkoutMerch["price"]}
+                  {`$${checkoutMerch["price"]/100}`}
                 </span>
               </div>
             </div>
@@ -405,7 +359,7 @@ class PaymentOverview extends React.Component {
           <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
               {this.state.retryCheckout ? 
                 <div className="spin-checkout-container">
-                  <div class="la-ball-clip-rotate la-sm">
+                  <div className="la-ball-clip-rotate la-sm">
                       <div></div>
                   </div>
                 </div>
@@ -417,13 +371,16 @@ class PaymentOverview extends React.Component {
           </button>
             <Paypal
               // createOrder={this.createOrder} 
-              product={this.props.siteStore.currentProduct} 
-              merchChecked={this.state.merchChecked} 
+              product={this.props.siteStore.currentProduct}
+              checkoutMerch={checkoutMerch["price"]} 
+              checkoutDonation={donation["price"]}  
+              merchChecked={this.state.merchChecked}
               donationChecked={this.state.donationChecked} 
               email={this.state.email} 
               handleError={this.handleError} 
               turnOffModal={this.props.siteStore.turnOffModal}
               validateEmail={this.validateEmail}
+              ticketQty={this.state.ticketQty.value}
             />
                       <div id="checkout-id" className="checkout-error">
             {this.state.error}

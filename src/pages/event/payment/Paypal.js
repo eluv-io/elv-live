@@ -66,39 +66,40 @@ class Paypal extends React.Component {
 
 
   createOrder(data, actions) {
-    console.log("CREATE ORDER",this.props.email);
+
 
     let checkoutCart = [
       {
         name: this.props.product.name,
-        unit_amount: {value: `${this.props.product.price / 100}`, currency_code: 'USD'},
-        quantity: '1',
+        unit_amount: {value: `${(this.props.product.price / 100)}`, currency_code: 'USD'},
+        quantity: `${this.props.ticketQty}`,
         sku: this.props.siteStore.currentProduct.otpID
       }
     ];
-    let totalPrice = this.props.product.price;
+    let price = this.props.ticketQty * (this.props.product.price / 100);
+    console.log(price);
 
     if(this.props.merchChecked) {
-      let merchPrice = 2500; //this.state.checkoutMerch["price"];
+      let merchPrice = this.props.checkoutMerch / 100; 
       checkoutCart.push({
         name: 'Merch',
-        unit_amount: {value: `${merchPrice / 100}`, currency_code: 'USD'},
+        unit_amount: {value: `${merchPrice}`, currency_code: 'USD'},
         quantity: '1',
       });
-      totalPrice += merchPrice;
+      price += merchPrice;
     }
 
     if(this.props.donationChecked) {
-      let donationPrice = 1000; //this.state.donation["price"]
+      let donationPrice = this.props.checkoutDonation/ 100;
       checkoutCart.push({
         name: 'Donation',
-        unit_amount: {value: `${donationPrice / 100}`, currency_code: 'USD'},
+        unit_amount: {value: `${donationPrice}`, currency_code: 'USD'},
         quantity: '1',
       });
-      totalPrice += donationPrice;
+      price += donationPrice;
     }
 
-    console.log("this.props.siteStore.currentProduct.otpID", this.props.siteStore.currentProduct.otpID);
+    console.log(price);
 
     return actions.order.create({
       purchase_units: [
@@ -106,10 +107,10 @@ class Paypal extends React.Component {
           reference_id: this.props.email,
           custom_id: this.props.siteStore.currentProduct.otpID,
         amount: {
-            value: `${totalPrice / 100}`,
+            value: `${price}`,
             currency_code: 'USD',
             breakdown: {
-              item_total: {value: `${totalPrice / 100}`, currency_code: 'USD'}
+              item_total: {value: `${price}`, currency_code: 'USD'}
           }
         },
         items: checkoutCart,
@@ -132,7 +133,7 @@ class Paypal extends React.Component {
 
   onError(err) {
     if (!this.props.validateEmail(this.props.email))  {
-      this.props.handleError("Invalid Email")
+      this.props.handleError("Invalid Email");
 
     } else {
     // For example, redirect to a specific error page
@@ -146,7 +147,6 @@ class Paypal extends React.Component {
 
     if(this.state.redirectStatus) {
       this.props.turnOffModal();
-      console.log("REDIRECT this.props.siteStore.currentProduct.otpID", this.props.siteStore.currentProduct.otpID);
 
       let checkoutID = this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.props.email); 
 
