@@ -108,19 +108,23 @@
     }
 
     &--videoBox {
-      align-content: center;
-      background-color: rgba(245, 235, 225, 0.8);
-      color: #fff;
-      display: flex;
-      font-size: 30px;
+      // align-content: center;
+      background: #000;
+      // color: #fff;
+      // display: flex;
+      // font-size: 30px;
+      // grid-column: 1;
+      // grid-row: 1 / 2;
+      // height: calc(100vh - 175px);
+      // justify-content: center;
+      // margin: auto;
+      // object-fit: cover;
+      // text-align: center;
+      // width: 100%;
+
       grid-column: 1;
       grid-row: 1 / 2;
       height: calc(100vh - 175px);
-      justify-content: center;
-      margin: auto;
-      object-fit: cover;
-      text-align: center;
-      width: 100%;
     }
 
     &--video {
@@ -223,9 +227,7 @@
 
 .feedGrid {
   background: rgb(13, 17, 23) !important;
-  grid-column: 1;
-  grid-row: 1 / 2;
-  height: calc(100vh - 175px);
+  height: 100%;
   // display: grid;
   // grid-template-columns: repeat(3, 33.33%);
   // grid-template-rows: repeat(3, 33.33%);

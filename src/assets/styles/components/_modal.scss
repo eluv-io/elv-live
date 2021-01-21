@@ -127,19 +127,20 @@
   border-radius: 100px;
   cursor: pointer;
   font-weight: 400;
-  padding: 7px;
-  position: absolute;
-  right: 30px;
+  padding: 8px;
+  position: fixed;
+  right: 35px;
   stroke:black;
-  top: 30px;
-  width: 33px;
-  height: 33px;
-  border: 1px solid black;
-
-  z-index: 100000;
+  top: 35px;
+  width: 35px;
+  height: 35px;
+  // border: 1px solid black;
+  background-color: white;
+  stroke: black;
+  z-index: 1000000000000000000000000000;
 
   &:hover {
-    background-color: $elv-color-darkgray;
-    stroke: $elv-color-lightgray;
+    background-color: black;
+    stroke: white;
   }
 }

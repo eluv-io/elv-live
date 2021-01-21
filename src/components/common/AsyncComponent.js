@@ -58,7 +58,13 @@ class AsyncComponent extends React.Component {
     if(this.state.loading) {
       return (
         <div className="spin-container">
-          {loadingSpin ? <BallSpin /> : null}
+ 
+          {loadingSpin ? 
+          <div class="la-ball-clip-rotate">
+                      <div></div>
+                  </div>
+                
+                : null}
         </div>
       );
     }

@@ -60,6 +60,7 @@ class RootStore {
       if(!codeObjectID) {
         this.SetError("Returned empty object ID");
       } else {
+        // await this.siteStore.LoadStreamObject(codeObjectID);
         this.streamAccess = true; 
       }
 

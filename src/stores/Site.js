@@ -5,6 +5,8 @@ import Id from "@eluvio/elv-client-js/src/Id";
 import { v4 as UUID } from "uuid";
 import axios from "axios";
 import { ethers } from "ethers";
+import {EluvioConfiguration} from "../config";
+
 const createKeccakHash = require("keccak");
 
 class SiteStore {
@@ -15,6 +17,11 @@ class SiteStore {
   @observable sponsorImage;
   @observable codeImage;
   @observable eventSlug;
+  @observable heroBackground;
+  @observable eventPoster;
+  @observable merchImage;
+  @observable donationImage;
+  @observable merchBackImage;
 
   // Eluvio Live - Data Store
   @observable stripePublicKey;
@@ -91,7 +98,6 @@ class SiteStore {
         versionHash: yield this.client.LatestVersionHash({objectId}),
         writeToken: ""
       };
-      console.log(libraryId);
 
       const response = yield axios.get(
         `https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&select=sites&select=app&resolve=true&link_depth=1`
@@ -116,8 +122,34 @@ class SiteStore {
 
       this.eventSites = response.data.sites;
       this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/code_background/default"});
-      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/main_sponsor/default"});
+      // this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/main_sponsor/default"});
       this.eventSlug = Object.keys(this.eventSites)[0];
+
+      this.sponsorImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public/asset_metadata/images/main_sponsor/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
+        let blob = new Blob(
+          [response.data], 
+          { type: response.headers['content-type'] }
+        )
+        let image = URL.createObjectURL(blob);
+        return image;
+      });
+
+      this.heroBackground = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public/sites/${this.eventSlug}/images/hero_background/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
+            let blob = new Blob(
+              [response.data], 
+              { type: response.headers['content-type'] }
+            )
+            let image = URL.createObjectURL(blob)
+            return image;
+        });
+        this.eventPoster = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public/sites/${this.eventSlug}/images/event_poster/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
+          let blob = new Blob(
+            [response.data], 
+            { type: response.headers['content-type'] }
+          )
+          let image = URL.createObjectURL(blob)
+          return image;
+      });
 
     } catch (error) {
       console.error("ERROR LoadSite", error);
@@ -161,13 +193,6 @@ class SiteStore {
     );
   });
 
-  // func genTIDPrefix(otpId, ident string, sz int) string {
-  //   h := crypto.Keccak256([]byte(fmt.Sprintf("%v:%v", otpId, ident)))
-  //   if sz < len(h) {
-  //     h = h[0:sz]
-  //   }
-  //   return base58.Encode(h)
-  // }
 
   @action.bound
   generateCheckoutID(otpID, email, sz = 10) {
@@ -224,6 +249,45 @@ class SiteStore {
     try {
       this.modalOn = false;
       
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to load offModal:");
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  });
+
+  @action.bound
+  setAsyncImages = flow(function * () {
+    try {
+      this.donationImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${EluvioConfiguration["library-id"]}/q/${EluvioConfiguration["object-id"]}/meta/public/sites/${this.eventSlug}/images/checkout_donation/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
+        let blob = new Blob(
+          [response.data], 
+          { type: response.headers['content-type'] }
+        )
+        let image = URL.createObjectURL(blob);
+        return image;
+      });
+  
+      this.merchImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${EluvioConfiguration["library-id"]}/q/${EluvioConfiguration["object-id"]}/meta/public/sites/${this.eventSlug}/images/checkout_merch/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
+        let blob = new Blob(
+          [response.data], 
+          { type: response.headers['content-type'] }
+        )
+        let image = URL.createObjectURL(blob);
+        return image;
+      });
+        
+      this.merchBackImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${EluvioConfiguration["library-id"]}/q/${EluvioConfiguration["object-id"]}/meta/public/sites/${this.eventSlug}/images/merch_back/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
+        let blob = new Blob(
+          [response.data], 
+          { type: response.headers['content-type'] }
+        )
+        let image = URL.createObjectURL(blob);
+        return image;
+      });
+
+
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to load offModal:");

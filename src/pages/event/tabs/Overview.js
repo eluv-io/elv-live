@@ -13,7 +13,6 @@ class ConcertOverview extends React.Component {
     super(props);
 
     this.state = {
-      eventPoster: undefined,
       eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
       products: this.props.siteStore.eventSites[this.props.name]["products"],
       artistInfo: this.props.siteStore.eventSites[this.props.name]["artist_info"][0],
@@ -21,14 +20,8 @@ class ConcertOverview extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    window.scrollTo(0, 0);
-    let eventPoster = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/event_poster/default`});
-    this.setState({eventPoster: eventPoster});
-  }
-
   render() {
-    let {eventInfo, eventPoster, products, artistInfo } = this.state;
+    let {eventInfo, products, artistInfo } = this.state;
     let testMode = this.props.siteStore.stripeTestMode;
 
     return (
@@ -193,7 +186,7 @@ class ConcertOverview extends React.Component {
               priceID={testMode ? obj["payment_ids"][0]["stripe_test"][0]["price_id"]: obj["payment_ids"][0]["stripe"][0]["price_id"]}
               prodID = {testMode ? obj["payment_ids"][0]["stripe_test"][0]["prod_id"]: obj["payment_ids"][0]["stripe"][0]["prod_id"]}
               date ={eventInfo["date"]}
-              poster={eventPoster}
+              poster={this.props.siteStore.eventPoster}
               key={index}
               otpID={obj["otp_id"]}
               refProp={index == 1 ? this.props.refProp: null}
