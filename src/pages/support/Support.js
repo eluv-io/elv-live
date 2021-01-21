@@ -11,8 +11,8 @@ import Footer from "Layout/Footer";
 class Support extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
-
   }
+  
   render() {
     let faqInfo = this.props.siteStore.faqData;
     

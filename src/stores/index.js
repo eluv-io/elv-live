@@ -48,28 +48,47 @@ class RootStore {
     this.client = client;
   });
 
+
+
   @action.bound
-  RedeemCode = flow(function * (Token) {
+  RedeemCode = flow(function * (ticketCode) {
+    let codeObjectID;
     try {
-      let codeObjectID = yield this.client.RedeemCode({
-        code: Token,
+      codeObjectID = yield this.client.RedeemCode({
+        code: ticketCode,
         ntpId: "QOTPZsAzK5pU7xe",
         tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
+      
       });
 
-      if(!codeObjectID) {
-        this.SetError("Returned empty object ID");
-      } else {
-        // await this.siteStore.LoadStreamObject(codeObjectID);
-        this.streamAccess = true; 
-      }
-
-      return codeObjectID;
 
     } catch (error) {
-      console.error("Error redeeming code:", error);
-      this.SetError("Invalid code");
+      try {
+        console.log("Error redeeming code against otpId QOTPZsAzK5pU7xe:", codeObjectID, error);
+
+        codeObjectID = yield this.client.RedeemCode({
+          code: ticketCode,
+          ntpId: "QOTPDi4phXuCFSn",
+          tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
+      
+        });
+
+      }
+      catch (error) { 
+       console.log("Error redeeming code against otpId QOTPDi4phXuCFSn:", codeObjectID, error);
+       this.SetError("Invalid code");
+      }
+
     }
+
+    if(!codeObjectID) {
+      this.SetError("Returned empty object ID");
+    } else {
+      this.streamAccess = true;
+      return codeObjectID; 
+    }
+
+
   });
 
   @action.bound

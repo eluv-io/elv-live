@@ -22,30 +22,52 @@ class CodeAccess extends React.Component {
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCodeChange = this.handleCodeChange.bind(this);
-    this.handleEmailEvent = this.handleEmailEvent.bind(this);
+    this.handleRedeemCode = this.handleRedeemCode.bind(this);
 
   }
 
-  async handleEmailEvent(passcode, access) {
-    console.log(passcode, access);
-    this.setState({code: passcode});
+  async componentDidMount() {
+    try {
+      // http://localhost:8086/d457a576/code?passcode%3D6rBhjy%26access%3Dtrue
+      const parsed = parse(decodeURIComponent(this.props.location.search));
 
-    if(access == "true") {
-      this.setState({loading: true});
-      const siteId = await this.props.rootStore.RedeemCode(
-        passcode
-      );
-  
-      if(siteId) {
-        // let loadStreamResult = await this.props.siteStore.LoadStreamObject(siteId);
-        // console.log(loadStreamResult);
-        this.setState({siteId});
-      } else {
-        this.setState({loading: false});
-      }    
+      if (parsed.passcode && parsed.access) {
+        this.setState({code: parsed.passcode});
+        this.handleRedeemCode(parsed.passcode);
+      }
+
+    }catch(e) {
+      console.log(e);
     }
-
   }
+
+  handleRedeemCode = async (code) => {
+    this.setState({loading: true});
+    // console.log("this.state.code", this.state.code);
+    // console.log("code", code);
+
+    const siteId = await this.props.rootStore.RedeemCode(code);
+
+    if(siteId) {
+      this.setState({siteId});
+    } else {
+      this.setState({loading: false});
+    }    
+  }
+
+  // Submit = async () => {
+  //   this.setState({loading: true});
+
+  //   const siteId = await this.props.rootStore.RedeemCode(
+  //     this.state.code
+  //   );
+
+  //   if(siteId) {
+  //     this.setState({siteId});
+  //   } else {
+  //     this.setState({loading: false});
+  //   }
+  // };
 
   handleEmailChange(event) {
     this.setState({email: event.target.value});
@@ -62,24 +84,23 @@ class CodeAccess extends React.Component {
       return <Redirect to={`${this.props.siteStore.basePath}/stream/${this.state.siteId}`} />;
     }
 
-    const Submit = async () => {
-      this.setState({loading: true});
+    // const Submit = async () => {
+    //   this.setState({loading: true});
 
-      const siteId = await this.props.rootStore.RedeemCode(
-        this.state.code
-      );
+    //   const siteId = await this.props.rootStore.RedeemCode(
+    //     this.state.code
+    //   );
 
-      if(siteId) {
-        this.setState({siteId});
-      } else {
-        this.setState({loading: false});
-      }
-    };
+    //   if(siteId) {
+    //     this.setState({siteId});
+    //   } else {
+    //     this.setState({loading: false});
+    //   }
+    // };
 
     const divStyle = {
       backgroundSize: "cover",
       background: "#E0DDD4",
-      // backgroundImage: `linear-gradient(160deg, #0610a1 8%, #4553ff 30%, #07c2e7 50%, #05d5ff 70%, #d694c6 92%)`,
       height: "100vh",
       maxHeight: "100vh",
       minHeight: "100vh -webkit-fill-available",
@@ -88,17 +109,7 @@ class CodeAccess extends React.Component {
       display: "flex"
     };
 
-    try {
-      // http://localhost:8086/d457a576/code?passcode%3D6rBhjy%26access%3Dtrue
-      const parsed = parse(decodeURIComponent(this.props.location.search));
 
-      if (parsed.passcode && parsed.access) {
-        this.handleEmailEvent(parsed.passcode, parsed.access);
-      }
-
-    }catch(e) {
-      console.log(e);
-    }
 
 
     return (
@@ -122,12 +133,13 @@ class CodeAccess extends React.Component {
               placeholder={this.state.code_placeholder}
               value={this.state.code}
               onChange={this.handleCodeChange} 
-              onKeyPress={onEnterPressed(Submit)}
+              onKeyPress={() => this.handleRedeemCode(this.state.code)}
+
             />
- <button onClick={Submit} title="Submit">
+          <button onClick={() => this.handleRedeemCode(this.state.code)} title="Submit">
             {this.state.loading ? 
                 <div className="code-entry-spin-container">
-                  <div class="la-ball-clip-rotate la-sm">
+                  <div className="la-ball-clip-rotate la-sm">
                       <div></div>
                   </div>
                 </div>
