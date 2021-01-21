@@ -11,6 +11,9 @@ import Timer from "Common/Timer";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import StripeLogo from "Images/logo/logo-stripe.png";
+import axios from "axios";
+import {EluvioConfiguration} from "../../../config";
+import AsyncComponent from "Common/AsyncComponent";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -30,7 +33,6 @@ class PaymentOverview extends React.Component {
       selectedQty: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
       error: "",
-      eventPoster: undefined,
       donationImage: undefined,
       merchImage: undefined,
       eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
@@ -48,15 +50,6 @@ class PaymentOverview extends React.Component {
     this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
     this.createOrder = this.createOrder.bind(this);
 
-  }
-
-  async componentDidMount() {
-    let donationImage = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/checkout_donation/default`});
-    let merchImage = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/checkout_merch/default`});
-    let eventPoster = await this.props.siteStore.client.LinkUrl({...this.props.siteStore.siteParams, linkPath: `public/sites/${this.props.name}/images/event_poster/default`});
-    this.setState({eventPoster: eventPoster});
-    this.setState({donationImage: donationImage});
-    this.setState({merchImage: merchImage});
   }
 
   validateEmail (email) {
@@ -186,7 +179,7 @@ class PaymentOverview extends React.Component {
   }
 
   render() {
-    let {donationImage, merchImage, checkoutMerch, donation, eventInfo, eventPoster, sponsorInfo} = this.state;
+    let {checkoutMerch, donation, eventInfo } = this.state;
 
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
@@ -202,10 +195,11 @@ class PaymentOverview extends React.Component {
 
     
     return (
-      <div className="payment-container">
+
+<div className="payment-container">
         <div className="payment-info">
           <div className="payment-info-img-container">
-            <img src={eventPoster} className="payment-info-img" />
+            <img src={this.props.siteStore.eventPoster} className="payment-info-img" />
           </div>
           <span className="payment-info-artist">
             {eventInfo["artist"]} Presents
@@ -326,7 +320,7 @@ class PaymentOverview extends React.Component {
             </div>
 
             <div className="checkout-checkbox-bundle">
-              <img src={donationImage} className="checkout-checkbox-bundle-img" />
+              <img src={this.props.siteStore.donationImage} className="checkout-checkbox-bundle-img" />
               <div className="checkout-checkbox-bundle-info">
                 <span className="checkout-checkbox-bundle-name">
                   {donation["heading"]}
@@ -359,7 +353,7 @@ class PaymentOverview extends React.Component {
             </div>
 
             <div className="checkout-checkbox-bundle">
-              <img src={merchImage} className="checkout-checkbox-bundle-img" />
+              <img src={this.props.siteStore.merchImage} className="checkout-checkbox-bundle-img" />
               <div className="checkout-checkbox-bundle-info">
                 <div className="checkout-checkbox-bundle-size">
                   <span className="checkout-checkbox-bundle-name">
@@ -443,9 +437,10 @@ class PaymentOverview extends React.Component {
 
         </div>
       </div>
-
+        );
+  
       
-    );
+
   }
 }
 

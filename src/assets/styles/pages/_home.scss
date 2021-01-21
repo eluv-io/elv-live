@@ -5,11 +5,14 @@
 }
 
 .spin-container {
-  background-color: #000;
-  height: 100vh;
-  padding-left: calc(50vw - 16px);
-  padding-top: calc(50vh - 16px);
-  width: 100vw;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
 }
 
 .spin-checkout-container {
@@ -22,6 +25,7 @@
   justify-content: center;
   justify-items: center;
 }
+
 
 .hero-view {
   background-color: #fff;

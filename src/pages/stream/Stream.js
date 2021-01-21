@@ -19,9 +19,8 @@ import LiveChat from "./components/LiveChat";
 import BitmovinPlayer from "./player/BitmovinPlayer";
 
 // import StreamTabs from './StreamTabs';
-import lightLogo from "Images/logo/lightLogo.png";
-import NavyLogo from "Images/logo/navyLogo.png";
-import Logo from "Images/logo/eluvioLive2.png";
+import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
+import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
 
 const drawerWidth = 450;
 
@@ -155,14 +154,14 @@ class Stream extends React.Component {
     const { classes } = this.props;
 
     return (
-      <AsyncComponent
-        Load={async () => {
-          await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
-        }}
-        render={() => {
-          if(!this.props.siteStore.siteInfo) { return null; }
+      // <AsyncComponent
+      //   Load={async () => {
+      //     await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
+      //   }}
+      //   render={() => {
+      //     if(!this.props.siteStore.siteInfo) { return null; }
 
-          return (
+      //     return (
             <div className={clsx(classes.lightRoot, {
               [classes.darkRoot]: this.state.darkSwitch,
             })}>
@@ -176,8 +175,9 @@ class Stream extends React.Component {
                   <div className="stream-nav">
                     {/* <h1 className="stream-nav__title"> Eluvio Live </h1> */}
                     <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.eventSlug}`}  >
-                    <ImageIcon className="stream-nav__logo" icon={Logo} label="Eluvio" />
-            </NavLink>
+                      <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
+                    </NavLink>
+
                     {/* <ImageIcon className="main-nav--logo" icon={Logo} label="Eluvio" /> */}
 
                     <div className="stream-nav__button-grp">
@@ -216,11 +216,30 @@ class Stream extends React.Component {
                 })}
               >
                 <div className={classes.drawerHeader} />
-
                 <div className="stream-container">
                   <div className="stream-container__streamBox">
-                    <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+                  <div className="stream-container__streamBox--videoBox">
 
+                  <AsyncComponent
+                    Load={async () => {
+                      await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
+                      // while(true) {
+                      //   // console.log(1);
+                      // }
+                    }}
+                    loadingSpin={true}
+
+                    render={() => {
+                      // if(!this.props.siteStore.siteInfo) { return null; }
+
+                      return (
+                                <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+
+
+                                );
+                                    }}
+                                    />
+                                    </div>
                     <div className="stream-container__streamBox--info">
                       <div className="stream-info-container">
                         <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
@@ -242,6 +261,7 @@ class Stream extends React.Component {
                     </div> 
                   </div>
                 </div>
+                  
 
               </main>
               <Drawer
@@ -257,9 +277,9 @@ class Stream extends React.Component {
               </Drawer>
             </div>
           );
-        }}
-      />
-    );
+    //     }}
+    //   />
+    // );
   }
 }
 

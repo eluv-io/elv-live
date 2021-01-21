@@ -66,7 +66,7 @@ class Paypal extends React.Component {
 
 
   createOrder(data, actions) {
-    console.log("CREATE ORDER");
+    console.log("CREATE ORDER",this.props.email);
 
     let checkoutCart = [
       {
@@ -103,7 +103,7 @@ class Paypal extends React.Component {
     return actions.order.create({
       purchase_units: [
         {
-          reference_id: this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.props.email),
+          reference_id: this.props.email,
           custom_id: this.props.siteStore.currentProduct.otpID,
         amount: {
             value: `${totalPrice / 100}`,
@@ -112,11 +112,8 @@ class Paypal extends React.Component {
               item_total: {value: `${totalPrice / 100}`, currency_code: 'USD'}
           }
         },
-        items: checkoutCart
-      }],
-      payer: {
-        email_address: this.props.email
-      },
+        items: checkoutCart,
+      }]
 
       });
   }
@@ -183,4 +180,3 @@ class Paypal extends React.Component {
 }
 
 export default Paypal;
-

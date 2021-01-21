@@ -22,27 +22,29 @@ class CodeAccess extends React.Component {
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCodeChange = this.handleCodeChange.bind(this);
+    this.handleEmailEvent = this.handleEmailEvent.bind(this);
 
   }
 
-  async componentDidMount() {
-    const parsed = parse(decodeURIComponent(this.props.location.search));
+  async handleEmailEvent(passcode, access) {
+    console.log(passcode, access);
+    this.setState({code: passcode});
 
-    if(parsed.access == "true") {
+    if(access == "true") {
       this.setState({loading: true});
       const siteId = await this.props.rootStore.RedeemCode(
-        parsed.email,
-        parsed.passcode
+        passcode
       );
   
       if(siteId) {
+        // let loadStreamResult = await this.props.siteStore.LoadStreamObject(siteId);
+        // console.log(loadStreamResult);
         this.setState({siteId});
       } else {
         this.setState({loading: false});
       }    
     }
-    this.setState({code: parsed.passcode});
-    this.setState({email: parsed.email}); 
+
   }
 
   handleEmailChange(event) {
@@ -86,6 +88,19 @@ class CodeAccess extends React.Component {
       display: "flex"
     };
 
+    try {
+      // http://localhost:8086/d457a576/code?passcode%3D6rBhjy%26access%3Dtrue
+      const parsed = parse(decodeURIComponent(this.props.location.search));
+
+      if (parsed.passcode && parsed.access) {
+        this.handleEmailEvent(parsed.passcode, parsed.access);
+      }
+
+    }catch(e) {
+      console.log(e);
+    }
+
+
     return (
       <div style={divStyle}>
         <Navigation />
@@ -101,15 +116,6 @@ class CodeAccess extends React.Component {
               <b className="code-header-bold"> Purchase here.</b>
             </Link>
           </div>
-
-            {/* <input
-              onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "Email"})}
-              placeholder={this.state.email_placeholder}
-              value={this.state.email}
-              onChange={this.handleEmailChange} 
-              onKeyPress={onEnterPressed(Submit)}
-            /> */}
             <input
               onFocus={() => this.setState({code_placeholder: ""})}
               onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
@@ -118,14 +124,19 @@ class CodeAccess extends React.Component {
               onChange={this.handleCodeChange} 
               onKeyPress={onEnterPressed(Submit)}
             />
-            <button onClick={Submit} title="Submit">
-            <LoadingElement loading={this.state.loading}>
+ <button onClick={Submit} title="Submit">
+            {this.state.loading ? 
+                <div className="code-entry-spin-container">
+                  <div class="la-ball-clip-rotate la-sm">
+                      <div></div>
+                  </div>
+                </div>
+              :"Enter Event"            
 
-              
-              Enter Event
-              </LoadingElement>
+            }
+                 </button>
 
-              </button>
+
         </div>
         
       </div>
