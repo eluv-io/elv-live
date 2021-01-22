@@ -1,39 +1,23 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Navigation from "Layout/Navigation";
-import AddToCalendar from "react-add-to-calendar";
+import CalendarButton from "Confirmation/components/CalendarButton";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Success extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      calendarData: this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["calendar"][0],
-    };
-  }
-
   render() {
 
     const sessionId = this.props.match.params.id;
     const sessionEmail = this.props.match.params.email;
-    let calendarData = this.state.calendarData;
-    let calendarEvent = {
-      title: calendarData["title"],
-      description: calendarData["description"],
-      location: calendarData["location"],
-      startTime: calendarData["start_time"],
-      endTime: calendarData["end_time"]
-    };
     
     return (
 
       <div className="success-container">
         <Navigation/>
-  
+
         <div className="success-root">
           <div className="summary">
             <div className="payment-overview">
@@ -48,9 +32,7 @@ class Success extends React.Component {
               </div>
             </div>
 
-            <div className="back-btn-container">
-              <AddToCalendar event={calendarEvent}/>
-            </div>
+            <CalendarButton />
           </div>
         </div>
       </div>

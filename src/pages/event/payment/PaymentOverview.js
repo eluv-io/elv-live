@@ -5,15 +5,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import Select from "react-select";
 import { checkout } from "Data";
 import {retryRequest} from "Utils/retryRequest";
-// import PaypalButton from "./PaypalButton";
 import Paypal from "./Paypal";
-import Timer from "Common/Timer";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { IconContext } from "react-icons";
 import StripeLogo from "Images/logo/logo-stripe.png";
-import axios from "axios";
-import {EluvioConfiguration} from "../../../config";
-import AsyncComponent from "Common/AsyncComponent";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -70,7 +63,7 @@ class PaymentOverview extends React.Component {
   }
   
   handleStripeSubmit = (priceID, prodID) => async event => {
-    if (!this.validateEmail(this.state.email)) {
+    if(!this.validateEmail(this.state.email)) {
       this.setState({error: "Enter a valid email to continue to Payment!"});
       return;
     }
@@ -79,9 +72,9 @@ class PaymentOverview extends React.Component {
     let checkoutCart = [
       { price: priceID, quantity: this.state.ticketQty.value}
     ];
-    let merchInd = 1
+    let merchInd = 1;
     let donateInd = "stripe_price_id";
-    if (this.props.siteStore.stripeTestMode) {
+    if(this.props.siteStore.stripeTestMode) {
       merchInd = 0;
       donateInd = "stripe_test_price_id";
     }
@@ -92,7 +85,7 @@ class PaymentOverview extends React.Component {
     if(this.state.donationChecked) {
       checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
     }
-    let checkoutID = this.props.siteStore.generateCheckoutID(this.props.siteStore.currentProduct.otpID, this.state.email); 
+    let checkoutID = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpID, this.state.email); 
 
     let stripeParams = {
       mode: "payment",
@@ -113,22 +106,16 @@ class PaymentOverview extends React.Component {
       await stripe.redirectToCheckout(stripeParams);
 
     } catch (error) {
+      this.setState({retryCheckout: true});
+      let retryResponse; 
+      try {
 
-        console.log("redirectToCheckout Error. Error.name: ", error.name, ", Error.message:", error.message);
+        retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
 
-        this.setState({retryCheckout: true});
-        let retryResponse; 
-        try {
-          console.log("RETRY START: Retrying redirectToCheckout");
-
-          retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
-          console.log("RETRY END (SUCCESS). Response:", retryResponse);
-
-        } catch(error) {
-          this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
-          console.log("RETRY END (FAILURE). Response:", retryResponse, ", Error:", error);
-        }
-        this.setState({retryCheckout: false});
+      } catch (error) {
+        this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+      }
+      this.setState({retryCheckout: false});
     }
   };
 
@@ -150,7 +137,7 @@ class PaymentOverview extends React.Component {
     
     return (
 
-<div className="payment-container">
+      <div className="payment-container">
         <div className="payment-info">
           <div className="payment-info-img-container">
             <img src={this.props.siteStore.eventPoster} className="payment-info-img" />
@@ -162,11 +149,9 @@ class PaymentOverview extends React.Component {
             {eventInfo["event_header"]}
           </h3>
           <h3 className="payment-info-location">
-          {eventInfo["location"]} 
+            {eventInfo["location"]} 
           </h3>
-          {/* <h3 className="payment-info-date">
-            {eventInfo["date"]} 
-          </h3> */}
+
           <p className="payment-info-description">
             {/* {eventInfo["description"]}         */}
             Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3. 
@@ -186,30 +171,17 @@ class PaymentOverview extends React.Component {
               <h5 className="checkout-checkbox-heading">
                 {this.props.siteStore.currentProduct.name}
               </h5>
-              {/* <span>
-                  {`${this.props.siteStore.currentProduct.offering["price"]}`}
+              <span>
+                {`$${this.props.siteStore.currentProduct.price / 100}`}
+              </span>  
 
-                </span>   */}
-                              <span>
-                  {`$${this.props.siteStore.currentProduct.price / 100}`}
+            </div>
+            <div className="checkout-checkbox-details">
+              <div className="">
+                {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}                
+              </div>
 
-                </span>  
-
-                </div>
-                <div className="checkout-checkbox-details">
-                 <div className="">
-                    {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}                
-                  </div>
-
-
-    
-  
-                  
-                  {/* <div className="ticket-bottom-countdown">
-                    <Timer classProp="ticket-icon" premiereTime="January 28, 2021 20:00:00"/>
-                  </div> */}
-
-                  </div>  
+            </div>  
             <div className="currency-quantity-container">
               <div className="currency-select">
                 <Select 
@@ -242,8 +214,8 @@ class PaymentOverview extends React.Component {
                     valueContainer: base => ({
                       ...base,
                       background: "#F2EEEA",
-                      color: 'black',
-                      width: '100%',
+                      color: "black",
+                      width: "100%",
                       padding: "10px"
                     })
                   })}
@@ -313,18 +285,6 @@ class PaymentOverview extends React.Component {
                   <span className="checkout-checkbox-bundle-name">
                     {checkoutMerch["heading"]}
                   </span>  
-                  {/* <Select className='react-select-container' classNamePrefix="react-select" options={checkout.sizeOptions} value={this.state.selectedSize} onChange={this.handleSizeChange}
-                    theme={theme => ({
-                      ...theme,
-                      borderRadius: 10,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "rgba(230, 212, 165,.4)",
-                        primary: "#cfb46b",
-                      },
-                      
-                    })}
-                  /> */}
                 </div>  
          
                 <p className="checkout-checkbox-bundle-description">
@@ -345,7 +305,6 @@ class PaymentOverview extends React.Component {
                 placeholder={this.state.email_placeholder}
                 value={this.state.email}
                 onChange={handleEmailChange} 
-                // onKeyPress={onEnterPressed(Submit)}
               />
             </div>
             <p className="checkout-email-info">
@@ -353,24 +312,23 @@ class PaymentOverview extends React.Component {
             </p>
           </div>
 
-
           {/* Stripe Checkout Redirect Button*/}
           <div className="checkout-button-container" >
-          <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
+            <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
               {this.state.retryCheckout ? 
                 <div className="spin-checkout-container">
                   <div className="la-ball-clip-rotate la-sm">
-                      <div></div>
+                    <div></div>
                   </div>
                 </div>
-              : <div className="stripe-checkout-button">
-             {"Pay with Card"}
-             <img className="stripe-checkout-logo"src={StripeLogo}/>
-          </div>}
+                : <div className="stripe-checkout-button">
+                  {"Pay with Card"}
+                  <img className="stripe-checkout-logo"src={StripeLogo}/>
+                </div>}
             
-          </button>
+            </button>
+
             <Paypal
-              // createOrder={this.createOrder} 
               product={this.props.siteStore.currentProduct}
               checkoutMerch={checkoutMerch["price"]} 
               checkoutDonation={donation["price"]}  
@@ -382,19 +340,14 @@ class PaymentOverview extends React.Component {
               validateEmail={this.validateEmail}
               ticketQty={this.state.ticketQty.value}
             />
-                      <div id="checkout-id" className="checkout-error">
-            {this.state.error}
-          </div>
+            <div id="checkout-id" className="checkout-error">
+              {this.state.error}
+            </div>
 
           </div>
-
-
-
-
-
         </div>
       </div>
-        );
+    );
   
       
 

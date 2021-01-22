@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import {ImageIcon} from "elv-components-js";
 import {inject, observer} from "mobx-react";
 import Logo from "Images/logo/darkEluvioLiveLogo.png";
 
@@ -13,7 +12,7 @@ class Navigation extends React.Component {
     return (
       <div className="navigation">
         <div className="main-nav">
-          <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.eventSlug}`}  className="main-nav--logo">
+          <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`}  className="main-nav--logo">
             <img src={Logo} className="main-nav--logo" />
           </NavLink>
 

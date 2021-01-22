@@ -9,8 +9,6 @@ import EventTabs from "Event/tabs/EventTabs";
 import Navigation from  "Layout/Navigation";
 import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
-import axios from "axios";
-import {EluvioConfiguration} from "../../config";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -28,7 +26,6 @@ class Event extends React.Component {
 
   async componentDidMount() {
     window.scrollTo(0, 0);
-    await this.props.siteStore.setAsyncImages();
   }
 
   Trailer() {
@@ -36,12 +33,12 @@ class Event extends React.Component {
       <React.Fragment>
         <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
         <ImageIcon
-            key={"back-icon-close-modal"}
-            className={"back-button-modal"}
-            title={"Close Modal"}
-            icon={CloseIcon}
-            onClick={() => this.setState({showTrailer: false})}
-          />
+          key={"back-icon-close-modal"}
+          className={"back-button-modal"}
+          title={"Close Modal"}
+          icon={CloseIcon}
+          onClick={() => this.setState({showTrailer: false})}
+        />
 
         <div className="modal show">
 
@@ -80,6 +77,7 @@ class Event extends React.Component {
       </React.Fragment>
     );
   }
+
   handleNavigate = myRef => {
     if(this.state.tab != 0) {
       this.setState({tab: 0});
@@ -96,6 +94,7 @@ class Event extends React.Component {
     if(!this.props.siteStore.eventSites[this.props.match.params.name]) {
       return <Redirect to={`${this.props.siteStore.basePath}`}/>;
     }
+
     let eventInfo = this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0];
 
     const myRef = React.createRef();
@@ -148,7 +147,7 @@ class Event extends React.Component {
         </div>
 
         { this.state.showTrailer ? this.Trailer(): null}
-        { this.props.siteStore.modalOn ? this.Payment(): null}
+        { this.props.siteStore.showCheckout ? this.Payment(): null}
 
         <Footer />
       </div>

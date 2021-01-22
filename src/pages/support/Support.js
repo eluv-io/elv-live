@@ -9,12 +9,13 @@ import Footer from "Layout/Footer";
 @inject("siteStore")
 @observer
 class Support extends React.Component {
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
   
   render() {
-    let faqInfo = this.props.siteStore.faqData;
+    let faqData = this.props.siteStore.faqData;
     
     return (
       <div className="support-page">
@@ -25,7 +26,7 @@ class Support extends React.Component {
             <h1 className="support-header--title">Fan FAQ</h1>
           </div>
           <div className="support-body">
-            {faqInfo.map((obj, index) =>
+            {faqData.map((obj, index) =>
               <Collapsible transitionTime={150} trigger={obj.question} key={index}>
                 <p>{obj.answer}</p>
               </Collapsible>

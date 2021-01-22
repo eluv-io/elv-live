@@ -18,7 +18,6 @@ import AsyncComponent from "Common/AsyncComponent";
 import LiveChat from "./components/LiveChat";
 import BitmovinPlayer from "./player/BitmovinPlayer";
 
-// import StreamTabs from './StreamTabs';
 import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
 
@@ -104,7 +103,6 @@ class Stream extends React.Component {
     this.state = {
       open: false,
       name: "",
-      switchValue: false,
       activeStream: 0,
       darkSwitch: false,
 
@@ -127,159 +125,118 @@ class Stream extends React.Component {
       this.setState({darkSwitch: (!this.state.darkSwitch)});
     };
 
-    // const setStream = (streamIndex) => {
-    //   this.setState({activeStream: streamIndex});
-    //   if (streamIndex === 6) {
-    //     for (let i = 0; i < 6; i++) {
-    //       document.getElementById(`active-stream-${i}`).controls = false;
-    //       document.getElementById(`active-stream-${i}`).play = true;
-    //     }
-    //     // document.getElementById(`active-stream-0`).play = false;
-    //   } else if (this.state.switchValue) {
-    //     this.setState({switchValue: false})
-    //     setTimeout(() => {
-    //       document.getElementById(`active-stream-${streamIndex}`).controls = true}, 500);
-    //   }
-    // }
-
-    // const handleSwitch = () => {
-    //   this.setState({switchValue: !(this.state.switchValue)})
-    //   if (this.state.switchValue === false) {
-    //     setStream(6);
-    //   }
-    // }
-    let streamInfo= this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["stream_app"][0];
-    let sponsorInfo= this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["sponsor"][0];
+    let streamInfo= this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["stream_app"][0];
+    let sponsorInfo= this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["sponsor"][0];
 
     const { classes } = this.props;
 
     return (
-      // <AsyncComponent
-      //   Load={async () => {
-      //     await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
-      //   }}
-      //   render={() => {
-      //     if(!this.props.siteStore.siteInfo) { return null; }
 
-      //     return (
-            <div className={clsx(classes.lightRoot, {
-              [classes.darkRoot]: this.state.darkSwitch,
-            })}>
-              <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                  [classes.appBarShift]: this.state.open,
-                })}
-              >
-                <Toolbar>
-                  <div className="stream-nav">
-                    {/* <h1 className="stream-nav__title"> Eluvio Live </h1> */}
-                    <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.eventSlug}`}  >
-                      <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
-                    </NavLink>
-
-                    {/* <ImageIcon className="main-nav--logo" icon={Logo} label="Eluvio" /> */}
-
-                    <div className="stream-nav__button-grp">
-
-                      <div className="stream-nav__button-grp2">
-                        <IconButton
-                          color="inherit"
-                          aria-label="open drawer"
-                          edge="end"
-                          onClick={handleDrawerOpen}
-                          className={clsx(this.state.open && classes.hide)}
-                          size="medium"
-                        >
-                          <MenuIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
-                        </IconButton>
-
-                        <IconButton
-                          color="inherit"
-                          aria-label="close drawer"
-                          edge="end"
-                          onClick={handleDrawerClose}
-                          className={clsx(!(this.state.open) && classes.hide)}
-                          size="medium"
-                        >
-                          <ChevronRightIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
-                        </IconButton>
-                      </div>
-                    </div>
-                  </div>            
-                </Toolbar>
-                
-              </AppBar>
-              <main
-                className={clsx(classes.content, {
-                  [classes.contentShift]: this.state.open,
-                })}
-              >
-                <div className={classes.drawerHeader} />
-                <div className="stream-container">
-                  <div className="stream-container__streamBox">
-                  <div className="stream-container__streamBox--videoBox">
-
-                  <AsyncComponent
-                    Load={async () => {
-                      await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
-                      // while(true) {
-                      //   // console.log(1);
-                      // }
-                    }}
-                    loadingSpin={true}
-
-                    render={() => {
-                      // if(!this.props.siteStore.siteInfo) { return null; }
-
-                      return (
-                                <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+      <div className={clsx(classes.lightRoot, {
+        [classes.darkRoot]: this.state.darkSwitch,
+      })}>
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: this.state.open,
+          })}
+        >
+          <Toolbar>
+            <div className="stream-nav">
+              <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`}  >
+                <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
+              </NavLink>
 
 
-                                );
-                                    }}
-                                    />
-                                    </div>
-                    <div className="stream-container__streamBox--info">
-                      <div className="stream-info-container">
-                        <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
-                          {streamInfo["subheader"]}
-                        </h2>
-                        <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
-                          {streamInfo["header"]}
-                        </h1>
-                      </div>
+              <div className="stream-nav__button-grp">
 
-                      <div className="sponsor-info-container"> 
-                        <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
-                          {sponsorInfo["stream_text"]}
-                        </span>
-                        <div className="sponsor-info-container__img-container"> 
-                          <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
-                        </div>
-                      </div> 
-                    </div> 
-                  </div>
+                <div className="stream-nav__button-grp2">
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="end"
+                    onClick={handleDrawerOpen}
+                    className={clsx(this.state.open && classes.hide)}
+                    size="medium"
+                  >
+                    <MenuIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
+                  </IconButton>
+
+                  <IconButton
+                    color="inherit"
+                    aria-label="close drawer"
+                    edge="end"
+                    onClick={handleDrawerClose}
+                    className={clsx(!(this.state.open) && classes.hide)}
+                    size="medium"
+                  >
+                    <ChevronRightIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
+                  </IconButton>
                 </div>
+              </div>
+            </div>            
+          </Toolbar>
+                
+        </AppBar>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: this.state.open,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          <div className="stream-container">
+            <div className="stream-container__streamBox">
+              <div className="stream-container__streamBox--videoBox">
+
+                <AsyncComponent
+                  Load={async () => {
+                    await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
+                  }}
+                  loadingSpin={true}
+                  render={() => {
+                    return (
+                      <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+                    );
+                  }}
+                />
+              </div>
+              <div className="stream-container__streamBox--info">
+                <div className="stream-info-container">
+                  <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
+                    {streamInfo["subheader"]}
+                  </h2>
+                  <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
+                    {streamInfo["header"]}
+                  </h1>
+                </div>
+
+                <div className="sponsor-info-container"> 
+                  <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
+                    {sponsorInfo["stream_text"]}
+                  </span>
+                  <div className="sponsor-info-container__img-container"> 
+                    <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
+                  </div>
+                </div> 
+              </div> 
+            </div>
+          </div>
                   
 
-              </main>
-              <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="right"
-                open={this.state.open}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                <LiveChat onDarkMode={this.state.darkSwitch}/>
-              </Drawer>
-            </div>
-          );
-    //     }}
-    //   />
-    // );
+        </main>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={this.state.open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <LiveChat onDarkMode={this.state.darkSwitch}/>
+        </Drawer>
+      </div>
+    );
   }
 }
 

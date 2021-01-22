@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Select, { components } from "react-select";
-// import { css as emotionCss } from "emotion";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -16,19 +15,17 @@ const SingleValue = ({
 }) => {
   return (
 
-    <div
-      className="ticket-bottom-info"
-    >
+    <div className="ticket-bottom-info">
       <div className="ticket-bottom-location">{selectProps.getOptionLabel(data)}</div>
 
       <IconContext.Provider value={{ className: "ticket-icon" }}>
-                <div className="ticket-bottom-date">
-                  <FaRegCalendarAlt />
-                    {data.date}
-                </div>
-              </IconContext.Provider>
+        <div className="ticket-bottom-date">
+          <FaRegCalendarAlt />
+          {data.date}
+        </div>
+      </IconContext.Provider>
 
-              <div className="ticket-bottom-price">{(data.price)}</div>
+      <div className="ticket-bottom-price">{(data.price)}</div>
 
     </div>
   );
@@ -52,10 +49,10 @@ export default class CustomDropdown extends Component {
   render() {
     return (
       <Select
-      className='react-select-container'  
-      classNamePrefix="react-select"
-      value={this.state.selected} 
-      onChange={this.handleChange}
+        className='react-select-container'  
+        classNamePrefix="react-select"
+        value={this.state.selected} 
+        onChange={this.handleChange}
         options={this.props.options}
         components={{ SingleValue }}
         styles={{

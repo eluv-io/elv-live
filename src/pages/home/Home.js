@@ -7,7 +7,7 @@
 // import Card from "./components/Card";
 // import Navigation from "Layout/Navigation";
 // import Logo from "Images/logo/darkLogo.png";
-// import ritaHero from "Images/ritaora/hero5.jpg";
+// import ritaHero from "Images/ritaora/heroRita.jpg";
 // import ritaHome from "Images/ritaora/rita-home.jpg";
 
 // @inject("rootStore")

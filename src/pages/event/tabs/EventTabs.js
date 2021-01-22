@@ -6,12 +6,12 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Paper from "@material-ui/core/Paper";
+// import MusicNoteIcon from "@material-ui/icons/MusicNote";
 
 import ConcertOverview from "./Overview";
-import ArtistInfo from "./Artist";
 import Merch from "./Merch";
+// import ArtistInfo from "./Artist";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -64,8 +64,6 @@ class EventTabs extends React.Component {
             value={this.props.tab}
             onChange={this.props.handleChange}
             variant="fullWidth"
-            // disablefocusripple = {true}
-            // disableripple = {true}
             classes={{
               indicator: classes.indicator
             }}

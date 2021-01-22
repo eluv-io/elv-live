@@ -1,25 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Timer from "Common/Timer";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import Select, { components } from "react-select";
-
-const offerings = [
-  {
-    value: "AF",
-    label: "Afghanistan"
-  },
-  {
-    value: "AX",
-    label: "Åland Islands"
-  },
-  {
-    value: "AL",
-    label: "Albania"
-  }   
-];
+import Select from "react-select";
 
 const SingleValue = ({
   cx,
@@ -32,20 +16,17 @@ const SingleValue = ({
 }) => {
   return (
 
-    <div
-      className="ticket-bottom-info"
-    >
+    <div className="ticket-bottom-info">
       <div className="ticket-bottom-location">{selectProps.getOptionLabel(data)}</div>
 
       <IconContext.Provider value={{ className: "ticket-icon" }}>
-                <div className="ticket-bottom-date">
-                  <FaRegCalendarAlt />
-                    {data.date}
-                </div>
-              </IconContext.Provider>
+        <div className="ticket-bottom-date">
+          <FaRegCalendarAlt />
+          {data.date}
+        </div>
+      </IconContext.Provider>
 
-              <div className="ticket-bottom-price">{(data.price)}</div>
-
+      <div className="ticket-bottom-price">{(data.price)}</div>
     </div>
   );
 };
@@ -76,7 +57,6 @@ class Ticket extends React.Component {
     ];
     this.setState({selectedOffering: options[0]});
     this.setState({options: options});
-
   }
   
   handleChange(value) {
@@ -85,7 +65,7 @@ class Ticket extends React.Component {
 
 
   render() {
-    let {name, description, price, priceID, prodID, date, poster, otpID} = this.props;
+    let {name, description, price, priceID, prodID, poster, otpID} = this.props;
 
 
     return (
@@ -113,61 +93,31 @@ class Ticket extends React.Component {
 
           </div>
           <div className="ticket-bottom">
-           {/* <div className="ticket-bottom-info"> */}
-                {/* <Select 
-                  className='react-select-container' 
-                  classNamePrefix="react-select" 
-                  options={offerings} 
-                  value={this.state.selectedOffering} 
-                  onChange={this.handleOfferingChange}
-                  theme={theme => ({
-                    ...theme,
-                    borderRadius: 15,
-                    width: 600,
-                    colors: {
-                      ...theme.colors,
-                      primary25: "rgba(230, 212, 165,.4)",
-                      primary: "#cfb46b",
-                    },
-                    valueContainer: base => ({
-                      ...base,
-                      background: "#F2EEEA",
-                      color: 'black',
-                      width: '100%',
-                    }),
-                  })}
-                /> */}
-            {/* </div> */}
-
-                <div className="ticket-bottom-dropdown-container">
-                <Select
-                  className='react-select-container'  
-                  classNamePrefix="react-select"
-                  value={this.state.selectedOffering} 
-                  onChange={this.handleChange}
-                    options={this.state.options}
-                    components={{ SingleValue }}
-                    styles={{
-                      singleValue: (provided, state) => ({
-                        ...provided
-                      })
-                    }}
-                    theme={theme => ({
-                      ...theme,
-                      borderRadius: 10,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "rgba(230, 212, 165,.4)",
-                        primary: "#cfb46b",
-                      },
-
-                    })}
-                  />
-              </div>
+            <div className="ticket-bottom-dropdown-container">
+              <Select
+                className='react-select-container'  
+                classNamePrefix="react-select"
+                value={this.state.selectedOffering} 
+                onChange={this.handleChange}
+                options={this.state.options}
+                components={{ SingleValue }}
+                styles={{
+                  singleValue: (provided, state) => ({
+                    ...provided
+                  })
+                }}
+                theme={theme => ({
+                  ...theme,
+                  borderRadius: 10,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "rgba(230, 212, 165,.4)",
+                    primary: "#cfb46b",
+                  },
+                })}
+              />
+            </div>
               
-
-
-
             <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal( name, description, price, priceID, prodID, otpID, this.state.selectedOffering)}>
               Purchase
             </button>

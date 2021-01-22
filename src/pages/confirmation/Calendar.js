@@ -1,23 +1,15 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Navigation from "Layout/Navigation";
-import AddToCalendar from "react-add-to-calendar";
+import CalendarButton from "Confirmation/components/CalendarButton";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Calendar extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      calendarData: this.props.siteStore.eventSites[this.props.siteStore.eventSlug]["calendar"][0]
-    };
-  }
-
   render() {
-    let calendarData = this.state.calendarData;
+    let calendarData = this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["calendar"][0];
     let calendarEvent = {
       title: calendarData["title"],
       description: calendarData["description"],
@@ -37,9 +29,8 @@ class Calendar extends React.Component {
               <h2 className="payment-overview-p"> If you have questions on how to access the event or would like more details, please visit our FAQ. </h2>
             </div>
 
-            <div className="back-btn-container">
-              <AddToCalendar event={calendarEvent}/>
-            </div>
+            <CalendarButton />
+
 
           </div>
         </div>

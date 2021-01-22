@@ -61,24 +61,24 @@ $bp-small: 31.25em;   // 500px;
 $bp-tiny-2: 27.6em;   // 440px;
 $bp-tiny: 21.875em;   // 350px;
 
-.container {
-  display: flex;
-  flex-direction: column;
-  margin: 0 4vw;
-}
 
 .error-message {
   background-color: #fff;
   border-radius: 5px;
   color: #f00;
+  font-family: Helvetica;
   font-size: 20px;
+  font-style: normal;
   font-weight: bold;
+  font-weight: normal;
   height: 50px;
+  letter-spacing: 0.14em;
+  min-width: 250px;
   padding-top: 10px;
   position: fixed;
   text-align: center;
   text-transform: uppercase;
-  top: 50px;
-  width: 200px;
+  text-transform: uppercase;
+  top: 70px;
   z-index: 10000;
 }
