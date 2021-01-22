@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import { Link } from "react-router-dom";
 
-
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -13,7 +12,7 @@ class Footer extends React.Component {
       <div className="live-footer">
         <div className="footer-container">
           <div className="footer-info">
-            <Link to={`${this.props.siteStore.basePath}/support`}  className="footer-item">
+            <Link to={`${this.props.siteStore.basePath}/support`} className="footer-item">
               Support FAQ
             </Link>
           </div>
@@ -24,7 +23,6 @@ class Footer extends React.Component {
           </div>
         </div>
       </div>  
-
     );
   }
 }

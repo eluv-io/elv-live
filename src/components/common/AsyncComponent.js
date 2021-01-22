@@ -60,11 +60,10 @@ class AsyncComponent extends React.Component {
         <div className="spin-container">
  
           {loadingSpin ? 
-          <div className="la-ball-clip-rotate">
-                      <div></div>
-                  </div>
-                
-                : null}
+            <div className="la-ball-clip-rotate">
+              <div></div>
+            </div>
+            : null}
         </div>
       );
     }

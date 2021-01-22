@@ -24,6 +24,8 @@ class LiveChat extends React.Component {
       name_placeholder: "Name",
     };
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   async componentDidMount() {
@@ -43,42 +45,37 @@ class LiveChat extends React.Component {
     }
   }
 
+  handleSubmit = () => async event => {
+    let name = this.state.chatName;
+
+    if (name != "") {
+      this.setState({onChat: true});
+      this.state.chatClient.disconnect();
+
+      await this.state.chatClient.setGuestUser({ id: name, name: name });
+      
+      let channel = this.state.chatClient.channel("livestream", "rita-ora-test7", {
+        name: "Rita Ora",
+      });
+      this.setState({channel2: channel});
+    } 
+  };
+
   handleNameChange(event) {
     this.setState({chatName: event.target.value});
   }
 
   render() {
-    const noDate = () => {return null;};
-
-    const handleSubmit = () => async event => {
-      event.preventDefault();
-      let name = this.state.chatName;
-      if(name != "") {
-        this.setState({onChat: true});
-        this.state.chatClient.disconnect();
-
-        /* eslint-disable no-unused-vars */
-        const connectResponse = await this.state.chatClient.setGuestUser({ id: name, name: name });
-        /* eslint-enable no-unused-vars */
-        
-        let channel = chatClient.channel("livestream", "rita-ora-test7", {
-          name: "Rita Ora",
-        });
-        this.setState({channel2: channel});
-      } 
-    };
-
     let chatClient = this.state.chatClient;
     let channel = this.state.channel;
 
     if(!this.state.onChat) {
       return (
-        // <Chat client={this.state.chatClient} theme={"livestream light"} className="stream-container__tabs--chat">
         <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
-          <Channel channel={channel} Message={MessageLivestream} LoadingIndicator={noDate}>
+          <Channel channel={channel} Message={MessageLivestream} LoadingIndicator={() => {return null;}}>
             <Window hideOnThread>
               <ChannelHeader live />
-              <MessageList dateSeparator={noDate}/>
+              <MessageList dateSeparator={() => {return null;}}/>
               {this.state.onChat ? 
                 <MessageInput Input={MessageInputSimple} focus={false} /> :
                 <div className={this.props.onDarkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light" } >
@@ -91,7 +88,7 @@ class LiveChat extends React.Component {
                       onChange={this.handleNameChange} 
                     />
                   </div>
-                  <button className="enter-chat-button" role="link" onClick={handleSubmit()}>
+                  <button className="enter-chat-button" role="link" onClick={this.handleSubmit()}>
                     <GrChatOption style={{ height: "25px", width: "25px",marginRight: "10px"  }} /> Join Chat
                   </button>
                 </div> 
@@ -102,17 +99,19 @@ class LiveChat extends React.Component {
         </Chat>
       );
     } else {
+      
       if(!this.state.channel2) {
         return null;
       }
+
+
       let channel2 = this.state.channel2;
       return (
-        // <Chat client={this.state.chatClient} theme={"livestream light"} className="stream-container__tabs--chat">
         <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
-          <Channel channel={channel2} Message={MessageLivestream} LoadingIndicator={noDate}>
+          <Channel channel={channel2} Message={MessageLivestream} LoadingIndicator={() => {return null;}}>
             <Window hideOnThread>
               <ChannelHeader live />
-              <MessageList dateSeparator={noDate}/>
+              <MessageList dateSeparator={() => {return null;}}/>
               <MessageInput Input={MessageInputSimple} focus={false} /> 
             </Window>
             <Thread fullWidth autoFocus={false} />

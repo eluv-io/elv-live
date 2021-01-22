@@ -1,9 +1,8 @@
 import React from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
-import {Switch, withRouter} from "react-router";
+import {Switch} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
-import * as Stores from "Stores";
 
 import Support from "Support/Support";
 import CodeAccess from "Code/CodeAccess";
@@ -11,9 +10,11 @@ import Event from "Event/Event";
 import Stream from "Stream/Stream";
 import Success from "Confirmation/Success";
 import Calendar from "Confirmation/Calendar";
-
 import AsyncComponent from "Common/AsyncComponent";
-import {EluvioConfiguration} from "./config";
+
+import {EluvioConfiguration} from "EluvioConfiguration";
+
+import * as Stores from "Stores";
 
 import "Styles/main.scss";
 
@@ -21,9 +22,12 @@ import "Styles/main.scss";
 @inject("rootStore")
 @inject("siteStore")
 @observer
-@withRouter
 class Routes extends React.Component {
 
+  async componentDidMount() {
+    await this.props.siteStore.setAsyncImages();
+  }
+  
   render() {
     return (
       <Switch>

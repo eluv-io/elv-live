@@ -1,8 +1,8 @@
 import React from "react";
-
+import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from "bitmovin-player-ui";
 import {inject, observer} from "mobx-react";
 import { Player } from "bitmovin-player";
-import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from "bitmovin-player-ui";
+
 import CustomToggleButton from  "./CustomToggleButton"; 
 
 @inject("siteStore")
@@ -12,7 +12,6 @@ class BitmovinPlayer extends React.Component {
     super(props);
 
     this.state = {
-      showControls: false,
       switchValue: 0,
       player: null,
       playoutOptions: [],
@@ -73,26 +72,21 @@ class BitmovinPlayer extends React.Component {
     }
   }
 
-
   LoadBitmovin() {
     const conf = {
       key: "532a4784-591a-4039-8497-5feb80e5dd66",
       playback: {
         muted: true,
         autoplay: true,
-
       },
       ui: false, // disable the built-in UI
-
     };
 
     let playerContainer = document.getElementById("player-container");
     let player = new Player(playerContainer, conf);
 
-
     let controlBar = new ControlBar({
       components: [
-        
         new Container({
           components: [
             new PlaybackTimeLabel({ timeLabelMode: PlaybackTimeLabelMode.CurrentTime, hideInLivePlayback: true }),
@@ -131,14 +125,9 @@ class BitmovinPlayer extends React.Component {
         PlayerUtils.PlayerState.Finished,
       ],
     });
-    /* eslint-disable no-unused-vars */
 
     const myUiManager = new UIManager(player, myUi);
     
-    /* eslint-enable no-unused-vars */
-
-
-
     this.setState({player: player});
 
     let source = this.props.siteStore.feeds[0].playoutOptions;
@@ -161,14 +150,11 @@ class BitmovinPlayer extends React.Component {
 
   render() {
 
-    
-
     return (
       <div
         key={"player-container"}
         id={"player-container"}
         className="feedGrid"
-        // muted = {this.props.feed === 0 ? false : true}
       />
     );
   }

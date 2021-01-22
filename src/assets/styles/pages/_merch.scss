@@ -58,6 +58,7 @@
 .merch-image {
   background: transparent !important;
   border: 0 !important;
+  border-radius: 10px;
   height: 400px;
   perspective: 1500px;
   perspective: 1500px;
@@ -66,7 +67,6 @@
   user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
-  border-radius: 10px;
 
   @media only screen and (max-width: 620px) {
     height: 350px !important;
@@ -93,6 +93,9 @@
   text-align: left;
   text-transform: uppercase;
   width: 100%;
+  font-family: Helvetica;
+  font-style: normal;
+  font-weight: normal;
 
   @media only screen and (max-width: 620px) {
     align-items: center;

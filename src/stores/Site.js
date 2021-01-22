@@ -1,11 +1,11 @@
-import {observable, action, flow, computed, toJS} from "mobx";
+import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import Id from "@eluvio/elv-client-js/src/Id";
 import { v4 as UUID } from "uuid";
 import axios from "axios";
 import { ethers } from "ethers";
-import {EluvioConfiguration} from "../config";
+import {EluvioConfiguration} from "EluvioConfiguration";
 
 const createKeccakHash = require("keccak");
 
@@ -15,8 +15,7 @@ class SiteStore {
   @observable faqData = [];
   @observable eventSites;
   @observable sponsorImage;
-  @observable codeImage;
-  @observable eventSlug;
+  @observable siteSlug;
   @observable heroBackground;
   @observable eventPoster;
   @observable merchImage;
@@ -32,10 +31,8 @@ class SiteStore {
   @observable feeds = [];
 
   // Eluvio Live - Modal
-  @observable modalOn = false;  
+  @observable showCheckout = false;  
   @observable currentProduct; 
-
-  @observable logoUrl;
 
   @observable siteHash;
   @observable assets = {};
@@ -93,68 +90,50 @@ class SiteStore {
   LoadSite = flow(function * (libraryId, objectId) {
     try {
       this.siteParams = {
-        libraryId: yield this.client.ContentObjectLibraryId({objectId}),
+        libraryId: libraryId,
         objectId: objectId,
         versionHash: yield this.client.LatestVersionHash({objectId}),
         writeToken: ""
       };
 
-      const response = yield axios.get(
-        `https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&select=sites&select=app&resolve=true&link_depth=1`
-      );
-
-      let appData = response.data.app;
-
-      if(appData.base_path && (appData.base_path != "") && (appData.base_path.charAt(0) == "/")) {
-        this.basePath = appData.base_path;
-      }
-
-      if(appData.faq) {
-        this.faqData = appData.faq;
-      }
-      if(appData.stripe_config && (appData.stripe_config[0]["test_mode"] == "")) {
-        this.stripeTestMode = false;
-        this.stripePublicKey = appData.stripe_config[0]["public_key"]; 
-      } else {
-        this.stripeTestMode = true;
-        this.stripePublicKey = appData.stripe_config[0]["test_public_key"]; 
-      }
-
-      this.eventSites = response.data.sites;
-      this.codeImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/code_background/default"});
-      // this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/main_sponsor/default"});
-      this.eventSlug = Object.keys(this.eventSites)[0];
-
-      this.sponsorImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public/asset_metadata/images/main_sponsor/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
-        let blob = new Blob(
-          [response.data], 
-          { type: response.headers['content-type'] }
-        )
-        let image = URL.createObjectURL(blob);
-        return image;
+      let siteInfo = yield this.client.ContentObjectMetadata({
+        ...this.siteParams,
+        metadataSubtree: "public",
+        resolveLinks: true,
+        resolveIncludeSource: true,
+        resolveIgnoreErrors: true,
+        select: [
+          "app",
+          "sites",
+          "asset_metadata/images"
+        ]
       });
 
-      this.heroBackground = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public/sites/${this.eventSlug}/images/hero_background/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
-            let blob = new Blob(
-              [response.data], 
-              { type: response.headers['content-type'] }
-            )
-            let image = URL.createObjectURL(blob)
-            return image;
-        });
-        this.eventPoster = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${libraryId}/q/${objectId}/meta/public/sites/${this.eventSlug}/images/event_poster/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
-          let blob = new Blob(
-            [response.data], 
-            { type: response.headers['content-type'] }
-          )
-          let image = URL.createObjectURL(blob)
-          return image;
-      });
+      // Loading app configurations from Eluvio Live object
+      let appConfig = siteInfo.app;
 
+      if(appConfig.base_path && (appConfig.base_path != "") && (appConfig.base_path.charAt(0) == "/")) {
+        this.basePath = appConfig.base_path;
+      }
+
+      // Loading Support FAQ questions & answers
+      this.faqData = appConfig.faq;
+
+      // Checking whether to use test or live mode for Stripe
+      this.stripeTestMode = appConfig.stripe_config[0]["test_mode"];
+      this.stripePublicKey = this.stripeTestMode ? appConfig.stripe_config[0]["test_public_key"] : appConfig.stripe_config[0]["public_key"];
+      
+      // Loading all sites within the Eluvio Live object
+      this.eventSites = siteInfo.sites;
+
+      // Grabbing the site slug for the URL. Assuming there's only one event in sites
+      this.siteSlug = Object.keys(this.eventSites)[0];
+
+      this.heroBackground = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/${this.siteSlug}/images/hero_background/default`});
+      
     } catch (error) {
-      console.error("ERROR LoadSite", error);
+      console.error("Error loading site", error);
     }
-    // Eluvio Live Data Store
   });
 
   // Loading streams/titles from objectId and placing them into this.feeds for multiview selection
@@ -193,37 +172,10 @@ class SiteStore {
     );
   });
 
-
-  @action.bound
-  generateCheckoutID(otpID, email, sz = 10) {
-    let id = createKeccakHash('keccak256').update(`${otpID}:${email}`).digest();
-
-    if (sz <  id.length) {
-      id = id.slice(0, sz);
-    }
-    
-    return ethers.utils.base58.encode(id); 
-  };
-
-  @action.bound
-  PlayTitle = flow(function * (title) {
-    try {
-      this.loading = true;
-      this.activeTitle = yield this.SetActiveTitle(title);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to load title:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.loading = false;
-    }
-  });
-
   @action.bound
   turnOnModal = flow(function * ( name, description, price, priceId, prodId, otpID, offering) {
     try {
-      this.modalOn = true;
+      this.showCheckout = true;
       this.currentProduct = {
         name: name,
         description: description,
@@ -232,7 +184,6 @@ class SiteStore {
         prodId: prodId,
         otpID: otpID,
         offering: offering
-        
       };
 
 
@@ -247,7 +198,7 @@ class SiteStore {
   @action.bound
   turnOffModal = flow(function * () {
     try {
-      this.modalOn = false;
+      this.showCheckout = false;
       
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -260,39 +211,49 @@ class SiteStore {
   @action.bound
   setAsyncImages = flow(function * () {
     try {
-      this.donationImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${EluvioConfiguration["library-id"]}/q/${EluvioConfiguration["object-id"]}/meta/public/sites/${this.eventSlug}/images/checkout_donation/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
-        let blob = new Blob(
-          [response.data], 
-          { type: response.headers['content-type'] }
-        )
-        let image = URL.createObjectURL(blob);
-        return image;
-      });
-  
-      this.merchImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${EluvioConfiguration["library-id"]}/q/${EluvioConfiguration["object-id"]}/meta/public/sites/${this.eventSlug}/images/checkout_merch/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
-        let blob = new Blob(
-          [response.data], 
-          { type: response.headers['content-type'] }
-        )
-        let image = URL.createObjectURL(blob);
-        return image;
-      });
-        
-      this.merchBackImage = yield axios.get(`https://host-66-220-3-86.contentfabric.io/qlibs/${EluvioConfiguration["library-id"]}/q/${EluvioConfiguration["object-id"]}/meta/public/sites/${this.eventSlug}/images/merch_back/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true`, { responseType: 'arraybuffer' }).then(response => {
-        let blob = new Blob(
-          [response.data], 
-          { type: response.headers['content-type'] }
-        )
-        let image = URL.createObjectURL(blob);
-        return image;
-      });
-
+      this.sponsorImage = yield this.client.LinkUrl({...this.siteParams, linkPath: "public/asset_metadata/images/main_sponsor/default"});
+      this.eventPoster = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/${this.siteSlug}/images/event_poster/default`});
+      this.donationImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/${this.siteSlug}/images/checkout_donation/default`});
+      this.merchImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/${this.siteSlug}/images/checkout_merch/default`});
+      this.merchBackImage = yield this.client.LinkUrl({...this.siteParams, linkPath: `public/sites/${this.siteSlug}/images/merch_back/default`});
 
     } catch (error) {
+      console.error("Failed to load images in setAsyncImages:", error);
+    }
+  });
+
+
+  // Use Paul's genTIDPrefix function to generate confirmation number for checkout based on otpId and email
+  @action.bound
+  generateConfirmationId(otpId, email, sz = 10) {
+    //Concatenate otpId and email, then hash 
+    let id = createKeccakHash('keccak256').update(`${otpId}:${email}`).digest();
+
+    if (sz <  id.length) {
+      id = id.slice(0, sz);
+    }
+    
+    return ethers.utils.base58.encode(id); 
+  };
+
+
+
+
+
+
+
+  @action.bound
+  PlayTitle = flow(function * (title) {
+    try {
+      this.loading = true;
+      this.activeTitle = yield this.SetActiveTitle(title);
+    } catch (error) {
       // eslint-disable-next-line no-console
-      console.error("Failed to load offModal:");
+      console.error("Failed to load title:");
       // eslint-disable-next-line no-console
       console.error(error);
+    } finally {
+      this.loading = false;
     }
   });
 
@@ -406,6 +367,7 @@ class SiteStore {
     };
   }
 
+  @action.bound
   LoadTitle = flow(function * (params, title, baseLinkPath) {
     if(title["."] && title["."].resolution_error) {
       return;

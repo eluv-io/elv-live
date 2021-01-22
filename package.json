@@ -11,20 +11,13 @@
     "serve-phone": "webpack-dev-server --hot --port 8086 --host=0.0.0.0 --disable-host-check --useLocalIp",
     "build": "rm -rf dist/* && NODE_ENV=production node ./node_modules/webpack-cli/bin/cli.js -p --progress --colors --devtool none",
     "add-build": "git add dist",
-    "lint": "npm run fix-scss ; npm run lint-scss ; npm run fix-js",
-    "lint-show": "npm run lint-scss ; npm run lint-js",
     "lint-js": "eslint \"src/**/*.js\"",
     "fix-js": "eslint \"src/**/*.js\" --fix",
     "lint-scss": "stylelint '**/*.scss' --config .stylelintrc.yml",
     "fix-scss": "stylelint '**/*.scss' --config .stylelintrc.yml --fix",
+    "lint-show": "npm run lint-scss ; npm run lint-js",
+    "lint": "npm run fix-scss ; npm run fix-js",
     "test": "jest"
-  },
-  "pre-commit": {
-    "run": [
-      "lint",
-      "build",
-      "add-build"
-    ]
   },
   "dependencies": {
     "@eluvio/elv-client-js": "^3.1.23",
@@ -37,7 +30,6 @@
     "bitmovin-player-ui": "^3.22.0",
     "dateformat": "^3.0.3",
     "elv-components-js": "git+https://github.com/eluv-io/elv-components-js.git#645165da87ec42845a908a9ce0817db202523866",
-    "emotion": "^11.0.0",
     "ethers": "^5.0.25",
     "getstream": "^6.2.2",
     "keccak": "^3.0.1",
