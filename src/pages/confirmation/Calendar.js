@@ -9,7 +9,7 @@ import CalendarButton from "Confirmation/components/CalendarButton";
 class Calendar extends React.Component {
 
   render() {
-    let calendarData = this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["calendar"][0];
+    let calendarData = this.props.siteStore.currentSite["calendar"][0];
     let calendarEvent = {
       title: calendarData["title"],
       description: calendarData["description"],
@@ -17,11 +17,11 @@ class Calendar extends React.Component {
       startTime: calendarData["start_time"],
       endTime: calendarData["end_time"]
     };
-    
+
     return (
       <div className="success-container">
         <Navigation/>
-  
+
         <div className="success-root">
           <div className="summary">
             <div className="payment-overview">

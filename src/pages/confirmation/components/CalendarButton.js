@@ -8,7 +8,7 @@ import AddToCalendar from "react-add-to-calendar";
 class CalendarButton extends React.Component {
 
   render() {
-    let calendarData = this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["calendar"][0];
+    let calendarData = this.props.siteStore.currentSite["calendar"][0];
     let calendarEvent = {
       title: calendarData["title"],
       description: calendarData["description"],
@@ -16,11 +16,11 @@ class CalendarButton extends React.Component {
       startTime: calendarData["start_time"],
       endTime: calendarData["end_time"]
     };
-    
+
     return (
-        <div className="back-btn-container">
-          <AddToCalendar event={calendarEvent}/>
-        </div>
+      <div className="back-btn-container">
+        <AddToCalendar event={calendarEvent}/>
+      </div>
     );
   }
 }

@@ -12,17 +12,17 @@ class Footer extends React.Component {
       <div className="live-footer">
         <div className="footer-container">
           <div className="footer-info">
-            <Link to={`${this.props.siteStore.basePath}/support`} className="footer-item">
+            <Link to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/support`} className="footer-item">
               Support FAQ
             </Link>
           </div>
-          <div className="sponsor-container-footer"> 
-            <div className="sponsor-img-container-footer"> 
+          <div className="sponsor-container-footer">
+            <div className="sponsor-img-container-footer">
               <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     );
   }
 }

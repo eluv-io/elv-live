@@ -15,8 +15,8 @@ class Paypal extends React.Component {
     this.state = {
       redirectStatus: false,
       validateStatus: false,
-      checkoutMerch: this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["checkout_merch"][0],
-      donation: this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["checkout_donate"][0],
+      checkoutMerch: this.props.siteStore.currentSite["checkout_merch"][0],
+      donation: this.props.siteStore.currentSite["checkout_donate"][0],
     };
     this.onInit = this.onInit.bind(this);
   }
@@ -60,14 +60,14 @@ class Paypal extends React.Component {
         name: this.props.product.name,
         unit_amount: {value: `${(this.props.product.price / 100)}`, currency_code: "USD"},
         quantity: `${this.props.ticketQty}`,
-        sku: this.props.siteStore.currentProduct.otpID
+        sku: this.props.siteStore.currentProduct.otpId
       }
     ];
     let price = this.props.ticketQty * (this.props.product.price / 100);
     console.log(price);
 
     if(this.props.merchChecked) {
-      let merchPrice = this.props.checkoutMerch / 100; 
+      let merchPrice = this.props.checkoutMerch / 100;
       checkoutCart.push({
         name: "Merch",
         unit_amount: {value: `${merchPrice}`, currency_code: "USD"},
@@ -90,7 +90,7 @@ class Paypal extends React.Component {
       purchase_units: [
         {
           reference_id: this.props.email,
-          custom_id: this.props.siteStore.currentProduct.otpID,
+          custom_id: this.props.siteStore.currentProduct.otpId,
           amount: {
             value: `${price}`,
             currency_code: "USD",
@@ -122,12 +122,10 @@ class Paypal extends React.Component {
   }
 
   render() {
-
-
     if(this.state.redirectStatus) {
-      this.props.turnOffModal();
-      let checkoutID = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpID, this.props.email); 
-      let redirectURL = `${this.props.siteStore.basePath}/success/${this.props.email}/${checkoutID}`;
+      this.props.siteStore.CloseCheckoutModal();
+      let checkoutId = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpId, this.props.email);
+      let redirectURL = `${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/success/${this.props.email}/${checkoutId}`;
       return <Redirect to={redirectURL}/>;
     }
 

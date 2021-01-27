@@ -9,6 +9,7 @@ import EventTabs from "Event/tabs/EventTabs";
 import Navigation from  "Layout/Navigation";
 import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
+import SitePage from "Common/SitePage";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -43,15 +44,15 @@ class Event extends React.Component {
         <div className="modal show">
 
 
-          <div className={"modal__container"}>          
-            <iframe 
-              width="100%" 
+          <div className={"modal__container"}>
+            <iframe
+              width="100%"
               height="100%"
-              src={this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0]["trailer_url"]}
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              src={this.props.siteStore.currentSite["event_info"][0]["trailer_url"]}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            />          
+            />
           </div>
         </div>
       </React.Fragment>
@@ -61,17 +62,17 @@ class Event extends React.Component {
   Payment() {
     return (
       <React.Fragment>
-        <div onClick={this.props.siteStore.turnOffModal} className="backdrop" />
+        <div onClick={this.props.siteStore.CloseCheckoutModal} className="backdrop" />
         <div className="ticket-modal ticket-modal-show">
           <ImageIcon
             key={"back-icon-Close Modal"}
             className={"back-button-modal"}
             title={"Close Modal"}
             icon={CloseIcon}
-            onClick={this.props.siteStore.turnOffModal}
+            onClick={this.props.siteStore.CloseCheckoutModal}
           />
           <div className={"ticket-modal__container"}>
-            <PaymentOverview name={this.props.match.params.name} /> 
+            <PaymentOverview />
           </div>
         </div>
       </React.Fragment>
@@ -91,11 +92,11 @@ class Event extends React.Component {
 
 
   render() {
-    if(!this.props.siteStore.eventSites[this.props.match.params.name]) {
-      return <Redirect to={`${this.props.siteStore.basePath}`}/>;
+    if(!this.props.siteStore.currentSite) {
+      //return <Redirect to={`${this.props.siteStore.basePath}`}/>;
     }
 
-    let eventInfo = this.props.siteStore.eventSites[this.props.match.params.name]["event_info"][0];
+    let eventInfo = this.props.siteStore.currentSite["event_info"][0];
 
     const myRef = React.createRef();
 
@@ -127,22 +128,22 @@ class Event extends React.Component {
             <h1 className="location">{ `Streaming Live from the ${eventInfo["location"]}` }</h1>
             <h1 className="time">{ eventInfo["date"] }</h1>
           </div>
-          
+
           <div className="event-container__button">
             <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate(myRef)}>
               Buy Tickets
             </button>
             <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
               Watch Promo
-            </button> 
-          </div> 
+            </button>
+          </div>
           <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime="March 15, 2021 20:00:00"/>
           </div>
 
 
           <div className="event-container__overview">
-            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} name={this.props.match.params.name} refProp={myRef} />
+            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} refProp={myRef} />
           </div>
         </div>
 

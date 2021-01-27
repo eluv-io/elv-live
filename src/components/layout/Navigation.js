@@ -17,8 +17,8 @@ class Navigation extends React.Component {
           </NavLink>
 
           <div className="main-nav__link-group">
-            <NavLink to={`${this.props.siteStore.basePath}/code`} activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
-              Redeem Ticket 
+            <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
+              Redeem Ticket
             </NavLink>
           </div>
         </div>

@@ -48,7 +48,7 @@ class LiveChat extends React.Component {
   handleSubmit = () => async event => {
     let name = this.state.chatName;
 
-    if (name != "") {
+    if(name != "") {
       this.setState({onChat: true});
       this.state.chatClient.disconnect();
 

@@ -17,26 +17,22 @@ import {EluvioConfiguration} from "EluvioConfiguration";
 import * as Stores from "Stores";
 
 import "Styles/main.scss";
+import SitePage from "Common/SitePage";
 
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Routes extends React.Component {
-
-  async componentDidMount() {
-    await this.props.siteStore.setAsyncImages();
-  }
-  
   render() {
     return (
       <Switch>
-        <Route exact path = {`${this.props.siteStore.basePath}/stream/:siteId`} component={Stream} />
-        <Route exact path = {`${this.props.siteStore.basePath}/success/:email/:id`} component={Success} />
-        <Route exact path = {`${this.props.siteStore.basePath}/calendar`} component={Calendar} />
-        <Route exact path = {`${this.props.siteStore.basePath}/code`} component={CodeAccess} />
-        <Route exact path = {`${this.props.siteStore.basePath}/support`} component={Support} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:name`} component={Event} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/stream`} component={SitePage(Stream)} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/success/:email/:id`} component={SitePage(Success)} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/calendar`} component={SitePage(Calendar)} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/code`} component={SitePage(CodeAccess)} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/support`} component={SitePage(Support)} />
+        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug`} component={SitePage(Event)} />
 
         {/* <Route>
           <Redirect to="/" />
@@ -56,7 +52,7 @@ class App extends React.Component {
     return (
       <AsyncComponent
         Load={async () => {
-          await this.props.siteStore.LoadSite(EluvioConfiguration["library-id"],EluvioConfiguration["object-id"]);
+          await this.props.siteStore.LoadSiteSelector(EluvioConfiguration["object-id"]);
         }}
         loadingSpin={false}
         render={() => {
@@ -67,7 +63,7 @@ class App extends React.Component {
                   <Routes />
                 </BrowserRouter>
               </main>
-            </div> 
+            </div>
           );
         }}
       />
