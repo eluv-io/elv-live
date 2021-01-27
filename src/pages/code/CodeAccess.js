@@ -45,14 +45,14 @@ class CodeAccess extends React.Component {
     let generalId = await this.props.rootStore.RedeemCode(code, EluvioConfiguration["ga-ntpId"], EluvioConfiguration["tenantId"]);
     let vipId = await this.props.rootStore.RedeemCode(code, EluvioConfiguration["ga-ntpId"], EluvioConfiguration["tenantId"]);
 
-    let siteId = generalId || vipId; 
+    let siteId = generalId || vipId;
 
     if(siteId) {
       this.setState({siteId});
     } else {
       this.setState({loading: false});
       this.props.rootStore.SetError("Invalid Code");
-    }    
+    }
   }
 
   handleEmailChange(event) {
@@ -67,7 +67,7 @@ class CodeAccess extends React.Component {
     if(!this.props.siteStore.client) { return null; }
 
     if(this.state.siteId) {
-      return <Redirect to={`${this.props.siteStore.basePath}/stream/${this.state.siteId}`} />;
+      return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/stream`} />;
     }
 
     return (
@@ -90,19 +90,19 @@ class CodeAccess extends React.Component {
             onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
             placeholder={this.state.code_placeholder}
             value={this.state.code}
-            onChange={this.handleCodeChange} 
+            onChange={this.handleCodeChange}
             onKeyPress={onEnterPressed(() => this.handleRedeemCode(this.state.code))}
           />
 
           <button onClick={() => this.handleRedeemCode(this.state.code)} title="Submit">
-            {this.state.loading ? 
+            {this.state.loading ?
               <div className="code-entry-spin-container">
                 <div className="la-ball-clip-rotate la-sm">
                   <div></div>
                 </div>
               </div>
               :
-              "Enter Event"            
+              "Enter Event"
             }
           </button>
         </div>
