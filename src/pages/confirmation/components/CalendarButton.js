@@ -6,15 +6,14 @@ import AddToCalendar from "react-add-to-calendar";
 @inject("siteStore")
 @observer
 class CalendarButton extends React.Component {
-
   render() {
-    let calendarData = this.props.siteStore.currentSite["calendar"][0];
+    let calendarData = this.props.siteStore.calendarEvent;
     let calendarEvent = {
-      title: calendarData["title"],
-      description: calendarData["description"],
-      location: calendarData["location"],
-      startTime: calendarData["start_time"],
-      endTime: calendarData["end_time"]
+      title: calendarData.title,
+      description: calendarData.description,
+      location: calendarData.location,
+      startTime: calendarData.start_time,
+      endTime: calendarData.end_time
     };
 
     return (

@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Redirect } from "react-router-dom";
 import {inject, observer} from "mobx-react";
+import UrlJoin from "url-join";
+import {ValidEmail} from "Utils/Misc";
 
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -13,59 +15,28 @@ class Paypal extends React.Component {
     super(props);
 
     this.state = {
-      redirectStatus: false,
-      validateStatus: false,
-      checkoutMerch: this.props.siteStore.currentSite["checkout_merch"][0],
-      donation: this.props.siteStore.currentSite["checkout_donate"][0],
+      redirectStatus: false
     };
-    this.onInit = this.onInit.bind(this);
   }
-
-  onInit(data, actions) {
-    // Disable the buttons
-    actions.disable();
-
-    // Listen for changes to the checkbox
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    document.querySelector("#email-check").addEventListener("change", function(event)  {
-      console.log(event.target.value);
-      // Enable or disable the button when it is checked or unchecked
-      if(regexp.test(event.target.value))  {
-        event.target.checked = true;
-        actions.enable();
-        document.querySelector("#checkout-id").textContent = "";
-
-      } else  {
-        event.target.checked = false;
-        actions.disable();
-      }
-    });
-  }
-
-  onClick() {
-    if(!document.querySelector("#email-check").checked) {
-      document.querySelector("#checkout-id").textContent = "Enter a valid email to continue to Payment.";
-    } else {
-      document.querySelector("#checkout-id").textContent = "";
-    }
-
-  }
-
 
   createOrder(data, actions) {
+    if(!ValidEmail(this.props.email)) {
+      this.props.handleError("Enter a valid email to continue to payment.");
+    }
 
-    let checkoutCart = [
-      {
-        name: this.props.product.name,
-        unit_amount: {value: `${(this.props.product.price / 100)}`, currency_code: "USD"},
-        quantity: `${this.props.ticketQty}`,
-        sku: this.props.siteStore.currentProduct.otpId
-      }
-    ];
-    let price = this.props.ticketQty * (this.props.product.price / 100);
-    console.log(price);
+    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
+    const ticketSku = ticketClass.skus[skuIndex];
 
+    let checkoutCart = [{
+      name: ticketClass.name,
+      unit_amount: {value: ticketSku.price.amount, currency_code: ticketSku.price.currency},
+      quantity: this.props.ticketQuantity,
+      sku: ticketSku.otp_id
+    }];
+
+    let price = this.props.ticketQuantity * ticketSku.price.amount;
+
+    /* TODO: Merch and donations
     if(this.props.merchChecked) {
       let merchPrice = this.props.checkoutMerch / 100;
       checkoutCart.push({
@@ -86,35 +57,39 @@ class Paypal extends React.Component {
       price += donationPrice;
     }
 
+     */
+
     return actions.order.create({
       purchase_units: [
         {
           reference_id: this.props.email,
-          custom_id: this.props.siteStore.currentProduct.otpId,
+          custom_id: ticketSku.otp_id,
           amount: {
-            value: `${price}`,
-            currency_code: "USD",
+            value: price,
+            currency_code: ticketSku.price.currency,
             breakdown: {
-              item_total: {value: `${price}`, currency_code: "USD"}
+              item_total: {
+                value: price,
+                currency_code: ticketSku.price.currency
+              }
             }
           },
           items: checkoutCart,
         }]
-
     });
   }
 
   onApprove(data, actions) {
     this.setState({redirectStatus: true});
+
     return actions.order.capture().then(function(details)  {
       alert("Transaction completed by " + details.payer.name.given_name);
     });
   }
 
   onError(err) {
-    if(!this.props.validateEmail(this.props.email))  {
-      this.props.handleError("Invalid Email");
-
+    if(!ValidEmail(this.props.email))  {
+      this.props.handleError("Please enter a valid email");
     } else {
       console.log(err);
       this.props.handleError("There was an error with Paypal Checkout. Please try again.");
@@ -122,11 +97,14 @@ class Paypal extends React.Component {
   }
 
   render() {
+    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
+    const ticketSku = ticketClass.skus[skuIndex];
+
     if(this.state.redirectStatus) {
       this.props.siteStore.CloseCheckoutModal();
-      let checkoutId = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpId, this.props.email);
-      let redirectURL = `${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/success/${this.props.email}/${checkoutId}`;
-      return <Redirect to={redirectURL}/>;
+      let checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.props.email);
+
+      return <Redirect to={UrlJoin(this.props.siteStore.basePath, this.props.siteStore.siteSlug, "success", this.props.email, checkoutId)}/>;
     }
 
     let buttonStyle = {
@@ -140,14 +118,12 @@ class Paypal extends React.Component {
     return (
       <div className="paypal-button">
         <PayPalButton
-          onInit={(data, actions) => this.onInit(data, actions)}
-          onClick={() => this.onClick()}
+          disabled={!ValidEmail(this.props.email)}
           createOrder={(data, actions) => this.createOrder(data, actions)}
           onApprove={(data, actions) => this.onApprove(data, actions)}
           onError={(err) => this.onError(err)}
           style={buttonStyle}
         />
-
       </div>
 
     );

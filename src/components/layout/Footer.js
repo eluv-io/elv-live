@@ -6,9 +6,17 @@ import { Link } from "react-router-dom";
 @inject("siteStore")
 @observer
 class Footer extends React.Component {
+  Sponsors() {
+    return (
+      this.props.siteStore.sponsors.map((sponsor, index) =>
+        <div className={"sponsor-img-container-footer"} key={`footer-sponsor-${index}`}>
+          <img src={sponsor.image_url} className="big-sponsor-img-footer" alt={sponsor.name} />
+        </div>
+      )
+    );
+  }
 
   render() {
-    // TODO: Multiple sponsors
     return (
       <div className="live-footer">
         <div className="footer-container">
@@ -18,15 +26,12 @@ class Footer extends React.Component {
             </Link>
           </div>
           <div className="sponsor-container-footer">
-            <div className="sponsor-img-container-footer">
-              <img src={(this.props.siteStore.sponsors[0] || {}).image_url} className="big-sponsor-img-footer" />
-            </div>
+            { this.Sponsors() }
           </div>
         </div>
       </div>
     );
   }
 }
-
 
 export default Footer;

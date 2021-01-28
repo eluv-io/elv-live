@@ -29,12 +29,12 @@ class RootStore {
     this.client = client;
   });
 
-
-
   @action.bound
   RedeemCode = flow(function * (code, ntpId, tenantId) {
     try {
-      let codeSiteId = yield this.client.RedeemCode({code, ntpId, tenantId});
+      // TODO: Remove
+      let client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
+      let codeSiteId = yield client.RedeemCode({code, ntpId, tenantId});
       this.streamAccess = true;
       return codeSiteId;
     } catch (error) {

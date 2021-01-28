@@ -40,20 +40,16 @@
   }
 
   input {
-    border-radius: 1px;
-    // box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     font-family: Helvetica;
     font-size: 2.2rem;
     font-style: normal;
     font-weight: normal;
-    height: 52px;
-    letter-spacing: 1.5px;
     letter-spacing: 0.14em;
     line-height: 19px;
     margin-top: 1rem;
     text-align: center;
-    text-transform: uppercase;
+    height: 52px;
     width: calc(min(30rem, 90vw));
 
     @media only screen and (max-width: 415px) {
@@ -62,7 +58,7 @@
     }
 
     &::placeholder {
-      color: rgba(0, 0, 0, 0.74);
+      color: rgba(0, 0, 0, 0.75);
       font-variant: all-small-caps;
     }
   }

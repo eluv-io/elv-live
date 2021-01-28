@@ -8,7 +8,7 @@ import {retryRequest} from "Utils/retryRequest";
 import Paypal from "./Paypal";
 import StripeLogo from "Images/logo/logo-stripe.png";
 import UrlJoin from "url-join";
-import {FormatDateString, FormatPriceString} from "Utils/Misc";
+import {FormatDateString, FormatPriceString, ValidEmail} from "Utils/Misc";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -24,7 +24,7 @@ class PaymentOverview extends React.Component {
       merchChecked: false,
       merchSize: false,
       selectedCountry: checkout.countryOptions[235],
-      ticketQty: checkout.qtyOptions[0],
+      ticketQuantity: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
       error: "",
       retryCheckout: false
@@ -34,21 +34,14 @@ class PaymentOverview extends React.Component {
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleError = this.handleError.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
     this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
-
-  }
-
-  validateEmail (email) {
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regexp.test(email);
   }
 
   handleCountryChange(value) {
     this.setState({selectedCountry: value});
   }
   handleQtyChange(value) {
-    this.setState({ticketQty: value});
+    this.setState({ticketQuantity: value});
   }
   handleSizeChange(value) {
     this.setState({selectedSize: value});
@@ -58,45 +51,44 @@ class PaymentOverview extends React.Component {
   }
 
   handleStripeSubmit = () => async () => {
-    // TODO: Sort this out
-
     const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const sku = ticketClass.skus[skuIndex];
-    const { priceId, prodId } = sku.payment_ids.stripe;
+    const ticketSku = ticketClass.skus[skuIndex];
+    const { price_id, product_id } = ticketSku.payment_ids.stripe;
 
-    console.log("HANDLE STRIPE SUBMIT", priceId, prodId);
-    if(!this.validateEmail(this.state.email)) {
+    if(!ValidEmail(this.state.email)) {
       this.setState({error: "Enter a valid email to continue to Payment!"});
       return;
     }
-    const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
+
+    const checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.state.email);
+    const baseUrl = UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug);
+
+    let stripeParams = {
+      mode: "payment",
+      successUrl: UrlJoin(baseUrl, "success", this.state.email, checkoutId),
+      cancelUrl: baseUrl,
+      clientReferenceId: product_id,
+      customerEmail: this.state.email,
+    };
 
     let checkoutCart = [
-      { price: priceId, quantity: this.state.ticketQty.value}
+      { price: price_id, quantity: this.state.ticketQuantity.value}
     ];
-    let merchInd = 1;
-    let donateInd = "stripe_price_id";
-    if(this.props.siteStore.stripeTestMode) {
-      merchInd = 0;
-      donateInd = "stripe_test_price_id";
-    }
 
+    /* TODO: Merchandise and donations
     if(this.state.merchChecked) {
-      checkoutCart.push({ price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
+      checkoutCart.push({
+        price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value],
+        quantity: 1
+      });
     }
     if(this.state.donationChecked) {
       checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
     }
-    let checkoutId = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpId, this.state.email);
+    */
 
-    let stripeParams = {
-      mode: "payment",
-      lineItems: checkoutCart,
-      successUrl: UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug, "success", this.state.email, checkoutId),
-      cancelUrl: UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug),
-      clientReferenceId: prodId,
-      customerEmail: this.state.email
-    };
+    stripeParams.lineItems = checkoutCart;
+
 
     if(this.state.merchChecked) {
       stripeParams.shippingAddressCollection = {
@@ -105,6 +97,7 @@ class PaymentOverview extends React.Component {
     }
 
     try {
+      const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
       await stripe.redirectToCheckout(stripeParams);
 
     } catch (error) {
@@ -128,7 +121,6 @@ class PaymentOverview extends React.Component {
     };
 
     return this.props.siteStore.donationItems.map((donationItem, index) => {
-      console.log(donationItem);
       return (
         <div className="checkout-section" key={`donation-item-${index}`}>
           <div className="checkout-checkbox-container">
@@ -279,7 +271,7 @@ class PaymentOverview extends React.Component {
                 />
               </div>
               <div className="quantity-select">
-                <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.ticketQty} onChange={this.handleQtyChange}
+                <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.ticketQuantity} onChange={this.handleQtyChange}
                   theme={theme => ({
                     ...theme,
                     borderRadius: 10,
@@ -338,19 +330,16 @@ class PaymentOverview extends React.Component {
                 </div>}
             </button>
 
-            {/* TODO: Sort this out
             <Paypal
-              product={this.props.siteStore.currentProduct}
-              checkoutMerch={checkoutMerch["price"]}
-              checkoutDonation={donation["price"]}
-              merchChecked={this.state.merchChecked}
-              donationChecked={this.state.donationChecked}
+              // TODO: Replace with better "cart" info
+              //checkoutMerch={checkoutMerch["price"]}
+              //checkoutDonation={donation["price"]}
+              //merchChecked={this.state.merchChecked}
+              //donationChecked={this.state.donationChecked}
               email={this.state.email}
               handleError={this.handleError}
-              validateEmail={this.validateEmail}
-              ticketQty={this.state.ticketQty.value}
+              ticketQuantity={this.state.ticketQuantity.value}
             />
-            */}
             <div id="checkout-id" className="checkout-error">
               {this.state.error}
             </div>
