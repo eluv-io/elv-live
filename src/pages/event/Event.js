@@ -10,6 +10,7 @@ import Navigation from  "Layout/Navigation";
 import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
 import SitePage from "Common/SitePage";
+import {FormatDateString} from "Utils/Misc";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -48,7 +49,7 @@ class Event extends React.Component {
             <iframe
               width="100%"
               height="100%"
-              src={this.props.siteStore.currentSite["event_info"][0]["trailer_url"]}
+              src={this.props.siteStore.eventInfo.trailer_url}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -79,27 +80,14 @@ class Event extends React.Component {
     );
   }
 
-  handleNavigate = myRef => {
-    if(this.state.tab != 0) {
-      this.setState({tab: 0});
-      let domElement = document.getElementById("tabs");
-      domElement.scrollIntoView({ behavior: "smooth", block: "center" });
-    } else {
-      let el = myRef.current;
-      el.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
+  handleNavigate = () => {
+    this.setState({
+      tab: 0,
+    }, () => document.getElementById("tickets-section").scrollIntoView({behavior: "smooth", block: "end"}));
   };
 
 
   render() {
-    if(!this.props.siteStore.currentSite) {
-      //return <Redirect to={`${this.props.siteStore.basePath}`}/>;
-    }
-
-    let eventInfo = this.props.siteStore.currentSite["event_info"][0];
-
-    const myRef = React.createRef();
-
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
     };
@@ -124,13 +112,13 @@ class Event extends React.Component {
 
         <div className="event-container">
           <div className="event-container__heading">
-            <h1 className="name"> {eventInfo["artist"]} </h1>
-            <h1 className="location">{ `Streaming Live from the ${eventInfo["location"]}` }</h1>
-            <h1 className="time">{ eventInfo["date"] }</h1>
+            <h1 className="name">{ this.props.siteStore.eventInfo["artist"] }</h1>
+            <h1 className="location">{ `Streaming Live from the ${ this.props.siteStore.eventInfo["location"] }` }</h1>
+            <h1 className="time">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
           </div>
 
           <div className="event-container__button">
-            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate(myRef)}>
+            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate()}>
               Buy Tickets
             </button>
             <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
@@ -142,8 +130,8 @@ class Event extends React.Component {
           </div>
 
 
-          <div className="event-container__overview">
-            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} refProp={myRef} />
+          <div className="event-container__overview" id="tickets-section">
+            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
           </div>
         </div>
 

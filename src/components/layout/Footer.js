@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 class Footer extends React.Component {
 
   render() {
+    // TODO: Multiple sponsors
     return (
       <div className="live-footer">
         <div className="footer-container">
@@ -18,7 +19,7 @@ class Footer extends React.Component {
           </div>
           <div className="sponsor-container-footer">
             <div className="sponsor-img-container-footer">
-              <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img-footer" />
+              <img src={(this.props.siteStore.sponsors[0] || {}).image_url} className="big-sponsor-img-footer" />
             </div>
           </div>
         </div>

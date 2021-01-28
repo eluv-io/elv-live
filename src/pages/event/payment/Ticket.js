@@ -4,29 +4,24 @@ import {inject, observer} from "mobx-react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import Select from "react-select";
+import {FormatDateString, FormatPriceString} from "Utils/Misc";
 
 const SingleValue = ({
-  cx,
-  getStyles,
   selectProps,
   data,
-  isDisabled,
-  className,
-  ...props
 }) => {
   return (
-
     <div className="ticket-bottom-info">
       <div className="ticket-bottom-location">{selectProps.getOptionLabel(data)}</div>
 
       <IconContext.Provider value={{ className: "ticket-icon" }}>
         <div className="ticket-bottom-date">
           <FaRegCalendarAlt />
-          {data.date}
+          { FormatDateString(data.date) }
         </div>
       </IconContext.Provider>
 
-      <div className="ticket-bottom-price">{(data.price)}</div>
+      <div className="ticket-bottom-price">{ FormatPriceString(data.price) }</div>
     </div>
   );
 };
@@ -35,43 +30,34 @@ const SingleValue = ({
 @inject("siteStore")
 @observer
 class Ticket extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedOffering: "",
-      options: []
+      selectedOffering: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
-
-  }
-  componentDidMount() {
-    let {date, price} = this.props;
-
-    let options = [
-      { label: "North America", value: "North America", price: `$${price/100} USD`, date: date },
-      { label: "Europe", value: "Europe", price: "€25 EUR", date:"March 15th, 2021 · 8:00 PM GMT"  },
-      { label: "Asia", value: "Asia", price: "¥3000 YEN", date: "March 15th, 2021 · 8:00 PM JST" },
-    ];
-    this.setState({selectedOffering: options[0]});
-    this.setState({options: options});
   }
 
-  handleChange(value) {
+  handleChange({value}) {
     this.setState({selectedOffering: value});
   }
 
+  TicketOptions() {
+    return this.props.ticketClass.skus.map(({label, price, start_time}, index) => ({
+      label,
+      value: index,
+      price,
+      date: start_time
+    }));
+  }
 
   render() {
-    let {name, description, price, priceId, prodId, poster, otpId} = this.props;
-
-
     return (
-      <div className="ticket-event" id={name} ref={this.props.refProp} >
+      <div className="ticket-event">
         <div className="ticket-image">
-          <img src={poster} className="ticket-image-img"/>
+          <img src={this.props.ticketClass.image_url} className="ticket-image-img"/>
         </div>
         <div className="ticket-detail">
           <div className="ticket-top">
@@ -85,10 +71,10 @@ class Ticket extends React.Component {
 
             </div>
             <h3 className="ticket-top-title">
-              {name}
+              { this.props.ticketClass.name }
             </h3>
             <p className="ticket-top-description">
-              {description}
+              { this.props.ticketClass.description }
             </p>
 
           </div>
@@ -97,12 +83,12 @@ class Ticket extends React.Component {
               <Select
                 className='react-select-container'
                 classNamePrefix="react-select"
-                value={this.state.selectedOffering}
+                value={this.TicketOptions()[this.state.selectedOffering]}
                 onChange={this.handleChange}
-                options={this.state.options}
+                options={this.TicketOptions()}
                 components={{ SingleValue }}
                 styles={{
-                  singleValue: (provided, state) => ({
+                  singleValue: (provided) => ({
                     ...provided
                   })
                 }}
@@ -121,13 +107,8 @@ class Ticket extends React.Component {
               className="ticket-bottom-button"
               role="link"
               onClick={() => this.props.siteStore.ShowCheckoutModal({
-                name,
-                description,
-                price,
-                priceId,
-                prodId,
-                otpId,
-                offering: this.state.selectedOffering
+                ticketClass: this.props.ticketClass,
+                sku: this.state.selectedOffering
               })}
             >
               Purchase

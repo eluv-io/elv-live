@@ -1,6 +1,7 @@
 {
   "title_configuration": {
-    // Note - We should move "required" images to info fields - a subsection with file entries for each
+    /*
+    // Note - We should move "required" images to info fields - a subsection with file entries for each DONE
     "default_image_keys": [
       "event_poster",
       "hero_background",
@@ -9,15 +10,18 @@
       //"checkout_merch (pull from merch entry)",
       //"merch_back"
     ],
+    */
     "info_fields": [
       // Note - All of these are marked "top_level", so they end up in public/asset_metadata. We should remove this so the info is saved in public/asset_metadata/info
 
-      /* Redundant with "date"
+      /* Redundant with "date" DONE
       {
         "name": "release_date",
         "type": "date"
       },
       */
+
+      /* REMOVED
       {
         "name": "artist",
         "top_level": true,
@@ -33,6 +37,7 @@
         "top_level": true,
         "type": "text" // This should be a datetime
       },
+      */
       {
         "fields": [
           {
@@ -45,7 +50,7 @@
           },
           {
             "name": "date",
-            "type": "text"
+            "type": "text" // CHANGED TO DATETIME
           },
           {
             "name": "event_header",
@@ -56,13 +61,13 @@
             "type": "textarea"
           },
           {
-            "name": "trailer_url" // Probably make this a link to playable content instead,
+            "name": "trailer_url" // TODO: Probably make this a link to playable content instead,
             "type": "text"
           }
         ],
         "name": "event_info",
         "top_level": true,
-        "type": "list" // Change to subsection
+        "type": "list" // Change to subsection DONE
       },
       {
         "fields": [
@@ -82,7 +87,7 @@
         ],
         "name": "stripe_config",
         "top_level": true,
-        "type": "list" // Change to subsection
+        "type": "list" // Change to subsection DONE
       },
       {
         "fields": [
@@ -194,7 +199,7 @@
               }
             ],
             "name": "bio",
-            "type": "list" // Change to subsection
+            "type": "list" // Change to subsection DONE
           },
           {
             "fields": [
@@ -232,16 +237,18 @@
               }
             ],
             "name": "social_media_links",
-            "type": "list" // Change to subsection
+            "type": "list" // Change to subsection DONE
           },
+          /* REMOVED
           {
-            "name": "spotify_embed", // Label as spotify embed URL?
+            "name": "spotify_embed", // Label as spotify embed URL? DONE
             "type": "text"
           },
           {
             "name": "twitter_handle",
             "type": "text"
           }
+          */
         ],
         "name": "artist_info",
         "top_level": true,
@@ -304,6 +311,7 @@
         "top_level": true,
         "type": "list"
       },
+      /* checkout_donate removed - now a product
       {
         "fields": [
           {
@@ -341,6 +349,7 @@
         "top_level": true,
         "type": "list"
       },
+      */
       {
         "fields": [
           {
@@ -368,7 +377,7 @@
         ],
         "name": "calendar",
         "top_level": true,
-        "type": "list" // Change to subsection
+        "type": "list" // Change to subsection DONE
       },
       {
         "fields": [
@@ -412,11 +421,11 @@
           },
           {
             "extensions": [],
-            "name": "main_image",
+            "name": "main_image", // changed to image
             "type": "file"
           }
         ],
-        "name": "sponsor",
+        "name": "sponsor", // Changed to sponsors
         "top_level": true,
         "type": "list" // Does the site support multiple sponsors? Maybe we should be able to mark one as "main"?
       },
@@ -431,11 +440,12 @@
             "type": "text"
           }
         ],
-        // Not sure what this is for exactly
         "name": "stream_app",
         "top_level": true,
-        "type": "list" // Change to subsection
+        "type": "list" // Change to subsection DONE
       },
+
+      /* Moved to "event_images" subsection
       {
         "extensions": [],
         "name": "hero_image",
@@ -448,6 +458,7 @@
         "top_level": true,
         "type": "file"
       }
+      */
     ]
   }
 }

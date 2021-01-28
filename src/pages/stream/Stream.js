@@ -111,7 +111,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} />;
+      //return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} />;
     }
 
     const handleDrawerOpen = () => {
@@ -125,8 +125,8 @@ class Stream extends React.Component {
       this.setState({darkSwitch: (!this.state.darkSwitch)});
     };
 
-    let streamInfo = this.props.siteStore.currentSite["stream_app"][0];
-    let sponsorInfo = this.props.siteStore.currentSite["sponsor"][0];
+    // TODO: Multiple sponsors
+    let sponsorInfo = this.props.siteStore.sponsors[0] || {};
 
     const { classes } = this.props;
 
@@ -200,19 +200,19 @@ class Stream extends React.Component {
               <div className="stream-container__streamBox--info">
                 <div className="stream-info-container">
                   <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
-                    {streamInfo["subheader"]}
+                    { this.props.siteStore.streamPageInfo.subheader }
                   </h2>
                   <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
-                    {streamInfo["header"]}
+                    { this.props.siteStore.streamPageInfo.header }
                   </h1>
                 </div>
 
                 <div className="sponsor-info-container">
                   <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
-                    {sponsorInfo["stream_text"]}
+                    {sponsorInfo.stream_text}
                   </span>
                   <div className="sponsor-info-container__img-container">
-                    <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
+                    <img src={sponsorInfo.image_url} className="stream-sponsor-img" />
                   </div>
                 </div>
               </div>

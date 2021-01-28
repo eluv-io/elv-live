@@ -8,12 +8,12 @@ import {retryRequest} from "Utils/retryRequest";
 import Paypal from "./Paypal";
 import StripeLogo from "Images/logo/logo-stripe.png";
 import UrlJoin from "url-join";
+import {FormatDateString, FormatPriceString} from "Utils/Misc";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class PaymentOverview extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -27,12 +27,6 @@ class PaymentOverview extends React.Component {
       ticketQty: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
       error: "",
-      donationImage: undefined,
-      merchImage: undefined,
-      eventInfo: this.props.siteStore.currentSite["event_info"][0],
-      checkoutMerch: this.props.siteStore.currentSite["checkout_merch"][0],
-      donation: this.props.siteStore.currentSite["checkout_donate"][0],
-      sponsorInfo: this.props.siteStore.currentSite["sponsor"][0],
       retryCheckout: false
     };
 
@@ -63,7 +57,13 @@ class PaymentOverview extends React.Component {
     this.setState({error: value});
   }
 
-  handleStripeSubmit = (priceId, prodId) => async event => {
+  handleStripeSubmit = () => async () => {
+    // TODO: Sort this out
+
+    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
+    const sku = ticketClass.skus[skuIndex];
+    const { priceId, prodId } = sku.payment_ids.stripe;
+
     console.log("HANDLE STRIPE SUBMIT", priceId, prodId);
     if(!this.validateEmail(this.state.email)) {
       this.setState({error: "Enter a valid email to continue to Payment!"});
@@ -121,46 +121,123 @@ class PaymentOverview extends React.Component {
     }
   };
 
-  render() {
-    let {checkoutMerch, donation, eventInfo } = this.state;
-
-    const handleEmailChange = (event) => {
-      this.setState({email: event.target.value});
-    };
+  DonationItems() {
+    // TODO: This only supports one item
     const handledDonationChange = () => {
       this.setState({donationChecked: !(this.state.donationChecked)});
     };
+
+    return this.props.siteStore.donationItems.map((donationItem, index) => {
+      console.log(donationItem);
+      return (
+        <div className="checkout-section" key={`donation-item-${index}`}>
+          <div className="checkout-checkbox-container">
+            <input
+              checked={this.state.donationChecked}
+              onChange={handledDonationChange}
+              className="checkout-checkbox-input"
+              id={"checkbox-merch"}
+              type="checkbox"
+            />
+            <div className="checkout-checkbox-label">
+              <h5 className="checkout-checkbox-heading2">
+                { donationItem.name }
+              </h5>
+              <span>
+                { FormatPriceString(donationItem.price[0]) }
+              </span>
+            </div>
+          </div>
+
+          <div className="checkout-checkbox-bundle">
+            <img src={donationItem.image_urls[0]} className="checkout-checkbox-bundle-img" />
+            <div className="checkout-checkbox-bundle-info">
+              <span className="checkout-checkbox-bundle-name">
+                { donationItem.heading }
+              </span>
+              <p className="checkout-checkbox-bundle-description">
+                { donationItem.description }
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
+
+  Merchandise() {
+    // TODO: This only supports one item
     const handledMerchChange = () => {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
+    return this.props.siteStore.merchandise.map((item, index) => {
+      return (
+        <div className="checkout-section" key={`merchandise-item-${index}`}>
+          <div className="checkout-checkbox-container">
+            <input
+              checked={this.state.merchChecked}
+              onChange={handledMerchChange}
+              className="checkout-checkbox-input"
+              id={"checkbox-merch"}
+              type="checkbox"
+            />
+            <div className="checkout-checkbox-label">
+              <h5 className="checkout-checkbox-heading2">
+                { item.name }
+              </h5>
+              <span>
+                { FormatPriceString(item.price[0]) }
+              </span>
+            </div>
+          </div>
+          <div className="checkout-checkbox-bundle">
+            <img src={item.image_urls[0]} className="checkout-checkbox-bundle-img" />
+            <div className="checkout-checkbox-bundle-info">
+              <div className="checkout-checkbox-bundle-size">
+                <span className="checkout-checkbox-bundle-name">
+                  { item.heading }
+                </span>
+              </div>
+              <p className="checkout-checkbox-bundle-description">
+                { item.description }
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
 
+  render() {
+    const handleEmailChange = (event) => {
+      this.setState({email: event.target.value});
+    };
 
+    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
+    const sku = ticketClass.skus[skuIndex];
 
     return (
-
       <div className="payment-container">
         <div className="payment-info">
           <div className="payment-info-img-container">
-            <img src={this.props.siteStore.eventPoster} className="payment-info-img" />
+            <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
           <span className="payment-info-artist">
-            {eventInfo["artist"]} Presents
+            { this.props.siteStore.eventInfo.artist } Presents
           </span>
           <h3 className="payment-info-event">
-            {eventInfo["event_header"]}
+            { this.props.siteStore.eventInfo.event_header }
           </h3>
           <h3 className="payment-info-location">
-            {eventInfo["location"]}
+            { this.props.siteStore.eventInfo.location }
           </h3>
 
           <p className="payment-info-description">
-            {/* {eventInfo["description"]}         */}
-            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
-
+            { this.props.siteStore.eventInfo.description }
           </p>
           <div className="sponsor-container">
-            <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
+            <img src={(this.props.siteStore.sponsors[0] || {}).image_url} className="big-sponsor-img" />
           </div>
         </div>
 
@@ -171,18 +248,16 @@ class PaymentOverview extends React.Component {
           <div className="checkout-section">
             <div className="checkout-checkbox-label">
               <h5 className="checkout-checkbox-heading">
-                {this.props.siteStore.currentProduct.name}
+                { ticketClass.name }
               </h5>
               <span>
-                {`$${this.props.siteStore.currentProduct.price / 100}`}
+                { FormatPriceString(sku.price) }
               </span>
-
             </div>
             <div className="checkout-checkbox-details">
               <div className="">
-                {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}
+                { `${sku.label} · ${FormatDateString(sku.start_time)}` }
               </div>
-
             </div>
             <div className="currency-quantity-container">
               <div className="currency-select">
@@ -226,76 +301,10 @@ class PaymentOverview extends React.Component {
             </div>
           </div>
 
-          {/* Donation Selector */}
-          <div className="checkout-section">
+          { this.DonationItems() }
 
-            <div className="checkout-checkbox-container">
-              <input
-                checked={this.state.donationChecked}
-                onChange={handledDonationChange}
-                className="checkout-checkbox-input"
-                id={"checkbox-merch"}
-                type="checkbox"
-              />
-              <div className="checkout-checkbox-label">
-                <h5 className="checkout-checkbox-heading2">
-                  {donation["name"]}
-                </h5>
-                <span>
-                  {`$${donation["price"]/100}`}
-                </span>
-              </div>
-            </div>
+          { this.Merchandise() }
 
-            <div className="checkout-checkbox-bundle">
-              <img src={this.props.siteStore.donationImage} className="checkout-checkbox-bundle-img" />
-              <div className="checkout-checkbox-bundle-info">
-                <span className="checkout-checkbox-bundle-name">
-                  {donation["heading"]}
-                </span>
-                <p className="checkout-checkbox-bundle-description">
-                  {donation["description"]}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Merch Selector */}
-          <div className="checkout-section">
-            <div className="checkout-checkbox-container">
-              <input
-                checked={this.state.merchChecked}
-                onChange={handledMerchChange}
-                className="checkout-checkbox-input"
-                id={"checkbox-merch"}
-                type="checkbox"
-              />
-              <div className="checkout-checkbox-label">
-                <h5 className="checkout-checkbox-heading2">
-                  {checkoutMerch["name"]}
-                </h5>
-                <span>
-                  {`$${checkoutMerch["price"]/100}`}
-                </span>
-              </div>
-            </div>
-
-            <div className="checkout-checkbox-bundle">
-              <img src={this.props.siteStore.merchImage} className="checkout-checkbox-bundle-img" />
-              <div className="checkout-checkbox-bundle-info">
-                <div className="checkout-checkbox-bundle-size">
-                  <span className="checkout-checkbox-bundle-name">
-                    {checkoutMerch["heading"]}
-                  </span>
-                </div>
-
-                <p className="checkout-checkbox-bundle-description">
-                  {checkoutMerch["description"]}
-                </p>
-
-              </div>
-            </div>
-          </div>
 
           {/* Email Form*/}
           <div className="checkout-section">
@@ -316,20 +325,20 @@ class PaymentOverview extends React.Component {
 
           {/* Stripe Checkout Redirect Button*/}
           <div className="checkout-button-container" >
-            <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
+            <button className="checkout-button" role="link" onClick={this.handleStripeSubmit()}>
               {this.state.retryCheckout ?
                 <div className="spin-checkout-container">
                   <div className="la-ball-clip-rotate la-sm">
-                    <div></div>
+                    <div />
                   </div>
                 </div>
                 : <div className="stripe-checkout-button">
                   {"Pay with Card"}
-                  <img className="stripe-checkout-logo"src={StripeLogo}/>
+                  <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
                 </div>}
-
             </button>
 
+            {/* TODO: Sort this out
             <Paypal
               product={this.props.siteStore.currentProduct}
               checkoutMerch={checkoutMerch["price"]}
@@ -341,10 +350,10 @@ class PaymentOverview extends React.Component {
               validateEmail={this.validateEmail}
               ticketQty={this.state.ticketQty.value}
             />
+            */}
             <div id="checkout-id" className="checkout-error">
               {this.state.error}
             </div>
-
           </div>
         </div>
       </div>
