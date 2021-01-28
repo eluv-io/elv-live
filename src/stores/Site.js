@@ -107,6 +107,8 @@ class SiteStore {
       });
 
       this.siteSlug = slug;
+
+      console.log("SLUG", slug);
     } catch (error) {
       console.error("Error loading site", error);
     }
@@ -158,7 +160,7 @@ class SiteStore {
 
   // Generate confirmation number for checkout based on otpId and email
   @action.bound
-  generateConfirmationId(otpId, email, sz = 10) {
+  generateConfirmationId(otpId, email, sz=10) {
     //Concatenate otpId and email, then hash
     let id = createKeccakHash('keccak256').update(`${otpId}:${email}`).digest();
 
@@ -227,8 +229,9 @@ class SiteStore {
   }
 
   @computed get sponsors() {
-    return (this.currentSiteInfo.sponsors || []).map(({footer_text, stream_text}, index) => {
+    return (this.currentSiteInfo.sponsors || []).map(({name, footer_text, stream_text}, index) => {
       return {
+        name,
         footer_text,
         stream_text,
         image_url: this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image"))
@@ -290,15 +293,18 @@ class SiteStore {
   /* Images */
 
   SiteUrl(path) {
+    if(!path) {
+      return "";
+    }
+
     const uri = URI(this.baseSiteSelectorUrl);
 
     return uri
-      .path(UrlJoin(uri.path(), "meta", "public", "sites", this.siteSlug, path))
+      .path(UrlJoin(uri.path(), "meta", "public", "sites", this.siteSlug, path.toString()))
       .toString();
   }
 
   SiteImageUrl(key) {
-    console.log(this.SiteUrl(UrlJoin("info", "event_images", key)));
     return this.SiteUrl(UrlJoin("info", "event_images", key))
   }
 
@@ -308,18 +314,6 @@ class SiteStore {
 
   @computed get eventPoster() {
     return this.SiteImageUrl("poster");
-  }
-
-  @computed get donationImage() {
-    return this.SiteImageUrl("checkout_donation");
-  }
-
-  @computed get merchImage() {
-    return this.SiteImageUrl("checkout_merch");
-  }
-
-  @computed get merchBackImage() {
-    return this.SiteImageUrl("merch_back");
   }
 }
 

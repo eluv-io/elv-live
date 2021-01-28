@@ -9,18 +9,17 @@ import Footer from "Layout/Footer";
 @inject("siteStore")
 @observer
 class Support extends React.Component {
-
   componentDidMount() {
-    window.scrollTo(0, 0);
+    document.body.scrollIntoView();
   }
-  
+
   render() {
     let faqData = this.props.siteStore.faqData;
-    
+
     return (
       <div className="support-page">
         <Navigation/>
-  
+
         <div className="support-container">
           <div className="support-header">
             <h1 className="support-header--title">Fan FAQ</h1>

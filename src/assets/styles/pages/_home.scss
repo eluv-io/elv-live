@@ -544,7 +544,7 @@
   align-self: center;
   color: #000;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 17px;
   font-style: normal;
@@ -565,6 +565,8 @@
 
 .sponsor-title-footer {
   align-self: center;
+  display: flex;
+  justify-content: center;
 
   // margin-top: 20px !important;
   color: #000 !important;
@@ -579,7 +581,7 @@
 
 .sponsor-img-container-footer {
   align-items: flex-start;
-  align-self: center;
+  //align-self: center;
   display: flex;
   flex-direction: row;
   height: 180px;
