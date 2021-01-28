@@ -7,14 +7,11 @@ import CalendarButton from "Confirmation/components/CalendarButton";
 @inject("siteStore")
 @observer
 class Success extends React.Component {
-
   render() {
-
     const sessionId = this.props.match.params.id;
     const sessionEmail = this.props.match.params.email;
-    
-    return (
 
+    return (
       <div className="success-container">
         <Navigation/>
 

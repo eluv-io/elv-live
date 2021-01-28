@@ -22,7 +22,7 @@ async function mockRedirectToCheckout(successCount) {
   await mockRequestTime();
   globalRetryCount += 1;
 
-  if(globalRetryCount == successCount) {
+  if(globalRetryCount === successCount) {
     return "success";
   } else {
     throw new Error(rateError.message);

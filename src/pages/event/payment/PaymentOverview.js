@@ -7,6 +7,7 @@ import { checkout } from "Data";
 import {retryRequest} from "Utils/retryRequest";
 import Paypal from "./Paypal";
 import StripeLogo from "Images/logo/logo-stripe.png";
+import UrlJoin from "url-join";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -28,10 +29,10 @@ class PaymentOverview extends React.Component {
       error: "",
       donationImage: undefined,
       merchImage: undefined,
-      eventInfo: this.props.siteStore.eventSites[this.props.name]["event_info"][0],
-      checkoutMerch: this.props.siteStore.eventSites[this.props.name]["checkout_merch"][0],
-      donation: this.props.siteStore.eventSites[this.props.name]["checkout_donate"][0],
-      sponsorInfo: this.props.siteStore.eventSites[this.props.name]["sponsor"][0],
+      eventInfo: this.props.siteStore.currentSite["event_info"][0],
+      checkoutMerch: this.props.siteStore.currentSite["checkout_merch"][0],
+      donation: this.props.siteStore.currentSite["checkout_donate"][0],
+      sponsorInfo: this.props.siteStore.currentSite["sponsor"][0],
       retryCheckout: false
     };
 
@@ -48,7 +49,7 @@ class PaymentOverview extends React.Component {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regexp.test(email);
   }
-  
+
   handleCountryChange(value) {
     this.setState({selectedCountry: value});
   }
@@ -61,16 +62,17 @@ class PaymentOverview extends React.Component {
   handleError(value) {
     this.setState({error: value});
   }
-  
-  handleStripeSubmit = (priceID, prodID) => async event => {
+
+  handleStripeSubmit = (priceId, prodId) => async event => {
+    console.log("HANDLE STRIPE SUBMIT", priceId, prodId);
     if(!this.validateEmail(this.state.email)) {
       this.setState({error: "Enter a valid email to continue to Payment!"});
       return;
     }
     const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
-    
+
     let checkoutCart = [
-      { price: priceID, quantity: this.state.ticketQty.value}
+      { price: priceId, quantity: this.state.ticketQty.value}
     ];
     let merchInd = 1;
     let donateInd = "stripe_price_id";
@@ -85,14 +87,14 @@ class PaymentOverview extends React.Component {
     if(this.state.donationChecked) {
       checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
     }
-    let checkoutID = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpID, this.state.email); 
+    let checkoutId = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpId, this.state.email);
 
     let stripeParams = {
       mode: "payment",
       lineItems: checkoutCart,
-      successUrl: `${window.location.origin}${this.props.siteStore.basePath}/success/${this.state.email}/${checkoutID}`, 
-      cancelUrl: `${window.location.origin}${this.props.siteStore.basePath}/${this.props.name}`, 
-      clientReferenceId: prodID,
+      successUrl: UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug, "success", this.state.email, checkoutId),
+      cancelUrl: UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug),
+      clientReferenceId: prodId,
       customerEmail: this.state.email
     };
 
@@ -100,14 +102,14 @@ class PaymentOverview extends React.Component {
       stripeParams.shippingAddressCollection = {
         allowedCountries: [this.state.selectedCountry.value],
       };
-    } 
+    }
 
     try {
       await stripe.redirectToCheckout(stripeParams);
 
     } catch (error) {
       this.setState({retryCheckout: true});
-      let retryResponse; 
+      let retryResponse;
       try {
 
         retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
@@ -134,7 +136,7 @@ class PaymentOverview extends React.Component {
 
 
 
-    
+
     return (
 
       <div className="payment-container">
@@ -149,19 +151,19 @@ class PaymentOverview extends React.Component {
             {eventInfo["event_header"]}
           </h3>
           <h3 className="payment-info-location">
-            {eventInfo["location"]} 
+            {eventInfo["location"]}
           </h3>
 
           <p className="payment-info-description">
             {/* {eventInfo["description"]}         */}
-            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3. 
-         
+            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
+
           </p>
-          <div className="sponsor-container"> 
+          <div className="sponsor-container">
             <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
           </div>
         </div>
-              
+
 
         <div className="payment-checkout">
 
@@ -173,22 +175,22 @@ class PaymentOverview extends React.Component {
               </h5>
               <span>
                 {`$${this.props.siteStore.currentProduct.price / 100}`}
-              </span>  
+              </span>
 
             </div>
             <div className="checkout-checkbox-details">
               <div className="">
-                {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}                
+                {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}
               </div>
 
-            </div>  
+            </div>
             <div className="currency-quantity-container">
               <div className="currency-select">
-                <Select 
-                  className='react-select-container' 
-                  classNamePrefix="react-select" 
-                  options={checkout.countryOptions} 
-                  value={this.state.selectedCountry} 
+                <Select
+                  className='react-select-container'
+                  classNamePrefix="react-select"
+                  options={checkout.countryOptions}
+                  value={this.state.selectedCountry}
                   onChange={this.handleCountryChange}
                   theme={theme => ({
                     ...theme,
@@ -238,7 +240,7 @@ class PaymentOverview extends React.Component {
               <div className="checkout-checkbox-label">
                 <h5 className="checkout-checkbox-heading2">
                   {donation["name"]}
-                </h5>  
+                </h5>
                 <span>
                   {`$${donation["price"]/100}`}
                 </span>
@@ -250,10 +252,10 @@ class PaymentOverview extends React.Component {
               <div className="checkout-checkbox-bundle-info">
                 <span className="checkout-checkbox-bundle-name">
                   {donation["heading"]}
-                </span>  
+                </span>
                 <p className="checkout-checkbox-bundle-description">
                   {donation["description"]}
-                </p>  
+                </p>
               </div>
             </div>
           </div>
@@ -271,7 +273,7 @@ class PaymentOverview extends React.Component {
               <div className="checkout-checkbox-label">
                 <h5 className="checkout-checkbox-heading2">
                   {checkoutMerch["name"]}
-                </h5>  
+                </h5>
                 <span>
                   {`$${checkoutMerch["price"]/100}`}
                 </span>
@@ -284,13 +286,13 @@ class PaymentOverview extends React.Component {
                 <div className="checkout-checkbox-bundle-size">
                   <span className="checkout-checkbox-bundle-name">
                     {checkoutMerch["heading"]}
-                  </span>  
-                </div>  
-         
+                  </span>
+                </div>
+
                 <p className="checkout-checkbox-bundle-description">
                   {checkoutMerch["description"]}
-                </p>  
-                  
+                </p>
+
               </div>
             </div>
           </div>
@@ -299,12 +301,12 @@ class PaymentOverview extends React.Component {
           <div className="checkout-section">
             <div className="checkout-email-form">
               <input
-                id="email-check" 
+                id="email-check"
                 onFocus={() => this.setState({email_placeholder: ""})}
                 onBlur={() => this.setState({email_placeholder: "Email"})}
                 placeholder={this.state.email_placeholder}
                 value={this.state.email}
-                onChange={handleEmailChange} 
+                onChange={handleEmailChange}
               />
             </div>
             <p className="checkout-email-info">
@@ -315,7 +317,7 @@ class PaymentOverview extends React.Component {
           {/* Stripe Checkout Redirect Button*/}
           <div className="checkout-button-container" >
             <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
-              {this.state.retryCheckout ? 
+              {this.state.retryCheckout ?
                 <div className="spin-checkout-container">
                   <div className="la-ball-clip-rotate la-sm">
                     <div></div>
@@ -325,18 +327,17 @@ class PaymentOverview extends React.Component {
                   {"Pay with Card"}
                   <img className="stripe-checkout-logo"src={StripeLogo}/>
                 </div>}
-            
+
             </button>
 
             <Paypal
               product={this.props.siteStore.currentProduct}
-              checkoutMerch={checkoutMerch["price"]} 
-              checkoutDonation={donation["price"]}  
+              checkoutMerch={checkoutMerch["price"]}
+              checkoutDonation={donation["price"]}
               merchChecked={this.state.merchChecked}
-              donationChecked={this.state.donationChecked} 
-              email={this.state.email} 
-              handleError={this.handleError} 
-              turnOffModal={this.props.siteStore.turnOffModal}
+              donationChecked={this.state.donationChecked}
+              email={this.state.email}
+              handleError={this.handleError}
               validateEmail={this.validateEmail}
               ticketQty={this.state.ticketQty.value}
             />
@@ -348,8 +349,8 @@ class PaymentOverview extends React.Component {
         </div>
       </div>
     );
-  
-      
+
+
 
   }
 }

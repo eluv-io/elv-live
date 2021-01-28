@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -96,7 +96,7 @@ const styles = theme => ({
 @inject("siteStore")
 @observer
 class Stream extends React.Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -111,13 +111,13 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={`${this.props.siteStore.basePath}/code`} />;
+      return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} />;
     }
 
     const handleDrawerOpen = () => {
       this.setState({open: true});
     };
-  
+
     const handleDrawerClose = () => {
       this.setState({open: false});
     };
@@ -125,8 +125,8 @@ class Stream extends React.Component {
       this.setState({darkSwitch: (!this.state.darkSwitch)});
     };
 
-    let streamInfo= this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["stream_app"][0];
-    let sponsorInfo= this.props.siteStore.eventSites[this.props.siteStore.siteSlug]["sponsor"][0];
+    let streamInfo = this.props.siteStore.currentSite["stream_app"][0];
+    let sponsorInfo = this.props.siteStore.currentSite["sponsor"][0];
 
     const { classes } = this.props;
 
@@ -174,9 +174,9 @@ class Stream extends React.Component {
                   </IconButton>
                 </div>
               </div>
-            </div>            
+            </div>
           </Toolbar>
-                
+
         </AppBar>
         <main
           className={clsx(classes.content, {
@@ -187,11 +187,8 @@ class Stream extends React.Component {
           <div className="stream-container">
             <div className="stream-container__streamBox">
               <div className="stream-container__streamBox--videoBox">
-
                 <AsyncComponent
-                  Load={async () => {
-                    await this.props.siteStore.LoadStreamObject(this.props.match.params.siteId);
-                  }}
+                  Load={this.props.siteStore.LoadStreams}
                   loadingSpin={true}
                   render={() => {
                     return (
@@ -210,18 +207,18 @@ class Stream extends React.Component {
                   </h1>
                 </div>
 
-                <div className="sponsor-info-container"> 
+                <div className="sponsor-info-container">
                   <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
                     {sponsorInfo["stream_text"]}
                   </span>
-                  <div className="sponsor-info-container__img-container"> 
+                  <div className="sponsor-info-container__img-container">
                     <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
                   </div>
-                </div> 
-              </div> 
+                </div>
+              </div>
             </div>
           </div>
-                  
+
 
         </main>
         <Drawer
