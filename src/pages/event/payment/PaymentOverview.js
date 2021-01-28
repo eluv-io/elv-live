@@ -201,6 +201,18 @@ class PaymentOverview extends React.Component {
     });
   }
 
+  Sponsors() {
+    return (
+      <div className="sponsor-container">
+        {
+          this.props.siteStore.sponsors.map((sponsor, index) =>
+            <img src={sponsor.image_url} className="big-sponsor-img" alt={sponsor.name} key={`checkout-sponsor-${index}`}/>
+          )
+        }
+      </div>
+    );
+  }
+
   render() {
     const handleEmailChange = (event) => {
       this.setState({email: event.target.value});
@@ -224,13 +236,10 @@ class PaymentOverview extends React.Component {
           <h3 className="payment-info-location">
             { this.props.siteStore.eventInfo.location }
           </h3>
-
           <p className="payment-info-description">
             { this.props.siteStore.eventInfo.description }
           </p>
-          <div className="sponsor-container">
-            <img src={(this.props.siteStore.sponsors[0] || {}).image_url} className="big-sponsor-img" />
-          </div>
+          { this.Sponsors() }
         </div>
 
 
