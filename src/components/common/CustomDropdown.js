@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Select, { components } from "react-select";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import {FormatDateString} from "Utils/Misc";
 
 
 const SingleValue = ({
@@ -21,7 +22,7 @@ const SingleValue = ({
       <IconContext.Provider value={{ className: "ticket-icon" }}>
         <div className="ticket-bottom-date">
           <FaRegCalendarAlt />
-          {data.date}
+          { FormatDateString(data.date) }
         </div>
       </IconContext.Provider>
 
@@ -49,9 +50,9 @@ export default class CustomDropdown extends Component {
   render() {
     return (
       <Select
-        className='react-select-container'  
+        className='react-select-container'
         classNamePrefix="react-select"
-        value={this.state.selected} 
+        value={this.state.selected}
         onChange={this.handleChange}
         options={this.props.options}
         components={{ SingleValue }}

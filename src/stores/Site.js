@@ -3,6 +3,8 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 import { ethers } from "ethers";
 
+import _ from "lodash";
+
 const createKeccakHash = require("keccak");
 
 class SiteStore {
@@ -15,26 +17,12 @@ class SiteStore {
 
   @observable baseSiteSelectorUrl;
 
-  // Eluvio Live - Data Store
-  @observable stripePublicKey;
-  @observable stripeTestMode;
-
   // Eluvio Live - Event Stream
-  @observable titles;
   @observable feeds = [];
 
   // Eluvio Live - Modal
   @observable showCheckout = false;
-  @observable currentProduct;
-
-  @observable siteHash;
-  @observable assets = {};
-
-  @observable dashSupported = false;
-  @observable activeTitle;
-  @observable activeTrailer;
-  @observable playoutUrl;
-  @observable authToken;
+  @observable selectedTicket;
 
   @observable error = "";
 
@@ -44,6 +32,10 @@ class SiteStore {
 
   @computed get currentSite() {
     return this.eventSites[this.siteSlug];
+  }
+
+  @computed get currentSiteInfo() {
+    return (this.currentSite || {}).info || {};
   }
 
   constructor(rootStore) {
@@ -94,10 +86,6 @@ class SiteStore {
       // Loading Support FAQ questions & answers
       this.faqData = app.faq;
 
-      // Checking whether to use test or live mode for Stripe
-      this.stripeTestMode = app.stripe_config[0]["test_mode"];
-      this.stripePublicKey = this.stripeTestMode ? app.stripe_config[0]["test_public_key"] : app.stripe_config[0]["public_key"];
-
       this.availableSites = sites;
     } catch(error) {
       // TODO: Graceful error handling
@@ -125,7 +113,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadStreams= flow(function * () {
+  LoadStreams = flow(function * () {
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
       metadataSubtree: UrlJoin("public", "sites", this.siteSlug, "titles"),
@@ -158,18 +146,9 @@ class SiteStore {
   });
 
   @action.bound
-  ShowCheckoutModal({name, description, price, priceId, prodId, otpId, offering}) {
-    console.log(name, description, price, priceId, prodId, otpId, offering);
+  ShowCheckoutModal({ticketClass, sku}) {
     this.showCheckout = true;
-    this.currentProduct = {
-      name: name,
-      description: description,
-      price: price,
-      priceId: priceId,
-      prodId: prodId,
-      otpId: otpId,
-      offering: offering
-    };
+    this.selectedTicket = { ticketClass, skuIndex: sku };
   }
 
   @action.bound
@@ -190,26 +169,137 @@ class SiteStore {
     return ethers.utils.base58.encode(id);
   };
 
+
+  /* Site attributes */
+
+  @computed get eventInfo() {
+    let eventInfo = {
+      artist: "ARTIST",
+      location: "LOCATION",
+      date: new Date().toISOString(),
+      event_header: "EVENT_HEADER",
+      description: "DESCRIPTION",
+    };
+
+    return _.mergeWith(
+      eventInfo,
+      this.currentSiteInfo.event_info || {},
+      (def, info) => info ? info : def
+    );
+  }
+
+  @computed get artistBio() {
+    let artistBio = {
+      intro: (this.currentSiteInfo.artist_info || {}).intro || "INTRO",
+      full_name: "FULL_NAME",
+      gender: "GENDER",
+      birth_date: "BIRTH_DATE",
+      birth_place: "BIRTH_PLACE",
+      nationality: "NATIONALITY",
+      trivia: "TRIVIA"
+    };
+
+    return _.mergeWith(
+      artistBio,
+      (this.currentSiteInfo.artist_info || {}).bio || {},
+      (def, info) => info ? info : def
+    );
+  }
+
+  @computed get socialLinks() {
+    return (this.currentSiteInfo.artist_info || {}).social_media_links || {};
+  }
+
+  @computed get calendarEvent() {
+    let calendarInfo = {
+      title: "TITLE",
+      description: "DESCRIPTION",
+      location: "LOCATION",
+      start_time: new Date().toISOString(),
+      end_time: new Date().toISOString()
+    };
+
+    return _.mergeWith(
+      calendarInfo,
+      this.currentSiteInfo.calendar || {},
+      (def, info) => info ? info : def
+    );
+  }
+
+  @computed get sponsors() {
+    return (this.currentSiteInfo.sponsors || []).map(({footer_text, stream_text}, index) => {
+      return {
+        footer_text,
+        stream_text,
+        image_url: this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image"))
+      }
+    });
+  }
+
+  @computed get streamPageInfo() {
+    let streamPageInfo = {
+      header: "HEADER",
+      subheader: "SUBHEADER"
+    };
+
+    return _.mergeWith(
+      streamPageInfo,
+      this.currentSiteInfo.stream_page || {},
+      (def, info) => info ? info : def
+    );
+  }
+
+  @computed get stripePublicKey() {
+    const stripeConfig = (this.currentSiteInfo.stripe_config) || {};
+
+    return stripeConfig.test_mode ? stripeConfig.test_public_key : stripeConfig.publicKey;
+  }
+
+  /* Tickets and Products */
+
+  @computed get ticketClasses() {
+    return (this.currentSiteInfo.tickets || []).map(({name, description, skus}, index) => {
+      return {
+        name,
+        description,
+        skus,
+        image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
+      }
+    }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
+  }
+
+  @computed get products() {
+    return (this.currentSiteInfo.products || []).map((product, productIndex) => {
+      return {
+        ...product,
+        image_urls: (product.images || []).map((_, imageIndex) =>
+          this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
+        )
+      }
+    });
+  }
+
+  @computed get donationItems() {
+    return this.products.filter(item => item.type === "donation");
+  }
+
+  @computed get merchandise() {
+    return this.products.filter(item => item.type === "merchandise");
+  }
+
   /* Images */
 
-  SiteSelectorImageUrl(key) {
+  SiteUrl(path) {
     const uri = URI(this.baseSiteSelectorUrl);
 
     return uri
-      .path(UrlJoin(uri.path(), "meta", "public", "asset_metadata", "images", key, "default"))
+      .path(UrlJoin(uri.path(), "meta", "public", "sites", this.siteSlug, path))
       .toString();
   }
 
   SiteImageUrl(key) {
-    const uri = URI(this.baseSiteSelectorUrl);
-
-    return uri
-      .path(UrlJoin(uri.path(), "meta", "public", "sites", this.siteSlug, "images", key, "default"))
-      .toString();
-  }
-
-  @computed get sponsorImage() {
-    return this.SiteSelectorImageUrl("main_sponsor");
+    console.log(this.SiteUrl(UrlJoin("info", "event_images", key)));
+    return this.SiteUrl(UrlJoin("info", "event_images", key))
   }
 
   @computed get heroBackground() {
@@ -217,7 +307,7 @@ class SiteStore {
   }
 
   @computed get eventPoster() {
-    return this.SiteImageUrl("event_poster");
+    return this.SiteImageUrl("poster");
   }
 
   @computed get donationImage() {

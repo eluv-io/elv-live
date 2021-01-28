@@ -14,7 +14,7 @@ module.exports = {
     path: Path.resolve(__dirname, "dist"),
     filename: "App.js",
     chunkFilename: "[name].bundle.js",
-    publicPath: '/'
+    publicPath: "/"
   },
   devServer: {
     disableHostCheck: true,
@@ -48,7 +48,7 @@ module.exports = {
       Utils: Path.resolve(__dirname, "src/utils"),
       EluvioConfiguration: Path.resolve(__dirname, "src/EluvioConfiguration.js"),
     },
-    extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
+    extensions: [".js", ".jsx", ".scss", ".png", ".svg"]
   },
   optimization: {
     minimizer: [
@@ -62,8 +62,8 @@ module.exports = {
   },
   node: {
     fs: "empty",
-    net: 'empty',
-    tls: 'empty'
+    net: "empty",
+    tls: "empty"
   },
   mode: "development",
   devtool: "eval-source-map",
@@ -97,7 +97,7 @@ module.exports = {
           },
           "sass-loader"
         ],
-        
+
       },
       {
         test: /\.(js|mjs)$/,

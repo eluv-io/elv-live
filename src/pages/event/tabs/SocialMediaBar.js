@@ -16,14 +16,12 @@ import {
 @inject("siteStore")
 @observer
 class SocialMediaBar extends React.Component {
-
   render() {
-    let artistInfo  = this.props.siteStore.currentSite["artist_info"][0];
-
+    // TODO: Hide links without URLs and componentize these links
     return (
       <div className="overview-social-box">
         <a
-          href={artistInfo["social_media_links"][0]["spotify"]}
+          href={this.props.siteStore.socialLinks.spotify}
           target="_blank"
           className="info-social-link"
         >
@@ -40,7 +38,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["soundcloud"]}
+          href={this.props.siteStore.socialLinks.soundcloud}
           target="_blank"
           className="info-social-link"
         >
@@ -57,7 +55,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["applemusic"]}
+          href={this.props.siteStore.socialLinks.apple_music}
           target="_blank"
           className="info-social-link"
         >
@@ -70,7 +68,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["youtube"]}
+          href={this.props.siteStore.socialLinks.youtube}
           target="_blank"
           className="info-social-link__first"
         >
@@ -88,7 +86,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["instagram"]}
+          href={this.props.siteStore.socialLinks.instagram}
           target="_blank"
           className="info-social-link"
         >
@@ -106,7 +104,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["twitter"]}
+          href={this.props.siteStore.socialLinks.twitter}
           target="_blank"
           className="info-social-link"
         >
@@ -122,7 +120,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["facebook"]}
+          href={this.props.siteStore.socialLinks.facebook}
           target="_blank"
           className="info-social-link"
         >
@@ -139,7 +137,7 @@ class SocialMediaBar extends React.Component {
           </IconContext.Provider>
         </a>
         <a
-          href={artistInfo["social_media_links"][0]["website"]}
+          href={this.props.siteStore.socialLinks.website}
           target="_blank"
           className="info-social-link"
         >
