@@ -3,7 +3,13 @@ import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekB
 import {inject, observer} from "mobx-react";
 import { Player } from "bitmovin-player";
 
-import CustomToggleButton from  "./CustomToggleButton"; 
+import CustomToggleButton from  "./CustomToggleButton";
+import {toJS} from "mobx";
+
+// TODO: Robust error handling
+const SetErrorMessage = (message) => {
+  console.log(message);
+};
 
 @inject("siteStore")
 @observer
@@ -27,11 +33,11 @@ class BitmovinPlayer extends React.Component {
     window.scrollTo(0, 0);
     this.LoadBitmovin();
   }
-  
+
   handleMultiViewSwitch() {
     let source, feedOption;
 
-    if(this.state.switchValue == (this.props.siteStore.feeds.length -1)) {
+    if(this.state.switchValue === (this.props.siteStore.feeds.length -1)) {
       feedOption = 0;
     } else {
       feedOption = this.state.switchValue + 1;
@@ -39,7 +45,7 @@ class BitmovinPlayer extends React.Component {
 
     this.setState({switchValue: feedOption});
 
-    source = this.props.siteStore.feeds[feedOption].playoutOptions;
+    source = toJS(this.props.siteStore.feeds[feedOption].playoutOptions);
 
     this.state.player.load(source).then(
       () => {
@@ -127,10 +133,12 @@ class BitmovinPlayer extends React.Component {
     });
 
     const myUiManager = new UIManager(player, myUi);
-    
+
     this.setState({player: player});
 
-    let source = this.props.siteStore.feeds[0].playoutOptions;
+    let source = toJS(this.props.siteStore.feeds[0].playoutOptions);
+
+    console.log(source);
 
     player.load(source).then(
       () => {

@@ -53,7 +53,7 @@ class EventTabs extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     const { classes } = this.props;
 
@@ -72,15 +72,15 @@ class EventTabs extends React.Component {
             {/* <Tab icon={<MusicNoteIcon style={{ color: "black",fontSize: 22  }} />} label={<span style={{ color: "black", fontSize: 12, marginBottom: 5 }}>ARTIST</span>} /> */}
             <Tab icon={<ShoppingCartIcon style={{ color: "black",fontSize: 22  }} />} disableFocusRipple = {true} disableRipple = {true} label={<span style={{ color: "black", fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
           </Tabs>
-          
+
           <TabPanel value={this.props.tab} index={0} >
-            <ConcertOverview title={this.props.title} name={this.props.name} refProp={this.props.refProp} />
+            <ConcertOverview title={this.props.title} refProp={this.props.refProp} />
           </TabPanel>
           {/* <TabPanel value={this.props.tab} index={1}>
-            <ArtistInfo title={this.props.title} name={this.props.name}/>    
+            <ArtistInfo title={this.props.title} name={this.props.name}/>
           </TabPanel> */}
           <TabPanel value={this.props.tab} index={1}>
-            <Merch name={this.props.name}/>
+            <Merch />
           </TabPanel>
         </Paper>
       </div>

@@ -5,9 +5,9 @@ import {inject, observer} from "mobx-react";
 @inject("siteStore")
 @observer
 class Merch extends React.Component {
-  
+
   render() {
-    let checkoutMerch = this.props.siteStore.eventSites[this.props.name]["merch_tab"];
+    let checkoutMerch = this.props.siteStore.currentSite["merch_tab"];
 
     return (
       <div className={"merch-container"}>

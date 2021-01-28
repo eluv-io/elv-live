@@ -1,5 +1,5 @@
 import {configure, observable, action, flow, runInAction} from "mobx";
-import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
+import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "./Site";
 import {EluvioConfiguration} from "EluvioConfiguration";
 
@@ -21,14 +21,10 @@ class RootStore {
 
   @action.bound
   InitializeClient = flow(function * () {
-
-
-    // Initialize ElvClient
-    const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
     let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
-    const staticToken = btoa(JSON.stringify(EluvioConfiguration["anon-token"]));
-    client.SetStaticToken(staticToken);
+    const staticToken = btoa(JSON.stringify({qspace_id: client.contentSpaceId}));
+    client.SetStaticToken({token: staticToken});
 
     this.client = client;
   });
@@ -37,11 +33,10 @@ class RootStore {
 
   @action.bound
   RedeemCode = flow(function * (code, ntpId, tenantId) {
-
     try {
       let codeSiteId = yield this.client.RedeemCode({code, ntpId, tenantId});
       this.streamAccess = true;
-      return codeSiteId;     
+      return codeSiteId;
     } catch (error) {
        console.log("Error redeeming code: ", error);
     }

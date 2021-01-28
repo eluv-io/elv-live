@@ -58,14 +58,14 @@ class Ticket extends React.Component {
     this.setState({selectedOffering: options[0]});
     this.setState({options: options});
   }
-  
+
   handleChange(value) {
     this.setState({selectedOffering: value});
   }
 
 
   render() {
-    let {name, description, price, priceID, prodID, poster, otpID} = this.props;
+    let {name, description, price, priceId, prodId, poster, otpId} = this.props;
 
 
     return (
@@ -75,7 +75,7 @@ class Ticket extends React.Component {
         </div>
         <div className="ticket-detail">
           <div className="ticket-top">
-            <div className="ticket-top-labels"> 
+            <div className="ticket-top-labels">
               <span className="ticket-label-loc">
                 Global
               </span>
@@ -95,9 +95,9 @@ class Ticket extends React.Component {
           <div className="ticket-bottom">
             <div className="ticket-bottom-dropdown-container">
               <Select
-                className='react-select-container'  
+                className='react-select-container'
                 classNamePrefix="react-select"
-                value={this.state.selectedOffering} 
+                value={this.state.selectedOffering}
                 onChange={this.handleChange}
                 options={this.state.options}
                 components={{ SingleValue }}
@@ -117,8 +117,19 @@ class Ticket extends React.Component {
                 })}
               />
             </div>
-              
-            <button className="ticket-bottom-button" role="link" onClick={() => this.props.siteStore.turnOnModal( name, description, price, priceID, prodID, otpID, this.state.selectedOffering)}>
+            <button
+              className="ticket-bottom-button"
+              role="link"
+              onClick={() => this.props.siteStore.ShowCheckoutModal({
+                name,
+                description,
+                price,
+                priceId,
+                prodId,
+                otpId,
+                offering: this.state.selectedOffering
+              })}
+            >
               Purchase
             </button>
           </div>
