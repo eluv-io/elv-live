@@ -109,6 +109,20 @@ class Stream extends React.Component {
     };
   }
 
+  Sponsors() {
+    return (
+      <div className="sponsor-info-container">
+        {
+          this.props.siteStore.sponsors.map((sponsor, index) =>
+            <div className="sponsor-info-container__img-container" key={`stream-sponsor-${index}`}>
+              <img src={sponsor.image_url} className="stream-sponsor-img" alt={sponsor.name} />
+            </div>
+          )
+        }
+      </div>
+    );
+  }
+
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
       //return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} />;
@@ -207,14 +221,7 @@ class Stream extends React.Component {
                   </h1>
                 </div>
 
-                <div className="sponsor-info-container">
-                  <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
-                    {sponsorInfo.stream_text}
-                  </span>
-                  <div className="sponsor-info-container__img-container">
-                    <img src={sponsorInfo.image_url} className="stream-sponsor-img" />
-                  </div>
-                </div>
+                { this.Sponsors() }
               </div>
             </div>
           </div>

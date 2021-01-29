@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Redirect } from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
 import {ValidEmail} from "Utils/Misc";
 
-const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -17,6 +16,10 @@ class Paypal extends React.Component {
     this.state = {
       redirectStatus: false
     };
+
+    this.createOrder = this.createOrder.bind(this);
+    this.onApprove = this.onApprove.bind(this);
+    this.onError = this.onError.bind(this);
   }
 
   createOrder(data, actions) {
@@ -107,25 +110,29 @@ class Paypal extends React.Component {
       return <Redirect to={UrlJoin(this.props.siteStore.basePath, this.props.siteStore.siteSlug, "success", this.props.email, checkoutId)}/>;
     }
 
-    let buttonStyle = {
-      color:  "gold",
-      shape:  "rect",
-      label:  "paypal",
-      size: "responsive",
-      height: 50,
-    };
-
     return (
       <div className="paypal-button">
-        <PayPalButton
-          disabled={!ValidEmail(this.props.email)}
-          createOrder={(data, actions) => this.createOrder(data, actions)}
-          onApprove={(data, actions) => this.onApprove(data, actions)}
-          onError={(err) => this.onError(err)}
-          style={buttonStyle}
-        />
+        <PayPalScriptProvider
+          options={{
+            "client-id": this.props.siteStore.paymentConfigurations.paypal_client_id,
+            currency: ticketSku.price.currency
+          }}
+        >
+          <PayPalButtons
+            createOrder={this.createOrder}
+            onApprove={this.onApprove}
+            onError={this.onError}
+            style={{
+              color:  "gold",
+              shape:  "rect",
+              label:  "paypal",
+              layout: "horizontal",
+              tagline: false,
+              height: 50
+            }}
+          />
+        </PayPalScriptProvider>
       </div>
-
     );
   }
 }
