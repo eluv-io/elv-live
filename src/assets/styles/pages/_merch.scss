@@ -20,8 +20,6 @@
   margin-bottom: 5px;
   text-align: center;
   text-shadow: #fff 0 0 0;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   white-space: pre-wrap;
   width: 100%;
@@ -35,8 +33,6 @@
   perspective: 1500px;
   perspective: 1500px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 400px;
 
@@ -63,8 +59,6 @@
   perspective: 1500px;
   perspective: 1500px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
 
@@ -83,8 +77,11 @@
   box-pack: justify;
   color: black;
   display: flex;
+  font-family: Helvetica;
   font-size: 19px;
+  font-style: normal;
   font-weight: bold;
+  font-weight: normal;
   height: 40px;
   justify-content: space-between;
   letter-spacing: 0.07px;
@@ -93,9 +90,6 @@
   text-align: left;
   text-transform: uppercase;
   width: 100%;
-  font-family: Helvetica;
-  font-style: normal;
-  font-weight: normal;
 
   @media only screen and (max-width: 620px) {
     align-items: center;
@@ -107,7 +101,13 @@
 .merch-name {
   border: 0;
   font: inherit;
+  font-family: Helvetica;
   font-size: 100%;
+  font-style: normal;
+  font-weight: 300;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 170%;
   margin: 0;
   padding: 0;
   vertical-align: baseline;
@@ -124,7 +124,13 @@
 .merch-price {
   border: 0;
   font: inherit;
+  font-family: Helvetica;
   font-size: 100%;
+  font-style: normal;
+  font-weight: 300;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 170%;
   margin: 0;
   padding: 0;
   vertical-align: baseline;
@@ -145,8 +151,6 @@
   perspective: 1500px;
   perspective: 1500px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 420px;
 }

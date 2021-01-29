@@ -11,6 +11,10 @@
   width: calc(min(400px, 90vw));
   z-index: 10000;
 
+  @media only screen and (max-height: 500px) {
+    height: 240px;
+  }
+
   &--logo {
     height: 58px;
     margin-bottom: 2rem;
@@ -45,11 +49,11 @@
     font-size: 2.2rem;
     font-style: normal;
     font-weight: normal;
+    height: 52px;
     letter-spacing: 0.14em;
     line-height: 19px;
     margin-top: 1rem;
     text-align: center;
-    height: 52px;
     width: calc(min(30rem, 90vw));
 
     @media only screen and (max-width: 415px) {
@@ -105,20 +109,37 @@ pre {
 
 .code-header {
   display: block;
+  font-family: Helvetica;
   margin-bottom: 18px;
   text-align: center;
+
+  @media only screen and (max-width: 500px) {
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-height: 500px) {
+    margin-bottom: 5px;
+  }
 }
 
 .code-header-title {
+  font-family: Helvetica;
   font-size: 37px;
+  font-style: normal;
   letter-spacing: -0.5px;
-  letter-spacing: -1px;
+  letter-spacing: 0;
   line-height: 100%;
   margin-bottom: 10px;
+  text-align: center;
+
+  @media only screen and (max-height: 500px) {
+    font-size: 32px;
+  }
 }
 
 .code-header-p {
   color: black;
+  font-family: Helvetica;
   font-size: 14px;
   font-weight: 400;
   font-weight: 400;
@@ -130,9 +151,16 @@ pre {
     color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
   }
+
+  @media only screen and (max-height: 500px) {
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 0 20px;
+  }
 }
 
 .code-header-bold {
+  font-family: Helvetica;
   font-weight: bold !important;
 
   &:hover {
@@ -151,13 +179,33 @@ pre {
   justify-items: center;
   width: 100%;
 }
+
 .code-entry-background {
+  background: #e0ddd4;
+  background-position: center;
   background-size: cover;
-  background: #E0DDD4;
+  display: flex;
   height: 100vh;
   max-height: 100vh;
   min-height: 100vh -webkit-fill-available;
   width: 100vw;
-  background-position: center;
-  display: flex;
+}
+
+.error-message {
+  background-color: #fff;
+  border-radius: 5px;
+  color: #f00;
+  font-family: Helvetica;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+  height: 50px;
+  letter-spacing: 0.14em;
+  min-width: 250px;
+  padding-top: 10px;
+  position: fixed;
+  text-align: center;
+  text-transform: uppercase;
+  top: 70px;
+  z-index: 10000;
 }

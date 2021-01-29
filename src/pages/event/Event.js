@@ -8,6 +8,7 @@ import Navigation from  "Layout/Navigation";
 import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
+import smoothscroll from "smoothscroll-polyfill";
 
 import ImageIcon from "Common/ImageIcon";
 
@@ -15,6 +16,7 @@ import ImageIcon from "Common/ImageIcon";
 @inject("siteStore")
 @observer
 class Event extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -42,13 +44,13 @@ class Event extends React.Component {
         />
 
         <div className="modal show">
-
-
           <div className={"modal__container"}>
             <iframe
               width="100%"
               height="100%"
-              src={this.props.siteStore.eventInfo.trailer_url}
+              src={
+                this.props.siteStore.eventInfo.trailer_url
+              }
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -80,6 +82,9 @@ class Event extends React.Component {
   }
 
   handleNavigate = () => {
+    // window.__forceSmoothScrollPolyfill__ = true;
+
+    smoothscroll.polyfill();
     this.setState({
       tab: 0,
     }, () => document.getElementById("tickets-section").scrollIntoView({behavior: "smooth", block: "end"}));
@@ -99,37 +104,46 @@ class Event extends React.Component {
       height: "100vh",
       margin: "0",
       position: "absolute",
-      width: "100%"
+      width: "100%",
+      minHeight: "600px"
     };
 
 
     return (
-      <div className="event">
+      <div className="event" id="event-page">
         <Navigation />
 
         <div style={backgroundStyle} />
 
         <div className="event-container">
           <div className="event-container__heading">
-            <h1 className="name">{ this.props.siteStore.eventInfo.artist }</h1>
-            <h1 className="location">{ this.props.siteStore.eventInfo.event_header }</h1>
-            <h1 className="time">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
+            {this.props.siteStore.artistLogo ?
+              <div className="event-hero-logo-container">
+                <img className="event-hero-logo" src={this.props.siteStore.artistLogo}/> 
+              </div> 
+              : 
+              <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
+            }
+            <h1 className="event-hero-header">{ this.props.siteStore.eventInfo.event_subheader }</h1>
+            <h1 className="event-hero-date">{ FormatDateString(this.props.siteStore.eventInfo.date) }</h1>
+
           </div>
 
           <div className="event-container__button">
-            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate()}>
+            <button className="btn" onClick={() => this.handleNavigate()}>
               Buy Tickets
             </button>
-            <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+            <button onClick={() => this.setState({showTrailer: true})} className="btn--gold">
               Watch Promo
             </button>
           </div>
-          <div className="event-container__countdown">
+          
+          {/* <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />
-          </div>
+          </div> */}
 
 
-          <div className="event-container__overview" id="tickets-section">
+          <div className="event-container__info" id="tickets-section">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
           </div>
         </div>

@@ -317,3 +317,42 @@
   transition: all 0.2s;
   width: 150px !important;
 }
+
+.btn {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  height: 48px;
+  letter-spacing: 2px;
+  line-height: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 25rem;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s;
+
+    & > * {
+      fill: #000;
+    }
+  }
+
+  // @media only screen and (max-width: $bp-small) {
+  //   width: 90vw;
+  // }
+
+  &--gold {
+    @extend .btn;
+
+    align-self: center;
+    background-color: #d7bb73;
+    border: none;
+    color: black;
+  }
+}

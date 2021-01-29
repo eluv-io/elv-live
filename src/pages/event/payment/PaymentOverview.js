@@ -141,7 +141,7 @@ class PaymentOverview extends React.Component {
               checked={this.state.donationChecked}
               onChange={handledDonationChange}
               className="checkout-checkbox-input"
-              id={"checkbox-merch"}
+              id={"checkbox-donation"}
               type="checkbox"
             />
             <div className="checkout-checkbox-label">
@@ -246,9 +246,17 @@ class PaymentOverview extends React.Component {
           <div className="payment-info-img-container">
             <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
-          <span className="payment-info-artist">
+          {/* <span className="payment-info-artist">
             { this.props.siteStore.eventInfo.artist }
-          </span>
+          </span> */}
+
+          {this.props.siteStore.artistLogo ?
+            <div className="ticket-logo-container">
+              <img className="ticket-logo" src={this.props.siteStore.artistLogo}/> 
+            </div> 
+            : 
+            <h1 className="payment-info-artist">{ this.props.siteStore.eventInfo.artist }</h1>
+          }
           <h3 className="payment-info-event">
             { this.props.siteStore.eventInfo.event_title }
           </h3>
@@ -256,7 +264,7 @@ class PaymentOverview extends React.Component {
             { this.props.siteStore.eventInfo.location }
           </h3>
           <p className="payment-info-description">
-            { this.props.siteStore.eventInfo.description }
+            { ticketClass.description }
           </p>
           { this.Sponsors() }
         </div>
@@ -345,6 +353,7 @@ class PaymentOverview extends React.Component {
 
           {/* Stripe Checkout Redirect Button*/}
           <div className="checkout-button-container" >
+            
             <button className="checkout-button" role="link" onClick={this.handleStripeSubmit()}>
               {this.state.retryCheckout ?
                 <div className="spin-checkout-container">
@@ -371,6 +380,7 @@ class PaymentOverview extends React.Component {
             <div id="checkout-id" className="checkout-error">
               {this.state.error}
             </div>
+
           </div>
         </div>
       </div>

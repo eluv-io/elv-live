@@ -8,9 +8,13 @@
   overflow: auto;
   width: 100%;
 
+  @media only screen and (max-width: 800px) {
+    margin-top: 35px;
+  }
+
   &__eventInfo {
-    background: #f9f7f4;
-    background: #f9f7f4;
+    background: var(--backgroundColor);
+    background: var(--backgroundColor);
     box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
     color: #000 !important;
     display: flex;
@@ -293,5 +297,20 @@
         }
       }
     }
+  }
+}
+
+.overview-social-box {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 50%;
+
+  @media only screen and (max-width: 700px) {
+    justify-content: space-between;
+    width: 100%;
   }
 }

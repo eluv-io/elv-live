@@ -30,8 +30,6 @@
   background-color: #fff;
   font-family: sans-serif !important;
   margin-bottom: 50px;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
 }
 
@@ -450,8 +448,6 @@
   overflow: hidden;
   text-align: center !important;
   top: 10px;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100% !important;
 
@@ -544,11 +540,11 @@
   align-self: center;
   color: #000;
   display: flex;
-  justify-content: space-around;
   font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
+  justify-content: space-around;
   letter-spacing: -0.022em;
   line-height: 1.47059;
   margin: auto;
@@ -556,8 +552,6 @@
   margin-top: 30px;
   overflow: hidden;
   text-rendering: optimizeLegibility;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   // margin-left: 50px;
   width: 100%;
@@ -565,17 +559,17 @@
 
 .sponsor-title-footer {
   align-self: center;
-  display: flex;
-  justify-content: center;
 
   // margin-top: 20px !important;
   color: #000 !important;
   color: #000 !important;
+  display: flex;
   font-size: 24px;
   font-weight: bold !important;
   font-weight: 600;
   // margin-top: 20px !important;
   font-weight: bold !important;
+  justify-content: center;
   text-align: center !important;
 }
 
@@ -592,7 +586,7 @@
 
 .big-sponsor-img-footer {
   height: auto;
-  margin-top: -90px;
+  // margin-top: -90px;
   overflow: hidden;
   // margin-bottom: -50px;
   // margin-right: 15px;
@@ -628,8 +622,6 @@
   text-align: center;
   text-shadow: #fff 0 0 3px;
   text-transform: uppercase;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
   width: 100%;
 }

@@ -2,23 +2,24 @@
   display: flex;
   flex-direction: row;
   gap: 80px;
-  height: auto;
-  max-height: 100%;
+  height: max-content;
+  // max-height: 100%;
   margin: 0 auto;
-  margin-top: 20px;
+  // margin-top: 20px;
   // min-height: 800px;
   max-width: 980px;
   // padding: 30px 20px;
   width: 100%;
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1050px) {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    height: auto;
     margin: 0 auto;
     max-width: 980px;
     min-height: 100vh;
-    padding: 50px 30px;
+    padding: 40px 30px;
     width: 100%;
   }
 }
@@ -61,9 +62,15 @@
   text-rendering: optimizeLegibility;
   width: 100%;
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1050px) {
     align-items: center;
-    max-height: 800px;
+    height: auto;
+    max-height: auto;
+  }
+
+  @media only screen and (max-width: 600px) {
+    min-width: 100%;
+    width: 100%;
   }
 }
 
@@ -107,6 +114,12 @@
 
   text-align: center;
   text-transform: uppercase;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 8vw;
+    letter-spacing: 0.5px;
+    line-height: 30px;
+  }
 }
 
 .payment-info-event {
@@ -117,7 +130,7 @@
   font-weight: 700;
   font-weight: 300;
   letter-spacing: -1px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   line-height: 1.2;
   line-height: 122.71%;
   margin: 0;
@@ -131,8 +144,10 @@
   text-transform: uppercase;
   word-break: break-word;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 600px) {
     font-size: 24px;
+    letter-spacing: 0;
+    width: 100%;
   }
 }
 
@@ -142,7 +157,7 @@
   font-style: normal;
   font-weight: 300;
   letter-spacing: 0.2em;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   line-height: 122.71%;
   margin-top: 5px;
 
@@ -156,8 +171,10 @@
   text-transform: uppercase;
   text-transform: uppercase;
 
-  @media only screen and (max-width: 500px) {
-    font-size: 24px;
+  @media only screen and (max-width: 600px) {
+    font-size: 20px;
+    letter-spacing: 0;
+    width: 100%;
   }
 }
 
@@ -177,6 +194,7 @@
 
 .payment-info-description {
   box-orient: vertical;
+  box-orient: vertical;
   color: rgba(0, 0, 0, 0.6);
   color: #000;
   font-family: Helvetica;
@@ -185,11 +203,16 @@
   font-style: normal;
   font-weight: 300;
   -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
   line-height: 130.3%;
   margin-left: 0;
   // text-align: center;
   margin-left: 0;
   margin-top: 25px;
+  overflow: hidden;
   overflow: hidden;
   position: relative;
   text-align: left;
@@ -197,11 +220,15 @@
 
   /* or 21px */
 
-  text-align: center;
   white-space: pre-line;
 
-  @media only screen and (max-width: 1000px) {
-    text-align: center;
+  @media only screen and (max-width: 1050px) {
+    max-width: 550px;
+    text-align: left;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 90%;
   }
 }
 
@@ -210,19 +237,15 @@
   color: #000;
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: -0.022em;
-  line-height: 1.47059;
-  margin-top: 50px;
+  height: auto;
+  margin-top: 20px;
+  max-width: 350px;
   text-rendering: optimizeLegibility;
   user-select: none;
   width: 100%;
 
-  @media only screen and (max-width: 1000px) {
-    // display: none;
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
   }
 }
 
@@ -245,12 +268,12 @@
 
 .big-sponsor-img {
   height: auto;
+  // max-height: 70px;
+  object-fit: cover;
   //margin-bottom: -50px;
   //margin-top: -105px;
   //width: 300px;
   width: 80%;
-  max-height: 70px;
-  object-fit: cover;
 
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -286,11 +309,19 @@
   flex-shrink: 0;
   height: 100%;
   margin: 0 auto;
-  max-width: 550px;
-  width: 100%;
   max-height: calc(100% - 2rem);
+  max-width: 550px;
   overflow-y: auto;
   padding-right: 2rem;
+  width: 100%;
+
+  @media only screen and (max-width: 1050px) {
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+    padding-bottom: 25px;
+    padding-right: 0;
+  }
 }
 
 .checkout-section {
@@ -314,6 +345,10 @@
   padding: 20px 40px;
   text-rendering: optimizeLegibility;
   width: 100%;
+
+  @media only screen and (max-width: 600px) {
+    padding: 20px;
+  }
 }
 
 .currency-quantity-container {
@@ -340,11 +375,11 @@
 }
 
 .checkout-checkbox-container {
-  display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  display: flex;
   //margin-bottom: 10px;
   height: 3rem;
+  justify-content: space-between;
 }
 
 .checkout-checkbox-input {
@@ -358,13 +393,13 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: content-box;
+  cursor: pointer;
   display: inline-block;
   height: 16px;
   margin-right: 15px;
   margin-top: -0.5px;
   position: relative;
   width: 16px;
-  cursor: pointer;
 }
 
 .checkout-checkbox-label {
@@ -380,6 +415,11 @@
   line-height: 120%;
   margin: -2px 0 0;
   width: 100%;
+
+  @media only screen and (max-width: 650px) {
+    font-size: 4.5vw;
+    letter-spacing: 0;
+  }
 }
 
 .checkout-checkbox-heading2 {
@@ -397,6 +437,10 @@
   line-height: 20px;
   margin: -2px 0 0;
   // text-transform: uppercase;
+  @media only screen and (max-width: 650px) {
+    font-size: 4.5vw;
+    letter-spacing: 0;
+  }
 }
 
 .checkout-checkbox-heading {
@@ -414,6 +458,16 @@
   line-height: 22px;
   margin: -2px 0 0;
   text-transform: uppercase;
+
+  @media only screen and (max-width: 650px) {
+    box-orient: vertical;
+    font-size: 4.5vw;
+    letter-spacing: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
 }
 
 .checkout-checkbox-details {
@@ -426,6 +480,16 @@
   line-height: 19px;
   margin-top: 10px;
   text-transform: capitalize;
+
+  @media only screen and (max-width: 650px) {
+    box-orient: vertical;
+    font-size: 3.3vw;
+    letter-spacing: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
 }
 
 .checkout-checkbox-bundle {
@@ -462,7 +526,6 @@
   color: #000;
   font-family: Helvetica;
   font-size: 12px !important;
-  font-size: 16px;
   font-style: normal;
   font-weight: 300;
 
@@ -471,6 +534,10 @@
   letter-spacing: 0.03em;
   line-height: 100%;
   margin: 0 0 10px;
+
+  @media only screen and (max-width: 650px) {
+    font-size: 10px !important;
+  }
 }
 
 .checkout-checkbox-bundle-size {
@@ -527,15 +594,31 @@
     width: 100%;
     word-spacing: normal;
 
-    @media only screen and (max-width: 415px) {
-      font-size: 2rem;
-      width: 280px;
+    @media only screen and (max-width: 600px) {
+      font-size: 16px;
+      width: 100%;
     }
+
+    // @media only screen and (max-width: 415px) {
+    //   font-size: 2rem;
+    //   width: 280px;
+    // }
 
     &::placeholder {
       // font-variant: all-small-caps;
       color: rgba(0, 0, 0, 0.804);
       padding-left: 10px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      font-size: 16px;
+      width: 100%;
+
+      &::placeholder {
+        // font-variant: all-small-caps;
+        color: rgba(0, 0, 0, 0.804);
+        padding-left: 5px;
+      }
     }
   }
 }
@@ -551,68 +634,67 @@
   line-height: 100%;
   padding-bottom: 10px;
   text-align: center;
+  text-align: center;
 
   /* or 16px */
 
-  text-align: center;
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+    letter-spacing: -0.05em;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: center;
+  }
 }
 
-// <div class="react-select-container">
-//   <div class="react-select__control">
-//     <div class="react-select__value-container">...</div>
-//     <div class="react-select__indicators">...</div>
-//   </div>
-//   <div class="react-select__menu">
-//     <div class="react-select__menu-list">
-//       <div class="react-select__option">...</div>
-//     </div>
-//   </div>
-// </div>
 .react-select-container {
-  min-height: 44px !important;
+  min-height: auto !important;
   width: 100% !important;
 
-  @media only screen and (max-width: 1400px) {
-    height: auto !important;
-  }
+  // @media only screen and (max-width: 1400px) {
+  //   height: auto !important;
+  // }
 }
 
 .react-select {
   position: absolute !important;
 
   &__input {
+    caret-color: transparent !important;
     color: transparent !important;
+    color: #f2eeea !important;
     // display: none !important;
-    position: absolute;
+    position: absolute !important;
+    text-shadow: 0 0 0 #f2eeea !important;
   }
 
   &__control {
     background: #f2eeea !important;
-    height: 44px !important;
-    min-height: 44px !important;
+    height: auto !important;
+    min-height: auto !important;
 
-    @media only screen and (max-width: 1400px) {
-      height: auto !important;
-    }
+    // @media only screen and (max-width: 1400px) {
+    //   height: auto !important;
+    // }
   }
 
   &__value-container {
-    height: 44px !important;
+    height: auto !important;
     // padding: 10px !important;
     margin-left: 5px !important;
     overflow: visible !important;
 
-    @media only screen and (max-width: 1400px) {
-      height: auto !important;
-    }
+    // @media only screen and (max-width: 1400px) {
+    //   height: auto !important;
+    // }
   }
 
   &__indicators {
-    height: 44px !important;
+    height: auto !important;
 
-    @media only screen and (max-width: 1400px) {
-      height: auto !important;
-    }
+    // @media only screen and (max-width: 1400px) {
+    //   height: auto !important;
+    // }
   }
 
   &__menu{
@@ -676,6 +758,16 @@
   // font-weight: normal;
   text-align: center;
   text-transform: uppercase;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  @media only screen and (max-width: 400px) {
+    font-size: 13px;
+    letter-spacing: 0;
+  }
 
   // transition: background .2s ease,box-shadow .2s ease;
 }
@@ -831,5 +923,15 @@
 }
 
 .checkout-button-container {
+  height: auto;
+}
 
+.ticket-logo-container {
+  max-width: 400px;
+  width: auto;
+}
+
+.ticket-logo {
+  height: auto;
+  width: 100%;
 }

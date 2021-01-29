@@ -4,20 +4,9 @@
 }
 
 :root {
-  --color-primary: #eb2f64;
-  --color-primary-light: #f36;
-  --color-primary-dark: #ba265d;
-  --color-grey-light-1: #faf9f9;
-  --color-grey-light-2: #f4f2f2;
-  --color-grey-light-3: #f0eeee;
-  --color-grey-light-4: #ccc;
-  --color-grey-dark-1: #333;
-  --color-grey-dark-2: #777;
-  --color-grey-dark-3: #999;
-  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
-  --bgColor: #000; //var(--bgColor)
   --pText: #fff; //var(--pText)
   --sText: rgb(136, 136, 136); //var(--sText)
+  --backgroundColor: var(--backgroundColor); //var(--backgroundColor)
 }
 
 .app-version {
@@ -36,6 +25,10 @@ body,
   min-height: 100vh;
 }
 
+head {
+  max-width: 100%;
+}
+
 html {
   box-sizing: border-box;
   font-size: 62.5%; //1rem = 10px, 10px/16px = 62.5%
@@ -44,46 +37,11 @@ html {
 
 body {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: Helvetica;
+  -webkit-overflow-scrolling: touch;
 }
 
 main {
   height: 100%;
   width: 100%;
-}
-
-// RESPONSIVE BREAKPOINTS
-$bp-huge-2: 125em;   // 2000px
-$bp-huge: 93.75em;   // 1500px
-$bp-large-3: 84.5em;   // 1350px
-$bp-large-2: 75em;   // 1200px
-$bp-large: 68.7em;   // 1100px
-$bp-medium-2: 59.375em;    // 950px;
-$bp-medium: 50em;    // 800px;
-$bp-small-2: 43.75em;   // 700px;
-$bp-small-3: 37.5em;   // 600px;
-$bp-small: 31.25em;   // 500px;
-$bp-tiny-2: 27.6em;   // 440px;
-$bp-tiny: 21.875em;   // 350px;
-
-
-.error-message {
-  background-color: #fff;
-  border-radius: 5px;
-  color: #f00;
-  font-family: Helvetica;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: bold;
-  font-weight: normal;
-  height: 50px;
-  letter-spacing: 0.14em;
-  min-width: 250px;
-  padding-top: 10px;
-  position: fixed;
-  text-align: center;
-  text-transform: uppercase;
-  text-transform: uppercase;
-  top: 70px;
-  z-index: 10000;
 }

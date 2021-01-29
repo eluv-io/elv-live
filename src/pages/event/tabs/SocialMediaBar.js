@@ -16,12 +16,12 @@ import {
 @inject("siteStore")
 @observer
 class SocialMediaBar extends React.Component {
-  SocialButton(href, Icon) {
+  SocialButton(href, Icon, name) {
     if(!href) { return null; }
 
     return (
       <a href={href} target="_blank" className="info-social-link">
-        <IconContext.Provider value={{ className: "social-icon", color: "black"}}>
+        <IconContext.Provider value={{ className: `social-icon ${name}`, color: "black"}}>
           { Icon }
         </IconContext.Provider>
       </a>
@@ -31,14 +31,14 @@ class SocialMediaBar extends React.Component {
   render() {
     return (
       <div className="overview-social-box">
-        { this.SocialButton(this.props.siteStore.socialLinks.spotify, <FaSpotify/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.soundcloud, <FaSoundcloud/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.apple_music, <FaApple/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.youtube, <FaYoutube/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.instagram, <FaInstagram/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.twitter, <FaTwitter/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.facebook, <FaFacebookSquare/>) }
-        { this.SocialButton(this.props.siteStore.socialLinks.website, <FaDesktop/>) }
+        { this.SocialButton(this.props.siteStore.socialLinks.spotify, <FaSpotify/>, "spotify") }
+        { this.SocialButton(this.props.siteStore.socialLinks.soundcloud, <FaSoundcloud/>, "soundcloud") }
+        { this.SocialButton(this.props.siteStore.socialLinks.apple_music, <FaApple/>, "apple_music") }
+        { this.SocialButton(this.props.siteStore.socialLinks.youtube, <FaYoutube/>,"youtube", ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.instagram, <FaInstagram/>,"instagram") }
+        { this.SocialButton(this.props.siteStore.socialLinks.twitter, <FaTwitter/>,"twitter", ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.facebook, <FaFacebookSquare/>,"facebook") }
+        { this.SocialButton(this.props.siteStore.socialLinks.website, <FaDesktop/>,"website" ) }
       </div>
     );
   }
