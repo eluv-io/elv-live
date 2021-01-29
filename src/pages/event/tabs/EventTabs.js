@@ -80,8 +80,8 @@ class EventTabs extends React.Component {
             <ArtistInfo title={this.props.title} name={this.props.name}/>
           </TabPanel> */}
           <TabPanel value={this.props.tab} index={1}>
-            { //<Merch />
-            }
+            <Merch />
+            
           </TabPanel>
         </Paper>
       </div>

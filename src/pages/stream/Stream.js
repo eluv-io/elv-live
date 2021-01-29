@@ -25,15 +25,70 @@ const LiveChat = lazy(() => import("./components/LiveChat"));
 const drawerWidth = 450;
 
 const styles = theme => ({
+
   lightRoot: {
     display: "flex",
     background: "rgba(245, 239, 234, .8)",
-    color: "black"
+    color: "black",
+    maxHeight: "100vh",
+    overflow: "hidden",
+    position: "fixed",
+    width: "100%",
+    scrollbarStyles: {
+      overflowY: "scroll",
+      "&::-webkit-scrollbar": {
+        display: "none",
+        width: "0px",
+        display: "none",
+        backgroundColor: "transparent"
+      },
+      "&::-webkit-scrollbar-track": {
+        boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
+        webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
+        display: "none",
+        width: "0px",
+        display: "none",
+        backgroundColor: "transparent"
+
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "rgba(0,0,0,0)",
+        outline: "0px solid slategrey",
+        borderRadius: 0,
+        display: "none",
+        width: "0px",
+        display: "none",
+        backgroundColor: "transparent"
+
+      }
+    }
+
   },
   darkRoot: {
     display: "flex",
     background: "#121212",
-    color: "white"
+    color: "white",
+    maxHeight: "100vh",
+    overflow: "hidden",
+    position: "fixed",
+    scrollbarStyles: {
+      overflowY: "scroll",
+      "&::-webkit-scrollbar": {
+        width: 0
+      },
+      "&::-webkit-scrollbar-track": {
+        boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
+        webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)"
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "rgba(0,0,0,0)",
+        outline: "0px solid slategrey",
+        borderRadius: 0
+      }
+    }
+
+
+
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -125,9 +180,9 @@ class Stream extends React.Component {
   }
 
   render() {
-    if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={this.props.siteStore.SitePath("code")} />;
-    }
+    // if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
+    //   return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    // }
 
     const handleDrawerOpen = () => {
       this.setState({open: true});
@@ -144,9 +199,9 @@ class Stream extends React.Component {
 
     return (
 
-      <div className={clsx(classes.lightRoot, {
+      <div className={`stream-root ${clsx(classes.lightRoot, {
         [classes.darkRoot]: this.state.darkSwitch,
-      })}>
+      })}`}>
         <AppBar
           position="fixed"
           className={clsx(classes.appBar, {

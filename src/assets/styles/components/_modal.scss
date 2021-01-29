@@ -9,27 +9,26 @@
   height: 600px;
   justify-content: center;
   max-width: 1350px;
+  -webkit-overflow-scrolling: touch;
   position: fixed;
   width: 75vw;
   z-index: 5000;
+
+  @media only screen and (max-width: 1250px) {
+    height: 100vh;
+    overflow: none;
+    width: 100vw;
+  }
 
   &__container {
     align-self: center;
     background: #000;
     height: 600px;
+    -webkit-overflow-scrolling: touch;
     width: 100%;
 
-    @media only screen and (max-width: $bp-medium-2) {
-      background: linear-gradient(90deg, #000 60%, transparent);
-    }
-
-    @media only screen and (max-width: $bp-medium) {
-      background: linear-gradient(90deg, #000 75%, transparent);
-    }
-
-    @media only screen and (max-height: $bp-small-2), screen and (max-width: $bp-small) {
-      background: linear-gradient(90deg, #000 100%, transparent);
-      padding-left: 2rem;
+    @media only screen and (max-width: 1250px) {
+      height: 100%;
       width: 100%;
     }
   }
@@ -40,6 +39,11 @@
   opacity: 1;
   top: calc(calc(100vh - 600px)/2);
   visibility: visible;
+
+  @media only screen and (max-width: 1250px) {
+    left: 0;
+    top: 0;
+  }
 }
 
 .hide {
@@ -49,10 +53,11 @@
 .ticket-modal-show {
   left: calc(calc(100vw -  #{'min(1350px, 75vw)'}) / 2);
   opacity: 1;
+  -webkit-overflow-scrolling: touch;
   top: calc(calc(100vh - #{'max(830px, 90vh)'}) / 2);
   visibility: visible;
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1250px) {
     left: 0;
     top: 0;
   }
@@ -71,11 +76,16 @@
   justify-content: center;
   max-width: 1350px;
   min-height: 830px;
+  -webkit-overflow-scrolling: touch;
   position: fixed;
   width: 75vw;
   z-index: 5000000000;
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1300px) {
+    width: 80vw;
+  }
+
+  @media only screen and (max-width: 1250px) {
     height: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -84,15 +94,16 @@
   }
 
   &__container {
-    display: flex;
-    max-height: 100%;
     align-self: center;
     background-color: transparent;
+    display: flex;
     height: auto;
     margin: auto;
+    max-height: 100%;
+    -webkit-overflow-scrolling: touch;
     width: auto;
 
-    @media only screen and (max-width: 1200px) {
+    @media only screen and (max-width: 1250px) {
       height: auto;
       width: 100%;
     }
@@ -143,5 +154,10 @@
   &:hover {
     background-color: black;
     stroke: white;
+  }
+
+  @media only screen and (max-width: 500px) {
+    right: 20px;
+    top: 20px;
   }
 }

@@ -74,12 +74,13 @@ class Ticket extends React.Component {
           <img src={this.props.ticketClass.image_url} className="ticket-image-img"/>
         </div>
         <div className="ticket-detail">
-          { this.TicketTags() }
+          {/* { this.TicketTags() } */}
           <div className="ticket-top">
 
             <h3 className="ticket-top-title">
               { this.props.ticketClass.name }
             </h3>
+
             <p className="ticket-top-description">
               { this.props.ticketClass.description }
             </p>

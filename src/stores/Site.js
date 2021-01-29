@@ -164,6 +164,7 @@ class SiteStore {
   @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
+    var $body = $(document.body);
   }
 
   // Generate confirmation number for checkout based on otpId and email
@@ -270,6 +271,17 @@ class SiteStore {
       }
     });
   }
+  @computed get merchTab() {
+    return (this.currentSiteInfo.merch_tab || []).map(({name, price, url}, index) => {
+      return {
+        name,
+        price,
+        url,
+        front_image: this.SiteUrl(UrlJoin("info", "merch_tab", index.toString(), "front_image")),
+        back_image: this.SiteUrl(UrlJoin("info", "merch_tab", index.toString(), "back_image"))
+      }
+    });
+  }
 
   @computed get streamPageInfo() {
     let streamPageInfo = {
@@ -342,6 +354,10 @@ class SiteStore {
 
   @computed get heroBackground() {
     return this.SiteImageUrl("hero_background");
+  }
+  
+  @computed get artistLogo() {
+    return this.SiteImageUrl("artist_logo");
   }
 
   @computed get eventPoster() {

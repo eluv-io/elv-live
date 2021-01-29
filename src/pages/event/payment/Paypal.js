@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import {NonPrefixNTPId, ValidEmail} from "Utils/Misc";
 
-import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
+import {PayPalScriptProvider, PayPalButtons, FUNDING} from "@paypal/react-paypal-js";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -121,7 +121,7 @@ class Paypal extends React.Component {
         <PayPalScriptProvider
           options={{
             "client-id": this.props.siteStore.paymentConfigurations.paypal_client_id,
-            currency: ticketSku.price.currency
+            currency: ticketSku.price.currency,
           }}
         >
           <PayPalButtons
@@ -136,6 +136,7 @@ class Paypal extends React.Component {
               tagline: false,
               height: 50
             }}
+            fundingSource={FUNDING.PAYPAL} 
           />
         </PayPalScriptProvider>
       </div>
