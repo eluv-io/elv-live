@@ -7,7 +7,7 @@ export const FormatDateString = date => {
 
 export const FormatPriceString = price => {
   const currentLocale = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language;
-  return new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: price.currency }).format(price.amount);
+  return new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: price.currency }).format(parseFloat(price.amount));
 };
 
 export const ValidEmail = email => {

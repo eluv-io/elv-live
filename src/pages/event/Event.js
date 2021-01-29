@@ -112,8 +112,8 @@ class Event extends React.Component {
 
         <div className="event-container">
           <div className="event-container__heading">
-            <h1 className="name">{ this.props.siteStore.eventInfo["artist"] }</h1>
-            <h1 className="location">{ `Streaming Live from the ${ this.props.siteStore.eventInfo["location"] }` }</h1>
+            <h1 className="name">{ this.props.siteStore.eventInfo.artist }</h1>
+            <h1 className="location">{ this.props.siteStore.eventInfo.event_title }</h1>
             <h1 className="time">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
           </div>
 

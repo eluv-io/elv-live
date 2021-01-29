@@ -129,8 +129,8 @@ class PaymentOverview extends React.Component {
     const { ticketSku } = this.SelectedTicket();
     const ticketCurrency = ticketSku.price.currency;
 
-    return this.props.siteStore.donationItems.map((donationItem, index) => {
-      const price = donationItem.price.find(({currency}) => currency === ticketCurrency);
+    return this.props.siteStore.DonationItems(ticketCurrency).map((donationItem, index) => {
+      const price = donationItem.skus[0].price;
 
       if(!price) { return; }
 
@@ -179,8 +179,8 @@ class PaymentOverview extends React.Component {
     const { ticketSku } = this.SelectedTicket();
     const ticketCurrency = ticketSku.price.currency;
 
-    return this.props.siteStore.merchandise.map((item, index) => {
-      const price = item.price.find(({currency}) => currency === ticketCurrency);
+    return this.props.siteStore.Merchandise(ticketCurrency).map((item, index) => {
+      const price = item.skus[0].price;
 
       if(!price) { return; }
 

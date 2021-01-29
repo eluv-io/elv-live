@@ -176,7 +176,8 @@ class SiteStore {
     let eventInfo = {
       artist: "ARTIST",
       location: "LOCATION",
-      date: new Date().toISOString(),
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+      event_title: "EVENT_TITLE",
       event_header: "EVENT_HEADER",
       description: "DESCRIPTION",
     };
@@ -257,33 +258,35 @@ class SiteStore {
   /* Tickets and Products */
 
   @computed get ticketClasses() {
-    return (this.currentSiteInfo.tickets || []).map(({name, description, skus}, index) => {
+    return (this.currentSiteInfo.tickets || []).map((ticket, index) => {
       return {
-        name,
-        description,
-        skus,
+        ...ticket,
         image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
       }
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
   }
 
-  @computed get products() {
-    return (this.currentSiteInfo.products || []).map((product, productIndex) => {
-      return {
-        ...product,
-        image_urls: (product.images || []).map((_, imageIndex) =>
-          this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
-        )
-      }
-    });
+  Products(currency) {
+    currency = (currency || "").toLowerCase();
+    return (this.currentSiteInfo.products || [])
+      .map((product, productIndex) => {
+        return {
+          ...product,
+          skus: (product.skus || []).filter(sku => ((sku.price || {}).currency).toLowerCase() === currency),
+          image_urls: (product.images || []).map((_, imageIndex) =>
+            this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
+          )
+        }
+      })
+      .filter(product => product.skus && product.skus.length > 0);
   }
 
-  @computed get donationItems() {
-    return this.products.filter(item => item.type === "donation");
+  DonationItems(currency) {
+    return this.Products(currency).filter(item => item.type === "donation");
   }
 
-  @computed get merchandise() {
-    return this.products.filter(item => item.type === "merchandise");
+  Merchandise(currency) {
+    return this.Products(currency).filter(item => item.type === "merchandise");
   }
 
   /* Images */
