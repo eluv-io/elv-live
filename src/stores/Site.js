@@ -107,8 +107,6 @@ class SiteStore {
       });
 
       this.siteSlug = slug;
-
-      console.log("SLUG", slug);
     } catch (error) {
       console.error("Error loading site", error);
     }
@@ -252,10 +250,8 @@ class SiteStore {
     );
   }
 
-  @computed get stripePublicKey() {
-    const stripeConfig = (this.currentSiteInfo.stripe_config) || {};
-
-    return stripeConfig.test_mode ? stripeConfig.test_public_key : stripeConfig.publicKey;
+  @computed get paymentConfigurations() {
+    return (this.currentSiteInfo.payment_config) || {};
   }
 
   /* Tickets and Products */

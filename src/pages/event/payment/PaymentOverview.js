@@ -97,16 +97,15 @@ class PaymentOverview extends React.Component {
     }
 
     try {
-      const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
+      const stripe = await loadStripe(this.props.siteStore.paymentConfigurations.stripe_public_key);
       await stripe.redirectToCheckout(stripeParams);
 
     } catch (error) {
       this.setState({retryCheckout: true});
+
       let retryResponse;
       try {
-
         retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
-
       } catch (error) {
         this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
       }
@@ -114,13 +113,27 @@ class PaymentOverview extends React.Component {
     }
   };
 
+  SelectedTicket() {
+    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
+    const ticketSku = ticketClass.skus[skuIndex];
+
+    return { ticketClass, ticketSku };
+  }
+
   DonationItems() {
     // TODO: This only supports one item
     const handledDonationChange = () => {
       this.setState({donationChecked: !(this.state.donationChecked)});
     };
 
+    const { ticketSku } = this.SelectedTicket();
+    const ticketCurrency = ticketSku.price.currency;
+
     return this.props.siteStore.donationItems.map((donationItem, index) => {
+      const price = donationItem.price.find(({currency}) => currency === ticketCurrency);
+
+      if(!price) { return; }
+
       return (
         <div className="checkout-section" key={`donation-item-${index}`}>
           <div className="checkout-checkbox-container">
@@ -136,7 +149,7 @@ class PaymentOverview extends React.Component {
                 { donationItem.name }
               </h5>
               <span>
-                { FormatPriceString(donationItem.price[0]) }
+                { FormatPriceString(price) }
               </span>
             </div>
           </div>
@@ -163,7 +176,14 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
+    const { ticketSku } = this.SelectedTicket();
+    const ticketCurrency = ticketSku.price.currency;
+
     return this.props.siteStore.merchandise.map((item, index) => {
+      const price = item.price.find(({currency}) => currency === ticketCurrency);
+
+      if(!price) { return; }
+
       return (
         <div className="checkout-section" key={`merchandise-item-${index}`}>
           <div className="checkout-checkbox-container">
@@ -179,7 +199,7 @@ class PaymentOverview extends React.Component {
                 { item.name }
               </h5>
               <span>
-                { FormatPriceString(item.price[0]) }
+                { FormatPriceString(price) }
               </span>
             </div>
           </div>
@@ -218,8 +238,7 @@ class PaymentOverview extends React.Component {
       this.setState({email: event.target.value});
     };
 
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const sku = ticketClass.skus[skuIndex];
+    const { ticketClass, ticketSku } = this.SelectedTicket();
 
     return (
       <div className="payment-container">
@@ -252,12 +271,12 @@ class PaymentOverview extends React.Component {
                 { ticketClass.name }
               </h5>
               <span>
-                { FormatPriceString(sku.price) }
+                { FormatPriceString(ticketSku.price) }
               </span>
             </div>
             <div className="checkout-checkbox-details">
               <div className="">
-                { `${sku.label} · ${FormatDateString(sku.start_time)}` }
+                { `${ticketSku.label} · ${FormatDateString(ticketSku.start_time)}` }
               </div>
             </div>
             <div className="currency-quantity-container">
