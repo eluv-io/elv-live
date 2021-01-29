@@ -53,6 +53,20 @@ class Ticket extends React.Component {
     }));
   }
 
+  TicketTags() {
+    return (
+      <div className="ticket-top-labels">
+        {
+          (this.props.ticketClass.tags || []).map((tag, index) =>
+            <span className="ticket-label" key={`ticket-tag-${index}`}>
+              { tag}
+            </span>
+          )
+        }
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="ticket-event">
@@ -60,16 +74,9 @@ class Ticket extends React.Component {
           <img src={this.props.ticketClass.image_url} className="ticket-image-img"/>
         </div>
         <div className="ticket-detail">
+          { this.TicketTags() }
           <div className="ticket-top">
-            <div className="ticket-top-labels">
-              <span className="ticket-label-loc">
-                Global
-              </span>
-              <span className="ticket-label-available">
-                LIMITED TICKETS AVAILABLE
-              </span>
 
-            </div>
             <h3 className="ticket-top-title">
               { this.props.ticketClass.name }
             </h3>
