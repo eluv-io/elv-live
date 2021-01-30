@@ -1,8 +1,14 @@
-import {DateTime} from "luxon";
+//import {DateTime} from "luxon/build/cjs-browser/luxon";
+import DayJS from "dayjs";
+import DayJSAdvancedFormatting from "dayjs/plugin/advancedFormat";
+import DayJSTimezone from "dayjs/plugin/timezone";
+DayJS.extend(DayJSTimezone);
+DayJS.extend(DayJSAdvancedFormatting);
 
 export const FormatDateString = date => {
-  return DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL) + " · " +
-    DateTime.fromISO(date).toLocaleString({hour: "numeric", minute: "numeric", timeZoneName: "short"});
+  return DayJS(date).format("MMMM D, YYYY · h:mm A z");
+  //return DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL) + " · " +
+  //  DateTime.fromISO(date).toLocaleString({hour: "numeric", minute: "numeric", timeZoneName: "short"});
 };
 
 export const FormatPriceString = price => {

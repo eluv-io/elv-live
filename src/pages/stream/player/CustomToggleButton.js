@@ -1,27 +1,30 @@
-import { ToggleButton, ToggleButtonConfig } from "bitmovin-player-ui";
 
 /**
  * A button that toggles Apple AirPlay.
  */
 
-export default class CustomToggleButton extends ToggleButton{
+export default (ToggleButton, ToggleButtonConfig) => {
+  class CustomToggleButton extends ToggleButton{
+    constructor(handleToggle, cssClass) {
+      super(ToggleButtonConfig);
 
-  constructor(handleToggle, cssClass) {
-    super(ToggleButtonConfig);
+      this.config = this.mergeConfig(ToggleButtonConfig, {
+        cssClass: cssClass,
+      }, this.config);
 
-    this.config = this.mergeConfig(ToggleButtonConfig, {
-      cssClass: cssClass,
-    }, this.config);
+      this.state={
+        handleToggle: handleToggle,
+      };
+    }
 
-    this.state={
-      handleToggle: handleToggle,
-    };
+    configure() {
+
+      this.onClick.subscribe(() => {
+        this.state.handleToggle();
+      });
+    }
   }
 
-  configure() {
+  return CustomToggleButton;
+};
 
-    this.onClick.subscribe(() => {
-      this.state.handleToggle();
-    });
-  }
-}

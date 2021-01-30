@@ -51,6 +51,8 @@ module.exports = {
     extensions: [".js", ".jsx", ".scss", ".png", ".svg"]
   },
   optimization: {
+    providedExports: true,
+    usedExports: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -58,7 +60,10 @@ module.exports = {
           keep_fnames: true
         }
       })
-    ]
+    ],
+    splitChunks: {
+      chunks: "all"
+    }
   },
   node: {
     fs: "empty",
@@ -75,7 +80,7 @@ module.exports = {
       filename: "index.html",
       favicon: "node_modules/elv-components-js/src/icons/favicon.png"
     })
-    // , new BundleAnalyzerPlugin()
+    , new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [
