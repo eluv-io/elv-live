@@ -79,9 +79,9 @@ module.exports = {
       cache: false,
       filename: "index.html",
       favicon: "node_modules/elv-components-js/src/icons/favicon.png"
-    })
-    , new BundleAnalyzerPlugin()
-  ],
+    }),
+    process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
+  ].filter(item => item),
   module: {
     rules: [
       {
