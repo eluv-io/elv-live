@@ -1,9 +1,9 @@
 import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
-import { ethers } from "ethers";
+//import { ethers } from "ethers";
 
-import _ from "lodash";
+import mergeWith from "lodash/mergeWith";
 
 const createKeccakHash = require("keccak");
 
@@ -128,7 +128,7 @@ class SiteStore {
     });
 
     this.feeds = yield Promise.all(
-      Object.keys(titleLinks).map(async index => {
+      Object.keys(titleLinks || {}).map(async index => {
         const slug = Object.keys(titleLinks[index])[0];
 
         const { title, display_title, sources } = titleLinks[index][slug];
@@ -166,7 +166,7 @@ class SiteStore {
       id = id.slice(0, sz);
     }
 
-    return ethers.utils.base58.encode(id);
+    return this.client.utils.B58(id);
   };
 
 
@@ -182,7 +182,7 @@ class SiteStore {
       description: "DESCRIPTION",
     };
 
-    return _.mergeWith(
+    return mergeWith(
       eventInfo,
       this.currentSiteInfo.event_info || {},
       (def, info) => info ? info : def
@@ -200,7 +200,7 @@ class SiteStore {
       trivia: "TRIVIA"
     };
 
-    return _.mergeWith(
+    return mergeWith(
       artistBio,
       (this.currentSiteInfo.artist_info || {}).bio || {},
       (def, info) => info ? info : def
@@ -216,11 +216,11 @@ class SiteStore {
       title: "TITLE",
       description: "DESCRIPTION",
       location: "LOCATION",
-      start_time: new Date().toISOString(),
-      end_time: new Date().toISOString()
+      start_time: this.eventInfo.date,
+      end_time: new Date(this.eventInfo.date).toISOString()
     };
 
-    return _.mergeWith(
+    return mergeWith(
       calendarInfo,
       this.currentSiteInfo.calendar || {},
       (def, info) => info ? info : def
@@ -244,7 +244,7 @@ class SiteStore {
       subheader: "SUBHEADER"
     };
 
-    return _.mergeWith(
+    return mergeWith(
       streamPageInfo,
       this.currentSiteInfo.stream_page || {},
       (def, info) => info ? info : def

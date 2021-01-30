@@ -1,12 +1,10 @@
 import React from "react";
-import { Chat, Channel, ChannelHeader, Window } from "stream-chat-react";
-import { MessageList, MessageInput, MessageLivestream } from "stream-chat-react";
-import { MessageInputSimple, Thread } from "stream-chat-react";
 import {inject, observer} from "mobx-react";
-import { StreamChat } from "stream-chat";
 import { GrChatOption} from "react-icons/gr";
 
-import "stream-chat-react/dist/css/index.css";
+//import "stream-chat-react/dist/css/index.css";
+
+let StreamChatImports, StreamChatReactImports;
 
 @inject("siteStore")
 @inject("rootStore")
@@ -23,13 +21,21 @@ class LiveChat extends React.Component {
       chatName: "",
       name_placeholder: "Name",
     };
+
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
   async componentDidMount() {
-    let chatClient = new StreamChat("mt6wsqe77eb2");
+    if(!StreamChatImports) {
+      StreamChatImports = await import("stream-chat");
+    }
+
+    if(!StreamChatReactImports) {
+      StreamChatReactImports = await import ("stream-chat-react");
+    }
+
+    let chatClient = new StreamChatImports.StreamChat("mt6wsqe77eb2");
     await chatClient.setAnonymousUser();
 
     let channel = chatClient.channel("livestream", "rita-ora-test7", {
@@ -45,20 +51,20 @@ class LiveChat extends React.Component {
     }
   }
 
-  handleSubmit = () => async event => {
+  handleSubmit = () => async () => {
     let name = this.state.chatName;
 
-    if(name != "") {
+    if(name !== "") {
       this.setState({onChat: true});
       this.state.chatClient.disconnect();
 
       await this.state.chatClient.setGuestUser({ id: name, name: name });
-      
+
       let channel = this.state.chatClient.channel("livestream", "rita-ora-test7", {
         name: "Rita Ora",
       });
       this.setState({channel2: channel});
-    } 
+    }
   };
 
   handleNameChange(event) {
@@ -66,18 +72,22 @@ class LiveChat extends React.Component {
   }
 
   render() {
+    if(!StreamChatImports || !StreamChatReactImports) {
+      return null;
+    }
+
     let chatClient = this.state.chatClient;
     let channel = this.state.channel;
 
     if(!this.state.onChat) {
       return (
-        <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
-          <Channel channel={channel} Message={MessageLivestream} LoadingIndicator={() => {return null;}}>
-            <Window hideOnThread>
-              <ChannelHeader live />
-              <MessageList dateSeparator={() => {return null;}}/>
-              {this.state.onChat ? 
-                <MessageInput Input={MessageInputSimple} focus={false} /> :
+        <StreamChatReactImports.Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
+          <StreamChatReactImports.Channel channel={channel} Message={StreamChatReactImports.MessageLivestream} LoadingIndicator={() => {return null;}}>
+            <StreamChatReactImports.Window hideOnThread>
+              <StreamChatReactImports.ChannelHeader live />
+              <StreamChatReactImports.MessageList dateSeparator={() => {return null;}}/>
+              {this.state.onChat ?
+                <StreamChatReactImports.MessageInput Input={StreamChatReactImports.MessageInputSimple} focus={false} /> :
                 <div className={this.props.onDarkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light" } >
                   <div className="stream-chat-form" >
                     <input
@@ -85,21 +95,21 @@ class LiveChat extends React.Component {
                       onBlur={() => this.setState({name_placeholder: "Name"})}
                       placeholder={this.state.name_placeholder}
                       value={this.state.chatName}
-                      onChange={this.handleNameChange} 
+                      onChange={this.handleNameChange}
                     />
                   </div>
                   <button className="enter-chat-button" role="link" onClick={this.handleSubmit()}>
                     <GrChatOption style={{ height: "25px", width: "25px",marginRight: "10px"  }} /> Join Chat
                   </button>
-                </div> 
+                </div>
               }
-            </Window>
-            <Thread fullWidth autoFocus={false} />
-          </Channel>
-        </Chat>
+            </StreamChatReactImports.Window>
+            <StreamChatReactImports.Thread fullWidth autoFocus={false} />
+          </StreamChatReactImports.Channel>
+        </StreamChatReactImports.Chat>
       );
     } else {
-      
+
       if(!this.state.channel2) {
         return null;
       }
@@ -107,16 +117,16 @@ class LiveChat extends React.Component {
 
       let channel2 = this.state.channel2;
       return (
-        <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
-          <Channel channel={channel2} Message={MessageLivestream} LoadingIndicator={() => {return null;}}>
-            <Window hideOnThread>
-              <ChannelHeader live />
-              <MessageList dateSeparator={() => {return null;}}/>
-              <MessageInput Input={MessageInputSimple} focus={false} /> 
-            </Window>
-            <Thread fullWidth autoFocus={false} />
-          </Channel>
-        </Chat>
+        <StreamChatReactImports.Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
+          <StreamChatReactImports.Channel channel={channel2} Message={StreamChatReactImports.MessageLivestream} LoadingIndicator={() => {return null;}}>
+            <StreamChatReactImports.Window hideOnThread>
+              <StreamChatReactImports.ChannelHeader live />
+              <StreamChatReactImports.MessageList dateSeparator={() => {return null;}}/>
+              <StreamChatReactImports.MessageInput Input={StreamChatReactImports.MessageInputSimple} focus={false} />
+            </StreamChatReactImports.Window>
+            <StreamChatReactImports.Thread fullWidth autoFocus={false} />
+          </StreamChatReactImports.Channel>
+        </StreamChatReactImports.Chat>
       );
     }
   }

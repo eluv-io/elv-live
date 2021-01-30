@@ -1,15 +1,15 @@
 import React from "react";
-import {  PlayerUtils, PlaybackTimeLabelMode,Container, PlaybackTimeLabel, SeekBar, SeekBarLabel, ControlBar, UIContainer, UIManager, BufferingOverlay, PlaybackToggleButton, VolumeToggleButton, VolumeSlider, Spacer, PlaybackToggleOverlay, CastStatusOverlay, ErrorMessageOverlay, FullscreenToggleButton} from "bitmovin-player-ui";
 import {inject, observer} from "mobx-react";
-import { Player } from "bitmovin-player";
 
-import CustomToggleButton from  "./CustomToggleButton";
+import CustomToggleButtonInit from  "./CustomToggleButton";
 import {toJS} from "mobx";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {
   console.log(message);
 };
+
+let BitmovinImports, BitmovinUIImports, CustomToggleButton;
 
 @inject("siteStore")
 @observer
@@ -29,8 +29,18 @@ class BitmovinPlayer extends React.Component {
 
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
+
+    if(!BitmovinImports) {
+      BitmovinImports = await import("bitmovin-player");
+    }
+
+    if(!BitmovinUIImports) {
+      BitmovinUIImports = await import("bitmovin-player-ui");
+      CustomToggleButton = CustomToggleButtonInit(BitmovinUIImports.ToggleButton, BitmovinUIImports.ToggleButtonConfig);
+    }
+
     this.LoadBitmovin();
   }
 
@@ -89,50 +99,50 @@ class BitmovinPlayer extends React.Component {
     };
 
     let playerContainer = document.getElementById("player-container");
-    let player = new Player(playerContainer, conf);
+    let player = new BitmovinImports.Player(playerContainer, conf);
 
-    let controlBar = new ControlBar({
+    let controlBar = new BitmovinUIImports.ControlBar({
       components: [
-        new Container({
+        new BitmovinUIImports.Container({
           components: [
-            new PlaybackTimeLabel({ timeLabelMode: PlaybackTimeLabelMode.CurrentTime, hideInLivePlayback: true }),
-            new SeekBar({ label: new SeekBarLabel() }),
-            new PlaybackTimeLabel({ timeLabelMode: PlaybackTimeLabelMode.TotalTime, cssClasses: ["text-right"] }),
+            new BitmovinUIImports.PlaybackTimeLabel({ timeLabelMode: BitmovinUIImports.PlaybackTimeLabelMode.CurrentTime, hideInLivePlayback: true }),
+            new BitmovinUIImports.SeekBar({ label: new BitmovinUIImports.SeekBarLabel() }),
+            new BitmovinUIImports.PlaybackTimeLabel({ timeLabelMode: BitmovinUIImports.PlaybackTimeLabelMode.TotalTime, cssClasses: ["text-right"] }),
           ],
           cssClasses: ["controlbar-top"],
         }),
-        new Container({
+        new BitmovinUIImports.Container({
           components: [
-            new PlaybackToggleButton(),
-            new VolumeToggleButton(),
-            new VolumeSlider(),
-            new Spacer(),
+            new BitmovinUIImports.PlaybackToggleButton(),
+            new BitmovinUIImports.VolumeToggleButton(),
+            new BitmovinUIImports.VolumeSlider(),
+            new BitmovinUIImports.Spacer(),
             new CustomToggleButton(this.handleMultiViewSwitch, "ui-airplaytogglebutton ui-multiviewToggleButton"),
             new CustomToggleButton(this.props.handleDarkToggle, "ui-vrtogglebutton ui-darkmodetogglebutton"),
-            new FullscreenToggleButton(),
+            new BitmovinUIImports.FullscreenToggleButton(),
           ],
           cssClasses: ["controlbar-bottom"],
         }),
       ],
     });
 
-    const myUi = new UIContainer({
+    const myUi = new BitmovinUIImports.UIContainer({
       components: [
-        new BufferingOverlay(),
-        new PlaybackToggleOverlay(),
-        new CastStatusOverlay(),
+        new BitmovinUIImports.BufferingOverlay(),
+        new BitmovinUIImports.PlaybackToggleOverlay(),
+        new BitmovinUIImports.CastStatusOverlay(),
         controlBar,
-        new ErrorMessageOverlay(),
+        new BitmovinUIImports.ErrorMessageOverlay(),
       ],
       hideDelay: 2000,
       hidePlayerStateExceptions: [
-        PlayerUtils.PlayerState.Prepared,
-        PlayerUtils.PlayerState.Paused,
-        PlayerUtils.PlayerState.Finished,
+        BitmovinUIImports.PlayerUtils.PlayerState.Prepared,
+        BitmovinUIImports.PlayerUtils.PlayerState.Paused,
+        BitmovinUIImports.PlayerUtils.PlayerState.Finished,
       ],
     });
 
-    const myUiManager = new UIManager(player, myUi);
+    const myUiManager = new BitmovinUIImports.UIManager(player, myUi);
 
     this.setState({player: player});
 
@@ -157,7 +167,6 @@ class BitmovinPlayer extends React.Component {
   }
 
   render() {
-
     return (
       <div
         key={"player-container"}
