@@ -15,7 +15,6 @@ class RootStore {
   @observable error = "";
 
   constructor() {
-    this.InitializeClient();
     this.siteStore = new SiteStore(this);
   }
 

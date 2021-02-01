@@ -1,15 +1,21 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import CustomToggleButtonInit from  "./CustomToggleButton";
 import {toJS} from "mobx";
+
+import BitmovinImports from "bitmovin-player";
+import * as BitmovinUIImports from "bitmovin-player-ui";
+import CustomToggleButton from "Stream/player/CustomToggleButton";
+import {EluvioConfiguration} from "../../../EluvioConfiguration";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {
   console.log(message);
 };
 
-let BitmovinImports, BitmovinUIImports, CustomToggleButton;
+/**
+ * A button that toggles Apple AirPlay.
+ */
 
 @inject("siteStore")
 @observer
@@ -18,6 +24,7 @@ class BitmovinPlayer extends React.Component {
     super(props);
 
     this.state = {
+      playerRef: undefined,
       switchValue: 0,
       player: null,
       playoutOptions: [],
@@ -27,21 +34,6 @@ class BitmovinPlayer extends React.Component {
     this.handleMultiViewSwitch = this.handleMultiViewSwitch.bind(this);
     this.DestroyPlayer = this.DestroyPlayer.bind(this);
 
-  }
-
-  async componentDidMount() {
-    window.scrollTo(0, 0);
-
-    if(!BitmovinImports) {
-      BitmovinImports = await import("bitmovin-player");
-    }
-
-    if(!BitmovinUIImports) {
-      BitmovinUIImports = await import("bitmovin-player-ui");
-      CustomToggleButton = CustomToggleButtonInit(BitmovinUIImports.ToggleButton, BitmovinUIImports.ToggleButtonConfig);
-    }
-
-    this.LoadBitmovin();
   }
 
   handleMultiViewSwitch() {
@@ -88,9 +80,11 @@ class BitmovinPlayer extends React.Component {
     }
   }
 
-  LoadBitmovin() {
+  LoadBitmovin(element) {
+    if(!element || this.state.element) { return; }
+
     const conf = {
-      key: "532a4784-591a-4039-8497-5feb80e5dd66",
+      key: EluvioConfiguration["bitmovin-license-key"],
       playback: {
         muted: true,
         autoplay: true,
@@ -98,8 +92,7 @@ class BitmovinPlayer extends React.Component {
       ui: false, // disable the built-in UI
     };
 
-    let playerContainer = document.getElementById("player-container");
-    let player = new BitmovinImports.Player(playerContainer, conf);
+    let player = new BitmovinImports.Player(element, conf);
 
     let controlBar = new BitmovinUIImports.ControlBar({
       components: [
@@ -144,7 +137,10 @@ class BitmovinPlayer extends React.Component {
 
     const myUiManager = new BitmovinUIImports.UIManager(player, myUi);
 
-    this.setState({player: player});
+    this.setState({
+      player: player,
+      playerRef: element
+    });
 
     let source = toJS(this.props.siteStore.feeds[0].playoutOptions);
 
@@ -169,8 +165,8 @@ class BitmovinPlayer extends React.Component {
   render() {
     return (
       <div
+        ref={this.LoadBitmovin}
         key={"player-container"}
-        id={"player-container"}
         className="feedGrid"
       />
     );

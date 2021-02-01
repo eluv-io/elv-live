@@ -41,7 +41,6 @@ class SiteStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
-  @observable loading = false;
 
   @action.bound
   Reset() {

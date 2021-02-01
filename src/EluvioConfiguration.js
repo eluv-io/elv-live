@@ -18,8 +18,7 @@ const EluvioConfiguration = {
   "ga-ntpId": "QOTPZsAzK5pU7xe",
   "vip-ntpId": "QOTPDi4phXuCFSn",
 
-  "anonToken" : "{\"qspace_id\" : \"ispc2RUoRe9eR2v33HARQUVSp1rYXzw1\"}",
-  "version": "local"
+  "bitmovin-license-key": "532a4784-591a-4039-8497-5feb80e5dd66"
 };
 
 export { EluvioConfiguration };

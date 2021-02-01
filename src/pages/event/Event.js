@@ -1,7 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
-import {ImageIcon} from "elv-components-js";
 
 import CloseIcon from "Icons/x.svg";
 import Timer from "Common/Timer";
@@ -9,8 +8,9 @@ import EventTabs from "Event/tabs/EventTabs";
 import Navigation from  "Layout/Navigation";
 import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
-import SitePage from "Common/SitePage";
 import {FormatDateString} from "Utils/Misc";
+
+import ImageIcon from "Common/ImageIcon";
 
 @inject("rootStore")
 @inject("siteStore")

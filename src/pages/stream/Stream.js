@@ -1,4 +1,4 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import clsx from "clsx";
 
 import {inject, observer} from "mobx-react";
@@ -12,14 +12,15 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { withStyles } from "@material-ui/core/styles";
-import {ImageIcon} from "elv-components-js";
+import ImageIcon from "Common/ImageIcon";
 
 import AsyncComponent from "Common/AsyncComponent";
-import LiveChat from "./components/LiveChat";
-import BitmovinPlayer from "./player/BitmovinPlayer";
 
 import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
+
+const BitmovinPlayer = lazy(() => import("./player/BitmovinPlayer"));
+const LiveChat = lazy(() => import("./components/LiveChat"));
 
 const drawerWidth = 450;
 
@@ -201,15 +202,17 @@ class Stream extends React.Component {
           <div className="stream-container">
             <div className="stream-container__streamBox">
               <div className="stream-container__streamBox--videoBox">
-                <AsyncComponent
-                  Load={this.props.siteStore.LoadStreams}
-                  loadingSpin={true}
-                  render={() => {
-                    return (
-                      <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
-                    );
-                  }}
-                />
+                <Suspense fallback={<div />}>
+                  <AsyncComponent
+                    Load={this.props.siteStore.LoadStreams}
+                    loadingSpin={true}
+                    render={() => {
+                      return (
+                        <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+                      );
+                    }}
+                  />
+                </Suspense>
               </div>
               <div className="stream-container__streamBox--info">
                 <div className="stream-info-container">
@@ -237,7 +240,9 @@ class Stream extends React.Component {
             paper: classes.drawerPaper,
           }}
         >
-          <LiveChat onDarkMode={this.state.darkSwitch}/>
+          <Suspense fallback={<div />}>
+            <LiveChat onDarkMode={this.state.darkSwitch}/>
+          </Suspense>
         </Drawer>
       </div>
     );

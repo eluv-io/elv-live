@@ -1,0 +1,23 @@
+.page-loader {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .circle-loader {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-bottom: 10vh;
+    width: 100%;
+
+    span {
+      * {
+        border-color: #4dc5fd;
+        border-width: 0.35rem;
+      }
+    }
+  }
+}

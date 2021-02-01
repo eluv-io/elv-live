@@ -1,12 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 import {Link} from "react-router-dom";
-
 import Navigation from "Layout/Navigation";
 import {EluvioConfiguration} from "EluvioConfiguration";
+import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
 @inject("rootStore")
