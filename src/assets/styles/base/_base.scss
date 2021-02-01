@@ -47,6 +47,11 @@ body {
   font-family: sans-serif;
 }
 
+main {
+  height: 100%;
+  width: 100%;
+}
+
 // RESPONSIVE BREAKPOINTS
 $bp-huge-2: 125em;   // 2000px
 $bp-huge: 93.75em;   // 1500px
