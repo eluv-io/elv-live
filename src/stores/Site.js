@@ -4,6 +4,7 @@ import UrlJoin from "url-join";
 //import { ethers } from "ethers";
 
 import mergeWith from "lodash/mergeWith";
+import {NonPrefixNTPId} from "Utils/Misc";
 
 const createKeccakHash = require("keccak");
 
@@ -13,6 +14,7 @@ class SiteStore {
   @observable availableSites = {};
   @observable eventSites = {};
   @observable siteSlug;
+  @observable activeTicket;
 
   @observable baseSiteSelectorUrl;
 
@@ -43,6 +45,14 @@ class SiteStore {
 
   @computed get baseSlug() {
     return this.currentSiteInfo.base_slug || "";
+  }
+
+  @computed get baseSitePath() {
+    return UrlJoin("/", this.baseSlug, this.siteSlug);
+  }
+
+  SitePath(...pathElements) {
+    return UrlJoin(this.baseSitePath, ...pathElements);
   }
 
   constructor(rootStore) {
@@ -76,7 +86,7 @@ class SiteStore {
           "info/faq"
         ]
       })) || {};
-      
+
       // Loading Support FAQ questions & answers
       this.faqData = (siteSelectorInfo.info || {}).faq || [];
 
@@ -102,6 +112,9 @@ class SiteStore {
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
       });
+
+      const siteHash = this.eventSites[slug]["."].source;
+      this.siteId = this.client.utils.DecodeVersionHash(siteHash).objectId;
 
       return baseSlug === this.baseSlug;
     } catch (error) {
@@ -156,6 +169,8 @@ class SiteStore {
   // Generate confirmation number for checkout based on otpId and email
   @action.bound
   generateConfirmationId(otpId, email, sz=10) {
+    otpId = NonPrefixNTPId(otpId);
+
     //Concatenate otpId and email, then hash
     let id = createKeccakHash('keccak256').update(`${otpId}:${email}`).digest();
 
@@ -166,6 +181,27 @@ class SiteStore {
     return this.client.utils.B58(id);
   };
 
+  ActivateCode(code="") {
+    let ticketPrefixMap = {};
+
+    this.ticketClasses.forEach(ticketClass => {
+      (ticketClass.skus || []).forEach(sku => {
+        if(sku.otp_id && sku.otp_id.includes(":")) {
+          ticketPrefixMap[sku.otp_id.split(":")[0]] = {
+            ticketClass,
+            sku
+          };
+        }
+      });
+    });
+
+    const prefix = Object.keys(ticketPrefixMap)
+      .sort((a, b) => a.length > b.length ? -1 : 1)
+      .find(prefix => code.startsWith(prefix));
+
+    // TODO: Throw error if ticket with prefix not found
+    this.activeTicket = ticketPrefixMap[prefix];
+  }
 
   /* Site attributes */
 

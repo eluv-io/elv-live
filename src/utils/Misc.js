@@ -37,3 +37,16 @@ export const onEnterPressed = (fn) => {
     fn(event);
   };
 };
+
+// Remove prefix from ntpId, if present
+export const NonPrefixNTPId = (ntpId="") => {
+  console.log(ntpId);
+
+  if(ntpId.includes(":")) {
+    ntpId = ntpId.split(":")[1];
+  }
+
+  console.log(ntpId);
+
+  return ntpId;
+};
