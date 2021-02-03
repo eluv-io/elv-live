@@ -61,7 +61,7 @@ class PaymentOverview extends React.Component {
     }
 
     const checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.state.email);
-    const baseUrl = UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug);
+    const baseUrl = UrlJoin(window.location.origin, this.props.siteStore.baseSlug, this.props.siteStore.siteSlug);
 
     let stripeParams = {
       mode: "payment",
@@ -247,10 +247,10 @@ class PaymentOverview extends React.Component {
             <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
           <span className="payment-info-artist">
-            { this.props.siteStore.eventInfo.artist } Presents
+            { this.props.siteStore.eventInfo.artist }
           </span>
           <h3 className="payment-info-event">
-            { this.props.siteStore.eventInfo.event_header }
+            { this.props.siteStore.eventInfo.event_title }
           </h3>
           <h3 className="payment-info-location">
             { this.props.siteStore.eventInfo.location }

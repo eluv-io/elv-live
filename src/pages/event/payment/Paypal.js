@@ -100,6 +100,10 @@ class Paypal extends React.Component {
   }
 
   render() {
+    if(!this.props.siteStore.paymentConfigurations.paypal_client_id) {
+      return null;
+    }
+
     const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
     const ticketSku = ticketClass.skus[skuIndex];
 
@@ -107,7 +111,7 @@ class Paypal extends React.Component {
       this.props.siteStore.CloseCheckoutModal();
       let checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.props.email);
 
-      return <Redirect to={UrlJoin(this.props.siteStore.basePath, this.props.siteStore.siteSlug, "success", this.props.email, checkoutId)}/>;
+      return <Redirect to={UrlJoin("/", this.props.siteStore.baseSlug, this.props.siteStore.siteSlug, "success", this.props.email, checkoutId)}/>;
     }
 
     return (

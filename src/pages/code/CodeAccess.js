@@ -66,7 +66,7 @@ class CodeAccess extends React.Component {
     if(!this.props.siteStore.client) { return null; }
 
     if(this.state.siteId) {
-      return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/stream`} />;
+      return <Redirect to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}/stream`} />;
     }
 
     return (
@@ -79,7 +79,7 @@ class CodeAccess extends React.Component {
             <h2 className="code-header-title">
               Redeem Ticket
             </h2>
-            <Link to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`} className="code-header-p">
+            <Link to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}`} className="code-header-p">
               Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b>
             </Link>
           </div>
