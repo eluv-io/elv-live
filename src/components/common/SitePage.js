@@ -8,20 +8,38 @@ const SitePage = Component => {
   @observer
   @withRouter
   class SitePageComponent extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        validSlug: false
+      };
+    }
+
     render() {
+      const baseSlug = this.props.match.params.baseSlug;
       const slug = this.props.match.params.siteSlug;
 
       if(!this.props.siteStore.availableSites[slug]) {
-        return <Redirect to={`${this.props.siteStore.basePath}`}/>;
+        return <Redirect to="/" />;
       }
 
       return (
         <AsyncComponent
+          key={`site-page-${baseSlug}-${slug}`}
           Load={async () => {
-            await this.props.siteStore.LoadSite(slug);
+            const validSlug = await this.props.siteStore.LoadSite(baseSlug, slug);
+
+            if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }
+
+            this.setState({validSlug});
           }}
         >
-          <Component {...this.props} />
+          {
+            this.state.validSlug ?
+              <Component {...this.props} /> :
+              <Redirect to="/" />
+          }
         </AsyncComponent>
       );
     }

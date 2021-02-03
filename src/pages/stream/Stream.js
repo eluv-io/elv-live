@@ -126,7 +126,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      //return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} />;
+      //return <Redirect to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}/code`} />;
     }
 
     const handleDrawerOpen = () => {
@@ -158,13 +158,11 @@ class Stream extends React.Component {
         >
           <Toolbar>
             <div className="stream-nav">
-              <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`}  >
+              <NavLink to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}`}  >
                 <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
               </NavLink>
 
-
               <div className="stream-nav__button-grp">
-
                 <div className="stream-nav__button-grp2">
                   <IconButton
                     color="inherit"

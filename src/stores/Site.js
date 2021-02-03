@@ -9,7 +9,6 @@ const createKeccakHash = require("keccak");
 
 class SiteStore {
   // Eluvio Live - Data Store
-  @observable basePath = "/";
   @observable faqData = [];
   @observable availableSites = {};
   @observable eventSites = {};
@@ -38,6 +37,14 @@ class SiteStore {
     return (this.currentSite || {}).info || {};
   }
 
+  @computed get siteMetadataPath() {
+    return UrlJoin("public", "asset_metadata", "sites", this.siteSlug || "");
+  }
+
+  @computed get baseSlug() {
+    return this.currentSiteInfo.base_slug || "";
+  }
+
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
@@ -45,12 +52,6 @@ class SiteStore {
   @action.bound
   Reset() {
     this.assets = {};
-
-    this.dashSupported = false;
-    this.activeTitle = undefined;
-    this.playoutUrl = undefined;
-    this.authToken = undefined;
-
     this.error = "";
   }
 
@@ -61,29 +62,23 @@ class SiteStore {
       this.siteParams = {
         libraryId: libraryId,
         objectId: objectId,
-        versionHash: yield this.client.LatestVersionHash({objectId}),
-        writeToken: ""
+        versionHash: yield this.client.LatestVersionHash({objectId})
       };
 
       this.baseSiteSelectorUrl = yield this.client.FabricUrl({...this.siteParams});
 
-      const {app, sites} = yield this.client.ContentObjectMetadata({
+      const {sites, faq} = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
-        metadataSubtree: "public",
+        metadataSubtree: "public/asset_metadata",
         resolveLinks: false,
         select: [
-          "app",
           "sites",
-          "asset_metadata/images"
+          "faq"
         ]
       });
 
-      if(app.base_path && (app.base_path !== "") && (app.base_path.charAt(0) === "/")) {
-        this.basePath = app.base_path;
-      }
-
       // Loading Support FAQ questions & answers
-      this.faqData = app.faq;
+      this.faqData = faq;
 
       this.availableSites = sites;
     } catch(error) {
@@ -93,19 +88,22 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * (slug) {
-    if(this.eventSites[slug]) { return; }
+  LoadSite = flow(function * (baseSlug="", slug) {
+    if(this.eventSites[slug]) {
+      return baseSlug === this.baseSlug;
+    }
 
     try {
+      this.siteSlug = slug;
       this.eventSites[slug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
-        metadataSubtree: UrlJoin("public", "sites", slug),
+        metadataSubtree: this.siteMetadataPath,
         resolveLinks: true,
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
       });
 
-      this.siteSlug = slug;
+      return baseSlug === this.baseSlug;
     } catch (error) {
       console.error("Error loading site", error);
     }
@@ -115,7 +113,7 @@ class SiteStore {
   LoadStreams = flow(function * () {
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin("public", "sites", this.siteSlug, "titles"),
+      metadataSubtree: UrlJoin(this.siteMetadataPath, "titles"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -134,7 +132,7 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin("public", "sites", this.siteSlug, "titles", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.siteMetadataPath, "titles", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -298,7 +296,7 @@ class SiteStore {
     const uri = URI(this.baseSiteSelectorUrl);
 
     return uri
-      .path(UrlJoin(uri.path(), "meta", "public", "sites", this.siteSlug, path.toString()))
+      .path(UrlJoin(uri.path(), "meta", this.siteMetadataPath, path.toString()))
       .toString();
   }
 

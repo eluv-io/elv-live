@@ -2,7 +2,7 @@ import React, {Suspense, lazy} from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 import {Switch} from "react-router";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Redirect} from "react-router-dom";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -42,16 +42,16 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/stream`} component={SitePage(Stream)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/success/:email/:id`} component={SitePage(Success)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/calendar`} component={SitePage(Calendar)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/code`} component={SitePage(CodeAccess)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/support`} component={SitePage(Support)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug`} component={SitePage(Event)} />
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream)} />
+        <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
+        <Route exact path="/:baseSlug?/:siteSlug/calendar" component={SitePage(Calendar)} />
+        <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
+        <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
 
-        {/* <Route>
+        <Route>
           <Redirect to="/" />
-        </Route> */}
+        </Route>
       </Switch>
     );
   }

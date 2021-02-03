@@ -12,12 +12,12 @@ class Navigation extends React.Component {
     return (
       <div className="navigation">
         <div className="main-nav">
-          <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`}  className="main-nav--logo">
+          <NavLink to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}`}  className="main-nav--logo">
             <img src={Logo} className="main-nav--logo" />
           </NavLink>
 
           <div className="main-nav__link-group">
-            <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
+            <NavLink to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}/code`} activeStyle={{fontWeight: "bold", color: "black"}} className="link-item">
               Redeem Ticket
             </NavLink>
           </div>

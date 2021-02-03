@@ -21,7 +21,7 @@ class Footer extends React.Component {
       <div className="live-footer">
         <div className="footer-container">
           <div className="footer-info">
-            <Link to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/support`} className="footer-item">
+            <Link to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}/support`} className="footer-item">
               Support FAQ
             </Link>
           </div>
