@@ -126,7 +126,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      //return <Redirect to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}/code`} />;
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
     const handleDrawerOpen = () => {
@@ -139,9 +139,6 @@ class Stream extends React.Component {
     const handleDarkModeSwitch = () => {
       this.setState({darkSwitch: (!this.state.darkSwitch)});
     };
-
-    // TODO: Multiple sponsors
-    let sponsorInfo = this.props.siteStore.sponsors[0] || {};
 
     const { classes } = this.props;
 
@@ -158,7 +155,7 @@ class Stream extends React.Component {
         >
           <Toolbar>
             <div className="stream-nav">
-              <NavLink to={`/${this.props.siteStore.baseSlug}/${this.props.siteStore.siteSlug}`}  >
+              <NavLink to={this.props.siteStore.baseSitePath}>
                 <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
               </NavLink>
 

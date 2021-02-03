@@ -61,7 +61,7 @@ class PaymentOverview extends React.Component {
     }
 
     const checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.state.email);
-    const baseUrl = UrlJoin(window.location.origin, this.props.siteStore.baseSlug, this.props.siteStore.siteSlug);
+    const baseUrl = UrlJoin(window.location.origin, this.props.siteStore.baseSitePath);
 
     let stripeParams = {
       mode: "payment",

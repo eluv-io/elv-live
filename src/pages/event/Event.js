@@ -1,6 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {Redirect} from "react-router";
 
 import CloseIcon from "Icons/x.svg";
 import Timer from "Common/Timer";

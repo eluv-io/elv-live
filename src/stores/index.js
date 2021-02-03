@@ -31,17 +31,28 @@ class RootStore {
   });
 
   @action.bound
-  RedeemCode = flow(function * (code, ntpId, tenantId) {
+  RedeemCode = flow(function * (code) {
     try {
-      // TODO: Remove
-      let client = yield ElvClient.FromConfigurationUrl({configUrl: "https://demov3.net955210.contentfabric.io/config"});
-      let codeSiteId = yield client.RedeemCode({code, ntpId, tenantId});
+      const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+
+      const siteId = yield client.RedeemCode({
+        tenantId: this.siteStore.currentSiteInfo.tenant_id,
+        code
+      });
+
+      if(client.utils.EqualHash(siteId, this.siteStore.siteId)) {
+        throw Error(`Code redemption does not match current site: Received ${siteId} | Expected ${this.siteStore.siteId}`);
+      }
+
+      this.client = client;
       this.streamAccess = true;
-      return codeSiteId;
+
+      this.siteStore.ActivateCode(code);
+
+      return siteId;
     } catch (error) {
        console.log("Error redeeming code: ", error);
     }
-
   });
 
   @action.bound

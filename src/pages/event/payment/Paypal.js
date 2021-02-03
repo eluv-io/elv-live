@@ -1,8 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import {inject, observer} from "mobx-react";
-import UrlJoin from "url-join";
-import {ValidEmail} from "Utils/Misc";
+import {NonPrefixNTPId, ValidEmail} from "Utils/Misc";
 
 import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
 
@@ -32,9 +31,12 @@ class Paypal extends React.Component {
 
     let checkoutCart = [{
       name: ticketClass.name,
-      unit_amount: {value: ticketSku.price.amount, currency_code: ticketSku.price.currency},
+      unit_amount: {
+        value: ticketSku.price.amount,
+        currency_code: ticketSku.price.currency
+      },
       quantity: this.props.ticketQuantity,
-      sku: ticketSku.otp_id
+      sku: NonPrefixNTPId(ticketSku.otp_id)
     }];
 
     let price = this.props.ticketQuantity * ticketSku.price.amount;
@@ -66,7 +68,7 @@ class Paypal extends React.Component {
       purchase_units: [
         {
           reference_id: this.props.email,
-          custom_id: ticketSku.otp_id,
+          custom_id: NonPrefixNTPId(ticketSku.otp_id),
           amount: {
             value: price,
             currency_code: ticketSku.price.currency,
@@ -111,7 +113,7 @@ class Paypal extends React.Component {
       this.props.siteStore.CloseCheckoutModal();
       let checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.props.email);
 
-      return <Redirect to={UrlJoin("/", this.props.siteStore.baseSlug, this.props.siteStore.siteSlug, "success", this.props.email, checkoutId)}/>;
+      return <Redirect to={this.props.siteStore.SitePath("success", this.props.email, checkoutId)} />;
     }
 
     return (

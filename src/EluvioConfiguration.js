@@ -15,10 +15,6 @@ const EluvioConfiguration = {
   //"config-url": "https://test.net955203.contentfabric.io/config",
   //"object-id": "iq__zK6CLwYBLhZmosiMXMe9eg2zErE",
 
-  "tenantId": "iten3tNEk7iSesexWeD1mGEZLwqHGMjB",
-  "ga-ntpId": "QOTPZsAzK5pU7xe",
-  "vip-ntpId": "QOTPDi4phXuCFSn",
-
   "bitmovin-license-key": "532a4784-591a-4039-8497-5feb80e5dd66"
 };
 
