@@ -16,6 +16,8 @@ class RootStore {
 
   constructor() {
     this.siteStore = new SiteStore(this);
+
+    window.rootStore = this;
   }
 
   @action.bound

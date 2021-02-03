@@ -67,20 +67,20 @@ class SiteStore {
 
       this.baseSiteSelectorUrl = yield this.client.FabricUrl({...this.siteParams});
 
-      const {sites, faq} = yield this.client.ContentObjectMetadata({
+      const siteSelectorInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
         resolveLinks: false,
         select: [
           "sites",
-          "faq"
+          "info/faq"
         ]
-      });
-
+      })) || {};
+      
       // Loading Support FAQ questions & answers
-      this.faqData = faq;
+      this.faqData = (siteSelectorInfo.info || {}).faq || [];
 
-      this.availableSites = sites;
+      this.availableSites = siteSelectorInfo.sites || {};
     } catch(error) {
       // TODO: Graceful error handling
       console.error("Error loading site", error);
