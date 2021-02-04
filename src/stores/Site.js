@@ -19,7 +19,8 @@ class SiteStore {
   @observable baseSiteSelectorUrl;
 
   // Eluvio Live - Event Stream
-  @observable feeds = [];
+  @observable streams = [];
+  @observable promos = [];
 
   // Eluvio Live - Modal
   @observable showCheckout = false;
@@ -126,7 +127,7 @@ class SiteStore {
   LoadStreams = flow(function * () {
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.siteMetadataPath, "titles"),
+      metadataSubtree: UrlJoin(this.siteMetadataPath, "streams"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -137,7 +138,7 @@ class SiteStore {
       ]
     });
 
-    this.feeds = yield Promise.all(
+    this.streams = yield Promise.all(
       Object.keys(titleLinks || {}).map(async index => {
         const slug = Object.keys(titleLinks[index])[0];
 
@@ -145,7 +146,42 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.siteMetadataPath, "titles", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.siteMetadataPath, "streams", index, slug, "sources", "default"),
+          protocols: ["hls"],
+          drms: await this.client.AvailableDRMs()
+        });
+
+        return { title, display_title, playoutOptions }
+      })
+    );
+  });
+
+  @action.bound
+  LoadPromos = flow(function * () {
+    const titleLinks = yield this.client.ContentObjectMetadata({
+      ...this.siteParams,
+      metadataSubtree: UrlJoin(this.siteMetadataPath, "promos"),
+      resolveLinks: true,
+      resolveIgnoreErrors: true,
+      resolveIncludeSource: true,
+      select: [
+        "*/*/title",
+        "*/*/display_title",
+        "*/*/sources"
+      ]
+    });
+
+    console.log(titleLinks);
+
+    this.promos = yield Promise.all(
+      Object.keys(titleLinks || {}).map(async index => {
+        const slug = Object.keys(titleLinks[index])[0];
+
+        const { title, display_title, sources } = titleLinks[index][slug];
+
+        const playoutOptions = await this.client.BitmovinPlayoutOptions({
+          versionHash: this.siteParams.versionHash,
+          linkPath: UrlJoin(this.siteMetadataPath, "promos", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });

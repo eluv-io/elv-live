@@ -1,4 +1,4 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import {inject, observer} from "mobx-react";
 
 import CloseIcon from "Icons/x.svg";
@@ -10,6 +10,9 @@ import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
 
 import ImageIcon from "Common/ImageIcon";
+import AsyncComponent from "Common/AsyncComponent";
+
+const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
 @inject("rootStore")
 @inject("siteStore")
@@ -19,7 +22,8 @@ class Event extends React.Component {
     super(props);
 
     this.state = {
-      showTrailer: false,
+      showPromo: false,
+      promoIndex: 0,
       tab: 0,
       heroBackground: null
     };
@@ -29,33 +33,55 @@ class Event extends React.Component {
     window.scrollTo(0, 0);
   }
 
-  Trailer() {
+  Promos() {
+    if(!this.state.showPromo) { return; }
+
+    let nextButton, previousButton;
+    if(this.props.siteStore.promos.length > 0) {
+      previousButton = (
+        <button
+          className="previous-promo-button"
+          disabled={this.state.promoIndex <= 0}
+          onClick={() => this.setState({promoIndex: this.state.promoIndex - 1})}
+        />
+      );
+
+      nextButton = (
+        <button
+          className="next-promo-button"
+          disabled={this.state.promoIndex >= this.props.siteStore.promos.length - 1}
+          onClick={() => this.setState({promoIndex: this.state.promoIndex + 1})}
+        />
+      );
+    }
+
     return (
-      <React.Fragment>
-        <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
+      <>
+        <div onClick={() => this.setState({showPromo: false})} className="backdrop" />
         <ImageIcon
           key={"back-icon-close-modal"}
           className={"back-button-modal"}
           title={"Close Modal"}
           icon={CloseIcon}
-          onClick={() => this.setState({showTrailer: false})}
+          onClick={() => this.setState({showPromo: false})}
         />
 
         <div className="modal show">
-
-
-          <div className={"modal__container"}>
-            <iframe
-              width="100%"
-              height="100%"
-              src={this.props.siteStore.eventInfo.trailer_url}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+          { previousButton }
+          <Suspense fallback={<div />}>
+            <AsyncComponent
+              Load={this.props.siteStore.LoadPromos}
+              loadingSpin={true}
+              render={() => {
+                return (
+                  <PromoPlayer key={`promo-player-${this.state.promoIndex}`} promoIndex={this.state.promoIndex} />
+                );
+              }}
             />
-          </div>
+          </Suspense>
+          { nextButton }
         </div>
-      </React.Fragment>
+      </>
     );
   }
 
@@ -104,7 +130,7 @@ class Event extends React.Component {
 
 
     return (
-      <div className="event">
+      <div className="page-container event-page-container">
         <Navigation />
 
         <div style={backgroundStyle} />
@@ -120,7 +146,7 @@ class Event extends React.Component {
             <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate()}>
               Buy Tickets
             </button>
-            <button onClick={() => this.setState({showTrailer: true})} className="btnPlay btnDetails__heroDetail">
+            <button onClick={() => this.setState({showPromo: true})} className="btnPlay btnDetails__heroDetail">
               Watch Promo
             </button>
           </div>
@@ -134,7 +160,7 @@ class Event extends React.Component {
           </div>
         </div>
 
-        { this.state.showTrailer ? this.Trailer(): null}
+        { this.state.showPromo ? this.Promos(): null}
         { this.props.siteStore.showCheckout ? this.Payment(): null}
 
         <Footer />

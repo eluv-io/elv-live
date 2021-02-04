@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import AddToCalendar from "react-add-to-calendar";
+import AddToCalendar from "@culturehq/add-to-calendar";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -9,16 +9,23 @@ class CalendarButton extends React.Component {
   render() {
     let calendarData = this.props.siteStore.calendarEvent;
     let calendarEvent = {
-      title: calendarData.title,
-      description: calendarData.description,
+      name: calendarData.title,
+      details: calendarData.description,
       location: calendarData.location,
-      startTime: calendarData.start_time,
-      endTime: calendarData.end_time
+      startsAt: calendarData.start_time,
+      endsAt: calendarData.end_time
     };
 
     return (
       <div className="back-btn-container">
-        <AddToCalendar event={calendarEvent}/>
+        <AddToCalendar
+          event={calendarEvent}
+          buttonLabel="Add to Calendar"
+          rootClass="calendar-button-root"
+          buttonWrapperClass="calendar-button"
+          buttonClassOpen="open"
+          dropdownClass="calendar-button-dropdown"
+        />
       </div>
     );
   }
