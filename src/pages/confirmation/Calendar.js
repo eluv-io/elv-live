@@ -19,7 +19,7 @@ class Calendar extends React.Component {
     };
 
     return (
-      <div className="success-container">
+      <div className="page-container success-container">
         <Navigation/>
 
         <div className="success-root">

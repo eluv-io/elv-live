@@ -17,7 +17,7 @@ class Support extends React.Component {
     let faqData = this.props.siteStore.faqData;
 
     return (
-      <div className="support-page">
+      <div className="page-container support-page">
         <Navigation/>
 
         <div className="support-container">

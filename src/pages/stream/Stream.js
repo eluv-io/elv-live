@@ -19,7 +19,7 @@ import AsyncComponent from "Common/AsyncComponent";
 import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
 
-const BitmovinPlayer = lazy(() => import("./player/BitmovinPlayer"));
+const StreamPlayer = lazy(() => import("./player/StreamPlayer"));
 const LiveChat = lazy(() => import("./components/LiveChat"));
 
 const drawerWidth = 450;
@@ -203,7 +203,7 @@ class Stream extends React.Component {
                     loadingSpin={true}
                     render={() => {
                       return (
-                        <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+                        <StreamPlayer handleDarkToggle={handleDarkModeSwitch} />
                       );
                     }}
                   />

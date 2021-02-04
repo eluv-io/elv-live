@@ -70,7 +70,7 @@ class CodeAccess extends React.Component {
     }
 
     return (
-      <div className="code-entry-background">
+      <div className="page-container code-entry-page-container">
         <Navigation />
 
         <div className="code-entry">
