@@ -16,7 +16,6 @@ const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
-const Calendar = MinLoadDelay(import("Confirmation/Calendar"));
 
 import {EluvioConfiguration} from "EluvioConfiguration";
 
@@ -44,7 +43,6 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream)} />
         <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
-        <Route exact path="/:baseSlug?/:siteSlug/calendar" component={SitePage(Calendar)} />
         <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
