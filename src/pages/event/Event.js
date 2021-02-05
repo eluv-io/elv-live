@@ -10,7 +10,6 @@ import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
 
 import ImageIcon from "Common/ImageIcon";
-import AsyncComponent from "Common/AsyncComponent";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -31,6 +30,8 @@ class Event extends React.Component {
 
   async componentDidMount() {
     window.scrollTo(0, 0);
+
+    this.props.siteStore.LoadPromos();
   }
 
   Promos() {
@@ -69,15 +70,7 @@ class Event extends React.Component {
         <div className="modal show">
           { previousButton }
           <Suspense fallback={<div />}>
-            <AsyncComponent
-              Load={this.props.siteStore.LoadPromos}
-              loadingSpin={true}
-              render={() => {
-                return (
-                  <PromoPlayer key={`promo-player-${this.state.promoIndex}`} promoIndex={this.state.promoIndex} />
-                );
-              }}
-            />
+            <PromoPlayer key={`promo-player-${this.state.promoIndex}`} promoIndex={this.state.promoIndex} />
           </Suspense>
           { nextButton }
         </div>
@@ -128,6 +121,7 @@ class Event extends React.Component {
       width: "100%"
     };
 
+    const promosAvailable = this.props.siteStore.promos && this.props.siteStore.promos.length > 0;
 
     return (
       <div className="page-container event-page-container">
@@ -143,12 +137,18 @@ class Event extends React.Component {
           </div>
 
           <div className="event-container__button">
-            <button className="btnPlay btnDetails__heroPlay" onClick={() => this.handleNavigate()}>
+            <button
+              className={`btnPlay ${promosAvailable ? "btnDetails__heroPlay" : "btnDetails__heroDetail"}`}
+              onClick={() => this.handleNavigate()}
+            >
               Buy Tickets
             </button>
-            <button onClick={() => this.setState({showPromo: true})} className="btnPlay btnDetails__heroDetail">
-              Watch Promo
-            </button>
+            {
+              promosAvailable ?
+                <button onClick={() => this.setState({showPromo: true})} className="btnPlay btnDetails__heroDetail">
+                  Watch Promo
+                </button> : null
+            }
           </div>
           <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />

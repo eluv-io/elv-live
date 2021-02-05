@@ -6,6 +6,7 @@ import {toJS} from "mobx";
 import BitmovinImports from "bitmovin-player";
 import * as BitmovinUIImports from "bitmovin-player-ui";
 import {EluvioConfiguration} from "EluvioConfiguration";
+import ErrorHandler from "Common/ErrorHandler";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {
@@ -133,4 +134,4 @@ class PromoPlayer extends React.Component {
   }
 }
 
-export default PromoPlayer;
+export default ErrorHandler(PromoPlayer);
