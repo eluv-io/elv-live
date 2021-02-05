@@ -18,9 +18,7 @@ class Support extends React.Component {
 
     return (
       <div className="page-container support-page">
-        <Navigation/>
-
-        <div className="support-container">
+        <div className="main-content-container support-container">
           <div className="support-header">
             <h1 className="support-header--title">FAQ</h1>
           </div>

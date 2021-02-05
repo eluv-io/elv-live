@@ -110,26 +110,12 @@ class Event extends React.Component {
       this.setState({tab: newValue});
     };
 
-    const backgroundStyle = {
-      backgroundSize: "cover",
-      backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 80%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%), url(${this.props.siteStore.heroBackground})`,
-      backgroundPosition: "center",
-      objectFit: "cover",
-      height: "100vh",
-      margin: "0",
-      position: "absolute",
-      width: "100%"
-    };
-
     const promosAvailable = this.props.siteStore.promos && this.props.siteStore.promos.length > 0;
 
     return (
       <div className="page-container event-page-container">
-        <Navigation />
-
-        <div style={backgroundStyle} />
-
-        <div className="event-container">
+        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
+        <div className="main-content-container event-container">
           <div className="event-container__heading">
             <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1>
             <h1 className="location">{ this.props.siteStore.eventInfo.event_subheader }</h1>

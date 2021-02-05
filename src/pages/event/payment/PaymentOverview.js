@@ -376,9 +376,6 @@ class PaymentOverview extends React.Component {
         </div>
       </div>
     );
-
-
-
   }
 }
 

@@ -1,7 +1,18 @@
 .event-page-container {
-  background: #92877a;
   display: flex;
   flex-direction: column;
+}
+
+.event-hero-background {
+  @include page-fade-in;
+  position: absolute;
+  top: 0;
+  background-size: cover;
+  mask-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.8) 75%, rgba(0,0,0,0));
+  object-fit: cover;
+  animation: 1s fadein linear;
+  width: 100vw;
+  height: 100vh;
 }
 
 .event-container {
@@ -187,7 +198,6 @@
   }
 
   &__overview {
-    background: linear-gradient(180deg, #fff 0%, #92877a 100%);
     grid-row-start: overview-start;
     height: max-content;
     padding-bottom: 50px;
