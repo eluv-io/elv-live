@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 // import MusicNoteIcon from "@material-ui/icons/MusicNote";
 
 import ConcertOverview from "./Overview";
-import Merch from "./Merch";
+//import Merch from "./Merch";
 // import ArtistInfo from "./Artist";
 
 function TabPanel(props) {

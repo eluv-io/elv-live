@@ -34,9 +34,7 @@
   min-width: auto;
   padding: 30px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 }
 
@@ -52,9 +50,7 @@
   // text-align: center;
   text-align: left;
   text-align: left;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   white-space: pre-line;
 
   @media only screen and (max-width: 1760px) {
@@ -83,9 +79,7 @@
   min-width: auto;
   padding: 30px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   @media only screen and (max-width: 1200px) {
@@ -132,9 +126,7 @@
   font-weight: normal;
   margin-top: 10px;
   text-align: left;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
 
   &__bold {
     font-weight: bold;
@@ -158,9 +150,7 @@
     font-size: 22px;
     font-weight: normal;
     margin-top: 25px;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
 
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
@@ -214,9 +204,7 @@
   letter-spacing: 1.25px;
   // margin-bottom: 12px;
   text-align: left;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
 
   &__bold {
     font-weight: bold;
@@ -231,9 +219,7 @@
     letter-spacing: 1.25px;
     // margin-bottom: 12px;
     // margin-top: 20px;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
 
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
@@ -372,9 +358,7 @@
   min-width: auto;
   padding: 30px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 }
 

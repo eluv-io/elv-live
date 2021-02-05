@@ -49,6 +49,8 @@ class SiteStore {
   }
 
   @computed get baseSitePath() {
+    if(!this.siteSlug) { return window.location.pathname }
+
     return UrlJoin("/", this.baseSlug, this.siteSlug);
   }
 

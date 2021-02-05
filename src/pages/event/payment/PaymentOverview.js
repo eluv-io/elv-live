@@ -108,6 +108,7 @@ class PaymentOverview extends React.Component {
         retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
       } catch (error) {
         this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+        console.error(retryResponse);
       }
       this.setState({retryCheckout: false});
     }

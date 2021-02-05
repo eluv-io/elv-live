@@ -52,9 +52,7 @@
     margin: 0;
     padding: 13px 0 12px;
     text-align: center;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
 
     @media only screen and (max-width: 900px) {
       margin-bottom: 0;
@@ -66,8 +64,7 @@
     display: flex;
     // width: 200px;
     flex-direction: row;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
+    user-select: none;
     width: auto;
     // user-select: none; /* Standard syntax */
     // @media only screen and (max-width: 900px) {
@@ -96,9 +93,7 @@
     display: flex;
     flex-direction: row;
     height: 4.5rem;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
     width: auto;
 
     @media only screen and (max-width: 900px) {

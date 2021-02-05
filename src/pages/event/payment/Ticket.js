@@ -6,26 +6,6 @@ import { IconContext } from "react-icons";
 import Select from "react-select";
 import {FormatDateString, FormatPriceString} from "Utils/Misc";
 
-const SingleValue = ({
-  selectProps,
-  data,
-}) => {
-  return (
-    <div className="ticket-bottom-info">
-      <div className="ticket-bottom-location">{selectProps.getOptionLabel(data)}</div>
-
-      <IconContext.Provider value={{ className: "ticket-icon" }}>
-        <div className="ticket-bottom-date">
-          <FaRegCalendarAlt />
-          { FormatDateString(data.date) }
-        </div>
-      </IconContext.Provider>
-
-      <div className="ticket-bottom-price">{ FormatPriceString(data.price) }</div>
-    </div>
-  );
-};
-
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -46,7 +26,18 @@ class Ticket extends React.Component {
 
   TicketOptions() {
     return this.props.ticketClass.skus.map(({label, price, start_time}, index) => ({
-      label,
+      label: (
+        <div className="space-between">
+          <div>{ label }</div>
+          <IconContext.Provider value={{ className: "ticket-icon" }}>
+            <div className="ticket-bottom-date">
+              <FaRegCalendarAlt />
+              { FormatDateString(start_time) }
+            </div>
+          </IconContext.Provider>
+          <div>{ FormatPriceString(price) }</div>
+        </div>
+      ),
       value: index,
       price,
       date: start_time
@@ -93,12 +84,6 @@ class Ticket extends React.Component {
                 value={this.TicketOptions()[this.state.selectedOffering]}
                 onChange={this.handleChange}
                 options={this.TicketOptions()}
-                components={{ SingleValue }}
-                styles={{
-                  singleValue: (provided) => ({
-                    ...provided
-                  })
-                }}
                 theme={theme => ({
                   ...theme,
                   borderRadius: 10,

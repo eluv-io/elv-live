@@ -5,9 +5,7 @@
   height: auto;
   padding-bottom: 55px;
   padding-top: 55px;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   @media only screen and (max-width: 1680px) {
@@ -30,9 +28,7 @@
   min-width: auto;
   padding: 40px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   @media only screen and (max-width: 1000px) {
@@ -48,9 +44,7 @@
   margin-right: 40px;
   max-width: 250px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 250px;
 
   @media only screen and (max-width: 1000px) {
@@ -66,13 +60,11 @@
   margin: auto;
 
   // border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain;
   // max-width: 200px;
   // margin-right: 40px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: auto;
 
   @media only screen and (max-width: 1000px) {
@@ -107,9 +99,7 @@
   flex-direction: row;
   flex-shrink: 0;
   margin-bottom: 5px;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
 
   // width: auto;
 
@@ -228,74 +218,11 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
-  user-select: none; /* IE 10+ and Edge */
+  user-select: none;
   width: auto;
 
   @media only screen and (max-width: 650px) {
     margin-top: 10px;
-  }
-}
-
-.ticket-bottom-info {
-  align-items: center;
-  background: transparent;
-  color: #000;
-  display: flex;
-  font-family: Helvetica;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  height: 100% !important;
-  justify-content: space-between;
-  line-height: 18px;
-  padding: 0 10px;
-  width: 100%;
-
-  @media only screen and (max-width: 1400px) {
-    flex-direction: column;
-    height: auto !important;
-  }
-
-  @media only screen and (max-width: 650px) {
-    flex-direction: column;
-    height: auto !important;
-  }
-}
-
-.ticket-bottom-location {
-  color: #000;
-  font-family: Helvetica;
-  font-style: normal;
-  font-weight: normal;
-  height: 18px;
-  letter-spacing: -0.374px;
-  min-width: 100px;
-
-  @media only screen and (max-width: 650px) {
-    text-align: center !important;
-  }
-
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
-}
-
-.ticket-bottom-date {
-  color: #000;
-  font-family: Helvetica;
-  font-style: normal;
-  font-weight: normal;
-  height: 18px;
-  letter-spacing: -0.374px;
-  line-height: 18px;
-  min-width: 275px;
-
-  @media only screen and (max-width: 650px) {
-    text-align: center !important;
-  }
-
-  @media only screen and (max-width: 600px) {
-    display: none;
   }
 }
 
@@ -390,4 +317,15 @@
       fill: #000;
     }
   }
+}
+
+.react-select__single-value {
+  width: 100%;
+}
+
+.space-between {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 3fr 1fr;
+  width: 100%;
 }

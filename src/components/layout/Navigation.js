@@ -7,7 +7,6 @@ import Logo from "Images/logo/darkEluvioLiveLogo.png";
 @inject("siteStore")
 @observer
 class Navigation extends React.Component {
-
   render() {
     return (
       <div className="navigation">

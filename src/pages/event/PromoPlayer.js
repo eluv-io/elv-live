@@ -95,7 +95,7 @@ class PromoPlayer extends React.Component {
       ],
     });
 
-    const myUiManager = new BitmovinUIImports.UIManager(player, myUi);
+    new BitmovinUIImports.UIManager(player, myUi);
 
     this.setState({
       player,
