@@ -245,11 +245,11 @@ class SiteStore {
 
   @computed get eventInfo() {
     let eventInfo = {
-      artist: "ARTIST",
+      event_header: "EVENT_HEADER",
+      event_subheader: "EVENT_SUBHEADER",
+      event_title: "EVENT_TITLE",
       location: "LOCATION",
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-      event_title: "EVENT_TITLE",
-      event_header: "EVENT_HEADER",
       description: "DESCRIPTION",
     };
 
