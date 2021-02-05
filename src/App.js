@@ -24,6 +24,7 @@ import * as Stores from "Stores";
 import "Styles/main.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
+import Navigation from "Layout/Navigation";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -62,6 +63,7 @@ class App extends React.Component {
     return (
       <main className="app">
         <BrowserRouter>
+          <Navigation />
           <Suspense fallback={<PageLoader/>}>
             { this.Routes() }
           </Suspense>

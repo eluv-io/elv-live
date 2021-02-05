@@ -71,9 +71,7 @@ class CodeAccess extends React.Component {
 
     return (
       <div className="page-container code-entry-page-container">
-        <Navigation />
-
-        <div className="code-entry">
+        <div className="main-content-container code-entry">
           { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
           <div className="code-header">
             <h2 className="code-header-title">

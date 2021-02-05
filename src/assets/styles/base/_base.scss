@@ -94,11 +94,9 @@ body,
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  height: stretch;
+  height: max-content;
   min-height: 100vh;
   max-width: 100vw;
-  //min-height: stretch;
-  //overflow: none;
   width: 100vw;
 }
 
@@ -106,6 +104,6 @@ body,
   background: linear-gradient(180deg, #F4F3F1 29.21%, #BDB6AE 100%);
 }
 
-.page-container {
-  overflow: auto;
+.main-content-container {
+  @include page-fade-in;
 }

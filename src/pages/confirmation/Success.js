@@ -19,9 +19,7 @@ class Success extends React.Component {
 
     return (
       <div className="page-container success-container">
-        <Navigation/>
-
-        <div className="success-root">
+        <div className="main-content-container success-root">
           <div className="summary">
             <div className="payment-overview">
               <h1 className="payment-overview-title">Thanks for your order!</h1>
