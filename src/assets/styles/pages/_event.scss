@@ -18,7 +18,7 @@
     display: grid;
     flex-direction: column;
     grid-row: title-start / title-end;
-    user-select: none; /* IE 10+ and Edge */
+    user-select: none;
 
     .name {
       color: #000;
@@ -43,7 +43,7 @@
       margin: auto;
       margin-bottom: -25px;
       padding-top: 0;
-      user-select: none; /* IE 10+ and Edge */
+      user-select: none;
       width: 850px;
     }
 
@@ -52,7 +52,7 @@
       margin: auto;
       margin-bottom: 20px;
       padding-top: 0;
-      user-select: none; /* IE 10+ and Edge */
+      user-select: none;
       width: 600px;
     }
 
@@ -62,7 +62,7 @@
       margin-bottom: 20px;
       object-fit: cover !important;
       object-position: 0 -60px !important;
-      user-select: none; /* IE 10+ and Edge */
+      user-select: none;
       width: 600px;
     }
 
@@ -236,6 +236,6 @@
   margin: auto;
   margin: auto;
   text-align: center;
-  user-select: none; /* IE 10+ and Edge */
+  user-select: none;
   width: 100%;
 }

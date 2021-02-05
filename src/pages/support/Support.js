@@ -22,7 +22,7 @@ class Support extends React.Component {
 
         <div className="support-container">
           <div className="support-header">
-            <h1 className="support-header--title">Fan FAQ</h1>
+            <h1 className="support-header--title">FAQ</h1>
           </div>
           <div className="support-body">
             {faqData.map((obj, index) =>
