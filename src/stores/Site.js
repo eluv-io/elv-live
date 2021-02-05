@@ -20,7 +20,7 @@ class SiteStore {
 
   // Eluvio Live - Event Stream
   @observable streams = [];
-  @observable promos = [];
+  @observable promos;
 
   // Eluvio Live - Modal
   @observable showCheckout = false;
@@ -158,6 +158,8 @@ class SiteStore {
 
   @action.bound
   LoadPromos = flow(function * () {
+    if(this.promos) { return; }
+
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
       metadataSubtree: UrlJoin(this.siteMetadataPath, "promos"),
