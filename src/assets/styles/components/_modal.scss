@@ -12,31 +12,28 @@
   min-width: MIN(75vw, 1350px);
   z-index: 5000;
 
-  .next-promo-button,
-  .previous-promo-button {
-    height: 100%;
-    min-width: 10rem;
-    top: 0;
-    background: linear-gradient(100deg, rgba(#000, 0.7), rgba(#000, 0.4), rgba(#000, 0.7));
-    border: 0;
-    opacity: 0.5;
-    transition: opacity 0.5s;
-
-    &:hover {
-      opacity: 0.7;
-    }
-
-    &:disabled {
-      opacity: 0;
-    }
+  .promo-player-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
-  .previous-promo-button {
-    clip-path: polygon(90% 0, 90% 100%, 11% 51%, 10% 50%, 11% 49%);
-  }
+  .promo-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 
-  .next-promo-button {
-    clip-path: polygon(10% 0, 10% 100%, 89% 51%, 90% 50%, 89% 49%);
+    button {
+      background-color: black;
+      color: white;
+
+      &:disabled {
+        visibility: hidden;
+      }
+    }
   }
 
   &__container {
@@ -141,6 +138,7 @@
 }
 
 .backdrop {
+  @include page-fade-in;
   background-color: rgba($color-background, 0.8);
   height: 100%;
   left: 0;

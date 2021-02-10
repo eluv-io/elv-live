@@ -24,8 +24,10 @@ class PromoPlayer extends React.Component {
     super(props);
 
     this.state = {
+      promoIndex: 0,
       playerRef: undefined,
-      player: null
+      player: null,
+      loaded: false
     };
 
     this.LoadBitmovin = this.LoadBitmovin.bind(this);
@@ -43,6 +45,13 @@ class PromoPlayer extends React.Component {
   }
 
   LoadBitmovin(playerRef) {
+    const source = toJS(this.props.siteStore.promos[this.state.promoIndex].playoutOptions);
+
+    if(this.state.player) {
+      this.state.player.load(source);
+      return;
+    }
+
     if(!playerRef || this.state.playerRef) { return; }
 
     const conf = {
@@ -102,11 +111,6 @@ class PromoPlayer extends React.Component {
       playerRef
     });
 
-    let source = toJS(this.props.siteStore.promos[this.props.promoIndex].playoutOptions);
-
-    console.log(source);
-
-
     player.load(source).then(
       () => {
         console.log("Successfully created Bitmovin Player instance");
@@ -124,12 +128,43 @@ class PromoPlayer extends React.Component {
   }
 
   render() {
+    if(!this.props.siteStore.promos || this.props.siteStore.promos.length === 0) { return null; }
+
+    let nextButton, previousButton;
+    if(this.props.siteStore.promos && this.props.siteStore.promos.length > 0) {
+      previousButton = (
+        <button
+          className="btnDetails__heroDetail previous-promo-button"
+          disabled={this.state.promoIndex <= 0}
+          onClick={() => this.setState({promoIndex: this.state.promoIndex - 1}, this.LoadBitmovin)}
+        >
+          Play Previous
+        </button>
+      );
+
+      nextButton = (
+        <button
+          className="btnDetails__heroDetail next-promo-button"
+          disabled={this.state.promoIndex >= this.props.siteStore.promos.length - 1}
+          onClick={() => this.setState({promoIndex: this.state.promoIndex + 1}, this.LoadBitmovin)}
+        >
+          Play Next
+        </button>
+      );
+    }
+
     return (
-      <div
-        ref={this.LoadBitmovin}
-        key={"player-container"}
-        className="promo-player"
-      />
+      <div className="promo-player-container">
+        <div
+          ref={this.LoadBitmovin}
+          key="player-container"
+          className="promo-player"
+        />
+        <div className="promo-buttons-container">
+          { previousButton }
+          { nextButton }
+        </div>
+      </div>
     );
   }
 }

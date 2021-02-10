@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Collapsible from "react-collapsible";
 
-import Navigation from "Layout/Navigation";
 import Footer from "Layout/Footer";
 
 @inject("rootStore")

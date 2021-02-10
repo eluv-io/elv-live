@@ -5,6 +5,9 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import Select from "react-select";
 import {FormatDateString, FormatPriceString} from "Utils/Misc";
+import ImageIcon from "Common/ImageIcon";
+import CloseIcon from "Icons/x";
+import PaymentOverview from "Event/payment/PaymentOverview";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -18,10 +21,28 @@ class Ticket extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.OpenPaymentModal = this.OpenPaymentModal.bind(this);
+    this.ClosePaymentModal = this.ClosePaymentModal.bind(this);
   }
 
   handleChange({value}) {
     this.setState({selectedOffering: value});
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.ClosePaymentModal);
+  }
+
+  OpenPaymentModal() {
+    document.addEventListener("keydown", this.ClosePaymentModal);
+
+    this.setState({showPaymentModal: true});
+  }
+
+  ClosePaymentModal(event) {
+    if(event && (event.key || "").toLowerCase() !== "escape") { return; }
+
+    this.setState({showPaymentModal: false});
   }
 
   TicketOptions() {
@@ -58,56 +79,79 @@ class Ticket extends React.Component {
     );
   }
 
+  Payment() {
+    return (
+      <React.Fragment>
+        <div onClick={() => this.ClosePaymentModal()} className="backdrop" />
+        <div className="ticket-modal ticket-modal-show">
+          <ImageIcon
+            key={"back-icon-Close Modal"}
+            className={"back-button-modal"}
+            title={"Close Modal"}
+            icon={CloseIcon}
+            onClick={() => this.ClosePaymentModal()}
+          />
+          <div className={"ticket-modal__container"}>
+            <PaymentOverview
+              ticketClass={this.props.ticketClass}
+              skuIndex={this.state.selectedOffering}
+            />
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+
   render() {
     return (
-      <div className="ticket-event">
-        <div className="ticket-image">
-          <img src={this.props.ticketClass.image_url} className="ticket-image-img"/>
-        </div>
-        <div className="ticket-detail">
-          { this.TicketTags() }
-          <div className="ticket-top">
-
-            <h3 className="ticket-top-title">
-              { this.props.ticketClass.name }
-            </h3>
-            <p className="ticket-top-description">
-              { this.props.ticketClass.description }
-            </p>
-
+      <React.Fragment>
+        <div className="ticket-event">
+          <div className="ticket-image">
+            <img src={this.props.ticketClass.image_url} className="ticket-image-img"/>
           </div>
-          <div className="ticket-bottom">
-            <div className="ticket-bottom-dropdown-container">
-              <Select
-                className='react-select-container'
-                classNamePrefix="react-select"
-                value={this.TicketOptions()[this.state.selectedOffering]}
-                onChange={this.handleChange}
-                options={this.TicketOptions()}
-                theme={theme => ({
-                  ...theme,
-                  borderRadius: 10,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "rgba(230, 212, 165,.4)",
-                    primary: "#cfb46b",
-                  },
-                })}
-              />
+          <div className="ticket-detail">
+            { this.TicketTags() }
+            <div className="ticket-top">
+
+              <h3 className="ticket-top-title">
+                { this.props.ticketClass.name }
+              </h3>
+              <p className="ticket-top-description">
+                { this.props.ticketClass.description }
+              </p>
+
             </div>
-            <button
-              className="ticket-bottom-button"
-              role="link"
-              onClick={() => this.props.siteStore.ShowCheckoutModal({
-                ticketClass: this.props.ticketClass,
-                sku: this.state.selectedOffering
-              })}
-            >
-              Purchase
-            </button>
+            <div className="ticket-bottom">
+              <div className="ticket-bottom-dropdown-container">
+                <Select
+                  className='react-select-container'
+                  classNamePrefix="react-select"
+                  value={this.TicketOptions()[this.state.selectedOffering]}
+                  onChange={this.handleChange}
+                  options={this.TicketOptions()}
+                  theme={theme => ({
+                    ...theme,
+                    borderRadius: 10,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "rgba(230, 212, 165,.4)",
+                      primary: "#cfb46b",
+                    },
+                  })}
+                />
+              </div>
+              <button
+                className="ticket-bottom-button"
+                role="link"
+                onClick={() => this.OpenPaymentModal()}
+              >
+                Purchase
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+        { this.state.showPaymentModal ? this.Payment() : null }
+      </React.Fragment>
     );
   }
 }

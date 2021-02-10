@@ -54,6 +54,10 @@ class SiteStore {
     return UrlJoin("/", this.baseSlug, this.siteSlug);
   }
 
+  @computed get hasPromos() {
+    return this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0;
+  }
+
   SitePath(...pathElements) {
     return UrlJoin(this.baseSitePath, ...pathElements);
   }
@@ -110,6 +114,11 @@ class SiteStore {
       this.siteSlug = slug;
       this.eventSites[slug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
+        select: [
+          ".",
+          "info",
+          "promos"
+        ],
         metadataSubtree: this.siteMetadataPath,
         resolveLinks: true,
         resolveIncludeSource: true,
