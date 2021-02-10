@@ -51,8 +51,7 @@ class PaymentOverview extends React.Component {
   }
 
   handleStripeSubmit = () => async () => {
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const ticketSku = ticketClass.skus[skuIndex];
+    const { ticketSku } = this.SelectedTicket();
     const { price_id, product_id } = ticketSku.payment_ids.stripe;
 
     if(!ValidEmail(this.state.email)) {
@@ -115,10 +114,10 @@ class PaymentOverview extends React.Component {
   };
 
   SelectedTicket() {
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const ticketSku = ticketClass.skus[skuIndex];
-
-    return { ticketClass, ticketSku };
+    return {
+      ticketClass: this.props.ticketClass,
+      ticketSku: this.props.ticketClass.skus[this.props.skuIndex]
+    };
   }
 
   DonationItems() {
@@ -362,6 +361,8 @@ class PaymentOverview extends React.Component {
               //checkoutDonation={donation["price"]}
               //merchChecked={this.state.merchChecked}
               //donationChecked={this.state.donationChecked}
+              ticketClass={ticketClass}
+              ticketSku={ticketSku}
               email={this.state.email}
               handleError={this.handleError}
               ticketQuantity={this.state.ticketQuantity.value}

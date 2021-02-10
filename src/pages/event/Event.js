@@ -4,8 +4,6 @@ import {inject, observer} from "mobx-react";
 import CloseIcon from "Icons/x.svg";
 import Timer from "Common/Timer";
 import EventTabs from "Event/tabs/EventTabs";
-import Navigation from  "Layout/Navigation";
-import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
 
@@ -22,79 +20,56 @@ class Event extends React.Component {
 
     this.state = {
       showPromo: false,
-      promoIndex: 0,
       tab: 0,
       heroBackground: null
     };
+
+    this.OpenPromoModal = this.OpenPromoModal.bind(this);
+    this.ClosePromoModal = this.ClosePromoModal.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     window.scrollTo(0, 0);
 
     this.props.siteStore.LoadPromos();
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.ClosePromoModal);
+  }
+
+  OpenPromoModal() {
+    document.addEventListener("keydown", this.ClosePromoModal);
+
+    this.setState({showPromo: true});
+  }
+
+  ClosePromoModal(event) {
+    if(event && (event.key || "").toLowerCase() !== "escape") { return; }
+
+    this.setState({showPromo: false});
+  }
+
   Promos() {
     if(!this.state.showPromo) { return; }
 
-    let nextButton, previousButton;
-    if(this.props.siteStore.promos.length > 0) {
-      previousButton = (
-        <button
-          className="previous-promo-button"
-          disabled={this.state.promoIndex <= 0}
-          onClick={() => this.setState({promoIndex: this.state.promoIndex - 1})}
-        />
-      );
-
-      nextButton = (
-        <button
-          className="next-promo-button"
-          disabled={this.state.promoIndex >= this.props.siteStore.promos.length - 1}
-          onClick={() => this.setState({promoIndex: this.state.promoIndex + 1})}
-        />
-      );
-    }
-
     return (
       <>
-        <div onClick={() => this.setState({showPromo: false})} className="backdrop" />
+        <div onClick={() => this.ClosePromoModal()} className="backdrop" />
         <ImageIcon
           key={"back-icon-close-modal"}
           className={"back-button-modal"}
           title={"Close Modal"}
           icon={CloseIcon}
-          onClick={() => this.setState({showPromo: false})}
+          onClick={() => this.ClosePromoModal()}
         />
 
         <div className="modal show">
-          { previousButton }
           <Suspense fallback={<div />}>
-            <PromoPlayer key={`promo-player-${this.state.promoIndex}`} promoIndex={this.state.promoIndex} />
+            <PromoPlayer />
           </Suspense>
-          { nextButton }
         </div>
       </>
-    );
-  }
-
-  Payment() {
-    return (
-      <React.Fragment>
-        <div onClick={this.props.siteStore.CloseCheckoutModal} className="backdrop" />
-        <div className="ticket-modal ticket-modal-show">
-          <ImageIcon
-            key={"back-icon-Close Modal"}
-            className={"back-button-modal"}
-            title={"Close Modal"}
-            icon={CloseIcon}
-            onClick={this.props.siteStore.CloseCheckoutModal}
-          />
-          <div className={"ticket-modal__container"}>
-            <PaymentOverview />
-          </div>
-        </div>
-      </React.Fragment>
     );
   }
 
@@ -110,8 +85,6 @@ class Event extends React.Component {
       this.setState({tab: newValue});
     };
 
-    const promosAvailable = this.props.siteStore.promos && this.props.siteStore.promos.length > 0;
-
     return (
       <div className="page-container event-page-container">
         <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
@@ -124,14 +97,14 @@ class Event extends React.Component {
 
           <div className="event-container__button">
             <button
-              className={`btnPlay ${promosAvailable ? "btnDetails__heroPlay" : "btnDetails__heroDetail"}`}
+              className={`btnPlay ${this.props.siteStore.hasPromos ? "btnDetails__heroPlay" : "btnDetails__heroDetail"}`}
               onClick={() => this.handleNavigate()}
             >
               Buy Tickets
             </button>
             {
-              promosAvailable ?
-                <button onClick={() => this.setState({showPromo: true})} className="btnPlay btnDetails__heroDetail">
+              this.props.siteStore.hasPromos ?
+                <button onClick={this.OpenPromoModal} className="btnPlay btnDetails__heroDetail">
                   Watch Promo
                 </button> : null
             }
@@ -147,8 +120,6 @@ class Event extends React.Component {
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
-        { this.props.siteStore.showCheckout ? this.Payment(): null}
-
         <Footer />
       </div>
     );

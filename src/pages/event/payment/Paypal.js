@@ -26,20 +26,17 @@ class Paypal extends React.Component {
       this.props.handleError("Enter a valid email to continue to payment.");
     }
 
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const ticketSku = ticketClass.skus[skuIndex];
-
     let checkoutCart = [{
-      name: ticketClass.name,
+      name: this.props.ticketClass.name,
       unit_amount: {
-        value: ticketSku.price.amount,
-        currency_code: ticketSku.price.currency
+        value: this.props.ticketSku.price.amount,
+        currency_code: this.props.ticketSku.price.currency
       },
       quantity: this.props.ticketQuantity,
-      sku: NonPrefixNTPId(ticketSku.otp_id)
+      sku: NonPrefixNTPId(this.props.ticketSku.otp_id)
     }];
 
-    let price = this.props.ticketQuantity * ticketSku.price.amount;
+    let price = this.props.ticketQuantity * this.props.ticketSku.price.amount;
 
     /* TODO: Merch and donations
     if(this.props.merchChecked) {
@@ -68,14 +65,14 @@ class Paypal extends React.Component {
       purchase_units: [
         {
           reference_id: this.props.email,
-          custom_id: NonPrefixNTPId(ticketSku.otp_id),
+          custom_id: NonPrefixNTPId(this.props.ticketSku.otp_id),
           amount: {
             value: price,
-            currency_code: ticketSku.price.currency,
+            currency_code: this.props.ticketSku.price.currency,
             breakdown: {
               item_total: {
                 value: price,
-                currency_code: ticketSku.price.currency
+                currency_code: this.props.ticketSku.price.currency
               }
             }
           },
@@ -106,12 +103,9 @@ class Paypal extends React.Component {
       return null;
     }
 
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const ticketSku = ticketClass.skus[skuIndex];
-
     if(this.state.redirectStatus) {
       this.props.siteStore.CloseCheckoutModal();
-      let checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.props.email);
+      let checkoutId = this.props.siteStore.generateConfirmationId(this.props.ticketSku.otp_id, this.props.email);
 
       return <Redirect to={this.props.siteStore.SitePath("success", this.props.email, checkoutId)} />;
     }
@@ -121,7 +115,7 @@ class Paypal extends React.Component {
         <PayPalScriptProvider
           options={{
             "client-id": this.props.siteStore.paymentConfigurations.paypal_client_id,
-            currency: ticketSku.price.currency
+            currency: this.props.ticketSku.price.currency
           }}
         >
           <PayPalButtons

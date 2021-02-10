@@ -3,7 +3,6 @@ import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 import {Link} from "react-router-dom";
-import Navigation from "Layout/Navigation";
 import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
