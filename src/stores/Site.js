@@ -175,8 +175,6 @@ class SiteStore {
       ]
     });
 
-    console.log(titleLinks);
-
     this.promos = yield Promise.all(
       Object.keys(titleLinks || {}).map(async index => {
         const slug = Object.keys(titleLinks[index])[0];

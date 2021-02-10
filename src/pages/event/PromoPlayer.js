@@ -48,7 +48,7 @@ class PromoPlayer extends React.Component {
     const conf = {
       key: EluvioConfiguration["bitmovin-license-key"],
       playback: {
-        muted: true,
+        muted: false,
         autoplay: true,
       },
       //ui: true,

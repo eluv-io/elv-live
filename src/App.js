@@ -42,7 +42,7 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream)} />
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
         <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
         <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
@@ -50,6 +50,19 @@ class App extends React.Component {
 
         <Route>
           <Redirect to="/" />
+        </Route>
+      </Switch>
+    );
+  }
+
+  NavHeader() {
+    // Hide header on stream page
+    return (
+      <Switch>
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={null} />
+
+        <Route>
+          <Navigation />
         </Route>
       </Switch>
     );
@@ -63,7 +76,7 @@ class App extends React.Component {
     return (
       <main className="app">
         <BrowserRouter>
-          <Navigation />
+          { this.NavHeader() }
           <Suspense fallback={<PageLoader/>}>
             { this.Routes() }
           </Suspense>
