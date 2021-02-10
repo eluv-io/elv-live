@@ -97,7 +97,6 @@ const styles = theme => ({
 @inject("siteStore")
 @observer
 class Stream extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -106,7 +105,6 @@ class Stream extends React.Component {
       name: "",
       activeStream: 0,
       darkSwitch: false,
-
     };
   }
 
@@ -115,9 +113,12 @@ class Stream extends React.Component {
       <div className="sponsor-info-container">
         {
           this.props.siteStore.sponsors.map((sponsor, index) =>
-            <div className="sponsor-info-container__img-container" key={`stream-sponsor-${index}`}>
-              <img src={sponsor.image_url} className="stream-sponsor-img" alt={sponsor.name} />
-            </div>
+            <img
+              src={sponsor.image_url}
+              className="stream-sponsor-img"
+              alt={sponsor.name}
+              key={`sponsor-image-${index}`}
+            />
           )
         }
       </div>
@@ -143,7 +144,6 @@ class Stream extends React.Component {
     const { classes } = this.props;
 
     return (
-
       <div className={clsx(classes.lightRoot, {
         [classes.darkRoot]: this.state.darkSwitch,
       })}>

@@ -8,11 +8,14 @@
   position: absolute;
   top: 0;
   background-size: cover;
-  mask-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.8) 75%, rgba(0,0,0,0));
+  background-position: center;
+  mask-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.8) 55%, rgba(0,0,0,0));
   object-fit: cover;
+  object-position: center;
   animation: 1s fadein linear;
   width: 100vw;
   height: 100vh;
+  min-width: 0;
 }
 
 .event-container {

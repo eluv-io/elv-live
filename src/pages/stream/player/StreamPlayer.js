@@ -25,7 +25,7 @@ class StreamPlayer extends React.Component {
 
     this.state = {
       playerRef: undefined,
-      switchValue: 0,
+      activeStream: 0,
       player: null,
       playoutOptions: [],
     };
@@ -36,17 +36,7 @@ class StreamPlayer extends React.Component {
   }
 
   handleMultiViewSwitch() {
-    let source, feedOption;
-
-    if(this.state.switchValue === (this.props.siteStore.streams.length -1)) {
-      feedOption = 0;
-    } else {
-      feedOption = this.state.switchValue + 1;
-    }
-
-    this.setState({switchValue: feedOption});
-
-    source = toJS(this.props.siteStore.streams[feedOption].playoutOptions);
+    const source = toJS(this.props.siteStore.streams[this.state.activeStream].playoutOptions);
 
     this.state.player.load(source).then(
       () => {
@@ -79,13 +69,23 @@ class StreamPlayer extends React.Component {
     }
   }
 
+  StreamSwitchButton() {
+    if(this.props.siteStore.streams.length <= 1) { return undefined; }
+
+    return new CustomToggleButton(() => {
+      this.setState({activeStream: (this.state.activeStream + 1) % this.props.siteStore.streams.length});
+
+      this.handleMultiViewSwitch();
+    }, "ui-airplaytogglebutton ui-multiviewToggleButton");
+  }
+
   LoadBitmovin(playerRef) {
-    if(!playerRef || this.state.playerRef) { return; }
+    if(!playerRef || this.state.playerRef || this.props.siteStore.streams.length === 0) { return; }
 
     const conf = {
       key: EluvioConfiguration["bitmovin-license-key"],
       playback: {
-        muted: true,
+        muted: false,
         autoplay: true,
       },
       ui: false, // disable the built-in UI
@@ -109,10 +109,10 @@ class StreamPlayer extends React.Component {
             new BitmovinUIImports.VolumeToggleButton(),
             new BitmovinUIImports.VolumeSlider(),
             new BitmovinUIImports.Spacer(),
-            new CustomToggleButton(this.handleMultiViewSwitch, "ui-airplaytogglebutton ui-multiviewToggleButton"),
+            this.StreamSwitchButton(),
             new CustomToggleButton(this.props.handleDarkToggle, "ui-vrtogglebutton ui-darkmodetogglebutton"),
             new BitmovinUIImports.FullscreenToggleButton(),
-          ],
+          ].filter(c => c),
           cssClasses: ["controlbar-bottom"],
         }),
       ],

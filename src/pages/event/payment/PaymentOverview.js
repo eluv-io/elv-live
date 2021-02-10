@@ -247,9 +247,6 @@ class PaymentOverview extends React.Component {
           <div className="payment-info-img-container">
             <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
-          <span className="payment-info-artist">
-            { this.props.siteStore.eventInfo.event_header }
-          </span>
           <h3 className="payment-info-event">
             { this.props.siteStore.eventInfo.event_title }
           </h3>

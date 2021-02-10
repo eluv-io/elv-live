@@ -101,14 +101,13 @@
 
     &--info {
       background-color: transparent;
-      display: flex;
-      flex-direction: row;
-      grid-column: 1;
-      grid-row: 2 / 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       height: 100%;
       justify-content: space-between;
       user-select: none;
       width: 100%;
+      padding: 0 30px;
     }
   }
 
@@ -418,8 +417,8 @@
 
 .stream-info-container {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  margin-left: 30px;
   width: auto;
 
   &__title {
@@ -450,12 +449,12 @@
     display: inline-block;
     font-family: sans-serif !important;
     font-family: Helvetica;
-    font-size: 27px;
+    font-size: 20px;
     font-style: normal;
     font-weight: normal;
     font-weight: normal;
     line-height: 1.75;
-    margin-top: 10px !important;
+    margin: 10px 0 !important;
     text-align: left;
     text-align: left;
     width: 100%;
@@ -488,6 +487,7 @@
   text-rendering: optimizeLegibility;
   user-select: none;
   width: auto;
+  flex: 1 1 auto;
 
   &__title {
     align-self: center;
@@ -511,16 +511,19 @@
     flex-direction: row;
     height: 100%;
     overflow: hidden;
+    //width: max-content;
+    flex: 0 1 auto;
   }
 }
 
 .stream-sponsor-img {
   align-self: center;
-  height: 250%;
+  max-height: 85%;
   overflow: hidden;
 
   // margin-top: -40px;
   width: auto;
+  padding: 0 10px;
 }
 
 .stream-chat-signup-light {
