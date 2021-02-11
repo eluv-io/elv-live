@@ -1,12 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 import {Link} from "react-router-dom";
-
-import Navigation from "Layout/Navigation";
-import {EluvioConfiguration} from "EluvioConfiguration";
+import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -16,6 +13,7 @@ class CodeAccess extends React.Component {
     super(props);
 
     this.state = {
+      error: "",
       code: "",
       loading: false,
       code_placeholder: "Ticket Code",
@@ -28,7 +26,7 @@ class CodeAccess extends React.Component {
   async componentDidMount() {
     try {
       const parsed = parse(decodeURIComponent(this.props.location.search));
-      this.setState({code: parsed.passcode});
+      this.setState({code: parsed.passcode || ""});
 
       if(parsed.passcode && parsed.access) {
         this.handleRedeemCode(parsed.passcode);
@@ -39,19 +37,19 @@ class CodeAccess extends React.Component {
     }
   }
 
-  handleRedeemCode = async (code) => {
-    this.setState({loading: true});
+  async handleRedeemCode(code) {
+    try {
+      this.setState({error: "", loading: true});
 
-    let generalId = await this.props.rootStore.RedeemCode(code, EluvioConfiguration["ga-ntpId"], EluvioConfiguration["tenantId"]);
-    let vipId = await this.props.rootStore.RedeemCode(code, EluvioConfiguration["ga-ntpId"], EluvioConfiguration["tenantId"]);
+      const siteId = await this.props.rootStore.RedeemCode(code);
 
-    let siteId = generalId || vipId;
-
-    if(siteId) {
-      this.setState({siteId});
-    } else {
+      if(!siteId) {
+        throw Error("Invalid code");
+      }
+    } catch (error) {
+      this.setState({error: "Invalid code"});
+    } finally {
       this.setState({loading: false});
-      this.props.rootStore.SetError("Invalid Code");
     }
   }
 
@@ -66,21 +64,19 @@ class CodeAccess extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
-    if(this.state.siteId) {
-      return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/stream`} />;
+    if(this.props.rootStore.streamAccess) {
+      return <Redirect to={this.props.siteStore.SitePath("stream")} />;
     }
 
     return (
-      <div className="code-entry-background">
-        <Navigation />
-
-        <div className="code-entry">
-          { this.props.rootStore.error ? <div className="error-message"> {this.props.rootStore.error} </div> : null }
+      <div className="page-container code-entry-page-container">
+        <div className="main-content-container code-entry">
+          { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
           <div className="code-header">
             <h2 className="code-header-title">
               Redeem Ticket
             </h2>
-            <Link to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`} className="code-header-p">
+            <Link to={this.props.siteStore.baseSitePath} className="code-header-p">
               Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b>
             </Link>
           </div>

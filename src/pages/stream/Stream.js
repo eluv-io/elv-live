@@ -1,4 +1,4 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import clsx from "clsx";
 
 import {inject, observer} from "mobx-react";
@@ -12,27 +12,75 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { withStyles } from "@material-ui/core/styles";
-import {ImageIcon} from "elv-components-js";
+import ImageIcon from "Common/ImageIcon";
 
 import AsyncComponent from "Common/AsyncComponent";
-import LiveChat from "./components/LiveChat";
-import BitmovinPlayer from "./player/BitmovinPlayer";
 
 import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
 
+const StreamPlayer = lazy(() => import("./player/StreamPlayer"));
+const LiveChat = lazy(() => import("./components/LiveChat"));
+
 const drawerWidth = 450;
 
 const styles = theme => ({
+
   lightRoot: {
     display: "flex",
     background: "rgba(245, 239, 234, .8)",
-    color: "black"
+    color: "black",
+    maxHeight: "100vh",
+    overflow: "hidden",
+    position: "fixed",
+    width: "100%",
+    scrollbarStyles: {
+      overflowY: "scroll",
+      "&::-webkit-scrollbar": {
+        width: "0px",
+        display: "none",
+        backgroundColor: "transparent"
+      },
+      "&::-webkit-scrollbar-track": {
+        boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
+        webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
+        width: "0px",
+        display: "none",
+        backgroundColor: "transparent"
+
+      },
+      "&::-webkit-scrollbar-thumb": {
+        outline: "0px solid slategrey",
+        borderRadius: 0,
+        width: "0px",
+        display: "none",
+        backgroundColor: "transparent"
+      }
+    }
+
   },
   darkRoot: {
     display: "flex",
     background: "#121212",
-    color: "white"
+    color: "white",
+    maxHeight: "100vh",
+    overflow: "hidden",
+    position: "fixed",
+    scrollbarStyles: {
+      overflowY: "scroll",
+      "&::-webkit-scrollbar": {
+        width: 0
+      },
+      "&::-webkit-scrollbar-track": {
+        boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
+        webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)"
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "rgba(0,0,0,0)",
+        outline: "0px solid slategrey",
+        borderRadius: 0
+      }
+    }
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -96,7 +144,6 @@ const styles = theme => ({
 @inject("siteStore")
 @observer
 class Stream extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -105,13 +152,29 @@ class Stream extends React.Component {
       name: "",
       activeStream: 0,
       darkSwitch: false,
-
     };
+  }
+
+  Sponsors() {
+    return (
+      <div className="sponsor-info-container">
+        {
+          this.props.siteStore.sponsors.map((sponsor, index) =>
+            <img
+              src={sponsor.image_url}
+              className="stream-sponsor-img"
+              alt={sponsor.name}
+              key={`sponsor-image-${index}`}
+            />
+          )
+        }
+      </div>
+    );
   }
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/code`} />;
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
     const handleDrawerOpen = () => {
@@ -125,16 +188,12 @@ class Stream extends React.Component {
       this.setState({darkSwitch: (!this.state.darkSwitch)});
     };
 
-    let streamInfo = this.props.siteStore.currentSite["stream_app"][0];
-    let sponsorInfo = this.props.siteStore.currentSite["sponsor"][0];
-
     const { classes } = this.props;
 
     return (
-
-      <div className={clsx(classes.lightRoot, {
+      <div className={`stream-root ${clsx(classes.lightRoot, {
         [classes.darkRoot]: this.state.darkSwitch,
-      })}>
+      })}`}>
         <AppBar
           position="fixed"
           className={clsx(classes.appBar, {
@@ -143,13 +202,11 @@ class Stream extends React.Component {
         >
           <Toolbar>
             <div className="stream-nav">
-              <NavLink to={`${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}`}  >
+              <NavLink to={this.props.siteStore.baseSitePath}>
                 <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
               </NavLink>
 
-
               <div className="stream-nav__button-grp">
-
                 <div className="stream-nav__button-grp2">
                   <IconButton
                     color="inherit"
@@ -187,34 +244,29 @@ class Stream extends React.Component {
           <div className="stream-container">
             <div className="stream-container__streamBox">
               <div className="stream-container__streamBox--videoBox">
-                <AsyncComponent
-                  Load={this.props.siteStore.LoadStreams}
-                  loadingSpin={true}
-                  render={() => {
-                    return (
-                      <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
-                    );
-                  }}
-                />
+                <Suspense fallback={<div />}>
+                  <AsyncComponent
+                    Load={this.props.siteStore.LoadStreams}
+                    loadingSpin={true}
+                    render={() => {
+                      return (
+                        <StreamPlayer handleDarkToggle={handleDarkModeSwitch} />
+                      );
+                    }}
+                  />
+                </Suspense>
               </div>
               <div className="stream-container__streamBox--info">
                 <div className="stream-info-container">
                   <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
-                    {streamInfo["subheader"]}
+                    { this.props.siteStore.streamPageInfo.subheader }
                   </h2>
                   <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
-                    {streamInfo["header"]}
+                    { this.props.siteStore.streamPageInfo.header }
                   </h1>
                 </div>
 
-                <div className="sponsor-info-container">
-                  <span style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9)  !important" } : { color: "black !important" }} className="sponsor-info-container__title">
-                    {sponsorInfo["stream_text"]}
-                  </span>
-                  <div className="sponsor-info-container__img-container">
-                    <img src={this.props.siteStore.sponsorImage} className="stream-sponsor-img" />
-                  </div>
-                </div>
+                { this.Sponsors() }
               </div>
             </div>
           </div>
@@ -230,7 +282,9 @@ class Stream extends React.Component {
             paper: classes.drawerPaper,
           }}
         >
-          <LiveChat onDarkMode={this.state.darkSwitch}/>
+          <Suspense fallback={<div />}>
+            <LiveChat onDarkMode={this.state.darkSwitch}/>
+          </Suspense>
         </Drawer>
       </div>
     );

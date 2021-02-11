@@ -7,7 +7,7 @@
   color: #000 !important;
   cursor: pointer;
   display: inline-block;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-family: Helvetica, Arial, sans-serif !important;
   font-size: 18px !important;
   font-weight: 600 !important;
   font-weight: bold;
@@ -213,12 +213,12 @@
 
   &__heroPlay {
     align-self: center;
-    background-color: transparent;
+    background-color: black;
     border: 1px solid black;
     border-radius: 0;
     // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
-    color: black;
+    color: white;
     font-size: 16px;
     height: 48px;
     letter-spacing: 2px;
@@ -240,7 +240,6 @@
   }
 
   &__heroDetail {
-    align-self: center;
     background-color: #d7bb73;
     border: 0;
     border-radius: 0;
@@ -316,4 +315,43 @@
   text-align: center;
   transition: all 0.2s;
   width: 150px !important;
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  height: 48px;
+  letter-spacing: 2px;
+  line-height: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 25rem;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s;
+
+    & > * {
+      fill: #000;
+    }
+  }
+
+  // @media only screen and (max-width: $bp-small) {
+  //   width: 90vw;
+  // }
+
+  &--gold {
+    @extend .btn;
+
+    align-self: center;
+    background-color: #d7bb73;
+    border: none;
+    color: black;
+  }
 }

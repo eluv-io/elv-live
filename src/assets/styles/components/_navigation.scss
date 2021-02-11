@@ -1,16 +1,17 @@
-
 .navigation {
-  backdrop-filter: saturate(1.8) blur(20px);
   backdrop-filter: saturate(1.8) blur(20px);
   background: hsla(0, 0%, 100%, 0.7);
   font-size: 15px;
   font-weight: 600;
-  // height:auto;
   min-height: 50px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+
+  @include breakpoint('phone-sm') {
+    min-height: 35px;
+  }
 }
 
 .main-nav {
@@ -23,25 +24,30 @@
   padding: 0 20px;
   width: 100%;
 
-  @media only screen and (max-width: 900px) {
-    align-items: center;
-    flex-direction: column;
-    height: auto;
-    justify-content: space-between;
+  // @media only screen and (max-width: 900px) {
+  //   align-items: center;
+  //   flex-direction: column;
+  //   height: auto;
+  //   justify-content: space-between;
+  // }
+  @include breakpoint('phone-sm') {
+    height: 40px;
   }
 
   &--logo {
-    // font-size: 28px;
     height: 20px;
-
-    // padding: 13px 0 12px;
     width: auto;
 
-    @media only screen and (max-width: 700px) {
-      margin-bottom: 10px;
-      margin-left: 0;
-      margin-top: 10px;
+    @include breakpoint('phone-sm') {
+      height: 16px;
+      // font-size: calc(min(4vw, 26px));
     }
+
+    // @media only screen and (max-width: 700px) {
+    //   margin-bottom: 10px;
+    //   margin-left: 0;
+    //   margin-top: 10px;
+    // }
   }
 
   &--logoTitle {
@@ -52,9 +58,7 @@
     margin: 0;
     padding: 13px 0 12px;
     text-align: center;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
 
     @media only screen and (max-width: 900px) {
       margin-bottom: 0;
@@ -64,41 +68,16 @@
 
   &__link-group {
     display: flex;
-    // width: 200px;
     flex-direction: row;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
+    user-select: none;
     width: auto;
-    // user-select: none; /* Standard syntax */
-    // @media only screen and (max-width: 900px) {
-    //   flex-direction: row;
-    //   height: auto !important;
-    //   width: 80%;
-    //   margin-top: 25px;
-    //   justify-content: space-evenly;
-    //   align-content: space-between;
-    //   align-items: center;
-    //   justify-items: center;
-    // }
-
-    // @media only screen and (max-width: 600px) {
-    //   flex-direction: column;
-    //   height: 175px;
-    //   width: 100%;
-    //   justify-content: space-evenly;
-    //   align-content: space-between;
-    //   align-items: center;
-    //   justify-items: center;
-    // }
   }
 
   &__btn-group {
     display: flex;
     flex-direction: row;
     height: 4.5rem;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
     width: auto;
 
     @media only screen and (max-width: 900px) {
@@ -173,15 +152,24 @@
   color: rgba(0, 0, 0, 0.7);
   display: block;
   // min-width: 121px;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', sans-serif;
+  font-size: 18px;
   font-style: normal;
   font-weight: 500;
   height: 100%;
   letter-spacing: -0.022em;
   line-height: 1.47059;
-  padding: 19px 20px;
+  // padding: 19px 20px;
   width: auto;
+
+  @include breakpoint('phone-sm') {
+    font-size: 15px;
+    height: 16px;
+    line-height: 1;
+    padding: auto;
+    // font-size: calc(min(5vw, 34px));
+    // font-size: calc(min(4vw, 26px));
+  }
 
   &:hover {
     color: #000;

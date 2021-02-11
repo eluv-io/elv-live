@@ -1,9 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Redirect } from "react-router-dom";
 import {inject, observer} from "mobx-react";
+import {NonPrefixNTPId, ValidEmail} from "Utils/Misc";
 
-const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+import {PayPalScriptProvider, PayPalButtons, FUNDING} from "@paypal/react-paypal-js";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -13,59 +13,32 @@ class Paypal extends React.Component {
     super(props);
 
     this.state = {
-      redirectStatus: false,
-      validateStatus: false,
-      checkoutMerch: this.props.siteStore.currentSite["checkout_merch"][0],
-      donation: this.props.siteStore.currentSite["checkout_donate"][0],
+      redirectStatus: false
     };
-    this.onInit = this.onInit.bind(this);
+
+    this.createOrder = this.createOrder.bind(this);
+    this.onApprove = this.onApprove.bind(this);
+    this.onError = this.onError.bind(this);
   }
-
-  onInit(data, actions) {
-    // Disable the buttons
-    actions.disable();
-
-    // Listen for changes to the checkbox
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    document.querySelector("#email-check").addEventListener("change", function(event)  {
-      console.log(event.target.value);
-      // Enable or disable the button when it is checked or unchecked
-      if(regexp.test(event.target.value))  {
-        event.target.checked = true;
-        actions.enable();
-        document.querySelector("#checkout-id").textContent = "";
-
-      } else  {
-        event.target.checked = false;
-        actions.disable();
-      }
-    });
-  }
-
-  onClick() {
-    if(!document.querySelector("#email-check").checked) {
-      document.querySelector("#checkout-id").textContent = "Enter a valid email to continue to Payment.";
-    } else {
-      document.querySelector("#checkout-id").textContent = "";
-    }
-
-  }
-
 
   createOrder(data, actions) {
+    if(!ValidEmail(this.props.email)) {
+      this.props.handleError("Enter a valid email to continue to payment.");
+    }
 
-    let checkoutCart = [
-      {
-        name: this.props.product.name,
-        unit_amount: {value: `${(this.props.product.price / 100)}`, currency_code: "USD"},
-        quantity: `${this.props.ticketQty}`,
-        sku: this.props.siteStore.currentProduct.otpId
-      }
-    ];
-    let price = this.props.ticketQty * (this.props.product.price / 100);
-    console.log(price);
+    let checkoutCart = [{
+      name: this.props.ticketClass.name,
+      unit_amount: {
+        value: this.props.ticketSku.price.amount,
+        currency_code: this.props.ticketSku.price.currency
+      },
+      quantity: this.props.ticketQuantity,
+      sku: NonPrefixNTPId(this.props.ticketSku.otp_id)
+    }];
 
+    let price = this.props.ticketQuantity * this.props.ticketSku.price.amount;
+
+    /* TODO: Merch and donations
     if(this.props.merchChecked) {
       let merchPrice = this.props.checkoutMerch / 100;
       checkoutCart.push({
@@ -86,35 +59,39 @@ class Paypal extends React.Component {
       price += donationPrice;
     }
 
+     */
+
     return actions.order.create({
       purchase_units: [
         {
           reference_id: this.props.email,
-          custom_id: this.props.siteStore.currentProduct.otpId,
+          custom_id: NonPrefixNTPId(this.props.ticketSku.otp_id),
           amount: {
-            value: `${price}`,
-            currency_code: "USD",
+            value: price,
+            currency_code: this.props.ticketSku.price.currency,
             breakdown: {
-              item_total: {value: `${price}`, currency_code: "USD"}
+              item_total: {
+                value: price,
+                currency_code: this.props.ticketSku.price.currency
+              }
             }
           },
           items: checkoutCart,
         }]
-
     });
   }
 
   onApprove(data, actions) {
     this.setState({redirectStatus: true});
+
     return actions.order.capture().then(function(details)  {
       alert("Transaction completed by " + details.payer.name.given_name);
     });
   }
 
   onError(err) {
-    if(!this.props.validateEmail(this.props.email))  {
-      this.props.handleError("Invalid Email");
-
+    if(!ValidEmail(this.props.email))  {
+      this.props.handleError("Please enter a valid email");
     } else {
       console.log(err);
       this.props.handleError("There was an error with Paypal Checkout. Please try again.");
@@ -122,34 +99,41 @@ class Paypal extends React.Component {
   }
 
   render() {
-    if(this.state.redirectStatus) {
-      this.props.siteStore.CloseCheckoutModal();
-      let checkoutId = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpId, this.props.email);
-      let redirectURL = `${this.props.siteStore.basePath}/${this.props.siteStore.siteSlug}/success/${this.props.email}/${checkoutId}`;
-      return <Redirect to={redirectURL}/>;
+    if(!this.props.siteStore.paymentConfigurations.paypal_client_id) {
+      return null;
     }
 
-    let buttonStyle = {
-      color:  "gold",
-      shape:  "rect",
-      label:  "paypal",
-      size: "responsive",
-      height: 50,
-    };
+    if(this.state.redirectStatus) {
+      this.props.siteStore.CloseCheckoutModal();
+      let checkoutId = this.props.siteStore.generateConfirmationId(this.props.ticketSku.otp_id, this.props.email);
+
+      return <Redirect to={this.props.siteStore.SitePath("success", this.props.email, checkoutId)} />;
+    }
 
     return (
       <div className="paypal-button">
-        <PayPalButton
-          onInit={(data, actions) => this.onInit(data, actions)}
-          onClick={() => this.onClick()}
-          createOrder={(data, actions) => this.createOrder(data, actions)}
-          onApprove={(data, actions) => this.onApprove(data, actions)}
-          onError={(err) => this.onError(err)}
-          style={buttonStyle}
-        />
-
+        <PayPalScriptProvider
+          options={{
+            "client-id": this.props.siteStore.paymentConfigurations.paypal_client_id,
+            currency: this.props.ticketSku.price.currency
+          }}
+        >
+          <PayPalButtons
+            createOrder={this.createOrder}
+            onApprove={this.onApprove}
+            onError={this.onError}
+            style={{
+              color:  "gold",
+              shape:  "rect",
+              label:  "paypal",
+              layout: "horizontal",
+              tagline: false,
+              height: 50
+            }}
+            fundingSource={FUNDING.PAYPAL}
+          />
+        </PayPalScriptProvider>
       </div>
-
     );
   }
 }
