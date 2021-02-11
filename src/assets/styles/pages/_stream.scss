@@ -1,4 +1,3 @@
-
 .stream-nav {
   display: flex;
   flex-direction: row;
@@ -13,7 +12,7 @@
     margin-left: 6px;
     margin-top: 26.5px;
     position: absolute;
-    user-select: none; /* IE 10+ and Edge */
+    user-select: none;
     width: auto;
   }
 
@@ -27,9 +26,7 @@
     margin-bottom: 22px;
     margin-left: 6px;
     margin-top: 22px !important;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
     width: 100%;
   }
 
@@ -130,13 +127,12 @@
 
     &--info {
       background-color: transparent;
-      display: flex;
-      flex-direction: row;
-      grid-column: 1;
-      grid-row: 2 / 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       height: 100%;
       justify-content: space-between;
-      user-select: none; /* IE 10+ and Edge */
+      padding: 0 30px;
+      user-select: none;
       width: 100%;
     }
   }
@@ -214,13 +210,11 @@
 }
 
 .feedGrid {
-  background: rgb(13, 17, 23) !important;
   height: 100%;
   position: relative;
   width: 100%;
 
   & > video {
-    background: rgb(13, 17, 23) !important;
     height: 100%;
     object-fit: cover;
     width: 100%;
@@ -449,9 +443,8 @@
 
 .stream-info-container {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  height: 50%;
-  margin-left: 30px;
   width: auto;
 
   @media only screen and (max-width: 600px) {
@@ -472,6 +465,7 @@
     font-weight: 300;
     letter-spacing: 0;
     letter-spacing: 0.05em;
+    letter-spacing: 3px;
     line-height: 1;
     line-height: 100%;
     margin-bottom: 10px !important;
@@ -499,6 +493,7 @@
     // font-family: 'Poppins', sans-serif !important;
     font-family: Helvetica;
     font-size: 27px;
+    font-size: 20px;
     font-style: normal;
     font-style: normal;
     font-weight: normal;
@@ -506,8 +501,10 @@
     font-weight: 300;
     font-weight: 300;
     letter-spacing: 0.05em;
+    letter-spacing: 1px;
     line-height: 1.75;
     line-height: 170%;
+    margin: 10px 0 !important;
     margin-top: 10px !important;
     text-align: left;
     text-align: left;
@@ -528,6 +525,7 @@
   align-items: center;
   align-self: center;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: row;
   // margin:auto;
   font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -543,7 +541,7 @@
   opacity: 2 !important;
   overflow: hidden;
   text-rendering: optimizeLegibility;
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: auto;
 
   @media only screen and (max-width: 650px) {
@@ -569,6 +567,7 @@
   &__img-container {
     align-self: center;
     display: flex;
+    flex: 0 1 auto;
     // align-items: flex-start;
     // justify-content: space-between;
     flex-direction: row;
@@ -585,9 +584,10 @@
 .stream-sponsor-img {
   align-self: center;
   height: 70%;
-  margin-right: 10px;
+  max-height: 85%;
   object-fit: contain;
   overflow: hidden;
+  padding: 0 10px;
 
   // margin-top: -40px;
   width: auto;

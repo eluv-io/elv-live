@@ -20,7 +20,7 @@
   margin-bottom: 5px;
   text-align: center;
   text-shadow: #fff 0 0 0;
-  user-select: none; /* Standard syntax */
+  user-select: none;
   white-space: pre-wrap;
   width: 100%;
 }
@@ -33,7 +33,7 @@
   perspective: 1500px;
   perspective: 1500px;
   position: relative;
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 400px;
 
   @media only screen and (max-width: 620px) {
@@ -59,7 +59,7 @@
   perspective: 1500px;
   perspective: 1500px;
   position: relative;
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   @media only screen and (max-width: 620px) {
@@ -151,6 +151,6 @@
   perspective: 1500px;
   perspective: 1500px;
   position: relative;
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 420px;
 }

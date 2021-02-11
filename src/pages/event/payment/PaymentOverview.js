@@ -51,8 +51,7 @@ class PaymentOverview extends React.Component {
   }
 
   handleStripeSubmit = () => async () => {
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const ticketSku = ticketClass.skus[skuIndex];
+    const { ticketSku } = this.SelectedTicket();
     const { price_id, product_id } = ticketSku.payment_ids.stripe;
 
     if(!ValidEmail(this.state.email)) {
@@ -108,16 +107,17 @@ class PaymentOverview extends React.Component {
         retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
       } catch (error) {
         this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+        console.error(retryResponse);
       }
       this.setState({retryCheckout: false});
     }
   };
 
   SelectedTicket() {
-    const { ticketClass, skuIndex } = this.props.siteStore.selectedTicket;
-    const ticketSku = ticketClass.skus[skuIndex];
-
-    return { ticketClass, ticketSku };
+    return {
+      ticketClass: this.props.ticketClass,
+      ticketSku: this.props.ticketClass.skus[this.props.skuIndex]
+    };
   }
 
   DonationItems() {
@@ -246,16 +246,12 @@ class PaymentOverview extends React.Component {
           <div className="payment-info-img-container">
             <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
-          {/* <span className="payment-info-artist">
-            { this.props.siteStore.eventInfo.artist }
-          </span> */}
-
           {this.props.siteStore.artistLogo ?
             <div className="ticket-logo-container">
-              <img className="ticket-logo" src={this.props.siteStore.artistLogo}/> 
-            </div> 
-            : 
-            <h1 className="payment-info-artist">{ this.props.siteStore.eventInfo.artist }</h1>
+              <img className="ticket-logo" src={this.props.siteStore.artistLogo}/>
+            </div>
+            :  null
+            //<h1 className="payment-info-artist">{ this.props.siteStore.eventInfo.artist }</h1> }
           }
           <h3 className="payment-info-event">
             { this.props.siteStore.eventInfo.event_title }
@@ -269,9 +265,7 @@ class PaymentOverview extends React.Component {
           { this.Sponsors() }
         </div>
 
-
         <div className="payment-checkout">
-
           {/* Currency and Quantity Selector */}
           <div className="checkout-section">
             <div className="checkout-checkbox-label">
@@ -333,7 +327,6 @@ class PaymentOverview extends React.Component {
 
           { this.Merchandise() }
 
-
           {/* Email Form*/}
           <div className="checkout-section">
             <div className="checkout-email-form">
@@ -353,7 +346,7 @@ class PaymentOverview extends React.Component {
 
           {/* Stripe Checkout Redirect Button*/}
           <div className="checkout-button-container" >
-            
+
             <button className="checkout-button" role="link" onClick={this.handleStripeSubmit()}>
               {this.state.retryCheckout ?
                 <div className="spin-checkout-container">
@@ -362,7 +355,7 @@ class PaymentOverview extends React.Component {
                   </div>
                 </div>
                 : <div className="stripe-checkout-button">
-                  {"Pay with Card"}
+                  Pay with Card
                   <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
                 </div>}
             </button>
@@ -373,6 +366,8 @@ class PaymentOverview extends React.Component {
               //checkoutDonation={donation["price"]}
               //merchChecked={this.state.merchChecked}
               //donationChecked={this.state.donationChecked}
+              ticketClass={ticketClass}
+              ticketSku={ticketSku}
               email={this.state.email}
               handleError={this.handleError}
               ticketQuantity={this.state.ticketQuantity.value}
@@ -385,9 +380,6 @@ class PaymentOverview extends React.Component {
         </div>
       </div>
     );
-
-
-
   }
 }
 

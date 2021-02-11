@@ -16,7 +16,6 @@ const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
-const Calendar = MinLoadDelay(import("Confirmation/Calendar"));
 
 import {EluvioConfiguration} from "EluvioConfiguration";
 
@@ -25,6 +24,7 @@ import * as Stores from "Stores";
 import "Styles/main.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
+import Navigation from "Layout/Navigation";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -42,15 +42,27 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream)} />
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
         <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
-        <Route exact path="/:baseSlug?/:siteSlug/calendar" component={SitePage(Calendar)} />
         <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
 
         <Route>
           <Redirect to="/" />
+        </Route>
+      </Switch>
+    );
+  }
+
+  NavHeader() {
+    // Hide header on stream page
+    return (
+      <Switch>
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={null} />
+
+        <Route>
+          <Navigation />
         </Route>
       </Switch>
     );
@@ -64,6 +76,7 @@ class App extends React.Component {
     return (
       <main className="app">
         <BrowserRouter>
+          { this.NavHeader() }
           <Suspense fallback={<PageLoader/>}>
             { this.Routes() }
           </Suspense>

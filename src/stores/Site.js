@@ -19,7 +19,8 @@ class SiteStore {
   @observable baseSiteSelectorUrl;
 
   // Eluvio Live - Event Stream
-  @observable feeds = [];
+  @observable streams = [];
+  @observable promos;
 
   // Eluvio Live - Modal
   @observable showCheckout = false;
@@ -48,7 +49,13 @@ class SiteStore {
   }
 
   @computed get baseSitePath() {
+    if(!this.siteSlug) { return window.location.pathname }
+
     return UrlJoin("/", this.baseSlug, this.siteSlug);
+  }
+
+  @computed get hasPromos() {
+    return this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0;
   }
 
   SitePath(...pathElements) {
@@ -107,6 +114,11 @@ class SiteStore {
       this.siteSlug = slug;
       this.eventSites[slug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
+        select: [
+          ".",
+          "info",
+          "promos"
+        ],
         metadataSubtree: this.siteMetadataPath,
         resolveLinks: true,
         resolveIncludeSource: true,
@@ -126,7 +138,7 @@ class SiteStore {
   LoadStreams = flow(function * () {
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.siteMetadataPath, "titles"),
+      metadataSubtree: UrlJoin(this.siteMetadataPath, "streams"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -137,7 +149,7 @@ class SiteStore {
       ]
     });
 
-    this.feeds = yield Promise.all(
+    this.streams = yield Promise.all(
       Object.keys(titleLinks || {}).map(async index => {
         const slug = Object.keys(titleLinks[index])[0];
 
@@ -145,7 +157,42 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.siteMetadataPath, "titles", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.siteMetadataPath, "streams", index, slug, "sources", "default"),
+          protocols: ["hls"],
+          drms: await this.client.AvailableDRMs()
+        });
+
+        return { title, display_title, playoutOptions }
+      })
+    );
+  });
+
+  @action.bound
+  LoadPromos = flow(function * () {
+    if(this.promos) { return; }
+
+    const titleLinks = yield this.client.ContentObjectMetadata({
+      ...this.siteParams,
+      metadataSubtree: UrlJoin(this.siteMetadataPath, "promos"),
+      resolveLinks: true,
+      resolveIgnoreErrors: true,
+      resolveIncludeSource: true,
+      select: [
+        "*/*/title",
+        "*/*/display_title",
+        "*/*/sources"
+      ]
+    });
+
+    this.promos = yield Promise.all(
+      Object.keys(titleLinks || {}).map(async index => {
+        const slug = Object.keys(titleLinks[index])[0];
+
+        const { title, display_title, sources } = titleLinks[index][slug];
+
+        const playoutOptions = await this.client.BitmovinPlayoutOptions({
+          versionHash: this.siteParams.versionHash,
+          linkPath: UrlJoin(this.siteMetadataPath, "promos", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -208,11 +255,11 @@ class SiteStore {
 
   @computed get eventInfo() {
     let eventInfo = {
-      artist: "ARTIST",
+      event_header: "EVENT_HEADER",
+      event_subheader: "EVENT_SUBHEADER",
+      event_title: "EVENT_TITLE",
       location: "LOCATION",
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-      event_title: "EVENT_TITLE",
-      event_header: "EVENT_HEADER",
       description: "DESCRIPTION",
     };
 
