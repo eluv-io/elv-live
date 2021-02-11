@@ -1,3 +1,29 @@
+// RESPONSIVE BREAKPOINTS
+$bp-huge-2: 125em;   // 2000px
+$bp-huge: 93.75em;   // 1500px
+$bp-large-3: 84.5em;   // 1350px
+$bp-large-2: 75em;   // 1200px
+$bp-large: 68.7em;   // 1100px
+$bp-medium-2: 59.375em;    // 950px;
+$bp-medium: 50em;    // 800px;
+$bp-small-2: 43.75em;   // 700px;
+$bp-small-3: 37.5em;   // 600px;
+$bp-small: 31.25em;   // 500px;
+$bp-tiny-2: 27.6em;   // 440px;
+$bp-tiny: 21.875em;   // 350px;
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
 $color-dark: #171818;
 $color-background: #111;
 $color-background-modal: #000;

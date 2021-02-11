@@ -3,7 +3,6 @@ import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "./Site";
 import {EluvioConfiguration} from "EluvioConfiguration";
 
-
 // Force strict mode so mutations are only allowed within actions.
 configure({
   enforceActions: "always"
@@ -15,8 +14,9 @@ class RootStore {
   @observable error = "";
 
   constructor() {
-    this.InitializeClient();
     this.siteStore = new SiteStore(this);
+
+    window.rootStore = this;
   }
 
   @action.bound
@@ -29,18 +29,29 @@ class RootStore {
     this.client = client;
   });
 
-
-
   @action.bound
-  RedeemCode = flow(function * (code, ntpId, tenantId) {
+  RedeemCode = flow(function * (code) {
     try {
-      let codeSiteId = yield this.client.RedeemCode({code, ntpId, tenantId});
+      const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+
+      const siteId = yield client.RedeemCode({
+        tenantId: this.siteStore.currentSiteInfo.tenant_id,
+        code
+      });
+
+      if(client.utils.EqualHash(siteId, this.siteStore.siteId)) {
+        throw Error(`Code redemption does not match current site: Received ${siteId} | Expected ${this.siteStore.siteId}`);
+      }
+
+      this.client = client;
       this.streamAccess = true;
-      return codeSiteId;
+
+      this.siteStore.ActivateCode(code);
+
+      return siteId;
     } catch (error) {
        console.log("Error redeeming code: ", error);
     }
-
   });
 
   @action.bound

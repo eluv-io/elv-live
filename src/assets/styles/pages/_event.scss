@@ -1,7 +1,22 @@
-.event {
-  background-color: #92877a;
+.event-page-container {
   display: flex;
   flex-direction: column;
+}
+
+.event-hero-background {
+  @include page-fade-in;
+
+  animation: 1s fadein linear;
+  background-position: center top;
+  background-size: cover;
+  height: 100vh;
+  mask-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8) 55%, rgba(0, 0, 0, 0));
+  min-width: 0;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  width: 100vw;
 }
 
 .event-container {
@@ -18,12 +33,12 @@
     display: grid;
     flex-direction: column;
     grid-row: title-start / title-end;
-    user-select: none; /* IE 10+ and Edge */
+    user-select: none;
 
     .name {
       color: #000;
       font-family: Helvetica;
-      font-size: calc(min(calc(max(15vw, 55px)), 90px));
+      font-size: calc(min(calc(max(15vw, 55px)), 80px));
       font-style: normal;
       font-weight: 300;
       height: 100px;
@@ -43,7 +58,7 @@
       margin: auto;
       margin-bottom: -25px;
       padding-top: 0;
-      user-select: none; /* IE 10+ and Edge */
+      user-select: none;
       width: 850px;
     }
 
@@ -52,7 +67,7 @@
       margin: auto;
       margin-bottom: 20px;
       padding-top: 0;
-      user-select: none; /* IE 10+ and Edge */
+      user-select: none;
       width: 600px;
     }
 
@@ -62,7 +77,7 @@
       margin-bottom: 20px;
       object-fit: cover !important;
       object-position: 0 -60px !important;
-      user-select: none; /* IE 10+ and Edge */
+      user-select: none;
       width: 600px;
     }
 
@@ -187,7 +202,6 @@
   }
 
   &__overview {
-    background: linear-gradient(180deg, #fff 0%, #92877a 100%);
     grid-row-start: overview-start;
     height: max-content;
     padding-bottom: 50px;
@@ -236,6 +250,6 @@
   margin: auto;
   margin: auto;
   text-align: center;
-  user-select: none; /* IE 10+ and Edge */
+  user-select: none;
   width: 100%;
 }

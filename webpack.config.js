@@ -14,7 +14,7 @@ module.exports = {
     path: Path.resolve(__dirname, "dist"),
     filename: "App.js",
     chunkFilename: "[name].bundle.js",
-    publicPath: '/'
+    publicPath: "/"
   },
   devServer: {
     disableHostCheck: true,
@@ -48,9 +48,11 @@ module.exports = {
       Utils: Path.resolve(__dirname, "src/utils"),
       EluvioConfiguration: Path.resolve(__dirname, "src/EluvioConfiguration.js"),
     },
-    extensions: ['.js', '.jsx', '.scss', '.png', '.svg']
+    extensions: [".js", ".jsx", ".scss", ".png", ".svg"]
   },
   optimization: {
+    providedExports: true,
+    usedExports: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -58,12 +60,15 @@ module.exports = {
           keep_fnames: true
         }
       })
-    ]
+    ],
+    splitChunks: {
+      chunks: "all"
+    }
   },
   node: {
     fs: "empty",
-    net: 'empty',
-    tls: 'empty'
+    net: "empty",
+    tls: "empty"
   },
   mode: "development",
   devtool: "eval-source-map",
@@ -73,10 +78,10 @@ module.exports = {
       template: Path.join(__dirname, "src", "index.html"),
       cache: false,
       filename: "index.html",
-      favicon: "node_modules/elv-components-js/src/icons/favicon.png"
-    })
-    // , new BundleAnalyzerPlugin()
-  ],
+      favicon: "./src/assets/icons/favicon.png"
+    }),
+    process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
+  ].filter(item => item),
   module: {
     rules: [
       {
@@ -97,7 +102,7 @@ module.exports = {
           },
           "sass-loader"
         ],
-        
+
       },
       {
         test: /\.(js|mjs)$/,

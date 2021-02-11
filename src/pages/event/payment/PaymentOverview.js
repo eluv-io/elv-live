@@ -8,12 +8,12 @@ import {retryRequest} from "Utils/retryRequest";
 import Paypal from "./Paypal";
 import StripeLogo from "Images/logo/logo-stripe.png";
 import UrlJoin from "url-join";
+import {FormatDateString, FormatPriceString, ValidEmail} from "Utils/Misc";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class PaymentOverview extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -24,15 +24,9 @@ class PaymentOverview extends React.Component {
       merchChecked: false,
       merchSize: false,
       selectedCountry: checkout.countryOptions[235],
-      ticketQty: checkout.qtyOptions[0],
+      ticketQuantity: checkout.qtyOptions[0],
       selectedSize: checkout.sizeOptions[0],
       error: "",
-      donationImage: undefined,
-      merchImage: undefined,
-      eventInfo: this.props.siteStore.currentSite["event_info"][0],
-      checkoutMerch: this.props.siteStore.currentSite["checkout_merch"][0],
-      donation: this.props.siteStore.currentSite["checkout_donate"][0],
-      sponsorInfo: this.props.siteStore.currentSite["sponsor"][0],
       retryCheckout: false
     };
 
@@ -40,21 +34,14 @@ class PaymentOverview extends React.Component {
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleError = this.handleError.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
     this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
-
-  }
-
-  validateEmail (email) {
-    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regexp.test(email);
   }
 
   handleCountryChange(value) {
     this.setState({selectedCountry: value});
   }
   handleQtyChange(value) {
-    this.setState({ticketQty: value});
+    this.setState({ticketQuantity: value});
   }
   handleSizeChange(value) {
     this.setState({selectedSize: value});
@@ -63,40 +50,44 @@ class PaymentOverview extends React.Component {
     this.setState({error: value});
   }
 
-  handleStripeSubmit = (priceId, prodId) => async event => {
-    console.log("HANDLE STRIPE SUBMIT", priceId, prodId);
-    if(!this.validateEmail(this.state.email)) {
+  handleStripeSubmit = () => async () => {
+    const { ticketSku } = this.SelectedTicket();
+    const { price_id, product_id } = ticketSku.payment_ids.stripe;
+
+    if(!ValidEmail(this.state.email)) {
       this.setState({error: "Enter a valid email to continue to Payment!"});
       return;
     }
-    const stripe = await loadStripe(this.props.siteStore.stripePublicKey);
+
+    const checkoutId = this.props.siteStore.generateConfirmationId(ticketSku.otp_id, this.state.email);
+    const baseUrl = UrlJoin(window.location.origin, this.props.siteStore.baseSitePath);
+
+    let stripeParams = {
+      mode: "payment",
+      successUrl: UrlJoin(baseUrl, "success", this.state.email, checkoutId),
+      cancelUrl: baseUrl,
+      clientReferenceId: product_id,
+      customerEmail: this.state.email,
+    };
 
     let checkoutCart = [
-      { price: priceId, quantity: this.state.ticketQty.value}
+      { price: price_id, quantity: this.state.ticketQuantity.value}
     ];
-    let merchInd = 1;
-    let donateInd = "stripe_price_id";
-    if(this.props.siteStore.stripeTestMode) {
-      merchInd = 0;
-      donateInd = "stripe_test_price_id";
-    }
 
+    /* TODO: Merchandise and donations
     if(this.state.merchChecked) {
-      checkoutCart.push({ price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value], quantity: 1 });
+      checkoutCart.push({
+        price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value],
+        quantity: 1
+      });
     }
     if(this.state.donationChecked) {
       checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
     }
-    let checkoutId = this.props.siteStore.generateConfirmationId(this.props.siteStore.currentProduct.otpId, this.state.email);
+    */
 
-    let stripeParams = {
-      mode: "payment",
-      lineItems: checkoutCart,
-      successUrl: UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug, "success", this.state.email, checkoutId),
-      cancelUrl: UrlJoin(window.location.origin, this.props.siteStore.basePath, this.props.siteStore.siteSlug),
-      clientReferenceId: prodId,
-      customerEmail: this.state.email
-    };
+    stripeParams.lineItems = checkoutCart;
+
 
     if(this.state.merchChecked) {
       stripeParams.shippingAddressCollection = {
@@ -105,84 +96,190 @@ class PaymentOverview extends React.Component {
     }
 
     try {
+      const stripe = await loadStripe(this.props.siteStore.paymentConfigurations.stripe_public_key);
       await stripe.redirectToCheckout(stripeParams);
 
     } catch (error) {
       this.setState({retryCheckout: true});
+
       let retryResponse;
       try {
-
         retryResponse = await retryRequest(stripe.redirectToCheckout, stripeParams);
-
       } catch (error) {
         this.setState({retryCheckout: false, error: "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."});
+        console.error(retryResponse);
       }
       this.setState({retryCheckout: false});
     }
   };
 
-  render() {
-    let {checkoutMerch, donation, eventInfo } = this.state;
-
-    const handleEmailChange = (event) => {
-      this.setState({email: event.target.value});
+  SelectedTicket() {
+    return {
+      ticketClass: this.props.ticketClass,
+      ticketSku: this.props.ticketClass.skus[this.props.skuIndex]
     };
+  }
+
+  DonationItems() {
+    // TODO: This only supports one item
     const handledDonationChange = () => {
       this.setState({donationChecked: !(this.state.donationChecked)});
     };
+
+    const { ticketSku } = this.SelectedTicket();
+    const ticketCurrency = ticketSku.price.currency;
+
+    return this.props.siteStore.DonationItems(ticketCurrency).map((donationItem, index) => {
+      const price = donationItem.skus[0].price;
+
+      if(!price) { return; }
+
+      return (
+        <div className="checkout-section" key={`donation-item-${index}`}>
+          <div className="checkout-checkbox-container">
+            <input
+              checked={this.state.donationChecked}
+              onChange={handledDonationChange}
+              className="checkout-checkbox-input"
+              id={"checkbox-donation"}
+              type="checkbox"
+            />
+            <div className="checkout-checkbox-label">
+              <h5 className="checkout-checkbox-heading2">
+                { donationItem.name }
+              </h5>
+              <span>
+                { FormatPriceString(price) }
+              </span>
+            </div>
+          </div>
+
+          <div className="checkout-checkbox-bundle">
+            <img src={donationItem.image_urls[0]} className="checkout-checkbox-bundle-img" />
+            <div className="checkout-checkbox-bundle-info">
+              <span className="checkout-checkbox-bundle-name">
+                { donationItem.heading }
+              </span>
+              <p className="checkout-checkbox-bundle-description">
+                { donationItem.description }
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
+
+  Merchandise() {
+    // TODO: This only supports one item
     const handledMerchChange = () => {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
+    const { ticketSku } = this.SelectedTicket();
+    const ticketCurrency = ticketSku.price.currency;
 
+    return this.props.siteStore.Merchandise(ticketCurrency).map((item, index) => {
+      const price = item.skus[0].price;
 
+      if(!price) { return; }
+
+      return (
+        <div className="checkout-section" key={`merchandise-item-${index}`}>
+          <div className="checkout-checkbox-container">
+            <input
+              checked={this.state.merchChecked}
+              onChange={handledMerchChange}
+              className="checkout-checkbox-input"
+              id={"checkbox-merch"}
+              type="checkbox"
+            />
+            <div className="checkout-checkbox-label">
+              <h5 className="checkout-checkbox-heading2">
+                { item.name }
+              </h5>
+              <span>
+                { FormatPriceString(price) }
+              </span>
+            </div>
+          </div>
+          <div className="checkout-checkbox-bundle">
+            <img src={item.image_urls[0]} className="checkout-checkbox-bundle-img" />
+            <div className="checkout-checkbox-bundle-info">
+              <div className="checkout-checkbox-bundle-size">
+                <span className="checkout-checkbox-bundle-name">
+                  { item.heading }
+                </span>
+              </div>
+              <p className="checkout-checkbox-bundle-description">
+                { item.description }
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
+
+  Sponsors() {
+    return (
+      <div className="sponsor-container">
+        {
+          this.props.siteStore.sponsors.map((sponsor, index) =>
+            <img src={sponsor.image_url} className="big-sponsor-img" alt={sponsor.name} key={`checkout-sponsor-${index}`}/>
+          )
+        }
+      </div>
+    );
+  }
+
+  render() {
+    const handleEmailChange = (event) => {
+      this.setState({email: event.target.value});
+    };
+
+    const { ticketClass, ticketSku } = this.SelectedTicket();
 
     return (
-
       <div className="payment-container">
         <div className="payment-info">
           <div className="payment-info-img-container">
-            <img src={this.props.siteStore.eventPoster} className="payment-info-img" />
+            <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
-          <span className="payment-info-artist">
-            {eventInfo["artist"]} Presents
-          </span>
+          {this.props.siteStore.artistLogo ?
+            <div className="ticket-logo-container">
+              <img className="ticket-logo" src={this.props.siteStore.artistLogo}/>
+            </div>
+            :  null
+            //<h1 className="payment-info-artist">{ this.props.siteStore.eventInfo.artist }</h1> }
+          }
           <h3 className="payment-info-event">
-            {eventInfo["event_header"]}
+            { this.props.siteStore.eventInfo.event_title }
           </h3>
           <h3 className="payment-info-location">
-            {eventInfo["location"]}
+            { this.props.siteStore.eventInfo.location }
           </h3>
-
           <p className="payment-info-description">
-            {/* {eventInfo["description"]}         */}
-            Rita Ora will be making history on January 28th with a global live stream from the legendary Paris landmark, the Eiffel Tower, to celebrate the release of her third studio album: RO3.
-
+            { ticketClass.description }
           </p>
-          <div className="sponsor-container">
-            <img src={this.props.siteStore.sponsorImage} className="big-sponsor-img" />
-          </div>
+          { this.Sponsors() }
         </div>
 
-
         <div className="payment-checkout">
-
           {/* Currency and Quantity Selector */}
           <div className="checkout-section">
             <div className="checkout-checkbox-label">
               <h5 className="checkout-checkbox-heading">
-                {this.props.siteStore.currentProduct.name}
+                { ticketClass.name }
               </h5>
               <span>
-                {`$${this.props.siteStore.currentProduct.price / 100}`}
+                { FormatPriceString(ticketSku.price) }
               </span>
-
             </div>
             <div className="checkout-checkbox-details">
               <div className="">
-                {`${this.props.siteStore.currentProduct.offering["label"]} · ${this.props.siteStore.currentProduct.offering["date"]}`}
+                { `${ticketSku.label} · ${FormatDateString(ticketSku.start_time)}` }
               </div>
-
             </div>
             <div className="currency-quantity-container">
               <div className="currency-select">
@@ -204,7 +301,7 @@ class PaymentOverview extends React.Component {
                 />
               </div>
               <div className="quantity-select">
-                <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.ticketQty} onChange={this.handleQtyChange}
+                <Select className='react-select-container'  classNamePrefix="react-select" options={checkout.qtyOptions} value={this.state.ticketQuantity} onChange={this.handleQtyChange}
                   theme={theme => ({
                     ...theme,
                     borderRadius: 10,
@@ -226,76 +323,9 @@ class PaymentOverview extends React.Component {
             </div>
           </div>
 
-          {/* Donation Selector */}
-          <div className="checkout-section">
+          { this.DonationItems() }
 
-            <div className="checkout-checkbox-container">
-              <input
-                checked={this.state.donationChecked}
-                onChange={handledDonationChange}
-                className="checkout-checkbox-input"
-                id={"checkbox-merch"}
-                type="checkbox"
-              />
-              <div className="checkout-checkbox-label">
-                <h5 className="checkout-checkbox-heading2">
-                  {donation["name"]}
-                </h5>
-                <span>
-                  {`$${donation["price"]/100}`}
-                </span>
-              </div>
-            </div>
-
-            <div className="checkout-checkbox-bundle">
-              <img src={this.props.siteStore.donationImage} className="checkout-checkbox-bundle-img" />
-              <div className="checkout-checkbox-bundle-info">
-                <span className="checkout-checkbox-bundle-name">
-                  {donation["heading"]}
-                </span>
-                <p className="checkout-checkbox-bundle-description">
-                  {donation["description"]}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Merch Selector */}
-          <div className="checkout-section">
-            <div className="checkout-checkbox-container">
-              <input
-                checked={this.state.merchChecked}
-                onChange={handledMerchChange}
-                className="checkout-checkbox-input"
-                id={"checkbox-merch"}
-                type="checkbox"
-              />
-              <div className="checkout-checkbox-label">
-                <h5 className="checkout-checkbox-heading2">
-                  {checkoutMerch["name"]}
-                </h5>
-                <span>
-                  {`$${checkoutMerch["price"]/100}`}
-                </span>
-              </div>
-            </div>
-
-            <div className="checkout-checkbox-bundle">
-              <img src={this.props.siteStore.merchImage} className="checkout-checkbox-bundle-img" />
-              <div className="checkout-checkbox-bundle-info">
-                <div className="checkout-checkbox-bundle-size">
-                  <span className="checkout-checkbox-bundle-name">
-                    {checkoutMerch["heading"]}
-                  </span>
-                </div>
-
-                <p className="checkout-checkbox-bundle-description">
-                  {checkoutMerch["description"]}
-                </p>
-
-              </div>
-            </div>
-          </div>
+          { this.Merchandise() }
 
           {/* Email Form*/}
           <div className="checkout-section">
@@ -316,30 +346,31 @@ class PaymentOverview extends React.Component {
 
           {/* Stripe Checkout Redirect Button*/}
           <div className="checkout-button-container" >
-            <button className="checkout-button" role="link" onClick={this.handleStripeSubmit(this.props.siteStore.currentProduct.priceId, this.props.siteStore.currentProduct.prodId)}>
+
+            <button className="checkout-button" role="link" onClick={this.handleStripeSubmit()}>
               {this.state.retryCheckout ?
                 <div className="spin-checkout-container">
                   <div className="la-ball-clip-rotate la-sm">
-                    <div></div>
+                    <div />
                   </div>
                 </div>
                 : <div className="stripe-checkout-button">
-                  {"Pay with Card"}
-                  <img className="stripe-checkout-logo"src={StripeLogo}/>
+                  Pay with Card
+                  <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
                 </div>}
-
             </button>
 
             <Paypal
-              product={this.props.siteStore.currentProduct}
-              checkoutMerch={checkoutMerch["price"]}
-              checkoutDonation={donation["price"]}
-              merchChecked={this.state.merchChecked}
-              donationChecked={this.state.donationChecked}
+              // TODO: Replace with better "cart" info
+              //checkoutMerch={checkoutMerch["price"]}
+              //checkoutDonation={donation["price"]}
+              //merchChecked={this.state.merchChecked}
+              //donationChecked={this.state.donationChecked}
+              ticketClass={ticketClass}
+              ticketSku={ticketSku}
               email={this.state.email}
               handleError={this.handleError}
-              validateEmail={this.validateEmail}
-              ticketQty={this.state.ticketQty.value}
+              ticketQuantity={this.state.ticketQuantity.value}
             />
             <div id="checkout-id" className="checkout-error">
               {this.state.error}
@@ -349,9 +380,6 @@ class PaymentOverview extends React.Component {
         </div>
       </div>
     );
-
-
-
   }
 }
 

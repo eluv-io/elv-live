@@ -16,141 +16,30 @@ import {
 @inject("siteStore")
 @observer
 class SocialMediaBar extends React.Component {
-
-  render() {
-    let artistInfo  = this.props.siteStore.currentSite["artist_info"][0];
+  SocialButton(href, Icon, name) {
+    if(!href) { return null; }
 
     return (
+      <a href={href} target="_blank" className="info-social-link">
+        <IconContext.Provider value={{ className: `social-icon ${name}`, color: "black"}}>
+          { Icon }
+        </IconContext.Provider>
+      </a>
+    );
+  }
+
+  render() {
+    return (
       <div className="overview-social-box">
-        <a
-          href={artistInfo["social_media_links"][0]["spotify"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider
-            value={{ className: "social-icon",
-              color: "black",
-
-              // color: "#1DB954"
-            }}
-          >
-            <div>
-              <FaSpotify />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["soundcloud"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider
-            value={{ className: "social-icon",
-              color: "black",
-
-              // color: "#ff7700"
-            }}
-          >
-            <div>
-              <FaSoundcloud />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["applemusic"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider
-            value={{ className: "social-icon social-icon-apple" }}
-          >
-            <div>
-              <FaApple />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["youtube"]}
-          target="_blank"
-          className="info-social-link__first"
-        >
-          <IconContext.Provider
-            value={{
-              className: "social-icon social-icon-yt",
-              //color: " #c4302b",
-              color: "black",
-
-            }}
-          >
-            <div>
-              <FaYoutube />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["instagram"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider
-            value={{
-              className: "social-icon social-icon-insta",
-              //color: " #c4302b",
-              color: "black",
-
-            }}
-          >
-            <div>
-              <FaInstagram />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["twitter"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider
-            value={{ className: "social-icon",
-              color: "black",
-              // color: "#1DA1F2"
-            }}
-          >
-            <div>
-              <FaTwitter />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["facebook"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider
-            value={{ className: "social-icon",
-              color: "black",
-
-              // color: "#4267B2"
-            }}
-          >
-            <div>
-              <FaFacebookSquare />
-            </div>
-          </IconContext.Provider>
-        </a>
-        <a
-          href={artistInfo["social_media_links"][0]["website"]}
-          target="_blank"
-          className="info-social-link"
-        >
-          <IconContext.Provider value={{ className: "social-icon" }}>
-            <div>
-              <FaDesktop />
-            </div>
-          </IconContext.Provider>
-        </a>
+        { this.SocialButton(this.props.siteStore.socialLinks.spotify, <FaSpotify/>, "spotify") }
+        { this.SocialButton(this.props.siteStore.socialLinks.soundcloud, <FaSoundcloud/>, "soundcloud") }
+        { this.SocialButton(this.props.siteStore.socialLinks.apple_music, <FaApple/>, "apple_music") }
+        { this.SocialButton(this.props.siteStore.socialLinks.youtube, <FaYoutube/>,"youtube", ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.instagram, <FaInstagram/>,"instagram") }
+        { this.SocialButton(this.props.siteStore.socialLinks.twitter, <FaTwitter/>,"twitter", ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.facebook, <FaFacebookSquare/>,"facebook") }
+        { this.SocialButton(this.props.siteStore.socialLinks.website, <FaDesktop/>,"website" ) }
       </div>
-
     );
   }
 }

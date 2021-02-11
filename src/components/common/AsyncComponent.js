@@ -1,9 +1,7 @@
-import "elv-components-js/src/stylesheets/async-component.scss";
-
 import React from "react";
 import PropTypes from "prop-types";
-import {ErrorHandler} from "elv-components-js";
 import {observer} from "mobx-react";
+import ErrorHandler from "Common/ErrorHandler";
 
 @observer
 class AsyncComponent extends React.Component {

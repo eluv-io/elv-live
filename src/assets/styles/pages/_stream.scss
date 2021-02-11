@@ -1,4 +1,3 @@
-
 .stream-nav {
   display: flex;
   flex-direction: row;
@@ -12,9 +11,8 @@
     margin-bottom: 25px;
     margin-left: 6px;
     margin-top: 26.5px;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    position: absolute;
+    user-select: none;
     width: auto;
   }
 
@@ -28,9 +26,7 @@
     margin-bottom: 22px;
     margin-left: 6px;
     margin-top: 22px !important;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
     width: 100%;
   }
 
@@ -62,6 +58,26 @@
   }
 }
 
+.stream-root {
+  /* IE10+ */
+  -ms-overflow-style: -ms-autohiding-scrollbar !important;
+  overflow-y: hidden;
+
+  /* FireFox */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: none !important;
+  }
+}
+
 .stream-container {
   background-color: transparent;
   display: flex;
@@ -83,6 +99,7 @@
     width: 100%;
 
     @media only screen and (max-width: 500px) {
+      grid-template-rows: calc(100vh - 275px) 200px;
       height: calc(100vh - 75px);
     }
 
@@ -91,6 +108,11 @@
       grid-column: 1;
       grid-row: 1 / 2;
       height: calc(100vh - 175px);
+
+      @media only screen and (max-width: 500px) {
+        // height: calc(100vh - 75px);
+        height: calc(100vh - 275px);
+      }
     }
 
     &--video {
@@ -105,13 +127,12 @@
 
     &--info {
       background-color: transparent;
-      display: flex;
-      flex-direction: row;
-      grid-column: 1;
-      grid-row: 2 / 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       height: 100%;
       justify-content: space-between;
-      user-select: none; /* IE 10+ and Edge */
+      padding: 0 30px;
+      user-select: none;
       width: 100%;
     }
   }
@@ -189,13 +210,11 @@
 }
 
 .feedGrid {
-  background: rgb(13, 17, 23) !important;
   height: 100%;
   position: relative;
   width: 100%;
 
   & > video {
-    background: rgb(13, 17, 23) !important;
     height: 100%;
     object-fit: cover;
     width: 100%;
@@ -424,20 +443,31 @@
 
 .stream-info-container {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  margin-left: 30px;
   width: auto;
+
+  @media only screen and (max-width: 600px) {
+    margin-left: 10px;
+  }
 
   &__title {
     display: inline-block;
     font-family: sans-serif !important;
     font-family: Helvetica;
+    font-family: Helvetica;
     font-size: 37.5px;
+    font-style: normal;
     font-style: normal;
     font-weight: 700;
     font-weight: normal;
+    font-weight: 300;
+    font-weight: 300;
     letter-spacing: 0;
+    letter-spacing: 0.05em;
+    letter-spacing: 3px;
     line-height: 1;
+    line-height: 100%;
     margin-bottom: 10px !important;
     margin-top: -0.65rem;
     text-align: left;
@@ -445,7 +475,11 @@
     text-align: left;
 
     @media only screen and (max-width: 600px) {
-      font-size: 26px;
+      font-size: 18px;
+      height: auto;
+      letter-spacing: 0;
+      line-height: 150%;
+      width: auto;
     }
   }
 
@@ -456,19 +490,33 @@
     display: inline-block;
     font-family: sans-serif !important;
     font-family: Helvetica;
+    // font-family: 'Poppins', sans-serif !important;
+    font-family: Helvetica;
     font-size: 27px;
+    font-size: 20px;
+    font-style: normal;
     font-style: normal;
     font-weight: normal;
     font-weight: normal;
+    font-weight: 300;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    letter-spacing: 1px;
     line-height: 1.75;
+    line-height: 170%;
+    margin: 10px 0 !important;
     margin-top: 10px !important;
     text-align: left;
     text-align: left;
+    text-transform: uppercase;
     width: 100%;
-    // font-family: 'Poppins', sans-serif !important;
 
     @media only screen and (max-width: 600px) {
-      font-size: 26px;
+      font-size: 22px;
+      height: auto;
+      letter-spacing: 0;
+      margin-top: 20px !important;
+      width: auto;
     }
   }
 }
@@ -477,6 +525,7 @@
   align-items: center;
   align-self: center;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: row;
   // margin:auto;
   font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -484,18 +533,22 @@
   font-style: normal;
   font-weight: 400;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-end;
   letter-spacing: -0.022em;
   line-height: 1.47059;
   // margin-top: 10px;
-  margin-right: 80px;
+  //margin-right: 80px;
   opacity: 2 !important;
   overflow: hidden;
   text-rendering: optimizeLegibility;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: auto;
+
+  @media only screen and (max-width: 650px) {
+    align-self: flex-start;
+    height: 50%;
+    width: 120px;
+  }
 
   &__title {
     align-self: center;
@@ -514,18 +567,27 @@
   &__img-container {
     align-self: center;
     display: flex;
+    flex: 0 1 auto;
     // align-items: flex-start;
     // justify-content: space-between;
     flex-direction: row;
     height: 100%;
     overflow: hidden;
+
+    @media only screen and (max-width: 650px) {
+      height: 100%;
+      width: 150px;
+    }
   }
 }
 
 .stream-sponsor-img {
   align-self: center;
-  height: 250%;
+  height: 70%;
+  max-height: 85%;
+  object-fit: contain;
   overflow: hidden;
+  padding: 0 10px;
 
   // margin-top: -40px;
   width: auto;

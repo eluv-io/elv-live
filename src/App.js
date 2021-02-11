@@ -1,16 +1,21 @@
-import React from "react";
+import React, {Suspense, lazy} from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
 import {Switch} from "react-router";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Redirect} from "react-router-dom";
 
-import Support from "Support/Support";
-import CodeAccess from "Code/CodeAccess";
-import Event from "Event/Event";
-import Stream from "Stream/Stream";
-import Success from "Confirmation/Success";
-import Calendar from "Confirmation/Calendar";
-import AsyncComponent from "Common/AsyncComponent";
+// Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
+const MinLoadDelay = (Import, delay=500) => lazy(async () => {
+  await new Promise(resolve => setTimeout(resolve, delay));
+
+  return Import;
+});
+
+const Support = MinLoadDelay(import("Support/Support"));
+const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
+const Event = MinLoadDelay(import("Event/Event"));
+const Stream = MinLoadDelay(import("Stream/Stream"));
+const Success = MinLoadDelay(import("Confirmation/Success"));
 
 import {EluvioConfiguration} from "EluvioConfiguration";
 
@@ -18,55 +23,65 @@ import * as Stores from "Stores";
 
 import "Styles/main.scss";
 import SitePage from "Common/SitePage";
-
-
-@inject("rootStore")
-@inject("siteStore")
-@observer
-class Routes extends React.Component {
-  render() {
-    return (
-      <Switch>
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/stream`} component={SitePage(Stream)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/success/:email/:id`} component={SitePage(Success)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/calendar`} component={SitePage(Calendar)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/code`} component={SitePage(CodeAccess)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug/support`} component={SitePage(Support)} />
-        <Route exact path = {`${this.props.siteStore.basePath}/:siteSlug`} component={SitePage(Event)} />
-
-        {/* <Route>
-          <Redirect to="/" />
-        </Route> */}
-      </Switch>
-    );
-  }
-}
+import {PageLoader} from "Common/Loaders";
+import Navigation from "Layout/Navigation";
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class App extends React.Component {
-  render() {
-    if(!this.props.siteStore.client) { return null; }
+  async componentDidMount() {
+    await this.props.rootStore.InitializeClient();
+    await this.props.siteStore.LoadSiteSelector(EluvioConfiguration["object-id"]);
+  }
+
+  Routes() {
+    if(!this.SiteLoaded()) {
+      return <PageLoader />;
+    }
 
     return (
-      <AsyncComponent
-        Load={async () => {
-          await this.props.siteStore.LoadSiteSelector(EluvioConfiguration["object-id"]);
-        }}
-        loadingSpin={false}
-        render={() => {
-          return (
-            <div className="app">
-              <main>
-                <BrowserRouter>
-                  <Routes />
-                </BrowserRouter>
-              </main>
-            </div>
-          );
-        }}
-      />
+      <Switch>
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
+        <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
+        <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
+        <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
+
+        <Route>
+          <Redirect to="/" />
+        </Route>
+      </Switch>
+    );
+  }
+
+  NavHeader() {
+    // Hide header on stream page
+    return (
+      <Switch>
+        <Route exact path="/:baseSlug?/:siteSlug/stream" component={null} />
+
+        <Route>
+          <Navigation />
+        </Route>
+      </Switch>
+    );
+  }
+
+  SiteLoaded() {
+    return this.props.rootStore.client && Object.keys(this.props.siteStore.availableSites).length > 0;
+  }
+
+  render() {
+    return (
+      <main className="app">
+        <BrowserRouter>
+          { this.NavHeader() }
+          <Suspense fallback={<PageLoader/>}>
+            { this.Routes() }
+          </Suspense>
+        </BrowserRouter>
+      </main>
     );
   }
 }
