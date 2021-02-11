@@ -1,32 +1,48 @@
 @mixin breakpoint($range) {
-  $screen-xs-max: 425px;  // Small phones
-  $screen-sm-max: 576px;  // Small tablets and large smartphones (landscape view)
-  $screen-md-max: 768px;  // Small tablets (portrait view)
-  $screen-lg-max: 992px;  // Tablets and small desktops
+  $screen-xs-max: 425px; // Small phones
+  $screen-sm-max: 576px; // Small tablets and large smartphones (landscape view)
+  $screen-md-max: 768px; // Small tablets (portrait view)
+  $screen-lg-max: 992px; // Tablets and small desktops
   $screen-xl-max: 1200px; // Large tablets and desktops
   $screen-xxl-max: 1824px; // Desktop
 
   @if $range == phone-sm {
-    @media (max-width: $screen-xs-max) { @content; }
+    @media (max-width: $screen-xs-max) {
+      @content;
+    }
   }
 
   @else if $range == phone-lg {
-    @media (max-width: $screen-sm-max) { @content; }
+    @media (max-width: $screen-sm-max) {
+      @content;
+    }
   }
 
   @else if $range == tablet-sm {
-    @media (max-width: $screen-md-max) { @content; }
+    @media (max-width: $screen-md-max) {
+      @content;
+    }
   }
 
   @else if $range == tablet-lg {
-    @media (max-width: $screen-lg-max) { @content; }
+    @media (max-width: $screen-lg-max) {
+      @content;
+    }
   }
 
   @else if $range == desktop-sm {
-    @media (max-width: $screen-xl-max) { @content; }
+    @media (max-width: $screen-xl-max) {
+      @content;
+    }
   }
 
   @else if $range == desktop-lg {
-    @media (max-width: $screen-xxl-max) { @content; }
+    @media (max-width: $screen-xxl-max) {
+      @content;
+    }
   }
+}
+
+@mixin page-fade-in {
+  animation: 0.5s fadein ease-in;
 }

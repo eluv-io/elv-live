@@ -1,90 +1,79 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 import {inject, observer} from "mobx-react";
 
 import CloseIcon from "Icons/x.svg";
 import Timer from "Common/Timer";
 import EventTabs from "Event/tabs/EventTabs";
-import Navigation from  "Layout/Navigation";
-import PaymentOverview from "Event/payment/PaymentOverview";
 import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
-import smoothscroll from "smoothscroll-polyfill";
 
 import ImageIcon from "Common/ImageIcon";
+
+const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class Event extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      showTrailer: false,
+      showPromo: false,
       tab: 0,
       heroBackground: null
     };
+
+    this.OpenPromoModal = this.OpenPromoModal.bind(this);
+    this.ClosePromoModal = this.ClosePromoModal.bind(this);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     window.scrollTo(0, 0);
+
+    this.props.siteStore.LoadPromos();
   }
 
-  Trailer() {
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.ClosePromoModal);
+  }
+
+  OpenPromoModal() {
+    document.addEventListener("keydown", this.ClosePromoModal);
+
+    this.setState({showPromo: true});
+  }
+
+  ClosePromoModal(event) {
+    if(event && (event.key || "").toLowerCase() !== "escape") { return; }
+
+    this.setState({showPromo: false});
+  }
+
+  Promos() {
+    if(!this.state.showPromo) { return; }
+
     return (
-      <React.Fragment>
-        <div onClick={() => this.setState({showTrailer: false})} className="backdrop" />
+      <>
+        <div onClick={() => this.ClosePromoModal()} className="backdrop" />
         <ImageIcon
           key={"back-icon-close-modal"}
           className={"back-button-modal"}
           title={"Close Modal"}
           icon={CloseIcon}
-          onClick={() => this.setState({showTrailer: false})}
+          onClick={() => this.ClosePromoModal()}
         />
 
         <div className="modal show">
-          <div className={"modal__container"}>
-            <iframe
-              width="100%"
-              height="100%"
-              src={
-                this.props.siteStore.eventInfo.trailer_url
-              }
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
+          <Suspense fallback={<div />}>
+            <PromoPlayer />
+          </Suspense>
         </div>
-      </React.Fragment>
-    );
-  }
-
-  Payment() {
-    return (
-      <React.Fragment>
-        <div onClick={this.props.siteStore.CloseCheckoutModal} className="backdrop" />
-        <div className="ticket-modal ticket-modal-show">
-          <ImageIcon
-            key={"back-icon-Close Modal"}
-            className={"back-button-modal"}
-            title={"Close Modal"}
-            icon={CloseIcon}
-            onClick={this.props.siteStore.CloseCheckoutModal}
-          />
-          <div className={"ticket-modal__container"}>
-            <PaymentOverview />
-          </div>
-        </div>
-      </React.Fragment>
+      </>
     );
   }
 
   handleNavigate = () => {
-    // window.__forceSmoothScrollPolyfill__ = true;
-
-    smoothscroll.polyfill();
     this.setState({
       tab: 0,
     }, () => document.getElementById("tickets-section").scrollIntoView({behavior: "smooth", block: "end"}));
@@ -96,61 +85,44 @@ class Event extends React.Component {
       this.setState({tab: newValue});
     };
 
-    const backgroundStyle = {
-      backgroundSize: "cover",
-      backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 80%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%), url(${this.props.siteStore.heroBackground})`,
-      backgroundPosition: "center",
-      objectFit: "cover",
-      height: "100vh",
-      margin: "0",
-      position: "absolute",
-      width: "100%",
-      minHeight: "600px"
-    };
-
-
     return (
-      <div className="event" id="event-page">
-        <Navigation />
-
-        <div style={backgroundStyle} />
-
-        <div className="event-container">
+      <div className="page-container event-page-container">
+        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
+        <div className="main-content-container event-container">
           <div className="event-container__heading">
-            {this.props.siteStore.artistLogo ?
-              <div className="event-hero-logo-container">
-                <img className="event-hero-logo" src={this.props.siteStore.artistLogo}/> 
-              </div> 
-              : 
-              <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
+            {
+              // TODO: Use event_logo or event_header
             }
-            <h1 className="event-hero-header">{ this.props.siteStore.eventInfo.event_subheader }</h1>
-            <h1 className="event-hero-date">{ FormatDateString(this.props.siteStore.eventInfo.date) }</h1>
-
+            <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1>
+            <h1 className="location">{ this.props.siteStore.eventInfo.event_subheader }</h1>
+            <h1 className="time">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
           </div>
 
           <div className="event-container__button">
-            <button className="btn" onClick={() => this.handleNavigate()}>
+            <button
+              className={`btnPlay ${this.props.siteStore.hasPromos ? "btnDetails__heroPlay" : "btnDetails__heroDetail"}`}
+              onClick={() => this.handleNavigate()}
+            >
               Buy Tickets
             </button>
-            <button onClick={() => this.setState({showTrailer: true})} className="btn--gold">
-              Watch Promo
-            </button>
+            {
+              this.props.siteStore.hasPromos ?
+                <button onClick={this.OpenPromoModal} className="btnPlay btnDetails__heroDetail">
+                  Watch Promo
+                </button> : null
+            }
           </div>
-          
-          {/* <div className="event-container__countdown">
+          <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />
-          </div> */}
+          </div>
 
 
-          <div className="event-container__info" id="tickets-section">
+          <div className="event-container__overview" id="tickets-section">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
           </div>
         </div>
 
-        { this.state.showTrailer ? this.Trailer(): null}
-        { this.props.siteStore.showCheckout ? this.Payment(): null}
-
+        { this.state.showPromo ? this.Promos(): null}
         <Footer />
       </div>
     );

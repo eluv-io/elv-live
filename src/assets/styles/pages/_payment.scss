@@ -195,6 +195,7 @@
 .payment-info-description {
   box-orient: vertical;
   box-orient: vertical;
+  box-orient: vertical;
   color: rgba(0, 0, 0, 0.6);
   color: #000;
   font-family: Helvetica;
@@ -204,8 +205,6 @@
   font-weight: 300;
   -webkit-line-clamp: 4;
   -webkit-line-clamp: 6;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 6;
   line-height: 130.3%;
   margin-left: 0;
@@ -461,10 +460,9 @@
 
   @media only screen and (max-width: 650px) {
     box-orient: vertical;
+    box-orient: vertical;
     font-size: 4.5vw;
     letter-spacing: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
   }
@@ -483,10 +481,9 @@
 
   @media only screen and (max-width: 650px) {
     box-orient: vertical;
+    box-orient: vertical;
     font-size: 3.3vw;
     letter-spacing: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
   }

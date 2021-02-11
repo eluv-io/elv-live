@@ -3,7 +3,6 @@ import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 import {Link} from "react-router-dom";
-import Navigation from "Layout/Navigation";
 import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
@@ -70,10 +69,8 @@ class CodeAccess extends React.Component {
     }
 
     return (
-      <div className="code-entry-background">
-        <Navigation />
-
-        <div className="code-entry">
+      <div className="page-container code-entry-page-container">
+        <div className="main-content-container code-entry">
           { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
           <div className="code-header">
             <h2 className="code-header-title">

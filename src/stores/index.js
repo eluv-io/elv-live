@@ -3,7 +3,6 @@ import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "./Site";
 import {EluvioConfiguration} from "EluvioConfiguration";
 
-
 // Force strict mode so mutations are only allowed within actions.
 configure({
   enforceActions: "always"

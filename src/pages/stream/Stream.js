@@ -19,7 +19,7 @@ import AsyncComponent from "Common/AsyncComponent";
 import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
 
-const BitmovinPlayer = lazy(() => import("./player/BitmovinPlayer"));
+const StreamPlayer = lazy(() => import("./player/StreamPlayer"));
 const LiveChat = lazy(() => import("./components/LiveChat"));
 
 const drawerWidth = 450;
@@ -37,7 +37,6 @@ const styles = theme => ({
     scrollbarStyles: {
       overflowY: "scroll",
       "&::-webkit-scrollbar": {
-        display: "none",
         width: "0px",
         display: "none",
         backgroundColor: "transparent"
@@ -45,21 +44,17 @@ const styles = theme => ({
       "&::-webkit-scrollbar-track": {
         boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
         webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
-        display: "none",
         width: "0px",
         display: "none",
         backgroundColor: "transparent"
 
       },
       "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "rgba(0,0,0,0)",
         outline: "0px solid slategrey",
         borderRadius: 0,
-        display: "none",
         width: "0px",
         display: "none",
         backgroundColor: "transparent"
-
       }
     }
 
@@ -86,9 +81,6 @@ const styles = theme => ({
         borderRadius: 0
       }
     }
-
-
-
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -152,7 +144,6 @@ const styles = theme => ({
 @inject("siteStore")
 @observer
 class Stream extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -161,7 +152,6 @@ class Stream extends React.Component {
       name: "",
       activeStream: 0,
       darkSwitch: false,
-
     };
   }
 
@@ -170,9 +160,12 @@ class Stream extends React.Component {
       <div className="sponsor-info-container">
         {
           this.props.siteStore.sponsors.map((sponsor, index) =>
-            <div className="sponsor-info-container__img-container" key={`stream-sponsor-${index}`}>
-              <img src={sponsor.image_url} className="stream-sponsor-img" alt={sponsor.name} />
-            </div>
+            <img
+              src={sponsor.image_url}
+              className="stream-sponsor-img"
+              alt={sponsor.name}
+              key={`sponsor-image-${index}`}
+            />
           )
         }
       </div>
@@ -180,9 +173,9 @@ class Stream extends React.Component {
   }
 
   render() {
-    // if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-    //   return <Redirect to={this.props.siteStore.SitePath("code")} />;
-    // }
+    if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    }
 
     const handleDrawerOpen = () => {
       this.setState({open: true});
@@ -198,7 +191,6 @@ class Stream extends React.Component {
     const { classes } = this.props;
 
     return (
-
       <div className={`stream-root ${clsx(classes.lightRoot, {
         [classes.darkRoot]: this.state.darkSwitch,
       })}`}>
@@ -258,7 +250,7 @@ class Stream extends React.Component {
                     loadingSpin={true}
                     render={() => {
                       return (
-                        <BitmovinPlayer handleDarkToggle={handleDarkModeSwitch} />
+                        <StreamPlayer handleDarkToggle={handleDarkModeSwitch} />
                       );
                     }}
                   />

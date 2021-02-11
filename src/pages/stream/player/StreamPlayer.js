@@ -6,7 +6,7 @@ import {toJS} from "mobx";
 import BitmovinImports from "bitmovin-player";
 import * as BitmovinUIImports from "bitmovin-player-ui";
 import CustomToggleButton from "Stream/player/CustomToggleButton";
-import {EluvioConfiguration} from "../../../EluvioConfiguration";
+import {EluvioConfiguration} from "EluvioConfiguration";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {
@@ -19,13 +19,13 @@ const SetErrorMessage = (message) => {
 
 @inject("siteStore")
 @observer
-class BitmovinPlayer extends React.Component {
+class StreamPlayer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       playerRef: undefined,
-      switchValue: 0,
+      activeStream: 0,
       player: null,
       playoutOptions: [],
     };
@@ -33,21 +33,10 @@ class BitmovinPlayer extends React.Component {
     this.LoadBitmovin = this.LoadBitmovin.bind(this);
     this.handleMultiViewSwitch = this.handleMultiViewSwitch.bind(this);
     this.DestroyPlayer = this.DestroyPlayer.bind(this);
-
   }
 
   handleMultiViewSwitch() {
-    let source, feedOption;
-
-    if(this.state.switchValue === (this.props.siteStore.feeds.length -1)) {
-      feedOption = 0;
-    } else {
-      feedOption = this.state.switchValue + 1;
-    }
-
-    this.setState({switchValue: feedOption});
-
-    source = toJS(this.props.siteStore.feeds[feedOption].playoutOptions);
+    const source = toJS(this.props.siteStore.streams[this.state.activeStream].playoutOptions);
 
     this.state.player.load(source).then(
       () => {
@@ -80,19 +69,29 @@ class BitmovinPlayer extends React.Component {
     }
   }
 
-  LoadBitmovin(element) {
-    if(!element || this.state.element) { return; }
+  StreamSwitchButton() {
+    if(this.props.siteStore.streams.length <= 1) { return undefined; }
+
+    return new CustomToggleButton(() => {
+      this.setState({activeStream: (this.state.activeStream + 1) % this.props.siteStore.streams.length});
+
+      this.handleMultiViewSwitch();
+    }, "ui-airplaytogglebutton ui-multiviewToggleButton");
+  }
+
+  LoadBitmovin(playerRef) {
+    if(!playerRef || this.state.playerRef || this.props.siteStore.streams.length === 0) { return; }
 
     const conf = {
       key: EluvioConfiguration["bitmovin-license-key"],
       playback: {
-        muted: true,
+        muted: false,
         autoplay: true,
       },
       ui: false, // disable the built-in UI
     };
 
-    let player = new BitmovinImports.Player(element, conf);
+    let player = new BitmovinImports.Player(playerRef, conf);
 
     let controlBar = new BitmovinUIImports.ControlBar({
       components: [
@@ -110,10 +109,10 @@ class BitmovinPlayer extends React.Component {
             new BitmovinUIImports.VolumeToggleButton(),
             new BitmovinUIImports.VolumeSlider(),
             new BitmovinUIImports.Spacer(),
-            new CustomToggleButton(this.handleMultiViewSwitch, "ui-airplaytogglebutton ui-multiviewToggleButton"),
+            this.StreamSwitchButton(),
             new CustomToggleButton(this.props.handleDarkToggle, "ui-vrtogglebutton ui-darkmodetogglebutton"),
             new BitmovinUIImports.FullscreenToggleButton(),
-          ],
+          ].filter(c => c),
           cssClasses: ["controlbar-bottom"],
         }),
       ],
@@ -135,14 +134,14 @@ class BitmovinPlayer extends React.Component {
       ],
     });
 
-    const myUiManager = new BitmovinUIImports.UIManager(player, myUi);
+    new BitmovinUIImports.UIManager(player, myUi);
 
     this.setState({
       player: player,
-      playerRef: element
+      playerRef
     });
 
-    let source = toJS(this.props.siteStore.feeds[0].playoutOptions);
+    let source = toJS(this.props.siteStore.streams[0].playoutOptions);
 
     console.log(source);
 
@@ -153,7 +152,7 @@ class BitmovinPlayer extends React.Component {
       (error) => {
         this.DestroyPlayer();
         if(error.name === "SOURCE_NO_SUPPORTED_TECHNOLOGY") {
-          SetErrorMessage(`${PROTOCOL} ${DRM} playout not supported for this content`);
+          //SetErrorMessage(`${PROTOCOL} ${DRM} playout not supported for this content`);
         } else {
           SetErrorMessage(`Bitmovin error: ${error.name}`);
           console.error(error);
@@ -173,4 +172,4 @@ class BitmovinPlayer extends React.Component {
   }
 }
 
-export default BitmovinPlayer;
+export default StreamPlayer;

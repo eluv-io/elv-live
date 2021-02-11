@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Collapsible from "react-collapsible";
 
-import Navigation from "Layout/Navigation";
 import Footer from "Layout/Footer";
 
 @inject("rootStore")
@@ -17,12 +16,10 @@ class Support extends React.Component {
     let faqData = this.props.siteStore.faqData;
 
     return (
-      <div className="support-page">
-        <Navigation/>
-
-        <div className="support-container">
+      <div className="page-container support-page">
+        <div className="main-content-container support-container">
           <div className="support-header">
-            <h1 className="support-header--title">Fan FAQ</h1>
+            <h1 className="support-header--title">FAQ</h1>
           </div>
           <div className="support-body">
             {faqData.map((obj, index) =>

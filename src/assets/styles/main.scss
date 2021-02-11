@@ -1,14 +1,14 @@
 //BASE
-@import 'base/base';
 @import 'base/variables';
 @import 'base/reset';
+@import 'base/animations';
 @import 'base/mixins';
+@import 'base/base';
 
 //COMPONENTS
 @import 'components/modal';
 @import 'components/button';
 @import 'components/ticket';
-@import 'components/card';
 @import 'components/tabs';
 @import 'components/switch';
 @import 'components/chat';
