@@ -66,7 +66,9 @@ class Event extends React.Component {
 
         <div className="modal show">
           <Suspense fallback={<div />}>
-            <PromoPlayer />
+            {this.props.siteStore.hasPromos ? <PromoPlayer />
+              :<div className="error-message error-message-modal"> No Promos Available</div>
+            }
           </Suspense>
         </div>
       </>
@@ -76,7 +78,7 @@ class Event extends React.Component {
   handleNavigate = () => {
     this.setState({
       tab: 0,
-    }, () => document.getElementById("tickets-section").scrollIntoView({behavior: "smooth", block: "end"}));
+    }, () => document.getElementById("overview-container").scrollIntoView({behavior: "smooth", block: "start"}));
   };
 
 
@@ -87,37 +89,42 @@ class Event extends React.Component {
 
     return (
       <div className="page-container event-page-container">
-        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
+        <div className="event-hero-background" style={{backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 80%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%), url(${this.props.siteStore.heroBackground})`}} />
         <div className="main-content-container event-container">
           <div className="event-container__heading">
-            {
-              // TODO: Use event_logo or event_header
+            {this.props.siteStore.eventLogo ?
+              <div className="event-hero-logo-container">
+                <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
+              </div>
+              :
+              <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
             }
-            <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1>
-            <h1 className="location">{ this.props.siteStore.eventInfo.event_subheader }</h1>
-            <h1 className="time">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
+            {/* <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1> */}
+            <h1 className="event-hero-header">{ this.props.siteStore.eventInfo.event_subheader }</h1>
+            <h1 className="event-hero-date">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
           </div>
 
           <div className="event-container__button">
             <button
-              className={`btnPlay ${this.props.siteStore.hasPromos ? "btnDetails__heroPlay" : "btnDetails__heroDetail"}`}
+              className={this.props.siteStore.hasPromos ? "btn" : "btn--gold"}
               onClick={() => this.handleNavigate()}
             >
               Buy Tickets
             </button>
             {
               this.props.siteStore.hasPromos ?
-                <button onClick={this.OpenPromoModal} className="btnPlay btnDetails__heroDetail">
+                <button onClick={this.OpenPromoModal} className="btn--gold">
                   Watch Promo
                 </button> : null
             }
           </div>
-          <div className="event-container__countdown">
+
+          {/* <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />
-          </div>
+          </div> */}
 
 
-          <div className="event-container__overview" id="tickets-section">
+          <div className="event-container__overview">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
           </div>
         </div>

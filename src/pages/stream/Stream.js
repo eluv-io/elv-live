@@ -157,7 +157,7 @@ class Stream extends React.Component {
 
   Sponsors() {
     return (
-      <div className="sponsor-info-container">
+      <div className="sponsor-info-container__img-container">
         {
           this.props.siteStore.sponsors.map((sponsor, index) =>
             <img
