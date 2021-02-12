@@ -27,15 +27,21 @@ class PromoPlayer extends React.Component {
       promoIndex: 0,
       playerRef: undefined,
       player: null,
-      loaded: false
+      loaded: false,
+      error: ""
     };
 
     this.LoadBitmovin = this.LoadBitmovin.bind(this);
     this.DestroyPlayer = this.DestroyPlayer.bind(this);
   }
 
+  componentDidMount() {
+    document.body.style.overflow = "hidden";
+  }
+
   componentWillUnmount() {
     this.DestroyPlayer();
+    document.body.style.overflow = "auto";
   }
 
   DestroyPlayer() {
@@ -116,12 +122,13 @@ class PromoPlayer extends React.Component {
         console.log("Successfully created Bitmovin Player instance");
       },
       (error) => {
+        this.setState({error: error.toString()});
         this.DestroyPlayer();
         if(error.name === "SOURCE_NO_SUPPORTED_TECHNOLOGY") {
           //SetErrorMessage(`${PROTOCOL} ${DRM} playout not supported for this content`);
         } else {
-          SetErrorMessage(`Bitmovin error: ${error.name}`);
-          console.error(error);
+          //SetErrorMessage(`Bitmovin error: ${error.name}`);
+          //console.error(error);
         }
       }
     );

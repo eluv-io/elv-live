@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   height: auto;
   padding-bottom: 10px;
-  padding-top: 55px;
+  margin-top: 55px;
   user-select: none;
   width: 100%;
 
@@ -205,6 +205,10 @@
   line-height: 156.5%;
   text-transform: uppercase;
 
+  @media only screen and (max-width: 1200px) {
+    text-align: center;
+  }
+
   @media only screen and (max-width: 750px) {
     font-size: 6vw;
     font-weight: 400;
@@ -220,8 +224,6 @@
 
 .ticket-top-description {
   box-orient: vertical;
-  box-orient: vertical;
-  box-orient: vertical;
   color: rgba(0, 0, 0, 0.6);
   color: #000;
   display: block;
@@ -234,11 +236,9 @@
   line-height: 140%;
   margin-top: 5px;
   overflow: hidden;
-  overflow: hidden;
   padding-right: 30px;
   position: relative;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+
   @media only screen and (max-width: 750px) {
     font-size: 14px;
     padding-right: 0;
@@ -246,10 +246,10 @@
 }
 
 .ticket-bottom {
+  align-content: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: center;
   padding: 10px 0;
   user-select: none;
   width: auto;
@@ -273,13 +273,14 @@
 }
 
 .ticket-bottom-dropdown-container {
+  align-self: center;
   font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
   height: auto;
   max-width: 700px;
   width: 70%;
-  align-self: center;
+
   @media only screen and (max-width: 1400px) {
     max-width: none;
     width: 100%;
@@ -387,21 +388,20 @@
   height: 100% !important;
   justify-content: space-between;
   line-height: 16px;
-  padding: 0 0px;
+  padding: 0;
   width: 100%;
 
   & > * {
     align-self: center;
     box-orient: vertical;
     color: #000;
+    display: box;
     font-family: Helvetica;
     font-size: 17px;
     font-style: normal;
     font-weight: normal;
     height: auto;
     letter-spacing: -0.374px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     min-width: auto;
     overflow: hidden;
@@ -409,8 +409,6 @@
   }
 
   @media only screen and (max-width: 1400px) {
-
-
     & > * {
       font-size: 15px;
       letter-spacing: -0.5px;
@@ -446,11 +444,11 @@
   }
 
   @media only screen and (max-width: 500px) {
-    // flex-direction: column;
-    // height: auto !important;
-    padding-left: 0px;
     align-items: flex-start;
     align-self: flex-start;
+    // flex-direction: column;
+    // height: auto !important;
+    padding-left: 0;
 
     & > * {
       font-size: 15px;
@@ -466,14 +464,6 @@
     display: none !important;
   }
 }
-
-.ticket-bottom-price {
-  @media only screen and (max-width: 750px) {
-    display: none !important;
-  }
-}
-
-
 
 .ticket-bottom-countdown {
   color: #000;
@@ -554,6 +544,7 @@
     }
   }
 }
+
 .ticket-bottom-location {
   color: #000;
   font-family: Helvetica;

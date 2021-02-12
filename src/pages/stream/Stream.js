@@ -173,9 +173,9 @@ class Stream extends React.Component {
   }
 
   render() {
-    // if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-    //   return <Redirect to={this.props.siteStore.SitePath("code")} />;
-    // }
+    if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    }
 
     const handleDrawerOpen = () => {
       this.setState({open: true});
