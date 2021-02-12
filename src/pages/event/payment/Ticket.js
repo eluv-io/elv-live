@@ -17,6 +17,7 @@ class Ticket extends React.Component {
     super(props);
 
     this.state = {
+      showPaymentModal: false,
       selectedOffering: 0,
     };
 
@@ -65,20 +66,6 @@ class Ticket extends React.Component {
     }));
   }
 
-  TicketTags() {
-    return (
-      <div className="ticket-top-labels">
-        {
-          (this.props.ticketClass.tags || []).map((tag, index) =>
-            <span className="ticket-label" key={`ticket-tag-${index}`}>
-              { tag}
-            </span>
-          )
-        }
-      </div>
-    );
-  }
-
   Payment() {
     return (
       <React.Fragment>
@@ -91,12 +78,10 @@ class Ticket extends React.Component {
             icon={CloseIcon}
             onClick={() => this.ClosePaymentModal()}
           />
-          <div className={"ticket-modal__container"}>
-            <PaymentOverview
-              ticketClass={this.props.ticketClass}
-              skuIndex={this.state.selectedOffering}
-            />
-          </div>
+          <PaymentOverview
+            ticketClass={this.props.ticketClass}
+            skuIndex={this.state.selectedOffering}
+          />
         </div>
       </React.Fragment>
     );

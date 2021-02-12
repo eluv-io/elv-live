@@ -37,6 +37,14 @@ class PaymentOverview extends React.Component {
     this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
   }
 
+  componentDidMount() {
+    document.body.style.overflow = "hidden";
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = "auto";
+  }
+
   handleCountryChange(value) {
     this.setState({selectedCountry: value});
   }

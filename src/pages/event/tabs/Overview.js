@@ -9,7 +9,7 @@ import SocialMediaBar from "Event/tabs/SocialMediaBar";
 class ConcertOverview extends React.Component {
   render() {
     return (
-      <div className={"overview-container"}>
+      <div className={"overview-container"} id="overview-container">
         <SocialMediaBar />
 
         <div className="ticket-group">

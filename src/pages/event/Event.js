@@ -66,8 +66,8 @@ class Event extends React.Component {
 
         <div className="modal show">
           <Suspense fallback={<div />}>
-            {this.props.siteStore.hasPromos ?<PromoPlayer />
-:<div className="error-message error-message-modal"> No Promos Available</div>
+            {this.props.siteStore.hasPromos ? <PromoPlayer />
+              :<div className="error-message error-message-modal"> No Promos Available</div>
             }
           </Suspense>
         </div>
@@ -78,7 +78,7 @@ class Event extends React.Component {
   handleNavigate = () => {
     this.setState({
       tab: 0,
-    }, () => document.getElementById("tickets-section").scrollIntoView({behavior: "smooth", block: "end"}));
+    }, () => document.getElementById("overview-container").scrollIntoView({behavior: "smooth", block: "start"}));
   };
 
 
@@ -94,9 +94,9 @@ class Event extends React.Component {
           <div className="event-container__heading">
             {this.props.siteStore.eventLogo ?
               <div className="event-hero-logo-container">
-                <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/> 
-              </div> 
-              : 
+                <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
+              </div>
+              :
               <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
             }
             {/* <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1> */}
@@ -106,27 +106,25 @@ class Event extends React.Component {
 
           <div className="event-container__button">
             <button
-              className={`btn`}
+              className={this.props.siteStore.hasPromos ? "btn" : "btn--gold"}
               onClick={() => this.handleNavigate()}
             >
               Buy Tickets
             </button>
-            {/* {
+            {
               this.props.siteStore.hasPromos ?
-                <button onClick={this.OpenPromoModal} className="btnPlay btnDetails__heroDetail">
+                <button onClick={this.OpenPromoModal} className="btn--gold">
                   Watch Promo
                 </button> : null
-            } */}
-             <button onClick={this.OpenPromoModal} className="btn--gold">
-                  Watch Promo
-                </button> 
+            }
           </div>
+
           {/* <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />
           </div> */}
 
 
-          <div className="event-container__overview" id="tickets-section">
+          <div className="event-container__overview">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
           </div>
         </div>
