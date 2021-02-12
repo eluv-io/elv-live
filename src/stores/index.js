@@ -1,7 +1,7 @@
 import {configure, observable, action, flow, runInAction} from "mobx";
-import {FrameClient} from "@eluvio/elv-client-js/src/FrameClient";
+import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "./Site";
-import {EluvioConfiguration} from "../config";
+import {EluvioConfiguration} from "EluvioConfiguration";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -14,60 +14,43 @@ class RootStore {
   @observable error = "";
 
   constructor() {
-    this.InitializeClient();
     this.siteStore = new SiteStore(this);
+
+    window.rootStore = this;
   }
 
   @action.bound
   InitializeClient = flow(function * () {
+    let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
-    let client;
-    // Initialize ElvClient or FrameClient
-    if(window.self === window.top) {
-      const ElvClient = (yield import("@eluvio/elv-client-js")).ElvClient;
-      client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]}); 
-
-      const wallet = client.GenerateWallet();
-      const mnemonic = wallet.GenerateMnemonic();
-      const signer = wallet.AddAccountFromMnemonic({mnemonic});
-
-      client.SetSigner({signer});
-    } else {
-      // Contained in IFrame
-      client = new FrameClient({
-        target: window.parent,
-        timeout: 30
-      });
-
-      // Hide header if in frame
-      if(client.SendMessage) {
-        client.SendMessage({options: {operation: "HideHeader"}, noResponse: true});
-      }
-    }
+    const staticToken = btoa(JSON.stringify({qspace_id: client.contentSpaceId}));
+    client.SetStaticToken({token: staticToken});
 
     this.client = client;
   });
 
   @action.bound
-  RedeemCode = flow(function * (Token) {
+  RedeemCode = flow(function * (code) {
     try {
-      let codeObjectID = yield this.client.RedeemCode({
-        code: Token,
-        ntpId: "QOTPZsAzK5pU7xe",
-        tenantId: "iten3tNEk7iSesexWeD1mGEZLwqHGMjB"
+      const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+
+      const siteId = yield client.RedeemCode({
+        tenantId: this.siteStore.currentSiteInfo.tenant_id,
+        code
       });
 
-      if(!codeObjectID) {
-        this.SetError("Returned empty object ID");
-      } else {
-        this.streamAccess = true; 
+      if(client.utils.EqualHash(siteId, this.siteStore.siteId)) {
+        throw Error(`Code redemption does not match current site: Received ${siteId} | Expected ${this.siteStore.siteId}`);
       }
 
-      return codeObjectID;
+      this.client = client;
+      this.streamAccess = true;
 
+      this.siteStore.ActivateCode(code);
+
+      return siteId;
     } catch (error) {
-      console.error("Error redeeming code:", error);
-      this.SetError("Invalid code");
+       console.log("Error redeeming code: ", error);
     }
   });
 

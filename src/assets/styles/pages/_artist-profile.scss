@@ -21,10 +21,27 @@
   }
 }
 
+.info-social-box {
+  align-items: flex-start;
+  background: transparent;
+  background: var(--backgroundColor);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  grid-column: span 1;
+  height: auto;
+  margin: auto;
+  min-width: auto;
+  min-width: auto;
+  padding: 0;
+  position: relative;
+  width: auto;
+}
+
 // Profile Box
 .profile-box {
   align-items: flex-start;
-  background: #f9f7f4;
+  background: var(--backgroundColor);
   box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
   flex-direction: column;
@@ -34,9 +51,7 @@
   min-width: auto;
   padding: 30px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 }
 
@@ -52,9 +67,7 @@
   // text-align: center;
   text-align: left;
   text-align: left;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   white-space: pre-line;
 
   @media only screen and (max-width: 1760px) {
@@ -73,7 +86,7 @@
 // Info Box
 .info-box {
   align-items: flex-start;
-  background: #f9f7f4;
+  background: var(--backgroundColor);
   border-radius: 0;
   box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
@@ -83,9 +96,7 @@
   min-width: auto;
   padding: 30px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   @media only screen and (max-width: 1200px) {
@@ -132,9 +143,7 @@
   font-weight: normal;
   margin-top: 10px;
   text-align: left;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
 
   &__bold {
     font-weight: bold;
@@ -158,9 +167,7 @@
     font-size: 22px;
     font-weight: normal;
     margin-top: 25px;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
 
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
@@ -192,7 +199,7 @@
 .info-social-box {
   align-items: flex-start;
   background: transparent;
-  background: #f9f7f4;
+  background: var(--backgroundColor);
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -212,11 +219,9 @@
   font-size: 22px;
   font-weight: normal;
   letter-spacing: 1.25px;
-  margin-bottom: 12px;
+  // margin-bottom: 12px;
   text-align: left;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
 
   &__bold {
     font-weight: bold;
@@ -229,11 +234,9 @@
     font-size: 22px;
     font-weight: normal;
     letter-spacing: 1.25px;
-    margin-bottom: 12px;
-    margin-top: 20px;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    // margin-bottom: 12px;
+    // margin-top: 20px;
+    user-select: none;
 
     @media only screen and (max-width: 1760px) {
       font-size: 20px !important;
@@ -272,7 +275,7 @@
   margin: auto;
   margin-bottom: 4px;
   vertical-align: middle !important;
-  // padding-bottom: 3px;
+
   @media only screen and (max-width: 1760px) {
     font-size: 30px !important;
     vertical-align: middle !important;
@@ -287,6 +290,11 @@
     font-size: 27px !important;
     vertical-align: middle !important;
   }
+
+  @include breakpoint('phone-lg') {
+    font-size: 25px !important;
+    vertical-align: middle !important;
+  }
 }
 
 .social-icon-yt {
@@ -294,8 +302,12 @@
 }
 
 .ticket-icon {
-  font-size: 20px;
-  margin-bottom: 2.25px;
+  font-family: Helvetica;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 18px;
+  margin-bottom: 3px;
   margin-right: 5px;
   vertical-align: middle !important;
 }
@@ -358,7 +370,7 @@
 // Image Box
 .image-box {
   align-items: flex-start;
-  background: #f9f7f4;
+  background: var(--backgroundColor);
   box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
   display: flex;
   flex-direction: column;
@@ -368,9 +380,7 @@
   min-width: auto;
   padding: 30px;
   position: relative;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 }
 
@@ -451,4 +461,52 @@
 
 .info-insta::-webkit-scrollbar {
   display: none;
+}
+
+.spotify {
+  &:hover {
+    fill: #1db954;
+  }
+}
+
+.soundcloud {
+  &:hover {
+    fill: #f70;
+  }
+}
+
+.apple_music {
+  &:hover {
+    fill: rgb(112, 112, 112);
+  }
+}
+
+.youtube {
+  &:hover {
+    fill: #c4302b;
+  }
+}
+
+.instagram {
+  &:hover {
+    fill: #c4302b;
+  }
+}
+
+.twitter {
+  &:hover {
+    fill: #1da1f2;
+  }
+}
+
+.facebook {
+  &:hover {
+    fill: #4267b2;
+  }
+}
+
+.website {
+  &:hover {
+    fill: rgb(112, 112, 112);
+  }
 }

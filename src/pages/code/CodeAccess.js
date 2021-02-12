@@ -1,11 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {LoadingElement, onEnterPressed} from "elv-components-js";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 import {Link} from "react-router-dom";
-
-import Navigation from "Layout/Navigation";
+import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -15,34 +13,44 @@ class CodeAccess extends React.Component {
     super(props);
 
     this.state = {
+      error: "",
       code: "",
       loading: false,
-      access: false,
       code_placeholder: "Ticket Code",
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleCodeChange = this.handleCodeChange.bind(this);
-
+    this.handleRedeemCode = this.handleRedeemCode.bind(this);
   }
 
   async componentDidMount() {
-    const parsed = parse(decodeURIComponent(this.props.location.search));
+    try {
+      const parsed = parse(decodeURIComponent(this.props.location.search));
+      this.setState({code: parsed.passcode || ""});
 
-    if(parsed.access == "true") {
-      this.setState({loading: true});
-      const siteId = await this.props.rootStore.RedeemCode(
-        parsed.email,
-        parsed.passcode
-      );
-  
-      if(siteId) {
-        this.setState({siteId});
-      } else {
-        this.setState({loading: false});
-      }    
+      if(parsed.passcode && parsed.access) {
+        this.handleRedeemCode(parsed.passcode);
+      }
+
+    } catch (e) {
+      console.log(e);
     }
-    this.setState({code: parsed.passcode});
-    this.setState({email: parsed.email}); 
+  }
+
+  async handleRedeemCode(code) {
+    try {
+      this.setState({error: "", loading: true});
+
+      const siteId = await this.props.rootStore.RedeemCode(code);
+
+      if(!siteId) {
+        throw Error("Invalid code");
+      }
+    } catch (error) {
+      this.setState({error: "Invalid code"});
+    } finally {
+      this.setState({loading: false});
+    }
   }
 
   handleEmailChange(event) {
@@ -56,73 +64,44 @@ class CodeAccess extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
-    if(this.state.siteId) {
-      return <Redirect to={`${this.props.siteStore.basePath}/stream/${this.state.siteId}`} />;
+    if(this.props.rootStore.streamAccess) {
+      return <Redirect to={this.props.siteStore.SitePath("stream")} />;
     }
 
-    const Submit = async () => {
-      this.setState({loading: true});
-
-      const siteId = await this.props.rootStore.RedeemCode(
-        this.state.code
-      );
-
-      if(siteId) {
-        this.setState({siteId});
-      } else {
-        this.setState({loading: false});
-      }
-    };
-
-    const divStyle = {
-      backgroundSize: "cover",
-      backgroundImage: `linear-gradient(160deg, rgba(6, 16, 161, .85) 8%, rgba(69, 83, 255, .85) 30%, rgba(7, 194, 231, .85) 50%, rgba(5, 213, 255, .85)  70%, rgba(214, 148, 198, .85) 92%)`,
-      // backgroundImage: `linear-gradient(160deg, #0610a1 8%, #4553ff 30%, #07c2e7 50%, #05d5ff 70%, #d694c6 92%)`,
-      height: "100vh",
-      maxHeight: "100vh",
-      minHeight: "100vh -webkit-fill-available",
-      width: "100vw",
-      backgroundPosition: "center",
-      display: "flex"
-    };
-
     return (
-      <div style={divStyle}>
-        <Navigation />
-
-        <div className = "code-entry">
-          { this.props.rootStore.error ? <div className="error-message">{ this.props.rootStore.error }</div> : null }
+      <div className="page-container code-entry-page-container">
+        <div className="main-content-container code-entry">
+          { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
           <div className="code-header">
             <h2 className="code-header-title">
               Redeem Ticket
             </h2>
-            <Link to={`${this.props.siteStore.basePath}/${this.props.siteStore.eventSlug}`} className="code-header-p">
-             Don't have a ticket yet? 
-              <b className="code-header-bold"> Purchase here.</b>
+            <Link to={this.props.siteStore.baseSitePath} className="code-header-p">
+              Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b>
             </Link>
           </div>
 
-          <LoadingElement loading={this.state.loading}>
-            {/* <input
-              onFocus={() => this.setState({email_placeholder: ""})}
-              onBlur={() => this.setState({email_placeholder: "Email"})}
-              placeholder={this.state.email_placeholder}
-              value={this.state.email}
-              onChange={this.handleEmailChange} 
-              onKeyPress={onEnterPressed(Submit)}
-            /> */}
-            <input
-              onFocus={() => this.setState({code_placeholder: ""})}
-              onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
-              placeholder={this.state.code_placeholder}
-              value={this.state.code}
-              onChange={this.handleCodeChange} 
-              onKeyPress={onEnterPressed(Submit)}
-            />
-            <button onClick={Submit} title="Submit">Enter Event</button>
-          </LoadingElement>
+          <input
+            onFocus={() => this.setState({code_placeholder: ""})}
+            onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
+            placeholder={this.state.code_placeholder}
+            value={this.state.code}
+            onChange={this.handleCodeChange}
+            onKeyPress={onEnterPressed(() => this.handleRedeemCode(this.state.code))}
+          />
+
+          <button onClick={() => this.handleRedeemCode(this.state.code)} title="Submit">
+            {this.state.loading ?
+              <div className="code-entry-spin-container">
+                <div className="la-ball-clip-rotate la-sm">
+                  <div></div>
+                </div>
+              </div>
+              :
+              "Enter Event"
+            }
+          </button>
         </div>
-        
       </div>
     );
   }

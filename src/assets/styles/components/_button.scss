@@ -7,7 +7,7 @@
   color: #000 !important;
   cursor: pointer;
   display: inline-block;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-family: Helvetica, Arial, sans-serif !important;
   font-size: 18px !important;
   font-weight: 600 !important;
   font-weight: bold;
@@ -173,19 +173,31 @@
 
 .btnPlay,
 .btnDetails {
-  background-color: rgba(51, 51, 51, 0.5);
+  background-color: transparent;
   border: 0;
+  border: 1px solid #000;
   border-radius: 0.4vw;
+  box-sizing: border-box;
   color: #fff;
   cursor: pointer;
+  font-family: Helvetica;
   font-size: 2rem;
+  font-size: 14px;
+  font-style: normal;
   font-weight: 600;
+  font-weight: normal;
+  letter-spacing: 0.07em;
+  line-height: 150%;
   margin-right: 1rem;
   outline: none;
   padding-bottom: 1rem;
   padding-left: 3.5rem;
   padding-right: 3.5rem;
   padding-top: 1rem;
+
+  /* or 21px */
+
+  text-align: center;
   text-transform: uppercase;
 
   @media only screen and (max-width: $bp-small) {
@@ -201,12 +213,12 @@
 
   &__heroPlay {
     align-self: center;
-    background-color: #000;
-    border: 1px solid #fff;
+    background-color: black;
+    border: 1px solid black;
     border-radius: 0;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
-    color: #fff;
+    color: white;
     font-size: 16px;
     height: 48px;
     letter-spacing: 2px;
@@ -214,10 +226,20 @@
     margin-top: 2rem;
     text-align: center;
     width: 25rem;
+
+    &:hover {
+      background-color: black;
+      // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      color: white;
+      transition: all 0.2s;
+
+      & > * {
+        fill: #000;
+      }
+    }
   }
 
   &__heroDetail {
-    align-self: center;
     background-color: #d7bb73;
     border: 0;
     border-radius: 0;
@@ -234,9 +256,9 @@
   }
 
   &:hover {
-    background-color: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    color: #000;
+    background-color: black;
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: white;
     transition: all 0.2s;
 
     & > * {
@@ -293,4 +315,44 @@
   text-align: center;
   transition: all 0.2s;
   width: 150px !important;
+}
+
+.btn {
+  align-self: center;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  height: 48px;
+  letter-spacing: 2px;
+  line-height: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 25rem;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    transition: all 0.2s;
+
+    & > * {
+      fill: #000;
+    }
+  }
+
+  // @media only screen and (max-width: $bp-small) {
+  //   width: 90vw;
+  // }
+
+  &--gold {
+    @extend .btn;
+
+    align-self: center;
+    background-color: #d7bb73;
+    border: none;
+    color: black;
+  }
 }

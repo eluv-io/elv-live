@@ -1,0 +1,464 @@
+{
+  "title_configuration": {
+    /*
+    // Note - We should move "required" images to info fields - a subsection with file entries for each DONE
+    "default_image_keys": [
+      "event_poster",
+      "hero_background",
+      "main_sponsor", //(should this be its own thing or should it be automatically pulled from sponsor list?),
+      //"checkout_donation (pull from donation entry)",
+      //"checkout_merch (pull from merch entry)",
+      //"merch_back"
+    ],
+    */
+    "info_fields": [
+      // Note - All of these are marked "top_level", so they end up in public/asset_metadata. We should remove this so the info is saved in public/asset_metadata/info
+
+      /* Redundant with "date" DONE
+      {
+        "name": "release_date",
+        "type": "date"
+      },
+      */
+
+      /* REMOVED
+      {
+        "name": "artist",
+        "top_level": true,
+        "type": "text"
+      },
+      {
+        "name": "location",
+        "top_level": true,
+        "type": "text"
+      },
+      {
+        "name": "date",
+        "top_level": true,
+        "type": "text" // This should be a datetime
+      },
+      */
+      {
+        "fields": [
+          {
+            "name": "artist",
+            "type": "text"
+          },
+          {
+            "name": "location",
+            "type": "text"
+          },
+          {
+            "name": "date",
+            "type": "text" // CHANGED TO DATETIME
+          },
+          {
+            "name": "event_header",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "textarea"
+          },
+          {
+            "name": "trailer_url" // TODO: Probably make this a link to playable content instead,
+            "type": "text"
+          }
+        ],
+        "name": "event_info",
+        "top_level": true,
+        "type": "list" // Change to subsection DONE
+      },
+      {
+        "fields": [
+          {
+            "label": "Test Mode",
+            "name": "test_mode",
+            "type": "checkbox"
+          },
+          {
+            "name": "public_key",
+            "type": "text"
+          },
+          {
+            "name": "test_public_key",
+            "type": "text"
+          }
+        ],
+        "name": "stripe_config",
+        "top_level": true,
+        "type": "list" // Change to subsection DONE
+      },
+      {
+        "fields": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "fields": [
+              {
+                "name": "amount", // This amount should be a float, e.g. 25.00 instead of 2500.
+                "type": "integer"
+              },
+              {
+                "name": "currency",
+                "type": "text"
+              }
+            ],
+            "name": "price",
+            "type": "list" // Should this be a list of prices in different currencies or just a subsection with one currency?
+          },
+          {
+            "name": "otp_id", // Add label so it appears as "OTP ID" instead of "Otp Id"
+            "type": "text"
+          },
+          {
+            "fields": [
+              {
+                "fields": [
+                  {
+                    "name": "price_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "prod_id",
+                    "type": "text"
+                  }
+                ],
+                "name": "stripe",
+                "type": "list" // Change to subsection
+              },
+              {
+                "fields": [
+                  {
+                    "name": "price_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "prod_id",
+                    "type": "text"
+                  }
+                ],
+                "name": "stripe_test",
+                "type": "list" // Change to subsection
+              },
+              {
+                "fields": [],
+                "name": "universe",
+                "type": "list" // Change to subsection and add fields
+              }
+            ],
+            "name": "payment_ids", // Change to subsection
+            "type": "list"
+          }
+        ],
+        "name": "products",
+        "top_level": true,
+        "type": "list"
+      },
+      {
+        "fields": [
+          {
+            "name": "intro",
+            "type": "textarea"
+          },
+          {
+            "fields": [
+              {
+                "name": "full_name",
+                "type": "text"
+              },
+              {
+                "name": "age",
+                "type": "text"
+              },
+              {
+                "name": "gender",
+                "type": "text"
+              },
+              {
+                "name": "birth_date",
+                "type": "text"
+              },
+              {
+                "name": "birth_place",
+                "type": "text"
+              },
+              {
+                "name": "nationality",
+                "type": "text"
+              },
+              {
+                "name": "trivia",
+                "type": "text"
+              }
+            ],
+            "name": "bio",
+            "type": "list" // Change to subsection DONE
+          },
+          {
+            "fields": [
+              {
+                "name": "youtube",
+                "type": "text"
+              },
+              {
+                "name": "instagram",
+                "type": "text"
+              },
+              {
+                "name": "twitter",
+                "type": "text"
+              },
+              {
+                "name": "website",
+                "type": "text"
+              },
+              {
+                "name": "facebook",
+                "type": "text"
+              },
+              {
+                "name": "soundcloud",
+                "type": "text"
+              },
+              {
+                "name": "applemusic",
+                "type": "text"
+              },
+              {
+                "name": "spotify",
+                "type": "text"
+              }
+            ],
+            "name": "social_media_links",
+            "type": "list" // Change to subsection DONE
+          },
+          /* REMOVED
+          {
+            "name": "spotify_embed", // Label as spotify embed URL? DONE
+            "type": "text"
+          },
+          {
+            "name": "twitter_handle",
+            "type": "text"
+          }
+          */
+        ],
+        "name": "artist_info",
+        "top_level": true,
+        "type": "list" // Subsection? Or allow list of artists?
+      },
+      {
+        "fields": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "heading",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "price",
+            "type": "integer"
+          },
+          {
+            "fields": [
+              {
+                "label": "Small",
+                "name": "s",
+                "type": "text"
+              },
+              {
+                "label": "Medium",
+                "name": "m",
+                "type": "text"
+              },
+              {
+                "label": "Large",
+                "name": "l",
+                "type": "text"
+              },
+              {
+                "label": "X-Large",
+                "name": "xl",
+                "type": "text"
+              }
+            ],
+            "label": "SKU - 0:test, 1:prod",
+            "name": "stripe_sku_sizes",
+            "type": "list"
+            // Change to two separate subsections - one for test and one for prod
+            // Also change to list of label/name/sku instead of hardcoding sizes
+          },
+          {
+            "extensions": [], // Limit to image types
+            "name": "product_image",
+            "type": "file" // Change to list of files
+          }
+        ],
+        "name": "checkout_merch",
+        "top_level": true,
+        "type": "list"
+      },
+      /* checkout_donate removed - now a product
+      {
+        "fields": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "heading",
+            "type": "text"
+          },
+          {
+            "name": "price",
+            "type": "integer"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "stripe_price_id",
+            "type": "text"
+          },
+          {
+            "name": "stripe_test_price_id",
+            "type": "text"
+          },
+          {
+            "extensions": [],
+            "name": "image",
+            "type": "file"
+          }
+        ],
+        // Can/should we treat donations as merch?
+        "name": "checkout_donate",
+        "top_level": true,
+        "type": "list"
+      },
+      */
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "location",
+            "type": "text"
+          },
+          {
+            "label": "Start Time",
+            "name": "start_time",
+            "type": "datetime"
+          },
+          {
+            "label": "End Time",
+            "name": "end_time",
+            "type": "datetime"
+          }
+        ],
+        "name": "calendar",
+        "top_level": true,
+        "type": "list" // Change to subsection DONE
+      },
+      {
+        "fields": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "url",
+            "type": "text"
+          },
+          {
+            "name": "price",
+            "type": "text"
+          },
+          {
+            "extensions": [],
+            "name": "front_image",
+            "type": "file"
+          },
+          {
+            "extensions": [],
+            "name": "back_image",
+            "type": "file"
+          }
+        ],
+        // Are we still using this? This currently points to RO's own site
+        "name": "merch_tab",
+        "top_level": true,
+        "type": "list"
+      },
+      {
+        "fields": [
+          {
+            "name": "footer_text",
+            "type": "text"
+          },
+          {
+            "name": "stream_text",
+            "type": "text"
+          },
+          {
+            "extensions": [],
+            "name": "main_image", // changed to image
+            "type": "file"
+          }
+        ],
+        "name": "sponsor", // Changed to sponsors
+        "top_level": true,
+        "type": "list" // Does the site support multiple sponsors? Maybe we should be able to mark one as "main"?
+      },
+      {
+        "fields": [
+          {
+            "name": "subheader",
+            "type": "text"
+          },
+          {
+            "name": "header",
+            "type": "text"
+          }
+        ],
+        "name": "stream_app",
+        "top_level": true,
+        "type": "list" // Change to subsection DONE
+      },
+
+      /* Moved to "event_images" subsection
+      {
+        "extensions": [],
+        "name": "hero_image",
+        "top_level": true,
+        "type": "file"
+      },
+      {
+        "extensions": [],
+        "name": "event_poster",
+        "top_level": true,
+        "type": "file"
+      }
+      */
+    ]
+  }
+}
