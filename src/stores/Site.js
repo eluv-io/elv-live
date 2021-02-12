@@ -403,8 +403,8 @@ class SiteStore {
     return this.SiteImageUrl("hero_background");
   }
   
-  @computed get artistLogo() {
-    return this.SiteImageUrl("artist_logo");
+  @computed get eventLogo() {
+    return this.SiteImageUrl("event_logo");
   }
 
   @computed get eventPoster() {
