@@ -25,15 +25,29 @@
     letter-spacing: 0.352px;
     line-height: 24px;
     text-align: center;
+    padding: 5px 10px;
   }
 
   .payment-overview-title {
     font-size: 48px;
     height: 53px;
+
+    @media only screen and (max-width: 700px) {
+      font-size: 40px;
+    }
+    @media only screen and (max-width: 500px) {
+      font-size: 30px;
+    }
   }
 
   .payment-overview-p {
     font-size: 20px;
+    @media only screen and (max-width: 700px) {
+      font-size: 18px;
+    }
+    @media only screen and (max-width: 500px) {
+      font-size: 16px;
+    }
   }
 
   .confirmation-number {
@@ -42,12 +56,30 @@
     margin: 22px 0;
     padding: 17px 40px;
     width: 500px;
+    @media only screen and (max-width: 700px) {
+      padding: 10px 15px;
+
+      width: 85%;
+      margin: 20px auto;
+    }
+
   }
 
   .line-item {
     display: flex;
     font-size: 20px;
     justify-content: space-between;
+    @media only screen and (max-width: 700px) {
+      font-size: 18px;
+
+
+    }
+    @media only screen and (max-width: 500px) {
+      font-size: 16px;
+    }
+    @media only screen and (max-width: 360px) {
+      font-size: 14px;
+    }
   }
 
   .calendar-button-container {

@@ -13,6 +13,17 @@
   position: fixed;
   width: 75vw;
   z-index: 5000;
+  .error-message-modal {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 80%;
+    height: auto;
+    padding: 20px;
+    position: relative;
+  }
 
   .promo-player-container {
     align-items: center;

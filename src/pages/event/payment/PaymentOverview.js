@@ -246,9 +246,9 @@ class PaymentOverview extends React.Component {
           <div className="payment-info-img-container">
             <img src={ticketClass.image_url} className="payment-info-img" />
           </div>
-          {this.props.siteStore.artistLogo ?
+          {this.props.siteStore.eventLogo ?
             <div className="ticket-logo-container">
-              <img className="ticket-logo" src={this.props.siteStore.artistLogo}/>
+              <img className="ticket-logo" src={this.props.siteStore.eventLogo}/>
             </div>
             :  null
             //<h1 className="payment-info-artist">{ this.props.siteStore.eventInfo.artist }</h1> }

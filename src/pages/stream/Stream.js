@@ -157,7 +157,7 @@ class Stream extends React.Component {
 
   Sponsors() {
     return (
-      <div className="sponsor-info-container">
+      <div className="sponsor-info-container__img-container">
         {
           this.props.siteStore.sponsors.map((sponsor, index) =>
             <img
@@ -173,9 +173,9 @@ class Stream extends React.Component {
   }
 
   render() {
-    if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={this.props.siteStore.SitePath("code")} />;
-    }
+    // if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
+    //   return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    // }
 
     const handleDrawerOpen = () => {
       this.setState({open: true});

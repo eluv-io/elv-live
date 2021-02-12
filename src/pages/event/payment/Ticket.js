@@ -49,14 +49,14 @@ class Ticket extends React.Component {
     return this.props.ticketClass.skus.map(({label, price, start_time}, index) => ({
       label: (
         <div className="space-between">
-          <div>{ label }</div>
+          <div className="ticket-bottom-location">{ label }</div>
           <IconContext.Provider value={{ className: "ticket-icon" }}>
             <div className="ticket-bottom-date">
               <FaRegCalendarAlt />
               { FormatDateString(start_time) }
             </div>
           </IconContext.Provider>
-          <div>{ FormatPriceString(price) }</div>
+          <div className="ticket-bottom-price">{ FormatPriceString(price) }</div>
         </div>
       ),
       value: index,
