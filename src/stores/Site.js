@@ -255,12 +255,12 @@ class SiteStore {
 
   @computed get eventInfo() {
     let eventInfo = {
-      event_header: "EVENT_HEADER",
-      event_subheader: "EVENT_SUBHEADER",
-      event_title: "EVENT_TITLE",
-      location: "LOCATION",
+      event_header: "",
+      event_subheader: "",
+      event_title: "",
+      location: "",
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-      description: "DESCRIPTION",
+      description: "",
     };
 
     return mergeWith(
@@ -402,9 +402,9 @@ class SiteStore {
   @computed get heroBackground() {
     return this.SiteImageUrl("hero_background");
   }
-  
+
   @computed get eventLogo() {
-    return this.SiteImageUrl("event_logo");
+    return this.SiteImageUrl("header");
   }
 
   @computed get eventPoster() {

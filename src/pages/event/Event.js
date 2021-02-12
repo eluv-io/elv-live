@@ -89,7 +89,7 @@ class Event extends React.Component {
 
     return (
       <div className="page-container event-page-container">
-        <div className="event-hero-background" style={{backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, #FFFEF7 80%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%), url(${this.props.siteStore.heroBackground})`}} />
+        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
         <div className="main-content-container event-container">
           <div className="event-container__heading">
             {this.props.siteStore.eventLogo ?
@@ -100,7 +100,10 @@ class Event extends React.Component {
               <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
             }
             {/* <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1> */}
-            <h1 className="event-hero-header">{ this.props.siteStore.eventInfo.event_subheader }</h1>
+            {
+              this.props.siteStore.eventInfo.event_subheader ?
+                <h1 className="event-hero-header">{this.props.siteStore.eventInfo.event_subheader}</h1> : null
+            }
             <h1 className="event-hero-date">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
           </div>
 
