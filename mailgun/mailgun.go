@@ -24,7 +24,29 @@ func SendSimpleMessage(domain, apiKey string) (string, error) {
 	
   // I'm not sure if "./filename.jpg" is how you import files in Go
   message.AddInline("./poster.png")
-  message.AddInline("./logo.png")
+	message.AddInline("./logo.png")
+	
+
+
+
+
+
+
+	message.AddTemplateVariable("passcode", passcode)
+	message.AddTemplateVariable("ticket-id", ticketId)
+	message.AddTemplateVariable("cust-name", custName)
+	redeemQuery := fmt.Sprintf("passcode=%v&email=%v&access=true", passcode, recipient)
+	queryEscaped := url.QueryEscape(redeemQuery)
+	redeemUrl := "https://live.eluv.io/d457a576/code"
+	if params.RedeemUrl != "" {
+		redeemUrl = params.RedeemUrl
+	}
+	message.AddTemplateVariable("redeem-url", fmt.Sprintf("%v?%v", redeemUrl, queryEscaped))
+
+
+
+
+
 
 	_, id, err := mg.Send(message)
 	return id, err
