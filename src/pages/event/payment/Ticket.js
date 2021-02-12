@@ -17,6 +17,7 @@ class Ticket extends React.Component {
     super(props);
 
     this.state = {
+      showPaymentModal: false,
       selectedOffering: 0,
     };
 
@@ -49,34 +50,20 @@ class Ticket extends React.Component {
     return this.props.ticketClass.skus.map(({label, price, start_time}, index) => ({
       label: (
         <div className="space-between">
-          <div>{ label }</div>
+          <div className="ticket-bottom-location">{ label }</div>
           <IconContext.Provider value={{ className: "ticket-icon" }}>
             <div className="ticket-bottom-date">
               <FaRegCalendarAlt />
               { FormatDateString(start_time) }
             </div>
           </IconContext.Provider>
-          <div>{ FormatPriceString(price) }</div>
+          <div className="ticket-bottom-price">{ FormatPriceString(price) }</div>
         </div>
       ),
       value: index,
       price,
       date: start_time
     }));
-  }
-
-  TicketTags() {
-    return (
-      <div className="ticket-top-labels">
-        {
-          (this.props.ticketClass.tags || []).map((tag, index) =>
-            <span className="ticket-label" key={`ticket-tag-${index}`}>
-              { tag}
-            </span>
-          )
-        }
-      </div>
-    );
   }
 
   Payment() {
@@ -91,12 +78,10 @@ class Ticket extends React.Component {
             icon={CloseIcon}
             onClick={() => this.ClosePaymentModal()}
           />
-          <div className={"ticket-modal__container"}>
-            <PaymentOverview
-              ticketClass={this.props.ticketClass}
-              skuIndex={this.state.selectedOffering}
-            />
-          </div>
+          <PaymentOverview
+            ticketClass={this.props.ticketClass}
+            skuIndex={this.state.selectedOffering}
+          />
         </div>
       </React.Fragment>
     );

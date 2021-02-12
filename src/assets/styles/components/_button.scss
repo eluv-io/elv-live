@@ -318,11 +318,12 @@
 }
 
 .btn {
-  background-color: transparent;
+  align-self: center;
+  background-color: black;
   border: 1px solid black;
   border-radius: 0;
   box-sizing: border-box;
-  color: black;
+  color: white;
   cursor: pointer;
   font-size: 16px;
   height: 48px;

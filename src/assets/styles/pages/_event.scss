@@ -1,6 +1,7 @@
 .event-page-container {
   display: flex;
   flex-direction: column;
+  // background-color: #92877a;
 }
 
 .event-hero-background {
@@ -10,10 +11,11 @@
   background-position: center top;
   background-size: cover;
   height: 100vh;
-  mask-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8) 55%, rgba(0, 0, 0, 0));
+  margin: 0;
+  mask-image: linear-gradient(#000, rgba(0, 0, 0, 0.8) 55%, rgba(0, 0, 0, 0));
+  min-height: 600px;
   min-width: 0;
   object-fit: cover;
-  object-position: center;
   position: absolute;
   top: 0;
   width: 100vw;
@@ -24,142 +26,27 @@
   display: grid;
   grid-row-gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, 100vw);
-  grid-template-rows: 58vh [title-start] min-content [title-end button-start] min-content [button-end timer-start] min-content [timer-end overview-start] min-content;
+  grid-template-rows: 55vh [heading-start] min-content [heading-end button-start] min-content [button-end overview-start] min-content;
   height: max-content;
   position: relative;
   width: 100% !important;
 
+  @include breakpoint('phone-lg') {
+    grid-template-rows: 50vh [heading-start] min-content [heading-end button-start] min-content [button-end overview-start] min-content;
+  }
+
   &__heading {
     display: grid;
-    flex-direction: column;
-    grid-row: title-start / title-end;
-    user-select: none;
+    // flex-direction: column;
+    grid-row: heading-start / heading-end;
+    // margin: auto;
 
-    .name {
+    & > h1 {
       color: #000;
       font-family: Helvetica;
-      font-size: calc(min(calc(max(15vw, 55px)), 80px));
       font-style: normal;
-      font-weight: 300;
-      height: 100px;
-      letter-spacing: 0.3em;
-      line-height: 130%;
       text-align: center;
       text-transform: uppercase;
-
-      @media only screen and (max-width: 700px) {
-        font-size: 50px;
-        height: auto;
-      }
-    }
-
-    .logoSeries {
-      height: auto;
-      margin: auto;
-      margin-bottom: -25px;
-      padding-top: 0;
-      user-select: none;
-      width: 850px;
-    }
-
-    .logoFilm {
-      height: auto;
-      margin: auto;
-      margin-bottom: 20px;
-      padding-top: 0;
-      user-select: none;
-      width: 600px;
-    }
-
-    .logoMer {
-      height: 190px;
-      margin: auto;
-      margin-bottom: 20px;
-      object-fit: cover !important;
-      object-position: 0 -60px !important;
-      user-select: none;
-      width: 600px;
-    }
-
-    .premiereDate {
-      color: #fff;
-      font-size: 30px;
-      font-weight: bold;
-      letter-spacing: 7px;
-      margin-bottom: 3px;
-      text-align: center;
-      text-shadow: #fff 0 0 3px;
-      text-transform: uppercase;
-      -webkit-user-drag: none;
-      user-select: none;
-      user-select: none;
-      user-select: none;
-      user-select: none;
-      user-select: none;
-    }
-
-    .filmDate {
-      color: #fff;
-      font-size: 30px;
-      font-weight: bold;
-      letter-spacing: 6px;
-      margin-bottom: -10px;
-      text-align: center;
-      text-shadow: #fff 0 0 3px;
-      text-transform: uppercase;
-      -webkit-user-drag: none;
-      user-select: none;
-      user-select: none;
-      user-select: none;
-      user-select: none;
-      user-select: none;
-    }
-
-    .location {
-      color: #fff;
-      color: #000;
-      font-family: Helvetica;
-      font-size: 35px !important;
-      font-style: normal;
-      font-weight: 200;
-      letter-spacing: 0.3em;
-      line-height: 170%;
-      text-align: center;
-      text-shadow: none;
-      text-transform: uppercase;
-
-      @media only screen and (max-width: 1200px) {
-        font-size: 32px !important;
-      }
-
-      @media only screen and (max-width: 1000px) {
-        font-size: 28px !important;
-      }
-
-      @media only screen and (max-width: 800px) {
-        font-size: 26px !important;
-        letter-spacing: 4px;
-        line-height: 40px;
-        margin-top: 10px;
-      }
-    }
-
-    .time {
-      color: #000;
-      font-family: Helvetica;
-      font-size: calc(min(calc(max(15vw, 18px)), 25px));
-      font-style: normal;
-      font-weight: 300;
-      letter-spacing: 0.095em;
-      line-height: 170%;
-      text-align: center;
-      text-transform: uppercase;
-      user-select: none;
-
-      @media only screen and (max-width: 500px) {
-        font-size: 22px;
-        letter-spacing: -0.5px;
-      }
     }
   }
 
@@ -168,10 +55,34 @@
     flex-direction: row;
     grid-row: button-start / button-end;
     margin: auto;
-    margin-top: -20px;
+    width: min-content;
 
-    @media only screen and (max-width: 800px) {
-      display: none !important;
+    @include breakpoint('phone-lg') {
+      flex-direction: column;
+      width: 250px;
+
+      & > .btn {
+        font-size: 15px;
+        height: 45px;
+        margin: 0;
+        // margin-top: 10px;
+        width: 250px;
+      }
+    }
+
+    @include breakpoint('phone-sm') {
+      width: 250px;
+
+      & > .btn {
+        font-size: 14px;
+        height: 40px;
+        margin: 0;
+        width: 250px;
+      }
+    }
+
+    & > .btn {
+      margin: 5px;
     }
   }
 
@@ -202,11 +113,19 @@
   }
 
   &__overview {
-    grid-row-start: overview-start;
+    // background: linear-gradient(180deg, #fff 0%, #92877a 100%);
+    grid-row-start: info-start;
     height: max-content;
     padding-bottom: 50px;
     padding-left: 12.5vw;
     padding-right: 12.5vw;
+
+    @media only screen and (max-width: 600px) {
+      margin-top: -10px;
+      padding-left: 7.5vw;
+      padding-right: 7.5vw;
+      padding-top: 10px;
+    }
   }
 }
 
@@ -252,4 +171,100 @@
   text-align: center;
   user-select: none;
   width: 100%;
+}
+
+.event-hero-logo-container {
+  height: calc(min(20vh, 170px));
+  margin: auto;
+  margin-bottom: 7.5px;
+  width: auto;
+
+  @include breakpoint('phone-lg') {
+    height: calc(min(20vh, 100px));
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-height: 500px) {
+    margin-bottom: 10px;
+    max-width: 500px;
+  }
+}
+
+.event-hero-logo {
+  height: 100%;
+  width: auto;
+  // @media only screen and (max-width: 1200px) {
+  //   width: calc(min(80vw, 750px));
+  // }
+}
+
+.event-hero-header {
+  font-size: 34px;
+  font-size: calc(min(3vw, 34px));
+  font-weight: 200;
+  letter-spacing: 8px;
+  line-height: 150%;
+  // white-space: nowrap;
+
+  // @media only screen and (max-width: 1200px) {
+  //   font-size: 32px !important;
+  // }
+
+  // @media only screen and (max-width: 1000px) {
+  //   font-size: 28px !important;
+  // }
+
+  @include breakpoint('tablet-sm') {
+    font-size: calc(min(3vw, 34px));
+    letter-spacing: 5px;
+    // font-size: calc(min(4vw, 26px));
+  }
+
+  @include breakpoint('phone-lg') {
+    font-size: calc(min(4.5vw, 34px));
+    letter-spacing: 0;
+    // font-size: calc(min(4vw, 26px));
+  }
+
+  @include breakpoint('phone-sm') {
+    font-size: calc(min(4.7vw, 32px));
+    letter-spacing: 0;
+    // font-size: calc(min(4vw, 26px));
+  }
+
+  @media only screen and (max-height: 500px) {
+    font-size: calc(min(3vw, 34px));
+    letter-spacing: 5px;
+  }
+}
+
+.event-hero-date {
+  font-size: calc(min(4vw, 25px));
+  font-weight: 300;
+  letter-spacing: 0.095em;
+  line-height: 150%;
+
+  @include breakpoint('tablet-sm') {
+    font-size: calc(min(4.5vw, 25px));
+    letter-spacing: 0;
+  }
+
+  @media only screen and (max-height: 500px) {
+    font-size: calc(min(4.5vw, 25px));
+    letter-spacing: 0;
+  }
+}
+
+.event-hero-name {
+  font-size: calc(min(calc(max(15vw, 55px)), 90px));
+  font-weight: 300;
+  height: 100px;
+  letter-spacing: 0.3em;
+  line-height: 130%;
+  text-transform: uppercase;
+
+  @media only screen and (max-width: 700px) {
+    font-size: 50px;
+    height: auto;
+  }
 }
