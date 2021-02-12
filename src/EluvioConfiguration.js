@@ -11,6 +11,9 @@ const EluvioConfiguration = {
   // New Demov3 Tenant:
   "object-id": "iq__2WMGhWsbBcX5hsspCCVyy6Fi9QiB",
 
+  // New Demov3 Tenant (Staging)
+  //"object-id": "iq__pwS7UPZD6siyGvjMpHfCdaG8WKZ",
+
   // Test network
   //"config-url": "https://test.net955203.contentfabric.io/config",
   //"object-id": "iq__zK6CLwYBLhZmosiMXMe9eg2zErE",
