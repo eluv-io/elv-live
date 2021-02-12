@@ -1,27 +1,31 @@
 .support-page {
-  // background-image: linear-gradient(160deg, #0610a1 8%,#4553ff 30%, #07c2e7 50%, #05d5ff  70%,#d694c6 92%);
-  background: #f5f3f0;
-  // flex-direction: column;
+  background: #e0ddd4;
   display: block;
   min-height: 100vh;
   overflow: auto;
 }
 
 .support-container {
-  background: transparent;
+  background: white;
+  border-radius: 10px;
   display: block;
   height: auto;
   margin: auto;
-  margin-top: 225px;
+  margin-bottom: 150px;
+  margin-top: 150px;
   max-width: 1100px;
+  padding: 40px;
   width: 65%;
 
   @media only screen and (max-width: 700px) {
     width: 90%;
   }
 
-  @media only screen and (max-width: 350px) {
+  @media only screen and (max-width: 500px) {
+    margin-top: 100px;
     max-height: 100%;
+    padding: 30px 15px;
+    width: 90%;
     z-index: 9999999;
   }
 }
@@ -33,39 +37,32 @@
   margin-bottom: 10px;
   margin-top: 30px;
   padding: 10px 50px;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   &--title {
     box-sizing: border-box;
     color: #000;
-    font-family: sans-serif;
-    font-size: 38px;
-    font-size: 56px;
-    font-weight: bold;
-    font-weight: 600;
+    font-family: Helvetica;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0.07em;
     line-height: 3rem;
-    margin-bottom: 5rem;
+    padding-bottom: 10rem;
     text-align: center !important;
 
     @media only screen and (max-width: 700px) {
-      font-size: 30px;
-      margin-bottom: 3rem;
-    }
-
-    @media only screen and (max-width: 500px) {
-      margin-bottom: 2.5rem;
+      font-size: 42px;
+      margin: 0;
+      margin-top: 2rem;
+      padding: 10px 20px;
     }
   }
 
   @media only screen and (max-width: 700px) {
-    padding: 10px 20px;
-  }
-
-  @media only screen and (max-width: 500px) {
-    padding: 0 15px;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -75,6 +72,10 @@
   margin: 0 auto;
   max-width: 860px;
   padding: 80px 30px;
+
+  @media only screen and (max-width: 500px) {
+    padding: 10px 0;
+  }
 }
 
 $yellow: rgb(248, 159, 0);
@@ -110,34 +111,34 @@ $breakpointMed: 767px;
 
   p {
     box-sizing: border-box;
-    color: #000;
     color: rgb(0, 0, 0);
     direction: ltr;
     display: block;
     font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-size: 17px;
-    // background-color: var(--background);
-    font-size: 17px;
-    font-size: 17px;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
-    font-style: normal;
     font-weight: 400;
-    font-weight: 400;
-    letter-spacing: -0.022em;
     letter-spacing: -0.374px;
-    line-height: 20px;
-    line-height: 1.47059;
     line-height: 25px;
     margin-bottom: 10px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     text-align: left;
     text-rendering: optimizeLegibility;
-    text-rendering: optimizeLegibility;
     text-size-adjust: 100%;
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    padding: 30px;
+    padding-top: 0;
+
+    p {
+      font-size: 14px;
+      line-height: 16px;
     }
   }
 }
@@ -184,6 +185,10 @@ $breakpointMed: 767px;
   padding: 10px;
   padding: 20px 60px 20px 30px;
   position: relative;
+
+  @media only screen and (max-width: 500px) {
+    font-size: 14px;
+  }
 
   &:hover {
     background: rgba(0, 0, 0, 0.03);

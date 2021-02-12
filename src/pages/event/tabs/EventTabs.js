@@ -6,12 +6,12 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Paper from "@material-ui/core/Paper";
+// import MusicNoteIcon from "@material-ui/icons/MusicNote";
 
 import ConcertOverview from "./Overview";
-import ArtistInfo from "./Artist";
-import Merch from "./Merch";
+//import Merch from "./Merch";
+// import ArtistInfo from "./Artist";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,10 +41,11 @@ const styles = () => ({
     flexGrow: 1,
     maxWidth: 5000,
     backgroundColor: "transparent",
+    boxShadow: "none"
   },
   indicator: {
-    backgroundColor: "white",
-    color: "white",
+    backgroundColor: "black",
+    color: "black",
   },
 });
 
@@ -52,7 +53,7 @@ class EventTabs extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     const { classes } = this.props;
 
@@ -63,25 +64,25 @@ class EventTabs extends React.Component {
             value={this.props.tab}
             onChange={this.props.handleChange}
             variant="fullWidth"
-            disablefocusripple = "true"
-            disableripple = "true"
             classes={{
               indicator: classes.indicator
             }}
           >
-            <Tab icon={<InfoIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>EVENT</span>} />
-            <Tab icon={<MusicNoteIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>ARTIST</span>} />
-            <Tab icon={<ShoppingCartIcon style={{ color: "white",fontSize: 22  }} />} label={<span style={{ color: "white", fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
+            <Tab icon={<InfoIcon style={{ color: "black",fontSize: 22  }} />} disableFocusRipple = {true} disableRipple = {true} label={<span style={{ color: "black", fontSize: 12, marginBottom: 5 }}>EVENT</span>} />
+            {/* <Tab icon={<MusicNoteIcon style={{ color: "black",fontSize: 22  }} />} label={<span style={{ color: "black", fontSize: 12, marginBottom: 5 }}>ARTIST</span>} /> */}
+            <Tab icon={<ShoppingCartIcon style={{ color: "black",fontSize: 22  }} />} disableFocusRipple = {true} disableRipple = {true} label={<span style={{ color: "black", fontSize: 12, marginBottom: 5 }}>MERCH</span>} />
           </Tabs>
-          
+
           <TabPanel value={this.props.tab} index={0} >
-            <ConcertOverview title={this.props.title} name={this.props.name} refProp={this.props.refProp} />
+            <ConcertOverview title={this.props.title} refProp={this.props.refProp} />
           </TabPanel>
+          {/* <TabPanel value={this.props.tab} index={1}>
+            <ArtistInfo title={this.props.title} name={this.props.name}/>
+          </TabPanel> */}
           <TabPanel value={this.props.tab} index={1}>
-            <ArtistInfo title={this.props.title} name={this.props.name}/>    
-          </TabPanel>
-          <TabPanel value={this.props.tab} index={2}>
-            <Merch name={this.props.name}/>
+            { //<Merch />
+            }
+
           </TabPanel>
         </Paper>
       </div>

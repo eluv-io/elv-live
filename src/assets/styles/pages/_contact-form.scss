@@ -19,9 +19,6 @@
   max-height: 80%;
   width: 650px;
 
-  // -webkit-user-select: none; /* Safari */
-  // -ms-user-select: none; /* IE 10+ and Edge */
-  // user-select: none; /* Standard syntax */
   @media only screen and (max-width: 700px) {
     width: 90%;
   }
@@ -43,9 +40,7 @@
   margin-bottom: 10px;
   margin-top: 30px;
   padding: 10px 50px;
-  user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
+  user-select: none;
   width: 100%;
 
   @media only screen and (max-width: 700px) {
@@ -90,7 +85,7 @@
   line-height: 1.4em;
   margin-bottom: 50px;
   text-align: center !important;
-  // color: #525f7f;
+
   @media only screen and (max-width: 700px) {
     font-size: 17px;
   }

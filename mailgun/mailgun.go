@@ -51,3 +51,28 @@ func SendSimpleMessage(domain, apiKey string) (string, error) {
 	_, id, err := mg.Send(message)
 	return id, err
 }
+
+type Ticket struct {
+	passcode	  string   
+	redeem-url	string 
+}
+
+var tickets []Ticket
+
+for i := 0; i < ticketQty; i++ {
+	passcode:= createOTP(); //however you create tickets
+	tickets = append(tickets, Ticket {
+		passcode: passcode,
+		redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true"
+	})
+}
+
+message.AddTemplateVariable("tickets", tickets)
+
+{
+  tickets: [
+    { passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+		{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+		{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+  ];
+}mjml email.mjml -o multipleTicketEmail.html	

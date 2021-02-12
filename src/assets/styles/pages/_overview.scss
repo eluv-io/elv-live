@@ -4,13 +4,17 @@
   flex-direction: column;
   height: auto;
   justify-content: space-between;
-  margin-top: 100px;
-  overflow: auto;
+  margin-top: 50px;
+  overflow: visible;
   width: 100%;
 
+  @media only screen and (max-width: 800px) {
+    margin-top: 35px;
+  }
+
   &__eventInfo {
-    background: #f9f7f4;
-    background: #f9f7f4;
+    background: var(--backgroundColor);
+    background: var(--backgroundColor);
     box-shadow: 4px 12px 40px 6px rgba(0, 0, 0, 0.09);
     color: #000 !important;
     display: flex;
@@ -66,9 +70,7 @@
     flex-direction: column;
     height: auto;
     margin-right: 10px;
-    user-select: none; /* IE 10+ and Edge */
-    user-select: none; /* Safari */
-    user-select: none; /* Standard syntax */
+    user-select: none;
     width: 62.5%;
 
     @media only screen and (max-width: 1500px) {
@@ -176,9 +178,7 @@
       // text-align: center;
       text-align: left;
       text-align: left;
-      user-select: none; /* IE 10+ and Edge */
-      user-select: none; /* Safari */
-      user-select: none; /* Standard syntax */
+      user-select: none;
       white-space: pre-line;
 
       @media only screen and (max-width: 1600px) {
@@ -293,5 +293,20 @@
         }
       }
     }
+  }
+}
+
+.overview-social-box {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 50%;
+
+  @media only screen and (max-width: 700px) {
+    justify-content: space-between;
+    width: 100%;
   }
 }
