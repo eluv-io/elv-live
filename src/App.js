@@ -74,14 +74,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <main className="app">
+      <div className={`app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
         <BrowserRouter>
           { this.NavHeader() }
           <Suspense fallback={<PageLoader/>}>
             { this.Routes() }
           </Suspense>
         </BrowserRouter>
-      </main>
+      </div>
     );
   }
 }

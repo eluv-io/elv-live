@@ -29,16 +29,17 @@ class SocialMediaBar extends React.Component {
   }
 
   render() {
+    const color = this.props.siteStore.darkMode ? "#FFFFFF" : "#000000";
     return (
       <div className="overview-social-box">
-        { this.SocialButton(this.props.siteStore.socialLinks.spotify, <FaSpotify/>, "spotify") }
-        { this.SocialButton(this.props.siteStore.socialLinks.soundcloud, <FaSoundcloud/>, "soundcloud") }
-        { this.SocialButton(this.props.siteStore.socialLinks.apple_music, <FaApple/>, "apple_music") }
-        { this.SocialButton(this.props.siteStore.socialLinks.youtube, <FaYoutube/>,"youtube", ) }
-        { this.SocialButton(this.props.siteStore.socialLinks.instagram, <FaInstagram/>,"instagram") }
-        { this.SocialButton(this.props.siteStore.socialLinks.twitter, <FaTwitter/>,"twitter", ) }
-        { this.SocialButton(this.props.siteStore.socialLinks.facebook, <FaFacebookSquare/>,"facebook") }
-        { this.SocialButton(this.props.siteStore.socialLinks.website, <FaDesktop/>,"website" ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.spotify, <FaSpotify color={color} />, "spotify") }
+        { this.SocialButton(this.props.siteStore.socialLinks.soundcloud, <FaSoundcloud color={color} />, "soundcloud") }
+        { this.SocialButton(this.props.siteStore.socialLinks.apple_music, <FaApple color={color} />, "apple_music") }
+        { this.SocialButton(this.props.siteStore.socialLinks.youtube, <FaYoutube color={color} />,"youtube", ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.instagram, <FaInstagram color={color} />,"instagram") }
+        { this.SocialButton(this.props.siteStore.socialLinks.twitter, <FaTwitter color={color} />,"twitter", ) }
+        { this.SocialButton(this.props.siteStore.socialLinks.facebook, <FaFacebookSquare color={color} />,"facebook") }
+        { this.SocialButton(this.props.siteStore.socialLinks.website, <FaDesktop color={color} />,"website" ) }
       </div>
     );
   }

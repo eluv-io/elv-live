@@ -38,6 +38,10 @@
     justify-content: center;
     margin-right: 15px;
     width: auto;
+
+    svg {
+      fill: black;
+    }
   }
 
   &__button-grp2 {
@@ -126,7 +130,7 @@
     }
 
     &--info {
-      background-color: transparent;
+      background-color: white;
       display: grid;
       grid-template-columns: 75% 25%;
       height: 100%;
@@ -538,7 +542,7 @@
   flex: 1 1 auto;
   flex-direction: row;
   // margin:auto;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 400;

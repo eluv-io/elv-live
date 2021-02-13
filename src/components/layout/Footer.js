@@ -17,6 +17,7 @@ class Footer extends React.Component {
   }
 
   render() {
+    const hasSponsors = this.props.siteStore.sponsors && this.props.siteStore.sponsors.length > 0;
     return (
       <div className="live-footer">
         <div className="footer-container">
@@ -26,7 +27,10 @@ class Footer extends React.Component {
             </Link>
           </div>
           <div className="sponsor-container-footer">
-            { this.Sponsors() }
+            { hasSponsors ? <div className="sponsor-message">Sponsored By</div> : null }
+            <div className="sponsor-logos">
+              { hasSponsors ? this.Sponsors() : null }
+            </div>
           </div>
         </div>
       </div>
