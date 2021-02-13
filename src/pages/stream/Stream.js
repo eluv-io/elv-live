@@ -25,10 +25,8 @@ const LiveChat = lazy(() => import("./components/LiveChat"));
 const drawerWidth = 450;
 
 const styles = theme => ({
-
-  lightRoot: {
+  root: {
     display: "flex",
-    background: "rgba(245, 239, 234, .8)",
     color: "black",
     maxHeight: "100vh",
     overflow: "hidden",
@@ -58,29 +56,6 @@ const styles = theme => ({
       }
     }
 
-  },
-  darkRoot: {
-    display: "flex",
-    background: "#121212",
-    color: "white",
-    maxHeight: "100vh",
-    overflow: "hidden",
-    position: "fixed",
-    scrollbarStyles: {
-      overflowY: "scroll",
-      "&::-webkit-scrollbar": {
-        width: 0
-      },
-      "&::-webkit-scrollbar-track": {
-        boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
-        webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)"
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "rgba(0,0,0,0)",
-        outline: "0px solid slategrey",
-        borderRadius: 0
-      }
-    }
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -150,8 +125,7 @@ class Stream extends React.Component {
     this.state = {
       open: false,
       name: "",
-      activeStream: 0,
-      darkSwitch: false,
+      activeStream: 0
     };
   }
 
@@ -174,7 +148,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.rootStore.client || !this.props.rootStore.streamAccess) {
-      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+      //return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
     const handleDrawerOpen = () => {
@@ -184,16 +158,11 @@ class Stream extends React.Component {
     const handleDrawerClose = () => {
       this.setState({open: false});
     };
-    const handleDarkModeSwitch = () => {
-      this.setState({darkSwitch: (!this.state.darkSwitch)});
-    };
 
     const { classes } = this.props;
 
     return (
-      <div className={`stream-root ${clsx(classes.lightRoot, {
-        [classes.darkRoot]: this.state.darkSwitch,
-      })}`}>
+      <div className={`stream-root ${clsx(classes.root)}`}>
         <AppBar
           position="fixed"
           className={clsx(classes.appBar, {
@@ -203,7 +172,7 @@ class Stream extends React.Component {
           <Toolbar>
             <div className="stream-nav">
               <NavLink to={this.props.siteStore.baseSitePath}>
-                <ImageIcon className="stream-nav__logo" icon={this.state.darkSwitch ? LightLogo : DarkLogo} label="Eluvio" />
+                <ImageIcon className="stream-nav__logo" icon={this.props.siteStore.darkMode ? LightLogo : DarkLogo } label="Eluvio" />
               </NavLink>
 
               <div className="stream-nav__button-grp">
@@ -216,7 +185,7 @@ class Stream extends React.Component {
                     className={clsx(this.state.open && classes.hide)}
                     size="medium"
                   >
-                    <MenuIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
+                    <MenuIcon />
                   </IconButton>
 
                   <IconButton
@@ -227,7 +196,7 @@ class Stream extends React.Component {
                     className={clsx(!(this.state.open) && classes.hide)}
                     size="medium"
                   >
-                    <ChevronRightIcon style={this.state.darkSwitch ?{ color: "white" } : { color: "black" }} />
+                    <ChevronRightIcon />
                   </IconButton>
                 </div>
               </div>
@@ -250,7 +219,7 @@ class Stream extends React.Component {
                     loadingSpin={true}
                     render={() => {
                       return (
-                        <StreamPlayer handleDarkToggle={handleDarkModeSwitch} />
+                        <StreamPlayer />
                       );
                     }}
                   />
@@ -258,10 +227,10 @@ class Stream extends React.Component {
               </div>
               <div className="stream-container__streamBox--info">
                 <div className="stream-info-container">
-                  <h2 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.7)!important" } : { color: "rgba(0, 0, 0,.7) !important" }}  className="stream-info-container__subtitle">
+                  <h2 className="stream-info-container__subtitle">
                     { this.props.siteStore.streamPageInfo.subheader }
                   </h2>
-                  <h1 style={this.state.darkSwitch ? { color: "rgba(255, 255, 255, 0.9) !important" } : { color: "black !important" }}  className="stream-info-container__title">
+                  <h1 className="stream-info-container__title">
                     { this.props.siteStore.streamPageInfo.header }
                   </h1>
                 </div>
@@ -283,7 +252,7 @@ class Stream extends React.Component {
           }}
         >
           <Suspense fallback={<div />}>
-            <LiveChat onDarkMode={this.state.darkSwitch}/>
+            <LiveChat onDarkMode={this.props.siteStore.darkMode} />
           </Suspense>
         </Drawer>
       </div>

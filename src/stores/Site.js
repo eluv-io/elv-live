@@ -15,6 +15,7 @@ class SiteStore {
   @observable eventSites = {};
   @observable siteSlug;
   @observable activeTicket;
+  @observable darkMode = false;
 
   @observable baseSiteSelectorUrl;
 
@@ -64,6 +65,11 @@ class SiteStore {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+  }
+
+  @action.bound
+  ToggleDarkMode() {
+    this.darkMode = !this.darkMode;
   }
 
   @action.bound
@@ -396,6 +402,10 @@ class SiteStore {
   }
 
   SiteImageUrl(key) {
+    if(!(this.currentSiteInfo["event_images"] || {})[key]) {
+      return "";
+    }
+
     return this.SiteUrl(UrlJoin("info", "event_images", key))
   }
 

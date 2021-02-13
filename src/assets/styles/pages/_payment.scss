@@ -63,7 +63,7 @@
   display: flex;
   flex: 1 1;
   flex-direction: column;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
@@ -253,23 +253,6 @@
   }
 }
 
-.sponsor-title {
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin: 0 0 10px;
-  text-transform: uppercase;
-}
-
-.sponsor-img-container {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: -35px;
-}
-
 .big-sponsor-img {
   height: auto;
   // max-height: 70px;
@@ -291,21 +274,6 @@
   // border: 1px solid #000;
   // border-radius: 40px;
   // object-fit: cover;
-}
-
-.sponsor-img1 {
-  height: auto;
-  margin-right: 20px;
-  width: 110px;
-}
-
-.sponsor-img2 {
-  height: auto;
-  margin-left: 20px;
-  margin-top: -30px;
-
-  // margin-right: 30px;
-  width: 150px;
 }
 
 .payment-checkout {
@@ -336,7 +304,7 @@
   // opacity: 0.85;
 
   color: #000;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
   // box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
   // -webkit-backdrop-filter: saturate(1.8) blur(20px);
   // backdrop-filter: saturate(1.8) blur(20px);

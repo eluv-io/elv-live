@@ -110,7 +110,7 @@ class StreamPlayer extends React.Component {
             new BitmovinUIImports.VolumeSlider(),
             new BitmovinUIImports.Spacer(),
             this.StreamSwitchButton(),
-            new CustomToggleButton(this.props.handleDarkToggle, "ui-vrtogglebutton ui-darkmodetogglebutton"),
+            new CustomToggleButton(this.props.siteStore.ToggleDarkMode, "ui-vrtogglebutton ui-darkmodetogglebutton"),
             new BitmovinUIImports.FullscreenToggleButton(),
           ].filter(c => c),
           cssClasses: ["controlbar-bottom"],

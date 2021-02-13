@@ -1,0 +1,119 @@
+.app {
+  &.dark {
+    background: linear-gradient(180deg, #000000 0%, #272213 100%);
+
+    // Loader
+    .page-loader {
+      .circle-loader {
+        span {
+          * {
+            border-color: white;
+          }
+        }
+      }
+    }
+
+
+    // Nav
+    .navigation {
+      background: rgba(black, 0.7);
+
+      * {
+        color: white;
+      }
+    }
+
+    .dark-mode-toggle {
+      svg {
+        stroke: white;
+      }
+    }
+
+    // Event header
+    .event-container {
+      &__heading {
+        * {
+          color: white;
+        }
+      }
+
+      .btn {
+        &:not(.btn--gold) {
+          background: white;
+          color: black;
+        }
+      }
+    }
+
+    // Event tabs
+    .event-tabs {
+      .tab {
+        color: white;
+
+        &.active {
+          border-color: white;
+        }
+
+        svg {
+          fill: white;
+        }
+      }
+    }
+
+    // Footer
+    .footer-info {
+      border-bottom: 1px solid #5A5A5A;
+
+      * {
+        color: white;
+      }
+    }
+
+    // Payment
+    .ticket-modal {
+      background: linear-gradient(180deg, #000000 0%, #272213 100%);
+
+      .payment-info {
+        * {
+          color: white;
+        }
+      }
+    }
+
+    // Success
+    .payment-overview {
+      * {
+        color: white;
+      }
+    }
+
+    // Stream
+    .stream-root {
+      background: black;
+    }
+
+    .stream-nav {
+      &__button-grp {
+        svg {
+          fill: white;
+        }
+      }
+    }
+
+    .stream-info-container {
+      * {
+        color: white;
+      }
+    }
+
+    .stream-container {
+      &__streamBox--info {
+        background: linear-gradient(160deg, black 45%, #2d2b29 60%, #bdb6ae);
+
+        @media only screen and (max-width: 1000px) {
+          background: black;
+        }
+      }
+    }
+  }
+}
