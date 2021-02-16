@@ -9,10 +9,10 @@ const EluvioConfiguration = {
   // Eluvio Live Site Object - TEST/STAGING (https://live-stg-eluv-io.web.app/) DEV ro3 object: ilib2bLJtRJG3LW9yScSNStbjkSqF2hH  iq__23edex4Fwgt98PzR7mMrMHp8dw6E
 
   // New Demov3 Tenant:
-  "object-id": "iq__2WMGhWsbBcX5hsspCCVyy6Fi9QiB",
+  //"object-id": "iq__2WMGhWsbBcX5hsspCCVyy6Fi9QiB",
 
   // New Demov3 Tenant (Staging)
-  //"object-id": "iq__pwS7UPZD6siyGvjMpHfCdaG8WKZ",
+  "object-id": "iq__pwS7UPZD6siyGvjMpHfCdaG8WKZ",
 
   // Test network
   //"config-url": "https://test.net955203.contentfabric.io/config",
