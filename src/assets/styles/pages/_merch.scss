@@ -17,6 +17,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .selected-image {
+      max-height: 500px;
+      min-height: 500px;
+      object-fit: contain;
+    }
   }
 
   .image-options {
@@ -171,13 +177,20 @@
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 900px) {
   .merch-container {
     .item {
       grid-template-columns: 1fr;
 
       * {
         text-align: center;
+      }
+
+      .item-image {
+        .selected-image {
+          min-height: 300px;
+          max-height: 300px;
+        }
       }
 
       .item-header {
