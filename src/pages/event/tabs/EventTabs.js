@@ -4,7 +4,8 @@ import InfoIcon from "@material-ui/icons/Info";
 
 import ConcertOverview from "./Overview";
 import {inject, observer} from "mobx-react";
-// import Merch from "./Merch";
+import Merch from "Event/tabs/Merch";
+import SocialMediaBar from "Event/tabs/SocialMediaBar";
 
 @inject("siteStore")
 @observer
@@ -22,7 +23,7 @@ class EventTabs extends React.Component {
       case "event":
         return <ConcertOverview />;
       case "merch":
-        return null;
+        return <Merch />;
       default:
         return null;
     }
@@ -47,6 +48,8 @@ class EventTabs extends React.Component {
           { this.Tab("event", <InfoIcon />) }
           { this.Tab("merch", <ShoppingCartIcon />) }
         </div>
+
+        <SocialMediaBar />
 
         { this.Content() }
       </div>

@@ -18,9 +18,15 @@ export const FormatDateString = date => {
   }
 };
 
-export const FormatPriceString = price => {
+export const FormatPriceString = (price, trimZeros=false) => {
   const currentLocale = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language;
-  return new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: price.currency }).format(parseFloat(price.amount));
+  let formattedPrice = new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: price.currency }).format(parseFloat(price.amount));
+
+  if(trimZeros && formattedPrice.endsWith(".00")) {
+    formattedPrice = formattedPrice.slice(0, -3);
+  }
+
+  return formattedPrice;
 };
 
 export const ValidEmail = email => {
