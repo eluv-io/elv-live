@@ -130,17 +130,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #BFBFBF;
     margin-right: 6px;
 
     &.selected {
       border: 1px solid black;
+
+      .item-color-swatch {
+        border: 0;
+      }
     }
   }
 
   .item-color-swatch {
     width: 19px;
     height: 19px;
+    border: 1px solid #BFBFBF;
   }
 
   .select-wrapper {
