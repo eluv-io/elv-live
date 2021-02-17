@@ -5,7 +5,7 @@ import {FormatPriceString} from "Utils/Misc";
 const Item = ({item, SelectItem}) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSKU, setSelectedSKU] = useState(0);
-  const [selectedQuantity, setSelectedQuantity] = useState(0);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState({size: 2, color: 0});
 
   const sizes = [
@@ -92,7 +92,10 @@ const Item = ({item, SelectItem}) => {
             }
           </select>
         </div>
-        <button className="btn item-add" onClick={() => SelectItem(item, sku, selectedQuantity)}>
+        <button
+          className="btn item-add"
+          onClick={() => SelectItem(item, { size: sizes[selectedOptions.size], color: colors[selectedOptions.color]}, selectedQuantity)}
+        >
           Add to Bag
         </button>
       </div>
@@ -100,14 +103,23 @@ const Item = ({item, SelectItem}) => {
   );
 };
 
-@inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
 class Merch extends React.Component {
   render() {
     return (
       <div className="merch-container">
-        { this.props.siteStore.Merchandise("USD").map((item, index) => <Item item={item} key={`item-${index}`} />) }
+        { this.props.siteStore.Merchandise("USD").map((item, index) =>
+          <Item
+            key={`item-${index}`}
+            item={item}
+            SelectItem={(item, options, quantity) => {
+              this.props.cartStore.AddMerchandise(item, options, quantity);
+              this.props.cartStore.ToggleCartOverlay(true, `${quantity} ${quantity > 1 ? "items" : "item"} added to your bag`);
+            }}
+          />
+        )}
       </div>
     );
   }

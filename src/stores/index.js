@@ -1,6 +1,7 @@
 import {configure, observable, action, flow, runInAction} from "mobx";
 import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "./Site";
+import CartStore from "./Cart";
 import {EluvioConfiguration} from "EluvioConfiguration";
 
 // Force strict mode so mutations are only allowed within actions.
@@ -15,6 +16,7 @@ class RootStore {
 
   constructor() {
     this.siteStore = new SiteStore(this);
+    this.cartStore = new CartStore(this);
 
     window.rootStore = this;
   }
@@ -70,3 +72,4 @@ const root = new RootStore();
 
 export const rootStore = root;
 export const siteStore = root.siteStore;
+export const cartStore = root.cartStore;
