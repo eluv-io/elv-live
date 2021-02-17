@@ -4,10 +4,13 @@ import {inject, observer} from "mobx-react";
 import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
 import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import SunIcon from "Assets/icons/sun.svg";
+import CartIcon from "Assets/icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
+import CartOverlay from "Layout/CartOverlay";
 
 @inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
 class Navigation extends React.Component {
   render() {
@@ -25,6 +28,16 @@ class Navigation extends React.Component {
           </div>
 
           <button
+            title="Your Cart"
+            onClick={this.props.cartStore.ToggleCartOverlay}
+            className="cart-overlay-toggle"
+          >
+            <ImageIcon
+              icon={CartIcon}
+            />
+          </button>
+
+          <button
             title={`Switch to ${this.props.siteStore.darkMode ? "light" : "dark"} mode`}
             onClick={this.props.siteStore.ToggleDarkMode}
             className="dark-mode-toggle"
@@ -34,6 +47,8 @@ class Navigation extends React.Component {
             />
           </button>
         </div>
+
+        <CartOverlay />
       </div>
     );
   }
