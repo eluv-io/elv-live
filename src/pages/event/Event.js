@@ -8,11 +8,14 @@ import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
 
 import ImageIcon from "Common/ImageIcon";
+import Checkout from "Event/checkout/Checkout";
+import Modal from "Common/Modal";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
 @inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
 class Event extends React.Component {
   constructor(props) {
@@ -23,9 +26,6 @@ class Event extends React.Component {
       tab: 0,
       heroBackground: null
     };
-
-    this.OpenPromoModal = this.OpenPromoModal.bind(this);
-    this.ClosePromoModal = this.ClosePromoModal.bind(this);
   }
 
   componentDidMount() {
@@ -34,44 +34,21 @@ class Event extends React.Component {
     this.props.siteStore.LoadPromos();
   }
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.ClosePromoModal);
-  }
-
-  OpenPromoModal() {
-    document.addEventListener("keydown", this.ClosePromoModal);
-
-    this.setState({showPromo: true});
-  }
-
-  ClosePromoModal(event) {
-    if(event && (event.key || "").toLowerCase() !== "escape") { return; }
-
-    this.setState({showPromo: false});
-  }
-
   Promos() {
     if(!this.state.showPromo) { return; }
 
     return (
-      <>
-        <div onClick={() => this.ClosePromoModal()} className="backdrop" />
-        <ImageIcon
-          key={"back-icon-close-modal"}
-          className={"back-button-modal"}
-          title={"Close Modal"}
-          icon={CloseIcon}
-          onClick={() => this.ClosePromoModal()}
-        />
-
-        <div className="modal show">
-          <Suspense fallback={<div />}>
-            {this.props.siteStore.hasPromos ? <PromoPlayer />
-              :<div className="error-message error-message-modal"> No Promos Available</div>
+      <Modal
+        Toggle={show => this.setState({showPromo: show})}
+        className="modal--promo-modal"
+        content={
+          <Suspense fallback={<div/>}>
+            {this.props.siteStore.hasPromos ? <PromoPlayer/>
+              : <div className="error-message error-message-modal"> No Promos Available</div>
             }
           </Suspense>
-        </div>
-      </>
+        }
+      />
     );
   }
 
@@ -116,7 +93,7 @@ class Event extends React.Component {
             </button>
             {
               this.props.siteStore.hasPromos ?
-                <button onClick={this.OpenPromoModal} className="btn--gold">
+                <button onClick={() => this.setState({showPromo: true})} className="btn--gold">
                   Watch Promo
                 </button> : null
             }
@@ -133,6 +110,7 @@ class Event extends React.Component {
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
+        { this.props.cartStore.showCheckoutOverlay ? <Checkout /> : null }
         <Footer />
       </div>
     );

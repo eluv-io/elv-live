@@ -16,6 +16,7 @@
 @import 'components/bitmovin-player';
 @import 'components/loading-spinner';
 @import 'components/loaders';
+@import 'components/inputs';
 
 //PAGES
 @import 'pages/home';
@@ -29,6 +30,7 @@
 @import 'pages/contact-form';
 @import 'pages/support';
 @import 'pages/payment';
-@import 'pages/cart';
+@import 'pages/cart-overlay';
+@import 'pages/checkout';
 
 @import 'dark';

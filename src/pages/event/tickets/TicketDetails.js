@@ -1,3 +1,5 @@
+// TODO: Rewrite this whole thing
+
 import React from "react";
 import {inject, observer} from "mobx-react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -8,12 +10,16 @@ import {retryRequest} from "Utils/retryRequest";
 import Paypal from "./Paypal";
 import StripeLogo from "Images/logo/logo-stripe.png";
 import UrlJoin from "url-join";
-import {FormatDateString, FormatPriceString, ValidEmail} from "Utils/Misc";
+import {FormatDateString, ValidEmail} from "Utils/Misc";
+import ImageIcon from "Common/ImageIcon";
+import CloseIcon from "Icons/x";
+import EmailInput from "Common/EmailInput";
 
 @inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
-class PaymentOverview extends React.Component {
+class TicketDetails extends React.Component {
   constructor(props) {
     super(props);
 
@@ -35,14 +41,6 @@ class PaymentOverview extends React.Component {
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleStripeSubmit = this.handleStripeSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    document.body.style.overflow = "hidden";
-  }
-
-  componentWillUnmount() {
-    document.body.style.overflow = "auto";
   }
 
   handleCountryChange(value) {
@@ -122,9 +120,11 @@ class PaymentOverview extends React.Component {
   };
 
   SelectedTicket() {
+    const ticketClass = this.props.siteStore.ticketClasses[this.props.cartStore.ticketOverlayOptions.ticketClassIndex];
+
     return {
-      ticketClass: this.props.ticketClass,
-      ticketSku: this.props.ticketClass.skus[this.props.skuIndex]
+      ticketClass,
+      ticketSku: ticketClass.skus[this.props.cartStore.ticketOverlayOptions.selectedSku]
     };
   }
 
@@ -138,12 +138,8 @@ class PaymentOverview extends React.Component {
     const ticketCurrency = ticketSku.price.currency;
 
     return this.props.siteStore.DonationItems(ticketCurrency).map((donationItem, index) => {
-      const price = donationItem.skus[0].price;
-
-      if(!price) { return; }
-
       return (
-        <div className="checkout-section" key={`donation-item-${index}`}>
+        <div className="ticket-details__option" key={`donation-item-${index}`}>
           <div className="checkout-checkbox-container">
             <input
               checked={this.state.donationChecked}
@@ -157,7 +153,7 @@ class PaymentOverview extends React.Component {
                 { donationItem.name }
               </h5>
               <span>
-                { FormatPriceString(price) }
+                { this.props.cartStore.FormatPriceString(donationItem.price) }
               </span>
             </div>
           </div>
@@ -184,16 +180,9 @@ class PaymentOverview extends React.Component {
       this.setState({merchChecked: !(this.state.merchChecked)});
     };
 
-    const { ticketSku } = this.SelectedTicket();
-    const ticketCurrency = ticketSku.price.currency;
-
-    return this.props.siteStore.Merchandise(ticketCurrency).map((item, index) => {
-      const price = item.skus[0].price;
-
-      if(!price) { return; }
-
+    return this.props.siteStore.Merchandise().map((item, index) => {
       return (
-        <div className="checkout-section" key={`merchandise-item-${index}`}>
+        <div className="ticket-details__option" key={`merchandise-item-${index}`}>
           <div className="checkout-checkbox-container">
             <input
               checked={this.state.merchChecked}
@@ -207,7 +196,7 @@ class PaymentOverview extends React.Component {
                 { item.name }
               </h5>
               <span>
-                { FormatPriceString(price) }
+                { this.props.cartStore.FormatPriceString(item.price) }
               </span>
             </div>
           </div>
@@ -234,7 +223,7 @@ class PaymentOverview extends React.Component {
       <div className="sponsor-container">
         {
           this.props.siteStore.sponsors.map((sponsor, index) =>
-            <img src={sponsor.image_url} className="big-sponsor-img" alt={sponsor.name} key={`checkout-sponsor-${index}`}/>
+            <img src={sponsor.image_url} className="big-sponsor-img" alt={sponsor.name} key={`ticket-details-sponsor-${index}`}/>
           )
         }
       </div>
@@ -242,46 +231,41 @@ class PaymentOverview extends React.Component {
   }
 
   render() {
-    const handleEmailChange = (event) => {
-      this.setState({email: event.target.value});
-    };
-
     const { ticketClass, ticketSku } = this.SelectedTicket();
 
     return (
-      <div className="payment-container">
-        <div className="payment-info">
-          <div className="payment-info-img-container">
-            <img src={ticketClass.image_url} className="payment-info-img" />
+      <div className="ticket-details-container">
+        <div className="ticket-details">
+          <div className="ticket-details__img-container">
+            <img src={ticketClass.image_url} className="ticket-details__img" />
           </div>
           {this.props.siteStore.eventLogo ?
             <div className="ticket-logo-container">
               <img className="ticket-logo" src={this.props.siteStore.eventLogo}/>
             </div>
             :  null
-            //<h1 className="payment-info-artist">{ this.props.siteStore.eventInfo.artist }</h1> }
           }
-          <h3 className="payment-info-event">
+          <h3 className="ticket-details__event">
             { this.props.siteStore.eventInfo.event_title }
           </h3>
-          <h3 className="payment-info-location">
+          <h3 className="ticket-details__location">
             { this.props.siteStore.eventInfo.location }
           </h3>
-          <p className="payment-info-description">
+          <p className="ticket-details__description">
             { ticketClass.description }
           </p>
           { this.Sponsors() }
         </div>
 
-        <div className="payment-checkout">
+        <div className="ticket-details__options">
           {/* Currency and Quantity Selector */}
-          <div className="checkout-section">
+          <div className="ticket-details__option">
             <div className="checkout-checkbox-label">
               <h5 className="checkout-checkbox-heading">
                 { ticketClass.name }
               </h5>
               <span>
-                { FormatPriceString(ticketSku.price) }
+                { this.props.cartStore.FormatPriceString(ticketSku.price) }
               </span>
             </div>
             <div className="checkout-checkbox-details">
@@ -336,20 +320,25 @@ class PaymentOverview extends React.Component {
           { this.Merchandise() }
 
           {/* Email Form*/}
-          <div className="checkout-section">
-            <div className="checkout-email-form">
-              <input
-                id="email-check"
-                onFocus={() => this.setState({email_placeholder: ""})}
-                onBlur={() => this.setState({email_placeholder: "Email"})}
-                placeholder={this.state.email_placeholder}
-                value={this.state.email}
-                onChange={handleEmailChange}
-              />
-            </div>
-            <p className="checkout-email-info">
-              Please make sure that you entered your email address correctly as it will be used to send the digital ticket.
-            </p>
+          <EmailInput />
+
+          <div className="ticket-details__actions">
+            <button
+              className="btn checkout-button"
+              onClick={async () => {
+                this.props.cartStore.AddItem({
+                  itemType: "tickets",
+                  baseItemIndex: this.props.cartStore.ticketOverlayOptions.ticketClassIndex,
+                  optionIndex: this.props.cartStore.ticketOverlayOptions.selectedSku,
+                  quantity: this.state.ticketQuantity.value
+                });
+
+                this.props.cartStore.ToggleCheckoutOverlay(true);
+                this.props.cartStore.ToggleTicketOverlay(false);
+              }}
+            >
+              Proceed to Checkout
+            </button>
           </div>
 
           {/* Stripe Checkout Redirect Button*/}
@@ -376,7 +365,7 @@ class PaymentOverview extends React.Component {
               //donationChecked={this.state.donationChecked}
               ticketClass={ticketClass}
               ticketSku={ticketSku}
-              email={this.state.email}
+              email={this.props.cartStore.email}
               handleError={this.handleError}
               ticketQuantity={this.state.ticketQuantity.value}
             />
@@ -392,4 +381,4 @@ class PaymentOverview extends React.Component {
 }
 
 
-export default PaymentOverview;
+export default TicketDetails;

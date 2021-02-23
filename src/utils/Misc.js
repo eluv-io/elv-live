@@ -4,11 +4,17 @@ import DayJSTimezone from "dayjs/plugin/timezone";
 DayJS.extend(DayJSTimezone);
 DayJS.extend(DayJSAdvancedFormatting);
 
-export const FormatDateString = date => {
+export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
   if(!date) { return ""; }
 
   try {
-    return DayJS(date).format("MMMM D, YYYY · h:mm A z");
+    if(dateOnly) {
+      return DayJS(date).format("MMMM D, YYYY");
+    } else if(timeOnly) {
+      return DayJS(date).format("h:mm A z");
+    } else {
+      return DayJS(date).format("MMMM D, YYYY · h:mm A z");
+    }
   } catch (error) {
     // TODO: Central error reporting
     console.error(`Failed to parse date ${date}`);
@@ -16,17 +22,6 @@ export const FormatDateString = date => {
 
     return "";
   }
-};
-
-export const FormatPriceString = (price, trimZeros=false) => {
-  const currentLocale = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language;
-  let formattedPrice = new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: price.currency }).format(parseFloat(price.amount));
-
-  if(trimZeros && formattedPrice.endsWith(".00")) {
-    formattedPrice = formattedPrice.slice(0, -3);
-  }
-
-  return formattedPrice;
 };
 
 export const ValidEmail = email => {

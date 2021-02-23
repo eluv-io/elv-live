@@ -6,7 +6,7 @@ import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
 import SunIcon from "Assets/icons/sun.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
-import CartOverlay from "Layout/CartOverlay";
+import CartOverlay from "Event/checkout/CartOverlay";
 
 @inject("rootStore")
 @inject("siteStore")
