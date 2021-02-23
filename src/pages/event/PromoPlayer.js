@@ -141,7 +141,7 @@ class PromoPlayer extends React.Component {
     if(this.props.siteStore.promos && this.props.siteStore.promos.length > 0) {
       previousButton = (
         <button
-          className="btnDetails__heroDetail previous-promo-button"
+          className="btn previous-promo-button"
           disabled={this.state.promoIndex <= 0}
           onClick={() => this.setState({promoIndex: this.state.promoIndex - 1}, this.LoadBitmovin)}
         >
@@ -151,7 +151,7 @@ class PromoPlayer extends React.Component {
 
       nextButton = (
         <button
-          className="btnDetails__heroDetail next-promo-button"
+          className="btn next-promo-button"
           disabled={this.state.promoIndex >= this.props.siteStore.promos.length - 1}
           onClick={() => this.setState({promoIndex: this.state.promoIndex + 1}, this.LoadBitmovin)}
         >

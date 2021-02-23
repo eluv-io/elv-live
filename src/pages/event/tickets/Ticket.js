@@ -4,50 +4,35 @@ import {inject, observer} from "mobx-react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import Select from "react-select";
-import {FormatDateString, FormatPriceString} from "Utils/Misc";
-import ImageIcon from "Common/ImageIcon";
-import CloseIcon from "Icons/x";
-import PaymentOverview from "Event/payment/PaymentOverview";
+import {FormatDateString} from "Utils/Misc";
+import TicketDetails from "Event/tickets/TicketDetails";
+import Modal from "Common/Modal";
 
 @inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
 class Ticket extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showPaymentModal: false,
       selectedOffering: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.OpenPaymentModal = this.OpenPaymentModal.bind(this);
-    this.ClosePaymentModal = this.ClosePaymentModal.bind(this);
   }
 
   handleChange({value}) {
     this.setState({selectedOffering: value});
   }
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.ClosePaymentModal);
-  }
-
-  OpenPaymentModal() {
-    document.addEventListener("keydown", this.ClosePaymentModal);
-
-    this.setState({showPaymentModal: true});
-  }
-
-  ClosePaymentModal(event) {
-    if(event && (event.key || "").toLowerCase() !== "escape") { return; }
-
-    this.setState({showPaymentModal: false});
+  TicketClass() {
+    return this.props.siteStore.ticketClasses[this.props.ticketClassIndex];
   }
 
   TicketOptions() {
-    return this.props.ticketClass.skus.map(({label, price, start_time}, index) => ({
+    return this.TicketClass().skus.map(({label, price, start_time}, index) => ({
       label: (
         <div className="space-between">
           <div className="ticket-bottom-location">{ label }</div>
@@ -57,7 +42,7 @@ class Ticket extends React.Component {
               { FormatDateString(start_time) }
             </div>
           </IconContext.Provider>
-          <div className="ticket-bottom-price">{ FormatPriceString(price) }</div>
+          <div className="ticket-bottom-price">{ this.props.cartStore.FormatPriceString(price) }</div>
         </div>
       ),
       value: index,
@@ -66,33 +51,14 @@ class Ticket extends React.Component {
     }));
   }
 
-  Payment() {
-    return (
-      <React.Fragment>
-        <div onClick={() => this.ClosePaymentModal()} className="backdrop" />
-        <div className="ticket-modal ticket-modal-show">
-          <ImageIcon
-            key={"back-icon-Close Modal"}
-            className={"back-button-modal"}
-            title={"Close Modal"}
-            icon={CloseIcon}
-            onClick={() => this.ClosePaymentModal()}
-          />
-          <PaymentOverview
-            ticketClass={this.props.ticketClass}
-            skuIndex={this.state.selectedOffering}
-          />
-        </div>
-      </React.Fragment>
-    );
-  }
-
   render() {
+    // TODO: Make select same height/border radius as purchase button
+
     return (
       <React.Fragment>
         <div className="ticket-event">
           <div className="ticket-image">
-            <img src={this.props.ticketClass.image_url} className="ticket-image-img"/>
+            <img src={this.TicketClass().image_url} className="ticket-image-img"/>
           </div>
           <div className="ticket-detail">
             {
@@ -101,10 +67,10 @@ class Ticket extends React.Component {
             <div className="ticket-top">
 
               <h3 className="ticket-top-title">
-                { this.props.ticketClass.name }
+                { this.TicketClass().name }
               </h3>
               <p className="ticket-top-description">
-                { this.props.ticketClass.description }
+                { this.TicketClass().description }
               </p>
 
             </div>
@@ -130,14 +96,29 @@ class Ticket extends React.Component {
               <button
                 className="ticket-bottom-button"
                 role="link"
-                onClick={() => this.OpenPaymentModal()}
+                onClick={() => this.props.cartStore.ToggleTicketOverlay(
+                  true,
+                  {
+                    ticketClassIndex: this.props.ticketClassIndex,
+                    selectedSku: this.state.selectedOffering
+                  }
+                )}
               >
                 Purchase
               </button>
             </div>
           </div>
         </div>
-        { this.state.showPaymentModal ? this.Payment() : null }
+
+        {
+          this.props.cartStore.showTicketOverlay &&
+          this.props.ticketClassIndex === this.props.cartStore.ticketOverlayOptions.ticketClassIndex ?
+            <Modal
+              Toggle={this.props.cartStore.ToggleTicketOverlay}
+              content={<TicketDetails />}
+            /> : null
+        }
+
       </React.Fragment>
     );
   }

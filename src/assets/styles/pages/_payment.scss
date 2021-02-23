@@ -1,4 +1,5 @@
-.payment-container {
+.ticket-details-container {
+  background: #e0ddd9;
   display: flex;
   flex-direction: row;
   gap: 80px;
@@ -7,6 +8,7 @@
   width: 100%;
   max-height: 100%;
   padding: 30px 50px;
+  max-width: 1200px;
 
   @media only screen and (min-width: 1050px) {
     overflow-y: auto;
@@ -29,112 +31,32 @@
     }
   }
 }
-
-.payment-event-overview {
-  display: block;
-  flex: 1 1;
-  margin-bottom: 0;
-  margin-top: 0;
-  padding-right: 60px;
-}
-
-.payment-inner-overview {
-  align-items: flex-start;
-  display: flex;
+.ticket-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(100vh - 150px);
-  position: sticky;
-  top: 105px;
-}
-
-.payment-info,
-.payment-checkout {
-  padding-bottom: 30px;
-  max-width: 200px;
-}
-
-.payment-info {
-  // padding-right: 60px;
   align-items: center;
-  // min-height: calc(100vh - 150px);
-  color: #000;
-  display: flex;
-  flex: 1 1;
-  flex-direction: column;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 400;
-  height: 100%;
-  letter-spacing: -0.022em;
-  line-height: 1.47059;
-  min-width: 350px;
-  text-rendering: optimizeLegibility;
-  width: 100%;
-
-  @media only screen and (max-width: 1050px) {
-    align-items: center;
-    height: auto;
-    max-height: auto;
-  }
-
-  @media only screen and (max-width: 600px) {
-    min-width: 100%;
-    width: 100%;
-  }
 }
 
-.payment-info-img-container {
-  align-self: center;
-  background: hsla(0, 0%, 100%, 0.8);
+.ticket-details__img-container {
+  background: transparent;
   border-radius: 0;
   box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.04), 20px 20px 20px rgba(0, 0, 0, 0.02);
-  // margin-right: 40px;
   flex-shrink: 0;
-  margin: 0 0 40px;
-  max-width: 320px;
-  max-width: 225px;
   overflow: hidden;
   position: relative;
   width: 100%;
+  max-width: 225px;
+  margin: 0 auto 40px;
 }
 
-.payment-info-img {
+.ticket-details__img {
   height: 100%;
   object-fit: cover;
   vertical-align: middle;
   width: 100%;
 }
 
-.payment-info-artist {
-  display: block;
-  font-family: Helvetica;
-  font-size: 20px;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  font-weight: 200;
-  letter-spacing: 0.5px;
-  letter-spacing: 0.2em;
-  line-height: 22px;
-  margin: 0;
-  text-align: center;
-
-  /* identical to box height */
-
-  text-align: center;
-  text-transform: uppercase;
-
-  @media only screen and (max-width: 600px) {
-    font-size: 8vw;
-    letter-spacing: 0.5px;
-    line-height: 30px;
-  }
-}
-
-.payment-info-event {
+.ticket-details__event {
   font-family: Helvetica;
   font-size: 28px;
   font-size: 28px;
@@ -163,7 +85,7 @@
   }
 }
 
-.payment-info-location {
+.ticket-details__location {
   font-family: Helvetica;
   font-size: 18px;
   font-style: normal;
@@ -190,7 +112,7 @@
   }
 }
 
-.payment-info-date {
+.ticket-details__date {
   font-family: Helvetica;
   font-size: 16px;
   font-style: normal;
@@ -204,7 +126,7 @@
   text-transform: uppercase;
 }
 
-.payment-info-description {
+.ticket-details__description {
   box-orient: vertical;
   color: rgba(0, 0, 0, 0.6);
   color: #000;
@@ -295,7 +217,7 @@
   }
 }
 
-.checkout-section {
+.ticket-details__option {
   background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
   border-radius: 10px;
@@ -319,6 +241,16 @@
 
   @media only screen and (max-width: 600px) {
     padding: 20px;
+  }
+}
+
+.ticket-details__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    margin: 0;
   }
 }
 

@@ -27,6 +27,9 @@ class SiteStore {
   @observable showCheckout = false;
   @observable selectedTicket;
 
+  @observable siteId;
+  @observable siteHash;
+
   @observable error = "";
 
   @computed get client() {
@@ -131,8 +134,10 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
-      const siteHash = this.eventSites[slug]["."].source;
-      this.siteId = this.client.utils.DecodeVersionHash(siteHash).objectId;
+      this.siteHash = this.eventSites[slug]["."].source;
+      this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
+
+      this.rootStore.cartStore.LoadLocalStorage();
 
       return baseSlug === this.baseSlug;
     } catch (error) {
@@ -364,27 +369,24 @@ class SiteStore {
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
   }
 
-  Products(currency) {
-    currency = (currency || "").toLowerCase();
+  Products() {
     return (this.currentSiteInfo.products || [])
       .map((product, productIndex) => {
         return {
           ...product,
-          skus: (product.skus || []).filter(sku => ((sku.price || {}).currency).toLowerCase() === currency),
           image_urls: (product.images || []).map((_, imageIndex) =>
             this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
           )
         }
-      })
-      .filter(product => product.skus && product.skus.length > 0);
+      });
   }
 
-  DonationItems(currency) {
-    return this.Products(currency).filter(item => item.type === "donation");
+  DonationItems() {
+    return this.Products().filter(item => item.type === "donation");
   }
 
-  Merchandise(currency) {
-    return this.Products(currency).filter(item => item.type === "merchandise");
+  Merchandise() {
+    return this.Products().filter(item => item.type === "merchandise");
   }
 
   /* Images */

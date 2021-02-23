@@ -75,6 +75,9 @@
     text-transform: uppercase;
     text-align: center;
     max-width: 226px;
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    font-weight: normal;
   }
 }
 
@@ -93,6 +96,10 @@
     letter-spacing: 0.07em;
     text-transform: uppercase;
     margin: 10px 0;
+  }
+
+  .item-image {
+    padding: 10px;
   }
 }
 

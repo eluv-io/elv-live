@@ -66,3 +66,29 @@ body,
 .main-content-container {
   @include page-fade-in;
 }
+
+// Styled select
+.select-wrapper {
+  position: relative;
+  width: min-content;
+  display: flex;
+  align-items: center;
+  margin-bottom: 43px;
+
+  &::after {
+    content: "▾";
+    position: absolute;
+    right: 19px;
+    color: black;
+  }
+
+  select {
+    background: #F2EEEA;
+    border-radius: 15px;
+    outline: 0;
+    border: 0;
+    padding: 0 17px;
+    appearance: none;
+    height: 44px;
+  }
+}

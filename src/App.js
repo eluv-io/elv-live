@@ -16,6 +16,7 @@ const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
+const Checkout = MinLoadDelay(import("Event/checkout/Checkout"));
 
 import {EluvioConfiguration} from "EluvioConfiguration";
 
@@ -46,6 +47,7 @@ class App extends React.Component {
         <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
         <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
+        <Route exact path="/:baseSlug?/:siteSlug/checkout" component={SitePage(Checkout)} />
         <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
 
         <Route>
