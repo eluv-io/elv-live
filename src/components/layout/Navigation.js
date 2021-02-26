@@ -7,6 +7,7 @@ import SunIcon from "Assets/icons/sun.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
+import Checkout from "Event/checkout/Checkout";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -49,6 +50,7 @@ class Navigation extends React.Component {
         </div>
 
         <CartOverlay />
+        { this.props.cartStore.showCheckoutOverlay ? <Checkout /> : null }
       </div>
     );
   }

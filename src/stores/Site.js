@@ -361,10 +361,11 @@ class SiteStore {
   /* Tickets and Products */
 
   @computed get ticketClasses() {
-    return (this.currentSiteInfo.tickets || []).map((ticket, index) => {
+    return (this.currentSiteInfo.tickets || []).map((ticket, productIndex) => {
       return {
         ...ticket,
-        image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
+        productIndex,
+        image_url: this.SiteUrl(UrlJoin("info", "tickets", productIndex.toString(), "image"))
       }
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
   }
@@ -374,6 +375,8 @@ class SiteStore {
       .map((product, productIndex) => {
         return {
           ...product,
+          productIndex,
+          product_options: (product.product_options || []).map((option, optionIndex) => ({...option, optionIndex})),
           image_urls: (product.images || []).map((_, imageIndex) =>
             this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
           )
@@ -387,6 +390,18 @@ class SiteStore {
 
   Merchandise() {
     return this.Products().filter(item => item.type === "merchandise");
+  }
+
+  FeaturedMerchandise() {
+    return this.Merchandise().filter(item => item.featured);
+  }
+
+  DonationItem(productIndex) {
+    return this.DonationItems().find(item => item.productIndex === productIndex);
+  }
+
+  MerchandiseItem(productIndex) {
+    return this.Merchandise().find(item => item.productIndex === productIndex);
   }
 
   /* Images */

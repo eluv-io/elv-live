@@ -19,13 +19,19 @@ class CartOverlay extends React.Component {
           <div className="item-name">{ ticket.name }</div>
           <div className="item-price">{ this.props.cartStore.FormatPriceString(ticket.skus[optionIndex].price) }</div>
           <div className="item-quantity">Quantity: { quantity }</div>
+          <button
+            className="remove-item"
+            onClick={() => this.props.cartStore.RemoveItem({itemType: "tickets", index})}
+          >
+            Remove
+          </button>
         </div>
       </div>
     );
   }
 
   MerchandiseItem({baseItemIndex, optionIndex, quantity}, index) {
-    const item = this.props.siteStore.Merchandise()[baseItemIndex];
+    const item = this.props.siteStore.MerchandiseItem(baseItemIndex);
     const selectedOptions = item.product_options[optionIndex] || {};
 
     return (
@@ -46,6 +52,12 @@ class CartOverlay extends React.Component {
           }
 
           <div className="item-quantity">Quantity: { quantity }</div>
+          <button
+            className="remove-item"
+            onClick={() => this.props.cartStore.RemoveItem({itemType: "merchandise", index})}
+          >
+            Remove
+          </button>
         </div>
       </div>
     );
@@ -56,9 +68,8 @@ class CartOverlay extends React.Component {
 
     const tickets = this.props.cartStore.tickets;
     const merchandise = this.props.cartStore.merchandise;
-    const donations = this.props.cartStore.donations;
 
-    if(tickets.length === 0 && merchandise.length === 0 && donations.length === 0) {
+    if(tickets.length === 0 && merchandise.length === 0) {
       return (
         <div className="cart-overlay-scroll-container">
           <div className="cart-overlay empty">
@@ -88,7 +99,6 @@ class CartOverlay extends React.Component {
               <>
                 { tickets.map((item, index) => this.TicketItem(item, index)) }
                 { merchandise.map((item, index) => this.MerchandiseItem(item, index)) }
-                { donations.map((item, index) => this.MerchandiseItem(item, index)) }
               </>
           }
 
@@ -96,7 +106,7 @@ class CartOverlay extends React.Component {
             className="cart-overlay-checkout-button"
             onClick={() => this.props.cartStore.ToggleCheckoutOverlay(true)}
           >
-            Checkout
+            Check Out
           </button>
         </div>
       </div>

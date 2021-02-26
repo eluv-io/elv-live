@@ -68,7 +68,8 @@
 
   .cart-overlay-checkout-button {
     border-radius: 3px;
-    padding: 10px 61px;
+    padding: 10px 0;
+    width: 225px;
     margin: 20px auto 0;
     background: black;
     color: white;
@@ -78,6 +79,7 @@
     font-size: 16px;
     letter-spacing: 0.14em;
     font-weight: normal;
+    cursor: pointer;
   }
 }
 
@@ -100,6 +102,16 @@
 
   .item-image {
     padding: 10px;
+  }
+
+  .remove-item {
+    text-decoration: underline;
+    outline: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: #4E4E4E;
+    cursor: pointer;
   }
 }
 

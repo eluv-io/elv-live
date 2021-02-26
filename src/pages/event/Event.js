@@ -110,7 +110,6 @@ class Event extends React.Component {
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
-        { this.props.cartStore.showCheckoutOverlay ? <Checkout /> : null }
         <Footer />
       </div>
     );

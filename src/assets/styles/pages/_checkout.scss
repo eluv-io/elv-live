@@ -11,7 +11,7 @@
   }
 
   .checkout-page-section {
-    padding: 0 37px 0 91px;
+    padding: 0 37px 37px 91px;
   }
 
   .bottom-border {
@@ -20,10 +20,12 @@
     height: 1px;
     width: calc(100% + 37px);
     left: -37px;
-    //bottom: 0;
+    margin-top: 37px;
   }
 
   .cart-section {
+    padding-bottom: 0;
+
     &.empty {
       font-size: 18px;
       font-weight: normal;
@@ -56,6 +58,13 @@
     grid-template-columns: minmax(0, 7fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     grid-gap: 13px;
     position: relative;
+
+    .bottom-border {
+      margin: 0;
+      bottom: 0;
+      width: calc(100% + 127px);
+      left: -91px;
+    }
   }
 
   .cart-header {
@@ -177,6 +186,19 @@
     cursor: pointer;
   }
 
+  .featured-item {
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    padding: 19px;
+    width: 611px;
+    margin: 41px 0;
+    display: flex;
+
+    .featured-item-selection {
+      height: min-content;
+    }
+  }
+
   .order-summary {
     padding: 30px 45px;
     border-radius: 15px;
@@ -197,6 +219,78 @@
   .email-entry {
     margin-top: 27px;
     box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.12);
+  }
+
+  .featured-tickets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 42px;
+  }
+
+  .featured-ticket {
+    padding: 25px;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    max-width: 500px;
+
+    * {
+      font-weight: 300;
+    }
+
+    .featured-ticket-header {
+      display: flex;
+      align-items: center;
+      position: relative;
+      font-size: 24px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .featured-ticket-selection {
+      margin-right: 25px;
+    }
+
+    .featured-ticket-price {
+      position: absolute;
+      right: 0;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .featured-ticket-details {
+      display: flex;
+      margin-top: 17px;
+
+      & > div {
+        margin-right: 1.5em;
+      }
+    }
+
+    .featured-ticket-options {
+      display: flex;
+      align-items: center;
+      margin-top: 23px;
+
+      .ticket-sku {
+        width: 225px;
+
+        select {
+          width: 225px;
+        }
+      }
+
+      .item-quantity {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .payment-actions {
+    margin-left: 150px;
+
+    & > * {
+      margin-top: 10px;
+    }
   }
 }
 

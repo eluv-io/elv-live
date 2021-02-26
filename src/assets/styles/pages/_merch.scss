@@ -77,6 +77,7 @@
     letter-spacing: 0.03em;
     color: #212121;
     margin-bottom: 30px;
+    font-weight: 300;
   }
 
   .item-option-label {
@@ -103,7 +104,7 @@
     border-radius: 0;
     border: 0;
     background: transparent;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
     cursor: pointer;
   }
@@ -147,13 +148,103 @@
 
   .item-quantity {
     width: 85px;
-    height: 35px;
   }
 
   .item-add {
     font-size: 16px;
     border-radius: 3px;
     height: 42px;
+    margin-top: 42px;
+  }
+
+  &.featured-view {
+    display: block;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+    padding: 15px 25px 25px;
+    background: white;
+    width: 611px;
+
+    .item-header {
+      display: flex;
+      font-weight: 300;
+      font-size: 24px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      align-items: center;
+      position: relative;
+    }
+
+    .featured-item-selection {
+      margin-right: 62px;
+      height: 19px;
+      width: 19px;
+    }
+
+    .item-header-price {
+      font-weight: bold;
+      font-size: 18px;
+      position: absolute;
+      right: 0;
+    }
+
+    .item-container {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 15px;
+
+      .item-image,
+      .selected-image {
+        max-height: 139px;
+        min-height: 139px;
+        width: 160px;
+      }
+    }
+
+    .item-details {
+      padding: 0;
+    }
+
+    .item-options-quantity {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-gap: 10px;
+      margin-bottom: 23px;
+
+      .select-wrapper {
+        margin: 0;
+      }
+    }
+
+    .item-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 10px;
+
+      .item-option {
+        width: auto;
+      }
+    }
+
+    .item-description {
+      margin: 0;
+    }
+  }
+
+  &.donation-view {
+    width: 575px;
+
+    .item-container {
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      .item-image,
+      .selected-image {
+        max-height: 93px;
+        min-height: 93px;
+        width: 105px;
+      }
+    }
   }
 }
 
