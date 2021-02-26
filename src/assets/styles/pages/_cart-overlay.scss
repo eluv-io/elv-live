@@ -70,7 +70,7 @@
     border-radius: 3px;
     padding: 10px 0;
     width: 225px;
-    margin: 20px auto 0;
+    margin: 10px auto;
     background: black;
     color: white;
     text-transform: uppercase;
@@ -86,7 +86,9 @@
 .cart-overlay-item {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
   font-weight: normal;
+  margin: 10px 0;
 
   * {
     font-size: 14px;
@@ -97,11 +99,7 @@
     font-size: 16px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
-    margin: 10px 0;
-  }
-
-  .item-image {
-    padding: 10px;
+    margin-bottom: 10px;
   }
 
   .remove-item {

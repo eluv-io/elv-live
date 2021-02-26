@@ -136,7 +136,7 @@ class TicketDetails extends React.Component {
             <h4 className="ticket-details__header">
               { ticketClass.name }
               <div className="ticket-details__price">
-                { this.props.cartStore.FormatPriceString(ticketSku.price) }
+                { this.props.cartStore.FormatPriceString(ticketSku.price, true) }
               </div>
             </h4>
             <div className="ticket-details__option-date">
