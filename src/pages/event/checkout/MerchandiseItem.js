@@ -12,43 +12,67 @@ class MerchandiseItem extends React.Component {
     this.state = {
       image: 0,
       quantity: props.quantity || 1,
-      selectedOption: props.optionIndex || 0
+      selectedOption: props.optionIndex || 0,
+      checked: props.checked || false
     };
 
-    if(props.optionIndex) {
-      console.log(this.SelectedOption());
-    }
+    this.Update = this.Update.bind(this);
   }
 
-  AvailableOptions(index) {
-    let options = this.props.item.product_options.map((option, i) => ({...option, productIndex: i}));
+  Update() {
+    // Other views either don't allow changing option or have an explicit "add" button
+    if(!["featured", "donation"].includes(this.props.view)) { return; }
 
-    for(let i = 0; i < index; i++) {
-      const fieldName = this.props.item.option_fields[i].name;
-      options = options.filter(option => isEqual(option[fieldName], this.SelectedOption()[fieldName]));
+    if(this.state.checked) {
+      if(this.props.UpdateItem) {
+        this.props.UpdateItem(this.props.item, this.state.selectedOption, this.state.quantity);
+      }
+    } else {
+      if(this.props.RemoveItem) {
+        this.props.RemoveItem();
+      }
     }
-
-    return options;
   }
 
   SelectedOption() {
     return this.props.item.product_options[this.state.selectedOption] || {};
   }
 
+  // Determine available product options
+  // If index is specified, will return all options that match the first n selected options (options cascade downward)
+  // If requiredOption is specified, will return all options that match the selected field
+  AvailableOptions(index, requiredOption) {
+    let options = [...this.props.item.product_options];
+
+    if(requiredOption) {
+      options = options.filter(option => option[requiredOption.name] === requiredOption.value);
+    } else {
+      for(let i = 0; i < index; i++) {
+        const fieldName = this.props.item.option_fields[i].name;
+        options = options.filter(option => isEqual(option[fieldName], this.SelectedOption()[fieldName]));
+      }
+    }
+
+    return options;
+  }
+
+  // Check for option equality, ignoring option index field
+  MatchOption(first, second) {
+    return isEqual({...first, optionIndex: null}, {...second, optionIndex: null});
+  }
+
   SelectOption(name, value, index) {
     const selectedOptions = {...this.SelectedOption(), [name]: value};
 
-    let matchingOption = this.props.item.product_options.findIndex(productOption => isEqual(productOption, selectedOptions));
-
-    console.log("Initial match", matchingOption);
+    // Look for exact match for existing options plus new selection
+    let matchingOption = this.props.item.product_options.findIndex(productOption => this.MatchOption(productOption, selectedOptions));
 
     if(matchingOption < 0) {
-      matchingOption = (this.AvailableOptions(index).find(productOption => isEqual(productOption, selectedOptions)) || {}).productIndex || 0;
+      // No exact match, choose first available option that matches the selected option field
+      matchingOption = (this.AvailableOptions(index, {name, value})[0] || {}).optionIndex || 0;
     }
 
-    console.log("after match", matchingOption);
-
-    this.setState({selectedOption: matchingOption});
+    this.setState({selectedOption: matchingOption}, this.Update);
   }
 
   ColorOption(name, index) {
@@ -81,27 +105,34 @@ class MerchandiseItem extends React.Component {
     );
   }
 
-  Option(name, index) {
+  Option(option, index, simple=false) {
     const availableOptions = this.AvailableOptions(index)
-      .map(option => option[name])
+      .map(o => o[option.name])
       .filter((v, i, a) => a.indexOf(v) === i);
 
-    const selectedItem = this.SelectedOption()[name];
+    let selectedItem = this.SelectedOption()[option.name];
 
     return (
       <React.Fragment key={`item-option-${index}`}>
-        <h3 className="item-option-label">
-          { name }: <div className="option-label">{ selectedItem }</div>
-        </h3>
+        {
+          simple ? null :
+            <h3 className="item-option-label">
+              {option.name}: <div className="option-label">{selectedItem}</div>
+            </h3>
+        }
         <div className="item-option select-wrapper">
           <select
-            value={selectedItem}
-            onChange={event => this.SelectOption(name, event.target.value, index)}
+            value={option.type === "color" ? JSON.stringify(selectedItem) : selectedItem}
+            onChange={event => {
+              const value = option.type === "color" ? JSON.parse(event.target.value) : event.target.value;
+
+              this.SelectOption(option.name, value, index);
+            }}
           >
             {
-              availableOptions.map((label, i) =>
-                <option value={label} key={`item-option-${i}`}>
-                  { label }
+              availableOptions.map((value, i) =>
+                <option value={option.type === "color" ? JSON.stringify(value) : value} key={`item-option-${i}`}>
+                  { option.type === "color" ? value.label : value }
                 </option>
               )
             }
@@ -111,15 +142,39 @@ class MerchandiseItem extends React.Component {
     );
   }
 
-  Options() {
-    return this.props.item.option_fields.map(({name, type}, index) => {
-      return type === "color" ? this.ColorOption(name, index) : this.Option(name, index);
+  Options(simple=false) {
+    if(simple) {
+      return this.props.item.option_fields.map((option, index) => this.Option(option, index, true));
+    }
+
+    return this.props.item.option_fields.map((option, index) => {
+      return option.type === "color" ? this.ColorOption(option.name, index) : this.Option(option, index);
     });
   }
 
-  Limited() {
+  Quantity() {
     return (
-      <div className="merchandise-item limited">
+      <div className="select-wrapper">
+        <select
+          className="item-quantity"
+          value={this.state.quantity}
+          onChange={event => this.setState({quantity: parseInt(event.target.value)}, this.Update)}
+        >
+          {
+            [...new Array(9).keys()].map(index =>
+              <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+            )
+          }
+        </select>
+      </div>
+    );
+  }
+
+  /* Views */
+
+  CartView() {
+    return (
+      <div className="merchandise-item cart-view">
         <div className="item-image">
           <img src={this.props.item.image_urls[this.state.image]} alt={this.props.item.name} className="selected-image" />
         </div>
@@ -130,7 +185,70 @@ class MerchandiseItem extends React.Component {
     );
   }
 
-  Full() {
+  DonationView() {
+    return (
+      <div className="merchandise-item featured-view donation-view">
+        <h2 className="item-header">
+          <input
+            type="checkbox"
+            checked={this.state.checked}
+            className="featured-item-selection"
+            onChange={event => this.setState({checked: event.target.checked}, this.Update)}
+          />
+          { this.props.item.name }
+          <div className="item-header-price">
+            { this.props.cartStore.FormatPriceString(this.props.item.price, true) }
+          </div>
+        </h2>
+        <div className="item-container">
+          <div className="item-image">
+            <img src={this.props.item.image_urls[this.state.image]} alt={this.props.item.name} className="selected-image" />
+          </div>
+
+          <div className="item-details">
+            <div className="item-description">{ this.props.item.description }</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  FeaturedView() {
+    return (
+      <div className="merchandise-item featured-view">
+        <h2 className="item-header">
+          <input
+            type="checkbox"
+            checked={this.state.checked}
+            className="featured-item-selection"
+            onChange={event => this.setState({checked: event.target.checked}, this.Update)}
+          />
+          { this.props.item.name }
+          <div className="item-header-price">
+            { this.props.cartStore.FormatPriceString(this.props.item.price, true) }
+          </div>
+        </h2>
+        <div className="item-container">
+          <div className="item-image">
+            <img src={this.props.item.image_urls[this.state.image]} alt={this.props.item.name} className="selected-image" />
+          </div>
+
+          <div className="item-details">
+            <div className="item-options-quantity">
+              <div className="item-options">
+                { this.Options(true) }
+              </div>
+              { this.Quantity() }
+            </div>
+
+            <div className="item-description">{ this.props.item.description }</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  FullView() {
     return (
       <div className="merchandise-item">
         <div className="item-image">
@@ -156,20 +274,8 @@ class MerchandiseItem extends React.Component {
           <div className="item-description">{ this.props.item.description }</div>
 
           { this.Options() }
+          { this.Quantity() }
 
-          <div className="select-wrapper">
-            <select
-              className="item-quantity"
-              value={this.state.quantity}
-              onChange={event => this.setState({quantity: parseInt(event.target.value)})}
-            >
-              {
-                [...new Array(9).keys()].map(index =>
-                  <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                )
-              }
-            </select>
-          </div>
           <button
             className="btn item-add"
             onClick={() => this.props.SelectItem(this.props.item, this.state.selectedOption, this.state.quantity)}
@@ -182,7 +288,16 @@ class MerchandiseItem extends React.Component {
   }
 
   render() {
-    return this.props.limited ? this.Limited() : this.Full();
+    switch(this.props.view) {
+      case "cart":
+        return this.CartView();
+      case "featured":
+        return this.FeaturedView();
+      case "donation":
+        return this.DonationView();
+      default:
+        return this.FullView();
+    }
   }
 }
 
@@ -190,9 +305,11 @@ MerchandiseItem.propTypes = {
   item: PropTypes.object.isRequired,
   quantity: PropTypes.number,
   optionIndex: PropTypes.number,
-  limited: PropTypes.bool,
+  checked: PropTypes.bool,
+  view: PropTypes.string,
   SelectItem: PropTypes.func,
-  UpdateItem: PropTypes.func
+  UpdateItem: PropTypes.func,
+  RemoveItem: PropTypes.func
 };
 
 export default MerchandiseItem;

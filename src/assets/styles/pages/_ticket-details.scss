@@ -1,0 +1,134 @@
+.ticket-details {
+  display: grid;
+  grid-template-columns: minmax(40%, 1fr) minmax(60%, 1fr);
+  background: #E0DDD9;
+  padding: 50px 81px;
+  grid-gap: 51px;
+
+  &__ticket-info,
+  .email-entry,
+  .merchandise-item {
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  * {
+    font-family: Helvetica;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__options-column {
+    & > * {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    img {
+      max-width: 250px;
+    }
+  }
+
+  &__event,
+  &__location,
+  &__date {
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  &__location {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  &__date {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 32px;
+  }
+
+  &__description {
+    font-weight: 300;
+    font-size: 16px;
+  }
+
+  &__ticket-info {
+    background: white;
+    padding: 24px 53px;
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+
+    .ticket-details__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .ticket-details__quantity-selection {
+      width: 75px;
+    }
+
+    .ticket-details__sku-selection {
+      width: 225px;
+      margin-right: 18px;
+    }
+
+    .ticket-details__price {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .ticket-details__options {
+      display: flex;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .ticket-details__option-date {
+      width: 100%;
+      font-weight: 300;
+      font-size: 16px;
+      margin: 15px 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .merchandise-item {
+    &.donation-view {
+      width: 100%;
+    }
+  }
+
+  &__sponsor-container {
+    margin-top: 30px;
+    padding: 0 10px;
+    display: flex;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  &__sponsor-image-container {
+    flex: 1 1 auto;
+    padding: 5px;
+  }
+}

@@ -11,8 +11,8 @@ class ConcertOverview extends React.Component {
       <div className={"overview-container"} id="overview-container">
         <div className="ticket-group">
           {
-            this.props.siteStore.ticketClasses.map((_, index) =>
-              <Ticket ticketClassIndex={index} key={`ticket-class-${index}`} />
+            this.props.siteStore.ticketClasses.map(({productIndex}) =>
+              <Ticket ticketClassIndex={productIndex} key={`ticket-class-${productIndex}`} />
             )
           }
         </div>

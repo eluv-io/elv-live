@@ -1,560 +1,6 @@
-.ticket-details-container {
-  background: #e0ddd9;
-  display: flex;
-  flex-direction: row;
-  gap: 80px;
-  height: max-content;
-  margin: 0 auto;
-  width: 100%;
-  max-height: 100%;
-  padding: 30px 50px;
-  max-width: 1200px;
-
-  @media only screen and (min-width: 1050px) {
-    overflow-y: auto;
-  }
-
-  @media only screen and (max-width: 1050px) {
-    display: grid;
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-    gap: 40px;
-    height: auto;
-    margin: 0 auto;
-    max-width: 980px;
-    min-height: 100vh;
-    padding: 40px 30px;
-    width: 100%;
-
-    .payment-info {
-      padding: 0;
-    }
-  }
-}
-.ticket-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.ticket-details__img-container {
-  background: transparent;
-  border-radius: 0;
-  box-shadow: 50px 50px 50px rgba(0, 0, 0, 0.04), 20px 20px 20px rgba(0, 0, 0, 0.02);
-  flex-shrink: 0;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  max-width: 225px;
-  margin: 0 auto 40px;
-}
-
-.ticket-details__img {
-  height: 100%;
-  object-fit: cover;
-  vertical-align: middle;
-  width: 100%;
-}
-
-.ticket-details__event {
-  font-family: Helvetica;
-  font-size: 28px;
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 700;
-  font-weight: 300;
-  letter-spacing: -1px;
-  letter-spacing: 0.1em;
-  line-height: 1.2;
-  line-height: 122.71%;
-  margin: 0;
-  margin-top: 10px;
-  padding: 0;
-  text-align: center;
-
-  /* or 34px */
-
-  text-align: center;
-  text-transform: uppercase;
-  word-break: break-word;
-
-  @media only screen and (max-width: 600px) {
-    font-size: 24px;
-    letter-spacing: 0;
-    width: 100%;
-  }
-}
-
-.ticket-details__location {
-  font-family: Helvetica;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  letter-spacing: 0.1em;
-  line-height: 122.71%;
-  margin-top: 5px;
-
-  /* identical to box height, or 22px */
-
-  text-align: center;
-
-  /* or 34px */
-
-  text-align: center;
-  text-transform: uppercase;
-  text-transform: uppercase;
-
-  @media only screen and (max-width: 600px) {
-    font-size: 20px;
-    letter-spacing: 0;
-    width: 100%;
-  }
-}
-
-.ticket-details__date {
-  font-family: Helvetica;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 119.9%;
-  margin-top: 15px;
-
-  /* or 19px */
-
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.ticket-details__description {
-  box-orient: vertical;
-  color: rgba(0, 0, 0, 0.6);
-  color: #000;
-  font-family: Helvetica;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  -webkit-line-clamp: 6;
-  line-height: 130.3%;
-  margin-left: 0;
-  // text-align: center;
-  margin-left: 0;
-  margin-top: 25px;
-  position: relative;
-  text-align: left;
-
-  /* or 21px */
-
-  white-space: pre-line;
-
-  @media only screen and (max-width: 1050px) {
-    max-width: 550px;
-    text-align: left;
-  }
-
-  @media only screen and (max-width: 600px) {
-    width: 90%;
-  }
-}
-
-.sponsor-container {
-  align-items: center;
-  color: #000;
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  margin-top: 20px;
-  max-width: 350px;
-  text-rendering: optimizeLegibility;
-  user-select: none;
-  width: 100%;
-
-  @media only screen and (max-width: 600px) {
-    margin-bottom: 20px;
-  }
-}
-
-.big-sponsor-img {
-  height: auto;
-  // max-height: 70px;
-  object-fit: cover;
-  //margin-bottom: -50px;
-  //margin-top: -105px;
-  //width: 300px;
-  width: 80%;
-
-  &:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-
-  &:not(:first-child) {
-    width: 50%;
-  }
-
-  // margin-right: 15px;
-  // border: 1px solid #000;
-  // border-radius: 40px;
-  // object-fit: cover;
-}
-
-.payment-checkout {
-  display: block;
-  flex-shrink: 0;
-  height: 100%;
-  margin: 0 auto;
-  max-height: calc(100% - 2rem);
-  max-width: 550px;
-  overflow-y: auto;
-  padding-right: 2rem;
-  width: 100%;
-
-  @media only screen and (max-width: 1050px) {
-    height: auto;
-    max-height: none;
-    overflow-y: visible;
-    padding-bottom: 25px;
-    padding-right: 0;
-  }
-}
-
-.ticket-details__option {
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  border-radius: 10px;
-  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.03);
-  // opacity: 0.85;
-
-  color: #000;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
-  // box-shadow: 50px 50px 50px rgba(0,0,0,.04), 20px 20px 20px rgba(0,0,0,.02);
-  // -webkit-backdrop-filter: saturate(1.8) blur(20px);
-  // backdrop-filter: saturate(1.8) blur(20px);
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: -0.022em;
-  line-height: 1.47059;
-  margin-bottom: 10px;
-  padding: 20px 40px;
-  text-rendering: optimizeLegibility;
-  width: 100%;
-
-  @media only screen and (max-width: 600px) {
-    padding: 20px;
-  }
-}
-
-.ticket-details__actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-
-  button {
-    margin: 0;
-  }
-}
-
-.currency-quantity-container {
-  display: grid;
-  gap: 5px;
-  grid-gap: 5px;
-  grid-template-columns: 1fr;
-  grid-template-columns: 2fr 1fr;
-  margin-top: 10px;
-}
-
-.currency-select {
-  height: auto;
-  margin-bottom: 8px;
-  position: relative;
-  text-align: left;
-  z-index: 1091898181818;
-}
-
-.quantity-select {
-  margin-bottom: 8px;
-  position: relative;
-  text-align: left;
-}
-
-.checkout-checkbox-container {
-  align-items: flex-start;
-  display: flex;
-  //margin-bottom: 10px;
-  height: 3rem;
-  justify-content: space-between;
-}
-
-.checkout-checkbox-input {
-  // position: absolute;
-  // top: 3px;
-  // left: 0;
-  // width: 16px;
-  // height: 16px;
-  // cursor: pointer;
-  // // opacity: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: content-box;
-  cursor: pointer;
-  display: inline-block;
-  height: 16px;
-  margin-right: 15px;
-  margin-top: -0.5px;
-  position: relative;
-  width: 16px;
-}
-
-.checkout-checkbox-label {
-  align-items: center;
-  display: flex;
-  font-family: Helvetica;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  font-weight: 300;
-  justify-content: space-between;
-  letter-spacing: -0.05px;
-  line-height: 120%;
-  margin: -2px 0 0;
-  width: 100%;
-
-  @media only screen and (max-width: 650px) {
-    font-size: 4.5vw;
-    letter-spacing: 0;
-  }
-}
-
-.checkout-checkbox-heading2 {
-  font-family: Helvetica;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  font-weight: 300;
-  letter-spacing: -0.05px;
-
-  /* identical to box height */
-
-  letter-spacing: 0.07em;
-  line-height: 120%;
-  line-height: 20px;
-  margin: -2px 0 0;
-  // text-transform: uppercase;
-  @media only screen and (max-width: 650px) {
-    font-size: 4.5vw;
-    letter-spacing: 0;
-  }
-}
-
-.checkout-checkbox-heading {
-  font-family: Helvetica;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 700;
-  font-weight: 300;
-  letter-spacing: -0.05px;
-
-  /* identical to box height */
-
-  letter-spacing: 0.07em;
-  line-height: 120%;
-  line-height: 22px;
-  margin: -2px 0 0;
-  text-transform: uppercase;
-
-  @media only screen and (max-width: 650px) {
-    box-orient: vertical;
-    box-orient: vertical;
-    box-orient: vertical;
-    font-size: 4.5vw;
-    letter-spacing: 0;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-  }
-}
-
-.checkout-checkbox-details {
-  display: flex;
-  font-family: Helvetica;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  justify-content: space-between;
-  line-height: 19px;
-  margin-top: 10px;
-  text-transform: capitalize;
-
-  @media only screen and (max-width: 650px) {
-    box-orient: vertical;
-    font-size: 3.3vw;
-    letter-spacing: 0;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-  }
-}
-
-.checkout-checkbox-bundle {
-  align-items: flex-start;
-  display: flex;
-}
-
-.checkout-checkbox-bundle-img {
-  height: 70px;
-  margin-right: 15px;
-  object-fit: contain;
-  // border: 1px solid rgba(0, 0, 0, 0.603);
-  // border-radius: 40px;
-  width: 70px;
-}
-
-.checkout-checkbox-bundle-info {
-  text-align: left;
-  width: 100%;
-}
-
-.checkout-checkbox-bundle-name {
-  font-family: Helvetica;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  font-weight: normal;
-  line-height: 100%;
-  width: 150%;
-}
-
-.checkout-checkbox-bundle-description {
-  color: rgba(0, 0, 0, 0.6);
-  color: #000;
-  font-family: Helvetica;
-  font-size: 12px !important;
-  font-style: normal;
-  font-weight: 300;
-
-  /* or 16px */
-
-  letter-spacing: 0.03em;
-  line-height: 100%;
-  margin: 0 0 10px;
-
-  @media only screen and (max-width: 650px) {
-    font-size: 10px !important;
-  }
-}
-
-.checkout-checkbox-bundle-size {
-  // margin: 0 0 10px;
-  // color: rgba(0,0,0,.6);
-  // font-size: 14px;
-  // z-index: 199;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 7.5px;
-}
-
-.css-yk16xz-control {
-  :hover {
-    border-color: #000 !important;
-  }
-}
-
-.checkout-email-form {
-  margin-bottom: 8px;
-  position: relative;
-
-  input {
-    // border-radius: 1px;
-    appearance: none;
-    // height: 48px;
-    // letter-spacing: 1.5px;
-    // margin-top: 1rem;
-    // text-align: center;
-    // width: MIN(35rem, 90vw);
-
-    appearance: none;
-    appearance: none;
-    backdrop-filter: saturate(1.8) blur(20px);
-    backdrop-filter: saturate(1.8) blur(20px);
-    background: hsla(0, 0%, 100%, 0.72);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    // line-height: 1.23543;
-    // letter-spacing: -.022em;
-    color: rgb(49, 49, 53);
-    cursor: text;
-    display: inline-block;
-    font-size: 2.2rem;
-    font-size: 17px;
-    height: 3.3em;
-    padding: 0 20px;
-    -webkit-rtl-ordering: logical;
-    text-rendering: auto;
-    text-transform: none;
-    transition: all 0.125s ease 0s;
-    vertical-align: top;
-    width: 100%;
-    word-spacing: normal;
-
-    @media only screen and (max-width: 600px) {
-      font-size: 16px;
-      width: 100%;
-    }
-
-    // @media only screen and (max-width: 415px) {
-    //   font-size: 2rem;
-    //   width: 280px;
-    // }
-
-    &::placeholder {
-      // font-variant: all-small-caps;
-      color: rgba(0, 0, 0, 0.804);
-      padding-left: 10px;
-    }
-
-    @media only screen and (max-width: 600px) {
-      font-size: 16px;
-      width: 100%;
-
-      &::placeholder {
-        // font-variant: all-small-caps;
-        color: rgba(0, 0, 0, 0.804);
-        padding-left: 5px;
-      }
-    }
-  }
-}
-
-.checkout-email-info {
-  color: rgba(0, 0, 0, 0.6);
-  font-family: Helvetica;
-  font-size: 14px;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  letter-spacing: 0.03em;
-  line-height: 100%;
-  padding-bottom: 10px;
-  text-align: center;
-  text-align: center;
-
-  /* or 16px */
-
-  @media only screen and (max-width: 600px) {
-    font-size: 12px;
-    letter-spacing: -0.05em;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    text-align: center;
-  }
-}
-
 .react-select-container {
   min-height: auto !important;
   width: 100% !important;
-  // height: 100%;
-  // @media only screen and (max-width: 1400px) {
-  //   height: auto !important;
-  // }
 }
 
 .react-select {
@@ -562,9 +8,7 @@
 
   &__input {
     caret-color: transparent !important;
-    color: transparent !important;
     color: #f2eeea !important;
-    // display: none !important;
     position: absolute !important;
     text-shadow: 0 0 0 #f2eeea !important;
   }
@@ -573,40 +17,16 @@
     background: #f2eeea !important;
     height: auto !important;
     min-height: auto !important;
-
-    // @media only screen and (max-width: 1400px) {
-    //   height: auto !important;
-    // }
   }
 
   &__value-container {
     height: auto !important;
-    // padding: 10px !important;
     margin-left: 5px !important;
     overflow: visible !important;
-
-    // @media only screen and (max-width: 1400px) {
-    //   height: auto !important;
-    // }
-
-    // flex-wrap: wrap;
-    // padding: 2px 8px;
-    // -webkit-overflow-scrolling: touch;
-    // position: relative;
-    // overflow: hidden;
-    // box-sizing: border-box;
   }
 
   &__indicators {
     height: auto !important;
-
-    // @media only screen and (max-width: 1400px) {
-    //   height: auto !important;
-    // }
-  }
-
-  &__menu{
-
   }
 
   &__menu-list {
@@ -637,11 +57,9 @@
 .stripe-checkout-button {
   align-items: center;
   border-radius: 3px;
-  // /* identical to box height */
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  // width: 180px;
   font-family: Helvetica;
   font-size: 16px;
   font-style: normal;
@@ -650,20 +68,6 @@
   justify-content: space-evenly;
   letter-spacing: 0.14em;
   line-height: 16px;
-
-  //     font-size: 15px;
-  //   font-weight: 700;
-
-  //   font-family: Helvetica;
-  // font-style: normal;
-  // font-weight: normal;
-  // font-size: 17px;
-  // line-height: 17px;
-  // // letter-spacing: 0.14em;
-  // text-transform: uppercase;
-  // font-family: Helvetica;
-  // font-style: normal;
-  // font-weight: normal;
   text-align: center;
   text-transform: uppercase;
 
@@ -676,73 +80,17 @@
     font-size: 13px;
     letter-spacing: 0;
   }
-
-  // transition: background .2s ease,box-shadow .2s ease;
 }
 
 .stripe-checkout-logo {
   height: 38px;
-  // margin-top: -5px;
-  // margin-bottom: 15px;
   width: auto;
 }
 
 .checkout-button {
-  //   appearance: none;
-  //   appearance: none;
-  //   appearance: none;
-  background: #232323f3;
-  //   border: 0;
-  //   border-radius: 23px;
-  //   box-shadow: 0 1px 1px rgba(37, 37, 37, 0.12), 0 2px 5px rgba(37, 37, 37, 0.12), 0 0 1px rgba(37, 37, 37, 0.12);
-  //   color: #fff;
-  //   cursor: pointer;
-  //   display: inline-block;
-  //   font-size: 15px;
-  //   font-weight: 700;
-  //   // transition: background .2s ease,box-shadow .2s ease;
-  //   margin-top: 20px;
-  //   max-width: 100%;
-  //   outline: none;
-  //   padding: 1rem;
-  //   padding: 12px 18px;
-  //   text-align: center;
-  //   text-decoration: none;
-  //   width: 300px;
-  //   height: 50px;
-  //   margin-bottom: 10px;
-
-  //   background: #000000;
-  // border: 2px solid #000000;
-  // box-sizing: border-box;
-  // box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.12);
+  background: #232323;
   border-radius: 5px;
-  // font-family: Helvetica;
-  // font-style: normal;
-  // font-weight: normal;
-  // font-size: 16px;
-  // line-height: 19px;
-  // /* identical to box height */
-
-  // letter-spacing: 0.14em;
-  // // text-transform: uppercase;
-  // margin: auto;
-  // margin-left: 100px;
-  // margin-top: 15px;
-  // width: 350px;
-  // font-family: Helvetica;
-  // font-style: normal;
-  // font-weight: normal;
-  // font-size: 15px;
-  // line-height: 19px;
-  // /* identical to box height */
-
-  // letter-spacing: 0.14em;
-  // text-transform: uppercase;
-
   color: #fff;
-  margin-left: 75px;
-  margin-top: 15px;
   width: 400px;
 
   @media only screen and (max-width: 700px) {
@@ -752,94 +100,14 @@
 
   &:hover {
     background: #000;
-
-    // box-shadow: 0 1px 1px rgba(37,37,37,.12), 0 2px 5px rgba(37,37,37,.12), 0 0 1px rgba(37,37,37,.12), 0 3px 9px rgba(0,0,0,.12);
   }
 }
 
 .paypal-button {
-  //   appearance: none;
-  //   appearance: none;
-  //   appearance: none;
-  //   background: #252525;
-  //   border: 0;
-  //   border-radius: 23px;
-  //   box-shadow: 0 1px 1px rgba(37, 37, 37, 0.12), 0 2px 5px rgba(37, 37, 37, 0.12), 0 0 1px rgba(37, 37, 37, 0.12);
-  //   color: #fff;
-  //   cursor: pointer;
-  //   display: inline-block;
-  //   font-size: 15px;
-  //   font-weight: 700;
-  //   // transition: background .2s ease,box-shadow .2s ease;
-  //   margin-top: 20px;
-  //   max-width: 100%;
-  //   outline: none;
-  //   padding: 1rem;
-  //   padding: 12px 18px;
-  //   text-align: center;
-  //   text-decoration: none;
-  //   width: 300px;
-  //   height: 45px;
-  //   margin-bottom: 10px;
-
-  //   background: #000000;
-  // border: 2px solid #000000;
-  // box-sizing: border-box;
-  // box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.12);
-  // border-radius: 3px;
-  // font-family: Helvetica;
-  // font-style: normal;
-  // font-weight: normal;
-  // font-size: 16px;
-  // line-height: 19px;
-
-  /* identical to box height */
-  // width
-
-  // letter-spacing: 0.14em;
-  // text-transform: uppercase;
-  // margin: auto;
-  margin-left: 125px;
-  // width: 300px;
-  margin-left: 75px;
-  margin-top: 10px;
-  margin-top: 10px;
   width: 400px;
 
   @media only screen and (max-width: 700px) {
     margin-left: 0;
     width: 100%;
   }
-}
-
-.checkout-error {
-  color: rgb(222, 7, 28);
-  display: block;
-  // display: none;
-  font-family: Helvetica;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: normal;
-  font-weight: 400;
-  height: 20px;
-  letter-spacing: 0;
-  letter-spacing: 0.006em;
-  line-height: 1.5;
-  margin-bottom: 12px;
-  margin-top: 12px;
-  text-align: center;
-}
-
-.checkout-button-container {
-  height: auto;
-}
-
-.ticket-logo-container {
-  max-width: 400px;
-  width: auto;
-}
-
-.ticket-logo {
-  height: auto;
-  width: 100%;
 }

@@ -17,7 +17,7 @@ class Ticket extends React.Component {
     super(props);
 
     this.state = {
-      selectedOffering: 0,
+      selectedOffering: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,27 +32,20 @@ class Ticket extends React.Component {
   }
 
   TicketOptions() {
-    return this.TicketClass().skus.map(({label, price, start_time}, index) => ({
+    return this.TicketClass().skus.map((ticketSku, index) => ({
       label: (
         <div className="space-between">
-          <div className="ticket-bottom-location">{ label }</div>
-          <IconContext.Provider value={{ className: "ticket-icon" }}>
-            <div className="ticket-bottom-date">
-              <FaRegCalendarAlt />
-              { FormatDateString(start_time) }
-            </div>
-          </IconContext.Provider>
-          <div className="ticket-bottom-price">{ this.props.cartStore.FormatPriceString(price) }</div>
+          <div className="ticket-item-detail">{ ticketSku.label }</div>
+          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, true) }</div>
+          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
         </div>
       ),
-      value: index,
-      price,
-      date: start_time
+      value: index
     }));
   }
 
   render() {
-    // TODO: Make select same height/border radius as purchase button
+    console.log(this.TicketClass().skus[this.state.selectedOffering]);
 
     return (
       <React.Fragment>
@@ -80,7 +73,7 @@ class Ticket extends React.Component {
                   className='react-select-container'
                   classNamePrefix="react-select"
                   value={this.TicketOptions()[this.state.selectedOffering]}
-                  onChange={this.handleChange}
+                  onChange={({value}) => this.setState({selectedOffering: parseInt(value)})}
                   options={this.TicketOptions()}
                   theme={theme => ({
                     ...theme,
@@ -93,6 +86,9 @@ class Ticket extends React.Component {
                   })}
                 />
               </div>
+              <div className="ticket-price">
+                { this.props.cartStore.FormatPriceString(this.TicketClass().skus[this.state.selectedOffering].price, true) }
+              </div>
               <button
                 className="ticket-bottom-button"
                 role="link"
@@ -104,7 +100,7 @@ class Ticket extends React.Component {
                   }
                 )}
               >
-                Purchase
+                Buy
               </button>
             </div>
           </div>

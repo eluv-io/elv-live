@@ -73,7 +73,6 @@ body,
   width: min-content;
   display: flex;
   align-items: center;
-  margin-bottom: 43px;
 
   &::after {
     content: "▾";
@@ -90,5 +89,13 @@ body,
     padding: 0 17px;
     appearance: none;
     height: 44px;
+    width: 100%;
   }
+}
+
+input[type="checkbox"] {
+  height: 19px;
+  width: 19px;
+  border: 1px solid #6a6a6a;
+  border-radius: 2px;
 }
