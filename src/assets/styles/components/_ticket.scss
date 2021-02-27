@@ -204,19 +204,11 @@
   text-transform: uppercase;
 
   @media only screen and (max-width: 1200px) {
-    text-align: center;
-  }
-
-  @media only screen and (max-width: 750px) {
-    font-size: 6vw;
-    font-weight: 400;
-    letter-spacing: 0;
-  }
-
-  @media only screen and (max-width: 500px) {
-    font-size: 6.5vw;
-    font-weight: 400;
-    letter-spacing: 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 10px;
   }
 }
 
@@ -393,7 +385,7 @@
   width: 100%;
 }
 
-.space-between {
+.ticket-option {
   align-items: center;
   align-items: center;
   align-self: center;

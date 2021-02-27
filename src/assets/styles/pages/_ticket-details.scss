@@ -28,12 +28,13 @@
   }
 
   &__image-container {
-    display: flex;
-    justify-content: center;
     margin-bottom: 20px;
 
     img {
       max-width: 250px;
+      margin: auto;
+      height: auto;
+      object-fit: contain;
     }
   }
 
@@ -64,19 +65,11 @@
   }
 
   &__ticket-info {
-    background: white;
+    @include item-block;
     padding: 25px 25px 25px 53px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
 
     .ticket-details__header {
-      display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 24px;
-      font-weight: 300;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
     }
 
     .ticket-details__quantity-selection {
@@ -104,6 +97,12 @@
       font-weight: 300;
       font-size: 16px;
       margin: 15px 0;
+      display: flex;
+
+      .separator {
+        font-weight: bold;
+        padding: 0 6px;
+      }
     }
   }
 
@@ -130,5 +129,29 @@
   &__sponsor-image-container {
     flex: 1 1 auto;
     padding: 5px;
+
+    max-width: 200px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    display: block;
+    padding: 25px;
+
+    &__column {
+      margin-bottom: 30px;
+    }
+
+    &__ticket-info {
+      padding: 25px;
+    }
+
+    .ticket-details__option-date {
+      font-size: 12px;
+      justify-content: space-between;
+
+      .separator {
+        padding: 0;
+      }
+    }
   }
 }

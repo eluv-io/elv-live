@@ -99,3 +99,17 @@ input[type="checkbox"] {
   border: 1px solid #6a6a6a;
   border-radius: 2px;
 }
+
+.mobile-only {
+  display: none!important;
+}
+
+@media only screen and (max-width: 900px) {
+  .no-mobile {
+    display: none!important;
+  }
+
+  .mobile-only {
+    display: inherit!important;
+  }
+}
