@@ -112,26 +112,6 @@
     text-align: left;
   }
 
-  .merchandise-item {
-    grid-template-columns: auto 1fr;
-    grid-gap: 43px;
-
-    .item-details {
-      padding: 7px 0;
-    }
-
-    .item-image,
-    .selected-image {
-      width: 168px;
-      max-height: 246px;
-      min-height: 246px;
-    }
-
-    .item-description {
-      max-width: unset;
-    }
-  }
-
   .ticket-item {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -186,19 +166,6 @@
     cursor: pointer;
   }
 
-  .featured-item {
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
-    padding: 19px;
-    width: 611px;
-    margin: 41px 0;
-    display: flex;
-
-    .featured-item-selection {
-      height: min-content;
-    }
-  }
-
   .order-summary {
     padding: 30px 45px;
     border-radius: 15px;
@@ -228,26 +195,15 @@
   }
 
   .featured-ticket {
-    padding: 25px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
+    @include item-block;
     max-width: 500px;
 
     * {
       font-weight: 300;
     }
 
-    .featured-ticket-header {
-      display: flex;
-      align-items: center;
-      position: relative;
-      font-size: 24px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-
     .featured-ticket-selection {
-      margin-right: 25px;
+      margin-right: 10px;
     }
 
     .featured-ticket-price {
@@ -261,8 +217,9 @@
       display: flex;
       margin-top: 17px;
 
-      & > div {
-        margin-right: 1.5em;
+      .separator {
+        font-weight: bold;
+        padding: 0 6px;
       }
     }
 
@@ -298,14 +255,118 @@
   .checkout {
     width: 100vw;
     min-height: 100vh;
+    padding-bottom: 150px;
+
+    .checkout-page-section {
+      padding: 10px 20px 20px;
+
+      &:not(.no-border) {
+        border-bottom: 1px solid #D0D0D0;
+      }
+    }
+
+    .bottom-border {
+      display: none;
+    }
 
     .cart-item {
-      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-      grid-gap: 0;
+      display: block;
+      margin-bottom: 42px;
+    }
+
+    .cart-item-cell {
+      padding: 0;
     }
 
     .merchandise-item {
-      justify-items: center;
+      margin-bottom: 42px;
+    }
+
+    .ticket-item-mobile {
+      @include item-block;
+      display: block;
+      width: 100%;
+
+      h2 {
+        margin-bottom: 16px;
+        font-weight: bold;
+        justify-content: space-between;
+      }
+
+      .ticket-item-image {
+        width: 100px!important;
+        max-height: 150px;
+        min-height: 150px;
+      }
+
+      .item-quantity-wrapper {
+        margin-top: 10px;
+      }
+
+      .item-quantity-wrapper,
+      .item-quantity {
+        width: 100%;
+      }
+
+      .remove-item {
+        position: initial;
+        width: 100%;
+        text-align: right;
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+
+    .featured-tickets {
+      display: block;
+    }
+
+    .featured-ticket {
+      margin-bottom: 42px;
+
+      .featured-ticket-options {
+        .ticket-sku-wrapper {
+          flex: 1 1 auto;
+
+          select {
+            width: 100%;
+          }
+        }
+      }
+
+      .ticket-item-detail {
+        text-align: center;
+      }
+
+      .featured-ticket-price {
+        font-size: 16px;
+      }
+    }
+
+    .featured-ticket-details {
+      justify-content: space-between;
+
+      & > div {
+        font-size: 12px;
+      }
+
+      .separator {
+        padding: 0;
+      }
+    }
+
+    .order-summary {
+      width: 100%;
+    }
+
+    .payment-actions {
+      margin: 0;
+      padding: 0 20px;
+
+      & > * {
+        margin-top: 20px;
+      }
     }
   }
 }

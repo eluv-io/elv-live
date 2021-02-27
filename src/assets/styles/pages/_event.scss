@@ -129,6 +129,12 @@
   }
 }
 
+.event-tabs-container {
+  @media only screen and (max-width: 900px) {
+    margin-top: 20px;
+  }
+}
+
 .info-social-box {
   align-items: flex-start;
   background: transparent;

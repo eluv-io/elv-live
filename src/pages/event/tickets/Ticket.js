@@ -34,10 +34,10 @@ class Ticket extends React.Component {
   TicketOptions() {
     return this.TicketClass().skus.map((ticketSku, index) => ({
       label: (
-        <div className="space-between">
+        <div className="ticket-option">
           <div className="ticket-item-detail">{ ticketSku.label }</div>
-          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, true) }</div>
-          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
+          <div className="ticket-item-detail no-mobile">{ FormatDateString(ticketSku.start_time, true) }</div>
+          <div className="ticket-item-detail no-mobile">{ FormatDateString(ticketSku.start_time, false, true) }</div>
         </div>
       ),
       value: index
@@ -45,8 +45,6 @@ class Ticket extends React.Component {
   }
 
   render() {
-    console.log(this.TicketClass().skus[this.state.selectedOffering]);
-
     return (
       <React.Fragment>
         <div className="ticket-event">
@@ -61,6 +59,7 @@ class Ticket extends React.Component {
 
               <h3 className="ticket-top-title">
                 { this.TicketClass().name }
+                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(this.TicketClass().skus[this.state.selectedOffering].price, true) }</div>
               </h3>
               <p className="ticket-top-description">
                 { this.TicketClass().description }
@@ -86,7 +85,7 @@ class Ticket extends React.Component {
                   })}
                 />
               </div>
-              <div className="ticket-price">
+              <div className="ticket-price no-mobile">
                 { this.props.cartStore.FormatPriceString(this.TicketClass().skus[this.state.selectedOffering].price, true) }
               </div>
               <button

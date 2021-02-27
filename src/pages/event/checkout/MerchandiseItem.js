@@ -13,15 +13,23 @@ class MerchandiseItem extends React.Component {
       image: 0,
       quantity: props.quantity || 1,
       selectedOption: props.optionIndex || 0,
-      checked: props.checked || false
+      checked: props.checked || props.view === "cart" || false
     };
 
     this.Update = this.Update.bind(this);
   }
 
+  View() {
+    if(this.props.view === "cart" && window.innerWidth < 900) {
+      return "mobile-cart";
+    }
+
+    return this.props.view;
+  }
+
   Update() {
     // Other views either don't allow changing option or have an explicit "add" button
-    if(!["featured", "donation"].includes(this.props.view)) { return; }
+    if(!["mobile-cart", "featured", "donation"].includes(this.View())) { return; }
 
     if(this.state.checked) {
       if(this.props.UpdateItem) {
@@ -214,10 +222,13 @@ class MerchandiseItem extends React.Component {
   }
 
   FeaturedView() {
+    const mobileCartView = this.View() === "mobile-cart";
+
     return (
-      <div className="merchandise-item featured-view">
+      <div className={`merchandise-item featured-view ${mobileCartView ? "mobile-cart-view" : ""}`}>
         <h2 className="item-header">
           <input
+            hidden={mobileCartView}
             type="checkbox"
             checked={this.state.checked}
             className="featured-item-selection"
@@ -234,7 +245,7 @@ class MerchandiseItem extends React.Component {
           </div>
 
           <div className="item-details">
-            <div className="item-options-quantity">
+            <div className="item-options-container">
               <div className="item-options">
                 { this.Options(true) }
               </div>
@@ -242,6 +253,14 @@ class MerchandiseItem extends React.Component {
             </div>
 
             <div className="item-description">{ this.props.item.description }</div>
+
+            <button
+              hidden={!mobileCartView}
+              className="remove-item"
+              onClick={this.props.RemoveItem}
+            >
+              Remove
+            </button>
           </div>
         </div>
       </div>
@@ -288,9 +307,10 @@ class MerchandiseItem extends React.Component {
   }
 
   render() {
-    switch(this.props.view) {
+    switch(this.View()) {
       case "cart":
         return this.CartView();
+      case "mobile-cart":
       case "featured":
         return this.FeaturedView();
       case "donation":

@@ -133,14 +133,18 @@ class TicketDetails extends React.Component {
 
         <div className="ticket-details__column ticket-details__options-column">
           <div className="ticket-details__ticket-info">
-            <h4 className="ticket-details__header">
+            <h2 className="ticket-details__header">
               { ticketClass.name }
               <div className="ticket-details__price">
                 { this.props.cartStore.FormatPriceString(ticketSku.price, true) }
               </div>
-            </h4>
+            </h2>
             <div className="ticket-details__option-date">
-              { `${ticketSku.label} · ${FormatDateString(ticketSku.start_time)}` }
+              <div className="ticket-details__option-date-field">{ ticketSku.label }</div>
+              <div className="separator">·</div>
+              <div className="ticket-details__option-date-field">{ FormatDateString(ticketSku.start_time, true) }</div>
+              <div className="separator">·</div>
+              <div className="ticket-details__option-date-field">{ FormatDateString(ticketSku.start_time, false, true) }</div>
             </div>
             <div className="ticket-details__options">
               <div className="select-wrapper ticket-details__sku-selection">

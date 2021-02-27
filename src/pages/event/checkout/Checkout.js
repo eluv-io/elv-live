@@ -4,91 +4,13 @@ import {inject, observer} from "mobx-react";
 import BagIcon from "Icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
 import MerchandiseItem from "Event/checkout/MerchandiseItem";
+import FeaturedTicket from "Event/checkout/FeaturedTicket";
 import Modal from "Common/Modal";
 import EmailInput from "Common/EmailInput";
 import {FormatDateString, ValidEmail} from "Utils/Misc";
 import StripeLogo from "Images/logo/logo-stripe";
 import {FUNDING, PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {Redirect} from "react-router";
-
-@inject("cartStore")
-@observer
-class FeaturedTicket extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const options = props.cartStore.featuredTickets[props.ticketClass.productIndex] || {};
-
-    this.state = {
-      selected: !!props.cartStore.featuredTickets[props.ticketClass.productIndex],
-      selectedSku: options.ticketSku || 0,
-      quantity: options.quantity || 1
-    };
-
-    this.Update = this.Update.bind(this);
-  }
-
-  Update() {
-    if(this.state.selected) {
-      this.props.cartStore.AddFeaturedTicket({
-        productIndex: this.props.ticketClass.productIndex,
-        optionIndex: this.state.selectedSku,
-        quantity: this.state.quantity
-      });
-    } else {
-      this.props.cartStore.RemoveFeaturedTicket(this.props.ticketClass.productIndex);
-    }
-  }
-
-  render() {
-    const ticketSku = this.props.ticketClass.skus[this.state.selectedSku];
-    return (
-      <div className="featured-ticket">
-        <h3 className="featured-ticket-header">
-          <input
-            type="checkbox"
-            checked={this.state.selected}
-            onChange={event => this.setState({selected: event.target.checked}, this.Update)}
-            className="featured-ticket-selection"
-          />
-          { this.props.ticketClass.name }
-          <div className="featured-ticket-price">{ this.props.cartStore.FormatPriceString(ticketSku.price) }</div>
-        </h3>
-        <div className="featured-ticket-details">
-          <div className="ticket-item-detail">{ ticketSku.label }</div>
-          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, true) }</div>
-          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
-        </div>
-        <div className="featured-ticket-options">
-          <div className="select-wrapper ticket-sku-wrapper">
-            <select
-              className="ticket-sku"
-              value={this.state.selectedSku}
-              onChange={event => this.setState({selectedSku: parseInt(event.target.value)}, this.Update)}
-            >
-              { this.props.ticketClass.skus.map((sku, index) =>
-                <option key={`featured-ticket-sku-${index}`} value={index}>{ sku.label }</option>
-              )}
-            </select>
-          </div>
-          <div className="select-wrapper item-quantity-wrapper">
-            <select
-              className="item-quantity"
-              value={this.state.quantity}
-              onChange={event => this.setState({quantity: parseInt(event.target.value)}, this.Update)}
-            >
-              {
-                [...new Array(9).keys()].map(index =>
-                  <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                )
-              }
-            </select>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
 @inject("cartStore")
 @inject("siteStore")
@@ -203,6 +125,65 @@ class Checkout extends React.Component {
     const ticketClass = this.props.siteStore.ticketClasses[ticket.baseItemIndex];
     const ticketSku = ticketClass.skus[ticket.optionIndex];
 
+    // Mobile view
+    if(window.innerWidth < 900) {
+      return (
+        <div className="cart-item">
+          <div className="ticket-item-mobile">
+            <h2>
+              <div className="ticket-item-header">
+                <div className="ticket-item-header-item">{ ticketClass.name }</div>
+                <div className="ticket-item-header-item">{ ticketSku.label }</div>
+              </div>
+              <div className="ticket-item-price">
+                { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(ticketSku) * ticket.quantity}, true) }
+              </div>
+            </h2>
+            <div className="ticket-item">
+              <div className="ticket-item-image">
+                <img src={ticketClass.image_url} alt={ticketClass.name} />
+              </div>
+              <div className="ticket-item-details">
+                <div className="ticket-item-detail">{ ticketSku.label }</div>
+                <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, true) }</div>
+                <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
+
+                <div className="select-wrapper item-quantity-wrapper">
+                  <select
+                    className="item-quantity"
+                    value={ticket.quantity}
+                    onChange={event => this.props.cartStore.UpdateItem({
+                      itemType: "tickets",
+                      index,
+                      quantity: parseInt(event.target.value)
+                    })}
+                  >
+                    {
+                      [...new Array(9).keys()].map(index =>
+                        <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+                      )
+                    }
+                  </select>
+                </div>
+
+                <div className="ticket-item-description">
+                  { this.props.siteStore.eventInfo.description }
+                </div>
+
+                <button
+                  className="remove-item"
+                  onClick={() => this.props.cartStore.RemoveItem({itemType: "tickets", index})}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Desktop view
     return (
       <div className="cart-item" key={`cart-item-${index}`}>
         <div className="cart-item-cell cart-item-info">
@@ -222,7 +203,7 @@ class Checkout extends React.Component {
             </div>
           </div>
         </div>
-        <div className="cart-item-cell cart-item-price">{ this.props.cartStore.FormatPriceString(ticketSku.price) }</div>
+        <div className="cart-item-cell cart-item-price">{ this.props.cartStore.FormatPriceString(ticketSku.price, true) }</div>
         <div className="cart-item-cell cart-item-quantity">
           <div className="select-wrapper item-quantity-wrapper">
             <select
@@ -262,7 +243,7 @@ class Checkout extends React.Component {
     return (
       <div className="cart-item" key={`cart-item-${index}`}>
         <div className="cart-item-cell cart-item-info">
-          <h3 className="item-name">{ baseItem.name }</h3>
+          <h3 className="item-name no-mobile">{ baseItem.name }</h3>
           <MerchandiseItem
             item={baseItem}
             quantity={item.quantity}
@@ -271,10 +252,11 @@ class Checkout extends React.Component {
             UpdateItem={(item, optionIndex, quantity) => {
               this.props.cartStore.UpdateItem({itemType: "merchandise", index, optionIndex, quantity});
             }}
+            RemoveItem={() => this.props.cartStore.RemoveItem({itemType: "merchandise", index})}
           />
         </div>
-        <div className="cart-item-cell cart-item-price">{ this.props.cartStore.FormatPriceString(baseItem.price) }</div>
-        <div className="cart-item-cell cart-item-quantity">
+        <div className="cart-item-cell cart-item-price no-mobile">{ this.props.cartStore.FormatPriceString(baseItem.price) }</div>
+        <div className="cart-item-cell cart-item-quantity no-mobile">
           <div className="select-wrapper item-quantity-wrapper">
             <select
               className="item-quantity"
@@ -293,11 +275,11 @@ class Checkout extends React.Component {
             </select>
           </div>
         </div>
-        <div className="cart-item-cell cart-item-total">
-          { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(baseItem) * item.quantity}) }
+        <div className="cart-item-cell cart-item-total no-mobile">
+          { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(baseItem) * item.quantity}, true) }
         </div>
         <button
-          className="remove-item"
+          className="remove-item no-mobile"
           onClick={() => this.props.cartStore.RemoveItem({itemType: "merchandise", index})}
         >
           Remove
@@ -341,7 +323,7 @@ class Checkout extends React.Component {
           Shopping Bag
         </h2>
 
-        <div className="cart-item cart-header">
+        <div className="cart-item cart-header no-mobile">
           <div className="cart-header-column long">Item</div>
           <div className="cart-header-column">Price</div>
           <div className="cart-header-column">Quantity</div>
@@ -358,7 +340,7 @@ class Checkout extends React.Component {
     const cartDetails = this.props.cartStore.CartDetails();
 
     return (
-      <div className="checkout-page-section">
+      <div className="checkout-page-section no-border">
         <h2 className="checkout-section-header">Order Summary</h2>
         <div className="order-summary">
           <label>Subtotal</label>

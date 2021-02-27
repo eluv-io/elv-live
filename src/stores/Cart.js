@@ -76,8 +76,8 @@ class CartStore {
     this.showCheckoutOverlay = show;
 
     // When checkout is opened or closed, roll "featured" selections into the cart
-    Object.values(this.featuredTickets).forEach(ticket => this.tickets.push(ticket));
-    Object.values(this.featuredMerchandise).forEach(item => this.merchandise.push(item));
+    Object.values(this.featuredTickets).filter(ticket => ticket).forEach(ticket => this.tickets.push(ticket));
+    Object.values(this.featuredMerchandise).filter(item => item).forEach(item => this.merchandise.push(item));
 
     this.featuredTickets = {};
     this.featuredMerchandise = {};
