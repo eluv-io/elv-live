@@ -10,7 +10,6 @@ const createKeccakHash = require("keccak");
 
 class SiteStore {
   // Eluvio Live - Data Store
-  @observable faqData = [];
   @observable availableSites = {};
   @observable eventSites = {};
   @observable siteSlug;
@@ -34,6 +33,10 @@ class SiteStore {
 
   @computed get client() {
     return this.rootStore.client;
+  }
+
+  @computed get siteLoaded() {
+    return this.rootStore.client && Object.keys(this.availableSites).length > 0;
   }
 
   @computed get currentSite() {
@@ -98,13 +101,9 @@ class SiteStore {
         metadataSubtree: "public/asset_metadata",
         resolveLinks: false,
         select: [
-          "sites",
-          "info/faq"
+          "sites"
         ]
       })) || {};
-
-      // Loading Support FAQ questions & answers
-      this.faqData = (siteSelectorInfo.info || {}).faq || [];
 
       this.availableSites = siteSelectorInfo.sites || {};
     } catch(error) {
