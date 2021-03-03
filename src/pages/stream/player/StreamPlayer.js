@@ -6,7 +6,7 @@ import {toJS} from "mobx";
 import BitmovinImports from "bitmovin-player";
 import * as BitmovinUIImports from "bitmovin-player-ui";
 import CustomToggleButton from "Stream/player/CustomToggleButton";
-import {EluvioConfiguration} from "EluvioConfiguration";
+import EluvioConfiguration from "EluvioConfiguration";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {

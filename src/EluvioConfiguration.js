@@ -8,11 +8,7 @@ const EluvioConfiguration = {
   // "object-id": "iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv",
   // Eluvio Live Site Object - TEST/STAGING (https://live-stg-eluv-io.web.app/) DEV ro3 object: ilib2bLJtRJG3LW9yScSNStbjkSqF2hH  iq__23edex4Fwgt98PzR7mMrMHp8dw6E
 
-  // New Demov3 Tenant:
-  //"object-id": "iq__2WMGhWsbBcX5hsspCCVyy6Fi9QiB",
-
-  // New Demov3 Tenant (Staging)
-  "object-id": "iq__pwS7UPZD6siyGvjMpHfCdaG8WKZ",
+  "main-site-id": "iq__VLRP7NGGz2gwg9YEhMhhx69StP5",
 
   // Test network
   //"config-url": "https://test.net955203.contentfabric.io/config",
@@ -21,4 +17,4 @@ const EluvioConfiguration = {
   "bitmovin-license-key": "532a4784-591a-4039-8497-5feb80e5dd66"
 };
 
-export { EluvioConfiguration };
+export default EluvioConfiguration;
