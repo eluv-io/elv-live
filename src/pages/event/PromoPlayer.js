@@ -5,7 +5,7 @@ import {toJS} from "mobx";
 
 import BitmovinImports from "bitmovin-player";
 import * as BitmovinUIImports from "bitmovin-player-ui";
-import {EluvioConfiguration} from "EluvioConfiguration";
+import EluvioConfiguration from "EluvioConfiguration";
 import ErrorHandler from "Common/ErrorHandler";
 
 // TODO: Robust error handling

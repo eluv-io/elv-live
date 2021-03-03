@@ -13,6 +13,7 @@ import Main from "Pages/main/Main";
 class MainApp extends React.Component {
   async componentDidMount() {
     await this.props.rootStore.InitializeClient();
+    await this.props.siteStore.LoadMainSite();
   }
 
   Header() {

@@ -1,7 +1,7 @@
 import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
-//import { ethers } from "ethers";
+import EluvioConfiguration from "EluvioConfiguration";
 
 import mergeWith from "lodash/mergeWith";
 import {NonPrefixNTPId} from "Utils/Misc";
@@ -9,20 +9,21 @@ import {NonPrefixNTPId} from "Utils/Misc";
 const createKeccakHash = require("keccak");
 
 class SiteStore {
-  // Eluvio Live - Data Store
-  @observable availableSites = {};
+  @observable mainSiteInfo;
+  @observable baseSiteUrl;
+
+  @observable tenantSlug;
+  @observable tenants = {};
+
+
   @observable eventSites = {};
   @observable siteSlug;
   @observable activeTicket;
   @observable darkMode = false;
 
-  @observable baseSiteSelectorUrl;
-
-  // Eluvio Live - Event Stream
   @observable streams = [];
   @observable promos;
 
-  // Eluvio Live - Modal
   @observable showCheckout = false;
   @observable selectedTicket;
 
@@ -36,11 +37,21 @@ class SiteStore {
   }
 
   @computed get siteLoaded() {
-    return this.rootStore.client && Object.keys(this.availableSites).length > 0;
+    return this.rootStore.client && this.mainSiteInfo;
   }
 
+  // Main site
+  @computed get availableTenants() {
+    return Object.keys((this.mainSiteInfo || {}).tenants || {});
+  }
+
+  @computed get featuredSites() {
+    return Object.keys((this.mainSiteInfo || {}).featured_events || {});
+  }
+
+
   @computed get currentSite() {
-    return this.eventSites[this.siteSlug];
+    return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
   }
 
   @computed get currentSiteInfo() {
@@ -48,7 +59,13 @@ class SiteStore {
   }
 
   @computed get siteMetadataPath() {
-    return UrlJoin("public", "asset_metadata", "sites", this.siteSlug || "");
+    if(this.tenantSlug) {
+      // Tenant site
+      return UrlJoin("public", "asset_metadata", "tenants", this.tenantSlug, "sites", this.siteSlug || "");
+    } else {
+      // Featured site
+      return UrlJoin("public", "asset_metadata", "featured_events", this.siteSlug || "");
+    }
   }
 
   @computed get baseSlug() {
@@ -58,7 +75,7 @@ class SiteStore {
   @computed get baseSitePath() {
     if(!this.siteSlug) { return window.location.pathname }
 
-    return UrlJoin("/", this.baseSlug, this.siteSlug);
+    return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
   }
 
   @computed get hasPromos() {
@@ -84,8 +101,10 @@ class SiteStore {
     this.error = "";
   }
 
-  LoadSiteSelector = flow(function * (objectId) {
+  @action.bound
+  LoadMainSite = flow(function * () {
     try {
+      const objectId = EluvioConfiguration["main-site-id"];
       const libraryId = yield this.client.ContentObjectLibraryId({objectId});
 
       this.siteParams = {
@@ -94,18 +113,13 @@ class SiteStore {
         versionHash: yield this.client.LatestVersionHash({objectId})
       };
 
-      this.baseSiteSelectorUrl = yield this.client.FabricUrl({...this.siteParams});
+      this.baseSiteUrl = yield this.client.FabricUrl({...this.siteParams});
 
-      const siteSelectorInfo = (yield this.client.ContentObjectMetadata({
+      this.mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
-        resolveLinks: false,
-        select: [
-          "sites"
-        ]
+        resolveLinks: false
       })) || {};
-
-      this.availableSites = siteSelectorInfo.sites || {};
     } catch(error) {
       // TODO: Graceful error handling
       console.error("Error loading site", error);
@@ -113,14 +127,42 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * (baseSlug="", slug) {
-    if(this.eventSites[slug]) {
-      return baseSlug === this.baseSlug;
+  LoadTenant = flow(function * (slug) {
+    try {
+      if(this.tenants[slug]) { return; }
+
+      this.tenants[slug] = (yield this.client.ContentObjectMetadata({
+        ...this.siteParams,
+        metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
+        resolveLinks: false,
+        select: [
+          "sites"
+        ]
+      })) || {};
+
+      this.tenantSlug = slug;
+    } catch(error) {
+      // TODO: Graceful error handling
+      console.error("Error loading site", error);
+    }
+  });
+
+  @action.bound
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", slug, validateBaseSlug=true}) {
+    const tenantKey = tenantSlug || "featured";
+    if(this.eventSites[tenantKey] && this.eventSites[tenantKey][slug]) {
+      return !validateBaseSlug || baseSlug === this.baseSlug;
+    }
+
+    if(!this.eventSites[tenantKey]) {
+      this.eventSites[tenantKey] = {};
     }
 
     try {
+      this.tenantSlug = tenantSlug;
       this.siteSlug = slug;
-      this.eventSites[slug] = yield this.client.ContentObjectMetadata({
+
+      this.eventSites[tenantKey][slug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         select: [
           ".",
@@ -133,12 +175,12 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
-      this.siteHash = this.eventSites[slug]["."].source;
+      this.siteHash = this.eventSites[tenantKey][slug]["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
       this.rootStore.cartStore.LoadLocalStorage();
 
-      return baseSlug === this.baseSlug;
+      return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
       console.error("Error loading site", error);
     }
@@ -221,7 +263,6 @@ class SiteStore {
   @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
-    var $body = $(document.body);
   }
 
   // Generate confirmation number for checkout based on otpId and email
@@ -410,7 +451,7 @@ class SiteStore {
       return "";
     }
 
-    const uri = URI(this.baseSiteSelectorUrl);
+    const uri = URI(this.baseSiteUrl);
 
     return uri
       .path(UrlJoin(uri.path(), "meta", this.siteMetadataPath, path.toString()))

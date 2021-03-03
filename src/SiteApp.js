@@ -16,8 +16,6 @@ const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
 
-import {EluvioConfiguration} from "EluvioConfiguration";
-
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
@@ -29,7 +27,7 @@ import Navigation from "Layout/Navigation";
 class SiteApp extends React.Component {
   async componentDidMount() {
     await this.props.rootStore.InitializeClient();
-    await this.props.siteStore.LoadSiteSelector(EluvioConfiguration["object-id"]);
+    await this.props.siteStore.LoadMainSite();
   }
 
   /* Site specific */
@@ -40,11 +38,11 @@ class SiteApp extends React.Component {
 
     return (
       <Switch>
-        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
-        <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
-        <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
-        <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event)} />
 
         <Route>
           <Redirect to="/" />

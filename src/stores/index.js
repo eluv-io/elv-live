@@ -2,7 +2,7 @@ import {configure, observable, action, flow, runInAction} from "mobx";
 import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "./Site";
 import CartStore from "./Cart";
-import {EluvioConfiguration} from "EluvioConfiguration";
+import EluvioConfiguration from "EluvioConfiguration";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({

@@ -17,18 +17,31 @@ const SitePage = Component => {
     }
 
     render() {
-      const baseSlug = this.props.match.params.baseSlug;
+      const tenantSlug = this.props.match.params.tenantSlug;
+      let baseSlug = this.props.match.params.baseSlug;
       const slug = this.props.match.params.siteSlug;
 
-      if(!this.props.siteStore.availableSites[slug]) {
+      const isFeatured = this.props.siteStore.featuredSites.includes(slug) && !tenantSlug && !baseSlug;
+      const validTenant = this.props.siteStore.availableTenants.includes(tenantSlug);
+
+      if(!isFeatured && !validTenant) {
         return <Redirect to="/" />;
       }
 
       return (
         <AsyncComponent
-          key={`site-page-${baseSlug}-${slug}`}
+          key={`site-page-${this.props.match.url}`}
           Load={async () => {
-            const validSlug = await this.props.siteStore.LoadSite(baseSlug, slug);
+            if(!isFeatured) {
+              await this.props.siteStore.LoadTenant(tenantSlug);
+            }
+
+            const validSlug = await this.props.siteStore.LoadSite({
+              tenantSlug,
+              baseSlug,
+              slug,
+              validateBaseSlug: !isFeatured
+            });
 
             if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }
 
