@@ -1,5 +1,6 @@
 @import 'common';
 
-@import "components/main-card";
+@import "components/main/card";
+@import "components/main/featured-event";
 
-@import "pages/main-main";
+@import "pages/main/main";

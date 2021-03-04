@@ -45,10 +45,9 @@ class SiteStore {
     return Object.keys((this.mainSiteInfo || {}).tenants || {});
   }
 
-  @computed get featuredSites() {
+  @computed get featuredSiteSlugs() {
     return Object.keys((this.mainSiteInfo || {}).featured_events || {});
   }
-
 
   @computed get currentSite() {
     return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
@@ -124,6 +123,15 @@ class SiteStore {
       // TODO: Graceful error handling
       console.error("Error loading site", error);
     }
+  });
+
+  @action.bound
+  LoadFeaturedSites = flow(function * () {
+    yield Promise.all(
+      this.featuredSiteSlugs.map(async slug =>
+        await this.LoadSite({slug, validateBaseSlug: false})
+      )
+    )
   });
 
   @action.bound

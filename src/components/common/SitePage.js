@@ -21,7 +21,7 @@ const SitePage = Component => {
       let baseSlug = this.props.match.params.baseSlug;
       const slug = this.props.match.params.siteSlug;
 
-      const isFeatured = this.props.siteStore.featuredSites.includes(slug) && !tenantSlug && !baseSlug;
+      const isFeatured = this.props.siteStore.featuredSiteSlugs.includes(slug) && !tenantSlug && !baseSlug;
       const validTenant = this.props.siteStore.availableTenants.includes(tenantSlug);
 
       if(!isFeatured && !validTenant) {

@@ -23,6 +23,7 @@ class MainApp extends React.Component {
   async componentDidMount() {
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
+    await this.props.siteStore.LoadFeaturedSites();
   }
 
   Routes() {
