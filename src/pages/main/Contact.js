@@ -1,18 +1,16 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Copy from "./copy/Copy.yaml";
-
 @inject("siteStore")
 @observer
-class Main extends React.Component {
+class Contact extends React.Component {
   render() {
     return (
-      <div className="page-content__main">
-        Main Page
+      <div className="page-content__contact">
+        Contact
       </div>
     );
   }
 }
 
-export default Main;
+export default Contact;

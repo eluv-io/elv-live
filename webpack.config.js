@@ -133,6 +133,11 @@ module.exports = {
       {
         test: /\.(txt|bin|abi)$/i,
         loader: "raw-loader"
+      },
+      {
+        test: /\.ya?ml$/,
+        type: "json", // Required by Webpack v4
+        use: "yaml-loader"
       }
     ]
   }

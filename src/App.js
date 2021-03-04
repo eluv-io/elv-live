@@ -20,7 +20,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={["/", "/partners", "/technology", "/about", "/support", "/contact", "/terms"]}>
             <div className="app-container main-app-container">
               <Suspense fallback={<PageLoader/>}>
                 <MainApp />

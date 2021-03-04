@@ -1,18 +1,18 @@
+// Boilerplate for new class
+
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Copy from "./copy/Copy.yaml";
-
 @inject("siteStore")
 @observer
-class Main extends React.Component {
+class Class extends React.Component {
   render() {
     return (
-      <div className="page-content__main">
-        Main Page
+      <div>
+
       </div>
     );
   }
 }
 
-export default Main;
+export default Class;
