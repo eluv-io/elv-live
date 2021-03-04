@@ -53,7 +53,7 @@
     "smoothscroll-polyfill": "^0.4.4",
     "stream-chat": "^2.11.1",
     "stream-chat-react": "^3.4.4",
-    "urijs": "^1.19.1",
+    "urijs": "^1.19.6",
     "url-join": "^4.0.1",
     "url-loader": "^4.1.1",
     "uuid": "^8.1.0"
@@ -106,7 +106,8 @@
     "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "yaml-loader": "^0.6.0"
   },
   "babel": {
     "comments": true,

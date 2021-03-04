@@ -5,7 +5,16 @@ import {Route} from "react-router-dom";
 
 import "Styles/main-app.scss";
 import {PageLoader} from "Common/Loaders";
+
 import Main from "Pages/main/Main";
+import Header from "Pages/main/components/Header";
+import Footer from "Pages/main/components/Footer";
+import Partners from "Pages/main/Partners";
+import Technology from "Pages/main/Technology";
+import About from "Pages/main/About";
+import Support from "Pages/main/Support";
+import Contact from "Pages/main/Contact";
+import Terms from "Pages/main/Terms";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -16,14 +25,6 @@ class MainApp extends React.Component {
     await this.props.siteStore.LoadMainSite();
   }
 
-  Header() {
-    return (
-      <header>
-
-      </header>
-    );
-  }
-
   Routes() {
     if(!this.props.rootStore.client) {
       return <PageLoader />;
@@ -31,9 +32,13 @@ class MainApp extends React.Component {
 
     return (
       <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
+        <Route exact path="/"> <Main /> </Route>
+        <Route exact path="/partners"> <Partners /> </Route>
+        <Route exact path="/technology"> <Technology /> </Route>
+        <Route exact path="/about"> <About /> </Route>
+        <Route exact path="/support"> <Support /> </Route>
+        <Route exact path="/contact"> <Contact /> </Route>
+        <Route exact path="/terms"> <Terms /> </Route>
       </Switch>
     );
   }
@@ -41,8 +46,11 @@ class MainApp extends React.Component {
   render() {
     return (
       <div className="main-app">
-        { this.Header() }
-        { this.Routes() }
+        <Header />
+        <div className="page-content">
+          { this.Routes() }
+        </div>
+        <Footer />
       </div>
     );
   }
