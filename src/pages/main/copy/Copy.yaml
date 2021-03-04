@@ -4,3 +4,19 @@ main:
     header: Beautiful Quality
     subheader: Low latency 4K streaming on all platforms
     text: Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support for browser, mobile, and connected TV (Apple TV, Roku, etc.).
+  directly_to_fans:
+    header: Directly to Your Fans
+    subheader: Distribute globally on your own terms.
+    text: Amplify live venue events across the globe with high quality scalable streaming that can simultaneously tailor to individual, targeted, or general audiences and fans. Real time live, prerecorded as live, and redistribution.
+  retain_control:
+    header: Retain Control
+    subheader: Keep 100% owernship of your content.
+    text: Control content with smart contracts and next generation security based in blockchain. Built-in flexible international ticketing and e-commerce backed by blockchain access control.
+  push_boundaries:
+    header: Push Boundaries
+    subheader: Free your creativity from the tech constraints of the past.
+    text: The underlying, just-in-time technology platform allows for limitless dynamic potential, such as fast switch multiview, audience-driven dynamic content, and blending live and on demand content. Lightweight and scalable.
+  remonetize_endlessly:
+    header: Remonetize Endlessly
+    subheader: Seamlessly repurpose and redistribute all of your content.
+    text: All live content is automatically recorded and reusable on demand. Continuously refashion content and merchandise to fit for new events, creative collaborations, sponsorships, availability windows, or new audiences.

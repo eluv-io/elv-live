@@ -11,8 +11,6 @@ a:hover {
 
 .page-content {
   @include page-fade-in;
-
-  min-height: 100vh;
 }
 
 .main-page {
@@ -20,12 +18,11 @@ a:hover {
 
   &__logo {
     background: black;
-    padding: 0 60px 100px;
+    padding: 100px 60px 100px;
   }
 
   &__content-container {
-    background: linear-gradient(black, white);
-    min-height: 500vh;
+    background: linear-gradient(180deg, #000000 0%, #E2DEDB 23.34%, #FFFFFF 100%);
   }
 
   &__header {
@@ -37,7 +34,7 @@ a:hover {
     background-repeat: repeat;
     padding: 0 50px;
     max-width: 1200px;
-    margin: auto;
+    margin: 0 auto 125px;
 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

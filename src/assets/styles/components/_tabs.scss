@@ -13,7 +13,6 @@
     padding-bottom: 10px;
     text-transform: uppercase;
     opacity: 0.8;
-    //font-size: 14px;
     background: transparent;
     border: 0;
     border-bottom: 2px solid transparent;
@@ -26,5 +25,9 @@
       opacity: 1;
       border-bottom: 2px solid black;
     }
+  }
+
+  .tab-name {
+    font-size: 14px;
   }
 }
