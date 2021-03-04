@@ -10,7 +10,7 @@ import Logo from "Assets/images/logo/coloredEluvioLiveLogo.png";
 class Main extends React.Component {
   render() {
     return (
-      <div className="main-page page-content__main-page">
+      <div className="page-content main-page">
         <FeaturedEvents />
         <div className="main-page__logo-container">
           <img src={Logo} alt="Eluvio Live" className="main-page__logo" />

@@ -3,14 +3,75 @@
   height: calc(100vw * 9 / 16);
   max-height: 100vh;
   background: black;
+  position: relative;
+
+  &__arrow-left,
+  &__arrow-right {
+    height: 50px;
+    width: 36px;
+    background: transparent;
+    border: 0;
+    padding: 10px;
+    position: absolute;
+    bottom: 100px;
+    left: 80px;
+    cursor: pointer;
+    z-index: 15;
+
+    svg {
+      * {
+        fill: transparent;
+      }
+    }
+  }
+
+  &__arrow-right {
+    left: unset;
+    right: 100px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__arrow-left,
+    &__arrow-right {
+      bottom: 75px;
+    }
+
+    &__arrow-left {
+      left: 10px;
+    }
+
+    &__arrow-right {
+      right: 10px;
+    }
+  }
 }
 
 .featured-event {
+  animation: fadein 0.35s linear;
   user-select: none;
   position: relative;
   width: 100%;
   height: 100%;
-  //overflow: hidden;
+  display: none;
+
+  &.featured-event-selected {
+    display: block;
+    z-index: 9;
+  }
+
+  &.featured-event-fading-out {
+    opacity: 0;
+    animation: fadeout 0.35s linear;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+
+    .featured-event__details {
+      display: none;
+    }
+  }
 
   &__hero-image-container,
   &__hero-image {
@@ -39,11 +100,13 @@
   }
 
   &__details {
+    animation: fadein 1.25s ease-in;
     z-index: 100;
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 0 20px 100px;
+    padding: 0 20px;
+    margin-bottom: 100px;
   }
 
   &__header,
@@ -65,11 +128,11 @@
   @media only screen and (max-width: 900px) {
     &__header {
       font-weight: 300;
-      font-size: 32px;
+      font-size: 24px;
     }
 
     &__subheader {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 300;
       margin: 0;
       color: #eee;

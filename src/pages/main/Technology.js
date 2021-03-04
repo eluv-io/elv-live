@@ -8,7 +8,7 @@ import {inject, observer} from "mobx-react";
 class Technology extends React.Component {
   render() {
     return (
-      <div className="page-content__technology">
+      <div className="page-content technology-page">
         Tech
       </div>
     );

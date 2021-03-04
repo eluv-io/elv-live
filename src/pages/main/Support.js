@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 class Support extends React.Component {
   render() {
     return (
-      <div className="page-content__support">
+      <div className="page-content support-page">
         Support
       </div>
     );

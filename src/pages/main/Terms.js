@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 class Terms extends React.Component {
   render() {
     return (
-      <div className="page-content__terms">
+      <div className="page-content terms-page">
         Terms
       </div>
     );
