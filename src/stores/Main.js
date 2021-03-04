@@ -4,28 +4,38 @@ import UrlJoin from "url-join";
 
 class MainStore {
   @computed get featuredSites() {
-    return this.rootStore.siteStore.eventSites["featured"] || {};
+    return Object.values(this.rootStore.siteStore.eventSites["featured"] || {})
+      .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
   }
 
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
+  FeaturedSite(siteSlug) {
+    return this.rootStore.siteStore.eventSites["featured"][siteSlug];
+  }
 
-  FeaturedSiteUrl(slug, path) {
-    if(!slug || !path) {
+  FeaturedSiteUrl(siteSlug, path) {
+    if(!siteSlug || !path) {
+      return "";
+    }
+
+    const featuredSite = this.FeaturedSite(siteSlug);
+
+    if(!featuredSite) {
       return "";
     }
 
     const uri = URI(this.rootStore.siteStore.baseSiteUrl);
 
     return uri
-      .path(UrlJoin(uri.path(), "meta", "public", "asset_metadata", "featured_events", slug, path.toString()))
+      .path(UrlJoin(uri.path(), "meta", "public", "asset_metadata", "featured_events", featuredSite.siteIndex.toString(), siteSlug, path.toString()))
       .toString();
   }
 
-  FeaturedSiteImageUrl(slug, key, height) {
-    return this.FeaturedSiteUrl(slug, UrlJoin("info", "event_images", key))
+  FeaturedSiteImageUrl(siteSlug, key) {
+    return this.FeaturedSiteUrl(siteSlug, UrlJoin("info", "event_images", key))
   }
 }
 

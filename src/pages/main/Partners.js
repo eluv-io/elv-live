@@ -8,7 +8,7 @@ import {inject, observer} from "mobx-react";
 class Partners extends React.Component {
   render() {
     return (
-      <div className="page-content__partners">
+      <div className="page-content partners-page">
         Partners
       </div>
     );

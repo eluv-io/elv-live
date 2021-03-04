@@ -10,6 +10,8 @@ a:hover {
 }
 
 .page-content {
+  @include page-fade-in;
+
   min-height: 100vh;
 }
 
@@ -18,7 +20,7 @@ a:hover {
 
   &__logo {
     background: black;
-    padding: 0 60px;
+    padding: 0 60px 100px;
   }
 
   &__content-container {
@@ -27,7 +29,7 @@ a:hover {
   }
 
   &__header {
-    font-size: 36px;
+    font-size: 42px;
     text-align: center;
     font-weight: normal;
     background-image: linear-gradient(178.58deg, #00C2FF 10.73%, #00C2FF 30.45%, #0066FF 56.51%);
@@ -47,165 +49,9 @@ a:hover {
       font-size: 20px;
       padding: 0 25px;
     }
-  }
-}
-
-.header {
-  background: transparent;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-  padding: 0 53px;
-  border-bottom: 1px solid black;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-
-  & > * {
-    flex: 1 1 auto;
-  }
-
-  &__logo {
-    display: flex;
-    align-items: center;
-    padding-right: 20px;
-
-    svg {
-      height: auto;
-      width: 191px;
-    }
-  }
-
-  &__links {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 13px;
-  }
-
-  &__link {
-    font-size: 18px;
-
-    &-active {
-      font-weight: bold;
-    }
-  }
-
-  &__search {
-    display: flex;
-    justify-content: center;
-    font-size: 14px;
-    letter-spacing: 0.07em;
-  }
-
-  // Header is white on main page
-  &.header-main {
-    color: white;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-
-    .header__link {
-      color: white;
-
-      &:hover {
-        color: white;
-      }
-    }
-  }
-
-  &:not(.header-main) {
-    .header__logo {
-      fill: black;
-      stroke: black;
-
-      circle,
-      path {
-        fill: black;
-        stroke: black;
-      }
-    }
-  }
-
-  // Header
-  @media only screen and (max-width: 900px) {
-    padding: 0 25px 0 15px;
 
     &__logo {
-      padding: 0;
-
-      svg {
-        width: 90px;
-      }
-    }
-
-    &__links {
-      padding-top: 0;
-    }
-
-    &__link {
-      font-size: 14px;
-    }
-
-    &__search {
-      display: none;
-    }
-  }
-}
-
-
-.footer {
-  &__logo-container {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__logo {
-    width: 191px;
-    height: auto;
-    fill: black;
-    stroke: black;
-
-    circle,
-    path {
-      fill: black;
-      stroke: black;
-    }
-  }
-
-  &__links {
-    margin: 52px 163px 0;
-    padding: 50px 0;
-    border-top: 1px solid black;
-    display: flex;
-    justify-content: center;
-  }
-
-  &__link {
-    padding: 0 56px;
-    font-size: 16px;
-    letter-spacing: 0.07em;
-  }
-
-  // Footer
-  @media only screen and (max-width: 900px) {
-    &__logo {
-      width: 110px;
-    }
-
-    &__logo-container {
-      border-bottom: 1px solid black;
-      padding-bottom: 52px;
-    }
-
-    &__links {
-      border: 0;
-      margin: 0 35px;
-      justify-content: space-between;
-    }
-
-    &__link {
-      font-size: 12px;
-      padding: 0;
+      padding: 100px 0;
     }
   }
 }

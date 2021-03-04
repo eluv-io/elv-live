@@ -18,6 +18,7 @@ class SiteStore {
 
   @observable eventSites = {};
   @observable siteSlug;
+  @observable siteIndex;
   @observable activeTicket;
   @observable darkMode = false;
 
@@ -45,8 +46,10 @@ class SiteStore {
     return Object.keys((this.mainSiteInfo || {}).tenants || {});
   }
 
-  @computed get featuredSiteSlugs() {
-    return Object.keys((this.mainSiteInfo || {}).featured_events || {});
+  @computed get featuredSiteKeys() {
+    const featured = (this.mainSiteInfo || {}).featured_events || {};
+    return Object.keys(featured)
+      .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
   }
 
   @computed get currentSite() {
@@ -57,13 +60,13 @@ class SiteStore {
     return (this.currentSite || {}).info || {};
   }
 
-  @computed get siteMetadataPath() {
+  @computed get currentSiteMetadataPath() {
     if(this.tenantSlug) {
       // Tenant site
       return UrlJoin("public", "asset_metadata", "tenants", this.tenantSlug, "sites", this.siteSlug || "");
     } else {
       // Featured site
-      return UrlJoin("public", "asset_metadata", "featured_events", this.siteSlug || "");
+      return UrlJoin("public", "asset_metadata", "featured_events", this.siteIndex.toString(), this.siteSlug || "");
     }
   }
 
@@ -87,6 +90,20 @@ class SiteStore {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+  }
+
+  SiteMetadataPath({tenantSlug, siteIndex, siteSlug}={}) {
+    if(tenantSlug) {
+      // Tenant site
+      return UrlJoin("public", "asset_metadata", "tenants", tenantSlug, "sites", siteSlug || "");
+    } else {
+      // Featured site
+      return UrlJoin("public", "asset_metadata", "featured_events", siteIndex.toString(), siteSlug || "");
+    }
+  }
+
+  FeaturedSite(siteSlug) {
+    return this.featuredSiteKeys.find(({slug}) => slug === siteSlug);
   }
 
   @action.bound
@@ -128,8 +145,8 @@ class SiteStore {
   @action.bound
   LoadFeaturedSites = flow(function * () {
     yield Promise.all(
-      this.featuredSiteSlugs.map(async slug =>
-        await this.LoadSite({slug, validateBaseSlug: false})
+      this.featuredSiteKeys.map(async ({index, slug}) =>
+        await this.LoadSite({siteIndex: index, siteSlug: slug, validateBaseSlug: false})
       )
     )
   });
@@ -156,9 +173,9 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, baseSlug="", slug, validateBaseSlug=true}) {
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true}) {
     const tenantKey = tenantSlug || "featured";
-    if(this.eventSites[tenantKey] && this.eventSites[tenantKey][slug]) {
+    if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return !validateBaseSlug || baseSlug === this.baseSlug;
     }
 
@@ -168,22 +185,31 @@ class SiteStore {
 
     try {
       this.tenantSlug = tenantSlug;
-      this.siteSlug = slug;
+      this.siteSlug = siteSlug;
 
-      this.eventSites[tenantKey][slug] = yield this.client.ContentObjectMetadata({
+      if(typeof siteIndex === "undefined" && !tenantSlug) {
+        siteIndex = this.FeaturedSite(siteSlug).index;
+      }
+
+      this.siteIndex = siteIndex;
+
+      this.eventSites[tenantKey][siteSlug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         select: [
           ".",
           "info",
           "promos"
         ],
-        metadataSubtree: this.siteMetadataPath,
+        metadataSubtree: this.SiteMetadataPath({tenantSlug, siteIndex, siteSlug}),
         resolveLinks: true,
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
       });
 
-      this.siteHash = this.eventSites[tenantKey][slug]["."].source;
+      this.eventSites[tenantKey][siteSlug].siteSlug = siteSlug;
+      this.eventSites[tenantKey][siteSlug].siteIndex = parseInt(siteIndex);
+
+      this.siteHash = this.eventSites[tenantKey][siteSlug]["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
       this.rootStore.cartStore.LoadLocalStorage();
@@ -198,7 +224,7 @@ class SiteStore {
   LoadStreams = flow(function * () {
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.siteMetadataPath, "streams"),
+      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "streams"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -217,7 +243,7 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.siteMetadataPath, "streams", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.currentSiteMetadataPath, "streams", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -233,7 +259,7 @@ class SiteStore {
 
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.siteMetadataPath, "promos"),
+      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "promos"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -252,7 +278,7 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.siteMetadataPath, "promos", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -462,7 +488,7 @@ class SiteStore {
     const uri = URI(this.baseSiteUrl);
 
     return uri
-      .path(UrlJoin(uri.path(), "meta", this.siteMetadataPath, path.toString()))
+      .path(UrlJoin(uri.path(), "meta", this.currentSiteMetadataPath, path.toString()))
       .toString();
   }
 

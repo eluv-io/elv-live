@@ -1,7 +1,9 @@
-// Boilerplate for new class
-
 import React from "react";
 import {inject, observer} from "mobx-react";
+
+import LeftArrow from "Icons/left-arrow.svg";
+import RightArrow from "Icons/right-arrow.svg";
+import ImageIcon from "Common/ImageIcon";
 
 @inject("mainStore")
 @observer
@@ -10,27 +12,35 @@ class FeaturedEvents extends React.Component {
     super(props);
 
     this.state = {
-      selected: 0
+      selected: 0,
+      previous: undefined
     };
 
     this.Event = this.Event.bind(this);
   }
 
-  Event(siteSlug, index) {
-    const site = this.props.mainStore.featuredSites[siteSlug];
+  ChangePage(page) {
+    page = page < 0 ? this.props.mainStore.featuredSites.length - 1 : page;
 
+    this.setState({
+      selected: page % this.props.mainStore.featuredSites.length,
+      previous: this.state.selected
+    }, () => setTimeout(() => this.setState({previous: undefined}), 1500));
+  }
+
+  Event(site, index) {
     if(!site) { return; }
 
     const header = site.info.event_info.event_header;
 
     return (
       <div
-        className={`featured-event ${index === this.state.selected ? "featured-event-selected" : ""}`}
+        className={`featured-event ${index === this.state.selected ? "featured-event-selected" : ""} ${index === this.state.previous ? "featured-event-fading-out" : ""}`}
         key={`featured-event-${index}`}
       >
         <div className="featured-event__hero-image-container">
           <img
-            src={this.props.mainStore.FeaturedSiteImageUrl(siteSlug, "hero_background")}
+            src={this.props.mainStore.FeaturedSiteImageUrl(site.siteSlug, "hero_background")}
             alt={header}
             className="featured-event__hero-image"
           />
@@ -46,7 +56,19 @@ class FeaturedEvents extends React.Component {
   render() {
     return (
       <div className="featured-events">
-        { Object.keys(this.props.mainStore.featuredSites).map(this.Event) }
+        <button
+          className="featured-events__arrow-left"
+          onClick={() => this.ChangePage(this.state.selected - 1)}
+        >
+          <ImageIcon icon={LeftArrow} label="Previous" />
+        </button>
+        { this.props.mainStore.featuredSites.map(this.Event) }
+        <button
+          className="featured-events__arrow-right"
+          onClick={() => this.ChangePage(this.state.selected + 1)}
+        >
+          <ImageIcon icon={RightArrow} label="Next" />
+        </button>
       </div>
     );
   }

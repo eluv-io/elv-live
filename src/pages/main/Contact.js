@@ -6,7 +6,7 @@ import {inject, observer} from "mobx-react";
 class Contact extends React.Component {
   render() {
     return (
-      <div className="page-content__contact">
+      <div className="page-content contact-page">
         Contact
       </div>
     );

@@ -21,7 +21,6 @@ class Header extends React.Component {
           <NavLink to="/technology" className="header__link" activeClassName="header__link-active">Technology</NavLink>
         </div>
         <div className="header__search">
-          search events
         </div>
       </header>
     );
