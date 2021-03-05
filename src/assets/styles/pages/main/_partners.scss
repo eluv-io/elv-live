@@ -1,0 +1,121 @@
+.partners-page {
+  padding: 120px 175px 165px;
+
+  * {
+    font-weight: 300;
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+
+  &__header,
+  &__section-header {
+    letter-spacing: 0.045em;
+  }
+
+  &__header {
+    font-size: 64px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  &__header-text {
+    font-size: 24px;
+    margin: 0 auto 100px;
+    text-align: center;
+    max-width: 1000px;
+  }
+
+  &__section-header {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &__partner-blocks {
+    margin: 0 auto 60px;
+    max-width: 1100px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 100px 25px 165px;
+
+    &__header {
+      font-size: 42px;
+      margin-bottom: 26px;
+    }
+
+    &__header-text {
+      font-size: 20px;
+      margin-bottom: 120px;
+    }
+
+    &__section-header {
+      font-size: 36px;
+      letter-spacing: unset;
+    }
+
+    &__partner-blocks {
+      margin-bottom: 80px;
+    }
+  }
+}
+
+.partner-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 55px;
+  padding: 47px 0;
+  border-bottom: 1px solid #BEBEBE;
+
+  &:last-child {
+    border: 0;
+  }
+
+  &__image-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__image {
+    max-width: 360px;
+  }
+
+  &__header {
+    font-size: 36px;
+    margin-bottom: 36px;
+    letter-spacing: 0.045em;
+  }
+
+  &__text {
+    font-size: 18px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+
+    &__image-container {
+      justify-content: center;
+    }
+
+    &__image {
+      max-width: 80vw;
+      object-fit: contain;
+    }
+
+    &__header {
+      font-size: 28px;
+      text-align: center;
+    }
+
+    &__text {
+      font-size: 16px;
+    }
+  }
+}
+
