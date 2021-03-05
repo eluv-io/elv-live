@@ -2,6 +2,13 @@
   &__logo-container {
     display: flex;
     justify-content: center;
+
+    svg {
+      * {
+        fill: black;
+        stroke: transparent;
+      }
+    }
   }
 
   &__logo {
@@ -9,12 +16,6 @@
     height: auto;
     fill: black;
     stroke: black;
-
-    circle,
-    path {
-      fill: black;
-      stroke: black;
-    }
   }
 
   &__links {

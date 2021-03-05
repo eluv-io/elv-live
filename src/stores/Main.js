@@ -12,6 +12,18 @@ class MainStore {
     this.rootStore = rootStore;
   }
 
+  MainSiteUrl(path) {
+    if(!path) {
+      return "";
+    }
+
+    const uri = URI(this.rootStore.siteStore.baseSiteUrl);
+
+    return uri
+      .path(UrlJoin(uri.path(), "meta", "public", "asset_metadata", "info", path))
+      .toString();
+  }
+
   FeaturedSite(siteSlug) {
     return this.rootStore.siteStore.eventSites["featured"][siteSlug];
   }

@@ -39,13 +39,12 @@ class Modal extends React.Component {
             onClick={() => this.props.Toggle(false)}
           />
           <div className="modal__content" onClick={event => event.stopPropagation()}>
-            { this.props.content }
+            { this.props.content || this.props.children }
           </div>
         </div>
       </React.Fragment>
     );
   }
 }
-
 
 export default Modal;

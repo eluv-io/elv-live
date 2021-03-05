@@ -20,3 +20,126 @@ main:
     header: Remonetize Endlessly
     subheader: Seamlessly repurpose and redistribute all of your content.
     text: All live content is automatically recorded and reusable on demand. Continuously refashion content and merchandise to fit for new events, creative collaborations, sponsorships, availability windows, or new audiences.
+cards:
+  beautiful_quality:
+    border_color: 000000
+    sections:
+      0:
+        header: Low Latency, Secure 4K Live Streaming to the Globe
+        copy: |
+          Capable of handling 1M simultaneous 4K/HDR streams globally on all platforms widely used on the market today, including all major browsers and mobile Android and iPhone. Additional capacity is available.
+
+          Supports multiview feeds (e.g. camera views) delivered simultaneously in the streaming application with fast, buffer-free switching across client platforms.
+
+          The Eluvio platform's hyper-efficient content distribution and management technology significantly reduces costs (compared to conventional clouds and CDNs).
+
+          High quality 360 degree/immersive video streaming without rebuffering.
+
+          Encryption and digital rights management of the video stream to prevent illegal redistribution and copying.
+
+          Video livestream available for browser, mobile, and connected TV (Apple TV, Roku, etc.).
+
+          Ingest content as live feeds, master files, and most any format directly from source or via cloud.
+  directly_to_fans:
+    border_color: 0085FF
+    sections:
+      0:
+        header: Customizable Event Site and Streaming Capabilities
+        header_image: computers
+
+        copy: |
+          Create customizable event sites with options to aggregate events and content under a single artist/media brand.
+          Site will allow the user to purchase tickets and merchandise, enter the digital venue when authorized, experience the event, and unlock exclusive content all backed by the Eluvio platform.
+
+          Easily manage personalized event site by dynamically linking any content you own on the Eluvio Platform. Configure the primary video, clips, images, products, ticket offerings, terms, prices, currencies, and event windows.
+
+          Update any aspect of event (e.g. content, merchandise, ticketing, terms, metadata, etc.) on demand based on the underlying technology's content object linking.
+
+          Configure restriction of ticket authorization by audience geography, time windows, and ticket class allowing for shows customized to locality and maximum return from each locality.
+
+          Configure tiered ticketing options, such as premium viewing experiences (4K, HDR, multiview), bundled merchandising options, rewatch rights, and exclusive content.
+      1:
+        header: Audience Data Management
+        copy: |
+          Collect and secure all data relating to the viewership of the content with tamper proof watch statistics (2 second granularity).
+
+          Secure and privacy-protecting aggregate audience statistics.
+          Options for audience-controlled private data sharing options with sponsors and publishers.
+      2:
+        header: Unlimited configurable social options
+        copy: |
+          Integrated chat for your audience.
+          Options for watch rooms and fan walls.
+          Integrated social media links for all major services.
+  retain_control:
+    border_color: FF0000
+    sections:
+      0:
+        header: General Terms
+        copy: |
+          Publisher retains 100% ownership of all of their content.
+          Eluvio adds 10% on top of the ticket sales price (or $2 minimum) and 10% on top of the merchandising price.
+          Eluvio does not charge additional distribution or management fees.
+      1:
+        header: Ticketing and Payments
+        copy: |
+          International ticketing site and corresponding payment platform to sell tickets for live events and to support transactions related to e-commerce and the purchase of digital products during the event.
+
+          Cryptographically secure ticket validation with configurable viewing windows and classes, including but not limited to time, number of accesses, geography, unique devices, VIP experiences, etc.
+
+          Integration with major digital payment services (Stripe, PayPal, both fiat and crypto) and ticketing portals (Ticketmaster/LiveNation).
+      2:
+        header: Configurable Geofencing and Access Control
+        copy: |
+          Configurable automatic ticket access authorization by audience geography, time windows, and ticket class allowing for events localized for maximum return from each backed by smart contracts.
+      3:
+        header: Security and Data Management
+        copy: |
+          Built in encryption and digital rights management of the video stream to prevent illegal redistribution and copying.
+
+          Each fan is identified upon entry into the platform by email address or other agreed upon identifier and their ticket is validated to participate in the event.
+
+          Secure collection of all data relating to viewership of the content with tamper proof watch statistics (2 second granularity).
+
+          Secure and privacy-protecting aggregate audience statistics.
+          Options for audience-controlled private data sharing options with sponsors and publishers.
+  push_boundaries:
+    border_color: FF008A
+    sections:
+      0:
+        header: Dynamic Crowd Content On-the-Fly
+        copy: |
+          Options for dynamic content sequences or live modifications (lighting, views, etc.) through audience votes and just-in-time feedback using the platform's video processing and bitcode.
+
+          Options for fans to choose which camera they want to watch, chat with other audience members, engage in e-commerce, and participate in digital micro-transactions.
+
+          Customizable integration of sponsor logos, private viewing experiences, interactive activations, VIP experiences, etc.
+          Deliver multiview feeds (e.g. camera views) simultaneously in the streaming application with instant switching across client platforms.
+      1:
+        header: Dynamic Advertising and Personalized Merchandising Options
+        copy: |
+          Options for integrated smart merchandising including interactive points (“hot spots”) on the viewing canvas identified via Eluvio Machine Learning.
+
+          Options for personalized just-in-time highlights: audiences can create their own clips or highlight reels (streaming, download, or still images) during the performance.
+
+          Embeddable merchandise options in ticket purchase checkout.
+
+          Options for integration of online merchandising fulfillment and storefronts.
+  remonetize_endlessly:
+    border_color: 9E00FF
+    sections:
+      0:
+        header: Built-in Rewatch and Redistribution Capabilities
+        copy: |
+          Platform automatically creates on demand redistributable assets from live broadcast.
+
+          Configure rights windows for ticketing and redistribution control through permissioning tool and built-in smart contracts.
+
+          Continuously refashion content and merchandise to fit for new event sites.
+      1:
+        header: Back Catalog Monetization
+        copy: |
+          Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast.
+          Syndicate your content to any third-party streaming platforms.
+
+

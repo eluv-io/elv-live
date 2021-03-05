@@ -11,6 +11,11 @@
     font-weight: 300;
   }
 
+  &__image-container {
+    margin: auto;
+    max-width: 1000px;
+  }
+
   &__header,
   &__subheader,
   &__text {
@@ -20,11 +25,11 @@
 
   &__header {
     font-size: 64px;
-    margin: 85px auto 35px;
+    margin: 75px auto 35px;
 
     &:first-child {
       // Override semantic UI reset
-      margin-top: 85px;
+      margin-top: 65px;
     }
   }
 
@@ -45,11 +50,37 @@
 
   &__action {
     border: 1px solid black;
-    background: transparent;
+    background-color: transparent;
     font-size: 16px;
     width: 180px;
     height: 42px;
     cursor: pointer;
+  }
+
+  // Variants
+
+  &-directly_to_fans {
+    .feature-block__image-container {
+      max-width: 1200px;
+    }
+  }
+
+  &-retain_control {
+    .feature-block__image-container {
+      max-width: 680px
+    }
+  }
+
+  &-push_boundaries {
+    .feature-block__image-container {
+      max-width: 1200px
+    }
+  }
+
+  &-remonetize_endlessly {
+    .feature-block__image-container {
+      max-width: 1300px
+    }
   }
 
   @media only screen and (max-width: 900px) {
