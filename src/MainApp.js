@@ -26,7 +26,7 @@ class MainApp extends React.Component {
   }
 
   Routes() {
-    if(!this.props.rootStore.client) {
+    if(!this.props.siteStore.siteLoaded) {
       return <PageLoader />;
     }
 

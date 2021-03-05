@@ -21,26 +21,11 @@ class Main extends React.Component {
         <div className="main-page__content-container">
           <h2 className="main-page__header">{ Copy.main.header }</h2>
           <div className="main-page__features-container">
-            <FeatureBlock
-              copyKey="beautiful_quality"
-              image={<img src={TEMPIMAGE} />}
-            />
-            <FeatureBlock
-              copyKey="directly_to_fans"
-              image={<img src={TEMPIMAGE} />}
-            />
-            <FeatureBlock
-              copyKey="retain_control"
-              image={<img src={TEMPIMAGE} />}
-            />
-            <FeatureBlock
-              copyKey="push_boundaries"
-              image={<img src={TEMPIMAGE} />}
-            />
-            <FeatureBlock
-              copyKey="remonetize_endlessly"
-              image={<img src={TEMPIMAGE} />}
-            />
+            <FeatureBlock copyKey="beautiful_quality" />
+            <FeatureBlock copyKey="directly_to_fans" />
+            <FeatureBlock copyKey="retain_control" />
+            <FeatureBlock copyKey="push_boundaries" />
+            <FeatureBlock copyKey="remonetize_endlessly" />
           </div>
         </div>
       </div>
