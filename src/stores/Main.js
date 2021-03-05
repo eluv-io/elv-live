@@ -8,6 +8,15 @@ class MainStore {
       .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
   }
 
+  @computed get partners() {
+    return {
+      production: this.rootStore.siteStore.mainSiteInfo.info.production_partners
+        .map((partner, index) => ({...partner, imageUrl: this.MainSiteUrl(UrlJoin("production_partners", index.toString(), "image"))})),
+      merchandise: this.rootStore.siteStore.mainSiteInfo.info.merchandise_partners
+        .map((partner, index) => ({...partner, imageUrl: this.MainSiteUrl(UrlJoin("merchandise_partners", index.toString(), "image"))}))
+    };
+  }
+
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
