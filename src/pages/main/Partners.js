@@ -4,6 +4,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 import Copy from "./copy/Copy.yaml";
+import PartnerForm from "Pages/main/components/PartnerForm";
 
 @inject("mainStore")
 @observer
@@ -37,6 +38,8 @@ class Partners extends React.Component {
           <h2 className="partners-page__section-header">Merchandise Partners</h2>
           { this.props.mainStore.partners.merchandise.map(partner => this.PartnerBlock(partner)) }
         </div>
+
+        <PartnerForm />
       </div>
     );
   }
