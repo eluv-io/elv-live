@@ -1,0 +1,20 @@
+.contact-page {
+  padding: 120px 15px;
+
+  &__header {
+    font-size: 64px;
+    font-weight: 300;
+    text-align: center;
+    margin: 0 auto 80px;
+    max-width: 1100px;
+    letter-spacing: 0.045em;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 100px 25px 165px;
+
+    &__header {
+      font-size: 32px;
+    }
+  }
+}

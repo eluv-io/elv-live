@@ -6,18 +6,18 @@ import Countries from "Data/Countries";
 
 @inject("mainStore")
 @observer
-class PartnerForm extends React.Component {
+class ContactForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: "",
-      company: "",
-      website: "",
+      organization: "",
       title: "",
       email: "",
       country: "United States",
       phone: "",
+      topic: "Purchase Event Tickets",
       notes: ""
     };
 
@@ -26,18 +26,33 @@ class PartnerForm extends React.Component {
 
   render() {
     return (
-      <div className="form-container partner-form-container">
+      <div className="form-container contact-form-container">
         <div className="form-container__header">
-          Partner with Eluv.io Live
+          Go Live with Eluv.io
         </div>
-        <form className="form partner-form">
+        <form className="form contact-form">
           { this.LabelledInput("Name", "name") }
-          { this.LabelledInput("Company", "company") }
-          { this.LabelledInput("Company Website", "website") }
+          { this.LabelledInput("Organization", "organization") }
           { this.LabelledInput("Title", "title") }
           { this.LabelledInput("Email", "email", "email") }
           { this.LabelledInput("Country", "country", "select", Countries) }
           { this.LabelledInput("Phone", "phone", "tel") }
+
+          {
+            this.LabelledInput(
+              "Topic",
+              "topic",
+              "select",
+              [
+                "Purchase Event Tickets",
+                "Create an Event",
+                "Agency",
+                "Work with Eluvio Live",
+                "Support"
+              ]
+            )
+          }
+
           { this.LabelledInput("Notes", "notes", "textarea") }
 
           <button type="submit" className="form__submit">
@@ -49,4 +64,4 @@ class PartnerForm extends React.Component {
   }
 }
 
-export default PartnerForm;
+export default ContactForm;
