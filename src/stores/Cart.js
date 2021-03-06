@@ -289,7 +289,7 @@ class CartStore {
       lineItems: stripeCart,
       shippingAddressCollection: {
         // TODO: Site should have 'allowed countries' for shipping
-        allowedCountries: ["US"],
+        allowedCountries: ["US"]
       }
     };
 
