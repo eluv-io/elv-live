@@ -1,0 +1,59 @@
+.technology-page {
+  padding: 120px 115px;
+
+  &__image-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 80%;
+  }
+
+  &__copy-block {
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: 1fr 2fr;
+    max-width: 1200px;
+    margin: 0 auto 100px;
+  }
+
+  &__copy-header {
+    font-size: 64px;
+    font-weight: 300;
+    letter-spacing: 0.045em;
+  }
+
+  &__copy {
+    font-size: 18px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 120px 25px;
+
+    &__image-container {
+      margin-top: 0;
+    }
+
+    &__image {
+      width: 100%;
+    }
+
+    &__copy-header {
+      font-size: 48px;
+      text-align: center;
+    }
+
+    &__copy-block {
+      grid-template-columns: 1fr;
+      grid-gap: 20px;
+    }
+
+    &__copy {
+      font-size: 18px;
+    }
+  }
+}
