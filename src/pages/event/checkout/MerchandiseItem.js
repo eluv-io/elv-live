@@ -299,7 +299,7 @@ class MerchandiseItem extends React.Component {
             className="btn item-add"
             onClick={() => this.props.SelectItem(this.props.item, this.state.selectedOption, this.state.quantity)}
           >
-            Add to Bag
+            Add to Cart
           </button>
         </div>
       </div>

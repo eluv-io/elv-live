@@ -299,13 +299,13 @@ class Checkout extends React.Component {
           <h2 className="checkout-section-header">
             <ImageIcon
               className="bag-icon"
-              label="Shopping bag icon"
+              label="Shopping cart icon"
               icon={BagIcon}
             />
-            Shopping Bag
+            Shopping Cart
           </h2>
 
-          Your bag is empty
+          Your cart is empty
 
           <div className="bottom-border" />
         </div>
@@ -317,10 +317,10 @@ class Checkout extends React.Component {
         <h2 className="checkout-section-header">
           <ImageIcon
             className="bag-icon"
-            label="Shopping bag icon"
+            label="Shopping cart icon"
             icon={BagIcon}
           />
-          Shopping Bag
+          Shopping Cart
         </h2>
 
         <div className="cart-item cart-header no-mobile">

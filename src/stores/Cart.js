@@ -101,6 +101,7 @@ class CartStore {
         Math.min(9, this[itemType][existingIndex].quantity + quantity);
 
       this.lastAdded = {
+        itemType,
         baseItemIndex,
         optionIndex,
         quantity: this[itemType][existingIndex].quantity
@@ -112,7 +113,7 @@ class CartStore {
         quantity
       });
 
-      this.lastAdded = { baseItemIndex, optionIndex, quantity };
+      this.lastAdded = { itemType, baseItemIndex, optionIndex, quantity };
     }
 
     this.SaveLocalStorage();
@@ -310,6 +311,8 @@ class CartStore {
       const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations.stripe_public_key);
       yield stripe.redirectToCheckout(stripeParams);
     } catch (error) {
+      console.error(error);
+      console.error(JSON.stringify(stripeParams, null, 2));
       try {
         const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations.stripe_public_key);
         yield retryRequest(stripe.redirectToCheckout, stripeParams);
