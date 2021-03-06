@@ -6,7 +6,7 @@ import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
 
 class CartStore {
-  @observable currency = "GBP";
+  @observable currency = "USD";
 
   @observable showCartOverlay = false;
   @observable showTicketOverlay = false;
