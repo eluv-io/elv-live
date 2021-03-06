@@ -11,9 +11,12 @@ a:hover {
 
 .page-content {
   @include page-fade-in;
+
+  padding: 120px 25px;
 }
 
 .main-page {
+  padding: 0;
   position: relative;
 
   &__logo {
