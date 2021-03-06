@@ -95,7 +95,10 @@ class CartOverlay extends React.Component {
 
           {
             this.props.cartStore.lastAdded ?
-              this.MerchandiseItem(this.props.cartStore.lastAdded, 0) :
+              (this.props.cartStore.lastAdded.itemType === "tickets" ?
+                this.TicketItem(this.props.cartStore.lastAdded, 0) :
+                this.MerchandiseItem(this.props.cartStore.lastAdded, 0)
+              ) :
               <>
                 { tickets.map((item, index) => this.TicketItem(item, index)) }
                 { merchandise.map((item, index) => this.MerchandiseItem(item, index)) }

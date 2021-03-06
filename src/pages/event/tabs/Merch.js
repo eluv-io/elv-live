@@ -15,7 +15,7 @@ class Merch extends React.Component {
             item={item}
             SelectItem={(item, optionIndex, quantity) => {
               this.props.cartStore.AddItem({itemType: "merchandise", baseItemIndex: item.productIndex, item, optionIndex, quantity});
-              this.props.cartStore.ToggleCartOverlay(true, `${quantity} ${quantity > 1 ? "items" : "item"} added to your bag`);
+              this.props.cartStore.ToggleCartOverlay(true, `${quantity} ${quantity > 1 ? "items" : "item"} added to your cart`);
             }}
           />
         )}
