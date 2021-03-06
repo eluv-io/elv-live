@@ -10,8 +10,10 @@
     background: white;
     padding: 40px 15px;
     font-size: 64px;
+    font-weight: 300;
     text-align: center;
     margin-bottom: 43px;
+    letter-spacing: 0.045em;
   }
 
   @media only screen and (max-width: 900px) {
@@ -48,7 +50,9 @@
   }
 
   &__textarea {
+    padding: 15px;
     height: 200px;
+    resize: vertical;
   }
 
   &__submit {
