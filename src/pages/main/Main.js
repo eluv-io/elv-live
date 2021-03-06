@@ -6,8 +6,6 @@ import FeaturedEvents from "Pages/main/components/FeaturedEvents";
 import Logo from "Assets/images/logo/coloredEluvioLiveLogo.png";
 import FeatureBlock from "Pages/main/components/FeatureBlock";
 
-import TEMPIMAGE from "Assets/images/ritaora/heroRita.jpg";
-
 @inject("siteStore")
 @observer
 class Main extends React.Component {

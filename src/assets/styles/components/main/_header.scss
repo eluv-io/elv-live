@@ -18,6 +18,7 @@
   &,
   * {
     transition: color 0.5s linear, border 0.5s linear, stroke 0.5s linear, fill 0.5s linear;
+    user-select: none;
   }
 
   &__logo {

@@ -24,6 +24,13 @@ class FeatureBlock extends React.Component {
 
     return (
       <>
+        {
+          this.state.showModal ?
+            <Modal Toggle={() => this.setState({showModal: false})}>
+              <CardModal copyKey={this.props.copyKey} />
+            </Modal> :
+            null
+        }
         <div className={`feature-block feature-block-${this.props.copyKey}`}>
           <div className="feature-block__image-container">
             <img src={imageUrl} alt={copy.header} className="feature-block__image" />
@@ -42,13 +49,6 @@ class FeatureBlock extends React.Component {
             </button>
           </div>
         </div>
-        {
-          this.state.showModal ?
-            <Modal Toggle={() => this.setState({showModal: false})}>
-              <CardModal copyKey={this.props.copyKey} />
-            </Modal> :
-            null
-        }
       </>
     );
   }
