@@ -358,6 +358,8 @@ class Checkout extends React.Component {
         </div>
 
         <EmailInput />
+
+        { this.PaymentActions() }
       </div>
     );
   }
@@ -378,16 +380,8 @@ class Checkout extends React.Component {
     return (
       <div className="payment-actions">
         <button className="checkout-button" role="link" onClick={this.props.cartStore.StripeSubmit}>
-          {this.state.retryCheckout ?
-            <div className="spin-checkout-container">
-              <div className="la-ball-clip-rotate la-sm">
-                <div />
-              </div>
-            </div>
-            : <div className="stripe-checkout-button">
-              Pay with Card
-              <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
-            </div>}
+          Pay with Card
+          <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
         </button>
         <div className="paypal-button">
           <PayPalScriptProvider
@@ -427,7 +421,6 @@ class Checkout extends React.Component {
             { this.Donations() }
             { this.FeaturedMerchandise() }
             { this.OrderSummary() }
-            { this.PaymentActions() }
           </div>
         }
       />

@@ -9,6 +9,8 @@ class EmailInput extends React.Component {
       <div className="email-entry">
         <input
           value={this.props.cartStore.email}
+          type="email"
+          required
           onChange={event => this.props.cartStore.UpdateEmail(event.target.value)}
           className="email-input"
           placeholder="Email"

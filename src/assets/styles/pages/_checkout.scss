@@ -169,7 +169,7 @@
   .order-summary {
     padding: 30px 45px;
     border-radius: 15px;
-    width: 386px;
+    width: 611px;
     display: grid;
     grid-template-columns: 3fr 1fr;
     background: #F2EEEA;
@@ -242,11 +242,35 @@
     }
   }
 
+  .checkout-button {
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .stripe-checkout-logo {
+    height: 38px;
+    width: auto;
+    position: absolute;
+    right: 10px;
+  }
+
   .payment-actions {
-    margin-left: 150px;
+    margin-top: 27px;
 
     & > * {
       margin-top: 10px;
+    }
+
+    .checkout-button,
+    .paypal-button {
+      width: 611px;
     }
   }
 }
@@ -356,16 +380,39 @@
       }
     }
 
+    .email-entry {
+      width: 611px;
+    }
+
+    .checkout-button {
+      font-size: 14px;
+      justify-content: space-evenly;
+    }
+
+    .stripe-checkout-logo {
+      position: relative;
+      right: 0;
+    }
+  }
+}
+
+// Paypal button max width is 750px, so don't adjust order summary section until we can 100% it
+@media only screen and (max-width: 750px) {
+  .checkout {
+    .email-entry {
+      width: 100%;
+    }
+
     .order-summary {
       width: 100%;
     }
 
     .payment-actions {
-      margin: 0;
-      padding: 0 20px;
-
-      & > * {
-        margin-top: 20px;
+      .checkout-button,
+      .paypal-button,
+      .paypal-buttons {
+        width: 100%;
+        max-width: 100%;
       }
     }
   }
