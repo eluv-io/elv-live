@@ -206,6 +206,8 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
+      this.darkMode = this.eventSites[tenantKey][siteSlug].info.theme === "dark" ? true : false;
+
       this.eventSites[tenantKey][siteSlug].siteSlug = siteSlug;
       this.eventSites[tenantKey][siteSlug].siteIndex = parseInt(siteIndex);
 

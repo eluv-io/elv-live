@@ -13,12 +13,31 @@
       }
     }
 
-    // Nav
-    .main-nav {
-      background: rgba(black, 0.7);
+    .header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
-      * {
+      .header__link {
         color: white;
+
+        &:hover {
+          color: white;
+        }
+      }
+
+      .header__logo {
+        svg {
+          * {
+            fill: white;
+          }
+        }
+      }
+
+      .cart-overlay-toggle {
+        svg {
+          * {
+            stroke: white;
+          }
+        }
       }
     }
 

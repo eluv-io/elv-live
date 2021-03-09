@@ -21,7 +21,7 @@ class Header extends React.Component {
         </NavLink>
         <div className="header__spacer" />
         <div className="header__links">
-          <NavLink to={this.props.siteStore.SitePath("code")} activeStyle={{fontWeight: "bold", color: "black"}} className="header__link" activeClassName="header__link-active">
+          <NavLink to={this.props.siteStore.SitePath("code")} className="header__link" activeClassName="header__link-active">
             Redeem Ticket
           </NavLink>
 
