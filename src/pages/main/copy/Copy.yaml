@@ -66,6 +66,10 @@ cards:
           Secure and privacy-protecting aggregate audience statistics.
           Options for audience-controlled private data sharing options with sponsors and publishers.
       2:
+        header: Blockchain backed exclusive content and collectibles
+        copy: |
+          Create limited “digital exclusives” that can be sold and traded on the platform, such as concert clips, key images, etc. They can be cryptographically signed by you and are delivered securely from the platform with their authenticity guaranteed by the platform's blockchain contracts.
+      3:
         header: Unlimited configurable social options
         copy: |
           Integrated chat for your audience.
@@ -93,7 +97,7 @@ cards:
       2:
         header: Configurable Geofencing and Access Control
         copy: |
-          Configurable automatic ticket access authorization by audience geography, time windows, and ticket class allowing for events localized for maximum return from each backed by smart contracts.
+          Configurable automatic ticket authorization scoped by audience geography, time windows, and ticket class, backed by blockchain smart contracts. Localize your events for maximum return and amplify in person events with streaming access.
       3:
         header: Security and Data Management
         copy: |
