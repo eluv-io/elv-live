@@ -26,11 +26,6 @@ class Checkout extends React.Component {
 
   componentDidMount() {
     this.props.cartStore.ToggleCartOverlay(false);
-    document.body.style.overflow = "hidden";
-  }
-
-  componentWillUnmount() {
-    document.body.style.overflow = "auto";
   }
 
   Donations() {
@@ -411,6 +406,8 @@ class Checkout extends React.Component {
   }
 
   render() {
+    if(!this.props.cartStore.showCheckoutOverlay) { return null; }
+
     return (
       <Modal
         Toggle={this.props.cartStore.ToggleCheckoutOverlay}
