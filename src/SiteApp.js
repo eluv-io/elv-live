@@ -51,26 +51,10 @@ class SiteApp extends React.Component {
     );
   }
 
-  NavHeader() {
-    // Hide header on stream page
-    return (
-      <Switch>
-        <Route exact path="/:baseSlug?/:siteSlug/stream" component={null} />
-
-        <Route>
-          <Navigation />
-        </Route>
-      </Switch>
-    );
-  }
-
   render() {
     return (
       <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
-        { this.NavHeader() }
-        <Suspense fallback={<PageLoader/>}>
-          { this.SiteRoutes() }
-        </Suspense>
+        { this.SiteRoutes() }
       </div>
     );
   }
