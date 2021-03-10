@@ -14,7 +14,14 @@ class Merch extends React.Component {
             key={`item-${index}`}
             item={item}
             SelectItem={(item, optionIndex, quantity) => {
-              this.props.cartStore.AddItem({itemType: "merchandise", baseItemIndex: item.productIndex, item, optionIndex, quantity});
+              this.props.cartStore.AddItem({
+                itemType: "merchandise",
+                uuid: item.uuid,
+                item,
+                optionIndex,
+                quantity
+              });
+
               this.props.cartStore.ToggleCartOverlay(true, `${quantity} ${quantity > 1 ? "items" : "item"} added to your cart`);
             }}
           />

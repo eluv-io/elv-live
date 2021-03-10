@@ -4,7 +4,6 @@ import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
 
 import mergeWith from "lodash/mergeWith";
-import {NonPrefixNTPId} from "Utils/Misc";
 
 const createKeccakHash = require("keccak");
 
@@ -301,21 +300,6 @@ class SiteStore {
     this.showCheckout = false;
   }
 
-  // Generate confirmation number for checkout based on otpId and email
-  @action.bound
-  generateConfirmationId(otpId, email, sz=10) {
-    otpId = NonPrefixNTPId(otpId);
-
-    //Concatenate otpId and email, then hash
-    let id = createKeccakHash('keccak256').update(`${otpId}:${email}`).digest();
-
-    if (sz <  id.length) {
-      id = id.slice(0, sz);
-    }
-
-    return this.client.utils.B58(id);
-  };
-
   ActivateCode(code="") {
     let ticketPrefixMap = {};
 
@@ -437,24 +421,22 @@ class SiteStore {
   /* Tickets and Products */
 
   @computed get ticketClasses() {
-    return (this.currentSiteInfo.tickets || []).map((ticket, productIndex) => {
+    return (this.currentSiteInfo.tickets || []).map((ticketClass, index) => {
       return {
-        ...ticket,
-        productIndex,
-        image_url: this.SiteUrl(UrlJoin("info", "tickets", productIndex.toString(), "image"))
+        ...ticketClass,
+        image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
       }
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
   }
 
   Products() {
     return (this.currentSiteInfo.products || [])
-      .map((product, productIndex) => {
+      .map((product, index) => {
         return {
           ...product,
-          productIndex,
           product_options: (product.product_options || []).map((option, optionIndex) => ({...option, optionIndex})),
           image_urls: (product.images || []).map((_, imageIndex) =>
-            this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
+            this.SiteUrl(UrlJoin("info", "products", index.toString(), "images", imageIndex.toString(), "image"))
           )
         }
       });
@@ -472,12 +454,28 @@ class SiteStore {
     return this.Merchandise().filter(item => item.featured);
   }
 
-  DonationItem(productIndex) {
-    return this.DonationItems().find(item => item.productIndex === productIndex);
+  DonationItem(uuid) {
+    return this.DonationItems().find(item => item.uuid === uuid);
   }
 
-  MerchandiseItem(productIndex) {
-    return this.Merchandise().find(item => item.productIndex === productIndex);
+  MerchandiseItem(uuid) {
+    return this.Merchandise().find(item => item.uuid === uuid);
+  }
+
+  TicketClassItem(uuid) {
+    return this.ticketClasses.find(ticketClass => ticketClass.uuid === uuid);
+  }
+
+  TicketItem(uuid) {
+    for(const ticketClass of this.ticketClasses) {
+      const ticketSku = ticketClass.skus.find(sku => sku.uuid === uuid);
+
+      if(ticketSku) {
+        return { ticketClass, ticketSku };
+      }
+    }
+
+    return {};
   }
 
   /* Images */

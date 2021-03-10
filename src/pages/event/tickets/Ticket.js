@@ -17,22 +17,20 @@ class Ticket extends React.Component {
     super(props);
 
     this.state = {
-      selectedOffering: 0
+      selectedSku: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange({value}) {
-    this.setState({selectedOffering: value});
+    this.setState({selectedSku: value});
   }
 
-  TicketClass() {
-    return this.props.siteStore.ticketClasses[this.props.ticketClassIndex];
-  }
 
   TicketOptions() {
-    return this.TicketClass().skus.map((ticketSku, index) => ({
+    const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
+    return ticketClass.skus.map((ticketSku, index) => ({
       label: (
         <div className="ticket-option">
           <div className="ticket-item-detail">{ ticketSku.label }</div>
@@ -45,11 +43,14 @@ class Ticket extends React.Component {
   }
 
   render() {
+    const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
+    const ticketSku = ticketClass.skus[this.state.selectedSku];
+
     return (
       <React.Fragment>
         <div className="ticket-event">
           <div className="ticket-image">
-            <img src={this.TicketClass().image_url} className="ticket-image-img"/>
+            <img src={ticketClass.image_url} className="ticket-image-img"/>
           </div>
           <div className="ticket-detail">
             {
@@ -58,11 +59,11 @@ class Ticket extends React.Component {
             <div className="ticket-top">
 
               <h3 className="ticket-top-title">
-                { this.TicketClass().name }
-                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(this.TicketClass().skus[this.state.selectedOffering].price, true) }</div>
+                { ticketClass.name }
+                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(ticketSku.price, true) }</div>
               </h3>
               <p className="ticket-top-description">
-                { this.TicketClass().description }
+                { ticketClass.description }
               </p>
 
             </div>
@@ -71,8 +72,8 @@ class Ticket extends React.Component {
                 <Select
                   className='react-select-container'
                   classNamePrefix="react-select"
-                  value={this.TicketOptions()[this.state.selectedOffering]}
-                  onChange={({value}) => this.setState({selectedOffering: parseInt(value)})}
+                  value={this.TicketOptions()[this.state.selectedSku]}
+                  onChange={({value}) => this.setState({selectedSku: parseInt(value)})}
                   options={this.TicketOptions()}
                   theme={theme => ({
                     ...theme,
@@ -86,7 +87,7 @@ class Ticket extends React.Component {
                 />
               </div>
               <div className="ticket-price no-mobile">
-                { this.props.cartStore.FormatPriceString(this.TicketClass().skus[this.state.selectedOffering].price, true) }
+                { this.props.cartStore.FormatPriceString(ticketSku.price, true) }
               </div>
               <button
                 className="ticket-bottom-button"
@@ -94,8 +95,8 @@ class Ticket extends React.Component {
                 onClick={() => this.props.cartStore.ToggleTicketOverlay(
                   true,
                   {
-                    ticketClassIndex: this.props.ticketClassIndex,
-                    selectedSku: this.state.selectedOffering
+                    ticketClassUUID: this.props.ticketClassUUID,
+                    ticketSkuUUID: ticketSku.uuid
                   }
                 )}
               >
@@ -107,7 +108,7 @@ class Ticket extends React.Component {
 
         {
           this.props.cartStore.showTicketOverlay &&
-          this.props.ticketClassIndex === this.props.cartStore.ticketOverlayOptions.ticketClassIndex ?
+          this.props.ticketClassUUID === this.props.cartStore.ticketOverlayOptions.ticketClassUUID ?
             <Modal
               Toggle={this.props.cartStore.ToggleTicketOverlay}
               content={<TicketDetails />}

@@ -8,12 +8,12 @@ class FeaturedTicket extends React.Component {
   constructor(props) {
     super(props);
 
-    const options = props.cartStore.featuredTickets[props.ticketClass.productIndex] || {};
+    const selected = props.cartStore.featuredTickets[props.ticketClass.uuid];
 
     this.state = {
-      selected: !!props.cartStore.featuredTickets[props.ticketClass.productIndex],
-      selectedSku: options.ticketSku || 0,
-      quantity: options.quantity || 1
+      selected: !!selected,
+      selectedSku: selected ? selected.optionIndex : 0,
+      quantity: selected ? selected.quantity : 1
     };
 
     this.Update = this.Update.bind(this);
@@ -21,18 +21,23 @@ class FeaturedTicket extends React.Component {
 
   Update() {
     if(this.state.selected) {
-      this.props.cartStore.AddFeaturedTicket({
-        productIndex: this.props.ticketClass.productIndex,
+      this.props.cartStore.AddFeaturedItem({
+        itemType: "tickets",
+        uuid: this.props.ticketClass.uuid,
         optionIndex: this.state.selectedSku,
         quantity: this.state.quantity
       });
     } else {
-      this.props.cartStore.RemoveFeaturedTicket(this.props.ticketClass.productIndex);
+      this.props.cartStore.RemoveFeaturedItem({
+        itemType: "tickets",
+        uuid: this.props.ticketClass.uuid
+      });
     }
   }
 
   render() {
     const ticketSku = this.props.ticketClass.skus[this.state.selectedSku];
+
     return (
       <div className="featured-ticket">
         <h2 className="featured-ticket-header">

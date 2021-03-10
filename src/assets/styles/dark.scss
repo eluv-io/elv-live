@@ -58,8 +58,10 @@
 
       .btn {
         &:not(.btn--gold) {
-          background: white;
-          color: black;
+          &:not(.checkout-button) {
+            background: white;
+            color: black;
+          }
         }
       }
     }

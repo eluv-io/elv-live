@@ -40,19 +40,23 @@ class Checkout extends React.Component {
         </h2>
         { donationItems.map(item =>
           <MerchandiseItem
-            key={`featured-item-${item.productIndex}`}
+            key={`featured-item-${item.uuid}`}
             item={item}
             view="donation"
-            checked={!!this.props.cartStore.donations[item.productIndex]}
+            checked={!!this.props.cartStore.featuredDonations[item.uuid]}
             UpdateItem={(item, optionIndex, quantity) => {
-              this.props.cartStore.AddDonation({
-                productIndex: item.productIndex,
+              this.props.cartStore.AddFeaturedItem({
+                itemType: "donations",
+                uuid: item.uuid,
                 item,
                 optionIndex,
                 quantity,
               });
             }}
-            RemoveItem={() => this.props.cartStore.RemoveDonation(item.productIndex)}
+            RemoveItem={() => this.props.cartStore.RemoveFeaturedItem({
+              itemType: "donations",
+              uuid: item.uuid
+            })}
           />
         )}
         <div className="bottom-border" />
@@ -62,7 +66,7 @@ class Checkout extends React.Component {
 
   FeaturedMerchandise() {
     const items = this.props.siteStore.FeaturedMerchandise()
-      .filter(item => !this.props.cartStore.merchandise.find(cartItem => cartItem.baseItemIndex === item.productIndex));
+      .filter(item => !this.props.cartStore.merchandise.find(cartItem => cartItem.uuid === item.uuid));
 
     if(!items || items.length === 0) { return; }
 
@@ -70,25 +74,29 @@ class Checkout extends React.Component {
       <div className="checkout-page-section">
         <h2 className="checkout-section-header">Add Featured Merch</h2>
         { items.map(item => {
-          const selectedItem = this.props.cartStore.featuredMerchandise[item.productIndex] || {};
+          const selectedItem = this.props.cartStore.featuredMerchandise[item.uuid] || {};
 
           return (
             <MerchandiseItem
-              key={`featured-item-${item.productIndex}`}
+              key={`featured-item-${item.uuid}`}
               item={item}
               view="featured"
-              checked={!!this.props.cartStore.featuredMerchandise[item.productIndex]}
+              checked={!!this.props.cartStore.featuredMerchandise[item.uuid]}
               optionIndex={selectedItem.optionIndex}
               quantity={selectedItem.quantity}
               UpdateItem={(item, optionIndex, quantity) => {
                 this.props.cartStore.AddFeaturedItem({
-                  productIndex: item.productIndex,
+                  itemType: "merchandise",
+                  uuid: item.uuid,
                   item,
                   optionIndex,
                   quantity,
                 });
               }}
-              RemoveItem={() => this.props.cartStore.RemoveFeaturedItem(item.productIndex)}
+              RemoveItem={() => this.props.cartStore.RemoveFeaturedItem({
+                itemType: "merchandise",
+                uuid: item.uuid,
+              })}
             />
           );
         })}
@@ -117,8 +125,7 @@ class Checkout extends React.Component {
   }
 
   Ticket(ticket, index) {
-    const ticketClass = this.props.siteStore.ticketClasses[ticket.baseItemIndex];
-    const ticketSku = ticketClass.skus[ticket.optionIndex];
+    const { ticketClass, ticketSku } = this.props.siteStore.TicketItem(ticket.uuid);
 
     // Mobile view
     if(window.innerWidth < 900) {
@@ -233,7 +240,7 @@ class Checkout extends React.Component {
   }
 
   Item(item, index) {
-    const baseItem = this.props.siteStore.MerchandiseItem(item.baseItemIndex);
+    const baseItem = this.props.siteStore.MerchandiseItem(item.uuid);
 
     return (
       <div className="cart-item" key={`cart-item-${index}`}>
