@@ -7,7 +7,7 @@ class Support extends React.Component {
   render() {
     return (
       <div className="page-content support-page">
-        <h1 className="support-page__header">NO REFUNDS</h1>
+        <h1 className="support-page__header">Support</h1>
       </div>
     );
   }
