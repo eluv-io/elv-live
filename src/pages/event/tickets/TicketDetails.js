@@ -12,17 +12,21 @@ class TicketDetails extends React.Component {
   constructor(props) {
     super(props);
 
+    const selectedSku =
+      this.props.siteStore.TicketClassItem(this.props.cartStore.ticketOverlayOptions.ticketClassUUID).skus
+        .findIndex(sku => sku.uuid === this.props.cartStore.ticketOverlayOptions.ticketSkuUUID);
+
     this.state = {
-      selectedSku: this.props.cartStore.ticketOverlayOptions.selectedSku,
+      selectedSku,
       quantity: 1
     };
   }
 
   SelectedTicket() {
-    const ticketClass = this.props.siteStore.ticketClasses[this.props.cartStore.ticketOverlayOptions.ticketClassIndex];
+    const ticketClass = this.props.siteStore.TicketClassItem(this.props.cartStore.ticketOverlayOptions.ticketClassUUID);
 
     return {
-      ticketClass,
+      ticketClass: ticketClass,
       ticketSku: ticketClass.skus[this.state.selectedSku]
     };
   }
@@ -43,31 +47,35 @@ class TicketDetails extends React.Component {
 
   FeaturedMerchandise() {
     const items = this.props.siteStore.FeaturedMerchandise()
-      .filter(item => !this.props.cartStore.merchandise.find(cartItem => cartItem.baseItemIndex === item.productIndex));
+      .filter(item => !this.props.cartStore.merchandise.find(cartItem => cartItem.uuid === item.uuid));
 
     if(!items || items.length === 0) { return; }
 
     return (
       items.map(item => {
-        const selectedItem = this.props.cartStore.featuredMerchandise[item.productIndex] || {};
+        const selectedItem = this.props.cartStore.featuredMerchandise[item.uuid] || {};
 
         return (
           <MerchandiseItem
-            key={`featured-item-${item.productIndex}`}
+            key={`featured-item-${item.uuid}`}
             item={item}
             view="featured"
-            checked={!!this.props.cartStore.featuredMerchandise[item.productIndex]}
+            checked={!!this.props.cartStore.featuredMerchandise[item.uuid]}
             optionIndex={selectedItem.optionIndex}
             quantity={selectedItem.quantity}
             UpdateItem={(item, optionIndex, quantity) => {
               this.props.cartStore.AddFeaturedItem({
-                productIndex: item.productIndex,
+                itemType: "merchandise",
+                uuid: item.uuid,
                 item,
                 optionIndex,
                 quantity,
               });
             }}
-            RemoveItem={() => this.props.cartStore.RemoveFeaturedItem(item.productIndex)}
+            RemoveItem={() => this.props.cartStore.RemoveFeaturedItem({
+              itemType: "merchandise",
+              uuid: item.uuid
+            })}
           />
         );
       })
@@ -82,19 +90,23 @@ class TicketDetails extends React.Component {
     return (
       donationItems.map(item =>
         <MerchandiseItem
-          key={`featured-item-${item.productIndex}`}
+          key={`featured-item-${item.uuid}`}
           item={item}
           view="donation"
-          checked={!!this.props.cartStore.donations[item.productIndex]}
+          checked={!!this.props.cartStore.featuredDonations[item.uuid]}
           UpdateItem={(item, optionIndex, quantity) => {
-            this.props.cartStore.AddDonation({
-              productIndex: item.productIndex,
+            this.props.cartStore.AddFeaturedItem({
+              itemType: "donations",
+              uuid: item.uuid,
               item,
               optionIndex,
               quantity,
             });
           }}
-          RemoveItem={() => this.props.cartStore.RemoveDonation(item.productIndex)}
+          RemoveItem={() => this.props.cartStore.RemoveFeaturedItem({
+            itemType: "merchandise",
+            uuid: item.uuid
+          })}
         />
       )
     );
@@ -187,8 +199,7 @@ class TicketDetails extends React.Component {
               onClick={() => {
                 this.props.cartStore.AddItem({
                   itemType: "tickets",
-                  baseItemIndex: this.props.cartStore.ticketOverlayOptions.ticketClassIndex,
-                  optionIndex: this.state.selectedSku,
+                  uuid: ticketSku.uuid,
                   quantity: this.state.quantity
                 });
 

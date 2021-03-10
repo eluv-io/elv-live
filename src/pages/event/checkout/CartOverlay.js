@@ -7,17 +7,17 @@ import ImageIcon from "Common/ImageIcon";
 @inject("cartStore")
 @observer
 class CartOverlay extends React.Component {
-  TicketItem({baseItemIndex, optionIndex, quantity}, index) {
-    const ticket = this.props.siteStore.ticketClasses[baseItemIndex];
+  TicketItem({uuid, quantity}, index) {
+    const { ticketClass, ticketSku } = this.props.siteStore.TicketItem(uuid);
 
     return (
-      <div className="cart-overlay-item" key={`ticket-item-${ticket.name}-${index}`}>
+      <div className="cart-overlay-item" key={`ticket-item-${ticketClass.name}-${index}`}>
         <div className="item-image">
-          <img alt={ticket.name} src={ticket.image_url} />
+          <img alt={ticketClass.name} src={ticketClass.image_url} />
         </div>
         <div className="item-details">
-          <div className="item-name">{ ticket.name }</div>
-          <div className="item-price">{ this.props.cartStore.FormatPriceString(ticket.skus[optionIndex].price) }</div>
+          <div className="item-name">{ ticketClass.name }</div>
+          <div className="item-price">{ this.props.cartStore.FormatPriceString(ticketSku.price) }</div>
           <div className="item-quantity">Quantity: { quantity }</div>
           <button
             className="remove-item"
@@ -30,8 +30,8 @@ class CartOverlay extends React.Component {
     );
   }
 
-  MerchandiseItem({baseItemIndex, optionIndex, quantity}, index) {
-    const item = this.props.siteStore.MerchandiseItem(baseItemIndex);
+  MerchandiseItem({uuid, optionIndex, quantity}, index) {
+    const item = this.props.siteStore.MerchandiseItem(uuid);
     const selectedOptions = item.product_options[optionIndex] || {};
 
     return (

@@ -1,9 +1,9 @@
 import {observable, action, flow, computed, toJS} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
-import {NonPrefixNTPId, ValidEmail} from "Utils/Misc";
 import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
+import {v4 as UUID, parse as UUIDParse} from "uuid";
 
 class CartStore {
   @observable currency = "USD";
@@ -21,14 +21,18 @@ class CartStore {
   @observable tickets = [];
   @observable merchandise = [];
 
-  @observable donations = {};
-  @observable featuredMerchandise = {};
   @observable featuredTickets = {};
+  @observable featuredMerchandise = {};
+  @observable featuredDonations = {};
 
   @observable lastAdded;
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+  }
+
+  ConfirmationId() {
+    return this.rootStore.client.utils.B58(UUIDParse(UUID()));
   }
 
   ItemPrice(item) {
@@ -76,8 +80,12 @@ class CartStore {
     this.showCheckoutOverlay = show;
 
     // When checkout is opened or closed, roll "featured" selections into the cart
-    Object.values(this.featuredTickets).filter(ticket => ticket).forEach(ticket => this.tickets.push(ticket));
     Object.values(this.featuredMerchandise).filter(item => item).forEach(item => this.merchandise.push(item));
+    Object.keys(this.featuredTickets).filter(ticket => ticket).forEach(ticketClassUUID => {
+      const { optionIndex, quantity } = this.featuredTickets[ticketClassUUID];
+      const ticketSku = this.rootStore.siteStore.TicketClassItem(ticketClassUUID).skus[optionIndex];
+      this.tickets.push({uuid: ticketSku.uuid, quantity});
+    });
 
     this.featuredTickets = {};
     this.featuredMerchandise = {};
@@ -89,31 +97,30 @@ class CartStore {
   }
 
   @action.bound
-  AddItem({itemType, baseItemIndex, optionIndex, quantity}) {
+  AddItem({itemType, uuid, optionIndex, quantity}) {
     const existingIndex = this[itemType].findIndex(existingItem =>
-      baseItemIndex === existingItem.baseItemIndex &&
+      uuid === existingItem.uuid &&
       optionIndex === existingItem.optionIndex
     );
 
     if(existingIndex >= 0) {
       // Current max of 9 items
-      this[itemType][existingIndex].quantity =
-        Math.min(9, this[itemType][existingIndex].quantity + quantity);
+      this[itemType][existingIndex].quantity = quantity;
 
       this.lastAdded = {
         itemType,
-        baseItemIndex,
+        uuid,
         optionIndex,
         quantity: this[itemType][existingIndex].quantity
       };
     } else {
       this[itemType].unshift({
-        baseItemIndex,
+        uuid,
         optionIndex,
         quantity
       });
 
-      this.lastAdded = { itemType, baseItemIndex, optionIndex, quantity };
+      this.lastAdded = { itemType, uuid, optionIndex, quantity };
     }
 
     this.SaveLocalStorage();
@@ -142,113 +149,79 @@ class CartStore {
   }
 
   @action.bound
-  AddFeaturedItem({productIndex, optionIndex, quantity}) {
-    this.featuredMerchandise[productIndex] = {
-      baseItemIndex: productIndex,
+  AddFeaturedItem({itemType, uuid, optionIndex, quantity}) {
+    this[`featured${itemType.charAt(0).toUpperCase() + itemType.slice(1)}`][uuid] = {
+      uuid,
       optionIndex,
       quantity
-    };
+    } ;
   }
 
   @action.bound
-  RemoveFeaturedItem(index) {
-    this.featuredMerchandise[index] = undefined;
-  }
-
-  @action.bound
-  AddFeaturedTicket({productIndex, optionIndex, quantity}) {
-    this.featuredTickets[productIndex] = {
-      baseItemIndex: productIndex,
-      optionIndex,
-      quantity
-    };
-  }
-
-  @action.bound
-  RemoveFeaturedTicket(index) {
-    this.featuredTickets[index] = undefined;
-  }
-
-  @action.bound
-  AddDonation({productIndex, optionIndex, quantity}) {
-    this.donations[productIndex] = {
-      baseItemIndex: productIndex,
-      optionIndex,
-      quantity
-    };
-  }
-
-  @action.bound
-  RemoveDonation(index) {
-    this.donations[index] = undefined;
+  RemoveFeaturedItem({itemType, uuid}) {
+    // Capitalize
+    itemType = itemType.charAt(0).toUpperCase() + itemType.slice(1);
+    delete this[`featured${itemType}`][uuid];
   }
 
   CartDetails() {
-    let cart = { tickets: {}, merchandise: {}, donations: []};
+    let cart = { tickets: [], merchandise: [], donations: []};
 
-    this.tickets.forEach(ticket =>
-      cart.tickets[`${ticket.baseItemIndex}-${ticket.optionIndex}`] = {
-        ticketClass: this.rootStore.siteStore.ticketClasses[ticket.baseItemIndex],
-        ticketSku: this.rootStore.siteStore.ticketClasses[ticket.baseItemIndex].skus[ticket.optionIndex],
-        price: this.ItemPrice(this.rootStore.siteStore.ticketClasses[ticket.baseItemIndex].skus[ticket.optionIndex]),
-        quantity: ticket.quantity
-      }
-    );
+    const featuredTickets = Object.keys(this.featuredTickets)
+      .map(ticketClassUUID => {
+        const ticketClass = this.rootStore.siteStore.TicketClassItem(ticketClassUUID);
+        const options = this.featuredTickets[ticketClassUUID];
 
-    Object.values(this.featuredTickets)
-      .filter(ticket => ticket)
-      .forEach(ticket => {
-        const key = `${ticket.baseItemIndex}-${ticket.optionIndex}`;
-
-        if(cart.tickets[key]) {
-          cart.tickets[key].quantity += ticket.quantity;
-        } else {
-          cart.tickets[key] = {
-            ticketClass: this.rootStore.siteStore.ticketClasses[ticket.baseItemIndex],
-            ticketSku: this.rootStore.siteStore.ticketClasses[ticket.baseItemIndex].skus[ticket.optionIndex],
-            price: this.ItemPrice(this.rootStore.siteStore.ticketClasses[ticket.baseItemIndex].skus[ticket.optionIndex]),
-            quantity: ticket.quantity
-          };
+        return {
+          uuid: ticketClass.skus[options.optionIndex].uuid,
+          quantity: options.quantity
         }
       });
 
-    this.merchandise.forEach(item =>
-      cart.merchandise[`${item.baseItemIndex}-${item.optionIndex}`] = {
-        item: this.rootStore.siteStore.MerchandiseItem(item.baseItemIndex),
-        option: this.rootStore.siteStore.MerchandiseItem(item.baseItemIndex).product_options[item.optionIndex],
-        price: this.ItemPrice(this.rootStore.siteStore.MerchandiseItem(item.baseItemIndex)),
-        quantity: item.quantity
-      }
-    );
+    cart.tickets = featuredTickets
+      .concat(this.tickets)
+      .filter(t => t)
+      .map(ticket => {
+        const { ticketClass, ticketSku } = this.rootStore.siteStore.TicketItem(ticket.uuid);
 
-    Object.values(this.featuredMerchandise)
-      .filter(item => item)
-      .forEach(item => {
-        const key = `${item.baseItemIndex}-${item.optionIndex}`;
+        return {
+          uuid: ticket.uuid,
+          ticketClass,
+          ticketSku,
+          price: this.ItemPrice(ticketSku),
+          quantity: ticket.quantity
+        };
+      });
 
-        if(cart.merchandise[key]) {
-          cart.merchandise[key].quantity += item.quantity;
-        } else {
-          cart.merchandise[key] = {
-            item: this.rootStore.siteStore.MerchandiseItem(item.baseItemIndex),
-            option: this.rootStore.siteStore.MerchandiseItem(item.baseItemIndex).product_options[item.optionIndex],
-            price: this.ItemPrice(this.rootStore.siteStore.MerchandiseItem(item.baseItemIndex)),
-            quantity: item.quantity
-          };
+    cart.merchandise = Object.values(this.featuredMerchandise)
+      .concat(this.merchandise)
+      .filter(m => m)
+      .map(itemDetails => {
+        const item = this.rootStore.siteStore.MerchandiseItem(itemDetails.uuid);
+
+        return {
+          uuid: itemDetails.uuid,
+          item,
+          option: item.product_options[itemDetails.optionIndex],
+          price: this.ItemPrice(item),
+          quantity: itemDetails.quantity
         }
       });
 
-
-    cart.donations = Object.values(this.donations)
+    cart.donations = Object.values(this.featuredDonations)
       .filter(item => item)
-      .map(item => ({
-        item: this.rootStore.siteStore.DonationItem(item.baseItemIndex),
-        price: this.ItemPrice(this.rootStore.siteStore.DonationItem(item.baseItemIndex)),
-        quantity: item.quantity
-      }));
+      .map(itemDetails => {
+        const donation = this.rootStore.siteStore.DonationItem(itemDetails.uuid);
+        return {
+          uuid: itemDetails.uuid,
+          item: donation,
+          price: this.ItemPrice(donation),
+          quantity: itemDetails.quantity
+        }
+      });
 
     const Total = arr => arr.map(item => item.price * item.quantity).reduce((acc, price) => acc + price, 0);
-    const total = Total(Object.values(cart.tickets)) + Total(Object.values(cart.merchandise)) + Total(cart.donations);
+    const total = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
 
     return {
       tickets: Object.values(cart.tickets),
@@ -271,13 +244,9 @@ class CartStore {
     }));
 
     const productId = ((cartDetails.tickets[0] || {}).ticketSku || {}).product_id || "placeholder";
-    const otpId = NonPrefixNTPId(((cartDetails.tickets[0] || {}).ticketSku || {}).otp_id || "placeholder");
 
-    // TODO: What if no tickets or multiple tickets
-    const checkoutId = this.rootStore.siteStore.generateConfirmationId(
-      NonPrefixNTPId(otpId),
-      this.email
-    );
+    this.confirmationId = this.ConfirmationId();
+    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
 
     const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
 
@@ -333,7 +302,7 @@ class CartStore {
         currency_code: this.currency
       },
       quantity: ticket.quantity,
-      sku: NonPrefixNTPId(ticket.ticketSku.otp_id)
+      sku: ticket.ticketSku.otp_id
     }));
 
     paypalCart = paypalCart.concat(
@@ -344,7 +313,8 @@ class CartStore {
           currency_code: this.currency
         },
         quantity: item.quantity,
-        sku: JSON.stringify(item.option)
+        description: JSON.stringify(item.option),
+        sku: item.uuid
       }))
     );
 
@@ -356,22 +326,20 @@ class CartStore {
           currency_code: this.currency
         },
         quantity: item.quantity,
-        sku: item.name
+        description: item.name,
+        sku: item.uuid
       }))
     );
 
-    const otpId = NonPrefixNTPId(((cartDetails.tickets[0] || {}).ticketSku || {}).otp_id || "placeholder");
+    this.confirmationId = this.ConfirmationId();
+    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`
 
-    this.confirmationId = this.rootStore.siteStore.generateConfirmationId(
-      NonPrefixNTPId(otpId),
-      this.email
-    );
 
     return actions.order.create({
       purchase_units: [
         {
           reference_id: this.email,
-          custom_id: NonPrefixNTPId(otpId),
+          custom_id: checkoutId,
           amount: {
             value: cartDetails.total,
             currency_code: this.currency,
