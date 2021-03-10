@@ -7,7 +7,7 @@ class Terms extends React.Component {
   render() {
     return (
       <div className="page-content terms-page">
-        <h1 className="terms-page__header">Give us all your money</h1>
+        <h1 className="terms-page__header">Terms</h1>
       </div>
     );
   }
