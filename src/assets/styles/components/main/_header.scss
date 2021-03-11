@@ -6,10 +6,14 @@
   height: 60px;
   padding: 0 53px;
   border-bottom: 1px solid black;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 100;
+
+  &.header-scrolled {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
 
   & > * {
     flex: 1 1 auto;
@@ -17,7 +21,7 @@
 
   &,
   * {
-    transition: color 0.5s linear, border 0.5s linear, stroke 0.5s linear, fill 0.5s linear;
+    transition: background-color 1s linear, color 0.5s linear, border 0.5s linear, stroke 0.5s linear, fill 0.5s linear;
     user-select: none;
   }
 
@@ -63,6 +67,11 @@
   &.header-main {
     color: white;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
+    &.header-scrolled {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid transparent;
+    }
 
     .header__link {
       color: white;
