@@ -9,9 +9,31 @@ import ImageIcon from "Common/ImageIcon";
 @observer
 @withRouter
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      scrolled: false
+    };
+
+    this.ScrollFade = this.ScrollFade.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("scroll", this.ScrollFade);
+  }
+
+  componentWillUnmount() {
+    document.addEventListener("scroll", this.ScrollFade);
+  }
+
+  ScrollFade() {
+    this.setState({scrolled: window.scrollY > 200});
+  }
+
   render() {
     return (
-      <header className={`header ${this.props.location.pathname === "/" ? "header-main" : ""}`}>
+      <header className={`header ${this.props.location.pathname === "/" ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
         <NavLink to="/" className="header__logo">
           <ImageIcon icon={Logo} label="Eluvio Live" />
         </NavLink>

@@ -1,9 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
+import ImageIcon from "Common/ImageIcon";
+
 import LeftArrow from "Icons/left-arrow.svg";
 import RightArrow from "Icons/right-arrow.svg";
-import ImageIcon from "Common/ImageIcon";
+import {DownArrow} from "Pages/main/components/NavigationArrows";
 
 @inject("mainStore")
 @observer
@@ -57,14 +59,17 @@ class FeaturedEvents extends React.Component {
     return (
       <div className="featured-events scroll-block" id="scroll-block-featured-events">
         <button
-          className="featured-events__arrow-left"
+          className="arrow-left"
           onClick={() => this.ChangePage(this.state.selected - 1)}
         >
           <ImageIcon icon={LeftArrow} label="Previous" />
         </button>
+
+        <DownArrow />
+
         { this.props.mainStore.featuredSites.map(this.Event) }
         <button
-          className="featured-events__arrow-right"
+          className="arrow-right"
           onClick={() => this.ChangePage(this.state.selected + 1)}
         >
           <ImageIcon icon={RightArrow} label="Next" />

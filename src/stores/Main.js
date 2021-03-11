@@ -4,6 +4,7 @@ import UrlJoin from "url-join";
 
 class MainStore {
   @observable featureBlockModalActive = false;
+  @observable promoPlayoutOptions = [];
 
   @computed get featuredSites() {
     return Object.values(this.rootStore.siteStore.eventSites["featured"] || {})
@@ -22,6 +23,22 @@ class MainStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
+
+  @action.bound
+  LoadPromos = flow(function * () {
+    if(this.promoPlayoutOptions.length > 0) { return; }
+
+    this.promoPlayoutOptions = yield Promise.all(
+      Object.keys(this.rootStore.siteStore.mainSiteInfo.promo_videos || {}).map(
+        async (index) => {
+          return await this.rootStore.client.BitmovinPlayoutOptions({
+            ...(this.rootStore.siteStore.siteParams),
+            linkPath: UrlJoin("public", "asset_metadata", "promo_videos", index.toString(), "sources", "default")
+          })
+        }
+      )
+    )
+  });
 
   MainSiteUrl(path) {
     if(!path) {
