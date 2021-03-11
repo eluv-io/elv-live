@@ -27,6 +27,11 @@ class CartStore {
 
   @observable lastAdded;
 
+  @computed get shippingCountries() {
+    return (this.rootStore.siteStore.currentSiteInfo.shipping_countries || [])
+      .map(country => country.split(":")[0]);
+  }
+
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
@@ -258,8 +263,7 @@ class CartStore {
       customerEmail: this.email,
       lineItems: stripeCart,
       shippingAddressCollection: {
-        // TODO: Site should have 'allowed countries' for shipping
-        allowedCountries: ["US"]
+        allowedCountries: this.shippingCountries
       }
     };
 
