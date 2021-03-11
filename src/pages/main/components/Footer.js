@@ -10,7 +10,7 @@ import ImageIcon from "Common/ImageIcon";
 class Footer extends React.Component {
   render() {
     return (
-      <footer className="footer">
+      <footer className="footer" id="footer">
         <div className="footer__logo-container">
           <ImageIcon className="footer__logo" icon={Logo} label="Eluvio Live" />
         </div>

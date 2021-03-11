@@ -55,7 +55,7 @@ class FeaturedEvents extends React.Component {
 
   render() {
     return (
-      <div className="featured-events">
+      <div className="featured-events scroll-block" id="scroll-block-featured-events">
         <button
           className="featured-events__arrow-left"
           onClick={() => this.ChangePage(this.state.selected - 1)}

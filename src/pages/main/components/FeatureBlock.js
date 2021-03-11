@@ -17,6 +17,14 @@ class FeatureBlock extends React.Component {
     };
   }
 
+  ToggleModal(show) {
+    this.setState({
+      showModal: show
+    });
+
+    this.props.mainStore.ToggleFeatureBlockModal(show);
+  }
+
   render() {
     const copy = Copy.main[this.props.copyKey];
 
@@ -26,12 +34,12 @@ class FeatureBlock extends React.Component {
       <>
         {
           this.state.showModal ?
-            <Modal Toggle={() => this.setState({showModal: false})}>
+            <Modal Toggle={() => this.ToggleModal(false)}>
               <CardModal copyKey={this.props.copyKey} />
             </Modal> :
             null
         }
-        <div className={`feature-block feature-block-${this.props.copyKey}`}>
+        <div className={`feature-block feature-block-${this.props.copyKey} scroll-block`} id={`scroll-block-${this.props.copyKey}`}>
           <div className="feature-block__image-container">
             <img src={imageUrl} alt={copy.header} className="feature-block__image" />
           </div>
@@ -43,7 +51,7 @@ class FeatureBlock extends React.Component {
           <div className="feature-block__actions">
             <button
               className="feature-block__action"
-              onClick={() => this.setState({showModal: true})}
+              onClick={() => this.ToggleModal(true)}
             >
               Learn More
             </button>

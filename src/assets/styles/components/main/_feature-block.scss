@@ -1,19 +1,33 @@
 .feature-block {
   margin-bottom: 150px;
   padding: 0 50px;
-
-  &:last-child {
-    margin-bottom: 300px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 100%;
 
   * {
     text-align: center;
     font-weight: 300;
   }
 
+  &__image-container,
+  &__text-container,
+  &__actions {
+    flex: 1 1 auto;
+  }
+
   &__image-container {
-    margin: auto;
+    margin: 0 auto;
     max-width: 1000px;
+    display: flex;
+    align-items: flex-end;
+    max-height: 100%;
+
+    img {
+      max-height: calc(100vh - 550px);
+      margin: 0 auto;
+    }
   }
 
   &__header,
@@ -25,22 +39,22 @@
 
   &__header {
     font-size: 64px;
-    margin: 75px auto 35px;
+    margin: 25px auto;
 
     &:first-child {
       // Override semantic UI reset
-      margin-top: 65px;
+      margin-top: 25px;
     }
   }
 
   &__subheader {
     font-size: 36px;
-    margin: 0 auto 50px;
+    margin: 0 auto 30px;
   }
 
   &__text {
     font-size: 24px;
-    margin: 0 auto 80px;
+    margin: 0 auto 40px;
   }
 
   &__actions {

@@ -3,6 +3,8 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 
 class MainStore {
+  @observable featureBlockModalActive = false;
+
   @computed get featuredSites() {
     return Object.values(this.rootStore.siteStore.eventSites["featured"] || {})
       .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
@@ -57,6 +59,11 @@ class MainStore {
 
   FeaturedSiteImageUrl(siteSlug, key) {
     return this.FeaturedSiteUrl(siteSlug, UrlJoin("info", "event_images", key))
+  }
+
+  @action.bound
+  ToggleFeatureBlockModal(show) {
+    this.featureBlockModalActive = show;
   }
 }
 

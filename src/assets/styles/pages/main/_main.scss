@@ -19,28 +19,48 @@ a:hover {
   padding: 0;
   position: relative;
 
-  &__logo {
+  &__logo-block {
     background: black;
+  }
+
+  &__logo {
+    background: transparent;
     padding: 100px 60px 100px;
   }
 
   &__content-container {
-    background: linear-gradient(180deg, #000000 0%, #E2DEDB 18.34%, #FFFFFF 100%);
+    background: linear-gradient(180deg, #000000 0%, #E2DEDB 11.34%, #FFFFFF 100%);
   }
 
   &__header {
-    font-size: 42px;
+    font-size: 36px;
     text-align: center;
     font-weight: normal;
+    height: 200px;
+    margin: auto;
+    max-width: 1200px;
     background-image: linear-gradient(178.58deg, #00C2FF 10.73%, #00C2FF 30.45%, #0066FF 56.51%);
     background-size: 100%;
     background-repeat: repeat;
-    padding: 0 50px;
-    max-width: 1200px;
-    margin: 0 auto 200px;
-
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  @media only screen and (min-width: 901px) {
+    .scroll-block {
+      height: 100vh;
+      max-height: 100vh;
+    }
+
+    &__logo-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    &__header {
+      margin: 0 auto;
+    }
   }
 
   // Main page
