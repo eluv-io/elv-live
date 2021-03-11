@@ -11,21 +11,12 @@ import ComputerDiagrams from "Assets/icons/computer-diagrams.svg";
 
 import ImageIcon from "Common/ImageIcon";
 
-const CardImages = {
-  retain_control: [
-    {
-      image: TestImage
-    },
-    {
-      image: TestImage
-    }
-  ]
-};
-
 const HeaderImages = {
   computers: ComputerDiagrams
 };
 
+@inject("mainStore")
+@observer
 class CardModal extends React.Component {
   constructor(props) {
     super(props);
@@ -36,12 +27,13 @@ class CardModal extends React.Component {
   }
 
   SelectedImage() {
+    const image = this.props.mainStore.CardImages(this.props.copyKey)[this.state.image] || TestImage;
+
     return (
       <div className="card-modal__selected-image-container">
         <ImageIcon
           className="card-modal__selected-image"
-          //icon={CardImages[this.props.copyKey][this.state.image].image}
-          icon={TestImage}
+          icon={image}
           label={this.props.copyKey}
         />
       </div>

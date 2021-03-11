@@ -78,6 +78,16 @@ class MainStore {
     return this.FeaturedSiteUrl(siteSlug, UrlJoin("info", "event_images", key))
   }
 
+  CardImages(copyKey) {
+    try {
+      return this.rootStore.siteStore.mainSiteInfo.info.images[copyKey].card_images.map((_, index) =>
+        this.MainSiteUrl(UrlJoin("images", copyKey, "card_images", index.toString(), "card_image"))
+      );
+    } catch(error) {
+      return [];
+    }
+  }
+
   @action.bound
   ToggleFeatureBlockModal(show) {
     this.featureBlockModalActive = show;
