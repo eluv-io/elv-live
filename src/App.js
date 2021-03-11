@@ -1,8 +1,6 @@
 import React, {Suspense, lazy} from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
-import {Switch} from "react-router";
-import {BrowserRouter, Route} from "react-router-dom";
 
 import * as Stores from "Stores";
 
@@ -16,28 +14,35 @@ const SiteApp = lazy(() => import("./SiteApp"));
 @inject("siteStore")
 @observer
 class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path={["/", "/partners", "/technology", "/support", "/contact", "/terms"]}>
-            <div className="app-container main-app-container">
-              <Suspense fallback={<PageLoader/>}>
-                <MainApp />
-              </Suspense>
-            </div>
-          </Route>
+  async componentDidMount() {
+    if(!("scrollBehavior" in document.documentElement.style)) {
+      console.log("IMPORT SCROLL");
+      await import("scroll-behavior-polyfill");
+    }
+  }
 
-          <Route>
-            <div className="app-container site-app-container">
-              <Suspense fallback={<PageLoader/>}>
-                <SiteApp />
-              </Suspense>
-            </div>
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    );
+  render() {
+    const mainPages = ["/", "/partners", "/technology", "/support", "/contact", "/terms"];
+
+    if(mainPages.includes(window.location.pathname)) {
+      // Main site
+      return (
+        <div className="app-container main-app-container">
+          <Suspense fallback={<PageLoader/>}>
+            <MainApp />
+          </Suspense>
+        </div>
+      );
+    } else {
+      // Event site
+      return (
+        <div className="app-container site-app-container">
+          <Suspense fallback={<PageLoader/>}>
+            <SiteApp />
+          </Suspense>
+        </div>
+      );
+    }
   }
 }
 

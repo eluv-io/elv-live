@@ -45,8 +45,6 @@ class Main extends React.Component {
   }
 
   Scroll(event) {
-    console.log(event);
-
     if(window.innerWidth <= 900) {
       document.body.style.overflowY = "auto";
       return;
@@ -60,7 +58,7 @@ class Main extends React.Component {
     }
 
     // Debounce
-    if(Date.now() - this.lastScroll < 1000) {
+    if(Date.now() - this.lastScroll < 500) {
       return;
     }
 
