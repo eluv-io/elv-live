@@ -248,8 +248,6 @@ class CartStore {
       quantity: ticket.quantity,
     }));
 
-    const productId = ((cartDetails.tickets[0] || {}).ticketSku || {}).product_id || "placeholder";
-
     this.confirmationId = this.ConfirmationId();
     const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
 
@@ -257,9 +255,9 @@ class CartStore {
 
     let stripeParams = {
       mode: "payment",
-      successUrl: UrlJoin(baseUrl, "success", this.email, checkoutId),
+      successUrl: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
       cancelUrl: baseUrl,
-      clientReferenceId: productId,
+      clientReferenceId: checkoutId,
       customerEmail: this.email,
       lineItems: stripeCart,
       shippingAddressCollection: {
