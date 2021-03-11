@@ -16,7 +16,6 @@ const SiteApp = lazy(() => import("./SiteApp"));
 class App extends React.Component {
   async componentDidMount() {
     if(!("scrollBehavior" in document.documentElement.style)) {
-      console.log("IMPORT SCROLL");
       await import("scroll-behavior-polyfill");
     }
   }
