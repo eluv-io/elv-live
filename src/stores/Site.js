@@ -5,15 +5,12 @@ import EluvioConfiguration from "EluvioConfiguration";
 
 import mergeWith from "lodash/mergeWith";
 
-const createKeccakHash = require("keccak");
-
 class SiteStore {
   @observable mainSiteInfo;
   @observable baseSiteUrl;
 
   @observable tenantSlug;
   @observable tenants = {};
-
 
   @observable eventSites = {};
   @observable siteSlug;
