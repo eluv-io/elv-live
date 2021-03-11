@@ -35,10 +35,9 @@ class Header extends React.Component {
     this.setState({scrolled: window.scrollY > 200});
   }
 
-
   render() {
     return (
-      <header className={`header ${this.props.match.url === this.props.siteStore.baseSitePath ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
+      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
         <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
           <ImageIcon icon={Logo} label="Eluvio Live" />
         </NavLink>

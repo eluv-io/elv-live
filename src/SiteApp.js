@@ -19,7 +19,6 @@ const Success = MinLoadDelay(import("Confirmation/Success"));
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
-import Navigation from "Layout/Navigation";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -38,11 +37,11 @@ class SiteApp extends React.Component {
 
     return (
       <Switch>
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
           <Redirect to="/" />

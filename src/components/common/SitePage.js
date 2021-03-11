@@ -5,7 +5,7 @@ import {Redirect, withRouter} from "react-router";
 import {PageLoader} from "Common/Loaders";
 import Navigation from "Layout/Navigation";
 
-const SitePage = (Component, showHeader=true) => {
+const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
   @inject("siteStore")
   @observer
   @withRouter
@@ -33,7 +33,7 @@ const SitePage = (Component, showHeader=true) => {
 
       return (
         <>
-          { showHeader ? <Navigation /> : null }
+          { showHeader ? <Navigation mainPage={mainPage} /> : null }
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}
