@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
-import {Route} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 
 import "Styles/main-app.scss";
 import {PageLoader} from "Common/Loaders";
@@ -14,6 +14,7 @@ import Technology from "Pages/main/Technology";
 import Support from "Pages/main/Support";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
+import ScrollToTop from "Common/ScrollToTop";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -45,9 +46,13 @@ class MainApp extends React.Component {
   render() {
     return (
       <div className="main-app">
-        <Header />
-        { this.Routes() }
-        <Footer />
+        <BrowserRouter>
+          <ScrollToTop>
+            <Header />
+            { this.Routes() }
+            <Footer />
+          </ScrollToTop>
+        </BrowserRouter>
       </div>
     );
   }

@@ -11,7 +11,7 @@ import ImageIcon from "Common/ImageIcon";
 class Header extends React.Component {
   render() {
     return (
-      <header className={`header ${this.props.match.path === "/" ? "header-main" : ""}`}>
+      <header className={`header ${this.props.location.pathname === "/" ? "header-main" : ""}`}>
         <NavLink to="/" className="header__logo">
           <ImageIcon icon={Logo} label="Eluvio Live" />
         </NavLink>
