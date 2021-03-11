@@ -25,13 +25,13 @@
     font-weight: 300;
   }
 
-  &__image-container,
   &__text-container,
   &__actions {
     flex: 1 1 auto;
   }
 
   &__image-container {
+    flex: 2 1 auto;
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
@@ -41,15 +41,15 @@
 
     .promo-player,
     img {
-      max-height: calc(100vh - 550px);
+      max-height: calc(100vh - 500px);
       margin: 0 auto;
     }
 
     .promo-player {
-      max-height: calc(100vh - 550px);
-      min-height: calc(100vh - 550px);
-      min-width: calc((100vh - 550px) * 8 / 16);
-      max-width: calc((100vh - 550px) * 16 / 9);
+      max-height: calc(100vh - 500px);
+      min-height: calc(100vh - 500px);
+      min-width: calc((100vh - 500px) * 8 / 16);
+      max-width: calc((100vh - 500px) * 16 / 9);
     }
   }
 
@@ -62,22 +62,22 @@
 
   &__header {
     font-size: 64px;
-    margin: 25px auto;
+    margin: 15px auto;
 
     &:first-child {
       // Override semantic UI reset
-      margin-top: 25px;
+      margin-top: 15px;
     }
   }
 
   &__subheader {
     font-size: 36px;
-    margin: 0 auto 30px;
+    margin: 0 auto 20px;
   }
 
   &__text {
     font-size: 24px;
-    margin: 0 auto 20px;
+    margin: 0 auto 15px;
   }
 
   &__actions {

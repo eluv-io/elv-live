@@ -17,7 +17,6 @@ class Main extends React.Component {
   render() {
     return (
       <div className="page-content main-page">
-        <FeaturedEvents />
         <div className="main-page__logo-block scroll-block" id="scroll-block-logo">
           <div className="main-page__logo-container">
             <img src={Logo} alt="Eluvio Live" className="main-page__logo" />
@@ -25,9 +24,9 @@ class Main extends React.Component {
           <h2 className="main-page__header">
             { Copy.main.header }
           </h2>
-          <UpArrow />
           <DownArrow />
         </div>
+        <FeaturedEvents />
         <div className="main-page__content-container">
           <FeatureBlock copyKey="beautiful_quality" promoVideo />
           <FeatureBlock copyKey="directly_to_fans" />
