@@ -33,13 +33,14 @@
   &__image-container {
     flex: 2 1 auto;
     width: 100%;
-    margin: 0 auto;
     display: flex;
     align-items: flex-end;
     max-height: 100%;
+    //margin-bottom: 20px;
 
     .promo-player,
     img {
+      height: 100%;
       max-height: calc(100vh - 450px);
       margin: 0 auto;
     }
@@ -92,32 +93,6 @@
     width: 180px;
     height: 42px;
     cursor: pointer;
-  }
-
-  // Variants
-
-  &-directly_to_fans {
-    .feature-block__image-container {
-      max-width: 1200px;
-    }
-  }
-
-  &-retain_control {
-    .feature-block__image-container {
-      max-width: 680px
-    }
-  }
-
-  &-push_boundaries {
-    .feature-block__image-container {
-      max-width: 1200px
-    }
-  }
-
-  &-remonetize_endlessly {
-    .feature-block__image-container {
-      max-width: 1300px
-    }
   }
 
   @media only screen and (max-width: 900px) {
