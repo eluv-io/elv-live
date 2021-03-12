@@ -4,6 +4,34 @@
   max-height: 100vh;
   background: black;
   position: relative;
+
+  .arrow-right,
+  .arrow-left {
+    bottom: 100px;
+  }
+
+  .arrow-right {
+    right: 100px;
+  }
+
+  .arrow-left {
+    left: 80px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .arrow-left,
+    .arrow-right {
+      bottom: 75px;
+    }
+
+    .arrow-left {
+      left: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+    }
+  }
 }
 
 .featured-event {

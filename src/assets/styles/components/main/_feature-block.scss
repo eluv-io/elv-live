@@ -48,7 +48,7 @@
     .promo-player {
       max-height: calc(100vh - 450px);
       min-height: calc(100vh - 450px);
-      min-width: calc((100vh - 450px) * 8 / 16);
+      min-width: calc((100vh - 450px) * 16 / 9);
       max-width: calc((100vh - 450px) * 16 / 9);
     }
   }
@@ -137,6 +137,15 @@
     &__text {
       font-size: 18px;
       margin-bottom: 40px;
+    }
+
+    &__image-container {
+      .promo-player {
+        min-width: calc(100vw - 30px);
+        max-width: calc(100vw - 30px);
+        min-height: calc((100vw - 30px) * 9 / 16);
+        max-height: calc((100vw - 30px) * 9 / 16);
+      }
     }
   }
 }

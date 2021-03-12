@@ -78,6 +78,7 @@ a:hover {
 
 
 // Navigation arrows
+.card-modal,
 .scroll-block {
   position: relative;
 
@@ -91,8 +92,6 @@ a:hover {
     border: 0;
     padding: 10px;
     position: absolute;
-    bottom: 100px;
-    left: 80px;
     cursor: pointer;
     z-index: 15;
 
@@ -102,11 +101,6 @@ a:hover {
         fill: transparent;
       }
     }
-  }
-
-  .arrow-right {
-    left: unset;
-    right: 100px;
   }
 
   .arrow-up {
@@ -151,19 +145,6 @@ a:hover {
   }
 
   @media only screen and (max-width: 900px) {
-    .arrow-left,
-    .arrow-right {
-      bottom: 75px;
-    }
-
-    .arrow-left {
-      left: 10px;
-    }
-
-    .arrow-right {
-      right: 10px;
-    }
-
     .arrow-up,
     .arrow-down {
       display: none;

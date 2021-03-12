@@ -10,6 +10,8 @@ import TestImage from "Assets/images/ritaora/heroRita.jpg";
 import ComputerDiagrams from "Assets/icons/computer-diagrams.svg";
 
 import ImageIcon from "Common/ImageIcon";
+import LeftArrow from "Icons/left-arrow";
+import RightArrow from "Icons/right-arrow";
 
 const HeaderImages = {
   computers: ComputerDiagrams
@@ -22,21 +24,89 @@ class CardModal extends React.Component {
     super(props);
 
     this.state = {
-      image: 0
+      selected: 0,
+      previous: undefined
     };
   }
 
-  SelectedImage() {
-    const image = this.props.mainStore.CardImages(this.props.copyKey)[this.state.image] || TestImage;
+  ChangePage(page) {
+    const cards = this.props.mainStore.cardImages[this.props.copyKey];
+
+    this.setState({
+      selected: page % cards.length,
+      previous: this.state.selected
+    }, () => setTimeout(() => this.setState({previous: undefined}), 1500));
+  }
+
+  ImageControls() {
+    let leftArrow, rightArrow, rightText;
+
+    if(this.state.selected > 0) {
+      leftArrow = (
+        <button
+          className="arrow-left"
+          onClick={() => this.ChangePage(this.state.selected - 1)}
+        >
+          <ImageIcon icon={LeftArrow} label="Previous" />
+        </button>
+      );
+    }
+
+    if(this.state.selected < this.props.mainStore.cardImages[this.props.copyKey].length - 1) {
+      rightArrow = (
+        <button
+          className="arrow-right"
+          onClick={() => this.ChangePage(this.state.selected + 1)}
+        >
+          <ImageIcon icon={RightArrow} label="Next" />
+        </button>
+      );
+
+      const nextTitle = (this.props.mainStore.cardImages[this.props.copyKey][this.state.selected + 1] || {}).title || "";
+      if(nextTitle) {
+        rightText = (
+          <button
+            className="arrow-right-text"
+            onClick={() => this.ChangePage(this.state.selected + 1)}
+          >
+            View { nextTitle }
+          </button>
+        );
+      }
+    }
+
+    const title = (this.props.mainStore.cardImages[this.props.copyKey][this.state.selected] || {}).title || "";
 
     return (
-      <div className="card-modal__selected-image-container">
+      <div className="card-modal__image-controls">
+        { leftArrow }
+        <h3 className="card-modal__image-controls-title">
+          { title }
+        </h3>
+        { rightText }
+        { rightArrow }
+      </div>
+    );
+  }
+
+  Images() {
+    if(this.props.mainStore.cardImages[this.props.copyKey].length === 0) {
+      return (
         <ImageIcon
-          className="card-modal__selected-image"
-          icon={image}
+          className="card-modal__image card-modal__image-active"
+          icon={TestImage}
           label={this.props.copyKey}
         />
-      </div>
+      );
+    }
+
+    return this.props.mainStore.cardImages[this.props.copyKey].map(({url, title}, index) =>
+      <ImageIcon
+        key={`card-image-${index}`}
+        className={`card-modal__image ${index === this.state.selected ? "card-modal__image-active" : ""} ${index === this.state.previous ? "card-modal__image-fading-out" : ""}`}
+        icon={url || TestImage}
+        label={title}
+      />
     );
   }
 
@@ -70,7 +140,10 @@ class CardModal extends React.Component {
     return (
       <div className="card-modal">
         <div className="card-modal__image-container">
-          { this.SelectedImage() }
+          <div className="card-modal__image-container">
+            { this.Images() }
+            { this.ImageControls() }
+          </div>
         </div>
         <div className="card-modal__text-container">
           { Object.values(copy.sections).map((info, index) => this.TextSection(info, copy.border_color, index)) }
