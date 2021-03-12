@@ -55,3 +55,140 @@
     }
   }
 }
+
+
+
+.live-footer {
+  background: transparent;
+  background-clip: none;
+  box-sizing: none;
+  height: 220px !important;
+  outline-color: transparent;
+  overflow: hidden;
+  text-align: center !important;
+  top: 10px;
+  user-select: none;
+  width: 100% !important;
+
+  &__title {
+    color: #000 !important;
+    font-family: 'SF Display', 'Helvetica Neue';
+    font-size: 32px;
+    font-weight: bold !important;
+    text-align: left !important;
+  }
+
+  &__logo {
+    font-size: 28px;
+    height: auto;
+    margin-bottom: 10px;
+    width: 150px;
+
+    @media only screen and (max-width: 900px) {
+      margin-bottom: 0;
+      margin-left: 0;
+    }
+  }
+
+  &__p {
+    color: #000;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 7px !important;
+    max-width: 250px;
+    text-align: left;
+  }
+}
+
+.footer-container {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  margin: auto;
+  overflow: hidden;
+  width: 100%;
+}
+
+.footer-item {
+  color: rgba(0, 0, 0, 0.783);
+  font-family: Helvetica;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0.07em;
+  line-height: 150%;
+  padding: 0 35px;
+
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.footer-info {
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  padding-bottom: 30px;
+  width: 75vw;
+}
+
+.sponsor-container-footer {
+  width: 100%;
+  padding: 22px 0;
+  max-height: 100%;
+}
+
+.sponsor-message {
+  color: #A0A0A0;
+  font-size: 14px;
+  letter-spacing: 0.07em;
+  margin-bottom: 10px;
+}
+
+.sponsor-logos {
+  height: 100%;
+  align-items: flex-start;
+  align-self: center;
+  color: #000;
+  display: flex;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: space-around;
+  letter-spacing: -0.022em;
+  line-height: 1.47059;
+  margin: auto 0;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+  width: 100%;
+  max-height: 80px;
+}
+
+.sponsor-img-container-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  max-height: 100%;
+  max-height: 80px;
+  justify-content: center;
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+.big-sponsor-img-footer {
+  height: auto;
+  overflow: hidden;
+  object-fit: contain;
+  max-height: 100%;
+  width: 250px;
+  height: 80px;
+}
