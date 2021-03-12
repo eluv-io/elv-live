@@ -1,9 +1,9 @@
 .featured-events {
-  width: 100%;
+  background: black;
   height: calc(100vw * 9 / 16);
   max-height: 100vh;
-  background: black;
   position: relative;
+  width: 100%;
 
   .arrow-right,
   .arrow-left {
@@ -36,11 +36,11 @@
 
 .featured-event {
   animation: fadein 0.35s linear;
-  user-select: none;
-  position: relative;
-  width: 100%;
-  height: 100%;
   display: none;
+  height: 100%;
+  position: relative;
+  user-select: none;
+  width: 100%;
 
   &.featured-event-selected {
     display: block;
@@ -48,11 +48,11 @@
   }
 
   &.featured-event-fading-out {
-    opacity: 0;
     animation: fadeout 0.35s linear;
     display: block;
-    position: absolute;
     left: 0;
+    opacity: 0;
+    position: absolute;
     top: 0;
     z-index: 10;
 
@@ -63,22 +63,22 @@
 
   &__hero-image-container,
   &__hero-image {
+    height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
   }
 
   &__hero-image-container {
-    &:after {
-      content: "";
+    &::after {
+      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, black);
+      content: '';
+      height: 100%;
+      left: 0;
       position: absolute;
       top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, black);
     }
   }
 
@@ -89,46 +89,46 @@
 
   &__details {
     animation: fadein 1.25s ease-in;
-    z-index: 100;
-    position: absolute;
     bottom: 0;
-    width: 100%;
-    padding: 0 20px;
     margin-bottom: 100px;
+    padding: 0 20px;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
   }
 
   &__header,
   &__subheader {
-    letter-spacing: 0.3em;
+    color: white;
     font-size: 56px;
     font-weight: 300;
-    color: white;
+    letter-spacing: 0.3em;
     text-align: center;
     text-transform: uppercase;
   }
 
   &__subheader {
     font-size: 32px;
-    margin-top: 10px;
     font-weight: 200;
+    margin-top: 10px;
   }
 
   @media only screen and (max-width: 900px) {
     &__header {
-      font-weight: 300;
       font-size: 24px;
+      font-weight: 300;
     }
 
     &__subheader {
+      color: #eee;
       font-size: 14px;
       font-weight: 300;
       margin: 0;
-      color: #eee;
     }
 
     &__details {
-      padding-bottom: 0;
       margin-bottom: -10px;
+      padding-bottom: 0;
     }
   }
 }

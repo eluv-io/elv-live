@@ -1,11 +1,11 @@
 .cart-overlay-scroll-container {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   max-height: 50vh;
   overflow-y: auto;
   position: absolute;
-  top: 70px;
   right: 32px;
+  top: 70px;
   width: 325px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 
   * {
     font-family: Helvetica;
@@ -14,40 +14,40 @@
 
 .cart-overlay {
   animation: 0.4s fadein linear;
+  background: white;
   display: flex;
   flex-direction: column;
-  background: white;
   padding: 28px;
 
   &.empty {
+    color: #818181;
     font-size: 18px;
     font-weight: normal;
     line-height: 23px;
-    color: #818181;
     text-align: center;
   }
 
   .cart-overlay-close-button {
-    height: 35px;
-    width: 35px;
+    align-items: center;
     background: transparent;
     border: 0;
-    outline: 0;
-    cursor: pointer;
-    margin: 0;
-    position: absolute;
-    top: 10px;
-    padding: 10px;
-    right: 15px;
+    border: 0.5px solid #bfbfbf;
     border-radius: 100%;
-    border: 0.5px solid #BFBFBF;
+    cursor: pointer;
     display: flex;
+    height: 35px;
     justify-content: center;
-    align-items: center;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 35px;
 
     svg {
-      stroke: black;
       height: 100%;
+      stroke: black;
       width: 100%;
     }
 
@@ -67,27 +67,27 @@
   }
 
   .cart-overlay-checkout-button {
-    border-radius: 3px;
-    padding: 10px 0;
-    width: 225px;
-    margin: 10px auto;
     background: black;
+    border-radius: 3px;
     color: white;
-    text-transform: uppercase;
-    text-align: center;
-    max-width: 226px;
-    font-size: 16px;
-    letter-spacing: 0.14em;
-    font-weight: normal;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.14em;
+    margin: 10px auto;
+    max-width: 226px;
+    padding: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 225px;
   }
 }
 
 .cart-overlay-item {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
   font-weight: normal;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr;
   margin: 10px 0;
 
   * {
@@ -95,28 +95,28 @@
   }
 
   .item-name {
-    font-weight: bold;
     font-size: 16px;
+    font-weight: bold;
     letter-spacing: 0.07em;
-    text-transform: uppercase;
     margin-bottom: 10px;
+    text-transform: uppercase;
   }
 
   .remove-item {
-    text-decoration: underline;
-    outline: 0;
-    border: 0;
-    padding: 0;
     background: transparent;
-    color: #4E4E4E;
+    border: 0;
+    color: #4e4e4e;
     cursor: pointer;
+    outline: 0;
+    padding: 0;
+    text-decoration: underline;
   }
 }
 
 @media only screen and (max-width: 900px) {
   .cart-overlay-scroll-container {
-    width: 90%;
-    right: 5vw;
     max-height: 70vh;
+    right: 5vw;
+    width: 90%;
   }
 }

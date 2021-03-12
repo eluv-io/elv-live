@@ -2,11 +2,11 @@
   padding: 120px 115px;
 
   &__image-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 100px auto 50px;
     display: flex;
     justify-content: center;
+    margin: 100px auto 50px;
+    max-width: 1200px;
+    width: 100%;
   }
 
   &__image {
@@ -17,8 +17,8 @@
     display: grid;
     grid-gap: 50px;
     grid-template-columns: 1fr 2fr;
-    max-width: 1200px;
     margin: 0 auto 100px;
+    max-width: 1200px;
   }
 
   &__copy-header {
@@ -48,8 +48,8 @@
     }
 
     &__copy-block {
-      grid-template-columns: 1fr;
       grid-gap: 20px;
+      grid-template-columns: 1fr;
     }
 
     &__copy {

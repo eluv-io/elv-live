@@ -1,18 +1,18 @@
 .btn {
-  height: 48px;
-  width: 25rem;
   align-self: center;
   background-color: black;
   border: 1px solid black;
-  color: white;
   border-radius: 0;
   box-sizing: border-box;
+  color: white;
   cursor: pointer;
   font-size: 16px;
+  height: 48px;
   letter-spacing: 2px;
   line-height: 16px;
   text-align: center;
   text-transform: uppercase;
+  width: 25rem;
 
   &:hover {
     background-color: black;

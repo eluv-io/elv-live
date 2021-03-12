@@ -1,6 +1,6 @@
 .main-app {
   * {
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
   }
 }
 
@@ -25,25 +25,25 @@ a:hover {
 
   &__logo {
     background: transparent;
-    padding: 100px 60px;
     margin: 0 auto;
+    padding: 100px 60px;
   }
 
   &__content-container {
-    background: linear-gradient(180deg, #000000 0%, #E2DEDB 11.34%, #FFFFFF 100%);
+    background: linear-gradient(180deg, #000 0%, #e2dedb 11.34%, #fff 100%);
   }
 
   &__header {
+    background-clip: text;
+    background-image: linear-gradient(178.58deg, #00c2ff 10.73%, #00c2ff 30.45%, #06f 56.51%);
+    background-repeat: repeat;
+    background-size: 100%;
     font-size: 36px;
-    text-align: center;
     font-weight: normal;
     height: 200px;
     margin: auto;
     max-width: 1200px;
-    background-image: linear-gradient(178.58deg, #00C2FF 10.73%, #00C2FF 30.45%, #0066FF 56.51%);
-    background-size: 100%;
-    background-repeat: repeat;
-    -webkit-background-clip: text;
+    text-align: center;
     -webkit-text-fill-color: transparent;
   }
 
@@ -87,36 +87,36 @@ a:hover {
   .arrow-right,
   .arrow-up,
   .arrow-down {
-    height: 50px;
-    width: 36px;
     background: transparent;
     border: 0;
+    cursor: pointer;
+    height: 50px;
     padding: 10px;
     position: absolute;
-    cursor: pointer;
+    width: 36px;
     z-index: 15;
 
     svg {
       * {
-        stroke: rgba(255, 255, 255, 0.5);
         fill: transparent;
+        stroke: rgba(255, 255, 255, 0.5);
       }
     }
   }
 
   .arrow-up {
     left: unset;
+    margin: 0 auto;
     right: 25px;
     top: 75px;
-    margin: 0 auto;
     transform: rotate(90deg);
   }
 
   .arrow-down {
-    left: unset;
-    right: 25px;
     bottom: 25px;
+    left: unset;
     margin: 0 auto;
+    right: 25px;
     transform: rotate(270deg);
   }
 

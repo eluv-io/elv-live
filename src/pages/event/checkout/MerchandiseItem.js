@@ -307,7 +307,7 @@ class MerchandiseItem extends React.Component {
   }
 
   render() {
-    switch(this.View()) {
+    switch (this.View()) {
       case "cart":
         return this.CartView();
       case "mobile-cart":
