@@ -14,31 +14,6 @@
     height: 240px;
   }
 
-  &--logo {
-    height: 58px;
-    margin-bottom: 2rem;
-    user-select: none;
-    width: auto;
-
-    @media only screen and (max-width: 415px) {
-      height: 5rem;
-      margin-bottom: 2rem;
-      width: auto;
-    }
-  }
-
-  &__title {
-    box-sizing: border-box;
-    color: #000;
-    display: none;
-    font-family: 'SF Display', 'Helvetica Neue';
-    font-size: 60px;
-    font-weight: bold;
-    font-weight: 300;
-    line-height: 3rem;
-    margin-bottom: 25px;
-    text-align: center !important;
-  }
 
   input {
     border-radius: 4px;
@@ -66,27 +41,20 @@
 
   button {
     align-self: center;
-    align-self: center;
     background-color: black;
     border: 0;
-    border-radius: 0;
     border-radius: 3px;
     color: white;
     cursor: pointer;
     font-family: Helvetica;
     font-size: 16px;
-    font-size: 16px;
     font-style: normal;
     font-weight: normal;
-    height: 44px;
     height: 52px;
-    letter-spacing: 2px;
     letter-spacing: 0.14em;
-    line-height: 16px;
     line-height: 19px;
     margin-top: 20px;
     max-width: 100%;
-    text-align: center;
     text-align: center;
     text-transform: uppercase;
     width: calc(min(30rem, 90vw));
@@ -123,7 +91,6 @@ pre {
   font-family: Helvetica;
   font-size: 37px;
   font-style: normal;
-  letter-spacing: -0.5px;
   letter-spacing: 0;
   line-height: 100%;
   margin-bottom: 10px;
@@ -138,7 +105,6 @@ pre {
   color: black;
   font-family: Helvetica;
   font-size: 14px;
-  font-weight: 400;
   font-weight: 400;
   margin-bottom: 10px;
   padding: 0 40px;
@@ -175,17 +141,6 @@ pre {
   justify-content: center;
   justify-items: center;
   width: 100%;
-}
-
-.code-entry-background {
-  background: #e0ddd4;
-  background-position: center;
-  background-size: cover;
-  display: flex;
-  height: 100vh;
-  max-height: 100vh;
-  min-height: 100vh -webkit-fill-available;
-  width: 100vw;
 }
 
 .error-message {
