@@ -1,6 +1,5 @@
 .card-modal {
   background: white;
-  padding-bottom: 50px;
 
   &__text-container {
     position: relative;
@@ -130,8 +129,6 @@
   }
 
   @media only screen and (max-width: 900px) {
-    padding-bottom: 100px;
-
     &__image-controls-title {
       font-size: 18px;
       opacity: 1;
