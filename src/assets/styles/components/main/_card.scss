@@ -2,6 +2,95 @@
   background: white;
   padding-bottom: 50px;
 
+  &__text-container {
+    position: relative;
+    z-index: 2;
+    box-shadow: 8px 0 50px rgba(0, 0, 0, 0.25);
+  }
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    max-height: 70vh;
+    background-color: #E0E0E0;
+  }
+
+  &__image {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    padding: 20px 20px 75px;
+    z-index: 1;
+  }
+
+  &__image-active {
+    display: block;
+    animation: fadein 0.35s linear;
+    z-index: 2;
+  }
+
+  &__image-fading-out {
+    display: block;
+    animation: fadeout 0.35s linear;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  &__image-controls {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    .arrow-right,
+    .arrow-left {
+      position: relative;
+
+      svg {
+        * {
+          stroke: rgba(0, 0, 0, 0.5) !important;
+        }
+      }
+    }
+
+    .arrow-right {
+      right: 25px;
+    }
+
+    .arrow-left {
+      left: 25px;
+    }
+
+    .arrow-right-text {
+      border: 0;
+      background: transparent;
+      position: absolute;
+      right: 60px;
+      font-size: 14px;
+      font-weight: 300;
+      cursor: pointer;
+      padding-bottom: 3px;
+    }
+  }
+
+  &__image-controls-title {
+    font-size: 32px;
+    font-weight: 200;
+    color: black;
+    opacity: 0.5;
+    letter-spacing: 0.035em;
+    padding-bottom: 10px;
+  }
+
   &__text-section {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -10,17 +99,6 @@
 
     &:not(:last-child) {
       border-bottom: 1px solid black;
-    }
-  }
-
-  &__selected-image-container {
-    width: 100%;
-    max-height: 75vh;
-
-    img {
-      width: 100%;
-      max-height: 75vh;
-      object-fit: contain;
     }
   }
 
@@ -38,6 +116,11 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+
+    * {
+      stroke: #0084ff !important;
+      stroke-width: 2px!important;
+    }
   }
 
   &__text-section-copy {
@@ -48,6 +131,15 @@
 
   @media only screen and (max-width: 900px) {
     padding-bottom: 100px;
+
+    &__image-controls-title {
+      font-size: 18px;
+      opacity: 1;
+    }
+
+    .arrow-right-text {
+      display: none;
+    }
 
     &__text-section {
       margin: 0;

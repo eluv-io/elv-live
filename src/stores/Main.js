@@ -1,10 +1,19 @@
 import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
+import React from "react";
 
 class MainStore {
   @observable featureBlockModalActive = false;
   @observable promoPlayoutOptions = [];
+
+  @observable copyKeys = [
+    "beautiful_quality",
+    "directly_to_fans",
+    "retain_control",
+    "push_boundaries",
+    "remonetize_endlessly"
+  ];
 
   @computed get featuredSites() {
     return Object.values(this.rootStore.siteStore.eventSites["featured"] || {})
@@ -18,6 +27,23 @@ class MainStore {
       merchandise: this.rootStore.siteStore.mainSiteInfo.info.merchandise_partners
         .map((partner, index) => ({...partner, imageUrl: this.MainSiteUrl(UrlJoin("merchandise_partners", index.toString(), "image"))}))
     };
+  }
+
+  @computed get cardImages() {
+    const images = {};
+
+    this.copyKeys.forEach(copyKey => {
+      try {
+        images[copyKey] = this.rootStore.siteStore.mainSiteInfo.info.images[copyKey].card_images.map((_, index) => ({
+          title: this.rootStore.siteStore.mainSiteInfo.info.images[copyKey].card_images[index].title || "",
+          url: this.MainSiteUrl(UrlJoin("images", copyKey, "card_images", index.toString(), "card_image"))
+        }));
+      } catch(error) {
+        images[copyKey] = [];
+      }
+    });
+
+    return images;
   }
 
   constructor(rootStore) {
@@ -76,16 +102,6 @@ class MainStore {
 
   FeaturedSiteImageUrl(siteSlug, key) {
     return this.FeaturedSiteUrl(siteSlug, UrlJoin("info", "event_images", key))
-  }
-
-  CardImages(copyKey) {
-    try {
-      return this.rootStore.siteStore.mainSiteInfo.info.images[copyKey].card_images.map((_, index) =>
-        this.MainSiteUrl(UrlJoin("images", copyKey, "card_images", index.toString(), "card_image"))
-      );
-    } catch(error) {
-      return [];
-    }
   }
 
   @action.bound

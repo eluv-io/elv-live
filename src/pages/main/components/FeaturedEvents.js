@@ -73,7 +73,6 @@ class FeaturedEvents extends React.Component {
           <ImageIcon icon={RightArrow} label="Next" />
         </button>
 
-        <UpArrow />
         <DownArrow />
       </div>
     );
