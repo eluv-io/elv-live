@@ -242,8 +242,8 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  width: auto;
   text-align: left;
+  width: auto;
 
   @media only screen and (max-width: 600px) {
     margin-left: 10px;
@@ -374,6 +374,7 @@
 
 .stream-chat-form {
   position: relative;
+
   input {
     appearance: none;
     backdrop-filter: saturate(1.8) blur(20px);

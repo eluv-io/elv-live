@@ -2,53 +2,53 @@
   background: white;
 
   &__text-container {
+    box-shadow: 8px 0 50px rgba(0, 0, 0, 0.25);
     position: relative;
     z-index: 2;
-    box-shadow: 8px 0 50px rgba(0, 0, 0, 0.25);
   }
 
   &__image-container {
-    position: relative;
-    width: 100%;
+    background-color: #e0e0e0;
     height: 70vh;
     max-height: 70vh;
-    background-color: #E0E0E0;
+    position: relative;
+    width: 100%;
   }
 
   &__image {
     display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100%;
-    width: 100%;
+    left: 0;
     object-fit: contain;
     padding: 20px 20px 75px;
+    position: absolute;
+    top: 0;
+    width: 100%;
     z-index: 1;
   }
 
   &__image-active {
-    display: block;
     animation: fadein 0.35s linear;
+    display: block;
     z-index: 2;
   }
 
   &__image-fading-out {
-    display: block;
     animation: fadeout 0.35s linear;
+    display: block;
     opacity: 0;
     z-index: 1;
   }
 
   &__image-controls {
-    height: 65px;
-    display: flex;
     align-items: center;
+    bottom: 0;
+    display: flex;
+    height: 65px;
     justify-content: center;
-    z-index: 2;
     position: absolute;
     width: 100%;
-    bottom: 0;
+    z-index: 2;
 
     .arrow-right,
     .arrow-left {
@@ -70,31 +70,31 @@
     }
 
     .arrow-right-text {
-      border: 0;
       background: transparent;
-      position: absolute;
-      right: 60px;
+      border: 0;
+      cursor: pointer;
       font-size: 14px;
       font-weight: 300;
-      cursor: pointer;
       padding-bottom: 3px;
+      position: absolute;
+      right: 60px;
     }
   }
 
   &__image-controls-title {
+    color: black;
     font-size: 32px;
     font-weight: 200;
-    color: black;
-    opacity: 0.5;
     letter-spacing: 0.035em;
+    opacity: 0.5;
     padding-bottom: 10px;
   }
 
   &__text-section {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 39px 0;
     margin: 0 85px;
+    padding: 39px 0;
 
     &:not(:last-child) {
       border-bottom: 1px solid black;
@@ -112,20 +112,20 @@
 
   &__text-section-header-image {
     margin-top: 65px;
-    max-width: 100%;
     max-height: 100%;
+    max-width: 100%;
     object-fit: contain;
 
     * {
       stroke: #0084ff !important;
-      stroke-width: 2px!important;
+      stroke-width: 2px !important;
     }
   }
 
   &__text-section-copy {
-    width: 100%;
     font-size: 16px;
     padding: 0 10px;
+    width: 100%;
   }
 
   @media only screen and (max-width: 900px) {
@@ -139,15 +139,15 @@
     }
 
     &__text-section {
+      grid-template-columns: 1fr;
       margin: 0;
       padding: 39px 20px;
-      grid-template-columns: 1fr;
       text-align: center;
     }
 
     &__text-section-header-section {
-      padding: 0;
       margin-bottom: 10px;
+      padding: 0;
     }
 
     &__text-section-header {

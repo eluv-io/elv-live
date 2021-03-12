@@ -71,11 +71,11 @@ class Event extends React.Component {
           <div className="event-container__heading">
             {
               this.props.siteStore.eventLogo ?
-              <div className="event-hero-logo-container">
-                <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
-              </div>
-              :
-              <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
+                <div className="event-hero-logo-container">
+                  <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
+                </div>
+                :
+                <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
             }
             {
               this.props.siteStore.eventInfo.event_subheader ?

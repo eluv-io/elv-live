@@ -115,9 +115,9 @@
 
   @media only screen and (max-width: 1200px) {
     display: flex;
-    justify-content: space-between;
     font-size: 18px;
     font-weight: normal;
+    justify-content: space-between;
     margin-bottom: 10px;
   }
 }
@@ -134,10 +134,10 @@
   -webkit-line-clamp: 4;
   line-height: 140%;
   margin-top: 5px;
+  min-height: 120px;
   overflow: hidden;
   padding-right: 30px;
   position: relative;
-  min-height: 120px;
 
   @media only screen and (max-width: 750px) {
     font-size: 14px;
@@ -155,10 +155,10 @@
   width: auto;
 
   .ticket-price {
-    display: flex;
     align-items: center;
-    margin: 0 38px;
+    display: flex;
     font-size: 18px;
+    margin: 0 38px;
   }
 
   @media only screen and (max-width: 1200px) {
