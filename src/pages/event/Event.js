@@ -69,14 +69,14 @@ class Event extends React.Component {
         <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
         <div className="main-content-container event-container">
           <div className="event-container__heading">
-            {this.props.siteStore.eventLogo ?
-              <div className="event-hero-logo-container">
-                <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
-              </div>
-              :
-              <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
+            {
+              this.props.siteStore.eventLogo ?
+                <div className="event-hero-logo-container">
+                  <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
+                </div>
+                :
+                <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
             }
-            {/* <h1 className="name">{ this.props.siteStore.eventInfo.event_header }</h1> */}
             {
               this.props.siteStore.eventInfo.event_subheader ?
                 <h1 className="event-hero-header">{this.props.siteStore.eventInfo.event_subheader}</h1> : null
@@ -102,7 +102,6 @@ class Event extends React.Component {
           {/* <div className="event-container__countdown">
             <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />
           </div> */}
-
 
           <div className="event-container__overview">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />

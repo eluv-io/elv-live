@@ -12,24 +12,24 @@
   }
 
   &__logo {
-    width: 191px;
-    height: auto;
     fill: black;
+    height: auto;
     stroke: black;
+    width: 191px;
   }
 
   &__links {
-    margin: 52px 163px 0;
-    padding: 50px 0;
     border-top: 1px solid black;
     display: flex;
     justify-content: center;
+    margin: 52px 163px 0;
+    padding: 50px 0;
   }
 
   &__link {
-    padding: 0 56px;
     font-size: 16px;
     letter-spacing: 0.07em;
+    padding: 0 56px;
   }
 
   // Footer
@@ -45,8 +45,8 @@
 
     &__links {
       border: 0;
-      margin: 0 35px;
       justify-content: space-between;
+      margin: 0 35px;
     }
 
     &__link {

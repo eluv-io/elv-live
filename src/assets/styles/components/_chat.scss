@@ -4,13 +4,10 @@ $color-background1: rgba(245, 235, 225, 0.2);
 $color-background2: rgba(245, 235, 225, 0.3);
 
 .str-chat__list {
-  // border-top: 1px solid;
-  // border-bottom: 1px solid;
   border-color: #808080;
 }
 
 .str-chat__container .str-chat__main-panel {
-  // background-color: rgba(245, 235, 225, 0) !important;
   border-color: #808080;
 }
 
@@ -19,7 +16,6 @@ $color-background2: rgba(245, 235, 225, 0.3);
 }
 
 .str-chat__input-flat {
-  // background-color: rgba(245, 235, 225, .3) !important;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.45) !important;
   height: 100px !important;
 }
@@ -94,23 +90,11 @@ $color-background2: rgba(245, 235, 225, 0.3);
 
 .str-chat__header-livestream-left--livelabel {
   font-size: 15px;
-  // margin: auto;
   margin-left: 5px;
-  // align-self: center;
-  // color: white;
-  // background-color: rgb(255,0,0);
-  // width: auto;
-  // padding: 2px 8px !important;
-  // animation-duration: 0s;
-  // border-radius: 2px;
 }
 
 .str-chat__header-livestream-left--livelabel::before {
-  // font-size: 18px;
-  // color: white;
-  // background-color: white;
   top: -2px !important;
-  // display: none;
 }
 
 .str-chat__message-livestream:hover {
@@ -127,21 +111,6 @@ $color-background2: rgba(245, 235, 225, 0.3);
 .livestream.str-chat .str-chat__list .str-chat__reverse-infinite-scroll {
   padding-top: 20px !important;
 }
-
-// .str-chat__list {
-//   -ms-overflow-style: none;  /* IE and Edge */
-//   scrollbar-width: none;  /* Firefox */
-// }
-
-// .str-chat__list::-webkit-scrollbar {
-//   display: none;
-// }
-
-// .str-chat {
-//   margin: auto;
-//   background-color: rgba(245, 235, 225, .2) !important;
-
-// }
 
 .str-chat.livestream.dark {
   background: #1a1a1a;

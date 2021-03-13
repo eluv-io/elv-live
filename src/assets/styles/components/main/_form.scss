@@ -1,19 +1,19 @@
 .form-container {
-  width: 100%;
-  max-width: 900px;
-  background: #F3F3F3;
-  padding: 0 0 46px;
+  background: #f3f3f3;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   margin: auto;
+  max-width: 900px;
+  padding: 0 0 46px;
+  width: 100%;
 
   &__header {
     background: white;
-    padding: 40px 15px;
     font-size: 64px;
     font-weight: 300;
-    text-align: center;
-    margin-bottom: 43px;
     letter-spacing: 0.045em;
+    margin-bottom: 43px;
+    padding: 40px 15px;
+    text-align: center;
   }
 
   @media only screen and (max-width: 900px) {
@@ -42,49 +42,49 @@
   }
 
   &__input {
-    width: 440px;
-    background: #E1DFDD;
+    background: #e1dfdd;
     border: 0;
     height: 45px;
     padding: 0 15px;
+    width: 440px;
   }
 
   &__textarea {
-    padding: 15px;
     height: 200px;
+    padding: 15px;
     resize: vertical;
   }
 
   &__submit {
-    display: block;
-    cursor: pointer;
     background: transparent;
     border: 1px solid black;
-    margin: 50px auto;
-    width: 130px;
-    height: 42px;
+    cursor: pointer;
+    display: block;
     font-size: 16px;
-    text-transform: uppercase;
-    text-align: center;
+    height: 42px;
     letter-spacing: 0.14em;
+    margin: 50px auto;
+    text-align: center;
+    text-transform: uppercase;
+    width: 130px;
   }
 
   &__select-wrapper {
-    position: relative;
-    width: min-content;
-    display: flex;
     align-items: center;
     cursor: pointer;
+    display: flex;
+    position: relative;
+    width: min-content;
 
     &::after {
-      width: 14px;
-      height: 7px;
       background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35 20.63'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23626262;stroke-linecap:round;stroke-miterlimit:10;stroke-width:4px;%7D%3C/style%3E%3C/defs%3E%3Cpolyline class='cls-1' points='2 2 17.8 17.8 33 2.6'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      content: "";
+      color: black;
+      content: '';
+      height: 7px;
       position: absolute;
       right: 19px;
-      color: black;
+      width: 14px;
     }
 
     select {

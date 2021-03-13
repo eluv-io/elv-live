@@ -41,7 +41,6 @@ module.exports = {
       Code: Path.resolve(__dirname, "src/pages/code"),
       Confirmation: Path.resolve(__dirname, "src/pages/confirmation"),
       Event: Path.resolve(__dirname, "src/pages/event"),
-      Home: Path.resolve(__dirname, "src/pages/home"),
       Stream: Path.resolve(__dirname, "src/pages/stream"),
       Support: Path.resolve(__dirname, "src/pages/support"),
       Stores: Path.resolve(__dirname, "src/stores"),

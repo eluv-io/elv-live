@@ -16,9 +16,9 @@
 
   // Left side
   .item-image {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     .selected-image {
       max-height: 500px;
@@ -35,11 +35,11 @@
 
   .image-option {
     background: transparent;
-    height: 63px;
-    width: 63px;
-    object-fit: contain;
-    cursor: pointer;
     border: 1px solid transparent;
+    cursor: pointer;
+    height: 63px;
+    object-fit: contain;
+    width: 63px;
 
     &.selected {
       outline: 1px solid black;
@@ -49,8 +49,8 @@
   // Right side
 
   .item-details {
-    padding: 44px 0;
     height: 100%;
+    padding: 44px 0;
     position: relative;
   }
 
@@ -61,24 +61,24 @@
   }
 
   .item-price {
-    font-weight: bold;
     font-size: 24px;
+    font-weight: bold;
     margin-bottom: 12px;
   }
 
   .item-description {
-    max-width: 75%;
-    font-size: 16px;
-    letter-spacing: 0.03em;
     color: #212121;
-    margin-bottom: 30px;
+    font-size: 16px;
     font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 30px;
+    max-width: 75%;
   }
 
   .item-option-label {
+    display: flex;
     font-size: 16px;
     line-height: 18px;
-    display: flex;
     margin-bottom: 6px;
 
     .option-label {
@@ -95,13 +95,13 @@
 
   .item-option,
   .item-color {
-    outline: 0;
-    border-radius: 0;
-    border: 0;
     background: transparent;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
     font-size: 14px;
     font-weight: normal;
-    cursor: pointer;
+    outline: 0;
   }
 
   .item-color,
@@ -110,13 +110,13 @@
   }
 
   .item-color {
-    width: 23px;
-    height: 23px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
+    height: 23px;
+    justify-content: center;
     margin-right: 6px;
+    padding: 0;
+    width: 23px;
 
     &.selected {
       border: 1px solid black;
@@ -128,9 +128,9 @@
   }
 
   .item-color-swatch {
-    width: 19px;
+    border: 1px solid #bfbfbf;
     height: 19px;
-    border: 1px solid #BFBFBF;
+    width: 19px;
   }
 
   .item-option {
@@ -146,15 +146,15 @@
   }
 
   .item-add {
-    font-size: 16px;
     border-radius: 3px;
+    font-size: 16px;
     height: 42px;
     margin-top: 42px;
   }
 
   &.cart-view {
-    grid-template-columns: auto 1fr;
     grid-gap: 43px;
+    grid-template-columns: auto 1fr;
 
     .item-details {
       padding: 7px 0;
@@ -162,9 +162,9 @@
 
     .item-image,
     .selected-image {
-      width: 168px;
       max-height: 246px;
       min-height: 246px;
+      width: 168px;
     }
 
     .item-description {
@@ -179,29 +179,29 @@
     width: 611px;
 
     .remove-item {
-      position: initial;
-      width: 100%;
-      text-align: right;
       margin-top: 20px;
+      position: initial;
+      text-align: right;
+      width: 100%;
     }
 
     .featured-item-selection {
-      margin-right: 62px;
       height: 19px;
+      margin-right: 62px;
       width: 19px;
     }
 
     .item-header-price {
-      font-weight: bold;
       font-size: 18px;
+      font-weight: bold;
       position: absolute;
       right: 0;
     }
 
     .item-container {
       display: grid;
-      grid-template-columns: auto 1fr;
       grid-gap: 15px;
+      grid-template-columns: auto 1fr;
 
       .item-image,
       .selected-image {
@@ -217,8 +217,8 @@
 
     .item-options-container {
       display: grid;
-      grid-template-columns: 1fr auto;
       grid-gap: 10px;
+      grid-template-columns: 1fr auto;
       margin-bottom: 23px;
 
       .select-wrapper {
@@ -228,8 +228,8 @@
 
     .item-options {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       grid-gap: 10px;
+      grid-template-columns: 1fr 1fr;
 
       .item-option {
         width: auto;
@@ -269,8 +269,8 @@
 
     .item-image {
       .selected-image {
-        min-height: 300px;
         max-height: 300px;
+        min-height: 300px;
       }
     }
 
@@ -319,14 +319,14 @@
     }
 
     &.cart-view {
-      width: 100%;
       grid-template-columns: 1fr 3fr;
+      width: 100%;
 
       .item-image,
       .selected-image {
-        width: 100px!important;
         max-height: 150px;
         min-height: 150px;
+        width: 100px !important;
       }
     }
 
@@ -350,8 +350,8 @@
 
       .item-image,
       .selected-image {
-        max-width: 100px;
         max-height: 100px;
+        max-width: 100px;
       }
 
       .item-options-container,
@@ -369,8 +369,8 @@
 
       .select-wrapper,
       select {
-        width: 100%;
         text-align: center;
+        width: 100%;
       }
     }
   }

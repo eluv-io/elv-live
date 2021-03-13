@@ -15,8 +15,8 @@
 }
 
 a {
-  text-decoration: none;
   color: black;
+  text-decoration: none;
 
   &:hover {
     color: black;
@@ -83,47 +83,47 @@ body,
 
 // Styled select
 .select-wrapper {
+  align-items: center;
+  display: flex;
   position: relative;
   width: min-content;
-  display: flex;
-  align-items: center;
 
   &::after {
-    content: "▾";
+    color: black;
+    content: '▾';
     position: absolute;
     right: 19px;
-    color: black;
   }
 
   select {
-    background: #F2EEEA;
-    border-radius: 15px;
-    outline: 0;
-    border: 0;
-    padding: 0 17px;
     appearance: none;
+    background: #f2eeea;
+    border: 0;
+    border-radius: 15px;
     height: 44px;
+    outline: 0;
+    padding: 0 17px;
     width: 100%;
   }
 }
 
-input[type="checkbox"] {
-  height: 19px;
-  width: 19px;
+input[type='checkbox'] {
   border: 1px solid #6a6a6a;
   border-radius: 2px;
+  height: 19px;
+  width: 19px;
 }
 
 .mobile-only {
-  display: none!important;
+  display: none !important;
 }
 
 @media only screen and (max-width: 900px) {
   .no-mobile {
-    display: none!important;
+    display: none !important;
   }
 
   .mobile-only {
-    display: inherit!important;
+    display: inherit !important;
   }
 }

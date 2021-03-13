@@ -1,6 +1,6 @@
 .site-app {
   &.dark {
-    background: linear-gradient(180deg, #000000 0%, #272213 100%);
+    background: linear-gradient(180deg, #000 0%, #272213 100%);
 
     // Loader
     .page-loader {
@@ -83,7 +83,7 @@
 
     // Footer
     .footer-info {
-      border-bottom: 1px solid #5A5A5A;
+      border-bottom: 1px solid #5a5a5a;
 
       * {
         color: white;
@@ -92,7 +92,7 @@
 
     // Payment
     .ticket-modal {
-      background: linear-gradient(180deg, #000000 0%, #272213 100%);
+      background: linear-gradient(180deg, #000 0%, #272213 100%);
 
       .payment-info {
         * {
