@@ -13,8 +13,8 @@
     "add-build": "git add dist",
     "lint-js": "eslint \"src/**/*.js\"",
     "fix-js": "eslint \"src/**/*.js\" --fix",
-    "lint-scss": "stylelint '**/*.scss' --config .stylelintrc.yml",
-    "fix-scss": "stylelint '**/*.scss' --config .stylelintrc.yml --fix",
+    "lint-scss": "stylelint '**/*.scss' --config stylelint.config.js",
+    "fix-scss": "stylelint '**/*.scss' --config stylelint.config.js --fix",
     "lint-show": "npm run lint-scss ; npm run lint-js",
     "lint": "npm run fix-scss ; npm run fix-js",
     "test": "jest"

@@ -1,8 +1,8 @@
 .checkout {
-  padding: 10px 0 50px;
   background: white;
-  position: relative;
   max-width: 100%;
+  padding: 10px 0 50px;
+  position: relative;
   width: 100%;
 
   * {
@@ -15,55 +15,55 @@
   }
 
   .bottom-border {
-    background: #D0D0D0;
-    position: absolute;
+    background: #d0d0d0;
     height: 1px;
-    width: calc(100% + 37px);
     left: -37px;
     margin-top: 37px;
+    position: absolute;
+    width: calc(100% + 37px);
   }
 
   .cart-section {
     padding-bottom: 0;
 
     &.empty {
+      color: #818181;
       font-size: 18px;
       font-weight: normal;
       line-height: 23px;
-      color: #818181;
-      text-align: center;
       padding-bottom: 37px;
+      text-align: center;
     }
   }
 
   .checkout-section-header {
-    display: flex;
     align-items: center;
-    font-weight: 300;
+    display: flex;
     font-size: 24px;
-    line-height: 28px;
+    font-weight: 300;
     letter-spacing: 0.07em;
-    text-transform: uppercase;
+    line-height: 28px;
     margin: 41px 0 28px;
+    text-transform: uppercase;
 
     svg {
       height: 30px;
-      width: 30px;
       margin-right: 17px;
+      width: 30px;
     }
   }
 
   .cart-item {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     grid-gap: 13px;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     position: relative;
 
     .bottom-border {
-      margin: 0;
       bottom: 0;
-      width: calc(100% + 127px);
       left: -91px;
+      margin: 0;
+      width: calc(100% + 127px);
     }
   }
 
@@ -72,28 +72,28 @@
   }
 
   .cart-header-column {
-    height: 71px;
-    background-color: #F7F4F2;
-    display: flex;
     align-items: center;
+    background-color: #f7f4f2;
+    display: flex;
     font-weight: 300;
+    height: 71px;
     justify-content: center;
 
     &.long {
-      padding-left: 56px;
       justify-content: flex-start;
+      padding-left: 56px;
     }
   }
 
   .cart-item-cell {
-    padding: 24px 10px;
-    font-weight: bold;
     font-size: 18px;
+    font-weight: bold;
+    padding: 24px 10px;
 
     &:not(.cart-item-info) {
+      align-items: flex-start;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
     }
   }
 
@@ -104,26 +104,26 @@
 
   .item-name {
     font-size: 24px;
-    line-height: 28px;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
     font-weight: bold;
+    letter-spacing: 0.07em;
+    line-height: 28px;
     padding: 20px;
     text-align: left;
+    text-transform: uppercase;
   }
 
   .ticket-item {
     display: grid;
-    grid-template-columns: auto 1fr;
     grid-gap: 43px;
+    grid-template-columns: auto 1fr;
 
     .ticket-item-image {
-      width: 168px;
-      max-height: 246px;
-      min-height: 246px;
+      align-items: center;
       display: flex;
       justify-content: center;
-      align-items: center;
+      max-height: 246px;
+      min-height: 246px;
+      width: 168px;
 
       img {
         max-height: 100%;
@@ -143,36 +143,36 @@
   }
 
   .ticket-item-description {
-    margin-top: 19px;
-    font-weight: 300;
     font-size: 16px;
+    font-weight: 300;
+    margin-top: 19px;
   }
 
   .item-quantity {
-    width: 85px;
-    border: 1px solid black;
     background: white;
+    border: 1px solid black;
+    width: 85px;
   }
 
   .remove-item {
-    position: absolute;
+    background: transparent;
+    border: 0;
     bottom: 19px;
+    color: #4e4e4e;
+    cursor: pointer;
+    outline: 0;
+    position: absolute;
     right: 10px;
     text-decoration: underline;
-    outline: 0;
-    border: 0;
-    background: transparent;
-    color: #4E4E4E;
-    cursor: pointer;
   }
 
   .order-summary {
-    padding: 30px 45px;
+    background: #f2eeea;
     border-radius: 15px;
-    width: 611px;
     display: grid;
     grid-template-columns: 3fr 1fr;
-    background: #F2EEEA;
+    padding: 30px 45px;
+    width: 611px;
 
     label {
       margin-bottom: 10px;
@@ -184,14 +184,14 @@
   }
 
   .email-entry {
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
     margin-top: 27px;
-    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.12);
   }
 
   .featured-tickets {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: 42px;
+    grid-template-columns: 1fr 1fr;
   }
 
   .featured-ticket {
@@ -207,10 +207,10 @@
     }
 
     .featured-ticket-price {
+      font-size: 18px;
+      font-weight: bold;
       position: absolute;
       right: 0;
-      font-weight: bold;
-      font-size: 18px;
     }
 
     .featured-ticket-details {
@@ -224,8 +224,8 @@
     }
 
     .featured-ticket-options {
-      display: flex;
       align-items: center;
+      display: flex;
       margin-top: 23px;
 
       .ticket-sku {
@@ -243,22 +243,22 @@
   }
 
   .checkout-button {
+    align-items: center;
     border-radius: 3px;
     cursor: pointer;
     display: flex;
     height: 50px;
     justify-content: center;
-    align-items: center;
     letter-spacing: 0.14em;
-    text-transform: uppercase;
     position: relative;
+    text-transform: uppercase;
   }
 
   .stripe-checkout-logo {
     height: 38px;
-    width: auto;
     position: absolute;
     right: 10px;
+    width: auto;
   }
 
   .payment-actions {
@@ -277,15 +277,15 @@
 
 @media only screen and (max-width: 900px) {
   .checkout {
-    width: 100vw;
     min-height: 100vh;
     padding-bottom: 150px;
+    width: 100vw;
 
     .checkout-page-section {
       padding: 10px 20px 20px;
 
       &:not(.no-border) {
-        border-bottom: 1px solid #D0D0D0;
+        border-bottom: 1px solid #d0d0d0;
       }
     }
 
@@ -312,15 +312,15 @@
       width: 100%;
 
       h2 {
-        margin-bottom: 16px;
         font-weight: bold;
         justify-content: space-between;
+        margin-bottom: 16px;
       }
 
       .ticket-item-image {
-        width: 100px!important;
         max-height: 150px;
         min-height: 150px;
+        width: 100px !important;
       }
 
       .item-quantity-wrapper {
@@ -333,12 +333,12 @@
       }
 
       .remove-item {
-        position: initial;
-        width: 100%;
-        text-align: right;
-        margin-top: 20px;
-        font-weight: bold;
         font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+        position: initial;
+        text-align: right;
+        width: 100%;
       }
     }
 
@@ -411,8 +411,8 @@
       .checkout-button,
       .paypal-button,
       .paypal-buttons {
-        width: 100%;
         max-width: 100%;
+        width: 100%;
       }
     }
   }

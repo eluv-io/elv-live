@@ -10,17 +10,17 @@
   }
 
   input {
-    width: 100%;
+    font-weight: normal;
     height: 60px;
     padding: 21px 51px;
-    font-weight: normal;
+    width: 100%;
   }
 
   .hint {
+    font-weight: normal;
+    letter-spacing: 0.03em;
     margin-top: 22px;
     text-align: center;
-    letter-spacing: 0.03em;
-    font-weight: normal;
   }
 
   @media only screen and (max-width: 900px) {

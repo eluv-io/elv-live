@@ -1,9 +1,9 @@
 .ticket-details {
+  background: #e0ddd9;
   display: grid;
-  grid-template-columns: minmax(40%, 1fr) minmax(60%, 1fr);
-  background: #E0DDD9;
-  padding: 50px 81px;
   grid-gap: 51px;
+  grid-template-columns: minmax(40%, 1fr) minmax(60%, 1fr);
+  padding: 50px 81px;
 
   &__ticket-info,
   .email-entry,
@@ -31,9 +31,9 @@
     margin-bottom: 20px;
 
     img {
-      max-width: 250px;
-      margin: auto;
       height: auto;
+      margin: auto;
+      max-width: 250px;
       object-fit: contain;
     }
   }
@@ -44,8 +44,8 @@
     font-size: 30px;
     font-weight: 300;
     letter-spacing: 0.07em;
-    text-transform: uppercase;
     text-align: center;
+    text-transform: uppercase;
   }
 
   &__location {
@@ -60,8 +60,8 @@
   }
 
   &__description {
-    font-weight: 300;
     font-size: 16px;
+    font-weight: 300;
   }
 
   &__ticket-info {
@@ -77,27 +77,27 @@
     }
 
     .ticket-details__sku-selection {
-      width: 225px;
       margin-right: 18px;
+      width: 225px;
     }
 
     .ticket-details__price {
-      font-weight: bold;
       font-size: 18px;
+      font-weight: bold;
     }
 
     .ticket-details__options {
-      display: flex;
       align-items: center;
+      display: flex;
       margin-top: 18px;
     }
 
     .ticket-details__option-date {
-      width: 100%;
-      font-weight: 300;
-      font-size: 16px;
-      margin: 15px 0;
       display: flex;
+      font-size: 16px;
+      font-weight: 300;
+      margin: 15px 0;
+      width: 100%;
 
       .separator {
         font-weight: bold;
@@ -119,18 +119,18 @@
   }
 
   &__sponsor-container {
-    margin-top: 30px;
-    padding: 0 10px;
     display: flex;
-    max-width: 100%;
     justify-content: center;
+    margin-top: 30px;
+    max-width: 100%;
+    padding: 0 10px;
   }
 
   &__sponsor-image-container {
     flex: 1 1 auto;
-    padding: 5px;
 
     max-width: 200px;
+    padding: 5px;
   }
 
   @media only screen and (max-width: 900px) {
