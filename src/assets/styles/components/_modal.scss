@@ -1,5 +1,108 @@
 .modal {
   @include page-fade-in;
+  align-items: center;
+  background-color: rgba($color-background, 0.8);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  margin: auto;
+  overflow-y: scroll;
+
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10000;
+}
+
+.modal__content {
+  max-height: 90vh;
+  max-width: 85vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  width: 1200px;
+  z-index: 10001;
+}
+
+.modal__close-button {
+  background-color: white;
+  border-radius: 100%;
+  cursor: pointer;
+  font-weight: 400;
+  height: 35px;
+  padding: 8px;
+  position: absolute;
+  right: 35px;
+  stroke: black;
+  top: 35px;
+  width: 35px;
+  z-index: 10002;
+
+  &:hover {
+    background-color: black;
+    stroke: white;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  .modal {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
+  .modal__content {
+    height: auto;
+    max-height: max-content;
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow: visible;
+    top: 0;
+  }
+
+  .modal__close-button {
+    border: 1px solid black;
+    right: 15px;
+    top: 15px;
+  }
+}
+
+.modal--promo-modal {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  .modal__content {
+    align-items: center;
+    //height: 100vh;
+    display: flex;
+    justify-content: center;
+    max-width: 1350px;
+    top: unset;
+    width: 100%;
+  }
+}
+
+.promo-player-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+
+  .promo-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    button {
+      &:disabled {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+.modal-2 {
+  @include page-fade-in;
 
   align-content: center;
   align-items: center;
@@ -36,8 +139,8 @@
 
   .promo-player {
     @media only screen and (max-width: 1250px) {
-      min-height: 50vh;
       margin-top: -10vh;
+      min-height: 50vh;
     }
   }
 
@@ -93,47 +196,36 @@
   display: none !important;
 }
 
-.ticket-modal-show {
+.modal-container {
   @include page-fade-in;
-
-  left: calc(calc(100vw -  #{'min(1350px, 75vw)'}) / 2);
-  opacity: 1;
-  -webkit-overflow-scrolling: touch;
-  top: calc(calc(100vh - #{'max(830px, 90vh)'}) / 2);
-  visibility: visible;
-
-  @media only screen and (max-width: 1250px) {
-    left: 0;
-    top: 0;
-  }
-}
-
-.ticket-modal {
-  @include page-fade-in;
-
   background-color: #e0ddd9;
   box-shadow: 0 1.5rem 4rem rgba($color-dark, 0.15);
   height: 92vh;
-  max-height: 92vh;
-  padding: 0;
-  max-width: 1250px;
-  width: max-content;
-  -webkit-overflow-scrolling: touch;
-  position: fixed;
-  top: 4vh;
-  left: 0;
-  right: 0;
+
+  left: calc(calc(100vw -  #{'min(1350px, 75vw)'}) / 2);
   margin: 0 auto;
+  max-height: 92vh;
+  max-width: 1250px;
+  opacity: 1;
+  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: calc(calc(100vh - #{'max(830px, 92vh)'}) / 2);
+  visibility: visible;
+  width: max-content;
   z-index: 5000000000;
 
   @media only screen and (max-width: 1250px) {
     height: 100%;
+    height: 100vh;
+    left: 0;
     margin-left: 0;
     margin-right: 0;
-    width: 100%;
-    height: 100vh;
     max-height: 100vh;
     top: 0;
+    width: 100%;
   }
 }
 
@@ -150,18 +242,7 @@
   }
 }
 
-.backdrop {
-  @include page-fade-in;
 
-  background-color: rgba($color-background, 0.8);
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  transition: all 0.5s;
-  width: 100%;
-  z-index: 1001;
-}
 
 .back-button-modal {
   background-color: transparent;

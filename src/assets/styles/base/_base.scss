@@ -9,19 +9,30 @@
   --backgroundColor: var(--backgroundColor); //var(--backgroundColor)
 }
 
-.app-version {
-  display: none;
-}
-
-.app {
+.site-app {
   background: linear-gradient(180deg, #f4f3f1 29.21%, #bdb6ae 100%);
   min-height: 100vh;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    color: black;
+  }
+}
+
+pre {
+  white-space: pre-wrap;
 }
 
 html,
 body,
 .app,
-.app-container {
+.app-container,
+.site-app,
+.main-app {
   min-height: 100vh;
 }
 
@@ -49,6 +60,9 @@ main {
 html,
 body,
 .app,
+.app-container,
+.site-app,
+.main-app,
 .page-container {
   display: flex;
   flex: 1 1 auto;
@@ -59,10 +73,57 @@ body,
   width: 100vw;
 }
 
-.app {
+.site-app-container {
   background: linear-gradient(180deg, #f4f3f1 29.21%, #bdb6ae 100%);
 }
 
 .main-content-container {
   @include page-fade-in;
+}
+
+// Styled select
+.select-wrapper {
+  align-items: center;
+  display: flex;
+  position: relative;
+  width: min-content;
+
+  &::after {
+    color: black;
+    content: '▾';
+    position: absolute;
+    right: 19px;
+  }
+
+  select {
+    appearance: none;
+    background: #f2eeea;
+    border: 0;
+    border-radius: 15px;
+    height: 44px;
+    outline: 0;
+    padding: 0 17px;
+    width: 100%;
+  }
+}
+
+input[type='checkbox'] {
+  border: 1px solid #6a6a6a;
+  border-radius: 2px;
+  height: 19px;
+  width: 19px;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+@media only screen and (max-width: 900px) {
+  .no-mobile {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: inherit !important;
+  }
 }

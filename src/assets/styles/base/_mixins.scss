@@ -46,3 +46,30 @@
 @mixin page-fade-in {
   animation: 0.5s fadein ease-in;
 }
+
+@mixin page-fade-out {
+  animation: 0.5s fadeout ease-in;
+}
+
+@mixin item-block {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+  padding: 15px 25px 25px;
+
+  h2 {
+    align-items: center;
+    display: flex;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.07em;
+    position: relative;
+    text-transform: uppercase;
+  }
+
+  @media only screen and (max-width: 900px) {
+    h2 {
+      font-size: 17px;
+    }
+  }
+}

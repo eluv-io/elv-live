@@ -1,0 +1,57 @@
+.footer {
+  &__logo-container {
+    display: flex;
+    justify-content: center;
+
+    svg {
+      * {
+        fill: black;
+        stroke: transparent;
+      }
+    }
+  }
+
+  &__logo {
+    fill: black;
+    height: auto;
+    stroke: black;
+    width: 191px;
+  }
+
+  &__links {
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: center;
+    margin: 52px 163px 0;
+    padding: 50px 0;
+  }
+
+  &__link {
+    font-size: 16px;
+    letter-spacing: 0.07em;
+    padding: 0 56px;
+  }
+
+  // Footer
+  @media only screen and (max-width: 900px) {
+    &__logo {
+      width: 110px;
+    }
+
+    &__logo-container {
+      border-bottom: 1px solid black;
+      padding-bottom: 52px;
+    }
+
+    &__links {
+      border: 0;
+      justify-content: space-between;
+      margin: 0 35px;
+    }
+
+    &__link {
+      font-size: 12px;
+      padding: 0;
+    }
+  }
+}

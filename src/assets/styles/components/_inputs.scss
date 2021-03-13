@@ -1,0 +1,34 @@
+.email-entry {
+  @include item-block;
+
+  font-family: Helvetica;
+  padding: 26px 54px;
+  width: 611px;
+
+  * {
+    font-family: Helvetica;
+  }
+
+  input {
+    font-weight: normal;
+    height: 60px;
+    padding: 21px 51px;
+    width: 100%;
+  }
+
+  .hint {
+    font-weight: normal;
+    letter-spacing: 0.03em;
+    margin-top: 22px;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 26px;
+    width: 100%;
+
+    input {
+      padding: 21px;
+    }
+  }
+}

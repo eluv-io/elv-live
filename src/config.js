@@ -9,8 +9,8 @@ const EluvioConfiguration = {
   "config-url": "https://demov3.net955210.contentfabric.io/config",
 
   // PROD Site (https://live.eluv.io/) for main branch using Eluvio Live Platform: ilib2bLJtRJG3LW9yScSNStbjkSqF2hH  iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv
-  "library-id": "ilib2bLJtRJG3LW9yScSNStbjkSqF2hH",
-  "object-id": "iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv",
+  //"object-id": "iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv",
+  "object-id": "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
 
 
   // TEST/STAGING Site (https://live-stg-eluv-io.web.app/) for develop branch using Eluvio Live Platform - DEV: ilib2bLJtRJG3LW9yScSNStbjkSqF2hH  iq__23edex4Fwgt98PzR7mMrMHp8dw6E

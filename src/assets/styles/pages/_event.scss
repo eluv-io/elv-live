@@ -1,18 +1,18 @@
 .event-page-container {
   display: flex;
   flex-direction: column;
-  // background-color: #92877a;
 }
 
 .event-hero-background {
   @include page-fade-in;
 
-  animation: 1s fadein linear;
+  animation: 0.8s fadein linear;
+  background-color: black;
   background-position: center top;
   background-size: cover;
   height: 100vh;
   margin: 0;
-  mask-image: linear-gradient(#000, rgba(0, 0, 0, 0.8) 55%, rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 30%, rgba(#f4f3f1, 0) 90%);
   min-height: 600px;
   min-width: 0;
   object-fit: cover;
@@ -37,9 +37,7 @@
 
   &__heading {
     display: grid;
-    // flex-direction: column;
     grid-row: heading-start / heading-end;
-    // margin: auto;
 
     & > h1 {
       color: #000;
@@ -65,7 +63,6 @@
         font-size: 15px;
         height: 45px;
         margin: 0;
-        // margin-top: 10px;
         width: 250px;
       }
     }
@@ -89,12 +86,8 @@
   &__countdown {
     color: #000;
     font-family: Helvetica;
-    font-family: Helvetica;
-    font-size: 24px;
     font-size: calc(min(calc(max(15vw, 18px)), 25px));
     font-style: normal;
-    font-style: normal;
-    font-weight: 300;
     font-weight: 300;
     grid-row: timer-start / timer-end;
     letter-spacing: 0.05em;
@@ -113,7 +106,6 @@
   }
 
   &__overview {
-    // background: linear-gradient(180deg, #fff 0%, #92877a 100%);
     grid-row-start: info-start;
     height: max-content;
     padding-bottom: 50px;
@@ -129,6 +121,12 @@
   }
 }
 
+.event-tabs-container {
+  @media only screen and (max-width: 900px) {
+    margin-top: 20px;
+  }
+}
+
 .info-social-box {
   align-items: flex-start;
   background: transparent;
@@ -138,39 +136,10 @@
   flex-direction: column;
   grid-column: span 1;
   height: auto;
-  margin: auto;
-  min-width: auto;
   min-width: auto;
   padding: 0;
   position: relative;
   width: auto;
-}
-
-.overview-social-box {
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin: auto;
-  width: 50%;
-
-  @media only screen and (max-width: 700px) {
-    width: 100%;
-  }
-}
-
-.stream-countdown {
-  align-content: center;
-  display: flex;
-  font-size: 40px;
-  height: auto;
-  justify-content: center;
-  margin: auto;
-  margin: auto;
-  text-align: center;
-  user-select: none;
-  width: 100%;
 }
 
 .event-hero-logo-container {
@@ -193,43 +162,27 @@
 .event-hero-logo {
   height: 100%;
   width: auto;
-  // @media only screen and (max-width: 1200px) {
-  //   width: calc(min(80vw, 750px));
-  // }
 }
 
 .event-hero-header {
-  font-size: 34px;
   font-size: calc(min(3vw, 34px));
   font-weight: 200;
   letter-spacing: 8px;
   line-height: 150%;
-  // white-space: nowrap;
-
-  // @media only screen and (max-width: 1200px) {
-  //   font-size: 32px !important;
-  // }
-
-  // @media only screen and (max-width: 1000px) {
-  //   font-size: 28px !important;
-  // }
 
   @include breakpoint('tablet-sm') {
     font-size: calc(min(3vw, 34px));
     letter-spacing: 5px;
-    // font-size: calc(min(4vw, 26px));
   }
 
   @include breakpoint('phone-lg') {
     font-size: calc(min(4.5vw, 34px));
     letter-spacing: 0;
-    // font-size: calc(min(4vw, 26px));
   }
 
   @include breakpoint('phone-sm') {
     font-size: calc(min(4.7vw, 32px));
     letter-spacing: 0;
-    // font-size: calc(min(4vw, 26px));
   }
 
   @media only screen and (max-height: 500px) {
