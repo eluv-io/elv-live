@@ -1,0 +1,114 @@
+.header {
+  align-items: center;
+  background: transparent;
+  border-bottom: 1px solid black;
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  padding: 0 53px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  &.header-scrolled {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  & > * {
+    flex: 1 1 auto;
+  }
+
+  &,
+  * {
+    transition: background-color 1s linear, color 0.5s linear, border 0.5s linear, stroke 0.5s linear, fill 0.5s linear;
+    user-select: none;
+  }
+
+  &__logo {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    padding-right: 20px;
+
+    svg {
+      height: auto;
+      width: 191px;
+
+      * {
+        fill: black;
+        stroke: transparent;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 13px;
+  }
+
+  &__link {
+    font-size: 18px;
+
+    &-active {
+      font-weight: bold;
+    }
+  }
+
+  &__search {
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    letter-spacing: 0.07em;
+  }
+
+  // Header is white on main page
+  &.header-main {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+
+    &.header-scrolled {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid transparent;
+    }
+
+    .header__link {
+      color: white;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    svg {
+      * {
+        fill: white;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 0 25px 0 15px;
+
+    &__logo {
+      padding: 0;
+
+      svg {
+        width: 90px;
+      }
+    }
+
+    &__links {
+      padding-top: 0;
+    }
+
+    &__link {
+      font-size: 14px;
+    }
+
+    &__search {
+      display: none;
+    }
+  }
+}

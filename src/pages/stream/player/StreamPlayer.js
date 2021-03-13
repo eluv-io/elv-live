@@ -6,7 +6,7 @@ import {toJS} from "mobx";
 import BitmovinImports from "bitmovin-player";
 import * as BitmovinUIImports from "bitmovin-player-ui";
 import CustomToggleButton from "Stream/player/CustomToggleButton";
-import {EluvioConfiguration} from "EluvioConfiguration";
+import EluvioConfiguration from "EluvioConfiguration";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {
@@ -110,7 +110,7 @@ class StreamPlayer extends React.Component {
             new BitmovinUIImports.VolumeSlider(),
             new BitmovinUIImports.Spacer(),
             this.StreamSwitchButton(),
-            new CustomToggleButton(this.props.handleDarkToggle, "ui-vrtogglebutton ui-darkmodetogglebutton"),
+            new CustomToggleButton(this.props.siteStore.ToggleDarkMode, "ui-vrtogglebutton ui-darkmodetogglebutton"),
             new BitmovinUIImports.FullscreenToggleButton(),
           ].filter(c => c),
           cssClasses: ["controlbar-bottom"],

@@ -1,5 +1,4 @@
 .support-page {
-  background: #e0ddd4;
   display: block;
   min-height: 100vh;
   overflow: auto;
@@ -114,7 +113,7 @@ $breakpointMed: 767px;
     color: rgb(0, 0, 0);
     direction: ltr;
     display: block;
-    font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
     font-size: 17px;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
@@ -175,7 +174,7 @@ $breakpointMed: 767px;
   color: #000;
   cursor: pointer;
   display: block;
-  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
   font-style: normal;

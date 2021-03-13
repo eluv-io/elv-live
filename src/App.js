@@ -1,88 +1,47 @@
 import React, {Suspense, lazy} from "react";
 import {render} from "react-dom";
 import {inject, observer, Provider} from "mobx-react";
-import {Switch} from "react-router";
-import {BrowserRouter, Route, Redirect} from "react-router-dom";
-
-// Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
-const MinLoadDelay = (Import, delay=500) => lazy(async () => {
-  await new Promise(resolve => setTimeout(resolve, delay));
-
-  return Import;
-});
-
-const Support = MinLoadDelay(import("Support/Support"));
-const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
-const Event = MinLoadDelay(import("Event/Event"));
-const Stream = MinLoadDelay(import("Stream/Stream"));
-const Success = MinLoadDelay(import("Confirmation/Success"));
-
-import {EluvioConfiguration} from "EluvioConfiguration";
 
 import * as Stores from "Stores";
 
-import "Styles/main.scss";
-import SitePage from "Common/SitePage";
+import "Styles/common.scss";
 import {PageLoader} from "Common/Loaders";
-import Navigation from "Layout/Navigation";
+
+const MainApp = lazy(() => import("./MainApp"));
+const SiteApp = lazy(() => import("./SiteApp"));
 
 @inject("rootStore")
 @inject("siteStore")
 @observer
 class App extends React.Component {
   async componentDidMount() {
-    await this.props.rootStore.InitializeClient();
-    await this.props.siteStore.LoadSiteSelector(EluvioConfiguration["object-id"]);
-  }
-
-  Routes() {
-    if(!this.SiteLoaded()) {
-      return <PageLoader />;
+    if(!("scrollBehavior" in document.documentElement.style)) {
+      await import("scroll-behavior-polyfill");
     }
-
-    return (
-      <Switch>
-        <Route exact path="/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, false)} />
-        <Route exact path="/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
-        <Route exact path="/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
-        <Route exact path="/:baseSlug?/:siteSlug" component={SitePage(Event)} />
-
-        <Route>
-          <Redirect to="/" />
-        </Route>
-      </Switch>
-    );
-  }
-
-  NavHeader() {
-    // Hide header on stream page
-    return (
-      <Switch>
-        <Route exact path="/:baseSlug?/:siteSlug/stream" component={null} />
-
-        <Route>
-          <Navigation />
-        </Route>
-      </Switch>
-    );
-  }
-
-  SiteLoaded() {
-    return this.props.rootStore.client && Object.keys(this.props.siteStore.availableSites).length > 0;
   }
 
   render() {
-    return (
-      <main className="app">
-        <BrowserRouter>
-          { this.NavHeader() }
+    const mainPages = ["/", "/partners", "/technology", "/support", "/contact", "/terms"];
+
+    if(mainPages.includes(window.location.pathname)) {
+      // Main site
+      return (
+        <div className="app-container main-app-container">
           <Suspense fallback={<PageLoader/>}>
-            { this.Routes() }
+            <MainApp />
           </Suspense>
-        </BrowserRouter>
-      </main>
-    );
+        </div>
+      );
+    } else {
+      // Event site
+      return (
+        <div className="app-container site-app-container">
+          <Suspense fallback={<PageLoader/>}>
+            <SiteApp />
+          </Suspense>
+        </div>
+      );
+    }
   }
 }
 

@@ -1,0 +1,125 @@
+.feature-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 100px;
+  max-height: 100%;
+  padding: 50px 50px 0;
+
+  &:first-child {
+    .arrow-up {
+      * {
+        stroke: rgba(255, 255, 255, 0.3) !important;
+      }
+    }
+  }
+
+  &:last-child {
+    .arrow-down {
+      display: none;
+    }
+  }
+
+  * {
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &__text-container,
+  &__actions {
+    flex: 1 1 auto;
+  }
+
+  &__image-container {
+    align-items: flex-end;
+    display: flex;
+    flex: 2 1 auto;
+    max-height: 100%;
+    width: 100%;
+    //margin-bottom: 20px;
+
+    .promo-player,
+    img {
+      height: 100%;
+      margin: 0 auto;
+      max-height: calc(100vh - 450px);
+    }
+
+    .promo-player {
+      max-height: calc(100vh - 450px);
+      max-width: calc((100vh - 450px) * 16 / 9);
+      min-height: calc(100vh - 450px);
+      min-width: calc((100vh - 450px) * 16 / 9);
+    }
+  }
+
+  &__header,
+  &__subheader,
+  &__text {
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  &__header {
+    font-size: 64px;
+    margin: 15px auto;
+
+    &:first-child {
+      // Override semantic UI reset
+      margin-top: 15px;
+    }
+  }
+
+  &__subheader {
+    font-size: 36px;
+    margin: 0 auto 20px;
+  }
+
+  &__text {
+    font-size: 24px;
+    margin: 0 auto 15px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+
+  &__action {
+    background-color: transparent;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 16px;
+    height: 42px;
+    width: 180px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 0 10px;
+
+    &__header {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    &__subheader {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    &__text {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    &__image-container {
+      .promo-player {
+        max-height: calc((100vw - 30px) * 9 / 16);
+        max-width: calc(100vw - 30px);
+        min-height: calc((100vw - 30px) * 9 / 16);
+        min-width: calc(100vw - 30px);
+      }
+    }
+  }
+}

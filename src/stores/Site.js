@@ -1,30 +1,31 @@
 import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
-//import { ethers } from "ethers";
+import EluvioConfiguration from "EluvioConfiguration";
 
 import mergeWith from "lodash/mergeWith";
-import {NonPrefixNTPId} from "Utils/Misc";
-
-const createKeccakHash = require("keccak");
 
 class SiteStore {
-  // Eluvio Live - Data Store
-  @observable faqData = [];
-  @observable availableSites = {};
+  @observable mainSiteInfo;
+  @observable baseSiteUrl;
+
+  @observable tenantSlug;
+  @observable tenants = {};
+
   @observable eventSites = {};
   @observable siteSlug;
+  @observable siteIndex;
   @observable activeTicket;
+  @observable darkMode = false;
 
-  @observable baseSiteSelectorUrl;
-
-  // Eluvio Live - Event Stream
   @observable streams = [];
   @observable promos;
 
-  // Eluvio Live - Modal
   @observable showCheckout = false;
   @observable selectedTicket;
+
+  @observable siteId;
+  @observable siteHash;
 
   @observable error = "";
 
@@ -32,16 +33,37 @@ class SiteStore {
     return this.rootStore.client;
   }
 
+  @computed get siteLoaded() {
+    return this.rootStore.client && this.mainSiteInfo;
+  }
+
+  // Main site
+  @computed get availableTenants() {
+    return Object.keys((this.mainSiteInfo || {}).tenants || {});
+  }
+
+  @computed get featuredSiteKeys() {
+    const featured = (this.mainSiteInfo || {}).featured_events || {};
+    return Object.keys(featured)
+      .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
+  }
+
   @computed get currentSite() {
-    return this.eventSites[this.siteSlug];
+    return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
   }
 
   @computed get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
   }
 
-  @computed get siteMetadataPath() {
-    return UrlJoin("public", "asset_metadata", "sites", this.siteSlug || "");
+  @computed get currentSiteMetadataPath() {
+    if(this.tenantSlug) {
+      // Tenant site
+      return UrlJoin("public", "asset_metadata", "tenants", this.tenantSlug, "sites", this.siteSlug || "");
+    } else {
+      // Featured site
+      return UrlJoin("public", "asset_metadata", "featured_events", this.siteIndex.toString(), this.siteSlug || "");
+    }
   }
 
   @computed get baseSlug() {
@@ -51,7 +73,7 @@ class SiteStore {
   @computed get baseSitePath() {
     if(!this.siteSlug) { return window.location.pathname }
 
-    return UrlJoin("/", this.baseSlug, this.siteSlug);
+    return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
   }
 
   @computed get hasPromos() {
@@ -66,14 +88,35 @@ class SiteStore {
     this.rootStore = rootStore;
   }
 
+  SiteMetadataPath({tenantSlug, siteIndex, siteSlug}={}) {
+    if(tenantSlug) {
+      // Tenant site
+      return UrlJoin("public", "asset_metadata", "tenants", tenantSlug, "sites", siteSlug || "");
+    } else {
+      // Featured site
+      return UrlJoin("public", "asset_metadata", "featured_events", siteIndex.toString(), siteSlug || "");
+    }
+  }
+
+  FeaturedSite(siteSlug) {
+    return this.featuredSiteKeys.find(({slug}) => slug === siteSlug);
+  }
+
+  @action.bound
+  ToggleDarkMode() {
+    this.darkMode = !this.darkMode;
+  }
+
   @action.bound
   Reset() {
     this.assets = {};
     this.error = "";
   }
 
-  LoadSiteSelector = flow(function * (objectId) {
+  @action.bound
+  LoadMainSite = flow(function * () {
     try {
+      const objectId = EluvioConfiguration["main-site-id"];
       const libraryId = yield this.client.ContentObjectLibraryId({objectId});
 
       this.siteParams = {
@@ -82,22 +125,13 @@ class SiteStore {
         versionHash: yield this.client.LatestVersionHash({objectId})
       };
 
-      this.baseSiteSelectorUrl = yield this.client.FabricUrl({...this.siteParams});
+      this.baseSiteUrl = yield this.client.FabricUrl({...this.siteParams});
 
-      const siteSelectorInfo = (yield this.client.ContentObjectMetadata({
+      this.mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
-        resolveLinks: false,
-        select: [
-          "sites",
-          "info/faq"
-        ]
+        resolveLinks: false
       })) || {};
-
-      // Loading Support FAQ questions & answers
-      this.faqData = (siteSelectorInfo.info || {}).faq || [];
-
-      this.availableSites = siteSelectorInfo.sites || {};
     } catch(error) {
       // TODO: Graceful error handling
       console.error("Error loading site", error);
@@ -105,30 +139,80 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * (baseSlug="", slug) {
-    if(this.eventSites[slug]) {
-      return baseSlug === this.baseSlug;
+  LoadFeaturedSites = flow(function * () {
+    yield Promise.all(
+      this.featuredSiteKeys.map(async ({index, slug}) =>
+        await this.LoadSite({siteIndex: index, siteSlug: slug, validateBaseSlug: false})
+      )
+    )
+  });
+
+  @action.bound
+  LoadTenant = flow(function * (slug) {
+    try {
+      if(this.tenants[slug]) { return; }
+
+      this.tenants[slug] = (yield this.client.ContentObjectMetadata({
+        ...this.siteParams,
+        metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
+        resolveLinks: false,
+        select: [
+          "sites"
+        ]
+      })) || {};
+
+      this.tenantSlug = slug;
+    } catch(error) {
+      // TODO: Graceful error handling
+      console.error("Error loading site", error);
+    }
+  });
+
+  @action.bound
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true}) {
+    const tenantKey = tenantSlug || "featured";
+    if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
+      return !validateBaseSlug || baseSlug === this.baseSlug;
+    }
+
+    if(!this.eventSites[tenantKey]) {
+      this.eventSites[tenantKey] = {};
     }
 
     try {
-      this.siteSlug = slug;
-      this.eventSites[slug] = yield this.client.ContentObjectMetadata({
+      this.tenantSlug = tenantSlug;
+      this.siteSlug = siteSlug;
+
+      if(typeof siteIndex === "undefined" && !tenantSlug) {
+        siteIndex = this.FeaturedSite(siteSlug).index;
+      }
+
+      this.siteIndex = siteIndex;
+
+      this.eventSites[tenantKey][siteSlug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         select: [
           ".",
           "info",
           "promos"
         ],
-        metadataSubtree: this.siteMetadataPath,
+        metadataSubtree: this.SiteMetadataPath({tenantSlug, siteIndex, siteSlug}),
         resolveLinks: true,
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
       });
 
-      const siteHash = this.eventSites[slug]["."].source;
-      this.siteId = this.client.utils.DecodeVersionHash(siteHash).objectId;
+      this.darkMode = this.eventSites[tenantKey][siteSlug].info.theme === "dark" ? true : false;
 
-      return baseSlug === this.baseSlug;
+      this.eventSites[tenantKey][siteSlug].siteSlug = siteSlug;
+      this.eventSites[tenantKey][siteSlug].siteIndex = parseInt(siteIndex);
+
+      this.siteHash = this.eventSites[tenantKey][siteSlug]["."].source;
+      this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
+
+      this.rootStore.cartStore.LoadLocalStorage();
+
+      return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
       console.error("Error loading site", error);
     }
@@ -138,7 +222,7 @@ class SiteStore {
   LoadStreams = flow(function * () {
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.siteMetadataPath, "streams"),
+      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "streams"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -157,7 +241,7 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.siteMetadataPath, "streams", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.currentSiteMetadataPath, "streams", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -173,7 +257,7 @@ class SiteStore {
 
     const titleLinks = yield this.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.siteMetadataPath, "promos"),
+      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "promos"),
       resolveLinks: true,
       resolveIgnoreErrors: true,
       resolveIncludeSource: true,
@@ -192,7 +276,7 @@ class SiteStore {
 
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.siteMetadataPath, "promos", index, slug, "sources", "default"),
+          linkPath: UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -211,23 +295,7 @@ class SiteStore {
   @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
-    var $body = $(document.body);
   }
-
-  // Generate confirmation number for checkout based on otpId and email
-  @action.bound
-  generateConfirmationId(otpId, email, sz=10) {
-    otpId = NonPrefixNTPId(otpId);
-
-    //Concatenate otpId and email, then hash
-    let id = createKeccakHash('keccak256').update(`${otpId}:${email}`).digest();
-
-    if (sz <  id.length) {
-      id = id.slice(0, sz);
-    }
-
-    return this.client.utils.B58(id);
-  };
 
   ActivateCode(code="") {
     let ticketPrefixMap = {};
@@ -255,12 +323,12 @@ class SiteStore {
 
   @computed get eventInfo() {
     let eventInfo = {
-      event_header: "EVENT_HEADER",
-      event_subheader: "EVENT_SUBHEADER",
-      event_title: "EVENT_TITLE",
-      location: "LOCATION",
+      event_header: "",
+      event_subheader: "",
+      event_title: "",
+      location: "",
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-      description: "DESCRIPTION",
+      description: "",
     };
 
     return mergeWith(
@@ -350,35 +418,61 @@ class SiteStore {
   /* Tickets and Products */
 
   @computed get ticketClasses() {
-    return (this.currentSiteInfo.tickets || []).map((ticket, index) => {
+    return (this.currentSiteInfo.tickets || []).map((ticketClass, index) => {
       return {
-        ...ticket,
+        ...ticketClass,
         image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
       }
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
   }
 
-  Products(currency) {
-    currency = (currency || "").toLowerCase();
+  Products() {
     return (this.currentSiteInfo.products || [])
-      .map((product, productIndex) => {
+      .map((product, index) => {
         return {
           ...product,
-          skus: (product.skus || []).filter(sku => ((sku.price || {}).currency).toLowerCase() === currency),
+          product_options: (product.product_options || []).map((option, optionIndex) => ({...option, optionIndex})),
           image_urls: (product.images || []).map((_, imageIndex) =>
-            this.SiteUrl(UrlJoin("info", "products", productIndex.toString(), "images", imageIndex.toString(), "image"))
+            this.SiteUrl(UrlJoin("info", "products", index.toString(), "images", imageIndex.toString(), "image"))
           )
         }
-      })
-      .filter(product => product.skus && product.skus.length > 0);
+      });
   }
 
-  DonationItems(currency) {
-    return this.Products(currency).filter(item => item.type === "donation");
+  DonationItems() {
+    return this.Products().filter(item => item.type === "donation");
   }
 
-  Merchandise(currency) {
-    return this.Products(currency).filter(item => item.type === "merchandise");
+  Merchandise() {
+    return this.Products().filter(item => item.type === "merchandise");
+  }
+
+  FeaturedMerchandise() {
+    return this.Merchandise().filter(item => item.featured);
+  }
+
+  DonationItem(uuid) {
+    return this.DonationItems().find(item => item.uuid === uuid);
+  }
+
+  MerchandiseItem(uuid) {
+    return this.Merchandise().find(item => item.uuid === uuid);
+  }
+
+  TicketClassItem(uuid) {
+    return this.ticketClasses.find(ticketClass => ticketClass.uuid === uuid);
+  }
+
+  TicketItem(uuid) {
+    for(const ticketClass of this.ticketClasses) {
+      const ticketSku = ticketClass.skus.find(sku => sku.uuid === uuid);
+
+      if(ticketSku) {
+        return { ticketClass, ticketSku };
+      }
+    }
+
+    return {};
   }
 
   /* Images */
@@ -388,23 +482,27 @@ class SiteStore {
       return "";
     }
 
-    const uri = URI(this.baseSiteSelectorUrl);
+    const uri = URI(this.baseSiteUrl);
 
     return uri
-      .path(UrlJoin(uri.path(), "meta", this.siteMetadataPath, path.toString()))
+      .path(UrlJoin(uri.path(), "meta", this.currentSiteMetadataPath, path.toString()))
       .toString();
   }
 
   SiteImageUrl(key) {
+    if(!(this.currentSiteInfo["event_images"] || {})[key]) {
+      return "";
+    }
+
     return this.SiteUrl(UrlJoin("info", "event_images", key))
   }
 
   @computed get heroBackground() {
     return this.SiteImageUrl("hero_background");
   }
-  
+
   @computed get eventLogo() {
-    return this.SiteImageUrl("event_logo");
+    return this.SiteImageUrl("header");
   }
 
   @computed get eventPoster() {
