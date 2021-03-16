@@ -9,6 +9,7 @@ import PartnerForm from "Pages/main/components/PartnerForm";
 @inject("mainStore")
 @observer
 class Partners extends React.Component {
+
   PartnerBlock(partner) {
     return (
       <div className="partner-block" key={`partner-block-${partner.name}`}>
