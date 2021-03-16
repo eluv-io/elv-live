@@ -11,7 +11,7 @@ class Terms extends React.Component {
         <h1 className="terms-page__header">Terms</h1>
 
         <div
-          className="terms-page__document markdown-document"
+          className="terms-page__document-frame markdown-document"
           ref={element => {
             if(!element) { return; }
 

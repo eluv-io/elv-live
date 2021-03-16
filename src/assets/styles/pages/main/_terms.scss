@@ -1,20 +1,37 @@
 .terms-page,
 .privacy-page {
   &__header {
-    font-size: 64px;
+    font-size: 36px;
     font-weight: 300;
     letter-spacing: 0.045em;
     text-align: center;
+    margin-bottom: 20px;
   }
 
-  .markdown-document {
-    max-width: 900px;
-    margin: 50px auto;
+  &__document-frame {
+    display: block;
+    border: 0;
+    flex: 1 1 100%;
+    outline: 0;
+    width: 750px;
+    max-width: 750px;
+    margin: 0 auto;
+    min-height: 60vh;
+    max-height: 60vh;
+    overflow-y: scroll;
+    padding: 0 20px;
   }
 
   @media only screen and (max-width: 900px) {
     &__header {
       font-size: 32px;
+    }
+
+    &__document-frame {
+      width: 100%;
+      max-width: 100%;
+      min-height: 50vh;
+      max-height: 50vh;
     }
   }
 }
