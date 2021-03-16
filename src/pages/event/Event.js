@@ -1,14 +1,10 @@
 import React, {lazy, Suspense} from "react";
 import {inject, observer} from "mobx-react";
 
-import CloseIcon from "Icons/x.svg";
-import Timer from "Common/Timer";
 import EventTabs from "Event/tabs/EventTabs";
 import Footer from "Layout/Footer";
 import {FormatDateString} from "Utils/Misc";
 
-import ImageIcon from "Common/ImageIcon";
-import Checkout from "Event/checkout/Checkout";
 import Modal from "Common/Modal";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
@@ -29,8 +25,6 @@ class Event extends React.Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
-
     this.props.siteStore.LoadPromos();
   }
 
@@ -98,10 +92,6 @@ class Event extends React.Component {
                 </button> : null
             }
           </div>
-
-          {/* <div className="event-container__countdown">
-            <Timer classProp="ticket-icon" premiereTime={this.props.siteStore.eventInfo.date} />
-          </div> */}
 
           <div className="event-container__overview">
             <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />

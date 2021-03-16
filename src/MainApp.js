@@ -15,6 +15,7 @@ import Support from "Pages/main/Support";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import ScrollToTop from "Common/ScrollToTop";
+import Privacy from "Pages/main/Privacy";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -27,19 +28,30 @@ class MainApp extends React.Component {
   }
 
   Routes() {
-    if(!this.props.siteStore.siteLoaded) {
-      return <PageLoader />;
-    }
-
     return (
       <Switch>
         <Route exact path="/"> <Main /> </Route>
         <Route exact path="/partners"> <Partners /> </Route>
         <Route exact path="/technology"> <Technology /> </Route>
         <Route exact path="/support"> <Support /> </Route>
+        <Route exact path="/privacy"> <Privacy /> </Route>
         <Route exact path="/contact"> <Contact /> </Route>
         <Route exact path="/terms"> <Terms /> </Route>
       </Switch>
+    );
+  }
+
+  Content() {
+    if(!this.props.siteStore.siteLoaded) {
+      return <PageLoader />;
+    }
+
+    return (
+      <ScrollToTop>
+        <Header />
+        { this.Routes() }
+        <Footer />
+      </ScrollToTop>
     );
   }
 
@@ -47,11 +59,7 @@ class MainApp extends React.Component {
     return (
       <div className="main-app">
         <BrowserRouter>
-          <ScrollToTop>
-            <Header />
-            { this.Routes() }
-            <Footer />
-          </ScrollToTop>
+          { this.Content() }
         </BrowserRouter>
       </div>
     );

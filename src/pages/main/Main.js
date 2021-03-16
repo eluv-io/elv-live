@@ -5,15 +5,10 @@ import Copy from "./copy/Copy.yaml";
 import FeaturedEvents from "Pages/main/components/FeaturedEvents";
 import Logo from "Assets/images/logo/coloredEluvioLiveLogo.png";
 import FeatureBlock from "Pages/main/components/FeatureBlock";
-import {UpArrow, DownArrow} from "Pages/main/components/NavigationArrows";
 
 @inject("mainStore")
 @observer
 class Main extends React.Component {
-  componentDidMount() {
-    this.props.mainStore.LoadPromos();
-  }
-
   render() {
     return (
       <div className="page-content main-page">
@@ -25,8 +20,6 @@ class Main extends React.Component {
           <h2 className="main-page__header">
             { Copy.main.header }
           </h2>
-          <UpArrow />
-          <DownArrow />
         </div>
         <div className="main-page__content-container">
           { this.props.mainStore.copyKeys.map(copyKey =>

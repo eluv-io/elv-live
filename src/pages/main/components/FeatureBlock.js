@@ -2,11 +2,11 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
 
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+
 import Copy from "../copy/Copy.yaml";
 import CardModal from "Pages/main/components/CardModal";
 import Modal from "Common/Modal";
-import BitmovinPlayer from "Common/BitmovinPlayer";
-import {DownArrow, UpArrow} from "Pages/main/components/NavigationArrows";
 
 @inject("mainStore")
 @observer
@@ -32,9 +32,42 @@ class FeatureBlock extends React.Component {
 
     const imageUrl = this.props.mainStore.MainSiteUrl(UrlJoin("images", this.props.copyKey, "main_image"));
 
-    let media = <img src={imageUrl} alt={copy.header} className="feature-block__image" />;
-    if(this.props.promoVideo && this.props.mainStore.promoPlayoutOptions[0]) {
-      media = <BitmovinPlayer playoutOptions={this.props.mainStore.promoPlayoutOptions[0]} muted scrollPlayPause />;
+    let media = <div className="feature-block__video" />;
+    if(!this.props.promoVideo) {
+      media = <img src={imageUrl} alt={copy.header} className="feature-block__image" />;
+    } else if(this.props.mainStore.promoPlayoutParameters[0]) {
+      media = (
+        <div
+          className="feature-block__video"
+          ref={element => {
+            if(!element || this.state.player) { return; }
+
+            this.setState({
+              player: (
+                new EluvioPlayer(
+                  element,
+                  {
+                    clientOptions: {
+                      network: EluvioPlayerParameters.networks.DEMO,
+                      client: this.props.mainStore.rootStore.client
+                    },
+                    sourceOptions: {
+                      playoutParameters: this.props.mainStore.promoPlayoutParameters[0]
+                    },
+                    playerOptions: {
+                      watermark: EluvioPlayerParameters.watermark.OFF,
+                      muted: EluvioPlayerParameters.muted.ON,
+                      autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
+                      controls: EluvioPlayerParameters.controls.DEFAULT,
+                      loop: EluvioPlayerParameters.loop.ON
+                    }
+                  }
+                )
+              )
+            });
+          }}
+        />
+      );
     }
 
     return (
@@ -63,9 +96,6 @@ class FeatureBlock extends React.Component {
               Learn More
             </button>
           </div>
-
-          <UpArrow />
-          <DownArrow />
         </div>
       </>
     );

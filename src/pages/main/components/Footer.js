@@ -18,6 +18,7 @@ class Footer extends React.Component {
           <NavLink to="/contact" className="footer__link">Contact Us</NavLink>
           <NavLink to="/terms" className="footer__link">Terms</NavLink>
           <NavLink to="/support" className="footer__link">Support</NavLink>
+          <NavLink to="/privacy" className="footer__link">Privacy</NavLink>
           <a href="https://eluv.io" className="footer__link" target="_blank">eluv.io</a>
         </div>
       </footer>
