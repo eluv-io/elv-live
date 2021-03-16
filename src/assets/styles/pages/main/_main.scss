@@ -48,11 +48,6 @@ a:hover {
   }
 
   @media only screen and (min-width: 901px) {
-    .scroll-block {
-      height: 100vh;
-      max-height: 100vh;
-    }
-
     &__logo-block {
       display: flex;
       flex-direction: column;
