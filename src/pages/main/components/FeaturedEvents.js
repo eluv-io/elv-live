@@ -5,7 +5,6 @@ import ImageIcon from "Common/ImageIcon";
 
 import LeftArrow from "Icons/left-arrow.svg";
 import RightArrow from "Icons/right-arrow.svg";
-import {DownArrow, UpArrow} from "Pages/main/components/NavigationArrows";
 
 @inject("mainStore")
 @observer
@@ -72,8 +71,6 @@ class FeaturedEvents extends React.Component {
         >
           <ImageIcon icon={RightArrow} label="Next" />
         </button>
-
-        <DownArrow />
       </div>
     );
   }

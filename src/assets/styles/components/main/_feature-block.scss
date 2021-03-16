@@ -36,21 +36,24 @@
     flex: 2 1 auto;
     max-height: 100%;
     width: 100%;
-    //margin-bottom: 20px;
 
-    .promo-player,
     img {
       height: 100%;
       margin: 0 auto;
       max-height: calc(100vh - 450px);
     }
+  }
 
-    .promo-player {
-      max-height: calc(100vh - 450px);
-      max-width: calc((100vh - 450px) * 16 / 9);
-      min-height: calc(100vh - 450px);
-      min-width: calc((100vh - 450px) * 16 / 9);
-    }
+  .feature-block__video {
+    margin: 0 auto;
+    position: relative;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    max-height: calc(100vh - 450px);
+    max-width: calc((100vh - 450px) * 16 / 9);
+    min-height: calc(100vh - 450px);
+    min-width: calc((100vh - 450px) * 16 / 9);
   }
 
   &__header,
@@ -113,13 +116,11 @@
       margin-bottom: 40px;
     }
 
-    &__image-container {
-      .promo-player {
-        max-height: calc((100vw - 30px) * 9 / 16);
-        max-width: calc(100vw - 30px);
-        min-height: calc((100vw - 30px) * 9 / 16);
-        min-width: calc(100vw - 30px);
-      }
+    .feature-block__video {
+      max-height: calc((100vw - 30px) * 9 / 16);
+      max-width: calc(100vw - 30px);
+      min-height: calc((100vw - 30px) * 9 / 16);
+      min-width: calc(100vw - 30px);
     }
   }
 }
