@@ -15,11 +15,11 @@ main:
   push_boundaries:
     header: Push Boundaries
     subheader: Free your creativity from the tech constraints of the past.
-    text: The underlying, just-in-time technology platform allows for limitless dynamic potential, such as fast switch multiview, audience-driven dynamic content, and blending live and on demand content. Lightweight and scalable.
+    text: The underlying, just-in-time technology platform allows for limitless dynamic potential, such as smooth switch multiview, audience-driven dynamic content, and blending live and on demand content. Lightweight and scalable.
   remonetize_endlessly:
     header: Remonetize Endlessly
     subheader: Seamlessly repurpose and redistribute all of your content.
-    text: All live content is automatically recorded and reusable on demand. Continuously refashion content and merchandise to fit for new events, creative collaborations, sponsorships, availability windows, or new audiences.
+    text: All live content is automatically recorded and reusable on demand. Create and sell authenticated "digital exclusives" (NFTs) minted on the platform's blockchain. Continuously refashion content and merchandise to fit for new events, creative collaborations, sponsorships, availability windows, or new audiences.
 cards:
   beautiful_quality:
     border_color: 000000
@@ -76,6 +76,7 @@ cards:
         header: Configurable social options
         copy: |
           Integrated chat for your audience.
+
           Options for watch rooms and dynamic voting experiences that drive content sequences or live modifications (lighting, views, etc.) through just-in-time feedback using the platform's video processing and bitcode.
           Integrated social media links for all major services.
   retain_control:
@@ -137,7 +138,12 @@ cards:
   remonetize_endlessly:
     border_color: 9E00FF
     sections:
-      0:
+      0:header: Create and Sell Exclusive Content including NFTs
+        copy: |
+         Mint and sell “digital exclusives” (NFTs) from any video or other content. Rights can include access to streamed or downloadable versions, or delegated ownership of the original content, and are enforced through the smart contracts.
+
+         Create exclusive pre-release and extra content packages of video and images unlockable by ticket group, individual purchase, or coupon tickets.
+      1:
         header: Built-in Rewatch and Redistribution Capabilities
         copy: |
           Platform automatically creates on demand redistributable assets from live broadcast.
@@ -145,15 +151,15 @@ cards:
           Configure rights windows for ticketing and redistribution control through permissioning tool, backed by built-in smart contracts.
 
           Continuously refashion content and merchandise to fit for new event sites.
-      1:
+      2:
         header: Back Catalog Monetization
         copy: |
           Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast, or syndication to third-party streaming platforms.
 
-          Mint and sell “digital exclusives” (NFTs) from any content. Rights can include access to streamed or downloadable versions, or delegated ownership of the original content, and are enforced through the smart contracts.
+
 partners:
   header: |
-    Eluvio LIVE partners with entertainment industry leaders around the world who strivento deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences.
+    Eluvio LIVE partners with entertainment industry leaders around the world who strive to deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences.
 contact:
   header: |
     Inspired to create an event with us? We are excited to hear from you.
