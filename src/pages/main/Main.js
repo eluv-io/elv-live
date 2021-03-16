@@ -9,10 +9,6 @@ import FeatureBlock from "Pages/main/components/FeatureBlock";
 @inject("mainStore")
 @observer
 class Main extends React.Component {
-  componentDidMount() {
-    this.props.mainStore.LoadPromos();
-  }
-
   render() {
     return (
       <div className="page-content main-page">

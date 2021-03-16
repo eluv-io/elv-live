@@ -35,7 +35,7 @@ class FeatureBlock extends React.Component {
     let media = <div className="feature-block__video" />;
     if(!this.props.promoVideo) {
       media = <img src={imageUrl} alt={copy.header} className="feature-block__image" />;
-    } else if(this.props.mainStore.promoPlayoutOptions[0]) {
+    } else if(this.props.mainStore.promoPlayoutParameters[0]) {
       media = (
         <div
           className="feature-block__video"
@@ -52,7 +52,7 @@ class FeatureBlock extends React.Component {
                       client: this.props.mainStore.rootStore.client
                     },
                     sourceOptions: {
-                      playoutOptions: this.props.mainStore.promoPlayoutOptions[0]
+                      playoutParameters: this.props.mainStore.promoPlayoutParameters[0]
                     },
                     playerOptions: {
                       watermark: EluvioPlayerParameters.watermark.OFF,
