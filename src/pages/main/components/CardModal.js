@@ -3,10 +3,8 @@ import {inject, observer} from "mobx-react";
 
 import Copy from "../copy/Copy.yaml";
 
-//
 import TestImage from "Assets/images/ritaora/heroRita.jpg";
 
-// Header images
 import ComputerDiagrams from "Assets/icons/computer-diagrams.svg";
 
 import ImageIcon from "Common/ImageIcon";
@@ -140,10 +138,8 @@ class CardModal extends React.Component {
     return (
       <div className="card-modal">
         <div className="card-modal__image-container">
-          <div className="card-modal__image-container">
-            { this.Images() }
-            { this.ImageControls() }
-          </div>
+          { this.Images() }
+          { this.ImageControls() }
         </div>
         <div className="card-modal__text-container">
           { Object.values(copy.sections).map((info, index) => this.TextSection(info, copy.border_color, index)) }
