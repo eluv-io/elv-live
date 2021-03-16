@@ -1,5 +1,8 @@
 .card-modal {
   background: white;
+  display: grid;
+  grid-template-rows: 50vh 1fr;
+  height: 100%;
 
   &__text-container {
     box-shadow: 8px 0 50px rgba(0, 0, 0, 0.25);
@@ -9,8 +12,6 @@
 
   &__image-container {
     background-color: #e0e0e0;
-    height: 70vh;
-    max-height: 70vh;
     position: relative;
     width: 100%;
   }
@@ -129,13 +130,34 @@
   }
 
   @media only screen and (max-width: 900px) {
+    grid-template-rows: 50vh 1fr;
+
+    &__image-controls {
+      height: 45px;
+    }
+
     &__image-controls-title {
       font-size: 18px;
-      opacity: 1;
+      opacity: 0.5;
+      padding-top: 5px;
+      font-weight: normal;
     }
 
     .arrow-right-text {
       display: none;
+    }
+
+    .arrow-right,
+    .arrow-left {
+      svg {
+        * {
+          stroke-width: 8px;
+        }
+      }
+    }
+
+    &__image {
+      padding-bottom: 50px;
     }
 
     &__text-section {
