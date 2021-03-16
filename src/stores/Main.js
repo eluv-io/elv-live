@@ -57,7 +57,7 @@ class MainStore {
     this.promoPlayoutOptions = yield Promise.all(
       Object.keys(this.rootStore.siteStore.mainSiteInfo.promo_videos || {}).map(
         async (index) => {
-          return await this.rootStore.client.BitmovinPlayoutOptions({
+          return await this.rootStore.client.PlayoutOptions({
             ...(this.rootStore.siteStore.siteParams),
             linkPath: UrlJoin("public", "asset_metadata", "promo_videos", index.toString(), "sources", "default")
           })
