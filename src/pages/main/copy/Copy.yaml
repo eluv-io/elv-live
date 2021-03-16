@@ -138,7 +138,8 @@ cards:
   remonetize_endlessly:
     border_color: 9E00FF
     sections:
-      0:header: Create and Sell Exclusive Content including NFTs
+      0:
+        header: Create and Sell Exclusive Content including NFTs
         copy: |
          Mint and sell “digital exclusives” (NFTs) from any video or other content. Rights can include access to streamed or downloadable versions, or delegated ownership of the original content, and are enforced through the smart contracts.
 
@@ -155,8 +156,6 @@ cards:
         header: Back Catalog Monetization
         copy: |
           Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast, or syndication to third-party streaming platforms.
-
-
 partners:
   header: |
     Eluvio LIVE partners with entertainment industry leaders around the world who strive to deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences.
