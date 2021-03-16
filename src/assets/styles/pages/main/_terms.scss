@@ -1,8 +1,20 @@
-.terms-page {
+.terms-page,
+.privacy-page {
   &__header {
     font-size: 64px;
     font-weight: 300;
     letter-spacing: 0.045em;
     text-align: center;
+  }
+
+  .markdown-document {
+    max-width: 900px;
+    margin: 50px auto;
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__header {
+      font-size: 32px;
+    }
   }
 }

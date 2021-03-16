@@ -2,22 +2,22 @@ import React from "react";
 import {render} from "react-dom";
 import ReactMarkdown from "react-markdown/with-html";
 
-import EULA from "Assets/documents/Terms.md";
+import PrivacyPolicy from "Assets/documents/PrivacyPolicy.md";
 
-class Terms extends React.Component {
+class Privacy extends React.Component {
   render() {
     return (
-      <div className="page-content terms-page">
-        <h1 className="terms-page__header">Terms</h1>
+      <div className="page-content privacy-page">
+        <h1 className="privacy-page__header">Privacy Policy</h1>
 
         <div
-          className="terms-page__document markdown-document"
+          className="privacy-page__document markdown-document"
           ref={element => {
             if(!element) { return; }
 
             render(
               <ReactMarkdown allowDangerousHtml >
-                { EULA }
+                { PrivacyPolicy }
               </ReactMarkdown>,
               element
             );
@@ -29,4 +29,4 @@ class Terms extends React.Component {
   }
 }
 
-export default Terms;
+export default Privacy;

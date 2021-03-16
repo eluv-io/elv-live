@@ -47,6 +47,10 @@ class FeatureBlock extends React.Component {
                 new EluvioPlayer(
                   element,
                   {
+                    clientOptions: {
+                      network: EluvioPlayerParameters.networks.DEMO,
+                      client: this.props.mainStore.rootStore.client
+                    },
                     sourceOptions: {
                       playoutOptions: this.props.mainStore.promoPlayoutOptions[0]
                     },
