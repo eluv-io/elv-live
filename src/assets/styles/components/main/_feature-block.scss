@@ -96,6 +96,12 @@
     font-size: 16px;
     height: 42px;
     width: 180px;
+    transition: background-color 0.08s linear, color 0.08s linear;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
   }
 
   @media only screen and (max-width: 900px) {
