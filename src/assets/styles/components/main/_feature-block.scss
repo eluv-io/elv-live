@@ -33,13 +33,13 @@
   &__image-container {
     align-items: flex-end;
     display: flex;
-    flex: 2 1 auto;
+    flex: 1 1 auto;
     max-height: 100%;
     width: 100%;
 
     img {
-      height: 100%;
       margin: 0 auto;
+      object-fit: contain;
       max-height: calc(100vh - 450px);
     }
   }

@@ -27,10 +27,6 @@ class MainApp extends React.Component {
   }
 
   Routes() {
-    if(!this.props.siteStore.siteLoaded) {
-      return <PageLoader />;
-    }
-
     return (
       <Switch>
         <Route exact path="/"> <Main /> </Route>
@@ -43,15 +39,25 @@ class MainApp extends React.Component {
     );
   }
 
+  Content() {
+    if(!this.props.siteStore.siteLoaded) {
+      return <PageLoader />;
+    }
+
+    return (
+      <ScrollToTop>
+        <Header />
+        { this.Routes() }
+        <Footer />
+      </ScrollToTop>
+    );
+  }
+
   render() {
     return (
       <div className="main-app">
         <BrowserRouter>
-          <ScrollToTop>
-            <Header />
-            { this.Routes() }
-            <Footer />
-          </ScrollToTop>
+          { this.Content() }
         </BrowserRouter>
       </div>
     );
