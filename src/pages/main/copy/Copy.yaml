@@ -33,7 +33,7 @@ cards:
 
           The Eluvio platform's hyper-efficient content distribution and management technology significantly reduces costs (compared to conventional clouds and CDNs).
 
-	  Platform-native applications provided for browser, mobile, Apple TV and Roku.
+          Platform-native applications provided for browser, mobile, Apple TV and Roku.
 
           High quality 360 degree/immersive video streaming without rebuffering.
 
@@ -58,20 +58,20 @@ cards:
 
           Configure tiered ticketing options, such as premium viewing experiences (4K, HDR, multiview), bundled merchandising options, rewatch rights, and exclusive content.
 
-	  Create and sell limited number “digital exclusives'' or collectibles (NFTs) such as clips, teasers, key images, full length works such as digital songs, albums, films, or access to in-person exclusive experiences, minted on the platform’s blockchain. The assets are cryptographically signed and delivered securely with authenticity guaranteed by blockchain contracts.
+          Create and sell limited number “digital exclusives'' or collectibles (NFTs) such as clips, teasers, key images, full length works such as digital songs, albums, films, or access to in-person exclusive experiences, minted on the platform’s blockchain. The assets are cryptographically signed and delivered securely with authenticity guaranteed by blockchain contracts.
       1:
         header: Audience Data Management
         copy: |
           Secure tamper proof watch statistics (2 second granularity);
-	  
+
           Privacy-protecting aggregation of audience redemption and watch statistics via blockchain events, encrypted and stored for the publisher;
 
-	  Options for audience-controlled private data sharing options with 3rd parties such as sponsors.
+          Options for audience-controlled private data sharing options with 3rd parties such as sponsors.
       2:
         header: Blockchain backed exclusive content and collectibles (NFTs)
         copy: |
-	Create and sell limited number “digital exclusives'' or collectibles (NFTs) such as clips, teasers, key images, full length works such as digital songs, albums, films, or access to in-person exclusive experiences, minted on the platform’s blockchain. The assets are cryptographically signed by the owner (artist/publisher) and delivered securely with authenticity guaranteed by the platform's blockchain contracts.
-	
+          Create and sell limited number “digital exclusives'' or collectibles (NFTs) such as clips, teasers, key images, full length works such as digital songs, albums, films, or access to in-person exclusive experiences, minted on the platform’s blockchain. The assets are cryptographically signed by the owner (artist/publisher) and delivered securely with authenticity guaranteed by the platform's blockchain contracts.
+
       3:
         header: Configurable social options
         copy: |
@@ -92,8 +92,7 @@ cards:
       1:
         header: Ticketing and Payments
         copy: |
-
-	  Fully integrated international sales of tickets, merchandise, and digital products with cryptographically secure ticket validation.
+          Fully integrated international sales of tickets, merchandise, and digital products with cryptographically secure ticket validation.
 
           Integration with major digital payment services (Stripe, PayPal, Coinbase, both fiat and crypto) and ticketing portals (LiveNation).
       2:
@@ -110,9 +109,9 @@ cards:
           Secure collection of all data relating to viewership of the content with tamper proof watch statistics (2 second granularity).
 
           Secure and privacy-protecting aggregate audience statistics.
-	  
+
           Options for audience-controlled private data sharing options with sponsors and publishers.
-	  
+
   push_boundaries:
     border_color: FF008A
     sections:
@@ -150,11 +149,11 @@ cards:
         header: Back Catalog Monetization
         copy: |
           Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast, or syndication to third-party streaming platforms.
-	  
+
           Mint and sell “digital exclusives” (NFTs) from any content. Rights can include access to streamed or downloadable versions, or delegated ownership of the original content, and are enforced through the smart contracts.
 partners:
   header: |
-    Eluvio LIVE partners with entertainment industry leaders around the world who strivento deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences. 
+    Eluvio LIVE partners with entertainment industry leaders around the world who strivento deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences.
 contact:
   header: |
     Inspired to create an event with us? We are excited to hear from you.
