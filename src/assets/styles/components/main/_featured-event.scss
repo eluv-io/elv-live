@@ -4,6 +4,7 @@
   max-height: 100vh;
   position: relative;
   width: 100%;
+  min-height: 60vh;
 
   .arrow-right,
   .arrow-left {
@@ -64,10 +65,12 @@
   &__hero-image-container,
   &__hero-image {
     height: 100%;
+    min-height: 60vh;
     left: 0;
     position: absolute;
     top: 0;
     width: 100%;
+    object-fit: cover !important;
   }
 
   &__hero-image-container {
@@ -79,6 +82,8 @@
       position: absolute;
       top: 0;
       width: 100%;
+      min-height: 60vh;
+
     }
   }
 

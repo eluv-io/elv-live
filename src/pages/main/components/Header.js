@@ -42,8 +42,8 @@ class Header extends React.Component {
           <NavLink to="/partners" className="header__link" activeClassName="header__link-active">Partners</NavLink>
           <NavLink to="/technology" className="header__link" activeClassName="header__link-active">Technology</NavLink>
         </div>
-        <div className="header__search">
-        </div>
+        {/* <div className="header__search">
+        </div> */}
       </header>
     );
   }
