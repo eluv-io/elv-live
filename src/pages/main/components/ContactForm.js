@@ -24,6 +24,11 @@ class ContactForm extends React.Component {
     this.LabelledInput = LabelledInput.bind(this);
   }
 
+  componentDidMount() {
+    window.scroll({top: 0, left: 0, behavior: 'smooth'
+    });
+  }
+
   render() {
     return (
       <div className="form-container contact-form-container">
