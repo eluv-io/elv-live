@@ -5,7 +5,7 @@
   display: flex;
   height: 60px;
   justify-content: space-between;
-  padding: 0 53px;
+  padding: 0 100px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -55,7 +55,8 @@
   &__links {
     display: flex;
     justify-content: space-between;
-    padding-top: 13px;
+    // padding-top: 13px;
+    align-items: center;
 
     * {
       color: black;

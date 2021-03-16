@@ -51,7 +51,6 @@
     "react-spinners": "^0.10.4",
     "react-twitter-embed": "^3.0.3",
     "scroll-behavior-polyfill": "^2.0.13",
-    "smoothscroll-polyfill": "^0.4.4",
     "stream-chat": "^2.11.1",
     "stream-chat-react": "^3.4.4",
     "urijs": "^1.19.6",
