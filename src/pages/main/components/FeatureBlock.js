@@ -15,7 +15,9 @@ class FeatureBlock extends React.Component {
     super(props);
 
     this.state = {
-      showModal: false
+      showModal: false,
+      video: undefined,
+      videoShouldPlay: true
     };
   }
 
@@ -23,6 +25,12 @@ class FeatureBlock extends React.Component {
     this.setState({
       showModal: show
     });
+
+    if(this.state.video) {
+      this.setState({videoShouldPlay: !this.state.video.paused});
+
+      this.state.video.pause();
+    }
 
     this.props.mainStore.ToggleFeatureBlockModal(show);
   }
@@ -59,7 +67,8 @@ class FeatureBlock extends React.Component {
                       muted: EluvioPlayerParameters.muted.ON,
                       autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
                       controls: EluvioPlayerParameters.controls.DEFAULT,
-                      loop: EluvioPlayerParameters.loop.ON
+                      loop: EluvioPlayerParameters.loop.ON,
+                      playerCallback: ({videoElement}) => this.setState({video: videoElement})
                     }
                   }
                 )
@@ -74,7 +83,15 @@ class FeatureBlock extends React.Component {
       <>
         {
           this.state.showModal ?
-            <Modal Toggle={() => this.ToggleModal(false)}>
+            <Modal
+              Toggle={() => {
+                this.ToggleModal(false);
+
+                if(this.state.video && this.state.videoShouldPlay) {
+                  this.state.video.play();
+                }
+              }}
+            >
               <CardModal copyKey={this.props.copyKey} />
             </Modal> :
             null
