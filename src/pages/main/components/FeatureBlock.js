@@ -58,7 +58,7 @@ class FeatureBlock extends React.Component {
                       watermark: EluvioPlayerParameters.watermark.OFF,
                       muted: EluvioPlayerParameters.muted.ON,
                       autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
-                      controls: EluvioPlayerParameters.controls.OFF,
+                      controls: EluvioPlayerParameters.controls.DEFAULT,
                       loop: EluvioPlayerParameters.loop.ON
                     }
                   }
