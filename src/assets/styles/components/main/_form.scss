@@ -1,4 +1,5 @@
-.form-container {
+// Additional specificity to override HS form styling
+.hs-form-container {
   background: #f3f3f3;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   margin: auto;
@@ -23,83 +24,108 @@
       font-size: 42px;
     }
   }
-}
 
-.form {
-  &__labelled-field {
-    margin: 0 auto 30px;
-    width: min-content;
-
-    * {
-      font-size: 14px;
-      font-weight: 300;
-    }
-  }
-
-  &__label {
-    display: block;
-    margin-bottom: 7px;
-  }
-
-  &__input {
-    background: #e1dfdd;
-    border: 0;
-    height: 45px;
-    padding: 0 15px;
-    width: 440px;
-  }
-
-  &__textarea {
-    height: 200px;
-    padding: 15px;
-    resize: vertical;
-  }
-
-  &__submit {
-    background: transparent;
-    border: 1px solid black;
-    cursor: pointer;
-    display: block;
-    font-size: 16px;
-    height: 42px;
-    letter-spacing: 0.14em;
-    margin: 50px auto;
-    text-align: center;
-    text-transform: uppercase;
-    width: 130px;
-  }
-
-  &__select-wrapper {
-    align-items: center;
-    cursor: pointer;
-    display: flex;
+  .hs-form {
     position: relative;
-    width: min-content;
+    min-height: 30vh;
 
-    &::after {
-      background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35 20.63'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23626262;stroke-linecap:round;stroke-miterlimit:10;stroke-width:4px;%7D%3C/style%3E%3C/defs%3E%3Cpolyline class='cls-1' points='2 2 17.8 17.8 33 2.6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      color: black;
-      content: '';
-      height: 7px;
+    .submitted-message {
       position: absolute;
-      right: 19px;
-      width: 14px;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 26px;
+      font-weight: 200;
+      padding: 30px 50px 8vh;
+      text-align: center;
+    }
+
+    fieldset {
+      margin: 0 auto;
+      max-width: 440px;
+
+      & > div {
+        width: 100%!important;
+        float: none!important;
+        margin: 0!important;
+      }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+
+      span {
+        margin-right: 3px;
+        font-weight: 300;
+      }
+    }
+
+    textarea,
+    input,
+    select {
+      background: #e1dfdd;
+      border: 0;
+      height: 45px;
+      padding: 0 15px;
+      width: 440px!important;
+      margin-bottom: 30px;
+    }
+
+    textarea {
+      height: 200px;
+      padding: 15px;
+      resize: vertical;
+    }
+
+    input[type="submit"] {
+      background: transparent;
+      border: 1px solid black;
+      cursor: pointer;
+      display: block;
+      font-size: 16px;
+      height: 42px;
+      letter-spacing: 0.14em;
+      margin: 20px auto 30px;
+      text-align: center;
+      text-transform: uppercase;
+      width: 130px !important;
     }
 
     select {
       appearance: none;
       cursor: pointer;
+      position: relative;
+      background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35 20.63'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23626262;stroke-linecap:round;stroke-miterlimit:10;stroke-width:4px;%7D%3C/style%3E%3C/defs%3E%3Cpolyline class='cls-1' points='2 2 17.8 17.8 33 2.6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: 14px 7px;
+      background-position: right;
+      background-position-x: 415px;
     }
-  }
 
-  @media only screen and (max-width: 900px) {
-    padding: 15px;
+    @media only screen and (max-width: 900px) {
+      padding: 15px;
 
-    &__labelled-field,
-    &__input,
-    &__select-wrapper {
-      width: 100%;
+      .submitted-message {
+        padding: 15px 30px;
+        overflow: hidden;
+        align-items: flex-start;
+      }
+
+      fieldset,
+      input,
+      textarea,
+      select {
+        width: 100%!important;
+      }
+
+      select {
+        background-position-x: 95%;
+      }
     }
   }
 }

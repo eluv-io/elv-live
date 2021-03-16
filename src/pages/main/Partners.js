@@ -4,11 +4,17 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 import Copy from "./copy/Copy.yaml";
-import PartnerForm from "Pages/main/components/PartnerForm";
 
 @inject("mainStore")
 @observer
 class Partners extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      formInitialized: false
+    };
+  }
 
   PartnerBlock(partner) {
     return (
@@ -40,7 +46,27 @@ class Partners extends React.Component {
           { this.props.mainStore.partners.merchandise.map(partner => this.PartnerBlock(partner)) }
         </div>
 
-        <PartnerForm />
+        <div className="hs-form-container">
+          <div className="hs-form-container__header">
+            Partner with Eluv.io Live
+          </div>
+          <div
+            className="hs-form"
+            id="form-target"
+            ref={element => {
+              if(!element || this.state.formInitialized) {
+                return;
+              }
+
+              hbspt.forms.create({
+                region: "na1",
+                portalId: "6230377",
+                formId: "eab9dddc-68c5-4b4b-87de-d5acd1b45a99",
+                target: "#form-target"
+              });
+            }}
+          />
+        </div>
       </div>
     );
   }
