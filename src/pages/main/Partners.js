@@ -9,14 +9,6 @@ import PartnerForm from "Pages/main/components/PartnerForm";
 @inject("mainStore")
 @observer
 class Partners extends React.Component {
-  // componentDidMount() {
-  //   window.scroll({top: 0, left: 0, behavior: 'smooth'
-  //   });
-  // }
-  componentWillMount() {
-    window.scroll({top: 0, left: 0, behavior: 'smooth'
-    });
-  }
 
   PartnerBlock(partner) {
     return (
