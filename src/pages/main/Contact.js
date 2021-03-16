@@ -2,18 +2,46 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 import Copy from "./copy/Copy.yaml";
-import ContactForm from "Pages/main/components/ContactForm";
 
 @inject("siteStore")
 @observer
 class Contact extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      formInitialized: false
+    };
+  }
+
   render() {
     return (
       <div className="page-content contact-page">
         <h1 className="contact-page__header">
           { Copy.contact.header }
         </h1>
-        <ContactForm />
+
+        <div className="hs-form-container">
+          <div className="hs-form-container__header">
+            Go Live with Eluv.io
+          </div>
+          <div
+            className="hs-form"
+            id="form-target"
+            ref={element => {
+              if(!element || this.state.formInitialized) {
+                return;
+              }
+
+              hbspt.forms.create({
+                region: "na1",
+                portalId: "6230377",
+                formId: "91711afe-fd4b-411c-af44-5fced036375e",
+                target: "#form-target"
+              });
+            }}
+          />
+        </div>
       </div>
     );
   }
