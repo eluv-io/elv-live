@@ -5,7 +5,6 @@ import React from "react";
 
 class MainStore {
   @observable featureBlockModalActive = false;
-  @observable promoPlayoutOptions = [];
 
   @observable copyKeys = [
     "beautiful_quality",
@@ -46,25 +45,21 @@ class MainStore {
     return images;
   }
 
+  // Parameters to pass to EluvioPlayer
+  @computed get promoPlayoutParameters() {
+    return (
+      Object.keys(this.rootStore.siteStore.mainSiteInfo.promo_videos || {}).map(
+        (index) => ({
+          ...(this.rootStore.siteStore.siteParams),
+          linkPath: UrlJoin("public", "asset_metadata", "promo_videos", index.toString(), "sources", "default")
+        })
+      )
+    )
+  }
+
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
-
-  @action.bound
-  LoadPromos = flow(function * () {
-    if(this.promoPlayoutOptions.length > 0) { return; }
-
-    this.promoPlayoutOptions = yield Promise.all(
-      Object.keys(this.rootStore.siteStore.mainSiteInfo.promo_videos || {}).map(
-        async (index) => {
-          return await this.rootStore.client.PlayoutOptions({
-            ...(this.rootStore.siteStore.siteParams),
-            linkPath: UrlJoin("public", "asset_metadata", "promo_videos", index.toString(), "sources", "default")
-          })
-        }
-      )
-    )
-  });
 
   MainSiteUrl(path) {
     if(!path) {
