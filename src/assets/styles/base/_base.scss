@@ -1,6 +1,25 @@
-::-webkit-scrollbar {
-  background: transparent;  /* Optional: just make scrollbar invisible */
-  width: 0;  /* Remove scrollbar space */
+body {
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 0;
+  }
+
+  * {
+    ::-webkit-scrollbar {
+      width: 12px;
+      opacity: 1;
+    }
+
+    ::-webkit-scrollbar-track {
+      opacity: 1;
+      background: #333;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      opacity: 1;
+      background-color: #777;
+    }
+  }
 }
 
 :root {

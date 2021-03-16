@@ -19,7 +19,8 @@
   }
 
   @media only screen and (max-width: 900px) {
-    height: calc(100vw * 9 / 16);
+    padding-top: 40px;
+    height: calc((100vw * 9 / 16) + 40px);
 
     .arrow-left,
     .arrow-right {
@@ -55,8 +56,9 @@
     left: 0;
     opacity: 0;
     position: absolute;
-    top: 0;
+    top: 40px;
     z-index: 10;
+    height: calc(100% - 40px);
 
     .featured-event__details {
       display: none;

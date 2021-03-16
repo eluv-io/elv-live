@@ -88,7 +88,9 @@
     font-weight: 200;
     letter-spacing: 0.035em;
     opacity: 0.5;
+    padding: 0 50px;
     margin-bottom: 45px;
+    text-align: center;
 
     // Override resets
     &:last-child {
@@ -142,10 +144,15 @@
     }
 
     &__image-controls-title {
-      font-size: 18px;
+      font-size: 16px;
       opacity: 0.5;
       padding-top: 5px;
       font-weight: normal;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 10px;
+      }
     }
 
     .arrow-right-text {
