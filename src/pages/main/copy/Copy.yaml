@@ -27,19 +27,19 @@ cards:
       0:
         header: Low Latency, Secure 4K Live Streaming to the Globe
         copy: |
-          Capable of handling 1M simultaneous 4K/HDR streams globally on all platforms widely used on the market today, including all major browsers and mobile Android and iPhone. Additional capacity is available.
+          Capable of handling 1M simultaneous 4K/HDR streams globally on all platforms widely used on the market today, including all major browsers, AppleTV and Roku, and mobile Android and iPhone. Additional capacity is available.
 
-          Supports multiview feeds (e.g. camera views) delivered simultaneously in the streaming application with fast, buffer-free switching across client platforms.
+          Supports multiview feeds (e.g. camera views) delivered simultaneously in the streaming application with smooth, buffer-free switching across client platforms.
 
           The Eluvio platform's hyper-efficient content distribution and management technology significantly reduces costs (compared to conventional clouds and CDNs).
+
+	  Platform-native applications provided for browser, mobile, Apple TV and Roku.
 
           High quality 360 degree/immersive video streaming without rebuffering.
 
           Encryption and digital rights management of the video stream to prevent illegal redistribution and copying.
 
-          Video livestream available for browser, mobile, and connected TV (Apple TV, Roku, etc.).
-
-          Ingest content as live feeds, master files, and most any format directly from source or via cloud.
+          Ingest content as live feeds, master files, and most any format directly from source or via cloud (AWS, Azure, GCP).
   directly_to_fans:
     border_color: 0085FF
     sections:
@@ -48,7 +48,7 @@ cards:
         header_image: computers
         copy: |
           Create customizable event sites with options to aggregate events and content under a single artist/media brand.
-          Site will allow the user to purchase tickets and merchandise, enter the digital venue when authorized, experience the event, and unlock exclusive content all backed by the Eluvio platform.
+          Sites enable users to purchase tickets and merchandise, enter the digital venue when authorized, experience the event, and unlock exclusive content all backed by the Eluvio platform.
 
           Easily manage personalized event site by dynamically linking any content you own on the Eluvio Platform. Configure the primary video, clips, images, products, ticket offerings, terms, prices, currencies, and event windows.
 
@@ -57,22 +57,26 @@ cards:
           Configure restriction of ticket authorization by audience geography, time windows, and ticket class allowing for shows customized to locality and maximum return from each locality.
 
           Configure tiered ticketing options, such as premium viewing experiences (4K, HDR, multiview), bundled merchandising options, rewatch rights, and exclusive content.
+
+	  Create and sell limited number “digital exclusives'' or collectibles (NFTs) such as clips, teasers, key images, full length works such as digital songs, albums, films, or access to in-person exclusive experiences, minted on the platform’s blockchain. The assets are cryptographically signed and delivered securely with authenticity guaranteed by blockchain contracts.
       1:
         header: Audience Data Management
         copy: |
-          Collect and secure all data relating to the viewership of the content with tamper proof watch statistics (2 second granularity).
+          Secure tamper proof watch statistics (2 second granularity);
+	  
+          Privacy-protecting aggregation of audience redemption and watch statistics via blockchain events, encrypted and stored for the publisher;
 
-          Secure and privacy-protecting aggregate audience statistics.
-          Options for audience-controlled private data sharing options with sponsors and publishers.
+	  Options for audience-controlled private data sharing options with 3rd parties such as sponsors.
       2:
-        header: Blockchain backed exclusive content and collectibles
+        header: Blockchain backed exclusive content and collectibles (NFTs)
         copy: |
-          Create limited “digital exclusives” that can be sold and traded on the platform, such as concert clips, key images, etc. They can be cryptographically signed by you and are delivered securely from the platform with their authenticity guaranteed by the platform's blockchain contracts.
+	Create and sell limited number “digital exclusives'' or collectibles (NFTs) such as clips, teasers, key images, full length works such as digital songs, albums, films, or access to in-person exclusive experiences, minted on the platform’s blockchain. The assets are cryptographically signed by the owner (artist/publisher) and delivered securely with authenticity guaranteed by the platform's blockchain contracts.
+	
       3:
-        header: Unlimited configurable social options
+        header: Configurable social options
         copy: |
           Integrated chat for your audience.
-          Options for watch rooms and fan walls.
+          Options for watch rooms and dynamic voting experiences that drive content sequences or live modifications (lighting, views, etc.) through just-in-time feedback using the platform's video processing and bitcode.
           Integrated social media links for all major services.
   retain_control:
     border_color: FF0000
@@ -80,7 +84,7 @@ cards:
       0:
         header: General Terms
         copy: |
-          Publisher retains 100% ownership of all of their content.
+          Publisher retains 100% ownership/rights to all of their content, backed by secure blockchain contracts to control authorized views and transactions.
 
           Eluvio adds 10% on top of the ticket sales price (or $2 minimum) and 10% on top of the merchandising price.
 
@@ -88,15 +92,14 @@ cards:
       1:
         header: Ticketing and Payments
         copy: |
-          International ticketing site and corresponding payment platform to sell tickets for live events and to support transactions related to e-commerce and the purchase of digital products during the event.
 
-          Cryptographically secure ticket validation with configurable viewing windows and classes, including but not limited to time, number of accesses, geography, unique devices, VIP experiences, etc.
+	  Fully integrated international sales of tickets, merchandise, and digital products with cryptographically secure ticket validation.
 
-          Integration with major digital payment services (Stripe, PayPal, both fiat and crypto) and ticketing portals (Ticketmaster/LiveNation).
+          Integration with major digital payment services (Stripe, PayPal, Coinbase, both fiat and crypto) and ticketing portals (LiveNation).
       2:
         header: Configurable Geofencing and Access Control
         copy: |
-          Configurable automatic ticket authorization scoped by audience geography, time windows, and ticket class, backed by blockchain smart contracts. Localize your events for maximum return and amplify in person events with streaming access.
+          Configurable automatic ticket authorization and viewing windows scoped by audience geography, time, unique devices, VIP class, etc. backed by blockchain smart contracts. Localize your events for maximum return and amplify in person events with streaming access.
       3:
         header: Security and Data Management
         copy: |
@@ -107,7 +110,9 @@ cards:
           Secure collection of all data relating to viewership of the content with tamper proof watch statistics (2 second granularity).
 
           Secure and privacy-protecting aggregate audience statistics.
+	  
           Options for audience-controlled private data sharing options with sponsors and publishers.
+	  
   push_boundaries:
     border_color: FF008A
     sections:
@@ -138,19 +143,18 @@ cards:
         copy: |
           Platform automatically creates on demand redistributable assets from live broadcast.
 
-          Configure rights windows for ticketing and redistribution control through permissioning tool and built-in smart contracts.
+          Configure rights windows for ticketing and redistribution control through permissioning tool, backed by built-in smart contracts.
 
           Continuously refashion content and merchandise to fit for new event sites.
       1:
         header: Back Catalog Monetization
         copy: |
-          Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast.
-          Syndicate your content to any third-party streaming platforms.
+          Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast, or syndication to third-party streaming platforms.
+	  
+          Mint and sell “digital exclusives” (NFTs) from any content. Rights can include access to streamed or downloadable versions, or delegated ownership of the original content, and are enforced through the smart contracts.
 partners:
   header: |
-    Eluvio LIVE partners with entertainment industry leaders around the world who strive to deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.
-
-    With the most advanced technology for Internet video, Eluvio LIVE’s partners have unbound potential for collaboration, growth, and innovation. With so many opportunities we are able to support a wide array of possibilities to provide an ecosystem to support artists and amaze audiences.
+    Eluvio LIVE partners with entertainment industry leaders around the world who strivento deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences. 
 contact:
   header: |
     Inspired to create an event with us? We are excited to hear from you.
