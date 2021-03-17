@@ -41,9 +41,14 @@ class FeatureBlock extends React.Component {
     const imageUrl = this.props.mainStore.MainSiteUrl(UrlJoin("images", this.props.copyKey, "main_image"));
 
     let media = <div className="feature-block__video" />;
+    let attribution;
     if(!this.props.promoVideo) {
       media = <img src={imageUrl} alt={copy.header} className="feature-block__image" />;
     } else if(this.props.mainStore.promoPlayoutParameters[0]) {
+      if(copy.attribution) {
+        attribution = <div className="feature-block__attribution">{ copy.attribution }</div>;
+      }
+
       media = (
         <div
           className="feature-block__video"
@@ -99,6 +104,7 @@ class FeatureBlock extends React.Component {
         <div className={`feature-block feature-block-${this.props.copyKey} scroll-block`} id={`scroll-block-${this.props.copyKey}`}>
           <div className="feature-block__image-container">
             { media }
+            { attribution }
           </div>
           <div className="feature-block__text-container">
             <h2 className="feature-block__header">{ copy.header }</h2>
