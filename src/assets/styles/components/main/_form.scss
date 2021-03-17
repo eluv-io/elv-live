@@ -47,10 +47,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 26px;
-      font-weight: 200;
-      padding: 30px 50px 8vh;
-      text-align: center;
+
+      p {
+        font-size: 26px;
+        font-weight: 200;
+        padding: 30px 50px 8vh;
+        text-align: center;
+      }
     }
 
     label {

@@ -11,6 +11,8 @@ import {
 import Logo from "Assets/images/logo/whiteEluvioLiveLogo.svg";
 import ImageIcon from "Common/ImageIcon";
 
+import Copy from "../copy/Copy.yaml";
+
 @inject("siteStore")
 @observer
 class Footer extends React.Component {
@@ -44,8 +46,9 @@ class Footer extends React.Component {
           { this.SocialButton("https://twitter.com/EluvioLIVE", <FaTwitter />, "Twitter") }
           { this.SocialButton("https://www.facebook.com/EluvioLIVE", <FaFacebookSquare />, "Facebook") }
         </div>
+        <pre className="footer__attributions" dangerouslySetInnerHTML={{__html: Copy.footer.attributions}} />
         <div className="footer__copyright">
-          © Copyright 2021 Eluvio, Inc.
+          { Copy.footer.copyright }
         </div>
       </footer>
     );
