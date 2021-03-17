@@ -48,7 +48,7 @@ class FeaturedEvents extends React.Component {
         </div>
         <div className="featured-event__details">
           <h2 className="featured-event__header">{ header }</h2>
-          <h3 className="featured-event__subheader">Premiere Event Streaming Soon</h3>
+          <h3 className="featured-event__subheader">Events Streaming Soon</h3>
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 .card-modal {
   background: white;
   display: grid;
-  grid-template-rows: 50vh 1fr;
+  grid-template-rows: 75vh 1fr;
   height: 100%;
 
   &__text-container {
@@ -137,7 +137,7 @@
   }
 
   @media only screen and (max-width: 900px) {
-    grid-template-rows: 50vh 1fr;
+    //grid-template-rows: vh 1fr;
 
     &__image-controls {
       height: 45px;
