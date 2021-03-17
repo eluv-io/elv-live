@@ -2,6 +2,7 @@
   &__logo-container {
     display: flex;
     justify-content: center;
+    height: 100px;
 
     svg {
       * {
@@ -40,7 +41,6 @@
 
     &__logo-container {
       border-bottom: 1px solid black;
-      padding-bottom: 52px;
     }
 
     &__links {
