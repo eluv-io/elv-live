@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   render() {
-    const mainPages = ["/", "/partners", "/technology", "/next", "/contact", "/terms", "/privacy"];
+    const mainPages = ["/", "/partners", "/technology", "/next", "/contact", "/terms", "/privacy", "/news"];
 
     if(mainPages.includes(window.location.pathname)) {
       // Main site

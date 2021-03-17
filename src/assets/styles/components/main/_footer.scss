@@ -46,6 +46,7 @@
     }
   }
 
+  &__attributions,
   &__copyright {
     width: 100%;
     text-align: center;
@@ -53,6 +54,10 @@
     font-weight: 300;
     color: #999;
     font-size: 12px;
+  }
+
+  &__copyright {
+    margin-top: 0;
   }
 
   // Footer
