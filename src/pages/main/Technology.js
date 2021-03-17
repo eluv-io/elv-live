@@ -11,7 +11,7 @@ class Technology extends React.Component {
     super(props);
 
     this.state = {
-      page: "nfts",
+      page: "main",
       pages: [
         "main",
         "architecture",
