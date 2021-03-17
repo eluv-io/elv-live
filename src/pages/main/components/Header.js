@@ -28,7 +28,7 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    this.setState({scrolled: window.scrollY > window.innerHeight * 0.5});
+    this.setState({scrolled: window.scrollY > window.innerHeight * 0.25});
   }
 
   render() {

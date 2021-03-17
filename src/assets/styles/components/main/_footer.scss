@@ -24,13 +24,35 @@
     display: flex;
     justify-content: center;
     margin: 52px 163px 0;
-    padding: 50px 0;
+    padding: 25px 0 50px;
   }
 
   &__link {
     font-size: 16px;
     letter-spacing: 0.07em;
     padding: 0 56px;
+  }
+
+  &__social {
+    width: 400px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  &__copyright {
+    width: 100%;
+    text-align: center;
+    margin: 30px 0 20px;
+    font-weight: 300;
+    color: #999;
+    font-size: 12px;
   }
 
   // Footer
@@ -47,11 +69,21 @@
       border: 0;
       justify-content: space-between;
       margin: 0 35px;
+      padding-bottom: 25px;
     }
 
     &__link {
       font-size: 11px;
       padding: 0;
+    }
+
+    &__social {
+      width: 250px;
+
+      svg {
+        height: 18px;
+        width: 18px;
+      }
     }
   }
 }
