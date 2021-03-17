@@ -20,6 +20,12 @@ class Contact extends React.Component {
         <h1 className="contact-page__header">
           { Copy.contact.header }
         </h1>
+        <h2 className="contact-page__subheader">
+          { Copy.contact.subheader }
+        </h2>
+        <h2 className="contact-page__subheader">
+          { Copy.contact.subheader2 }
+        </h2>
 
         <div className="hs-form-container">
           <div className="hs-form-container__header">

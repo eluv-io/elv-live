@@ -76,6 +76,13 @@ $item-spacing: 25px;
     max-width: calc((100vh - 450px) * 16 / 9);
     min-height: calc(100vh - 450px);
     min-width: calc((100vh - 450px) * 16 / 9);
+
+    @media only screen and (orientation: portrait) {
+      max-height: calc((100vw - 100px) * 9 / 16);
+      max-width: calc(100vw - 100px);
+      min-height: calc((100vw - 100px) * 9 / 16);
+      min-width: calc(100vw - 100px);
+    }
   }
 
   &__text-container {
@@ -149,6 +156,13 @@ $item-spacing: 25px;
       max-width: calc(100vw - 30px);
       min-height: calc((100vw - 30px) * 9 / 16);
       min-width: calc(100vw - 30px);
+
+      @media only screen and (orientation: landscape) {
+        max-height: calc((100vw - 100px) * 9 / 16);
+        max-width: calc(100vw - 100px);
+        min-height: calc((100vw - 100px) * 9 / 16);
+        min-width: calc(100vw - 100px);
+      }
     }
   }
 }

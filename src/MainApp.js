@@ -11,7 +11,7 @@ import Header from "Pages/main/components/Header";
 import Footer from "Pages/main/components/Footer";
 import Partners from "Pages/main/Partners";
 import Technology from "Pages/main/Technology";
-import Support from "Pages/main/Support";
+import Next from "Pages/main/Next";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import ScrollToTop from "Common/ScrollToTop";
@@ -33,7 +33,7 @@ class MainApp extends React.Component {
         <Route exact path="/"> <Main /> </Route>
         <Route exact path="/partners"> <Partners /> </Route>
         <Route exact path="/technology"> <Technology /> </Route>
-        <Route exact path="/support"> <Support /> </Route>
+        <Route exact path="/next"> <Next /> </Route>
         <Route exact path="/privacy"> <Privacy /> </Route>
         <Route exact path="/contact"> <Contact /> </Route>
         <Route exact path="/terms"> <Terms /> </Route>
