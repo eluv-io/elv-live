@@ -18,9 +18,12 @@
     left: 80px;
   }
 
+  @media only screen and (max-width: 1450px) {
+    height: calc((100vw * 9 / 16) + 41px);
+  }
+
   @media only screen and (max-width: 900px) {
     padding-top: 40px;
-    height: calc((100vw * 9 / 16) + 41px);
 
     .arrow-left,
     .arrow-right {
@@ -116,6 +119,21 @@
     font-size: 32px;
     font-weight: 200;
     margin-top: 10px;
+  }
+
+  @media only screen and (max-width: 1450px) {
+    &__header {
+      font-size: 32px;
+    }
+
+    &__subheader {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    &__details {
+      margin-bottom: 50px;
+    }
   }
 
   @media only screen and (max-width: 900px) {
