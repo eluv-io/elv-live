@@ -48,7 +48,9 @@
 @media only screen and (max-width: 1250px) {
   .modal {
     overflow-x: hidden;
+    height: 100%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   .modal__content {
