@@ -5,7 +5,8 @@ import {IconContext} from "react-icons";
 import {
   FaInstagram,
   FaTwitter,
-  FaFacebookSquare
+  FaFacebookSquare,
+  FaLinkedin
 } from "react-icons/fa";
 
 import Logo from "Assets/images/logo/whiteEluvioLiveLogo.svg";
@@ -45,6 +46,7 @@ class Footer extends React.Component {
           { this.SocialButton("https://www.instagram.com/eluviolive", <FaInstagram />, "Instagram") }
           { this.SocialButton("https://twitter.com/EluvioLIVE", <FaTwitter />, "Twitter") }
           { this.SocialButton("https://www.facebook.com/EluvioLIVE", <FaFacebookSquare />, "Facebook") }
+          { this.SocialButton("https://www.linkedin.com/company/eluv-io", <FaLinkedin />, "LinkedIn") }
         </div>
         <pre className="footer__attributions" dangerouslySetInnerHTML={{__html: Copy.footer.attributions}} />
         <div className="footer__copyright">
