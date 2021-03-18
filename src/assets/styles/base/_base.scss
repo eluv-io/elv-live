@@ -1,3 +1,7 @@
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   &::-webkit-scrollbar {
     background: transparent;

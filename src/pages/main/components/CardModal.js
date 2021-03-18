@@ -3,8 +3,6 @@ import {inject, observer} from "mobx-react";
 
 import Copy from "../copy/Copy.yaml";
 
-import TestImage from "Assets/images/ritaora/heroRita.jpg";
-
 import ComputerDiagrams from "Assets/icons/computer-diagrams.svg";
 
 import ImageIcon from "Common/ImageIcon";
@@ -89,13 +87,7 @@ class CardModal extends React.Component {
 
   Images() {
     if(this.props.mainStore.cardImages[this.props.copyKey].length === 0) {
-      return (
-        <ImageIcon
-          className="card-modal__image card-modal__image-active"
-          icon={TestImage}
-          label={this.props.copyKey}
-        />
-      );
+      return null;
     }
 
     return this.props.mainStore.cardImages[this.props.copyKey].map(({url, title}, index) =>

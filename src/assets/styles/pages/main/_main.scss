@@ -13,6 +13,10 @@ a:hover {
   @include page-fade-in;
 
   padding: 120px 25px;
+
+  @media only screen and (max-width: 900px) {
+    padding: 80px 25px;
+  }
 }
 
 .main-page {
@@ -21,6 +25,7 @@ a:hover {
 
   &__logo-block {
     background: black;
+    padding-bottom: 150px;
   }
 
   &__logo {
@@ -62,12 +67,12 @@ a:hover {
   // Main page
   @media only screen and (max-width: 900px) {
     &__header {
-      font-size: 20px;
+      font-size: 18px;
       padding: 0 25px;
     }
 
     &__logo {
-      padding: 100px 0;
+      padding: 100px 0 50px;
     }
   }
 }

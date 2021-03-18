@@ -4,21 +4,22 @@ main:
     header: Beautiful Quality
     subheader: Low latency 4K streaming on all platforms
     text: Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support for browser, mobile, and connected TV (Apple TV, Roku, etc.).
+    attribution: Excerpt from Bang, Rita Ora and Imanbek Official EP Film
   directly_to_fans:
     header: Directly to Your Fans
-    subheader: Distribute globally on your own terms.
+    subheader: Distribute globally on your own terms
     text: Amplify live venue events across the globe with high quality scalable streaming that can simultaneously tailor to individual, targeted, or general audiences and fans. Real time live, prerecorded as live, and redistribution.
   retain_control:
     header: Retain Control
-    subheader: Keep 100% ownership of your content.
+    subheader: Keep 100% ownership of your content
     text: Control content with smart contracts and next generation security based in blockchain. Built-in flexible international ticketing and e-commerce backed by blockchain access control.
   push_boundaries:
     header: Push Boundaries
-    subheader: Free your creativity from the tech constraints of the past.
+    subheader: Free your creativity from the tech constraints of the past
     text: The underlying, just-in-time technology platform allows for limitless dynamic potential, such as smooth switch multiview, audience-driven dynamic content, and blending live and on demand content. Lightweight and scalable.
   remonetize_endlessly:
     header: Remonetize Endlessly
-    subheader: Seamlessly repurpose and redistribute all of your content.
+    subheader: Seamlessly repurpose and redistribute all of your content
     text: All live content is automatically recorded and reusable on demand. Create and sell authenticated "digital exclusives" (NFTs) minted on the platform's blockchain. Continuously refashion content and merchandise to fit for new events, creative collaborations, sponsorships, availability windows, or new audiences.
 cards:
   beautiful_quality:
@@ -158,10 +159,15 @@ cards:
           Publish your entire content catalog for remarketing, licensing, and on demand rebroadcast, or syndication to third-party streaming platforms.
 partners:
   header: |
-    Eluvio LIVE partners with entertainment industry leaders around the world who strive to deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered with thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences.
+    Eluvio LIVE partners with entertainment industry leaders around the world who strive to deliver the imagination of artists directly to their fans - wherever, whenever, and however they want.  We have been fortunate to have partnered thus far with leading companies in production, marketing and merchandising to provide an ecosystem to support artists and deliver great creative experiences.
 contact:
   header: |
     Inspired to create an event with us? We are excited to hear from you.
+  subheader: |
+    Eluvio LIVE and our partners have an incredible lineup of artists and events to bring to you in upcoming weeks. Keep an eye on this site as we formally open ticket sales.
+  subheader2:
+    If you would like to create an event with us, find out more about our offerings,
+    or sign up for our newsletter please complete the form below.
 technology:
   text: |
     Eluvio LIVE is powered by the Eluvio Content Fabric, the most advanced technology for Internet video. A decentralized, global platform built on blockchain, the Fabric provides low latency, high quality (4K) content distribution, content monetization, and just-in-time streaming. Under the control of blockchain smart contracts, video content is dynamically served from the source as live and on demand streaming as well as dynamic sequences without need for 3rd party services.
@@ -169,4 +175,33 @@ technology:
     The Eluvio Content Fabric's just-in-time capabilities replace and consolidate the standard functions of live ingest, cloud origin, live transcoding, content management, encryption/DRM, program sequencing, rights and avails controls, direct-to-consumer streaming, and static content distribution. All of this at a significantly lower cost point, with lower latency, and a naturally greater range of creative experiences than conventional technologies. The platform uses open APIs and a programmable approach for ingest, content distribution, content management, and rights control. All operations are blockchain provable.
 
     The Content Fabric was invented by a team led by Michelle Munson and Serban Simu, founders of the industry standard Aspera high speed transfer technology (acquired by IBM in 2014) and is currently used by tier 1 Hollywood studios, broadcasters, and mobile streaming providers. The Eluvio Content Fabric was recognized with the 2020 Hollywood Post Alliance Engineering Excellence Award.
-
+  sections:
+    architecture:
+      subheader: Content Fabric
+      header: Architecture
+    how_it_works:
+      subheader: Content Fabric
+      header: How it Works
+    streaming:
+      subheader: How You Earn
+      header: Streaming/Viewing
+    buying:
+      subheader: How You Earn
+      header: Buying/Licensing
+    nfts:
+      subheader: How You Earn
+      header: NFTs and Digital Collectibles
+next:
+  subheader: |
+    Eluvio LIVE and our partners have an incredible lineup of artists and events to bring to you in upcoming weeks. Keep an eye on this site as we formally open ticket sales.
+  subheader2: |
+    If you would like to create an event with us, find out more about our offerings, or sign up for our newsletter please complete
+footer:
+  attributions: |
+    Device mockups modified from <a href="https://design.facebook.com/toolsandresources/devices">original</a>
+    Photo by Roger Harris on Unsplash
+    Screenshot from Bang, Rita Ora and Imanbek Official EP Film
+    Ravi Coltrane and Pharoah Sanders 3 Photograph by Lee Santa
+    Photo by Attentie Attentie on Unsplash
+    Photo by Nathan Collier on Unsplash
+  copyright: © Copyright 2021 Eluvio, Inc.

@@ -1,23 +1,73 @@
 .technology-page {
-  padding: 120px 115px;
+  padding: 120px 50px;
 
-  &__image-container {
-    display: flex;
-    justify-content: center;
-    margin: 100px auto 50px;
-    max-width: 1200px;
-    width: 100%;
+  &__content-container {
+    min-height: 80vh;
+    max-height: 80vh;
+    max-width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr 100px;
+    grid-gap: 10px;
   }
 
   &__image {
-    width: 80%;
+    animation: fadein 0.35s linear;
+    display: flex;
+    max-height: 100%;
+    max-width: 100%;
+    min-height: 40vh;
+    object-fit: contain;
+  }
+
+  &__navigation {
+    display: flex;
+  }
+
+  &__navigation-button {
+    flex: 1 1 auto;
+    background: #eee;
+    height: 100px;
+    cursor: pointer;
+    padding: 0 25px;
+    border: 1px solid transparent;
+    color: black;
+
+    &:active {
+      color: black;
+    }
+
+    &.selected {
+      border: 1px solid black;
+    }
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &__header,
+    &__subheader {
+      font-weight: 300;
+      font-size: 14px;
+      text-align: left;
+      display: flex;
+    }
+
+    &__header {
+      font-size: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    &__subheader {
+      text-transform: uppercase;
+      height: 14px;
+    }
   }
 
   &__copy-block {
     display: grid;
     grid-gap: 50px;
     grid-template-columns: 1fr 2fr;
-    margin: 0 auto 100px;
+    margin: 0 auto 20px;
     max-width: 1200px;
   }
 
@@ -31,15 +81,49 @@
     font-size: 18px;
   }
 
-  @media only screen and (max-width: 900px) {
-    padding: 120px 25px;
-
-    &__image-container {
-      margin-top: 0;
+  @media only screen and (max-width: 1250px) {
+    &__content-container {
+      min-height: unset;
+      max-height: unset;
+      grid-template-rows: auto;
+      grid-template-columns: 1fr 190px;
+      grid-gap: 20px;
     }
 
-    &__image {
+    &__navigation {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__navigation-button {
+      padding: 10px;
+      height: 100px;
       width: 100%;
+      max-width: 100%;
+      border-radius: 3px;
+      flex-grow: 0;
+
+      &:not(:last-child) {
+        margin: 0 0 5px;
+      }
+
+      &__header {
+        font-size: 18px;
+      }
+
+      &__subheader {
+        height: auto;
+        font-size: 12px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 60px 25px;
+
+    &__content-container {
+      grid-template-rows: auto;
+      grid-template-columns: auto;
     }
 
     &__copy-header {
@@ -54,6 +138,10 @@
 
     &__copy {
       font-size: 18px;
+    }
+
+    &__navigation-button {
+      height: 100px;
     }
   }
 }

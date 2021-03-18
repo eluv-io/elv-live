@@ -28,7 +28,7 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    this.setState({scrolled: window.scrollY > window.innerHeight * 0.5});
+    this.setState({scrolled: window.scrollY > window.innerHeight * 0.25});
   }
 
   render() {
@@ -41,9 +41,8 @@ class Header extends React.Component {
           <NavLink to="/contact" className="header__link" activeClassName="header__link-active">Go Live</NavLink>
           <NavLink to="/partners" className="header__link" activeClassName="header__link-active">Partners</NavLink>
           <NavLink to="/technology" className="header__link" activeClassName="header__link-active">Technology</NavLink>
+          <NavLink to="/news" className="header__link" activeClassName="header__link-active">News</NavLink>
         </div>
-        {/* <div className="header__search">
-        </div> */}
       </header>
     );
   }
