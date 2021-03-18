@@ -25,7 +25,7 @@ content management fees.  
 The Content Fabric is the first blockchain-based scalable content
 distribution network for premium video. Launched in 2019 and used by
 Tier 1 media companies such as [MGM
-Studios](www.prnewswire.com) and
+Studios](https://www.prnewswire.com/news-releases/eluvio-announces-partnership-with-mgm-for-next-generation-content-servicing-and-digital-marketing-platform-301221878.html) and
 [FOX
 Networks](https://www.mesaonline.org/2020/05/14/eluvio-a-new-age-of-video-distribution) and
 mobile streaming providers, the platform was invented by a team led by
