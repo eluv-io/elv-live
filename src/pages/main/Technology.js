@@ -24,15 +24,7 @@ class Technology extends React.Component {
     super(props);
 
     this.state = {
-      page: "main",
-      pages: [
-        "main",
-        "architecture",
-        "how_it_works",
-        "streaming",
-        "buying",
-        "nfts"
-      ]
+      page: "main"
     };
   }
 
@@ -62,31 +54,31 @@ class Technology extends React.Component {
     );
   }
 
-  Page() {
-    if(this.state.page === "main") {
-      return (
-        <div className="technology-page__copy-block">
-          <h2 className="technology-page__copy-header">Eluv.io Technology</h2>
-          <pre className="technology-page__copy">{ Copy.technology.text }</pre>
-        </div>
-      );
-    } else {
-      return (
+  Pages() {
+    return [
+      <div
+        key="technology-page__main"
+        className={`technology-page__item technology-page__copy-block ${this.state.page === "main" ? "active" : ""}`}
+      >
+        <h2 className="technology-page__copy-header">Eluv.io Technology</h2>
+        <pre className="technology-page__copy">{ Copy.technology.text }</pre>
+      </div>,
+      ...Object.keys(Copy.technology.sections).map(key =>
         <img
-          key={`technology-page__image-${this.state.page}`}
-          src={IMAGES[this.state.page]}
-          alt={Copy.technology.sections[this.state.page].header}
-          className="technology-page__image"
+          key={`technology-page__image-${key}`}
+          src={IMAGES[key]}
+          alt={Copy.technology.sections[key.header]}
+          className={`technology-page__item technology-page__image ${this.state.page === key ? "active" : ""}`}
         />
-      );
-    }
+      )
+    ];
   }
 
   render() {
     return (
       <div className="page-content technology-page">
         <div className="technology-page__content-container">
-          { this.Page() }
+          { this.Pages() }
           { this.Navigation() }
         </div>
       </div>

@@ -10,13 +10,25 @@
     grid-gap: 10px;
   }
 
+  &__item {
+    animation: fadeout 0.35s linear;
+
+    &:not(.active) {
+      display: none;
+    }
+
+    &.active {
+      animation: fadein 0.35s linear;
+    }
+  }
+
   &__image {
     animation: fadein 0.35s linear;
-    display: flex;
-    max-height: 100%;
+    max-height: calc(83vh - 110px);
     max-width: 100%;
     min-height: 40vh;
     object-fit: contain;
+    margin: auto;
   }
 
   &__navigation {
