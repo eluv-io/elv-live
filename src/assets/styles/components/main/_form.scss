@@ -29,6 +29,15 @@
     position: relative;
     min-height: 30vh;
 
+    form {
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .field {
+      margin: 30px 0;
+    }
+
     .submitted-message {
       position: absolute;
       top: 0;
@@ -38,20 +47,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 26px;
-      font-weight: 200;
-      padding: 30px 50px 8vh;
-      text-align: center;
-    }
 
-    fieldset {
-      margin: 0 auto;
-      max-width: 440px;
-
-      & > div {
-        width: 100%!important;
-        float: none!important;
-        margin: 0!important;
+      p {
+        font-size: 26px;
+        font-weight: 200;
+        padding: 30px 50px 8vh;
+        text-align: center;
       }
     }
 
@@ -73,7 +74,14 @@
       height: 45px;
       padding: 0 15px;
       width: 440px!important;
-      margin-bottom: 30px;
+    }
+
+    .hs-error-msgs {
+      height: 0;
+    }
+
+    .hs-error-msg {
+      font-size: 12px;
     }
 
     textarea {
@@ -90,10 +98,26 @@
       font-size: 16px;
       height: 42px;
       letter-spacing: 0.14em;
-      margin: 20px auto 30px;
+      margin: 40px auto 20px;
       text-align: center;
       text-transform: uppercase;
       width: 130px !important;
+    }
+
+    .hs-form-booleancheckbox-display {
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="checkbox"] {
+      width: 20px!important;
+      height: 20px;
+      cursor: pointer;
+
+      & + span {
+        margin: 20px 0 20px 20px;
+        font-size: 16px;
+      }
     }
 
     select {
@@ -107,20 +131,38 @@
       background-position-x: 415px;
     }
 
-    @media only screen and (max-width: 900px) {
+    p {
+      font-size: 12px;
+      font-weight: 300;
+      margin: 20px 0;
+      font-style: italic;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__header {
+      margin-bottom: 0 !important;
+    }
+
+    .hs-form {
       padding: 15px;
 
       .submitted-message {
         padding: 15px 30px;
         overflow: hidden;
         align-items: flex-start;
+
+        p {
+          font-size: 20px;
+          padding: 0 25px;
+          margin: auto;
+        }
       }
 
-      fieldset,
       input,
       textarea,
       select {
-        width: 100%!important;
+        width: 100% !important;
       }
 
       select {

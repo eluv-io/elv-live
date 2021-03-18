@@ -92,15 +92,14 @@
   }
 
   @media only screen and (max-width: 900px) {
+    height: 40px;
     padding: 0 25px 0 15px;
 
     &__logo {
       padding: 0;
 
       svg {
-        // width: 90px;
         height: 20px;
-        // max-width: min-content;
       }
     }
 
