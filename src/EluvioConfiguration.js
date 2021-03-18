@@ -6,7 +6,7 @@ const EluvioConfiguration = {
   //"main-site-id": "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
 
   // Production
-  "main-site-id": "iq__3eLNxsGGuGSXSt8xM8Zp86DRTGA3",
+  "main-site-id": "iq__3CXH4CDJxX76wCV6YkfEqVmSxmHp",
 
   "bitmovin-license-key": "532a4784-591a-4039-8497-5feb80e5dd66"
 };
