@@ -9,6 +9,9 @@ import Image3 from "Assets/images/technology/3-Streaming-Your-Content.png";
 import Image4 from "Assets/images/technology/4-Selling-and-Licensing-Your-Content.png";
 import Image5 from "Assets/images/technology/5-Selling-NFTs-and-Other-Digital-Collectibles.png";
 
+import CloseIcon from "Icons/x";
+import ImageIcon from "Common/ImageIcon";
+
 const IMAGES = {
   "architecture": Image1,
   "how_it_works": Image2,
@@ -28,6 +31,11 @@ class Technology extends React.Component {
     };
   }
 
+  SetPage(key) {
+    this.setState({page: key === this.state.page ? "main" : key});
+    window.scrollTo(0, 0);
+  }
+
   Navigation() {
     return (
       <div className="technology-page__navigation">
@@ -36,10 +44,7 @@ class Technology extends React.Component {
             <button
               key={`technology-page__navigation-button-${key}`}
               className={`technology-page__navigation-button ${key === this.state.page ? "selected" : ""}`}
-              onClick={() => {
-                this.setState({page: key === this.state.page ? "main" : key});
-                window.scrollTo(0, 0);
-              }}
+              onClick={() => this.SetPage(key)}
             >
               <div className="technology-page__navigation-button__subheader">
                 { Copy.technology.sections[key].subheader }
@@ -78,7 +83,15 @@ class Technology extends React.Component {
     return (
       <div className="page-content technology-page">
         <div className="technology-page__content-container">
-          { this.Pages() }
+          <div className="technology-page__content">
+            <button
+              className={`technology-page__close-button ${this.state.page === "main" ? "hidden" :""}`}
+              onClick={() => this.SetPage("main")}
+            >
+              <ImageIcon icon={CloseIcon} title="Close" />
+            </button>
+            { this.Pages() }
+          </div>
           { this.Navigation() }
         </div>
       </div>
