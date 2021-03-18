@@ -94,7 +94,7 @@ class CardModal extends React.Component {
       <ImageIcon
         key={`card-image-${index}`}
         className={`card-modal__image ${index === this.state.selected ? "card-modal__image-active" : ""} ${index === this.state.previous ? "card-modal__image-fading-out" : ""}`}
-        icon={url || TestImage}
+        icon={url}
         label={title}
       />
     );

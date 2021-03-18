@@ -1,9 +1,9 @@
 .technology-page {
-  padding: 120px 50px;
+  padding: 100px 50px;
 
   &__content-container {
-    min-height: 80vh;
-    max-height: 80vh;
+    min-height: 83vh;
+    max-height: 83vh;
     max-width: 100vw;
     display: grid;
     grid-template-rows: 1fr 100px;
@@ -79,6 +79,7 @@
 
   &__copy {
     font-size: 18px;
+    margin: 0;
   }
 
   @media only screen and (max-width: 1250px) {
@@ -119,7 +120,12 @@
   }
 
   @media only screen and (max-width: 900px) {
-    padding: 60px 25px;
+    // No padding to allow images to stretch as much as possible
+    padding: 60px 0;
+
+    &__image {
+      padding: 0 10px;
+    }
 
     &__content-container {
       grid-template-rows: auto;
@@ -134,10 +140,15 @@
     &__copy-block {
       grid-gap: 20px;
       grid-template-columns: 1fr;
+      padding: 0 25px;
     }
 
     &__copy {
       font-size: 18px;
+    }
+
+    &__navigation {
+      padding: 0 25px;
     }
 
     &__navigation-button {

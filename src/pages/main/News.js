@@ -21,7 +21,7 @@ class News extends React.Component {
               if(!element) { return; }
 
               render(
-                <ReactMarkdown>
+                <ReactMarkdown linkTarget="_blank">
                   { PressRelease }
                 </ReactMarkdown>,
                 element

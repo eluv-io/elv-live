@@ -30,7 +30,8 @@
   &__link {
     font-size: 16px;
     letter-spacing: 0.07em;
-    padding: 0 56px;
+    text-align: center;
+    width: 150px;
   }
 
   &__social {
@@ -80,6 +81,7 @@
     &__link {
       font-size: 11px;
       padding: 0;
+      width: 100px;
     }
 
     &__social {
