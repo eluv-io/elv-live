@@ -80,7 +80,10 @@ class News extends React.Component {
       <div className="page-content news-page">
         {
           this.NewsItem(
-            "Eluvio LIVE Provides Artists with Novel Blockchain-Based Streaming and Ticketing Platform",
+            <div>
+              <a href="https://live.eluv.io" target="_blank">Eluvio LIVE </a>
+              Provides Artists with Novel Blockchain-Based Streaming and Ticketing Platform
+            </div>,
             <div className="news-page__item__content">
               { this.Markdown(PressReleasePart1) }
               { this.Video({objectId: "iq__3kDYVLRxrYfeHoHwkxVmKZUs5o26"}) }

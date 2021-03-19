@@ -2,7 +2,10 @@
   &__logo-container {
     display: flex;
     justify-content: center;
-    height: 100px;
+    align-items: flex-start;
+    height: 50px;
+    margin: auto;
+    width: 100%;
 
     svg {
       * {
@@ -10,6 +13,13 @@
         stroke: transparent;
       }
     }
+  }
+
+  &__logo-button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 25px;
   }
 
   &__logo {
