@@ -33,7 +33,9 @@ class Footer extends React.Component {
     return (
       <footer className="footer" id="footer">
         <div className="footer__logo-container">
-          <ImageIcon className="footer__logo" icon={Logo} label="Eluvio Live" />
+          <button className="footer__logo-button" onClick={() => window.scrollTo(0, 0)}>
+            <ImageIcon className="footer__logo" icon={Logo} label="Eluvio Live" />
+          </button>
         </div>
         <div className="footer__links">
           <NavLink to="/contact" className="footer__link">Contact Us</NavLink>
