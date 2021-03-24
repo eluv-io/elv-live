@@ -1,10 +1,10 @@
 .btn {
   align-self: center;
-  background-color: black;
-  border: 1px solid black;
+  background-color: $black;
+  border: 1px solid $black;
   border-radius: 0;
   box-sizing: border-box;
-  color: white;
+  color: $white;
   cursor: pointer;
   font-size: 16px;
   height: 48px;
@@ -15,8 +15,8 @@
   width: 25rem;
 
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: $black;
+    color: $white;
     transition: all 0.2s;
 
     & > * {
@@ -26,9 +26,8 @@
 
 
   &--gold {
-    @extend .btn;
     background-color: #d7bb73;
     border: none;
-    color: black;
+    color: $black;
   }
 }

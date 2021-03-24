@@ -1,5 +1,5 @@
 .card-modal {
-  background: white;
+  background: $white;
   display: grid;
   grid-template-rows: 75vh 1fr;
   height: 100%;
@@ -83,13 +83,13 @@
   }
 
   &__image-controls-title {
-    color: black;
+    color: $black;
     font-size: 28px;
     font-weight: 200;
     letter-spacing: 0.035em;
+    margin-bottom: 45px;
     opacity: 0.5;
     padding: 0 50px;
-    margin-bottom: 45px;
     text-align: center;
 
     // Override resets
@@ -105,7 +105,7 @@
     padding: 39px 0;
 
     &:not(:last-child) {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $black;
     }
   }
 
@@ -145,10 +145,10 @@
 
     &__image-controls-title {
       font-size: 16px;
-      opacity: 0.5;
-      padding-top: 5px;
       font-weight: normal;
       margin-bottom: 10px;
+      opacity: 0.5;
+      padding-top: 5px;
 
       &:last-child {
         margin-bottom: 10px;

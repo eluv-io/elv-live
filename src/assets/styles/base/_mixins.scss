@@ -52,7 +52,7 @@
 }
 
 @mixin item-block {
-  background: white;
+  background: $white;
   border-radius: 10px;
   box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
   padding: 15px 25px 25px;

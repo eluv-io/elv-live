@@ -1,5 +1,5 @@
 .featured-events {
-  background: black;
+  background: $black;
   height: 100vh;
   max-height: 100vh;
   position: relative;
@@ -56,11 +56,11 @@
   &.featured-event-fading-out {
     animation: fadeout 0.35s linear;
     display: block;
+    height: 100%;
     left: 0;
     opacity: 0;
     position: absolute;
     top: 0;
-    height: 100%;
     z-index: 10;
 
     .featured-event__details {
@@ -72,15 +72,15 @@
   &__hero-image {
     height: 100%;
     left: 0;
+    object-fit: cover !important;
     position: absolute;
     top: 0;
     width: 100%;
-    object-fit: cover !important;
   }
 
   &__hero-image-container {
     &::after {
-      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, black);
+      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, $black);
       content: '';
       height: 100%;
       left: 0;
@@ -107,7 +107,7 @@
 
   &__header,
   &__subheader {
-    color: white;
+    color: $white;
     font-size: 56px;
     font-weight: 300;
     letter-spacing: 0.3em;
@@ -155,8 +155,8 @@
     }
 
     &.featured-event-fading-out {
-      top: 40px;
       height: calc(100% - 40px);
+      top: 40px;
     }
   }
 }

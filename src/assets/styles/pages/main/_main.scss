@@ -6,7 +6,7 @@
 
 a,
 a:hover {
-  color: black;
+  color: $black;
 }
 
 .page-content {
@@ -24,7 +24,7 @@ a:hover {
   position: relative;
 
   &__logo-block {
-    background: black;
+    background: $black;
     padding-bottom: 85px;
   }
 

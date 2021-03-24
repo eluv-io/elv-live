@@ -36,7 +36,7 @@ const JITTER_OPTION = "FullJitter";
  * @return {number} Delay (ms) after applying randomization
  */
 const applyJitter = (delay, option=JITTER_OPTION) => {
-  switch (option) {
+  switch(option) {
     case "FullJitter":
       // Randomized range between 0 and delay.
       return Math.floor(Math.random() * delay);
@@ -103,7 +103,7 @@ export const retryRequest = async (request, params, maxRetries=MAX_RETRIES, retr
     console.log("SUCCESS: Retry Request #", retryCount);
 
     return response;
-  } catch (error) {
+  } catch(error) {
     // If request errors, iterate retryCount by 1 before retrying the request
     console.log("FAIL: Retry Request #", retryCount);
     return retryRequest(request, params, maxRetries, retryCount + 1);

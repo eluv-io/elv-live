@@ -22,7 +22,7 @@
     transition: border 0.25s linear;
 
     &.active {
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid $black;
       opacity: 1;
     }
   }

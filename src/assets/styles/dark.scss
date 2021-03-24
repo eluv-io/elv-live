@@ -7,7 +7,7 @@
       .circle-loader {
         span {
           * {
-            border-color: white;
+            border-color: $white;
           }
         }
       }
@@ -17,17 +17,17 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
       .header__link {
-        color: white;
+        color: $white;
 
         &:hover {
-          color: white;
+          color: $white;
         }
       }
 
       .header__logo {
         svg {
           * {
-            fill: white;
+            fill: $white;
           }
         }
       }
@@ -35,7 +35,7 @@
       .cart-overlay-toggle {
         svg {
           * {
-            stroke: white;
+            stroke: $white;
           }
         }
       }
@@ -44,7 +44,7 @@
     .cart-overlay-toggle,
     .dark-mode-toggle {
       svg {
-        stroke: white;
+        stroke: $white;
       }
     }
 
@@ -52,15 +52,15 @@
     .event-container {
       &__heading {
         * {
-          color: white;
+          color: $white;
         }
       }
 
       .btn {
         &:not(.btn--gold) {
           &:not(.checkout-button) {
-            background: white;
-            color: black;
+            background: $white;
+            color: $black;
           }
         }
       }
@@ -69,14 +69,14 @@
     // Event tabs
     .event-tabs {
       .tab {
-        color: white;
+        color: $white;
 
         &.active {
-          border-color: white;
+          border-color: $white;
         }
 
         svg {
-          fill: white;
+          fill: $white;
         }
       }
     }
@@ -86,7 +86,7 @@
       border-bottom: 1px solid #5a5a5a;
 
       * {
-        color: white;
+        color: $white;
       }
     }
 
@@ -96,7 +96,7 @@
 
       .payment-info {
         * {
-          color: white;
+          color: $white;
         }
       }
     }
@@ -104,35 +104,35 @@
     // Success
     .payment-overview {
       * {
-        color: white;
+        color: $white;
       }
     }
 
     // Stream
     .stream-root {
-      background: black;
+      background: $black;
     }
 
     .stream-nav {
       &__button-grp {
         svg {
-          fill: white;
+          fill: $white;
         }
       }
     }
 
     .stream-info-container {
       * {
-        color: white;
+        color: $white;
       }
     }
 
     .stream-container {
       &__streamBox--info {
-        background: linear-gradient(10deg, black, #1c1b1a, #000000);
+        background: linear-gradient(10deg, $black, #1c1b1a, #000);
 
         @media only screen and (max-width: 1000px) {
-          background: black;
+          background: $black;
         }
       }
     }

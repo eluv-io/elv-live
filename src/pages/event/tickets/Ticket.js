@@ -1,8 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { IconContext } from "react-icons";
 import Select from "react-select";
 import {FormatDateString} from "Utils/Misc";
 import TicketDetails from "Event/tickets/TicketDetails";
