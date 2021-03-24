@@ -3,7 +3,7 @@ import React from "react";
 const LabelledInput = function(label, name, type="input", options) {
   let input;
 
-  switch (type) {
+  switch(type) {
     case "select":
       input = (
         <div className="form__select-wrapper">

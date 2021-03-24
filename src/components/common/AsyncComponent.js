@@ -34,7 +34,7 @@ class AsyncComponent extends React.Component {
           loading: false
         });
       }
-    } catch (error) {
+    } catch(error) {
       this.setState({error});
     }
   }

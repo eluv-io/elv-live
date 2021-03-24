@@ -2,11 +2,11 @@
   padding: 100px 50px;
 
   &__content-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-rows: 1fr 100px;
     height: 83vh;
     max-width: 100vw;
-    display: grid;
-    grid-template-rows: 1fr 100px;
-    grid-gap: 10px;
   }
 
   &__item {
@@ -26,20 +26,20 @@
   }
 
   &__close-button {
-    width: 35px;
-    height: 35px;
+    background: $white;
+    border: 1px solid $black;
     border-radius: 100%;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    border: 1px solid black;
     cursor: pointer;
+    height: 35px;
     padding: 8px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 35px;
 
     svg {
-      stroke: black;
       height: 15px;
+      stroke: $black;
       width: 15px;
     }
 
@@ -48,21 +48,21 @@
     }
 
     &:hover {
-      background: black;
+      background: $black;
 
       svg {
-        stroke: white;
+        stroke: $white;
       }
     }
   }
 
   &__image {
     animation: fadein 0.35s linear;
+    margin: auto;
     max-height: calc(83vh - 110px);
     max-width: 100%;
     min-height: 40vh;
     object-fit: contain;
-    margin: auto;
   }
 
   &__navigation {
@@ -70,20 +70,20 @@
   }
 
   &__navigation-button {
-    flex: 1 1 auto;
     background: #eee;
-    height: 100px;
-    cursor: pointer;
-    padding: 0 25px;
     border: 1px solid transparent;
-    color: black;
+    color: $black;
+    cursor: pointer;
+    flex: 1 1 auto;
+    height: 100px;
+    padding: 0 25px;
 
     &:active {
-      color: black;
+      color: $black;
     }
 
     &.selected {
-      border: 1px solid black;
+      border: 1px solid $black;
     }
 
     &:not(:last-child) {
@@ -92,10 +92,10 @@
 
     &__header,
     &__subheader {
-      font-weight: 300;
-      font-size: 14px;
-      text-align: left;
       display: flex;
+      font-size: 14px;
+      font-weight: 300;
+      text-align: left;
     }
 
     &__header {
@@ -104,8 +104,8 @@
     }
 
     &__subheader {
-      text-transform: uppercase;
       height: 14px;
+      text-transform: uppercase;
     }
   }
 
@@ -130,31 +130,31 @@
 
   @media only screen and (max-width: 1250px) {
     &__content-container {
-      min-height: unset;
-      max-height: unset;
-      grid-template-rows: auto;
-      grid-template-columns: 1fr 190px;
       grid-gap: 20px;
+      grid-template-columns: 1fr 190px;
+      grid-template-rows: auto;
+      max-height: unset;
+      min-height: unset;
     }
 
     &__close-button {
-      right: unset;
       left: -10px;
+      right: unset;
       top: 0;
     }
 
     &__navigation {
-      flex-direction: column;
       align-items: center;
+      flex-direction: column;
     }
 
     &__navigation-button {
-      padding: 10px;
-      height: 100px;
-      width: 100%;
-      max-width: 100%;
       border-radius: 3px;
       flex-grow: 0;
+      height: 100px;
+      max-width: 100%;
+      padding: 10px;
+      width: 100%;
 
       &:not(:last-child) {
         margin: 0 0 5px;
@@ -165,8 +165,8 @@
       }
 
       &__subheader {
-        height: auto;
         font-size: 12px;
+        height: auto;
       }
     }
   }
@@ -180,8 +180,8 @@
     }
 
     &__content-container {
-      grid-template-rows: auto;
       grid-template-columns: auto;
+      grid-template-rows: auto;
     }
 
     &__close-button {

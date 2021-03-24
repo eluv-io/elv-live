@@ -19,7 +19,7 @@ class EventTabs extends React.Component {
   }
 
   Content() {
-    switch (this.state.tab) {
+    switch(this.state.tab) {
       case "event":
         return <ConcertOverview />;
       case "merch":

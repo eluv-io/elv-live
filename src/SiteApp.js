@@ -1,4 +1,4 @@
-import React, {Suspense, lazy} from "react";
+import React, {lazy} from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {Route, Redirect, BrowserRouter} from "react-router-dom";

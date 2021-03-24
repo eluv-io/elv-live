@@ -15,7 +15,7 @@ export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
     } else {
       return DayJS(date).format("MMMM D, YYYY · h:mm A z");
     }
-  } catch (error) {
+  } catch(error) {
     // TODO: Central error reporting
     console.error(`Failed to parse date ${date}`);
     console.error(date);

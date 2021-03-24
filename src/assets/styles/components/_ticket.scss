@@ -123,7 +123,6 @@
 }
 
 .ticket-top-description {
-  box-orient: vertical;
   color: #000;
   display: block;
   font-family: Helvetica;
@@ -279,11 +278,11 @@
 
 .ticket-bottom-button {
   align-self: center;
-  background-color: black;
+  background-color: $black;
   border: 0;
-  border: 1px solid black;
+  border: 1px solid $black;
   border-radius: 3px;
-  color: white;
+  color: $white;
   cursor: pointer;
   font-family: Helvetica;
   font-size: 16px;
@@ -312,8 +311,8 @@
   }
 
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: $black;
+    color: $white;
     transition: all 0.2s;
 
     & > * {

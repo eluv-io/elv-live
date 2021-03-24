@@ -5,13 +5,13 @@
     font-size: 36px;
     font-weight: 300;
     letter-spacing: 0.045em;
-    text-align: center;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   &__item {
-    max-width: 700px;
     margin: 50px auto 100px;
+    max-width: 700px;
 
     &__logo {
       filter: invert(1);
@@ -25,9 +25,9 @@
     &__content {
       h2 {
         font-size: 32px;
-        text-align: center;
-        margin-bottom: 30px;
         font-weight: 300;
+        margin-bottom: 30px;
+        text-align: center;
       }
     }
 
@@ -37,11 +37,11 @@
 
     &__video {
       display: block;
-      min-width: 500px;
-      min-height: 281px;
-      max-width: 500px;
-      max-height: 281px;
       margin: 20px auto;
+      max-height: 281px;
+      max-width: 500px;
+      min-height: 281px;
+      min-width: 500px;
     }
   }
 
@@ -57,10 +57,10 @@
       }
 
       &__video {
-        min-width: 100%;
+        max-height: 100%;
         max-width: 100%;
         min-height: auto;
-        max-height: 100%;
+        min-width: 100%;
       }
     }
   }

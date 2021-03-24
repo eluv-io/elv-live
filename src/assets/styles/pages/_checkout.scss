@@ -1,5 +1,5 @@
 .checkout {
-  background: white;
+  background: $white;
   max-width: 100%;
   padding: 10px 0 50px;
   position: relative;
@@ -149,8 +149,8 @@
   }
 
   .item-quantity {
-    background: white;
-    border: 1px solid black;
+    background: $white;
+    border: 1px solid $black;
     width: 85px;
   }
 

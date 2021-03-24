@@ -32,7 +32,7 @@ class CodeAccess extends React.Component {
         this.handleRedeemCode(parsed.passcode);
       }
 
-    } catch (e) {
+    } catch(e) {
       console.log(e);
     }
   }
@@ -46,7 +46,7 @@ class CodeAccess extends React.Component {
       if(!siteId) {
         throw Error("Invalid code");
       }
-    } catch (error) {
+    } catch(error) {
       this.setState({error: "Invalid code"});
     } finally {
       this.setState({loading: false});
