@@ -41,13 +41,21 @@ class EventTabs extends React.Component {
     );
   }
 
+  Tabs() {
+    if(this.props.siteStore.Merchandise().length === 0) { return; }
+
+    return (
+      <div className="event-tabs">
+        { this.Tab("event", <InfoIcon />) }
+        { this.Tab("merch", <ShoppingCartIcon />) }
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="event-tabs-container" id="tabs">
-        <div className="event-tabs">
-          { this.Tab("event", <InfoIcon />) }
-          { this.Tab("merch", <ShoppingCartIcon />) }
-        </div>
+        { this.Tabs() }
 
         <SocialMediaBar />
 

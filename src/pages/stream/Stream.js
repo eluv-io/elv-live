@@ -123,7 +123,7 @@ class Stream extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
+      open: true,
       name: "",
       activeStream: 0
     };
@@ -252,7 +252,7 @@ class Stream extends React.Component {
           }}
         >
           <Suspense fallback={<div />}>
-            <LiveChat onDarkMode={this.props.siteStore.darkMode} />
+            <LiveChat />
           </Suspense>
         </Drawer>
       </div>

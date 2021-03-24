@@ -3,6 +3,8 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
 
+const CHAT_ROOM_SIZE = 1000;
+
 import mergeWith from "lodash/mergeWith";
 
 class SiteStore {
@@ -26,6 +28,8 @@ class SiteStore {
 
   @observable siteId;
   @observable siteHash;
+
+  @observable chatChannel;
 
   @observable error = "";
 
@@ -202,7 +206,7 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
-      this.darkMode = this.eventSites[tenantKey][siteSlug].info.theme === "dark" ? true : false;
+      this.darkMode = this.eventSites[tenantKey][siteSlug].info.theme === "dark";
 
       this.eventSites[tenantKey][siteSlug].siteSlug = siteSlug;
       this.eventSites[tenantKey][siteSlug].siteIndex = parseInt(siteIndex);
@@ -211,6 +215,14 @@ class SiteStore {
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
       this.rootStore.cartStore.LoadLocalStorage();
+
+      // Determine chat channel
+      const expectedAudienceSize = 10000;
+
+      const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
+      const roomNumber = Math.floor(Math.random() * maxRooms);
+
+      this.chatChannel = `${this.siteSlug}-${roomNumber}`;
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
