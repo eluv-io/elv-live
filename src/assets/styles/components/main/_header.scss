@@ -8,6 +8,7 @@
   padding: 0 100px;
   position: fixed;
   top: 0;
+  user-select: none;
   width: 100%;
   z-index: 100;
 
@@ -17,12 +18,12 @@
 
   & > * {
     flex: 0 1 auto;
+    user-select: none;
   }
 
   &,
   * {
     transition: background-color 1s linear, color 0.5s linear, border 0.5s linear, stroke 0.5s linear, fill 0.5s linear;
-    user-select: none;
   }
 
   &__logo {
