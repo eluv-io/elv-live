@@ -80,14 +80,14 @@ class Event extends React.Component {
 
           <div className="event-container__button">
             <button
-              className={this.props.siteStore.hasPromos ? "btn" : "btn--gold"}
+              className={this.props.siteStore.hasPromos ? "btn" : "btn btn--gold"}
               onClick={() => this.handleNavigate()}
             >
               Buy Tickets
             </button>
             {
               this.props.siteStore.hasPromos ?
-                <button onClick={() => this.setState({showPromo: true})} className="btn--gold">
+                <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
                   Watch Promo
                 </button> : null
             }
