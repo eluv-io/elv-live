@@ -55,9 +55,8 @@ class EventTabs extends React.Component {
   render() {
     return (
       <div className="event-tabs-container" id="tabs">
-        { this.Tabs() }
-
         <SocialMediaBar />
+        { this.Tabs() }
 
         { this.Content() }
       </div>

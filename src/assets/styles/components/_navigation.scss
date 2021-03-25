@@ -1,4 +1,6 @@
 .header {
+  @include page-fade-in;
+
   align-items: center;
   background-color: transparent;
   border-bottom: 1px solid $black;
@@ -44,6 +46,7 @@
 
     svg {
       height: auto;
+      overflow: visible;
       width: 191px;
 
       * {
@@ -121,7 +124,7 @@
       padding: 0;
 
       svg {
-        width: 90px;
+        width: 120px;
       }
     }
 

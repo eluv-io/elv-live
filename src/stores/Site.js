@@ -501,6 +501,14 @@ class SiteStore {
       .toString();
   }
 
+  SiteHasImage(key) {
+    try {
+      return !!this.currentSiteInfo.event_images[key];
+    } catch(error) {
+      return false;
+    }
+  }
+
   SiteImageUrl(key) {
     if(!(this.currentSiteInfo["event_images"] || {})[key]) {
       return "";

@@ -1,12 +1,12 @@
 // Overwritten by deploy script
 
 const EluvioConfiguration = {
-  //"config-url": "https://demov3.net955210.contentfabric.io/config",
-  "config-url": "https://main.net955305.contentfabric.io/config",
+  "config-url": "https://demov3.net955210.contentfabric.io/config",
+  //"config-url": "https://main.net955305.contentfabric.io/config",
 
 
-  //"live-site-id": "iq__3CXH4CDJxX76wCV6YkfEqVmSxmHp",
-  "live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
+  "live-site-id": "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
+  //"live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
 
 
   "version": "elv-live@main",
