@@ -135,7 +135,7 @@ class Checkout extends React.Component {
             <h2>
               <div className="ticket-item-header">
                 <div className="ticket-item-header-item">{ ticketClass.name }</div>
-                <div className="ticket-item-header-item">{ ticketSku.label }</div>
+                <div className="ticket-item-header-item subheader">{ ticketSku.label }</div>
               </div>
               <div className="ticket-item-price">
                 { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(ticketSku) * ticket.quantity}, true) }

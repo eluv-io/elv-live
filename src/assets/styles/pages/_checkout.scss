@@ -317,10 +317,18 @@
         margin-bottom: 16px;
       }
 
+      .ticket-item {
+        grid-gap: 15px;
+      }
+
       .ticket-item-image {
         max-height: 150px;
         min-height: 150px;
-        width: 100px !important;
+        width: 120px !important;
+      }
+
+      .ticket-item-price {
+        margin-left: 10px;
       }
 
       .item-quantity-wrapper {

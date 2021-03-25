@@ -58,18 +58,28 @@
   padding: 15px 25px 25px;
 
   h2 {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     font-size: 24px;
     font-weight: 300;
     letter-spacing: 0.07em;
     position: relative;
     text-transform: uppercase;
+    padding-right: 32px;
+
+    input[type="checkbox"] {
+      margin-top: 0.2em;
+    }
+
+    .subheader {
+      font-weight: 300;
+    }
   }
 
   @media only screen and (max-width: 900px) {
     h2 {
       font-size: 17px;
+      padding: 0;
     }
   }
 }
