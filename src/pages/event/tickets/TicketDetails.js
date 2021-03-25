@@ -152,8 +152,8 @@ class TicketDetails extends React.Component {
               </div>
             </h2>
             <div className="ticket-details__option-date">
-              <div className="ticket-details__option-date-field">{ ticketSku.label }</div>
-              <div className="separator">·</div>
+              <div className="ticket-details__option-date-field no-mobile">{ ticketSku.label }</div>
+              <div className="separator no-mobile">·</div>
               <div className="ticket-details__option-date-field">{ FormatDateString(ticketSku.start_time, true) }</div>
               <div className="separator">·</div>
               <div className="ticket-details__option-date-field">{ FormatDateString(ticketSku.start_time, false, true) }</div>

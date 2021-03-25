@@ -24,7 +24,6 @@ class Ticket extends React.Component {
     this.setState({selectedSku: value});
   }
 
-
   TicketOptions() {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     return ticketClass.skus.map((ticketSku, index) => ({
@@ -72,6 +71,8 @@ class Ticket extends React.Component {
                   value={this.TicketOptions()[this.state.selectedSku]}
                   onChange={({value}) => this.setState({selectedSku: parseInt(value)})}
                   options={this.TicketOptions()}
+                  inputProps={{readOnly:true}}
+                  isSearchable={false}
                   theme={theme => ({
                     ...theme,
                     borderRadius: 10,

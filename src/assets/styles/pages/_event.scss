@@ -169,25 +169,12 @@
   font-weight: 200;
   letter-spacing: 8px;
   line-height: 150%;
+  padding: 0 30px;
 
-  @include breakpoint('tablet-sm') {
-    font-size: calc(min(3vw, 34px));
-    letter-spacing: 5px;
-  }
-
-  @include breakpoint('phone-lg') {
-    font-size: calc(min(4.5vw, 34px));
-    letter-spacing: 0;
-  }
-
-  @include breakpoint('phone-sm') {
-    font-size: calc(min(4.7vw, 32px));
-    letter-spacing: 0;
-  }
-
-  @media only screen and (max-height: 500px) {
-    font-size: calc(min(3vw, 34px));
-    letter-spacing: 5px;
+  @media only screen and (max-width: 900px) {
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 0.07em;
   }
 }
 
