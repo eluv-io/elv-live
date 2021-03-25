@@ -86,7 +86,7 @@ class News extends React.Component {
             </div>,
             <div className="news-page__item__content">
               { this.Markdown(PressReleasePart1) }
-              { this.Video({objectId: "iq__3kDYVLRxrYfeHoHwkxVmKZUs5o26"}) }
+              { this.Video({objectId: "iq__4Bxoe3DEAAdQ2YyC5AcGtZqvupWo"}) }
               { this.Markdown(PressReleasePart2) }
             </div>
           )
