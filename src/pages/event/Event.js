@@ -20,12 +20,26 @@ class Event extends React.Component {
     this.state = {
       showPromo: false,
       tab: 0,
-      heroBackground: null
+      heroBackground: null,
+      mobile: window.innerHeight > window.innerWidth
     };
+    this.HandleResize = this.HandleResize.bind(this);
   }
 
   componentDidMount() {
     this.props.siteStore.LoadPromos();
+    window.addEventListener("resize", this.HandleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.HandleResize);
+  }
+
+  HandleResize() {
+    const mobile = window.innerWidth < 1250;
+    if(mobile !== this.state.mobile) {
+      this.setState({mobile});
+    }
   }
 
   Promos() {
@@ -58,15 +72,18 @@ class Event extends React.Component {
       this.setState({tab: newValue});
     };
 
+    const heroKey = this.state.mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
+    const headerKey = this.state.mobile && this.props.siteStore.SiteHasImage("header_mobile") ? "header_mobile" : "header";
+
     return (
       <div className="page-container event-page-container">
-        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.heroBackground})`}} />
+        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
         <div className="main-content-container event-container">
           <div className="event-container__heading">
             {
-              this.props.siteStore.eventLogo ?
+              this.props.siteStore.SiteHasImage(headerKey) ?
                 <div className="event-hero-logo-container">
-                  <img className="event-hero-logo" src={this.props.siteStore.eventLogo}/>
+                  <img className="event-hero-logo" src={this.props.siteStore.SiteImageUrl(headerKey)}/>
                 </div>
                 :
                 <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>

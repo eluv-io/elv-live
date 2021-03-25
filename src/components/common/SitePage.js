@@ -33,7 +33,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
 
       return (
         <>
-          { showHeader ? <Navigation mainPage={mainPage} /> : null }
+          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} /> : null }
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}
