@@ -46,7 +46,8 @@ const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
                   tenantSlug,
                   baseSlug,
                   siteSlug,
-                  validateBaseSlug: !isFeatured
+                  validateBaseSlug: !isFeatured,
+                  preloadHero: true
                 });
 
                 if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }

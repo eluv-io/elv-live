@@ -36,7 +36,7 @@ class Event extends React.Component {
   }
 
   HandleResize() {
-    const mobile = window.innerWidth < 1250;
+    const mobile = window.innerWidth < 900;
     if(mobile !== this.state.mobile) {
       this.setState({mobile});
     }
@@ -63,7 +63,9 @@ class Event extends React.Component {
   handleNavigate = () => {
     this.setState({
       tab: 0,
-    }, () => document.getElementById("overview-container").scrollIntoView({behavior: "smooth", block: "start"}));
+    }, () => {
+      window.scrollTo({top: document.getElementById("overview-container").getBoundingClientRect().top + window.pageYOffset - 65, behavior: "smooth"});
+    });
   };
 
 
@@ -74,6 +76,50 @@ class Event extends React.Component {
 
     const heroKey = this.state.mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
     const headerKey = this.state.mobile && this.props.siteStore.SiteHasImage("header_mobile") ? "header_mobile" : "header";
+
+    return (
+      <div className="page-container event-page">
+        <div className="event-page__hero-container">
+          <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          <div className="event-page__heading">
+            {
+              this.props.siteStore.SiteHasImage(headerKey) ?
+                <div className="event-page__header-logo">
+                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl(headerKey)}/>
+                </div>
+                :
+                <h1 className="event-page__header-name">{ this.props.siteStore.eventInfo.event_header }</h1>
+            }
+            {
+              this.props.siteStore.eventInfo.event_subheader ?
+                <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
+            }
+            <h2 className="event-page__date">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h2>
+          </div>
+
+          <div className="event-page__buttons">
+            <button
+              className={this.props.siteStore.hasPromos ? "btn" : "btn btn--gold"}
+              onClick={() => this.handleNavigate()}
+            >
+              Buy Tickets
+            </button>
+            {
+              this.props.siteStore.hasPromos ?
+                <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
+                  Watch Promo
+                </button> : null
+            }
+          </div>
+        </div>
+        <div className="event-page__overview">
+          <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
+        </div>
+
+        { this.state.showPromo ? this.Promos(): null}
+        <Footer />
+      </div>
+    );
 
     return (
       <div className="page-container event-page-container">

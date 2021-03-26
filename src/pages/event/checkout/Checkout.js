@@ -28,6 +28,33 @@ class Checkout extends React.Component {
     this.props.cartStore.ToggleCartOverlay(false);
   }
 
+  CurrencySelection() {
+    if(this.props.cartStore.currencies.length <= 1) {
+      return;
+    }
+
+    return (
+      <div className="currency-selection-container">
+        Show prices in
+        <div className="select-wrapper">
+          <select
+            className="currency-selection"
+            value={this.props.cartStore.currency}
+            onChange={event => this.setState({quantity: parseInt(event.target.value)}, this.Update)}
+          >
+            {
+              this.props.cartStore.currencies.map(({name, code}) =>
+                <option value={code} key={`currency-${code}`}>
+                  { code } - { name }
+                </option>
+              )
+            }
+          </select>
+        </div>
+      </div>
+    );
+  }
+
   Donations() {
     const donationItems = this.props.siteStore.DonationItems();
 
@@ -299,12 +326,15 @@ class Checkout extends React.Component {
       return (
         <div className="checkout-page-section cart-section empty">
           <h2 className="checkout-section-header">
-            <ImageIcon
-              className="bag-icon"
-              label="Shopping cart icon"
-              icon={BagIcon}
-            />
-            Shopping Cart
+            <div className="checkout-section-text">
+              <ImageIcon
+                className="bag-icon"
+                label="Shopping cart icon"
+                icon={BagIcon}
+              />
+              Shopping Cart
+            </div>
+            { this.CurrencySelection() }
           </h2>
 
           Your cart is empty
@@ -317,12 +347,15 @@ class Checkout extends React.Component {
     return (
       <div className="checkout-page-section cart-section">
         <h2 className="checkout-section-header">
-          <ImageIcon
-            className="bag-icon"
-            label="Shopping cart icon"
-            icon={BagIcon}
-          />
-          Shopping Cart
+          <div className="checkout-section-text">
+            <ImageIcon
+              className="bag-icon"
+              label="Shopping cart icon"
+              icon={BagIcon}
+            />
+            Shopping Cart
+          </div>
+          { this.CurrencySelection() }
         </h2>
 
         <div className="cart-item cart-header no-mobile">

@@ -1,9 +1,11 @@
 import {observable, action, flow, computed, toJS} from "mobx";
-import URI from "urijs";
 import UrlJoin from "url-join";
 import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
+import CountryCodesList from "country-codes-list";
+
+const currencyNames = CountryCodesList.customList('currencyCode', '{currencyNameEn}');
 
 class CartStore {
   @observable currency = "USD";
@@ -30,6 +32,11 @@ class CartStore {
   @computed get shippingCountries() {
     return (this.rootStore.siteStore.currentSiteInfo.shipping_countries || [])
       .map(country => country.split(":")[0]);
+  }
+
+  @computed get currencies() {
+    return (this.rootStore.siteStore.currentSiteInfo.payment_currencies || [])
+      .map(currency => ({ code: currency, name: currencyNames[currency] }));
   }
 
   constructor(rootStore) {
