@@ -23,6 +23,7 @@ class Event extends React.Component {
       heroBackground: null,
       mobile: window.innerHeight > window.innerWidth
     };
+
     this.HandleResize = this.HandleResize.bind(this);
   }
 
@@ -75,7 +76,6 @@ class Event extends React.Component {
     };
 
     const heroKey = this.state.mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
-    const headerKey = this.state.mobile && this.props.siteStore.SiteHasImage("header_mobile") ? "header_mobile" : "header";
 
     return (
       <div className="page-container event-page">
@@ -83,9 +83,9 @@ class Event extends React.Component {
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           <div className="event-page__heading">
             {
-              this.props.siteStore.SiteHasImage(headerKey) ?
+              this.props.siteStore.SiteHasImage("header_dark") ?
                 <div className="event-page__header-logo">
-                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl(headerKey)}/>
+                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl("header_dark")}/>
                 </div>
                 :
                 <h1 className="event-page__header-name">{ this.props.siteStore.eventInfo.event_header }</h1>
@@ -114,51 +114,6 @@ class Event extends React.Component {
         </div>
         <div className="event-page__overview">
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
-        </div>
-
-        { this.state.showPromo ? this.Promos(): null}
-        <Footer />
-      </div>
-    );
-
-    return (
-      <div className="page-container event-page-container">
-        <div className="event-hero-background" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
-        <div className="main-content-container event-container">
-          <div className="event-container__heading">
-            {
-              this.props.siteStore.SiteHasImage(headerKey) ?
-                <div className="event-hero-logo-container">
-                  <img className="event-hero-logo" src={this.props.siteStore.SiteImageUrl(headerKey)}/>
-                </div>
-                :
-                <h1 className="event-hero-name">{ this.props.siteStore.eventInfo.event_header }</h1>
-            }
-            {
-              this.props.siteStore.eventInfo.event_subheader ?
-                <h1 className="event-hero-header">{this.props.siteStore.eventInfo.event_subheader}</h1> : null
-            }
-            <h1 className="event-hero-date">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h1>
-          </div>
-
-          <div className="event-container__button">
-            <button
-              className={this.props.siteStore.hasPromos ? "btn" : "btn btn--gold"}
-              onClick={() => this.handleNavigate()}
-            >
-              Buy Tickets
-            </button>
-            {
-              this.props.siteStore.hasPromos ?
-                <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
-                  Watch Promo
-                </button> : null
-            }
-          </div>
-
-          <div className="event-container__overview">
-            <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
-          </div>
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
