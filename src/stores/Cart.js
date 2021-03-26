@@ -243,8 +243,10 @@ class CartStore {
   StripeSubmit = flow(function * () {
     const cartDetails = this.CartDetails();
 
+    const production = this.rootStore.siteStore.production;
+
     const stripeCart = cartDetails.tickets.map(ticket => ({
-      price: ticket.ticketSku.payment_ids.stripe.price_id,
+      price: ticket.ticketSku.payment_ids.stripe[production ? "price_id" : "price_id_test"],
       quantity: ticket.quantity,
     }));
 
@@ -279,13 +281,13 @@ class CartStore {
     */
 
     try {
-      const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations.stripe_public_key);
+      const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations[production ? "stripe_public_key" : "stripe_public_key_test"]);
       yield stripe.redirectToCheckout(stripeParams);
     } catch (error) {
       console.error(error);
       console.error(JSON.stringify(stripeParams, null, 2));
       try {
-        const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations.stripe_public_key);
+        const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations[production ? "stripe_public_key" : "stripe_public_key_test"]);
         yield retryRequest(stripe.redirectToCheckout, stripeParams);
       } catch(error) {
         this.checkoutError = "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."

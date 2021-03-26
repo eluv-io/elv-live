@@ -87,19 +87,24 @@ class Ticket extends React.Component {
               <div className="ticket-price no-mobile">
                 { this.props.cartStore.FormatPriceString(ticketSku.price, true) }
               </div>
-              <button
-                className="ticket-bottom-button"
-                role="link"
-                onClick={() => this.props.cartStore.ToggleTicketOverlay(
-                  true,
-                  {
-                    ticketClassUUID: this.props.ticketClassUUID,
-                    ticketSkuUUID: ticketSku.uuid
-                  }
-                )}
-              >
-                Buy
-              </button>
+
+              {
+                ticketSku.external_url ?
+                  <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
+                  <button
+                    className="ticket-bottom-button"
+                    role="link"
+                    onClick={() => this.props.cartStore.ToggleTicketOverlay(
+                      true,
+                      {
+                        ticketClassUUID: this.props.ticketClassUUID,
+                        ticketSkuUUID: ticketSku.uuid
+                      }
+                    )}
+                  >
+                    Buy
+                  </button>
+              }
             </div>
           </div>
         </div>
