@@ -43,11 +43,11 @@
         <mj-text align="center" color="black" font-size="20px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="30px" padding-top="10px"><strong>{{ticket-id}}</strong></mj-text>
       </mj-column>
     </mj-section>
-  
-    {{#each ticket-class}}
+
+    <mj-raw>{{#each ticket-classes}}</mj-raw>
       <mj-section background-color="white" padding-bottom="5px">
         <mj-column width="100%" border-top="1px solid black" border-bottom="1px solid black" padding="5px">
-          <mj-text align="center" color="black" font-size="30px" text-transform="capitalize"font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>{{ticket-class}}</strong></mj-text>
+          <mj-text align="center" color="black" font-size="30px" text-transform="capitalize"font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>{{ticket-class-name}}</strong></mj-text>
         </mj-column>
         <mj-column width="100%"padding="5px" >
           <mj-text align="center" color="black" font-size="22px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px">Premiering</mj-text>
@@ -55,7 +55,7 @@
           <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"><strong>Ticket Code</strong></mj-text>
         </mj-column>
       </mj-section>
-      {{#each this.tickets}}
+    <mj-raw>{{#each this.tickets}}</mj-raw>
         <mj-section background-color="#F4F4F4" padding-bottom="10px" padding-top="10px">
           <mj-column vertical-align="middle" width="50%">
             <mj-text align="center" color="black" font-size="20px" font-family="Helvetica"> <strong>{{this.passcode}}</strong></mj-text>
@@ -64,8 +64,8 @@
             <mj-button align="center" background-color="black" color="white" font-size="18px" font-weight="bold" border="none" border-radius="3px" href={{this.redeem-url}} font-family="Helvetica"> Enter Event</mj-button>
           </mj-column>
         </mj-section>
-      {{/each}}
-    {{/each}}
+    <mj-raw>{{/each}}</mj-raw>
+    <mj-raw>{{/each}}</mj-raw>
 
 
 
