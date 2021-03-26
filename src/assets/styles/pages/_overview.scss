@@ -18,8 +18,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  margin: 30px auto 40px;
-  width: 40%;
+  margin: 40px auto;
+  width: 50%;
 
   .info-social-link {
     align-items: center;
@@ -30,7 +30,7 @@
 
     .social-icon {
       height: 100%;
-      padding: 5px;
+      padding: 3px;
       width: 100%;
     }
   }
@@ -84,7 +84,7 @@
   }
 
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 900px) {
     justify-content: space-between;
     width: 100%;
   }

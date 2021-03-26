@@ -41,6 +41,10 @@ class SiteStore {
     return this.rootStore.client && this.mainSiteInfo;
   }
 
+  @computed get production() {
+    return this.mainSiteInfo.info.mode === "production";
+  }
+
   // Main site
   @computed get availableTenants() {
     return Object.keys((this.mainSiteInfo || {}).tenants || {});
@@ -51,6 +55,9 @@ class SiteStore {
     return Object.keys(featured)
       .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
   }
+
+
+  // Event Site
 
   @computed get currentSite() {
     return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
