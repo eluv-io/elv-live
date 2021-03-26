@@ -1,211 +1,149 @@
-.event-page-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.event-hero-background {
-  @include page-fade-in;
-
-  animation: 0.8s fadein linear;
-  background-color: $black;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  margin: 0;
-  mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 30%, rgba(#f4f3f1, 0) 90%);
-  min-height: 600px;
-  min-width: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  width: 100vw;
-}
-
-.event-container {
-  align-self: start;
-  display: grid;
-  grid-row-gap: 0.5rem;
-  grid-template-columns: repeat(auto-fill, 100vw);
-  grid-template-rows: 55vh [heading-start] min-content [heading-end button-start] min-content [button-end overview-start] min-content;
-  height: max-content;
+.event-page {
   position: relative;
-  width: 100% !important;
 
-  @include breakpoint('phone-lg') {
-    grid-template-rows: 50vh [heading-start] min-content [heading-end button-start] min-content [button-end overview-start] min-content;
+  * {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    z-index: 1;
+  }
+
+  &__hero-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: flex-end;
+    padding-bottom: 50px;
+    position: relative;
+  }
+
+  &__hero {
+    background-color: $black;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 30%, rgba(#f4f3f1, 0) 90%);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
   }
 
   &__heading {
-    display: grid;
-    grid-row: heading-start / heading-end;
+    margin-bottom: 25px;
 
-    & > h1 {
+    h1 {
       color: #000;
-      font-family: Helvetica;
       font-style: normal;
       text-align: center;
       text-transform: uppercase;
     }
   }
 
-  &__button {
-    display: flex;
-    flex-direction: row;
-    grid-row: button-start / button-end;
-    margin: auto;
-    width: min-content;
-
-    @include breakpoint('phone-lg') {
-      flex-direction: column;
-      width: 250px;
-
-      & > .btn {
-        font-size: 15px;
-        height: 45px;
-        margin: 0;
-        width: 250px;
-      }
-    }
-
-    @include breakpoint('phone-sm') {
-      width: 250px;
-
-      & > .btn {
-        font-size: 14px;
-        height: 40px;
-        margin: 0;
-        width: 250px;
-      }
-    }
-
-    & > .btn {
-      margin: 5px;
-    }
-  }
-
-  &__countdown {
+  &__header-name,
+  &__subheader,
+  &__date {
     color: #000;
-    font-family: Helvetica;
-    font-size: calc(min(calc(max(15vw, 18px)), 25px));
+    font-size: 34px;
     font-style: normal;
     font-weight: 300;
-    grid-row: timer-start / timer-end;
-    letter-spacing: 0.05em;
-    line-height: 100%;
-    margin: auto;
-    margin-bottom: 10px;
-    margin-top: 15px;
+    letter-spacing: 8px;
+    line-height: 150%;
+    padding: 0 30px;
     text-align: center;
     text-transform: uppercase;
-    user-select: none;
+  }
 
-    @media only screen and (max-width: 500px) {
-      font-size: 22px;
-      letter-spacing: -0.5px;
+  &__header-name {
+    font-weight: normal;
+    font-size: 42px;
+  }
+
+  &__date {
+    font-size: 25px;
+    letter-spacing: 0.095em;
+  }
+
+  &__header-logo {
+    height: 170px;
+    margin-bottom: 25px;
+    width: auto;
+
+    img {
+      height: 100%;
+      margin: auto;
+      width: auto;
     }
   }
 
   &__overview {
-    grid-row-start: info-start;
-    height: max-content;
-    padding-bottom: 50px;
-    padding-left: 12.5vw;
-    padding-right: 12.5vw;
+    padding: 0 12.5vw;
+  }
 
-    @media only screen and (max-width: 600px) {
-      margin-top: -10px;
-      padding-left: 7.5vw;
-      padding-right: 7.5vw;
-      padding-top: 10px;
+  @media only screen and (max-width: 1450px) {
+    &__hero-container {
+      height: calc(100vw * 9 / 16);
+      padding-bottom: 100px;
+      width: 100%;
+    }
+
+    &__hero {
+      background-size: contain;
+    }
+
+    &__heading {
+      margin-bottom: 5px;
+    }
+
+    &__header-name {
+      font-size: 36px;
+      letter-spacing: 0.07em;
+    }
+
+    &__subheader {
+      font-size: 26px;
+      font-weight: normal;
+      letter-spacing: 0.035em;
+    }
+
+    &__date {
+      letter-spacing: 2px;
+    }
+
+    &__header-logo {
+      height: 120px;
+      margin-bottom: 5px;
     }
   }
-}
-
-.event-tabs-container {
-  @media only screen and (max-width: 900px) {
-    margin-top: 20px;
-  }
-}
-
-.info-social-box {
-  align-items: flex-start;
-  background: transparent;
-  background: #f9f7f4;
-  border-radius: 0;
-  display: flex;
-  flex-direction: column;
-  grid-column: span 1;
-  height: auto;
-  min-width: auto;
-  padding: 0;
-  position: relative;
-  width: auto;
-}
-
-.event-hero-logo-container {
-  height: calc(min(20vh, 170px));
-  margin: auto;
-  margin-bottom: 7.5px;
-  width: auto;
-
-  @include breakpoint('phone-lg') {
-    height: calc(min(20vh, 100px));
-    margin-bottom: 10px;
-  }
-
-  @media only screen and (max-height: 500px) {
-    margin-bottom: 10px;
-    max-width: 500px;
-  }
-}
-
-.event-hero-logo {
-  height: 100%;
-  width: auto;
-}
-
-.event-hero-header {
-  font-size: calc(min(3vw, 34px));
-  font-weight: 200;
-  letter-spacing: 8px;
-  line-height: 150%;
-  padding: 0 30px;
 
   @media only screen and (max-width: 900px) {
-    font-size: 24px;
-    font-weight: normal;
-    letter-spacing: 0.07em;
-  }
-}
+    &__hero-container {
+      height: 100vh;
+    }
 
-.event-hero-date {
-  font-size: calc(min(4vw, 25px));
-  font-weight: 300;
-  letter-spacing: 0.095em;
-  line-height: 150%;
+    &__hero {
+      background-size: cover;
+    }
 
-  @include breakpoint('tablet-sm') {
-    font-size: calc(min(4.5vw, 25px));
-    letter-spacing: 0;
-  }
+    &__header-name {
+      font-size: 28px;
+    }
 
-  @media only screen and (max-height: 500px) {
-    font-size: calc(min(4.5vw, 25px));
-    letter-spacing: 0;
-  }
-}
+    &__subheader {
+      font-size: 22px;
+      font-weight: normal;
+      letter-spacing: 0.07em;
+      margin-bottom: 10px;
+    }
 
-.event-hero-name {
-  font-size: calc(min(calc(max(15vw, 55px)), 90px));
-  font-weight: 300;
-  height: 100px;
-  letter-spacing: 0.3em;
-  line-height: 130%;
-  text-transform: uppercase;
+    &__date {
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
 
-  @media only screen and (max-width: 700px) {
-    font-size: 50px;
-    height: auto;
+    &__overview {
+      padding: 0 30px;
+    }
   }
 }

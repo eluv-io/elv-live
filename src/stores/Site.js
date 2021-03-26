@@ -180,7 +180,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true}) {
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true, preloadHero=false}) {
     const tenantKey = tenantSlug || "featured";
     if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return !validateBaseSlug || baseSlug === this.baseSlug;
@@ -199,6 +199,20 @@ class SiteStore {
       }
 
       this.siteIndex = siteIndex;
+
+      let heroPreloadPromise;
+      if(preloadHero) {
+        // Preload the main hero image
+        const key = window.innerHeight > window.innerWidth ? "hero_background_mobile" : "hero_background";
+        this.cachedHero = new Image();
+
+        heroPreloadPromise = new Promise(resolve => {
+          this.cachedHero.addEventListener("load", resolve);
+          this.cachedHero.addEventListener("error", resolve);
+        });
+
+        this.cachedHero.src = this.SiteUrl(UrlJoin("info", "event_images", key));
+      }
 
       this.eventSites[tenantKey][siteSlug] = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
@@ -230,6 +244,8 @@ class SiteStore {
       const roomNumber = Math.floor(Math.random() * maxRooms);
 
       this.chatChannel = `${this.siteSlug}-${roomNumber}`;
+
+      yield heroPreloadPromise;
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
