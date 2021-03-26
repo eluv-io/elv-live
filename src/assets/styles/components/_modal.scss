@@ -89,10 +89,12 @@
 .promo-player-container {
   display: flex;
   flex-direction: column;
+  height: 50vh;
   min-width: 100%;
 
   .promo-buttons-container {
     display: flex;
+    height: 50px;
     justify-content: space-between;
     margin-top: 10px;
 

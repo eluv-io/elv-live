@@ -1,6 +1,6 @@
 .code-entry {
   align-items: center;
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 7px;
   box-shadow: 0 4px 50px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -10,23 +10,26 @@
   margin: auto;
   width: calc(min(400px, 90vw));
 
+  * {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  }
+
   @media only screen and (max-height: 500px) {
     height: 240px;
   }
 
 
   input {
+    border: 0;
     border-radius: 4px;
-    font-family: Helvetica;
     font-size: 2.2rem;
     font-style: normal;
     font-weight: normal;
     height: 52px;
     letter-spacing: 0.14em;
     line-height: 19px;
-    margin-top: 1rem;
     text-align: center;
-    width: calc(min(30rem, 90vw));
+    width: 255px;
 
     @media only screen and (max-width: 415px) {
       font-size: 2rem;
@@ -35,7 +38,6 @@
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.75);
-      font-variant: all-small-caps;
     }
   }
 
@@ -46,18 +48,17 @@
     border-radius: 3px;
     color: $white;
     cursor: pointer;
-    font-family: Helvetica;
     font-size: 16px;
     font-style: normal;
     font-weight: normal;
     height: 52px;
     letter-spacing: 0.14em;
     line-height: 19px;
-    margin-top: 20px;
+    margin-top: 15px;
     max-width: 100%;
     text-align: center;
     text-transform: uppercase;
-    width: calc(min(30rem, 90vw));
+    width: 255px;
 
     @media only screen and (max-width: 415px) {
       width: 280px;
@@ -74,7 +75,6 @@ pre {
 
 .code-header {
   display: block;
-  font-family: Helvetica;
   margin-bottom: 18px;
   text-align: center;
 
@@ -88,12 +88,13 @@ pre {
 }
 
 .code-header-title {
-  font-family: Helvetica;
   font-size: 37px;
   font-style: normal;
+  font-weight: 300;
   letter-spacing: 0;
+  letter-spacing: 0.035em;
   line-height: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
 
   @media only screen and (max-height: 500px) {
@@ -103,11 +104,11 @@ pre {
 
 .code-header-p {
   color: $black;
-  font-family: Helvetica;
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 10px;
-  padding: 0 40px;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.035em;
+  margin-bottom: 21px;
+  padding: 0 20px;
   width: 100%;
 
   &:hover {
@@ -123,7 +124,6 @@ pre {
 }
 
 .code-header-bold {
-  font-family: Helvetica;
   font-weight: bold !important;
 
   &:hover {
@@ -147,7 +147,6 @@ pre {
   background-color: #fff;
   border-radius: 5px;
   color: #f00;
-  font-family: Helvetica;
   font-size: 20px;
   font-style: normal;
   font-weight: normal;

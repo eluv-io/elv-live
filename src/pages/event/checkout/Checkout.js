@@ -412,6 +412,9 @@ class Checkout extends React.Component {
       );
     }
 
+    const paypalClientId =
+      this.props.siteStore.paymentConfigurations[this.props.siteStore.production ? "paypal_client_id" : "paypal_client_id_test"];
+
     return (
       <div className="payment-actions">
         <button className="checkout-button" role="link" onClick={this.props.cartStore.StripeSubmit}>
@@ -421,7 +424,7 @@ class Checkout extends React.Component {
         <div className="paypal-button">
           <PayPalScriptProvider
             options={{
-              "client-id": this.props.siteStore.paymentConfigurations.paypal_client_id,
+              "client-id": paypalClientId,
               currency: this.props.cartStore.currency
             }}
           >
