@@ -43,8 +43,8 @@
   }
 }
 
-@mixin page-fade-in {
-  animation: 0.5s fadein ease-in;
+@mixin page-fade-in($duration: 0.5s) {
+  animation: $duration fadein ease-in;
 }
 
 @mixin page-fade-out {

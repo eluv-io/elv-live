@@ -20,7 +20,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@eluvio/elv-client-js": "^3.1.39",
+    "@eluvio/elv-client-js": "^3.1.49",
     "@eluvio/elv-player-js": "^1.0.10",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",

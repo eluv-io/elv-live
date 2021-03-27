@@ -1,0 +1,127 @@
+.landing-page {
+  @include page-fade-in;
+  background: $black;
+  color: $white;
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+
+  * {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  }
+
+  &__content {
+    margin: 0 auto;
+    max-width: 800px;
+    padding-top: 80px;
+  }
+
+  &__text {
+    font-size: 24px;
+    font-weight: 200;
+    letter-spacing: 0.2em;
+    text-align: center;
+  }
+
+  &__text-presents {
+    color: #f0e5d4;
+  }
+
+  &__text-countdown {
+    color: #f0e5d4;
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    margin: 20px 0;
+  }
+
+  &__text-return {
+    font-size: 18px;
+    margin: 0 auto;
+    max-width: 475px;
+  }
+
+  &__logo,
+  &__event-logo {
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+  }
+
+  &__logo {
+    margin: 0 auto 20px;
+    width: 100%;
+  }
+
+  &__event-logo {
+    height: 150px;
+    margin: 20px auto 30px;
+  }
+
+  &__enter-event {
+    @include page-fade-in;
+    align-items: center;
+    background: transparent;
+    border: 1px solid $white;
+    border-radius: 3px;
+    color: $white;
+    display: flex;
+    font-size: 16px;
+    height: 50px;
+    justify-content: center;
+    letter-spacing: 0.14em;
+    margin: 50px auto 0;
+    text-transform: uppercase;
+    width: 255px;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  &__new-code-link {
+    bottom: 20px;
+    color: $white;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    opacity: 0.5;
+    position: absolute;
+    right: 30px;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__content {
+      max-width: unset;
+      padding: 100px 10px 0;
+      width: 100%;
+    }
+
+    &__event-logo {
+      height: 125px;
+    }
+
+    &__text {
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+
+    &__text-countdown {
+      font-size: 22px;
+      font-weight: normal;
+    }
+
+    &__new-code-link {
+      font-size: 14px;
+      right: 20px;
+    }
+  }
+}

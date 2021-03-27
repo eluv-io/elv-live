@@ -37,26 +37,33 @@ class Header extends React.Component {
   }
 
   render() {
+    if(!this.props.siteStore.currentSite) { return null; }
+
     return (
-      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
+      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
         <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
           <ImageIcon icon={Logo} label="Eluvio Live" />
         </NavLink>
         <div className="header__spacer" />
         <div className="header__links">
-          <NavLink to={this.props.siteStore.SitePath("code")} className="header__link" activeClassName="header__link-active">
-            Redeem Ticket
-          </NavLink>
-
-          <button
-            title="Your Cart"
-            onClick={this.props.cartStore.ToggleCartOverlay}
-            className="cart-overlay-toggle"
-          >
-            <ImageIcon
-              icon={CartIcon}
-            />
-          </button>
+          {
+            this.props.hideRedeem ? null :
+              <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicket ? "event" : "code")} className="header__link" activeClassName="header__link-active">
+                Redeem Ticket
+              </NavLink>
+          }
+          {
+            this.props.hideCheckout ? null :
+              <button
+                title="Your Cart"
+                onClick={this.props.cartStore.ToggleCartOverlay}
+                className="cart-overlay-toggle"
+              >
+                <ImageIcon
+                  icon={CartIcon}
+                />
+              </button>
+          }
         </div>
         <CartOverlay />
         <Checkout />

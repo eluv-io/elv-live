@@ -17,7 +17,6 @@ class SiteStore {
   @observable eventSites = {};
   @observable siteSlug;
   @observable siteIndex;
-  @observable activeTicket;
   @observable darkMode = false;
 
   @observable streams = [];
@@ -58,13 +57,16 @@ class SiteStore {
 
 
   // Event Site
-
   @computed get currentSite() {
     return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
   }
 
   @computed get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
+  }
+
+  @computed get currentSiteTicket() {
+    return this.rootStore.savedTickets[this.siteSlug];
   }
 
   @computed get currentSiteMetadataPath() {
@@ -89,6 +91,10 @@ class SiteStore {
 
   @computed get hasPromos() {
     return this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0;
+  }
+
+  @computed get eventActive() {
+    return new Date(this.currentSiteInfo.event_info.date) < new Date();
   }
 
   SitePath(...pathElements) {
@@ -214,7 +220,7 @@ class SiteStore {
         this.cachedHero.src = this.SiteUrl(UrlJoin("info", "event_images", key));
       }
 
-      this.eventSites[tenantKey][siteSlug] = yield this.client.ContentObjectMetadata({
+      let site = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         select: [
           ".",
@@ -227,12 +233,14 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
-      this.darkMode = this.eventSites[tenantKey][siteSlug].info.theme === "dark";
+      yield heroPreloadPromise;
 
-      this.eventSites[tenantKey][siteSlug].siteSlug = siteSlug;
-      this.eventSites[tenantKey][siteSlug].siteIndex = parseInt(siteIndex);
+      this.darkMode = site.info.theme === "dark";
 
-      this.siteHash = this.eventSites[tenantKey][siteSlug]["."].source;
+      site.siteSlug = siteSlug;
+      site.siteIndex = parseInt(siteIndex);
+
+      this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
       this.rootStore.cartStore.LoadLocalStorage();
@@ -245,7 +253,8 @@ class SiteStore {
 
       this.chatChannel = `${this.siteSlug}-${roomNumber}`;
 
-      yield heroPreloadPromise;
+
+      this.eventSites[tenantKey][siteSlug] = site;
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
@@ -330,28 +339,6 @@ class SiteStore {
   @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
-  }
-
-  ActivateCode(code="") {
-    let ticketPrefixMap = {};
-
-    this.ticketClasses.forEach(ticketClass => {
-      (ticketClass.skus || []).forEach(sku => {
-        if(sku.otp_id && sku.otp_id.includes(":")) {
-          ticketPrefixMap[sku.otp_id.split(":")[0]] = {
-            ticketClass,
-            sku
-          };
-        }
-      });
-    });
-
-    const prefix = Object.keys(ticketPrefixMap)
-      .sort((a, b) => a.length > b.length ? -1 : 1)
-      .find(prefix => code.startsWith(prefix));
-
-    // TODO: Throw error if ticket with prefix not found
-    this.activeTicket = ticketPrefixMap[prefix];
   }
 
   /* Site attributes */
