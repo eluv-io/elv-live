@@ -5,7 +5,7 @@ import {Redirect, withRouter} from "react-router";
 import {PageLoader} from "Common/Loaders";
 import Navigation from "Layout/Navigation";
 
-const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
+const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false}={}) => {
   @inject("siteStore")
   @observer
   @withRouter
@@ -33,7 +33,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
 
       return (
         <>
-          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} /> : null }
+          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} inverted={invertHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}

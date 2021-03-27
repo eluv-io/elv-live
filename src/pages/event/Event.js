@@ -28,7 +28,6 @@ class Event extends React.Component {
   }
 
   componentDidMount() {
-    this.props.siteStore.LoadPromos();
     window.addEventListener("resize", this.HandleResize);
   }
 
