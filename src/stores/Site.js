@@ -147,7 +147,7 @@ class SiteStore {
       this.mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
-        resolveLinks: false
+        resolveLinks: false,
       })) || {};
     } catch(error) {
       // TODO: Graceful error handling
@@ -431,10 +431,6 @@ class SiteStore {
       this.currentSiteInfo.stream_page || {},
       (def, info) => info ? info : def
     );
-  }
-
-  @computed get paymentConfigurations() {
-    return (this.currentSiteInfo.payment_config) || {};
   }
 
   /* Tickets and Products */

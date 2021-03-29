@@ -11,6 +11,7 @@ import {FormatDateString, ValidEmail} from "Utils/Misc";
 import StripeLogo from "Images/logo/logo-stripe";
 import {FUNDING, PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {Redirect} from "react-router";
+import {Loader} from "Common/Loaders";
 
 @inject("cartStore")
 @inject("siteStore")
@@ -20,12 +21,16 @@ class Checkout extends React.Component {
     super(props);
 
     this.state = {
-      redirect: false
+      redirect: false,
+      submitting: false
     };
   }
 
   componentDidMount() {
     this.props.cartStore.ToggleCartOverlay(false);
+
+    // Load paypal public key
+    this.props.cartStore.PaymentServicePublicKey("paypal");
   }
 
   CurrencySelection() {
@@ -380,12 +385,12 @@ class Checkout extends React.Component {
         <div className="order-summary">
           <label>Subtotal</label>
           <div className="order-value">
-            { cartDetails.totalFormatted }
+            { cartDetails.subtotalFormatted }
           </div>
-          <label>Shipping</label>
-          <div className="order-value">TBD</div>
-          <label>Estimated Tax</label>
-          <div className="order-value">TBD</div>
+          <label>Service Fee</label>
+          <div className="order-value">
+            { cartDetails.serviceFeeFormatted }
+          </div>
           <label>Total</label>
           <div className="order-value">
             { cartDetails.totalFormatted }
@@ -412,25 +417,36 @@ class Checkout extends React.Component {
       );
     }
 
-    const paypalClientId =
-      this.props.siteStore.paymentConfigurations[this.props.siteStore.production ? "paypal_client_id" : "paypal_client_id_test"];
+    if(this.props.cartStore.submittingOrder) {
+      return (
+        <div className="payment-actions">
+          <Loader />
+        </div>
+      );
+    }
 
     return (
       <div className="payment-actions">
-        <button className="checkout-button" role="link" onClick={this.props.cartStore.StripeSubmit}>
+        <button
+          className="checkout-button"
+          role="link"
+          onClick={this.props.cartStore.StripeSubmit}
+        >
           Pay with Card
           <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
         </button>
         <div className="paypal-button">
           <PayPalScriptProvider
             options={{
-              "client-id": paypalClientId,
+              "client-id": this.props.cartStore.paymentServicePublicKeys["paypal"],
               currency: this.props.cartStore.currency
             }}
           >
             <PayPalButtons
               createOrder={this.props.cartStore.PaypalSubmit}
-              onApprove={() => this.setState({redirect: true})}
+              onApprove={() => {
+                this.setState({redirect: true});
+              }}
               onError={() => this.props.cartStore.PaymentSubmitError("There was an error with Paypal Checkout. Please try again.")}
               style={{
                 color:  "gold",
