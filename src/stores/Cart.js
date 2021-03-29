@@ -1,9 +1,14 @@
 import {observable, action, flow, computed, toJS} from "mobx";
+import URI from "urijs";
 import UrlJoin from "url-join";
 import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
 import CountryCodesList from "country-codes-list";
+import EluvioConfiguration from "EluvioConfiguration";
+
+const PAYMENT_SERVER = "https://miscsrv.contentfabric.io/fn1";
+const SERVICE_FEE = 0.1;
 
 const currencyNames = CountryCodesList.customList('currencyCode', '{currencyNameEn}');
 
@@ -26,6 +31,10 @@ class CartStore {
   @observable featuredTickets = {};
   @observable featuredMerchandise = {};
   @observable featuredDonations = {};
+
+  @observable submittingOrder = false;
+
+  @observable paymentServicePublicKeys = {};
 
   @observable lastAdded;
 
@@ -213,6 +222,7 @@ class CartStore {
 
         return {
           uuid: itemDetails.uuid,
+          sku_id: item.product_options[itemDetails.optionIndex].uuid,
           item,
           option: item.product_options[itemDetails.optionIndex],
           price: this.ItemPrice(item),
@@ -233,13 +243,22 @@ class CartStore {
       });
 
     const Total = arr => arr.map(item => item.price * item.quantity).reduce((acc, price) => acc + price, 0);
-    const total = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
+    const subtotal = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
+    const taxableTotal = Total(cart.tickets) + Total(cart.merchandise);
+    const serviceFee = taxableTotal * SERVICE_FEE;
+    const total = taxableTotal + serviceFee + Total(cart.donations);
 
     return {
       tickets: Object.values(cart.tickets),
       merchandise: Object.values(cart.merchandise),
       donations: cart.donations,
-      total,
+      subtotal: parseFloat(subtotal.toFixed(2)),
+      subtotalFormatted: this.FormatPriceString({[this.currency]: subtotal}),
+      taxableTotal: parseFloat(taxableTotal.toFixed(2)),
+      taxableTotalFormatted: this.FormatPriceString({[this.currency]: taxableTotal}),
+      serviceFee: parseFloat(serviceFee.toFixed(2)),
+      serviceFeeFormatted: this.FormatPriceString({[this.currency]: serviceFee}),
+      total: parseFloat(total.toFixed(2)),
       totalFormatted: this.FormatPriceString({[this.currency]: total})
     };
   }
@@ -248,126 +267,153 @@ class CartStore {
 
   @action.bound
   StripeSubmit = flow(function * () {
-    const cartDetails = this.CartDetails();
-
-    const production = this.rootStore.siteStore.production;
-
-    const stripeCart = cartDetails.tickets.map(ticket => ({
-      price: ticket.ticketSku.payment_ids.stripe[production ? "price_id" : "price_id_test"],
-      quantity: ticket.quantity,
-    }));
-
-    this.confirmationId = this.ConfirmationId();
-    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
-
-    const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
-
-    let stripeParams = {
-      mode: "payment",
-      successUrl: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
-      cancelUrl: baseUrl,
-      clientReferenceId: checkoutId,
-      customerEmail: this.email,
-      lineItems: stripeCart,
-      shippingAddressCollection: {
-        allowedCountries: this.shippingCountries
-      }
-    };
-
-
-    /* TODO: Merchandise and donations
-    if(this.state.merchChecked) {
-      checkoutCart.push({
-        price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value],
-        quantity: 1
-      });
-    }
-    if(this.state.donationChecked) {
-      checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
-    }
-    */
-
     try {
-      const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations[production ? "stripe_public_key" : "stripe_public_key_test"]);
-      yield stripe.redirectToCheckout(stripeParams);
-    } catch (error) {
-      console.error(error);
-      console.error(JSON.stringify(stripeParams, null, 2));
+      this.submittingOrder = true;
+
+      const cartDetails = this.CartDetails();
+
+      let itemList =
+        cartDetails.tickets.map(ticket => ({sku: ticket.ticketSku.uuid, quantity: ticket.quantity}))
+          .concat(cartDetails.merchandise.map(item => ({sku: item.sku_id, quantity: item.quantity})))
+          .concat(cartDetails.donations.map(donation => ({sku: donation.uuid, quantity: donation.quantity})));
+
+      this.confirmationId = this.ConfirmationId();
+      const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+
+      const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
+
+      const requestParams = {
+        network: EluvioConfiguration["config-url"].includes("demov3") ? "demo" : "production",
+        mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
+        main_site_hash: this.rootStore.siteStore.siteParams.versionHash,
+        tenant_slug: this.rootStore.siteStore.tenantSlug || "featured",
+        site_index: this.rootStore.siteStore.siteIndex,
+        site_slug: this.rootStore.siteStore.siteSlug,
+        currency: this.currency,
+        email: this.email,
+        client_reference_id: checkoutId,
+        items: itemList,
+        success_url: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
+        cancel_url: baseUrl
+      };
+
       try {
-        const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations[production ? "stripe_public_key" : "stripe_public_key_test"]);
-        yield retryRequest(stripe.redirectToCheckout, stripeParams);
+        // Set up session
+        const stripePublicKey = yield this.PaymentServicePublicKey("stripe");
+        const sessionId = (yield this.PaymentServerRequest("create_payment_session", requestParams)).session_id;
+
+        // Redirect to stripe
+        const stripe = yield loadStripe(stripePublicKey);
+        yield stripe.redirectToCheckout({sessionId});
       } catch(error) {
-        this.checkoutError = "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."
+        console.error(error);
+        console.error(JSON.stringify(requestParams, null, 2));
       }
+    } finally {
+      this.submittingOrder = false;
     }
   });
 
   @action.bound
   PaypalSubmit = flow(function * (data, actions) {
-    const cartDetails = this.CartDetails();
+    try {
+      this.submittingOrder = true;
 
-    let paypalCart = cartDetails.tickets.map(ticket => ({
-      name: `${ticket.ticketClass.name} - ${ticket.ticketSku.label}`,
-      unit_amount: {
-        value: ticket.price,
-        currency_code: this.currency
-      },
-      quantity: ticket.quantity,
-      sku: ticket.ticketSku.otp_id
-    }));
+      const cartDetails = this.CartDetails();
 
-    paypalCart = paypalCart.concat(
-      cartDetails.merchandise.map(item => ({
-        name: item.item.name,
+      let paypalCart = cartDetails.tickets.map(ticket => ({
+        name: `${ticket.ticketClass.name} - ${ticket.ticketSku.label}`,
         unit_amount: {
-          value: item.price,
+          value: ticket.price,
           currency_code: this.currency
         },
-        quantity: item.quantity,
-        description: JSON.stringify(item.option),
-        sku: item.uuid
-      }))
-    );
+        quantity: ticket.quantity,
+        sku: ticket.ticketSku.otp_id
+      }));
 
-    paypalCart = paypalCart.concat(
-      cartDetails.donations.map(item => ({
-        name: item.item.name,
-        unit_amount: {
-          value: item.price,
-          currency_code: this.currency
-        },
-        quantity: item.quantity,
-        description: item.name,
-        sku: item.uuid
-      }))
-    );
-
-    this.confirmationId = this.ConfirmationId();
-    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`
-
-
-    return actions.order.create({
-      purchase_units: [
-        {
-          reference_id: this.email,
-          custom_id: checkoutId,
-          amount: {
-            value: cartDetails.total,
-            currency_code: this.currency,
-            breakdown: {
-              item_total: {
-                value: cartDetails.total,
-                currency_code: this.currency
-              }
-            }
+      paypalCart = paypalCart.concat(
+        cartDetails.merchandise.map(item => ({
+          name: item.item.name,
+          unit_amount: {
+            value: item.price,
+            currency_code: this.currency
           },
-          items: paypalCart,
-        }]
-    });
+          quantity: item.quantity,
+          description: JSON.stringify(item.option),
+          sku: item.uuid
+        }))
+      );
+
+      paypalCart = paypalCart.concat(
+        cartDetails.donations.map(item => ({
+          name: item.item.name,
+          unit_amount: {
+            value: item.price,
+            currency_code: this.currency
+          },
+          quantity: item.quantity,
+          description: item.name,
+          sku: item.uuid
+        }))
+      );
+
+      paypalCart.push({
+        name: "Service Fee",
+        unit_amount: {
+          value: cartDetails.serviceFee,
+          currency_code: this.currency
+        },
+        quantity: 1
+      });
+
+      this.confirmationId = this.ConfirmationId();
+      const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+
+      return actions.order.create({
+        purchase_units: [
+          {
+            reference_id: this.email,
+            custom_id: checkoutId,
+            amount: {
+              value: cartDetails.total,
+              currency_code: this.currency,
+              breakdown: {
+                item_total: {
+                  value: cartDetails.total,
+                  currency_code: this.currency
+                }
+              }
+            },
+            items: paypalCart,
+          }]
+      });
+    } finally {
+      this.submittingOrder = false;
+    }
   });
 
   PaymentSubmitError(message) {
     this.checkoutError = message;
+  }
+
+  PaymentServicePublicKey = flow(function * (service) {
+    if(!this.paymentServicePublicKeys[service]) {
+      this.paymentServicePublicKeys[service] =
+        (yield this.PaymentServerRequest("public_key", { service, mode: this.rootStore.siteStore.mainSiteInfo.info.mode})).public_key;
+    }
+
+    return this.paymentServicePublicKeys[service];
+  });
+
+  async PaymentServerRequest(path, body={}) {
+    let paymentServerUrl = URI(PAYMENT_SERVER);
+    paymentServerUrl.path(UrlJoin(paymentServerUrl.path(), path));
+
+    if(typeof body === "object") {
+      body = JSON.stringify(body);
+    }
+
+    return await (await fetch(paymentServerUrl.toString(), { method: "POST", headers: {"Content-type": "application/json"}, body})).json()
   }
 
   // LocalStorage
@@ -378,6 +424,7 @@ class CartStore {
 
     this.tickets = [];
     this.merchandise = [];
+    this.featuredDonations = {};
 
     this.SaveLocalStorage();
   }
@@ -393,7 +440,9 @@ class CartStore {
         btoa(
           JSON.stringify({
             tickets: toJS(this.tickets),
-            merchandise: toJS(this.merchandise)
+            merchandise: toJS(this.merchandise),
+            donations: toJS(this.featuredDonations),
+            email: this.email
           })
         )
       );
@@ -409,10 +458,12 @@ class CartStore {
     if(!data) { return; }
 
     try {
-      const { tickets, merchandise } = JSON.parse(atob(data));
+      const { tickets, merchandise, donations, email } = JSON.parse(atob(data));
 
       this.tickets = tickets || [];
       this.merchandise = merchandise || [];
+      this.featuredDonations = donations || {};
+      this.email = email || "";
     } catch(error) {
       console.error("Failed to load data from localstorage:");
       console.error(error);

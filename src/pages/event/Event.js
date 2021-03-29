@@ -64,7 +64,7 @@ class Event extends React.Component {
     this.setState({
       tab: 0,
     }, () => {
-      window.scrollTo({top: document.getElementById("overview-container").getBoundingClientRect().top + window.pageYOffset - 65, behavior: "smooth"});
+      window.scrollTo({top: document.getElementById("buy-tickets-target").getBoundingClientRect().top + window.pageYOffset - 65, behavior: "smooth"});
     });
   };
 
@@ -111,7 +111,7 @@ class Event extends React.Component {
             }
           </div>
         </div>
-        <div className="event-page__overview">
+        <div className="event-page__overview" id="buy-tickets-target">
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
         </div>
 

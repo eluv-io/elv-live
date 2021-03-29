@@ -64,9 +64,9 @@ class MerchandiseItem extends React.Component {
     return options;
   }
 
-  // Check for option equality, ignoring option index field
+  // Check for option equality, ignoring option index and sku fields
   MatchOption(first, second) {
-    return isEqual({...first, optionIndex: null}, {...second, optionIndex: null});
+    return isEqual({...first, optionIndex: null, uuid: null}, {...second, optionIndex: null, uuid: null});
   }
 
   SelectOption(name, value, index) {
