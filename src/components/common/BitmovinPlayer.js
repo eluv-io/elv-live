@@ -3,8 +3,8 @@ import React from "react";
 import BitmovinImports from "bitmovin-player";
 import * as BitmovinUIImports from "bitmovin-player-ui";
 import EluvioConfiguration from "EluvioConfiguration";
-import ErrorHandler from "Common/ErrorHandler";
 import {toJS} from "mobx";
+import {ErrorWrapper} from "Common/ErrorBoundary";
 
 // TODO: Robust error handling
 const SetErrorMessage = (message) => {
@@ -157,4 +157,4 @@ class BitmovinPlayer extends React.Component {
   }
 }
 
-export default ErrorHandler(BitmovinPlayer);
+export default ErrorWrapper(BitmovinPlayer);

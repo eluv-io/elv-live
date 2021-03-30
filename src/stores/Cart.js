@@ -56,16 +56,18 @@ class CartStore {
     return this.rootStore.client.utils.B58(UUIDParse(UUID()));
   }
 
-  ItemPrice(item) {
+  ItemPrice(item, allowMissing=false) {
     const currency = Object.keys(item.price || {}).find(c => c.toLowerCase() === this.currency.toLowerCase());
 
-    if(!currency) { throw Error(`Could not find currency ${this.currency} for item`); }
+    if(!currency && !allowMissing) { throw Error(`Could not find currency ${this.currency} for item`); }
 
     return parseFloat(item.price[currency]);
   }
 
-  FormatPriceString(priceList, trimZeros=false) {
-    const price = this.ItemPrice({price: priceList});
+  FormatPriceString(priceList, trimZeros=false, allowMissing=false) {
+    const price = this.ItemPrice({price: priceList}, allowMissing);
+
+    if(isNaN(price)) { return; }
 
     const currentLocale = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language;
     let formattedPrice = new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: this.currency }).format(price);

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {observer} from "mobx-react";
-import ErrorHandler from "Common/ErrorHandler";
 import {PageLoader} from "Common/Loaders";
+import {ErrorWrapper} from "Common/ErrorBoundary";
 
 @observer
 class AsyncComponent extends React.Component {
@@ -64,4 +64,4 @@ AsyncComponent.propTypes = {
   children: PropTypes.node
 };
 
-export default ErrorHandler(AsyncComponent);
+export default ErrorWrapper(AsyncComponent);

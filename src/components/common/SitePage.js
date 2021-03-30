@@ -37,6 +37,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}
+              _errorBoundaryClassname="page-container error-page-container"
               Load={async () => {
                 if(!isFeatured) {
                   await this.props.siteStore.LoadTenant(tenantSlug);
