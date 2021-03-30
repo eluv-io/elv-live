@@ -1,6 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Ticket from "Event/tickets/Ticket";
+import {ErrorBoundary} from "Common/ErrorBoundary";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -12,7 +13,9 @@ class ConcertOverview extends React.Component {
         <div className="ticket-group">
           {
             this.props.siteStore.ticketClasses.map(ticketClass =>
-              <Ticket ticketClassUUID={ticketClass.uuid} key={`ticket-class-${ticketClass.uuid}`} />
+              <ErrorBoundary hideOnError>
+                <Ticket ticketClassUUID={ticketClass.uuid} key={`ticket-class-${ticketClass.uuid}`} />
+              </ErrorBoundary>
             )
           }
         </div>

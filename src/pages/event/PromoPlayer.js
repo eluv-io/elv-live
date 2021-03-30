@@ -2,10 +2,10 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
 
-import ErrorHandler from "Common/ErrorHandler";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
 import EluvioConfiguration from "EluvioConfiguration";
+import {ErrorWrapper} from "Common/ErrorBoundary";
 
 @inject("siteStore")
 @observer
@@ -103,4 +103,4 @@ class PromoPlayer extends React.Component {
   }
 }
 
-export default ErrorHandler(PromoPlayer);
+export default ErrorWrapper(PromoPlayer);
