@@ -2,8 +2,7 @@
   <mj-body background-color="#ccd3e0">
     <mj-section background-color="white" padding-bottom="10px" padding-top="10px">
       <mj-column width="100%">
-        <!-- TODO: there is now an anchor tag (to live.eluv.io) around this image and the one below  -->
-        <mj-image align="center" padding="25px 25px" src="cid:default.png" width="190px"></mj-image>
+        <mj-image align="center" padding="25px 25px" src="https://host-66-220-3-86.contentfabric.io/qlibs/ilib2bLJtRJG3LW9yScSNStbjkSqF2hH/q/iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv/meta/public/asset_metadata/images/dark_logo/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true" width="190px"></mj-image>
         <mj-text align="center" font-size="28px" color="black" padding-top="40px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="40px" padding-left="15%" padding-right="15%">
           <span style="font-weight:bold;">{{cust-name}},</span>
           <br />
@@ -45,31 +44,24 @@
       </mj-column>
     </mj-section>
 
-    <mj-raw>{{#each ticket-classes}}</mj-raw>
-      <mj-section background-color="white" padding-bottom="5px">
-        <mj-column width="100%" border-top="1px solid black" border-bottom="1px solid black" padding="5px">
-          <mj-text align="center" color="black" font-size="30px" text-transform="capitalize"font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>{{ticket-class-name}}</strong></mj-text>
+    <mj-section background-color="white" padding-bottom="5px">
+      <mj-column width="100%" border-top="1px solid black" border-bottom="1px solid black" padding="5px">
+        <mj-text align="center" color="black" font-size="30px" text-transform="capitalize"font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>{{ticket-class}}</strong></mj-text>
+      </mj-column>
+      <mj-column width="100%"padding="5px" >
+        <mj-text align="center" color="black" font-size="22px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px">Premiering</mj-text>
+        <mj-text align="center" color="black" font-size="22px" font-family="Helvetica" padding-left="5px" padding-right="5px" padding-bottom="30px" padding-top="10px">{{premiere-date}}</mj-text>
+        <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"><strong>Ticket Code</strong></mj-text>
+      </mj-column>
+    </mj-section>
+      <mj-section background-color="#F4F4F4" padding-bottom="10px" padding-top="10px">
+        <mj-column vertical-align="middle" width="50%">
+          <mj-text align="center" color="black" font-size="20px" font-family="Helvetica"> <strong>{{passcode}}</strong></mj-text>
         </mj-column>
-        <mj-column width="100%"padding="5px" >
-          <mj-text align="center" color="black" font-size="22px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px">Premiering</mj-text>
-          <mj-text align="center" color="black" font-size="22px" font-family="Helvetica" padding-left="5px" padding-right="5px" padding-bottom="30px" padding-top="10px">{{premiere-date}}</mj-text>
-          <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"><strong>Ticket Code</strong></mj-text>
+        <mj-column vertical-align="middle" width="50%">
+          <mj-button align="center" background-color="black" color="white" font-size="18px" font-weight="bold" border="none" border-radius="3px" href={{redeem-url}} font-family="Helvetica"> Enter Event</mj-button>
         </mj-column>
       </mj-section>
-    <mj-raw>{{#each this.tickets}}</mj-raw>
-        <mj-section background-color="#F4F4F4" padding-bottom="10px" padding-top="10px">
-          <mj-column vertical-align="middle" width="50%">
-            <mj-text align="center" color="black" font-size="20px" font-family="Helvetica"> <strong>{{this.passcode}}</strong></mj-text>
-          </mj-column>
-          <mj-column vertical-align="middle" width="50%">
-            <mj-button align="center" background-color="black" color="white" font-size="18px" font-weight="bold" border="none" border-radius="3px" href={{this.redeem-url}} font-family="Helvetica"> Enter Event</mj-button>
-          </mj-column>
-        </mj-section>
-    <mj-raw>{{/each}}</mj-raw>
-    <mj-raw>{{/each}}</mj-raw>
-
-
-
 
     <mj-section background-color="white" padding-bottom="5px" padding-top="50px">
       <mj-column width="375px">
@@ -83,7 +75,7 @@
             with any questions.
           </span>
         </mj-text>
-          <mj-image align="center" padding="25px 25px" src="cid:default.png" width="150px"></mj-image>
+          <mj-image align="center" padding="25px 25px" src="https://host-66-220-3-86.contentfabric.io/qlibs/ilib2bLJtRJG3LW9yScSNStbjkSqF2hH/q/iq__4PrRspxi3n5t3diS9PuCJMCAY6Rv/meta/public/asset_metadata/images/dark_logo/default?authorization=eyJxc3BhY2VfaWQiOiAiaXNwYzNBTm9WU3pOQTNQNnQ3YWJMUjY5aG81WVBQWlUifQo=&resolve=true" width="150px"></mj-image>
       </mj-column>
     </mj-section>
   </mj-body>
