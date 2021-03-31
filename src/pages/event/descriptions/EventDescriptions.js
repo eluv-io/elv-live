@@ -2,6 +2,7 @@ import React from "react";
 import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
+import SanitizeHTML from "sanitize-html";
 import ReactMarkdown from "react-markdown";
 
 import Modal from "Common/Modal";
@@ -39,7 +40,7 @@ class EventDescriptionsModal extends React.Component {
 
           render(
             <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-              { content }
+              { SanitizeHTML(content) }
             </ReactMarkdown>,
             element
           );
@@ -97,7 +98,11 @@ class EventDescriptionsModal extends React.Component {
 
     return (
       <div className="event-description-modal">
-        <div className="event-description-modal__content">
+        <div
+          className="event-description-modal__content"
+          key={`modal-content-${this.state.section}-${this.state.page}`}
+          ref={element => element && element.scrollTo(0, 0)}
+        >
           { imageUrl ? <img src={imageUrl} alt={page.page_title} className="event-description-modal__image"/> : null }
           { this.Markdown(page.text) }
         </div>

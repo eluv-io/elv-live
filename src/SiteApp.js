@@ -25,7 +25,20 @@ import {PageLoader} from "Common/Loaders";
 @inject("siteStore")
 @observer
 class SiteApp extends React.Component {
+  InitializeZendeskWidget() {
+    if(document.getElementById("ze-snippet")) { return; }
+
+    const zendeskImport = document.createElement("script");
+    zendeskImport.id = "ze-snippet";
+    zendeskImport.type = "text/javascript";
+    zendeskImport.async = true;
+    zendeskImport.src = "https://static.zdassets.com/ekr/snippet.js?key=cec6052c-e357-45e1-86b0-30f30e12eb85";
+    document.body.appendChild(zendeskImport);
+  }
+
   async componentDidMount() {
+    this.InitializeZendeskWidget()
+
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
   }
