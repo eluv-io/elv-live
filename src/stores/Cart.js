@@ -62,7 +62,6 @@ class CartStore {
     const currency = Object.keys(item.price || {}).find(c => c.toLowerCase() === this.currency.toLowerCase());
 
     if(!currency) {
-      console.error(`Missing currency ${this.currency} for ${item.name}`);
       return "";
     }
 
@@ -259,10 +258,13 @@ class CartStore {
         }
       });
 
+    const zeroDecimalCurrency = ["BIF", "CLP", "DJF", "GNF", "JPY", "KMF", "KRW", "MGA", "PYG", "RWF", "UGX", "VND", "VUV", "XAF", "XOF", "XPF"]
+        .includes(this.currency.toUpperCase());
+
     const Total = arr => arr.map(item => item.price * item.quantity).reduce((acc, price) => acc + price, 0);
     const subtotal = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
     const taxableTotal = Total(cart.tickets) + Total(cart.merchandise);
-    const serviceFee = taxableTotal * SERVICE_FEE;
+    const serviceFee = zeroDecimalCurrency ? Math.ceil(taxableTotal * SERVICE_FEE) : taxableTotal * SERVICE_FEE;
     const total = taxableTotal + serviceFee + Total(cart.donations);
 
     return {
@@ -339,7 +341,7 @@ class CartStore {
       const cartDetails = this.CartDetails();
 
       let paypalCart = cartDetails.tickets.map(ticket => ({
-        name: `${ticket.ticketClass.name} - ${ticket.ticketSku.label}`,
+        name: `${ticket.ticketClass.name} - ${ticket.ticketSku.label}`.slice(0, 126),
         unit_amount: {
           value: ticket.price,
           currency_code: this.currency
@@ -349,27 +351,38 @@ class CartStore {
       }));
 
       paypalCart = paypalCart.concat(
-        cartDetails.merchandise.map(item => ({
-          name: item.item.name,
-          unit_amount: {
-            value: item.price,
-            currency_code: this.currency
-          },
-          quantity: item.quantity,
-          description: JSON.stringify(item.option),
-          sku: item.uuid
-        }))
+        cartDetails.merchandise.map(item => {
+          let option;
+          if(item.option && item.option !== -1) {
+            option = Object.keys(item.option)
+              .map(key =>
+                ["uuid", "optionIndex"].includes(key) ?
+                  undefined :
+                  `${key}: ${item.option[key].label || item.option[key]}`)
+              .filter(o => o)
+              .join(", ");
+          }
+
+          return {
+            name: `${item.item.name} ${option ? " | " + option : ""}`.slice(0, 126),
+            unit_amount: {
+              value: item.price,
+              currency_code: this.currency
+            },
+            quantity: item.quantity,
+            sku: item.uuid
+          };
+        })
       );
 
       paypalCart = paypalCart.concat(
         cartDetails.donations.map(item => ({
-          name: item.item.name,
+          name: item.item.name.slice(0, 126),
           unit_amount: {
             value: item.price,
             currency_code: this.currency
           },
           quantity: item.quantity,
-          description: item.name,
           sku: item.uuid
         }))
       );

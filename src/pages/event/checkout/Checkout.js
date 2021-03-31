@@ -437,6 +437,7 @@ class Checkout extends React.Component {
         </button>
         <div className="paypal-button">
           <PayPalScriptProvider
+            key={`paypal-button-${this.props.cartStore.currency}`}
             options={{
               "client-id": this.props.cartStore.paymentServicePublicKeys["paypal"],
               currency: this.props.cartStore.currency
