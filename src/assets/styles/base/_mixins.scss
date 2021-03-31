@@ -63,8 +63,9 @@
     font-size: 24px;
     font-weight: 300;
     letter-spacing: 0.07em;
-    padding-right: 32px;
+    padding-right: 60px;
     position: relative;
+    text-align: left;
     text-transform: uppercase;
 
     input[type='checkbox'] {
@@ -79,7 +80,12 @@
   @media only screen and (max-width: 900px) {
     h2 {
       font-size: 17px;
-      padding: 0;
+      padding: 0 60px 0 0;
+
+
+      input[type='checkbox'] {
+        margin-top: 0.6em;
+      }
     }
   }
 }

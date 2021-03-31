@@ -27,7 +27,6 @@
       max-height: 500px;
       object-fit: contain;
       object-position: top;
-      padding: 20px;
     }
   }
 
@@ -154,6 +153,12 @@
     font-size: 16px;
     height: 42px;
     margin-top: 42px;
+  }
+
+  &.main-view {
+    .selected-image {
+      padding: 20px;
+    }
   }
 
   &.cart-view {
@@ -370,6 +375,7 @@
 
       .featured-item-selection {
         margin-right: 10px;
+        //margin-top: 10px!important;
       }
 
       .select-wrapper,

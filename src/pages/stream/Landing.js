@@ -28,7 +28,7 @@ class Landing extends React.Component {
       );
     }
 
-    const diffSeconds = (new Date(this.props.siteStore.eventInfo.date) - new Date()) / 1000;
+    const diffSeconds = (new Date(this.props.siteStore.currentSiteTicketSku.start_time) - new Date()) / 1000;
     const days = Math.floor(diffSeconds / 60 / 60 / 24);
     const hours = Math.floor((diffSeconds / 60 / 60) % 24);
     let minutes = Math.floor(diffSeconds / 60 % 60);
@@ -63,7 +63,7 @@ class Landing extends React.Component {
   }
 
   render() {
-    if(!this.props.siteStore.currentSiteTicket) {
+    if(!this.props.siteStore.currentSiteTicketSku) {
       return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 

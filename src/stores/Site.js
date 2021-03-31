@@ -55,7 +55,6 @@ class SiteStore {
       .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
   }
 
-
   // Event Site
   @computed get currentSite() {
     return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
@@ -65,8 +64,12 @@ class SiteStore {
     return (this.currentSite || {}).info || {};
   }
 
-  @computed get currentSiteTicket() {
-    return this.rootStore.savedTickets[this.siteSlug];
+  @computed get currentSiteTicketSku() {
+    const savedTicketInfo = this.rootStore.savedTickets[this.siteSlug];
+
+    if(!savedTicketInfo) { return null; }
+
+    return this.TicketSkuByNTPId(savedTicketInfo.ntpId);
   }
 
   @computed get currentSiteMetadataPath() {
@@ -94,7 +97,7 @@ class SiteStore {
   }
 
   @computed get eventActive() {
-    return new Date(this.currentSiteInfo.event_info.date) < new Date();
+    return this.currentSiteTicketSku && new Date(this.currentSiteTicketSku.start_time) < new Date();
   }
 
   SitePath(...pathElements) {
@@ -122,6 +125,16 @@ class SiteStore {
   @action.bound
   ToggleDarkMode() {
     this.darkMode = !this.darkMode;
+  }
+
+  TicketSkuByNTPId(ntpId) {
+    for(const ticketClass of this.ticketClasses) {
+      const ticket = ticketClass.skus.find(sku => sku.otp_id === ntpId);
+
+      if(ticket) {
+        return ticket;
+      }
+    }
   }
 
   @action.bound
@@ -384,11 +397,9 @@ class SiteStore {
 
   @computed get calendarEvent() {
     let calendarInfo = {
-      title: "TITLE",
-      description: "DESCRIPTION",
-      location: "LOCATION",
-      start_time: this.eventInfo.date,
-      end_time: new Date(this.eventInfo.date).toISOString()
+      title: "",
+      description: "",
+      location: ""
     };
 
     return mergeWith(

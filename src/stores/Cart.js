@@ -36,6 +36,8 @@ class CartStore {
 
   @observable paymentServicePublicKeys = {};
 
+  @observable purchasedTicketStartDate;
+
   @observable lastAdded;
 
   @computed get shippingCountries() {
@@ -56,18 +58,21 @@ class CartStore {
     return this.rootStore.client.utils.B58(UUIDParse(UUID()));
   }
 
-  ItemPrice(item, allowMissing=false) {
+  ItemPrice(item) {
     const currency = Object.keys(item.price || {}).find(c => c.toLowerCase() === this.currency.toLowerCase());
 
-    if(!currency && !allowMissing) { throw Error(`Could not find currency ${this.currency} for item`); }
+    if(!currency) {
+      console.error(`Missing currency ${this.currency} for ${item.name}`);
+      return "";
+    }
 
     return parseFloat(item.price[currency]);
   }
 
-  FormatPriceString(priceList, trimZeros=false, allowMissing=false) {
-    const price = this.ItemPrice({price: priceList}, allowMissing);
+  FormatPriceString(priceList, trimZeros=false) {
+    const price = this.ItemPrice({price: priceList});
 
-    if(isNaN(price)) { return; }
+    if(!price || isNaN(price)) { return; }
 
     const currentLocale = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language;
     let formattedPrice = new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: this.currency }).format(price);
@@ -78,6 +83,15 @@ class CartStore {
 
     return formattedPrice;
   };
+
+  @action.bound
+  SetCurrency(currency) {
+    if(!this.currencies.find(({code}) => currency === code)) {
+      return;
+    }
+
+    this.currency = currency;
+  }
 
   @action.bound
   ToggleCartOverlay(show, message) {
@@ -425,6 +439,11 @@ class CartStore {
   OrderComplete() {
     this.ToggleCheckoutOverlay(false);
 
+    // Get the earliest purchased ticket date for the calendar widget
+    this.purchasedTicketStartDate = this.CartDetails().tickets
+      .map(({ticketSku}) => ticketSku.start_time)
+      .sort()[0] || this.purchasedTicketStartDate;
+
     this.tickets = [];
     this.merchandise = [];
     this.featuredDonations = {};
@@ -445,7 +464,8 @@ class CartStore {
             tickets: toJS(this.tickets),
             merchandise: toJS(this.merchandise),
             donations: toJS(this.featuredDonations),
-            email: this.email
+            email: this.email,
+            purchasedTicketStartDate: this.purchasedTicketStartDate
           })
         )
       );
@@ -461,12 +481,13 @@ class CartStore {
     if(!data) { return; }
 
     try {
-      const { tickets, merchandise, donations, email } = JSON.parse(atob(data));
+      const { tickets, merchandise, donations, email, purchasedTicketStartDate } = JSON.parse(atob(data));
 
       this.tickets = tickets || [];
       this.merchandise = merchandise || [];
       this.featuredDonations = donations || {};
       this.email = email || "";
+      this.purchasedTicketStartDate = purchasedTicketStartDate;
     } catch(error) {
       console.error("Failed to load data from localstorage:");
       console.error(error);

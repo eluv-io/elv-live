@@ -3,7 +3,6 @@ import {inject, observer} from "mobx-react";
 
 import EventTabs from "Event/tabs/EventTabs";
 import Footer from "Layout/Footer";
-import {FormatDateString} from "Utils/Misc";
 
 import Modal from "Common/Modal";
 
@@ -68,7 +67,6 @@ class Event extends React.Component {
     });
   };
 
-
   render() {
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
@@ -84,7 +82,7 @@ class Event extends React.Component {
             {
               this.props.siteStore.SiteHasImage("header_dark") ?
                 <div className="event-page__header-logo">
-                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl("header_dark")}/>
+                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl("header_dark")} alt={this.props.siteStore.eventInfo.event_header} />
                 </div>
                 :
                 <h1 className="event-page__header-name">{ this.props.siteStore.eventInfo.event_header }</h1>
@@ -93,7 +91,7 @@ class Event extends React.Component {
               this.props.siteStore.eventInfo.event_subheader ?
                 <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
             }
-            <h2 className="event-page__date">{ FormatDateString(this.props.siteStore.eventInfo["date"]) }</h2>
+            <h2 className="event-page__date">{ this.props.siteStore.eventInfo.date }</h2>
           </div>
 
           <div className="event-page__buttons">

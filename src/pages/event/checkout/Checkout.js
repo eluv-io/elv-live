@@ -45,7 +45,7 @@ class Checkout extends React.Component {
           <select
             className="currency-selection"
             value={this.props.cartStore.currency}
-            onChange={event => this.setState({quantity: parseInt(event.target.value)}, this.Update)}
+            onChange={event => this.props.cartStore.SetCurrency(event.target.value)}
           >
             {
               this.props.cartStore.currencies.map(({name, code}) =>
