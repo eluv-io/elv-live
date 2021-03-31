@@ -56,7 +56,7 @@ class Ticket extends React.Component {
 
               <h3 className="ticket-top-title">
                 { ticketClass.name }
-                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku.external_url) }</div>
+                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku) }</div>
               </h3>
               <p className="ticket-top-description">
                 { ticketClass.description }

@@ -147,6 +147,7 @@
       font-weight: normal;
       letter-spacing: 0.07em;
       margin-bottom: 10px;
+      padding: 0 15px;
     }
 
     &__date {
@@ -165,6 +166,12 @@
 
     &__overview {
       padding: 0 30px;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    &__subheader {
+      font-size: 20px;
     }
   }
 }

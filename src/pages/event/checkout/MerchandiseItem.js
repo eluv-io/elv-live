@@ -269,7 +269,7 @@ class MerchandiseItem extends React.Component {
 
   FullView() {
     return (
-      <div className="merchandise-item">
+      <div className="merchandise-item main-view">
         <div className="item-image">
           <img src={this.props.item.image_urls[this.state.image]} alt={this.props.item.name} className="selected-image" />
 

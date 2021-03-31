@@ -7,13 +7,14 @@ DayJS.extend(DayJSAdvancedFormatting);
 export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
   if(!date) { return ""; }
 
+  const zoneAbbreviation = new Date().toLocaleString("en", { timeZoneName: "short" }).split(" ").pop() || "";
   try {
     if(dateOnly) {
       return DayJS(date).format("MMMM D, YYYY");
     } else if(timeOnly) {
-      return DayJS(date).format("h:mm A z");
+      return `${DayJS(date).format("h:mm A")} ${zoneAbbreviation}`;
     } else {
-      return DayJS(date).format("MMMM D, YYYY · h:mm A z");
+      return `${DayJS(date).format("MMMM D, YYYY · h:mm A")} ${zoneAbbreviation}`;
     }
   } catch(error) {
     // TODO: Central error reporting
