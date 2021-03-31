@@ -2,10 +2,12 @@ import React from "react";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import InfoIcon from "@material-ui/icons/Info";
 
-import ConcertOverview from "./Overview";
 import {inject, observer} from "mobx-react";
 import Merch from "Event/tabs/Merch";
 import SocialMediaBar from "Event/tabs/SocialMediaBar";
+import EventDescriptions from "Event/descriptions/EventDescriptions";
+import {ErrorBoundary} from "Common/ErrorBoundary";
+import Ticket from "Event/tickets/Ticket";
 
 @inject("siteStore")
 @observer
@@ -21,7 +23,20 @@ class EventTabs extends React.Component {
   Content() {
     switch(this.state.tab) {
       case "event":
-        return <ConcertOverview />;
+        return (
+          <div className={"overview-container"} id="overview-container">
+            <EventDescriptions />
+            <div className="ticket-group">
+              {
+                this.props.siteStore.ticketClasses.map(ticketClass =>
+                  <ErrorBoundary hideOnError key={`ticket-class-${ticketClass.uuid}`} >
+                    <Ticket ticketClassUUID={ticketClass.uuid} />
+                  </ErrorBoundary>
+                )
+              }
+            </div>
+          </div>
+        );
       case "merch":
         return <Merch />;
       default:
@@ -54,12 +69,14 @@ class EventTabs extends React.Component {
 
   render() {
     return (
-      <div className="event-tabs-container" id="tabs">
-        { this.Tabs() }
-        <SocialMediaBar />
+      <ErrorBoundary>
+        <div className="event-tabs-container" id="tabs">
+          { this.Tabs() }
+          <SocialMediaBar />
 
-        { this.Content() }
-      </div>
+          { this.Content() }
+        </div>
+      </ErrorBoundary>
     );
   }
 }

@@ -139,13 +139,17 @@ input[type='checkbox'] {
   display: none !important;
 }
 
-.error-page-container {
+.error-section {
   align-items: center;
   display: flex;
-  font-size: 36px;
+  font-size: 20px;
   font-weight: 300;
   justify-content: center;
   text-align: center;
+}
+
+.error-page-container {
+  font-size: 36px;
 }
 
 @media only screen and (max-width: 900px) {
