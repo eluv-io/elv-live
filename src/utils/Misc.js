@@ -7,7 +7,7 @@ DayJS.extend(DayJSAdvancedFormatting);
 export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
   if(!date) { return ""; }
 
-  const zoneAbbreviation = new Date().toLocaleString("en", { timeZoneName: "short" }).split(" ").pop() || "";
+  const zoneAbbreviation = new Date(date).toLocaleString("en", { timeZoneName: "short" }).split(" ").pop() || "";
   try {
     if(dateOnly) {
       return DayJS(date).format("MMMM D, YYYY");
