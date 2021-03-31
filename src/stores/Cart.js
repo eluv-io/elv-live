@@ -221,12 +221,13 @@ class CartStore {
       .filter(m => m)
       .map(itemDetails => {
         const item = this.rootStore.siteStore.MerchandiseItem(itemDetails.uuid);
+        const hasOptions = item.product_options.length > 0;
 
         return {
           uuid: itemDetails.uuid,
-          sku_id: item.product_options[itemDetails.optionIndex].uuid,
+          sku_id: hasOptions ? item.product_options[itemDetails.optionIndex].uuid : itemDetails.uuid,
           item,
-          option: item.product_options[itemDetails.optionIndex],
+          option: hasOptions ? item.product_options[itemDetails.optionIndex] : -1,
           price: this.ItemPrice(item),
           quantity: itemDetails.quantity
         }

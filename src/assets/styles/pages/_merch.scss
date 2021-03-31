@@ -25,8 +25,9 @@
 
     .selected-image {
       max-height: 500px;
-      min-height: 500px;
       object-fit: contain;
+      object-position: top;
+      padding: 20px;
     }
   }
 

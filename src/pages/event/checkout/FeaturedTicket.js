@@ -36,6 +36,10 @@ class FeaturedTicket extends React.Component {
   }
 
   render() {
+    const isExternal = this.props.ticketClass.skus.find(sku => sku.external_url);
+
+    if(isExternal) { return null; }
+
     const ticketSku = this.props.ticketClass.skus[this.state.selectedSku];
 
     return (
