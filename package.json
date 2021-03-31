@@ -52,6 +52,7 @@
     "react-select": "^3.1.0",
     "react-spinners": "^0.10.4",
     "react-twitter-embed": "^3.0.3",
+    "sanitize-html": "^2.3.3",
     "scroll-behavior-polyfill": "^2.0.13",
     "stream-chat": "^2.11.1",
     "stream-chat-react": "^3.4.4",

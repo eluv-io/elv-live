@@ -2,8 +2,7 @@
   <mj-body background-color="#ccd3e0">
     <mj-section background-color="white" padding-bottom="10px" padding-top="10px">
       <mj-column width="100%">
-        <!-- TODO: there is now an anchor tag (to live.eluv.io) around this image and the one below  -->
-        <mj-image align="center" padding="25px 25px" src="cid:default.png" width="190px"></mj-image>
+        <mj-image href="https://live.eluv.io" align="center" padding="25px 25px" src="cid:default.png" width="190px"></mj-image>
         <mj-text align="center" font-size="28px" color="black" padding-top="40px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="40px" padding-left="15%" padding-right="15%">
           <span style="font-weight:bold;">{{cust-name}},</span>
           <br />
@@ -83,7 +82,7 @@
             with any questions.
           </span>
         </mj-text>
-          <mj-image align="center" padding="25px 25px" src="cid:default.png" width="150px"></mj-image>
+          <mj-image href="https://live.eluv.io" align="center" padding="25px 25px" src="cid:default.png" width="150px"></mj-image>
       </mj-column>
     </mj-section>
   </mj-body>
