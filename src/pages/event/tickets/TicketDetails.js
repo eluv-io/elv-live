@@ -115,6 +115,17 @@ class TicketDetails extends React.Component {
   render() {
     const { ticketClass, ticketSku } = this.SelectedTicket();
 
+    const AddItem = () => {
+      this.props.cartStore.AddItem({
+        itemType: "tickets",
+        uuid: ticketSku.uuid,
+        quantity: this.state.quantity
+      });
+
+      this.props.cartStore.ToggleCheckoutOverlay(true);
+      this.props.cartStore.ToggleTicketOverlay(false);
+    };
+
     return (
       <div className="ticket-details">
         <div className="ticket-details__column">
@@ -187,21 +198,12 @@ class TicketDetails extends React.Component {
           { this.FeaturedMerchandise() }
           { this.Donations() }
 
-          <EmailInput />
+          <EmailInput onEnterPressed={AddItem} />
 
           <div className="ticket-details__actions">
             <button
               className="btn checkout-button"
-              onClick={() => {
-                this.props.cartStore.AddItem({
-                  itemType: "tickets",
-                  uuid: ticketSku.uuid,
-                  quantity: this.state.quantity
-                });
-
-                this.props.cartStore.ToggleCheckoutOverlay(true);
-                this.props.cartStore.ToggleTicketOverlay(false);
-              }}
+              onClick={AddItem}
             >
               Check Out
             </button>

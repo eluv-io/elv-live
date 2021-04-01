@@ -256,8 +256,6 @@ class SiteStore {
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
-      this.rootStore.cartStore.LoadLocalStorage();
-
       // Determine chat channel
       const expectedAudienceSize = 10000;
 
@@ -268,6 +266,8 @@ class SiteStore {
 
 
       this.eventSites[tenantKey][siteSlug] = site;
+
+      this.rootStore.cartStore.LoadLocalStorage();
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
