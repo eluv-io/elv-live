@@ -29,9 +29,6 @@ class Checkout extends React.Component {
 
   componentDidMount() {
     this.props.cartStore.ToggleCartOverlay(false);
-
-    // Load paypal public key
-    this.props.cartStore.PaymentServicePublicKey("paypal");
   }
 
   CurrencySelection() {
@@ -396,7 +393,7 @@ class Checkout extends React.Component {
 
         <EmailInput />
 
-        { this.PaymentActions() }
+        { cartDetails.itemCount > 0 ? this.PaymentActions() : null }
       </div>
     );
   }
@@ -424,6 +421,10 @@ class Checkout extends React.Component {
 
     return (
       <div className="payment-actions">
+        {
+          this.props.cartStore.checkoutError ?
+            <div className="checkout-error-message">{this.props.cartStore.checkoutError}</div> : null
+        }
         <button
           className="checkout-button"
           role="link"
@@ -436,7 +437,7 @@ class Checkout extends React.Component {
           <PayPalScriptProvider
             key={`paypal-button-${this.props.cartStore.currency}`}
             options={{
-              "client-id": this.props.cartStore.paymentServicePublicKeys["paypal"],
+              "client-id": this.props.cartStore.PaymentServicePublicKey("paypal"),
               currency: this.props.cartStore.currency
             }}
           >
@@ -447,7 +448,7 @@ class Checkout extends React.Component {
 
                 this.setState({redirect: true});
               }}
-              onError={() => this.props.cartStore.PaymentSubmitError("There was an error with Paypal Checkout. Please try again.")}
+              onError={error => this.props.cartStore.PaymentSubmitError(error)}
               style={{
                 color:  "gold",
                 shape:  "rect",

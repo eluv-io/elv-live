@@ -33,6 +33,7 @@ class FeaturedEvents extends React.Component {
     if(!site) { return; }
 
     const header = site.info.event_info.event_header;
+    const date = site.info.event_info.date;
     return (
       <div
         className={`featured-event ${index === this.state.selected ? "featured-event-selected" : ""} ${index === this.state.previous ? "featured-event-fading-out" : ""}`}
@@ -47,15 +48,17 @@ class FeaturedEvents extends React.Component {
         </div>
         <div className="featured-event__details">
           <h2 className="featured-event__header">{ header }</h2>
-          <h3 className="featured-event__subheader">
-            {
-              !site.info.accessible ?
-                "Events Streaming Soon" :
-                <a href={`/${site.siteSlug}`} className="featured-event__event-link">
-                  Buy Tickets
-                </a>
-            }
-          </h3>
+          {
+            date ?
+              <h3 className="featured-event__subheader">{ date }</h3> :
+              "Event Streaming Soon"
+          }
+          {
+            site.info.accessible ?
+              <a href={`/${site.siteSlug}`} className="featured-event__event-link">
+                Buy Tickets
+              </a> : null
+          }
         </div>
       </div>
     );
