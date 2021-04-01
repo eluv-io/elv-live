@@ -330,7 +330,6 @@ class CartStore {
       try {
         // Set up session
         const stripePublicKey = yield this.PaymentServicePublicKey("stripe");
-        //const sessionId = (yield this.PaymentServerRequest("create_payment_session", requestParams)).session_id;
         const sessionId = (yield this.PaymentServerRequest(UrlJoin("checkout", "stripe"), requestParams)).session_id;
 
         // Redirect to stripe
@@ -449,11 +448,14 @@ class CartStore {
   });
 
   async PaymentServerRequest(path, body={}) {
-    return await this.rootStore.client.authClient.MakeKMSRequest({
-      method: "POST",
-      path: UrlJoin("as", path),
-      body
-    });
+    return await this.rootStore.client.utils.ResponseToFormat(
+      "json",
+      await this.rootStore.client.authClient.MakeKMSRequest({
+        method: "POST",
+        path: UrlJoin("as", path),
+        body
+      })
+    );
   }
 
   // LocalStorage
