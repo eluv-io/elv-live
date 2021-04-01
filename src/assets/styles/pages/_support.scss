@@ -72,6 +72,10 @@
   max-width: 860px;
   padding: 80px 30px;
 
+  .faq-entry {
+    margin-bottom: 10px;
+  }
+
   @media only screen and (max-width: 500px) {
     padding: 10px 0;
   }

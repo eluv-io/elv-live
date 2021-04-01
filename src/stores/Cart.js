@@ -1,14 +1,11 @@
 import {observable, action, flow, computed, toJS} from "mobx";
-import URI from "urijs";
 import UrlJoin from "url-join";
 import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
 import CountryCodesList from "country-codes-list";
-import EluvioConfiguration from "EluvioConfiguration";
 
-const PAYMENT_SERVER = "https://miscsrv.contentfabric.io/fn1";
-const SERVICE_FEE = 0.1;
+const SERVICE_FEE_RATE = 0.1;
 
 const PUBLIC_KEYS = {
   stripe: {
@@ -275,7 +272,7 @@ class CartStore {
     const Total = arr => arr.map(item => item.price * item.quantity).reduce((acc, price) => acc + price, 0);
     const subtotal = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
     const taxableTotal = Total(cart.tickets) + Total(cart.merchandise);
-    const serviceFee = zeroDecimalCurrency ? Math.ceil(taxableTotal * SERVICE_FEE) : taxableTotal * SERVICE_FEE;
+    const serviceFee = zeroDecimalCurrency ? Math.ceil(taxableTotal * SERVICE_FEE_RATE) : taxableTotal * SERVICE_FEE_RATE;
     const total = taxableTotal + serviceFee + Total(cart.donations);
 
     return {
@@ -313,12 +310,15 @@ class CartStore {
       const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
 
       const requestParams = {
-        network: EluvioConfiguration["config-url"].includes("demov3") ? "demo" : "production",
+        //network: EluvioConfiguration["config-url"].includes("demov3") ? "demo" : "production",
         mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
+        /*
         main_site_hash: this.rootStore.siteStore.siteParams.versionHash,
         tenant_slug: this.rootStore.siteStore.tenantSlug || "featured",
         site_index: this.rootStore.siteStore.siteIndex,
         site_slug: this.rootStore.siteStore.siteSlug,
+
+         */
         currency: this.currency,
         email: this.email,
         client_reference_id: checkoutId,
@@ -330,8 +330,8 @@ class CartStore {
       try {
         // Set up session
         const stripePublicKey = yield this.PaymentServicePublicKey("stripe");
-        const sessionId = (yield this.PaymentServerRequest("create_payment_session", requestParams)).session_id;
-        //const sessionId = (yield this.PaymentServerRequest(UrlJoin("checkout", "stripe"), requestParams)).session_id;
+        //const sessionId = (yield this.PaymentServerRequest("create_payment_session", requestParams)).session_id;
+        const sessionId = (yield this.PaymentServerRequest(UrlJoin("checkout", "stripe"), requestParams)).session_id;
 
         // Redirect to stripe
         const stripe = yield loadStripe(stripePublicKey);
@@ -449,23 +449,11 @@ class CartStore {
   });
 
   async PaymentServerRequest(path, body={}) {
-    /*
     return await this.rootStore.client.authClient.MakeKMSRequest({
       method: "POST",
-      path: UrlJoin("as", "path"),
+      path: UrlJoin("as", path),
       body
     });
-
-     */
-
-    let paymentServerUrl = URI(PAYMENT_SERVER);
-    paymentServerUrl.path(UrlJoin(paymentServerUrl.path(), path));
-
-    if(typeof body === "object") {
-      body = JSON.stringify(body);
-    }
-
-    return await (await fetch(paymentServerUrl.toString(), { method: "POST", headers: {"Content-type": "application/json"}, body})).json()
   }
 
   // LocalStorage

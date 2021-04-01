@@ -98,9 +98,9 @@
 
   .item-color,
   .item-color-swatch {
-    border-radius: 100%;
-    border: 0;
     background-color: transparent;
+    border: 0;
+    border-radius: 100%;
   }
 
   .item-color {
@@ -362,7 +362,7 @@
 
         select {
           margin-bottom: 10px;
-          width: 100%!important;
+          width: 100% !important;
         }
       }
 

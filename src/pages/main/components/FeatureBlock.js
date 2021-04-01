@@ -4,7 +4,7 @@ import UrlJoin from "url-join";
 
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
-import Copy from "../copy/Copy.yaml";
+import Copy from "Assets/copy/Main.yaml";
 import CardModal from "Pages/main/components/CardModal";
 import Modal from "Common/Modal";
 

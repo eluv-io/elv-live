@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Copy from "./copy/Copy.yaml";
+import Copy from "Assets/copy/Main.yaml";
 
 import Image1 from "Assets/images/technology/1-Content-Fabric-Architecture.png";
 import Image2 from "Assets/images/technology/2-Content-Fabric-Distribution.png";
