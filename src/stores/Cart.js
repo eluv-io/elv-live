@@ -297,6 +297,8 @@ class CartStore {
     try {
       this.submittingOrder = true;
 
+      this.SaveLocalStorage();
+
       const cartDetails = this.CartDetails();
 
       let itemList =
@@ -348,6 +350,7 @@ class CartStore {
   PaypalSubmit = flow(function * (data, actions) {
     try {
       this.submittingOrder = true;
+      this.SaveLocalStorage();
 
       const cartDetails = this.CartDetails();
 
@@ -463,12 +466,6 @@ class CartStore {
   @action.bound
   OrderComplete() {
     this.ToggleCheckoutOverlay(false);
-
-    // Get the earliest purchased ticket date for the calendar widget
-    this.purchasedTicketStartDate = this.CartDetails().tickets
-      .map(({ticketSku}) => ticketSku.start_time)
-      .sort()[0] || this.purchasedTicketStartDate;
-
     this.tickets = [];
     this.merchandise = [];
     this.featuredDonations = {};
@@ -481,6 +478,16 @@ class CartStore {
   }
 
   SaveLocalStorage() {
+    console.log("SLS");
+    // Get the earliest purchased ticket date for the calendar widget
+    const earliestStartDate = this.CartDetails().tickets
+      .map(({ticketSku}) => ticketSku.start_time)
+      .sort()[0];
+
+    if(earliestStartDate) {
+      this.purchasedTicketStartDate = earliestStartDate;
+    }
+
     try {
       localStorage.setItem(
         this.localStorageKey,
