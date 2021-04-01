@@ -441,7 +441,8 @@ class Checkout extends React.Component {
           >
             <PayPalButtons
               createOrder={this.props.cartStore.PaypalSubmit}
-              onApprove={() => {
+              onApprove={async (data, actions) => {
+                await actions.order.capture();
                 this.setState({redirect: true});
               }}
               onError={() => this.props.cartStore.PaymentSubmitError("There was an error with Paypal Checkout. Please try again.")}
