@@ -200,6 +200,20 @@
       margin-bottom: 10px;
     }
 
+    .spacer {
+      height: 30px;
+    }
+
+    .hint {
+      color: #999;
+      display: flex;
+      font-size: 10px;
+      height: 10px;
+      margin-left: 1px;
+      top: 18px;
+      width: auto;
+    }
+
     .order-value {
       font-weight: bold;
     }

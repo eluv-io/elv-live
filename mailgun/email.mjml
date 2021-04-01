@@ -31,7 +31,7 @@
         </mj-text>
         <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="22px" padding-left="50px" padding-right="50px" padding-top="10px" padding-bottom="0px">
           <span>
-            To watch on Apple TV or Roku, download the Eluvio Live app on the platform of your choice and enter the ticket code when prompted.
+            To watch on Apple TV or Roku, download the Eluvio Live app on the platform of your choice and enter the ticket code when prompted. The Apple TV and Roku apps will release in April 2021. We will email you when they are available in the Apple and Roku stores!
           </span>
         </mj-text>
       </mj-column>
@@ -50,7 +50,6 @@
           <mj-text align="center" color="black" font-size="30px" text-transform="capitalize"font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px"><strong>{{ticket-class-name}}</strong></mj-text>
         </mj-column>
         <mj-column width="100%"padding="5px" >
-          <mj-text align="center" color="black" font-size="22px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="10px">Premiering</mj-text>
           <mj-text align="center" color="black" font-size="22px" font-family="Helvetica" padding-left="5px" padding-right="5px" padding-bottom="30px" padding-top="10px">{{premiere-date}}</mj-text>
           <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"><strong>Ticket Code</strong></mj-text>
         </mj-column>
@@ -74,7 +73,6 @@
       <mj-column width="375px">
         <mj-text align="center" font-size="16px" color="black" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="24px">
           <span>
-            <a href={{calendar-url}}>Add to Calendar.</a>
             Visit our
             <a color="black" href={{support-url}} target="_blank"> FAQ </a>
             for more info. Contact

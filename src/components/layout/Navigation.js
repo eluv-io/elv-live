@@ -39,6 +39,8 @@ class Header extends React.Component {
   render() {
     if(!this.props.siteStore.currentSite) { return null; }
 
+    const itemCount = this.props.cartStore.CartDetails().itemCount;
+
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
         <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
@@ -62,6 +64,10 @@ class Header extends React.Component {
                 <ImageIcon
                   icon={CartIcon}
                 />
+                {
+                  itemCount === 0 ? null :
+                    <div className="cart-overlay-item-count">{ itemCount }</div>
+                }
               </button>
           }
         </div>

@@ -63,6 +63,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    position: relative;
 
     * {
       color: $black;
@@ -167,6 +168,21 @@
       fill: transparent !important;
       stroke: $black;
     }
+  }
+
+  .cart-overlay-item-count {
+    align-items: center;
+    background-color: $white;
+    border-radius: 100%;
+    color: $black;
+    display: flex;
+    font-size: 10px;
+    height: 15px;
+    justify-content: center;
+    position: absolute;
+    right: -6px;
+    top: 0;
+    width: 15px;
   }
 
   @media only screen and (max-width: 1450px) {
