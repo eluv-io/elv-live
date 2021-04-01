@@ -37,7 +37,7 @@ class SiteApp extends React.Component {
   }
 
   async componentDidMount() {
-    this.InitializeZendeskWidget()
+    this.InitializeZendeskWidget();
 
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();

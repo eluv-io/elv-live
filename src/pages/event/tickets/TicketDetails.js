@@ -159,32 +159,28 @@ class TicketDetails extends React.Component {
               <div className="ticket-details__option-date-field">{ FormatDateString(ticketSku.start_time, false, true) }</div>
             </div>
             <div className="ticket-details__options">
-              <div className="select-wrapper ticket-details__sku-selection">
-                <select
-                  className="ticket-sku"
-                  value={this.state.selectedSku}
-                  onChange={event => this.setState({selectedSku: parseInt(event.target.value)})}
-                >
-                  {
-                    this.SelectedTicket().ticketClass.skus.map((sku, index) =>
-                      <option key={`ticket-sku-${index}`} value={index}>{ sku.label }</option>
-                    )
-                  }
-                </select>
-              </div>
-              <div className="select-wrapper ticket-details__quantity-selection">
-                <select
-                  className="item-quantity"
-                  value={this.state.quantity}
-                  onChange={event => this.setState({quantity: parseInt(event.target.value)})}
-                >
-                  {
-                    [...new Array(9).keys()].map(index =>
-                      <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                    )
-                  }
-                </select>
-              </div>
+              <select
+                className="ticket-details__sku-selection"
+                value={this.state.selectedSku}
+                onChange={event => this.setState({selectedSku: parseInt(event.target.value)})}
+              >
+                {
+                  this.SelectedTicket().ticketClass.skus.map((sku, index) =>
+                    <option key={`ticket-sku-${index}`} value={index}>{ sku.label }</option>
+                  )
+                }
+              </select>
+              <select
+                className="ticket-details__quantity-selection item-quantity"
+                value={this.state.quantity}
+                onChange={event => this.setState({quantity: parseInt(event.target.value)})}
+              >
+                {
+                  [...new Array(9).keys()].map(index =>
+                    <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+                  )
+                }
+              </select>
             </div>
           </div>
 

@@ -128,24 +128,23 @@ class MerchandiseItem extends React.Component {
               {option.name}: <div className="option-label">{selectedItem}</div>
             </h3>
         }
-        <div className="item-option select-wrapper">
-          <select
-            value={option.type === "color" ? JSON.stringify(selectedItem) : selectedItem}
-            onChange={event => {
-              const value = option.type === "color" ? JSON.parse(event.target.value) : event.target.value;
+        <select
+          className="item-option"
+          value={option.type === "color" ? JSON.stringify(selectedItem) : selectedItem}
+          onChange={event => {
+            const value = option.type === "color" ? JSON.parse(event.target.value) : event.target.value;
 
-              this.SelectOption(option.name, value, index);
-            }}
-          >
-            {
-              availableOptions.map((value, i) =>
-                <option value={option.type === "color" ? JSON.stringify(value) : value} key={`item-option-${i}`}>
-                  { option.type === "color" ? value.label : value }
-                </option>
-              )
-            }
-          </select>
-        </div>
+            this.SelectOption(option.name, value, index);
+          }}
+        >
+          {
+            availableOptions.map((value, i) =>
+              <option value={option.type === "color" ? JSON.stringify(value) : value} key={`item-option-${i}`}>
+                { option.type === "color" ? value.label : value }
+              </option>
+            )
+          }
+        </select>
       </React.Fragment>
     );
   }
@@ -162,19 +161,17 @@ class MerchandiseItem extends React.Component {
 
   Quantity() {
     return (
-      <div className="select-wrapper">
-        <select
-          className="item-quantity"
-          value={this.state.quantity}
-          onChange={event => this.setState({quantity: parseInt(event.target.value)}, this.Update)}
-        >
-          {
-            [...new Array(9).keys()].map(index =>
-              <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-            )
-          }
-        </select>
-      </div>
+      <select
+        className="item-quantity"
+        value={this.state.quantity}
+        onChange={event => this.setState({quantity: parseInt(event.target.value)}, this.Update)}
+      >
+        {
+          [...new Array(9).keys()].map(index =>
+            <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+          )
+        }
+      </select>
     );
   }
 

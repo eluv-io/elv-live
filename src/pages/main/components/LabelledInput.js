@@ -6,18 +6,16 @@ const LabelledInput = function(label, name, type="input", options) {
   switch(type) {
     case "select":
       input = (
-        <div className="form__select-wrapper">
-          <select
-            name={name}
-            className="form__input form__select"
-            value={this.state[name]}
-            onChange={event => this.setState({[event.target.name]: event.target.value})}
-          >
-            { options.map((value, index) =>
-              <option value={value} key={`form-country-${index}`}>{ value }</option>
-            )}
-          </select>
-        </div>
+        <select
+          name={name}
+          className="form__input form__select"
+          value={this.state[name]}
+          onChange={event => this.setState({[event.target.name]: event.target.value})}
+        >
+          { options.map((value, index) =>
+            <option value={value} key={`form-country-${index}`}>{ value }</option>
+          )}
+        </select>
       );
       break;
     case "textarea":

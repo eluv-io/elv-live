@@ -171,7 +171,7 @@
   }
 
   .item-quantity {
-    background: $white;
+    background-color: $white;
     border: 1px solid $black;
     width: 85px;
   }
@@ -279,6 +279,7 @@
   .stripe-checkout-logo {
     height: 38px;
     position: absolute;
+    top: 3px;
     right: 10px;
     width: auto;
   }
@@ -376,12 +377,8 @@
         margin-left: 10px;
       }
 
-      .item-quantity-wrapper {
-        margin-top: 10px;
-      }
-
-      .item-quantity-wrapper,
       .item-quantity {
+        margin-top: 10px;
         width: 100%;
       }
 
@@ -403,12 +400,9 @@
       margin-bottom: 42px;
 
       .featured-ticket-options {
-        .ticket-sku-wrapper {
+        .ticket-sku {
           flex: 1 1 auto;
-
-          select {
-            width: 100%;
-          }
+          width: 100%;
         }
       }
 
