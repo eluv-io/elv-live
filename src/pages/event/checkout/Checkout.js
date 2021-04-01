@@ -41,21 +41,19 @@ class Checkout extends React.Component {
     return (
       <div className="currency-selection-container">
         Show prices in
-        <div className="select-wrapper">
-          <select
-            className="currency-selection"
-            value={this.props.cartStore.currency}
-            onChange={event => this.props.cartStore.SetCurrency(event.target.value)}
-          >
-            {
-              this.props.cartStore.currencies.map(({name, code}) =>
-                <option value={code} key={`currency-${code}`}>
-                  { code } - { name }
-                </option>
-              )
-            }
-          </select>
-        </div>
+        <select
+          className="currency-selection"
+          value={this.props.cartStore.currency}
+          onChange={event => this.props.cartStore.SetCurrency(event.target.value)}
+        >
+          {
+            this.props.cartStore.currencies.map(({name, code}) =>
+              <option value={code} key={`currency-${code}`}>
+                { code } - { name }
+              </option>
+            )
+          }
+        </select>
       </div>
     );
   }
@@ -182,23 +180,21 @@ class Checkout extends React.Component {
                 <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, true) }</div>
                 <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
 
-                <div className="select-wrapper item-quantity-wrapper">
-                  <select
-                    className="item-quantity"
-                    value={ticket.quantity}
-                    onChange={event => this.props.cartStore.UpdateItem({
-                      itemType: "tickets",
-                      index,
-                      quantity: parseInt(event.target.value)
-                    })}
-                  >
-                    {
-                      [...new Array(9).keys()].map(index =>
-                        <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                      )
-                    }
-                  </select>
-                </div>
+                <select
+                  className="item-quantity"
+                  value={ticket.quantity}
+                  onChange={event => this.props.cartStore.UpdateItem({
+                    itemType: "tickets",
+                    index,
+                    quantity: parseInt(event.target.value)
+                  })}
+                >
+                  {
+                    [...new Array(9).keys()].map(index =>
+                      <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+                    )
+                  }
+                </select>
 
                 <div className="ticket-item-description">
                   { this.props.siteStore.eventInfo.description }
@@ -239,23 +235,21 @@ class Checkout extends React.Component {
         </div>
         <div className="cart-item-cell cart-item-price">{ this.props.cartStore.FormatPriceString(ticketSku.price, true) }</div>
         <div className="cart-item-cell cart-item-quantity">
-          <div className="select-wrapper item-quantity-wrapper">
-            <select
-              className="item-quantity"
-              value={ticket.quantity}
-              onChange={event => this.props.cartStore.UpdateItem({
-                itemType: "tickets",
-                index,
-                quantity: parseInt(event.target.value)
-              })}
-            >
-              {
-                [...new Array(9).keys()].map(index =>
-                  <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                )
-              }
-            </select>
-          </div>
+          <select
+            className="item-quantity"
+            value={ticket.quantity}
+            onChange={event => this.props.cartStore.UpdateItem({
+              itemType: "tickets",
+              index,
+              quantity: parseInt(event.target.value)
+            })}
+          >
+            {
+              [...new Array(9).keys()].map(index =>
+                <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+              )
+            }
+          </select>
         </div>
         <div className="cart-item-cell cart-item-total">
           { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(ticketSku) * ticket.quantity}) }
@@ -291,23 +285,21 @@ class Checkout extends React.Component {
         </div>
         <div className="cart-item-cell cart-item-price no-mobile">{ this.props.cartStore.FormatPriceString(baseItem.price) }</div>
         <div className="cart-item-cell cart-item-quantity no-mobile">
-          <div className="select-wrapper item-quantity-wrapper">
-            <select
-              className="item-quantity"
-              value={item.quantity}
-              onChange={event => this.props.cartStore.UpdateItem({
-                itemType: "merchandise",
-                index,
-                quantity: parseInt(event.target.value)
-              })}
-            >
-              {
-                [...new Array(9).keys()].map(index =>
-                  <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                )
-              }
-            </select>
-          </div>
+          <select
+            className="item-quantity"
+            value={item.quantity}
+            onChange={event => this.props.cartStore.UpdateItem({
+              itemType: "merchandise",
+              index,
+              quantity: parseInt(event.target.value)
+            })}
+          >
+            {
+              [...new Array(9).keys()].map(index =>
+                <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+              )
+            }
+          </select>
         </div>
         <div className="cart-item-cell cart-item-total no-mobile">
           { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(baseItem) * item.quantity}, true) }

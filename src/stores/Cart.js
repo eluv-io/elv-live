@@ -10,6 +10,17 @@ import EluvioConfiguration from "EluvioConfiguration";
 const PAYMENT_SERVER = "https://miscsrv.contentfabric.io/fn1";
 const SERVICE_FEE = 0.1;
 
+const PUBLIC_KEYS = {
+  stripe: {
+    test: "pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6",
+    production: "pk_live_51HpRJ7E0yLQ1pYr6v0HIvWK21VRXiP7sLrEqGJB35wg6Z0kJDorQxl45kc4QBCwkfEAP3A6JJhAg9lHDTOY3hdRx00kYwfA3Ff"
+  },
+  paypal: {
+    test: "AUDYCcmusO8HyBciuqBssSc3TX855stVQo-WqJUaTW9ZFM7MPIVbdxoYta5hHclUQ9fFDe1iedwwXlgy",
+    production: "Af_BaCJU4_qQj-dbaSJ6UqslKSpfZgkFCJoMi4_zqEKZEXkT1JhPkCTTKYhJ0WGktzFm4c7_BBSN65S4"
+  }
+};
+
 const currencyNames = CountryCodesList.customList('currencyCode', '{currencyNameEn}');
 
 class CartStore {
@@ -320,6 +331,7 @@ class CartStore {
         // Set up session
         const stripePublicKey = yield this.PaymentServicePublicKey("stripe");
         const sessionId = (yield this.PaymentServerRequest("create_payment_session", requestParams)).session_id;
+        //const sessionId = (yield this.PaymentServerRequest(UrlJoin("checkout", "stripe"), requestParams)).session_id;
 
         // Redirect to stripe
         const stripe = yield loadStripe(stripePublicKey);
@@ -429,13 +441,23 @@ class CartStore {
   PaymentServicePublicKey = flow(function * (service) {
     if(!this.paymentServicePublicKeys[service]) {
       this.paymentServicePublicKeys[service] =
-        (yield this.PaymentServerRequest("public_key", { service, mode: this.rootStore.siteStore.mainSiteInfo.info.mode})).public_key;
+        PUBLIC_KEYS[service][this.rootStore.siteStore.mainSiteInfo.info.mode];
+        //(yield this.PaymentServerRequest("public_key", { service, mode: this.rootStore.siteStore.mainSiteInfo.info.mode})).public_key;
     }
 
     return this.paymentServicePublicKeys[service];
   });
 
   async PaymentServerRequest(path, body={}) {
+    /*
+    return await this.rootStore.client.authClient.MakeKMSRequest({
+      method: "POST",
+      path: UrlJoin("as", "path"),
+      body
+    });
+
+     */
+
     let paymentServerUrl = URI(PAYMENT_SERVER);
     paymentServerUrl.path(UrlJoin(paymentServerUrl.path(), path));
 

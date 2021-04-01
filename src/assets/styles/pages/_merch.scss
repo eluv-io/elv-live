@@ -96,20 +96,11 @@
     margin-bottom: 31px;
   }
 
-  .item-option,
-  .item-color {
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: normal;
-    outline: 0;
-  }
-
   .item-color,
   .item-color-swatch {
     border-radius: 100%;
+    border: 0;
+    background-color: transparent;
   }
 
   .item-color {
@@ -145,6 +136,7 @@
   }
 
   .item-quantity {
+    display: block;
     width: 85px;
   }
 
@@ -231,7 +223,7 @@
       grid-template-columns: 1fr auto;
       margin-bottom: 23px;
 
-      .select-wrapper {
+      select {
         margin: 0;
       }
     }
@@ -280,7 +272,7 @@
     .item-image {
       .selected-image {
         max-height: 300px;
-        min-height: 300px;
+        object-position: center;
       }
     }
 
@@ -316,7 +308,7 @@
       width: 24px;
     }
 
-    .select-wrapper {
+    select {
       margin: 0 auto 43px;
     }
 
@@ -368,19 +360,18 @@
       .item-options {
         display: block;
 
-        .select-wrapper {
+        select {
           margin-bottom: 10px;
+          width: 100%!important;
         }
       }
 
       .featured-item-selection {
         margin-right: 10px;
-        //margin-top: 10px!important;
       }
 
-      .select-wrapper,
       select {
-        text-align: center;
+        text-align: left;
         width: 100%;
       }
     }
