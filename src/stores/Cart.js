@@ -276,6 +276,7 @@ class CartStore {
     const total = taxableTotal + serviceFee + Total(cart.donations);
 
     return {
+      itemCount: cart.tickets.length + cart.merchandise.length + cart.donations.length,
       tickets: Object.values(cart.tickets),
       merchandise: Object.values(cart.merchandise),
       donations: cart.donations,

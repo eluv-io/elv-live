@@ -379,10 +379,14 @@ class Checkout extends React.Component {
           <div className="order-value">
             { cartDetails.subtotalFormatted }
           </div>
-          <label>Service Fee</label>
+          <label>
+            Service Fee
+            <div className="hint">Eluvio LIVE Platform fees</div>
+          </label>
           <div className="order-value">
             { cartDetails.serviceFeeFormatted }
           </div>
+          <div className="spacer" /><div className="spacer" />
           <label>Total</label>
           <div className="order-value">
             { cartDetails.totalFormatted }

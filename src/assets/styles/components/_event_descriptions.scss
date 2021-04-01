@@ -32,6 +32,16 @@
     }
   }
 
+  @media only screen and (max-width: 1200px) {
+    &__button {
+      font-size: 12px;
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+
   @media only screen and (max-width: 900px) {
     margin-bottom: 30px;
 
