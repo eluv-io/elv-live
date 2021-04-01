@@ -479,7 +479,6 @@ class CartStore {
   }
 
   SaveLocalStorage() {
-    console.log("SLS");
     // Get the earliest purchased ticket date for the calendar widget
     const earliestStartDate = this.CartDetails().tickets
       .map(({ticketSku}) => ticketSku.start_time)
