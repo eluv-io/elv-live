@@ -20,11 +20,19 @@ class Modal extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", this.Close);
     document.body.style.overflowY = "hidden";
+
+    if(document.getElementById("launcher")) {
+      document.getElementById("launcher").style.display = "none";
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.Close);
     document.body.style.overflowY = "auto";
+
+    if(document.getElementById("launcher")) {
+      document.getElementById("launcher").style.display = "";
+    }
   }
 
   render() {
