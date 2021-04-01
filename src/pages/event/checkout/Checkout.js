@@ -12,6 +12,7 @@ import StripeLogo from "Images/logo/logo-stripe";
 import {FUNDING, PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {Redirect} from "react-router";
 import {Loader} from "Common/Loaders";
+import {retryRequest} from "Utils/retryRequest";
 
 @inject("cartStore")
 @inject("siteStore")
@@ -442,7 +443,8 @@ class Checkout extends React.Component {
             <PayPalButtons
               createOrder={this.props.cartStore.PaypalSubmit}
               onApprove={async (data, actions) => {
-                await actions.order.capture();
+                await retryRequest(actions.order.capture);
+
                 this.setState({redirect: true});
               }}
               onError={() => this.props.cartStore.PaymentSubmitError("There was an error with Paypal Checkout. Please try again.")}
