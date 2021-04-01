@@ -12,7 +12,7 @@ import {
 import Logo from "Assets/images/logo/whiteEluvioLiveLogo.svg";
 import ImageIcon from "Common/ImageIcon";
 
-import Copy from "../copy/Copy.yaml";
+import Copy from "Assets/copy/Main.yaml";
 
 @inject("siteStore")
 @observer
