@@ -10,8 +10,8 @@ import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
 
 @inject("siteStore")
 @inject("cartStore")
-@observer
 @withRouter
+@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);

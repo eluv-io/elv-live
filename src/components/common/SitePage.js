@@ -7,8 +7,8 @@ import Navigation from "Layout/Navigation";
 
 const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false}={}) => {
   @inject("siteStore")
-  @observer
   @withRouter
+  @observer
   class SitePageComponent extends React.Component {
     constructor(props) {
       super(props);

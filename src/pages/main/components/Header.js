@@ -6,8 +6,8 @@ import {NavLink, withRouter} from "react-router-dom";
 import ImageIcon from "Common/ImageIcon";
 
 @inject("siteStore")
-@observer
 @withRouter
+@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);

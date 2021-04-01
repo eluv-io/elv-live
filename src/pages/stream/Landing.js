@@ -17,8 +17,18 @@ class Landing extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if(document.getElementById("launcher")) {
+      document.getElementById("launcher").style.display = "none";
+    }
+  }
+
   componentWillUnmount() {
     clearTimeout(this.state.interval);
+
+    if(document.getElementById("launcher")) {
+      document.getElementById("launcher").style.display = "";
+    }
   }
 
   Countdown() {
