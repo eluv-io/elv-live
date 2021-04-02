@@ -13,7 +13,6 @@
 
   @media only screen and (max-width: 600px) {
     padding-bottom: 0;
-    padding-top: 35px;
   }
 }
 
@@ -82,6 +81,12 @@
   width: 100%;
 }
 
+.ticket-item-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .ticket-top {
   display: flex;
   flex-direction: column;
@@ -106,7 +111,7 @@
 .ticket-top-title {
   color: #000;
   font-family: Helvetica;
-  font-size: 46px;
+  font-size: 42px;
   font-style: normal;
   font-weight: 300;
   letter-spacing: 0.07em;
@@ -123,7 +128,6 @@
 }
 
 .ticket-top-description {
-  box-orient: vertical;
   color: #000;
   display: block;
   font-family: Helvetica;
@@ -134,13 +138,14 @@
   -webkit-line-clamp: 4;
   line-height: 140%;
   margin-top: 5px;
-  min-height: 120px;
+  min-height: 100px;
   overflow: hidden;
   padding-right: 30px;
   position: relative;
 
   @media only screen and (max-width: 750px) {
     font-size: 14px;
+    min-height: 0;
     padding-right: 0;
   }
 }
@@ -185,14 +190,11 @@
   max-width: 700px;
   width: 70%;
 
-  .ticket-selection-wrapper {
+  .ticket-selection {
+    max-width: 700px;
     max-width: 700px;
     width: 70%;
-
-    select {
-      max-width: 700px;
-      width: 100%;
-    }
+    width: 100%;
   }
 
   .react-select__control {
@@ -218,19 +220,20 @@
   align-self: center;
   background: transparent;
   color: #000;
-  display: flex;
+  display: grid;
   font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
+  grid-gap: 5px;
+  grid-template-columns: 1.5fr 1fr 1fr;
   height: 100% !important;
   justify-content: space-between;
   line-height: 16px;
-  padding: 0 20px;
+  padding: 0 10px;
   width: 100%;
 
   & > * {
     align-self: center;
-    box-orient: vertical;
     color: #000;
     font-family: Helvetica;
     font-size: 16px;
@@ -241,7 +244,6 @@
     -webkit-line-clamp: 1;
     min-width: auto;
     overflow: hidden;
-    text-align: center !important;
   }
 
   @media only screen and (max-width: 1400px) {
@@ -249,6 +251,10 @@
       font-size: 15px;
       letter-spacing: -0.5px;
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
   }
 
   @media only screen and (max-width: 600px) {
@@ -278,18 +284,21 @@
 
 
 .ticket-bottom-button {
+  align-items: center;
   align-self: center;
-  background-color: black;
+  background-color: $black;
   border: 0;
-  border: 1px solid black;
+  border: 1px solid $black;
   border-radius: 3px;
-  color: white;
+  color: $white;
   cursor: pointer;
+  display: flex;
   font-family: Helvetica;
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
   height: 44px;
+  justify-content: center;
   letter-spacing: 2px;
   letter-spacing: 0.14em;
   line-height: 19px;
@@ -312,8 +321,8 @@
   }
 
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: $black;
+    color: $white;
     transition: all 0.2s;
 
     & > * {

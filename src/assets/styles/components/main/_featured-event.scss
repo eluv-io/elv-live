@@ -1,5 +1,5 @@
 .featured-events {
-  background: black;
+  background: $black;
   height: 100vh;
   max-height: 100vh;
   position: relative;
@@ -8,6 +8,12 @@
   .arrow-right,
   .arrow-left {
     bottom: 100px;
+    height: 100px !important;
+    width: 100px !important;
+
+    svg {
+      width: 30px;
+    }
   }
 
   .arrow-right {
@@ -18,7 +24,7 @@
     left: 80px;
   }
 
-  @media only screen and (max-width: 1450px) {
+  @media only screen and (max-width: 1250px) {
     height: calc((100vw * 9 / 16) + 41px);
   }
 
@@ -56,11 +62,12 @@
   &.featured-event-fading-out {
     animation: fadeout 0.35s linear;
     display: block;
+    height: 100%;
     left: 0;
     opacity: 0;
+    pointer-events: none;
     position: absolute;
     top: 0;
-    height: 100%;
     z-index: 10;
 
     .featured-event__details {
@@ -72,15 +79,15 @@
   &__hero-image {
     height: 100%;
     left: 0;
+    object-fit: cover !important;
     position: absolute;
     top: 0;
     width: 100%;
-    object-fit: cover !important;
   }
 
   &__hero-image-container {
     &::after {
-      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, black);
+      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, $black);
       content: '';
       height: 100%;
       left: 0;
@@ -107,21 +114,43 @@
 
   &__header,
   &__subheader {
-    color: white;
+    color: $white;
     font-size: 56px;
     font-weight: 300;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     text-align: center;
     text-transform: uppercase;
   }
 
   &__subheader {
     font-size: 32px;
-    font-weight: 200;
-    margin-top: 10px;
+    letter-spacing: 0.2em;
   }
 
-  @media only screen and (max-width: 1450px) {
+  &__event-link {
+    align-items: center;
+    background-color: #d7bb73;
+    border: 1px solid #d7bb73;
+    border-radius: 3px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.82);
+    color: $black;
+    display: flex;
+    font-size: 20px;
+    font-weight: normal;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: 0.14em;
+    margin: 20px auto 0;
+    padding: 10px 0;
+    transition: background-color 0.3s linear, color 0.3s linear;
+    width: 250px;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  @media only screen and (max-width: 1250px) {
     &__header {
       font-size: 32px;
     }
@@ -138,8 +167,9 @@
 
   @media only screen and (max-width: 900px) {
     &__header {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 300;
+      letter-spacing: 0.1em;
     }
 
     &__subheader {
@@ -155,8 +185,15 @@
     }
 
     &.featured-event-fading-out {
-      top: 40px;
       height: calc(100% - 40px);
+      top: 40px;
+    }
+
+    &__event-link {
+      font-size: 14px;
+      height: 30px;
+      margin-top: 10px;
+      width: 150px;
     }
   }
 }

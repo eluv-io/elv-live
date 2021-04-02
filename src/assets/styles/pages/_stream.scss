@@ -38,7 +38,7 @@
     width: auto;
 
     svg {
-      fill: black;
+      fill: $black;
     }
   }
 
@@ -124,7 +124,7 @@
     }
 
     &--info {
-      background-color: white;
+      background-color: $white;
       display: grid;
       grid-template-columns: 75% 25%;
       height: 100%;

@@ -1,8 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { IconContext } from "react-icons";
 import Select from "react-select";
 import {FormatDateString} from "Utils/Misc";
 import TicketDetails from "Event/tickets/TicketDetails";
@@ -26,7 +23,6 @@ class Ticket extends React.Component {
   handleChange({value}) {
     this.setState({selectedSku: value});
   }
-
 
   TicketOptions() {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
@@ -60,7 +56,7 @@ class Ticket extends React.Component {
 
               <h3 className="ticket-top-title">
                 { ticketClass.name }
-                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(ticketSku.price, true) }</div>
+                <div className="ticket-title-price mobile-only">{ this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku) }</div>
               </h3>
               <p className="ticket-top-description">
                 { ticketClass.description }
@@ -75,6 +71,8 @@ class Ticket extends React.Component {
                   value={this.TicketOptions()[this.state.selectedSku]}
                   onChange={({value}) => this.setState({selectedSku: parseInt(value)})}
                   options={this.TicketOptions()}
+                  inputProps={{readOnly:true}}
+                  isSearchable={false}
                   theme={theme => ({
                     ...theme,
                     borderRadius: 10,
@@ -87,21 +85,26 @@ class Ticket extends React.Component {
                 />
               </div>
               <div className="ticket-price no-mobile">
-                { this.props.cartStore.FormatPriceString(ticketSku.price, true) }
+                { this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku.external_url) }
               </div>
-              <button
-                className="ticket-bottom-button"
-                role="link"
-                onClick={() => this.props.cartStore.ToggleTicketOverlay(
-                  true,
-                  {
-                    ticketClassUUID: this.props.ticketClassUUID,
-                    ticketSkuUUID: ticketSku.uuid
-                  }
-                )}
-              >
-                Buy
-              </button>
+
+              {
+                ticketSku.external_url ?
+                  <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
+                  <button
+                    className="ticket-bottom-button"
+                    role="link"
+                    onClick={() => this.props.cartStore.ToggleTicketOverlay(
+                      true,
+                      {
+                        ticketClassUUID: this.props.ticketClassUUID,
+                        ticketSkuUUID: ticketSku.uuid
+                      }
+                    )}
+                  >
+                    Buy
+                  </button>
+              }
             </div>
           </div>
         </div>

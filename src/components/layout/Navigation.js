@@ -10,8 +10,8 @@ import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
 
 @inject("siteStore")
 @inject("cartStore")
-@observer
 @withRouter
+@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -32,30 +32,50 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    this.setState({scrolled: window.scrollY > 200});
+    const fadePoint = this.props.location.pathname === "/" ? window.innerHeight * 0.25 : 20;
+    this.setState({scrolled: window.scrollY > fadePoint});
   }
 
   render() {
+    if(!this.props.siteStore.currentSite) { return null; }
+
+    const itemCount = this.props.cartStore.CartDetails().itemCount;
+
     return (
-      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
-        <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-          <ImageIcon icon={Logo} label="Eluvio Live" />
-        </NavLink>
+      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
+        {
+          this.props.mainPage ?
+            <a href={window.location.origin} className="header__logo">
+              <ImageIcon icon={Logo} label="Eluvio Live" />
+            </a> :
+            <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
+              <ImageIcon icon={Logo} label="Eluvio Live" />
+            </NavLink>
+        }
         <div className="header__spacer" />
         <div className="header__links">
-          <NavLink to={this.props.siteStore.SitePath("code")} className="header__link" activeClassName="header__link-active">
-            Redeem Ticket
-          </NavLink>
-
-          <button
-            title="Your Cart"
-            onClick={this.props.cartStore.ToggleCartOverlay}
-            className="cart-overlay-toggle"
-          >
-            <ImageIcon
-              icon={CartIcon}
-            />
-          </button>
+          {
+            this.props.hideRedeem ? null :
+              <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
+                Redeem Ticket
+              </NavLink>
+          }
+          {
+            this.props.hideCheckout ? null :
+              <button
+                title="Your Cart"
+                onClick={this.props.cartStore.ToggleCartOverlay}
+                className="cart-overlay-toggle"
+              >
+                <ImageIcon
+                  icon={CartIcon}
+                />
+                {
+                  itemCount === 0 ? null :
+                    <div className="cart-overlay-item-count">{ itemCount }</div>
+                }
+              </button>
+          }
         </div>
         <CartOverlay />
         <Checkout />

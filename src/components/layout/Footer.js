@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 @inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
 class Footer extends React.Component {
   Sponsors() {

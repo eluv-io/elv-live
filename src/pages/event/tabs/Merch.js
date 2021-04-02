@@ -8,10 +8,9 @@ import MerchandiseItem from "Event/checkout/MerchandiseItem";
 class Merch extends React.Component {
   render() {
     return (
-      <div className="merch-container">
-        { this.props.siteStore.Merchandise().map((item, index) =>
+      this.props.siteStore.Merchandise().map((item, index) =>
+        <div className="merch-container" key={`item-${index}`}>
           <MerchandiseItem
-            key={`item-${index}`}
             item={item}
             SelectItem={(item, optionIndex, quantity) => {
               this.props.cartStore.AddItem({
@@ -25,8 +24,8 @@ class Merch extends React.Component {
               this.props.cartStore.ToggleCartOverlay(true, `${quantity} ${quantity > 1 ? "items" : "item"} added to your cart`);
             }}
           />
-        )}
-      </div>
+        </div>
+      )
     );
   }
 }

@@ -7,7 +7,7 @@ $item-spacing: 25px;
   justify-content: center;
   margin: $block-spacing 0;
   max-height: 100%;
-  padding: 0 50px 0;
+  padding: 0 50px;
 
   &:first-child {
     margin-top: 0;
@@ -43,39 +43,40 @@ $item-spacing: 25px;
     align-items: flex-end;
     display: flex;
     flex: 1 1 auto;
-    max-height: 100%;
-    width: 100%;
-    position: relative;
     margin-bottom: $block-spacing;
+    max-height: 100%;
+    position: relative;
+    width: 100%;
 
     img {
       margin: 0 auto;
+      max-height: calc(100vh - 350px);
       object-fit: contain;
-      max-height: calc(100vh - 450px);
+      width: 100%;
     }
   }
 
   &__attribution {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    font-size: 10px;
-    color: #666;
-    font-weight: 200;
     bottom: -20px;
+    color: #666;
+    font-size: 10px;
     font-style: italic;
+    font-weight: 200;
+    position: absolute;
+    text-align: center;
+    width: 100%;
   }
 
   &__video {
-    margin: 0 auto;
-    position: relative;
-    background-color: black;
+    background-color: $black;
     height: 100%;
+    margin: 0 auto;
+    max-height: calc(100vh - 350px);
+    max-width: calc((100vh - 350px) * 16 / 9);
+    min-height: calc(100vh - 350px);
+    min-width: calc((100vh - 350px) * 16 / 9);
+    position: relative;
     width: 100%;
-    max-height: calc(100vh - 450px);
-    max-width: calc((100vh - 450px) * 16 / 9);
-    min-height: calc(100vh - 450px);
-    min-width: calc((100vh - 450px) * 16 / 9);
 
     @media only screen and (orientation: portrait) {
       max-height: calc((100vw - 100px) * 9 / 16);
@@ -92,9 +93,9 @@ $item-spacing: 25px;
   &__header,
   &__subheader,
   &__text {
+    margin: 0 auto $item-spacing;
     max-width: 800px;
     width: 100%;
-    margin: 0 auto $item-spacing;
   }
 
   &__header {
@@ -116,17 +117,17 @@ $item-spacing: 25px;
 
   &__action {
     background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid $black;
     border-radius: 3px;
     cursor: pointer;
     font-size: 16px;
     height: 42px;
-    width: 180px;
     transition: background-color 0.08s linear, color 0.08s linear;
+    width: 180px;
 
     &:hover {
-      background-color: black;
-      color: white;
+      background-color: $black;
+      color: $white;
     }
   }
 
@@ -146,17 +147,23 @@ $item-spacing: 25px;
     }
 
     &__attribution {
-      font-size: 8px;
-      color: #333;
-      font-weight: 300;
       bottom: -16px;
+      color: #333;
+      font-size: 8px;
+      font-weight: 300;
+    }
+
+    &__image-container {
+      img {
+        max-height: calc(100vw - 100px * 9 / 16);
+      }
     }
 
     .feature-block__video {
-      max-height: calc((100vw - 30px) * 9 / 16);
-      max-width: calc(100vw - 30px);
-      min-height: calc((100vw - 30px) * 9 / 16);
-      min-width: calc(100vw - 30px);
+      max-height: calc((100vw - 40px) * 9 / 16);
+      max-width: calc(100vw - 40px);
+      min-height: calc((100vw - 40px) * 9 / 16);
+      min-width: calc(100vw - 40px);
 
       @media only screen and (orientation: landscape) {
         max-height: calc((100vw - 100px) * 9 / 16);

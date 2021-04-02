@@ -14,7 +14,7 @@
 
 .cart-overlay {
   animation: 0.4s fadein linear;
-  background: white;
+  background: $white;
   display: flex;
   flex-direction: column;
   padding: 28px;
@@ -47,16 +47,16 @@
 
     svg {
       height: 100%;
-      stroke: black;
+      stroke: $black;
       width: 100%;
     }
 
     &:hover {
-      background: black;
-      border: 0.5px solid black;
+      background: $black;
+      border: 0.5px solid $black;
 
       svg {
-        stroke: white;
+        stroke: $white;
       }
     }
   }
@@ -67,9 +67,9 @@
   }
 
   .cart-overlay-checkout-button {
-    background: black;
+    background: $black;
     border-radius: 3px;
-    color: white;
+    color: $white;
     cursor: pointer;
     font-size: 16px;
     font-weight: normal;

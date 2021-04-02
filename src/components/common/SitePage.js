@@ -5,10 +5,10 @@ import {Redirect, withRouter} from "react-router";
 import {PageLoader} from "Common/Loaders";
 import Navigation from "Layout/Navigation";
 
-const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
+const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false}={}) => {
   @inject("siteStore")
-  @observer
   @withRouter
+  @observer
   class SitePageComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -33,10 +33,11 @@ const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
 
       return (
         <>
-          { showHeader ? <Navigation mainPage={mainPage} /> : null }
+          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} inverted={invertHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}
+              _errorBoundaryClassname="page-container error-page-container"
               Load={async () => {
                 if(!isFeatured) {
                   await this.props.siteStore.LoadTenant(tenantSlug);
@@ -46,7 +47,8 @@ const SitePage = (Component, {mainPage=false, showHeader=true}={}) => {
                   tenantSlug,
                   baseSlug,
                   siteSlug,
-                  validateBaseSlug: !isFeatured
+                  validateBaseSlug: !isFeatured,
+                  preloadHero: true
                 });
 
                 if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }

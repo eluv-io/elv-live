@@ -3,6 +3,8 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
 
+const CHAT_ROOM_SIZE = 1000;
+
 import mergeWith from "lodash/mergeWith";
 
 class SiteStore {
@@ -15,7 +17,6 @@ class SiteStore {
   @observable eventSites = {};
   @observable siteSlug;
   @observable siteIndex;
-  @observable activeTicket;
   @observable darkMode = false;
 
   @observable streams = [];
@@ -27,6 +28,8 @@ class SiteStore {
   @observable siteId;
   @observable siteHash;
 
+  @observable chatChannel;
+
   @observable error = "";
 
   @computed get client() {
@@ -35,6 +38,10 @@ class SiteStore {
 
   @computed get siteLoaded() {
     return this.rootStore.client && this.mainSiteInfo;
+  }
+
+  @computed get production() {
+    return this.mainSiteInfo.info.mode === "production";
   }
 
   // Main site
@@ -48,12 +55,21 @@ class SiteStore {
       .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
   }
 
+  // Event Site
   @computed get currentSite() {
     return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
   }
 
   @computed get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
+  }
+
+  @computed get currentSiteTicketSku() {
+    const savedTicketInfo = this.rootStore.savedTickets[this.siteSlug];
+
+    if(!savedTicketInfo) { return null; }
+
+    return this.TicketSkuByNTPId(savedTicketInfo.ntpId);
   }
 
   @computed get currentSiteMetadataPath() {
@@ -78,6 +94,10 @@ class SiteStore {
 
   @computed get hasPromos() {
     return this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0;
+  }
+
+  @computed get eventActive() {
+    return this.currentSiteTicketSku && new Date(this.currentSiteTicketSku.start_time) < new Date();
   }
 
   SitePath(...pathElements) {
@@ -107,6 +127,16 @@ class SiteStore {
     this.darkMode = !this.darkMode;
   }
 
+  TicketSkuByNTPId(ntpId) {
+    for(const ticketClass of this.ticketClasses) {
+      const ticket = ticketClass.skus.find(sku => sku.otp_id === ntpId);
+
+      if(ticket) {
+        return ticket;
+      }
+    }
+  }
+
   @action.bound
   Reset() {
     this.assets = {};
@@ -116,7 +146,7 @@ class SiteStore {
   @action.bound
   LoadMainSite = flow(function * () {
     try {
-      const objectId = EluvioConfiguration["main-site-id"];
+      const objectId = EluvioConfiguration["live-site-id"];
       const libraryId = yield this.client.ContentObjectLibraryId({objectId});
 
       this.siteParams = {
@@ -130,7 +160,7 @@ class SiteStore {
       this.mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
-        resolveLinks: false
+        resolveLinks: false,
       })) || {};
     } catch(error) {
       // TODO: Graceful error handling
@@ -169,7 +199,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true}) {
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true, preloadHero=false}) {
     const tenantKey = tenantSlug || "featured";
     if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return !validateBaseSlug || baseSlug === this.baseSlug;
@@ -189,7 +219,21 @@ class SiteStore {
 
       this.siteIndex = siteIndex;
 
-      this.eventSites[tenantKey][siteSlug] = yield this.client.ContentObjectMetadata({
+      let heroPreloadPromise;
+      if(preloadHero) {
+        // Preload the main hero image
+        const key = window.innerHeight > window.innerWidth ? "hero_background_mobile" : "hero_background";
+        this.cachedHero = new Image();
+
+        heroPreloadPromise = new Promise(resolve => {
+          this.cachedHero.addEventListener("load", resolve);
+          this.cachedHero.addEventListener("error", resolve);
+        });
+
+        this.cachedHero.src = this.SiteUrl(UrlJoin("info", "event_images", key));
+      }
+
+      let site = yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         select: [
           ".",
@@ -202,13 +246,26 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
-      this.darkMode = this.eventSites[tenantKey][siteSlug].info.theme === "dark" ? true : false;
+      yield heroPreloadPromise;
 
-      this.eventSites[tenantKey][siteSlug].siteSlug = siteSlug;
-      this.eventSites[tenantKey][siteSlug].siteIndex = parseInt(siteIndex);
+      this.darkMode = site.info.theme === "dark";
 
-      this.siteHash = this.eventSites[tenantKey][siteSlug]["."].source;
+      site.siteSlug = siteSlug;
+      site.siteIndex = parseInt(siteIndex);
+
+      this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
+
+      // Determine chat channel
+      const expectedAudienceSize = 10000;
+
+      const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
+      const roomNumber = Math.floor(Math.random() * maxRooms);
+
+      this.chatChannel = `${this.siteSlug}-${roomNumber}`;
+
+
+      this.eventSites[tenantKey][siteSlug] = site;
 
       this.rootStore.cartStore.LoadLocalStorage();
 
@@ -297,28 +354,6 @@ class SiteStore {
     this.showCheckout = false;
   }
 
-  ActivateCode(code="") {
-    let ticketPrefixMap = {};
-
-    this.ticketClasses.forEach(ticketClass => {
-      (ticketClass.skus || []).forEach(sku => {
-        if(sku.otp_id && sku.otp_id.includes(":")) {
-          ticketPrefixMap[sku.otp_id.split(":")[0]] = {
-            ticketClass,
-            sku
-          };
-        }
-      });
-    });
-
-    const prefix = Object.keys(ticketPrefixMap)
-      .sort((a, b) => a.length > b.length ? -1 : 1)
-      .find(prefix => code.startsWith(prefix));
-
-    // TODO: Throw error if ticket with prefix not found
-    this.activeTicket = ticketPrefixMap[prefix];
-  }
-
   /* Site attributes */
 
   @computed get eventInfo() {
@@ -362,11 +397,9 @@ class SiteStore {
 
   @computed get calendarEvent() {
     let calendarInfo = {
-      title: "TITLE",
-      description: "DESCRIPTION",
-      location: "LOCATION",
-      start_time: this.eventInfo.date,
-      end_time: new Date(this.eventInfo.date).toISOString()
+      title: "",
+      description: "",
+      location: ""
     };
 
     return mergeWith(
@@ -409,10 +442,6 @@ class SiteStore {
       this.currentSiteInfo.stream_page || {},
       (def, info) => info ? info : def
     );
-  }
-
-  @computed get paymentConfigurations() {
-    return (this.currentSiteInfo.payment_config) || {};
   }
 
   /* Tickets and Products */
@@ -487,6 +516,14 @@ class SiteStore {
     return uri
       .path(UrlJoin(uri.path(), "meta", this.currentSiteMetadataPath, path.toString()))
       .toString();
+  }
+
+  SiteHasImage(key) {
+    try {
+      return !!this.currentSiteInfo.event_images[key];
+    } catch(error) {
+      return false;
+    }
   }
 
   SiteImageUrl(key) {

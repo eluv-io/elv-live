@@ -4,18 +4,22 @@ import DayJSTimezone from "dayjs/plugin/timezone";
 DayJS.extend(DayJSTimezone);
 DayJS.extend(DayJSAdvancedFormatting);
 
+import moment from "moment-timezone";
+
 export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
   if(!date) { return ""; }
+
+  const zoneAbbreviation = moment(date).tz(moment.tz.guess()).format("z");
 
   try {
     if(dateOnly) {
       return DayJS(date).format("MMMM D, YYYY");
     } else if(timeOnly) {
-      return DayJS(date).format("h:mm A z");
+      return `${DayJS(date).format("h:mm A")} ${zoneAbbreviation}`;
     } else {
-      return DayJS(date).format("MMMM D, YYYY · h:mm A z");
+      return `${DayJS(date).format("MMMM D, YYYY · h:mm A")} ${zoneAbbreviation}`;
     }
-  } catch (error) {
+  } catch(error) {
     // TODO: Central error reporting
     console.error(`Failed to parse date ${date}`);
     console.error(date);

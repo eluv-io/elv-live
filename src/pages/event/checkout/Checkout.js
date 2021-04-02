@@ -11,6 +11,8 @@ import {FormatDateString, ValidEmail} from "Utils/Misc";
 import StripeLogo from "Images/logo/logo-stripe";
 import {FUNDING, PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {Redirect} from "react-router";
+import {Loader} from "Common/Loaders";
+import {retryRequest} from "Utils/retryRequest";
 
 @inject("cartStore")
 @inject("siteStore")
@@ -20,12 +22,38 @@ class Checkout extends React.Component {
     super(props);
 
     this.state = {
-      redirect: false
+      redirect: false,
+      submitting: false
     };
   }
 
   componentDidMount() {
     this.props.cartStore.ToggleCartOverlay(false);
+  }
+
+  CurrencySelection() {
+    if(this.props.cartStore.currencies.length <= 1) {
+      return;
+    }
+
+    return (
+      <div className="currency-selection-container">
+        Show prices in
+        <select
+          className="currency-selection"
+          value={this.props.cartStore.currency}
+          onChange={event => this.props.cartStore.SetCurrency(event.target.value)}
+        >
+          {
+            this.props.cartStore.currencies.map(({name, code}) =>
+              <option value={code} key={`currency-${code}`}>
+                { code } - { name }
+              </option>
+            )
+          }
+        </select>
+      </div>
+    );
   }
 
   Donations() {
@@ -135,7 +163,7 @@ class Checkout extends React.Component {
             <h2>
               <div className="ticket-item-header">
                 <div className="ticket-item-header-item">{ ticketClass.name }</div>
-                <div className="ticket-item-header-item">{ ticketSku.label }</div>
+                <div className="ticket-item-header-item subheader">{ ticketSku.label }</div>
               </div>
               <div className="ticket-item-price">
                 { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(ticketSku) * ticket.quantity}, true) }
@@ -150,23 +178,21 @@ class Checkout extends React.Component {
                 <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, true) }</div>
                 <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
 
-                <div className="select-wrapper item-quantity-wrapper">
-                  <select
-                    className="item-quantity"
-                    value={ticket.quantity}
-                    onChange={event => this.props.cartStore.UpdateItem({
-                      itemType: "tickets",
-                      index,
-                      quantity: parseInt(event.target.value)
-                    })}
-                  >
-                    {
-                      [...new Array(9).keys()].map(index =>
-                        <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                      )
-                    }
-                  </select>
-                </div>
+                <select
+                  className="item-quantity"
+                  value={ticket.quantity}
+                  onChange={event => this.props.cartStore.UpdateItem({
+                    itemType: "tickets",
+                    index,
+                    quantity: parseInt(event.target.value)
+                  })}
+                >
+                  {
+                    [...new Array(9).keys()].map(index =>
+                      <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+                    )
+                  }
+                </select>
 
                 <div className="ticket-item-description">
                   { this.props.siteStore.eventInfo.description }
@@ -207,23 +233,21 @@ class Checkout extends React.Component {
         </div>
         <div className="cart-item-cell cart-item-price">{ this.props.cartStore.FormatPriceString(ticketSku.price, true) }</div>
         <div className="cart-item-cell cart-item-quantity">
-          <div className="select-wrapper item-quantity-wrapper">
-            <select
-              className="item-quantity"
-              value={ticket.quantity}
-              onChange={event => this.props.cartStore.UpdateItem({
-                itemType: "tickets",
-                index,
-                quantity: parseInt(event.target.value)
-              })}
-            >
-              {
-                [...new Array(9).keys()].map(index =>
-                  <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                )
-              }
-            </select>
-          </div>
+          <select
+            className="item-quantity"
+            value={ticket.quantity}
+            onChange={event => this.props.cartStore.UpdateItem({
+              itemType: "tickets",
+              index,
+              quantity: parseInt(event.target.value)
+            })}
+          >
+            {
+              [...new Array(9).keys()].map(index =>
+                <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+              )
+            }
+          </select>
         </div>
         <div className="cart-item-cell cart-item-total">
           { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(ticketSku) * ticket.quantity}) }
@@ -259,23 +283,21 @@ class Checkout extends React.Component {
         </div>
         <div className="cart-item-cell cart-item-price no-mobile">{ this.props.cartStore.FormatPriceString(baseItem.price) }</div>
         <div className="cart-item-cell cart-item-quantity no-mobile">
-          <div className="select-wrapper item-quantity-wrapper">
-            <select
-              className="item-quantity"
-              value={item.quantity}
-              onChange={event => this.props.cartStore.UpdateItem({
-                itemType: "merchandise",
-                index,
-                quantity: parseInt(event.target.value)
-              })}
-            >
-              {
-                [...new Array(9).keys()].map(index =>
-                  <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
-                )
-              }
-            </select>
-          </div>
+          <select
+            className="item-quantity"
+            value={item.quantity}
+            onChange={event => this.props.cartStore.UpdateItem({
+              itemType: "merchandise",
+              index,
+              quantity: parseInt(event.target.value)
+            })}
+          >
+            {
+              [...new Array(9).keys()].map(index =>
+                <option key={`quantity-option-${index}`} value={index + 1}>{ index + 1 }</option>
+              )
+            }
+          </select>
         </div>
         <div className="cart-item-cell cart-item-total no-mobile">
           { this.props.cartStore.FormatPriceString({[this.props.cartStore.currency]: this.props.cartStore.ItemPrice(baseItem) * item.quantity}, true) }
@@ -299,12 +321,15 @@ class Checkout extends React.Component {
       return (
         <div className="checkout-page-section cart-section empty">
           <h2 className="checkout-section-header">
-            <ImageIcon
-              className="bag-icon"
-              label="Shopping cart icon"
-              icon={BagIcon}
-            />
-            Shopping Cart
+            <div className="checkout-section-text">
+              <ImageIcon
+                className="bag-icon"
+                label="Shopping cart icon"
+                icon={BagIcon}
+              />
+              Shopping Cart
+            </div>
+            { this.CurrencySelection() }
           </h2>
 
           Your cart is empty
@@ -317,12 +342,15 @@ class Checkout extends React.Component {
     return (
       <div className="checkout-page-section cart-section">
         <h2 className="checkout-section-header">
-          <ImageIcon
-            className="bag-icon"
-            label="Shopping cart icon"
-            icon={BagIcon}
-          />
-          Shopping Cart
+          <div className="checkout-section-text">
+            <ImageIcon
+              className="bag-icon"
+              label="Shopping cart icon"
+              icon={BagIcon}
+            />
+            Shopping Cart
+          </div>
+          { this.CurrencySelection() }
         </h2>
 
         <div className="cart-item cart-header no-mobile">
@@ -347,12 +375,16 @@ class Checkout extends React.Component {
         <div className="order-summary">
           <label>Subtotal</label>
           <div className="order-value">
-            { cartDetails.totalFormatted }
+            { cartDetails.subtotalFormatted }
           </div>
-          <label>Shipping</label>
-          <div className="order-value">TBD</div>
-          <label>Estimated Tax</label>
-          <div className="order-value">TBD</div>
+          <label>
+            Service Fee
+            <div className="hint">Eluvio LIVE Platform fees</div>
+          </label>
+          <div className="order-value">
+            { cartDetails.serviceFeeFormatted }
+          </div>
+          <div className="spacer" /><div className="spacer" />
           <label>Total</label>
           <div className="order-value">
             { cartDetails.totalFormatted }
@@ -361,7 +393,7 @@ class Checkout extends React.Component {
 
         <EmailInput />
 
-        { this.PaymentActions() }
+        { cartDetails.itemCount > 0 ? this.PaymentActions() : null }
       </div>
     );
   }
@@ -379,23 +411,44 @@ class Checkout extends React.Component {
       );
     }
 
+    if(this.props.cartStore.submittingOrder) {
+      return (
+        <div className="payment-actions">
+          <Loader />
+        </div>
+      );
+    }
+
     return (
       <div className="payment-actions">
-        <button className="checkout-button" role="link" onClick={this.props.cartStore.StripeSubmit}>
+        {
+          this.props.cartStore.checkoutError ?
+            <div className="checkout-error-message">{this.props.cartStore.checkoutError}</div> : null
+        }
+        <button
+          className="checkout-button"
+          role="link"
+          onClick={this.props.cartStore.StripeSubmit}
+        >
           Pay with Card
           <img className="stripe-checkout-logo" src={StripeLogo} alt="Stripe Logo"/>
         </button>
         <div className="paypal-button">
           <PayPalScriptProvider
+            key={`paypal-button-${this.props.cartStore.currency}`}
             options={{
-              "client-id": this.props.siteStore.paymentConfigurations.paypal_client_id,
+              "client-id": this.props.cartStore.PaymentServicePublicKey("paypal"),
               currency: this.props.cartStore.currency
             }}
           >
             <PayPalButtons
               createOrder={this.props.cartStore.PaypalSubmit}
-              onApprove={() => this.setState({redirect: true})}
-              onError={() => this.props.cartStore.PaymentSubmitError("There was an error with Paypal Checkout. Please try again.")}
+              onApprove={async (data, actions) => {
+                await retryRequest(actions.order.capture);
+
+                this.setState({redirect: true});
+              }}
+              onError={error => this.props.cartStore.PaymentSubmitError(error)}
               style={{
                 color:  "gold",
                 shape:  "rect",

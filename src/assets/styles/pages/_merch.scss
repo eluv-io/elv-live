@@ -1,6 +1,8 @@
 .merch-container {
   @include item-block;
 
+  margin-bottom: 50px;
+
   * {
     font-family: Helvetica;
   }
@@ -8,6 +10,7 @@
 
 .merchandise-item {
   display: grid;
+  grid-gap: 25px;
   grid-template-columns: 4fr 5fr;
 
   * {
@@ -22,8 +25,8 @@
 
     .selected-image {
       max-height: 500px;
-      min-height: 500px;
       object-fit: contain;
+      object-position: top;
     }
   }
 
@@ -42,7 +45,7 @@
     width: 63px;
 
     &.selected {
-      outline: 1px solid black;
+      outline: 1px solid $black;
     }
   }
 
@@ -93,19 +96,10 @@
     margin-bottom: 31px;
   }
 
-  .item-option,
-  .item-color {
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: normal;
-    outline: 0;
-  }
-
   .item-color,
   .item-color-swatch {
+    background-color: transparent;
+    border: 0;
     border-radius: 100%;
   }
 
@@ -119,7 +113,7 @@
     width: 23px;
 
     &.selected {
-      border: 1px solid black;
+      border: 1px solid $black;
 
       .item-color-swatch {
         border: 0;
@@ -142,6 +136,7 @@
   }
 
   .item-quantity {
+    display: block;
     width: 85px;
   }
 
@@ -150,6 +145,12 @@
     font-size: 16px;
     height: 42px;
     margin-top: 42px;
+  }
+
+  &.main-view {
+    .selected-image {
+      padding: 20px;
+    }
   }
 
   &.cart-view {
@@ -176,6 +177,7 @@
     @include item-block;
 
     display: block;
+    margin-bottom: 20px;
     width: 611px;
 
     .remove-item {
@@ -221,7 +223,7 @@
       grid-template-columns: 1fr auto;
       margin-bottom: 23px;
 
-      .select-wrapper {
+      select {
         margin: 0;
       }
     }
@@ -270,7 +272,7 @@
     .item-image {
       .selected-image {
         max-height: 300px;
-        min-height: 300px;
+        object-position: center;
       }
     }
 
@@ -306,7 +308,7 @@
       width: 24px;
     }
 
-    .select-wrapper {
+    select {
       margin: 0 auto 43px;
     }
 
@@ -358,8 +360,9 @@
       .item-options {
         display: block;
 
-        .select-wrapper {
+        select {
           margin-bottom: 10px;
+          width: 100% !important;
         }
       }
 
@@ -367,9 +370,8 @@
         margin-right: 10px;
       }
 
-      .select-wrapper,
       select {
-        text-align: center;
+        text-align: left;
         width: 100%;
       }
     }

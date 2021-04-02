@@ -3,6 +3,7 @@
   display: grid;
   grid-gap: 51px;
   grid-template-columns: minmax(40%, 1fr) minmax(60%, 1fr);
+  margin: auto;
   padding: 50px 81px;
 
   &__ticket-info,
@@ -78,7 +79,7 @@
 
     .ticket-details__sku-selection {
       margin-right: 18px;
-      width: 225px;
+      width: 255px;
     }
 
     .ticket-details__price {
@@ -100,8 +101,11 @@
       width: 100%;
 
       .separator {
+        align-items: center;
+        display: flex;
         font-weight: bold;
-        padding: 0 6px;
+        justify-content: center;
+        padding: 0 10px;
       }
     }
   }
@@ -145,13 +149,12 @@
       padding: 25px;
     }
 
+    .ticket-details__header {
+      font-size: 14px;
+    }
+
     .ticket-details__option-date {
       font-size: 12px;
-      justify-content: space-between;
-
-      .separator {
-        padding: 0;
-      }
     }
   }
 }

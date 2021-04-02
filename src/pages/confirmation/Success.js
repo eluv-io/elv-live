@@ -12,14 +12,23 @@ class Success extends React.Component {
   }
 
   render() {
-    let calendarData = this.props.siteStore.calendarEvent;
-    let calendarEvent = {
-      title: calendarData.title,
-      description: calendarData.description,
-      location: calendarData.location,
-      startTime: calendarData.start_time,
-      endTime: calendarData.end_time
-    };
+    let calendarEvent;
+    if(this.props.cartStore.purchasedTicketStartDate) {
+      try {
+        const startDate = new Date(this.props.cartStore.purchasedTicketStartDate);
+        const calendarData = this.props.siteStore.calendarEvent;
+        calendarEvent = {
+          title: calendarData.title,
+          description: calendarData.description,
+          location: calendarData.location,
+          startTime: startDate,
+          // End time just set to an hour from start
+          endTime: new Date(startDate.getTime() + 60 * 60 * 1000)
+        };
+      } catch(error) {
+        console.error("Error determining calendar date");
+      }
+    }
 
     return (
       <div className="page-container success-container">
@@ -38,14 +47,17 @@ class Success extends React.Component {
             </div>
           </div>
 
-          <AddToCalendar
-            event={calendarEvent}
-            buttonLabel="Add to Calendar"
-            rootClass="calendar-button-container"
-            buttonWrapperClass="calendar-button"
-            buttonClassOpen="open"
-            dropdownClass="calendar-button-dropdown"
-          />
+          {
+            calendarEvent ?
+              <AddToCalendar
+                event={calendarEvent}
+                buttonLabel="Add to Calendar"
+                rootClass="calendar-button-container"
+                buttonWrapperClass="calendar-button"
+                buttonClassOpen="open"
+                dropdownClass="calendar-button-dropdown"
+              /> : null
+          }
         </div>
       </div>
     );

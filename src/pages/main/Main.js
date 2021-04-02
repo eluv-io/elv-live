@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Copy from "./copy/Copy.yaml";
+import Copy from "Assets/copy/Main.yaml";
 import FeaturedEvents from "Pages/main/components/FeaturedEvents";
 import Logo from "Assets/images/logo/coloredEluvioLiveLogo.png";
 import FeatureBlock from "Pages/main/components/FeatureBlock";
