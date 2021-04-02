@@ -26,7 +26,7 @@
 }
 
 .modal__close-button {
-  background-color: white;
+  background-color: $white;
   border-radius: 100%;
   cursor: pointer;
   font-weight: 400;
@@ -34,23 +34,23 @@
   padding: 8px;
   position: absolute;
   right: 35px;
-  stroke: black;
+  stroke: $black;
   top: 35px;
   width: 35px;
   z-index: 10002;
 
   &:hover {
-    background-color: black;
-    stroke: white;
+    background-color: $black;
+    stroke: $white;
   }
 }
 
 @media only screen and (max-width: 1250px) {
   .modal {
-    overflow-x: hidden;
     height: 100%;
-    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .modal__content {
@@ -63,8 +63,8 @@
   }
 
   .modal__close-button {
+    border: 1px solid $black;
     position: fixed;
-    border: 1px solid black;
     right: 15px;
     top: 15px;
   }
@@ -89,10 +89,12 @@
 .promo-player-container {
   display: flex;
   flex-direction: column;
+  height: 50vh;
   min-width: 100%;
 
   .promo-buttons-container {
     display: flex;
+    height: 50px;
     justify-content: space-between;
     margin-top: 10px;
 
@@ -101,85 +103,6 @@
         visibility: hidden;
       }
     }
-  }
-}
-
-.modal-2 {
-  @include page-fade-in;
-
-  align-content: center;
-  align-items: center;
-  background: transparent;
-  display: flex;
-  height: 600px;
-  justify-content: space-between;
-  max-width: 1350px;
-  min-width: MIN(75vw, 1350px);
-  -webkit-overflow-scrolling: touch;
-  position: fixed;
-  width: 75vw;
-  z-index: 5000;
-
-  .error-message-modal {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    justify-content: center;
-    margin: auto;
-    padding: 20px;
-    position: relative;
-    width: 80%;
-  }
-
-  .promo-player-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .promo-player {
-    @media only screen and (max-width: 1250px) {
-      margin-top: -10vh;
-      min-height: 50vh;
-    }
-  }
-
-  .promo-buttons-container {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    button {
-      background-color: black;
-      color: white;
-
-      &:disabled {
-        visibility: hidden;
-      }
-    }
-  }
-
-  &__container {
-    align-self: center;
-    background: #000;
-    height: 600px;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-
-    @media only screen and (max-width: 1250px) {
-      height: 100%;
-      width: 100%;
-    }
-  }
-
-  @media only screen and (max-width: 1250px) {
-    height: 100vh;
-    overflow: none;
-    width: 100vw;
   }
 }
 
@@ -249,8 +172,8 @@
 
 .back-button-modal {
   background-color: transparent;
-  // border: 1px solid black;
-  background-color: white;
+  // border: 1px solid $black;
+  background-color: $white;
   border-radius: 100px;
   cursor: pointer;
   font-weight: 400;
@@ -258,15 +181,15 @@
   padding: 8px;
   position: fixed;
   right: 35px;
-  stroke: black;
-  stroke: black;
+  stroke: $black;
+  stroke: $black;
   top: 35px;
   width: 35px;
   z-index: 1000000000000000000000000000;
 
   &:hover {
-    background-color: black;
-    stroke: white;
+    background-color: $black;
+    stroke: $white;
   }
 
   @media only screen and (max-width: 500px) {

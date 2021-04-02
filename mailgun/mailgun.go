@@ -70,9 +70,25 @@ for i := 0; i < ticketQty; i++ {
 message.AddTemplateVariable("tickets", tickets)
 
 {
-  tickets: [
-    { passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
-		{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
-		{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
-  ];
-}mjml email.mjml -o multipleTicketEmail.html	
+	ticket-class: [
+		{
+		ticket-class-name: "General Admission Ticket",
+		premiere-date: "Sometime, 2021 8:00 PM PST"
+		tickets: [
+			{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+			{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+		]
+	},
+	{
+		ticket-class-name: "4K Premium Ticket",
+		premiere-date: "Sometime, 2021 8:00 PM PST"
+		tickets: [
+			{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+			{ passcode: "abc", redeem-url: "https://live.eluv.io/d457a576/code?passcode=" + passcode + "&email=" + email + "&access=true" },
+		]
+	}
+	]
+}
+
+
+mjml email.mjml -o newtemplate.html	

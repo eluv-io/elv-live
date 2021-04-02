@@ -16,6 +16,8 @@ import {
   MessageLivestream,
   Thread
 } from "stream-chat-react";
+import {PageLoader} from "Common/Loaders";
+import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -25,38 +27,69 @@ class LiveChat extends React.Component {
     super(props);
 
     this.state = {
-      onChat: false,
+      anonymous: true,
       chatClient: null,
       channel: null,
-      channel2: null,
       chatName: "",
-      name_placeholder: "Name",
+      loading: true
     };
-
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async InitializeChannel(user={id: "channelcreator", name: "channel creator"}) {
-    this.setState({channel: null});
+  async InitializeChannel(userName, createOnly=false) {
+    const channelTitle = `${this.props.siteStore.streamPageInfo.header} - ${this.props.siteStore.streamPageInfo.subheader}`;
 
-    const channelName = `${this.props.siteStore.streamPageInfo.header} - ${this.props.siteStore.streamPageInfo.subheader}`;
+    if(!createOnly) {
+      this.setState({channel: undefined});
+    }
 
     await this.state.chatClient.disconnect();
-    await this.state.chatClient.setGuestUser(user);
-    const channel = await this.state.chatClient.channel(
-      "livestream",
-      channelName.replace(/[^a-zA-Z0-9]/g, ""),
-      { name: channelName }
-    );
 
-    this.setState({channel});
+    if(userName) {
+      await this.state.chatClient.setGuestUser({
+        id: userName.replace(/[^a-zA-Z0-9]/g, ""),
+        name: userName
+      });
+    } else {
+      await this.state.chatClient.connectAnonymousUser();
+
+      const channelExists = (await this.state.chatClient.queryChannels({id: this.props.siteStore.chatChannel})).length > 0;
+
+      if(!channelExists) {
+        await this.InitializeChannel("channelCreator", true);
+
+        await this.state.chatClient.disconnect();
+        await this.state.chatClient.connectAnonymousUser();
+      }
+    }
+
+    try {
+      const channel = await this.state.chatClient.channel(
+        "livestream",
+        this.props.siteStore.chatChannel,
+        { name: channelTitle }
+      );
+
+      if(createOnly) {
+        await channel.create();
+        return;
+      }
+
+      this.setState({
+        channel,
+        anonymous: !userName
+      });
+    } catch(error) {
+      console.error(error);
+    }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.setState({
       chatClient: new StreamChat("yyn7chg5xjwq")
-    }, () => this.InitializeChannel());
+    }, async () => {
+      await this.InitializeChannel();
+      this.setState({loading: false});
+    });
   }
 
   componentWillUnmount() {
@@ -65,50 +98,48 @@ class LiveChat extends React.Component {
     }
   }
 
-  async handleSubmit() {
+  async JoinChat() {
     if(!this.state.chatName) { return; }
 
-    this.InitializeChannel({id: this.state.chatName, name: this.state.chatName});
-
-    this.setState({onChat: true});
+    this.InitializeChannel(this.state.chatName);
   }
 
-  handleNameChange(event) {
-    this.setState({chatName: event.target.value});
+  Input() {
+    if(this.state.anonymous) {
+      // Name input
+      return (
+        <div className={this.props.siteStore.darkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light"}>
+          <div className="stream-chat-form">
+            <input
+              placeholder="Enter your name to chat"
+              value={this.state.chatName}
+              onKeyPress={onEnterPressed(() => this.JoinChat())}
+              onChange={event => this.setState({chatName: event.target.value})}
+            />
+          </div>
+          <button className="enter-chat-button" role="link" onClick={() => this.JoinChat()}>
+            <GrChatOption style={{height: "25px", width: "25px", marginRight: "10px"}}/> Join Chat
+          </button>
+        </div>
+      );
+    }
+
+    // Chat input
+    return <MessageInput Input={MessageInputSimple} focus={false}/>;
   }
 
   render() {
-    let chatClient = this.state.chatClient;
-    let channel = this.state.channel;
-
     if(!this.state.channel) {
-      return null;
+      return <PageLoader />;
     }
 
     return (
-      <Chat client={chatClient} theme={this.props.onDarkMode ? "livestream dark" : "livestream light"}>
-        <Channel channel={channel} Message={MessageLivestream} LoadingIndicator={() => { return null; }}>
+      <Chat client={this.state.chatClient} theme={this.props.siteStore.darkMode ? "livestream dark" : "livestream light"}>
+        <Channel channel={this.state.channel} Message={MessageLivestream} loadingIndicator={() => null}>
           <Window hideOnThread>
             <ChannelHeader live/>
             <MessageList dateSeparator={() => { return null; }}/>
-            {
-              this.state.onChat ?
-                <MessageInput Input={MessageInputSimple} focus={false}/> :
-                <div className={this.props.onDarkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light"}>
-                  <div className="stream-chat-form">
-                    <input
-                      onFocus={() => this.setState({name_placeholder: ""})}
-                      onBlur={() => this.setState({name_placeholder: "Name"})}
-                      placeholder={this.state.name_placeholder}
-                      value={this.state.chatName}
-                      onChange={this.handleNameChange}
-                    />
-                  </div>
-                  <button className="enter-chat-button" role="link" onClick={() => this.handleSubmit()}>
-                    <GrChatOption style={{height: "25px", width: "25px", marginRight: "10px"}}/> Join Chat
-                  </button>
-                </div>
-            }
+            { this.Input() }
           </Window>
           <Thread fullWidth autoFocus={false}/>
         </Channel>

@@ -1,9 +1,24 @@
 import {observable, action, flow, computed, toJS} from "mobx";
-import URI from "urijs";
 import UrlJoin from "url-join";
 import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
+import CountryCodesList from "country-codes-list";
+
+const SERVICE_FEE_RATE = 0.1;
+
+const PUBLIC_KEYS = {
+  stripe: {
+    test: "pk_test_51HpRJ7E0yLQ1pYr6m8Di1EfiigEZUSIt3ruOmtXukoEe0goAs7ZMfNoYQO3ormdETjY6FqlkziErPYWVWGnKL5e800UYf7aGp6",
+    production: "pk_live_51HpRJ7E0yLQ1pYr6v0HIvWK21VRXiP7sLrEqGJB35wg6Z0kJDorQxl45kc4QBCwkfEAP3A6JJhAg9lHDTOY3hdRx00kYwfA3Ff"
+  },
+  paypal: {
+    test: "AUDYCcmusO8HyBciuqBssSc3TX855stVQo-WqJUaTW9ZFM7MPIVbdxoYta5hHclUQ9fFDe1iedwwXlgy",
+    production: "Af_BaCJU4_qQj-dbaSJ6UqslKSpfZgkFCJoMi4_zqEKZEXkT1JhPkCTTKYhJ0WGktzFm4c7_BBSN65S4"
+  }
+};
+
+const currencyNames = CountryCodesList.customList('currencyCode', '{currencyNameEn}');
 
 class CartStore {
   @observable currency = "USD";
@@ -25,11 +40,22 @@ class CartStore {
   @observable featuredMerchandise = {};
   @observable featuredDonations = {};
 
+  @observable submittingOrder = false;
+
+  @observable paymentServicePublicKeys = {};
+
+  @observable purchasedTicketStartDate;
+
   @observable lastAdded;
 
   @computed get shippingCountries() {
     return (this.rootStore.siteStore.currentSiteInfo.shipping_countries || [])
       .map(country => country.split(":")[0]);
+  }
+
+  @computed get currencies() {
+    return (this.rootStore.siteStore.currentSiteInfo.payment_currencies || [])
+      .map(currency => ({ code: currency, name: currencyNames[currency] }));
   }
 
   constructor(rootStore) {
@@ -43,13 +69,17 @@ class CartStore {
   ItemPrice(item) {
     const currency = Object.keys(item.price || {}).find(c => c.toLowerCase() === this.currency.toLowerCase());
 
-    if(!currency) { throw Error(`Could not find currency ${this.currency} for item`); }
+    if(!currency) {
+      return "";
+    }
 
     return parseFloat(item.price[currency]);
   }
 
   FormatPriceString(priceList, trimZeros=false) {
     const price = this.ItemPrice({price: priceList});
+
+    if(!price || isNaN(price)) { return; }
 
     const currentLocale = (navigator.languages && navigator.languages.length) ? navigator.languages[0] : navigator.language;
     let formattedPrice = new Intl.NumberFormat(currentLocale || "en-US", { style: "currency", currency: this.currency }).format(price);
@@ -60,6 +90,15 @@ class CartStore {
 
     return formattedPrice;
   };
+
+  @action.bound
+  SetCurrency(currency) {
+    if(!this.currencies.find(({code}) => currency === code)) {
+      return;
+    }
+
+    this.currency = currency;
+  }
 
   @action.bound
   ToggleCartOverlay(show, message) {
@@ -203,11 +242,13 @@ class CartStore {
       .filter(m => m)
       .map(itemDetails => {
         const item = this.rootStore.siteStore.MerchandiseItem(itemDetails.uuid);
+        const hasOptions = item.product_options.length > 0;
 
         return {
           uuid: itemDetails.uuid,
+          sku_id: hasOptions ? item.product_options[itemDetails.optionIndex].uuid : itemDetails.uuid,
           item,
-          option: item.product_options[itemDetails.optionIndex],
+          option: hasOptions ? item.product_options[itemDetails.optionIndex] : -1,
           price: this.ItemPrice(item),
           quantity: itemDetails.quantity
         }
@@ -225,14 +266,27 @@ class CartStore {
         }
       });
 
+    const zeroDecimalCurrency = ["BIF", "CLP", "DJF", "GNF", "JPY", "KMF", "KRW", "MGA", "PYG", "RWF", "UGX", "VND", "VUV", "XAF", "XOF", "XPF"]
+        .includes(this.currency.toUpperCase());
+
     const Total = arr => arr.map(item => item.price * item.quantity).reduce((acc, price) => acc + price, 0);
-    const total = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
+    const subtotal = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
+    const taxableTotal = Total(cart.tickets) + Total(cart.merchandise);
+    const serviceFee = zeroDecimalCurrency ? Math.ceil(taxableTotal * SERVICE_FEE_RATE) : taxableTotal * SERVICE_FEE_RATE;
+    const total = taxableTotal + serviceFee + Total(cart.donations);
 
     return {
+      itemCount: cart.tickets.length + cart.merchandise.length + cart.donations.length,
       tickets: Object.values(cart.tickets),
       merchandise: Object.values(cart.merchandise),
       donations: cart.donations,
-      total,
+      subtotal: parseFloat(subtotal.toFixed(2)),
+      subtotalFormatted: this.FormatPriceString({[this.currency]: subtotal}),
+      taxableTotal: parseFloat(taxableTotal.toFixed(2)),
+      taxableTotalFormatted: this.FormatPriceString({[this.currency]: taxableTotal}),
+      serviceFee: parseFloat(serviceFee.toFixed(2)),
+      serviceFeeFormatted: this.FormatPriceString({[this.currency]: serviceFee}),
+      total: parseFloat(total.toFixed(2)),
       totalFormatted: this.FormatPriceString({[this.currency]: total})
     };
   }
@@ -241,124 +295,166 @@ class CartStore {
 
   @action.bound
   StripeSubmit = flow(function * () {
-    const cartDetails = this.CartDetails();
-
-    const stripeCart = cartDetails.tickets.map(ticket => ({
-      price: ticket.ticketSku.payment_ids.stripe.price_id,
-      quantity: ticket.quantity,
-    }));
-
-    this.confirmationId = this.ConfirmationId();
-    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
-
-    const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
-
-    let stripeParams = {
-      mode: "payment",
-      successUrl: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
-      cancelUrl: baseUrl,
-      clientReferenceId: checkoutId,
-      customerEmail: this.email,
-      lineItems: stripeCart,
-      shippingAddressCollection: {
-        allowedCountries: this.shippingCountries
-      }
-    };
-
-
-    /* TODO: Merchandise and donations
-    if(this.state.merchChecked) {
-      checkoutCart.push({
-        price: this.state.checkoutMerch["stripe_sku_sizes"][merchInd][this.state.selectedSize.value],
-        quantity: 1
-      });
-    }
-    if(this.state.donationChecked) {
-      checkoutCart.push({ price: this.state.donation[donateInd], quantity: 1 });
-    }
-    */
-
     try {
-      const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations.stripe_public_key);
-      yield stripe.redirectToCheckout(stripeParams);
-    } catch (error) {
-      console.error(error);
-      console.error(JSON.stringify(stripeParams, null, 2));
+      this.submittingOrder = true;
+      this.checkoutError = undefined;
+
+      this.SaveLocalStorage();
+
+      const cartDetails = this.CartDetails();
+
+      let itemList =
+        cartDetails.tickets.map(ticket => ({sku: ticket.ticketSku.uuid, quantity: ticket.quantity}))
+          .concat(cartDetails.merchandise.map(item => ({sku: item.sku_id, quantity: item.quantity})))
+          .concat(cartDetails.donations.map(donation => ({sku: donation.uuid, quantity: donation.quantity})));
+
+      this.confirmationId = this.ConfirmationId();
+      const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+
+      const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
+
+      const requestParams = {
+        mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
+        currency: this.currency,
+        email: this.email,
+        client_reference_id: checkoutId,
+        items: itemList,
+        success_url: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
+        cancel_url: baseUrl
+      };
+
       try {
-        const stripe = yield loadStripe(this.rootStore.siteStore.paymentConfigurations.stripe_public_key);
-        yield retryRequest(stripe.redirectToCheckout, stripeParams);
+        // Set up session
+        const stripePublicKey = this.PaymentServicePublicKey("stripe");
+        const sessionId = (yield this.PaymentServerRequest({path: UrlJoin("checkout", "stripe"), requestParams})).session_id;
+
+        // Redirect to stripe
+        const stripe = yield loadStripe(stripePublicKey);
+        yield stripe.redirectToCheckout({sessionId});
       } catch(error) {
-        this.checkoutError = "Sorry, this payment option is currently experiencing too many requests. Please try again in a few minutes or use Paypal to complete your purchase."
+        this.PaymentSubmitError(error);
+        console.error(JSON.stringify(requestParams, null, 2));
       }
+    } finally {
+      this.submittingOrder = false;
     }
   });
 
   @action.bound
   PaypalSubmit = flow(function * (data, actions) {
-    const cartDetails = this.CartDetails();
+    try {
+      this.submittingOrder = true;
+      this.checkoutError = undefined;
+      this.SaveLocalStorage();
 
-    let paypalCart = cartDetails.tickets.map(ticket => ({
-      name: `${ticket.ticketClass.name} - ${ticket.ticketSku.label}`,
-      unit_amount: {
-        value: ticket.price,
-        currency_code: this.currency
-      },
-      quantity: ticket.quantity,
-      sku: ticket.ticketSku.otp_id
-    }));
+      const cartDetails = this.CartDetails();
 
-    paypalCart = paypalCart.concat(
-      cartDetails.merchandise.map(item => ({
-        name: item.item.name,
+      let paypalCart = cartDetails.tickets.map(ticket => ({
+        name: `${ticket.ticketClass.name} - ${ticket.ticketSku.label}`.slice(0, 126),
         unit_amount: {
-          value: item.price,
+          value: ticket.price,
           currency_code: this.currency
         },
-        quantity: item.quantity,
-        description: JSON.stringify(item.option),
-        sku: item.uuid
-      }))
-    );
+        quantity: ticket.quantity,
+        sku: ticket.ticketSku.otp_id
+      }));
 
-    paypalCart = paypalCart.concat(
-      cartDetails.donations.map(item => ({
-        name: item.item.name,
-        unit_amount: {
-          value: item.price,
-          currency_code: this.currency
-        },
-        quantity: item.quantity,
-        description: item.name,
-        sku: item.uuid
-      }))
-    );
+      paypalCart = paypalCart.concat(
+        cartDetails.merchandise.map(item => {
+          let option;
+          if(item.option && item.option !== -1) {
+            option = Object.keys(item.option)
+              .map(key =>
+                ["uuid", "optionIndex"].includes(key) ?
+                  undefined :
+                  `${key}: ${item.option[key].label || item.option[key]}`)
+              .filter(o => o)
+              .join(", ");
+          }
 
-    this.confirmationId = this.ConfirmationId();
-    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`
+          return {
+            name: `${item.item.name} ${option ? " | " + option : ""}`.slice(0, 126),
+            unit_amount: {
+              value: item.price,
+              currency_code: this.currency
+            },
+            quantity: item.quantity,
+            sku: item.uuid
+          };
+        })
+      );
 
-
-    return actions.order.create({
-      purchase_units: [
-        {
-          reference_id: this.email,
-          custom_id: checkoutId,
-          amount: {
-            value: cartDetails.total,
-            currency_code: this.currency,
-            breakdown: {
-              item_total: {
-                value: cartDetails.total,
-                currency_code: this.currency
-              }
-            }
+      paypalCart = paypalCart.concat(
+        cartDetails.donations.map(item => ({
+          name: item.item.name.slice(0, 126),
+          unit_amount: {
+            value: item.price,
+            currency_code: this.currency
           },
-          items: paypalCart,
-        }]
-    });
+          quantity: item.quantity,
+          sku: item.uuid
+        }))
+      );
+
+      paypalCart.push({
+        name: "Service Fee",
+        unit_amount: {
+          value: cartDetails.serviceFee,
+          currency_code: this.currency
+        },
+        quantity: 1
+      });
+
+      this.confirmationId = this.ConfirmationId();
+      const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+
+      return retryRequest(
+        actions.order.create,
+        {
+          purchase_units: [
+            {
+              reference_id: this.email,
+              custom_id: checkoutId,
+              amount: {
+                value: cartDetails.total,
+                currency_code: this.currency,
+                breakdown: {
+                  item_total: {
+                    value: cartDetails.total,
+                    currency_code: this.currency
+                  }
+                }
+              },
+              items: paypalCart,
+            }]
+        }
+      );
+    } finally {
+      this.submittingOrder = false;
+    }
   });
 
-  PaymentSubmitError(message) {
-    this.checkoutError = message;
+  PaymentSubmitError(error) {
+    console.error(error);
+
+    this.checkoutError = "There was an error with checkout. Please try again.";
+  }
+
+  PaymentServicePublicKey(service) {
+    return PUBLIC_KEYS[service][this.rootStore.siteStore.mainSiteInfo.info.mode];
+  }
+
+  async PaymentServerRequest({path, requestParams={}}) {
+    return retryRequest(
+      async () => await this.rootStore.client.utils.ResponseToFormat(
+        "json",
+        await this.rootStore.client.authClient.MakeKMSRequest({
+          method: "POST",
+          path: UrlJoin("as", path),
+          body: requestParams
+        })
+      )
+    );
   }
 
   // LocalStorage
@@ -366,9 +462,9 @@ class CartStore {
   @action.bound
   OrderComplete() {
     this.ToggleCheckoutOverlay(false);
-
     this.tickets = [];
     this.merchandise = [];
+    this.featuredDonations = {};
 
     this.SaveLocalStorage();
   }
@@ -378,13 +474,25 @@ class CartStore {
   }
 
   SaveLocalStorage() {
+    // Get the earliest purchased ticket date for the calendar widget
+    const earliestStartDate = this.CartDetails().tickets
+      .map(({ticketSku}) => ticketSku.start_time)
+      .sort()[0];
+
+    if(earliestStartDate) {
+      this.purchasedTicketStartDate = earliestStartDate;
+    }
+
     try {
       localStorage.setItem(
         this.localStorageKey,
         btoa(
           JSON.stringify({
             tickets: toJS(this.tickets),
-            merchandise: toJS(this.merchandise)
+            merchandise: toJS(this.merchandise),
+            donations: toJS(this.featuredDonations),
+            email: this.email,
+            purchasedTicketStartDate: this.purchasedTicketStartDate
           })
         )
       );
@@ -400,10 +508,13 @@ class CartStore {
     if(!data) { return; }
 
     try {
-      const { tickets, merchandise } = JSON.parse(atob(data));
+      const { tickets, merchandise, donations, email, purchasedTicketStartDate } = JSON.parse(atob(data));
 
       this.tickets = tickets || [];
       this.merchandise = merchandise || [];
+      this.featuredDonations = donations || {};
+      this.email = email || "";
+      this.purchasedTicketStartDate = purchasedTicketStartDate;
     } catch(error) {
       console.error("Failed to load data from localstorage:");
       console.error(error);

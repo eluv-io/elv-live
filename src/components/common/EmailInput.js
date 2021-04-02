@@ -12,6 +12,13 @@ class EmailInput extends React.Component {
           type="email"
           required
           onChange={event => this.props.cartStore.UpdateEmail(event.target.value)}
+          onKeyPress={event => {
+            if(!this.props.onEnterPressed || !event.key || event.key.toLowerCase() !== "enter") {
+              return;
+            }
+
+            this.props.onEnterPressed(event);
+          }}
           className="email-input"
           placeholder="Email"
         />

@@ -2,27 +2,20 @@
   -webkit-overflow-scrolling: touch;
 }
 
-body {
-  &::-webkit-scrollbar {
-    background: transparent;
-    width: 0;
+* {
+  ::-webkit-scrollbar {
+    opacity: 1;
+    width: 8px;
   }
 
-  * {
-    ::-webkit-scrollbar {
-      width: 12px;
-      opacity: 1;
-    }
+  ::-webkit-scrollbar-track {
+    background: #333;
+    opacity: 1;
+  }
 
-    ::-webkit-scrollbar-track {
-      opacity: 1;
-      background: #333;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      opacity: 1;
-      background-color: #777;
-    }
+  ::-webkit-scrollbar-thumb {
+    background-color: #777;
+    opacity: 1;
   }
 }
 
@@ -38,11 +31,11 @@ body {
 }
 
 a {
-  color: black;
+  color: $black;
   text-decoration: none;
 
   &:hover {
-    color: black;
+    color: $black;
   }
 }
 
@@ -104,30 +97,19 @@ body,
   @include page-fade-in;
 }
 
-// Styled select
-.select-wrapper {
-  align-items: center;
-  display: flex;
+select {
+  appearance: none;
+  background-color: #f2eeea;
+  background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35 20.63'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;stroke:%23626262;stroke-linecap:round;stroke-miterlimit:10;stroke-width:4px;%7D%3C/style%3E%3C/defs%3E%3Cpolyline class='cls-1' points='2 2 17.8 17.8 33 2.6'/%3E%3C/svg%3E");
+  background-position: right 15px center;
+  background-repeat: no-repeat;
+  background-size: 14px 7px;
+  border: 0;
+  border-radius: 15px;
+  cursor: pointer;
+  height: 45px;
+  padding: 0 15px;
   position: relative;
-  width: min-content;
-
-  &::after {
-    color: black;
-    content: '▾';
-    position: absolute;
-    right: 19px;
-  }
-
-  select {
-    appearance: none;
-    background: #f2eeea;
-    border: 0;
-    border-radius: 15px;
-    height: 44px;
-    outline: 0;
-    padding: 0 17px;
-    width: 100%;
-  }
 }
 
 input[type='checkbox'] {
@@ -139,6 +121,19 @@ input[type='checkbox'] {
 
 .mobile-only {
   display: none !important;
+}
+
+.error-section {
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  font-weight: 300;
+  justify-content: center;
+  text-align: center;
+}
+
+.error-page-container {
+  font-size: 36px;
 }
 
 @media only screen and (max-width: 900px) {

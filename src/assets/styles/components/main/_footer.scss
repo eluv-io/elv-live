@@ -1,26 +1,36 @@
 .footer {
   &__logo-container {
+    align-items: flex-start;
     display: flex;
+    height: 50px;
     justify-content: center;
-    height: 100px;
+    margin: auto;
+    width: 100%;
 
     svg {
       * {
-        fill: black;
+        fill: $black;
         stroke: transparent;
       }
     }
   }
 
+  &__logo-button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 100%;
+  }
+
   &__logo {
-    fill: black;
+    fill: $black;
     height: auto;
-    stroke: black;
+    stroke: $black;
     width: 191px;
   }
 
   &__links {
-    border-top: 1px solid black;
+    border-top: 1px solid $black;
     display: flex;
     justify-content: center;
     margin: 52px 163px 0;
@@ -30,15 +40,16 @@
   &__link {
     font-size: 16px;
     letter-spacing: 0.07em;
-    padding: 0 56px;
+    text-align: center;
+    width: 150px;
   }
 
   &__social {
-    width: 400px;
-    margin: 0 auto 20px;
+    align-items: center;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    margin: 0 auto 20px;
+    width: 400px;
 
     svg {
       height: 20px;
@@ -48,12 +59,12 @@
 
   &__attributions,
   &__copyright {
-    width: 100%;
-    text-align: center;
-    margin: 30px 0 20px;
-    font-weight: 300;
     color: #999;
     font-size: 12px;
+    font-weight: 300;
+    margin: 30px 0 20px;
+    text-align: center;
+    width: 100%;
   }
 
   &__copyright {
@@ -67,7 +78,7 @@
     }
 
     &__logo-container {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $black;
     }
 
     &__links {
@@ -80,6 +91,7 @@
     &__link {
       font-size: 11px;
       padding: 0;
+      width: 100px;
     }
 
     &__social {

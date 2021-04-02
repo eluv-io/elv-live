@@ -10,10 +10,10 @@
 
   &__subheader {
     font-size: 24px;
+    font-weight: 300;
     margin: 40px auto;
     max-width: 1000px;
     text-align: center;
-    font-weight: 300;
 
     a {
       font-weight: normal;
@@ -22,10 +22,10 @@
   }
 
   &__contact {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: 100px auto 20px;
     max-width: 800px;
 
@@ -37,19 +37,19 @@
 
   &__contact-details {
     display: grid;
+    grid-gap: 10px;
     grid-template-columns: 1fr 1fr;
     margin-top: 20px;
-    grid-gap: 10px;
 
     label {
-      text-align: right;
-      padding-right: 10px;
       font-weight: normal;
+      padding-right: 10px;
+      text-align: right;
     }
 
     .next-page__label-value {
-      padding-left: 10px;
       font-weight: 300;
+      padding-left: 10px;
 
       a {
         color: #1b73e8;

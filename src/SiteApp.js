@@ -1,4 +1,4 @@
-import React, {Suspense, lazy} from "react";
+import React, {lazy} from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {Route, Redirect, BrowserRouter} from "react-router-dom";
@@ -14,6 +14,7 @@ const Support = MinLoadDelay(import("Support/Support"));
 const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
+const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
 
 import "Styles/site-app.scss";
@@ -24,7 +25,20 @@ import {PageLoader} from "Common/Loaders";
 @inject("siteStore")
 @observer
 class SiteApp extends React.Component {
+  InitializeZendeskWidget() {
+    if(document.getElementById("ze-snippet")) { return; }
+
+    const zendeskImport = document.createElement("script");
+    zendeskImport.id = "ze-snippet";
+    zendeskImport.type = "text/javascript";
+    zendeskImport.async = true;
+    zendeskImport.src = "https://static.zdassets.com/ekr/snippet.js?key=cec6052c-e357-45e1-86b0-30f30e12eb85";
+    document.body.appendChild(zendeskImport);
+  }
+
   async componentDidMount() {
+    this.InitializeZendeskWidget();
+
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
   }
@@ -37,6 +51,7 @@ class SiteApp extends React.Component {
 
     return (
       <Switch>
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
@@ -44,7 +59,7 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
-          <Redirect to="/" />
+          <Route render={() => window.location.href = window.location.origin} />
         </Route>
       </Switch>
     );

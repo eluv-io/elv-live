@@ -15,11 +15,9 @@ class CodeAccess extends React.Component {
     this.state = {
       error: "",
       code: "",
-      loading: false,
-      code_placeholder: "Ticket Code",
+      loading: false
     };
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleCodeChange = this.handleCodeChange.bind(this);
+
     this.handleRedeemCode = this.handleRedeemCode.bind(this);
   }
 
@@ -32,7 +30,7 @@ class CodeAccess extends React.Component {
         this.handleRedeemCode(parsed.passcode);
       }
 
-    } catch (e) {
+    } catch(e) {
       console.log(e);
     }
   }
@@ -46,26 +44,20 @@ class CodeAccess extends React.Component {
       if(!siteId) {
         throw Error("Invalid code");
       }
-    } catch (error) {
+
+      this.setState({redeemed: true});
+    } catch(error) {
       this.setState({error: "Invalid code"});
     } finally {
       this.setState({loading: false});
     }
   }
 
-  handleEmailChange(event) {
-    this.setState({email: event.target.value});
-  }
-
-  handleCodeChange(event) {
-    this.setState({code: event.target.value});
-  }
-
   render() {
     if(!this.props.siteStore.client) { return null; }
 
-    if(this.props.rootStore.streamAccess) {
-      return <Redirect to={this.props.siteStore.SitePath("stream")} />;
+    if(this.state.redeemed) {
+      return <Redirect to={this.props.siteStore.SitePath("event")} />;
     }
 
     return (
@@ -82,11 +74,9 @@ class CodeAccess extends React.Component {
           </div>
 
           <input
-            onFocus={() => this.setState({code_placeholder: ""})}
-            onBlur={() => this.setState({code_placeholder: "Ticket Code"})}
-            placeholder={this.state.code_placeholder}
+            placeholder="Ticket Code"
             value={this.state.code}
-            onChange={this.handleCodeChange}
+            onChange={event => this.setState({code: event.target.value})}
             onKeyPress={onEnterPressed(() => this.handleRedeemCode(this.state.code))}
           />
 

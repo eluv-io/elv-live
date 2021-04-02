@@ -6,8 +6,8 @@ import {NavLink, withRouter} from "react-router-dom";
 import ImageIcon from "Common/ImageIcon";
 
 @inject("siteStore")
-@observer
 @withRouter
+@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +28,8 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    this.setState({scrolled: window.scrollY > window.innerHeight * 0.25});
+    const fadePoint = this.props.location.pathname === "/" ? window.innerHeight * 0.25 : 20;
+    this.setState({scrolled: window.scrollY > fadePoint});
   }
 
   render() {

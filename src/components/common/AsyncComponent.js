@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {observer} from "mobx-react";
-import ErrorHandler from "Common/ErrorHandler";
+import {PageLoader} from "Common/Loaders";
+import {ErrorWrapper} from "Common/ErrorBoundary";
 
 @observer
 class AsyncComponent extends React.Component {
@@ -34,7 +35,7 @@ class AsyncComponent extends React.Component {
           loading: false
         });
       }
-    } catch (error) {
+    } catch(error) {
       this.setState({error});
     }
   }
@@ -48,22 +49,9 @@ class AsyncComponent extends React.Component {
       // Throw error synchronously for ErrorHandler to catch
       throw this.state.error;
     }
-    let loadingSpin = true;
-    if(!this.props.loadingSpin) {
-      loadingSpin = false;
-    }
 
     if(this.state.loading) {
-      return (
-        <div className="spin-container">
-
-          {loadingSpin ?
-            <div className="la-ball-clip-rotate">
-              <div></div>
-            </div>
-            : null}
-        </div>
-      );
+      return <PageLoader />;
     }
 
     return this.props.render ? this.props.render() : this.props.children;
@@ -76,4 +64,4 @@ AsyncComponent.propTypes = {
   children: PropTypes.node
 };
 
-export default ErrorHandler(AsyncComponent);
+export default ErrorWrapper(AsyncComponent);

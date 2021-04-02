@@ -30,6 +30,9 @@ class SocialMediaBar extends React.Component {
 
   render() {
     const color = this.props.siteStore.darkMode ? "#FFFFFF" : "#000000";
+
+    if(!Object.values(this.props.siteStore.socialLinks).find(link => link)) { return null; }
+
     return (
       <div className="overview-social-box">
         { this.SocialButton(this.props.siteStore.socialLinks.spotify, <FaSpotify color={color} />, "spotify") }

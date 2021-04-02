@@ -5,13 +5,14 @@ import {IconContext} from "react-icons";
 import {
   FaInstagram,
   FaTwitter,
-  FaFacebookSquare
+  FaFacebookSquare,
+  FaLinkedin
 } from "react-icons/fa";
 
 import Logo from "Assets/images/logo/whiteEluvioLiveLogo.svg";
 import ImageIcon from "Common/ImageIcon";
 
-import Copy from "../copy/Copy.yaml";
+import Copy from "Assets/copy/Main.yaml";
 
 @inject("siteStore")
 @observer
@@ -32,7 +33,9 @@ class Footer extends React.Component {
     return (
       <footer className="footer" id="footer">
         <div className="footer__logo-container">
-          <ImageIcon className="footer__logo" icon={Logo} label="Eluvio Live" />
+          <button className="footer__logo-button" onClick={() => window.scrollTo(0, 0)}>
+            <ImageIcon className="footer__logo" icon={Logo} label="Eluvio Live" />
+          </button>
         </div>
         <div className="footer__links">
           <NavLink to="/contact" className="footer__link">Contact Us</NavLink>
@@ -45,6 +48,7 @@ class Footer extends React.Component {
           { this.SocialButton("https://www.instagram.com/eluviolive", <FaInstagram />, "Instagram") }
           { this.SocialButton("https://twitter.com/EluvioLIVE", <FaTwitter />, "Twitter") }
           { this.SocialButton("https://www.facebook.com/EluvioLIVE", <FaFacebookSquare />, "Facebook") }
+          { this.SocialButton("https://www.linkedin.com/company/eluv-io", <FaLinkedin />, "LinkedIn") }
         </div>
         <pre className="footer__attributions" dangerouslySetInnerHTML={{__html: Copy.footer.attributions}} />
         <div className="footer__copyright">

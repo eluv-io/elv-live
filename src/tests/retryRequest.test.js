@@ -40,7 +40,7 @@ test("Max Retries- the retryRequest call should throw an error when reaching max
   globalRetryCount = 0;
   try {
     await retryRequest(mockRedirectToCheckout, 12, 5, 0);
-  } catch (e) {
+  } catch(e) {
     let err = new Error("Reached Max Retries");
     expect(e).toEqual(err);
   }

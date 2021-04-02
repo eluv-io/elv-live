@@ -3,7 +3,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Copy from "./copy/Copy.yaml";
+import Copy from "Assets/copy/Main.yaml";
 
 @inject("mainStore")
 @observer

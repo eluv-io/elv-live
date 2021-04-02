@@ -1,20 +1,7 @@
-## Eluvio LIVE Provides Artists with Novel Blockchain-Based Streaming and Ticketing Platform  
-
-*Built on the Eluvio Content Fabric, is the world’s first blockchain-backed 4K video streaming and ticketing service, including:*
-
--   *STREAMING: 4K quality, low-latency, owner-controlled content
-    distribution available on mobile, browser, desktop, AppleTV and Roku*
-
--   *TICKETING: Fully integrated pay per view ticketing service with
-    controlled access of video DRM through blockchain*
-
--   *NFTs and REMONETIZATION: Offers endless remonetization of any
-    content including video NFTs*
-
 **BERKELEY, CA – March 18, 2021** – Today at
-[SXSW](https://www.google.com/url?q=https://www.sxsw.com/&sa=D&source=editors&ust=1616020734961000&usg=AOvVaw20Wvn3zXPy7OctJdaSdsYu),
+[SXSW](https://www.sxsw.com),
 Eluvio unveiled Eluvio LIVE
-([https://live.eluv.io/](https://www.google.com/url?q=https://live.eluv.io/&sa=D&source=editors&ust=1616020734962000&usg=AOvVaw0R6EjE9oHNbbEyo7lZod5D)),
+([https://live.eluv.io/](https://live.eluv.io)),
 a novel streaming and ticketing platform, for concerts and all manner of
 premium exhibitions, distributed directly from artists to their global
 audiences. Built on the patented Eluvio Content Fabric, it is the
@@ -25,9 +12,9 @@ content management fees.  
 The Content Fabric is the first blockchain-based scalable content
 distribution network for premium video. Launched in 2019 and used by
 Tier 1 media companies such as [MGM
-Studios](https://www.google.com/url?q=https://www.prnewswire.com/news-releases/eluvio-announces-partnership-with-mgm-for-next-generation-content-servicing-and-digital-marketing-platform-301221878.html&sa=D&source=editors&ust=1616020734962000&usg=AOvVaw34DxsTmo-7KD8egG7vzTmQ) and
+Studios](https://www.prnewswire.com/news-releases/eluvio-announces-partnership-with-mgm-for-next-generation-content-servicing-and-digital-marketing-platform-301221878.html) and
 [FOX
-Networks](https://www.google.com/url?q=https://www.mesaonline.org/2020/05/14/eluvio-a-new-age-of-video-distribution/&sa=D&source=editors&ust=1616020734963000&usg=AOvVaw1azG2Vn_NLAwAcCDcpC9_z) and
+Networks](https://www.mesaonline.org/2020/05/14/eluvio-a-new-age-of-video-distribution) and
 mobile streaming providers, the platform was invented by a team led by
 Michelle Munson and Serban Simu, the multi-Emmy® award winning founders
 and inventors of Aspera, a pioneer in digital video transport technology
@@ -65,7 +52,7 @@ their content.”
 
 The initial series of major concerts on Eluvio LIVE will be filmed and
 produced by iconic [Paramax
-Films](https://www.google.com/url?q=http://www.paramaxfilms.com/about.html&sa=D&source=editors&ust=1616020734964000&usg=AOvVaw2BABfHozQV68cEC_BkCGY1),
+Films](http://www.paramaxfilms.com/about.html),
 which will provide the content into the Eluvio LIVE platform. “Eluvio
 LIVE is the perfect complement to live production and filming companies
 like ours,” said Amos Rozenberg, CEO of Paramax Films. “Today’s artists
@@ -80,7 +67,7 @@ breakthrough on all of those fronts.”        
 
 Eluvio LIVE is a first-of-a-kind service powered by the hyper-efficient
 [Eluvio Content
-Fabric](https://www.google.com/url?q=https://www.eluv.io/&sa=D&source=editors&ust=1616020734964000&usg=AOvVaw2OiSGh959iGNyYs9Qu4GqL),
+Fabric](https://www.eluv.io),
 a global blockchain-based network designed to deliver dramatically
 faster and lower-cost distribution via just-in-time live or on-demand
 streams–without the use of content delivery networks (CDNs), transcoding
@@ -162,11 +149,11 @@ Eluvio is a featured partner at this year’s SXSW Online 2021 taking
 place from March 16-20 and will have a virtual presence at this year’s
 Creative Industries Exhibition. Today, March 18 at 11am CST, Michelle
 Munson will [speak at
-SXSW](https://www.google.com/url?q=https://online.sxsw.com/event/sxsw-online/planning/UGxhbm5pbmdfMzYwMzQ4&sa=D&source=editors&ust=1616020734968000&usg=AOvVaw1de7dx3kVEDP9nxMvy4Hvn) about
+SXSW](https://online.sxsw.com) about
 Eluvio LIVE and its applicability for music publishers and artists. On
 March 31, Michelle Munson and Amos Rozenberg of Paramax Films will
 [speak at the Music Week Tech
-Summit](https://www.google.com/url?q=https://www.musicweektechsummit.com/2021/agenda&sa=D&source=editors&ust=1616020734969000&usg=AOvVaw0KEHVp1OTYRwD04gmlPsQd) from
+Summit](https://www.musicweektechsummit.com) from
 3:20pm-3:50pm BST.
 
 ### About Eluvio, Inc.
@@ -183,7 +170,7 @@ new mobile streaming platforms. Eluvio is led by Michelle Munson and
 Serban Simu, founders of Aspera, and a core team of innovators in
 content centric design, ML, blockchain ledgers, audio/video processing,
 and programmable media.
-[https://eluv.io](https://www.google.com/url?q=https://eluv.io&sa=D&source=editors&ust=1616020734969000&usg=AOvVaw1ftAadWv0gIPJ9vSptBAtq).
+[https://eluv.io](https://eluv.io).
 
 ##### \#\#\#
 

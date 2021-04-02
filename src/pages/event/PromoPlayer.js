@@ -1,10 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import UrlJoin from "url-join";
 
-import {toJS} from "mobx";
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
-import ErrorHandler from "Common/ErrorHandler";
-import BitmovinPlayer from "Common/BitmovinPlayer";
+import EluvioConfiguration from "EluvioConfiguration";
+import {ErrorWrapper} from "Common/ErrorBoundary";
 
 @inject("siteStore")
 @observer
@@ -13,28 +14,59 @@ class PromoPlayer extends React.Component {
     super(props);
 
     this.state = {
-      promoIndex: 0,
-      playerRef: undefined,
-      player: null,
+      promoIndex: 1,
       loaded: false,
       error: ""
     };
-
-    this.LoadBitmovin = this.LoadBitmovin.bind(this);
-    this.DestroyPlayer = this.DestroyPlayer.bind(this);
   }
 
   componentDidMount() {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflowY = "hidden";
   }
 
   componentWillUnmount() {
-    this.DestroyPlayer();
-    document.body.style.overflow = "auto";
+    document.body.style.overflowY = "auto";
+  }
+
+  Video() {
+    const promoLink = UrlJoin(this.props.siteStore.currentSiteMetadataPath, "promos", this.state.promoIndex.toString());
+    const network = EluvioConfiguration["config-url"].includes("demov3") ? EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN;
+
+    return (
+      <div
+        className="promo-video"
+        ref={element => {
+          if(!element) { return; }
+
+          new EluvioPlayer(
+            element,
+            {
+              clientOptions: {
+                network,
+                client: this.props.siteStore.rootStore.client
+              },
+              sourceOptions: {
+                playoutParameters: {
+                  objectId: EluvioConfiguration["live-site-id"],
+                  linkPath: promoLink
+                  //versionHash: "hq__JZnbcLjgqDps1qvwyTqaWRhR7Vy3P6TySCxEivQ8Hu5ZXs1X7XQUsQBbcBdzpiK7mxfeU2r9Rn"
+                }
+              },
+              playerOptions: {
+                watermark: EluvioPlayerParameters.watermark.OFF,
+                muted: EluvioPlayerParameters.muted.OFF,
+                autoplay: EluvioPlayerParameters.autoplay.ON,
+                controls: EluvioPlayerParameters.controls.DEFAULT
+              }
+            }
+          );
+        }}
+      />
+    );
   }
 
   render() {
-    if(!this.props.siteStore.promos || this.props.siteStore.promos.length === 0) { return null; }
+    //if(!this.props.siteStore.promos || this.props.siteStore.promos.length === 0) { return null; }
 
     let nextButton, previousButton;
     if(this.props.siteStore.promos && this.props.siteStore.promos.length > 0) {
@@ -42,7 +74,7 @@ class PromoPlayer extends React.Component {
         <button
           className="btn previous-promo-button"
           disabled={this.state.promoIndex <= 0}
-          onClick={() => this.setState({promoIndex: this.state.promoIndex - 1}, this.LoadBitmovin)}
+          onClick={() => this.setState({promoIndex: this.state.promoIndex - 1})}
         >
           Play Previous
         </button>
@@ -52,7 +84,7 @@ class PromoPlayer extends React.Component {
         <button
           className="btn next-promo-button"
           disabled={this.state.promoIndex >= this.props.siteStore.promos.length - 1}
-          onClick={() => this.setState({promoIndex: this.state.promoIndex + 1}, this.LoadBitmovin)}
+          onClick={() => this.setState({promoIndex: this.state.promoIndex + 1})}
         >
           Play Next
         </button>
@@ -61,7 +93,7 @@ class PromoPlayer extends React.Component {
 
     return (
       <div className="promo-player-container">
-        <BitmovinPlayer playoutOptions={toJS(this.props.siteStore.promos[this.state.promoIndex].playoutOptions)} autoPlay />
+        { this.Video() }
         <div className="promo-buttons-container">
           { previousButton }
           { nextButton }
@@ -71,4 +103,4 @@ class PromoPlayer extends React.Component {
   }
 }
 
-export default ErrorHandler(PromoPlayer);
+export default ErrorWrapper(PromoPlayer);

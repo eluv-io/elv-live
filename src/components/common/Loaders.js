@@ -22,3 +22,28 @@ export const PageLoader = () => {
     </div>
   );
 };
+
+
+export const Loader = () => {
+  return (
+    <div className="loader">
+      <div className="circle-loader">
+        <div className="lds-default">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
