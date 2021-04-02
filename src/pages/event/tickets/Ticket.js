@@ -14,7 +14,8 @@ class Ticket extends React.Component {
     super(props);
 
     this.state = {
-      selectedSku: 0
+      selectedSku: 0,
+      quantity: 1
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,19 +29,70 @@ class Ticket extends React.Component {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     return ticketClass.skus.map((ticketSku, index) => ({
       label: (
-        <div className="ticket-option">
+        <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""}`}>
+          <div className="ticket-item-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>
           <div className="ticket-item-detail">{ ticketSku.label }</div>
-          <div className="ticket-item-detail no-mobile">{ FormatDateString(ticketSku.start_time, true) }</div>
-          <div className="ticket-item-detail no-mobile">{ FormatDateString(ticketSku.start_time, false, true) }</div>
+          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time)}</div>
         </div>
       ),
       value: index
     }));
   }
 
+  Controls(ticketSku) {
+    if(ticketSku.external_url) {
+      return <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a>;
+    }
+
+    return (
+      <>
+        <Select
+          className='ticket-quantity'
+          classNamePrefix="react-select"
+          value={{label: this.state.quantity, value: this.state.quantity}}
+          onChange={({value}) => this.setState({quantity: parseInt(value)})}
+          options={[...new Array(9).keys()].map(i => ({label: i+1, value: i+1}))}
+          inputProps={{readOnly:true}}
+          isSearchable={false}
+          theme={theme => ({
+            ...theme,
+            borderRadius: 10,
+            colors: {
+              ...theme.colors,
+              primary25: "rgba(230, 212, 165,.4)",
+              primary: "#cfb46b",
+            },
+          })}
+        />
+        <button
+          className="ticket-bottom-button"
+          role="link"
+          onClick={() => {
+            this.props.cartStore.AddItem({
+              itemType: "tickets",
+              uuid: ticketSku.uuid,
+              quantity: this.state.quantity
+            });
+
+            this.props.cartStore.ToggleCartOverlay(true, `${this.state.quantity} ${this.state.quantity > 1 ? "items" : "item"} added to your cart`);
+          }}
+        >
+          Add to Cart
+        </button>
+      </>
+    );
+  }
+
   render() {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     const ticketSku = ticketClass.skus[this.state.selectedSku];
+
+    /*
+    <div className="ticket-price no-mobile">
+      { this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku.external_url) }
+    </div>
+
+     */
 
     return (
       <React.Fragment>
@@ -84,31 +136,10 @@ class Ticket extends React.Component {
                   })}
                 />
               </div>
-              <div className="ticket-price no-mobile">
-                { this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku.external_url) }
-              </div>
-
-              {
-                ticketSku.external_url ?
-                  <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
-                  <button
-                    className="ticket-bottom-button"
-                    role="link"
-                    onClick={() => this.props.cartStore.ToggleTicketOverlay(
-                      true,
-                      {
-                        ticketClassUUID: this.props.ticketClassUUID,
-                        ticketSkuUUID: ticketSku.uuid
-                      }
-                    )}
-                  >
-                    Buy
-                  </button>
-              }
+              { this.Controls(ticketSku) }
             </div>
           </div>
         </div>
-
         {
           this.props.cartStore.showTicketOverlay &&
           this.props.ticketClassUUID === this.props.cartStore.ticketOverlayOptions.ticketClassUUID ?

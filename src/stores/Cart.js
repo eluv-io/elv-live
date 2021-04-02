@@ -77,6 +77,7 @@ class CartStore {
   }
 
   FormatPriceString(priceList, trimZeros=false) {
+    trimZeros=false;
     const price = this.ItemPrice({price: priceList});
 
     if(!price || isNaN(price)) { return; }

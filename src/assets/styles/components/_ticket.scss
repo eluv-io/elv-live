@@ -83,6 +83,7 @@
 
 .ticket-item-detail {
   overflow: hidden;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -166,6 +167,15 @@
     margin: 0 38px;
   }
 
+  .ticket-quantity {
+    margin-left: 10px;
+    width: 100px;
+
+    .react-select__control {
+      height: 44px !important;
+    }
+  }
+
   @media only screen and (max-width: 1200px) {
     padding: 20px 0 0;
   }
@@ -174,6 +184,12 @@
     flex-direction: column;
     height: auto;
     min-height: 120px;
+
+    .ticket-quantity {
+      margin: 15px 0 0 !important;
+      text-align: center !important;
+      width: 100%;
+    }
 
     & > * {
       margin-top: 0 !important;
@@ -206,8 +222,17 @@
     width: 100%;
   }
 
-  @media only screen and (max-width: 800px) {
-    height: auto;
+  @media only screen and (max-width: 900px) {
+    //height: auto;
+    margin-bottom: 10px;
+
+    .react-select__control {
+      height: 60px !important;
+    }
+
+    .ticket-item-detail {
+      text-align: center;
+    }
   }
 }
 
@@ -225,18 +250,22 @@
   font-style: normal;
   font-weight: normal;
   grid-gap: 5px;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 55px 1fr 1fr;
   height: 100% !important;
   justify-content: space-between;
   line-height: 16px;
-  padding: 0 10px;
+  padding: 0;
   width: 100%;
+
+  &.ticket-option-external {
+    grid-template-columns: 0 1fr 1fr;
+  }
 
   & > * {
     align-self: center;
     color: #000;
     font-family: Helvetica;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: normal;
     height: auto;
@@ -253,8 +282,8 @@
     }
   }
 
-  @media only screen and (max-width: 600px) {
-    grid-template-columns: 1fr;
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 1fr !important;
   }
 
   @media only screen and (max-width: 600px) {
@@ -307,6 +336,10 @@
   text-align: center;
   text-transform: uppercase;
   width: 180px;
+
+  @media only screen and (max-width: 1400px) {
+    font-size: 12px;
+  }
 
   @media only screen and (max-width: 1000px) {
     height: 44px;
