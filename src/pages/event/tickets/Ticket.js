@@ -30,18 +30,22 @@ class Ticket extends React.Component {
     return ticketClass.skus.map((ticketSku, index) => ({
       label: (
         <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""}`}>
-          <div className="ticket-item-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>
-          <div className="ticket-item-detail">{ ticketSku.label }</div>
-          <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time)}</div>
+          <div className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>
+          <div className="ticket-option-detail">{ ticketSku.label }</div>
+          <div className="ticket-option-detail">{ FormatDateString(ticketSku.start_time)}</div>
         </div>
       ),
       value: index
     }));
   }
 
-  Controls(ticketSku) {
+  Controls(ticketClass, ticketSku) {
+    const released = !ticketClass.release_date || Date.now() > ticketClass.release_date;
+
     if(ticketSku.external_url) {
-      return <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a>;
+      return released ?
+        <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
+        <a className="ticket-bottom-button unreleased">Available {FormatDateString(ticketClass.release_date, false, false, true)}</a>;
     }
 
     return (
@@ -56,7 +60,7 @@ class Ticket extends React.Component {
           isSearchable={false}
           theme={theme => ({
             ...theme,
-            borderRadius: 10,
+            borderRadius: 5,
             colors: {
               ...theme.colors,
               primary25: "rgba(230, 212, 165,.4)",
@@ -64,21 +68,25 @@ class Ticket extends React.Component {
             },
           })}
         />
-        <button
-          className="ticket-bottom-button"
-          role="link"
-          onClick={() => {
-            this.props.cartStore.AddItem({
-              itemType: "tickets",
-              uuid: ticketSku.uuid,
-              quantity: this.state.quantity
-            });
+        {
+          !released ?
+            <a className="ticket-bottom-button unreleased">Available {FormatDateString(ticketClass.release_date, false, false, true)}</a> :
+            <button
+              className="ticket-bottom-button"
+              role="link"
+              onClick={() => {
+                this.props.cartStore.AddItem({
+                  itemType: "tickets",
+                  uuid: ticketSku.uuid,
+                  quantity: this.state.quantity
+                });
 
-            this.props.cartStore.ToggleCartOverlay(true, `${this.state.quantity} ${this.state.quantity > 1 ? "items" : "item"} added to your cart`);
-          }}
-        >
-          Add to Cart
-        </button>
+                this.props.cartStore.ToggleCartOverlay(true, `${this.state.quantity} ${this.state.quantity > 1 ? "items" : "item"} added to your cart`);
+              }}
+            >
+              Add to Cart
+            </button>
+        }
       </>
     );
   }
@@ -87,13 +95,6 @@ class Ticket extends React.Component {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     const ticketSku = ticketClass.skus[this.state.selectedSku];
 
-    /*
-    <div className="ticket-price no-mobile">
-      { this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku.external_url) }
-    </div>
-
-     */
-
     return (
       <React.Fragment>
         <div className="ticket-event">
@@ -101,9 +102,6 @@ class Ticket extends React.Component {
             <img src={ticketClass.image_url} className="ticket-image-img"/>
           </div>
           <div className="ticket-detail">
-            {
-              // this.TicketTags()
-            }
             <div className="ticket-top">
 
               <h3 className="ticket-top-title">
@@ -127,7 +125,7 @@ class Ticket extends React.Component {
                   isSearchable={false}
                   theme={theme => ({
                     ...theme,
-                    borderRadius: 10,
+                    borderRadius: 5,
                     colors: {
                       ...theme.colors,
                       primary25: "rgba(230, 212, 165,.4)",
@@ -136,7 +134,7 @@ class Ticket extends React.Component {
                   })}
                 />
               </div>
-              { this.Controls(ticketSku) }
+              { this.Controls(ticketClass, ticketSku) }
             </div>
           </div>
         </div>

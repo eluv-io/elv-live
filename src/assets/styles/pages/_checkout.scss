@@ -301,6 +301,11 @@
   .payment-actions {
     margin-top: 27px;
 
+    &.disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
     & > * {
       margin-top: 10px;
     }
