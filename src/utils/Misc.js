@@ -4,10 +4,13 @@ import DayJSTimezone from "dayjs/plugin/timezone";
 DayJS.extend(DayJSTimezone);
 DayJS.extend(DayJSAdvancedFormatting);
 
+import moment from "moment-timezone";
+
 export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
   if(!date) { return ""; }
 
-  const zoneAbbreviation = new Date(date).toLocaleString("en", { timeZoneName: "short" }).split(" ").pop() || "";
+  const zoneAbbreviation = moment(date).tz(moment.tz.guess()).format("z");
+
   try {
     if(dateOnly) {
       return DayJS(date).format("MMMM D, YYYY");
