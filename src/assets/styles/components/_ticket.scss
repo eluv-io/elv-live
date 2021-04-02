@@ -87,7 +87,6 @@
 
 .ticket-option-detail {
   overflow: hidden;
-  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -263,7 +262,7 @@
   width: 100%;
 
   &.ticket-option-external {
-    grid-template-columns: 0 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   & > * {
