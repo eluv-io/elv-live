@@ -30,6 +30,10 @@
   user-select: none;
   width: 100%;
 
+  * {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  }
+
   @media only screen and (max-width: 1200px) {
     height: auto;
     max-width: 1350px;
@@ -81,7 +85,7 @@
   width: 100%;
 }
 
-.ticket-item-detail {
+.ticket-option-detail {
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
@@ -230,7 +234,7 @@
       height: 60px !important;
     }
 
-    .ticket-item-detail {
+    .ticket-option-detail {
       text-align: center;
     }
   }
@@ -316,19 +320,16 @@
   align-items: center;
   align-self: center;
   background-color: $black;
-  border: 0;
   border: 1px solid $black;
-  border-radius: 3px;
+  border-radius: 5px;
   color: $white;
   cursor: pointer;
   display: flex;
-  font-family: Helvetica;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: normal;
   height: 44px;
   justify-content: center;
-  letter-spacing: 2px;
   letter-spacing: 0.14em;
   line-height: 19px;
   margin-left: 10px;
@@ -336,6 +337,11 @@
   text-align: center;
   text-transform: uppercase;
   width: 180px;
+
+  &.unreleased {
+    font-size: 12px;
+    opacity: 0.5;
+  }
 
   @media only screen and (max-width: 1400px) {
     font-size: 12px;

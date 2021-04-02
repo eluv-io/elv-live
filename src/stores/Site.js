@@ -450,6 +450,7 @@ class SiteStore {
     return (this.currentSiteInfo.tickets || []).map((ticketClass, index) => {
       return {
         ...ticketClass,
+        release_date: ticketClass.release_date ? new Date(ticketClass.release_date) : undefined,
         image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
       }
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);

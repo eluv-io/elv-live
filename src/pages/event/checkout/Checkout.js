@@ -399,10 +399,6 @@ class Checkout extends React.Component {
   }
 
   PaymentActions() {
-    if(!ValidEmail(this.props.cartStore.email)) {
-      return;
-    }
-
     if(this.state.redirect) {
       return (
         <Redirect
@@ -419,8 +415,13 @@ class Checkout extends React.Component {
       );
     }
 
+    const validEmail = ValidEmail(this.props.cartStore.email);
+
     return (
-      <div className="payment-actions">
+      <div
+        title={validEmail ? "" : "Please enter a valid email"}
+        className={`payment-actions ${validEmail ? "" : "disabled"}`}
+      >
         {
           this.props.cartStore.checkoutError ?
             <div className="checkout-error-message">{this.props.cartStore.checkoutError}</div> : null

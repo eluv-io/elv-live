@@ -6,7 +6,7 @@ DayJS.extend(DayJSAdvancedFormatting);
 
 import moment from "moment-timezone";
 
-export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
+export const FormatDateString = (date, dateOnly=false, timeOnly=false, shortDate=false) => {
   if(!date) { return ""; }
 
   const zoneAbbreviation = moment(date).tz(moment.tz.guess()).format("z");
@@ -16,6 +16,8 @@ export const FormatDateString = (date, dateOnly=false, timeOnly=false) => {
       return DayJS(date).format("MMMM D, YYYY");
     } else if(timeOnly) {
       return `${DayJS(date).format("h:mm A")} ${zoneAbbreviation}`;
+    } else if(shortDate) {
+      return DayJS(date).format("M/D");
     } else {
       return `${DayJS(date).format("MMMM D, YYYY · h:mm A")} ${zoneAbbreviation}`;
     }
