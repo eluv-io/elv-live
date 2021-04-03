@@ -116,7 +116,7 @@ class Ticket extends React.Component {
             <div className="ticket-bottom">
               <div className="ticket-bottom-dropdown-container">
                 <Select
-                  className='react-select-container'
+                  className='ticket-sku-selection react-select-container'
                   classNamePrefix="react-select"
                   value={this.TicketOptions()[this.state.selectedSku]}
                   onChange={({value}) => this.setState({selectedSku: parseInt(value)})}

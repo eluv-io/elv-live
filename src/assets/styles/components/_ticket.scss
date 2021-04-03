@@ -170,10 +170,16 @@
     margin: 0 38px;
   }
 
+  .ticket-sku-selection {
+    .react-select__menu-list {
+      max-height: unset !important;
+    }
+  }
+
   .ticket-quantity {
     margin-left: 10px;
-    width: 100px;
     min-width: 70px;
+    width: 100px;
 
     .react-select__control {
       height: 44px !important;
