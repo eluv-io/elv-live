@@ -57,7 +57,11 @@ class SiteStore {
 
   // Event Site
   @computed get currentSite() {
-    return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
+    try {
+      return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
+    } catch(error) {
+      return undefined;
+    }
   }
 
   @computed get currentSiteInfo() {
@@ -199,7 +203,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true, preloadHero=false}) {
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, loadAnalytics=false, validateBaseSlug=true, preloadHero=false}) {
     const tenantKey = tenantSlug || "featured";
     if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return !validateBaseSlug || baseSlug === this.baseSlug;
@@ -264,8 +268,16 @@ class SiteStore {
 
       this.chatChannel = `${this.siteSlug}-${roomNumber}`;
 
-
       this.eventSites[tenantKey][siteSlug] = site;
+
+      try {
+        if(loadAnalytics && window.location.hostname !== "localhost" && (site.info || {}).google_analytics_id) {
+          gtag(site.google_analytics_id);
+        }
+      } catch(error) {
+        console.error("Failed to load Google Analytics:");
+        console.error(error);
+      }
 
       this.rootStore.cartStore.LoadLocalStorage();
 
