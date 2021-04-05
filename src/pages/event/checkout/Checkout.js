@@ -466,6 +466,23 @@ class Checkout extends React.Component {
     );
   }
 
+  Sponsors() {
+    if(this.props.siteStore.sponsors.length === 0) { return null; }
+
+    return (
+      <div className="checkout-page-section no-border">
+        <div className="sponsors-message">Sponsored By</div>
+        <div className="sponsors-container">
+          {this.props.siteStore.sponsors.map((sponsor, index) =>
+            <a href={sponsor.link} target="_blank" className={"sponsor-image-container"} key={`sponsor-${index}`} title={sponsor.name}>
+              <img src={sponsor.image_url} className="sponsor-image" alt={sponsor.name} />
+            </a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     if(!this.props.cartStore.showCheckoutOverlay) { return null; }
 
@@ -479,6 +496,7 @@ class Checkout extends React.Component {
             { this.Donations() }
             { this.FeaturedMerchandise() }
             { this.OrderSummary() }
+            { this.Sponsors() }
           </div>
         }
       />
