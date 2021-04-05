@@ -128,7 +128,10 @@ class CartOverlay extends React.Component {
 
           <button
             className="cart-overlay-checkout-button"
-            onClick={() => this.props.cartStore.ToggleCheckoutOverlay(true)}
+            onClick={() => {
+              this.props.cartStore.ToggleCheckoutOverlay(true);
+              this.props.cartStore.ToggleCartOverlay(false);
+            }}
           >
             Check Out
           </button>
