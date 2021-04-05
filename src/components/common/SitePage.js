@@ -48,6 +48,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
                   baseSlug,
                   siteSlug,
                   validateBaseSlug: !isFeatured,
+                  loadAnalytics: true,
                   preloadHero: true
                 });
 
