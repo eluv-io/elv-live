@@ -32,6 +32,8 @@ class SiteStore {
 
   @observable error = "";
 
+  @observable googleAnalyticsHook;
+
   @computed get client() {
     return this.rootStore.client;
   }
@@ -271,8 +273,19 @@ class SiteStore {
       this.eventSites[tenantKey][siteSlug] = site;
 
       try {
-        if(loadAnalytics && window.location.hostname !== "localhost" && (site.info || {}).google_analytics_id) {
-          gtag(site.google_analytics_id);
+        if(loadAnalytics && (site.info || {}).google_analytics_id) { // && window.location.hostname !== "localhost"
+          const s = document.createElement("script");
+          s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${site.info.google_analytics_id}`);
+          s.async = true;
+          document.head.appendChild(s);
+
+          window.dataLayer = window.dataLayer || [];
+          this.googleAnalyticsHook = function () {
+            window.dataLayer.push(arguments);
+          };
+
+          this.googleAnalyticsHook("js", new Date());
+          this.googleAnalyticsHook("config", site.info.google_analytics_id);
         }
       } catch(error) {
         console.error("Failed to load Google Analytics:");
