@@ -14,7 +14,8 @@ class Ticket extends React.Component {
     super(props);
 
     this.state = {
-      selectedSku: 0
+      selectedSku: 0,
+      quantity: 1
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,14 +29,66 @@ class Ticket extends React.Component {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     return ticketClass.skus.map((ticketSku, index) => ({
       label: (
-        <div className="ticket-option">
-          <div className="ticket-item-detail">{ ticketSku.label }</div>
-          <div className="ticket-item-detail no-mobile">{ FormatDateString(ticketSku.start_time, true) }</div>
-          <div className="ticket-item-detail no-mobile">{ FormatDateString(ticketSku.start_time, false, true) }</div>
+        <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""}`}>
+          { ticketSku.external_url ? null : <div className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div> }
+          <div className="ticket-option-detail">{ ticketSku.label }</div>
+          <div className="ticket-option-detail">{ FormatDateString(ticketSku.start_time)}</div>
         </div>
       ),
       value: index
     }));
+  }
+
+  Controls(ticketClass, ticketSku) {
+    const released = !ticketClass.release_date || Date.now() > ticketClass.release_date;
+
+    if(ticketSku.external_url) {
+      return released ?
+        <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
+        <a className="ticket-bottom-button unreleased">Available {FormatDateString(ticketClass.release_date, false, false, true)}</a>;
+    }
+
+    return (
+      <>
+        <Select
+          className='ticket-quantity'
+          classNamePrefix="react-select"
+          value={{label: this.state.quantity, value: this.state.quantity}}
+          onChange={({value}) => this.setState({quantity: parseInt(value)})}
+          options={[...new Array(9).keys()].map(i => ({label: i+1, value: i+1}))}
+          inputProps={{readOnly:true}}
+          isSearchable={false}
+          theme={theme => ({
+            ...theme,
+            borderRadius: 5,
+            colors: {
+              ...theme.colors,
+              primary25: "rgba(230, 212, 165,.4)",
+              primary: "#cfb46b",
+            },
+          })}
+        />
+        {
+          !released ?
+            <a className="ticket-bottom-button unreleased">Available {FormatDateString(ticketClass.release_date, false, false, true)}</a> :
+            <button
+              className="ticket-bottom-button"
+              role="link"
+              onClick={() => {
+                this.props.cartStore.AddItem({
+                  itemType: "tickets",
+                  uuid: ticketSku.uuid,
+                  quantity: this.state.quantity
+                });
+
+                this.props.cartStore.ToggleCartOverlay(true, `${this.state.quantity} ${this.state.quantity > 1 ? "items" : "item"} added to your cart`);
+              }}
+            >
+              Add to Cart
+            </button>
+        }
+      </>
+    );
   }
 
   render() {
@@ -49,9 +102,6 @@ class Ticket extends React.Component {
             <img src={ticketClass.image_url} className="ticket-image-img"/>
           </div>
           <div className="ticket-detail">
-            {
-              // this.TicketTags()
-            }
             <div className="ticket-top">
 
               <h3 className="ticket-top-title">
@@ -66,7 +116,7 @@ class Ticket extends React.Component {
             <div className="ticket-bottom">
               <div className="ticket-bottom-dropdown-container">
                 <Select
-                  className='react-select-container'
+                  className='ticket-sku-selection react-select-container'
                   classNamePrefix="react-select"
                   value={this.TicketOptions()[this.state.selectedSku]}
                   onChange={({value}) => this.setState({selectedSku: parseInt(value)})}
@@ -75,7 +125,7 @@ class Ticket extends React.Component {
                   isSearchable={false}
                   theme={theme => ({
                     ...theme,
-                    borderRadius: 10,
+                    borderRadius: 5,
                     colors: {
                       ...theme.colors,
                       primary25: "rgba(230, 212, 165,.4)",
@@ -84,31 +134,10 @@ class Ticket extends React.Component {
                   })}
                 />
               </div>
-              <div className="ticket-price no-mobile">
-                { this.props.cartStore.FormatPriceString(ticketSku.price, true, ticketSku.external_url) }
-              </div>
-
-              {
-                ticketSku.external_url ?
-                  <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
-                  <button
-                    className="ticket-bottom-button"
-                    role="link"
-                    onClick={() => this.props.cartStore.ToggleTicketOverlay(
-                      true,
-                      {
-                        ticketClassUUID: this.props.ticketClassUUID,
-                        ticketSkuUUID: ticketSku.uuid
-                      }
-                    )}
-                  >
-                    Buy
-                  </button>
-              }
+              { this.Controls(ticketClass, ticketSku) }
             </div>
           </div>
         </div>
-
         {
           this.props.cartStore.showTicketOverlay &&
           this.props.ticketClassUUID === this.props.cartStore.ticketOverlayOptions.ticketClassUUID ?

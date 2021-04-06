@@ -77,6 +77,7 @@ class CartStore {
   }
 
   FormatPriceString(priceList, trimZeros=false) {
+    trimZeros=false;
     const price = this.ItemPrice({price: priceList});
 
     if(!price || isNaN(price)) { return; }
@@ -297,6 +298,7 @@ class CartStore {
   StripeSubmit = flow(function * () {
     try {
       this.submittingOrder = true;
+      this.checkoutError = undefined;
 
       this.SaveLocalStorage();
 
@@ -313,15 +315,7 @@ class CartStore {
       const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
 
       const requestParams = {
-        //network: EluvioConfiguration["config-url"].includes("demov3") ? "demo" : "production",
         mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
-        /*
-        main_site_hash: this.rootStore.siteStore.siteParams.versionHash,
-        tenant_slug: this.rootStore.siteStore.tenantSlug || "featured",
-        site_index: this.rootStore.siteStore.siteIndex,
-        site_slug: this.rootStore.siteStore.siteSlug,
-
-         */
         currency: this.currency,
         email: this.email,
         client_reference_id: checkoutId,
@@ -332,14 +326,14 @@ class CartStore {
 
       try {
         // Set up session
-        const stripePublicKey = yield this.PaymentServicePublicKey("stripe");
-        const sessionId = (yield this.PaymentServerRequest(UrlJoin("checkout", "stripe"), requestParams)).session_id;
+        const stripePublicKey = this.PaymentServicePublicKey("stripe");
+        const sessionId = (yield this.PaymentServerRequest({path: UrlJoin("checkout", "stripe"), requestParams})).session_id;
 
         // Redirect to stripe
         const stripe = yield loadStripe(stripePublicKey);
         yield stripe.redirectToCheckout({sessionId});
       } catch(error) {
-        console.error(error);
+        this.PaymentSubmitError(error);
         console.error(JSON.stringify(requestParams, null, 2));
       }
     } finally {
@@ -351,6 +345,7 @@ class CartStore {
   PaypalSubmit = flow(function * (data, actions) {
     try {
       this.submittingOrder = true;
+      this.checkoutError = undefined;
       this.SaveLocalStorage();
 
       const cartDetails = this.CartDetails();
@@ -414,51 +409,52 @@ class CartStore {
       this.confirmationId = this.ConfirmationId();
       const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
 
-      return actions.order.create({
-        purchase_units: [
-          {
-            reference_id: this.email,
-            custom_id: checkoutId,
-            amount: {
-              value: cartDetails.total,
-              currency_code: this.currency,
-              breakdown: {
-                item_total: {
-                  value: cartDetails.total,
-                  currency_code: this.currency
+      return retryRequest(
+        actions.order.create,
+        {
+          purchase_units: [
+            {
+              reference_id: this.email,
+              custom_id: checkoutId,
+              amount: {
+                value: cartDetails.total,
+                currency_code: this.currency,
+                breakdown: {
+                  item_total: {
+                    value: cartDetails.total,
+                    currency_code: this.currency
+                  }
                 }
-              }
-            },
-            items: paypalCart,
-          }]
-      });
+              },
+              items: paypalCart,
+            }]
+        }
+      );
     } finally {
       this.submittingOrder = false;
     }
   });
 
-  PaymentSubmitError(message) {
-    this.checkoutError = message;
+  PaymentSubmitError(error) {
+    console.error(error);
+
+    this.checkoutError = "There was an error with checkout. Please try again.";
   }
 
-  PaymentServicePublicKey = flow(function * (service) {
-    if(!this.paymentServicePublicKeys[service]) {
-      this.paymentServicePublicKeys[service] =
-        PUBLIC_KEYS[service][this.rootStore.siteStore.mainSiteInfo.info.mode];
-        //(yield this.PaymentServerRequest("public_key", { service, mode: this.rootStore.siteStore.mainSiteInfo.info.mode})).public_key;
-    }
+  PaymentServicePublicKey(service) {
+    return PUBLIC_KEYS[service][this.rootStore.siteStore.mainSiteInfo.info.mode];
+  }
 
-    return this.paymentServicePublicKeys[service];
-  });
-
-  async PaymentServerRequest(path, body={}) {
-    return await this.rootStore.client.utils.ResponseToFormat(
-      "json",
-      await this.rootStore.client.authClient.MakeKMSRequest({
-        method: "POST",
-        path: UrlJoin("as", path),
-        body
-      })
+  async PaymentServerRequest({path, requestParams={}}) {
+    return retryRequest(
+      async () => await this.rootStore.client.utils.ResponseToFormat(
+        "json",
+        await this.rootStore.client.authClient.MakeKMSRequest({
+          method: "POST",
+          path: UrlJoin("as", path),
+          body: requestParams
+        })
+      )
     );
   }
 

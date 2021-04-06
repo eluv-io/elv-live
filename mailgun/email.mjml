@@ -76,7 +76,7 @@
             Visit our
             <a color="black" href={{support-url}} target="_blank"> FAQ </a>
             for more info. Contact
-            <a href="mailto:help@eluv.io">support@eluv.io</a>
+            <a href="mailto:help@eluv.io">help@eluv.io</a>
             with any questions.
           </span>
         </mj-text>

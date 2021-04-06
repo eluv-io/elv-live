@@ -30,6 +30,10 @@
   user-select: none;
   width: 100%;
 
+  * {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  }
+
   @media only screen and (max-width: 1200px) {
     height: auto;
     max-width: 1350px;
@@ -81,7 +85,7 @@
   width: 100%;
 }
 
-.ticket-item-detail {
+.ticket-option-detail {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -166,6 +170,22 @@
     margin: 0 38px;
   }
 
+  .ticket-sku-selection {
+    .react-select__menu-list {
+      max-height: unset !important;
+    }
+  }
+
+  .ticket-quantity {
+    margin-left: 10px;
+    min-width: 70px;
+    width: 100px;
+
+    .react-select__control {
+      height: 44px !important;
+    }
+  }
+
   @media only screen and (max-width: 1200px) {
     padding: 20px 0 0;
   }
@@ -174,6 +194,12 @@
     flex-direction: column;
     height: auto;
     min-height: 120px;
+
+    .ticket-quantity {
+      margin: 15px 0 0 !important;
+      text-align: center !important;
+      width: 100%;
+    }
 
     & > * {
       margin-top: 0 !important;
@@ -187,8 +213,8 @@
   font-style: normal;
   font-weight: normal;
   height: 44px;
-  max-width: 700px;
-  width: 70%;
+  //max-width: 700px;
+  width: 100%;
 
   .ticket-selection {
     max-width: 700px;
@@ -206,8 +232,17 @@
     width: 100%;
   }
 
-  @media only screen and (max-width: 800px) {
-    height: auto;
+  @media only screen and (max-width: 900px) {
+    //height: auto;
+    margin-bottom: 10px;
+
+    .react-select__control {
+      height: 60px !important;
+    }
+
+    .ticket-option-detail {
+      text-align: center;
+    }
   }
 }
 
@@ -225,18 +260,22 @@
   font-style: normal;
   font-weight: normal;
   grid-gap: 5px;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 55px 1fr 1fr;
   height: 100% !important;
   justify-content: space-between;
   line-height: 16px;
-  padding: 0 10px;
+  padding: 0;
   width: 100%;
+
+  &.ticket-option-external {
+    grid-template-columns: 1fr 1fr;
+  }
 
   & > * {
     align-self: center;
     color: #000;
     font-family: Helvetica;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: normal;
     height: auto;
@@ -253,8 +292,8 @@
     }
   }
 
-  @media only screen and (max-width: 600px) {
-    grid-template-columns: 1fr;
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 1fr !important;
   }
 
   @media only screen and (max-width: 600px) {
@@ -287,26 +326,33 @@
   align-items: center;
   align-self: center;
   background-color: $black;
-  border: 0;
   border: 1px solid $black;
-  border-radius: 3px;
+  border-radius: 5px;
   color: $white;
   cursor: pointer;
   display: flex;
-  font-family: Helvetica;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: normal;
   height: 44px;
   justify-content: center;
-  letter-spacing: 2px;
   letter-spacing: 0.14em;
   line-height: 19px;
   margin-left: 10px;
   margin-right: 30px;
+  min-width: 170px;
   text-align: center;
   text-transform: uppercase;
-  width: 180px;
+  width: 170px;
+
+  &.unreleased {
+    font-size: 12px;
+    opacity: 0.5;
+  }
+
+  @media only screen and (max-width: 1400px) {
+    font-size: 12px;
+  }
 
   @media only screen and (max-width: 1000px) {
     height: 44px;

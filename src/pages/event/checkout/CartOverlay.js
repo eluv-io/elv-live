@@ -7,6 +7,27 @@ import ImageIcon from "Common/ImageIcon";
 @inject("cartStore")
 @observer
 class CartOverlay extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.Close = this.Close.bind(this);
+  }
+
+
+  Close(event) {
+    if(event && (event.key || "").toLowerCase() !== "escape") { return; }
+
+    this.props.cartStore.ToggleCartOverlay(false);
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.Close);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.Close);
+  }
+
   TicketItem({uuid, quantity}, index) {
     const { ticketClass, ticketSku } = this.props.siteStore.TicketItem(uuid);
 
@@ -107,7 +128,10 @@ class CartOverlay extends React.Component {
 
           <button
             className="cart-overlay-checkout-button"
-            onClick={() => this.props.cartStore.ToggleCheckoutOverlay(true)}
+            onClick={() => {
+              this.props.cartStore.ToggleCheckoutOverlay(true);
+              this.props.cartStore.ToggleCartOverlay(false);
+            }}
           >
             Check Out
           </button>
