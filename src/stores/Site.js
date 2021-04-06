@@ -20,7 +20,6 @@ class SiteStore {
   @observable darkMode = false;
 
   @observable streams = [];
-  @observable promos;
 
   @observable showCheckout = false;
   @observable selectedTicket;
@@ -70,6 +69,16 @@ class SiteStore {
     return (this.currentSite || {}).info || {};
   }
 
+  @computed get promos() {
+    const promos = Object.keys(this.currentSite.promos || {}).map(index => {
+      const slug = Object.keys(this.currentSite.promos[index])[0];
+
+      return UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default");
+    });
+
+    return [...promos, ...promos, ...promos];
+  }
+
   @computed get currentSiteTicketSku() {
     const savedTicketInfo = this.rootStore.savedTickets[this.siteSlug];
 
@@ -96,10 +105,6 @@ class SiteStore {
     if(!this.siteSlug) { return window.location.pathname }
 
     return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
-  }
-
-  @computed get hasPromos() {
-    return this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0;
   }
 
   @computed get eventActive() {
@@ -324,41 +329,6 @@ class SiteStore {
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
           linkPath: UrlJoin(this.currentSiteMetadataPath, "streams", index, slug, "sources", "default"),
-          protocols: ["hls"],
-          drms: await this.client.AvailableDRMs()
-        });
-
-        return { title, display_title, playoutOptions }
-      })
-    );
-  });
-
-  @action.bound
-  LoadPromos = flow(function * () {
-    if(this.promos) { return; }
-
-    const titleLinks = yield this.client.ContentObjectMetadata({
-      ...this.siteParams,
-      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "promos"),
-      resolveLinks: true,
-      resolveIgnoreErrors: true,
-      resolveIncludeSource: true,
-      select: [
-        "*/*/title",
-        "*/*/display_title",
-        "*/*/sources"
-      ]
-    });
-
-    this.promos = yield Promise.all(
-      Object.keys(titleLinks || {}).map(async index => {
-        const slug = Object.keys(titleLinks[index])[0];
-
-        const { title, display_title, sources } = titleLinks[index][slug];
-
-        const playoutOptions = await this.client.BitmovinPlayoutOptions({
-          versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
