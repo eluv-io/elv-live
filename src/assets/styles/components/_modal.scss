@@ -77,7 +77,6 @@
 
   .modal__content {
     align-items: center;
-    //height: 100vh;
     display: flex;
     justify-content: center;
     max-width: 1350px;
@@ -87,20 +86,68 @@
 }
 
 .promo-player-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  justify-content: center;
+  min-height: 100%;
   min-width: 100%;
+
+  .promo-player-ar {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: auto;
+    max-height: calc(70vh + 100px);
+    max-width: calc(70vh * 16 / 9);
+    min-height: calc(70vh + 100px);
+    min-width: calc(70vh * 16 / 9);
+  }
 
   .promo-buttons-container {
     display: flex;
     height: 50px;
     justify-content: space-between;
-    margin-top: 10px;
+    width: 100%;
 
     button {
       &:disabled {
         visibility: hidden;
+      }
+    }
+  }
+
+  .promo-video,
+  video {
+    max-height: calc(70vh);
+    max-width: calc(70vh * 16 / 9);
+    min-height: calc(70vh);
+    min-width: calc(70vh * 16 / 9);
+  }
+
+  @media only screen and (orientation: portrait) {
+    .promo-player-ar {
+      max-height: calc((100vw) * 9 / 16 + 100px);
+      max-width: calc(90vw);
+      min-height: calc((90vw) * 9 / 16 + 100px);
+      min-width: calc(90vw);
+    }
+
+    .promo-video,
+    video {
+      max-height: calc(100vw * 9 / 16);
+      max-width: calc(90vw);
+      min-height: calc(90vw * 9 / 16);
+      min-width: calc(90vw);
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    .promo-buttons-container {
+      button {
+        font-size: 11px;
+        width: 150px;
       }
     }
   }
