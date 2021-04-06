@@ -29,9 +29,6 @@ class Checkout extends React.Component {
 
   componentDidMount() {
     this.props.cartStore.ToggleCartOverlay(false);
-
-    // Load paypal public key
-    this.props.cartStore.PaymentServicePublicKey("paypal");
   }
 
   CurrencySelection() {
@@ -396,16 +393,12 @@ class Checkout extends React.Component {
 
         <EmailInput />
 
-        { this.PaymentActions() }
+        { cartDetails.itemCount > 0 ? this.PaymentActions() : null }
       </div>
     );
   }
 
   PaymentActions() {
-    if(!ValidEmail(this.props.cartStore.email)) {
-      return;
-    }
-
     if(this.state.redirect) {
       return (
         <Redirect
@@ -422,8 +415,17 @@ class Checkout extends React.Component {
       );
     }
 
+    const validEmail = ValidEmail(this.props.cartStore.email);
+
     return (
-      <div className="payment-actions">
+      <div
+        title={validEmail ? "" : "Please enter a valid email"}
+        className={`payment-actions ${validEmail ? "" : "disabled"}`}
+      >
+        {
+          this.props.cartStore.checkoutError ?
+            <div className="checkout-error-message">{this.props.cartStore.checkoutError}</div> : null
+        }
         <button
           className="checkout-button"
           role="link"
@@ -436,7 +438,7 @@ class Checkout extends React.Component {
           <PayPalScriptProvider
             key={`paypal-button-${this.props.cartStore.currency}`}
             options={{
-              "client-id": this.props.cartStore.paymentServicePublicKeys["paypal"],
+              "client-id": this.props.cartStore.PaymentServicePublicKey("paypal"),
               currency: this.props.cartStore.currency
             }}
           >
@@ -447,7 +449,7 @@ class Checkout extends React.Component {
 
                 this.setState({redirect: true});
               }}
-              onError={() => this.props.cartStore.PaymentSubmitError("There was an error with Paypal Checkout. Please try again.")}
+              onError={error => this.props.cartStore.PaymentSubmitError(error)}
               style={{
                 color:  "gold",
                 shape:  "rect",
@@ -459,6 +461,23 @@ class Checkout extends React.Component {
               fundingSource={FUNDING.PAYPAL}
             />
           </PayPalScriptProvider>
+        </div>
+      </div>
+    );
+  }
+
+  Sponsors() {
+    if(this.props.siteStore.sponsors.length === 0) { return null; }
+
+    return (
+      <div className="checkout-page-section no-border">
+        <div className="sponsors-message">Sponsored By</div>
+        <div className="sponsors-container">
+          {this.props.siteStore.sponsors.map((sponsor, index) =>
+            <a href={sponsor.link} target="_blank" className={"sponsor-image-container"} key={`sponsor-${index}`} title={sponsor.name}>
+              <img src={sponsor.image_url} className="sponsor-image" alt={sponsor.name} />
+            </a>
+          )}
         </div>
       </div>
     );
@@ -477,6 +496,7 @@ class Checkout extends React.Component {
             { this.Donations() }
             { this.FeaturedMerchandise() }
             { this.OrderSummary() }
+            { this.Sponsors() }
           </div>
         }
       />

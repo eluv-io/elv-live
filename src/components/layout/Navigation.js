@@ -10,8 +10,8 @@ import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
 
 @inject("siteStore")
 @inject("cartStore")
-@observer
 @withRouter
+@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -43,9 +43,15 @@ class Header extends React.Component {
 
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
-        <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-          <ImageIcon icon={Logo} label="Eluvio Live" />
-        </NavLink>
+        {
+          this.props.mainPage ?
+            <a href={window.location.origin} className="header__logo">
+              <ImageIcon icon={Logo} label="Eluvio Live" />
+            </a> :
+            <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
+              <ImageIcon icon={Logo} label="Eluvio Live" />
+            </NavLink>
+        }
         <div className="header__spacer" />
         <div className="header__links">
           {

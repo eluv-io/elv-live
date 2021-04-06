@@ -117,19 +117,14 @@
     color: $white;
     font-size: 56px;
     font-weight: 300;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     text-align: center;
     text-transform: uppercase;
   }
 
   &__subheader {
-    align-items: center;
-    display: flex;
     font-size: 32px;
-    font-weight: 200;
-    height: 48px;
-    justify-content: center;
-    margin-top: 10px;
+    letter-spacing: 0.2em;
   }
 
   &__event-link {
@@ -145,8 +140,8 @@
     height: 48px;
     justify-content: center;
     letter-spacing: 0.14em;
-    margin-top: 20px;
-    padding: 10px 30px;
+    margin: 20px auto 0;
+    padding: 10px 0;
     transition: background-color 0.3s linear, color 0.3s linear;
     width: 250px;
 
@@ -172,8 +167,9 @@
 
   @media only screen and (max-width: 900px) {
     &__header {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 300;
+      letter-spacing: 0.1em;
     }
 
     &__subheader {
@@ -197,7 +193,7 @@
       font-size: 14px;
       height: 30px;
       margin-top: 10px;
-      width: 200px;
+      width: 150px;
     }
   }
 }

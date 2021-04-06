@@ -50,7 +50,7 @@ class Event extends React.Component {
         className="modal--promo-modal"
         content={
           <Suspense fallback={<div/>}>
-            {this.props.siteStore.hasPromos ? <PromoPlayer/>
+            {this.props.siteStore.promos.length > 0 ? <PromoPlayer/>
               : <div className="error-message error-message-modal"> No Promos Available</div>
             }
           </Suspense>
@@ -96,13 +96,13 @@ class Event extends React.Component {
 
           <div className="event-page__buttons">
             <button
-              className={this.props.siteStore.hasPromos ? "btn" : "btn btn--gold"}
+              className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
               onClick={() => this.handleNavigate()}
             >
               Buy Tickets
             </button>
             {
-              this.props.siteStore.hasPromos ?
+              this.props.siteStore.promos.length > 0 ?
                 <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
                   Watch Promo
                 </button> : null

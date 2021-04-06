@@ -14,7 +14,7 @@ class PromoPlayer extends React.Component {
     super(props);
 
     this.state = {
-      promoIndex: 1,
+      promoIndex: 0,
       loaded: false,
       error: ""
     };
@@ -28,8 +28,7 @@ class PromoPlayer extends React.Component {
     document.body.style.overflowY = "auto";
   }
 
-  Video() {
-    const promoLink = UrlJoin(this.props.siteStore.currentSiteMetadataPath, "promos", this.state.promoIndex.toString());
+  Video(linkPath) {
     const network = EluvioConfiguration["config-url"].includes("demov3") ? EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN;
 
     return (
@@ -46,10 +45,15 @@ class PromoPlayer extends React.Component {
                 client: this.props.siteStore.rootStore.client
               },
               sourceOptions: {
+                drms: [
+                  "clear",
+                  "aes-128",
+                  "sample-aes",
+                  "widevine"
+                ],
                 playoutParameters: {
                   objectId: EluvioConfiguration["live-site-id"],
-                  linkPath: promoLink
-                  //versionHash: "hq__JZnbcLjgqDps1qvwyTqaWRhR7Vy3P6TySCxEivQ8Hu5ZXs1X7XQUsQBbcBdzpiK7mxfeU2r9Rn"
+                  linkPath
                 }
               },
               playerOptions: {
@@ -67,9 +71,10 @@ class PromoPlayer extends React.Component {
 
   render() {
     //if(!this.props.siteStore.promos || this.props.siteStore.promos.length === 0) { return null; }
+    const promoLinks = this.props.siteStore.promos;
 
     let nextButton, previousButton;
-    if(this.props.siteStore.promos && this.props.siteStore.promos.length > 0) {
+    if(this.props.siteStore.promos && this.props.siteStore.promos.length > 1) {
       previousButton = (
         <button
           className="btn previous-promo-button"
@@ -83,7 +88,7 @@ class PromoPlayer extends React.Component {
       nextButton = (
         <button
           className="btn next-promo-button"
-          disabled={this.state.promoIndex >= this.props.siteStore.promos.length - 1}
+          disabled={this.state.promoIndex >= promoLinks.length - 1}
           onClick={() => this.setState({promoIndex: this.state.promoIndex + 1})}
         >
           Play Next
@@ -93,10 +98,15 @@ class PromoPlayer extends React.Component {
 
     return (
       <div className="promo-player-container">
-        { this.Video() }
-        <div className="promo-buttons-container">
-          { previousButton }
-          { nextButton }
+        <div className="promo-player-ar">
+          { this.Video(promoLinks[this.state.promoIndex]) }
+          {
+            !previousButton && !nextButton ? null :
+              <div className="promo-buttons-container">
+                { previousButton }
+                { nextButton }
+              </div>
+          }
         </div>
       </div>
     );

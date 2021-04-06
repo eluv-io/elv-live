@@ -20,7 +20,6 @@ class SiteStore {
   @observable darkMode = false;
 
   @observable streams = [];
-  @observable promos;
 
   @observable showCheckout = false;
   @observable selectedTicket;
@@ -31,6 +30,8 @@ class SiteStore {
   @observable chatChannel;
 
   @observable error = "";
+
+  @observable googleAnalyticsHook;
 
   @computed get client() {
     return this.rootStore.client;
@@ -57,11 +58,23 @@ class SiteStore {
 
   // Event Site
   @computed get currentSite() {
-    return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
+    try {
+      return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
+    } catch(error) {
+      return undefined;
+    }
   }
 
   @computed get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
+  }
+
+  @computed get promos() {
+    return Object.keys(this.currentSite.promos || {}).map(index => {
+      const slug = Object.keys(this.currentSite.promos[index])[0];
+
+      return UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default");
+    });
   }
 
   @computed get currentSiteTicketSku() {
@@ -90,10 +103,6 @@ class SiteStore {
     if(!this.siteSlug) { return window.location.pathname }
 
     return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
-  }
-
-  @computed get hasPromos() {
-    return this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0;
   }
 
   @computed get eventActive() {
@@ -199,7 +208,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, validateBaseSlug=true, preloadHero=false}) {
+  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, loadAnalytics=false, validateBaseSlug=true, preloadHero=false}) {
     const tenantKey = tenantSlug || "featured";
     if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return !validateBaseSlug || baseSlug === this.baseSlug;
@@ -256,8 +265,6 @@ class SiteStore {
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
-      this.rootStore.cartStore.LoadLocalStorage();
-
       // Determine chat channel
       const expectedAudienceSize = 10000;
 
@@ -266,8 +273,29 @@ class SiteStore {
 
       this.chatChannel = `${this.siteSlug}-${roomNumber}`;
 
-
       this.eventSites[tenantKey][siteSlug] = site;
+
+      try {
+        if(loadAnalytics && (site.info || {}).google_analytics_id && window.location.hostname !== "localhost") {
+          const s = document.createElement("script");
+          s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${site.info.google_analytics_id}`);
+          s.async = true;
+          document.head.appendChild(s);
+
+          window.dataLayer = window.dataLayer || [];
+          this.googleAnalyticsHook = function () {
+            window.dataLayer.push(arguments);
+          };
+
+          this.googleAnalyticsHook("js", new Date());
+          this.googleAnalyticsHook("config", site.info.google_analytics_id);
+        }
+      } catch(error) {
+        console.error("Failed to load Google Analytics:");
+        console.error(error);
+      }
+
+      this.rootStore.cartStore.LoadLocalStorage();
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
@@ -299,41 +327,6 @@ class SiteStore {
         const playoutOptions = await this.client.BitmovinPlayoutOptions({
           versionHash: this.siteParams.versionHash,
           linkPath: UrlJoin(this.currentSiteMetadataPath, "streams", index, slug, "sources", "default"),
-          protocols: ["hls"],
-          drms: await this.client.AvailableDRMs()
-        });
-
-        return { title, display_title, playoutOptions }
-      })
-    );
-  });
-
-  @action.bound
-  LoadPromos = flow(function * () {
-    if(this.promos) { return; }
-
-    const titleLinks = yield this.client.ContentObjectMetadata({
-      ...this.siteParams,
-      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "promos"),
-      resolveLinks: true,
-      resolveIgnoreErrors: true,
-      resolveIncludeSource: true,
-      select: [
-        "*/*/title",
-        "*/*/display_title",
-        "*/*/sources"
-      ]
-    });
-
-    this.promos = yield Promise.all(
-      Object.keys(titleLinks || {}).map(async index => {
-        const slug = Object.keys(titleLinks[index])[0];
-
-        const { title, display_title, sources } = titleLinks[index][slug];
-
-        const playoutOptions = await this.client.BitmovinPlayoutOptions({
-          versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default"),
           protocols: ["hls"],
           drms: await this.client.AvailableDRMs()
         });
@@ -410,11 +403,10 @@ class SiteStore {
   }
 
   @computed get sponsors() {
-    return (this.currentSiteInfo.sponsors || []).map(({name, footer_text, stream_text}, index) => {
+    return (this.currentSiteInfo.sponsors || []).map(({name, link}, index) => {
       return {
         name,
-        footer_text,
-        stream_text,
+        link,
         image_url: this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image"))
       }
     });
@@ -450,6 +442,7 @@ class SiteStore {
     return (this.currentSiteInfo.tickets || []).map((ticketClass, index) => {
       return {
         ...ticketClass,
+        release_date: ticketClass.release_date ? new Date(ticketClass.release_date) : undefined,
         image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
       }
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
