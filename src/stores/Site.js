@@ -70,13 +70,11 @@ class SiteStore {
   }
 
   @computed get promos() {
-    const promos = Object.keys(this.currentSite.promos || {}).map(index => {
+    return Object.keys(this.currentSite.promos || {}).map(index => {
       const slug = Object.keys(this.currentSite.promos[index])[0];
 
       return UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default");
     });
-
-    return [...promos, ...promos, ...promos];
   }
 
   @computed get currentSiteTicketSku() {

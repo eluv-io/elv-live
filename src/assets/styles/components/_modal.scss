@@ -99,10 +99,10 @@
     flex-direction: column;
     justify-content: space-evenly;
     margin: auto;
-    max-height: calc(70vh + 100px);
-    max-width: calc(70vh * 16 / 9);
-    min-height: calc(70vh + 100px);
-    min-width: calc(70vh * 16 / 9);
+    max-height: MIN(calc(90vw * 9 / 16 + 100px), calc(70vh + 100px));
+    max-width: MIN(90vw, calc(70vh * 16 / 9));
+    min-height: MIN(calc(90vw * 9 / 16 + 100px), calc(70vh + 100px));
+    min-width: MIN(90vw, calc(70vh * 16 / 9));
   }
 
   .promo-buttons-container {
@@ -120,27 +120,10 @@
 
   .promo-video,
   video {
-    max-height: calc(70vh);
-    max-width: calc(70vh * 16 / 9);
-    min-height: calc(70vh);
-    min-width: calc(70vh * 16 / 9);
-  }
-
-  @media only screen and (orientation: portrait) {
-    .promo-player-ar {
-      max-height: calc((100vw) * 9 / 16 + 100px);
-      max-width: calc(90vw);
-      min-height: calc((90vw) * 9 / 16 + 100px);
-      min-width: calc(90vw);
-    }
-
-    .promo-video,
-    video {
-      max-height: calc(100vw * 9 / 16);
-      max-width: calc(90vw);
-      min-height: calc(90vw * 9 / 16);
-      min-width: calc(90vw);
-    }
+    max-height: MIN(90vw * 9 / 16, calc(70vh));
+    max-width: MIN(90vw, calc(70vh * 16 / 9));
+    min-height: MIN(90vw * 9 / 16, calc(70vh));
+    min-width: MIN(90vw, calc(70vh * 16 / 9));
   }
 
   @media only screen and (max-width: 900px) {

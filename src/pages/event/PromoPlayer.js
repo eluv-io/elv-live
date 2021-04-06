@@ -45,10 +45,15 @@ class PromoPlayer extends React.Component {
                 client: this.props.siteStore.rootStore.client
               },
               sourceOptions: {
+                drms: [
+                  "clear",
+                  "aes-128",
+                  "sample-aes",
+                  "widevine"
+                ],
                 playoutParameters: {
                   objectId: EluvioConfiguration["live-site-id"],
                   linkPath
-                  //versionHash: "hq__JZnbcLjgqDps1qvwyTqaWRhR7Vy3P6TySCxEivQ8Hu5ZXs1X7XQUsQBbcBdzpiK7mxfeU2r9Rn"
                 }
               },
               playerOptions: {
@@ -69,7 +74,7 @@ class PromoPlayer extends React.Component {
     const promoLinks = this.props.siteStore.promos;
 
     let nextButton, previousButton;
-    if(this.props.siteStore.promos && this.props.siteStore.promos.length > 0) {
+    if(this.props.siteStore.promos && this.props.siteStore.promos.length > 1) {
       previousButton = (
         <button
           className="btn previous-promo-button"
@@ -95,10 +100,13 @@ class PromoPlayer extends React.Component {
       <div className="promo-player-container">
         <div className="promo-player-ar">
           { this.Video(promoLinks[this.state.promoIndex]) }
-          <div className="promo-buttons-container">
-            { previousButton }
-            { nextButton }
-          </div>
+          {
+            !previousButton && !nextButton ? null :
+              <div className="promo-buttons-container">
+                { previousButton }
+                { nextButton }
+              </div>
+          }
         </div>
       </div>
     );
