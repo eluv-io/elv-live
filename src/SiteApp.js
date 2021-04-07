@@ -1,7 +1,7 @@
 import React, {lazy} from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
-import {Route, Redirect, BrowserRouter} from "react-router-dom";
+import {Route, BrowserRouter} from "react-router-dom";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {

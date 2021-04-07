@@ -295,6 +295,31 @@ class CartStore {
   // Payment
 
   @action.bound
+  PaymentServerRequestParams() {
+    const cartDetails = this.CartDetails();
+
+    let itemList =
+      cartDetails.tickets.map(ticket => ({sku: ticket.ticketSku.uuid, quantity: ticket.quantity}))
+        .concat(cartDetails.merchandise.map(item => ({sku: item.sku_id, quantity: item.quantity})))
+        .concat(cartDetails.donations.map(donation => ({sku: donation.uuid, quantity: donation.quantity})));
+
+    this.confirmationId = this.ConfirmationId();
+    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+
+    const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
+
+    return {
+      mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
+      currency: this.currency,
+      email: this.email,
+      client_reference_id: checkoutId,
+      items: itemList,
+      success_url: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
+      cancel_url: baseUrl
+    };
+  }
+
+  @action.bound
   StripeSubmit = flow(function * () {
     try {
       this.submittingOrder = true;
@@ -302,41 +327,44 @@ class CartStore {
 
       this.SaveLocalStorage();
 
-      const cartDetails = this.CartDetails();
+      const requestParams = this.PaymentServerRequestParams();
 
-      let itemList =
-        cartDetails.tickets.map(ticket => ({sku: ticket.ticketSku.uuid, quantity: ticket.quantity}))
-          .concat(cartDetails.merchandise.map(item => ({sku: item.sku_id, quantity: item.quantity})))
-          .concat(cartDetails.donations.map(donation => ({sku: donation.uuid, quantity: donation.quantity})));
+      // Set up session
+      const stripePublicKey = this.PaymentServicePublicKey("stripe");
+      const sessionId = (yield this.PaymentServerRequest({
+        path: UrlJoin("checkout", "stripe"),
+        requestParams
+        })).session_id;
 
-      this.confirmationId = this.ConfirmationId();
-      const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+      // Redirect to stripe
+      const stripe = yield loadStripe(stripePublicKey);
+      yield stripe.redirectToCheckout({sessionId});
+    } catch(error) {
+      this.PaymentSubmitError(error);
+      console.error(JSON.stringify(requestParams, null, 2));
+      this.submittingOrder = false;
+    }
+  });
 
-      const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
+  @action.bound
+  CoinbaseSubmit = flow(function * () {
+    try {
+      this.submittingOrder = true;
+      this.checkoutError = undefined;
 
-      const requestParams = {
-        mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
-        currency: this.currency,
-        email: this.email,
-        client_reference_id: checkoutId,
-        items: itemList,
-        success_url: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
-        cancel_url: baseUrl
-      };
+      this.SaveLocalStorage();
 
-      try {
-        // Set up session
-        const stripePublicKey = this.PaymentServicePublicKey("stripe");
-        const sessionId = (yield this.PaymentServerRequest({path: UrlJoin("checkout", "stripe"), requestParams})).session_id;
+      const requestParams = this.PaymentServerRequestParams();
+      const checkoutId = (yield this.PaymentServerRequest({
+        path: UrlJoin("checkout", "coinbase"),
+        requestParams
+      })).checkout_id;
 
-        // Redirect to stripe
-        const stripe = yield loadStripe(stripePublicKey);
-        yield stripe.redirectToCheckout({sessionId});
-      } catch(error) {
-        this.PaymentSubmitError(error);
-        console.error(JSON.stringify(requestParams, null, 2));
-      }
-    } finally {
+      window.location.href = UrlJoin("https://commerce.coinbase.com/checkout", checkoutId);
+    } catch(error) {
+      this.PaymentSubmitError(error);
+      console.error(JSON.stringify(requestParams, null, 2));
+
       this.submittingOrder = false;
     }
   });

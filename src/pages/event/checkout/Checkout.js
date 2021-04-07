@@ -462,6 +462,9 @@ class Checkout extends React.Component {
             />
           </PayPalScriptProvider>
         </div>
+        <button className="checkout-button coinbase-button" onClick={this.props.cartStore.CoinbaseSubmit}>
+          Pay with Crypto
+        </button>
       </div>
     );
   }
