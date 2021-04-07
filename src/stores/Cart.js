@@ -355,12 +355,12 @@ class CartStore {
       this.SaveLocalStorage();
 
       const requestParams = this.PaymentServerRequestParams();
-      const checkoutId = (yield this.PaymentServerRequest({
+      const chargeCode = (yield this.PaymentServerRequest({
         path: UrlJoin("checkout", "coinbase"),
         requestParams
-      })).checkout_id;
+      })).charge_code;
 
-      window.location.href = UrlJoin("https://commerce.coinbase.com/checkout", checkoutId);
+      window.location.href = UrlJoin("https://commerce.coinbase.com/charges", chargeCode);
     } catch(error) {
       this.PaymentSubmitError(error);
       console.error(JSON.stringify(requestParams, null, 2));
