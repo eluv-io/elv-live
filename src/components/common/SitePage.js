@@ -4,6 +4,7 @@ import AsyncComponent from "Common/AsyncComponent";
 import {Redirect, withRouter} from "react-router";
 import {PageLoader} from "Common/Loaders";
 import Navigation from "Layout/Navigation";
+import InitializeEventData from "Utils/StructuredEventData";
 
 const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false}={}) => {
   @inject("siteStore")
@@ -51,6 +52,8 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
                   loadAnalytics: true,
                   preloadHero: true
                 });
+
+                InitializeEventData(this.props.siteStore);
 
                 if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }
 
