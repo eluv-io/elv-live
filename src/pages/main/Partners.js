@@ -17,7 +17,7 @@ class Partners extends React.Component {
   }
 
   componentDidMount() {
-    document.title = "Our Partners | Eluvio LIVE";
+    document.title = " Our Partners: Production and Merchandise | Eluvio LIVE";
     document
       .getElementsByTagName("meta")
       .namedItem("description")
