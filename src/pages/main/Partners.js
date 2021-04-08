@@ -16,6 +16,18 @@ class Partners extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = "Our Partners | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", Copy.seo.page_descriptions.partners);
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+  }
+
   PartnerBlock(partner) {
     return (
       <div className="partner-block" key={`partner-block-${partner.name}`}>

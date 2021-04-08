@@ -14,6 +14,18 @@ class Contact extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = "Contact Us | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", Copy.seo.page_descriptions.contact);
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+  }
+
   render() {
     return (
       <div className="page-content contact-page">

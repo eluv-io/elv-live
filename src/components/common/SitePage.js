@@ -55,6 +55,8 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
 
                 InitializeEventData(this.props.siteStore);
 
+                document.title = `${this.props.siteStore.eventInfo.event_title} | Eluvio Live`;
+
                 if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }
 
                 this.setState({validSlug});

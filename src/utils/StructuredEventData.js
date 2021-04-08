@@ -1,6 +1,14 @@
 import CloneDeep from "lodash/cloneDeep";
 import UrlJoin from "url-join";
 
+const CreateHeadTag = (type, options) => {
+  const tag = document.createElement(type);
+
+  Object.keys(options).forEach(key => tag[key] = options[key]);
+
+  document.querySelector("head").appendChild(tag);
+};
+
 const InitializeEventData = siteStore => {
   if(window.eventDataInitialized) { return; }
 
@@ -99,11 +107,21 @@ const InitializeEventData = siteStore => {
   }
 
 
-  let el = document.createElement("script");
-  el.type = "application/ld+json";
-  el.text = JSON.stringify(baseEvent);
+  CreateHeadTag("script", { type: "application/ld+json", text: JSON.stringify(baseEvent)});
 
-  document.querySelector("head").appendChild(el);
+  document
+    .getElementsByTagName("meta")
+    .namedItem("description")
+    .setAttribute("content", searchInfo.description || eventInfo.description);
+
+  document
+    .getElementsByTagName("meta")
+    .namedItem("robots")
+    .setAttribute("content", "");
+
+  if(images.length > 0) {
+    CreateHeadTag("meta", { name: "image", property: "og:image", content: images[0] });
+  }
 
   window.eventDataInitialized = true;
 
