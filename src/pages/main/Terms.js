@@ -13,6 +13,18 @@ class Terms extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = "Terms of Service | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "noindex");
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", "");
+  }
+
   render() {
     return (
       <div className="page-content terms-page">

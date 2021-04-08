@@ -31,6 +31,18 @@ class Technology extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = "The Eluvio Content Fabric | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", Copy.seo.page_descriptions.technology);
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+  }
+
   SetPage(key) {
     this.setState({page: key === this.state.page ? "main" : key});
     window.scrollTo(0, 0);
@@ -72,7 +84,7 @@ class Technology extends React.Component {
         <img
           key={`technology-page__image-${key}`}
           src={IMAGES[key]}
-          alt={Copy.technology.sections[key.header]}
+          alt={Copy.technology.sections[key].alt}
           className={`technology-page__item technology-page__image ${this.state.page === key ? "active" : ""}`}
         />
       )

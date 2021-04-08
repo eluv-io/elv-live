@@ -13,6 +13,18 @@ class Privacy extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = "Privacy Policy | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", "");
+  }
+
   render() {
     return (
       <div className="page-content privacy-page">
