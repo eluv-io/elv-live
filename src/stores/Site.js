@@ -276,7 +276,7 @@ class SiteStore {
       this.eventSites[tenantKey][siteSlug] = site;
 
       try {
-        if(loadAnalytics && (site.info || {}).google_analytics_id && window.location.hostname !== "localhost") {
+        if(loadAnalytics && (site.info || {}).google_analytics_id) {
           const s = document.createElement("script");
           s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${site.info.google_analytics_id}`);
           s.async = true;

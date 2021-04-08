@@ -47,8 +47,8 @@
 }
 
 .featured-event {
-  animation: fadein 0.35s linear;
   display: none;
+  opacity: 0;
   height: 100%;
   position: relative;
   user-select: none;
@@ -57,6 +57,8 @@
   &.featured-event-selected {
     display: block;
     z-index: 9;
+    animation: fadein 0.35s linear;
+    opacity: 1;
   }
 
   &.featured-event-fading-out {
