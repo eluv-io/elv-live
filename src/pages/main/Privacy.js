@@ -18,7 +18,7 @@ class Privacy extends React.Component {
     document
       .getElementsByTagName("meta")
       .namedItem("robots")
-      .setAttribute("content", "");
+      .setAttribute("content", "noindex");
     document
       .getElementsByTagName("meta")
       .namedItem("description")
