@@ -99,6 +99,8 @@ class CartStore {
     }
 
     this.currency = currency;
+
+    this.SaveLocalStorage();
   }
 
   @action.bound
@@ -314,7 +316,7 @@ class CartStore {
       email: this.email,
       client_reference_id: checkoutId,
       items: itemList,
-      success_url: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
+      success_url: UrlJoin(baseUrl, "success", this.confirmationId),
       cancel_url: baseUrl
     };
   }
@@ -489,7 +491,9 @@ class CartStore {
   // LocalStorage
 
   @action.bound
-  OrderComplete() {
+  OrderComplete(confirmationId) {
+    this.rootStore.siteStore.TrackPurchase(confirmationId, this.CartDetails());
+
     this.ToggleCheckoutOverlay(false);
     this.tickets = [];
     this.merchandise = [];
@@ -517,6 +521,7 @@ class CartStore {
         this.localStorageKey,
         btoa(
           JSON.stringify({
+            currency: this.currency,
             tickets: toJS(this.tickets),
             merchandise: toJS(this.merchandise),
             donations: toJS(this.featuredDonations),
@@ -537,8 +542,9 @@ class CartStore {
     if(!data) { return; }
 
     try {
-      const { tickets, merchandise, donations, email, purchasedTicketStartDate } = JSON.parse(atob(data));
+      const { currency, tickets, merchandise, donations, email, purchasedTicketStartDate } = JSON.parse(atob(data));
 
+      this.currency = currency || this.currency;
       this.tickets = tickets || [];
       this.merchandise = merchandise || [];
       this.featuredDonations = donations || {};
