@@ -402,7 +402,7 @@ class Checkout extends React.Component {
     if(this.state.redirect) {
       return (
         <Redirect
-          to={this.props.siteStore.SitePath("success", this.props.cartStore.email, this.props.cartStore.confirmationId)}
+          to={this.props.siteStore.SitePath("success", this.props.cartStore.confirmationId)}
         />
       );
     }

@@ -53,7 +53,7 @@ class SiteApp extends React.Component {
       <Switch>
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />

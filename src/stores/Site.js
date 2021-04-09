@@ -31,8 +31,6 @@ class SiteStore {
 
   @observable error = "";
 
-  @observable googleAnalyticsHook;
-
   @computed get client() {
     return this.rootStore.client;
   }
@@ -275,27 +273,11 @@ class SiteStore {
 
       this.eventSites[tenantKey][siteSlug] = site;
 
-      try {
-        if(loadAnalytics && (site.info || {}).google_analytics_id) {
-          const s = document.createElement("script");
-          s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${site.info.google_analytics_id}`);
-          s.async = true;
-          document.head.appendChild(s);
-
-          window.dataLayer = window.dataLayer || [];
-          this.googleAnalyticsHook = function () {
-            window.dataLayer.push(arguments);
-          };
-
-          this.googleAnalyticsHook("js", new Date());
-          this.googleAnalyticsHook("config", site.info.google_analytics_id);
-        }
-      } catch(error) {
-        console.error("Failed to load Google Analytics:");
-        console.error(error);
-      }
-
       this.rootStore.cartStore.LoadLocalStorage();
+
+      if(loadAnalytics) {
+        this.InitializeAnalytics();
+      }
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
@@ -345,6 +327,66 @@ class SiteStore {
   @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
+  }
+
+  async InitializeAnalytics() {
+    const analytics = this.currentSiteInfo.analytics || {};
+
+    try {
+      if(analytics.google) {
+        const s = document.createElement("script");
+        s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${analytics.google}`);
+        s.async = true;
+        document.head.appendChild(s);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+
+        gtag("js", new Date());
+        gtag("config", analytics.google);
+
+        window.ac[`${this.siteSlug}-g`] = gtag;
+      }
+    } catch(error) {
+      console.error("Failed to load Google Analytics:");
+      console.error(error);
+    }
+
+    try {
+      if(analytics.facebook) {
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,"script",
+          "https://connect.facebook.net/en_US/fbevents.js");
+        fbq("init", analytics.facebook);
+        fbq("track", "PageView");
+
+        window.ac[`${this.siteSlug}-f`] = fbq;
+      }
+    } catch(error) {
+      console.error("Failed to load Facebook analytics");
+      console.log(error);
+    }
+  }
+
+  TrackPurchase(confirmationId, cartDetails) {
+    if(cartDetails.total === 0) { return; }
+
+    const analytics = this.currentSiteInfo.analytics || {};
+    const googleHook = window.ac[`${this.siteSlug}-g`];
+    const facebookHook = window.ac[`${this.siteSlug}-f`];
+
+    if(googleHook && analytics.google_conversion_id && analytics.google_conversion_label) {
+      googleHook("event", "conversion", { "send_to": `${analytics.google_conversion_id}/${analytics.google_conversion_label}`});
+    }
+
+    if(analytics.facebook) {
+      facebookHook("track", "Purchase", { value: 0});
+    }
   }
 
   /* Site attributes */
