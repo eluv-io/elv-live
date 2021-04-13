@@ -60,6 +60,29 @@ class Contact extends React.Component {
             }}
           />
         </div>
+
+        <div className="contact-page__contact">
+          <h3 className="contact-page__contact-header">Contact</h3>
+          <div className="contact-page__contact-details">
+            <label>Email</label>
+            <div className="contact-page__label-value">events@live.eluv.io</div>
+
+            <label>HQ Address</label>
+            <div className="contact-page__label-value">Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710</div>
+
+            <label>Instagram</label>
+            <div className="contact-page__label-value"><a href="https://www.instagram.com/eluviolive" target="_blank"rel="noopener" >eluviolive</a></div>
+
+            <label>Twitter</label>
+            <div className="contact-page__label-value"><a href="https://twitter.com/EluvioLIVE" target="_blank"rel="noopener" >@EluvioLIVE</a></div>
+
+            <label>Facebook</label>
+            <div className="contact-page__label-value"><a href="https://www.facebook.com/EluvioLIVE" target="_blank"rel="noopener" >@EluvioLIVE</a></div>
+
+            <label>LinkedIn</label>
+            <div className="contact-page__label-value"><a href="https://www.linkedin.com/company/eluv-io" target="_blank"rel="noopener" >eluv-io</a></div>
+          </div>
+        </div>
       </div>
     );
   }
