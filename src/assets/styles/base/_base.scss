@@ -30,6 +30,10 @@
   min-height: stretch;
 }
 
+svg:not(:root) {
+  overflow: visible;
+}
+
 a {
   color: $black;
   text-decoration: none;
