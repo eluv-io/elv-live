@@ -77,7 +77,7 @@ class Event extends React.Component {
 
     return (
       <div className="page-container event-page">
-        <div className="event-page__hero-container">
+        <div className="event-page__hero-container" style={{height: window.innerHeight}}>
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           <div className="event-page__heading">
             {
@@ -87,7 +87,7 @@ class Event extends React.Component {
                 </div>
                 : null
             }
-            
+
             <h1 className={`event-page__header-name ${hasHeaderImage ? "hidden" : ""}`}>
               { this.props.siteStore.eventInfo.event_header }
             </h1>

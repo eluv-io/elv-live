@@ -44,3 +44,14 @@ export const onEnterPressed = (fn) => {
     fn(event);
   };
 };
+
+export const IsIOSSafari = () => {
+  return (
+    navigator.userAgent.match(/Safari/i) &&
+    (
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/iPod/i) ||
+      navigator.userAgent.match(/iOS/i)
+    )
+  );
+};
