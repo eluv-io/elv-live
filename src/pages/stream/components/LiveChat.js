@@ -10,7 +10,7 @@ import {
   VirtualizedMessageList
 } from "stream-chat-react";
 import {Loader} from "Common/Loaders";
-import {onEnterPressed} from "Utils/Misc";
+import {IsIOSSafari, onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -123,7 +123,7 @@ class LiveChat extends React.Component {
     }
 
     return (
-      <div className="chat-container">
+      <div className={`chat-container ${IsIOSSafari() ? "ios-safari" : ""}`}>
         <Chat client={this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient} theme="livestream dark">
           <Channel channel={this.state.channel} LoadingIndicator={() => null}>
             <VirtualizedMessageList />

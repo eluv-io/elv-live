@@ -9,7 +9,7 @@
     flex-direction: column;
     height: 100vh;
     justify-content: flex-end;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
     position: relative;
 
     & > * {
@@ -97,7 +97,6 @@
   @media only screen and (max-width: 1450px) {
     &__hero-container {
       height: calc(100vw * 9 / 16);
-      padding-bottom: 75px;
       width: 100%;
     }
 

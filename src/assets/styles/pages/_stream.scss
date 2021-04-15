@@ -1,7 +1,7 @@
 $background-color: rgba(0, 0, 0, 0.9);
 $border-color: rgba(255, 255, 255, 0.5);
 
-$chat-panel-width: 400px;
+$chat-panel-min-width: 350px;
 
 $header-height: 60px;
 $footer-height: 80px;
@@ -14,11 +14,11 @@ $mobile-footer-height: 100px;
 $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
 .stream-page {
-  background-color: $background-color;
+  background: $background-color !important;
   display: grid;
   flex: 1 1 100%;
   height: 100%;
-  max-height: 100vh;
+  max-height: stretch;
   overflow: hidden;
 
   * {
@@ -34,31 +34,29 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
   }
 
   &-chat-visible {
-    grid-template-columns: 1fr $chat-panel-width;
-
-    .stream-page__main {
-      max-width: calc(100vw - #{$chat-panel-width});
-    }
+    // Grow chat panel to keep video at 16/9, with min-width fallback
+    grid-template-columns: 1fr calc(max(#{$chat-panel-min-width}, 100vw - (100vh - #{$offset}) * 16 / 9));
   }
 
   &__main {
     display: grid;
     grid-template-rows: $header-height 1fr $footer-height;
     max-height: 100vh;
-    max-height: fill-available;
+    max-height: stretch;
   }
 
   &__header {
     align-items: center;
     display: flex;
     height: $header-height;
-    padding: 0 30px;
+    padding: 0 20px;
     position: relative;
 
     &__logo {
       display: flex;
-      height: 40%;
+      height: 100%;
       overflow: visible;
+      padding: 20px 0;
       width: auto;
 
       svg {
@@ -77,7 +75,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       height: 30px;
       outline: 0;
       position: absolute;
-      right: 30px;
+      right: 20px;
 
       svg {
         height: 100%;
@@ -109,7 +107,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       flex-direction: column;
       height: 100%;
       justify-content: center;
-      margin-left: 30px;
+      margin-left: 20px;
     }
 
     &__title {
@@ -129,6 +127,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       display: flex;
       height: 100%;
       justify-content: space-between;
+      margin-right: 20px;
       padding: 10px 0;
     }
 
@@ -174,7 +173,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
   }
 
   // Portrait
-  @media only screen and (max-aspect-ratio: 12/9) {
+  @media only screen and (max-width: 900px) and (max-aspect-ratio: 12/9) {
     &-chat-hidden {
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
@@ -215,7 +214,13 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
     &__chat-panel {
       .livestream {
-        max-height: calc(60vh - 110px);
+        max-height: 50vh;
+      }
+
+      .ios-safari {
+        .livestream {
+          max-height: 43vh;
+        }
       }
     }
   }
@@ -227,10 +232,10 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     overflow-x: hidden;
 
     &-chat-visible {
-      grid-template-columns: 1fr $chat-panel-width / 1.5;
+      grid-template-columns: 1fr $chat-panel-min-width / 1.5;
 
       .stream-page__main {
-        max-width: calc(100vw - #{$chat-panel-width / 1.5});
+        max-width: calc(100vw - #{$chat-panel-min-width / 1.5});
       }
     }
 
@@ -253,7 +258,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       padding: 12px 10px;
 
       &__logo {
-        height: 100%;
+        padding: 0 5px;
       }
 
       &__chat-toggle {
