@@ -1,22 +1,15 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import { GrChatOption } from "react-icons/gr";
-
-import "stream-chat-react/dist/css/index.css";
 
 import { StreamChat } from "stream-chat";
 import {
   Chat,
   Channel,
-  Window,
-  ChannelHeader,
-  MessageList,
   MessageInput,
   MessageInputSimple,
-  MessageLivestream,
-  Thread
+  VirtualizedMessageList
 } from "stream-chat-react";
-import {PageLoader} from "Common/Loaders";
+import {Loader} from "Common/Loaders";
 import {onEnterPressed} from "Utils/Misc";
 
 @inject("siteStore")
@@ -28,64 +21,55 @@ class LiveChat extends React.Component {
 
     this.state = {
       anonymous: true,
-      chatClient: null,
-      channel: null,
+      anonymousChatClient: undefined,
+      chatClient: undefined,
+      channel: undefined,
       chatName: "",
       loading: true
     };
   }
 
-  async InitializeChannel(userName, createOnly=false) {
-    const channelTitle = `${this.props.siteStore.streamPageInfo.header} - ${this.props.siteStore.streamPageInfo.subheader}`;
-
-    if(!createOnly) {
-      this.setState({channel: undefined});
-    }
-
-    await this.state.chatClient.disconnect();
-
-    if(userName) {
-      await this.state.chatClient.setGuestUser({
-        id: userName.replace(/[^a-zA-Z0-9]/g, ""),
-        name: userName
-      });
-    } else {
-      await this.state.chatClient.connectAnonymousUser();
-
-      const channelExists = (await this.state.chatClient.queryChannels({id: this.props.siteStore.chatChannel})).length > 0;
-
-      if(!channelExists) {
-        await this.InitializeChannel("channelCreator", true);
-
-        await this.state.chatClient.disconnect();
-        await this.state.chatClient.connectAnonymousUser();
-      }
-    }
-
+  async InitializeChannel(userName) {
     try {
-      const channel = await this.state.chatClient.channel(
-        "livestream",
-        this.props.siteStore.chatChannel,
-        { name: channelTitle }
-      );
+      this.setState({loading: true});
 
-      if(createOnly) {
-        await channel.create();
-        return;
+      if(userName) {
+        await this.state.chatClient.setGuestUser({
+          id: userName.replace(/[^a-zA-Z0-9]/g, ""),
+          name: userName
+        });
+
+        const channel = await this.state.chatClient.channel("livestream", this.props.siteStore.chatChannel);
+
+        this.setState({channel: undefined}, () => this.setState({channel, anonymous: false}));
+        await this.state.anonymousChatClient.disconnectUser();
+      } else {
+        await this.state.anonymousChatClient.connectAnonymousUser();
+
+        const channelExists = (await this.state.anonymousChatClient.queryChannels({cid: `livestream:${this.props.siteStore.chatChannel}`})).length > 0;
+
+        if(!channelExists) {
+          await this.state.chatClient.setGuestUser({id: "channelCreator", name: "channelCreator"});
+
+          const channel = await this.state.chatClient.channel("livestream", this.props.siteStore.chatChannel);
+          await channel.create();
+
+          await this.state.chatClient.disconnectUser();
+        }
+
+        const channel = await this.state.anonymousChatClient.channel("livestream", this.props.siteStore.chatChannel);
+
+        this.setState({channel, anonymous: true});
       }
-
-      this.setState({
-        channel,
-        anonymous: !userName
-      });
-    } catch(error) {
-      console.error(error);
+    } finally {
+      this.setState({loading: false});
     }
   }
 
   componentDidMount() {
     this.setState({
-      chatClient: new StreamChat("yyn7chg5xjwq")
+      anonymousChatClient: new StreamChat("s2ypn9y5jvzv"),
+      chatClient: new StreamChat("s2ypn9y5jvzv")
     }, async () => {
       await this.InitializeChannel();
       this.setState({loading: false});
@@ -94,7 +78,11 @@ class LiveChat extends React.Component {
 
   componentWillUnmount() {
     if(this.state.chatClient) {
-      this.state.chatClient.disconnect();
+      this.state.chatClient.disconnectUser();
+    }
+
+    if(this.state.anonymousChatClient) {
+      this.state.anonymousChatClient.disconnectUser();
     }
   }
 
@@ -105,22 +93,23 @@ class LiveChat extends React.Component {
   }
 
   Input() {
+    if(this.state.loading) {
+      return <Loader />;
+    }
+
     if(this.state.anonymous) {
       // Name input
       return (
-        <div className={this.props.siteStore.darkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light"}>
-          <div className="stream-chat-form">
-            <input
-              placeholder="Enter your name to chat"
-              value={this.state.chatName}
-              onKeyPress={onEnterPressed(() => this.JoinChat())}
-              onChange={event => this.setState({chatName: event.target.value})}
-            />
-          </div>
-          <button className="enter-chat-button" role="link" onClick={() => this.JoinChat()}>
-            <GrChatOption style={{height: "25px", width: "25px", marginRight: "10px"}}/> Join Chat
-          </button>
-        </div>
+        <form className="chat__input-container chat__form" onSubmit={event => event.preventDefault()}>
+          <input
+            className="chat__form__input"
+            placeholder="Enter your name to chat"
+            value={this.state.chatName}
+            onKeyPress={onEnterPressed(() => this.JoinChat())}
+            onChange={event => this.setState({chatName: event.target.value})}
+          />
+          <button className="chat__form__submit" onClick={() => this.JoinChat()}>Join Chat</button>
+        </form>
       );
     }
 
@@ -130,20 +119,18 @@ class LiveChat extends React.Component {
 
   render() {
     if(!this.state.channel) {
-      return <PageLoader />;
+      return null;
     }
 
     return (
-      <Chat client={this.state.chatClient} theme={this.props.siteStore.darkMode ? "livestream dark" : "livestream light"}>
-        <Channel channel={this.state.channel} Message={MessageLivestream} loadingIndicator={() => null}>
-          <Window hideOnThread>
-            <ChannelHeader live/>
-            <MessageList dateSeparator={() => { return null; }}/>
+      <div className="chat-container">
+        <Chat client={this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient} theme="livestream dark">
+          <Channel channel={this.state.channel} LoadingIndicator={() => null}>
+            <VirtualizedMessageList />
             { this.Input() }
-          </Window>
-          <Thread fullWidth autoFocus={false}/>
-        </Channel>
-      </Chat>
+          </Channel>
+        </Chat>
+      </div>
     );
   }
 }

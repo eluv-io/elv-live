@@ -3,7 +3,7 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
 
-const CHAT_ROOM_SIZE = 1000;
+const CHAT_ROOM_SIZE = 5000;
 
 import mergeWith from "lodash/mergeWith";
 
@@ -75,12 +75,14 @@ class SiteStore {
     });
   }
 
+  @computed get currentSiteTicket() {
+    return this.rootStore.savedTickets[this.siteSlug];
+  }
+
   @computed get currentSiteTicketSku() {
-    const savedTicketInfo = this.rootStore.savedTickets[this.siteSlug];
+    if(!this.currentSiteTicket) { return null; }
 
-    if(!savedTicketInfo) { return null; }
-
-    return this.TicketSkuByNTPId(savedTicketInfo.ntpId);
+    return this.TicketSkuByNTPId(this.currentSiteTicket.ntpId);
   }
 
   @computed get currentSiteMetadataPath() {
@@ -245,7 +247,8 @@ class SiteStore {
         select: [
           ".",
           "info",
-          "promos"
+          "promos",
+          "channels"
         ],
         metadataSubtree: this.SiteMetadataPath({tenantSlug, siteIndex, siteSlug}),
         resolveLinks: true,
@@ -286,36 +289,31 @@ class SiteStore {
   });
 
   @action.bound
-  LoadStreams = flow(function * () {
-    const titleLinks = yield this.client.ContentObjectMetadata({
+  LoadStreamURI = flow(function * () {
+    const ticketCode = (this.currentSiteTicket || {}).code;
+
+    if(!ticketCode) { return; }
+
+    // Ensure code is redeemed
+    yield this.rootStore.RedeemCode(ticketCode);
+
+    const channelKey = Object.keys(this.currentSite.channels || {})[0];
+
+    if(!channelKey) { return; }
+
+    const availableOfferings = yield this.rootStore.client.AvailableOfferings({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "streams"),
-      resolveLinks: true,
-      resolveIgnoreErrors: true,
-      resolveIncludeSource: true,
-      select: [
-        "*/*/title",
-        "*/*/display_title",
-        "*/*/sources"
-      ]
+      linkPath: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings"),
+      directLink: true
     });
 
-    this.streams = yield Promise.all(
-      Object.keys(titleLinks || {}).map(async index => {
-        const slug = Object.keys(titleLinks[index])[0];
+    const offeringId = Object.keys(availableOfferings || {})[0];
 
-        const { title, display_title, sources } = titleLinks[index][slug];
+    if(!offeringId) { return; }
 
-        const playoutOptions = await this.client.BitmovinPlayoutOptions({
-          versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.currentSiteMetadataPath, "streams", index, slug, "sources", "default"),
-          protocols: ["hls"],
-          drms: await this.client.AvailableDRMs()
-        });
+    console.log(availableOfferings[offeringId].uri);
 
-        return { title, display_title, playoutOptions }
-      })
-    );
+    return availableOfferings[offeringId].uri;
   });
 
   @action.bound

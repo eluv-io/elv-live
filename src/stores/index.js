@@ -13,7 +13,7 @@ configure({
 
 class RootStore {
   @observable client;
-  @observable ticketRedeemed = false;
+  @observable redeemedTicket;
   @observable error = "";
 
   @observable savedTickets = {};
@@ -65,8 +65,12 @@ class RootStore {
 
   @action.bound
   RedeemCode = flow(function * (code) {
+    if(this.redeemedTicket && this.redeemedTicket === code) { return; }
+
     try {
-      const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      const client = yield ElvClient.FromConfigurationUrl({
+        configUrl: EluvioConfiguration["config-url"]
+      });
 
       const { objectId, ntpId } = yield client.RedeemCode({
         tenantId: this.siteStore.currentSiteInfo.tenant_id,
@@ -75,7 +79,7 @@ class RootStore {
       });
 
       this.client = client;
-      this.ticketRedeemed = true;
+      this.redeemedTicket = code;
 
       this.savedTickets[this.siteStore.siteSlug] = {
         code,
