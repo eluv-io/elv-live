@@ -272,7 +272,7 @@ class SiteStore {
       const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
       const roomNumber = Math.floor(Math.random() * maxRooms);
 
-      this.chatChannel = `${this.siteSlug}-${roomNumber}`;
+      this.chatChannel = `${this.siteSlug}-${roomNumber}-`;
 
       this.eventSites[tenantKey][siteSlug] = site;
 
