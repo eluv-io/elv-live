@@ -5,8 +5,7 @@ import {NavLink, Redirect} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
 import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
-import ChatOpen from "Assets/icons/chat icon.svg";
-import ChatClose from "Assets/icons/chat icon collapse.svg";
+import ChatIcon from "Assets/icons/chat icon simple.svg";
 import LiveChat from "Stream/components/LiveChat";
 
 @inject("siteStore")
@@ -24,9 +23,7 @@ class Stream extends React.Component {
   }
 
   async componentDidMount() {
-    if(document.getElementById("launcher")) {
-      document.getElementById("launcher").style.display = "none";
-    }
+    zE.hide();
 
     try {
       const streamURI = await this.props.siteStore.LoadStreamURI();
@@ -41,9 +38,7 @@ class Stream extends React.Component {
   }
 
   componentWillUnmount() {
-    if(document.getElementById("launcher")) {
-      document.getElementById("launcher").style.display = "";
-    }
+    zE.show();
   }
 
   InitializeVideo(element) {
@@ -95,15 +90,9 @@ class Stream extends React.Component {
             <NavLink to={this.props.siteStore.baseSitePath} className="stream-page__header__logo">
               <ImageIcon icon={Logo} label="Eluvio Live" />
             </NavLink>
-            {
-              this.state.showChat ?
-                <button className="stream-page__header__chat-toggle stream-page__header__chat-toggle-hide" onClick={() => this.setState({showChat: !this.state.showChat})}>
-                  <ImageIcon icon={ChatClose} label="Hide Chat" />
-                </button> :
-                <button className="stream-page__header__chat-toggle stream-page__header__chat-toggle-show" onClick={() => this.setState({showChat: !this.state.showChat})}>
-                  <ImageIcon icon={ChatOpen} label="Show Chat" />
-                </button>
-            }
+            <button className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`} onClick={() => this.setState({showChat: !this.state.showChat})}>
+              <ImageIcon icon={ChatIcon} label={this.state.showChat ? "hide" : "show"} />
+            </button>
           </div>
           <div className="stream-page__video-container">
             <div className="stream-page__video-target" ref={element => this.InitializeVideo(element)} />
