@@ -1,9 +1,24 @@
 .chat-container {
   .str-chat {
-    background: $black !important;
+    background: black !important;
 
     * {
       font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+
+      ::-webkit-scrollbar {
+        opacity: 1;
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #333;
+        opacity: 1;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #777;
+        opacity: 1;
+      }
     }
 
     &__container {
@@ -15,11 +30,12 @@
     }
 
     &__virtual-list {
-      background: $black !important;
+      background: transparent !important;
+      padding-bottom: 10px;
     }
 
     &__virtual-message__wrapper {
-      padding: 5px 10px;
+      padding: 6px 10px;
     }
 
     &__virtual-message__date {
@@ -27,13 +43,13 @@
     }
 
     &__virtual-message__text {
-      padding: 2px 0 0;
+      padding: 3px 0 0;
     }
 
     &__virtual-message__author strong,
     &__virtual-message__text p {
       color: $white;
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 200;
 
       letter-spacing: 0.07em;
@@ -45,19 +61,13 @@
     }
 
     &__virtual-message__author strong {
-      color: #cdcdcd;
+      color: #5ca7ff;
+      font-size: 14px;
       font-weight: normal;
-
-      &::after {
-        color: $white;
-        content: ':';
-        font-weight: 300;
-      }
     }
 
     &__message-livestream-content {
       padding: 2px 0;
-
     }
 
     &__input-flat-wrapper {
@@ -76,20 +86,21 @@
     }
 
     .str-chat__input-flat,
-    .chat__input-container {
+    .chat-container__input-container {
       align-items: center;
-      background-color: $black !important;
+      background-color: transparent !important;
+      border-top: 1px solid #232222;
       display: flex;
       height: 80px;
       justify-content: center;
-      padding: 15px 30px;
       padding: 15px 22px !important;
       position: relative;
+      width: 100%;
 
       .str-chat__textarea > textarea,
       & > input {
         background-color: rgba(255, 255, 255, 0.05);
-        border: 2px solid transparent;
+        border: 1px solid #5ca7ff;
         border-radius: 3px;
         color: $white;
         font-size: 16px;
@@ -99,7 +110,6 @@
         width: 100%;
 
         &:focus {
-          border: 2px solid #555;
           box-shadow: none;
         }
       }
@@ -109,17 +119,34 @@
       }
 
       & > button {
-        background: #222;
+        background-color: transparent;
         border: 0;
         border-radius: 3px;
         color: $white;
         cursor: pointer;
-        padding: 3px 10px;
+        height: 75%;
+        padding: 15px 0;
         position: absolute;
-        right: 40px;
+        right: 22px;
+        width: 50px;
+
+        svg {
+          height: 100%;
+          width: 100%;
+
+          * {
+            stroke: #cdcdcd;
+          }
+        }
+
+        &:hover {
+          svg {
+            * {
+              stroke: $white;
+            }
+          }
+        }
       }
-
-
     }
 
     @media only screen and (max-width: 770px) {
@@ -127,16 +154,48 @@
         display: none;
       }
 
+      .str-chat__input-flat,
+      .chat-container__input-container {
+        .str-chat__textarea > textarea,
+        & > input {
+          font-size: 14px;
+        }
+      }
+
       &__send-button {
+        cursor: pointer;
+        height: 30px;
+        padding: 0;
         position: absolute;
-        right: 40px;
-        top: 30px;
+        right: 32px;
+        top: 23px;
+        width: 30px;
 
         svg {
           * {
-            fill: #cdcdcd;
+            stroke: #cdcdcd;
           }
         }
+
+        &:hover {
+          svg {
+            * {
+              stroke: $white;
+            }
+          }
+        }
+      }
+
+      &__virtual-message__text p {
+        font-size: 16px;
+      }
+
+      &__virtual-message__author strong {
+        font-size: 12px;
+      }
+
+      &__virtual-message__wrapper {
+        padding: 3px 10px;
       }
     }
   }

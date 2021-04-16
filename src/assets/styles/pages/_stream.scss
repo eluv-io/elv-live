@@ -1,4 +1,4 @@
-$background-color: rgba(0, 0, 0, 0.9);
+$background-color: black;
 $border-color: rgba(255, 255, 255, 0.5);
 
 $chat-panel-min-width: 350px;
@@ -111,7 +111,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     }
 
     &__title {
-      font-size: 30px;
+      font-size: 26px;
       font-weight: 300;
       letter-spacing: 0.07em;
       text-transform: uppercase;
@@ -146,9 +146,11 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
   &__chat-panel {
     background-color: $black;
+    border-left: 1px solid #232222;
 
     &__header {
       align-items: center;
+      border-bottom: 1px solid #232222;
       display: flex;
       height: $header-height;
       justify-content: center;
@@ -213,6 +215,9 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     }
 
     &__chat-panel {
+      border: 0;
+      border-top: 1px solid #232222;
+
       .livestream {
         max-height: 50vh;
       }
@@ -250,6 +255,18 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       max-height: calc(100vh - #{$mobile-offset});
     }
   }
+
+  // Portrait oriented phone with software keyboard messing with the layout
+  @media only screen and (max-width: 600px) and (max-height: 500px) {
+    overflow-y: scroll;
+
+    &-chat-visible {
+      .stream-page__video-container {
+        max-height: unset;
+      }
+    }
+  }
+
 
   // General mobile
   @media only screen and (max-width: 900px) {

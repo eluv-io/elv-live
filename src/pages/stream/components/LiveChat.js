@@ -11,6 +11,10 @@ import {
 } from "stream-chat-react";
 import {Loader} from "Common/Loaders";
 import {IsIOSSafari, onEnterPressed} from "Utils/Misc";
+import ImageIcon from "Common/ImageIcon";
+
+import ChatSend from "Assets/icons/chat send.svg";
+import JoinChatIcon from "Assets/icons/join chat check mark.svg";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -100,15 +104,17 @@ class LiveChat extends React.Component {
     if(this.state.anonymous) {
       // Name input
       return (
-        <form className="chat__input-container chat__form" onSubmit={event => event.preventDefault()}>
+        <form className="chat-container__input-container chat-container__form" onSubmit={event => event.preventDefault()}>
           <input
-            className="chat__form__input"
+            className="chat-container__form__input"
             placeholder="Enter your name to chat"
             value={this.state.chatName}
             onKeyPress={onEnterPressed(() => this.JoinChat())}
             onChange={event => this.setState({chatName: event.target.value})}
           />
-          <button className="chat__form__submit" onClick={() => this.JoinChat()}>Join Chat</button>
+          <button className="chat-container__form__submit" onClick={() => this.JoinChat()}>
+            <ImageIcon icon={JoinChatIcon} title="Join Chat" />
+          </button>
         </form>
       );
     }
@@ -123,7 +129,15 @@ class LiveChat extends React.Component {
     }
 
     return (
-      <div className={`chat-container ${IsIOSSafari() ? "ios-safari" : ""}`}>
+      <div
+        className={`chat-container ${IsIOSSafari() ? "ios-safari" : ""}`}
+        ref={() => {
+          // Replace default send button with custom one
+          if(document.querySelector(".str-chat__send-button")) {
+            document.querySelector(".str-chat__send-button").innerHTML = ChatSend;
+          }
+        }}
+      >
         <Chat client={this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient} theme="livestream dark">
           <Channel channel={this.state.channel} LoadingIndicator={() => null}>
             <VirtualizedMessageList />

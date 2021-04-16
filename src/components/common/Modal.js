@@ -21,18 +21,14 @@ class Modal extends React.Component {
     document.addEventListener("keydown", this.Close);
     document.body.style.overflowY = "hidden";
 
-    if(document.getElementById("launcher")) {
-      document.getElementById("launcher").style.display = "none";
-    }
+    zE.hide();
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.Close);
     document.body.style.overflowY = "auto";
 
-    if(document.getElementById("launcher")) {
-      document.getElementById("launcher").style.display = "";
-    }
+    zE.show();
   }
 
   render() {
