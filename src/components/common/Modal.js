@@ -2,6 +2,7 @@ import React from "react";
 import {observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CloseIcon from "Icons/x";
+import {ToggleZendesk} from "Utils/Misc";
 
 @observer
 class Modal extends React.Component {
@@ -21,14 +22,14 @@ class Modal extends React.Component {
     document.addEventListener("keydown", this.Close);
     document.body.style.overflowY = "hidden";
 
-    zE.hide();
+    ToggleZendesk(false);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.Close);
     document.body.style.overflowY = "auto";
 
-    zE.show();
+    ToggleZendesk(true);
   }
 
   render() {

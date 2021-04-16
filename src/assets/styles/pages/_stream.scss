@@ -135,12 +135,13 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       height: 100%;
 
       &:not(:last-child) {
-        margin-right: 10px;
+        margin-right: 15px;
       }
     }
 
     &__sponsor-image {
       height: 100%;
+      object-fit: contain;
     }
   }
 

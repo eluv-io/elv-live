@@ -93,6 +93,8 @@ class LiveChat extends React.Component {
   async JoinChat() {
     if(!this.state.chatName) { return; }
 
+    this.setState({chatName: ""});
+
     this.InitializeChannel(this.state.chatName);
   }
 
