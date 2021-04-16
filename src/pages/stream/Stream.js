@@ -7,6 +7,7 @@ import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
 import LiveChat from "Stream/components/LiveChat";
+import {ToggleZendesk} from "Utils/Misc";
 
 @inject("siteStore")
 @observer
@@ -23,7 +24,7 @@ class Stream extends React.Component {
   }
 
   async componentDidMount() {
-    zE.hide();
+    ToggleZendesk(false);
 
     try {
       const streamURI = await this.props.siteStore.LoadStreamURI();
@@ -38,7 +39,7 @@ class Stream extends React.Component {
   }
 
   componentWillUnmount() {
-    zE.show();
+    ToggleZendesk(true);
   }
 
   InitializeVideo(element) {

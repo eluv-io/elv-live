@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 
 import ColoredLogo from "Assets/images/logo/coloredEluvioLiveLogo.png";
 import {NavLink, Redirect} from "react-router-dom";
-
+import {ToggleZendesk} from "Utils/Misc";
 
 @inject("siteStore")
 @observer
@@ -18,13 +18,13 @@ class Landing extends React.Component {
   }
 
   componentDidMount() {
-    zE.hide();
+    ToggleZendesk(false);
   }
 
   componentWillUnmount() {
     clearTimeout(this.state.interval);
 
-    zE.show();
+    ToggleZendesk(true);
   }
 
   Countdown() {

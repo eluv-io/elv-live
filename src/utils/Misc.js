@@ -55,3 +55,9 @@ export const IsIOSSafari = () => {
     )
   );
 };
+
+export const ToggleZendesk = (enabled) => {
+  if(typeof zE === "undefined") { return; }
+
+  enabled ? zE.show() : zE.hide();
+};
