@@ -59,5 +59,10 @@ export const IsIOSSafari = () => {
 export const ToggleZendesk = (enabled) => {
   if(typeof zE === "undefined") { return; }
 
-  enabled ? zE.show() : zE.hide();
+  try {
+    enabled ? zE.show() : zE.hide();
+  } catch(error) {
+    console.error("Failed to toggle zendesk");
+    console.error(error);
+  }
 };
