@@ -84,6 +84,12 @@ body {
   box-sizing: border-box;
   font-family: Helvetica;
   -webkit-overflow-scrolling: touch;
+
+  &.hide-zd {
+    #launcher {
+      display: none;
+    }
+  }
 }
 
 
