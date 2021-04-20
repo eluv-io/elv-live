@@ -11,10 +11,8 @@ import {
 } from "stream-chat-react";
 import {Loader} from "Common/Loaders";
 import {IsIOSSafari, onEnterPressed} from "Utils/Misc";
-import ImageIcon from "Common/ImageIcon";
 
 import ChatSend from "Assets/icons/chat send.svg";
-import JoinChatIcon from "Assets/icons/join chat check mark.svg";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -29,8 +27,11 @@ class LiveChat extends React.Component {
       chatClient: undefined,
       channel: undefined,
       chatName: "",
+      formActive: false,
       loading: true
     };
+
+    this.DisconnectChatClients = this.DisconnectChatClients.bind(this);
   }
 
   async InitializeChannel(userName) {
@@ -70,7 +71,19 @@ class LiveChat extends React.Component {
     }
   }
 
+  DisconnectChatClients() {
+    if(this.state.chatClient) {
+      this.state.chatClient.disconnectUser();
+    }
+
+    if(this.state.anonymousChatClient) {
+      this.state.anonymousChatClient.disconnectUser();
+    }
+  }
+
   componentDidMount() {
+    window.addEventListener("beforeunload", this.DisconnectChatClients);
+
     this.setState({
       anonymousChatClient: new StreamChat("s2ypn9y5jvzv"),
       chatClient: new StreamChat("s2ypn9y5jvzv")
@@ -81,21 +94,47 @@ class LiveChat extends React.Component {
   }
 
   componentWillUnmount() {
-    if(this.state.chatClient) {
-      this.state.chatClient.disconnectUser();
-    }
+    this.DisconnectChatClients();
 
-    if(this.state.anonymousChatClient) {
-      this.state.anonymousChatClient.disconnectUser();
-    }
+    window.removeEventListener("beforeunload", this.DisconnectChatClients);
   }
 
   async JoinChat() {
     if(!this.state.chatName) { return; }
 
-    this.setState({chatName: ""});
+    this.setState({
+      chatName: "",
+      formActive: false
+    });
 
     this.InitializeChannel(this.state.chatName);
+  }
+
+  ChatNameForm() {
+    return (
+      <div className="chat-container__username-form-container" onClick={() => this.setState({formActive: false})}>
+        <form
+          className="chat-container__input-container chat-container__username-form"
+          onSubmit={event => event.preventDefault()}
+          onClick={event => event.stopPropagation()}
+        >
+          <label htmlFor="name" className="chat-container__form__label">Enter your name to chat</label>
+          <input
+            autoComplete="off"
+            ref={element => element && element.focus()}
+            name="name"
+            placeholder="Name"
+            className="chat-container__form__input"
+            value={this.state.chatName}
+            onKeyPress={onEnterPressed(() => this.JoinChat())}
+            onChange={event => this.setState({chatName: event.target.value})}
+          />
+          <button className="chat-container__form__submit" onClick={() => this.JoinChat()}>
+            Join Chat
+          </button>
+        </form>
+      </div>
+    );
   }
 
   Input() {
@@ -106,18 +145,11 @@ class LiveChat extends React.Component {
     if(this.state.anonymous) {
       // Name input
       return (
-        <form className="chat-container__input-container chat-container__form" onSubmit={event => event.preventDefault()}>
-          <input
-            className="chat-container__form__input"
-            placeholder="Enter your name to chat"
-            value={this.state.chatName}
-            onKeyPress={onEnterPressed(() => this.JoinChat())}
-            onChange={event => this.setState({chatName: event.target.value})}
-          />
-          <button className="chat-container__form__submit" onClick={() => this.JoinChat()}>
-            <ImageIcon icon={JoinChatIcon} title="Join Chat" />
+        <div className="chat-container__input-container chat-container__join-chat-container">
+          <button className="chat-container__input-container__join-chat" onClick={() => this.setState({formActive: true})}>
+            Join Chat
           </button>
-        </form>
+        </div>
       );
     }
 
@@ -144,6 +176,7 @@ class LiveChat extends React.Component {
           <Channel channel={this.state.channel} LoadingIndicator={() => null}>
             <VirtualizedMessageList />
             { this.Input() }
+            { this.state.formActive ? this.ChatNameForm() : null }
           </Channel>
         </Chat>
       </div>

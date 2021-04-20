@@ -57,6 +57,12 @@ export const IsIOSSafari = () => {
 };
 
 export const ToggleZendesk = (enabled) => {
+  if(enabled) {
+    document.body.classList.remove("hide-zd");
+  } else {
+    document.body.classList.add("hide-zd");
+  }
+
   if(typeof zE === "undefined") { return; }
 
   try {

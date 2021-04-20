@@ -166,7 +166,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       font-weight: 300;
       margin: 0;
       padding: 0;
-      text-align: left;
+      text-align: center;
       width: 100%;
     }
 
@@ -295,7 +295,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       }
 
       &__title {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       &__subtitle {
@@ -303,8 +303,8 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       }
 
       &__sponsors {
-        height: $mobile-footer-height / 2;
         justify-content: space-evenly;
+        max-height: 30px;
         padding: 5px 0 0;
         width: 100%;
       }
