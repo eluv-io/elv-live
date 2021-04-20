@@ -65,8 +65,6 @@ class RootStore {
 
   @action.bound
   RedeemCode = flow(function * (code) {
-    if(this.redeemedTicket && this.redeemedTicket === code) { return; }
-
     try {
       const client = yield ElvClient.FromConfigurationUrl({
         configUrl: EluvioConfiguration["config-url"]
