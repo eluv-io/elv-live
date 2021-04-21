@@ -154,7 +154,7 @@ class LiveChat extends React.Component {
     }
 
     // Chat input
-    return <MessageInput Input={MessageInputSimple} focus={false}/>;
+    return <MessageInput Input={MessageInputSimple} additionalTextareaProps={{maxLength: 300}} focus={false}/>;
   }
 
   render() {
