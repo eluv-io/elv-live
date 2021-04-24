@@ -258,6 +258,7 @@ class SiteStore {
 
       site.siteSlug = siteSlug;
       site.siteIndex = parseInt(siteIndex);
+      site.tenantSlug = tenantSlug;
 
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
@@ -284,6 +285,19 @@ class SiteStore {
     }
   });
 
+  async StreamHash() {
+    const channelKey = Object.keys(this.currentSite.channels || {})[0];
+
+    const meta = await this.rootStore.client.ContentObjectMetadata({
+      ...this.siteParams,
+      versionHash: undefined, // Always pull latest
+      metadataSubtree: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings"),
+      resolveIncludeSource: true
+    });
+
+    return ((meta || {})["."] || {}).container;
+  }
+
   @action.bound
   LoadStreamURI = flow(function * () {
     const ticketCode = (this.currentSiteTicket || {}).code;
@@ -299,15 +313,15 @@ class SiteStore {
 
     const availableOfferings = yield this.rootStore.client.AvailableOfferings({
       ...this.siteParams,
+      versionHash: undefined, // Always pull latest
       linkPath: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings"),
-      directLink: true
+      directLink: true,
+      resolveIncludeSource: true
     });
 
     const offeringId = Object.keys(availableOfferings || {})[0];
 
     if(!offeringId) { return; }
-
-    console.log(availableOfferings[offeringId].uri);
 
     return availableOfferings[offeringId].uri;
   });

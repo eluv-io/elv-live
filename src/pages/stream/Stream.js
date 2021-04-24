@@ -8,6 +8,7 @@ import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
 import LiveChat from "Stream/components/LiveChat";
 import {ToggleZendesk} from "Utils/Misc";
+import EluvioConfiguration from "../../../configuration";
 
 @inject("siteStore")
 @observer
@@ -16,57 +17,83 @@ class Stream extends React.Component {
     super(props);
 
     this.state = {
-      showChat: true,
+      key: 1,
+      showChat: false,
       initialized: false,
+      versionHash: undefined,
       streamURI: undefined,
-      streamRequestFailed: false
+      streamRequestFailed: false,
+      error: false
     };
   }
 
   async componentDidMount() {
     ToggleZendesk(false);
-
-    try {
-      const streamURI = await this.props.siteStore.LoadStreamURI();
-      this.setState({
-        streamURI,
-        streamRequestFailed: !streamURI
-      });
-    } catch(error) {
-      console.error(error);
-      this.setState({streamRequestFailed: true});
-    }
   }
 
   componentWillUnmount() {
     ToggleZendesk(true);
   }
 
-  InitializeVideo(element) {
-    if(this.state.initialized || !this.state.streamURI || !element) { return; }
+  async InitializeVideo(element) {
+    try {
+      if(this.state.initialized || !element) { return; }
 
-    new EluvioPlayer(
-      element,
-      {
-        clientOptions: {
-          network: EluvioPlayerParameters.networks.DEMO,
-          client: this.props.siteStore.client
-        },
-        sourceOptions: {
-          playoutParameters: {
-            offeringURI: this.state.streamURI
+
+      this.setState({initialized: true});
+
+      const versionHashPromise = this.props.siteStore.StreamHash();
+      const uriPromise = this.props.siteStore.LoadStreamURI();
+
+      this.setState({
+        versionHash: await versionHashPromise,
+        streamURI: await uriPromise
+      });
+
+      new EluvioPlayer(
+        element,
+        {
+          clientOptions: {
+            network: EluvioConfiguration["config-url"].includes("main.net955305") ?
+              EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
+            client: this.props.siteStore.client
+          },
+          sourceOptions: {
+            playoutParameters: {
+              offeringURI: this.state.streamURI
+            }
+          },
+          playerOptions: {
+            muted: true,
+            autoplay: EluvioPlayerParameters.autoplay.ON,
+            controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+            watermark: EluvioPlayerParameters.watermark.OFF,
+            restartCallback: async () => {
+              // Player wants to restart because of errors - check if the main site has been updated since playback has started
+              // If so, reload the whole page to re-fetch the channel info
+              const client = this.props.siteStore.rootStore.client;
+              const latestHash = await this.props.siteStore.StreamHash();
+
+              if(!client.utils.EqualHash(this.state.versionHash, latestHash)) {
+                this.setState({
+                  initialized: false,
+                  key: this.state.key + 1
+                });
+
+                // Tell player to abort
+                return true;
+              }
+
+              // Some other issue. Let player try to restart
+            }
           }
-        },
-        playerOptions: {
-          muted: true,
-          autoplay: EluvioPlayerParameters.autoplay.ON,
-          controls: EluvioPlayerParameters.controls.AUTO_HIDE,
-          watermark: EluvioPlayerParameters.watermark.OFF
         }
-      }
-    );
+      );
+    } catch(error) {
+      console.error(error);
 
-    this.setState({initialized: true});
+      this.setState({error: true});
+    }
   }
 
   Sponsors() {
@@ -80,7 +107,7 @@ class Stream extends React.Component {
   }
 
   render() {
-    if(!this.props.siteStore.currentSiteTicket || this.state.streamRequestFailed) {
+    if(!this.props.siteStore.currentSiteTicket) {
       return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
@@ -95,8 +122,19 @@ class Stream extends React.Component {
               <ImageIcon icon={ChatIcon} label={this.state.showChat ? "hide" : "show"} />
             </button>
           </div>
-          <div className="stream-page__video-container">
+          <div className="stream-page__video-container" key={`video-container-${this.state.key}`}>
             <div className="stream-page__video-target" ref={element => this.InitializeVideo(element)} />
+            {
+              !this.state.error ? null :
+                <div className="stream-page__error-container">
+                  <div className="stream-page__error-container__message">
+                    We're sorry, something went wrong. Please try reloading the page.
+                  </div>
+                  <button className="stream-page__error-container__reload-button" onClick={() => window.location.replace(window.location.href) }>
+                    Reload
+                  </button>
+                </div>
+            }
           </div>
           <div className="stream-page__footer">
             <div className="stream-page__footer__text">
