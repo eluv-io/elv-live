@@ -68,6 +68,9 @@ class Stream extends React.Component {
             autoplay: EluvioPlayerParameters.autoplay.ON,
             controls: EluvioPlayerParameters.controls.AUTO_HIDE,
             watermark: EluvioPlayerParameters.watermark.OFF,
+            errorCallback: () => {
+              setTimeout(() => this.setState({initialized: false, key: this.state.key + 1}), 5000);
+            },
             restartCallback: async () => {
               // Player wants to restart because of errors - check if the main site has been updated since playback has started
               // If so, reload the whole page to re-fetch the channel info
