@@ -42,13 +42,10 @@ class Stream extends React.Component {
 
       this.setState({initialized: true});
 
-      const versionHashPromise = this.props.siteStore.StreamHash();
-      const uriPromise = this.props.siteStore.LoadStreamURI();
+      const streamURI = await this.props.siteStore.LoadStreamURI();
+      const versionHash = await this.props.siteStore.StreamHash();
 
-      this.setState({
-        versionHash: await versionHashPromise,
-        streamURI: await uriPromise
-      });
+      this.setState({versionHash, streamURI});
 
       new EluvioPlayer(
         element,
