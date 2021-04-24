@@ -175,6 +175,36 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     }
   }
 
+  &__error-container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px;
+    justify-content: center;
+    align-items: center;
+    background: #121111;
+    max-width: 500px;
+    position: absolute;
+
+    &__message {
+      color: $white;
+      font-size: 18px;
+      letter-spacing: 1.5px;
+      text-align: center;
+    }
+
+    &__reload-button {
+      margin-top: 20px;
+      background: transparent;
+      outline: 0;
+      color: $white;
+      border: 1px solid $white;
+      text-align: center;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+  }
+
   // Portrait
   @media only screen and (max-width: 900px) and (max-aspect-ratio: 12/9) {
     &-chat-hidden {
