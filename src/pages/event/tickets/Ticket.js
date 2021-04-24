@@ -29,10 +29,12 @@ class Ticket extends React.Component {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     return ticketClass.skus.map((ticketSku, index) => ({
       label: (
-        <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""}`}>
-          { ticketSku.external_url ? null : <div className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div> }
-          <div className="ticket-option-detail">{ ticketSku.label }</div>
-          <div className="ticket-option-detail">{ FormatDateString(ticketSku.start_time)}</div>
+        <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""} ${ticketSku.external_url && !ticketSku.start_time ? "ticket-option-external-no-date" : ""}`}>
+          {ticketSku.external_url ? null : <div
+            className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>}
+          <div className="ticket-option-detail">{ticketSku.label}</div>
+          {!ticketSku.start_time ? null :
+            <div className="ticket-option-detail">{FormatDateString(ticketSku.start_time)}</div>}
         </div>
       ),
       value: index

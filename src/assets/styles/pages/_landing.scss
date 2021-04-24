@@ -61,6 +61,15 @@
     margin: 20px auto 30px;
   }
 
+  &__event-header {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    margin: 30px auto;
+    text-align: center;
+    width: 100%;
+  }
+
   &__enter-event {
     @include page-fade-in;
     align-items: center;
