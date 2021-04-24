@@ -8,6 +8,8 @@ const EluvioConfiguration = {
   // Prod staging
   //"config-url": "https://main.net955305.contentfabric.io/config",
   //"live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
+
+  // Prod
   //"live-site-id": "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
 
   "version": "elv-live@main",

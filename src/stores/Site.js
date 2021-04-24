@@ -105,10 +105,6 @@ class SiteStore {
     return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
   }
 
-  @computed get eventActive() {
-    return this.currentSiteTicketSku && new Date(this.currentSiteTicketSku.start_time) < new Date();
-  }
-
   SitePath(...pathElements) {
     return UrlJoin(this.baseSitePath, ...pathElements);
   }
@@ -369,6 +365,22 @@ class SiteStore {
       console.error("Failed to load Facebook analytics");
       console.log(error);
     }
+
+    try {
+      if(analytics.adnxs_segment_id) {
+        const pixel = document.createElement("img");
+
+        pixel.setAttribute("width", "1");
+        pixel.setAttribute("height", "1");
+        pixel.style.display = "none";
+        pixel.setAttribute("src", `https://secure.adnxs.com/seg?add=${analytics.adnxs_segment_id}&t=2`);
+
+        document.body.appendChild(pixel);
+      }
+    } catch(error) {
+      console.error("Failed to load adnxs analytics");
+      console.log(error);
+    }
   }
 
   TrackPurchase(confirmationId, cartDetails) {
@@ -384,6 +396,19 @@ class SiteStore {
 
     if(analytics.facebook) {
       facebookHook("track", "Purchase", { value: 0});
+    }
+
+    if(analytics.adnxs_pixel_id && analytics.adnxs_segment_id) {
+      console.log("Traxx");
+
+      const pixel = document.createElement("img");
+
+      pixel.setAttribute("width", "1");
+      pixel.setAttribute("height", "1");
+      pixel.style.display = "none";
+      pixel.setAttribute("src", `https://secure.adnxs.com/px?id=${analytics.adnxs_pixel_id}&seg=${analytics.adnxs_segment_id}&order_id=${confirmationId}&t=2`);
+
+      document.body.appendChild(pixel);
     }
   }
 
@@ -443,11 +468,12 @@ class SiteStore {
   }
 
   @computed get sponsors() {
-    return (this.currentSiteInfo.sponsors || []).map(({name, link}, index) => {
+    return (this.currentSiteInfo.sponsors || []).map(({name, link, image, image_light}, index) => {
       return {
         name,
         link,
-        image_url: this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image"))
+        image_url: image ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image")) : "",
+        light_image_url: image_light ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image")) : ""
       }
     });
   }
