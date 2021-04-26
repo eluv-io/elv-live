@@ -16,6 +16,8 @@ class Success extends React.Component {
     if(this.props.cartStore.purchasedTicketStartDate) {
       try {
         const startDate = new Date(this.props.cartStore.purchasedTicketStartDate);
+        const endDate = this.props.cartStore.purchasedTicketEndDate ? new Date(this.props.cartStore.purchasedTicketEndDate) : undefined;
+
         const calendarData = this.props.siteStore.calendarEvent;
         calendarEvent = {
           title: calendarData.title,
@@ -23,7 +25,7 @@ class Success extends React.Component {
           location: calendarData.location,
           startTime: startDate,
           // End time just set to an hour from start
-          endTime: new Date(startDate.getTime() + 60 * 60 * 1000)
+          endTime: endDate || new Date(startDate.getTime() + 60 * 60 * 1000)
         };
       } catch(error) {
         console.error("Error determining calendar date");

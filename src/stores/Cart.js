@@ -45,6 +45,7 @@ class CartStore {
   @observable paymentServicePublicKeys = {};
 
   @observable purchasedTicketStartDate;
+  @observable purchasedTicketEndDate;
 
   @observable lastAdded;
 
@@ -508,12 +509,13 @@ class CartStore {
 
   SaveLocalStorage() {
     // Get the earliest purchased ticket date for the calendar widget
-    const earliestStartDate = this.CartDetails().tickets
-      .map(({ticketSku}) => ticketSku.start_time)
-      .sort()[0];
+    const earliestTicket = this.CartDetails().tickets
+      .map(({ticketSku}) => ticketSku)
+      .sort((a, b) => a.startTime < b.startTime ? -1 : 1)[0];
 
-    if(earliestStartDate) {
-      this.purchasedTicketStartDate = earliestStartDate;
+    if(earliestTicket) {
+      this.purchasedTicketStartDate = earliestTicket.start_time;
+      this.purchasedTicketEndDate = earliestTicket.end_time;
     }
 
     try {
@@ -526,7 +528,8 @@ class CartStore {
             merchandise: toJS(this.merchandise),
             donations: toJS(this.featuredDonations),
             email: this.email,
-            purchasedTicketStartDate: this.purchasedTicketStartDate
+            purchasedTicketStartDate: this.purchasedTicketStartDate,
+            purchasedTicketEndDate: this.purchasedTicketEndDate
           })
         )
       );
@@ -542,7 +545,7 @@ class CartStore {
     if(!data) { return; }
 
     try {
-      const { currency, tickets, merchandise, donations, email, purchasedTicketStartDate } = JSON.parse(atob(data));
+      const { currency, tickets, merchandise, donations, email, purchasedTicketStartDate, purchasedTicketEndDate } = JSON.parse(atob(data));
 
       this.currency = currency || this.currency;
       this.tickets = tickets || [];
@@ -550,6 +553,7 @@ class CartStore {
       this.featuredDonations = donations || {};
       this.email = email || "";
       this.purchasedTicketStartDate = purchasedTicketStartDate;
+      this.purchasedTicketEndDate = purchasedTicketEndDate;
     } catch(error) {
       console.error("Failed to load data from localstorage:");
       console.error(error);
