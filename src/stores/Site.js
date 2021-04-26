@@ -105,6 +105,23 @@ class SiteStore {
     return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
   }
 
+  @action.bound
+  ChatChannel() {
+    if(!this.chatChannel) {
+      const startTime = this.currentSiteTicketSku.start_time;
+
+      // Determine chat channel
+      const expectedAudienceSize = 10000;
+
+      const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
+      const roomNumber = Math.floor(Math.random() * maxRooms);
+
+      this.chatChannel = `${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`.replace(/[^a-zA-Z0-9\-]/g, "");
+    }
+
+    return this.chatChannel;
+  }
+
   SitePath(...pathElements) {
     return UrlJoin(this.baseSitePath, ...pathElements);
   }
@@ -262,14 +279,6 @@ class SiteStore {
 
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
-
-      // Determine chat channel
-      const expectedAudienceSize = 10000;
-
-      const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
-      const roomNumber = Math.floor(Math.random() * maxRooms);
-
-      this.chatChannel = `${this.siteSlug}-${roomNumber}-`;
 
       this.eventSites[tenantKey][siteSlug] = site;
 
