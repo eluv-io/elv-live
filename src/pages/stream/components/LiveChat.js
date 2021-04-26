@@ -38,31 +38,33 @@ class LiveChat extends React.Component {
     try {
       this.setState({loading: true});
 
+      const chatChannel = this.props.siteStore.ChatChannel();
+
       if(userName) {
         await this.state.chatClient.setGuestUser({
           id: userName.replace(/[^a-zA-Z0-9]/g, ""),
           name: userName
         });
 
-        const channel = await this.state.chatClient.channel("livestream", this.props.siteStore.chatChannel);
+        const channel = await this.state.chatClient.channel("livestream", chatChannel);
 
         this.setState({channel: undefined}, () => this.setState({channel, anonymous: false}));
         await this.state.anonymousChatClient.disconnectUser();
       } else {
         await this.state.anonymousChatClient.connectAnonymousUser();
 
-        const channelExists = (await this.state.anonymousChatClient.queryChannels({cid: `livestream:${this.props.siteStore.chatChannel}`})).length > 0;
+        const channelExists = (await this.state.anonymousChatClient.queryChannels({cid: `livestream:${chatChannel}`})).length > 0;
 
         if(!channelExists) {
           await this.state.chatClient.setGuestUser({id: "channelCreator", name: "channelCreator"});
 
-          const channel = await this.state.chatClient.channel("livestream", this.props.siteStore.chatChannel);
+          const channel = await this.state.chatClient.channel("livestream", chatChannel);
           await channel.create();
 
           await this.state.chatClient.disconnectUser();
         }
 
-        const channel = await this.state.anonymousChatClient.channel("livestream", this.props.siteStore.chatChannel);
+        const channel = await this.state.anonymousChatClient.channel("livestream", chatChannel);
 
         this.setState({channel, anonymous: true});
       }

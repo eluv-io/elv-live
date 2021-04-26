@@ -176,13 +176,13 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
   }
 
   &__error-container {
-    display: flex;
-    flex-direction: column;
-    padding: 25px 50px;
-    justify-content: center;
     align-items: center;
     background: #121111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     max-width: 500px;
+    padding: 25px 50px;
     position: absolute;
 
     &__message {
@@ -193,15 +193,15 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     }
 
     &__reload-button {
-      margin-top: 20px;
       background: transparent;
-      outline: 0;
-      color: $white;
       border: 1px solid $white;
-      text-align: center;
-      padding: 10px 20px;
-      cursor: pointer;
       border-radius: 3px;
+      color: $white;
+      cursor: pointer;
+      margin-top: 20px;
+      outline: 0;
+      padding: 10px 20px;
+      text-align: center;
     }
   }
 
