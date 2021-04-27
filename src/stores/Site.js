@@ -111,7 +111,7 @@ class SiteStore {
       const startTime = this.currentSiteTicketSku.start_time;
 
       // Determine chat channel
-      const expectedAudienceSize = 10000;
+      const expectedAudienceSize = CHAT_ROOM_SIZE;
 
       const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
       const roomNumber = Math.floor(Math.random() * maxRooms);
