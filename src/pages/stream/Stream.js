@@ -47,7 +47,7 @@ class Stream extends React.Component {
 
       this.setState({versionHash, streamURI});
 
-      new EluvioPlayer(
+      window.player = new EluvioPlayer(
         element,
         {
           clientOptions: {
@@ -61,7 +61,7 @@ class Stream extends React.Component {
             }
           },
           playerOptions: {
-            muted: true,
+            muted: EluvioPlayerParameters.muted.OFF,
             autoplay: EluvioPlayerParameters.autoplay.ON,
             controls: EluvioPlayerParameters.controls.AUTO_HIDE,
             watermark: EluvioPlayerParameters.watermark.OFF,
