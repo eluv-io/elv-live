@@ -26,6 +26,10 @@
     }
   }
 
+  .rta__autocomplete {
+    display: none!important;
+  }
+
   &__input-container {
     align-items: center;
     background-color: transparent;
@@ -133,6 +137,7 @@
 
     &__virtual-message__text {
       padding: 0 0 3px;
+      flex-direction: column;
     }
 
     &__virtual-message__author strong,
