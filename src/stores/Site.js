@@ -505,7 +505,7 @@ class SiteStore {
         name,
         link,
         image_url: image ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image")) : "",
-        light_image_url: image_light ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image")) : ""
+        light_image_url: image_light ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image_light")) : ""
       }
     });
   }
