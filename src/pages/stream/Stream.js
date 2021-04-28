@@ -19,6 +19,7 @@ class Stream extends React.Component {
     this.state = {
       key: 1,
       showChat: false,
+      chatOpened: false,
       initialized: false,
       versionHash: undefined,
       streamURI: undefined,
@@ -118,7 +119,10 @@ class Stream extends React.Component {
             <NavLink to={this.props.siteStore.baseSitePath} className="stream-page__header__logo">
               <ImageIcon icon={Logo} label="Eluvio Live" />
             </NavLink>
-            <button className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`} onClick={() => this.setState({showChat: !this.state.showChat})}>
+            <button
+              className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`}
+              onClick={() => this.setState({showChat: !this.state.showChat, chatOpened: true})}
+            >
               <ImageIcon icon={ChatIcon} label={this.state.showChat ? "hide" : "show"} />
             </button>
           </div>
@@ -154,7 +158,7 @@ class Stream extends React.Component {
           <div className="stream-page__chat-panel__header">
             <h2 className="stream-page__chat-panel__header-text">{ this.props.siteStore.streamPageInfo.header }</h2>
           </div>
-          <LiveChat />
+          { this.state.chatOpened ? <LiveChat /> : null }
         </div>
       </div>
     );

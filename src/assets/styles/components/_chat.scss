@@ -27,7 +27,7 @@
   }
 
   .rta__autocomplete {
-    display: none!important;
+    display: none !important;
   }
 
   &__input-container {
@@ -136,8 +136,8 @@
     }
 
     &__virtual-message__text {
-      padding: 0 0 3px;
       flex-direction: column;
+      padding: 0 0 3px;
     }
 
     &__virtual-message__author strong,
