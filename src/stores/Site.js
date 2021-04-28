@@ -346,7 +346,7 @@ class SiteStore {
     this.showCheckout = false;
   }
 
-  async InitializeAnalytics() {
+  InitializeAnalytics() {
     const analytics = this.currentSiteInfo.analytics || {};
 
     try {
@@ -363,6 +363,17 @@ class SiteStore {
         gtag("config", analytics.google);
 
         window.ac[`${this.siteSlug}-g`] = gtag;
+      }
+
+      if(analytics.google_tag_manager_id) {
+        ((w,d,s,l,i) => {
+          w[l]=w[l]||[];
+          w[l].push({"gtm.start": new Date().getTime(),event:"gtm.js"});
+          var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!=="dataLayer"?"&l="+l:"";
+          j.async=true;
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+          f.parentNode.insertBefore(j,f);
+        })(window, document, "script", "dataLayer", analytics.google_tag_manager_id);
       }
     } catch(error) {
       console.error("Failed to load Google Analytics:");
@@ -422,8 +433,6 @@ class SiteStore {
     }
 
     if(analytics.adnxs_pixel_id && analytics.adnxs_segment_id) {
-      console.log("Traxx");
-
       const pixel = document.createElement("img");
 
       pixel.setAttribute("width", "1");
