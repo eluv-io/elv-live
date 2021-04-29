@@ -48,7 +48,7 @@ class Stream extends React.Component {
 
       this.setState({versionHash, streamURI});
 
-      window.player = new EluvioPlayer(
+      const player = new EluvioPlayer(
         element,
         {
           clientOptions: {
@@ -67,7 +67,10 @@ class Stream extends React.Component {
             controls: EluvioPlayerParameters.controls.AUTO_HIDE,
             watermark: EluvioPlayerParameters.watermark.OFF,
             errorCallback: () => {
-              setTimeout(() => this.setState({initialized: false, key: this.state.key + 1}), 5000);
+              setTimeout(() => {
+                this.state.player && this.state.player.Destroy();
+                this.setState({initialized: false, key: this.state.key + 1, player: undefined});
+              }, 5000);
             },
             restartCallback: async () => {
               // Player wants to restart because of errors - check if the main site has been updated since playback has started
@@ -76,12 +79,14 @@ class Stream extends React.Component {
               const latestHash = await this.props.siteStore.StreamHash();
 
               if(!client.utils.EqualHash(this.state.versionHash, latestHash)) {
+                this.state.player && this.state.player.Destroy();
+
                 this.setState({
+                  player: undefined,
                   initialized: false,
                   key: this.state.key + 1
                 });
 
-                // Tell player to abort
                 return true;
               }
 
@@ -90,6 +95,9 @@ class Stream extends React.Component {
           }
         }
       );
+
+      this.setState({player});
+      window.player = player;
     } catch(error) {
       console.error(error);
 
