@@ -422,11 +422,20 @@ class SiteStore {
     const facebookHook = window.ac[`${this.siteSlug}-f`];
 
     if(googleHook && analytics.google_conversion_id && analytics.google_conversion_label) {
-      googleHook("event", "conversion", { "send_to": `${analytics.google_conversion_id}/${analytics.google_conversion_label}`});
+      googleHook(
+        "event",
+        "conversion",
+        {
+          send_to: `${analytics.google_conversion_id}/${analytics.google_conversion_label}`,
+          value: cartDetails.total,
+          currency: this.rootStore.cartStore.currency,
+          transaction_id: confirmationId
+        }
+      );
     }
 
     if(analytics.facebook) {
-      facebookHook("track", "Purchase", { value: 0});
+      facebookHook("track", "Purchase", { currency: this.rootStore.cartStore.currency, value: cartDetails.total });
     }
 
     if(analytics.adnxs_pixel_id && analytics.adnxs_segment_id) {
@@ -435,7 +444,7 @@ class SiteStore {
       pixel.setAttribute("width", "1");
       pixel.setAttribute("height", "1");
       pixel.style.display = "none";
-      pixel.setAttribute("src", `https://secure.adnxs.com/px?id=${analytics.adnxs_pixel_id}&seg=${analytics.adnxs_segment_id}&order_id=${confirmationId}&t=2`);
+      pixel.setAttribute("src", `https://secure.adnxs.com/px?id=${analytics.adnxs_pixel_id}&seg=${analytics.adnxs_segment_id}&order_id=${confirmationId}&value=${cartDetails.total}&t=2`);
 
       document.body.appendChild(pixel);
     }
