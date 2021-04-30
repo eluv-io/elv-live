@@ -116,7 +116,10 @@ class SiteStore {
       const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
       const roomNumber = Math.floor(Math.random() * maxRooms);
 
-      this.chatChannel = `${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`.replace(/[^a-zA-Z0-9\-]/g, "");
+      this.chatChannel =
+        `${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`
+          .replace(/[^a-zA-Z0-9\-]/g, "")
+          .slice(0, 63);
     }
 
     return this.chatChannel;
