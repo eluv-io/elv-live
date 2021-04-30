@@ -8,7 +8,7 @@
   "scripts": {
     "bump-version": "npm --git-tag-version --no-commit-hooks version patch",
     "serve": "webpack-dev-server --hot --port 8086 --host=0.0.0.0 --disable-host-check --useLocalIp",
-    "build": "rm -rf dist/* && NODE_ENV=production node ./node_modules/webpack-cli/bin/cli.js -p --progress --colors --devtool none",
+    "build": "rm -rf dist/* && NODE_ENV=production node ./node_modules/webpack-cli/bin/cli.js -p --colors --devtool none",
     "build-analyze": "rm -rf dist/* && NODE_ENV=production ANALYZE_BUNDLE=true node ./node_modules/webpack-cli/bin/cli.js -p --progress --colors --devtool none",
     "add-build": "git add dist",
     "lint-js": "eslint \"src/**/*.js\"",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@eluvio/elv-client-js": "^3.1.50",
-    "@eluvio/elv-player-js": "^1.0.30",
+    "@eluvio/elv-player-js": "^1.0.31",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@paypal/react-paypal-js": "^4.0.2",
