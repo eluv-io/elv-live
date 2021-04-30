@@ -448,6 +448,17 @@ class SiteStore {
 
       document.body.appendChild(pixel);
     }
+
+    if(analytics.tradedoubler_organization_id && analytics.tradedoubler_event_id) {
+      const pixel = document.createElement("img");
+
+      pixel.setAttribute("width", "1");
+      pixel.setAttribute("height", "1");
+      pixel.style.display = "none";
+      pixel.setAttribute("src", `https://tbs.tradedoubler.com/report?organization=${analytics.tradedoubler_organization_id}&event=${analytics.tradedoubler_event_id}&orderNumber=${confirmationId}&orderValue=${cartDetails.total}`);
+
+      document.body.appendChild(pixel);
+    }
   }
 
   /* Site attributes */
