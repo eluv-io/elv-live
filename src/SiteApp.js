@@ -37,10 +37,6 @@ class SiteApp extends React.Component {
   }
 
   async componentDidMount() {
-    if(window.location.hostname === "live-stg-eluv-io.web.app" && window.location.pathname.includes("bayfront-jazz-festival")) {
-      window.location = window.location.href.replace("live-stg-eluv-io.web.app", "live.eluv.io");
-    }
-
     this.InitializeZendeskWidget();
 
     await this.props.rootStore.InitializeClient();
