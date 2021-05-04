@@ -32,6 +32,10 @@ class FeaturedEvents extends React.Component {
   Event(site, index) {
     if(!site) { return; }
 
+    const accessible = typeof site.info.state === "undefined"
+      ? site.info.accessible :
+      site.info.state !== "Live Ended";
+
     const header = site.info.event_info.event_header;
     const date = site.info.event_info.date;
     return (
@@ -54,7 +58,7 @@ class FeaturedEvents extends React.Component {
               "Event Streaming Soon"
           }
           {
-            site.info.accessible ?
+            accessible ?
               <a href={`/${site.siteSlug}`} className="featured-event__event-link">
                 Buy Tickets
               </a> : null

@@ -23,6 +23,10 @@ class EventTabs extends React.Component {
   Content() {
     switch(this.state.tab) {
       case "event":
+        if(this.props.siteStore.currentSiteInfo.state === "Live Ended") {
+          return null;
+        }
+
         return (
           <div className={"overview-container"} id="overview-container">
             <EventDescriptions />
@@ -57,12 +61,13 @@ class EventTabs extends React.Component {
   }
 
   Tabs() {
-    if(this.props.siteStore.Merchandise().length === 0) { return; }
+    const ticketsAvailable = this.props.siteStore.currentSiteInfo.state !== "Live Ended";
+    const merchAvailable = this.props.siteStore.Merchandise().length > 0;
 
     return (
       <div className="event-tabs">
-        { this.Tab("event", <InfoIcon />) }
-        { this.Tab("merch", <ShoppingCartIcon />) }
+        { ticketsAvailable ? this.Tab("event", <InfoIcon />) : null }
+        { merchAvailable ? this.Tab("merch", <ShoppingCartIcon />) : null }
       </div>
     );
   }
