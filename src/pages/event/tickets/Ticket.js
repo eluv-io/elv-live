@@ -2,8 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Select from "react-select";
 import {FormatDateString} from "Utils/Misc";
-import TicketDetails from "Event/tickets/TicketDetails";
-import Modal from "Common/Modal";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -140,15 +138,6 @@ class Ticket extends React.Component {
             </div>
           </div>
         </div>
-        {
-          this.props.cartStore.showTicketOverlay &&
-          this.props.ticketClassUUID === this.props.cartStore.ticketOverlayOptions.ticketClassUUID ?
-            <Modal
-              Toggle={this.props.cartStore.ToggleTicketOverlay}
-              content={<TicketDetails />}
-            /> : null
-        }
-
       </React.Fragment>
     );
   }
