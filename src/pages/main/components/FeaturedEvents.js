@@ -52,11 +52,10 @@ class FeaturedEvents extends React.Component {
         </div>
         <div className="featured-event__details">
           <h2 className="featured-event__header">{ header }</h2>
-          {
-            date ?
-              <h3 className="featured-event__subheader">{ date }</h3> :
-              "Event Streaming Soon"
-          }
+
+          <h3 className="featured-event__subheader">
+            { date ? date : "Streaming Soon" }
+          </h3>
           {
             accessible ?
               <a href={`/${site.siteSlug}`} className="featured-event__event-link">
