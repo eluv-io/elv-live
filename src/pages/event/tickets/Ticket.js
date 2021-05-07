@@ -11,8 +11,10 @@ class Ticket extends React.Component {
   constructor(props) {
     super(props);
 
+    const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
+
     this.state = {
-      selectedSku: 0,
+      selectedSku: ticketClass.skus.findIndex(sku => !sku.hidden),
       quantity: 1
     };
 
@@ -25,18 +27,20 @@ class Ticket extends React.Component {
 
   TicketOptions() {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
-    return ticketClass.skus.map((ticketSku, index) => ({
-      label: (
-        <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""} ${ticketSku.external_url && !ticketSku.start_time ? "ticket-option-external-no-date" : ""}`}>
-          {ticketSku.external_url ? null : <div
-            className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>}
-          <div className="ticket-option-detail">{ticketSku.label}</div>
-          {!ticketSku.start_time ? null :
-            <div className="ticket-option-detail">{FormatDateString(ticketSku.start_time)}</div>}
-        </div>
-      ),
-      value: index
-    }));
+    return ticketClass.skus
+      .filter(ticketSku => !ticketSku.hidden)
+      .map((ticketSku, index) => ({
+        label: (
+          <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""} ${ticketSku.external_url && !ticketSku.start_time ? "ticket-option-external-no-date" : ""}`}>
+            {ticketSku.external_url ? null : <div
+              className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>}
+            <div className="ticket-option-detail">{ticketSku.label}</div>
+            {!ticketSku.start_time ? null :
+              <div className="ticket-option-detail">{FormatDateString(ticketSku.start_time)}</div>}
+          </div>
+        ),
+        value: index
+      }));
   }
 
   Controls(ticketClass, ticketSku) {
@@ -94,6 +98,9 @@ class Ticket extends React.Component {
   render() {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     const ticketSku = ticketClass.skus[this.state.selectedSku];
+
+    // If no SKUs are visible, hide ticket class
+    if(!ticketClass.skus.find(sku => !sku.hidden)) { return null; }
 
     return (
       <React.Fragment>

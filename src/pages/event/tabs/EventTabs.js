@@ -32,11 +32,13 @@ class EventTabs extends React.Component {
             <EventDescriptions />
             <div className="ticket-group">
               {
-                this.props.siteStore.ticketClasses.map(ticketClass =>
-                  <ErrorBoundary hideOnError key={`ticket-class-${ticketClass.uuid}`} >
-                    <Ticket ticketClassUUID={ticketClass.uuid} />
-                  </ErrorBoundary>
-                )
+                this.props.siteStore.ticketClasses
+                  .filter(ticketClass => !ticketClass.hidden)
+                  .map(ticketClass =>
+                    <ErrorBoundary hideOnError key={`ticket-class-${ticketClass.uuid}`} >
+                      <Ticket ticketClassUUID={ticketClass.uuid} />
+                    </ErrorBoundary>
+                  )
               }
             </div>
           </div>
