@@ -53,7 +53,12 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
                   preloadHero: true
                 });
 
-                InitializeEventData(this.props.siteStore);
+                try {
+                  InitializeEventData(this.props.siteStore);
+                } catch(error) {
+                  console.error("Failed to initialize structured event data:");
+                  console.error(error);
+                }
 
                 document.title = `${this.props.siteStore.eventInfo.event_title} | Eluvio Live`;
 
