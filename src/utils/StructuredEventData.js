@@ -58,7 +58,7 @@ const InitializeEventData = siteStore => {
     "@type": "Event",
     name: searchInfo.name || eventInfo.event_title,
     description: searchInfo.description || eventInfo.description,
-    startDate: new Date(earliestDate).toISOString(),
+    startDate: earliestDate ? new Date(earliestDate).toISOString() : "",
     eventAttendanceMode: searchInfo.type === "Online and In-Person" ? "https://schema.org/MixedEventAttendanceMode" : "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     location: [
