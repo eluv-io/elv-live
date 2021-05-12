@@ -30,6 +30,36 @@ main:
     subheader: Seamlessly repurpose and redistribute all of your content
     text: All live content is automatically recorded and reusable on demand. Create and sell authenticated "digital exclusives" (NFTs) minted on the platform's blockchain. Continuously refashion content and merchandise to fit for new events, creative collaborations, sponsorships, availability windows, or new audiences.
 cards:
+  collections:
+    border_color: 0085FF
+    sections:
+      0:
+        header: What is a crypto wallet?
+        copy: |
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum enim facilisis gravida neque convallis a cras semper auctor. Neque gravida in fermentum et sollicitudin ac. Nunc scelerisque viverra mauris in aliquam sem fringilla ut. Auctor eu augue ut lectus.
+
+          Et leo duis ut diam quam nulla porttitor massa. Iaculis at erat pellentesque adipiscing commodo elit. Vitae sapien pellentesque habitant morbi. Tellus in hac habitasse platea. Volutpat ac tincidunt vitae semper quis lectus nulla at volutpat. Ut venenatis tellus in metus vulputate eu. Pulvinar elementum integer enim neque.
+
+          Non diam phasellus vestibulum lorem sed risus. Dolor magna eget est lorem. Ut morbi tincidunt augue interdum velit euismod. Eget magna fermentum iaculis eu non.
+
+          Fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Dictum at tempor commodo ullamcorper a. Suscipit tellus mauris a diam. Nibh mauris cursus mattis molestie a iaculis at erat. Odio euismod lacinia at quis risus sed vulputate. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci.
+      1:
+        header: Is it safe?
+        copy: |
+          Felis imperdiet proin fermentum leo vel orci. Sit amet mauris commodo quis imperdiet massa tincidunt. Risus nec feugiat in fermentum posuere.
+
+          Purus semper eget duis at tellus at urna condimentum mattis. Augue ut lectus arcu bibendum at varius vel. Ut pharetra sit amet aliquam id.
+      2:
+        header: What else do I need to know?
+        copy: |
+          Tortor id aliquet lectus proin nibh nisl condimentum. Fringilla ut morbi tincidunt augue. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue.
+
+          Neque gravida in fermentum et sollicitudin ac orci. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Odio tempor orci dapibus ultrices in iaculis nunc. Nunc sed velit dignissim sodales. Sit amet porttitor eget dolor.
+      3:
+        header: How can I learn more?
+        copy: |
+          Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Porttitor massa id neque aliquam vestibulum morbi blandit. Eu non diam phasellus vestibulum lorem sed risus. Dapibus ultrices in iaculis nunc sed augue.
+
   beautiful_quality:
     border_color: 000000
     sections:

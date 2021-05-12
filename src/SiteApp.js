@@ -20,6 +20,7 @@ const Success = MinLoadDelay(import("Confirmation/Success"));
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
+import Collection from "Pages/collections/Collection";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -51,6 +52,8 @@ class SiteApp extends React.Component {
 
     return (
       <Switch>
+        <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
+
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:id" component={SitePage(Success)} />

@@ -210,9 +210,11 @@ class SiteStore {
       this.tenants[slug] = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
-        resolveLinks: false,
+        resolveLinks: true,
+        linkDepthLimit: 0,
         select: [
-          "sites"
+          "sites",
+          "collections"
         ]
       })) || {};
 
