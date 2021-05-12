@@ -228,73 +228,80 @@ class Collection extends React.Component {
     const collection = this.Collection();
 
     return (
+      <div className="collection__content" hidden={!this.state.codeRedeemed} key={`collection-page-${this.state.codeRedeemed}`}>
+        {
+          collection.logoImage ?
+            <img src={collection.logoImage} alt="Logo" className="collection__content__logo" /> : null
+        }
+        <h1 className="collection__content__header">{ collection.info.header }</h1>
+        <div className="collection__content__description">{ collection.info.description }</div>
+        <div className="collection__content__items">
+          {(collection.items || []).map((item, index) =>
+            <Item
+              key={`item-${index}`}
+              className="collection__content__item"
+              client={this.props.collectionStore.client}
+              socialDetails={{
+                title: collection.info.header,
+                description: collection.info.description
+              }}
+              item={item}
+            />
+          )}
+        </div>
+        <div className="collection__content__bottom-content">
+          <div className="collection__content__bottom-content__text">
+            { collection.info.footer_text }
+          </div>
+          <button
+            className="collection__content__bottom-content__learn-more collection__button"
+            onClick={() => this.ToggleModal(
+              <Modal Toggle={() => this.ToggleModal(null)}>
+                <CardModal copyKey="collections" images={{collections: [{url: "", title: "Wallet"}]}} />
+              </Modal>
+            )}
+          >
+            Learn More
+          </button>
+        </div>
+        <div className="collection__content__transfer">
+          <button
+            className="collection__content__transfer__button collection__button"
+            onClick={() => this.ToggleModal(
+              <Modal Toggle={() => this.ToggleModal(null)} className="collection__transfer-modal" >
+                <TransferForm className="collection" />
+              </Modal>
+            )}
+          >
+            Transfer my NFT to Ethereum MainNet
+          </button>
+        </div>
+        <div className="collection__content__footer">
+          <div className="collection__content__footer__border" />
+          <div className="collection__content__footer__message">
+            Powered By <ImageIcon icon={EluvioLogo} label="ELUV.IO" className="collection__content__footer__message__image" />
+          </div>
+          <div className="collection__content__footer__links">
+            <a href="/" target="_blank" className="collection__content__footer__link">Contact Us</a>
+            <a href="/" target="_blank" className="collection__content__footer__link">Support</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  Page() {
+    const collection = this.Collection();
+
+    return (
       <div
         className={`page-content collection ${this.state.codeRedeemed ? "collection-redeemed" : ""}`}
         style={{
           background: collection.backgroundImage ? `url(${collection.backgroundImage})` : ""
         }}
       >
-        { this.state.codeRedeemed ? null : this.RedeemForm() }
+        { this.state.codeRedeemed ? this.Content() : this.RedeemForm() }
         { this.state.modal }
-        <div className="collection__content" hidden={!this.state.codeRedeemed} key={`collection-page-${this.state.codeRedeemed}`}>
-          {
-            collection.logoImage ?
-              <img src={collection.logoImage} alt="Logo" className="collection__content__logo" /> : null
-          }
-          <h1 className="collection__content__header">{ collection.info.header }</h1>
-          <div className="collection__content__description">{ collection.info.description }</div>
-          <div className="collection__content__items">
-            {(collection.items || []).map((item, index) =>
-              <Item
-                key={`item-${index}`}
-                className="collection__content__item"
-                client={this.props.collectionStore.client}
-                socialDetails={{
-                  title: collection.info.header,
-                  description: collection.info.description
-                }}
-                item={item}
-              />
-            )}
-          </div>
-          <div className="collection__content__bottom-content">
-            <div className="collection__content__bottom-content__text">
-              { collection.info.footer_text }
-            </div>
-            <button
-              className="collection__content__bottom-content__learn-more collection__button"
-              onClick={() => this.ToggleModal(
-                <Modal Toggle={() => this.ToggleModal(null)}>
-                  <CardModal copyKey="collections" images={{collections: [{url: "", title: "Wallet"}]}} />
-                </Modal>
-              )}
-            >
-              Learn More
-            </button>
-          </div>
-          <div className="collection__content__transfer">
-            <button
-              className="collection__content__transfer__button collection__button"
-              onClick={() => this.ToggleModal(
-                <Modal Toggle={() => this.ToggleModal(null)} className="collection__transfer-modal" >
-                  <TransferForm className="collection" />
-                </Modal>
-              )}
-            >
-              Transfer my NFT to Ethereum MainNet
-            </button>
-          </div>
-          <div className="collection__content__footer">
-            <div className="collection__content__footer__border" />
-            <div className="collection__content__footer__message">
-              Powered By <ImageIcon icon={EluvioLogo} label="ELUV.IO" className="collection__content__footer__message__image" />
-            </div>
-            <div className="collection__content__footer__links">
-              <a href="/" target="_blank" className="collection__content__footer__link">Contact Us</a>
-              <a href="/" target="_blank" className="collection__content__footer__link">Support</a>
-            </div>
-          </div>
-        </div>
       </div>
     );
   }
@@ -320,7 +327,7 @@ class Collection extends React.Component {
         >
           {
             (this.props.collectionStore.collections[tenantSlug] || {})[collectionSlug] ?
-              this.Content() :
+              this.Page() :
               <Redirect to="/" />
           }
         </AsyncComponent>
