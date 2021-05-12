@@ -2,12 +2,12 @@
 
 const EluvioConfiguration = {
   // Demo staging
-  //"config-url": "https://demov3.net955210.contentfabric.io/config",
-  //"live-site-id": "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
+  "config-url": "https://demov3.net955210.contentfabric.io/config",
+  "live-site-id": "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
 
   // Prod staging
-  "config-url": "https://main.net955305.contentfabric.io/config",
-  "live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
+  //"config-url": "https://main.net955305.contentfabric.io/config",
+  //"live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
 
   // Prod
   //"live-site-id": "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
