@@ -424,20 +424,17 @@ $border-color: #252525;
         }
       }
     }
-  }
 
-  &__transfer-terms,
-  &__transfer-form {
-    height: 100vh;
-    left: 0;
-    max-height: 100%;
-    padding: 20px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
+    &__transfer-terms,
+    &__transfer-form {
+      height: 100vh;
+      max-height: 100%;
+      padding: 20px;
+      width: 100%;
+    }
 
-  &__transfer-form {
-    justify-content: center;
+    &__transfer-form {
+      justify-content: center;
+    }
   }
 }
