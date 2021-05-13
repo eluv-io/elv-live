@@ -1,12 +1,41 @@
 import {observable, action, flow, computed} from "mobx";
 import UrlJoin from "url-join";
 import URI from "urijs";
+import EluvioConfiguration from "../../configuration";
 
 class CollectionStore {
   @observable collections = {};
 
   @computed get client() {
     return this.rootStore.client;
+  }
+
+  EmbedURL({tenantSlug, collectionSlug, item}) {
+    const collection = this.collections[tenantSlug][collectionSlug];
+
+    const network = EluvioConfiguration["config-url"].includes("demov3") ? "demo" : "main";
+
+    const embedUrl = URI("https://embed.v3.contentfabric.io")
+      .query({
+        network,
+        p: null,
+        dk: null,
+        sh: null,
+        st: null,
+        ap: null,
+        ct: "h",
+        ten: collection.info.access.tenant_id,
+        ntp: collection.info.access.ntp_id,
+        sbj: collection.subject,
+        vid: item["."].source,
+        data: btoa(JSON.stringify({
+          meta_tags: {
+            "og:title": item.display_title || item.title
+          }
+        }))
+      });
+
+    return embedUrl.toString();
   }
 
   constructor(rootStore) {
@@ -37,13 +66,45 @@ class CollectionStore {
     }
   });
 
-  LoadCollectionItems = flow(function * (tenantSlug, collectionSlug) {
+  RedeemCode = flow(function * ({tenantSlug, collectionSlug, subject, code}) {
+    const collection = this.collections[tenantSlug][collectionSlug];
+
+    yield this.client.RedeemCode({
+      tenantId: collection.info.access.tenant_id,
+      ntpId: collection.info.access.ntp_id,
+      email: subject,
+      code: code
+    });
+
+    this.collections[tenantSlug][collectionSlug].subject = subject;
+    this.collections[tenantSlug][collectionSlug].code = code;
+
     this.collections[tenantSlug][collectionSlug].items = ((yield this.client.ContentObjectMetadata({
       ...this.rootStore.siteStore.siteParams,
       metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", tenantSlug, "collections", collectionSlug, "items"),
       resolveLinks: true,
       resolveIncludeSource: true
-    })) || []).filter(item => item && item["."] && item["."].source);
+    })) || [])
+      .filter(item => item && item["."] && item["."].source)
+      .map(item => {
+        item.embedUrl = this.EmbedURL({tenantSlug, collectionSlug, item});
+        return item;
+      });
+  });
+
+  TransferNFT = flow(function * ({tenantSlug, collectionSlug, ethereumAddress, email}) {
+    const collection = this.collections[tenantSlug][collectionSlug];
+
+    return yield (yield this.client.authClient.MakeAuthServiceRequest({
+      method: "POST",
+      path: UrlJoin("as", "otp", "nft", collection.info.access.tenant_id, collection.info.access.ntp_id),
+      body: {
+        _PASSWORD: collection.code,
+        _EMAIL: collection.subject,
+        _NFT_EMAIL: email,
+        _ETH_ADDR: ethereumAddress
+      }
+    })).json();
   });
 
   CollectionURL(tenantSlug, collectionSlug, path="/") {

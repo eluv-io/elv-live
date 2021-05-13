@@ -94,6 +94,11 @@ $border-color: #252525;
         padding: 0 10px;
         text-align: center;
         width: 100%;
+
+        &::placeholder {
+          font-weight: 400;
+          text-transform: capitalize;
+        }
       }
 
       &__submit {
@@ -131,7 +136,7 @@ $border-color: #252525;
       font-size: 36px;
       font-weight: 400;
       letter-spacing: 0.1em;
-      margin: 10px auto;
+      margin: 10px 130px;
       max-width: 600px;
       text-align: center;
       text-transform: uppercase;
@@ -139,6 +144,7 @@ $border-color: #252525;
 
     &__description {
       font-size: 20px;
+      margin: 0 130px;
       text-align: center;
     }
 
@@ -183,6 +189,7 @@ $border-color: #252525;
         }
 
         &__button {
+          cursor: pointer;
           height: 23px;
           width: 23px;
 
@@ -222,13 +229,15 @@ $border-color: #252525;
     &__transfer {
       display: flex;
       justify-content: flex-end;
+      margin-top: 30px;
       width: 100%;
 
       &__button {
         background: transparent;
         border: 1px solid $black;
         color: $black;
-        font-size: 12px;
+        font-size: 10px;
+        padding: 0 10px;
       }
     }
 
@@ -279,6 +288,8 @@ $border-color: #252525;
     overflow: hidden;
 
     .modal__content {
+      align-items: center;
+      display: flex;
       overflow: hidden;
       width: 600px;
     }
@@ -297,6 +308,13 @@ $border-color: #252525;
     &__header {
       font-size: 24px;
       font-weight: 400;
+      text-align: center;
+    }
+
+    &__error {
+      color: darkred;
+      font-size: 20px;
+      margin-bottom: 20px;
       text-align: center;
     }
 
@@ -341,6 +359,10 @@ $border-color: #252525;
     &__submit {
       margin: 25px auto;
       width: 155px;
+
+      &:disabled {
+        color: #999;
+      }
     }
 
     &__terms-button {
@@ -357,6 +379,29 @@ $border-color: #252525;
       &:hover {
         color: $black;
       }
+    }
+  }
+
+  &__transfer-confirmation {
+    padding: 40px 30px;
+
+    &__header {
+      margin-bottom: 20px;
+    }
+
+    &__message {
+      font-size: 20px;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    &__confirmation {
+      background: white;
+      border-radius: 11px;
+      box-shadow: 0 4px 80px rgba(0, 0, 0, 0.07);
+      font-size: 20px;
+      margin: 15px auto 0;
+      padding: 15px 50px;
     }
   }
 
@@ -380,7 +425,7 @@ $border-color: #252525;
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 1000px) {
     padding: 40px 0;
 
     &__content {
@@ -397,8 +442,13 @@ $border-color: #252525;
       }
 
       &__header {
-        font-size: 32px;
+        font-size: 28px;
+        margin: 10px 0;
         max-width: 100%;
+      }
+
+      &__description {
+        margin: 0;
       }
 
       &__item {
