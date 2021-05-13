@@ -1,5 +1,4 @@
 import React, {Suspense, useState} from "react";
-import UrlJoin from "url-join";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import {PageLoader} from "Common/Loaders";
 import AsyncComponent from "Common/AsyncComponent";
@@ -8,6 +7,8 @@ import {Redirect, withRouter} from "react-router";
 import ImageIcon from "Common/ImageIcon";
 import Modal from "Common/Modal";
 import CardModal from "Pages/main/components/CardModal";
+
+import LinkIcon from "Assets/icons/link.svg";
 
 import {
   FacebookShareButton,
@@ -22,6 +23,7 @@ import {
 } from "react-icons/fa";
 
 import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
+import {Copy} from "Utils/Misc";
 
 const Item = ({client, item, socialDetails={}, className}) => {
   const [player, setPlayer] = useState(undefined);
@@ -59,19 +61,40 @@ const Item = ({client, item, socialDetails={}, className}) => {
       />
       <div className={`${className}__social-buttons`}>
         <div className={`${className}__social-buttons__text`}>Share NFT on Social</div>
-        <FacebookShareButton url={window.location.href.toString()} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaFacebookSquare/></FacebookShareButton>
-        <TwitterShareButton url={window.location.href.toString()} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaTwitter/></TwitterShareButton>
-        <LinkedinShareButton url={window.location.href.toString()} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaLinkedin/></LinkedinShareButton>
+        <div className={`${className}__social-buttons__button`} onClick={() => Copy(item.embedUrl)}>
+          <ImageIcon icon={LinkIcon} title="Copy Link to NFT" />
+        </div>
+        <FacebookShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaFacebookSquare/></FacebookShareButton>
+        <TwitterShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaTwitter/></TwitterShareButton>
+        <LinkedinShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaLinkedin/></LinkedinShareButton>
       </div>
     </div>
   );
 };
 
-const TransferForm = ({className}) => {
+const TransferForm = ({className, Submit}) => {
   const [address, setAddress] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
   const [email, setEmail] = useState("");
   const [showTerms, setShowTerms] = useState(false);
+  const [confirmation, setConfirmation] = useState(undefined);
+  const [error, setError] = useState(undefined);
+
+  if(confirmation) {
+    return (
+      <div className={`${className}__transfer-confirmation ${className}__transfer-form`}>
+        <h2 className={`${className}__transfer-confirmation__header ${className}__transfer-form__header`}>
+          Transfer Request Confirmed!
+        </h2>
+        <div className={`${className}__transfer-confirmation__message`}>
+          If you requested email notification you will receive a message when your transaction completes.
+        </div>
+        <div className={`${className}__transfer-confirmation__confirmation`}>
+          Confirmation: { confirmation }
+        </div>
+      </div>
+    );
+  }
 
   if(showTerms) {
     return (
@@ -91,7 +114,21 @@ Tellus integer feugiat scelerisque varius morbi enim. Magna fringilla urna portt
   }
 
   return (
-    <form className={`${className}__transfer-form`} onSubmit={event => { event.preventDefault(); }}>
+    <form
+      className={`${className}__transfer-form`}
+      onSubmit={async event => {
+        event.preventDefault();
+        setError(undefined);
+        try {
+          const { uuid } = await Submit({ethereumAddress: address, email: sendEmail ? email : ""});
+          setConfirmation(uuid);
+        } catch(error) {
+          console.error(error);
+          setError(error);
+        }
+      }}
+    >
+      { error ? <div className={`${className}__transfer-form__error`}>Transfer Failed</div> : null }
       <h2 className={`${className}__transfer-form__header`}>Transfer your NFT</h2>
       <div className={`${className}__transfer-form__text`}>Copy and paste your mainnet address.</div>
       <input
@@ -109,9 +146,15 @@ Tellus integer feugiat scelerisque varius morbi enim. Magna fringilla urna portt
       </div>
       {
         !sendEmail ? null :
-          <input placeholder="Email Address (optional)" className={`${className}__transfer-form__input`} value={email} onChange={event => setEmail(event.target.value)} />
+          <input placeholder="Email Address" className={`${className}__transfer-form__input`} value={email} onChange={event => setEmail(event.target.value)} />
       }
-      <button className={`${className}__transfer-form__submit collection__button`} type="submit">Transfer</button>
+      <button
+        className={`${className}__transfer-form__submit collection__button`}
+        type="submit"
+        disabled={!address || sendEmail && !email}
+      >
+        Transfer
+      </button>
       <button className={`${className}__transfer-form__terms-button`} onClick={() => setShowTerms(true)}>Transfer Terms</button>
     </form>
   );
@@ -125,8 +168,12 @@ class Collection extends React.Component {
   constructor(props) {
     super(props);
 
+    const urlParams = new URLSearchParams(window.location.search);
+
     this.state = {
-      code: "",
+      initialSubject: urlParams.has("sbj"),
+      subject: urlParams.get("sbj") || "",
+      code: urlParams.get("code") || "",
       redeemError: "",
       codeRedeemed: false,
       redeeming: false,
@@ -145,47 +192,16 @@ class Collection extends React.Component {
     this.setState({modal});
   }
 
-  async LoadItems() {
-    const itemMetadata = await this.state.client.ContentObjectMetadata({
-      versionHash: this.state.versionHash,
-      metadataSubtree: UrlJoin(this.state.params.linkPath || "public/asset_metadata", "items"),
-      resolveLinks: true,
-      resolveIncludeSource: true
-    });
-
-    this.setState({
-      items: (itemMetadata.map(item => {
-        if(!item || !item["."] || !item["."].source) { return; }
-
-        return {
-          versionHash: item["."].source,
-          display_title: item.display_title,
-          title: item.title
-        };
-      })).filter(item => item)
-    });
-  }
-
-  async RedeemCode(event) {
-    event.preventDefault();
-
+  async RedeemCode() {
     try {
       this.setState({redeeming: true, redeemError: ""});
 
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      /*
-      await this.state.client.RedeemCode({
-        tenantId: this.state.params.tenantId,
-        ntpId: this.state.params.ntpId,
-        email: this.state.params.ticketSubject,
+      await this.props.collectionStore.RedeemCode({
+        tenantSlug: this.props.match.params.tenantSlug,
+        collectionSlug: this.props.match.params.collectionSlug,
+        subject: this.state.subject,
         code: this.state.code
       });
-
-
-       */
-
-      await this.props.collectionStore.LoadCollectionItems(this.props.match.params.tenantSlug, this.props.match.params.collectionSlug);
 
       this.setState({
         codeRedeemed: true,
@@ -203,16 +219,25 @@ class Collection extends React.Component {
   RedeemForm() {
     return (
       <div className="collection__redeem">
-        <form className="collection__redeem__form" onSubmit={event => this.RedeemCode(event)}>
+        <form className="collection__redeem__form" onSubmit={event => { event.preventDefault() ; this.RedeemCode(); }}>
           <div className="collection__redeem__form__text">
             Enter your code
           </div>
           <div className="collection__redeem__form__error-text">
             {this.state.redeemError || ""}
           </div>
+          {
+            this.state.initialSubject ? null :
+              <input
+                placeholder="subject"
+                className="collection__redeem__form__input"
+                value={this.state.subject}
+                onChange={event => this.setState({subject: event.target.value})}
+              />
+          }
           <input
+            placeholder={this.state.initialSubject ? undefined : "code"}
             className="collection__redeem__form__input"
-            ref={element => element && element.focus()}
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
           />
@@ -269,7 +294,15 @@ class Collection extends React.Component {
             className="collection__content__transfer__button collection__button"
             onClick={() => this.ToggleModal(
               <Modal Toggle={() => this.ToggleModal(null)} className="collection__transfer-modal" >
-                <TransferForm className="collection" />
+                <TransferForm
+                  className="collection"
+                  Submit={async ({ethereumAddress, email}) => await this.props.collectionStore.TransferNFT({
+                    tenantSlug: this.props.match.params.tenantSlug,
+                    collectionSlug: this.props.match.params.collectionSlug,
+                    ethereumAddress,
+                    email
+                  })}
+                />
               </Modal>
             )}
           >
@@ -323,6 +356,10 @@ class Collection extends React.Component {
             }
 
             await this.props.collectionStore.LoadCollection(tenantSlug, collectionSlug);
+
+            if(this.state.code) {
+              await this.RedeemCode();
+            }
           }}
         >
           {
