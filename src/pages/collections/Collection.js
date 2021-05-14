@@ -32,34 +32,36 @@ const Item = ({client, item, socialDetails={}, className}) => {
   return (
     <div className={className}>
       <h2 className={`${className}__header`}>{ item.display_title || item.title }</h2>
-      <div
-        className={`${className}__player-target`}
-        ref={element => {
-          if(!element || player) { return; }
+      <div className={`${className}__aspect-ratio`}>
+        <div
+          className={`${className}__player-target`}
+          ref={element => {
+            if(!element || player) { return; }
 
-          setPlayer(
-            new EluvioPlayer(
-              element,
-              {
-                clientOptions: {
-                  client
-                },
-                sourceOptions: {
-                  playoutParameters: {
-                    versionHash: item["."].source
+            setPlayer(
+              new EluvioPlayer(
+                element,
+                {
+                  clientOptions: {
+                    client
+                  },
+                  sourceOptions: {
+                    playoutParameters: {
+                      versionHash: item["."].source
+                    }
+                  },
+                  playerOptions: {
+                    watermark: EluvioPlayerParameters.watermark.OFF,
+                    muted: EluvioPlayerParameters.muted.OFF,
+                    autoplay: EluvioPlayerParameters.autoplay.OFF,
+                    controls: EluvioPlayerParameters.controls.AUTO_HIDE
                   }
-                },
-                playerOptions: {
-                  watermark: EluvioPlayerParameters.watermark.OFF,
-                  muted: EluvioPlayerParameters.muted.OFF,
-                  autoplay: EluvioPlayerParameters.autoplay.OFF,
-                  controls: EluvioPlayerParameters.controls.AUTO_HIDE
                 }
-              }
-            )
-          );
-        }}
-      />
+              )
+            );
+          }}
+        />
+      </div>
       <div className={`${className}__social-buttons`}>
         <div className={`${className}__social-buttons__text`}>Share NFT on Social</div>
         <div className={`${className}__social-buttons__button`} onClick={() => Copy(item.embedUrl)}>
