@@ -24,6 +24,7 @@ import {
 
 import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {Copy} from "Utils/Misc";
+import {NavLink} from "react-router-dom";
 
 const Item = ({client, item, socialDetails={}, className}) => {
   const [player, setPlayer] = useState(undefined);
@@ -220,11 +221,11 @@ class Collection extends React.Component {
     return (
       <div className="collection__redeem">
         <form className="collection__redeem__form" onSubmit={event => { event.preventDefault() ; this.RedeemCode(); }}>
+          <div className="collection__redeem__form__text collection__redeem__form__error-text">
+            {this.state.redeemError || ""}
+          </div>
           <div className="collection__redeem__form__text">
             Enter your code
-          </div>
-          <div className="collection__redeem__form__error-text">
-            {this.state.redeemError || ""}
           </div>
           {
             this.state.initialSubject ? null :
@@ -315,8 +316,8 @@ class Collection extends React.Component {
             Powered By <ImageIcon icon={EluvioLogo} label="ELUV.IO" className="collection__content__footer__message__image" />
           </div>
           <div className="collection__content__footer__links">
-            <a href="/" target="_blank" className="collection__content__footer__link">Contact Us</a>
-            <a href="/" target="_blank" className="collection__content__footer__link">Support</a>
+            <NavLink to="/contact"  className="collection__content__footer__link">Contact Us</NavLink>
+            <a className="collection__content__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>
       </div>

@@ -73,8 +73,8 @@ class CollectionStore {
     yield this.client.RedeemCode({
       tenantId: collection.info.access.tenant_id,
       ntpId: collection.info.access.ntp_id,
-      email: subject,
-      code: code
+      email: (subject || "").trim(),
+      code: (code || "").trim()
     });
 
     this.collections[tenantSlug][collectionSlug].subject = subject;
@@ -100,10 +100,10 @@ class CollectionStore {
       method: "POST",
       path: UrlJoin("as", "otp", "nft", collection.info.access.tenant_id, collection.info.access.ntp_id),
       body: {
-        _PASSWORD: collection.code,
-        _EMAIL: collection.subject,
-        _NFT_EMAIL: email,
-        _ETH_ADDR: ethereumAddress
+        _PASSWORD: (collection.code || "").trim(),
+        _EMAIL: (collection.subject || "").trim(),
+        _NFT_EMAIL: (email || "").trim(),
+        _ETH_ADDR: (ethereumAddress || "").trim()
       }
     })).json();
   });
