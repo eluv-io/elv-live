@@ -24,7 +24,7 @@ import {
 
 import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {Copy} from "Utils/Misc";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Item = ({client, item, socialDetails={}, className}) => {
   const [player, setPlayer] = useState(undefined);
@@ -283,7 +283,7 @@ class Collection extends React.Component {
             className="collection__content__bottom-content__learn-more collection__button"
             onClick={() => this.ToggleModal(
               <Modal Toggle={() => this.ToggleModal(null)}>
-                <CardModal copyKey="collections" images={{collections: [{url: "", title: "Wallet"}]}} />
+                <CardModal copyKey="collections" />
               </Modal>
             )}
           >
@@ -313,10 +313,13 @@ class Collection extends React.Component {
         <div className="collection__content__footer">
           <div className="collection__content__footer__border" />
           <div className="collection__content__footer__message">
-            Powered By <ImageIcon icon={EluvioLogo} label="ELUV.IO" className="collection__content__footer__message__image" />
+            Powered By
+            <Link to="/" target="_blank" className="collection__content__footer__message__image">
+              <ImageIcon icon={EluvioLogo} label="ELUV.IO" />
+            </Link>
           </div>
           <div className="collection__content__footer__links">
-            <NavLink to="/contact"  className="collection__content__footer__link">Contact Us</NavLink>
+            <Link to="/contact" target="_blank" className="collection__content__footer__link">Contact Us</Link>
             <a className="collection__content__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>
