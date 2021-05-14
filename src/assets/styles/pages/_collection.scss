@@ -266,8 +266,14 @@ $border-color: #252525;
         margin: 10px 0 30px;
 
         &__image {
-          margin: 0 0 3px 10px;
+          margin: 0 0 5px 10px;
           max-height: 20px;
+          height: 20px;
+
+          svg {
+            height: 100%;
+            width: auto;
+          }
         }
       }
 
