@@ -17,7 +17,8 @@ class CollectionStore {
 
     const embedUrl = URI("https://embed.v3.contentfabric.io")
       .query({
-        network,
+        net: network,
+        ptk: null,
         p: null,
         dk: null,
         sh: null,
@@ -26,7 +27,7 @@ class CollectionStore {
         ct: "h",
         ten: collection.info.access.tenant_id,
         ntp: collection.info.access.ntp_id,
-        sbj: collection.subject,
+        sbj: btoa(collection.subject),
         vid: item["."].source,
         data: btoa(JSON.stringify({
           meta_tags: {

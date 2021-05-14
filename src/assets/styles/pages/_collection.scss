@@ -163,7 +163,7 @@ $border-color: #252525;
         display: flex;
         font-size: 28px;
         font-weight: 400;
-        height: 45px;
+        height: 50px;
         justify-content: center;
         letter-spacing: 0.08em;
         text-align: center;
@@ -180,6 +180,7 @@ $border-color: #252525;
         display: flex;
         justify-content: flex-end;
         margin-top: 3px;
+        height: 50px;
 
         &__text {
           color: #585858;
@@ -453,13 +454,13 @@ $border-color: #252525;
 
       &__item {
         &__header {
-          font-size: 20px;
-          height: 30px;
+          font-size: 24px;
+          height: 50px;
         }
 
         &__social-buttons {
           &__text {
-            font-size: 14px;
+            font-size: 12px;
           }
         }
       }
@@ -472,6 +473,15 @@ $border-color: #252525;
           padding: 0;
           width: 180px;
         }
+      }
+    }
+
+    &__transfer-confirmation {
+      padding: 40px 10px;
+
+      &__confirmation {
+        font-size: 16px;
+        text-align: center;
       }
     }
 
