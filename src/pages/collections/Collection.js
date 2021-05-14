@@ -1,4 +1,5 @@
 import React, {Suspense, useState} from "react";
+import {render} from "react-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import {PageLoader} from "Common/Loaders";
 import AsyncComponent from "Common/AsyncComponent";
@@ -25,6 +26,8 @@ import {
 import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {Copy} from "Utils/Misc";
 import {Link} from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import SanitizeHTML from "sanitize-html";
 
 const Item = ({client, item, socialDetails={}, className}) => {
   const [player, setPlayer] = useState(undefined);
@@ -75,7 +78,12 @@ const Item = ({client, item, socialDetails={}, className}) => {
   );
 };
 
-const TransferForm = ({className, Submit}) => {
+const TransferForm = ({
+  message,
+  terms,
+  className,
+  Submit
+}) => {
   const [address, setAddress] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
   const [email, setEmail] = useState("");
@@ -103,15 +111,20 @@ const TransferForm = ({className, Submit}) => {
     return (
       <div className={`${className}__transfer-terms ${className}__transfer-form`}>
         <h2 className={`${className}__transfer-terms__header`}>Transfer Terms</h2>
-        <pre className={`${className}__transfer-terms__terms`}>
-          {
-            `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum a. Non blandit massa enim nec dui. Quis ipsum suspendisse ultrices gravida. Sit amet cursus sit amet dictum sit amet justo donec. Odio eu feugiat pretium nibh ipsum consequat nisl vel. Mi tempus imperdiet nulla malesuada pellentesque elit. Auctor elit sed vulputate mi sit amet. Pellentesque massa placerat duis ultricies lacus sed turpis. Sapien faucibus et molestie ac. Porttitor leo a diam sollicitudin tempor id.
+        <div
+          className={`${className}__transfer-terms__terms`}
+          ref={element => {
+            if(!element) { return; }
 
-Tellus integer feugiat scelerisque varius morbi enim. Magna fringilla urna porttitor rhoncus dolor purus non enim. Sed id semper risus in. Porttitor lacus luctus accumsan tortor posuere ac. Placerat in egestas erat imperdiet. Imperdiet sed euismod nisi porta lorem mollis aliquam ut porttitor. At ultrices mi tempus imperdiet nulla malesuada. Id aliquet risus feugiat in ante. Commodo ullamcorper a lacus vestibulum. Lectus vestibulum mattis ullamcorper velit sed. Sapien faucibus et molestie ac feugiat sed lectus vestibulum. 
-            `
-          }
-        </pre>
+            render(
+              <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
+                { SanitizeHTML(terms) }
+              </ReactMarkdown>,
+              element
+            );
+          }}
+        >
+        </div>
       </div>
     );
   }
@@ -140,7 +153,7 @@ Tellus integer feugiat scelerisque varius morbi enim. Magna fringilla urna portt
         value={address}
         onChange={event => setAddress(event.target.value)}
       />
-      <div className={`${className}__transfer-form__text`}>Clicking the button below will initiate the transfer of ownership to this address. Transaction gas fees are sponsored by FOX.</div>
+      <div className={`${className}__transfer-form__text`}>{ message }</div>
       <div className={`${className}__transfer-form__checkbox-container`}>
         <input name="sendEmail" className={`${className}__transfer-form__checkbox-container__checkbox`} type="checkbox" checked={sendEmail} onChange={event => setSendEmail(event.target.checked)} />
         <label htmlFor="sendEmail" onClick={() => setSendEmail(!sendEmail)} className={`${className}__transfer-form__checkbox-container__label`}>
@@ -298,6 +311,8 @@ class Collection extends React.Component {
             onClick={() => this.ToggleModal(
               <Modal Toggle={() => this.ToggleModal(null)} className="collection__transfer-modal" >
                 <TransferForm
+                  message={collection.info.transfer.transfer_message}
+                  terms={collection.info.transfer.transfer_terms}
                   className="collection"
                   Submit={async ({ethereumAddress, email}) => await this.props.collectionStore.TransferNFT({
                     tenantSlug: this.props.match.params.tenantSlug,

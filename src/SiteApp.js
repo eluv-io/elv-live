@@ -16,11 +16,11 @@ const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
+const Collection = MinLoadDelay(import("Pages/collections/Collection"));
 
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
-import Collection from "Pages/collections/Collection";
 
 @inject("rootStore")
 @inject("siteStore")
