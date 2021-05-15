@@ -5,6 +5,7 @@ import {PageLoader} from "Common/Loaders";
 import AsyncComponent from "Common/AsyncComponent";
 import {inject, observer} from "mobx-react";
 import {Redirect, withRouter} from "react-router";
+import UrlJoin from "url-join";
 import ImageIcon from "Common/ImageIcon";
 import Modal from "Common/Modal";
 import CardModal from "Pages/main/components/CardModal";
@@ -54,7 +55,6 @@ const Item = ({client, item, socialDetails={}, className}) => {
                     }
                   },
                   playerOptions: {
-                    watermark: EluvioPlayerParameters.watermark.OFF,
                     muted: EluvioPlayerParameters.muted.OFF,
                     autoplay: EluvioPlayerParameters.autoplay.OFF,
                     controls: EluvioPlayerParameters.controls.AUTO_HIDE
@@ -187,7 +187,6 @@ class Collection extends React.Component {
     const urlParams = new URLSearchParams(window.location.search);
 
     this.state = {
-      initialSubject: urlParams.has("sbj"),
       subject: urlParams.get("sbj") || "",
       code: urlParams.get("code") || "",
       redeemError: "",
@@ -242,17 +241,7 @@ class Collection extends React.Component {
           <div className="collection__redeem__form__text">
             Enter your code
           </div>
-          {
-            this.state.initialSubject ? null :
-              <input
-                placeholder="subject"
-                className="collection__redeem__form__input"
-                value={this.state.subject}
-                onChange={event => this.setState({subject: event.target.value})}
-              />
-          }
           <input
-            placeholder={this.state.initialSubject ? undefined : "code"}
             className="collection__redeem__form__input"
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
@@ -386,7 +375,7 @@ class Collection extends React.Component {
           {
             (this.props.collectionStore.collections[tenantSlug] || {})[collectionSlug] ?
               this.Page() :
-              <Redirect to="/" />
+              <Redirect to={UrlJoin("/", tenantSlug, "collections")} />
           }
         </AsyncComponent>
       </Suspense>

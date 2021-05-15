@@ -16,7 +16,9 @@ const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
+
 const Collection = MinLoadDelay(import("Pages/collections/Collection"));
+const Collections = MinLoadDelay(import("Pages/collections/Collections"));
 
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
@@ -52,6 +54,7 @@ class SiteApp extends React.Component {
 
     return (
       <Switch>
+        <Route exact path="/:tenantSlug/collections" component={Collections} />
         <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
 
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
