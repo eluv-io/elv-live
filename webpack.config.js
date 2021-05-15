@@ -130,7 +130,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(html|txt|bin|abi|md)$/i,
+        test: /\.(html|txt|bin|abi|md|woff2)$/i,
         loader: "raw-loader"
       },
       {

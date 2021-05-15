@@ -73,20 +73,25 @@ class Event extends React.Component {
     };
 
     const heroKey = this.state.mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
+    const hasHeaderImage = this.props.siteStore.SiteHasImage("header_dark");
 
     return (
       <div className="page-container event-page">
-        <div className="event-page__hero-container">
+        <div className="event-page__hero-container" style={{height: window.innerHeight}}>
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           <div className="event-page__heading">
             {
-              this.props.siteStore.SiteHasImage("header_dark") ?
+              hasHeaderImage ?
                 <div className="event-page__header-logo">
                   <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl("header_dark")} alt={this.props.siteStore.eventInfo.event_header} />
                 </div>
-                :
-                <h1 className="event-page__header-name">{ this.props.siteStore.eventInfo.event_header }</h1>
+                : null
             }
+
+            <h1 className={`event-page__header-name ${hasHeaderImage ? "hidden" : ""}`}>
+              { this.props.siteStore.eventInfo.event_header }
+            </h1>
+
             {
               this.props.siteStore.eventInfo.event_subheader ?
                 <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
@@ -95,12 +100,16 @@ class Event extends React.Component {
           </div>
 
           <div className="event-page__buttons">
-            <button
-              className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
-              onClick={() => this.handleNavigate()}
-            >
-              Buy Tickets
-            </button>
+            {
+              this.props.siteStore.currentSiteInfo.state === "Live Ended" ?
+                null :
+                <button
+                  className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
+                  onClick={() => this.handleNavigate()}
+                >
+                  Buy Tickets
+                </button>
+            }
             {
               this.props.siteStore.promos.length > 0 ?
                 <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">

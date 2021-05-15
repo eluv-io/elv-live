@@ -59,7 +59,6 @@
   }
 
   &__links {
-    // padding-top: 13px;
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -85,7 +84,7 @@
     letter-spacing: 0.07em;
   }
 
-  // Header is $white on main page
+  // Header is white on main page
   &.header-main {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
@@ -116,6 +115,11 @@
           stroke: $white;
         }
       }
+    }
+
+    .cart-overlay-item-count {
+      background-color: $white;
+      color: $black;
     }
   }
 
@@ -172,9 +176,9 @@
 
   .cart-overlay-item-count {
     align-items: center;
-    background-color: $white;
+    background-color: $black;
     border-radius: 100%;
-    color: $black;
+    color: $white;
     display: flex;
     font-size: 10px;
     height: 15px;
@@ -332,7 +336,7 @@
 
 .big-sponsor-img-footer {
   height: auto;
-  max-height: 100%;
+  max-height: 80px;
   object-fit: contain;
   overflow: hidden;
   width: 250px;

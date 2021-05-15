@@ -44,3 +44,40 @@ export const onEnterPressed = (fn) => {
     fn(event);
   };
 };
+
+export const IsIOSSafari = () => {
+  return (
+    navigator.userAgent.match(/Safari/i) &&
+    (
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/iPod/i) ||
+      navigator.userAgent.match(/iOS/i)
+    )
+  );
+};
+
+export const ToggleZendesk = (enabled) => {
+  if(enabled) {
+    document.body.classList.remove("hide-zd");
+  } else {
+    document.body.classList.add("hide-zd");
+  }
+
+  if(typeof zE === "undefined") { return; }
+
+  try {
+    enabled ? zE.show() : zE.hide();
+  } catch(error) {
+    console.error("Failed to toggle zendesk");
+    console.error(error);
+  }
+};
+
+export const Copy = (text) => {
+  let aux = document.createElement("input");
+  aux.setAttribute("value", text || "");
+  document.body.appendChild(aux);
+  aux.select();
+  document.execCommand("copy");
+  document.body.removeChild(aux);
+};

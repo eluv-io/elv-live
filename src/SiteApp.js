@@ -1,7 +1,7 @@
 import React, {lazy} from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
-import {Route, Redirect, BrowserRouter} from "react-router-dom";
+import {Route, BrowserRouter} from "react-router-dom";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -16,6 +16,9 @@ const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
+
+const Collection = MinLoadDelay(import("Pages/collections/Collection"));
+const Collections = MinLoadDelay(import("Pages/collections/Collections"));
 
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
@@ -51,9 +54,12 @@ class SiteApp extends React.Component {
 
     return (
       <Switch>
+        <Route exact path="/:tenantSlug/collections" component={Collections} />
+        <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
+
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:email/:id" component={SitePage(Success)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />

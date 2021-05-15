@@ -40,6 +40,7 @@ dd {
 body {
   line-height: 1.5;
   min-height: 100vh;
+  min-height: stretch;
   scroll-behavior: smooth;
   // text-rendering: optimizeSpeed;
 }

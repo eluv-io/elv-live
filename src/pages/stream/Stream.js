@@ -1,121 +1,15 @@
-import React, {lazy, Suspense} from "react";
-import clsx from "clsx";
-
+import React from "react";
 import {inject, observer} from "mobx-react";
-import {Redirect} from "react-router";
-import { NavLink } from "react-router-dom";
-
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { withStyles } from "@material-ui/core/styles";
 import ImageIcon from "Common/ImageIcon";
+import {NavLink, Redirect} from "react-router-dom";
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
-import AsyncComponent from "Common/AsyncComponent";
+import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
+import ChatIcon from "Assets/icons/chat icon simple.svg";
+import LiveChat from "Stream/components/LiveChat";
+import {ToggleZendesk} from "Utils/Misc";
+import EluvioConfiguration from "../../../configuration";
 
-import LightLogo from "Images/logo/lightEluvioLiveLogo.png";
-import DarkLogo from "Images/logo/darkEluvioLiveLogo.png";
-
-const StreamPlayer = lazy(() => import("./player/StreamPlayer"));
-const LiveChat = lazy(() => import("./components/LiveChat"));
-
-const drawerWidth = 450;
-
-const styles = theme => ({
-  root: {
-    display: "flex",
-    color: "black",
-    maxHeight: "100vh",
-    overflow: "hidden",
-    position: "fixed",
-    width: "100%",
-    scrollbarStyles: {
-      overflowY: "scroll",
-      "&::-webkit-scrollbar": {
-        width: "0px",
-        display: "none",
-        backgroundColor: "transparent"
-      },
-      "&::-webkit-scrollbar-track": {
-        boxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
-        webkitBoxShadow: "inset 0 0 0px rgba(0,0,0,0.00)",
-        width: "0px",
-        display: "none",
-        backgroundColor: "transparent"
-
-      },
-      "&::-webkit-scrollbar-thumb": {
-        outline: "0px solid slategrey",
-        borderRadius: 0,
-        width: "0px",
-        display: "none",
-        backgroundColor: "transparent"
-      }
-    }
-
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    background: "transparent",
-    height: "75px"
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-    background: "transparent",
-    height: "75px"
-  },
-  title: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: "inherit"
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-start",
-    height: "75px",
-    minHeight: "56px",
-    backgroundColor: "inherit"
-  },
-  content: {
-    flexGrow: 1,
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0
-  },
-});
-
-@inject("rootStore")
 @inject("siteStore")
 @observer
 class Stream extends React.Component {
@@ -123,145 +17,160 @@ class Stream extends React.Component {
     super(props);
 
     this.state = {
-      open: true,
-      name: "",
-      activeStream: 0
+      key: 1,
+      showChat: false,
+      chatOpened: false,
+      initialized: false,
+      versionHash: undefined,
+      streamURI: undefined,
+      streamRequestFailed: false,
+      error: false
     };
+  }
+
+  async componentDidMount() {
+    ToggleZendesk(false);
+  }
+
+  componentWillUnmount() {
+    ToggleZendesk(true);
+  }
+
+  async InitializeVideo(element) {
+    try {
+      if(this.state.initialized || !element) { return; }
+
+
+      this.setState({initialized: true});
+
+      const streamURI = await this.props.siteStore.LoadStreamURI();
+      const versionHash = await this.props.siteStore.StreamHash();
+
+      this.setState({versionHash, streamURI});
+
+      const player = new EluvioPlayer(
+        element,
+        {
+          clientOptions: {
+            network: EluvioConfiguration["config-url"].includes("main.net955305") ?
+              EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
+            client: this.props.siteStore.client
+          },
+          sourceOptions: {
+            playoutParameters: {
+              offeringURI: this.state.streamURI
+            }
+          },
+          playerOptions: {
+            muted: EluvioPlayerParameters.muted.OFF,
+            autoplay: EluvioPlayerParameters.autoplay.ON,
+            controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+            watermark: EluvioPlayerParameters.watermark.OFF,
+            errorCallback: () => {
+              setTimeout(() => {
+                this.state.player && this.state.player.Destroy();
+                this.setState({initialized: false, key: this.state.key + 1, player: undefined});
+              }, 5000);
+            },
+            restartCallback: async () => {
+              // Player wants to restart because of errors - check if the main site has been updated since playback has started
+              // If so, reload the whole page to re-fetch the channel info
+              const client = this.props.siteStore.rootStore.client;
+              const latestHash = await this.props.siteStore.StreamHash();
+
+              if(!client.utils.EqualHash(this.state.versionHash, latestHash)) {
+                this.state.player && this.state.player.Destroy();
+
+                this.setState({
+                  player: undefined,
+                  initialized: false,
+                  key: this.state.key + 1
+                });
+
+                return true;
+              }
+
+              // Some other issue. Let player try to restart
+            }
+          }
+        }
+      );
+
+      this.setState({player});
+      window.player = player;
+    } catch(error) {
+      console.error(error);
+
+      this.setState({error: true});
+    }
   }
 
   Sponsors() {
     return (
-      <div className="sponsor-info-container__img-container">
-        {
-          this.props.siteStore.sponsors.map((sponsor, index) =>
-            <img
-              src={sponsor.image_url}
-              className="stream-sponsor-img"
-              alt={sponsor.name}
-              key={`sponsor-image-${index}`}
-            />
-          )
-        }
-      </div>
+      this.props.siteStore.sponsors.map((sponsor, index) =>
+        <a href={sponsor.link} target="_blank" rel="noopener" className="stream-page__footer__sponsor-link" key={`sponsor-${index}`} title={sponsor.name}>
+          <img src={sponsor.light_image_url || sponsor.image_url} className="stream-page__footer__sponsor-image" alt={sponsor.name} />
+        </a>
+      )
     );
   }
 
   render() {
-    if(!this.props.rootStore.client || !this.props.rootStore.ticketRedeemed) {
-      //return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    if(!this.props.siteStore.currentSiteTicket) {
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
-
-    if(!this.props.siteStore.eventActive) {
-      return <Redirect to={this.props.siteStore.SitePath("event")} />;
-    }
-
-    const handleDrawerOpen = () => {
-      this.setState({open: true});
-    };
-
-    const handleDrawerClose = () => {
-      this.setState({open: false});
-    };
-
-    const { classes } = this.props;
 
     return (
-      <div className={`stream-root ${clsx(classes.root)}`}>
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: this.state.open,
-          })}
-        >
-          <Toolbar>
-            <div className="stream-nav">
-              <NavLink to={this.props.siteStore.baseSitePath}>
-                <ImageIcon className="stream-nav__logo" icon={this.props.siteStore.darkMode ? LightLogo : DarkLogo } label="Eluvio" />
-              </NavLink>
-
-              <div className="stream-nav__button-grp">
-                <div className="stream-nav__button-grp2">
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="end"
-                    onClick={handleDrawerOpen}
-                    className={clsx(this.state.open && classes.hide)}
-                    size="medium"
-                  >
-                    <MenuIcon />
-                  </IconButton>
-
-                  <IconButton
-                    color="inherit"
-                    aria-label="close drawer"
-                    edge="end"
-                    onClick={handleDrawerClose}
-                    className={clsx(!(this.state.open) && classes.hide)}
-                    size="medium"
-                  >
-                    <ChevronRightIcon />
-                  </IconButton>
+      <div className={`page-container stream-page ${this.state.showChat ? "stream-page-chat-visible" : "stream-page-chat-hidden"}`}>
+        <div className="stream-page__main">
+          <div className="stream-page__header">
+            <NavLink to={this.props.siteStore.baseSitePath} className="stream-page__header__logo">
+              <ImageIcon icon={Logo} label="Eluvio Live" />
+            </NavLink>
+            <button
+              className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`}
+              onClick={() => this.setState({showChat: !this.state.showChat, chatOpened: true})}
+            >
+              <ImageIcon icon={ChatIcon} label={this.state.showChat ? "hide" : "show"} />
+            </button>
+          </div>
+          <div className="stream-page__video-container" key={`video-container-${this.state.key}`}>
+            <div className="stream-page__video-target" ref={element => this.InitializeVideo(element)} />
+            {
+              !this.state.error ? null :
+                <div className="stream-page__error-container">
+                  <div className="stream-page__error-container__message">
+                    We're sorry, something went wrong. Please try reloading the page.
+                  </div>
+                  <button className="stream-page__error-container__reload-button" onClick={() => window.location.replace(window.location.href) }>
+                    Reload
+                  </button>
                 </div>
-              </div>
+            }
+          </div>
+          <div className="stream-page__footer">
+            <div className="stream-page__footer__text">
+              <h2 className="stream-page__footer__subtitle">
+                { this.props.siteStore.streamPageInfo.subheader }
+              </h2>
+              <h1 className="stream-page__footer__title">
+                { this.props.siteStore.streamPageInfo.header }
+              </h1>
             </div>
-          </Toolbar>
-
-        </AppBar>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: this.state.open,
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          <div className="stream-container">
-            <div className="stream-container__streamBox">
-              <div className="stream-container__streamBox--videoBox">
-                <Suspense fallback={<div />}>
-                  <AsyncComponent
-                    Load={this.props.siteStore.LoadStreams}
-                    loadingSpin={true}
-                    render={() => {
-                      return (
-                        <StreamPlayer />
-                      );
-                    }}
-                  />
-                </Suspense>
-              </div>
-              <div className="stream-container__streamBox--info">
-                <div className="stream-info-container">
-                  <h2 className="stream-info-container__subtitle">
-                    { this.props.siteStore.streamPageInfo.subheader }
-                  </h2>
-                  <h1 className="stream-info-container__title">
-                    { this.props.siteStore.streamPageInfo.header }
-                  </h1>
-                </div>
-
-                { this.Sponsors() }
-              </div>
+            <div className="stream-page__footer__sponsors">
+              { this.Sponsors() }
             </div>
           </div>
-
-
-        </main>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={this.state.open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Suspense fallback={<div />}>
-            <LiveChat />
-          </Suspense>
-        </Drawer>
+        </div>
+        <div className={`stream-page__chat-panel ${this.state.showChat ? "stream-page__chat-panel-visible" : "stream-page__chat-panel-hidden"}`}>
+          <div className="stream-page__chat-panel__header">
+            <h2 className="stream-page__chat-panel__header-text">{ this.props.siteStore.streamPageInfo.header }</h2>
+          </div>
+          { this.state.chatOpened ? <LiveChat /> : null }
+        </div>
       </div>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Stream);
+export default Stream;

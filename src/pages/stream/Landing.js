@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 
 import ColoredLogo from "Assets/images/logo/coloredEluvioLiveLogo.png";
 import {NavLink, Redirect} from "react-router-dom";
-
+import {ToggleZendesk} from "Utils/Misc";
 
 @inject("siteStore")
 @observer
@@ -18,26 +18,16 @@ class Landing extends React.Component {
   }
 
   componentDidMount() {
-    if(document.getElementById("launcher")) {
-      document.getElementById("launcher").style.display = "none";
-    }
+    ToggleZendesk(false);
   }
 
   componentWillUnmount() {
     clearTimeout(this.state.interval);
 
-    if(document.getElementById("launcher")) {
-      document.getElementById("launcher").style.display = "";
-    }
+    ToggleZendesk(true);
   }
 
   Countdown() {
-    if(this.props.siteStore.eventActive) {
-      return (
-        <NavLink className="landing-page__enter-event" to={this.props.siteStore.SitePath("stream")}>Enter Event</NavLink>
-      );
-    }
-
     const diffSeconds = (new Date(this.props.siteStore.currentSiteTicketSku.start_time) - new Date()) / 1000;
     const days = Math.floor(diffSeconds / 60 / 60 / 24);
     const hours = Math.floor((diffSeconds / 60 / 60) % 24);
@@ -58,6 +48,12 @@ class Landing extends React.Component {
 
     if(minutes > 0) {
       countdownString += `${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
+    }
+
+    if(diffSeconds <= 0) {
+      return (
+        <NavLink className="landing-page__enter-event" to={this.props.siteStore.SitePath("stream")}>Enter Event</NavLink>
+      );
     }
 
     return (
@@ -82,7 +78,11 @@ class Landing extends React.Component {
         <div className="landing-page__content">
           <img className="landing-page__logo" src={ColoredLogo} alt="Eluvio Live" />
           <div className="landing-page__text landing-page__text-presents">Presents</div>
-          <img className="landing-page__event-logo" src={this.props.siteStore.SiteImageUrl("header_light")} alt={this.props.siteStore.eventInfo.event_header} />
+          {
+            this.props.siteStore.SiteHasImage("header_light") ?
+              <img className="landing-page__event-logo" src={this.props.siteStore.SiteImageUrl("header_light")} alt={this.props.siteStore.eventInfo.event_header} /> :
+              <h2 className="landing-page__event-header">{ this.props.siteStore.eventInfo.event_header }</h2>
+          }
           { this.Countdown() }
           <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
         </div>

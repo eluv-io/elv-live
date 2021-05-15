@@ -45,6 +45,7 @@ class CartStore {
   @observable paymentServicePublicKeys = {};
 
   @observable purchasedTicketStartDate;
+  @observable purchasedTicketEndDate;
 
   @observable lastAdded;
 
@@ -99,6 +100,8 @@ class CartStore {
     }
 
     this.currency = currency;
+
+    this.SaveLocalStorage();
   }
 
   @action.bound
@@ -295,6 +298,31 @@ class CartStore {
   // Payment
 
   @action.bound
+  PaymentServerRequestParams() {
+    const cartDetails = this.CartDetails();
+
+    let itemList =
+      cartDetails.tickets.map(ticket => ({sku: ticket.ticketSku.uuid, quantity: ticket.quantity}))
+        .concat(cartDetails.merchandise.map(item => ({sku: item.sku_id, quantity: item.quantity})))
+        .concat(cartDetails.donations.map(donation => ({sku: donation.uuid, quantity: donation.quantity})));
+
+    this.confirmationId = this.ConfirmationId();
+    const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+
+    const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
+
+    return {
+      mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
+      currency: this.currency,
+      email: this.email,
+      client_reference_id: checkoutId,
+      items: itemList,
+      success_url: UrlJoin(baseUrl, "success", this.confirmationId),
+      cancel_url: baseUrl
+    };
+  }
+
+  @action.bound
   StripeSubmit = flow(function * () {
     try {
       this.submittingOrder = true;
@@ -302,41 +330,44 @@ class CartStore {
 
       this.SaveLocalStorage();
 
-      const cartDetails = this.CartDetails();
+      const requestParams = this.PaymentServerRequestParams();
 
-      let itemList =
-        cartDetails.tickets.map(ticket => ({sku: ticket.ticketSku.uuid, quantity: ticket.quantity}))
-          .concat(cartDetails.merchandise.map(item => ({sku: item.sku_id, quantity: item.quantity})))
-          .concat(cartDetails.donations.map(donation => ({sku: donation.uuid, quantity: donation.quantity})));
+      // Set up session
+      const stripePublicKey = this.PaymentServicePublicKey("stripe");
+      const sessionId = (yield this.PaymentServerRequest({
+        path: UrlJoin("checkout", "stripe"),
+        requestParams
+        })).session_id;
 
-      this.confirmationId = this.ConfirmationId();
-      const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
+      // Redirect to stripe
+      const stripe = yield loadStripe(stripePublicKey);
+      yield stripe.redirectToCheckout({sessionId});
+    } catch(error) {
+      this.PaymentSubmitError(error);
+      console.error(JSON.stringify(requestParams, null, 2));
+      this.submittingOrder = false;
+    }
+  });
 
-      const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
+  @action.bound
+  CoinbaseSubmit = flow(function * () {
+    try {
+      this.submittingOrder = true;
+      this.checkoutError = undefined;
 
-      const requestParams = {
-        mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
-        currency: this.currency,
-        email: this.email,
-        client_reference_id: checkoutId,
-        items: itemList,
-        success_url: UrlJoin(baseUrl, "success", this.email, this.confirmationId),
-        cancel_url: baseUrl
-      };
+      this.SaveLocalStorage();
 
-      try {
-        // Set up session
-        const stripePublicKey = this.PaymentServicePublicKey("stripe");
-        const sessionId = (yield this.PaymentServerRequest({path: UrlJoin("checkout", "stripe"), requestParams})).session_id;
+      const requestParams = this.PaymentServerRequestParams();
+      const chargeCode = (yield this.PaymentServerRequest({
+        path: UrlJoin("checkout", "coinbase"),
+        requestParams
+      })).charge_code;
 
-        // Redirect to stripe
-        const stripe = yield loadStripe(stripePublicKey);
-        yield stripe.redirectToCheckout({sessionId});
-      } catch(error) {
-        this.PaymentSubmitError(error);
-        console.error(JSON.stringify(requestParams, null, 2));
-      }
-    } finally {
+      window.location.href = UrlJoin("https://commerce.coinbase.com/charges", chargeCode);
+    } catch(error) {
+      this.PaymentSubmitError(error);
+      console.error(JSON.stringify(requestParams, null, 2));
+
       this.submittingOrder = false;
     }
   });
@@ -461,7 +492,9 @@ class CartStore {
   // LocalStorage
 
   @action.bound
-  OrderComplete() {
+  OrderComplete(confirmationId) {
+    this.rootStore.siteStore.TrackPurchase(confirmationId, this.CartDetails());
+
     this.ToggleCheckoutOverlay(false);
     this.tickets = [];
     this.merchandise = [];
@@ -476,12 +509,13 @@ class CartStore {
 
   SaveLocalStorage() {
     // Get the earliest purchased ticket date for the calendar widget
-    const earliestStartDate = this.CartDetails().tickets
-      .map(({ticketSku}) => ticketSku.start_time)
-      .sort()[0];
+    const earliestTicket = this.CartDetails().tickets
+      .map(({ticketSku}) => ticketSku)
+      .sort((a, b) => a.startTime < b.startTime ? -1 : 1)[0];
 
-    if(earliestStartDate) {
-      this.purchasedTicketStartDate = earliestStartDate;
+    if(earliestTicket) {
+      this.purchasedTicketStartDate = earliestTicket.start_time;
+      this.purchasedTicketEndDate = earliestTicket.end_time;
     }
 
     try {
@@ -489,11 +523,13 @@ class CartStore {
         this.localStorageKey,
         btoa(
           JSON.stringify({
+            currency: this.currency,
             tickets: toJS(this.tickets),
             merchandise: toJS(this.merchandise),
             donations: toJS(this.featuredDonations),
             email: this.email,
-            purchasedTicketStartDate: this.purchasedTicketStartDate
+            purchasedTicketStartDate: this.purchasedTicketStartDate,
+            purchasedTicketEndDate: this.purchasedTicketEndDate
           })
         )
       );
@@ -509,13 +545,15 @@ class CartStore {
     if(!data) { return; }
 
     try {
-      const { tickets, merchandise, donations, email, purchasedTicketStartDate } = JSON.parse(atob(data));
+      const { currency, tickets, merchandise, donations, email, purchasedTicketStartDate, purchasedTicketEndDate } = JSON.parse(atob(data));
 
+      this.currency = currency || this.currency;
       this.tickets = tickets || [];
       this.merchandise = merchandise || [];
       this.featuredDonations = donations || {};
       this.email = email || "";
       this.purchasedTicketStartDate = purchasedTicketStartDate;
+      this.purchasedTicketEndDate = purchasedTicketEndDate;
     } catch(error) {
       console.error("Failed to load data from localstorage:");
       console.error(error);

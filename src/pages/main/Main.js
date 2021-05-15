@@ -9,6 +9,18 @@ import FeatureBlock from "Pages/main/components/FeatureBlock";
 @inject("mainStore")
 @observer
 class Main extends React.Component {
+  componentDidMount() {
+    document.title = "4K Streaming and Ticketing Blockchain Platform | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", Copy.seo.page_descriptions.main);
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+  }
+
   render() {
     return (
       <div className="page-content main-page">

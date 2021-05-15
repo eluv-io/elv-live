@@ -4,6 +4,7 @@ import AsyncComponent from "Common/AsyncComponent";
 import {Redirect, withRouter} from "react-router";
 import {PageLoader} from "Common/Loaders";
 import Navigation from "Layout/Navigation";
+import InitializeEventData from "Utils/StructuredEventData";
 
 const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false}={}) => {
   @inject("siteStore")
@@ -51,6 +52,15 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
                   loadAnalytics: true,
                   preloadHero: true
                 });
+
+                try {
+                  InitializeEventData(this.props.siteStore);
+                } catch(error) {
+                  console.error("Failed to initialize structured event data:");
+                  console.error(error);
+                }
+
+                document.title = `${this.props.siteStore.eventInfo.event_title} | Eluvio Live`;
 
                 if(!validSlug) { console.error(`Invalid base slug: ${baseSlug}`); }
 

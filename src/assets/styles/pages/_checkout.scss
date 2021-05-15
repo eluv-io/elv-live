@@ -281,6 +281,7 @@
 
   .checkout-button {
     align-items: center;
+    border: 0;
     border-radius: 3px;
     cursor: pointer;
     display: flex;
@@ -289,6 +290,10 @@
     letter-spacing: 0.14em;
     position: relative;
     text-transform: uppercase;
+  }
+
+  .coinbase-button {
+    background: #1569cd;
   }
 
   .stripe-checkout-logo {
@@ -320,7 +325,16 @@
       width: 611px;
     }
 
+    .paypal-button {
+      margin-bottom: 10px;
+
+      & > div {
+        height: 50px;
+      }
+    }
+
     .loader {
+      height: 170px;
       max-width: 611px;
     }
   }
@@ -351,7 +365,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: row;
-    height: 100%;
+    height: 100px;
     justify-content: center;
     margin: 10px 5px 10px 0;
     max-height: 80px;

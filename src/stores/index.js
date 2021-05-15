@@ -3,6 +3,7 @@ import {ElvClient} from "@eluvio/elv-client-js";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
 import MainStore from "Stores/Main";
+import CollectionStore from "Stores/Collection";
 
 import EluvioConfiguration from "EluvioConfiguration";
 
@@ -13,7 +14,7 @@ configure({
 
 class RootStore {
   @observable client;
-  @observable ticketRedeemed = false;
+  @observable redeemedTicket;
   @observable error = "";
 
   @observable savedTickets = {};
@@ -22,6 +23,7 @@ class RootStore {
     this.siteStore = new SiteStore(this);
     this.cartStore = new CartStore(this);
     this.mainStore = new MainStore(this);
+    this.collectionStore = new CollectionStore(this);
 
     this.LoadRedeemedTickets();
 
@@ -66,7 +68,9 @@ class RootStore {
   @action.bound
   RedeemCode = flow(function * (code) {
     try {
-      const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+      const client = yield ElvClient.FromConfigurationUrl({
+        configUrl: EluvioConfiguration["config-url"]
+      });
 
       const { objectId, ntpId } = yield client.RedeemCode({
         tenantId: this.siteStore.currentSiteInfo.tenant_id,
@@ -75,7 +79,7 @@ class RootStore {
       });
 
       this.client = client;
-      this.ticketRedeemed = true;
+      this.redeemedTicket = code;
 
       this.savedTickets[this.siteStore.siteSlug] = {
         code,
@@ -109,3 +113,4 @@ export const rootStore = root;
 export const siteStore = root.siteStore;
 export const cartStore = root.cartStore;
 export const mainStore = root.mainStore;
+export const collectionStore = root.collectionStore;

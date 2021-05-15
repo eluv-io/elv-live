@@ -9,6 +9,9 @@ const EluvioConfiguration = {
   "config-url": "https://main.net955305.contentfabric.io/config",
   "live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
 
+  // Prod
+  //"live-site-id": "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
+
   "version": "elv-live@main",
   "version-hash": "elv-live@cac61fc90f7183eee06d3996bb65b9e71a8b6f06"
 };
