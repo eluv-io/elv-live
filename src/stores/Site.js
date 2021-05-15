@@ -213,12 +213,21 @@ class SiteStore {
         resolveLinks: true,
         linkDepthLimit: 0,
         select: [
+          "info",
           "sites",
           "collections"
         ]
       })) || {};
 
       this.tenantSlug = slug;
+
+      if(this.tenants[slug].info && this.tenants[slug].info.logo) {
+        const logoUrl = URI(this.baseSiteUrl);
+
+        this.tenants[slug].logoUrl = logoUrl
+          .path(UrlJoin(logoUrl.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "logo"))
+          .toString();
+      }
     } catch(error) {
       // TODO: Graceful error handling
       console.error("Error loading site", error);

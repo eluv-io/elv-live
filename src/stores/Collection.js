@@ -44,12 +44,30 @@ class CollectionStore {
   }
 
   @action.bound
-  LoadCollection = flow(function * (tenantSlug, collectionSlug) {
+  LoadCollections = flow(function * (tenantSlug) {
+    const collections = (yield this.client.ContentObjectMetadata({
+      ...this.rootStore.siteStore.siteParams,
+      metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", tenantSlug, "collections"),
+      resolveLinks: true,
+      linkDepthLimit: 1
+    })) || {};
+
+    yield Promise.all(
+      Object.keys(collections).map(async collectionSlug => await this.LoadCollection(tenantSlug, collectionSlug, collections[collectionSlug]))
+    );
+  });
+
+  @action.bound
+  LoadCollection = flow(function * (tenantSlug, collectionSlug, collectionMeta) {
     if(!this.collections[tenantSlug]) {
       this.collections[tenantSlug] = {};
     }
 
-    this.collections[tenantSlug][collectionSlug] = (yield this.client.ContentObjectMetadata({
+    if(this.collections[tenantSlug][collectionSlug]) {
+      return;
+    }
+
+    this.collections[tenantSlug][collectionSlug] = collectionMeta || (yield this.client.ContentObjectMetadata({
       ...this.rootStore.siteStore.siteParams,
       metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", tenantSlug, "collections", collectionSlug),
       resolveLinks: true,
@@ -62,6 +80,10 @@ class CollectionStore {
       this.collections[tenantSlug][collectionSlug].backgroundImage = this.CollectionURL(tenantSlug, collectionSlug, "info/images/background");
     }
 
+    if(this.collections[tenantSlug][collectionSlug].info.images.image) {
+      this.collections[tenantSlug][collectionSlug].image = this.CollectionURL(tenantSlug, collectionSlug, "info/images/image");
+    }
+
     if(this.collections[tenantSlug][collectionSlug].info.images.logo) {
       this.collections[tenantSlug][collectionSlug].logoImage = this.CollectionURL(tenantSlug, collectionSlug, "info/images/logo");
     }
@@ -69,6 +91,11 @@ class CollectionStore {
 
   RedeemCode = flow(function * ({tenantSlug, collectionSlug, subject, code}) {
     const collection = this.collections[tenantSlug][collectionSlug];
+
+    if(code.includes(":")) {
+      subject = code.split(":")[0];
+      code = code.split(":")[1];
+    }
 
     yield this.client.RedeemCode({
       tenantId: collection.info.access.tenant_id,
