@@ -74,16 +74,17 @@
   align-items: center;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 
   .modal__content {
     align-items: center;
     display: flex;
     justify-content: center;
     max-width: 1350px;
-    top: unset;
-    width: 100%;
     min-width: 100vw;
     overflow-y: hidden;
+    top: unset;
+    width: 100%;
   }
 }
 

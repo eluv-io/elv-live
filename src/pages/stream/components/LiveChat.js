@@ -1,23 +1,18 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import { GrChatOption } from "react-icons/gr";
-
-import "stream-chat-react/dist/css/index.css";
 
 import { StreamChat } from "stream-chat";
 import {
   Chat,
   Channel,
-  Window,
-  ChannelHeader,
-  MessageList,
   MessageInput,
   MessageInputSimple,
-  MessageLivestream,
-  Thread
+  VirtualizedMessageList
 } from "stream-chat-react";
-import {PageLoader} from "Common/Loaders";
-import {onEnterPressed} from "Utils/Misc";
+import {Loader} from "Common/Loaders";
+import {IsIOSSafari, onEnterPressed} from "Utils/Misc";
+
+import ChatSend from "Assets/icons/chat send.svg";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -28,64 +23,72 @@ class LiveChat extends React.Component {
 
     this.state = {
       anonymous: true,
-      chatClient: null,
-      channel: null,
+      anonymousChatClient: undefined,
+      chatClient: undefined,
+      channel: undefined,
       chatName: "",
+      formActive: false,
       loading: true
     };
+
+    this.DisconnectChatClients = this.DisconnectChatClients.bind(this);
   }
 
-  async InitializeChannel(userName, createOnly=false) {
-    const channelTitle = `${this.props.siteStore.streamPageInfo.header} - ${this.props.siteStore.streamPageInfo.subheader}`;
-
-    if(!createOnly) {
-      this.setState({channel: undefined});
-    }
-
-    await this.state.chatClient.disconnect();
-
-    if(userName) {
-      await this.state.chatClient.setGuestUser({
-        id: userName.replace(/[^a-zA-Z0-9]/g, ""),
-        name: userName
-      });
-    } else {
-      await this.state.chatClient.connectAnonymousUser();
-
-      const channelExists = (await this.state.chatClient.queryChannels({id: this.props.siteStore.chatChannel})).length > 0;
-
-      if(!channelExists) {
-        await this.InitializeChannel("channelCreator", true);
-
-        await this.state.chatClient.disconnect();
-        await this.state.chatClient.connectAnonymousUser();
-      }
-    }
-
+  async InitializeChannel(userName) {
     try {
-      const channel = await this.state.chatClient.channel(
-        "livestream",
-        this.props.siteStore.chatChannel,
-        { name: channelTitle }
-      );
+      this.setState({loading: true});
 
-      if(createOnly) {
-        await channel.create();
-        return;
+      const chatChannel = this.props.siteStore.ChatChannel();
+
+      if(userName) {
+        await this.state.chatClient.setGuestUser({
+          id: userName.replace(/[^a-zA-Z0-9]/g, ""),
+          name: userName
+        });
+
+        const channel = await this.state.chatClient.channel("livestream", chatChannel);
+
+        this.setState({channel: undefined}, () => this.setState({channel, anonymous: false}));
+        await this.state.anonymousChatClient.disconnectUser();
+      } else {
+        await this.state.anonymousChatClient.connectAnonymousUser();
+
+        const channelExists = (await this.state.anonymousChatClient.queryChannels({cid: `livestream:${chatChannel}`})).length > 0;
+
+        if(!channelExists) {
+          await this.state.chatClient.setGuestUser({id: "channelCreator", name: "channelCreator"});
+
+          const channel = await this.state.chatClient.channel("livestream", chatChannel);
+          await channel.create();
+
+          await this.state.chatClient.disconnectUser();
+        }
+
+        const channel = await this.state.anonymousChatClient.channel("livestream", chatChannel);
+
+        this.setState({channel, anonymous: true});
       }
+    } finally {
+      this.setState({loading: false});
+    }
+  }
 
-      this.setState({
-        channel,
-        anonymous: !userName
-      });
-    } catch(error) {
-      console.error(error);
+  DisconnectChatClients() {
+    if(this.state.chatClient) {
+      this.state.chatClient.disconnectUser();
+    }
+
+    if(this.state.anonymousChatClient) {
+      this.state.anonymousChatClient.disconnectUser();
     }
   }
 
   componentDidMount() {
+    window.addEventListener("beforeunload", this.DisconnectChatClients);
+
     this.setState({
-      chatClient: new StreamChat("yyn7chg5xjwq")
+      anonymousChatClient: new StreamChat("s2ypn9y5jvzv"),
+      chatClient: new StreamChat("s2ypn9y5jvzv")
     }, async () => {
       await this.InitializeChannel();
       this.setState({loading: false});
@@ -93,57 +96,92 @@ class LiveChat extends React.Component {
   }
 
   componentWillUnmount() {
-    if(this.state.chatClient) {
-      this.state.chatClient.disconnect();
-    }
+    this.DisconnectChatClients();
+
+    window.removeEventListener("beforeunload", this.DisconnectChatClients);
   }
 
   async JoinChat() {
     if(!this.state.chatName) { return; }
 
+    this.setState({
+      chatName: "",
+      formActive: false
+    });
+
     this.InitializeChannel(this.state.chatName);
   }
 
+  ChatNameForm() {
+    return (
+      <div className="chat-container__username-form-container" onClick={() => this.setState({formActive: false})}>
+        <form
+          className="chat-container__input-container chat-container__username-form"
+          onSubmit={event => event.preventDefault()}
+          onClick={event => event.stopPropagation()}
+        >
+          <label htmlFor="name" className="chat-container__form__label">Enter your name to chat</label>
+          <input
+            autoComplete="off"
+            ref={element => element && element.focus()}
+            name="name"
+            placeholder="Name"
+            className="chat-container__form__input"
+            value={this.state.chatName}
+            onKeyPress={onEnterPressed(() => this.JoinChat())}
+            onChange={event => this.setState({chatName: event.target.value})}
+          />
+          <button className="chat-container__form__submit" onClick={() => this.JoinChat()}>
+            Join Chat
+          </button>
+        </form>
+      </div>
+    );
+  }
+
   Input() {
+    if(this.state.loading) {
+      return <Loader />;
+    }
+
     if(this.state.anonymous) {
       // Name input
       return (
-        <div className={this.props.siteStore.darkMode ? "stream-chat-signup-dark" : "stream-chat-signup-light"}>
-          <div className="stream-chat-form">
-            <input
-              placeholder="Enter your name to chat"
-              value={this.state.chatName}
-              onKeyPress={onEnterPressed(() => this.JoinChat())}
-              onChange={event => this.setState({chatName: event.target.value})}
-            />
-          </div>
-          <button className="enter-chat-button" role="link" onClick={() => this.JoinChat()}>
-            <GrChatOption style={{height: "25px", width: "25px", marginRight: "10px"}}/> Join Chat
+        <div className="chat-container__input-container chat-container__join-chat-container">
+          <button className="chat-container__input-container__join-chat" onClick={() => this.setState({formActive: true})}>
+            Join Chat
           </button>
         </div>
       );
     }
 
     // Chat input
-    return <MessageInput Input={MessageInputSimple} focus={false}/>;
+    return <MessageInput Input={MessageInputSimple} additionalTextareaProps={{maxLength: 300}} focus={false}/>;
   }
 
   render() {
     if(!this.state.channel) {
-      return <PageLoader />;
+      return null;
     }
 
     return (
-      <Chat client={this.state.chatClient} theme={this.props.siteStore.darkMode ? "livestream dark" : "livestream light"}>
-        <Channel channel={this.state.channel} Message={MessageLivestream} loadingIndicator={() => null}>
-          <Window hideOnThread>
-            <ChannelHeader live/>
-            <MessageList dateSeparator={() => { return null; }}/>
+      <div
+        className={`chat-container ${IsIOSSafari() ? "ios-safari" : ""}`}
+        ref={() => {
+          // Replace default send button with custom one
+          if(document.querySelector(".str-chat__send-button")) {
+            document.querySelector(".str-chat__send-button").innerHTML = ChatSend;
+          }
+        }}
+      >
+        <Chat client={this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient} theme="livestream dark">
+          <Channel channel={this.state.channel} LoadingIndicator={() => null}>
+            <VirtualizedMessageList />
             { this.Input() }
-          </Window>
-          <Thread fullWidth autoFocus={false}/>
-        </Channel>
-      </Chat>
+            { this.state.formActive ? this.ChatNameForm() : null }
+          </Channel>
+        </Chat>
+      </div>
     );
   }
 }

@@ -8,7 +8,7 @@ import AddToCalendar from "react-add-to-calendar";
 @observer
 class Success extends React.Component {
   componentDidMount() {
-    this.props.cartStore.OrderComplete();
+    this.props.cartStore.OrderComplete(this.props.match.params.id);
   }
 
   render() {
@@ -16,6 +16,8 @@ class Success extends React.Component {
     if(this.props.cartStore.purchasedTicketStartDate) {
       try {
         const startDate = new Date(this.props.cartStore.purchasedTicketStartDate);
+        const endDate = this.props.cartStore.purchasedTicketEndDate ? new Date(this.props.cartStore.purchasedTicketEndDate) : undefined;
+
         const calendarData = this.props.siteStore.calendarEvent;
         calendarEvent = {
           title: calendarData.title,
@@ -23,7 +25,7 @@ class Success extends React.Component {
           location: calendarData.location,
           startTime: startDate,
           // End time just set to an hour from start
-          endTime: new Date(startDate.getTime() + 60 * 60 * 1000)
+          endTime: endDate || new Date(startDate.getTime() + 60 * 60 * 1000)
         };
       } catch(error) {
         console.error("Error determining calendar date");
@@ -36,7 +38,7 @@ class Success extends React.Component {
           <div className="summary">
             <div className="payment-overview">
               <h1 className="payment-overview-title">Thanks for your order!</h1>
-              <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to {this.props.match.params.email} shortly. </h2>
+              <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to {this.props.cartStore.email} shortly. </h2>
             </div>
           </div>
 

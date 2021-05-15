@@ -402,7 +402,7 @@ class Checkout extends React.Component {
     if(this.state.redirect) {
       return (
         <Redirect
-          to={this.props.siteStore.SitePath("success", this.props.cartStore.email, this.props.cartStore.confirmationId)}
+          to={this.props.siteStore.SitePath("success", this.props.cartStore.confirmationId)}
         />
       );
     }
@@ -462,6 +462,9 @@ class Checkout extends React.Component {
             />
           </PayPalScriptProvider>
         </div>
+        <button className="checkout-button coinbase-button" onClick={this.props.cartStore.CoinbaseSubmit}>
+          Pay with Crypto
+        </button>
       </div>
     );
   }
@@ -474,7 +477,7 @@ class Checkout extends React.Component {
         <div className="sponsors-message">Sponsored By</div>
         <div className="sponsors-container">
           {this.props.siteStore.sponsors.map((sponsor, index) =>
-            <a href={sponsor.link} target="_blank" className={"sponsor-image-container"} key={`sponsor-${index}`} title={sponsor.name}>
+            <a href={sponsor.link} target="_blank" rel="noopener" className={"sponsor-image-container"} key={`sponsor-${index}`} title={sponsor.name}>
               <img src={sponsor.image_url} className="sponsor-image" alt={sponsor.name} />
             </a>
           )}

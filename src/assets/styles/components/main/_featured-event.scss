@@ -47,15 +47,17 @@
 }
 
 .featured-event {
-  animation: fadein 0.35s linear;
   display: none;
   height: 100%;
+  opacity: 0;
   position: relative;
   user-select: none;
   width: 100%;
 
   &.featured-event-selected {
+    animation: fadein 0.35s linear;
     display: block;
+    opacity: 1;
     z-index: 9;
   }
 

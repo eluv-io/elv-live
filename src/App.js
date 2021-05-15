@@ -10,6 +10,21 @@ import {PageLoader} from "Common/Loaders";
 const MainApp = lazy(() => import("./MainApp"));
 const SiteApp = lazy(() => import("./SiteApp"));
 
+// Set actual device height in viewport meta tag
+const SetHeight = () => {
+  const content = document.querySelector("meta[name=viewport]").content || "";
+  let attributes = {};
+  content.split(",").forEach(entry => {
+    const [key, value] = entry.split("=");
+    attributes[key.trim()] = (value || "").trim();
+  });
+
+  attributes.height = window.innerHeight;
+
+  document.querySelector("meta[name=viewport]").content =
+    Object.keys(attributes).map(key => `${key}=${attributes[key]}`).join(", ");
+};
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -18,6 +33,9 @@ class App extends React.Component {
     if(!("scrollBehavior" in document.documentElement.style)) {
       await import("scroll-behavior-polyfill");
     }
+
+    SetHeight();
+    window.addEventListener("resize", SetHeight);
   }
 
   render() {

@@ -1,0 +1,114 @@
+.collections {
+  padding: 35px 35px 75px;
+  width: 100%;
+
+  &__top {
+    position: relative;
+
+    &__logo {
+      left: 0;
+      max-width: 200px;
+      position: absolute;
+      top: 0;
+    }
+
+    &__header {
+      font-size: 64px;
+      font-weight: 300;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    &__subheader {
+      font-size: 32px;
+      font-weight: 400;
+      margin: 0 auto;
+      max-width: 700px;
+      text-align: center;
+
+      &-bold {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    margin: 65px 0;
+
+    &__collection {
+      background: $white;
+      border-radius: 8px;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+      &__details {
+        padding: 15px 25px 40px;
+
+        &__header {
+          font-size: 32px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          text-align: center;
+          letter-spacing: 0.07em;
+        }
+
+        &__text {
+          font-size: 20px;
+          text-align: center;
+        }
+
+        &__link {
+          align-items: center;
+          background: $black;
+          border-radius: 3px;
+          color: white;
+          display: flex;
+          font-size: 16px;
+          justify-content: center;
+          letter-spacing: 0.14em;
+          margin: 30px auto 0;
+          min-height: 42px;
+          min-width: 300px;
+          padding: 10px 20px;
+          text-align: center;
+          text-transform: uppercase;
+
+          &:hover {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    padding: 35px 15px 50px;
+
+    &__top {
+      &__logo {
+        margin: 0 auto;
+        position: unset;
+      }
+
+      &__header {
+        font-size: 42px;
+      }
+
+      &__subheader {
+        font-size: 20px;
+      }
+    }
+
+    &__list {
+      grid-template-columns: repeat(auto-fill, 100%);
+
+      &__collection {
+        &__details {
+          padding: 15px 15px 40px;
+        }
+      }
+    }
+  }
+}

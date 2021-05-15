@@ -40,6 +40,7 @@ class Header extends React.Component {
     if(!this.props.siteStore.currentSite) { return null; }
 
     const itemCount = this.props.cartStore.CartDetails().itemCount;
+    const redeemAvailable = !this.props.hideRedeem && this.props.siteStore.currentSiteInfo.state !== "Live Ended";
 
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
@@ -55,10 +56,10 @@ class Header extends React.Component {
         <div className="header__spacer" />
         <div className="header__links">
           {
-            this.props.hideRedeem ? null :
+            redeemAvailable ?
               <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
                 Redeem Ticket
-              </NavLink>
+              </NavLink> : null
           }
           {
             this.props.hideCheckout ? null :

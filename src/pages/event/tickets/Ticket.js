@@ -2,8 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Select from "react-select";
 import {FormatDateString} from "Utils/Misc";
-import TicketDetails from "Event/tickets/TicketDetails";
-import Modal from "Common/Modal";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -13,8 +11,10 @@ class Ticket extends React.Component {
   constructor(props) {
     super(props);
 
+    const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
+
     this.state = {
-      selectedSku: 0,
+      selectedSku: ticketClass.skus.findIndex(sku => !sku.hidden),
       quantity: 1
     };
 
@@ -27,16 +27,20 @@ class Ticket extends React.Component {
 
   TicketOptions() {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
-    return ticketClass.skus.map((ticketSku, index) => ({
-      label: (
-        <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""}`}>
-          { ticketSku.external_url ? null : <div className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div> }
-          <div className="ticket-option-detail">{ ticketSku.label }</div>
-          <div className="ticket-option-detail">{ FormatDateString(ticketSku.start_time)}</div>
-        </div>
-      ),
-      value: index
-    }));
+    return ticketClass.skus
+      .filter(ticketSku => !ticketSku.hidden)
+      .map((ticketSku, index) => ({
+        label: (
+          <div className={`ticket-option ${ticketSku.external_url ? "ticket-option-external" : ""} ${ticketSku.external_url && !ticketSku.start_time ? "ticket-option-external-no-date" : ""}`}>
+            {ticketSku.external_url ? null : <div
+              className="ticket-option-detail no-mobile">{this.props.cartStore.FormatPriceString(ticketSku.price, true)}</div>}
+            <div className="ticket-option-detail">{ticketSku.label}</div>
+            {!ticketSku.start_time ? null :
+              <div className="ticket-option-detail">{FormatDateString(ticketSku.start_time)}</div>}
+          </div>
+        ),
+        value: index
+      }));
   }
 
   Controls(ticketClass, ticketSku) {
@@ -44,7 +48,7 @@ class Ticket extends React.Component {
 
     if(ticketSku.external_url) {
       return released ?
-        <a href={ticketSku.external_url} target="_blank" className="ticket-bottom-button">Buy</a> :
+        <a href={ticketSku.external_url} target="_blank" rel="noopener" className="ticket-bottom-button">Buy</a> :
         <a className="ticket-bottom-button unreleased">Available {FormatDateString(ticketClass.release_date, false, false, true)}</a>;
     }
 
@@ -95,6 +99,9 @@ class Ticket extends React.Component {
     const ticketClass = this.props.siteStore.TicketClassItem(this.props.ticketClassUUID);
     const ticketSku = ticketClass.skus[this.state.selectedSku];
 
+    // If no SKUs are visible, hide ticket class
+    if(!ticketClass.skus.find(sku => !sku.hidden)) { return null; }
+
     return (
       <React.Fragment>
         <div className="ticket-event">
@@ -138,15 +145,6 @@ class Ticket extends React.Component {
             </div>
           </div>
         </div>
-        {
-          this.props.cartStore.showTicketOverlay &&
-          this.props.ticketClassUUID === this.props.cartStore.ticketOverlayOptions.ticketClassUUID ?
-            <Modal
-              Toggle={this.props.cartStore.ToggleTicketOverlay}
-              content={<TicketDetails />}
-            /> : null
-        }
-
       </React.Fragment>
     );
   }

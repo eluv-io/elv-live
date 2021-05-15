@@ -3,6 +3,7 @@ import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 import ReactMarkdown from "react-markdown";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import Copy from "Assets/copy/Main.yaml";
 
 import ImageIcon from "Common/ImageIcon";
 
@@ -15,6 +16,18 @@ import HeaderLine from "Assets/images/logo/HeaderLine.png";
 @inject("mainStore")
 @observer
 class News extends React.Component {
+  componentDidMount() {
+    document.title = "News and Information | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", Copy.seo.page_descriptions.news);
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+  }
+
   Markdown(content) {
     return (
       <div
@@ -45,7 +58,6 @@ class News extends React.Component {
             element,
             {
               clientOptions: {
-                network: EluvioPlayerParameters.networks.DEMO,
                 client: this.props.mainStore.rootStore.client
               },
               sourceOptions: {

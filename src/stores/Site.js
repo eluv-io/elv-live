@@ -3,7 +3,7 @@ import URI from "urijs";
 import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
 
-const CHAT_ROOM_SIZE = 1000;
+const CHAT_ROOM_SIZE = 5000;
 
 import mergeWith from "lodash/mergeWith";
 
@@ -30,8 +30,6 @@ class SiteStore {
   @observable chatChannel;
 
   @observable error = "";
-
-  @observable googleAnalyticsHook;
 
   @computed get client() {
     return this.rootStore.client;
@@ -77,12 +75,14 @@ class SiteStore {
     });
   }
 
+  @computed get currentSiteTicket() {
+    return this.rootStore.savedTickets[this.siteSlug];
+  }
+
   @computed get currentSiteTicketSku() {
-    const savedTicketInfo = this.rootStore.savedTickets[this.siteSlug];
+    if(!this.currentSiteTicket) { return null; }
 
-    if(!savedTicketInfo) { return null; }
-
-    return this.TicketSkuByNTPId(savedTicketInfo.ntpId);
+    return this.TicketSkuByNTPId(this.currentSiteTicket.ntpId);
   }
 
   @computed get currentSiteMetadataPath() {
@@ -105,8 +105,24 @@ class SiteStore {
     return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
   }
 
-  @computed get eventActive() {
-    return this.currentSiteTicketSku && new Date(this.currentSiteTicketSku.start_time) < new Date();
+  @action.bound
+  ChatChannel() {
+    if(!this.chatChannel) {
+      const startTime = this.currentSiteTicketSku.start_time;
+
+      // Determine chat channel
+      const expectedAudienceSize = CHAT_ROOM_SIZE;
+
+      const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
+      const roomNumber = Math.floor(Math.random() * maxRooms);
+
+      this.chatChannel =
+        `${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`
+          .replace(/[^a-zA-Z0-9\-]/g, "")
+          .slice(0, 63);
+    }
+
+    return this.chatChannel;
   }
 
   SitePath(...pathElements) {
@@ -194,13 +210,24 @@ class SiteStore {
       this.tenants[slug] = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
-        resolveLinks: false,
+        resolveLinks: true,
+        linkDepthLimit: 0,
         select: [
-          "sites"
+          "info",
+          "sites",
+          "collections"
         ]
       })) || {};
 
       this.tenantSlug = slug;
+
+      if(this.tenants[slug].info && this.tenants[slug].info.logo) {
+        const logoUrl = URI(this.baseSiteUrl);
+
+        this.tenants[slug].logoUrl = logoUrl
+          .path(UrlJoin(logoUrl.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "logo"))
+          .toString();
+      }
     } catch(error) {
       // TODO: Graceful error handling
       console.error("Error loading site", error);
@@ -247,7 +274,8 @@ class SiteStore {
         select: [
           ".",
           "info",
-          "promos"
+          "promos",
+          "channels"
         ],
         metadataSubtree: this.SiteMetadataPath({tenantSlug, siteIndex, siteSlug}),
         resolveLinks: true,
@@ -261,41 +289,18 @@ class SiteStore {
 
       site.siteSlug = siteSlug;
       site.siteIndex = parseInt(siteIndex);
+      site.tenantSlug = tenantSlug;
 
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
-      // Determine chat channel
-      const expectedAudienceSize = 10000;
-
-      const maxRooms = Math.ceil(expectedAudienceSize / CHAT_ROOM_SIZE);
-      const roomNumber = Math.floor(Math.random() * maxRooms);
-
-      this.chatChannel = `${this.siteSlug}-${roomNumber}`;
-
       this.eventSites[tenantKey][siteSlug] = site;
 
-      try {
-        if(loadAnalytics && (site.info || {}).google_analytics_id && window.location.hostname !== "localhost") {
-          const s = document.createElement("script");
-          s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${site.info.google_analytics_id}`);
-          s.async = true;
-          document.head.appendChild(s);
-
-          window.dataLayer = window.dataLayer || [];
-          this.googleAnalyticsHook = function () {
-            window.dataLayer.push(arguments);
-          };
-
-          this.googleAnalyticsHook("js", new Date());
-          this.googleAnalyticsHook("config", site.info.google_analytics_id);
-        }
-      } catch(error) {
-        console.error("Failed to load Google Analytics:");
-        console.error(error);
-      }
-
       this.rootStore.cartStore.LoadLocalStorage();
+
+      if(loadAnalytics) {
+        this.InitializeAnalytics();
+      }
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
     } catch (error) {
@@ -303,37 +308,45 @@ class SiteStore {
     }
   });
 
-  @action.bound
-  LoadStreams = flow(function * () {
-    const titleLinks = yield this.client.ContentObjectMetadata({
+  async StreamHash() {
+    const channelKey = Object.keys(this.currentSite.channels || {})[0];
+
+    const meta = await this.rootStore.client.ContentObjectMetadata({
       ...this.siteParams,
-      metadataSubtree: UrlJoin(this.currentSiteMetadataPath, "streams"),
-      resolveLinks: true,
-      resolveIgnoreErrors: true,
-      resolveIncludeSource: true,
-      select: [
-        "*/*/title",
-        "*/*/display_title",
-        "*/*/sources"
-      ]
+      versionHash: undefined, // Always pull latest
+      metadataSubtree: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings"),
+      resolveIncludeSource: true
     });
 
-    this.streams = yield Promise.all(
-      Object.keys(titleLinks || {}).map(async index => {
-        const slug = Object.keys(titleLinks[index])[0];
+    return ((meta || {})["."] || {}).container;
+  }
 
-        const { title, display_title, sources } = titleLinks[index][slug];
+  @action.bound
+  LoadStreamURI = flow(function * () {
+    const ticketCode = (this.currentSiteTicket || {}).code;
 
-        const playoutOptions = await this.client.BitmovinPlayoutOptions({
-          versionHash: this.siteParams.versionHash,
-          linkPath: UrlJoin(this.currentSiteMetadataPath, "streams", index, slug, "sources", "default"),
-          protocols: ["hls"],
-          drms: await this.client.AvailableDRMs()
-        });
+    if(!ticketCode) { return; }
 
-        return { title, display_title, playoutOptions }
-      })
-    );
+    // Ensure code is redeemed
+    yield this.rootStore.RedeemCode(ticketCode);
+
+    const channelKey = Object.keys(this.currentSite.channels || {})[0];
+
+    if(!channelKey) { return; }
+
+    const availableOfferings = yield this.rootStore.client.AvailableOfferings({
+      ...this.siteParams,
+      versionHash: undefined, // Always pull latest
+      linkPath: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings"),
+      directLink: true,
+      resolveIncludeSource: true
+    });
+
+    const offeringId = Object.keys(availableOfferings || {})[0];
+
+    if(!offeringId) { return; }
+
+    return availableOfferings[offeringId].uri;
   });
 
   @action.bound
@@ -345,6 +358,121 @@ class SiteStore {
   @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
+  }
+
+  InitializeAnalytics() {
+    const analytics = this.currentSiteInfo.analytics || {};
+
+    try {
+      if(analytics.google) {
+        const s = document.createElement("script");
+        s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${analytics.google}`);
+        s.async = true;
+        document.head.appendChild(s);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+
+        gtag("js", new Date());
+        gtag("config", analytics.google);
+
+        window.ac[`${this.siteSlug}-g`] = gtag;
+      }
+
+      if(analytics.google_tag_manager_id) {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer',analytics.google_tag_manager_id);
+      }
+    } catch(error) {
+      console.error("Failed to load Google Analytics:");
+      console.error(error);
+    }
+
+    try {
+      if(analytics.facebook) {
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,"script",
+          "https://connect.facebook.net/en_US/fbevents.js");
+        fbq("init", analytics.facebook);
+        fbq("track", "PageView");
+
+        window.ac[`${this.siteSlug}-f`] = fbq;
+      }
+    } catch(error) {
+      console.error("Failed to load Facebook analytics");
+      console.log(error);
+    }
+
+    try {
+      if(analytics.adnxs_segment_id) {
+        const pixel = document.createElement("img");
+
+        pixel.setAttribute("width", "1");
+        pixel.setAttribute("height", "1");
+        pixel.style.display = "none";
+        pixel.setAttribute("src", `https://secure.adnxs.com/seg?add=${analytics.adnxs_segment_id}&t=2`);
+
+        document.body.appendChild(pixel);
+      }
+    } catch(error) {
+      console.error("Failed to load adnxs analytics");
+      console.log(error);
+    }
+  }
+
+  TrackPurchase(confirmationId, cartDetails) {
+    if(cartDetails.total === 0) { return; }
+
+    const analytics = this.currentSiteInfo.analytics || {};
+    const googleHook = window.ac[`${this.siteSlug}-g`];
+    const facebookHook = window.ac[`${this.siteSlug}-f`];
+
+    if(googleHook && analytics.google_conversion_id && analytics.google_conversion_label) {
+      googleHook(
+        "event",
+        "conversion",
+        {
+          send_to: `${analytics.google_conversion_id}/${analytics.google_conversion_label}`,
+          value: cartDetails.total,
+          currency: this.rootStore.cartStore.currency,
+          transaction_id: confirmationId
+        }
+      );
+    }
+
+    if(analytics.facebook) {
+      facebookHook("track", "Purchase", { currency: this.rootStore.cartStore.currency, value: cartDetails.total });
+    }
+
+    if(analytics.adnxs_pixel_id && analytics.adnxs_segment_id) {
+      const pixel = document.createElement("img");
+
+      pixel.setAttribute("width", "1");
+      pixel.setAttribute("height", "1");
+      pixel.style.display = "none";
+      pixel.setAttribute("src", `https://secure.adnxs.com/px?id=${analytics.adnxs_pixel_id}&seg=${analytics.adnxs_segment_id}&order_id=${confirmationId}&value=${cartDetails.total}&t=2`);
+
+      document.body.appendChild(pixel);
+    }
+
+    if(analytics.tradedoubler_organization_id && analytics.tradedoubler_event_id) {
+      const pixel = document.createElement("img");
+
+      pixel.setAttribute("width", "1");
+      pixel.setAttribute("height", "1");
+      pixel.style.display = "none";
+      pixel.setAttribute("src", `https://tbs.tradedoubler.com/report?organization=${analytics.tradedoubler_organization_id}&event=${analytics.tradedoubler_event_id}&orderNumber=${confirmationId}&orderValue=${cartDetails.total}`);
+
+      document.body.appendChild(pixel);
+    }
   }
 
   /* Site attributes */
@@ -403,11 +531,12 @@ class SiteStore {
   }
 
   @computed get sponsors() {
-    return (this.currentSiteInfo.sponsors || []).map(({name, link}, index) => {
+    return (this.currentSiteInfo.sponsors || []).map(({name, link, image, image_light}, index) => {
       return {
         name,
         link,
-        image_url: this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image"))
+        image_url: image ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image")) : "",
+        light_image_url: image_light ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image_light")) : ""
       }
     });
   }

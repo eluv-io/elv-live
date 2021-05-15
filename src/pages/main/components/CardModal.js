@@ -25,8 +25,12 @@ class CardModal extends React.Component {
     };
   }
 
+  Images() {
+    return this.props.mainStore.cardImages[this.props.copyKey] || [];
+  }
+
   ChangePage(page) {
-    const cards = this.props.mainStore.cardImages[this.props.copyKey];
+    const cards = this.Images();
 
     this.setState({
       selected: page % cards.length,
@@ -48,7 +52,7 @@ class CardModal extends React.Component {
       );
     }
 
-    if(this.state.selected < this.props.mainStore.cardImages[this.props.copyKey].length - 1) {
+    if(this.state.selected < this.Images().length - 1) {
       rightArrow = (
         <button
           className="arrow-right"
@@ -58,7 +62,7 @@ class CardModal extends React.Component {
         </button>
       );
 
-      const nextTitle = (this.props.mainStore.cardImages[this.props.copyKey][this.state.selected + 1] || {}).title || "";
+      const nextTitle = (this.Images()[this.state.selected + 1] || {}).title || "";
       if(nextTitle) {
         rightText = (
           <button
@@ -71,7 +75,7 @@ class CardModal extends React.Component {
       }
     }
 
-    const title = (this.props.mainStore.cardImages[this.props.copyKey][this.state.selected] || {}).title || "";
+    const title = (this.Images()[this.state.selected] || {}).title || "";
 
     return (
       <div className="card-modal__image-controls">
@@ -85,12 +89,12 @@ class CardModal extends React.Component {
     );
   }
 
-  Images() {
-    if(this.props.mainStore.cardImages[this.props.copyKey].length === 0) {
+  ImageSection() {
+    if(this.Images().length === 0) {
       return null;
     }
 
-    return this.props.mainStore.cardImages[this.props.copyKey].map(({url, title}, index) =>
+    return this.Images().map(({url, title}, index) =>
       <ImageIcon
         key={`card-image-${index}`}
         className={`card-modal__image ${index === this.state.selected ? "card-modal__image-active" : ""} ${index === this.state.previous ? "card-modal__image-fading-out" : ""}`}
@@ -130,7 +134,7 @@ class CardModal extends React.Component {
     return (
       <div className="card-modal">
         <div className="card-modal__image-container">
-          { this.Images() }
+          { this.ImageSection() }
           { this.ImageControls() }
         </div>
         <div className="card-modal__text-container">

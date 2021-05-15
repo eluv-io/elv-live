@@ -21,7 +21,7 @@ class Footer extends React.Component {
     if(!href) { return null; }
 
     return (
-      <a href={href} target="_blank" className="info-social-link">
+      <a href={href} target="_blank" rel="noopener" className="info-social-link">
         <IconContext.Provider value={{ className: `social-icon ${name}`, color: "black"}}>
           { Icon }
         </IconContext.Provider>
@@ -42,7 +42,7 @@ class Footer extends React.Component {
           <NavLink to="/terms" className="footer__link">Terms</NavLink>
           <NavLink to="/next" className="footer__link">What's Next?</NavLink>
           <NavLink to="/privacy" className="footer__link">Privacy</NavLink>
-          <a href="https://eluv.io" className="footer__link" target="_blank">eluv.io</a>
+          <a href="https://eluv.io" rel="noopener" className="footer__link" target="_blank">eluv.io</a>
         </div>
         <div className="footer__social">
           { this.SocialButton("https://www.instagram.com/eluviolive", <FaInstagram />, "Instagram") }

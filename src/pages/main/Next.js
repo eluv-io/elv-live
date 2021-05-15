@@ -7,6 +7,18 @@ import {NavLink} from "react-router-dom";
 @inject("siteStore")
 @observer
 class Next extends React.Component {
+  componentDidMount() {
+    document.title = "What's Next? | Eluvio LIVE";
+    document
+      .getElementsByTagName("meta")
+      .namedItem("description")
+      .setAttribute("content", Copy.seo.page_descriptions.next);
+    document
+      .getElementsByTagName("meta")
+      .namedItem("robots")
+      .setAttribute("content", "");
+  }
+
   render() {
     return (
       <div className="page-content next-page">
@@ -23,16 +35,16 @@ class Next extends React.Component {
             <div className="next-page__label-value">Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710</div>
 
             <label>Instagram</label>
-            <div className="next-page__label-value"><a href="https://www.instagram.com/eluviolive" target="_blank">eluviolive</a></div>
+            <div className="next-page__label-value"><a href="https://www.instagram.com/eluviolive" target="_blank"rel="noopener" >eluviolive</a></div>
 
             <label>Twitter</label>
-            <div className="next-page__label-value"><a href="https://twitter.com/EluvioLIVE" target="_blank">@EluvioLIVE</a></div>
+            <div className="next-page__label-value"><a href="https://twitter.com/EluvioLIVE" target="_blank"rel="noopener" >@EluvioLIVE</a></div>
 
             <label>Facebook</label>
-            <div className="next-page__label-value"><a href="https://www.facebook.com/EluvioLIVE" target="_blank">@EluvioLIVE</a></div>
+            <div className="next-page__label-value"><a href="https://www.facebook.com/EluvioLIVE" target="_blank"rel="noopener" >@EluvioLIVE</a></div>
 
             <label>LinkedIn</label>
-            <div className="next-page__label-value"><a href="https://www.linkedin.com/company/eluv-io" target="_blank">eluv-io</a></div>
+            <div className="next-page__label-value"><a href="https://www.linkedin.com/company/eluv-io" target="_blank"rel="noopener" >eluv-io</a></div>
           </div>
         </div>
       </div>
