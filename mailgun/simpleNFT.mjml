@@ -1,0 +1,33 @@
+<mjml>
+  <mj-body background-color="#ccd3e0">
+ <mj-section background-color="white" padding-bottom="10px" padding-top="10px">
+      <mj-column width="100%">
+        <!-- <mj-image align="center" padding="10px 25px" src="cid:logo.png" width="128px"></mj-image> -->
+        <mj-text align="center" font-size="28px" color="black" padding-top="40px" font-family="Ubuntu, Helvetica, Arial, sans-serif" line-height="40px" padding-left="5%" padding-right="5%" >
+          <span style="font-weight:bold;">Congratulations!</span>
+          <br/>
+          <span>Your "{{nft-name}}" NFT has been minted to your account</span>
+        </mj-text>
+
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#222" padding-bottom="5px">
+      <mj-column>
+        <mj-text align="center" color="white" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-top="25px" padding-bottom="10px"><strong>Delivered to Account</strong></mj-text>
+        <mj-text align="center" color="white" font-size="20px" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="20px" padding-top="10px"> {{nft-to-addr}}</mj-text>
+        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="50px" href="{{nft-etherscan-tx}}" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">View on Etherscan</mj-button>
+        <mj-button background-color="white" color="black" font-size="22px" align="center" font-weight="bold" border="none" border-radius="50px" href="{{nft-opensea-uri}}" font-family="Helvetica" padding-left="25px" padding-right="25px" padding-bottom="25px">View on OpenSea</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="white" padding-bottom="5px">
+      <mj-column>
+
+        <mj-text align="center" color="black" font-size="18px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="25px">
+          <strong>Eluvio</strong>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
