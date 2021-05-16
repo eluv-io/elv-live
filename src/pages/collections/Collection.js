@@ -51,7 +51,7 @@ const ItemDetails = ({item}) => {
         </div>
         <div className="collection__item__details__field">
           <b>Studio:</b>
-          { Get("studios") }
+          { Get("studio") }
         </div>
         <div className="collection__item__details__field">
           <b>Creative Director:</b>
@@ -102,7 +102,6 @@ const Item = ({client, item, socialDetails={}}) => {
 
   return (
     <div className="collection__item">
-      <h2 className="collection__item__header">{ item.display_title || item.title }</h2>
       <div className="collection__item__aspect-ratio">
         <div
           className="collection__item__player-target"
@@ -151,7 +150,6 @@ const TransferForm = ({
   message,
   terms,
   privacyPolicy,
-  className,
   Submit
 }) => {
   const [address, setAddress] = useState("");
@@ -162,14 +160,14 @@ const TransferForm = ({
 
   if(confirmation) {
     return (
-      <div className={`${className}__transfer-confirmation ${className}__transfer-form`}>
-        <h2 className={`${className}__transfer-confirmation__header ${className}__transfer-form__header`}>
+      <div className="collection__transfer-confirmation collection__transfer-form">
+        <h2 className="collection__transfer-confirmation__header collection__transfer-form__header">
           Transfer Request Confirmed!
         </h2>
-        <div className={`${className}__transfer-confirmation__message`}>
+        <div className="collection__transfer-confirmation__message">
           If you requested email notification you will receive a message when your transaction completes.
         </div>
-        <div className={`${className}__transfer-confirmation__confirmation`}>
+        <div className="collection__transfer-confirmation__confirmation">
           Confirmation: { confirmation }
         </div>
       </div>
@@ -178,7 +176,7 @@ const TransferForm = ({
 
   return (
     <form
-      className={`${className}__transfer-form`}
+      className="collection__transfer-form"
       onSubmit={async event => {
         event.preventDefault();
         setError(undefined);
@@ -191,33 +189,36 @@ const TransferForm = ({
         }
       }}
     >
-      { error ? <div className={`${className}__transfer-form__error`}>Transfer Failed</div> : null }
-      <h2 className={`${className}__transfer-form__header`}>Transfer your NFT</h2>
-      <div className={`${className}__transfer-form__text`}>Copy and paste your Ethereum address.</div>
+      { error ? <div className="collection__transfer-form__error">Transfer Failed</div> : null }
+      <h2 className="collection__transfer-form__header">Transfer your NFT</h2>
+      <div className="collection__transfer-form__text">Copy and paste your Ethereum address.</div>
       <input
         placeholder="Ethereum address (e.g. 0x1234...)"
-        className={`${className}__transfer-form__input`}
+        className="collection__transfer-form__input"
         value={address}
         onChange={event => setAddress(event.target.value)}
       />
-      <div className={`${className}__transfer-form__text`}>Clicking the button below will initiate the transfer of ownership to this address. { message }</div>
-      <div className={`${className}__transfer-form__checkbox-container`}>
-        <input name="sendEmail" className={`${className}__transfer-form__checkbox-container__checkbox`} type="checkbox" checked={sendEmail} onChange={event => setSendEmail(event.target.checked)} />
-        <label htmlFor="sendEmail" onClick={() => setSendEmail(!sendEmail)} className={`${className}__transfer-form__checkbox-container__label`}>
+      <div className="collection__transfer-form__text">
+        Clicking the Transfer button below will initiate the transfer of your NFT on the Eluvio Content Fabric blockchain to the Ethereum blockchain at the address you specify. You should enter a valid Ethereum address that you wish to be the owner of the NFT.
+      </div>
+      <div className="collection__transfer-form__text">{ message }</div>
+      <div className="collection__transfer-form__checkbox-container">
+        <input name="sendEmail" className="collection__transfer-form__checkbox-container__checkbox" type="checkbox" checked={sendEmail} onChange={event => setSendEmail(event.target.checked)} />
+        <label htmlFor="sendEmail" onClick={() => setSendEmail(!sendEmail)} className="collection__transfer-form__checkbox-container__label">
           Email me when transfer is complete
         </label>
       </div>
       {
         !sendEmail ? null :
-          <input placeholder="Email Address" className={`${className}__transfer-form__input`} value={email} onChange={event => setEmail(event.target.value)} />
+          <input placeholder="Email Address" className="collection__transfer-form__input" value={email} onChange={event => setEmail(event.target.value)} />
       }
-      <div className={`${className}__transfer-form__terms-message`}>
+      <div className="collection__transfer-form__terms-message">
         By clicking on the Transfer button, I acknowledge that I have read and agree to the
         <TermsLink content={terms} linkText="Terms and Conditions" /> and
         <TermsLink content={privacyPolicy} linkText="Privacy Policy"/>.
       </div>
       <button
-        className={`${className}__transfer-form__submit collection__button`}
+        className="collection__transfer-form__submit collection__button"
         type="submit"
         disabled={!address || sendEmail && !email}
       >
@@ -300,7 +301,7 @@ class Collection extends React.Component {
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
           />
-          <button type="submit" disabled={this.state.redeeming} className="collection__redeem__form__submit">
+          <button type="submit" disabled={!this.state.code || this.state.redeeming} className="collection__redeem__form__submit">
             {this.state.redeeming ? <div className="la-ball-clip-rotate la-sm"><div /></div> : "Submit"}
           </button>
         </form>
@@ -351,7 +352,7 @@ class Collection extends React.Component {
             className="collection__content__bottom-content__learn-more collection__button"
             onClick={() => this.ToggleModal(
               <Modal Toggle={() => this.ToggleModal(null)}>
-                <CardModal copyKey="collections" />
+                <CardModal copyKey="collections" small />
               </Modal>
             )}
           >
@@ -367,7 +368,6 @@ class Collection extends React.Component {
                   message={collection.info.transfer_message}
                   terms={tenant.info.terms}
                   privacyPolicy={tenant.info.privacy_policy}
-                  className="collection"
                   Submit={async ({ethereumAddress, email}) => await this.props.collectionStore.TransferNFT({
                     tenantSlug: this.props.match.params.tenantSlug,
                     collectionSlug: this.props.match.params.collectionSlug,

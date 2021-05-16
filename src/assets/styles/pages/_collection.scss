@@ -144,7 +144,7 @@ $border-color: #252525;
       font-size: 36px;
       font-weight: 400;
       letter-spacing: 0.1em;
-      margin: 10px auto;
+      margin: 20px auto;
       max-width: 900px;
       padding: 0 130px;
       text-align: center;
@@ -152,7 +152,7 @@ $border-color: #252525;
     }
 
     &__description {
-      font-size: 20px;
+      font-size: 18px;
       margin: 0 130px;
       text-align: center;
     }
@@ -201,20 +201,6 @@ $border-color: #252525;
 
   &__item {
     margin: 30px 0;
-
-    &__header {
-      align-items: center;
-      background: $black;
-      color: $white;
-      display: flex;
-      font-size: 28px;
-      font-weight: 400;
-      height: 50px;
-      justify-content: center;
-      letter-spacing: 0.08em;
-      text-align: center;
-      text-transform: uppercase;
-    }
 
     &__aspect-ratio {
       padding-bottom: 56.25%;
@@ -302,7 +288,8 @@ $border-color: #252525;
 
       &__header {
         cursor: pointer;
-        font-size: 24px;
+        font-size: 20px;
+        padding-top: 3px;
         user-select: none;
       }
 
@@ -362,7 +349,7 @@ $border-color: #252525;
     }
 
     &__text {
-      font-size: 16px;
+      font-size: 12px;
       letter-spacing: 0.03em;
       margin: 20px 0;
       text-align: center;
@@ -560,7 +547,7 @@ $border-color: #252525;
         }
 
         &__header {
-          font-size: 20px;
+          padding-top: 0;
         }
 
         &__dropdown {

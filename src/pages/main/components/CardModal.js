@@ -132,7 +132,7 @@ class CardModal extends React.Component {
     const copy = Copy.cards[this.props.copyKey];
 
     return (
-      <div className="card-modal">
+      <div className={`card-modal ${this.props.small ? "card-modal-small" : ""} ${this.Images().length === 0 ? "card-modal-no-image" : ""}`}>
         <div className="card-modal__image-container">
           { this.ImageSection() }
           { this.ImageControls() }
