@@ -15,6 +15,11 @@ class Modal extends React.Component {
   Close(event) {
     if(event && (event.key || "").toLowerCase() !== "escape") { return; }
 
+    document.removeEventListener("keydown", this.Close);
+    document.body.style.overflowY = "auto";
+
+    ToggleZendesk(true);
+
     this.props.Toggle(false);
   }
 
@@ -35,13 +40,13 @@ class Modal extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className={`modal ${this.props.className || ""}`} onClick={() => this.props.Toggle(false)}>
+        <div className={`modal ${this.props.className || ""}`} onClick={() => this.Close()}>
           <ImageIcon
             key={"back-icon-Close Modal"}
             className={"modal__close-button"}
             title={"Close Modal"}
             icon={CloseIcon}
-            onClick={() => this.props.Toggle(false)}
+            onClick={() => this.Close()}
           />
           <div className="modal__content" onClick={event => event.stopPropagation()}>
             { this.props.content || this.props.children }

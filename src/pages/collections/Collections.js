@@ -7,6 +7,7 @@ import {Link, NavLink} from "react-router-dom";
 import UrlJoin from "url-join";
 import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/whiteEluvioLogo";
+import TermsLink from "Pages/collections/TermsLink";
 
 @inject("siteStore")
 @inject("collectionStore")
@@ -20,14 +21,12 @@ class Collections extends React.Component {
   }
 
   Content() {
-    // Note: Footer uses styling from colleciton page
-
     const tenantSlug = this.props.match.params.tenantSlug;
     const tenant = this.props.siteStore.tenants[tenantSlug];
     const collections = this.props.collectionStore.collections[tenantSlug];
 
     return (
-      <div className="collections page-container">
+      <div className="collections page-container tenant">
         <div className="collections__top">
           <img className="collections__top__logo" src={tenant.logoUrl} alt={`${tenant.info.name} Logo`} />
           <h1 className="collections__top__header">
@@ -45,7 +44,7 @@ class Collections extends React.Component {
             Object.keys(collections).map(collectionSlug => {
               const collection = collections[collectionSlug];
               return (
-                <div className="collections__list__collection">
+                <div className="collections__list__collection" key={`collection-${collectionSlug}`}>
                   <img className="collections__list__collection__image" src={collection.image} alt={collection.info.public_title} />
                   <div className="collections__list__collection__details">
                     <h3 className="collections__list__collection__details__header">{ collection.info.public_title }</h3>
@@ -59,17 +58,19 @@ class Collections extends React.Component {
             })
           }
         </div>
-        <div className="collection__content__footer">
-          <div className="collection__content__footer__border" />
-          <div className="collection__content__footer__message">
+        <div className="tenant__footer">
+          <div className="tenant__footer__border" />
+          <div className="tenant__footer__message">
             Powered By
-            <Link to="/" target="_blank" className="collection__content__footer__message__image">
+            <Link to="/" target="_blank" className="tenant__footer__message__image">
               <ImageIcon icon={EluvioLogo} label="ELUV.IO" />
             </Link>
           </div>
-          <div className="collection__content__footer__links">
-            <Link to="/contact" target="_blank" className="collection__content__footer__link">Contact Us</Link>
-            <a className="collection__content__footer__link" onClick={() => zE.activate()}>Support</a>
+          <div className="tenant__footer__links">
+            <div className="tenant__footer__links__copyright">{ tenant.info.copyright }</div>
+            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} />
+            <a className="tenant__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>
       </div>

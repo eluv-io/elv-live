@@ -29,11 +29,13 @@ class CollectionStore {
         ntp: collection.info.access.ntp_id,
         sbj: btoa(collection.subject),
         vid: item["."].source,
-        data: btoa(JSON.stringify({
-          meta_tags: {
-            "og:title": item.display_title || item.title
-          }
-        }))
+        data: btoa(encodeURIComponent(
+          JSON.stringify({
+            meta_tags: {
+              "og:title": item.display_title || item.title
+            }
+          }))
+        )
       });
 
     return embedUrl.toString();
@@ -107,17 +109,25 @@ class CollectionStore {
     this.collections[tenantSlug][collectionSlug].subject = subject;
     this.collections[tenantSlug][collectionSlug].code = code;
 
-    this.collections[tenantSlug][collectionSlug].items = ((yield this.client.ContentObjectMetadata({
+    const items = (yield this.client.ContentObjectMetadata({
       ...this.rootStore.siteStore.siteParams,
       metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", tenantSlug, "collections", collectionSlug, "items"),
       resolveLinks: true,
       resolveIncludeSource: true
-    })) || [])
-      .filter(item => item && item["."] && item["."].source)
-      .map(item => {
-        item.embedUrl = this.EmbedURL({tenantSlug, collectionSlug, item});
-        return item;
-      });
+    })) || [];
+
+    this.collections[tenantSlug][collectionSlug].items = yield Promise.all(
+      items
+        .filter(item => item && item["."] && item["."].source)
+        .map(async item => ({
+          ...item,
+          embedUrl: this.EmbedURL({tenantSlug, collectionSlug, item}),
+          nftInfo: item.nft || item.info.nft || (await this.client.ContentObjectMetadata({
+            versionHash: item["."].source,
+            metadataSubtree: "public/nft"
+          })) || {}
+        }))
+    );
   });
 
   TransferNFT = flow(function * ({tenantSlug, collectionSlug, ethereumAddress, email}) {

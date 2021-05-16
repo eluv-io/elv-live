@@ -1,5 +1,4 @@
 import React, {Suspense, useState} from "react";
-import {render} from "react-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import {PageLoader} from "Common/Loaders";
 import AsyncComponent from "Common/AsyncComponent";
@@ -27,8 +26,7 @@ import {
 import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {Copy} from "Utils/Misc";
 import {Link} from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
+import TermsLink from "Pages/collections/TermsLink";
 
 const Item = ({client, item, socialDetails={}, className}) => {
   const [player, setPlayer] = useState(undefined);
@@ -81,13 +79,13 @@ const Item = ({client, item, socialDetails={}, className}) => {
 const TransferForm = ({
   message,
   terms,
+  privacyPolicy,
   className,
   Submit
 }) => {
   const [address, setAddress] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
   const [email, setEmail] = useState("");
-  const [showTerms, setShowTerms] = useState(false);
   const [confirmation, setConfirmation] = useState(undefined);
   const [error, setError] = useState(undefined);
 
@@ -102,28 +100,6 @@ const TransferForm = ({
         </div>
         <div className={`${className}__transfer-confirmation__confirmation`}>
           Confirmation: { confirmation }
-        </div>
-      </div>
-    );
-  }
-
-  if(showTerms) {
-    return (
-      <div className={`${className}__transfer-terms ${className}__transfer-form`}>
-        <h2 className={`${className}__transfer-terms__header`}>Transfer Terms</h2>
-        <div
-          className={`${className}__transfer-terms__terms`}
-          ref={element => {
-            if(!element) { return; }
-
-            render(
-              <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-                { SanitizeHTML(terms) }
-              </ReactMarkdown>,
-              element
-            );
-          }}
-        >
         </div>
       </div>
     );
@@ -146,14 +122,14 @@ const TransferForm = ({
     >
       { error ? <div className={`${className}__transfer-form__error`}>Transfer Failed</div> : null }
       <h2 className={`${className}__transfer-form__header`}>Transfer your NFT</h2>
-      <div className={`${className}__transfer-form__text`}>Copy and paste your mainnet address.</div>
+      <div className={`${className}__transfer-form__text`}>Copy and paste your Ethereum address.</div>
       <input
-        placeholder="Ethereum MainNet address (e.g. 0x1234...)"
+        placeholder="Ethereum address (e.g. 0x1234...)"
         className={`${className}__transfer-form__input`}
         value={address}
         onChange={event => setAddress(event.target.value)}
       />
-      <div className={`${className}__transfer-form__text`}>{ message }</div>
+      <div className={`${className}__transfer-form__text`}>Clicking the button below will initiate the transfer of ownership to this address. { message }</div>
       <div className={`${className}__transfer-form__checkbox-container`}>
         <input name="sendEmail" className={`${className}__transfer-form__checkbox-container__checkbox`} type="checkbox" checked={sendEmail} onChange={event => setSendEmail(event.target.checked)} />
         <label htmlFor="sendEmail" onClick={() => setSendEmail(!sendEmail)} className={`${className}__transfer-form__checkbox-container__label`}>
@@ -164,6 +140,11 @@ const TransferForm = ({
         !sendEmail ? null :
           <input placeholder="Email Address" className={`${className}__transfer-form__input`} value={email} onChange={event => setEmail(event.target.value)} />
       }
+      <div className={`${className}__transfer-form__terms-message`}>
+        By clicking on the Transfer button, I acknowledge that I have read and agree to the
+        <TermsLink content={terms} linkText="Terms and Conditions" /> and
+        <TermsLink content={privacyPolicy} linkText="Privacy Policy"/>.
+      </div>
       <button
         className={`${className}__transfer-form__submit collection__button`}
         type="submit"
@@ -171,7 +152,6 @@ const TransferForm = ({
       >
         Transfer
       </button>
-      <button className={`${className}__transfer-form__terms-button`} onClick={() => setShowTerms(true)}>Transfer Terms</button>
     </form>
   );
 };
@@ -232,6 +212,9 @@ class Collection extends React.Component {
   }
 
   RedeemForm() {
+    const tenantSlug = this.props.match.params.tenantSlug;
+    const tenant = this.props.siteStore.tenants[tenantSlug];
+
     return (
       <div className="collection__redeem">
         <form className="collection__redeem__form" onSubmit={event => { event.preventDefault() ; this.RedeemCode(); }}>
@@ -250,11 +233,22 @@ class Collection extends React.Component {
             {this.state.redeeming ? <div className="la-ball-clip-rotate la-sm"><div /></div> : "Submit"}
           </button>
         </form>
+
+        <div className="tenant__footer">
+          <div className="tenant__footer__links">
+            <div className="tenant__footer__links__copyright">{ tenant.info.copyright }</div>
+            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} />
+            <a className="tenant__footer__link" onClick={() => zE.activate()}>Support</a>
+          </div>
+        </div>
       </div>
     );
   }
 
   Content() {
+    const tenantSlug = this.props.match.params.tenantSlug;
+    const tenant = this.props.siteStore.tenants[tenantSlug];
     const collection = this.Collection();
 
     return (
@@ -300,8 +294,9 @@ class Collection extends React.Component {
             onClick={() => this.ToggleModal(
               <Modal Toggle={() => this.ToggleModal(null)} className="collection__transfer-modal" >
                 <TransferForm
-                  message={collection.info.transfer.transfer_message}
-                  terms={collection.info.transfer.transfer_terms}
+                  message={collection.info.transfer_message}
+                  terms={tenant.info.terms}
+                  privacyPolicy={tenant.info.privacy_policy}
                   className="collection"
                   Submit={async ({ethereumAddress, email}) => await this.props.collectionStore.TransferNFT({
                     tenantSlug: this.props.match.params.tenantSlug,
@@ -313,20 +308,22 @@ class Collection extends React.Component {
               </Modal>
             )}
           >
-            Transfer my NFT to Ethereum MainNet
+            Transfer my NFT to Ethereum
           </button>
         </div>
-        <div className="collection__content__footer">
-          <div className="collection__content__footer__border" />
-          <div className="collection__content__footer__message">
+        <div className="tenant__footer">
+          <div className="tenant__footer__border" />
+          <div className="tenant__footer__message">
             Powered By
-            <Link to="/" target="_blank" className="collection__content__footer__message__image">
+            <Link to="/" target="_blank" className="tenant__footer__message__image">
               <ImageIcon icon={EluvioLogo} label="ELUV.IO" />
             </Link>
           </div>
-          <div className="collection__content__footer__links">
-            <Link to="/contact" target="_blank" className="collection__content__footer__link">Contact Us</Link>
-            <a className="collection__content__footer__link" onClick={() => zE.activate()}>Support</a>
+          <div className="tenant__footer__links">
+            <div className="tenant__footer__links__copyright">{ tenant.info.copyright }</div>
+            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} />
+            <a className="tenant__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>
       </div>
