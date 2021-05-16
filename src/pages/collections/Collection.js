@@ -9,8 +9,6 @@ import ImageIcon from "Common/ImageIcon";
 import Modal from "Common/Modal";
 import CardModal from "Pages/main/components/CardModal";
 
-import LinkIcon from "Assets/icons/link.svg";
-
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -23,20 +21,91 @@ import {
   FaLinkedin
 } from "react-icons/fa";
 
-import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {Copy} from "Utils/Misc";
 import {Link} from "react-router-dom";
 import TermsLink from "Pages/collections/TermsLink";
 
-const Item = ({client, item, socialDetails={}, className}) => {
+import EluvioLogo from "Assets/images/logo/whiteEluvioLogo.svg";
+import DetailsIcon from "Assets/icons/view details.svg";
+import LinkIcon from "Assets/icons/link.svg";
+import DropdownIcon from "Assets/icons/drop-down-arrow.svg";
+
+const ItemDetails = ({item}) => {
+  const [showDetails, setShowDetails] = useState(false);
+
+  const Get = (name => (((item.nftInfo || {}).properties || {})[name] || {})[name] || "");
+
+  let copyright = Get("copyright");
+  if(copyright && !copyright.includes("©")) {
+    copyright = `© ${copyright}`;
+  }
+
+  let details = null;
+  if(showDetails) {
+    details = (
+      <div className="collection__item__details__full-details">
+        <div className="collection__item__details__description">{ Get("description") }</div>
+        <div className="collection__item__details__field">
+          <b>Title:</b>
+          { (item.nftInfo || {}).title }
+        </div>
+        <div className="collection__item__details__field">
+          <b>Studio:</b>
+          { Get("studios") }
+        </div>
+        <div className="collection__item__details__field">
+          <b>Creative Director:</b>
+          { Get("creative_director") }
+        </div>
+        <div className="collection__item__details__field">
+          <b>Artists:</b>
+          { Get("artists") }
+        </div>
+        <div className="collection__item__details__field">
+          { copyright }
+        </div>
+        <br />
+        <div className="collection__item__details__field collection__item__details__field-hash">
+          <b>Eluvio Content Fabric Hash:</b>
+          { item["."].source }
+        </div>
+        <div className="collection__item__details__field collection__item__details__field-hash">
+          <b>Eluvio Contract Address:</b>
+          { (item.nftInfo || {}).address }
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="collection__item__details">
+      <button className="collection__item__details__button" onClick={() => setShowDetails(!showDetails)}>
+        <ImageIcon icon={DetailsIcon} className="collection__item__details__icon" alt="Details" />
+      </button>
+      <div className="collection__item__details__details">
+        <h3 className="collection__item__details__header" onClick={() => setShowDetails(!showDetails)}>
+          Details
+          <ImageIcon
+            icon={DropdownIcon}
+            className={`collection__item__details__dropdown 
+            ${showDetails ? "collection__item__details__dropdown-inverted" : ""}`}
+          />
+        </h3>
+        { details }
+      </div>
+    </div>
+  );
+};
+
+const Item = ({client, item, socialDetails={}}) => {
   const [player, setPlayer] = useState(undefined);
 
   return (
-    <div className={className}>
-      <h2 className={`${className}__header`}>{ item.display_title || item.title }</h2>
-      <div className={`${className}__aspect-ratio`}>
+    <div className="collection__item">
+      <h2 className="collection__item__header">{ item.display_title || item.title }</h2>
+      <div className="collection__item__aspect-ratio">
         <div
-          className={`${className}__player-target`}
+          className="collection__item__player-target"
           ref={element => {
             if(!element || player) { return; }
 
@@ -63,14 +132,16 @@ const Item = ({client, item, socialDetails={}, className}) => {
           }}
         />
       </div>
-      <div className={`${className}__social-buttons`}>
-        <div className={`${className}__social-buttons__text`}>Share NFT on Social</div>
-        <div className={`${className}__social-buttons__button`} onClick={() => Copy(item.embedUrl)}>
-          <ImageIcon icon={LinkIcon} title="Copy Link to NFT" />
+      <div className="collection__item__footer">
+        <ItemDetails item={item} />
+        <div className="collection__item__footer__social-buttons">
+          <div className="collection__item__footer__social-buttons__button" onClick={() => Copy(item.embedUrl)}>
+            <ImageIcon icon={LinkIcon} title="Copy Link to NFT" />
+          </div>
+          <FacebookShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className="collection__item__footer__social-buttons__button"><FaFacebookSquare/></FacebookShareButton>
+          <TwitterShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className="collection__item__footer__social-buttons__button"><FaTwitter/></TwitterShareButton>
+          <LinkedinShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className="collection__item__footer__social-buttons__button"><FaLinkedin/></LinkedinShareButton>
         </div>
-        <FacebookShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaFacebookSquare/></FacebookShareButton>
-        <TwitterShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaTwitter/></TwitterShareButton>
-        <LinkedinShareButton url={item.embedUrl} title={socialDetails.title} description={socialDetails.description} className={`${className}__social-buttons__button`}><FaLinkedin/></LinkedinShareButton>
       </div>
     </div>
   );
@@ -263,7 +334,6 @@ class Collection extends React.Component {
           {(collection.items || []).map((item, index) =>
             <Item
               key={`item-${index}`}
-              className="collection__content__item"
               client={this.props.collectionStore.client}
               socialDetails={{
                 title: collection.info.header,
