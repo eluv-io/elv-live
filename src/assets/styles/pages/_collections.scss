@@ -49,13 +49,14 @@
         &__header {
           font-size: 32px;
           font-weight: bold;
+          letter-spacing: 0.07em;
           margin-bottom: 10px;
           text-align: center;
-          letter-spacing: 0.07em;
         }
 
         &__text {
           font-size: 20px;
+          min-height: 9em;
           text-align: center;
         }
 

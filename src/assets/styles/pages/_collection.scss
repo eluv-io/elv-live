@@ -47,6 +47,11 @@ $border-color: #252525;
     width: 100%;
     z-index: 1000;
 
+    .tenant__footer {
+      bottom: 20px;
+      position: absolute;
+    }
+
     .la-ball-clip-rotate {
       margin: auto;
     }
@@ -258,54 +263,6 @@ $border-color: #252525;
         padding: 0 10px;
       }
     }
-
-    &__footer {
-      width: 100%;
-
-      &__border {
-        background: $black;
-        height: 1px;
-        margin: 20px 0;
-        width: 100%;
-      }
-
-      &__message {
-        align-items: center;
-        display: flex;
-        font-size: 20px;
-        font-weight: 300;
-        height: 30px;
-        justify-content: center;
-        margin: 10px 0 30px;
-
-        &__image {
-          height: 20px;
-          margin: 0 0 5px 10px;
-          max-height: 20px;
-
-          svg {
-            height: 100%;
-            width: auto;
-          }
-        }
-      }
-
-      &__links {
-        display: flex;
-        font-size: 18px;
-        justify-content: center;
-        width: 100%;
-      }
-
-      &__link {
-        cursor: pointer;
-        font-weight: 500;
-
-        &:not(:last-child) {
-          margin-right: 40px;
-        }
-      }
-    }
   }
 
   &__transfer-modal {
@@ -382,7 +339,7 @@ $border-color: #252525;
 
     &__submit {
       display: block;
-      margin: 25px auto;
+      margin: 15px auto 25px;
       padding: 10px;
       width: 180px;
 
@@ -391,20 +348,16 @@ $border-color: #252525;
       }
     }
 
-    &__terms-button {
-      background: transparent;
-      border: 0;
-      color: #6a6a6a;
-      cursor: pointer;
-      display: block;
-      font-size: 16px;
-      font-weight: 300;
-      letter-spacing: 0.03em;
-      margin: 0 auto 20px;
-      width: 155px;
+    &__terms-message {
+      color: #555;
+      font-size: 12px;
+      margin-top: 20px;
+      text-align: center;
 
-      &:hover {
-        color: $black;
+      .terms-link {
+        display: inline-block;
+        font-weight: bold;
+        margin: 0 1.5px 0 4px;
       }
     }
   }
@@ -453,12 +406,37 @@ $border-color: #252525;
     }
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media screen and (max-width: 1000px) {
     padding: 40px 0;
+
+    &__redeem {
+      .tenant__footer {
+        bottom: 40px;
+      }
+    }
+
+    @media screen and (orientation: landscape) {
+      &__redeem {
+        .tenant__footer {
+          display: none;
+        }
+      }
+    }
 
     &__content {
       padding: 20px 30px 50px;
       width: 90%;
+
+      .tenant__footer {
+        &__links {
+          align-items: center;
+          flex-direction: column;
+        }
+
+        &__link {
+          margin: 0;
+        }
+      }
 
       &__logo {
         height: auto;

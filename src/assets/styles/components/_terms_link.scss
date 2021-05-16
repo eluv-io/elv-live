@@ -1,0 +1,38 @@
+.terms-link-modal {
+  .modal__content {
+    width: max-content;
+  }
+}
+
+.terms-link {
+  &__button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  &__modal {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 70vh;
+
+    &__content {
+      background: $white;
+      max-width: 800px;
+      padding: 50px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    &__modal {
+      max-width: 100vw;
+
+      &__content {
+        max-width: 100vw;
+        padding: 50px 20px;
+      }
+    }
+  }
+}
