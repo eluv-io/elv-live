@@ -22,7 +22,6 @@ class CollectionStore {
         p: null,
         dk: null,
         sh: null,
-        st: null,
         ap: null,
         ct: "h",
         ten: collection.info.access.tenant_id,
