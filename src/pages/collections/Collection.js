@@ -149,7 +149,9 @@ const Item = ({client, item, socialDetails={}}) => {
 const TransferForm = ({
   message,
   terms,
+  termsUrl,
   privacyPolicy,
+  privacyPolicyUrl,
   Submit
 }) => {
   const [address, setAddress] = useState("");
@@ -214,8 +216,8 @@ const TransferForm = ({
       }
       <div className="collection__transfer-form__terms-message">
         By clicking on the Transfer button, I acknowledge that I have read and agree to the
-        <TermsLink content={terms} linkText="Terms and Conditions" /> and
-        <TermsLink content={privacyPolicy} linkText="Privacy Policy"/>.
+        <TermsLink content={terms} contentUrl={termsUrl} linkText="Terms and Conditions" /> and
+        <TermsLink content={privacyPolicy} contentUrl={privacyPolicyUrl} linkText="Privacy Policy"/>.
       </div>
       <button
         className="collection__transfer-form__submit collection__button"
@@ -309,8 +311,8 @@ class Collection extends React.Component {
         <div className="tenant__footer">
           <div className="tenant__footer__links">
             <div className="tenant__footer__links__copyright">{ tenant.info.copyright }</div>
-            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} />
-            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} contentUrl={tenant.privacyPolicyUrl} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} contentUrl={tenant.termsUrl} />
             <a className="tenant__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>
@@ -367,7 +369,9 @@ class Collection extends React.Component {
                 <TransferForm
                   message={collection.info.transfer_message}
                   terms={tenant.info.terms}
+                  termsUrl={tenant.termsUrl}
                   privacyPolicy={tenant.info.privacy_policy}
+                  privacyPolicyUrl={tenant.privacyPolicyUrl}
                   Submit={async ({ethereumAddress, email}) => await this.props.collectionStore.TransferNFT({
                     tenantSlug: this.props.match.params.tenantSlug,
                     collectionSlug: this.props.match.params.collectionSlug,
@@ -391,8 +395,8 @@ class Collection extends React.Component {
           </div>
           <div className="tenant__footer__links">
             <div className="tenant__footer__links__copyright">{ tenant.info.copyright }</div>
-            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} />
-            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} contentUrl={tenant.privacyPolicyUrl} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} contentUrl={tenant.termsUrl} />
             <a className="tenant__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>

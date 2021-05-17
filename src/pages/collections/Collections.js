@@ -68,8 +68,8 @@ class Collections extends React.Component {
           </div>
           <div className="tenant__footer__links">
             <div className="tenant__footer__links__copyright">{ tenant.info.copyright }</div>
-            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} />
-            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__privacy-policy" linkText="Privacy Policy" content={tenant.info.privacy_policy} contentUrl={tenant.privacyPolicyUrl} />
+            <TermsLink className="tenant__footer__link tenant__footer__links__terms" linkText="Terms and Conditions" content={tenant.info.terms} contentUrl={tenant.termsUrl} />
             <a className="tenant__footer__link" onClick={() => zE.activate()}>Support</a>
           </div>
         </div>
