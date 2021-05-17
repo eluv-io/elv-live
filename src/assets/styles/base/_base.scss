@@ -205,11 +205,10 @@ input[type='checkbox'] {
 
   // Loader
   .page-loader {
-    .circle-loader {
-      span {
-        * {
-          border-color: $white;
-        }
+    .lds-default {
+      * {
+        background: white !important;
+        opacity: 0.75;
       }
     }
   }

@@ -28,6 +28,8 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
       const isFeatured = featuredSite && !tenantSlug && !baseSlug;
       const validTenant = this.props.siteStore.availableTenants.includes(tenantSlug);
 
+      invertHeader = invertHeader && !this.props.siteStore.darkMode;
+
       if(!isFeatured && !validTenant) {
         return <Redirect to="/" />;
       }
