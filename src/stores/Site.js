@@ -301,8 +301,7 @@ class SiteStore {
 
       yield heroPreloadPromise;
 
-      //this.darkMode = site.info.theme === "dark";
-      this.darkMode = true;
+      this.darkMode = site.info.theme === "dark";
 
       site.siteSlug = siteSlug;
       site.siteIndex = parseInt(siteIndex);
