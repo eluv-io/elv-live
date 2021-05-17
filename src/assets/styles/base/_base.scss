@@ -82,6 +82,7 @@ html {
 body {
   background-color: $black;
   box-sizing: border-box;
+  color: black;
   font-family: Helvetica;
   -webkit-overflow-scrolling: touch;
 
@@ -180,5 +181,36 @@ input[type='checkbox'] {
 
   .mobile-only {
     display: inherit !important;
+  }
+}
+
+.dark {
+  color: white;
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .site-app-container {
+    background: linear-gradient(180deg, #000 0%, #272213 100%);
+  }
+
+  .page-container {
+    background: linear-gradient(180deg, #000 0%, #272213 100%);
+  }
+
+  // Loader
+  .page-loader {
+    .circle-loader {
+      span {
+        * {
+          border-color: $white;
+        }
+      }
+    }
   }
 }

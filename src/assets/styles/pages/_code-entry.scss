@@ -166,3 +166,19 @@ pre {
   top: 70px;
   z-index: 10000;
 }
+
+
+.dark {
+  .code-entry {
+    background-color: #f7f6f5;
+    color: black;
+
+    a {
+      color: $black;
+
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+}

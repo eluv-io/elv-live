@@ -215,3 +215,16 @@
     }
   }
 }
+
+.dark {
+  .event-description {
+    &__button {
+      border: 1px solid white;
+      color: white;
+    }
+  }
+
+  .event-description-modal {
+    color: black;
+  }
+}

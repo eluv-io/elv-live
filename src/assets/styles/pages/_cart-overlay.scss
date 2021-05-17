@@ -15,9 +15,18 @@
 .cart-overlay {
   animation: 0.4s fadein linear;
   background: $white;
+  color: black;
   display: flex;
   flex-direction: column;
   padding: 28px;
+
+  a {
+    color: $black;
+
+    &:hover {
+      color: $black;
+    }
+  }
 
   &.empty {
     color: #818181;

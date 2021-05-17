@@ -11,7 +11,7 @@ class Footer extends React.Component {
     return (
       this.props.siteStore.sponsors.map((sponsor, index) =>
         <a href={sponsor.link} target="_blank" rel="noopener" className={"sponsor-img-container-footer"} key={`footer-sponsor-${index}`} title={sponsor.name}>
-          <img src={sponsor.image_url} className="big-sponsor-img-footer" alt={sponsor.name} />
+          <img src={this.props.siteStore.darkMode ? sponsor.light_image_url || sponsor.image_url : sponsor.image_url} className="big-sponsor-img-footer" alt={sponsor.name} />
         </a>
       )
     );
