@@ -121,8 +121,7 @@ class CardModal extends React.Component {
           <h2 className="card-modal__text-section-header">{ header }</h2>
           { header_image }
         </div>
-        <pre className="card-modal__text-section-copy">
-          { copy }
+        <pre className="card-modal__text-section-copy" dangerouslySetInnerHTML={{__html: copy}}>
         </pre>
       </div>
     );
