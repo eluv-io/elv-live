@@ -102,7 +102,9 @@ class Event extends React.Component {
 
           <div className="event-page__buttons">
             {
-              this.props.siteStore.currentSiteInfo.state === "Live Ended" ?
+              this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
+                // Any tickets available for purchase
+                !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
                 null :
                 <button
                   className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
