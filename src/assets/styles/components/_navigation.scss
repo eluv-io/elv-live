@@ -345,3 +345,57 @@
     width: 150px;
   }
 }
+
+.dark {
+  .header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
+    .header__link {
+      color: $white;
+
+      &:hover {
+        color: $white;
+      }
+    }
+
+    .header__logo {
+      svg {
+        * {
+          fill: $white;
+        }
+      }
+    }
+
+    .cart-overlay-toggle {
+      svg {
+        * {
+          stroke: $white;
+        }
+      }
+    }
+
+    &.header-scrolled {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .cart-overlay-item-count {
+      background-color: $white;
+      color: black;
+    }
+  }
+
+  // Footer
+  .live-footer {
+    .footer-info {
+      border-bottom: 1px solid #5a5a5a;
+    }
+
+    .sponsor-message {
+      opacity: 0.6;
+    }
+
+    * {
+      color: $white;
+    }
+  }
+}

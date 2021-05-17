@@ -73,7 +73,8 @@ class Event extends React.Component {
     };
 
     const heroKey = this.state.mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
-    const hasHeaderImage = this.props.siteStore.SiteHasImage("header_dark");
+    const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
+    const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
     return (
       <div className="page-container event-page">
@@ -83,7 +84,7 @@ class Event extends React.Component {
             {
               hasHeaderImage ?
                 <div className="event-page__header-logo">
-                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl("header_dark")} alt={this.props.siteStore.eventInfo.event_header} />
+                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl(headerKey)} alt={this.props.siteStore.eventInfo.event_header} />
                 </div>
                 : null
             }

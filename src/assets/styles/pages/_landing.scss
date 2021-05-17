@@ -1,6 +1,6 @@
 .landing-page {
   @include page-fade-in;
-  background: $black;
+  background: $black !important;
   color: $white;
   display: block;
   height: 100vh;
