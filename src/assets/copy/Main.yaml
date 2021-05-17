@@ -12,7 +12,7 @@ main:
     header: Beautiful Quality
     subheader: Low latency 4K streaming on all platforms
     text: Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support for browser, mobile, and connected TV (Apple TV, Roku, etc.).
-    attribution: Excerpt from Bang, Rita Ora and Imanbek Official EP Film
+    attribution: Girl Like Me, Provided by Black Eyed Peas
   directly_to_fans:
     header: Directly to Your Fans
     subheader: Distribute globally on your own terms
@@ -34,32 +34,39 @@ cards:
     border_color: 0085FF
     sections:
       0:
-        header: What is a crypto wallet?
+        header: What is this NFT?
         copy: |
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum enim facilisis gravida neque convallis a cras semper auctor. Neque gravida in fermentum et sollicitudin ac. Nunc scelerisque viverra mauris in aliquam sem fringilla ut. Auctor eu augue ut lectus.
+          This NFT (non-fungible token) is the first collectible, minted as a contract on the blockchain, to be released by FOX.  As shown in the NFT Details, the NFT was created by FOX Entertainment’s Blockchain Creative Labs in order to celebrate this unique moment in time when animation, technology, and creatives are intersecting as a result of blockchain technology innovation.  Non fungible tokens take advantage of the unique properties of blockchain technology to allow creators to make their digital work of virtually any form available as collectible experiences, in the form of digital tokens that are actually software contracts on a blockchain ledger.  As compared to fungible digital tokens, like crypto currencies (bitcoin, eth, etc.), non-fungible tokens can refer to literally anything -- an image, a video, a physical object, an event ticket, clothing, you name it -- that has value to its creator, and may have value to others.
 
-          Et leo duis ut diam quam nulla porttitor massa. Iaculis at erat pellentesque adipiscing commodo elit. Vitae sapien pellentesque habitant morbi. Tellus in hac habitasse platea. Volutpat ac tincidunt vitae semper quis lectus nulla at volutpat. Ut venenatis tellus in metus vulputate eu. Pulvinar elementum integer enim neque.
+          The "non fungibility" simply means that no two tokens are interchangeable for one another, such as a unique animation. Most NFTs are minted as standard Ethereum ERC-721 or ERC-1155 contracts, and enjoy the property that the NFT can be directly transferred from the creator owner to a new owner, and to follow on owners using only a blockchain transaction, in software.  The cryptography and security of blockchain technology helps to ensure that both parties are legitimate (have valid, authenticated addresses on the blockchain), that the transfer of funds is sound, and that all transactions are transparent as part of the blockchain's transaction history, which all participants can view.
 
-          Non diam phasellus vestibulum lorem sed risus. Dolor magna eget est lorem. Ut morbi tincidunt augue interdum velit euismod. Eget magna fermentum iaculis eu non.
-
-          Fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Dictum at tempor commodo ullamcorper a. Suscipit tellus mauris a diam. Nibh mauris cursus mattis molestie a iaculis at erat. Odio euismod lacinia at quis risus sed vulputate. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci.
+          NFTs can also collect residual payments for the original creator/owner via the mechanics of the smart contract’s transfer of ownership. Taken together, the NFT innovation allows for a scalable and transparent system for artists to sell collectibles from their creations without middle parties, with options to collect royalties, at Internet scale and with transparency. Hence the excitement about NFTs to transform the creative world is powerful and real, and FOX has taken this first step as a thought leader in the space. To learn more about Non Fungible Tokens, see <a href="https://opensea.io/blog/guides/non-fungible-tokens" target="_blank">this popular resource</a>.
       1:
-        header: Is it safe?
+        header: What is the Eluvio Content Fabric?
         copy: |
-          Felis imperdiet proin fermentum leo vel orci. Sit amet mauris commodo quis imperdiet massa tincidunt. Risus nec feugiat in fermentum posuere.
+          The Eluvio Content Fabric is an advanced, open protocol blockchain network purpose- built for digital content. The Fabric allows digital content to be stored, managed, and dynamically composed and served from the source asset, directly to the viewer without any middle systems or parties, and backs all aspects of the content's ownership and access control with blockchain contracts. The Fabric is a very novel invention as content distribution and storage systems are concerned. Its protocol combines just-in-time video transformation and processing, decentralized storage and content routing, and radically efficient re-use of content parts to achieve a truly breakthrough efficiency compared to traditional content storage and distribution systems and compared to proof of work blockchains. It is an ultimately eco efficient and high quality content experience that makes possible creator to audience distribution models at scale for the first time.
 
-          Purus semper eget duis at tellus at urna condimentum mattis. Augue ut lectus arcu bibendum at varius vel. Ut pharetra sit amet aliquam id.
+          Through a novel compositional and just-in-time protocol, the Fabric makes no file copies and dramatically reduces the storage and network requirements and latencies of traditional digital distribution systems, and avoids the computational costs of proof of work blockchains. Its blockchain characteristics ensure all content is authentic and under the control of its owner, and all audience watch data flows only between audience and content owners or their proxies. This has many benefits including minting NFTs efficiently and directly from <b>any</b> content - not just static images and small videos - and with storage and serving that enforces <b>authenticity</b>, <b>uniqueness</b>, and <b>rarity</b>.
+
       2:
-        header: What else do I need to know?
+        header: Why is this NFT minted on the Eluvio Content Fabric - what makes it unique?
         copy: |
-          Tortor id aliquet lectus proin nibh nisl condimentum. Fringilla ut morbi tincidunt augue. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue.
-
-          Neque gravida in fermentum et sollicitudin ac orci. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Odio tempor orci dapibus ultrices in iaculis nunc. Nunc sed velit dignissim sodales. Sit amet porttitor eget dolor.
+          The original animation created for this NFT lives in the Eluvio Content Fabric, and this NFT was minted by the Content Fabric as a uniquely versioned content object having a unique address in the Eluvio blockchain. The Content Fabric solves several of the biggest problems facing NFTs today:  (1) <b>Authenticity</b>. The NFT contract has a direct, inseparable link to the original content object that was used to create it.  The Content Fabric hash is a cryptographic fingerprint that proves that the content referred to by the NFT is actually the same as the original content, and can be verified through an open proof protocol.  The original content stored in the Fabric is also encrypted, and all authorization to it requires a valid blockchain transaction, making the original content tamper free and truly unique.  Most NFTs today refer to storage of the digital content that is unprotected and sometimes, not verifiable.   (2)  <b>Uniqueness</b> and <b>Rarity</b>. Each NFT minted by the Content Fabric is guaranteed unique, as it refers to a unique version of the original content object, minted with a unique issue number among a finite set.  Access to each unique NFT and its viewing experience is enforced through a crypto wallet or a digital ticket code that is cryptographically verified against a blockchain contract that backs the NFT batch and that particular issue number. Your unique issue number is dynamically watermarked into your NFT when you access it with your ticket code or crypto wallet, to display your proof of ownership to others.  (3)  <b>Any Content</b>.  Unlike traditional NFT platforms that require a third party media storage or distribution system to serve the digital content (static images, small videos), the Fabric can render any digital content -- a full length movie, concert, or even a continuous performance -- as an NFT. This opens up virtually unlimited possibilities for collectible experiences. (4) <b>Chain of Ownership</b> and <b>Secondary Payments</b>. Because the Fabric couples the transfer of ownership in NFTs to the content contract it is possible to have any royalty or other payments to creators part of every NFT transaction, and to enforce this in the availability of the content itself.
       3:
-        header: How can I learn more?
+        header: How do I add this NFT to my crypto wallet?
         copy: |
-          Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Porttitor massa id neque aliquam vestibulum morbi blandit. Eu non diam phasellus vestibulum lorem sed risus. Dapibus ultrices in iaculis nunc sed augue.
+          Your NFT is stored on the Eluvio Content Fabric blockchain. For ease of use, your NFT is secured by a digital access code (the code you received), which is acting as a proxy for a crypto wallet.
 
+          You may revisit this URL at any time to access your NFT via your ticket code. The Eluvio Content Fabric is a fully Ethereum compatible blockchain and also offers the ability to transfer your NFT to the Ethereum mainnet, which will allow you to add it to any crypto wallet with an Ethereum mainnet address.  To transfer your NFT to an Ethereum mainnet address, follow the Transfer workflow to enter your mainnet address in the specified area, and select Transfer.  The Content Fabric will confirm your request, transfer the NFT to a 721 contract on Ethereum mainnet, owned by the address you specify. When this process completes, you will receive an email notification with the contract address and an etherscan.io URL for viewing the transaction.  This process will also create the necessary metadata for your NFT to be viewed on OpenSea. The OpenSea URL will be returned in an email confirmation.
+
+          For a limited period the gas charges for the Transfer processing will be covered by FOX (see terms and conditions). Once the promotion ends, you will need to connect your own cryptowallet to fund the Transfer transaction.  FOX has encoded in this NFT a residual fee of 10% that will credit to a FOX Ethereum mainnet address on future sales.
+
+      4:
+        header: Will my NFT still be accessible on the Eluvio Blockchain after I transfer it to Ethereum Mainnet and Can I trade it on the Eluvio Blockchain?
+        copy: |
+          In coming months, you will be able to trade your NFT on the Eluvio Content Fabric Blockchain (keep a close eye on our developments) and yes, even after you transfer your NFT to mainnet, you will be able to view it on the Eluvio Content Fabric. Its origins are permanently enscribed in the Eluvio Blockchain. For questions please contact us at <a href="mailto:help@eluv.io">help@eluv.io</a>.
+
+          To follow Eluvio and to learn more about the Eluvio Technology, please visit our web site at <a href="https://live.eluv.io/technology" target="_blank">live.eluv.io/technology</a> or contact us at <a href="https://live.eluv.io/contact" target="_blank">live.eluv.io/contact</a>.
   beautiful_quality:
     border_color: 000000
     sections:
