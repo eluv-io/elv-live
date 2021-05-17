@@ -4,7 +4,7 @@ import {render} from "react-dom";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 
-const TermsLink = ({className, linkText, content}) => {
+const TermsLink = ({className, linkText, content, contentUrl}) => {
   let [showModal, setShowModal] = useState(undefined);
 
   let modalElement = document.createElement("div");
@@ -22,21 +22,25 @@ const TermsLink = ({className, linkText, content}) => {
         }}
       >
         <div className="terms-link__modal">
-          <div
-            className="terms-link__modal__content"
-            ref={element => {
-              if(!element) {
-                return;
-              }
+          {
+            contentUrl ?
+              <iframe src={contentUrl} className="terms-link__modal__content terms-link__modal__content-html" /> :
+              <div
+                className="terms-link__modal__content"
+                ref={element => {
+                  if(!element) {
+                    return;
+                  }
 
-              render(
-                <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                  {SanitizeHTML(content)}
-                </ReactMarkdown>,
-                element
-              );
-            }}
-          />
+                  render(
+                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                      {SanitizeHTML(content)}
+                    </ReactMarkdown>,
+                    element
+                  );
+                }}
+              />
+          }
         </div>
       </Modal>,
       modalElement

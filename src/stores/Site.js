@@ -222,10 +222,26 @@ class SiteStore {
       this.tenantSlug = slug;
 
       if(this.tenants[slug].info && this.tenants[slug].info.logo) {
-        const logoUrl = URI(this.baseSiteUrl);
+        const url = URI(this.baseSiteUrl);
 
-        this.tenants[slug].logoUrl = logoUrl
-          .path(UrlJoin(logoUrl.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "logo"))
+        this.tenants[slug].logoUrl = URI(this.baseSiteUrl)
+          .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "logo"))
+          .toString();
+      }
+
+      if(this.tenants[slug].info && this.tenants[slug].info.privacy_policy_html) {
+        const url = URI(this.baseSiteUrl);
+
+        this.tenants[slug].privacyPolicyUrl = url
+          .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "privacy_policy_html"))
+          .toString();
+      }
+
+      if(this.tenants[slug].info && this.tenants[slug].info.terms_html) {
+        const url = URI(this.baseSiteUrl);
+
+        this.tenants[slug].termsUrl = url
+          .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "terms_html"))
           .toString();
       }
     } catch(error) {
