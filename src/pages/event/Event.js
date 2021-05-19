@@ -38,7 +38,12 @@ class Event extends React.Component {
 
   HandleResize() {
     clearTimeout(this.resizeTimeout);
-    this.resizeTimeout = setTimeout(() => this.setState({width: window.innerWidth}), 200);
+
+    this.resizeTimeout = setTimeout(() => {
+      if(this.state.width !== window.innerWidth) {
+        this.setState({width: window.innerWidth});
+      }
+    }, 200);
   }
 
   Promos() {
