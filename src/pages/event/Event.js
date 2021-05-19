@@ -20,7 +20,7 @@ class Event extends React.Component {
       showPromo: false,
       tab: 0,
       heroBackground: null,
-      mobile: window.innerHeight > window.innerWidth
+      mobile: window.innerWidth < 700
     };
 
     this.HandleResize = this.HandleResize.bind(this);
@@ -35,7 +35,7 @@ class Event extends React.Component {
   }
 
   HandleResize() {
-    const mobile = window.innerWidth < 900;
+    const mobile = window.innerWidth < 700;
     if(mobile !== this.state.mobile) {
       this.setState({mobile});
     }
