@@ -177,7 +177,7 @@
 
       .btn {
         &:not(.btn--gold) {
-          border: 1px solid rgba(255, 255, 255, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.3);
         }
       }
     }
@@ -213,8 +213,7 @@
   .event-page__buttons {
     .btn {
       &:not(.btn--gold) {
-        background-color: $white;
-        color: black;
+        border: 1px solid rgba(255, 255, 255, 0.3);
       }
     }
   }

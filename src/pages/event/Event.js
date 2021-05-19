@@ -77,7 +77,7 @@ class Event extends React.Component {
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
     return (
-      <div className="page-container event-page">
+      <div className={`page-container event-page ${this.state.mobile ? "event-page-mobile" : ""}`}>
         <div className="event-page__hero-container" style={{height: window.innerHeight}}>
           <div className={`event-page__hero ${this.props.siteStore.eventInfo.hero_info ? "event-page__hero-high-gradient" : ""}`} style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           <div className={`event-page__heading ${this.props.siteStore.eventInfo.hero_info ? "event-page__heading-hidden" : ""}`}>
