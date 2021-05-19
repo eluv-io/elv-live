@@ -152,9 +152,13 @@ class SiteStore {
     this.darkMode = !this.darkMode;
   }
 
-  TicketSkuByNTPId(ntpId) {
+  TicketSkuByNTPId(ntpId="") {
+    ntpId = ntpId.includes(":") ? ntpId.split(":")[1] : ntpId;
     for(const ticketClass of this.ticketClasses) {
-      const ticket = ticketClass.skus.find(sku => sku.otp_id === ntpId);
+      const ticket = ticketClass.skus.find(sku =>
+        sku.otp_id === ntpId ||
+        sku.otp_id.split(":")[1] === ntpId
+      );
 
       if(ticket) {
         return ticket;
