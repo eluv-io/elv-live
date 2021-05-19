@@ -89,7 +89,7 @@
 
   &__hero-image-container {
     &::after {
-      background: linear-gradient(180deg, rgba(125, 125, 125, 0) 62.58%, $black);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 62.58%, $black);
       content: '';
       height: 100%;
       left: 0;
@@ -107,7 +107,7 @@
   &__details {
     animation: fadein 1.25s ease-in;
     bottom: 0;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
     padding: 0 20px;
     position: absolute;
     width: 100%;
@@ -163,7 +163,7 @@
     }
 
     &__details {
-      margin-bottom: 50px;
+      margin-bottom: -20px;
     }
   }
 
@@ -182,7 +182,6 @@
     }
 
     &__details {
-      margin-bottom: -10px;
       padding-bottom: 0;
     }
 

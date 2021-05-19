@@ -53,9 +53,12 @@ class FeaturedEvents extends React.Component {
         <div className="featured-event__details">
           <h2 className="featured-event__header">{ header }</h2>
 
-          <h3 className="featured-event__subheader">
-            { date ? date : "Streaming Soon" }
-          </h3>
+          {
+            site.info.event_info.hero_info ? null :
+              <h3 className="featured-event__subheader">
+                {date ? date : "Streaming Soon"}
+              </h3>
+          }
           {
             accessible ?
               <a href={`/${site.siteSlug}`} className="featured-event__event-link">
