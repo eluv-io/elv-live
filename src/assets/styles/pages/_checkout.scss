@@ -234,10 +234,17 @@
 
   .featured-ticket {
     @include item-block;
+    display: flex;
+    flex-direction: column;
     max-width: 500px;
 
     * {
       font-weight: 300;
+    }
+
+    .featured-ticket-header {
+      font-size: 18px;
+
     }
 
     .featured-ticket-selection {
@@ -257,6 +264,10 @@
       display: flex;
       margin-top: 17px;
 
+      .ticket-item-detail {
+        font-size: 14px;
+      }
+
       .separator {
         font-weight: bold;
         padding: 0 6px;
@@ -264,12 +275,13 @@
     }
 
     .featured-ticket-options {
-      align-items: center;
+      align-items: flex-end;
       display: flex;
+      flex: 1 1 auto;
       margin-top: 23px;
 
       .ticket-sku {
-        width: 225px;
+        width: 100%;
 
         select {
           width: 225px;
@@ -488,6 +500,7 @@
       .featured-ticket-options {
         .ticket-sku {
           flex: 1 1 auto;
+          font-size: 12px;
           width: 100%;
         }
       }
@@ -502,14 +515,15 @@
     }
 
     .featured-ticket-details {
-      justify-content: space-between;
+      flex-direction: column;
 
       & > div {
         font-size: 12px;
+        text-align: left;
       }
 
       .separator {
-        padding: 0;
+        display: none;
       }
     }
 
