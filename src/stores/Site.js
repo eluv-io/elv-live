@@ -495,6 +495,7 @@ class SiteStore {
 
   @computed get eventInfo() {
     let eventInfo = {
+      hero_info: false,
       event_header: "",
       event_subheader: "",
       event_title: "",
