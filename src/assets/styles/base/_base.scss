@@ -146,8 +146,11 @@ select {
   border-radius: 15px;
   cursor: pointer;
   height: 45px;
-  padding: 0 15px;
+  overflow: hidden;
+  padding: 0 30px 0 15px;
   position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 input[type='checkbox'] {
