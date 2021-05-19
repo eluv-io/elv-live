@@ -82,7 +82,7 @@ class Event extends React.Component {
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
-    let style = { height: window.innerHeight - (window.innerWidth <= 1600 ? 60 : 0) };
+    let style = { height: window.innerHeight - (window.innerWidth < 1440 ? 60 : 0) };
     if(this.props.siteStore.eventInfo.hero_info && window.innerWidth > this.mobileCutoff) {
       style = {};
     }
