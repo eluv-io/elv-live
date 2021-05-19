@@ -20,7 +20,7 @@ class Event extends React.Component {
       showPromo: false,
       tab: 0,
       heroBackground: null,
-      mobile: window.innerWidth < 700
+      mobile: window.innerWidth < 600
     };
 
     this.HandleResize = this.HandleResize.bind(this);
@@ -35,7 +35,7 @@ class Event extends React.Component {
   }
 
   HandleResize() {
-    const mobile = window.innerWidth < 700;
+    const mobile = window.innerWidth < 600;
     if(mobile !== this.state.mobile) {
       this.setState({mobile});
     }
@@ -78,7 +78,7 @@ class Event extends React.Component {
 
     return (
       <div className={`page-container event-page ${this.state.mobile ? "event-page-mobile" : ""}`}>
-        <div className="event-page__hero-container" style={{height: window.innerHeight}}>
+        <div className="event-page__hero-container" style={window.innerWidth <= 600 ? {height: window.innerHeight} : {}}>
           <div className={`event-page__hero ${this.props.siteStore.eventInfo.hero_info ? "event-page__hero-high-gradient" : ""}`} style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           <div className={`event-page__heading ${this.props.siteStore.eventInfo.hero_info ? "event-page__heading-hidden" : ""}`}>
             {
