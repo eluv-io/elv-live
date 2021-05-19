@@ -79,8 +79,8 @@ class Event extends React.Component {
     return (
       <div className="page-container event-page">
         <div className="event-page__hero-container" style={{height: window.innerHeight}}>
-          <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
-          <div className="event-page__heading">
+          <div className={`event-page__hero ${this.props.siteStore.eventInfo.hero_info ? "event-page__hero-high-gradient" : ""}`} style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          <div className={`event-page__heading ${this.props.siteStore.eventInfo.hero_info ? "event-page__heading-hidden" : ""}`}>
             {
               hasHeaderImage ?
                 <div className="event-page__header-logo">
@@ -97,7 +97,10 @@ class Event extends React.Component {
               this.props.siteStore.eventInfo.event_subheader ?
                 <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
             }
-            <h2 className="event-page__date">{ this.props.siteStore.eventInfo.date }</h2>
+            {
+              this.props.siteStore.eventInfo.date ?
+                <h2 className="event-page__date">{this.props.siteStore.eventInfo.date}</h2> : null
+            }
           </div>
 
           <div className="event-page__buttons">
