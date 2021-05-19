@@ -3,6 +3,17 @@
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
   }
 
+  &-no-header-info {
+    .event-page__hero {
+      background-size: contain;
+      mask-image: linear-gradient(rgba(#f4f3f1, 1) 85%, rgba(#f4f3f1, 0.5) 95%, rgba(#f4f3f1, 0) 100%);
+    }
+
+    .event-page__heading {
+      display: none;
+    }
+  }
+
   &__hero-container {
     align-items: center;
     display: flex;
@@ -22,17 +33,13 @@
     background-color: black;
     background-position: center top;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     bottom: 0;
     left: 0;
     mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 30%, rgba(#f4f3f1, 0) 90%);
     position: absolute;
     right: 0;
     top: 0;
-
-    &-high-gradient {
-      mask-image: linear-gradient(rgba(#f4f3f1, 1) 85%, rgba(#f4f3f1, 0.5) 95%, rgba(#f4f3f1, 0) 100%);
-    }
   }
 
   &__heading {
@@ -43,10 +50,6 @@
       font-style: normal;
       text-align: center;
       text-transform: uppercase;
-    }
-
-    &-hidden {
-      display: none;
     }
   }
 
@@ -103,13 +106,23 @@
   }
 
   @media only screen and (max-width: 1600px) {
+    &-no-header-info {
+      .event-page__hero-container {
+        height: calc(100vw * 9 / 16);
+      }
+
+      .event-page__hero {
+        background-size: contain;
+      }
+    }
+
     &__hero-container {
-      height: calc(100vw * 9 / 16);
+      margin-top: 60px;
       width: 100%;
     }
 
     &__hero {
-      background-size: contain;
+      background-size: cover;
     }
 
     &__heading {
@@ -137,14 +150,24 @@
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media screen and (max-width: 600px) {
+    &-no-header-info {
+      .event-page__hero-container {
+        height: calc(100vh - 60px);
+      }
+
+      .event-page__hero {
+        background-size: cover;
+        mask-image: linear-gradient(rgba(#f4f3f1, 1) 85%, rgba(#f4f3f1, 0.5) 95%, rgba(#f4f3f1, 0) 100%);
+      }
+    }
+
     &__hero-container {
       height: 100vh;
     }
 
     &__hero {
       background-size: cover;
-      mask-image: linear-gradient(rgba(#f4f3f1, 1) 85%, rgba(#f4f3f1, 0.5) 95%, rgba(#f4f3f1, 0) 100%);
     }
 
     &__header-name {

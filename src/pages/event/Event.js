@@ -16,11 +16,13 @@ class Event extends React.Component {
   constructor(props) {
     super(props);
 
+    this.mobileCutoff = this.props.siteStore.eventInfo.hero_info ? 600 : 900;
+
     this.state = {
       showPromo: false,
       tab: 0,
       heroBackground: null,
-      mobile: window.innerWidth < 600
+      width: window.innerWidth
     };
 
     this.HandleResize = this.HandleResize.bind(this);
@@ -35,10 +37,8 @@ class Event extends React.Component {
   }
 
   HandleResize() {
-    const mobile = window.innerWidth < 600;
-    if(mobile !== this.state.mobile) {
-      this.setState({mobile});
-    }
+    clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = setTimeout(() => this.setState({width: window.innerWidth}), 200);
   }
 
   Promos() {
@@ -72,15 +72,21 @@ class Event extends React.Component {
       this.setState({tab: newValue});
     };
 
-    const heroKey = this.state.mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
+    const mobile = this.state.width < this.mobileCutoff;
+    const heroKey = mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
+    let style = { height: window.innerHeight - (window.innerWidth <= 1600 ? 60 : 0) };
+    if(this.props.siteStore.eventInfo.hero_info && window.innerWidth > this.mobileCutoff) {
+      style = {};
+    }
+
     return (
-      <div className={`page-container event-page ${this.state.mobile ? "event-page-mobile" : ""}`}>
-        <div className="event-page__hero-container" style={window.innerWidth <= 600 ? {height: window.innerHeight} : {}}>
-          <div className={`event-page__hero ${this.props.siteStore.eventInfo.hero_info ? "event-page__hero-high-gradient" : ""}`} style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
-          <div className={`event-page__heading ${this.props.siteStore.eventInfo.hero_info ? "event-page__heading-hidden" : ""}`}>
+      <div className={`page-container event-page ${this.props.siteStore.eventInfo.hero_info ? "event-page-no-header-info" : ""} ${mobile ? "event-page-mobile" : ""}`}>
+        <div className="event-page__hero-container" style={style}>
+          <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          <div className="event-page__heading">
             {
               hasHeaderImage ?
                 <div className="event-page__header-logo">

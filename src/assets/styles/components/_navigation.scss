@@ -123,8 +123,11 @@
     }
   }
 
+  @media screen and (max-width: 1600px) {
+    background-color: black;
+  }
 
-  @media only screen and (max-width: 900px) {
+  @media screen and (max-width: 900px) {
     padding: 10px 25px 0 15px;
 
     &__logo {
