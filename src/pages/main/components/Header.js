@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
+import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import {NavLink, withRouter} from "react-router-dom";
 import ImageIcon from "Common/ImageIcon";
 

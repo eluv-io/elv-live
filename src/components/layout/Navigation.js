@@ -6,7 +6,7 @@ import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
-import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
+import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
 @inject("siteStore")
 @inject("cartStore")

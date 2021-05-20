@@ -4,7 +4,7 @@ import ImageIcon from "Common/ImageIcon";
 import {NavLink, Redirect} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
-import Logo from "Images/logo/whiteEluvioLiveLogo.svg";
+import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
 import LiveChat from "Stream/components/LiveChat";
 import {ToggleZendesk} from "Utils/Misc";

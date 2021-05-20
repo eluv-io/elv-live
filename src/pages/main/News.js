@@ -10,7 +10,7 @@ import ImageIcon from "Common/ImageIcon";
 import PressReleasePart1 from "Assets/documents/news/Press Release - March 12/Part1.md";
 import PressReleasePart2 from "Assets/documents/news/Press Release - March 12/Part2.md";
 
-import Logo from "Assets/images/logo/whiteEluvioLiveLogo.svg";
+import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
 
 @inject("mainStore")
