@@ -36,6 +36,11 @@ class SiteApp extends React.Component {
     zendeskImport.type = "text/javascript";
     zendeskImport.async = true;
     zendeskImport.src = "https://static.zdassets.com/ekr/snippet.js?key=cec6052c-e357-45e1-86b0-30f30e12eb85";
+    zendeskImport.addEventListener("load", () => {
+      if(typeof zE === "undefined") { return; }
+
+      zE("webWidget", "helpCenter:setSuggestions", { search: "eluvio" });
+    });
     document.body.appendChild(zendeskImport);
   }
 

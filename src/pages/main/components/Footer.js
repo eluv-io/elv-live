@@ -9,7 +9,7 @@ import {
   FaLinkedin
 } from "react-icons/fa";
 
-import Logo from "Assets/images/logo/whiteEluvioLiveLogo.svg";
+import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import ImageIcon from "Common/ImageIcon";
 
 import Copy from "Assets/copy/Main.yaml";
