@@ -38,7 +38,7 @@ class Success extends React.Component {
           <div className="summary">
             <div className="payment-overview">
               <h1 className="payment-overview-title">Thanks for your order!</h1>
-              <h2 className="payment-overview-p">We've received your order and are proccessing your payment! Your digital ticket will be sent to {this.props.cartStore.email} shortly. </h2>
+              <h2 className="payment-overview-p">We've received your order and are processing your payment! Your digital ticket will be sent to {this.props.cartStore.email} shortly. </h2>
             </div>
           </div>
 
