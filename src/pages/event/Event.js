@@ -64,11 +64,12 @@ class Event extends React.Component {
     );
   }
 
-  handleNavigate = () => {
+  ScrollToTickets = () => {
     this.setState({
       tab: 0,
     }, () => {
-      window.scrollTo({top: document.getElementById("buy-tickets-target").getBoundingClientRect().top + window.pageYOffset - 65, behavior: "smooth"});
+      const target = document.querySelector(".ticket-group") || document.querySelector("event-page__overview");
+      window.scrollTo({top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: "smooth"});
     });
   };
 
@@ -122,7 +123,7 @@ class Event extends React.Component {
                 null :
                 <button
                   className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
-                  onClick={() => this.handleNavigate()}
+                  onClick={() => this.ScrollToTickets()}
                 >
                   Buy Tickets
                 </button>
@@ -135,7 +136,7 @@ class Event extends React.Component {
             }
           </div>
         </div>
-        <div className="event-page__overview" id="buy-tickets-target">
+        <div className="event-page__overview">
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
         </div>
 
