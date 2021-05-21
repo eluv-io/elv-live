@@ -426,6 +426,15 @@ class SiteStore {
 
         window.ac[`${this.siteSlug}-f`] = fbq;
       }
+
+      if(analytics.facebook_verification) {
+        const metaTag = document.createElement("meta");
+
+        metaTag.setAttribute("name", "facebook-domain-verification");
+        metaTag.setAttribute("content", analytics.facebook_verification);
+
+        document.head.appendChild(metaTag);
+      }
     } catch(error) {
       console.error("Failed to load Facebook analytics");
       console.log(error);
