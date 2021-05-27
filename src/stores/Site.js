@@ -115,6 +115,7 @@ class SiteStore {
 
   @action.bound
   SetLanguage(code) {
+    console.log("SET LANGUAGE");
     this.language = code;
     document.title = `${this.eventInfo.event_title} | Eluvio Live`;
   }
@@ -336,6 +337,25 @@ class SiteStore {
 
       if(loadAnalytics) {
         this.InitializeAnalytics();
+      }
+
+      try {
+        if(site.localizations && Object.keys(site.localizations).length > 0) {
+          for(let language of navigator.languages || [navigator.language]) {
+            if(language.startsWith("en")) {
+              break;
+            }
+
+            language = language.toLowerCase();
+            if(site.localizations[language]) {
+              this.SetLanguage(language);
+            } else if(site.localizations[language.split("-")[0]]) {
+              this.SetLanguage(language.split("-")[0]);
+            }
+          }
+        }
+      } catch(error) {
+        console.log(error);
       }
 
       return !validateBaseSlug || baseSlug === this.baseSlug;
