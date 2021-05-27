@@ -31,6 +31,8 @@ class SiteStore {
 
   @observable error = "";
 
+  @observable language = "en";
+
   @computed get client() {
     return this.rootStore.client;
   }
@@ -57,7 +59,13 @@ class SiteStore {
   // Event Site
   @computed get currentSite() {
     try {
-      return this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
+      let site = this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
+
+      if(this.language !== "en") {
+        site = mergeWith({}, site, site.localizations[this.language], (a, b) => b === null || b === "" ? a : undefined);
+      }
+
+      return site;
     } catch(error) {
       return undefined;
     }
@@ -104,6 +112,13 @@ class SiteStore {
 
     return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
   }
+
+  @action.bound
+  SetLanguage(code) {
+    this.language = code;
+    document.title = `${this.eventInfo.event_title} | Eluvio Live`;
+  }
+
 
   @action.bound
   ChatChannel() {
@@ -293,6 +308,7 @@ class SiteStore {
         ...this.siteParams,
         select: [
           ".",
+          "localizations",
           "info",
           "promos",
           "channels"
@@ -425,15 +441,6 @@ class SiteStore {
         fbq("track", "PageView");
 
         window.ac[`${this.siteSlug}-f`] = fbq;
-      }
-
-      if(analytics.facebook_verification) {
-        const metaTag = document.createElement("meta");
-
-        metaTag.setAttribute("name", "facebook-domain-verification");
-        metaTag.setAttribute("content", analytics.facebook_verification);
-
-        document.head.appendChild(metaTag);
       }
     } catch(error) {
       console.error("Failed to load Facebook analytics");
@@ -665,8 +672,17 @@ class SiteStore {
 
     const uri = URI(this.baseSiteUrl);
 
+    // If the current localization has the desired link, point to it
+    let localizationPath = "";
+    if(
+      this.language !== "en" &&
+      this.rootStore.client.utils.SafeTraverse(this.currentSite, ...UrlJoin("localizations", this.language, path).split("/"))
+    ) {
+      localizationPath = UrlJoin("localizations", this.language);
+    }
+
     return uri
-      .path(UrlJoin(uri.path(), "meta", this.currentSiteMetadataPath, path.toString()))
+      .path(UrlJoin(uri.path(), "meta", this.currentSiteMetadataPath, localizationPath, path.toString()))
       .toString();
   }
 

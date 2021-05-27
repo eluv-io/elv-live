@@ -5,6 +5,7 @@ import CartIcon from "Assets/icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
+import LanguageCodes from "Assets/LanguageCodes";
 
 import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
@@ -41,6 +42,7 @@ class Header extends React.Component {
 
     const itemCount = this.props.cartStore.CartDetails().itemCount;
     const redeemAvailable = !this.props.hideRedeem && this.props.siteStore.currentSiteInfo.state !== "Live Ended";
+    const languagesAvailable = (this.props.siteStore.currentSiteInfo.localizations || []).length > 0;
 
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
@@ -55,6 +57,17 @@ class Header extends React.Component {
         }
         <div className="header__spacer" />
         <div className="header__links">
+          {
+            languagesAvailable ?
+              <select value={this.props.siteStore.language} onChange={event => this.props.siteStore.SetLanguage(event.target.value)}>
+                <option value="en">English</option>
+                {
+                  this.props.siteStore.currentSiteInfo.localizations.map(code =>
+                    <option value={code}>{ LanguageCodes[code] || code }</option>
+                  )
+                }
+              </select> : null
+          }
           {
             redeemAvailable ?
               <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
