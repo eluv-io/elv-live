@@ -270,7 +270,7 @@
 .footer-item {
   color: rgba(0, 0, 0, 0.783);
   font-family: Helvetica;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: normal;
   letter-spacing: 0.07em;
@@ -287,11 +287,22 @@
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 1);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   margin: auto;
   padding-bottom: 30px;
   width: 75vw;
+
+  @media only screen and (max-width: 900px) {
+    flex-direction: column;
+  }
+}
+
+.footer-language-selection {
+  background-color: transparent;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .sponsor-container-footer {

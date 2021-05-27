@@ -42,7 +42,7 @@ class Footer extends React.Component {
           <NavLink to="/terms" className="footer__link">Terms</NavLink>
           <NavLink to="/next" className="footer__link">What's Next?</NavLink>
           <NavLink to="/privacy" className="footer__link">Privacy</NavLink>
-          <a href="https://eluv.io" rel="noopener" className="footer__link" target="_blank">eluv.io</a>
+          <a href="https://eluvio.co" rel="noopener" className="footer__link" target="_blank">Eluvio Corp</a>
         </div>
         <div className="footer__social">
           { this.SocialButton("https://www.instagram.com/eluviolive", <FaInstagram />, "Instagram") }
