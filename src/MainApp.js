@@ -32,7 +32,7 @@ class MainApp extends React.Component {
       .find(({domain, tenant_slug, event_slug}) => {
         domain = domain.startsWith("https://") ? domain : `https://${domain}`;
 
-        if(new URL(domain).host === window.location.href) {
+        if(new URL(domain).host === window.location.host) {
           window.location.replace(
             UrlJoin(
               this.props.siteStore.production ?
