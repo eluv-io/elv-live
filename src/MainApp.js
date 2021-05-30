@@ -27,23 +27,6 @@ class MainApp extends React.Component {
   async componentDidMount() {
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
-
-    (this.props.siteStore.mainSiteInfo.info.domain_map || [])
-      .find(({domain, tenant_slug, event_slug}) => {
-        domain = domain.startsWith("https://") ? domain : `https://${domain}`;
-
-        if(new URL(domain).host === window.location.host) {
-          window.location.replace(
-            UrlJoin(
-              this.props.siteStore.production ?
-                "https://live.eluv.io" : "https://live-stg-eluv-io.web.app",
-              tenant_slug || "",
-              event_slug || ""
-            )
-          );
-        }
-      });
-
     await this.props.siteStore.LoadFeaturedSites();
   }
 
