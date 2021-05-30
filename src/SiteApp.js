@@ -14,6 +14,7 @@ const Support = MinLoadDelay(import("Support/Support"));
 const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
+const Chat = MinLoadDelay(import("Stream/components/LiveChat"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
 
@@ -64,6 +65,7 @@ class SiteApp extends React.Component {
 
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
