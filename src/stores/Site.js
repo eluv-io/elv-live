@@ -202,11 +202,29 @@ class SiteStore {
 
       this.baseSiteUrl = yield this.client.FabricUrl({...this.siteParams});
 
-      this.mainSiteInfo = (yield this.client.ContentObjectMetadata({
+      const mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
         resolveLinks: false,
       })) || {};
+
+      (mainSiteInfo.info.domain_map || [])
+        .find(({domain, tenant_slug, event_slug}) => {
+          domain = domain.startsWith("https://") ? domain : `https://${domain}`;
+
+          if(new URL(domain).host === window.location.host) {
+            window.location.replace(
+              UrlJoin(
+                mainSiteInfo.info.mode === "production" ?
+                  "https://live.eluv.io" : "https://live-stg-eluv-io.web.app",
+                tenant_slug || "",
+                event_slug || ""
+              )
+            );
+          }
+        });
+
+      this.mainSiteInfo = mainSiteInfo;
     } catch(error) {
       // TODO: Graceful error handling
       console.error("Error loading site", error);
