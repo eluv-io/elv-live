@@ -208,21 +208,24 @@ class SiteStore {
         resolveLinks: false,
       })) || {};
 
-      (mainSiteInfo.info.domain_map || [])
-        .find(({domain, tenant_slug, event_slug}) => {
+      if(window.location.pathname === "/") {
+        for(const domainMap of (mainSiteInfo.info.domain_map || [])) {
+          let { domain, tenant_slug, event_slug } = domainMap || {};
           domain = domain.startsWith("https://") ? domain : `https://${domain}`;
 
           if(new URL(domain).host === window.location.host) {
             window.location.replace(
               UrlJoin(
-                mainSiteInfo.info.mode === "production" ?
-                  "https://live.eluv.io" : "https://live-stg-eluv-io.web.app",
                 tenant_slug || "",
                 event_slug || ""
               )
             );
+
+            // Wait to prevent load completing before redirect goes through
+            yield new Promise(resolve => setTimeout(resolve, 5000));
           }
-        });
+        }
+      }
 
       this.mainSiteInfo = mainSiteInfo;
     } catch(error) {
