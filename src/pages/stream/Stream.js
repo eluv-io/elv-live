@@ -3,12 +3,13 @@ import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import {NavLink, Redirect} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
-
-import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
-import ChatIcon from "Assets/icons/chat icon simple.svg";
 import LiveChat from "Stream/components/LiveChat";
 import {ToggleZendesk} from "Utils/Misc";
 import EluvioConfiguration from "../../../configuration";
+
+import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
+import ChatIcon from "Assets/icons/chat icon simple.svg";
+import PopoutIcon from "Assets/icons/external-link-arrow.svg";
 
 @inject("siteStore")
 @observer
@@ -39,7 +40,6 @@ class Stream extends React.Component {
   async InitializeVideo(element) {
     try {
       if(this.state.initialized || !element) { return; }
-
 
       this.setState({initialized: true});
 
@@ -165,8 +165,23 @@ class Stream extends React.Component {
         <div className={`stream-page__chat-panel ${this.state.showChat ? "stream-page__chat-panel-visible" : "stream-page__chat-panel-hidden"}`}>
           <div className="stream-page__chat-panel__header">
             <h2 className="stream-page__chat-panel__header-text">{ this.props.siteStore.streamPageInfo.header }</h2>
+            <button
+              title="Open chat in new window"
+              onClick={() => {
+                this.setState({showChat: false});
+                window.open(
+                  window.location.pathname.replace(/\/stream$/, "/chat"),
+                  "_blank",
+                  `height=${screen.height},width=350,left=${screen.width -350}`
+                );
+              }}
+              className="stream-page__chat-panel__header__popout-button"
+            >
+              <ImageIcon icon={PopoutIcon} />
+            </button>
+
           </div>
-          { this.state.chatOpened ? <LiveChat /> : null }
+          { this.state.chatOpened ? <LiveChat promptName /> : null }
         </div>
       </div>
     );

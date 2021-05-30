@@ -5,8 +5,9 @@ import {Redirect, withRouter} from "react-router";
 import {PageLoader} from "Common/Loaders";
 import Navigation from "Layout/Navigation";
 import InitializeEventData from "Utils/StructuredEventData";
+import {ToggleZendesk} from "Utils/Misc";
 
-const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false}={}) => {
+const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
   @inject("siteStore")
   @withRouter
   @observer
@@ -32,6 +33,10 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
 
       if(!isFeatured && !validTenant) {
         return <Redirect to="/" />;
+      }
+
+      if(hideZendesk) {
+        ToggleZendesk(false);
       }
 
       return (

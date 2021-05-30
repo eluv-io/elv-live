@@ -170,6 +170,28 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       width: 100%;
     }
 
+    &__header__popout-button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      height: 20px;
+      outline: 0;
+      padding: 3px;
+      width: 20px;
+
+      svg {
+        fill: $white;
+        height: 100%;
+        stroke: $white;
+        width: 100%;
+
+        * {
+          fill: $white;
+          stroke: $white;
+        }
+      }
+    }
+
     .livestream {
       max-height: calc(100vh - #{$header-height});
     }
@@ -238,6 +260,10 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
       .stream-page__chat-panel__header {
         display: none;
+
+        &__popout-button {
+          display: none;
+        }
       }
 
       .chat-container {

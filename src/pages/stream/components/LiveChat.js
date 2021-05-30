@@ -50,6 +50,8 @@ class LiveChat extends React.Component {
 
         this.setState({channel: undefined}, () => this.setState({channel, anonymous: false}));
         await this.state.anonymousChatClient.disconnectUser();
+
+        localStorage.setItem("chat-name", userName);
       } else {
         await this.state.anonymousChatClient.connectAnonymousUser();
 
@@ -90,7 +92,13 @@ class LiveChat extends React.Component {
       anonymousChatClient: new StreamChat("s2ypn9y5jvzv"),
       chatClient: new StreamChat("s2ypn9y5jvzv")
     }, async () => {
-      await this.InitializeChannel();
+      // Opened in new window - use current name
+      if(!this.props.promptName && localStorage.getItem("chat-name")) {
+        this.setState({chatName: localStorage.getItem("chat-name")}, () => this.JoinChat());
+      } else {
+        await this.InitializeChannel();
+      }
+
       this.setState({loading: false});
     });
   }
