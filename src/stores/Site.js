@@ -208,6 +208,7 @@ class SiteStore {
         resolveLinks: false,
       })) || {};
 
+      /*
       if(window.location.pathname === "/") {
         for(const domainMap of (mainSiteInfo.info.domain_map || [])) {
           let { domain, tenant_slug, event_slug } = domainMap || {};
@@ -226,6 +227,8 @@ class SiteStore {
           }
         }
       }
+      
+       */
 
       this.mainSiteInfo = mainSiteInfo;
     } catch(error) {
