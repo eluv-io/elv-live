@@ -57,12 +57,7 @@ class RootStore {
 
   @action.bound
   InitializeClient = flow(function * () {
-    let client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-
-    const staticToken = btoa(JSON.stringify({qspace_id: client.contentSpaceId}));
-    client.SetStaticToken({token: staticToken});
-
-    this.client = client;
+    this.client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
   });
 
   @action.bound

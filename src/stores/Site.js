@@ -227,7 +227,7 @@ class SiteStore {
           }
         }
       }
-      
+
        */
 
       this.mainSiteInfo = mainSiteInfo;

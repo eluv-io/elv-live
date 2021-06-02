@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
-import UrlJoin from "url-join";
+//import UrlJoin from "url-join";
 
 import "Styles/main-app.scss";
 import {PageLoader} from "Common/Loaders";
