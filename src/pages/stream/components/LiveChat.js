@@ -89,8 +89,8 @@ class LiveChat extends React.Component {
     window.addEventListener("beforeunload", this.DisconnectChatClients);
 
     this.setState({
-      anonymousChatClient: new StreamChat("s2ypn9y5jvzv"),
-      chatClient: new StreamChat("s2ypn9y5jvzv")
+      anonymousChatClient: new StreamChat("gescjvbmby9w"),
+      chatClient: new StreamChat("gescjvbmby9w")
     }, async () => {
       // Opened in new window - use current name
       if(!this.props.promptName && localStorage.getItem("chat-name")) {

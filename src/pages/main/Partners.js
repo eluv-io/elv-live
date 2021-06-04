@@ -4,6 +4,8 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 import Copy from "Assets/copy/Main.yaml";
+import AsyncComponent from "Common/AsyncComponent";
+import {LoadHubspotForm} from "Utils/Misc";
 
 @inject("mainStore")
 @observer
@@ -42,7 +44,7 @@ class Partners extends React.Component {
     );
   }
 
-  render() {
+  Content() {
     return (
       <div className="page-content partners-page">
         <h1 className="partners-page__header">Our Partners</h1>
@@ -80,6 +82,15 @@ class Partners extends React.Component {
           />
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <AsyncComponent
+        Load={LoadHubspotForm}
+        render={() => this.Content()}
+      />
     );
   }
 }
