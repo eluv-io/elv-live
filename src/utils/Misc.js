@@ -81,3 +81,22 @@ export const Copy = (text) => {
   document.execCommand("copy");
   document.body.removeChild(aux);
 };
+
+export const LoadHubspotForm = async () => {
+  if(window.__hubspotLoaded) { return; }
+
+  window.__hubspotLoaded = true;
+
+  await new Promise(resolve => {
+    const script = document.createElement("script");
+    script.setAttribute("src", "https://js.hsforms.net/forms/v2.js");
+    script.setAttribute("type", "text/javascript");
+    script.addEventListener("load", () => {
+      console.log("LOADED");
+      resolve();
+    });
+
+    script.async = true;
+    document.head.appendChild(script);
+  });
+};

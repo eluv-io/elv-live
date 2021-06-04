@@ -2,6 +2,8 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 import Copy from "Assets/copy/Main.yaml";
+import AsyncComponent from "Common/AsyncComponent";
+import {LoadHubspotForm} from "Utils/Misc";
 
 @inject("siteStore")
 @observer
@@ -26,7 +28,7 @@ class Contact extends React.Component {
       .setAttribute("content", "");
   }
 
-  render() {
+  Content() {
     return (
       <div className="page-content contact-page">
         <h1 className="contact-page__header">
@@ -84,6 +86,15 @@ class Contact extends React.Component {
           </div>
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <AsyncComponent
+        Load={LoadHubspotForm}
+        render={() => this.Content()}
+      />
     );
   }
 }
