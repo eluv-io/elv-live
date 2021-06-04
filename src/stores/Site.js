@@ -441,118 +441,160 @@ class SiteStore {
   }
 
   InitializeAnalytics() {
-    const analytics = this.currentSiteInfo.analytics || {};
+    (this.currentSiteInfo.analytics_ids || []).forEach(analytics => {
+      const ids = analytics.ids;
 
-    try {
-      if(analytics.google) {
-        const s = document.createElement("script");
-        s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${analytics.google}`);
-        s.async = true;
-        document.head.appendChild(s);
+      if(!ids || ids.length === 0) { return; }
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { window.dataLayer.push(arguments); }
+      for(const entry of ids) {
+        switch(entry.type) {
+          case "Google Analytics ID":
+            const s = document.createElement("script");
+            s.setAttribute("src", `https://www.googletagmanager.com/gtag/js?id=${entry.id}`);
+            s.async = true;
+            document.head.appendChild(s);
 
-        gtag("js", new Date());
-        gtag("config", analytics.google);
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { window.dataLayer.push(arguments); }
 
-        window.ac[`${this.siteSlug}-g`] = gtag;
+            gtag("js", new Date());
+            gtag("config", entry.id);
+
+            break;
+          case "Google Tag Manager ID":
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer',entry.id);
+
+            break;
+          case "Facebook Pixel ID":
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,"script",
+              "https://connect.facebook.net/en_US/fbevents.js");
+            fbq("init", entry.id);
+            fbq("track", "PageView");
+
+            window.ac[`${this.siteSlug}-${analytics.label}-f`] = fbq;
+
+            break;
+          case "App Nexus Segment ID":
+            const pixel = document.createElement("img");
+
+            pixel.setAttribute("width", "1");
+            pixel.setAttribute("height", "1");
+            pixel.style.display = "none";
+            pixel.setAttribute("src", `https://secure.adnxs.com/seg?add=${entry.id}&t=2`);
+
+            document.body.appendChild(pixel);
+
+            break;
+          default:
+            break;
+        }
       }
-
-      if(analytics.google_tag_manager_id) {
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer',analytics.google_tag_manager_id);
-      }
-    } catch(error) {
-      console.error("Failed to load Google Analytics:");
-      console.error(error);
-    }
-
-    try {
-      if(analytics.facebook) {
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,"script",
-          "https://connect.facebook.net/en_US/fbevents.js");
-        fbq("init", analytics.facebook);
-        fbq("track", "PageView");
-
-        window.ac[`${this.siteSlug}-f`] = fbq;
-      }
-    } catch(error) {
-      console.error("Failed to load Facebook analytics");
-      console.log(error);
-    }
-
-    try {
-      if(analytics.adnxs_segment_id) {
-        const pixel = document.createElement("img");
-
-        pixel.setAttribute("width", "1");
-        pixel.setAttribute("height", "1");
-        pixel.style.display = "none";
-        pixel.setAttribute("src", `https://secure.adnxs.com/seg?add=${analytics.adnxs_segment_id}&t=2`);
-
-        document.body.appendChild(pixel);
-      }
-    } catch(error) {
-      console.error("Failed to load adnxs analytics");
-      console.log(error);
-    }
+    });
   }
 
   TrackPurchase(confirmationId, cartDetails) {
     if(cartDetails.total === 0) { return; }
 
-    const analytics = this.currentSiteInfo.analytics || {};
-    const googleHook = window.ac[`${this.siteSlug}-g`];
-    const facebookHook = window.ac[`${this.siteSlug}-f`];
+    (this.currentSiteInfo.analytics_ids || []).forEach(analytics => {
+      const facebookHook = window.ac[`${this.siteSlug}-${analytics.label}-f`];
 
-    if(googleHook && analytics.google_conversion_id && analytics.google_conversion_label) {
-      googleHook(
-        "event",
-        "conversion",
-        {
-          send_to: `${analytics.google_conversion_id}/${analytics.google_conversion_label}`,
-          value: cartDetails.total,
-          currency: this.rootStore.cartStore.currency,
-          transaction_id: confirmationId
+      const ids = analytics.ids;
+
+      if(!ids || ids.length === 0) { return; }
+
+      for(const entry of ids) {
+        try {
+          switch(entry.type) {
+            case "Google Analytics ID":
+              break;
+            case "Google Tag Manager ID":
+              break;
+            case "Google Conversion ID":
+              const conversionLabel = ids.find(id => id.type === "Google Conversion Label");
+
+              if(!conversionLabel) {
+                console.error(`Unable to find corresponding Google conversion label for ${analytics.label} conversion ID`);
+                break;
+              }
+
+              function gtag() { window.dataLayer.push(arguments); }
+
+
+              gtag("config", entry.id);
+              gtag(
+                "event",
+                "conversion",
+                {
+                  send_to: `${entry.id}/${conversionLabel.id}`,
+                  value: cartDetails.total,
+                  currency: this.rootStore.cartStore.currency,
+                  transaction_id: confirmationId
+                }
+              );
+
+              break;
+            case "Facebook Pixel ID":
+              facebookHook("track", "Purchase", {
+                currency: this.rootStore.cartStore.currency,
+                value: cartDetails.total
+              });
+
+              break;
+            case "App Nexus Pixel ID":
+              const segmentId = ids.find(id => id.type === "App Nexus Segment ID");
+
+              if(!segmentId) {
+                console.error(`Unable to find corresponding App Nexus segment ID for ${analytics.label} pixel ID`);
+                break;
+              }
+
+              const anPixel = document.createElement("img");
+
+              anPixel.setAttribute("width", "1");
+              anPixel.setAttribute("height", "1");
+              anPixel.style.display = "none";
+              anPixel.setAttribute("src", `https://secure.adnxs.com/px?id=${entry.id}&seg=${segmentId.id}&order_id=${confirmationId}&value=${cartDetails.total}&t=2`);
+
+              document.body.appendChild(anPixel);
+
+              break;
+            case "TradeDoubler Event ID":
+              const organizationId = ids.find(id => id.type === "TradeDoubler Organization ID");
+
+              if(!organizationId) {
+                console.error(`Unable to find corresponding TradeDoubler organization ID for ${analytics.label} event ID`);
+                break;
+              }
+
+              const tdPixel = document.createElement("img");
+
+              tdPixel.setAttribute("width", "1");
+              tdPixel.setAttribute("height", "1");
+              tdPixel.style.display = "none";
+              tdPixel.setAttribute("src", `https://tbs.tradedoubler.com/report?organization=${organizationId.id}&event=${entry.id}&orderNumber=${confirmationId}&orderValue=${cartDetails.total}`);
+
+              document.body.appendChild(tdPixel);
+
+              break;
+            default:
+              break;
+          }
+        } catch(error) {
+          console.error(`Failed to perform conversion tracking for ${analytics.label} ${entry.type}:`);
+          console.error(error);
         }
-      );
-    }
-
-    if(analytics.facebook) {
-      facebookHook("track", "Purchase", { currency: this.rootStore.cartStore.currency, value: cartDetails.total });
-    }
-
-    if(analytics.adnxs_pixel_id && analytics.adnxs_segment_id) {
-      const pixel = document.createElement("img");
-
-      pixel.setAttribute("width", "1");
-      pixel.setAttribute("height", "1");
-      pixel.style.display = "none";
-      pixel.setAttribute("src", `https://secure.adnxs.com/px?id=${analytics.adnxs_pixel_id}&seg=${analytics.adnxs_segment_id}&order_id=${confirmationId}&value=${cartDetails.total}&t=2`);
-
-      document.body.appendChild(pixel);
-    }
-
-    if(analytics.tradedoubler_organization_id && analytics.tradedoubler_event_id) {
-      const pixel = document.createElement("img");
-
-      pixel.setAttribute("width", "1");
-      pixel.setAttribute("height", "1");
-      pixel.style.display = "none";
-      pixel.setAttribute("src", `https://tbs.tradedoubler.com/report?organization=${analytics.tradedoubler_organization_id}&event=${analytics.tradedoubler_event_id}&orderNumber=${confirmationId}&orderValue=${cartDetails.total}`);
-
-      document.body.appendChild(pixel);
-    }
+      }
+    });
   }
 
   /* Site attributes */
