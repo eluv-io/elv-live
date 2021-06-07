@@ -458,7 +458,8 @@ class CartStore {
                 }
               },
               items: paypalCart,
-            }]
+            }],
+          application_context: cartDetails.merchandise.length === 0 ? { shipping_preference: 'NO_SHIPPING' } : {}
         }
       );
     } finally {
