@@ -44,7 +44,7 @@ class App extends React.Component {
     if(mainPages.includes(window.location.pathname)) {
       // Main site
       return (
-        <div className="app-container main-app-container">
+        <div key={`main-page-${this.props.rootStore.baseKey}`} className="app-container main-app-container">
           <Suspense fallback={<PageLoader/>}>
             <MainApp />
           </Suspense>
@@ -53,7 +53,7 @@ class App extends React.Component {
     } else {
       // Event site
       return (
-        <div className="app-container site-app-container">
+        <div key={`main-page-${this.props.rootStore.baseKey}`} className="app-container site-app-container">
           <Suspense fallback={<PageLoader/>}>
             <SiteApp />
           </Suspense>

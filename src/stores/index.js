@@ -13,6 +13,7 @@ configure({
 });
 
 class RootStore {
+  @observable baseKey = 1;
   @observable client;
   @observable redeemedTicket;
   @observable error = "";
@@ -57,6 +58,8 @@ class RootStore {
 
   @action.bound
   InitializeClient = flow(function * () {
+    if(this.client) { return; }
+
     this.client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
   });
 
@@ -99,6 +102,11 @@ class RootStore {
     this.errorTimeout = setTimeout(() => {
       runInAction(() => this.SetError(""));
     }, 8000);
+  }
+
+  @action.bound
+  UpdateBaseKey() {
+    this.baseKey += 1;
   }
 }
 

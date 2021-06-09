@@ -115,11 +115,9 @@ class SiteStore {
 
   @action.bound
   SetLanguage(code) {
-    console.log("SET LANGUAGE");
     this.language = code;
     document.title = `${this.eventInfo.event_title} | Eluvio Live`;
   }
-
 
   @action.bound
   ChatChannel() {
@@ -205,30 +203,30 @@ class SiteStore {
       const mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
         metadataSubtree: "public/asset_metadata",
-        resolveLinks: false,
+        resolveLinks: false
       })) || {};
 
-      /*
+      // Look for domain redirects
       if(window.location.pathname === "/") {
         for(const domainMap of (mainSiteInfo.info.domain_map || [])) {
           let { domain, tenant_slug, event_slug } = domainMap || {};
           domain = domain.startsWith("https://") ? domain : `https://${domain}`;
 
           if(new URL(domain).host === window.location.host) {
-            window.location.replace(
+            window.history.replaceState(
+              {},
+              "",
               UrlJoin(
                 tenant_slug || "",
                 event_slug || ""
               )
             );
 
-            // Wait to prevent load completing before redirect goes through
-            yield new Promise(resolve => setTimeout(resolve, 5000));
+            this.rootStore.UpdateBaseKey();
+            return;
           }
         }
       }
-
-       */
 
       this.mainSiteInfo = mainSiteInfo;
     } catch(error) {

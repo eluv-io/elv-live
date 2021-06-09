@@ -337,7 +337,7 @@ class CartStore {
       const sessionId = (yield this.PaymentServerRequest({
         path: UrlJoin("checkout", "stripe"),
         requestParams
-        })).session_id;
+      })).session_id;
 
       // Redirect to stripe
       const stripe = yield loadStripe(stripePublicKey);
