@@ -31,7 +31,7 @@ class MainApp extends React.Component {
     await this.props.siteStore.LoadMainSite();
 
     // Redirected
-    if(baseKey !== this.props.rootStore.baseKey) {
+    if(baseKey === this.props.rootStore.baseKey) {
       await this.props.siteStore.LoadFeaturedSites();
     }
   }

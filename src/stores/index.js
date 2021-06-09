@@ -104,6 +104,7 @@ class RootStore {
     }, 8000);
   }
 
+  // Force reload of App.js (e.g. to switch main site to event site
   @action.bound
   UpdateBaseKey() {
     this.baseKey += 1;
