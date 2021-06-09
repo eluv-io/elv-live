@@ -25,9 +25,15 @@ import Privacy from "Pages/main/Privacy";
 @observer
 class MainApp extends React.Component {
   async componentDidMount() {
+    const baseKey = this.props.rootStore.baseKey;
+
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
-    await this.props.siteStore.LoadFeaturedSites();
+
+    // Redirected
+    if(baseKey !== this.props.rootStore.baseKey) {
+      await this.props.siteStore.LoadFeaturedSites();
+    }
   }
 
   Routes() {
