@@ -3,7 +3,7 @@ $border-color: rgba(255, 255, 255, 0.5);
 
 $chat-panel-min-width: 350px;
 
-$header-height: 60px;
+$header-height: 70px;
 $footer-height: 80px;
 
 $offset: $header-height + $footer-height;
@@ -12,6 +12,12 @@ $mobile-header-height: 40px;
 $mobile-footer-height: 100px;
 
 $mobile-offset: $mobile-header-height + $mobile-footer-height;
+
+@keyframes hype {
+  33% { transform: rotate(-10deg) scale(0.8); }
+  66% { transform: rotate(10deg) scale(0.8); }
+  100% { transform: rotate(0deg); }
+}
 
 .stream-page {
   background: $background-color !important;
@@ -49,6 +55,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     align-items: center;
     display: flex;
     height: $header-height;
+    justify-content: space-between;
     padding: 0 20px;
     position: relative;
 
@@ -56,7 +63,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       display: flex;
       height: 100%;
       overflow: visible;
-      padding: 20px 0;
+      padding: 23px 0;
       width: auto;
 
       svg {
@@ -68,14 +75,31 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       }
     }
 
+    &__right {
+      display: flex;
+    }
+
+    &__viewer-count {
+      align-items: center;
+      color: #aaa;
+      display: flex;
+      margin-right: 5px;
+      user-select: none;
+
+      svg {
+        height: 25px;
+        margin-right: 2px;
+        padding: 3px;
+        width: 25px;
+      }
+    }
+
     &__chat-toggle {
       background-color: transparent;
       border: 0;
       cursor: pointer;
       height: 30px;
       outline: 0;
-      position: absolute;
-      right: 20px;
 
       svg {
         height: 100%;
@@ -149,35 +173,86 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     background-color: $black;
     border-left: 1px solid #232222;
 
+    &-full-screen {
+      height: 100%;
+    }
+
     &__header {
-      align-items: center;
       border-bottom: 1px solid #232222;
       display: flex;
+      flex-direction: column;
       height: $header-height;
-      justify-content: center;
-      padding: 0 34px;
+      justify-content: space-between;
+      padding: 8px 8px 3px;
       position: relative;
       width: 100%;
     }
 
+    &__header-top {
+      align-items: center;
+      display: flex;
+    }
+
     &__header-text {
       color: white;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 300;
       margin: 0;
       padding: 0;
       text-align: center;
+      white-space: nowrap;
       width: 100%;
+    }
+
+    &__header-stats {
+      align-items: flex-end;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__hype-button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      height: 25px;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: 0.3s ease-out;
+      width: 35px;
+
+      &.hype-button-animation {
+        svg {
+          animation: hype 0.25s ease-out;
+        }
+      }
+
+      svg {
+        fill: #ff00fd;
+        filter: drop-shadow(0 0 0 rgba(255, 0, 0, 0));
+        stroke: #e100df;
+        transition: 0.3s;
+      }
+
+      &:hover {
+        svg {
+          fill: #ff00fd;
+          filter: drop-shadow(0 0 10px rgba(255, 0, 200, 1));
+          stroke: #ff00fd;
+        }
+      }
     }
 
     &__header__popout-button {
       background: transparent;
       border: 0;
       cursor: pointer;
-      height: 20px;
+      height: 15px;
       outline: 0;
-      padding: 3px;
-      width: 20px;
+      padding: 2px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 15px;
 
       svg {
         fill: $white;
@@ -189,6 +264,28 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
           fill: $white;
           stroke: $white;
         }
+      }
+    }
+
+    &__hype,
+    &__viewers {
+      align-items: center;
+      color: #aaa;
+      display: flex;
+      user-select: none;
+
+      svg {
+        height: 25px;
+        margin-right: 2px;
+        padding: 3px;
+        width: 25px;
+      }
+    }
+
+    &__viewers {
+      svg {
+        padding: 5px;
+        stroke: #aaa;
       }
     }
 
@@ -259,15 +356,17 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       }
 
       .stream-page__chat-panel__header {
-        display: none;
+        border-bottom: 0;
+        padding: 0 10px;
+
+        &-stats {
+          align-items: center;
+          height: 100%;
+        }
 
         &__popout-button {
           display: none;
         }
-      }
-
-      .chat-container {
-        padding-top: 10px;
       }
     }
 
@@ -276,12 +375,12 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       border-top: 1px solid #232222;
 
       .livestream {
-        max-height: 50vh;
+        max-height: calc(50vh - 25px);
       }
 
       .ios-safari {
         .livestream {
-          max-height: 43vh;
+          max-height: 40vh;
         }
       }
     }
@@ -336,8 +435,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       }
 
       &__chat-toggle {
-        height: 45%;
-        right: 10px;
+        padding: 5px;
       }
     }
 
@@ -372,14 +470,14 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
       }
     }
 
-    &__chat-panel {
-      &__header {
+    &__chat-panel-stream-page {
+      .stream-page__chat-panel__header {
         height: $mobile-header-height;
-        padding: 12px 10px;
+        padding: 6px 10px;
       }
 
-      &__header-text {
-        font-size: 18px;
+      .stream-page__chat-panel__header-top {
+        display: none;
       }
     }
   }

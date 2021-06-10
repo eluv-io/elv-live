@@ -5,6 +5,7 @@ DayJS.extend(DayJSTimezone);
 DayJS.extend(DayJSAdvancedFormatting);
 
 import moment from "moment-timezone";
+import React, {useEffect, useState} from "react";
 
 export const FormatDateString = (date, dateOnly=false, timeOnly=false, shortDate=false) => {
   if(!date) { return ""; }
@@ -99,4 +100,49 @@ export const LoadHubspotForm = async () => {
     script.async = true;
     document.head.appendChild(script);
   });
+};
+
+export const Counter = ({to, duration=1000, className=""}) => {
+  to = to || 0;
+
+  const [count, setCount] = useState(0);
+  const [target, setTarget] = useState(0);
+  const [counterInterval, setCounterInterval] = useState(undefined);
+
+  const hertz = 30;
+
+  const Start = () => {
+    if(to === target) { return; }
+
+    clearInterval(counterInterval);
+
+    setTarget(to);
+
+    const diff = to - count;
+    const add = Math.ceil(diff / (hertz * (duration / 1000)));
+
+    let newCount = count;
+    let interval;
+    interval = setInterval(
+      () => {
+        newCount = add > 0 ? Math.min(to, newCount + add) : Math.max(to, newCount + add);
+        setCount(newCount);
+
+        if(add > 0 && newCount >= to || add < 0 && newCount <= to) {
+          clearInterval(interval);
+        }
+      }, (1 / hertz * 1000));
+
+    setCounterInterval(interval);
+  };
+
+  useEffect(() => {
+    Start();
+  });
+
+  return (
+    <span className={`counter ${className}`}>
+      { count }
+    </span>
+  );
 };
