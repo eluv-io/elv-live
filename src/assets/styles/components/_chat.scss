@@ -114,8 +114,41 @@
       }
     }
 
+    &__background {
+      mask-image: linear-gradient(rgba(black, 1) 0%, rgba(black, 0.5) 40%, rgba(black, 0) 100%);
+      max-height: 100%;
+      max-width: 100%;
+      min-height: 100%;
+      min-width: 100%;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      &__gradient {
+        background: linear-gradient(rgba(black, 0.9) 0.1%, rgba(black, 0.9) 10%, rgba(black, 1) 90%);
+        left: 0;
+        max-height: 100%;
+        max-width: 100%;
+        min-height: 100%;
+        min-width: 100%;
+        position: absolute;
+        top: 0;
+        transition: opacity 5s;
+        width: 100%;
+      }
+
+      img {
+        height: 100%;
+        object-fit: contain;
+        object-position: top;
+        width: 100%;
+      }
+    }
+
     &__container {
       flex-direction: column;
+      position: relative;
     }
 
     &__avatar {
@@ -132,6 +165,10 @@
     }
 
     &__virtual-message__date {
+      display: none;
+    }
+
+    &__virtual-message__data {
       display: none;
     }
 
@@ -268,8 +305,11 @@
       }
 
       &__send-button {
+        align-items: center;
         cursor: pointer;
+        display: flex;
         height: 30px;
+        justify-content: center;
         padding: 0;
         position: absolute;
         right: 32px;

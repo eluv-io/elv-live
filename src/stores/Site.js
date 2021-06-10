@@ -33,6 +33,8 @@ class SiteStore {
 
   @observable language = "en";
 
+  @observable viewers = 0;
+
   @computed get client() {
     return this.rootStore.client;
   }
@@ -114,6 +116,11 @@ class SiteStore {
   }
 
   @action.bound
+  UpdateViewers(count) {
+    this.viewers = count;
+  }
+
+  @action.bound
   SetLanguage(code) {
     this.language = code;
     document.title = `${this.eventInfo.event_title} | Eluvio Live`;
@@ -131,7 +138,7 @@ class SiteStore {
       const roomNumber = Math.floor(Math.random() * maxRooms);
 
       this.chatChannel =
-        `${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`
+        `2-${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`
           .replace(/[^a-zA-Z0-9\-]/g, "")
           .slice(0, 63);
     }

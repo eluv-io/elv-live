@@ -4,12 +4,12 @@ import ImageIcon from "Common/ImageIcon";
 import {NavLink, Redirect} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import LiveChat from "Stream/components/LiveChat";
-import {ToggleZendesk} from "Utils/Misc";
+import {Counter, ToggleZendesk} from "Utils/Misc";
 import EluvioConfiguration from "../../../configuration";
 
 import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
-import PopoutIcon from "Assets/icons/external-link-arrow.svg";
+import UsersIcon from "Icons/users";
 
 @inject("siteStore")
 @observer
@@ -127,12 +127,21 @@ class Stream extends React.Component {
             <NavLink to={this.props.siteStore.baseSitePath} className="stream-page__header__logo">
               <ImageIcon icon={Logo} label="Eluvio Live" />
             </NavLink>
-            <button
-              className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`}
-              onClick={() => this.setState({showChat: !this.state.showChat, chatOpened: true})}
-            >
-              <ImageIcon icon={ChatIcon} label={this.state.showChat ? "hide" : "show"} />
-            </button>
+            <div className="stream-page__header__right">
+              {
+                this.state.showChat ? null :
+                  <div className="stream-page__header__viewer-count">
+                    <ImageIcon title="Viewers" icon={UsersIcon}/>
+                    <Counter to={this.props.siteStore.viewers} duration={2000} />
+                  </div>
+              }
+              <button
+                className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`}
+                onClick={() => this.setState({showChat: !this.state.showChat, chatOpened: true})}
+              >
+                <ImageIcon icon={ChatIcon} label={this.state.showChat ? "hide" : "show"} />
+              </button>
+            </div>
           </div>
           <div className="stream-page__video-container" key={`video-container-${this.state.key}`}>
             <div className="stream-page__video-target" ref={element => this.InitializeVideo(element)} />
@@ -162,27 +171,7 @@ class Stream extends React.Component {
             </div>
           </div>
         </div>
-        <div className={`stream-page__chat-panel ${this.state.showChat ? "stream-page__chat-panel-visible" : "stream-page__chat-panel-hidden"}`}>
-          <div className="stream-page__chat-panel__header">
-            <h2 className="stream-page__chat-panel__header-text">{ this.props.siteStore.streamPageInfo.header }</h2>
-            <button
-              title="Open chat in new window"
-              onClick={() => {
-                this.setState({showChat: false});
-                window.open(
-                  window.location.pathname.replace(/\/stream$/, "/chat"),
-                  "_blank",
-                  `height=${screen.height},width=350,left=${screen.width -350}`
-                );
-              }}
-              className="stream-page__chat-panel__header__popout-button"
-            >
-              <ImageIcon icon={PopoutIcon} />
-            </button>
-
-          </div>
-          { this.state.chatOpened ? <LiveChat promptName /> : null }
-        </div>
+        <LiveChat hidden={!this.state.showChat} streamPage Hide={() => this.setState({showChat: false})} />
       </div>
     );
   }
