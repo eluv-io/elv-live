@@ -29,6 +29,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
   * {
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    touch-action: manipulation;
   }
 
   &-chat-hidden {
