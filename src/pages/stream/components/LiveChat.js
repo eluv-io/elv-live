@@ -102,13 +102,15 @@ class LiveChat extends React.Component {
 
       this.props.siteStore.UpdateViewers(channel.state.watcher_count || 0);
 
-      if(!this.state.hypeEventUnsub) {
-        const { unsubscribe } = await channel.on("reaction.updated", event => this.HypeEvent(event));
-
-        this.setState({
-          hypeEventUnsub: unsubscribe
-        });
+      if(this.state.hypeEventUnsub) {
+        this.state.hypeEventUnsub();
       }
+
+      const { unsubscribe } = await channel.on("reaction.updated", event => this.HypeEvent(event));
+
+      this.setState({
+        hypeEventUnsub: unsubscribe
+      });
 
       if(!this.state.hypeMessageId) {
         // Search for first message separately in case it fails
@@ -243,7 +245,7 @@ class LiveChat extends React.Component {
   }
 
   async HypeInterval() {
-    if(!this.state.channel || this.state.hidden) { return; }
+    if(!this.state.channel) { return; }
 
     const client = this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient;
     const channel = (await client.queryChannels({ cid: this.state.channel.cid }, {}, { watch: false }))[0];
@@ -330,6 +332,7 @@ class LiveChat extends React.Component {
           <div className="stream-page__chat-panel__header-stats">
             <div className="stream-page__chat-panel__hype">
               <button
+                title="LUV"
                 onClick={event => this.Hype(event)}
                 className="stream-page__chat-panel__hype-button"
               >
