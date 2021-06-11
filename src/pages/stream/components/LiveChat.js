@@ -83,7 +83,7 @@ class LiveChat extends React.Component {
           await channel.create();
 
           await channel.sendMessage({
-            text: `Welcome to the ${this.props.siteStore.streamPageInfo.header} stream on Eluvio Live!`,
+            text: `Welcome to the ${this.props.siteStore.eventInfo.event_header || this.props.siteStore.eventInfo.event_title} stream on Eluvio Live!`,
             silent: true,
             hypeMessage: true
           });
