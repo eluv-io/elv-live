@@ -138,7 +138,7 @@ class SiteStore {
       const roomNumber = Math.floor(Math.random() * maxRooms);
 
       this.chatChannel =
-        `2-${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`
+        `3-${this.siteSlug}-${roomNumber}-${startTime}-${window.location.hostname}`
           .replace(/[^a-zA-Z0-9\-]/g, "")
           .slice(0, 63);
     }
