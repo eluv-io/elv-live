@@ -40,10 +40,41 @@ class LiveChat extends React.Component {
       lastHypeTotal: 0,
       hypeTotals: [],
       hypeMessageId: undefined,
-      hypeEventUnsub: undefined
+      chatEvents: [],
+      lastViewerUpdate: Date.now()
     };
 
     this.DisconnectChatClients = this.DisconnectChatClients.bind(this);
+    this.Hype = this.Hype.bind(this);
+  }
+
+  SetViewers(count) {
+    this.props.siteStore.UpdateViewers(count);
+    this.setState({lastViewerUpdate: Date.now()});
+  }
+
+  async HypeMessageId() {
+    if(this.state.hypeMessageId) { return this.state.hypeMessageId; }
+
+    try {
+      // See if the hype message is visible
+      let messageInfo = this.state.channel.state.messages.find(message => message.hypeMessage);
+
+      if(!messageInfo) {
+        // Search for first message separately in case it fails
+        messageInfo = (await this.state.channel.search({hypeMessage: true})).results[0].message;
+      }
+
+      this.setState({
+        hypeMessageId: messageInfo.id,
+        lastHypeTotal: messageInfo.reaction_scores.clap
+      });
+
+      return messageInfo.id;
+    } catch(error) {
+      console.error("Failed to retrieve hype message:");
+      console.error(error);
+    }
   }
 
   async InitializeChannel(userName) {
@@ -62,8 +93,6 @@ class LiveChat extends React.Component {
         if(this.state.channel) { this.state.channel.stopWatching(); }
 
         channel = await this.state.chatClient.channel("livestream", chatChannel);
-
-        channel.watch();
 
         this.setState({channel: undefined}, () => this.setState({channel, hypeCount: 0, anonymous: false}));
         await this.state.anonymousChatClient.disconnectUser();
@@ -93,33 +122,46 @@ class LiveChat extends React.Component {
 
         channel = await this.state.anonymousChatClient.channel("livestream", chatChannel);
 
-        channel.watch();
-
         window.channel = channel;
 
         this.setState({channel, anonymous: true});
       }
 
-      this.props.siteStore.UpdateViewers(channel.state.watcher_count || 0);
+      channel.watch();
 
-      if(this.state.hypeEventUnsub) {
-        this.state.hypeEventUnsub();
+      this.SetViewers(channel.state.watcher_count || 0);
+
+      // Unsub from any previous chat events
+      if(this.state.chatEvents.length > 0) {
+        await Promise.all(
+          this.state.chatEvents.map(async ({unsubscribe}) => {
+            try {
+              await unsubscribe();
+            } catch(error) {
+              console.error("Failed to unsubscribe from chat event");
+              console.error(error);
+            }
+          })
+        );
+
+        this.setState({chatEvents: []});
       }
 
-      const { unsubscribe } = await channel.on("reaction.updated", event => this.HypeEvent(event));
+      const updatedReaction = await channel.on("reaction.updated", event => this.HypeEvent(event));
+      const newReaction = await channel.on("reaction.new", event => this.HypeEvent(event));
+      const messageReaction = await channel.on("message.new", event => this.SetViewers(event.watcher_count || 0));
 
       this.setState({
-        hypeEventUnsub: unsubscribe
+        lastViewerUpdate: Date.now(),
+        chatEvents: [
+          newReaction,
+          updatedReaction,
+          messageReaction
+        ]
       });
 
-      if(!this.state.hypeMessageId) {
-        // Search for first message separately in case it fails
-        const messageInfo = (await channel.search({hypeMessage: true})).results[0].message;
-        this.setState({
-          hypeMessageId: messageInfo.id,
-          lastHypeTotal: messageInfo.reaction_scores.clap
-        });
-      }
+      // Determine hype message for reaction count
+      this.HypeMessageId();
     } finally {
       this.setState({loading: false});
     }
@@ -159,7 +201,7 @@ class LiveChat extends React.Component {
       this.setState({loading: false});
     });
 
-    this.watcherInterval = setInterval(async () => this.HypeInterval(), 5000);
+    this.watcherInterval = setInterval(async () => this.UpdateInterval(), 5000);
   }
 
   componentWillUnmount() {
@@ -244,18 +286,20 @@ class LiveChat extends React.Component {
     };
   }
 
-  async HypeInterval() {
-    if(!this.state.channel) { return; }
-
-    const client = this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient;
-    const channel = (await client.queryChannels({ cid: this.state.channel.cid }, {}, { watch: false }))[0];
-
-    this.props.siteStore.UpdateViewers(channel.state.watcher_count || 0);
-
+  async UpdateInterval() {
+    // Prune hype totals
     const now = Date.now();
     this.setState({
       hypeTotals: this.state.hypeTotals.filter(({checkedAt}) => now - checkedAt < 60000)
     });
+
+    // Check channel for viewer count. Only do an explicit query if no other events have provided this info recently
+    if(Date.now() - this.state.lastViewerUpdate > 60000) {
+      const client = this.state.anonymous ? this.state.anonymousChatClient : this.state.chatClient;
+      const channel = (await client.queryChannels({ cid: this.state.channel.cid }, {}, { watch: false }))[0];
+
+      this.SetViewers(channel.state.watcher_count || 0);
+    }
   }
 
   HypeEvent(event) {
@@ -271,8 +315,6 @@ class LiveChat extends React.Component {
   }
 
   async Hype(event) {
-    if(!this.state.hypeMessageId || !this.state.channel) { return; }
-
     const target = event.target.closest("button");
     target.classList.remove("hype-button-animation");
     void target.offsetWidth; // trigger reflow
@@ -286,8 +328,8 @@ class LiveChat extends React.Component {
       hypeCount: this.state.hypeCount + 1
     }, () => {
       const Hype = async () => {
-        await this.state.channel.sendReaction(this.state.hypeMessageId, {type: "clap", score: this.state.hypeCount});
         this.lastHype = Date.now();
+        await this.state.channel.sendReaction(await this.HypeMessageId(), {type: "clap", score: this.state.hypeCount});
       };
 
       if(Date.now() - (this.lastHype || 0) < 1000) {
@@ -333,16 +375,16 @@ class LiveChat extends React.Component {
             <div className="stream-page__chat-panel__hype">
               <button
                 title="LUV"
-                onClick={event => this.Hype(event)}
+                onClick={this.Hype}
                 className="stream-page__chat-panel__hype-button"
               >
                 <ImageIcon icon={HypeIcon} />
               </button>
-              <Counter to={this.state.lastHypeTotal} duration={2000} />
+              <Counter to={this.state.lastHypeTotal} duration={1500} />
             </div>
             <div className="stream-page__chat-panel__viewers">
               <ImageIcon title="Viewers" icon={UsersIcon} />
-              <Counter to={this.props.siteStore.viewers} duration={2000} />
+              <Counter to={this.props.siteStore.viewers} duration={1500} />
             </div>
           </div>
         </div>
