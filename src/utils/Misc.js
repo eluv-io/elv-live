@@ -93,7 +93,6 @@ export const LoadHubspotForm = async () => {
     script.setAttribute("src", "https://js.hsforms.net/forms/v2.js");
     script.setAttribute("type", "text/javascript");
     script.addEventListener("load", () => {
-      console.log("LOADED");
       resolve();
     });
 
@@ -119,7 +118,8 @@ export const Counter = ({to, duration=1000, className=""}) => {
     setTarget(to);
 
     const diff = to - count;
-    const add = Math.ceil(diff / (hertz * (duration / 1000)));
+    let add = diff / (hertz * (duration / 1000));
+    add = add > 0 ? Math.max(add, 0.5) : Math.min(add, -0.5);
 
     let newCount = count;
     let interval;
@@ -141,8 +141,8 @@ export const Counter = ({to, duration=1000, className=""}) => {
   });
 
   return (
-    <span className={`counter ${className}`}>
-      { count }
+    <span className={`counter ${className}`} key={`counter-${to}`}>
+      { Math.floor(count) }
     </span>
   );
 };
