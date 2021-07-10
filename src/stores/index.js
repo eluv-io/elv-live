@@ -94,6 +94,36 @@ class RootStore {
   });
 
   @action.bound
+  RedeemCouponCode = flow(function * (code, email, receiveEmails) {
+    try {
+      const client = yield ElvClient.FromConfigurationUrl({
+        configUrl: EluvioConfiguration["config-url"]
+      });
+
+      const { objectId, ntpId } = yield client.RedeemCode({
+        tenantId: this.siteStore.currentSiteInfo.tenant_id,
+        code,
+        includeNTPId: true
+      });
+
+      this.client = client;
+      this.redeemedTicket = code;
+
+      this.savedTickets[this.siteStore.siteSlug] = {
+        code,
+        ntpId,
+        redeemedAt: Date.now()
+      };
+
+      this.SaveRedeemedTickets();
+
+      return objectId;
+    } catch (error) {
+      console.log("Error redeeming code: ", error);
+    }
+  });
+
+  @action.bound
   SetError(error) {
     this.error = error;
 

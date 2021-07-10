@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import { parse } from "query-string";
 import {Link} from "react-router-dom";
-import {onEnterPressed} from "Utils/Misc";
+import {onEnterPressed, ValidEmail} from "Utils/Misc";
 
 @inject("siteStore")
 @inject("rootStore")
@@ -15,7 +15,9 @@ class CodeAccess extends React.Component {
     this.state = {
       error: "",
       code: "",
-      loading: false
+      email: "",
+      receiveEmails: false,
+      loading: false,
     };
 
     this.handleRedeemCode = this.handleRedeemCode.bind(this);
@@ -35,11 +37,21 @@ class CodeAccess extends React.Component {
     }
   }
 
-  async handleRedeemCode(code) {
+  async handleRedeemCode() {
     try {
       this.setState({error: "", loading: true});
 
-      const siteId = await this.props.rootStore.RedeemCode(code);
+      let siteId;
+      if(this.props.siteStore.currentSiteInfo.coupon_mode) {
+        if(!ValidEmail(this.state.email)) {
+          this.setState({error: "Invalid email address"});
+          return;
+        }
+
+        siteId = await this.props.rootStore.RedeemCouponCode(this.state.code, this.state.email, this.state.receiveEmails);
+      } else {
+        siteId = await this.props.rootStore.RedeemCode(this.state.code);
+      }
 
       if(!siteId) {
         throw Error("Invalid code");
@@ -60,6 +72,63 @@ class CodeAccess extends React.Component {
       return <Redirect to={this.props.siteStore.SitePath("event")} />;
     }
 
+    if(this.props.siteStore.currentSiteInfo.coupon_mode) {
+      return (
+        <div className="page-container code-entry-page-container">
+          <div className="main-content-container code-entry code-entry-coupon">
+            { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
+            <div className="code-header">
+              <h2 className="code-header-title">
+                Redeem Coupon
+              </h2>
+              <p className="code-header-p">
+                Please enter your coupon code and email address below to receive your redemption confirmation and exlusive news.
+              </p>
+            </div>
+
+            <input
+              className="code-entry-code-input"
+              placeholder="Coupon Code"
+              value={this.state.code}
+              onChange={event => this.setState({code: event.target.value})}
+              onKeyPress={onEnterPressed(() => this.handleRedeemCode())}
+            />
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={event => this.setState({email: event.target.value})}
+              onKeyPress={onEnterPressed(() => this.handleRedeemCode())}
+            />
+
+            <div className="code-entry-checkbox">
+              <input
+                name="receiveEmails"
+                type="checkbox"
+                checked={this.state.receiveEmails}
+                onChange={event => this.setState({receiveEmails: event.target.checked})}
+              />
+              <label htmlFor="receiveEmails" className="code-entry-checkbox-label" onClick={() => this.setState({receiveEmails: !this.state.receiveEmails})}>
+                Yes, sign me up! By checking this box, I agree to recieve latest updates, promotions and marketing emails from the event sponsor.
+              </label>
+            </div>
+
+            <button onClick={() => this.handleRedeemCode()} title="Submit">
+              {this.state.loading ?
+                <div className="code-entry-spin-container">
+                  <div className="la-ball-clip-rotate la-sm">
+                    <div></div>
+                  </div>
+                </div>
+                : "Redeem"
+              }
+            </button>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="page-container code-entry-page-container">
         <div className="main-content-container code-entry">
@@ -74,13 +143,14 @@ class CodeAccess extends React.Component {
           </div>
 
           <input
+            className="code-entry-code-input"
             placeholder="Ticket Code"
             value={this.state.code}
             onChange={event => this.setState({code: event.target.value})}
-            onKeyPress={onEnterPressed(() => this.handleRedeemCode(this.state.code))}
+            onKeyPress={onEnterPressed(() => this.handleRedeemCode())}
           />
 
-          <button onClick={() => this.handleRedeemCode(this.state.code)} title="Submit">
+          <button onClick={() => this.handleRedeemCode()} title="Submit">
             {this.state.loading ?
               <div className="code-entry-spin-container">
                 <div className="la-ball-clip-rotate la-sm">
