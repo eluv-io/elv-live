@@ -130,7 +130,15 @@ class Landing extends React.Component {
           <img className="landing-page__logo" src={ColoredLogo} alt="Eluvio Live" />
           <div className="landing-page__text landing-page__text-presents">Presents</div>
           { this.Header() }
-          { this.Countdown() }
+          {
+            this.props.siteStore.currentSiteInfo.coupon_mode ?
+              <>
+                <div className="landing-page__text">Your Coupon is Redeemed</div>
+                <br />
+                <div className="landing-page__text landing-page__text-bold">Please check your email for further event details.</div>
+              </> :
+              this.Countdown()
+          }
           <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
         </div>
       </div>

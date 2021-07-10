@@ -5,10 +5,14 @@
   box-shadow: 0 4px 50px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  height: 270px;
   justify-content: center;
   margin: auto;
+  padding: 30px 40px;
   width: calc(min(400px, 90vw));
+
+  &.code-entry-coupon {
+    width: calc(min(550px, 90vw));
+  }
 
   * {
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
@@ -26,10 +30,10 @@
     font-style: normal;
     font-weight: normal;
     height: 52px;
-    letter-spacing: 0.14em;
     line-height: 19px;
+    margin-bottom: 16px;
     text-align: center;
-    width: 255px;
+    width: calc(100% - 80px);
 
     @media only screen and (max-width: 415px) {
       font-size: 2rem;
@@ -45,6 +49,11 @@
         color: transparent;
       }
     }
+  }
+
+  .code-entry-code-input {
+    letter-spacing: 0.14em;
+    width: 255px;
   }
 
   button {
@@ -68,6 +77,45 @@
 
     @media only screen and (max-width: 415px) {
       width: 280px;
+    }
+  }
+
+  .code-entry-checkbox {
+    align-items: flex-start;
+    display: flex;
+    margin: 20px 0;
+    padding: 0 50px;
+
+    input[type='checkbox'] {
+      cursor: pointer;
+      height: 20px;
+      margin-right: 16px;
+      margin-top: 5px;
+      min-height: 20px;
+      min-width: 20px;
+      width: 20px;
+    }
+
+    .code-entry-checkbox-label {
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    margin: 80px auto;
+
+    input {
+      width: 100%;
+
+      &.code-entry-code-input {
+        margin-top: 20px;
+        width: 100%;
+      }
+    }
+
+    .code-entry-checkbox {
+      padding: 0;
     }
   }
 }
@@ -114,7 +162,6 @@ pre {
   font-weight: 300;
   letter-spacing: 0.035em;
   margin-bottom: 21px;
-  padding: 0 20px;
   width: 100%;
 
   &:hover {
@@ -150,16 +197,18 @@ pre {
 }
 
 .error-message {
-  background-color: #fff;
+  align-items: center;
   border-radius: 5px;
   color: #f00;
-  font-size: 20px;
+  display: flex;
+  font-size: 16px;
   font-style: normal;
   font-weight: normal;
   height: 50px;
+  justify-content: center;
   letter-spacing: 0.14em;
   min-width: 250px;
-  padding-top: 10px;
+  padding: 10px 20px;
   position: fixed;
   text-align: center;
   text-transform: uppercase;
