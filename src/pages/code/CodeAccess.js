@@ -65,6 +65,26 @@ class CodeAccess extends React.Component {
     }
   }
 
+  Sponsors() {
+    if(this.props.siteStore.sponsors.length === 0) { return; }
+
+    return (
+      <div className="code-entry-sponsors">
+        <h3 className="code-entry-sponsors-header">Brought to You by</h3>
+        <div className="code-entry-sponsors-list">
+          { this.props.siteStore.sponsors.map(sponsor =>
+            <a className="code-entry-sponsor-link" rel="noopener" href={sponsor.link}>
+              <img
+                src={sponsor.image_url}
+                alt={sponsor.name}
+              />
+            </a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     if(!this.props.siteStore.client) { return null; }
 
@@ -124,6 +144,8 @@ class CodeAccess extends React.Component {
                 : "Redeem"
               }
             </button>
+
+            { this.Sponsors() }
           </div>
         </div>
       );

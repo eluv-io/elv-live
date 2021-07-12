@@ -66,6 +66,8 @@ class EventTabs extends React.Component {
     const ticketsAvailable = this.props.siteStore.currentSiteInfo.state !== "Live Ended";
     const merchAvailable = this.props.siteStore.Merchandise().length > 0;
 
+    if(!ticketsAvailable || !merchAvailable) { return <div className="event-tabs" />; }
+
     return (
       <div className="event-tabs">
         { ticketsAvailable ? this.Tab("event", <InfoIcon />) : null }
