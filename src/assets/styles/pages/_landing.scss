@@ -49,6 +49,12 @@
     max-width: 475px;
   }
 
+  &__text-confirmation {
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    margin-top: 5px;
+  }
+
   &__logo,
   &__event-logo {
     height: auto;
@@ -132,6 +138,10 @@
     &__text-countdown {
       font-size: 22px;
       font-weight: normal;
+    }
+
+    &__text-confirmation {
+      font-size: 12px;
     }
 
     &__new-code-link {

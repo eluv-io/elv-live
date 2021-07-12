@@ -1,5 +1,6 @@
 import {configure, observable, action, flow, runInAction, toJS} from "mobx";
 import {ElvClient} from "@eluvio/elv-client-js";
+import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
 import MainStore from "Stores/Main";
@@ -96,30 +97,34 @@ class RootStore {
   @action.bound
   RedeemCouponCode = flow(function * (code, email, receiveEmails) {
     try {
-      const client = yield ElvClient.FromConfigurationUrl({
-        configUrl: EluvioConfiguration["config-url"]
+      const objectId = yield this.RedeemCode(code);
+
+      const hash = yield this.client.LatestVersionHash({
+        versionHash: "hq__67sMXymkhNwVraEEx3gmBDzNhLUjcaZncbrJH8zd3im7vq65pSrJA3pVjZm5YNdy2MrtP9Qnbc"
       });
 
-      const { objectId, ntpId } = yield client.RedeemCode({
-        tenantId: this.siteStore.currentSiteInfo.tenant_id,
-        code,
-        includeNTPId: true
-      });
+      const url = new URL("https://host-154-14-185-104.contentfabric.io");
+      url.pathname = UrlJoin("q", hash, "rep", "redeemer");
+      url.searchParams.set("authorization", this.client.staticToken);
 
-      this.client = client;
-      this.redeemedTicket = code;
+      const { confirmation_id } = yield (yield fetch(
+        url.toString(),
+        {
+          method: "POST",
+          body: JSON.stringify({
+            "CODE": code,
+            "EML": email,
+            "CONSENT": receiveEmails
+          })
+        }
+      )).json();
 
-      this.savedTickets[this.siteStore.siteSlug] = {
-        code,
-        ntpId,
-        redeemedAt: Date.now()
-      };
-
+      this.savedTickets[this.siteStore.siteSlug].couponConfirmationId = confirmation_id;
       this.SaveRedeemedTickets();
 
       return objectId;
-    } catch (error) {
-      console.log("Error redeeming code: ", error);
+    } catch(error) {
+      console.error(error);
     }
   });
 
