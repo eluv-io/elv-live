@@ -136,6 +136,10 @@ class Landing extends React.Component {
                 <div className="landing-page__text">Your Coupon is Redeemed</div>
                 <br />
                 <div className="landing-page__text landing-page__text-bold">Please check your email for further event details.</div>
+                <br />
+                <br />
+                <div className="landing-page__text">Confirmation ID:</div>
+                <div className="landing-page__text landing-page__text-confirmation">{ this.props.siteStore.currentSiteTicket.couponConfirmationId }</div>
               </> :
               this.Countdown()
           }
