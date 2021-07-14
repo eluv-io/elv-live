@@ -99,6 +99,8 @@ class RootStore {
     try {
       const objectId = yield this.RedeemCode(code);
 
+      if(!objectId) { throw Error("Invalid code"); }
+
       const hash = yield this.client.LatestVersionHash({
         versionHash: "hq__67sMXymkhNwVraEEx3gmBDzNhLUjcaZncbrJH8zd3im7vq65pSrJA3pVjZm5YNdy2MrtP9Qnbc"
       });
