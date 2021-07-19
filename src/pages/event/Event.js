@@ -120,7 +120,7 @@ class Event extends React.Component {
               // Ended
               this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
                 // Coupon Mode
-                this.props.siteStore.currentSiteInfo.coupon_mode ||
+                (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode ||
                 // Any tickets available for purchase
                 !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
                 null :

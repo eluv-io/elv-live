@@ -42,7 +42,7 @@ class CodeAccess extends React.Component {
       this.setState({error: "", loading: true});
 
       let siteId;
-      if(this.props.siteStore.currentSiteInfo.coupon_mode) {
+      if((this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode) {
         if(!ValidEmail(this.state.email)) {
           this.setState({error: "Invalid email address"});
           return;
@@ -92,7 +92,12 @@ class CodeAccess extends React.Component {
       return <Redirect to={this.props.siteStore.SitePath("event")} />;
     }
 
-    if(this.props.siteStore.currentSiteInfo.coupon_mode) {
+    const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
+    if(couponInfo.coupon_mode) {
+      const headerText =
+        couponInfo.redemption_message ||
+        "Please enter your coupon code and email address below to receive your redemption confirmation and exclusive news.";
+
       return (
         <div className="page-container code-entry-page-container">
           <div className="main-content-container code-entry code-entry-coupon">
@@ -102,7 +107,7 @@ class CodeAccess extends React.Component {
                 Redeem Coupon
               </h2>
               <p className="code-header-p">
-                Please enter your coupon code and email address below to receive your redemption confirmation and exlusive news.
+                { headerText }
               </p>
             </div>
 
@@ -130,7 +135,7 @@ class CodeAccess extends React.Component {
                 onChange={event => this.setState({receiveEmails: event.target.checked})}
               />
               <label htmlFor="receiveEmails" className="code-entry-checkbox-label" onClick={() => this.setState({receiveEmails: !this.state.receiveEmails})}>
-                Yes, sign me up! By checking this box, I agree to recieve latest updates, promotions and marketing emails from the event sponsor.
+                Yes, sign me up! By checking this box, I agree to receive latest updates, promotions and marketing emails from the event sponsor.
               </label>
             </div>
 
