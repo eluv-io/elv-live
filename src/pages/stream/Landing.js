@@ -124,6 +124,7 @@ class Landing extends React.Component {
       return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
+    const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
     return (
       <div className="page-container landing-page">
         <div className="landing-page__content">
@@ -131,11 +132,13 @@ class Landing extends React.Component {
           <div className="landing-page__text landing-page__text-presents">Presents</div>
           { this.Header() }
           {
-            this.props.siteStore.currentSiteInfo.coupon_mode ?
+            couponInfo.coupon_mode ?
               <>
-                <div className="landing-page__text">Your Coupon is Redeemed</div>
+                <div className="landing-page__text">{ couponInfo.event_page_message_1 || "Your Coupon is Redeemed" }</div>
                 <br />
-                <div className="landing-page__text landing-page__text-bold">Please check your email for further event details.</div>
+                <div className="landing-page__text landing-page__text-return">
+                  { couponInfo.event_page_message_2 || "Please check your email for further event details." }
+                </div>
                 <br />
                 <br />
                 <div className="landing-page__text">Confirmation ID:</div>

@@ -41,7 +41,7 @@ class Header extends React.Component {
 
     const itemCount = this.props.cartStore.CartDetails().itemCount;
     const redeemAvailable = !this.props.hideRedeem && this.props.siteStore.currentSiteInfo.state !== "Live Ended";
-    const couponMode = redeemAvailable && this.props.siteStore.currentSiteInfo.coupon_mode;
+    const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
 
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
