@@ -29,6 +29,12 @@ class Footer extends React.Component {
             <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
               Support FAQ
             </Link>
+            <Link to={this.props.siteStore.SitePath("terms")} className="footer-item">
+              Terms
+            </Link>
+            <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
+              Privacy Policy
+            </Link>
             {
               languagesAvailable ?
                 <select
