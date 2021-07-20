@@ -216,7 +216,6 @@
   background: transparent;
   background-clip: none;
   box-sizing: none;
-  height: 220px !important;
   margin-top: 50px;
   outline-color: transparent;
   overflow: hidden;
@@ -293,7 +292,16 @@
   width: 75vw;
 
   @media only screen and (max-width: 900px) {
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .footer-item {
+      margin-bottom: 15px;
+
+      &:not(select) {
+        padding: 0;
+      }
+    }
   }
 }
 
