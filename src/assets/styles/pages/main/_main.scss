@@ -52,6 +52,15 @@ a:hover {
     -webkit-text-fill-color: transparent;
   }
 
+  .upcoming-events {
+    background-color: $black;
+
+    &__header {
+      color: $white;
+      font-weight: 200;
+    }
+  }
+
   @media only screen and (min-width: 901px) {
     &__logo-block {
       display: flex;

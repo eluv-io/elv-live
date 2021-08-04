@@ -1,5 +1,6 @@
 import {configure, observable, action, flow, runInAction, toJS} from "mobx";
 import {ElvClient} from "@eluvio/elv-client-js";
+import { ElvWalletClient } from "@eluvio/elv-wallet-client/src/index";
 import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
@@ -16,6 +17,7 @@ configure({
 class RootStore {
   @observable baseKey = 1;
   @observable client;
+  @observable walletClient;
   @observable redeemedTicket;
   @observable error = "";
 
@@ -129,6 +131,29 @@ class RootStore {
       console.error(error);
     }
   });
+
+  /* Wallet */
+  InitializeWalletClient = flow(function * (target) {
+    if(!target) { return; }
+
+    this.DestroyWalletClient();
+
+    this.walletClient = yield ElvWalletClient.InitializeFrame({
+      walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet",
+      target
+    });
+
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => this.DestroyWalletClient());
+  });
+
+  @action.bound
+  DestroyWalletClient() {
+    console.log("DESTROY")
+    if(this.walletClient) {
+      this.walletClient.Destroy();
+      this.walletClient = undefined;
+    }
+  }
 
   @action.bound
   SetError(error) {

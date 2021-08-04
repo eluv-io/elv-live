@@ -55,19 +55,20 @@
 
   &__header-name,
   &__subheader,
-  &__date {
-    font-size: 34px;
+  &__date,
+  &__date-header {
     font-style: normal;
-    font-weight: 300;
-    letter-spacing: 8px;
+    font-weight: 500;
     line-height: 150%;
+    margin: 5px auto;
+    max-width: 800px;
     padding: 0 30px;
     text-align: center;
     text-transform: uppercase;
   }
 
   &__header-name {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: normal;
 
     &.hidden {
@@ -75,9 +76,17 @@
     }
   }
 
-  &__date {
-    font-size: 25px;
+  &__subheader {
+    font-size: 14px;
+    max-width: 700px;
+  }
+
+  &__date,
+  &__date-header {
+    font-size: 32px;
+    font-weight: 200;
     letter-spacing: 0.095em;
+    margin-top: 20px;
   }
 
   &__header-logo {
@@ -136,8 +145,8 @@
     }
 
     &__subheader {
-      font-size: 26px;
-      font-weight: normal;
+      font-size: 20px;
+      font-weight: 300;
       letter-spacing: 0.035em;
     }
 
@@ -238,7 +247,7 @@
   .event-page__buttons {
     .btn {
       &:not(.btn--gold) {
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.6);
       }
     }
   }

@@ -21,6 +21,19 @@ class MainStore {
       .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
   }
 
+  @computed get upcomingDropEvents() {
+    return this.featuredSites
+      .filter(site => site.info.type === "drop_event")
+      .map(site =>
+        (site.info.drops || []).map((drop, index) => ({
+          drop,
+          site,
+          dropImage: this.FeaturedSiteUrl(site.siteSlug, UrlJoin("info", "drops", index.toString(), "event_image"))
+        }))
+      )
+      .flat();
+  }
+
   @computed get partners() {
     return {
       production: this.rootStore.siteStore.mainSiteInfo.info.production_partners

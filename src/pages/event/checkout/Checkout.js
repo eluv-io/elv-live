@@ -197,7 +197,7 @@ class Checkout extends React.Component {
                 </select>
 
                 <div className="ticket-item-description">
-                  { this.props.siteStore.eventInfo.description }
+                  { ticketClass.description }
                 </div>
 
                 <button
@@ -228,7 +228,7 @@ class Checkout extends React.Component {
               <div className="ticket-item-detail">{ FormatDateString(ticketSku.start_time, false, true) }</div>
 
               <div className="ticket-item-description">
-                { this.props.siteStore.eventInfo.description }
+                { ticketClass.description }
               </div>
             </div>
           </div>

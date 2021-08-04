@@ -73,6 +73,8 @@
   }
 
   &__link {
+    align-items: center;
+    display: flex;
     font-size: 16px;
     text-shadow: 0.5px 0.5px 0.5px $black;
 
@@ -82,6 +84,16 @@
 
     &-active {
       font-weight: bold;
+    }
+
+    &__icon {
+      margin-right: 15px;
+      padding-bottom: 5px;
+    }
+
+    &__image {
+      max-height: 23px;
+      width: auto;
     }
   }
 

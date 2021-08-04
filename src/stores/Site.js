@@ -78,6 +78,10 @@ class SiteStore {
     return (this.currentSite || {}).info || {};
   }
 
+  @computed get isDropEvent() {
+    return this.currentSiteInfo.type === "drop_event";
+  }
+
   @computed get promos() {
     return Object.keys(this.currentSite.promos || {}).map(index => {
       const slug = Object.keys(this.currentSite.promos[index])[0];
@@ -104,6 +108,14 @@ class SiteStore {
       // Featured site
       return UrlJoin("public", "asset_metadata", "featured_events", this.siteIndex.toString(), this.siteSlug || "");
     }
+  }
+
+  @computed get upcomingDropEvents() {
+    return (this.currentSiteInfo.drops || [])
+      .map((drop, index) => ({
+        drop,
+        dropImage: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image"))
+      }));
   }
 
   @computed get baseSlug() {
@@ -353,6 +365,11 @@ class SiteStore {
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
       });
+
+      if(!tenantSlug && site.info && site.info.tenant_slug) {
+        tenantSlug = site.info.tenant_slug;
+        this.tenantSlug = site.info.tenant_slug;
+      }
 
       yield heroPreloadPromise;
 
@@ -614,6 +631,8 @@ class SiteStore {
   @computed get eventInfo() {
     let eventInfo = {
       hero_info: false,
+      feature_header: "",
+      date_subheader: "",
       event_header: "",
       event_subheader: "",
       event_title: "",
