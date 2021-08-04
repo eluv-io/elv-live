@@ -19,6 +19,7 @@ const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
 const Privacy = MinLoadDelay(import("Event/Privacy"));
 const Terms = MinLoadDelay(import("Event/Terms"));
+const Wallet = MinLoadDelay(import("Pages/wallet/Wallet"));
 
 const Collection = MinLoadDelay(import("Pages/collections/Collection"));
 const Collections = MinLoadDelay(import("Pages/collections/Collections"));
@@ -76,6 +77,7 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/terms" component={SitePage(Terms)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/wallet" component={SitePage(Wallet)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>

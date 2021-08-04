@@ -5,6 +5,7 @@ import EventTabs from "Event/tabs/EventTabs";
 import Footer from "Layout/Footer";
 
 import Modal from "Common/Modal";
+import UpcomingEvents from "Common/UpcomingEvents";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -73,6 +74,49 @@ class Event extends React.Component {
     });
   };
 
+  Actions() {
+    if(this.props.siteStore.isDropEvent) {
+      return (
+        <div className="event-page__buttons">
+          <button
+            className="btn"
+            onClick={() => this.ScrollToTickets()}
+          >
+            Get Started
+          </button>
+
+          <button onClick={() => this.setState({showPromo: true})} className="btn">
+            Join the Drop
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="event-page__buttons">
+        {
+          // Ended
+          this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
+          // Any tickets available for purchase
+          !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
+            null :
+            <button
+              className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
+              onClick={() => this.ScrollToTickets()}
+            >
+              Buy Tickets
+            </button>
+        }
+        {
+          this.props.siteStore.promos.length > 0 ?
+            <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
+              Watch Promo
+            </button> : null
+        }
+      </div>
+    );
+  }
+
   render() {
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
@@ -110,33 +154,18 @@ class Event extends React.Component {
                 <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
             }
             {
-              this.props.siteStore.eventInfo.date ?
-                <h2 className="event-page__date">{this.props.siteStore.eventInfo.date}</h2> : null
+              this.props.siteStore.isDropEvent ?
+                <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader}</h2> :
+                this.props.siteStore.eventInfo.date ?
+                  <h2 className="event-page__date">{this.props.siteStore.eventInfo.date}</h2> : null
             }
           </div>
 
-          <div className="event-page__buttons">
-            {
-              // Ended
-              this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
-                // Any tickets available for purchase
-                !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
-                null :
-                <button
-                  className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
-                  onClick={() => this.ScrollToTickets()}
-                >
-                  Buy Tickets
-                </button>
-            }
-            {
-              this.props.siteStore.promos.length > 0 ?
-                <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
-                  Watch Promo
-                </button> : null
-            }
-          </div>
+          { this.Actions() }
         </div>
+
+        { this.props.siteStore.isDropEvent ? <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} /> : null }
+
         <div className="event-page__overview">
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
         </div>

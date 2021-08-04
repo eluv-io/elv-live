@@ -199,11 +199,11 @@ input[type='checkbox'] {
   }
 
   .site-app-container {
-    background: linear-gradient(180deg, #000 0%, #272213 100%);
+    background: $black;
   }
 
   .page-container {
-    background: linear-gradient(180deg, #000 0%, #272213 100%);
+    background: $black;
   }
 
   // Loader

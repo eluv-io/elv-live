@@ -15,6 +15,8 @@
 @import 'components/event_descriptions';
 @import 'components/main/card';
 @import 'components/terms_link';
+@import 'components/carousel';
+@import 'components/upcoming-events';
 
 @import 'components/stream_chat/dist/css/index';
 
@@ -37,5 +39,4 @@
 @import 'pages/collections';
 @import 'pages/collection';
 @import 'pages/privacy-terms';
-
-@import 'components/main/header';
+@import 'pages/wallet';

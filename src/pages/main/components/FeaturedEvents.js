@@ -36,8 +36,8 @@ class FeaturedEvents extends React.Component {
       ? site.info.accessible :
       !["Inaccessible", "Live Ended"].includes(site.info.state);
 
-    const header = site.info.event_info.event_header;
-    const date = site.info.event_info.date;
+    const header = site.info.event_info.feature_header || site.info.event_info.event_header;
+    const subheader = site.info.event_info.date_subheader || site.info.event_info.date;
     return (
       <div
         className={`featured-event ${index === this.state.selected ? "featured-event-selected" : ""} ${index === this.state.previous ? "featured-event-fading-out" : ""}`}
@@ -56,7 +56,7 @@ class FeaturedEvents extends React.Component {
           {
             site.info.event_info.hero_info ? null :
               <h3 className="featured-event__subheader">
-                {date ? date : "Streaming Soon"}
+                {subheader || "Streaming Soon"}
               </h3>
           }
           {
