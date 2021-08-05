@@ -42,6 +42,7 @@ class Header extends React.Component {
           <NavLink to="/contact" className="header__link" activeClassName="header__link-active">Go Live</NavLink>
           <NavLink to="/partners" className="header__link" activeClassName="header__link-active">Partners</NavLink>
           <NavLink to="/technology" className="header__link" activeClassName="header__link-active">Technology</NavLink>
+          <NavLink to="/blockchain" className="header__link" activeClassName="header__link-active">Our Blockchain</NavLink>
           <NavLink to="/news" className="header__link" activeClassName="header__link-active">News</NavLink>
         </div>
       </header>

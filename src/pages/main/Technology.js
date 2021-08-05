@@ -9,9 +9,6 @@ import Image3 from "Assets/images/technology/3-Streaming-Your-Content.png";
 import Image4 from "Assets/images/technology/4-Selling-and-Licensing-Your-Content.png";
 import Image5 from "Assets/images/technology/5-Selling-NFTs-and-Other-Digital-Collectibles.png";
 
-import CloseIcon from "Icons/x";
-import ImageIcon from "Common/ImageIcon";
-
 const IMAGES = {
   "architecture": Image1,
   "how_it_works": Image2,
@@ -73,20 +70,21 @@ class Technology extends React.Component {
 
   Pages() {
     return [
-      <div
-        key="technology-page__main"
-        className={`technology-page__item technology-page__copy-block ${this.state.page === "main" ? "active" : ""}`}
-      >
-        <h2 className="technology-page__copy-header">Eluv.io Technology</h2>
-        <pre className="technology-page__copy">{ Copy.technology.text }</pre>
-      </div>,
       ...Object.keys(Copy.technology.sections).map(key =>
-        <img
-          key={`technology-page__image-${key}`}
-          src={IMAGES[key]}
-          alt={Copy.technology.sections[key].alt}
-          className={`technology-page__item technology-page__image ${this.state.page === key ? "active" : ""}`}
-        />
+        key === "main" ?
+          <div
+            key="technology-page__main"
+            className={`technology-page__item technology-page__copy-block ${this.state.page === "main" ? "active" : ""}`}
+          >
+            <h2 className="technology-page__copy-header">Eluv.io Technology</h2>
+            <pre className="technology-page__copy">{ Copy.technology.sections.main.text }</pre>
+          </div> :
+          <img
+            key={`technology-page__image-${key}`}
+            src={IMAGES[key]}
+            alt={Copy.technology.sections[key].alt}
+            className={`technology-page__item technology-page__image ${this.state.page === key ? "active" : ""}`}
+          />
       )
     ];
   }
@@ -96,12 +94,6 @@ class Technology extends React.Component {
       <div className="page-content technology-page">
         <div className="technology-page__content-container">
           <div className="technology-page__content">
-            <button
-              className={`technology-page__close-button ${this.state.page === "main" ? "hidden" :""}`}
-              onClick={() => this.SetPage("main")}
-            >
-              <ImageIcon icon={CloseIcon} title="Close" />
-            </button>
             { this.Pages() }
           </div>
           { this.Navigation() }
