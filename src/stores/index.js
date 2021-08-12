@@ -139,7 +139,9 @@ class RootStore {
     this.DestroyWalletClient();
 
     this.walletClient = yield ElvWalletClient.InitializeFrame({
-      walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet",
+      //walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
+      //walletAppUrl: "https://localhost:8090?d",
+      walletAppUrl: "https://192.168.0.17:8090?d",
       target
     });
 
@@ -148,7 +150,6 @@ class RootStore {
 
   @action.bound
   DestroyWalletClient() {
-    console.log("DESTROY")
     if(this.walletClient) {
       this.walletClient.Destroy();
       this.walletClient = undefined;

@@ -818,18 +818,6 @@ class SiteStore {
 
     return this.SiteUrl(UrlJoin("info", "event_images", key))
   }
-
-  @computed get heroBackground() {
-    return this.SiteImageUrl("hero_background");
-  }
-
-  @computed get eventLogo() {
-    return this.SiteImageUrl("header");
-  }
-
-  @computed get eventPoster() {
-    return this.SiteImageUrl("poster");
-  }
 }
 
 export default SiteStore;

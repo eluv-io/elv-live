@@ -5,6 +5,7 @@ import ImageIcon from "Common/ImageIcon";
 
 import LeftArrow from "Icons/left-arrow.svg";
 import RightArrow from "Icons/right-arrow.svg";
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
 @inject("mainStore")
 @observer
@@ -23,10 +24,58 @@ class FeaturedEvents extends React.Component {
   ChangePage(page) {
     page = page < 0 ? this.props.mainStore.featuredSites.length - 1 : page;
 
+    if(this.state.player) {
+      this.state.player.Destroy();
+    }
+
     this.setState({
       selected: page % this.props.mainStore.featuredSites.length,
-      previous: this.state.selected
+      previous: this.state.selected,
+      player: undefined
     }, () => setTimeout(() => this.setState({previous: undefined}), 1500));
+  }
+
+  HeroVideo(site) {
+    const heroVideo = site.info.event_images.hero_video;
+
+    if(!heroVideo || !heroVideo["."]) { return; }
+
+    return (
+      (
+        <div className="featured-event__hero-video-container">
+          <div
+            className="featured-event__hero-video"
+            ref={element => {
+              if(!element || this.state.player) { return; }
+
+              this.setState({
+                player: (
+                  new EluvioPlayer(
+                    element,
+                    {
+                      clientOptions: {
+                        client: this.props.mainStore.rootStore.client
+                      },
+                      sourceOptions: {
+                        playoutParameters: {
+                          versionHash: heroVideo["."].source
+                        }
+                      },
+                      playerOptions: {
+                        watermark: EluvioPlayerParameters.watermark.OFF,
+                        muted: EluvioPlayerParameters.muted.ON,
+                        autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
+                        controls: EluvioPlayerParameters.controls.OFF,
+                      }
+                    }
+                  )
+                )
+              });
+            }}
+          />
+        </div>
+      )
+    );
   }
 
   Event(site, index) {
@@ -50,6 +99,7 @@ class FeaturedEvents extends React.Component {
             className="featured-event__hero-image"
           />
         </div>
+        { this.HeroVideo(site) }
         <div className="featured-event__details">
           <h2 className="featured-event__header">{ header }</h2>
 
