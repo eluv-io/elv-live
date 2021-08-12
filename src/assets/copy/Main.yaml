@@ -1,4 +1,4 @@
-Seo:
+seo:
   page_descriptions:
     main: Eluvio LIVE, the 4K streaming and ticketing platform for all concerts, live shows, and online music video distribution. The blockchain home for every artist’s digital content. Learn more.
     news: Keep up to date with Eluvio LIVE.
@@ -270,9 +270,12 @@ blockchain:
         The Content Fabric creates and serves output such as adaptive bit rate streaming manifests and segments, and static content through a just-in-time process that executes within the nodes in the network. This process relies on a low-level decentralized data storage and distribution protocol and a componentized object representation of media essence, metadata, and code called a “content object”.  The content object is a data structure composed of references to the cryptographic hash signatures of the binary “parts” that comprise the object.
 
         The protocol does the following:
-        --On ingest—master file media, assets, data, or streams—are decomposed into such parts, distributed throughout the network, and an object is created. Any re-use of the parts within an object is by reference - rather than by copy - and common bytes are copied only on update.
-        --This is carried through rendering, such that all re-rendered output is built from parts, avoiding all file copy representations through the network and in storage for efficiency.
-        --A fast part routing algorithm allows for parts to be found in the network in real-time and supports just-in-time transcoding, packaging, and extensible A/V processing within the protocol.
+
+        - On ingest - master file media, assets, data, or streams — are decomposed into such parts, distributed throughout the network, and an object is created. Any re-use of the parts within an object is by reference - rather than by copy - and common bytes are copied only on update.
+
+        - This is carried through rendering, such that all re-rendered output is built from parts, avoiding all file copy representations through the network and in storage for efficiency.
+
+        - A fast part routing algorithm allows for parts to be found in the network in real-time and supports just-in-time transcoding, packaging, and extensible A/V processing within the protocol.
 
         See [Content Fabric Architecture](/technology) and [How it Works](/technology) for a detailed description of this process.
 
@@ -365,30 +368,31 @@ blockchain:
 
         **Low Cost/Gasless Minting:** Minting is an automatic, low-cost operation in the Content Fabric that is gas-less by design and extends to minting tokens for any content experience that the Fabric renders.
 
-apis:
-  header: APIs
-  text: |
-    Please see a broad cross section of the Content Fabric APIs and contracts at [https://github.com/elvu-io](https://github.com/eluv-io)
-    Start [here](https://eluv-io.github.io/elv-client-js/ElvClient.html) for an overview of the client API for publishing, playout, viewing, and minting.
+    apis:
+      header: APIs
+      text: |
+        Please see a broad cross section of the Content Fabric APIs and contracts at [https://github.com/eluv-io](https://github.com/eluv-io).
 
-  questions:
-    header: Common Questions
-    text: |
-      ## How are the transactions reported, ala etherscan?
-      All Content Fabric operations are recorded in the Content Fabric blockchain ledger and visible through its open ledger event log (https://explorer.contentfabric.io). Any contract operations on the Ethereum mainnet such as transferring an NFT from the Fabric blockchain to mainnet are standard Ethereum transactions visible in Etherscan.
+        Start [here](https://eluv-io.github.io/elv-client-js/ElvClient.html) for an overview of the client API for publishing, playout, viewing, and minting.
 
-      ## How are your NFTs minted, displayed, and sold?
-      NFTs are mintable and viewable as content objects served by the Content Fabric APIs and can be rendered as streamed or static content. This allows any browser, mobile, or connected TV application or marketplace to embed NFT minting and viewing directly into its experience using any standard browser UX,streaming player, or end-user wallet. Similarly, NFTs are a “sku”-based content object that can be embedded in any checkout and payment experience.
+    questions:
+      header: Common Questions
+      text: |
+        ## How are the transactions reported, ala etherscan?
+        All Content Fabric operations are recorded in the Content Fabric blockchain ledger and visible through its open ledger event log (https://explorer.contentfabric.io). Any contract operations on the Ethereum mainnet such as transferring an NFT from the Fabric blockchain to mainnet are standard Ethereum transactions visible in Etherscan.
 
-      ## What Wallets are Compatible with your Platform?
+        ## How are your NFTs minted, displayed, and sold?
+        NFTs are mintable and viewable as content objects served by the Content Fabric APIs and can be rendered as streamed or static content. This allows any browser, mobile, or connected TV application or marketplace to embed NFT minting and viewing directly into its experience using any standard browser UX,streaming player, or end-user wallet. Similarly, NFTs are a “sku”-based content object that can be embedded in any checkout and payment experience.
 
-      The Content Fabric is Ethereum compatible and thus Metamask and other Ethereum compatible wallets can be used to manage accounts on it. Stay tuned for more news on native wallets.
+        ## What Wallets are Compatible with your Platform?
 
-      ## Where are your smart contracts, specific for content creators? If so, what do they look like in regards to content? How do you enforce them?
+        The Content Fabric is Ethereum compatible and thus Metamask and other Ethereum compatible wallets can be used to manage accounts on it. Stay tuned for more news on native wallets.
 
-      All contracts in [open source](https://github.com/eluv-io/contracts). They are deployed in the [production content fabric](https://main.net955305.contentfabric.io/config) and are continually extended to add new functionality. All APIs are available on GitHub, particularly the [elv-client-js APIs](https://github.com/eluv-io/elv-client-js)
+        ## Where are your smart contracts, specific for content creators? If so, what do they look like in regards to content? How do you enforce them?
 
-      For More Information see [this Medium Post](https://eluvio.medium.com/nfts-on-the-eluvio-content-fabric-87ea1cecfeb)
+        All contracts in [open source](https://github.com/eluv-io/contracts). They are deployed in the [production content fabric](https://main.net955305.contentfabric.io/config) and are continually extended to add new functionality. All APIs are available on GitHub, particularly the [elv-client-js APIs](https://github.com/eluv-io/elv-client-js)
+
+        For more information see [this Medium Post](https://eluvio.medium.com/nfts-on-the-eluvio-content-fabric-87ea1cecfeb)
 
 next:
   subheader: |

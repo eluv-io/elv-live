@@ -76,6 +76,10 @@
       border: 1px solid $black;
     }
 
+    &-short {
+      height: 75px;
+    }
+
     &__header,
     &__subheader {
       display: flex;
@@ -172,10 +176,6 @@
 
     &__navigation {
       padding: 0 25px;
-    }
-
-    &__navigation-button {
-      height: 100px;
     }
   }
 }
