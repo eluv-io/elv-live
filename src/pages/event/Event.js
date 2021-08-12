@@ -6,6 +6,7 @@ import Footer from "Layout/Footer";
 
 import Modal from "Common/Modal";
 import UpcomingEvents from "Common/UpcomingEvents";
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -117,6 +118,50 @@ class Event extends React.Component {
     );
   }
 
+  HeroVideo() {
+    const heroVideo = this.props.siteStore.currentSiteInfo.event_images.hero_video;
+
+    if(!heroVideo || !heroVideo["."]) { return; }
+
+    return (
+      (
+        <div className="event-page__hero-video-container">
+          <div
+            className="event-page__hero-video"
+            ref={element => {
+              if(!element || this.state.player) { return; }
+
+              this.setState({
+                player: (
+                  new EluvioPlayer(
+                    element,
+                    {
+                      clientOptions: {
+                        client: this.props.rootStore.client
+                      },
+                      sourceOptions: {
+                        playoutParameters: {
+                          versionHash: heroVideo["."].source
+                        }
+                      },
+                      playerOptions: {
+                        watermark: EluvioPlayerParameters.watermark.OFF,
+                        muted: EluvioPlayerParameters.muted.ON,
+                        autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
+                        controls: EluvioPlayerParameters.controls.OFF,
+                        playerCallback: ({videoElement}) => this.setState({video: videoElement})
+                      }
+                    }
+                  )
+                )
+              });
+            }}
+          />
+        </div>
+      )
+    );
+  }
+
   render() {
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
@@ -136,6 +181,7 @@ class Event extends React.Component {
       <div className={`page-container event-page ${this.props.siteStore.eventInfo.hero_info ? "event-page-no-header-info" : ""} ${mobile ? "event-page-mobile" : ""}`}>
         <div className="event-page__hero-container" style={style}>
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          { this.HeroVideo() }
           <div className="event-page__heading">
             {
               hasHeaderImage ?

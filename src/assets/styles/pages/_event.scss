@@ -42,6 +42,26 @@
     top: 0;
   }
 
+  &__hero-video-container {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin: 0 auto 20px;
+    max-width: 50vw;
+    padding-top: 70px;
+    width: 100%;
+
+    .eluvio-player,
+    .eluvio-player__video {
+      background: transparent !important;
+    }
+
+    .event-page__hero-video {
+      height: auto;
+    }
+  }
+
   &__heading {
     margin-bottom: 25px;
     max-width: 1200px;
@@ -131,27 +151,16 @@
       width: 100%;
     }
 
+    &__hero-video-container {
+      max-width: 75vw;
+    }
+
     &__hero {
       background-size: cover;
     }
 
     &__heading {
       margin-bottom: 5px;
-    }
-
-    &__header-name {
-      font-size: 36px;
-      letter-spacing: 0.07em;
-    }
-
-    &__subheader {
-      font-size: 20px;
-      font-weight: 300;
-      letter-spacing: 0.035em;
-    }
-
-    &__date {
-      letter-spacing: 2px;
     }
 
     &__header-logo {
@@ -172,6 +181,13 @@
       }
     }
 
+    &__header-name,
+    &__subheader,
+    &__date,
+    &__date-header {
+      padding: 0 10px;
+    }
+
     &__hero-container {
       height: 100vh;
     }
@@ -180,8 +196,19 @@
       background-size: cover;
     }
 
+    &__hero-video-container {
+      height: 100%;
+      max-width: 100%;
+      padding: 0 10px;
+    }
+
     &__header-name {
-      font-size: 28px;
+      font-size: 18px;
+    }
+
+    &__date,
+    &__date-header {
+      font-size: 14px;
     }
 
     &__header-logo {
@@ -189,7 +216,7 @@
     }
 
     &__subheader {
-      font-size: 22px;
+      font-size: 12px;
       font-weight: normal;
       letter-spacing: 0.07em;
       margin-bottom: 10px;
@@ -218,12 +245,6 @@
 
     &__overview {
       padding: 0 30px;
-    }
-  }
-
-  @media only screen and (max-width: 400px) {
-    &__subheader {
-      font-size: 20px;
     }
   }
 }
