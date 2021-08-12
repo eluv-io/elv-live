@@ -39,7 +39,7 @@ class Technology extends React.Component {
           Object.keys(Copy.blockchain.sections).map(key =>
             <button
               key={`technology-page__navigation-button-${key}`}
-              className={`technology-page__navigation-button ${key === this.state.page ? "selected" : ""}`}
+              className={`technology-page__navigation-button technology-page__navigation-button-short ${key === this.state.page ? "selected" : ""}`}
               onClick={() => this.SetPage(key)}
             >
               <div className="technology-page__navigation-button__header">
