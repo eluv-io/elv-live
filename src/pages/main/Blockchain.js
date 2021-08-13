@@ -14,6 +14,8 @@ class Technology extends React.Component {
       page: Object.keys(Copy.blockchain.sections).includes(window.location.hash.replace("#", "")) ?
         window.location.hash.replace("#", "") : "main"
     };
+
+    this.SetPageFromHash = this.SetPageFromHash.bind(this);
   }
 
   componentDidMount() {
@@ -26,13 +28,27 @@ class Technology extends React.Component {
       .getElementsByTagName("meta")
       .namedItem("robots")
       .setAttribute("content", "");
+
+    window.addEventListener("hashchange", this.SetPageFromHash, false);
   }
 
-  SetPage(key) {
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.SetPageFromHash, false);
+  }
+
+  SetPageFromHash() {
+    this.SetPage(window.location.hash.replace("#", ""), false);
+  }
+
+  SetPage(key, push=true) {
+    key = Object.keys(Copy.blockchain.sections).includes(key) ? key : "main";
+
     this.setState({page: key === this.state.page ? "main" : key});
     window.scrollTo(0, 0);
 
-    window.location.hash = key === "main" ? "" : key;
+    if(push) {
+      history.pushState({}, "", window.location.pathname + "#" + (key === "main" ? "" : key));
+    }
   }
 
   Navigation() {
