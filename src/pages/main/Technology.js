@@ -24,7 +24,8 @@ class Technology extends React.Component {
     super(props);
 
     this.state = {
-      page: "main"
+      page: Object.keys(Copy.technology.sections).includes(window.location.hash.replace("#", "")) ?
+        window.location.hash.replace("#", "") : "main"
     };
   }
 
@@ -43,6 +44,8 @@ class Technology extends React.Component {
   SetPage(key) {
     this.setState({page: key === this.state.page ? "main" : key});
     window.scrollTo(0, 0);
+
+    window.location.hash = key === "main" ? "" : key;
   }
 
   Navigation() {
