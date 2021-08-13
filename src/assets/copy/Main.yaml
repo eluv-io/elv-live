@@ -373,34 +373,40 @@ blockchain:
       text: |
         Please see a broad cross section of the Content Fabric APIs and contracts at [https://github.com/eluv-io](https://github.com/eluv-io).
 
+        ## Client APIs
+
         Start [here](https://eluv-io.github.io/elv-client-js/ElvClient.html) for an overview of the client API for publishing, playout, viewing, and minting.
 
-        Streaming start [here](https://github.com/eluv-io/elv-stream-sample)
+        Here are a few particular topics of interest:
+        - [Streaming](https://github.com/eluv-io/elv-stream-sample)
+        - [Publishing Rich Media](https://eluv-io.github.io/elv-client-js/abr/index.html)
+        - [Content Management](https://eluv-io.github.io/elv-client-js/#editing)
 
-        Publishing Rich Media start [here](https://eluv-io.github.io/elv-client-js/abr/index.html)
+        ## Other APIs
 
-        Publishing Static (File) Assets and Metadata start [here](https://eluv-io.github.io/elv-client-js/#editing)
+        - [Site Search](https://github.com/eluv-io/elv-search)
+        - [ML Tagging](https://github.com/eluv-io/elv-tagger)
+        - [Bitcode](https://github.com/eluv-io/content-bitcode)
 
-        Content Management start [here](https://github.com/eluv-io/elv-site-sample) and [here](https://github.com/eluv-io/elv-asset-manager)
+        ## Applications
 
-        Site Search start [here](https://github.com/eluv-io/elv-search)
-
-        ML Tagging start [here](https://github.com/eluv-io/elv-tagger)
-
-        Video Editor start [here](https://github.com/eluv-io/elv-video-editor)
-
-        Bitcode start [here](https://github.com/eluv-io/content-bitcode)
+        Many of our applications are fully open source and can be used as a reference.
+        - [Fabric Browser](https://github.com/eluv-io/elv-fabric-browser)
+        - [Asset Manager](https://github.com/eluv-io/elv-asset-manager)
+        - [Video Player](https://github.com/eluv-io/elv-player-js)
+        - [Video Editor](https://github.com/eluv-io/elv-video-editor)
+        - [Site Sample](https://github.com/eluv-io/elv-site-sample)
 
     questions:
       header: Common Questions
       text: |
         ## How are the transactions reported, ala etherscan?
-        All Content Fabric operations are recorded in the Content Fabric blockchain ledger and visible through its open ledger event log (https://explorer.contentfabric.io). Any contract operations on the Ethereum mainnet such as transferring an NFT from the Fabric blockchain to mainnet are standard Ethereum transactions visible in Etherscan.
+        All Content Fabric operations are recorded in the Content Fabric blockchain ledger and visible through its [open ledger event log](https://explorer.contentfabric.io). Any contract operations on the Ethereum mainnet such as transferring an NFT from the Fabric blockchain to mainnet are standard Ethereum transactions visible in Etherscan.
 
         ## How are your NFTs minted, displayed, and sold?
         NFTs are mintable and viewable as content objects served by the Content Fabric APIs and can be rendered as streamed or static content. This allows any browser, mobile, or connected TV application or marketplace to embed NFT minting and viewing directly into its experience using any standard browser UX,streaming player, or end-user wallet. Similarly, NFTs are a “sku”-based content object that can be embedded in any checkout and payment experience.
 
-        ## What Wallets are Compatible with your Platform?
+        ## What wallets are compatible with your platform?
 
         The Content Fabric is Ethereum compatible and thus Metamask and other Ethereum compatible wallets can be used to manage accounts on it. Stay tuned for more news on native wallets.
 
