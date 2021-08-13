@@ -290,7 +290,7 @@ blockchain:
 
         The blockchain protocol is fully Ethereum compatible and the smart contracts are EVM based and standards compliant (ERC 721 and ERC 1155). Additionally, Eluvio has taken significant effort to ensure that the architecture is designed for interoperability with other blockchains via the Web3 and Inter-Blockchain Communication design philosophy. The APIs allow for transferring the contracts backing content or non-fungible tokens minted from content between the Content Fabric and other blockchains. All contracts and the client-side APIs are open source.
 
-        The Content Fabric blockchain is proof-of-authority based and uses a standard blockchain consensus protocol from the Ethereum community ([EIP-225 “clique” based proof-of-authority](https://eips.ethereum.org/EIPS/eip-225) that relies on the agreement of a subset of nodes in the network designated as validators. There is no proof-of-work in this system therefore the efficiency of the consensus avoids the problems of proof-of-work blockchains. But, for true decentralization the validator nodes need to represent a decentralized community of those using the network.
+        The Content Fabric blockchain is proof-of-authority based and uses a standard blockchain consensus protocol from the Ethereum community ([EIP-225 “clique” based proof-of-authority])(https://eips.ethereum.org/EIPS/eip-225) that relies on the agreement of a subset of nodes in the network designated as validators. There is no proof-of-work in this system therefore the efficiency of the consensus avoids the problems of proof-of-work blockchains. But, for true decentralization the validator nodes need to represent a decentralized community of those using the network.
 
         This protocol is open and extensible—new nodes may be added at any time and without impacting the running of the network. Up until Fall 2021, all validator nodes in the Content Fabric have been owned by Eluvio. As of Fall 2021, a charter group of validator nodes are being added to the network by some of our key partners and users including major media companies in film and TV, nonprofits representing artists, and digital merchandising companies specializing in music and other entertainment industries. This charter membership also holds the first governance tokens in the network and is actively part of the building the governance policies of the Content Fabric network.
 
@@ -374,6 +374,22 @@ blockchain:
         Please see a broad cross section of the Content Fabric APIs and contracts at [https://github.com/eluv-io](https://github.com/eluv-io).
 
         Start [here](https://eluv-io.github.io/elv-client-js/ElvClient.html) for an overview of the client API for publishing, playout, viewing, and minting.
+
+        Streaming start [here](https://eluv-io.github.io/elv-io/elv-stream-sample)
+
+        Publishing Rich Media start [here](https://eluv-io.github.io/elv-client-js/abr/index.html)
+
+        Publishing Static (File) Assets and Metadata start [here](https://eluv-io.github.io/elv-client-js/#editing)
+
+        Content Management start [here](https://eluv-io.github.io/elv-io/elv-site-sample) and [here](https://eluv-io.github.io/elv-io/elv-asset-manager)
+
+        Site Search start [here](https://eluv-io.github.io/elv-io/elv-search)
+
+        ML Tagging start [here](https://eluv-io.github.io/elv-io/elv-tagger)
+
+        Video Editor start [here](https://eluv-io.github.io/elv-io/elv-video-editor)
+
+        Bitcode start [here](https://eluv-io.github.io/elv-io/content-bitcode)
 
     questions:
       header: Common Questions
