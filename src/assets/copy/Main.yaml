@@ -277,7 +277,7 @@ blockchain:
 
         - A fast part routing algorithm allows for parts to be found in the network in real-time and supports just-in-time transcoding, packaging, and extensible A/V processing within the protocol.
 
-        See [Content Fabric Architecture](/technology) and [How it Works](/technology) for a detailed description of this process.
+        See [Content Fabric Architecture](/technology#architecture) and [How it Works](/technology#how_it_works) for a detailed description of this process.
 
     blockchain_protocol:
       header: Blockchain Protocol
@@ -375,21 +375,21 @@ blockchain:
 
         Start [here](https://eluv-io.github.io/elv-client-js/ElvClient.html) for an overview of the client API for publishing, playout, viewing, and minting.
 
-        Streaming start [here](https://eluv-io.github.io/elv-io/elv-stream-sample)
+        Streaming start [here](https://github.com/eluv-io/elv-stream-sample)
 
         Publishing Rich Media start [here](https://eluv-io.github.io/elv-client-js/abr/index.html)
 
         Publishing Static (File) Assets and Metadata start [here](https://eluv-io.github.io/elv-client-js/#editing)
 
-        Content Management start [here](https://eluv-io.github.io/elv-io/elv-site-sample) and [here](https://eluv-io.github.io/elv-io/elv-asset-manager)
+        Content Management start [here](https://github.com/eluv-io/elv-site-sample) and [here](https://github.com/eluv-io/elv-asset-manager)
 
-        Site Search start [here](https://eluv-io.github.io/elv-io/elv-search)
+        Site Search start [here](https://github.com/eluv-io/elv-search)
 
-        ML Tagging start [here](https://eluv-io.github.io/elv-io/elv-tagger)
+        ML Tagging start [here](https://github.com/eluv-io/elv-tagger)
 
-        Video Editor start [here](https://eluv-io.github.io/elv-io/elv-video-editor)
+        Video Editor start [here](https://github.com/eluv-io/elv-video-editor)
 
-        Bitcode start [here](https://eluv-io.github.io/elv-io/content-bitcode)
+        Bitcode start [here](https://github.com/eluv-io/content-bitcode)
 
     questions:
       header: Common Questions
