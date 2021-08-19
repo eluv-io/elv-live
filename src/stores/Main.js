@@ -1,7 +1,6 @@
-import {observable, action, flow, computed} from "mobx";
+import {observable, action, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
-import React from "react";
 
 class MainStore {
   @observable featureBlockModalActive = false;
@@ -21,17 +20,35 @@ class MainStore {
       .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
   }
 
-  @computed get upcomingDropEvents() {
-    return this.featuredSites
+  @computed get carouselSites() {
+    return this.rootStore.siteStore.carouselSiteKeys.map(({slug}) =>
+      this.rootStore.siteStore.eventSites["featured"][slug]
+    ).filter(site => site);
+  }
+
+  @computed get upcomingEvents() {
+    const events = this.carouselSites
+      .filter(site => site.info.type !== "drop_event")
+      .map(site => ({
+        site,
+        header: site.info.event_info.event_header,
+        date: site.info.event_info.date,
+        image: this.FeaturedSiteUrl(site.siteSlug, UrlJoin("info", "event_images", "card_image"))
+      }));
+
+    const dropEvents = this.carouselSites
       .filter(site => site.info.type === "drop_event")
       .map(site =>
         (site.info.drops || []).map((drop, index) => ({
-          drop,
           site,
-          dropImage: this.FeaturedSiteUrl(site.siteSlug, UrlJoin("info", "drops", index.toString(), "event_image"))
+          header: drop.event_header,
+          date: drop.start_date,
+          image: this.FeaturedSiteUrl(site.siteSlug, UrlJoin("info", "drops", index.toString(), "event_image"))
         }))
       )
       .flat();
+
+    return [...events, ...dropEvents];
   }
 
   @computed get partners() {
@@ -69,7 +86,7 @@ class MainStore {
           linkPath: UrlJoin("public", "asset_metadata", "promo_videos", index.toString(), "sources", "default")
         })
       )
-    )
+    );
   }
 
   constructor(rootStore) {
@@ -111,7 +128,7 @@ class MainStore {
   }
 
   FeaturedSiteImageUrl(siteSlug, key) {
-    return this.FeaturedSiteUrl(siteSlug, UrlJoin("info", "event_images", key))
+    return this.FeaturedSiteUrl(siteSlug, UrlJoin("info", "event_images", key));
   }
 
   @action.bound

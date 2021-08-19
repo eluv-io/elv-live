@@ -31,6 +31,7 @@ class CodeAccess extends React.Component {
 
       this.setState({code: code}, this.handleRedeemCode);
     } catch(e) {
+      // eslint-disable-next-line no-console
       console.log(e);
     }
   }

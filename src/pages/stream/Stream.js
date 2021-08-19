@@ -99,6 +99,7 @@ class Stream extends React.Component {
       this.setState({player});
       window.player = player;
     } catch(error) {
+      // eslint-disable-next-line no-console
       console.error(error);
 
       this.setState({error: true});

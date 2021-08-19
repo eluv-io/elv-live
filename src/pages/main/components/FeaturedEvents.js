@@ -1,5 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import UrlJoin from "url-join";
 
 import ImageIcon from "Common/ImageIcon";
 
@@ -8,6 +9,7 @@ import RightArrow from "Icons/right-arrow.svg";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
 @inject("mainStore")
+@inject("siteStore")
 @observer
 class FeaturedEvents extends React.Component {
   constructor(props) {
@@ -111,7 +113,7 @@ class FeaturedEvents extends React.Component {
           }
           {
             accessible ?
-              <a href={`/${site.siteSlug}`} className="featured-event__event-link">
+              <a href={UrlJoin("/", site.tenantSlug || "", site.siteSlug)} className="featured-event__event-link">
                 Buy Tickets
               </a> : null
           }
@@ -130,7 +132,7 @@ class FeaturedEvents extends React.Component {
           <ImageIcon icon={LeftArrow} label="Previous" />
         </button>
 
-        { this.props.mainStore.featuredSites.map(this.Event) }
+        { this.props.siteStore.featuredSitesLoaded ? this.props.mainStore.featuredSites.map(this.Event) : null }
         <button
           className="arrow-right"
           onClick={() => this.ChangePage(this.state.selected + 1)}

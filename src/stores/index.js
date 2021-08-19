@@ -41,7 +41,9 @@ class RootStore {
       try {
         this.savedTickets = JSON.parse(atob(savedTickets));
       } catch(error) {
+        // eslint-disable-next-line no-console
         console.error("Failed to load redeemed tickets from localstorage:");
+        // eslint-disable-next-line no-console
         console.error(error);
       }
     }
@@ -54,7 +56,9 @@ class RootStore {
         btoa(JSON.stringify(toJS(this.savedTickets)))
       );
     } catch(error) {
+      // eslint-disable-next-line no-console
       console.error("Failed to save redeemed tickets to localstorage:");
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
@@ -91,8 +95,9 @@ class RootStore {
       this.SaveRedeemedTickets();
 
       return objectId;
-    } catch (error) {
-       console.log("Error redeeming code: ", error);
+    } catch(error) {
+      // eslint-disable-next-line no-console
+      console.error("Error redeeming code: ", error);
     }
   });
 
@@ -128,6 +133,7 @@ class RootStore {
 
       return objectId;
     } catch(error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   });
@@ -154,6 +160,23 @@ class RootStore {
       this.walletClient.Destroy();
       this.walletClient = undefined;
     }
+  }
+
+  @action.bound
+  SetWalletPanelVisibility(visibility) {
+    const walletPanel = document.getElementById("wallet-panel");
+
+    const visibilities = ["hidden", "side-panel", "full"];
+
+    if(!walletPanel || !visibilities.includes(visibility)) {
+      return;
+    }
+
+    visibilities.forEach(v =>
+      walletPanel.classList.remove(`wallet-panel-${v}`)
+    );
+
+    walletPanel.classList.add(`wallet-panel-${visibility}`);
   }
 
   @action.bound

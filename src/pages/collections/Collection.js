@@ -186,6 +186,7 @@ const TransferForm = ({
           const { uuid } = await Submit({ethereumAddress: address, email: sendEmail ? email : ""});
           setConfirmation(uuid);
         } catch(error) {
+          // eslint-disable-next-line no-console
           console.error(error);
           setError(error);
         }
@@ -430,7 +431,7 @@ class Collection extends React.Component {
           key={`site-page-${this.props.match.url}`}
           _errorBoundaryClassname="page-container error-page-container"
           Load={async () => {
-            await this.props.siteStore.LoadTenant(tenantSlug);
+            await this.props.siteStore.LoadTenant({slug: tenantSlug});
 
             if(!this.props.siteStore.tenants[tenantSlug] || !this.props.siteStore.tenants[tenantSlug].collections[collectionSlug]) {
               return;

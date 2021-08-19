@@ -86,7 +86,6 @@ const calculateDelay = (retryCount, initialDelay=INITIAL_DELAY, maxDelay=MAX_DEL
 export const retryRequest = async (request, params, maxRetries=MAX_RETRIES, retryCount = 0) => {
   // Throws Error when Max Retry limit is reached
   if((maxRetries - retryCount) <= 0) {
-    console.log("Reached Max Retries");
     throw new Error("Reached Max Retries");
   }
 
@@ -94,6 +93,7 @@ export const retryRequest = async (request, params, maxRetries=MAX_RETRIES, retr
   let delay = calculateDelay(retryCount);
   // Time out based on calculated delay
   if(retryCount > 0) {
+    // eslint-disable-next-line no-console
     console.log("Retry Request Count #", retryCount, " -- Calculated Delay: ", delay, " ms");
   }
 
@@ -107,7 +107,8 @@ export const retryRequest = async (request, params, maxRetries=MAX_RETRIES, retr
     return response;
   } catch(error) {
     // If request errors, iterate retryCount by 1 before retrying the request
-    console.log("FAIL: Retry Request #", retryCount);
+    // eslint-disable-next-line no-console
+    console.error("FAIL: Retry Request #", retryCount);
     return retryRequest(request, params, maxRetries, retryCount + 1);
   }
 };
