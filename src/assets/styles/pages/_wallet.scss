@@ -1,6 +1,36 @@
+.wallet-panel {
+  display: flex;
+  max-height: 0;
+  min-height: 0;
+  position: fixed;
+  right: 0;
+  top: 60px;
+  width: 0;
+
+  z-index: 1000;
+
+  &-hidden {
+    width: 0;
+  }
+
+  &-side-panel,
+  &-full {
+    max-height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
+  }
+
+  &-side-panel {
+    width: 30vw;
+  }
+
+  &-full {
+    width: 100vw;
+  }
+}
+
 .wallet-target {
-  height: 100%;
-  padding-top: 60px;
+  flex-grow: 1;
+  min-height: 100%;
   width: 100%;
 
   iframe {
@@ -8,5 +38,27 @@
     height: 100%;
     outline: 0;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .wallet-panel {
+    &-side-panel {
+      width: 50vw;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wallet-panel {
+    position: initial;
+    width: 100vw;
+    z-index: initial;
+
+    &-side-panel,
+    &-full {
+      max-height: calc(100vh - 120px);
+      min-height: calc(100vh - 120px);
+    }
   }
 }

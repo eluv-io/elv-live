@@ -3,18 +3,18 @@ import {inject, observer} from "mobx-react";
 
 @inject("rootStore")
 @observer
-class Wallet extends React.Component {
+class WalletPage extends React.Component {
+  componentDidMount() {
+    this.props.rootStore.SetWalletPanelVisibility("full");
+  }
+
+  componentWillUnmount() {
+    this.props.rootStore.SetWalletPanelVisibility("hidden");
+  }
+
   render() {
-    return (
-      <div className="page-container wallet-page-container">
-        <div
-          className="wallet-target"
-          ref={element => this.props.rootStore.InitializeWalletClient(element)}
-        >
-        </div>
-      </div>
-    );
+    return <div className="page-container" /> ;
   }
 }
 
-export default Wallet;
+export default WalletPage;

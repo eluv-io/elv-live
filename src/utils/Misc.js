@@ -23,8 +23,9 @@ export const FormatDateString = (date, dateOnly=false, timeOnly=false, shortDate
       return `${DayJS(date).format("MMMM D, YYYY · h:mm A")} ${zoneAbbreviation}`;
     }
   } catch(error) {
-    // TODO: Central error reporting
+    // eslint-disable-next-line no-console
     console.error(`Failed to parse date ${date}`);
+    // eslint-disable-next-line no-console
     console.error(date);
 
     return "";
@@ -69,7 +70,9 @@ export const ToggleZendesk = (enabled) => {
   try {
     enabled ? zE.show() : zE.hide();
   } catch(error) {
+    // eslint-disable-next-line no-console
     console.error("Failed to toggle zendesk");
+    // eslint-disable-next-line no-console
     console.error(error);
   }
 };

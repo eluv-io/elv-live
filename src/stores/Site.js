@@ -14,7 +14,10 @@ class SiteStore {
   @observable tenantSlug;
   @observable tenants = {};
 
-  @observable eventSites = {};
+  @observable featuredSitesLoaded = false;
+  @observable carouselSitesLoaded = false;
+
+  @observable eventSites = { featured: {} };
   @observable siteSlug;
   @observable siteIndex;
   @observable darkMode = false;
@@ -23,7 +26,6 @@ class SiteStore {
 
   @observable showCheckout = false;
   @observable selectedTicket;
-  @observable featuredSitesLoaded = false;
 
   @observable siteId;
   @observable siteHash;
@@ -57,6 +59,12 @@ class SiteStore {
     const featured = (this.mainSiteInfo || {}).featured_events || {};
     return Object.keys(featured)
       .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
+  }
+
+  @computed get carouselSiteKeys() {
+    const carousel = (this.mainSiteInfo || {}).carousel_events || {};
+    return Object.keys(carousel)
+      .map(index => ({index: index.toString(), slug: Object.keys(carousel[index])[0]}));
   }
 
   // Event Site
@@ -113,19 +121,16 @@ class SiteStore {
   @computed get upcomingDropEvents() {
     return (this.currentSiteInfo.drops || [])
       .map((drop, index) => ({
-        drop,
-        dropImage: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image"))
+        header: drop.event_header,
+        date: drop.start_date,
+        image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image"))
       }));
   }
 
-  @computed get baseSlug() {
-    return this.currentSiteInfo.base_slug || "";
-  }
-
   @computed get baseSitePath() {
-    if(!this.siteSlug) { return window.location.pathname }
+    if(!this.siteSlug) { return window.location.pathname; }
 
-    return UrlJoin("/", this.tenantSlug || "", this.tenantSlug ? this.baseSlug : "", this.siteSlug);
+    return UrlJoin("/", this.tenantSlug || "", this.siteSlug);
   }
 
   @action.bound
@@ -250,7 +255,7 @@ class SiteStore {
 
       this.mainSiteInfo = mainSiteInfo;
     } catch(error) {
-      // TODO: Graceful error handling
+      // eslint-disable-next-line no-console
       console.error("Error loading site", error);
     }
   });
@@ -261,29 +266,57 @@ class SiteStore {
 
     yield Promise.all(
       this.featuredSiteKeys.map(async ({index, slug}) =>
-        await this.LoadSite({siteIndex: index, siteSlug: slug, validateBaseSlug: false})
+        await this.LoadSite({siteIndex: index, siteSlug: slug})
       )
     );
 
     this.featuredSitesLoaded = true;
+
+    yield Promise.all(
+      this.carouselSiteKeys.map(async ({index, slug}) =>
+        await this.LoadSite({siteIndex: index, siteSlug: slug})
+      )
+    );
+    
+    this.carouselSitesLoaded = true;
   });
 
   @action.bound
-  LoadTenant = flow(function * (slug) {
+  LoadTenant = flow(function * ({slug, versionHash}) {
     try {
       if(this.tenants[slug]) { return; }
 
-      this.tenants[slug] = (yield this.client.ContentObjectMetadata({
-        ...this.siteParams,
-        metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
-        resolveLinks: true,
-        linkDepthLimit: 0,
-        select: [
-          "info",
-          "sites",
-          "collections"
-        ]
-      })) || {};
+      if(slug) {
+        this.tenants[slug] = (yield this.client.ContentObjectMetadata({
+          ...this.siteParams,
+          metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
+          resolveLinks: true,
+          linkDepthLimit: 0,
+          select: [
+            "info",
+            "sites",
+            "collections",
+            "marketplaces"
+          ]
+        })) || {};
+      } else {
+        const tenantInfo = (yield this.client.ContentObjectMetadata({
+          versionHash,
+          metadataSubtree: UrlJoin("public", "asset_metadata"),
+          resolveLinks: true,
+          linkDepthLimit: 0,
+          select: [
+            "slug",
+            "info",
+            "sites",
+            "collections",
+            "marketplaces"
+          ]
+        })) || {};
+
+        slug = tenantInfo.slug;
+        this.tenants[slug] = tenantInfo;
+      }
 
       this.tenantSlug = slug;
 
@@ -310,17 +343,19 @@ class SiteStore {
           .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "terms_html"))
           .toString();
       }
+
+      return slug;
     } catch(error) {
-      // TODO: Graceful error handling
+      // eslint-disable-next-line no-console
       console.error("Error loading site", error);
     }
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, baseSlug="", siteIndex, siteSlug, loadAnalytics=false, validateBaseSlug=true, preloadHero=false}) {
+  LoadSite = flow(function * ({tenantSlug, siteIndex, siteSlug, loadAnalytics=false, preloadHero=false}) {
     const tenantKey = tenantSlug || "featured";
     if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
-      return !validateBaseSlug || baseSlug === this.baseSlug;
+      return true;
     }
 
     if(!this.eventSites[tenantKey]) {
@@ -366,9 +401,9 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
-      if(!tenantSlug && site.info && site.info.tenant_slug) {
-        tenantSlug = site.info.tenant_slug;
-        this.tenantSlug = site.info.tenant_slug;
+      if(site.info.tenant) {
+        tenantSlug = yield this.LoadTenant({versionHash: site.info.tenant});
+        this.tenantSlug = tenantSlug;
       }
 
       yield heroPreloadPromise;
@@ -408,11 +443,13 @@ class SiteStore {
           }
         }
       } catch(error) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
 
-      return !validateBaseSlug || baseSlug === this.baseSlug;
-    } catch (error) {
+      return true;
+    } catch(error) {
+      // eslint-disable-next-line no-console
       console.error("Error loading site", error);
     }
   });
@@ -484,6 +521,7 @@ class SiteStore {
             document.head.appendChild(s);
 
             window.dataLayer = window.dataLayer || [];
+            // eslint-disable-next-line no-inner-declarations
             function gtag() { window.dataLayer.push(arguments); }
 
             gtag("js", new Date());
@@ -491,21 +529,21 @@ class SiteStore {
 
             break;
           case "Google Tag Manager ID":
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer',entry.id);
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+                new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+              "https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,"script","dataLayer",entry.id);
 
             break;
           case "Facebook Pixel ID":
             !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,"script",
+            {if(f.fbq) return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments);};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);}(window, document,"script",
               "https://connect.facebook.net/en_US/fbevents.js");
             fbq("init", entry.id);
             fbq("track", "PageView");
@@ -552,10 +590,12 @@ class SiteStore {
               const conversionLabel = ids.find(id => id.type === "Google Conversion Label");
 
               if(!conversionLabel) {
+                // eslint-disable-next-line no-console
                 console.error(`Unable to find corresponding Google conversion label for ${analytics.label} conversion ID`);
                 break;
               }
 
+              // eslint-disable-next-line no-inner-declarations
               function gtag() { window.dataLayer.push(arguments); }
 
 
@@ -583,6 +623,7 @@ class SiteStore {
               const segmentId = ids.find(id => id.type === "App Nexus Segment ID");
 
               if(!segmentId) {
+                // eslint-disable-next-line no-console
                 console.error(`Unable to find corresponding App Nexus segment ID for ${analytics.label} pixel ID`);
                 break;
               }
@@ -601,6 +642,7 @@ class SiteStore {
               const organizationId = ids.find(id => id.type === "TradeDoubler Organization ID");
 
               if(!organizationId) {
+                // eslint-disable-next-line no-console
                 console.error(`Unable to find corresponding TradeDoubler organization ID for ${analytics.label} event ID`);
                 break;
               }
@@ -619,7 +661,9 @@ class SiteStore {
               break;
           }
         } catch(error) {
+          // eslint-disable-next-line no-console
           console.error(`Failed to perform conversion tracking for ${analytics.label} ${entry.type}:`);
+          // eslint-disable-next-line no-console
           console.error(error);
         }
       }
@@ -691,7 +735,7 @@ class SiteStore {
         link,
         image_url: image ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image")) : "",
         light_image_url: image_light ? this.SiteUrl(UrlJoin("info", "sponsors", index.toString(), "image_light")) : ""
-      }
+      };
     });
   }
   @computed get merchTab() {
@@ -702,7 +746,7 @@ class SiteStore {
         url,
         front_image: this.SiteUrl(UrlJoin("info", "merch_tab", index.toString(), "front_image")),
         back_image: this.SiteUrl(UrlJoin("info", "merch_tab", index.toString(), "back_image"))
-      }
+      };
     });
   }
 
@@ -727,7 +771,7 @@ class SiteStore {
         ...ticketClass,
         release_date: ticketClass.release_date ? new Date(ticketClass.release_date) : undefined,
         image_url: this.SiteUrl(UrlJoin("info", "tickets", index.toString(), "image"))
-      }
+      };
     }).filter(ticketClass => ticketClass.skus && ticketClass.skus.length > 0);
   }
 
@@ -740,7 +784,7 @@ class SiteStore {
           image_urls: (product.images || []).map((_, imageIndex) =>
             this.SiteUrl(UrlJoin("info", "products", index.toString(), "images", imageIndex.toString(), "image"))
           )
-        }
+        };
       });
   }
 
@@ -816,7 +860,7 @@ class SiteStore {
       return "";
     }
 
-    return this.SiteUrl(UrlJoin("info", "event_images", key))
+    return this.SiteUrl(UrlJoin("info", "event_images", key));
   }
 }
 

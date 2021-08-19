@@ -5,9 +5,9 @@ const MIN_WIDTH=500;
 const MAX_WIDTH=1200;
 const SPREAD = MAX_WIDTH - MIN_WIDTH;
 
-const Carousel = ({elements=[], minVisible=2, maxVisible=5, className=""}) => {
+const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, className=""}) => {
   const target = React.useRef(null);
-  const [startIndex, setStartIndex] = useState(0);
+  const [index, setIndex] = useState(startIndex);
   const [visible, setVisible] = useState(maxVisible);
 
   // Automatically set num visible between max and min based on width
@@ -16,7 +16,7 @@ const Carousel = ({elements=[], minVisible=2, maxVisible=5, className=""}) => {
 
     if(visible !== newVisible) {
       setVisible(newVisible);
-      setStartIndex(0);
+      setIndex(0);
     }
   });
 
@@ -25,7 +25,7 @@ const Carousel = ({elements=[], minVisible=2, maxVisible=5, className=""}) => {
       <div className={`carousel__button-container carousel__button-container-${type}`}>
         {
           !visible ? null :
-            <button className="carousel__button" onClick={event => { event.preventDefault(); setStartIndex(value); }}>
+            <button className="carousel__button" onClick={event => { event.preventDefault(); setIndex(value); }}>
               {content}
             </button>
         }
@@ -35,9 +35,9 @@ const Carousel = ({elements=[], minVisible=2, maxVisible=5, className=""}) => {
 
   return (
     <div className={`carousel ${className}`} ref={target}>
-      <CarouselButton type="prev" content="❮" value={startIndex - 1} visible={startIndex > 0} />
-      { elements.slice(startIndex, startIndex + visible) }
-      <CarouselButton type="next" content="❯" value={startIndex + 1} visible={startIndex + visible < elements.length} />
+      <CarouselButton type="prev" content="❮" value={index - 1} visible={index > 0} />
+      { elements.slice(index, index + visible) }
+      <CarouselButton type="next" content="❯" value={index + 1} visible={index + visible < elements.length} />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, {lazy} from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {Route, BrowserRouter} from "react-router-dom";
+import WalletFrame from "Pages/wallet/WalletFrame";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -67,18 +68,18 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug/collections" component={Collections} />
         <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
 
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/wallet" component={SitePage(Wallet)} />
-        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/support" component={SitePage(Support)} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/terms" component={SitePage(Terms)} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/wallet" component={SitePage(Wallet, {hideZendesk: true})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
           <Route render={() => window.location.href = window.location.origin} />
@@ -92,6 +93,7 @@ class SiteApp extends React.Component {
       <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
         <BrowserRouter>
           { this.SiteRoutes() }
+          <WalletFrame />
         </BrowserRouter>
       </div>
     );

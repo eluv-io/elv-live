@@ -28,7 +28,8 @@ class Success extends React.Component {
           endTime: endDate || new Date(startDate.getTime() + 60 * 60 * 1000)
         };
       } catch(error) {
-        console.error("Error determining calendar date");
+        // eslint-disable-next-line no-console
+        console.error("Error determining calendar date", this.props.cartStore.purchasedTicketStartDate, this.props.cartStore.purchasedTicketEndDate);
       }
     }
 
