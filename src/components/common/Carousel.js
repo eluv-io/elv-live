@@ -16,7 +16,7 @@ const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, classN
 
     if(visible !== newVisible) {
       setVisible(newVisible);
-      setIndex(0);
+      setIndex(startIndex);
     }
   });
 
@@ -34,7 +34,7 @@ const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, classN
   };
 
   return (
-    <div className={`carousel ${className}`} ref={target}>
+    <div className={`carousel ${elements.length > maxVisible ? "carousel-scrollable" : ""} ${className}`} ref={target}>
       <CarouselButton type="prev" content="❮" value={index - 1} visible={index > 0} />
       { elements.slice(index, index + visible) }
       <CarouselButton type="next" content="❯" value={index + 1} visible={index + visible < elements.length} />

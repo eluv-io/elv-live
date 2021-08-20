@@ -40,7 +40,6 @@ const EventCard = ({event, hardLink}) => {
             </div>
           </Link>
       }
-
     </div>
   );
 };
@@ -48,12 +47,15 @@ const EventCard = ({event, hardLink}) => {
 const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
-  const today = new Date().toISOString().split("T")[0];
+  let yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday = yesterday.toISOString().split("T")[0];
+
   return (
     <div className={`upcoming-events ${className}`}>
       <h2 className="upcoming-events__header">{ header }</h2>
       <Carousel
-        startIndex={events.findIndex(event => event.date >= today)}
+        startIndex={Math.max(0, events.findIndex(event => event.date >= yesterday))}
         minVisible={1}
         maxVisible={4}
         className="upcoming-events__carousel"

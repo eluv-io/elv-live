@@ -6,6 +6,10 @@
   position: relative;
   width: 100%;
 
+  &-scrollable {
+    justify-content: space-evenly;
+  }
+
   &__button-container {
     align-items: center;
     display: flex;

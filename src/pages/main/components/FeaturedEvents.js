@@ -114,7 +114,7 @@ class FeaturedEvents extends React.Component {
           {
             accessible ?
               <a href={UrlJoin("/", site.tenantSlug || "", site.siteSlug)} className="featured-event__event-link">
-                Buy Tickets
+                { site.info.type === "drop_event" ? "Join the Drop" : "Buy Tickets" }
               </a> : null
           }
         </div>
