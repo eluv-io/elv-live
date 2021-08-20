@@ -123,7 +123,8 @@ class SiteStore {
       .map((drop, index) => ({
         header: drop.event_header,
         date: drop.start_date,
-        image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image"))
+        image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
+        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
       }));
   }
 
@@ -416,6 +417,10 @@ class SiteStore {
 
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
+
+      if(site.info.marketplace) {
+        site.info.marketplaceId = this.client.utils.DecodeVersionHash(site.info.marketplace).objectId;
+      }
 
       this.eventSites[tenantKey][siteSlug] = site;
 

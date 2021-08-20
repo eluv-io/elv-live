@@ -22,7 +22,7 @@
   "dependencies": {
     "@eluvio/elv-client-js": "^3.1.52",
     "@eluvio/elv-player-js": "^1.0.49",
-    "@eluvio/elv-wallet-client": "^0.1.2",
+    "@eluvio/elv-wallet-client": "^0.1.3",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@paypal/react-paypal-js": "^4.0.2",

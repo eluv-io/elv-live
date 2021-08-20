@@ -1,0 +1,32 @@
+.drop-page {
+  margin: 80px auto;
+
+  &__stream,
+  video {
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  &__content {
+    align-items: center;
+    display: flex;
+    flex: 1 1 100%;
+    max-height: calc(100vh - 250px);
+    min-height: 100%;
+  }
+
+  @media screen and (max-width: 1000px) {
+    &__stream,
+    video {
+      max-height: 50vh;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    margin-bottom: 20px;
+
+    &__content {
+      max-height: 50vh !important;
+    }
+  }
+}
