@@ -43,13 +43,10 @@
   }
 
   &__hero-video-container {
-    align-items: center;
-    display: flex;
     height: 100%;
-    justify-content: center;
-    margin: 0 auto 20px;
-    max-width: 50vw;
-    padding-top: 70px;
+    left: 0;
+    position: absolute;
+    top: 0;
     width: 100%;
 
     .eluvio-player,
@@ -58,7 +55,11 @@
     }
 
     .event-page__hero-video {
-      height: auto;
+      margin: 90px auto 0;
+      max-height: MIN(90vw * 9 / 16, calc(100vh - 400px));
+      max-width: MIN(90vw, calc((100vh - 400px) * 16 / 9));
+      min-height: MIN(90vw * 9 / 16, calc(100vh - 400px));
+      min-width: MIN(90vw, calc((100vh - 400px) * 16 / 9));
     }
   }
 
@@ -151,8 +152,8 @@
       width: 100%;
     }
 
-    &__hero-video-container {
-      max-width: 75vw;
+    .event-page__hero-video {
+      margin-top: 50px;
     }
 
     &__hero {
@@ -170,6 +171,10 @@
   }
 
   @media screen and (max-width: 600px) {
+    .event-page__hero-video {
+      margin-top: 20vh;
+    }
+
     &-no-header-info {
       .event-page__hero-container {
         height: calc(100vh - 60px);
@@ -194,12 +199,6 @@
 
     &__hero {
       background-size: cover;
-    }
-
-    &__hero-video-container {
-      height: 100%;
-      max-width: 100%;
-      padding: 0 10px;
     }
 
     &__header-name {

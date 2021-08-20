@@ -111,12 +111,10 @@
   }
 
   &__hero-video-container {
-    align-items: flex-end;
-    display: flex;
-    height: calc(100% - 220px);
-    justify-content: center;
-    margin: 0 auto 20px;
-    max-width: 60vw;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
     width: 100%;
 
     .eluvio-player,
@@ -125,7 +123,11 @@
     }
 
     .featured-event__hero-video {
-      height: auto;
+      margin: 90px auto 0;
+      max-height: MIN(70vw * 9 / 16, calc(100vh - 350px));
+      max-width: MIN(70vw, calc((100vh - 350px) * 16 / 9));
+      min-height: MIN(70vw * 9 / 16, calc(100vh - 350px));
+      min-width: MIN(70vw, calc((100vh - 350px) * 16 / 9));
     }
   }
 
@@ -184,8 +186,8 @@
   }
 
   @media only screen and (max-width: 1250px) {
-    &__hero-video-container {
-      height: calc(100% - 150px);
+    .featured-event__hero-video {
+      margin-top: 70px;
     }
 
     &__header {
@@ -203,8 +205,12 @@
   }
 
   @media only screen and (max-width: 900px) {
-    &__hero-video-container {
-      height: calc(100% - 100px);
+    .featured-event__hero-video {
+      margin-top: 10px;
+      max-height: MIN(65vw * 9 / 16, calc(100vh - 350px));
+      max-width: MIN(65vw, calc((100vh - 350px) * 16 / 9));
+      min-height: MIN(65vw * 9 / 16, calc(100vh - 350px));
+      min-width: MIN(65vw, calc((100vh - 350px) * 16 / 9));
     }
 
     &__header {
@@ -238,9 +244,12 @@
   }
 
   @media screen and (max-width: 600px) {
-    &__hero-video-container {
-      height: calc(100% - 90px);
-      max-width: 50vw;
+    &__header {
+      font-size: 16px;
+    }
+
+    &__subheader {
+      font-size: 12px;
     }
   }
 }
