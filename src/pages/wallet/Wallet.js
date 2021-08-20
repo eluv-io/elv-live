@@ -5,6 +5,8 @@ import {inject, observer} from "mobx-react";
 @observer
 class WalletPage extends React.Component {
   componentDidMount() {
+    this.props.rootStore.walletClient.Navigate({page: "wallet"});
+    this.props.rootStore.walletClient.ToggleNavigation(true);
     this.props.rootStore.SetWalletPanelVisibility("full");
   }
 

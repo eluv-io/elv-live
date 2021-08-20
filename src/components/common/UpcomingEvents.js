@@ -1,9 +1,9 @@
 import React from "react";
 import Carousel from "Common/Carousel";
-import UrlJoin from "url-join";
 import ImageIcon from "Common/ImageIcon";
+import {Link} from "react-router-dom";
 
-const EventCard = ({event, link=false}) => {
+const EventCard = ({event, hardLink}) => {
   let date = new Date();
   let month;
   try {
@@ -27,16 +27,25 @@ const EventCard = ({event, link=false}) => {
           { month }
         </div>
       </div>
-      <a href={!link ? null : UrlJoin("/", event.site.tenantSlug || "", event.site.siteSlug || "")} className="upcoming-events__event-card__info">
-        <div className="upcoming-events__event-card__square">
-          <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
-        </div>
-      </a>
+      {
+        hardLink ?
+          <a href={event.link} className="upcoming-events__event-card__info">
+            <div className="upcoming-events__event-card__square">
+              <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
+            </div>
+          </a> :
+          <Link to={event.link} className="upcoming-events__event-card__info">
+            <div className="upcoming-events__event-card__square">
+              <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
+            </div>
+          </Link>
+      }
+
     </div>
   );
 };
 
-const UpcomingEvents = ({header, events, link=false, className=""}) => {
+const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
   const today = new Date().toISOString().split("T")[0];
@@ -51,7 +60,7 @@ const UpcomingEvents = ({header, events, link=false, className=""}) => {
         elements={
           events
             .sort((a, b) => a.date < b.date ? -1 : 1)
-            .map((event, index) => <EventCard key={`event-card-${index}`} event={event} link={link} />)
+            .map((event, index) => <EventCard key={`event-card-${index}`} event={event} hardLink={hardLink} />)
         }
       />
     </div>

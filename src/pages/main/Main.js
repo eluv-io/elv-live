@@ -27,7 +27,7 @@ class Main extends React.Component {
     return (
       <div className="page-content main-page">
         <FeaturedEvents />
-        { this.props.siteStore.carouselSitesLoaded ? <UpcomingEvents header="Upcoming Events" events={this.props.mainStore.upcomingEvents} link /> : null }
+        { this.props.siteStore.carouselSitesLoaded ? <UpcomingEvents header="Upcoming Events" events={this.props.mainStore.upcomingEvents} hardLink /> : null }
         <div className="main-page__logo-block scroll-block" id="scroll-block-logo">
           <div className="main-page__logo-container">
             <img src={Logo} alt="Eluvio Live" className="main-page__logo" />

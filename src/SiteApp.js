@@ -21,6 +21,7 @@ const Success = MinLoadDelay(import("Confirmation/Success"));
 const Privacy = MinLoadDelay(import("Event/Privacy"));
 const Terms = MinLoadDelay(import("Event/Terms"));
 const Wallet = MinLoadDelay(import("Pages/wallet/Wallet"));
+const Drop = MinLoadDelay(import("Pages/drop/Drop"));
 
 const Collection = MinLoadDelay(import("Pages/collections/Collection"));
 const Collections = MinLoadDelay(import("Pages/collections/Collections"));
@@ -70,6 +71,7 @@ class SiteApp extends React.Component {
 
         <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
+        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/drop/:dropId" component={SitePage(Drop, {hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />

@@ -1,3 +1,5 @@
+
+
 * {
   -webkit-overflow-scrolling: touch;
 }
@@ -107,11 +109,13 @@ body,
 .main-app,
 .page-container {
   background-color: $white;
+  background-color: black;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   max-width: 100vw;
-  min-height: stretch;
+  //min-height: stretch;
+  //height: 100vh;
   overscroll-behavior-y: none;
   width: 100vw;
 }
@@ -188,6 +192,7 @@ input[type='checkbox'] {
 }
 
 .dark {
+  background-color: $black;
   color: white;
 
   a {

@@ -145,13 +145,15 @@ class RootStore {
     this.DestroyWalletClient();
 
     this.walletClient = yield ElvWalletClient.InitializeFrame({
-      //walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
+      walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
       //walletAppUrl: "https://localhost:8090?d",
-      walletAppUrl: "https://192.168.0.17:8090?d",
+      //walletAppUrl: "https://192.168.0.17:8090?d",
       target
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => this.DestroyWalletClient());
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => {
+      this.InitializeWalletClient(target);
+    });
   });
 
   @action.bound
