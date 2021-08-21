@@ -56,10 +56,6 @@
     }
   }
 
-  &__content {
-    padding-right: 300px;
-  }
-
   &__item {
     margin: 0 auto 100px;
     max-width: 700px;
@@ -104,6 +100,12 @@
     }
   }
 
+  @media screen and (max-width: 1250px) {
+    &__navigation {
+      display: none;
+    }
+  }
+
   @media only screen and (max-width: 900px) {
     &__header {
       font-size: 32px;
@@ -111,10 +113,6 @@
 
     &__content {
       padding: 0;
-    }
-
-    &__navigation {
-      display: none;
     }
 
     &__item {
