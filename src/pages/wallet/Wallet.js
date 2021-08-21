@@ -15,7 +15,7 @@ class WalletPage extends React.Component {
   }
 
   render() {
-    return <div className="page-container" /> ;
+    return <div className="page-container wallet-page-container" /> ;
   }
 }
 

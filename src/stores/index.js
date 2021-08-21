@@ -18,6 +18,7 @@ class RootStore {
   @observable baseKey = 1;
   @observable client;
   @observable walletClient;
+  @observable walletLoggedIn = false;
   @observable redeemedTicket;
   @observable error = "";
 
@@ -144,12 +145,22 @@ class RootStore {
 
     this.DestroyWalletClient();
 
+    this.walletLoggedIn = false;
+
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
       //walletAppUrl: "https://localhost:8090?d",
       //walletAppUrl: "https://192.168.0.17:8090?d",
       target
     });
+
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () =>
+      runInAction(() => this.walletLoggedIn = true)
+    );
+
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_OUT, () =>
+      runInAction(() => this.walletLoggedIn = false)
+    );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => {
       this.InitializeWalletClient(target);
@@ -168,7 +179,7 @@ class RootStore {
   SetWalletPanelVisibility(visibility) {
     const walletPanel = document.getElementById("wallet-panel");
 
-    const visibilities = ["hidden", "side-panel", "full"];
+    const visibilities = ["hidden", "side-panel", "modal", "full"];
 
     if(!walletPanel || !visibilities.includes(visibility)) {
       return;
@@ -179,6 +190,20 @@ class RootStore {
     );
 
     walletPanel.classList.add(`wallet-panel-${visibility}`);
+
+    if(visibility === "modal") {
+      const Close = () => {
+        // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
+        this.SetWalletPanelVisibility("hidden");
+
+        walletPanel.removeEventListener("click", Close);
+        this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
+      };
+
+      walletPanel.addEventListener("click", Close);
+
+      this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
+    }
   }
 
   @action.bound

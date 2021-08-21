@@ -79,14 +79,17 @@ class Event extends React.Component {
     if(this.props.siteStore.isDropEvent) {
       return (
         <div className="event-page__buttons">
-          <button
-            className="btn"
-            onClick={() => this.ScrollToTickets()}
-          >
-            Get Started
-          </button>
+          {
+            this.props.rootStore.walletLoggedIn ? null :
+              <button
+                className="btn btn--gold"
+                onClick={() => this.props.rootStore.SetWalletPanelVisibility("modal")}
+              >
+                Get Started
+              </button>
+          }
 
-          <button onClick={() => this.setState({showPromo: true})} className="btn">
+          <button onClick={() => this.setState({showPromo: true})} className={this.props.rootStore.walletLoggedIn ? "btn btn--gold" : "btn"}>
             Join the Drop
           </button>
         </div>

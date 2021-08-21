@@ -1,3 +1,7 @@
+.wallet-page-container {
+  min-height: 60px;
+}
+
 .wallet-panel-page-content {
   max-width: calc(100vw - 500px);
   min-width: calc(100vw - 500px);
@@ -21,13 +25,35 @@
 
   &-side-panel,
   &-full {
-    border-left: 1px solid #333;
     max-height: calc(100vh - 60px);
     min-height: calc(100vh - 60px);
   }
 
   &-side-panel {
+    border-left: 1px solid #333;
     width: 500px;
+  }
+
+  &-modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    max-height: 100vh;
+    max-width: 100vw;
+    min-height: 100vh;
+    min-width: 100vw;
+    right: 0;
+    top: 0;
+
+    .wallet-target {
+      border: 1px solid #333;
+      margin: auto;
+      max-height: 600px;
+      max-width: 600px;
+      min-height: 600px;
+      min-width: 600px;
+    }
   }
 
   &-full {
@@ -36,12 +62,15 @@
 }
 
 .wallet-target {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   min-height: 100%;
   width: 100%;
 
   iframe {
     border: 0;
+    flex: 1 1 100%;
     height: 100%;
     outline: 0;
     width: 100%;
@@ -70,15 +99,26 @@
   }
 
   .wallet-panel {
-    border: 0;
-    position: initial;
-    width: 100vw;
-    z-index: initial;
+    &-modal {
+      .wallet-target {
+        max-height: 500px;
+        max-width: 90vw;
+        min-height: 500px;
+        min-width: 90vw;
+      }
+    }
 
-    &-side-panel,
-    &-full {
-      max-height: calc(100vh - 120px);
-      min-height: calc(100vh - 120px);
+    &:not(.wallet-panel-modal) {
+      border: 0;
+      position: initial;
+      width: 100vw;
+      z-index: initial;
+
+      &-side-panel,
+      &-full {
+        max-height: calc(100vh - 120px);
+        min-height: calc(100vh - 120px);
+      }
     }
   }
 }
