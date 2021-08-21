@@ -171,10 +171,6 @@
   }
 
   @media screen and (max-width: 600px) {
-    .event-page__hero-video {
-      margin-top: 20vh;
-    }
-
     &-no-header-info {
       .event-page__hero-container {
         height: calc(100vh - 60px);
