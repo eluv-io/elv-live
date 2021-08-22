@@ -98,6 +98,11 @@
       min-height: 281px;
       min-width: 500px;
     }
+
+    &__image {
+      margin: 20px auto;
+      max-width: 500px;
+    }
   }
 
   @media screen and (max-width: 1250px) {

@@ -9,7 +9,10 @@ import ImageIcon from "Common/ImageIcon";
 
 import PressReleasePart1 from "Assets/documents/news/Press Release - March 12/Part1.md";
 import PressReleasePart2 from "Assets/documents/news/Press Release - March 12/Part2.md";
+
 import RitaOra from "Assets/documents/news/Rita Ora - August 23rd/index.md";
+import RitaOraImage1 from "Images/ritaora/sponsorR03.png";
+import RitaOraImage2 from "Images/ritaora/sponsorR03.png";
 
 import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
@@ -54,6 +57,19 @@ class News extends React.Component {
             Eluvio LIVE provides artists with novel blockchain-based streaming and ticketing platform
           </div>
         </a>
+      </div>
+    );
+  }
+
+  Image(image, alt, credit) {
+    return (
+      <div className="news-page__item__image">
+        <img src={image} alt={alt} className="news-page__item__image__image" />
+        {credit ?
+          <div className="news-page__item__image__credit">
+            {credit}
+          </div> : null
+        }
       </div>
     );
   }
@@ -106,7 +122,7 @@ class News extends React.Component {
     );
   }
 
-  NewsItem(date, header, content, anchor, logo=false) {
+  NewsItem({date, header, content, anchor, logo=false}) {
     return (
       <div className="news-page__item" id={anchor}>
         { logo ? <ImageIcon icon={Logo} label="Eluvio Live" className="news-page__item__logo"/> : null }
@@ -124,32 +140,51 @@ class News extends React.Component {
       <div className="page-content news-page">
         <div className="news-page__content">
           {
-            this.NewsItem(
-              "August 23rd, 2021",
-              <div>
-                Rita Ora in partnership with Melrose Media announce performance from the legendary Eiffel Tower, as part of upcoming music series “Iconic People in Iconic Places” presented at Paris Fashion Week with custom looks designed exclusively by Prada, Miu Miu, Lanvin and Fendi; A portion of the proceeds will go towards soccer aid for UNICEF
-              </div>,
-              <div className="news-page__item__content">
-                { this.Markdown(RitaOra) }
-              </div>,
-              "2021-8-23",
-              true
-            )
+            this.NewsItem({
+              date: "August 23rd, 2021",
+              header:
+                <div>
+                  <div>
+                    RITA ORA IN PARTNERSHIP WITH MELROSE MEDIA ANNOUNCE PERFORMANCE FROM THE LEGENDARY EIFFEL TOWER
+                  </div>
+                  <br/>
+                  <div>
+                    PERFORMANCE FEATURES AS PART OF THE UPCOMING MUSIC SERIES <i>“ICONIC PEOPLE IN ICONIC PLACES”</i>
+                  </div>
+                  <br/>
+                  <div>
+                    PRESENTED AT PARIS FASHION WEEK WITH CUSTOM LOOKS DESIGNED EXCLUSIVELY BY FENDI, MIU MIU, LANVIN AND
+                    ALEXANDRE VAUTHIER
+                  </div>
+                  <br/>
+                  <div>
+                    PORTION OF THE PROCEEDS WILL GO TOWARDS SOCCER AID FOR UNICEF
+                  </div>
+                </div>,
+              content:
+                <div className="news-page__item__content">
+                  {this.Image(RitaOraImage1, "Rita Ora Live Show - Iconic People in Iconic Places")}
+                  {this.Markdown(RitaOra)}
+                  {this.Image(RitaOraImage2, "Rita Ora", "Photo Credit: Frederic Monceau")}
+                </div>,
+              anchor: "2021-8-23",
+              logo: true
+            })
           }
           {
-            this.NewsItem(
-              "March 18th, 2021",
-              <div>
+            this.NewsItem({
+              date: "March 18th, 2021",
+              header: <div>
                 <a href="https://live.eluv.io" target="_blank">Eluvio LIVE </a>
                 Provides Artists with Novel Blockchain-Based Streaming and Ticketing Platform
               </div>,
-              <div className="news-page__item__content">
-                { this.Markdown(PressReleasePart1) }
-                { this.Video({objectId: "iq__4Bxoe3DEAAdQ2YyC5AcGtZqvupWo"}) }
-                { this.Markdown(PressReleasePart2) }
+              content: <div className="news-page__item__content">
+                {this.Markdown(PressReleasePart1)}
+                {this.Video({objectId: "iq__4Bxoe3DEAAdQ2YyC5AcGtZqvupWo"})}
+                {this.Markdown(PressReleasePart2)}
               </div>,
-              "2021-3-18"
-            )
+              anchor: "2021-3-18"
+            })
           }
         </div>
         { this.Navigation() }
