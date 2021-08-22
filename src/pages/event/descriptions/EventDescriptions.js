@@ -97,7 +97,21 @@ class EventDescriptionsModal extends React.Component {
     const nextPageTitle = nextPage ? this.props.siteStore.currentSiteInfo.event_descriptions[nextPage.section].pages[nextPage.page].page_title : null;
 
     return (
-      <div className="event-description-modal">
+      <div
+        className="event-description-modal"
+        ref={element => {
+          if(!element) { return; }
+
+          if(page.text_color) {
+            element.style.setProperty("--eventDescriptionForeground", page.text_color.color);
+          }
+
+          if(page.background_color) {
+            element.style.setProperty("--eventDescriptionBackground", page.background_color.color);
+          }
+        }}
+        key={`event-description-modal-${this.state.section}-${this.state.page}`}
+      >
         <div
           className="event-description-modal__content"
           key={`modal-content-${this.state.section}-${this.state.page}`}
