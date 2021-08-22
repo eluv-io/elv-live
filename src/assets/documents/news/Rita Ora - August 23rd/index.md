@@ -1,7 +1,3 @@
-
-
-
-
 Global superstar **Rita Ora** and **Melrose Media** are thrilled to announce an exclusive night of live music, dance and iconic fashion - all set under the cinematic backdrop of The Eiffel Tower. In the first of a new music series, _**ICONIC PEOPLE IN ICONIC PLACES**_, Rita Ora Live From The Eiffel Tower will take place on Thursday, September 30th in conjunction with Paris Fashion Week. Tickets will be available starting August 27th via [ritaora.live](https://ritaora.live) or Ticketmaster and will be broadcasted on the new blockchain platform **Eluvio LIVE**, sponsored by **Mude Drinks** and **Lancôme**.
 
 Performed in front of a live audience, Rita Ora Live From The Eiffel Tower marks the international critically-acclaimed singer-songwriter’s transition back to live music and will follow Rita performing from the top of the tower, showcasing the venue in a way that has never been done before. As a final crescendo to Paris Fashion week, the show will also feature custom looks designed exclusively for Rita, from premiere fashion brands **Fendi**, **Miu Miu**, **Lanvin** and **Alexandre Vauthier**. Rita’s make-up will be created in partnership with French luxury beauty brand: Lancôme. Fusing the signature codes of iconic Parisian beauty with Rita’s own colourful, creative aesthetic, each make-up look will encompass the spirit and energy of this unique event.
