@@ -11,8 +11,8 @@ import PressReleasePart1 from "Assets/documents/news/Press Release - March 12/Pa
 import PressReleasePart2 from "Assets/documents/news/Press Release - March 12/Part2.md";
 
 import RitaOra from "Assets/documents/news/Rita Ora - August 23rd/index.md";
-import RitaOraImage1 from "Images/ritaora/sponsorR03.png";
-import RitaOraImage2 from "Images/ritaora/sponsorR03.png";
+import RitaOraImage1 from "Assets/documents/news/Rita Ora - August 23rd/rita-news.jpg";
+import RitaOraImage2 from "Assets/documents/news/Rita Ora - August 23rd/Rita-News-photo.jpg";
 
 import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
