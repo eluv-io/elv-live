@@ -16,7 +16,7 @@ Amos Rozenberg from **Melrose Media** added _“We wanted to launch a new form o
 
 10% of all proceeds from Rita’s performance will go towards Soccer Aid for UNICEF. Rita has been involved with the UK Committee for UNICEF (UNICEF UK) since 2013 specialising in work with child refugees and has supported Soccer Aid for UNICEF for the past two years. In 2019, she was made an official UNICEF UK Ambassador.
 
-Tickets can be purchased on [ritaora.live](https://ritaora.live) and on **Ticketmaster**. The performance will also be in place on [www.ritaora.live](https://ritaora.live) for fans across the world. All payments will be accepted, including Crypto currencies. The performance will be available on the Eluvio LIVE platform on mobile, desktop, tablets, Apple TV and Roku TV all in 4K. Tickets go on sale August 27th via [ritaora.live](https://ritaora.live). 
+Tickets can be purchased on [ritaora.live](https://ritaora.live) and on **Ticketmaster**. The performance will also be in place on [ritaora.live](https://ritaora.live) for fans across the world. All payments will be accepted, including Crypto currencies. The performance will be available on the Eluvio LIVE platform on mobile, desktop, tablets, Apple TV and Roku TV all in 4K. Tickets go on sale August 27th via [ritaora.live](https://ritaora.live). 
 
 
 #### About Rita Ora
