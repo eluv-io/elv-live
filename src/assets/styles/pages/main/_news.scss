@@ -102,6 +102,11 @@
     &__image {
       margin: 30px auto;
       max-width: 400px;
+
+      &__credit {
+        font-size: 10px;
+        font-style: italic;
+      }
     }
   }
 
