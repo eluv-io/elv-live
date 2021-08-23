@@ -1,7 +1,5 @@
 .support-page {
   display: block;
-  min-height: 100vh;
-  overflow: auto;
 }
 
 .support-container {
@@ -15,6 +13,7 @@
   max-width: 1100px;
   padding: 40px;
   width: 65%;
+  z-index: 1;
 
   @media only screen and (max-width: 700px) {
     width: 90%;
@@ -24,7 +23,6 @@
     margin-top: 100px;
     padding: 30px 15px;
     width: 90%;
-    z-index: 9999999;
   }
 }
 
