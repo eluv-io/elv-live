@@ -73,8 +73,8 @@
 }
 
 .event-description-modal {
-  --eventDescriptionBackground: $white;
-  --eventDescriptionForeground: $black;
+  --eventDescriptionBackground: white;
+  --eventDescriptionForeground: black;
 
   background: var(--eventDescriptionBackground);
   color: var(--eventDescriptionForeground);
