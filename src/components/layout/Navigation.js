@@ -65,13 +65,19 @@ class Header extends React.Component {
     return (
       <div className="header__links">
         {
-          redeemAvailable ?
-            <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
-              { couponMode ? "Redeem Coupon" : "Redeem Ticket" }
+          redeemAvailable && couponMode ?
+            <NavLink to={this.props.siteStore.SitePath("coupon-code")} className="header__link" activeClassName="header__link-active">
+              Redeem Coupon
             </NavLink> : null
         }
         {
-          this.props.hideCheckout ? null :
+          redeemAvailable ?
+            <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
+              Redeem Ticket
+            </NavLink> : null
+        }
+        {
+          this.props.siteStore.currentSiteInfo.state === "Inaccessible" || this.props.hideCheckout ? null :
             <button
               title="Your Cart"
               onClick={this.props.cartStore.ToggleCartOverlay}
@@ -105,36 +111,7 @@ class Header extends React.Component {
             </NavLink>
         }
         <div className="header__spacer" />
-        <div className="header__links">
-          {
-            redeemAvailable && couponMode ?
-              <NavLink to={this.props.siteStore.SitePath("coupon-code")} className="header__link" activeClassName="header__link-active">
-                Redeem Coupon
-              </NavLink> : null
-          }
-          {
-            redeemAvailable ?
-              <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
-                Redeem Ticket
-              </NavLink> : null
-          }
-          {
-            this.props.siteStore.currentSiteInfo.state === "Inaccessible" || this.props.hideCheckout ? null :
-              <button
-                title="Your Cart"
-                onClick={this.props.cartStore.ToggleCartOverlay}
-                className="cart-overlay-toggle"
-              >
-                <ImageIcon
-                  icon={CartIcon}
-                />
-                {
-                  itemCount === 0 ? null :
-                    <div className="cart-overlay-item-count">{ itemCount }</div>
-                }
-              </button>
-          }
-        </div>
+        { this.Links() }
         <CartOverlay />
         <Checkout />
       </header>
