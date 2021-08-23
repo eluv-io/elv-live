@@ -22,7 +22,6 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
 
     render() {
       const tenantSlug = this.props.match.params.tenantSlug;
-      const marketplaceSlug = this.props.match.params.marketplaceSlug;
       const siteSlug = this.props.match.params.siteSlug;
 
       const featuredSite = this.props.siteStore.FeaturedSite(siteSlug);
@@ -53,7 +52,6 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
 
                 const validSlug = await this.props.siteStore.LoadSite({
                   tenantSlug,
-                  marketplaceSlug,
                   siteSlug,
                   loadAnalytics: true,
                   preloadHero: true

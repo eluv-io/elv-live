@@ -22,6 +22,7 @@ const Privacy = MinLoadDelay(import("Event/Privacy"));
 const Terms = MinLoadDelay(import("Event/Terms"));
 const Wallet = MinLoadDelay(import("Pages/wallet/Wallet"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
+const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
 
 const Collection = MinLoadDelay(import("Pages/collections/Collection"));
 const Collections = MinLoadDelay(import("Pages/collections/Collections"));
@@ -69,19 +70,20 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug/collections" component={Collections} />
         <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
 
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/drop/:dropId" component={SitePage(Drop, {hideZendesk: true})} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/support" component={SitePage(Support)} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug/wallet" component={SitePage(Wallet, {hideZendesk: true})} />
-        <Route exact path="/:tenantSlug?/:marketplaceSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
+        <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
+        <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
+        <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
+        <Route exact path="/:tenantSlug?/:siteSlug/wallet" component={SitePage(Wallet, {hideZendesk: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
           <Route render={() => window.location.href = window.location.origin} />

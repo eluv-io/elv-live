@@ -278,7 +278,7 @@ class SiteStore {
         await this.LoadSite({siteIndex: index, siteSlug: slug})
       )
     );
-    
+
     this.carouselSitesLoaded = true;
   });
 

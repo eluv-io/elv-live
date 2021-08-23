@@ -1,7 +1,16 @@
 import React from "react";
+import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import EluvioConfiguration from "../../../configuration";
+import Countdown from "Common/Countdown";
+import Modal from "Common/Modal";
+import ImageIcon from "Common/ImageIcon";
+import ReactMarkdown from "react-markdown";
+import SanitizeHTML from "sanitize-html";
+import UrlJoin from "url-join";
+
+const now = Date.now();
 
 @inject("rootStore")
 @inject("siteStore")
@@ -11,30 +20,90 @@ class Drop extends React.Component {
     super(props);
 
     this.state = {
-      initialized: false
+      initialized: false,
+      showMessage: true
     };
 
     this.InitializeStream = this.InitializeStream.bind(this);
   }
 
-  componentDidMount() {
-    this.props.rootStore.SetWalletPanelVisibility("side-panel");
+  async componentDidMount() {
     this.props.rootStore.walletClient.ToggleNavigation(false);
-    this.props.rootStore.walletClient.Navigate({
+    await this.props.rootStore.walletClient.Navigate({
       page: "drop",
       params: {
         marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
         dropId: this.props.match.params.dropId
       }
     });
+
+    this.props.rootStore.SetWalletPanelVisibility("side-panel");
   }
 
   componentWillUnmount() {
     this.props.rootStore.SetWalletPanelVisibility("hidden");
   }
 
+  Message() {
+    if(!this.state.showMessage) { return null; }
+
+    const drop = this.Drop();
+    const messageInfo = drop.modal_message;
+
+    if(!messageInfo.show) { return null; }
+
+    return (
+      <Modal
+        className="event-message-container"
+        Toggle={() => this.setState({showMessage: false})}
+      >
+        <div className="event-message">
+          <div className="event-message__content">
+            {
+              !messageInfo.image ? null:
+                <ImageIcon
+                  className="event-message__content__image"
+                  title={drop.event_header}
+                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "drops", drop.dropIndex.toString(), "modal_message", "image"))}
+                />
+            }
+            <div
+              className="event-message__content__message"
+              ref={element => {
+                if(!element) { return; }
+
+                render(
+                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
+                    { SanitizeHTML(messageInfo.message) }
+                  </ReactMarkdown>,
+                  element
+                );
+              }}
+            />
+          </div>
+          <div className="event-message__actions">
+            <button onClick={() => this.setState({showMessage: false})} className="event-message__button">
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+
   Drop() {
-    return this.props.siteStore.currentSiteInfo.drops.find(drop => drop.uuid === this.props.match.params.dropId);
+    let dropIndex = this.props.siteStore.currentSiteInfo.drops.findIndex(drop => drop.uuid === this.props.match.params.dropId);
+    let drop = this.props.siteStore.currentSiteInfo.drops[dropIndex];
+
+    drop = {
+      ...drop,
+      end_date: now + 60000 + 10000
+    };
+
+    return {
+      ...drop,
+      dropIndex
+    };
   }
 
   async InitializeStream(element) {
@@ -87,11 +156,33 @@ class Drop extends React.Component {
       this.setState({error: true});
     }
   }
+
   render() {
     return (
       <div className="page-container drop-page">
+        { this.Message() }
         <div className="main-content-container drop-page__content wallet-panel-page-content">
           <div className="drop-page__stream" ref={this.InitializeStream} />
+          <div className="drop-page__info">
+            <h1 className="drop-page__info__header">{ this.Drop().event_header }</h1>
+            <Countdown
+              time={this.Drop().end_date}
+              OnEnded={() => {
+                // TODO: Something happens when voting period ends
+                // eslint-disable-next-line no-console
+                console.log("END");
+              }}
+              Render={({diff, countdown}) => (
+                <div className="drop-page__info__subheader drop-page__info__countdown">
+                  {
+                    diff > 0 ?
+                      `${countdown} left!` :
+                      "Drop has ended!"
+                  }
+                </div>
+              )}
+            />
+          </div>
         </div>
       </div>
     );
