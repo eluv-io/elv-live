@@ -28,7 +28,7 @@ class Header extends React.Component {
   }
 
   componentWillUnmount() {
-    document.addEventListener("scroll", this.ScrollFade);
+    document.removeEventListener("scroll", this.ScrollFade);
   }
 
   ScrollFade() {
