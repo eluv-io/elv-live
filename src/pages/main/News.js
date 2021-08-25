@@ -32,6 +32,14 @@ class News extends React.Component {
       .getElementsByTagName("meta")
       .namedItem("robots")
       .setAttribute("content", "");
+
+    if(window.location.hash) {
+      const item = document.getElementById(window.location.hash.replace("#", ""));
+
+      if(item) {
+        setTimeout(() => item.scrollIntoView(), 500);
+      }
+    }
   }
 
   Navigation() {
