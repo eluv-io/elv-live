@@ -14,6 +14,8 @@ import RitaOra from "Assets/documents/news/Rita Ora - August 23rd/index.md";
 import RitaOraImage1 from "Assets/documents/news/Rita Ora - August 23rd/rita_poster.jpg";
 import RitaOraImage2 from "Assets/documents/news/Rita Ora - August 23rd/Rita-News-photo.jpg";
 
+import FoxRelease from "Assets/documents/news/Fox - August 25th/index.md";
+
 import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
 
@@ -35,6 +37,17 @@ class News extends React.Component {
   Navigation() {
     return (
       <div className="news-page__navigation">
+        <a
+          href="#2021-8-25"
+          className="news-page__navigation-button"
+        >
+          <div className="news-page__navigation-button__subheader">
+            August 25th, 2021
+          </div>
+          <div className="news-page__navigation-button__header">
+            Fox Corporation makes strategic investment in Eluvio
+          </div>
+        </a>
         <a
           href="#2021-8-23"
           className="news-page__navigation-button"
@@ -139,6 +152,27 @@ class News extends React.Component {
     return (
       <div className="page-content news-page">
         <div className="news-page__content">
+          {
+            this.NewsItem({
+              date: "August 25th, 2021",
+              header:
+                <div>
+                  <div>
+                    FOX CORPORATION MAKES STRATEGIC INVESTMENT IN ELUVIO AND SELECTS ELUVIO AS PLATFORM FOR FOX ENTERTAINMENT’S AND BENTO BOX ENTERTAINMENT’S RECENTLY LAUNCHED NFT BUSINESS BLOCKCHAIN CREATIVE LABS
+                  </div>
+                  <br />
+                  <div>
+                    Paul Cheesbrough, Chief Technology Officer and President of Digital for Fox Corporation, to join Eluvio’s Board of Directors and Collaborate on Blockchain-Based Innovation across FOX
+                  </div>
+                </div>,
+              content:
+                <div className="news-page__item__content">
+                  {this.Markdown(FoxRelease)}
+                </div>,
+              anchor: "2021-8-25",
+              logo: true
+            })
+          }
           {
             this.NewsItem({
               date: "August 23rd, 2021",

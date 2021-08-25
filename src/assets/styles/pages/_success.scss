@@ -144,3 +144,11 @@
     }
   }
 }
+
+.dark {
+  .summary {
+    * {
+      color: $white;
+    }
+  }
+}
