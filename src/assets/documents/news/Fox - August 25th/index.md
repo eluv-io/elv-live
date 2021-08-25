@@ -18,7 +18,7 @@ In May, FOX Entertainment and Bento Box entered the NFT business with the format
 
 #### About Fox Corporation
 
-Fox Corporation produces and distributes compelling news, sports and entertainment content through its iconic domestic brands including: FOX News Media, FOX Sports, FOX Entertainment and FOX Television Stations. These brands hold cultural significance with consumers and commercial importance for distributors and advertisers. The breadth and depth of our footprint allows us to deliver content that engages and informs audiences, develop deeper consumer relationships and create more compelling product offerings. FOX maintains an impressive track record of news, sports, and entertainment industry success that shapes our strategy to capitalize on existing strengths and invest in new initiatives. For more information about Fox Corporation, please visit [www.FoxCorporation.com](www.FoxCorporation.com).
+Fox Corporation produces and distributes compelling news, sports and entertainment content through its iconic domestic brands including: FOX News Media, FOX Sports, FOX Entertainment and FOX Television Stations. These brands hold cultural significance with consumers and commercial importance for distributors and advertisers. The breadth and depth of our footprint allows us to deliver content that engages and informs audiences, develop deeper consumer relationships and create more compelling product offerings. FOX maintains an impressive track record of news, sports, and entertainment industry success that shapes our strategy to capitalize on existing strengths and invest in new initiatives. For more information about Fox Corporation, please visit [www.FoxCorporation.com](https://www.FoxCorporation.com).
 
 #### About Eluvio
 
