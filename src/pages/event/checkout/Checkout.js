@@ -140,12 +140,14 @@ class Checkout extends React.Component {
       <div className="checkout-page-section">
         <h2 className="checkout-section-header">Add Ticket</h2>
         <div className="featured-tickets">
-          { this.props.siteStore.ticketClasses.map((ticketClass, index) =>
-            <FeaturedTicket
-              key={`featured-ticket-${index}`}
-              ticketClass={ticketClass}
-            />
-          )}
+          { this.props.siteStore.ticketClasses
+            .filter(ticketClass => !ticketClass.hidden)
+            .map((ticketClass, index) =>
+              <FeaturedTicket
+                key={`featured-ticket-${index}`}
+                ticketClass={ticketClass}
+              />
+            )}
         </div>
         <div className="bottom-border" />
       </div>
