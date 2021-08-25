@@ -59,7 +59,7 @@
   user-select: none;
   width: 200px;
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1400px) {
     display: none;
   }
 }
@@ -191,7 +191,7 @@
     padding: 20px 0 0;
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 900px) {
     flex-direction: column;
     height: auto;
     min-height: 120px;
@@ -228,13 +228,16 @@
     height: 44px !important;
   }
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1500px) {
     max-width: none;
     width: 100%;
+
+    .react-select__value-container {
+      padding: 0;
+    }
   }
 
   @media only screen and (max-width: 900px) {
-    //height: auto;
     margin-bottom: 10px;
 
     .react-select__control {
@@ -260,7 +263,7 @@
   font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
-  grid-gap: 5px;
+  grid-gap: 3px;
   grid-template-columns: 55px 1fr 1fr;
   height: 100% !important;
   justify-content: space-between;
@@ -280,7 +283,7 @@
     align-self: center;
     color: #000;
     font-family: Helvetica;
-    font-size: 13px;
+    font-size: 14px;
     font-style: normal;
     font-weight: normal;
     height: auto;
@@ -290,15 +293,20 @@
     overflow: hidden;
   }
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1500px) {
     & > * {
-      font-size: 14px;
-      letter-spacing: -0.5px;
+      font-size: 12px;
+      letter-spacing: -0.6px;
     }
   }
 
   @media only screen and (max-width: 900px) {
     grid-template-columns: 1fr !important;
+
+    & > * {
+      font-size: 16px;
+      letter-spacing: -0.6px;
+    }
   }
 
   @media only screen and (max-width: 600px) {
@@ -325,7 +333,6 @@
     }
   }
 }
-
 
 .ticket-bottom-button {
   align-items: center;
@@ -359,7 +366,7 @@
     font-size: 12px;
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 900px) {
     height: 44px;
     margin: auto !important;
     margin-top: 20px !important;
