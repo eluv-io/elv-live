@@ -29,6 +29,7 @@ import {PageLoader} from "Common/Loaders";
 
 @inject("rootStore")
 @inject("siteStore")
+@inject("cartStore")
 @observer
 class SiteApp extends React.Component {
   InitializeZendeskWidget() {

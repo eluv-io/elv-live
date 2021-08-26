@@ -381,7 +381,7 @@ class Checkout extends React.Component {
           </div>
           <label>
             Service Fee
-            <div className="hint">Eluvio LIVE Platform fees</div>
+            <div className="hint">Platform, Licensing, and Processing Fees</div>
           </label>
           <div className="order-value">
             { cartDetails.serviceFeeFormatted }

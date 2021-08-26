@@ -59,7 +59,7 @@
     "scroll-behavior-polyfill": "^2.0.13",
     "stream-chat": "^3.7.0",
     "stream-chat-react": "^5.1.7",
-    "urijs": "^1.19.6",
+    "urijs": "^1.19.7",
     "url-join": "^4.0.1",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2"

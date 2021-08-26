@@ -5,7 +5,8 @@ import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
 import CountryCodesList from "country-codes-list";
 
-const SERVICE_FEE_RATE = 0.1;
+// 10% service fee
+const SERVICE_FEE_RATE = 10;
 
 const PUBLIC_KEYS = {
   stripe: {
@@ -92,6 +93,12 @@ class CartStore {
 
     return formattedPrice;
   };
+
+  InitializeCurrency() {
+    if(localStorage.getItem(this.localStorageKey) || !this.currencies || this.currencies.length === 0) { return; }
+
+    this.SetCurrency(this.currencies[0].code);
+  }
 
   @action.bound
   SetCurrency(currency) {
@@ -273,10 +280,12 @@ class CartStore {
     const zeroDecimalCurrency = ["BIF", "CLP", "DJF", "GNF", "JPY", "KMF", "KRW", "MGA", "PYG", "RWF", "UGX", "VND", "VUV", "XAF", "XOF", "XPF"]
         .includes(this.currency.toUpperCase());
 
+    const serviceFeeRate = (SERVICE_FEE_RATE + Math.max(0, this.rootStore.siteStore.currentSiteInfo.additional_service_charge || 0)) / 100;
+
     const Total = arr => arr.map(item => item.price * item.quantity).reduce((acc, price) => acc + price, 0);
     const subtotal = Total(cart.tickets) + Total(cart.merchandise) + Total(cart.donations);
     const taxableTotal = Total(cart.tickets) + Total(cart.merchandise);
-    const serviceFee = zeroDecimalCurrency ? Math.ceil(taxableTotal * SERVICE_FEE_RATE) : taxableTotal * SERVICE_FEE_RATE;
+    const serviceFee = zeroDecimalCurrency ? Math.ceil(taxableTotal * serviceFeeRate) : taxableTotal * serviceFeeRate;
     const total = taxableTotal + serviceFee + Total(cart.donations);
 
     return {

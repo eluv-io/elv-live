@@ -369,6 +369,8 @@ class SiteStore {
       }
 
       try {
+        this.rootStore.cartStore.InitializeCurrency();
+
         if(site.localizations && Object.keys(site.localizations).length > 0) {
           for(let language of navigator.languages || [navigator.language]) {
             if(language.startsWith("en")) {
