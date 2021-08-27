@@ -19,7 +19,6 @@
   justify-content: space-between;
   max-height: 80vh;
   max-width: 550px;
-  min-height: 80vh;
   min-width: 550px;
 
   &__content {
@@ -90,6 +89,7 @@
     }
 
     &__actions {
+      align-items: flex-start;
       height: 200px;
 
       button {
@@ -153,5 +153,9 @@
   @media screen and (max-width: 700px) {
     margin-bottom: 20px;
 
+    &__stream,
+    video {
+      max-height: 30vh;
+    }
   }
 }

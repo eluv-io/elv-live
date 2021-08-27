@@ -21,7 +21,8 @@ class Drop extends React.Component {
 
     this.state = {
       initialized: false,
-      showMessage: true
+      showMessage: true,
+      endDate: Date.now() + 30000
     };
 
     this.InitializeStream = this.InitializeStream.bind(this);
@@ -48,9 +49,15 @@ class Drop extends React.Component {
     if(!this.state.showMessage) { return null; }
 
     const drop = this.Drop();
-    const messageInfo = drop.modal_message;
 
-    if(!messageInfo.show) { return null; }
+    let key = "modal_message_start";
+    if(Date.now() > this.state.endDate) {
+      key = "modal_message_end";
+    }
+
+    const messageInfo = drop[key];
+
+    if(!messageInfo || !messageInfo.show) { return null; }
 
     return (
       <Modal
@@ -64,7 +71,7 @@ class Drop extends React.Component {
                 <ImageIcon
                   className="event-message__content__image"
                   title={drop.event_header}
-                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "drops", drop.dropIndex.toString(), "modal_message", "image"))}
+                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "drops", drop.dropIndex.toString(), key, "image"))}
                 />
             }
             <div
@@ -166,11 +173,13 @@ class Drop extends React.Component {
           <div className="drop-page__info">
             <h1 className="drop-page__info__header">{ this.Drop().event_header }</h1>
             <Countdown
-              time={this.Drop().end_date}
+              //time={this.Drop().end_date}
+              time={this.state.endDate}
               OnEnded={() => {
                 // TODO: Something happens when voting period ends
                 // eslint-disable-next-line no-console
                 console.log("END");
+                this.setState({showMessage: true});
               }}
               Render={({diff, countdown}) => (
                 <div className="drop-page__info__subheader drop-page__info__countdown">
