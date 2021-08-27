@@ -1,7 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
-import { parse } from "query-string";
 import {Link} from "react-router-dom";
 import {onEnterPressed, ValidEmail} from "Utils/Misc";
 
@@ -25,13 +24,11 @@ class CodeAccess extends React.Component {
 
   async componentDidMount() {
     try {
-      const parsed = parse(decodeURIComponent(this.props.location.search));
-      this.setState({code: parsed.passcode || ""});
+      const code = new URLSearchParams(decodeURIComponent(window.location.search)).get("passcode");
 
-      if(parsed.passcode && parsed.access) {
-        this.handleRedeemCode(parsed.passcode);
-      }
+      if(!code) { return; }
 
+      this.setState({code: code}, this.handleRedeemCode);
     } catch(e) {
       console.log(e);
     }
