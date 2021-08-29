@@ -34,16 +34,16 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className={`header ${this.props.location.pathname === "/" ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
-        <NavLink to="/" className="header__logo">
+      <header className={`main-header ${this.props.location.pathname === "/" ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""}`}>
+        <NavLink to="/" className="main-header__logo">
           <ImageIcon icon={Logo} label="Eluvio Live" />
         </NavLink>
-        <div className="header__links">
-          <NavLink to="/contact" className="header__link" activeClassName="header__link-active">Go Live</NavLink>
-          <NavLink to="/partners" className="header__link" activeClassName="header__link-active">Partners</NavLink>
-          <NavLink to="/technology" className="header__link" activeClassName="header__link-active">Technology</NavLink>
-          <NavLink to="/blockchain" className="header__link" activeClassName="header__link-active">Blockchain</NavLink>
-          <NavLink to="/news" className="header__link" activeClassName="header__link-active">News</NavLink>
+        <div className="main-header__links">
+          <NavLink to="/contact" className="main-header__link" activeClassName="main-header__link-active">Go Live</NavLink>
+          <NavLink to="/partners" className="main-header__link" activeClassName="main-header__link-active">Partners</NavLink>
+          <NavLink to="/technology" className="main-header__link" activeClassName="main-header__link-active">Technology</NavLink>
+          <NavLink to="/blockchain" className="main-header__link" activeClassName="main-header__link-active">Blockchain</NavLink>
+          <NavLink to="/news" className="main-header__link" activeClassName="main-header__link-active">News</NavLink>
         </div>
       </header>
     );

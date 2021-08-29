@@ -1,4 +1,4 @@
-.header {
+.main-header {
   align-items: center;
   background: transparent;
   border-bottom: 1px solid $black;
@@ -49,7 +49,6 @@
     display: flex;
     justify-content: space-between;
     min-width: 500px;
-
   }
 
   &__link {
@@ -59,7 +58,6 @@
       font-weight: bold;
     }
   }
-
 
   &__search {
     display: flex;
@@ -78,7 +76,7 @@
       border-bottom: 1px solid transparent;
     }
 
-    .header__link {
+    .main-header__link {
       color: $white;
 
       &:hover {
