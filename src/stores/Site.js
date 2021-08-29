@@ -215,6 +215,15 @@ class SiteStore {
 
       // Look for domain redirects
       if(window.location.pathname === "/") {
+        window.history.replaceState(
+          {},
+          "",
+          UrlJoin(
+            "ritaora"
+          )
+        );
+        this.rootStore.UpdateBaseKey();
+
         for(const domainMap of (mainSiteInfo.info.domain_map || [])) {
           let { domain, tenant_slug, event_slug } = domainMap || {};
           domain = domain.startsWith("https://") ? domain : `https://${domain}`;
