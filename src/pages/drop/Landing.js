@@ -23,14 +23,7 @@ class Landing extends React.Component {
   }
 
   Drop() {
-    let drop = this.props.siteStore.currentSiteInfo.drops.find(drop => drop.uuid === this.props.match.params.dropId);
-
-    drop = {
-      ...drop,
-      start_date: now + 30 * 1000
-    };
-
-    return drop;
+    return this.props.siteStore.currentSiteInfo.drops.find(drop => drop.uuid === this.props.match.params.dropId);
   }
 
   Countdown({diff, countdown}) {

@@ -22,7 +22,7 @@ class Drop extends React.Component {
     this.state = {
       initialized: false,
       showMessage: true,
-      endDate: Date.now() + 30000
+      ended: false
     };
 
     this.InitializeStream = this.InitializeStream.bind(this);
@@ -51,7 +51,7 @@ class Drop extends React.Component {
     const drop = this.Drop();
 
     let key = "modal_message_start";
-    if(Date.now() > this.state.endDate) {
+    if(this.state.ended) {
       key = "modal_message_end";
     }
 
@@ -101,11 +101,6 @@ class Drop extends React.Component {
   Drop() {
     let dropIndex = this.props.siteStore.currentSiteInfo.drops.findIndex(drop => drop.uuid === this.props.match.params.dropId);
     let drop = this.props.siteStore.currentSiteInfo.drops[dropIndex];
-
-    drop = {
-      ...drop,
-      end_date: now + 60000 + 10000
-    };
 
     return {
       ...drop,
@@ -173,13 +168,12 @@ class Drop extends React.Component {
           <div className="drop-page__info">
             <h1 className="drop-page__info__header">{ this.Drop().event_header }</h1>
             <Countdown
-              //time={this.Drop().end_date}
-              time={this.state.endDate}
+              time={this.Drop().end_date}
               OnEnded={() => {
-                // TODO: Something happens when voting period ends
-                // eslint-disable-next-line no-console
-                console.log("END");
-                this.setState({showMessage: true});
+                this.setState({
+                  ended: true,
+                  showMessage: true
+                });
               }}
               Render={({diff, countdown}) => (
                 <div className="drop-page__info__subheader drop-page__info__countdown">
