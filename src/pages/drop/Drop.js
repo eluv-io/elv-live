@@ -10,8 +10,6 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
 
-const now = Date.now();
-
 @inject("rootStore")
 @inject("siteStore")
 @observer

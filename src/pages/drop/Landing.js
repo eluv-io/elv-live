@@ -7,9 +7,6 @@ import {NavLink, withRouter} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 
-const now = Date.now();
-
-
 @inject("siteStore")
 @withRouter
 @observer
