@@ -6,7 +6,7 @@ import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
-import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
+import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import WalletIcon from "Icons/Wallet icon.png";
 
 @inject("siteStore")
@@ -99,15 +99,17 @@ class Header extends React.Component {
   render() {
     if(!this.props.siteStore.currentSite) { return null; }
 
+    const logo = this.props.siteStore.SiteHasImage("logo") ? this.props.siteStore.SiteImageUrl("logo") : DefaultLogo;
+
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
         {
           this.props.mainPage ?
-            <a href={link} className="header__logo">
-              <ImageIcon icon={logo} label="Eluvio Live" />
+            <a href={window.location.origin} className="header__logo">
+              <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
             </a> :
             <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-              <ImageIcon icon={logo} label="Eluvio Live" />
+              <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
             </NavLink>
         }
         <div className="header__spacer" />
