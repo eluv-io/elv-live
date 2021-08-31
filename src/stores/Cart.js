@@ -19,7 +19,7 @@ const PUBLIC_KEYS = {
   }
 };
 
-const currencyNames = CountryCodesList.customList('currencyCode', '{currencyNameEn}');
+const currencyNames = CountryCodesList.customList("currencyCode", "{currencyNameEn}");
 
 class CartStore {
   @observable currency = "USD";
@@ -92,7 +92,7 @@ class CartStore {
     }
 
     return formattedPrice;
-  };
+  }
 
   InitializeCurrency() {
     if(localStorage.getItem(this.localStorageKey) || !this.currencies || this.currencies.length === 0) { return; }
@@ -230,7 +230,7 @@ class CartStore {
         return {
           uuid: ticketClass.skus[options.optionIndex].uuid,
           quantity: options.quantity
-        }
+        };
       });
 
     cart.tickets = featuredTickets
@@ -262,7 +262,7 @@ class CartStore {
           option: hasOptions ? item.product_options[itemDetails.optionIndex] : -1,
           price: this.ItemPrice(item),
           quantity: itemDetails.quantity
-        }
+        };
       });
 
     cart.donations = Object.values(this.featuredDonations)
@@ -274,11 +274,11 @@ class CartStore {
           item: donation,
           price: this.ItemPrice(donation),
           quantity: itemDetails.quantity
-        }
+        };
       });
 
     const zeroDecimalCurrency = ["BIF", "CLP", "DJF", "GNF", "JPY", "KMF", "KRW", "MGA", "PYG", "RWF", "UGX", "VND", "VUV", "XAF", "XOF", "XPF"]
-        .includes(this.currency.toUpperCase());
+      .includes(this.currency.toUpperCase());
 
     const serviceFeeRate = (SERVICE_FEE_RATE + Math.max(0, this.rootStore.siteStore.currentSiteInfo.additional_service_charge || 0)) / 100;
 
@@ -320,6 +320,10 @@ class CartStore {
 
     const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
 
+    const requiresShipping =
+      cartDetails.merchandise.length > 0 ||
+      cartDetails.tickets.find(({ticketClass}) => ticketClass.requires_shipping);
+
     return {
       mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
       currency: this.currency,
@@ -327,7 +331,9 @@ class CartStore {
       client_reference_id: checkoutId,
       items: itemList,
       success_url: UrlJoin(baseUrl, "success", this.confirmationId),
-      cancel_url: baseUrl
+      cancel_url: baseUrl,
+      requires_shipping: !!requiresShipping,
+      shipping_countries: this.shippingCountries
     };
   }
 
@@ -353,7 +359,6 @@ class CartStore {
       yield stripe.redirectToCheckout({sessionId});
     } catch(error) {
       this.PaymentSubmitError(error);
-      console.error(JSON.stringify(requestParams, null, 2));
       this.submittingOrder = false;
     }
   });
@@ -375,13 +380,13 @@ class CartStore {
       window.location.href = UrlJoin("https://commerce.coinbase.com/charges", chargeCode);
     } catch(error) {
       this.PaymentSubmitError(error);
-      console.error(JSON.stringify(requestParams, null, 2));
 
       this.submittingOrder = false;
     }
   });
 
   @action.bound
+    // eslint-disable-next-line require-yield
   PaypalSubmit = flow(function * (data, actions) {
     try {
       this.submittingOrder = true;
@@ -449,6 +454,10 @@ class CartStore {
       this.confirmationId = this.ConfirmationId();
       const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
 
+      const requiresShipping =
+        cartDetails.merchandise.length > 0 ||
+        cartDetails.tickets.find(({ticketClass}) => ticketClass.requires_shipping);
+
       return retryRequest(
         actions.order.create,
         {
@@ -468,7 +477,7 @@ class CartStore {
               },
               items: paypalCart,
             }],
-          application_context: cartDetails.merchandise.length === 0 ? { shipping_preference: 'NO_SHIPPING' } : {}
+          application_context: requiresShipping ? {} : { shipping_preference: "NO_SHIPPING" }
         }
       );
     } finally {
@@ -477,6 +486,7 @@ class CartStore {
   });
 
   PaymentSubmitError(error) {
+    // eslint-disable-next-line no-console
     console.error(error);
 
     this.checkoutError = "There was an error with checkout. Please try again.";
@@ -544,7 +554,9 @@ class CartStore {
         )
       );
     } catch(error) {
+      // eslint-disable-next-line no-console
       console.error("Failed to save data to localstorage:");
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
@@ -565,7 +577,9 @@ class CartStore {
       this.purchasedTicketStartDate = purchasedTicketStartDate;
       this.purchasedTicketEndDate = purchasedTicketEndDate;
     } catch(error) {
+      // eslint-disable-next-line no-console
       console.error("Failed to load data from localstorage:");
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }

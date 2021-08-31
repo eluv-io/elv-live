@@ -160,7 +160,7 @@ class Checkout extends React.Component {
     // Mobile view
     if(window.innerWidth < 900) {
       return (
-        <div className="cart-item">
+        <div className="cart-item" key={`cart-item-${index}`}>
           <div className="ticket-item-mobile">
             <h2>
               <div className="ticket-item-header">
