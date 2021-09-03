@@ -1,4 +1,5 @@
 import React, {lazy, Suspense} from "react";
+import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
 import EventTabs from "Event/tabs/EventTabs";
@@ -7,6 +8,10 @@ import Footer from "Layout/Footer";
 import Modal from "Common/Modal";
 import UpcomingEvents from "Common/UpcomingEvents";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import ImageIcon from "Common/ImageIcon";
+import UrlJoin from "url-join";
+import ReactMarkdown from "react-markdown";
+import SanitizeHTML from "sanitize-html";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -22,6 +27,7 @@ class Event extends React.Component {
 
     this.state = {
       showPromo: false,
+      showGetStartedModal: false,
       tab: 0,
       heroBackground: null,
       width: window.innerWidth
@@ -66,6 +72,57 @@ class Event extends React.Component {
     );
   }
 
+  GetStartedModal() {
+    if(!this.state.showGetStartedModal) { return null; }
+
+    const messageInfo = this.props.siteStore.currentSiteInfo.event_info.modal_message_get_started;
+
+    if(!messageInfo || !messageInfo.show) { return null; }
+
+    return (
+      <Modal
+        className="event-message-container"
+        Toggle={() => this.setState({showGetStartedModal: false})}
+      >
+        <div className="event-message">
+          <div className="event-message__content">
+            <div
+              className="event-message__content__message"
+              ref={element => {
+                if(!element) { return; }
+
+                render(
+                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
+                    { SanitizeHTML(messageInfo.message) }
+                  </ReactMarkdown>,
+                  element
+                );
+              }}
+            />
+            {
+              !messageInfo.image ? null:
+                <ImageIcon
+                  className="event-message__content__image"
+                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "event_info", "modal_message_get_started", "image"))}
+                />
+            }
+          </div>
+          <div className="event-message__actions">
+            <button
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility("modal");
+                this.setState({showGetStartedModal: false});
+              }}
+              className="event-message__button"
+            >
+              Create Wallet
+            </button>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+
   ScrollToTickets = () => {
     this.setState({
       tab: 0,
@@ -83,7 +140,7 @@ class Event extends React.Component {
             this.props.rootStore.walletLoggedIn ? null :
               <button
                 className="btn btn--gold"
-                onClick={() => this.props.rootStore.SetWalletPanelVisibility("modal")}
+                onClick={() => this.setState({showGetStartedModal: true})}
               >
                 Get Started
               </button>
@@ -222,6 +279,7 @@ class Event extends React.Component {
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
+        { this.state.showGetStartedModal ? this.GetStartedModal(): null}
         <Footer />
       </div>
     );
