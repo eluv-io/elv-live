@@ -91,10 +91,16 @@ class SiteStore {
   }
 
   @computed get promos() {
-    return Object.keys(this.currentSite.promos || {}).map(index => {
-      const slug = Object.keys(this.currentSite.promos[index])[0];
+    if(this.currentSite.promos) {
+      return Object.keys(this.currentSite.promos || {}).map(index => {
+        const slug = Object.keys(this.currentSite.promos[index])[0];
 
-      return UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default");
+        return UrlJoin(this.currentSiteMetadataPath, "promos", index, slug, "sources", "default");
+      });
+    }
+
+    return (this.currentSiteInfo.promo_videos || []).map((_, index) => {
+      return UrlJoin(this.currentSiteMetadataPath, "info", "promo_videos", index.toString(), "video", "sources", "default");
     });
   }
 
