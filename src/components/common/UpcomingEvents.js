@@ -47,6 +47,8 @@ const EventCard = ({event, hardLink}) => {
 const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
+  events = events.sort((a, b) => a.date < b.date ? -1 : 1);
+
   let yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   yesterday = yesterday.toISOString().split("T")[0];
@@ -59,11 +61,8 @@ const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
         minVisible={1}
         maxVisible={4}
         className="upcoming-events__carousel"
-        elements={
-          events
-            .sort((a, b) => a.date < b.date ? -1 : 1)
-            .map((event, index) => <EventCard key={`event-card-${index}`} event={event} hardLink={hardLink} />)
-        }
+        elements={events.map((event, index) => <EventCard key={`event-card-${index}`} event={event} hardLink={hardLink} />)}
+        placeholderClassname="upcoming-events__event-card upcoming-events__event-card-placeholder"
       />
     </div>
   );

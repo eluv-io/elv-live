@@ -1,6 +1,6 @@
 .wallet-page-container {
-  min-height: 60px;
   max-height: 60px;
+  min-height: 60px;
 }
 
 .wallet-panel-page-content {
@@ -11,11 +11,11 @@
 
 .wallet-panel {
   display: flex;
+  height: 0;
   position: fixed;
   right: 0;
   top: 60px;
   width: 0;
-  height: 0;
 
   z-index: 1000;
 
@@ -25,9 +25,9 @@
 
   &-side-panel,
   &-full {
+    height: stretch;
     max-height: calc(100% - 60px);
     min-height: calc(100% - 60px);
-    height: -webkit-fill-available;
   }
 
   &-side-panel {

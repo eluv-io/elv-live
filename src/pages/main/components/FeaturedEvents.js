@@ -65,9 +65,9 @@ class FeaturedEvents extends React.Component {
                       },
                       playerOptions: {
                         watermark: EluvioPlayerParameters.watermark.OFF,
-                        muted: EluvioPlayerParameters.muted.ON,
-                        autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
-                        controls: EluvioPlayerParameters.controls.OFF,
+                        muted: EluvioPlayerParameters.muted.OFF,
+                        autoplay: EluvioPlayerParameters.autoplay.OFF,
+                        controls: EluvioPlayerParameters.controls.AUTO_HIDE,
                       }
                     }
                   )
