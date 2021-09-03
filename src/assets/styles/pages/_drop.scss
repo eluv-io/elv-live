@@ -16,9 +16,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: 600px;
+  max-height: MIN(90vh, 700px);
   max-width: 600px;
-  min-height: 600px;
+  min-height: MIN(90vh, 700px);
   min-width: 600px;
 
   &__content {
@@ -49,6 +49,7 @@
     h3,
     h4 {
       font-weight: 500;
+      margin-bottom: 10px;
     }
 
     p {
@@ -61,19 +62,21 @@
   &__actions {
     align-items: center;
     display: flex;
-    height: 100px;
+    height: 120px;
     justify-content: center;
 
     button {
       background: transparent;
-      border: 0.5px solid $white;
+      border: 1px solid rgba(255, 255, 255, 0.6);
       border-radius: 3px;
       color: $white;
       cursor: pointer;
       font-size: 18px;
-      height: 45px;
+      height: 60px;
+      letter-spacing: 2px;
       padding: 5px;
-      width: 180px;
+      text-transform: uppercase;
+      width: 250px;
     }
   }
 
