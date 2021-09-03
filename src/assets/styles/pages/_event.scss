@@ -275,7 +275,8 @@
 
   .event-page__buttons {
     .btn {
-      &:not(.btn--gold) {
+      &:not(.btn--gold),
+      &:hover {
         border: 1px solid rgba(255, 255, 255, 0.6);
       }
     }
