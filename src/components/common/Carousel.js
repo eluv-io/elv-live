@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import useResizeObserver from "@react-hook/resize-observer";
 
-const MIN_WIDTH=500;
+const MIN_WIDTH=400;
 const MAX_WIDTH=1200;
 const SPREAD = MAX_WIDTH - MIN_WIDTH;
 
-const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, className=""}) => {
+const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, className="", placeholderClassname=""}) => {
   const target = React.useRef(null);
   const [index, setIndex] = useState(startIndex);
   const [visible, setVisible] = useState(maxVisible);
@@ -33,10 +33,14 @@ const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, classN
     );
   };
 
+  const visibleElements = elements.slice(index, index + visible);
+  const placeholders = visible - visibleElements.length;
+
   return (
     <div className={`carousel ${elements.length > maxVisible ? "carousel-scrollable" : ""} ${className}`} ref={target}>
       <CarouselButton type="prev" content="❮" value={index - 1} visible={index > 0} />
-      { elements.slice(index, index + visible) }
+      { visibleElements }
+      { [...new Array(placeholders)].map((_, i) => <div key={`carousel-placeholder-${i}`} className={`carousel__placeholder ${placeholderClassname}`} /> ) }
       <CarouselButton type="next" content="❯" value={index + 1} visible={index + visible < elements.length} />
     </div>
   );

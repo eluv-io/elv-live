@@ -132,10 +132,9 @@ class Drop extends React.Component {
             }
           },
           playerOptions: {
-            muted: EluvioPlayerParameters.muted.ON,
+            muted: EluvioPlayerParameters.muted.OFF,
             autoplay: EluvioPlayerParameters.autoplay.ON,
-            loop: EluvioPlayerParameters.loop.ON,
-            controls: EluvioPlayerParameters.controls.OFF,
+            controls: EluvioPlayerParameters.controls.AUTO_HIDE,
             watermark: EluvioPlayerParameters.watermark.OFF,
             errorCallback: () => {
               setTimeout(() => {

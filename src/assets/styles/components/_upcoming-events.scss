@@ -23,6 +23,10 @@ $element-width: $max-height + $date-width;
   max-width: $element-width;
   width: 100%;
 
+  &-placeholder {
+    opacity: 0;
+  }
+
   &__date {
     align-items: center;
     color: $white;
