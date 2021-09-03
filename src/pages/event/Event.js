@@ -88,6 +88,12 @@ class Event extends React.Component {
                 Get Started
               </button>
           }
+          {
+            this.props.siteStore.promos.length > 0 ?
+              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn ? "btn--gold" : ""}`}>
+                Watch Promo
+              </button> : null
+          }
         </div>
       );
     }

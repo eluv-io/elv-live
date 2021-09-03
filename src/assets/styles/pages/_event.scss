@@ -45,10 +45,10 @@
   &__hero-video-container {
     height: 100%;
     left: 0;
+    mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 90%, rgba(#f4f3f1, 0) 100%);
     position: absolute;
     top: 0;
     width: 100%;
-    mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 90%, rgba(#f4f3f1, 0) 100%);
 
     .eluvio-player,
     .eluvio-player__video {
@@ -97,8 +97,8 @@
     max-width: 800px;
     padding: 0 30px;
     text-align: center;
-    text-transform: uppercase;
     text-shadow: 2px 2px $black;
+    text-transform: uppercase;
 
     &::selection {
       text-shadow: none;

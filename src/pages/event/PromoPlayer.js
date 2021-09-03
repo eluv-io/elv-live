@@ -58,7 +58,7 @@ class PromoPlayer extends React.Component {
                 watermark: EluvioPlayerParameters.watermark.OFF,
                 muted: EluvioPlayerParameters.muted.OFF,
                 autoplay: EluvioPlayerParameters.autoplay.ON,
-                controls: EluvioPlayerParameters.controls.DEFAULT
+                controls: EluvioPlayerParameters.controls.AUTO_HIDE
               }
             }
           );
