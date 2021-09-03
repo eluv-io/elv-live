@@ -49,9 +49,10 @@
     .wallet-target {
       border: 1px solid #333;
       margin: auto;
-      max-height: 600px;
+
+      max-height: MIN(90vh, 700px);
       max-width: 600px;
-      min-height: 600px;
+      min-height: MIN(90vh, 700px);
       min-width: 600px;
     }
   }
