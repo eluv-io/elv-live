@@ -4,9 +4,9 @@
 }
 
 .wallet-panel-page-content {
-  max-width: calc(100vw - 500px);
-  min-width: calc(100vw - 500px);
-  width: calc(100vw - 500px);
+  max-width: calc(100vw - 700px);
+  min-width: calc(100vw - 700px);
+  width: calc(100vw - 700px);
 }
 
 .wallet-panel {
@@ -31,7 +31,7 @@
 
   &-side-panel {
     border-left: 1px solid #333;
-    width: 500px;
+    width: 700px;
   }
 
   &-modal {
@@ -78,7 +78,7 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1400px) {
   .wallet-panel-page-content {
     max-width: 50vw;
     min-width: 50vw;
