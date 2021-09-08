@@ -61,9 +61,15 @@ class Header extends React.Component {
         <div className="header__spacer" />
         <div className="header__links">
           {
+            redeemAvailable && couponMode ?
+              <NavLink to={this.props.siteStore.SitePath("coupon-code")} className="header__link" activeClassName="header__link-active">
+                Redeem Coupon
+              </NavLink> : null
+          }
+          {
             redeemAvailable ?
               <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
-                { couponMode ? "Redeem Coupon" : "Redeem Ticket" }
+                Redeem Ticket
               </NavLink> : null
           }
           {

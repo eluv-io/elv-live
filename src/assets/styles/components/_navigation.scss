@@ -53,6 +53,7 @@
 
       * {
         fill: $black;
+        filter: drop-shadow(2px 2px 2px $black);
         stroke: transparent;
       }
     }
@@ -70,7 +71,12 @@
   }
 
   &__link {
-    font-size: 18px;
+    font-size: 16px;
+    text-shadow: 0.5px 0.5px 0.5px $black;
+
+    & + .header__link {
+      margin-left: 20px;
+    }
 
     &-active {
       font-weight: bold;
@@ -136,7 +142,7 @@
       padding: 0;
 
       svg {
-        width: 120px;
+        width: 90px;
       }
     }
 
@@ -145,7 +151,11 @@
     }
 
     &__link {
-      font-size: 14px;
+      font-size: 12px;
+
+      & + .header__link {
+        margin-left: 10px;
+      }
     }
 
     &__search {
@@ -159,12 +169,10 @@
   background: transparent;
   border: 0;
   cursor: pointer;
-  height: 20px;
   height: 100%;
-  margin-left: 40px;
-  opacity: 0.5;
+  margin-left: 30px;
   outline: 0;
-  padding: 0;
+  padding: 2px 0 0;
   width: 20px;
 
   svg {
@@ -175,7 +183,9 @@
 
     * {
       fill: transparent !important;
+      filter: drop-shadow(0.5px 0.5px 0.5px $black);
       stroke: $black;
+      stroke-width: 2px;
     }
   }
 
