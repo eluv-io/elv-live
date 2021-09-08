@@ -12,6 +12,7 @@ class Landing extends React.Component {
     super(props);
 
     this.state = {
+      couponMode: props.location.pathname.endsWith("coupon-redeemed"),
       tick: 0,
       interval:
         this.props.siteStore.currentSiteTicketSku.start_time
@@ -125,6 +126,7 @@ class Landing extends React.Component {
     }
 
     const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
+
     return (
       <div className="page-container landing-page">
         <div className="landing-page__content">
@@ -132,7 +134,7 @@ class Landing extends React.Component {
           <div className="landing-page__text landing-page__text-presents">Presents</div>
           { this.Header() }
           {
-            couponInfo.coupon_mode ?
+            this.state.couponMode && couponInfo.coupon_mode ?
               <>
                 <div className="landing-page__text">{ couponInfo.event_page_message_1 || "Your Coupon is Redeemed" }</div>
                 <br />

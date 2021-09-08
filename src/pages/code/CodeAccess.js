@@ -17,6 +17,7 @@ class CodeAccess extends React.Component {
       email: "",
       receiveEmails: false,
       loading: false,
+      couponMode: props.location.pathname.endsWith("coupon-code")
     };
 
     this.handleRedeemCode = this.handleRedeemCode.bind(this);
@@ -39,7 +40,7 @@ class CodeAccess extends React.Component {
       this.setState({error: "", loading: true});
 
       let siteId;
-      if((this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode) {
+      if(this.state.couponMode) {
         if(!ValidEmail(this.state.email)) {
           this.setState({error: "Invalid email address"});
           return;
@@ -69,8 +70,8 @@ class CodeAccess extends React.Component {
       <div className="code-entry-sponsors">
         <h3 className="code-entry-sponsors-header">Brought to You by</h3>
         <div className="code-entry-sponsors-list">
-          { this.props.siteStore.sponsors.map(sponsor =>
-            <a className="code-entry-sponsor-link" rel="noopener" href={sponsor.link}>
+          { this.props.siteStore.sponsors.map((sponsor, index) =>
+            <a className="code-entry-sponsor-link" rel="noopener" href={sponsor.link} key={`code-access-sponsor-${index}`}>
               <img
                 src={sponsor.image_url}
                 alt={sponsor.name}
@@ -85,12 +86,21 @@ class CodeAccess extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
-    if(this.state.redeemed) {
-      return <Redirect to={this.props.siteStore.SitePath("event")} />;
+    const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
+
+    if(this.state.couponMode && !couponInfo.coupon_mode) {
+      return <Redirect to={this.props.siteStore.SitePath("")} />;
     }
 
-    const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
-    if(couponInfo.coupon_mode) {
+    if(this.state.redeemed) {
+      if(this.state.couponMode) {
+        return <Redirect to={this.props.siteStore.SitePath("coupon-redeemed")}/>;
+      } else {
+        return <Redirect to={this.props.siteStore.SitePath("event")}/>;
+      }
+    }
+
+    if(this.state.couponMode) {
       const headerText =
         couponInfo.redemption_message ||
         "Please enter your coupon code and email address below to receive your redemption confirmation and exclusive news.";

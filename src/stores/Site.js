@@ -23,6 +23,7 @@ class SiteStore {
 
   @observable showCheckout = false;
   @observable selectedTicket;
+  @observable featuredSitesLoaded = false;
 
   @observable siteId;
   @observable siteHash;
@@ -244,11 +245,15 @@ class SiteStore {
 
   @action.bound
   LoadFeaturedSites = flow(function * () {
+    this.featuredSitesLoaded = false;
+
     yield Promise.all(
       this.featuredSiteKeys.map(async ({index, slug}) =>
         await this.LoadSite({siteIndex: index, siteSlug: slug, validateBaseSlug: false})
       )
-    )
+    );
+
+    this.featuredSitesLoaded = true;
   });
 
   @action.bound

@@ -40,6 +40,7 @@
 
       * {
         fill: $black;
+        filter: drop-shadow(2px 2px 2px $black);
         stroke: transparent;
       }
     }
@@ -52,6 +53,7 @@
   }
 
   &__link {
+    filter: drop-shadow(0.75px 0.75px 0.75px $black);
     font-size: 18px;
 
     &-active {

@@ -15,6 +15,8 @@ class MainStore {
   ];
 
   @computed get featuredSites() {
+    if(!this.rootStore.siteStore.featuredSitesLoaded) { return []; }
+
     return Object.values(this.rootStore.siteStore.eventSites["featured"] || {})
       .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
   }

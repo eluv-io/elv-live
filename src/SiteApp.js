@@ -71,13 +71,18 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
+        <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug/terms" component={SitePage(Terms)} />
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
-          <Route render={() => window.location.href = window.location.origin} />
+          <Route render={args => {
+            console.log("NO", args);
+            window.location.href = window.location.origin;
+          }} />
         </Route>
       </Switch>
     );
