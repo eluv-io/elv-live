@@ -10,8 +10,6 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
 
-const START = Date.now();
-
 const EventPlayer = ({client, streamHash, streamOptions}) => {
   const [key, setKey] = useState(0);
   const [videoElement, setVideoElement] = useState(0);
@@ -89,7 +87,6 @@ class Drop extends React.Component {
     super(props);
 
     this.state = {
-      initialized: false,
       showMessage: true,
       dropInfo: this.Drop()
     };
@@ -115,14 +112,10 @@ class Drop extends React.Component {
   Message() {
     if(!this.state.showMessage) { return null; }
 
-    const drop = this.Drop();
+    const drop = this.state.dropInfo;
+    const currentState = drop.states[drop.currentStateIndex];
 
-    let key = "modal_message_start";
-    if(this.state.ended) {
-      key = "modal_message_end";
-    }
-
-    const messageInfo = drop[key];
+    const messageInfo = currentState.modal_message;
 
     if(!messageInfo || !messageInfo.show) { return null; }
 
@@ -138,7 +131,7 @@ class Drop extends React.Component {
                 <ImageIcon
                   className="event-message__content__image"
                   title={drop.event_header}
-                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "drops", drop.dropIndex.toString(), key, "image"))}
+                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "drops", drop.dropIndex.toString(), currentState.state, "modal_message", "image"))}
                 />
             }
             <div
@@ -169,8 +162,8 @@ class Drop extends React.Component {
     let dropIndex = this.props.siteStore.currentSiteInfo.drops.findIndex(drop => drop.uuid === this.props.match.params.dropId);
     let drop = this.props.siteStore.currentSiteInfo.drops[dropIndex];
 
-    const states = ["event_state_preroll", "event_state_main", "event_state_post_vote", "event_state_mint_start"].map((state, stateIndex) =>
-      (state === "event_state_main" || drop[state].use_state) ? { state, ...drop[state], start_date: new Date(START + 25 * 1000 * (stateIndex)) } : null
+    const states = ["event_state_preroll", "event_state_main", "event_state_post_vote", "event_state_mint_start"].map(state =>
+      (state === "event_state_main" || drop[state].use_state) ? { state, ...drop[state] } : null
     ).filter(state => state);
 
     let currentStateIndex = states.map((state, index) => Date.now() > new Date(state.start_date) ? index : null)
@@ -219,7 +212,10 @@ class Drop extends React.Component {
             streamOptions={streamOptions}
           />
           <div className="drop-page__info">
-            <h1 className="drop-page__info__header">{ currentState.header }</h1>
+            <div className="drop-page__info__headers">
+              <h1 className="drop-page__info__header">{ currentState.header }</h1>
+              { currentState.subheader ? <h2 className="drop-page__info__subheader">{ currentState.subheader }</h2> : null }
+            </div>
             {
               nextState ?
                 <Countdown
@@ -227,21 +223,22 @@ class Drop extends React.Component {
                   time={nextState.start_date}
                   OnEnded={() =>
                     this.setState({
-                      initialized: false,
                       showMessage: true,
                       dropInfo: this.Drop()
                     })
                   }
                   Render={({diff, countdown}) => (
-                    <div className="drop-page__info__subheader drop-page__info__countdown">
-                      {
-                        diff > 0 ?
-                          `${countdown} left!` :
-                          "Drop has ended!"
-                      }
-                    </div>
+                    currentState.show_countdown ?
+                      <div className="drop-page__info__subheader drop-page__info__countdown">
+                        {
+                          diff > 0 ?
+                            `${countdown} left!` :
+                            "Drop has ended!"
+                        }
+                      </div> :
+                      <div className="drop-page__info__countdown" />
                   )}
-                /> : null
+                /> : <div className="drop-page__info__countdown" />
             }
           </div>
         </div>
