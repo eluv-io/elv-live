@@ -118,25 +118,24 @@
   &__stream,
   video {
     flex: 0 1 100%;
-    max-height: calc(100vh - 180px);
+    max-height: calc(100vh - 235px);
     max-width: 100%;
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    max-height: 100px;
-    min-height: 100px;
+    justify-content: space-around;
+    max-height: 140px;
+    min-height: 140px;
     padding: 10px 30px;
     width: 100%;
   }
 
   &__info__header {
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.07em;
-    margin-bottom: 5px;
   }
 
   &__info__subheader {
