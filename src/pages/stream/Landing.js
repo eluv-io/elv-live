@@ -122,7 +122,7 @@ class Landing extends React.Component {
                 <div className="landing-page__text landing-page__text-confirmation">{ "asd" || this.props.siteStore.currentSiteTicket.couponConfirmationId }</div>
               </> :
               <Countdown
-                time={Date.now() + 60000 || this.props.siteStore.currentSiteTicketSku.start_time}
+                time={this.props.siteStore.currentSiteTicketSku.start_time}
                 Render={({diff, countdown}) => this.Countdown({diff, countdown})}
               />
           }
