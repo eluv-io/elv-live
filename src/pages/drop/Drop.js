@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
@@ -10,6 +10,77 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
 
+const START = Date.now();
+
+const EventPlayer = ({client, streamHash, streamOptions}) => {
+  const [key, setKey] = useState(0);
+  const [videoElement, setVideoElement] = useState(0);
+  const [player, setPlayer] = useState(undefined);
+
+  useEffect(() => {
+    try {
+      if(!videoElement) { return; }
+
+      if(player) {
+        player.Destroy();
+      }
+
+      setPlayer(
+        new EluvioPlayer(
+          videoElement,
+          {
+            clientOptions: {
+              network: EluvioConfiguration["config-url"].includes("main.net955305") ?
+                EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
+              client: client
+            },
+            sourceOptions: {
+              playoutParameters: {
+                versionHash: streamHash
+              }
+            },
+            playerOptions: {
+              loop: streamOptions.loop,
+              muted: EluvioPlayerParameters.muted.OFF,
+              autoplay: EluvioPlayerParameters.autoplay.ON,
+              controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+              watermark: EluvioPlayerParameters.watermark.OFF,
+              errorCallback: error => {
+                // eslint-disable-next-line no-console
+                console.error(error);
+
+                setTimeout(() => {
+                  player && player.Destroy();
+                  setVideoElement(undefined);
+                  setKey(key + 1);
+                }, 5000);
+              }
+            }
+          }
+        )
+      );
+
+      window.player = player;
+
+      return () => player && player.Destroy();
+    } catch(error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+
+      this.setState({error: true});
+    }
+  }, [key, videoElement]);
+
+  return (
+    <div
+      className="drop-page__stream"
+      ref={element => {
+        setVideoElement(element);
+      }}
+    />
+  );
+};
+
 @inject("rootStore")
 @inject("siteStore")
 @observer
@@ -20,10 +91,8 @@ class Drop extends React.Component {
     this.state = {
       initialized: false,
       showMessage: true,
-      ended: false
+      dropInfo: this.Drop()
     };
-
-    this.InitializeStream = this.InitializeStream.bind(this);
   }
 
   async componentDidMount() {
@@ -100,88 +169,80 @@ class Drop extends React.Component {
     let dropIndex = this.props.siteStore.currentSiteInfo.drops.findIndex(drop => drop.uuid === this.props.match.params.dropId);
     let drop = this.props.siteStore.currentSiteInfo.drops[dropIndex];
 
+    const states = ["event_state_preroll", "event_state_main", "event_state_post_vote", "event_state_mint_start"].map((state, stateIndex) =>
+      (state === "event_state_main" || drop[state].use_state) ? { state, ...drop[state], start_date: new Date(START + 25 * 1000 * (stateIndex)) } : null
+    ).filter(state => state);
+
+    let currentStateIndex = states.map((state, index) => Date.now() > new Date(state.start_date) ? index : null)
+      .filter(active => active)
+      .slice(-1)[0];
+
+    if(typeof currentStateIndex === "undefined") {
+      currentStateIndex = 0;
+    }
+
+    const currentState = states[currentStateIndex];
+    let streamState = currentState;
+    if(currentState.use_main_stream) {
+      streamState = states.find(state => state.state === "event_state_main");
+    }
+
+    const streamHash = streamState && streamState.stream && streamState.stream["."].source;
+    const streamOptions = {
+      loop: streamState.loop_stream
+    };
+
     return {
       ...drop,
-      dropIndex
+      dropIndex,
+      states,
+      currentStateIndex,
+      streamHash,
+      streamOptions
     };
   }
 
-  async InitializeStream(element) {
-    const drop = this.Drop();
-
-    if(!drop.stream) { return; }
-
-    const streamHash = drop.stream["."].source;
-
-    try {
-      if(this.state.initialized || !element) { return; }
-
-      this.setState({initialized: true});
-
-      const player = new EluvioPlayer(
-        element,
-        {
-          clientOptions: {
-            network: EluvioConfiguration["config-url"].includes("main.net955305") ?
-              EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
-            client: this.props.siteStore.client
-          },
-          sourceOptions: {
-            playoutParameters: {
-              versionHash: streamHash
-            }
-          },
-          playerOptions: {
-            muted: EluvioPlayerParameters.muted.OFF,
-            autoplay: EluvioPlayerParameters.autoplay.ON,
-            controls: EluvioPlayerParameters.controls.AUTO_HIDE,
-            watermark: EluvioPlayerParameters.watermark.OFF,
-            errorCallback: () => {
-              setTimeout(() => {
-                this.state.player && this.state.player.Destroy();
-                this.setState({initialized: false, key: this.state.key + 1, player: undefined});
-              }, 5000);
-            }
-          }
-        }
-      );
-
-      this.setState({player});
-      window.player = player;
-    } catch(error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-
-      this.setState({error: true});
-    }
-  }
-
   render() {
+    const drop = this.state.dropInfo;
+    const currentState = drop.states[drop.currentStateIndex];
+    const nextState = drop.states[drop.currentStateIndex + 1];
+    const { streamHash, streamOptions } = this.state.dropInfo;
+
     return (
       <div className="page-container drop-page">
         { this.Message() }
         <div className="main-content-container drop-page__content wallet-panel-page-content">
-          <div className="drop-page__stream" ref={this.InitializeStream} />
+          <EventPlayer
+            key={`event-player-${streamHash}`}
+            client={this.props.rootStore.client}
+            streamHash={streamHash}
+            streamOptions={streamOptions}
+          />
           <div className="drop-page__info">
-            <h1 className="drop-page__info__header">{ this.Drop().event_header }</h1>
-            <Countdown
-              time={this.Drop().end_date}
-              OnEnded={() => {
-                this.setState({
-                  ended: true,
-                  showMessage: true
-                });
-              }}
-              Render={({diff, countdown}) => (
-                <div className="drop-page__info__subheader drop-page__info__countdown">
-                  {
-                    diff > 0 ?
-                      `${countdown} left!` :
-                      "Drop has ended!"
+            <h1 className="drop-page__info__header">{ currentState.header }</h1>
+            {
+              nextState ?
+                <Countdown
+                  key={`event-state-countdown-${currentState.state}`}
+                  time={nextState.start_date}
+                  OnEnded={() =>
+                    this.setState({
+                      initialized: false,
+                      showMessage: true,
+                      dropInfo: this.Drop()
+                    })
                   }
-                </div>
-              )}
-            />
+                  Render={({diff, countdown}) => (
+                    <div className="drop-page__info__subheader drop-page__info__countdown">
+                      {
+                        diff > 0 ?
+                          `${countdown} left!` :
+                          "Drop has ended!"
+                      }
+                    </div>
+                  )}
+                /> : null
+            }
           </div>
         </div>
       </div>
