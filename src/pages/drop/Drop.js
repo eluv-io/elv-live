@@ -93,20 +93,24 @@ class Drop extends React.Component {
   }
 
   async componentDidMount() {
-    this.props.rootStore.walletClient.ToggleNavigation(false);
-    await this.props.rootStore.walletClient.Navigate({
-      page: "drop",
-      params: {
-        marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
-        dropId: this.props.match.params.dropId
+    this.props.rootStore.SetDefaultWalletState({
+      visibility: "side-panel",
+      navigation: false,
+      location: {
+        page: "drop",
+        params: {
+          marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
+          dropId: this.props.match.params.dropId
+        }
       }
     });
 
-    this.props.rootStore.SetWalletPanelVisibility("side-panel");
+    this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
   }
 
   componentWillUnmount() {
-    this.props.rootStore.SetWalletPanelVisibility("hidden");
+    this.props.rootStore.ResetDefaultWalletState();
+    this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
   }
 
   Message() {

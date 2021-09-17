@@ -20,6 +20,10 @@
     filter: invert(1);
   }
 
+  &.header-wallet {
+    background-color: $black;
+  }
+
   & > * {
     flex: 1 1 auto;
     user-select: none;
@@ -42,10 +46,13 @@
 
   &__logo {
     align-items: center;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
     display: flex;
     height: 100%;
     max-height: 100%;
-    padding-right: 20px;
+    padding: 0 20px 0 0;
 
     img {
       max-height: 100%;
@@ -78,8 +85,12 @@
 
   &__link {
     align-items: center;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
     display: flex;
     font-size: 16px;
+    outline: 0;
     text-shadow: 0.5px 0.5px 0.5px $black;
 
     & + .header__link {
@@ -91,8 +102,16 @@
     }
 
     &__icon {
+      align-items: flex-end;
+      display: flex;
       margin-right: 10px;
       padding-bottom: 5px;
+
+      .header__link__image {
+        * {
+          stroke-width: 1.3px;
+        }
+      }
     }
 
     &__image {
@@ -133,7 +152,7 @@
       }
     }
 
-    .cart-overlay-toggle {
+    .header__link {
       svg {
         * {
           stroke: $white;
@@ -418,7 +437,7 @@
       }
     }
 
-    .cart-overlay-toggle {
+    .header__link {
       svg {
         * {
           stroke: $white;
