@@ -18,9 +18,25 @@ class RootStore {
   @observable baseKey = 1;
   @observable client;
   @observable walletClient;
-  @observable walletLoggedIn = false;
   @observable redeemedTicket;
   @observable error = "";
+
+  @observable walletLoggedIn = false;
+  @observable walletVisibility = "hidden";
+  @observable currentWalletState = {
+    visibility: "hidden",
+    navigation: true,
+    location: {
+      page: "wallet"
+    }
+  };
+  @observable defaultWalletState = {
+    visibility: "hidden",
+    navigation: true,
+    location: {
+      page: "wallet"
+    }
+  };
 
   @observable savedTickets = {};
 
@@ -149,7 +165,6 @@ class RootStore {
 
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
-      //walletAppUrl: "https://localhost:8090?d",
       //walletAppUrl: "https://192.168.0.17:8090?d",
       target
     });
@@ -175,8 +190,29 @@ class RootStore {
     }
   }
 
+  // Set default state for wallet
   @action.bound
-  SetWalletPanelVisibility(visibility) {
+  SetDefaultWalletState({visibility, location, navigation}) {
+    this.defaultWalletState = {
+      visibility,
+      location,
+      navigation
+    };
+  }
+
+  @action.bound
+  ResetDefaultWalletState() {
+    this.defaultWalletState = {
+      visibility: "hidden",
+      navigation: true,
+      location: {
+        page: "wallet"
+      }
+    };
+  }
+
+  @action.bound
+  SetWalletPanelVisibility({visibility, navigation=true, location}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -194,7 +230,7 @@ class RootStore {
     if(visibility === "modal") {
       const Close = () => {
         // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
-        this.SetWalletPanelVisibility("hidden");
+        this.SetWalletPanelVisibility(this.defaultWalletState);
 
         walletPanel.removeEventListener("click", Close);
         this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
@@ -204,6 +240,18 @@ class RootStore {
 
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
     }
+
+    this.walletClient.ToggleNavigation(navigation);
+
+    if(location) {
+      this.walletClient.Navigate(toJS(location));
+    }
+
+    this.currentWalletState = {
+      visibility,
+      navigation,
+      location
+    };
   }
 
   @action.bound

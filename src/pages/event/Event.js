@@ -110,7 +110,7 @@ class Event extends React.Component {
           <div className="event-message__actions">
             <button
               onClick={() => {
-                this.props.rootStore.SetWalletPanelVisibility("modal");
+                this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
                 this.setState({showGetStartedModal: false});
               }}
               className="event-message__button"
@@ -123,14 +123,14 @@ class Event extends React.Component {
     );
   }
 
-  ScrollToTickets = () => {
+  ScrollToTickets() {
     this.setState({
       tab: 0,
     }, () => {
       const target = document.querySelector(".ticket-group") || document.querySelector("event-page__overview");
       window.scrollTo({top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: "smooth"});
     });
-  };
+  }
 
   Actions() {
     if(this.props.siteStore.isDropEvent) {

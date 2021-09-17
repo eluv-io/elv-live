@@ -104,8 +104,13 @@
 }
 
 .drop-page {
+  background: $black;
   height: 100%;
   padding: 80px 0 0;
+
+  * {
+    color: $white;
+  }
 
   &__content {
     align-items: center;

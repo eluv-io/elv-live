@@ -9,6 +9,7 @@ import Checkout from "Event/checkout/Checkout";
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import WalletIcon from "Icons/Wallet icon.png";
 
+@inject("rootStore")
 @inject("siteStore")
 @inject("cartStore")
 @withRouter
@@ -43,14 +44,55 @@ class Header extends React.Component {
 
   Links() {
     if(this.props.siteStore.isDropEvent) {
+      const walletState = this.props.rootStore.currentWalletState;
+
       return (
         <div className="header__links">
-          <NavLink to={this.props.siteStore.SitePath("wallet")} className="header__link" activeClassName="header__link-active">
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility(
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" ?
+                  this.props.rootStore.defaultWalletState :
+                  {
+                    visibility: "full",
+                    navigation: true,
+                    location: {
+                      page: "marketplace",
+                      params: {
+                        marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId
+                      }
+                    }
+                  }
+              );
+            }}
+            className="header__link"
+          >
+            <div className="header__link__icon">
+              <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image" />
+            </div>
+            Marketplace
+          </button>
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility(
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" ?
+                  this.props.rootStore.defaultWalletState :
+                  {
+                    visibility: "full",
+                    navigation: true,
+                    location: {
+                      page: "wallet"
+                    }
+                  }
+              );
+            }}
+            className="header__link"
+          >
             <div className="header__link__icon">
               <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image" />
             </div>
-            My Wallet
-          </NavLink>
+            { this.props.rootStore.walletLoggedIn ? "My Wallet" : "Sign In" }
+          </button>
         </div>
       );
     }
@@ -102,15 +144,22 @@ class Header extends React.Component {
     const logo = this.props.siteStore.SiteHasImage("logo") ? this.props.siteStore.SiteImageUrl("logo") : DefaultLogo;
 
     return (
-      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
+      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""} ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}`}>
         {
-          this.props.mainPage ?
-            <a href={window.location.origin} className="header__logo">
+          this.props.rootStore.currentWalletState.visibility === "full" ?
+            <button
+              className="header__logo"
+              onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+            >
               <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
-            </a> :
-            <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-              <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
-            </NavLink>
+            </button> :
+            this.props.mainPage ?
+              <a href={window.location.origin} className="header__logo">
+                <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
+              </a> :
+              <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
+                <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
+              </NavLink>
         }
         <div className="header__spacer" />
         { this.Links() }

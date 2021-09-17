@@ -20,7 +20,6 @@ const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
 const Privacy = MinLoadDelay(import("Event/Privacy"));
 const Terms = MinLoadDelay(import("Event/Terms"));
-const Wallet = MinLoadDelay(import("Pages/wallet/Wallet"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
 const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
 
@@ -82,7 +81,6 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
         <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/wallet" component={SitePage(Wallet, {hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
