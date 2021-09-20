@@ -7,7 +7,7 @@ import Navigation from "Layout/Navigation";
 import InitializeEventData from "Utils/StructuredEventData";
 import {ToggleZendesk} from "Utils/Misc";
 
-const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
+const SitePage = (Component, {mainPage=false, showHeader=true, darkHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
   @inject("siteStore")
   @withRouter
   @observer
@@ -28,8 +28,6 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
       const isFeatured = featuredSite && !tenantSlug;
       const validTenant = this.props.siteStore.availableTenants.includes(tenantSlug);
 
-      invertHeader = invertHeader && !this.props.siteStore.darkMode;
-
       if(!isFeatured && !validTenant) {
         return <Redirect to="/" />;
       }
@@ -40,7 +38,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true, invertHeader=fals
 
       return (
         <>
-          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} inverted={invertHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
+          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} dark={darkHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}

@@ -16,10 +16,6 @@
     background-color: rgba(255, 255, 255, 0.8);
   }
 
-  &.header-inverted {
-    filter: invert(1);
-  }
-
   &.header-wallet {
     background-color: $black;
   }
@@ -91,7 +87,7 @@
     display: flex;
     font-size: 16px;
     outline: 0;
-    text-shadow: 0.5px 0.5px 0.5px $black;
+    filter: drop-shadow(0.75px 0.75px 0.75px $black);
 
     & + .header__link {
       margin-left: 20px;
@@ -156,6 +152,7 @@
       svg {
         * {
           stroke: $white;
+          filter: drop-shadow(0.75px 0.75px 0.75px $black);
         }
       }
     }
@@ -417,8 +414,9 @@
   }
 }
 
-.dark {
-  .header {
+// Don't specify dark header under .dark because light mode may need it
+.header-dark {
+  &.header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
     .header__link {
@@ -454,7 +452,9 @@
       color: black;
     }
   }
+}
 
+.dark {
   // Footer
   .live-footer {
     .footer-info {

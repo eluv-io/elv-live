@@ -77,7 +77,10 @@ class Event extends React.Component {
 
     const messageInfo = this.props.siteStore.currentSiteInfo.event_info.modal_message_get_started;
 
-    if(!messageInfo || !messageInfo.show) { return null; }
+    if(!messageInfo || !messageInfo.show) {
+      this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
+      return;
+    }
 
     return (
       <Modal
