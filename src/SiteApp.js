@@ -69,15 +69,15 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug/collections" component={Collections} />
         <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
 
-        <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
         <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
         <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {invertHeader: true, hideCheckout: true, hideRedeem: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
         <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
