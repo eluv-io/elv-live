@@ -29,29 +29,8 @@ class Event extends React.Component {
       showPromo: false,
       showGetStartedModal: false,
       tab: 0,
-      heroBackground: null,
-      width: window.innerWidth
+      heroBackground: null
     };
-
-    this.HandleResize = this.HandleResize.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.HandleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.HandleResize);
-  }
-
-  HandleResize() {
-    clearTimeout(this.resizeTimeout);
-
-    this.resizeTimeout = setTimeout(() => {
-      if(this.state.width !== window.innerWidth) {
-        this.setState({width: window.innerWidth});
-      }
-    }, 200);
   }
 
   Promos() {
@@ -232,7 +211,7 @@ class Event extends React.Component {
       this.setState({tab: newValue});
     };
 
-    const mobile = this.state.width < this.mobileCutoff;
+    const mobile = this.props.rootStore.pageWidth < this.mobileCutoff;
     const heroKey = mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);

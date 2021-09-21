@@ -15,6 +15,8 @@ configure({
 });
 
 class RootStore {
+  @observable pageWidth = window.innerWidth;
+
   @observable baseKey = 1;
   @observable client;
   @observable walletClient;
@@ -49,6 +51,8 @@ class RootStore {
     this.LoadRedeemedTickets();
 
     window.rootStore = this;
+
+    window.addEventListener("resize", () => this.HandleResize());
   }
 
   @action.bound
@@ -194,11 +198,12 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, navigation}) {
+  SetDefaultWalletState({visibility, location, navigation, video}) {
     this.defaultWalletState = {
       visibility,
       location,
-      navigation
+      navigation,
+      video
     };
   }
 
@@ -214,7 +219,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility({visibility, navigation=true, location}) {
+  SetWalletPanelVisibility({visibility, navigation=true, location, video}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -249,10 +254,26 @@ class RootStore {
       this.walletClient.Navigate(toJS(location));
     }
 
+    // Mute video if video is present and moving into full wallet view
+    if(visibility === "full" && this.defaultWalletState.video) {
+      this.defaultWalletState = {
+        ...this.defaultWalletState,
+        video: {
+          ...this.defaultWalletState.video,
+          muted: this.defaultWalletState.video.element.muted
+        }
+      };
+
+      this.defaultWalletState.video.element.muted = true;
+    } else if(video && !video.muted) {
+      video.element.muted = false;
+    }
+
     this.currentWalletState = {
       visibility,
       navigation,
-      location
+      location,
+      video
     };
   }
 
@@ -271,6 +292,17 @@ class RootStore {
   @action.bound
   UpdateBaseKey() {
     this.baseKey += 1;
+  }
+
+  @action.bound
+  HandleResize() {
+    clearTimeout(this.resizeTimeout);
+
+    this.resizeTimeout = setTimeout(() => {
+      if(this.pageWidth !== window.innerWidth) {
+        runInAction(() => this.pageWidth = window.innerWidth);
+      }
+    }, 50);
   }
 }
 

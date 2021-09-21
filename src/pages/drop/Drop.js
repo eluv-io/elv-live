@@ -10,7 +10,7 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
 
-const EventPlayer = ({client, streamHash, streamOptions}) => {
+const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
   const [key, setKey] = useState(0);
   const [videoElement, setVideoElement] = useState(0);
   const [player, setPlayer] = useState(undefined);
@@ -58,6 +58,10 @@ const EventPlayer = ({client, streamHash, streamOptions}) => {
         )
       );
 
+      if(OnLoad) {
+        OnLoad(videoElement);
+      }
+
       window.player = player;
 
       return () => player && player.Destroy();
@@ -93,6 +97,8 @@ class Drop extends React.Component {
   }
 
   async componentDidMount() {
+    this.props.siteStore.SetCurrentDropEvent(this.props.match.params.dropId);
+
     this.props.rootStore.SetDefaultWalletState({
       visibility: "side-panel",
       navigation: false,
@@ -214,6 +220,23 @@ class Drop extends React.Component {
             client={this.props.rootStore.client}
             streamHash={streamHash}
             streamOptions={streamOptions}
+            OnLoad={videoElement => {
+              this.props.rootStore.SetDefaultWalletState({
+                visibility: "side-panel",
+                navigation: false,
+                location: {
+                  page: "drop",
+                  params: {
+                    marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
+                    dropId: this.props.match.params.dropId
+                  }
+                },
+                video: !videoElement ? null : {
+                  element: videoElement.getElementsByTagName("video")[0],
+                  muted: videoElement.muted
+                }
+              });
+            }}
           />
           <div className="drop-page__info">
             <div className="drop-page__info__headers">
