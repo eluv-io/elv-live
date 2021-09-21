@@ -156,7 +156,7 @@ class RootStore {
   });
 
   /* Wallet */
-  InitializeWalletClient = flow(function * (target) {
+  InitializeWalletClient = flow(function * ({target, eventId, darkMode=false}) {
     if(!target) { return; }
 
     this.DestroyWalletClient();
@@ -164,9 +164,11 @@ class RootStore {
     this.walletLoggedIn = false;
 
     this.walletClient = yield ElvWalletClient.InitializeFrame({
-      walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
-      //walletAppUrl: "https://192.168.0.17:8090?d",
-      target
+      //walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
+      walletAppUrl: "https://192.168.0.17:8090",
+      target,
+      eventId,
+      darkMode
     });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () =>
@@ -178,7 +180,7 @@ class RootStore {
     );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => {
-      this.InitializeWalletClient(target);
+      this.InitializeWalletClient({target, eventId, darkMode});
     });
   });
 
