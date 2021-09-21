@@ -117,7 +117,7 @@
       }
     }
 
-    &:not(.wallet-panel-modal) {
+    &.wallet-panel-side-panel {
       border: 0;
       position: initial;
       width: 100%;
