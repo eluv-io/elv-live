@@ -48,30 +48,33 @@ class Header extends React.Component {
 
       return (
         <div className="header__links">
-          <button
-            onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" ?
-                  this.props.rootStore.defaultWalletState :
-                  {
-                    visibility: "full",
-                    navigation: true,
-                    location: {
-                      page: "marketplace",
-                      params: {
-                        marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId
+          {
+            !this.props.rootStore.walletLoggedIn ? null :
+              <button
+                onClick={() => {
+                  this.props.rootStore.SetWalletPanelVisibility(
+                    walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" ?
+                      this.props.rootStore.defaultWalletState :
+                      {
+                        visibility: "full",
+                        navigation: true,
+                        location: {
+                          page: "marketplace",
+                          params: {
+                            marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId
+                          }
+                        }
                       }
-                    }
-                  }
-              );
-            }}
-            className="header__link"
-          >
-            <div className="header__link__icon">
-              <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image" />
-            </div>
-            Marketplace
-          </button>
+                  );
+                }}
+                className="header__link"
+              >
+                <div className="header__link__icon">
+                  <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image"/>
+                </div>
+                Marketplace
+              </button>
+          }
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
