@@ -17,7 +17,7 @@
   }
 
   &.header-wallet {
-    background-color: $black;
+    background-color: $white;
   }
 
   & > * {
@@ -419,6 +419,10 @@
 .header-dark {
   &.header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
+    &.header-wallet {
+      background-color: $black;
+    }
 
     .header__link {
       color: $white;

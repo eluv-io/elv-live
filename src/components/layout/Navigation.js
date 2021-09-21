@@ -144,7 +144,13 @@ class Header extends React.Component {
     const logo = this.props.siteStore.SiteHasImage("logo") ? this.props.siteStore.SiteImageUrl("logo") : DefaultLogo;
 
     return (
-      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}`}>
+      <header className={`
+        header 
+        ${this.props.mainPage ? "header-main" : ""} 
+        ${this.state.scrolled ? "header-scrolled" : ""} 
+        ${this.props.siteStore.darkMode || this.props.dark ? "header-dark" : ""}
+        ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
+      `}>
         {
           this.props.rootStore.currentWalletState.visibility === "full" ?
             <button
