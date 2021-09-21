@@ -85,9 +85,9 @@
     border: 0;
     cursor: pointer;
     display: flex;
+    filter: drop-shadow(0.75px 0.75px 0.75px $black);
     font-size: 16px;
     outline: 0;
-    filter: drop-shadow(0.75px 0.75px 0.75px $black);
 
     & + .header__link {
       margin-left: 20px;
@@ -111,8 +111,8 @@
     }
 
     &__image {
-      max-height: 18px;
       height: 18px;
+      max-height: 18px;
       width: auto;
     }
   }
@@ -152,8 +152,8 @@
     .header__link {
       svg {
         * {
-          stroke: $white;
           filter: drop-shadow(0.75px 0.75px 0.75px $black);
+          stroke: $white;
         }
       }
     }
