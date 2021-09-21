@@ -152,6 +152,11 @@ class SiteStore {
   }
 
   @action.bound
+  SetCurrentDropEvent(dropId) {
+    this.currentDropEvent = dropId;
+  }
+
+  @action.bound
   ChatChannel() {
     if(!this.chatChannel) {
       const startTime = this.currentSiteTicketSku.start_time;

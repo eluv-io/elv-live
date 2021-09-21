@@ -7,6 +7,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 
+@inject("rootStore")
 @inject("siteStore")
 @withRouter
 @observer
@@ -92,8 +93,23 @@ class Landing extends React.Component {
   }
 
   render() {
+    const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
+
+    let background;
+    if(landingInfo.background_image || landingInfo.background_image_mobile) {
+      let backgroundUrl = landingInfo.background_image ? this.props.siteStore.SiteUrl(UrlJoin("info", "event_landing_page", "background_image")) : "";
+      let mobileBackgroundUrl = landingInfo.background_image_mobile ? this.props.siteStore.SiteUrl(UrlJoin("info", "event_landing_page", "background_image_mobile")) : "";
+
+      if(this.props.rootStore.pageWidth > 900) {
+        background = <div className="landing-page__background" style={{ backgroundImage: `url("${backgroundUrl || mobileBackgroundUrl}")` }} />;
+      } else {
+        background = <div className="landing-page__background" style={{ backgroundImage: `url("${mobileBackgroundUrl || backgroundUrl}")` }} />;
+      }
+    }
+
     return (
-      <div className="page-container landing-page">
+      <div className={`page-container landing-page ${background ? "landing-page-custom-background" : ""}`}>
+        { background }
         <div className="landing-page__content">
           { this.Header() }
           <Countdown

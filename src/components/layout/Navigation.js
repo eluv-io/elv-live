@@ -1,13 +1,14 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import {inject, observer} from "mobx-react";
-import CartIcon from "Assets/icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import WalletIcon from "Icons/Wallet icon.png";
+import CartIcon from "Assets/icons/cart.svg";
+import EventIcon from "Assets/icons/Event Icon.png";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -48,6 +49,19 @@ class Header extends React.Component {
 
       return (
         <div className="header__links">
+          {
+            !this.props.rootStore.walletLoggedIn || !this.props.siteStore.currentDropEvent ? null :
+              <NavLink
+                to={this.props.siteStore.SitePath("drop", this.props.siteStore.currentDropEvent, "event")}
+                onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+                className="header__link"
+              >
+                <div className="header__link__icon">
+                  <ImageIcon icon={EventIcon} title="My Wallet" className="header__link__image"/>
+                </div>
+                Event
+              </NavLink>
+          }
           {
             !this.props.rootStore.walletLoggedIn ? null :
               <button
