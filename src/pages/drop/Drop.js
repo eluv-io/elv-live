@@ -91,6 +91,7 @@ class Drop extends React.Component {
     super(props);
 
     this.state = {
+      localstorageKey: `drop-status-${props.match.params.dropId}`,
       showMessage: true,
       dropInfo: this.Drop()
     };
@@ -118,10 +119,20 @@ class Drop extends React.Component {
     this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
   }
 
-  Message() {
-    if(!this.state.showMessage) { return null; }
+  StoredState() {
+    try {
+      return JSON.parse(localStorage.getItem(this.state.localstorageKey)) || {};
+    // eslint-disable-next-line no-empty
+    } catch(_) {}
 
+    return {};
+  }
+
+  Message() {
     const drop = this.state.dropInfo;
+
+    if(!this.state.showMessage || this.StoredState()[drop.currentStateIndex]) { return null; }
+
     const currentState = drop.states[drop.currentStateIndex];
 
     const messageInfo = currentState.modal_message;
@@ -158,7 +169,20 @@ class Drop extends React.Component {
             />
           </div>
           <div className="event-message__actions">
-            <button onClick={() => this.setState({showMessage: false})} className="event-message__button">
+            <button
+              onClick={() => {
+                this.setState({showMessage: false});
+
+                localStorage.setItem(
+                  this.state.localstorageKey,
+                  JSON.stringify({
+                    ...this.StoredState(),
+                    [drop.currentStateIndex]: true
+                  })
+                );
+              }}
+              className="event-message__button"
+            >
               OK
             </button>
           </div>
