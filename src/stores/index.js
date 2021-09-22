@@ -27,14 +27,12 @@ class RootStore {
   @observable walletVisibility = "hidden";
   @observable currentWalletState = {
     visibility: "hidden",
-    navigation: true,
     location: {
       page: "wallet"
     }
   };
   @observable defaultWalletState = {
     visibility: "hidden",
-    navigation: true,
     location: {
       page: "wallet"
     }
@@ -160,7 +158,7 @@ class RootStore {
   });
 
   /* Wallet */
-  InitializeWalletClient = flow(function * ({target, eventId, darkMode=false}) {
+  InitializeWalletClient = flow(function * ({target, marketplaceId, darkMode=false}) {
     if(!target) { return; }
 
     this.DestroyWalletClient();
@@ -171,7 +169,7 @@ class RootStore {
       walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
       //walletAppUrl: "https://192.168.0.17:8090",
       target,
-      eventId,
+      marketplaceId,
       darkMode
     });
 
@@ -184,7 +182,7 @@ class RootStore {
     );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => {
-      this.InitializeWalletClient({target, eventId, darkMode});
+      this.InitializeWalletClient({target, marketplaceId, darkMode});
     });
   });
 
@@ -198,11 +196,10 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, navigation, video}) {
+  SetDefaultWalletState({visibility, location, video}) {
     this.defaultWalletState = {
       visibility,
       location,
-      navigation,
       video
     };
   }
@@ -211,7 +208,6 @@ class RootStore {
   ResetDefaultWalletState() {
     this.defaultWalletState = {
       visibility: "hidden",
-      navigation: true,
       location: {
         page: "wallet"
       }
@@ -219,7 +215,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility({visibility, navigation=true, location, video}) {
+  SetWalletPanelVisibility({visibility, location, video}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -248,8 +244,6 @@ class RootStore {
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
     }
 
-    this.walletClient.ToggleNavigation(navigation);
-
     if(location) {
       this.walletClient.Navigate(toJS(location));
     }
@@ -271,7 +265,6 @@ class RootStore {
 
     this.currentWalletState = {
       visibility,
-      navigation,
       location,
       video
     };

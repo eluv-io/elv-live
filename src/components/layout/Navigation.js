@@ -71,7 +71,6 @@ class Header extends React.Component {
                       this.props.rootStore.defaultWalletState :
                       {
                         visibility: "full",
-                        navigation: true,
                         location: {
                           page: "marketplace",
                           params: {
@@ -96,7 +95,6 @@ class Header extends React.Component {
                   this.props.rootStore.defaultWalletState :
                   {
                     visibility: "full",
-                    navigation: true,
                     location: {
                       page: "wallet"
                     }

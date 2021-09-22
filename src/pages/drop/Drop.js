@@ -101,7 +101,6 @@ class Drop extends React.Component {
 
     this.props.rootStore.SetDefaultWalletState({
       visibility: "side-panel",
-      navigation: false,
       location: {
         page: "drop",
         params: {
@@ -223,7 +222,6 @@ class Drop extends React.Component {
             OnLoad={videoElement => {
               this.props.rootStore.SetDefaultWalletState({
                 visibility: "side-panel",
-                navigation: false,
                 location: {
                   page: "drop",
                   params: {
