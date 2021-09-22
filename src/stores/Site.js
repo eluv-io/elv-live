@@ -29,6 +29,7 @@ class SiteStore {
 
   @observable siteId;
   @observable siteHash;
+  @observable marketplaceId;
 
   @observable chatChannel;
 

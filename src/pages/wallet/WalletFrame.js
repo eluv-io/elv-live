@@ -14,7 +14,7 @@ class WalletFrame extends React.Component {
           className="wallet-target"
           ref={element => this.props.rootStore.InitializeWalletClient({
             target: element,
-            eventId: this.props.siteStore.siteId,
+            marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
             darkMode: this.props.siteStore.darkMode
           })}
         >
