@@ -1,10 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import ColoredLogo from "Assets/images/logo/coloredEluvioLiveLogo.png";
+import Logo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {NavLink} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
+import ImageIcon from "Common/ImageIcon";
 
 @inject("siteStore")
 @observer
@@ -126,7 +127,7 @@ class Landing extends React.Component {
                 Render={({diff, countdown}) => this.Countdown({diff, countdown})}
               />
           }
-          <img className="landing-page__logo" src={ColoredLogo} alt="Eluvio Live" />
+          <ImageIcon icon={Logo} className="landing-page__logo" title="Eluvio"/>
           <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
         </div>
       </div>

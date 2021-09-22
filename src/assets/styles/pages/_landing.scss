@@ -83,9 +83,15 @@
   }
 
   &__logo {
-    height: 80px;
-    margin: 0 auto 20px;
+    height: 40px;
+    margin: 0 auto 40px;
     width: 100%;
+
+    * {
+      fill: $white;
+      filter: drop-shadow(4px 4px 4px $black);
+      stroke: $white;
+    }
   }
 
   &__event-logo {
