@@ -224,7 +224,6 @@ class RootStore {
       return;
     }
 
-
     this.walletClient.ToggleSidePanelMode(visibility === "side-panel");
 
     visibilities.forEach(v =>
