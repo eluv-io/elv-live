@@ -89,7 +89,8 @@
   &__header-name,
   &__subheader,
   &__date,
-  &__date-header {
+  &__date-header,
+  &__countdown {
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
@@ -125,6 +126,15 @@
     font-weight: 200;
     letter-spacing: 0.095em;
     margin-top: 20px;
+  }
+
+  &__countdown {
+    color: #f0e5d4;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-transform: initial;
   }
 
   &__header-logo {
@@ -234,6 +244,10 @@
     &__date {
       font-size: 16px;
       letter-spacing: 1px;
+    }
+
+    &__countdown {
+      font-size: 18px;
     }
 
     &__buttons {

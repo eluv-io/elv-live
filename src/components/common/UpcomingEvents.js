@@ -7,7 +7,7 @@ const EventCard = ({event, hardLink=false}) => {
   let date = new Date();
   let month;
   try {
-    date = new Date(event.date);
+    date = new Date(event.start_date);
     month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(date).slice(0, 3);
   } catch(error) {
     // eslint-disable-next-line no-console
@@ -47,7 +47,7 @@ const EventCard = ({event, hardLink=false}) => {
 const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
-  events = events.sort((a, b) => a.date < b.date ? -1 : 1);
+  events = events.sort((a, b) => a.start_date < b.start_date ? -1 : 1);
 
   let yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -57,7 +57,7 @@ const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
     <div className={`upcoming-events ${className}`}>
       <h2 className="upcoming-events__header">{ header }</h2>
       <Carousel
-        startIndex={Math.max(0, events.findIndex(event => event.date >= yesterday))}
+        startIndex={Math.max(0, events.findIndex(event => event.start_date >= yesterday))}
         minVisible={1}
         maxVisible={4}
         className="upcoming-events__carousel"
