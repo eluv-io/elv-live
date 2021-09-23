@@ -6,6 +6,8 @@ import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
+import EluvioLogo from "Images/logo/eluvio-logo.svg";
+
 import WalletIcon from "Icons/Wallet icon.png";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event Icon.png";
@@ -156,7 +158,23 @@ class Header extends React.Component {
   render() {
     if(!this.props.siteStore.currentSite) { return null; }
 
-    const logo = this.props.siteStore.SiteHasImage("logo") ? this.props.siteStore.SiteImageUrl("logo") : DefaultLogo;
+    let logo = <ImageIcon icon={DefaultLogo} title="Eluvio LIVE" className="header__logo header__logo-default" />;
+
+    if(this.props.siteStore.SiteHasImage("logo")) {
+      logo = (
+        <div className="header__logo">
+          <ImageIcon
+            icon={this.props.siteStore.SiteImageUrl("logo")}
+            alternateIcon={DefaultLogo}
+            className="header__logo__image"
+            title="Logo"
+          />
+          <h2 className="header__logo__tagline">
+            Powered by <ImageIcon icon={EluvioLogo} className="header__logo__tagline__image" title="Eluv.io" />
+          </h2>
+        </div>
+      );
+    }
 
     return (
       <header className={`
@@ -169,17 +187,17 @@ class Header extends React.Component {
         {
           this.props.rootStore.currentWalletState.visibility === "full" ?
             <button
-              className="header__logo"
+              className="header__logo-container"
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
             >
-              <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
+              { logo }
             </button> :
             this.props.mainPage ?
-              <a href={window.location.origin} className="header__logo">
-                <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
+              <a href={window.location.origin} className="header__logo-container">
+                { logo }
               </a> :
-              <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-                <ImageIcon icon={logo} alternateIcon={DefaultLogo} label="Eluvio Live" />
+              <NavLink to={this.props.siteStore.baseSitePath} className="header__logo-container">
+                { logo }
               </NavLink>
         }
         <div className="header__spacer" />

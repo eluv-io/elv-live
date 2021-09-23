@@ -1,4 +1,5 @@
 .btn {
+  align-items: center;
   align-self: center;
   background-color: $black;
   border: 1px solid $black;
@@ -6,8 +7,10 @@
   box-sizing: border-box;
   color: $white;
   cursor: pointer;
+  display: flex;
   font-size: 16px;
   height: 48px;
+  justify-content: center;
   letter-spacing: 2px;
   line-height: 16px;
   text-align: center;
@@ -24,10 +27,15 @@
     }
   }
 
-
   &--gold {
     background-color: #d7bb73;
     border: none;
+    color: $black;
+  }
+}
+
+a {
+  &.btn--gold {
     color: $black;
   }
 }

@@ -139,10 +139,22 @@ class Drop extends React.Component {
 
     if(!messageInfo || !messageInfo.show) { return null; }
 
+    const CloseModal = () => {
+      this.setState({showMessage: false});
+
+      localStorage.setItem(
+        this.state.localstorageKey,
+        JSON.stringify({
+          ...this.StoredState(),
+          [drop.currentStateIndex]: true
+        })
+      );
+    };
+
     return (
       <Modal
         className="event-message-container"
-        Toggle={() => this.setState({showMessage: false})}
+        Toggle={CloseModal}
       >
         <div className="event-message">
           <div className="event-message__content">
@@ -170,17 +182,7 @@ class Drop extends React.Component {
           </div>
           <div className="event-message__actions">
             <button
-              onClick={() => {
-                this.setState({showMessage: false});
-
-                localStorage.setItem(
-                  this.state.localstorageKey,
-                  JSON.stringify({
-                    ...this.StoredState(),
-                    [drop.currentStateIndex]: true
-                  })
-                );
-              }}
+              onClick={CloseModal}
               className="event-message__button"
             >
               OK

@@ -30,7 +30,7 @@
     transition: background-color 1s linear, color 0.5s linear, border 0.5s linear, stroke 0.5s linear, fill 0.5s linear;
   }
 
-  &__logo,
+  &__logo-container,
   &__links {
     flex-grow: 0;
     flex-shrink: 1;
@@ -40,30 +40,43 @@
     flex: 1 0 auto;
   }
 
-  &__logo {
+  &__logo-container {
     align-items: center;
-    background-color: transparent;
+    background: transparent;
     border: 0;
-    cursor: pointer;
     display: flex;
+    flex-direction: column;
     height: 100%;
-    max-height: 100%;
-    padding: 0 20px 0 0;
+    justify-content: center;
+    padding: 0;
+  }
 
-    img {
-      max-height: 100%;
+  &__logo {
+    height: 100%;
+
+    &-default {
+      height: 26px;
     }
 
-    svg {
-      height: auto;
-      max-height: 100%;
-      overflow: visible;
-      width: 191px;
+    &__image {
+      height: 25px;
+      margin-bottom: 5px;
+    }
 
-      * {
-        fill: $black;
-        filter: drop-shadow(2px 2px 2px $black);
-        stroke: transparent;
+    &__tagline {
+      align-items: flex-start;
+      color: $white;
+      display: flex;
+      font-size: 11px;
+      font-weight: 200;
+      height: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      user-select: none;
+
+      &__image {
+        height: 12px;
+        margin-left: 5px;
       }
     }
   }
@@ -142,10 +155,8 @@
     }
 
     .header__logo {
-      svg {
-        * {
-          fill: $white;
-        }
+      * {
+        fill: $white;
       }
     }
 
@@ -173,12 +184,8 @@
   @media screen and (max-width: 900px) {
     padding: 10px 25px 10px 15px;
 
-    &__logo {
-      padding: 0;
-
-      svg {
-        width: 90px;
-      }
+    &__logo-default {
+      height: 20px;
     }
 
     &__links {
@@ -202,6 +209,20 @@
     &__link {
       &__icon {
         display: none;
+      }
+    }
+
+    &__logo-default {
+      height: 16px;
+    }
+
+    &__logo__tagline {
+      align-items: baseline;
+      font-size: 8px;
+
+      &__image {
+        height: 8px;
+        margin-left: 4px;
       }
     }
   }
@@ -441,10 +462,9 @@
     }
 
     .header__logo {
-      svg {
-        * {
-          fill: $white;
-        }
+      * {
+        fill: $white;
+        stroke: $white;
       }
     }
 
