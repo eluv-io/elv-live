@@ -276,7 +276,11 @@ class Event extends React.Component {
           { this.Actions() }
         </div>
 
-        { this.props.siteStore.isDropEvent ? <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} /> : null }
+        {
+          this.props.siteStore.isDropEvent ?
+            <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} linksDisabled={!this.props.rootStore.walletLoggedIn} /> :
+            null
+        }
 
         <div className="event-page__overview">
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />

@@ -6,7 +6,7 @@ import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
-import EluvioLogo from "Images/logo/eluvio-logo.svg";
+import EluvioLogo from "Images/logo/ELUV.IO (55x12px).png";
 
 import WalletIcon from "Icons/Wallet icon.png";
 import CartIcon from "Assets/icons/cart.svg";
