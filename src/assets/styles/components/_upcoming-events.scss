@@ -5,6 +5,13 @@ $element-width: $max-height + $date-width;
 .upcoming-events {
   padding: 50px 50px 0;
 
+  &-disabled {
+    a {
+      cursor: initial;
+      pointer-events: none;
+    }
+  }
+
   &__header {
     color: $black;
     font-size: 24px;

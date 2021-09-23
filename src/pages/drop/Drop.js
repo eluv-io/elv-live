@@ -9,6 +9,7 @@ import ImageIcon from "Common/ImageIcon";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
+import {Redirect} from "react-router";
 
 const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
   const [key, setKey] = useState(0);
@@ -231,6 +232,10 @@ class Drop extends React.Component {
   }
 
   render() {
+    if(!this.props.rootStore.walletLoggedIn) {
+      return <Redirect to={UrlJoin("/", this.props.siteStore.currentSite.tenantSlug || "", this.props.siteStore.currentSite.siteSlug || "", "drop", this.props.match.params.dropId)} />;
+    }
+
     const drop = this.state.dropInfo;
     const currentState = drop.states[drop.currentStateIndex];
     const nextState = drop.states[drop.currentStateIndex + 1];

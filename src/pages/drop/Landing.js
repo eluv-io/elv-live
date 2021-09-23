@@ -30,9 +30,27 @@ class Landing extends React.Component {
       return (
         <div className="landing-page__text">
           <div className="landing-page__text landing-page__text-begins">Event Happening Now!</div>
-          <NavLink className="landing-page__enter-event" to={UrlJoin(this.props.location.pathname, "event")}>
-            Enter Event
-          </NavLink>
+          {
+            this.props.rootStore.walletLoggedIn ?
+              <NavLink className="landing-page__enter-event" to={UrlJoin(this.props.location.pathname, "event")}>
+                Enter Event
+              </NavLink> :
+              <button
+                className="landing-page__enter-event"
+                onClick={() => {
+                  this.props.rootStore.SetWalletPanelVisibility(
+                    {
+                      visibility: "modal",
+                      location: {
+                        page: "wallet"
+                      }
+                    }
+                  );
+                }}
+              >
+                Sign In
+              </button>
+          }
         </div>
       );
     }
