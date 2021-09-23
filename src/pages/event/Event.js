@@ -12,6 +12,7 @@ import ImageIcon from "Common/ImageIcon";
 import UrlJoin from "url-join";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
+import {Link} from "react-router-dom";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -116,10 +117,20 @@ class Event extends React.Component {
 
   Actions() {
     if(this.props.siteStore.isDropEvent) {
+      const nextDrop = this.props.siteStore.upcomingDropEvents.
+        filter(({end_date}) => {
+          try {
+            return new Date(end_date).getTime() > Date.now();
+          // eslint-disable-next-line no-empty
+          } catch(_) {}
+        })
+        .sort((a, b) => a.start_date > b.start_date ? -1 : 1)[0];
+
       return (
         <div className="event-page__buttons">
           {
-            this.props.rootStore.walletLoggedIn ? null :
+            this.props.rootStore.walletLoggedIn ?
+              null :
               <button
                 className="btn btn--gold"
                 onClick={() => this.setState({showGetStartedModal: true})}
@@ -128,8 +139,19 @@ class Event extends React.Component {
               </button>
           }
           {
+            this.props.rootStore.walletLoggedIn && nextDrop ?
+              <Link
+                to={nextDrop.link}
+                className="btn btn--gold"
+                onClick={() => this.setState({showGetStartedModal: true})}
+              >
+                Join the Drop
+              </Link>
+              : null
+          }
+          {
             this.props.siteStore.promos.length > 0 ?
-              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn ? "btn--gold" : ""}`}>
+              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn && !nextDrop ? "btn--gold" : ""}`}>
                 Watch Promo
               </button> : null
           }
