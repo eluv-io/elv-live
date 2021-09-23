@@ -47,12 +47,12 @@ class Header extends React.Component {
 
   Links() {
     if(this.props.siteStore.isDropEvent) {
-      const walletState = this.props.rootStore.currentWalletState;
+      const walletState = this.props.rootStore.currentWalletState || {};
       const loggedIn = this.props.rootStore.walletLoggedIn;
-      const currentPage = this.props.rootStore.currentWalletState.location.page;
+      const currentPage = (walletState.location || {}).page;
       const walletOpen = walletState.visibility === "full";
 
-      if(!this.props.rootStore.walletLoaded) {
+      if(!this.props.rootStore.walletClient) {
         return null;
       } else if(!this.props.rootStore.walletLoggedIn) {
         return (
