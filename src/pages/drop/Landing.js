@@ -15,6 +15,15 @@ import ImageIcon from "Common/ImageIcon";
 class Landing extends React.Component {
   componentDidMount() {
     ToggleZendesk(false);
+
+    if(!this.props.rootStore.walletLoggedIn) {
+      this.props.rootStore.SetWalletPanelVisibility({
+        visibility: "modal",
+        location: {
+          page: "wallet"
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
