@@ -23,6 +23,7 @@ class RootStore {
   @observable redeemedTicket;
   @observable error = "";
 
+  @observable walletLoaded = false;
   @observable walletLoggedIn = false;
   @observable walletVisibility = "hidden";
   @observable currentWalletState = {
@@ -173,6 +174,10 @@ class RootStore {
       darkMode
     });
 
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOADED, () =>
+      runInAction(() => this.walletLoaded = true)
+    );
+
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () =>
       runInAction(() => this.walletLoggedIn = true)
     );
@@ -182,6 +187,7 @@ class RootStore {
     );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => {
+      this.walletLoaded = false;
       this.InitializeWalletClient({target, marketplaceId, darkMode});
     });
   });

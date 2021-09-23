@@ -3,7 +3,7 @@ import Carousel from "Common/Carousel";
 import ImageIcon from "Common/ImageIcon";
 import {Link} from "react-router-dom";
 
-const EventCard = ({event, hardLink=false, disabled=false}) => {
+const EventCard = ({event, hardLink=false}) => {
   let date = new Date();
   let month;
   try {
@@ -29,12 +29,12 @@ const EventCard = ({event, hardLink=false, disabled=false}) => {
       </div>
       {
         hardLink ?
-          <a href={disabled ? "#" : event.link} className="upcoming-events__event-card__info">
+          <a href={event.link} className="upcoming-events__event-card__info">
             <div className="upcoming-events__event-card__square">
               <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
             </div>
           </a> :
-          <Link to={disabled ? "#" : event.link} className="upcoming-events__event-card__info">
+          <Link to={event.link} className="upcoming-events__event-card__info">
             <div className="upcoming-events__event-card__square">
               <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
             </div>
@@ -44,7 +44,7 @@ const EventCard = ({event, hardLink=false, disabled=false}) => {
   );
 };
 
-const UpcomingEvents = ({header, events, hardLink=false, linksDisabled=false, className=""}) => {
+const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
   events = events.sort((a, b) => a.date < b.date ? -1 : 1);
@@ -54,14 +54,14 @@ const UpcomingEvents = ({header, events, hardLink=false, linksDisabled=false, cl
   yesterday = yesterday.toISOString().split("T")[0];
 
   return (
-    <div className={`upcoming-events ${linksDisabled ? "upcoming-events-disabled" : ""} ${className}`}>
+    <div className={`upcoming-events ${className}`}>
       <h2 className="upcoming-events__header">{ header }</h2>
       <Carousel
         startIndex={Math.max(0, events.findIndex(event => event.date >= yesterday))}
         minVisible={1}
         maxVisible={4}
         className="upcoming-events__carousel"
-        elements={events.map((event, index) => <EventCard key={`event-card-${index}`} event={event} hardLink={hardLink} disabled={linksDisabled} />)}
+        elements={events.map((event, index) => <EventCard key={`event-card-${index}`} event={event} hardLink={hardLink} />)}
         placeholderClassname="upcoming-events__event-card upcoming-events__event-card-placeholder"
       />
     </div>
