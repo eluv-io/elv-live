@@ -278,7 +278,7 @@ class Event extends React.Component {
 
         {
           this.props.siteStore.isDropEvent ?
-            <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} linksDisabled={!this.props.rootStore.walletLoggedIn} /> :
+            <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} /> :
             null
         }
 

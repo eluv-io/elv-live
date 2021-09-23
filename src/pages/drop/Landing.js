@@ -48,7 +48,7 @@ class Landing extends React.Component {
                   );
                 }}
               >
-                Sign In
+                Log In
               </button>
           }
         </div>
