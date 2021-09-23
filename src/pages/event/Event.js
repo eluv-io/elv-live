@@ -131,21 +131,21 @@ class Event extends React.Component {
 
   Actions() {
     if(this.props.siteStore.isDropEvent) {
+      const hasLoggedIn = (this.props.rootStore.walletLoggedIn || localStorage.getItem("hasLoggedIn"));
       const nextDrop = this.NextDrop();
       return (
         <div className="event-page__buttons">
           {
-            this.props.rootStore.walletLoggedIn ?
-              null :
+            !hasLoggedIn ?
               <button
                 className="btn btn--gold"
                 onClick={() => this.setState({showGetStartedModal: true})}
               >
                 Get Started
-              </button>
+              </button> : null
           }
           {
-            this.props.rootStore.walletLoggedIn && nextDrop ?
+            hasLoggedIn && nextDrop ?
               <Link
                 to={nextDrop.link}
                 className="btn btn--gold"

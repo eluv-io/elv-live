@@ -173,9 +173,10 @@ class RootStore {
       darkMode
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () =>
-      runInAction(() => this.walletLoggedIn = true)
-    );
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
+      runInAction(() => this.walletLoggedIn = true);
+      localStorage.setItem("hasLoggedIn", "true");
+    });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_OUT, () =>
       runInAction(() => this.walletLoggedIn = false)
@@ -263,6 +264,10 @@ class RootStore {
       this.defaultWalletState.video.element.muted = true;
     } else if(video && !video.muted) {
       video.element.muted = false;
+    }
+
+    if(visibility !== "hidden") {
+      this.walletClient.SetActive(true);
     }
 
     this.currentWalletState = {
