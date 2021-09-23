@@ -32,7 +32,7 @@ class MainStore {
       .map(site => ({
         site,
         header: site.info.event_info.event_header,
-        date: site.info.event_info.date,
+        start_date: site.info.event_info.date,
         image: this.FeaturedSiteUrl(site.siteSlug, UrlJoin("info", "event_images", "card_image")),
         link: UrlJoin("/", site.tenantSlug || "", site.siteSlug || "")
       }));
@@ -43,7 +43,7 @@ class MainStore {
         (site.info.drops || []).map((drop, index) => ({
           site,
           header: drop.event_header,
-          date: drop.start_date,
+          start_date: drop.start_date,
           image: this.FeaturedSiteUrl(site.siteSlug, UrlJoin("info", "drops", index.toString(), "event_image")),
           link: UrlJoin("/", site.tenantSlug || "", site.siteSlug || "")
         }))

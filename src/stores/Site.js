@@ -129,7 +129,7 @@ class SiteStore {
     return (this.currentSiteInfo.drops || [])
       .map((drop, index) => ({
         header: drop.event_header,
-        date: drop.start_date,
+        start_date: drop.start_date,
         end_date: drop.end_date,
         image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
         link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
@@ -699,6 +699,7 @@ class SiteStore {
       event_subheader: "",
       event_title: "",
       location: "",
+      show_countdown: false,
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       description: "",
     };
