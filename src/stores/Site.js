@@ -1,4 +1,4 @@
-import {observable, action, flow, computed} from "mobx";
+import {observable, action, flow, computed, runInAction} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
@@ -85,6 +85,14 @@ class SiteStore {
 
   @computed get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
+  }
+
+  @computed get loginCustomization() {
+    try {
+      return this.currentSiteInfo.loginCustomization || JSON.parse(localStorage.getItem("loginCustomization")) || {};
+    // eslint-disable-next-line no-empty
+    } catch(error) {}
+    return {};
   }
 
   @computed get isDropEvent() {
@@ -184,6 +192,8 @@ class SiteStore {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+
+    runInAction(() => this.darkMode = !!this.loginCustomization.darkMode);
   }
 
   SiteMetadataPath({tenantSlug, siteIndex, siteSlug}={}) {
@@ -198,11 +208,6 @@ class SiteStore {
 
   FeaturedSite(siteSlug) {
     return this.featuredSiteKeys.find(({slug}) => slug === siteSlug);
-  }
-
-  @action.bound
-  ToggleDarkMode() {
-    this.darkMode = !this.darkMode;
   }
 
   TicketSkuByNTPId(ntpId="") {
@@ -433,6 +438,27 @@ class SiteStore {
 
       if(site.info.marketplace) {
         site.info.marketplaceId = this.client.utils.DecodeVersionHash(site.info.marketplace).objectId;
+        site.info.marketplaceHash = yield this.client.LatestVersionHash({objectId: site.info.marketplaceId});
+
+        const customizationMetadata = yield this.client.ContentObjectMetadata({
+          versionHash: site.info.marketplaceHash,
+          metadataSubtree: "public/asset_metadata/info",
+          select: [
+            "tenant_id",
+            "terms",
+            "terms_html",
+            "login_customization"
+          ]
+        });
+
+        site.info.loginCustomization = {
+          darkMode: site.info.theme === "dark",
+          marketplaceHash: site.info.marketplaceHash,
+          tenant_id: (customizationMetadata.tenant_id),
+          terms: customizationMetadata.terms,
+          terms_html: customizationMetadata.terms_html,
+          ...((customizationMetadata || {}).login_customization || {})
+        };
       }
 
       this.eventSites[tenantKey][siteSlug] = site;
