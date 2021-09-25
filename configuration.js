@@ -12,6 +12,10 @@ const EluvioConfiguration = {
   // Prod
   //"live-site-id": "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
 
+  //"auth0-domain": "prod-elv.us.auth0.com",
+  //"auth0-domain": "auth.contentfabric.io",
+  //"auth0-configuration-id": "ONyubP9rFI5BHzmYglQKBZ1bBbiyoB3S",
+
   "version": "elv-live@main",
   "version-hash": "elv-live@cac61fc90f7183eee06d3996bb65b9e71a8b6f06"
 };
