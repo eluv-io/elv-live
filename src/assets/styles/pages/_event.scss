@@ -91,6 +91,7 @@
   &__date,
   &__date-header,
   &__countdown {
+    color: $black;
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
@@ -98,7 +99,7 @@
     max-width: 800px;
     padding: 0 30px;
     text-align: center;
-    text-shadow: 2px 2px $black;
+    text-shadow: 0 0 3px $white;
     text-transform: uppercase;
 
     &::selection {
@@ -129,7 +130,6 @@
   }
 
   &__countdown {
-    color: #f0e5d4;
     font-size: 24px;
     font-weight: 300;
     letter-spacing: 0.05em;
@@ -287,11 +287,22 @@
     }
   }
 
-  .event-page__buttons {
-    .btn {
-      &:not(.btn--gold),
-      &:hover {
-        border: 1px solid rgba(255, 255, 255, 0.6);
+  .event-page {
+    &__header-name,
+    &__subheader,
+    &__date,
+    &__date-header,
+    &__countdown {
+      color: $white;
+      text-shadow: 0 0 3px $black;
+    }
+
+    &__buttons {
+      .btn {
+        &:not(.btn--gold),
+        &:hover {
+          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
       }
     }
   }

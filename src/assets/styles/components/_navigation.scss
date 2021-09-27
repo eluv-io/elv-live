@@ -12,14 +12,6 @@
   width: 100%;
   z-index: 1000;
 
-  &.header-scrolled {
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-
-  &.header-wallet {
-    background-color: $white;
-  }
-
   & > * {
     flex: 1 1 auto;
     user-select: none;
@@ -66,7 +58,6 @@
 
     &__tagline {
       align-items: flex-start;
-      color: $white;
       display: flex;
       font-size: 11px;
       font-weight: 200;
@@ -87,10 +78,6 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-
-    * {
-      color: $black;
-    }
   }
 
   &__link {
@@ -99,7 +86,6 @@
     border: 0;
     cursor: pointer;
     display: flex;
-    filter: drop-shadow(0.75px 0.75px 0.75px $black);
     font-size: 16px;
     outline: 0;
 
@@ -136,50 +122,6 @@
     font-size: 14px;
     justify-content: center;
     letter-spacing: 0.07em;
-  }
-
-  // Header is white on main page
-  &.header-main {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-
-    &.header-scrolled {
-      background-color: rgba(0, 0, 0, 0.5);
-      border-bottom: 1px solid transparent;
-    }
-
-    .header__link {
-      color: $white;
-
-      &:hover {
-        color: $white;
-      }
-    }
-
-    .header__logo {
-      * {
-        fill: $white;
-      }
-    }
-
-    .header__link {
-      svg {
-        * {
-          filter: drop-shadow(0.75px 0.75px 0.75px $black);
-          stroke: $white;
-        }
-      }
-    }
-
-    .cart-overlay-item-count {
-      background-color: $white;
-      color: $black;
-    }
-  }
-
-  @media screen and (max-width: 1400px) {
-    &.header-main {
-      background-color: black;
-    }
   }
 
   @media screen and (max-width: 900px) {
@@ -241,15 +183,7 @@
   width: 20px;
 
   svg {
-    fill: transparent !important;
-    height: 100%;
-    stroke: $black;
-    width: 100%;
-
     * {
-      fill: transparent !important;
-      filter: drop-shadow(0.5px 0.5px 0.5px $black);
-      stroke: $black;
       stroke-width: 2px;
     }
   }
@@ -258,7 +192,6 @@
     align-items: center;
     background-color: $black;
     border-radius: 100%;
-    color: $white;
     display: flex;
     font-size: 10px;
     height: 15px;
@@ -445,49 +378,6 @@
   }
 }
 
-// Don't specify dark header under .dark because light mode may need it
-.header-dark {
-  &.header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-
-    &.header-wallet {
-      background-color: $black;
-    }
-
-    .header__link {
-      color: $white;
-
-      &:hover {
-        color: $white;
-      }
-    }
-
-    .header__logo {
-      * {
-        fill: $white;
-        stroke: $white;
-      }
-    }
-
-    .header__link {
-      svg {
-        * {
-          stroke: $white;
-        }
-      }
-    }
-
-    &.header-scrolled {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    .cart-overlay-item-count {
-      background-color: $white;
-      color: black;
-    }
-  }
-}
-
 .dark {
   // Footer
   .live-footer {
@@ -501,6 +391,116 @@
 
     * {
       color: $white;
+    }
+  }
+}
+
+// All colors for various header states
+.header {
+  border-bottom: 1px solid rgba($black, 0.5);
+
+  &.header-scrolled {
+    background-color: rgba($white, 0.2);
+  }
+
+  &__logo-container {
+    * {
+      color: $black;
+    }
+
+    svg {
+      * {
+        fill: $black;
+        stroke: $black;
+      }
+    }
+  }
+
+  &__links {
+    * {
+      color: $black;
+    }
+
+    .cart-overlay-item-count {
+      background: $black;
+      color: $white;
+    }
+
+    svg {
+      * {
+        stroke: $black;
+      }
+    }
+  }
+
+  &.header-main,
+  &.header-dark {
+    border-bottom: 1px solid rgba($white, 0.5);
+
+    &:not(.header-main) {
+      background-color: $black;
+    }
+
+    &.header-scrolled {
+      background-color: rgba($black, 0.8);
+    }
+
+    .header__logo-container {
+      * {
+        color: $white;
+      }
+
+      svg {
+        * {
+          fill: $white;
+          stroke: $white;
+        }
+      }
+    }
+
+    .header__links {
+      * {
+        color: $white;
+      }
+
+      .cart-overlay-item-count {
+        background: $white;
+        color: $black;
+      }
+
+      svg {
+        * {
+          stroke: $white;
+        }
+      }
+    }
+  }
+
+  &.header-main {
+    @media screen and (min-width: 1400px) {
+      .header__logo-container {
+        text-shadow: 0 0 3px $black;
+
+        * {
+          text-shadow: 0 0 3px $black;
+        }
+      }
+
+      .header__links {
+        * {
+          text-shadow: 0 0 3px $black;
+        }
+
+        svg {
+          * {
+            filter: drop-shadow(0 0 3px $black);
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 1400px) {
+      background: $black;
     }
   }
 }
