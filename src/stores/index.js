@@ -193,7 +193,7 @@ class RootStore {
     this.walletLoggedIn = false;
 
     this.walletClient = yield ElvWalletClient.InitializeFrame({
-      walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet/?d",
+      walletAppUrl: "https://core.test.contentfabric.io/elv-media-wallet",
       //walletAppUrl: "https://192.168.0.17:8090",
       target,
       marketplaceId,

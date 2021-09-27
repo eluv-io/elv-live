@@ -403,6 +403,10 @@
     background-color: rgba($white, 0.2);
   }
 
+  &-header-wallet {
+    background-color: $white;
+  }
+
   &__logo-container {
     * {
       color: $black;
@@ -434,9 +438,11 @@
   }
 
   &.header-main,
+  &.header-wallet,
   &.header-dark {
     border-bottom: 1px solid rgba($white, 0.5);
 
+    &.header-wallet,
     &:not(.header-main) {
       background-color: $black;
     }
