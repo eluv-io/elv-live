@@ -83,8 +83,6 @@ const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, site
 
       if(authInfo) {
         setLoading(true);
-
-        // await rootStore.SetAuthInfo(rootStore.AuthInfo());
         return;
       }
 

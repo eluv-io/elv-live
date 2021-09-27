@@ -47,6 +47,7 @@
 
 .login-page {
   align-items: center;
+  background: $white;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -289,6 +290,8 @@
 
 .dark {
   .login-page {
+    background: $black;
+
     &__login-box {
       background: $black;
     }
