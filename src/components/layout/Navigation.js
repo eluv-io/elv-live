@@ -10,7 +10,7 @@ import EluvioLogo from "Images/logo/eluvio-logo.svg";
 
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
-import EventIcon from "Assets/icons/Event Icon.png";
+import EventIcon from "Assets/icons/Event icon.svg";
 
 @inject("rootStore")
 @inject("siteStore")

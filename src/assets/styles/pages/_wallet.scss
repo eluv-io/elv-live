@@ -4,9 +4,9 @@
 }
 
 .wallet-panel-page-content {
-  max-width: calc(100vw - 700px);
-  min-width: calc(100vw - 700px);
-  width: calc(100vw - 700px);
+  max-width: calc(100vw - 350px);
+  min-width: calc(100vw - 350px);
+  width: calc(100vw - 350px);
 }
 
 .wallet-panel {
@@ -39,7 +39,7 @@
 
   &-side-panel {
     border-left: 1px solid #333;
-    width: 700px;
+    width: 350px;
   }
 
   &-modal {
@@ -83,20 +83,6 @@
     height: 100%;
     outline: 0;
     width: 100%;
-  }
-}
-
-@media screen and (max-width: 1400px) {
-  .wallet-panel-page-content {
-    max-width: 50vw;
-    min-width: 50vw;
-    width: 50vw;
-  }
-
-  .wallet-panel {
-    &-side-panel {
-      width: 50vw;
-    }
   }
 }
 

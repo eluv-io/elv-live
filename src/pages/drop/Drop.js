@@ -198,7 +198,7 @@ class Drop extends React.Component {
     let dropIndex = this.props.siteStore.currentSiteInfo.drops.findIndex(drop => drop.uuid === this.props.match.params.dropId);
     let drop = this.props.siteStore.currentSiteInfo.drops[dropIndex];
 
-    const states = ["event_state_preroll", "event_state_main", "event_state_post_vote", "event_state_mint_start"].map(state =>
+    const states = ["event_state_preroll", "event_state_main", "event_state_post_vote", "event_state_mint_start", "event_state_event_end"].map(state =>
       (state === "event_state_main" || drop[state].use_state) ? { state, ...drop[state] } : null
     ).filter(state => state);
 
@@ -232,11 +232,12 @@ class Drop extends React.Component {
   }
 
   render() {
-    if(!this.props.rootStore.walletLoggedIn) {
+    const drop = this.state.dropInfo;
+
+    if(!this.props.rootStore.walletLoggedIn && drop.requires_login) {
       return <Redirect to={UrlJoin("/", this.props.siteStore.currentSite.tenantSlug || "", this.props.siteStore.currentSite.siteSlug || "", "drop", this.props.match.params.dropId)} />;
     }
 
-    const drop = this.state.dropInfo;
     const currentState = drop.states[drop.currentStateIndex];
     const nextState = drop.states[drop.currentStateIndex + 1];
     const { streamHash, streamOptions } = this.state.dropInfo;
