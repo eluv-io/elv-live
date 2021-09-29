@@ -439,6 +439,11 @@ class SiteStore {
       if(fullLoad && site.info.marketplace) {
         site.info.marketplaceId = this.client.utils.DecodeVersionHash(site.info.marketplace).objectId;
         site.info.marketplaceHash = yield this.client.LatestVersionHash({objectId: site.info.marketplaceId});
+        this.marketplaceId = site.info.marketplaceId;
+
+        if(this.rootStore.walletClient) {
+          this.rootStore.walletClient.SetMarketplace({marketplaceId: site.info.marketplaceId});
+        }
 
         const customizationMetadata = yield this.client.ContentObjectMetadata({
           versionHash: site.info.marketplaceHash,
