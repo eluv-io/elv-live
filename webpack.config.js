@@ -121,6 +121,10 @@ module.exports = {
         loader: "svg-inline-loader"
       },
       {
+        test: /\.(woff2?|ttf)$/i,
+        loader: "file-loader",
+      },
+      {
         test: /\.(gif|png|jpe?g)$/i,
         use: [
           "file-loader",
@@ -130,7 +134,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(html|txt|bin|abi|md|woff2?|ttf)$/i,
+        test: /\.(html|txt|bin|abi|md)$/i,
         loader: "raw-loader"
       },
       {
