@@ -51,8 +51,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true, darkHeader=false,
                 const validSlug = await this.props.siteStore.LoadSite({
                   tenantSlug,
                   siteSlug,
-                  loadAnalytics: true,
-                  preloadHero: true
+                  fullLoad: true
                 });
 
                 try {

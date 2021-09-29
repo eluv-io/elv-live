@@ -2,20 +2,12 @@
   @include item-block;
 
   margin-bottom: 50px;
-
-  * {
-    font-family: Helvetica;
-  }
 }
 
 .merchandise-item {
   display: grid;
   grid-gap: 25px;
   grid-template-columns: 4fr 5fr;
-
-  * {
-    font-family: Helvetica;
-  }
 
   // Left side
   .item-image {
