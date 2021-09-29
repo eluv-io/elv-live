@@ -200,6 +200,11 @@ class RootStore {
       darkMode
     });
 
+    if(this.siteStore.marketplaceId) {
+      marketplaceId = this.siteStore.marketplaceId;
+      this.walletClient.SetMarketplace({marketplaceId});
+    }
+
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
       runInAction(() => this.walletLoggedIn = true);
     });
