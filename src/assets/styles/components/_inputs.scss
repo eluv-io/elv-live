@@ -1,13 +1,8 @@
 .email-entry {
   @include item-block;
 
-  font-family: Helvetica;
   padding: 26px 54px;
   width: 611px;
-
-  * {
-    font-family: Helvetica;
-  }
 
   input {
     font-size: 18px;

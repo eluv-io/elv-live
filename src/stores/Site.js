@@ -371,7 +371,7 @@ class SiteStore {
   });
 
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, siteIndex, siteSlug, loadAnalytics=false, preloadHero=false}) {
+  LoadSite = flow(function * ({tenantSlug, siteIndex, siteSlug, fullLoad=false}) {
     const tenantKey = tenantSlug || "featured";
     if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return true;
@@ -392,7 +392,7 @@ class SiteStore {
       this.siteIndex = siteIndex;
 
       let heroPreloadPromise;
-      if(preloadHero) {
+      if(fullLoad) {
         // Preload the main hero image
         const key = window.innerHeight > window.innerWidth ? "hero_background_mobile" : "hero_background";
         this.cachedHero = new Image();
@@ -436,7 +436,7 @@ class SiteStore {
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
-      if(site.info.marketplace) {
+      if(fullLoad && site.info.marketplace) {
         site.info.marketplaceId = this.client.utils.DecodeVersionHash(site.info.marketplace).objectId;
         site.info.marketplaceHash = yield this.client.LatestVersionHash({objectId: site.info.marketplaceId});
 
@@ -459,13 +459,26 @@ class SiteStore {
           terms_html: customizationMetadata.terms_html,
           ...((customizationMetadata || {}).login_customization || {})
         };
+
+        switch(site.info.loginCustomization.font) {
+          case "Inter":
+            import("Assets/fonts/Inter");
+
+            break;
+          case "Selawik":
+            import("Assets/fonts/Selawik");
+
+            break;
+          default:
+            break;
+        }
       }
 
       this.eventSites[tenantKey][siteSlug] = site;
 
       this.rootStore.cartStore.LoadLocalStorage();
 
-      if(loadAnalytics) {
+      if(fullLoad) {
         this.InitializeAnalytics();
       }
 
