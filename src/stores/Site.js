@@ -420,10 +420,13 @@ class SiteStore {
         resolveIgnoreErrors: true,
       });
 
+      /*
       if(site.info.tenant) {
         tenantSlug = yield this.LoadTenant({versionHash: site.info.tenant});
         this.tenantSlug = tenantSlug;
       }
+
+       */
 
       yield heroPreloadPromise;
 
