@@ -29,15 +29,17 @@ class Footer extends React.Component {
             <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
               Support FAQ
             </Link>
-            <Link to={this.props.siteStore.SitePath("terms")} className="footer-item">
-              Terms
-            </Link>
             {
               this.props.siteStore.siteSlug === "ms" ?
                 <a className="footer-item" target="_blank" href="http://go.microsoft.com/fwlink/?LinkId=521839" rel="noopener">Privacy & Cookies</a> :
-                <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
-                  Privacy Policy
-                </Link>
+                <>
+                  <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
+                    Privacy Policy
+                  </Link>
+                  <Link to={this.props.siteStore.SitePath("terms")} className="footer-item">
+                    Terms
+                  </Link>
+                </>
             }
             {
               languagesAvailable ?
