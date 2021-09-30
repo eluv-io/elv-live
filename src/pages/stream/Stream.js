@@ -120,6 +120,15 @@ class Stream extends React.Component {
       return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
+    /*
+      this.state.showChat ? null :
+        <div className="stream-page__header__viewer-count">
+          <ImageIcon title="Viewers" icon={UsersIcon}/>
+          <Counter to={this.props.siteStore.viewers} duration={2000} />
+        </div>
+
+       */
+
     return (
       <div className={`page-container stream-page ${this.state.showChat ? "stream-page-chat-visible" : "stream-page-chat-hidden"}`}>
         <div className="stream-page__main">
@@ -128,13 +137,6 @@ class Stream extends React.Component {
               <ImageIcon icon={Logo} label="Eluvio Live" />
             </NavLink>
             <div className="stream-page__header__right">
-              {
-                this.state.showChat ? null :
-                  <div className="stream-page__header__viewer-count">
-                    <ImageIcon title="Viewers" icon={UsersIcon}/>
-                    <Counter to={this.props.siteStore.viewers} duration={2000} />
-                  </div>
-              }
               <button
                 className={`stream-page__header__chat-toggle stream-page__header__chat-toggle-${this.state.showChat ? "hide" : "show"}`}
                 onClick={() => this.setState({showChat: !this.state.showChat, chatOpened: true})}
