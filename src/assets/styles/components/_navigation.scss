@@ -281,6 +281,9 @@
   letter-spacing: 0.07em;
   line-height: 150%;
   padding: 0 35px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 
   &:hover {
     color: $black;
