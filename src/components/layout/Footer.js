@@ -26,13 +26,13 @@ class Footer extends React.Component {
       <div className="live-footer">
         <div className="footer-container">
           <div className="footer-info">
-            <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
-              Support FAQ
-            </Link>
             {
               this.props.siteStore.siteSlug === "ms" ?
                 <a className="footer-item" target="_blank" href="http://go.microsoft.com/fwlink/?LinkId=521839" rel="noopener">Privacy & Cookies</a> :
                 <>
+                  <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
+                    Support FAQ
+                  </Link>
                   <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
                     Privacy Policy
                   </Link>
