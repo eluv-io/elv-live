@@ -382,10 +382,6 @@ class LiveChat extends React.Component {
               </button>
               <Counter to={this.state.lastHypeTotal} duration={1500} />
             </div>
-            <div className="stream-page__chat-panel__viewers">
-              <ImageIcon title="Viewers" icon={UsersIcon} />
-              <Counter to={this.props.siteStore.viewers} duration={1500} />
-            </div>
           </div>
         </div>
         <div

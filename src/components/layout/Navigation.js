@@ -6,7 +6,8 @@ import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
-import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
+import EluvioLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
+import WinLogo from "Images/logo/Windows 11 logo.png";
 
 @inject("siteStore")
 @inject("cartStore")
@@ -47,15 +48,17 @@ class Header extends React.Component {
     const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
 
+    const logo = this.props.siteStore.siteSlug === "ms" ? WinLogo : EluvioLogo;
+
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
         {
           this.props.mainPage ?
             <a href={window.location.origin} className="header__logo">
-              <ImageIcon icon={Logo} label="Eluvio Live" />
+              <ImageIcon icon={logo} label="Eluvio Live" />
             </a> :
             <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-              <ImageIcon icon={Logo} label="Eluvio Live" />
+              <ImageIcon icon={logo} label="Eluvio Live" />
             </NavLink>
         }
         <div className="header__spacer" />
