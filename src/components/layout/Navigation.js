@@ -49,12 +49,13 @@ class Header extends React.Component {
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
 
     const logo = this.props.siteStore.siteSlug === "ms" ? WinLogo : EluvioLogo;
+    const link = this.props.siteStore.siteSlug === "ms" ? "https://www.microsoft.com/en-us/windows/get-windows-11" : window.location.origin;
 
     return (
       <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
         {
           this.props.mainPage ?
-            <a href={window.location.origin} className="header__logo">
+            <a href={link} className="header__logo">
               <ImageIcon icon={logo} label="Eluvio Live" />
             </a> :
             <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
