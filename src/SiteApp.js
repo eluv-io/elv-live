@@ -79,10 +79,7 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:baseSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
 
         <Route>
-          <Route render={args => {
-            console.log("NO", args);
-            window.location.href = window.location.origin;
-          }} />
+          <Route render={() => window.location.href = window.location.origin} />
         </Route>
       </Switch>
     );
