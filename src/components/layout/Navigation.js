@@ -184,6 +184,7 @@ class Header extends React.Component {
     if(!this.props.siteStore.currentSite) { return null; }
 
     let logo = <ImageIcon icon={DefaultLogo} title="Eluvio LIVE" className="header__logo header__logo-default" />;
+    let logoUrl = window.location.origin;
 
     if(this.props.siteStore.SiteHasImage("logo")) {
       logo = (
@@ -199,6 +200,8 @@ class Header extends React.Component {
           </h2>
         </div>
       );
+
+      logoUrl = this.props.siteStore.currentSiteInfo.event_images && this.props.siteStore.currentSiteInfo.event_images.logo_link || logoUrl;
     }
 
     return (
@@ -218,7 +221,7 @@ class Header extends React.Component {
               { logo }
             </button> :
             this.props.mainPage ?
-              <a href={window.location.origin} className="header__logo-container">
+              <a href={logoUrl} className="header__logo-container">
                 { logo }
               </a> :
               <NavLink to={this.props.siteStore.baseSitePath} className="header__logo-container">
