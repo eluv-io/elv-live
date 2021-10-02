@@ -8,11 +8,33 @@
   -webkit-overflow-scrolling: touch;
   width: 100%;
 
+  &-custom-background {
+    .landing-page__text,
+    .landing-page__logo {
+      filter: drop-shadow(2px 2px 2px $black);
+    }
+  }
+
   * {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    z-index: 1;
+  }
+
+  &__background {
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 0;
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
     margin: 0 auto;
     max-width: 800px;
     padding-top: 80px;
@@ -29,10 +51,6 @@
 
   &__text-bold {
     font-weight: 500;
-  }
-
-  &__text-presents {
-    color: #f0e5d4;
   }
 
   &__text-countdown {
@@ -64,13 +82,21 @@
   }
 
   &__logo {
-    margin: 0 auto 20px;
+    height: 40px;
+    margin: 0 auto 40px;
     width: 100%;
+
+    * {
+      fill: $white;
+      filter: drop-shadow(4px 4px 4px $black);
+      stroke: $white;
+    }
   }
 
   &__event-logo {
-    height: 150px;
+    flex: 1 1 150px;
     margin: 20px auto 30px;
+    max-height: 250px;
   }
 
   &__event-header {
@@ -86,15 +112,16 @@
     @include page-fade-in;
     align-items: center;
     background: transparent;
-    border: 1px solid $white;
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 3px;
     color: $white;
+    cursor: pointer;
     display: flex;
-    font-size: 16px;
+    font-size: 18px;
     height: 50px;
     justify-content: center;
     letter-spacing: 0.14em;
-    margin: 50px auto 0;
+    margin: 20px auto 80px;
     text-transform: uppercase;
     width: 255px;
 
@@ -121,7 +148,7 @@
   @media only screen and (max-width: 900px) {
     &__content {
       max-width: unset;
-      padding: 100px 10px 0;
+      padding: 100px 20px 20px;
       width: 100%;
     }
 

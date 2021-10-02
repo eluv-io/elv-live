@@ -72,7 +72,9 @@ class LiveChat extends React.Component {
 
       return messageInfo.id;
     } catch(error) {
+      // eslint-disable-next-line no-console
       console.error("Failed to retrieve hype message:");
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }
@@ -138,7 +140,9 @@ class LiveChat extends React.Component {
             try {
               await unsubscribe();
             } catch(error) {
+              // eslint-disable-next-line no-console
               console.error("Failed to unsubscribe from chat event");
+              // eslint-disable-next-line no-console
               console.error(error);
             }
           })

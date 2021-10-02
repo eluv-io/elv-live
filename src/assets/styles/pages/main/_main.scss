@@ -1,9 +1,3 @@
-.main-app {
-  * {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  }
-}
-
 a,
 a:hover {
   color: $black;
@@ -50,6 +44,15 @@ a:hover {
     max-width: 1200px;
     text-align: center;
     -webkit-text-fill-color: transparent;
+  }
+
+  .upcoming-events {
+    background-color: $black;
+
+    &__header {
+      color: $white;
+      font-weight: 200;
+    }
   }
 
   @media only screen and (min-width: 901px) {

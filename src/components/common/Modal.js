@@ -39,20 +39,18 @@ class Modal extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className={`modal ${this.props.className || ""}`} onClick={() => this.Close()}>
-          <ImageIcon
-            key={"back-icon-Close Modal"}
-            className={"modal__close-button"}
-            title={"Close Modal"}
-            icon={CloseIcon}
-            onClick={() => this.Close()}
-          />
-          <div className="modal__content" onClick={event => event.stopPropagation()}>
-            { this.props.content || this.props.children }
-          </div>
+      <div className={`modal ${this.props.className || ""}`} onClick={() => this.Close()}>
+        <ImageIcon
+          key={"back-icon-Close Modal"}
+          className={"modal__close-button"}
+          title={"Close Modal"}
+          icon={CloseIcon}
+          onClick={() => this.Close()}
+        />
+        <div className="modal__content" onClick={event => event.stopPropagation()}>
+          { this.props.content || this.props.children }
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

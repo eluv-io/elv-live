@@ -320,10 +320,6 @@ class CartStore {
 
     const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
 
-    const requiresShipping =
-      cartDetails.merchandise.length > 0 ||
-      cartDetails.tickets.find(({ticketClass}) => ticketClass.requires_shipping);
-
     return {
       mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
       currency: this.currency,
@@ -331,9 +327,7 @@ class CartStore {
       client_reference_id: checkoutId,
       items: itemList,
       success_url: UrlJoin(baseUrl, "success", this.confirmationId),
-      cancel_url: baseUrl,
-      requires_shipping: !!requiresShipping,
-      shipping_countries: this.shippingCountries
+      cancel_url: baseUrl
     };
   }
 
@@ -386,7 +380,7 @@ class CartStore {
   });
 
   @action.bound
-    // eslint-disable-next-line require-yield
+  // eslint-disable-next-line require-yield
   PaypalSubmit = flow(function * (data, actions) {
     try {
       this.submittingOrder = true;
@@ -454,10 +448,6 @@ class CartStore {
       this.confirmationId = this.ConfirmationId();
       const checkoutId = `${this.rootStore.siteStore.siteId}:${this.confirmationId}`;
 
-      const requiresShipping =
-        cartDetails.merchandise.length > 0 ||
-        cartDetails.tickets.find(({ticketClass}) => ticketClass.requires_shipping);
-
       return retryRequest(
         actions.order.create,
         {
@@ -477,7 +467,7 @@ class CartStore {
               },
               items: paypalCart,
             }],
-          application_context: requiresShipping ? {} : { shipping_preference: "NO_SHIPPING" }
+          application_context: cartDetails.merchandise.length === 0 ? { shipping_preference: "NO_SHIPPING" } : {}
         }
       );
     } finally {

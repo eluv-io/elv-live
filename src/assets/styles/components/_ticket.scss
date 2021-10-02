@@ -31,10 +31,6 @@
   user-select: none;
   width: 100%;
 
-  * {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  }
-
   @media only screen and (max-width: 1200px) {
     height: auto;
     max-width: 1350px;
@@ -115,7 +111,6 @@
 
 .ticket-top-title {
   color: #000;
-  font-family: Helvetica;
   font-size: 42px;
   font-style: normal;
   font-weight: 300;
@@ -135,7 +130,6 @@
 .ticket-top-description {
   color: #000;
   display: block;
-  font-family: Helvetica;
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
@@ -210,7 +204,6 @@
 
 .ticket-bottom-dropdown-container {
   align-self: center;
-  font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
   height: 44px;
@@ -260,7 +253,6 @@
   background: transparent;
   color: #000;
   display: grid;
-  font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
   grid-gap: 3px;
@@ -282,7 +274,6 @@
   & > * {
     align-self: center;
     color: #000;
-    font-family: Helvetica;
     font-size: 14px;
     font-style: normal;
     font-weight: normal;
