@@ -1,14 +1,18 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import {inject, observer} from "mobx-react";
-import CartIcon from "Assets/icons/cart.svg";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
-import EluvioLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
-import WinLogo from "Images/logo/Windows 11 logo.png";
+import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
+import EluvioLogo from "Images/logo/eluvio-logo.svg";
 
+import WalletIcon from "Icons/Wallet Icon.svg";
+import CartIcon from "Assets/icons/cart.svg";
+import EventIcon from "Assets/icons/Event icon.svg";
+
+@inject("rootStore")
 @inject("siteStore")
 @inject("cartStore")
 @withRouter
@@ -41,8 +45,99 @@ class Header extends React.Component {
     }
   }
 
-  render() {
-    if(!this.props.siteStore.currentSite) { return null; }
+  Links() {
+    if(this.props.siteStore.isDropEvent) {
+      const walletState = this.props.rootStore.currentWalletState || {};
+      const loggedIn = this.props.rootStore.walletLoggedIn;
+      const currentPage = (walletState.location || {}).page;
+      const walletOpen = walletState.visibility === "full";
+
+      if(!this.props.rootStore.walletClient) {
+        return null;
+      } else if(!this.props.rootStore.walletLoggedIn) {
+        return (
+          <div className="header__links">
+            <button
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility({
+                  visibility: "modal",
+                  location: {
+                    page: "wallet"
+                  }
+                });
+              }}
+              className="header__link"
+            >
+              <div className="header__link__icon">
+                <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image" />
+              </div>
+              Log In
+            </button>
+          </div>
+        );
+      } else {
+        return (
+          <div className="header__links">
+            {
+              this.props.siteStore.currentDropEvent ?
+                <NavLink
+                  to={this.props.siteStore.SitePath("drop", this.props.siteStore.currentDropEvent, "event")}
+                  onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+                  className={`header__link ${loggedIn && currentPage === "drop" ? "header__link-active" : ""}`}
+                >
+                  <div className="header__link__icon">
+                    <ImageIcon icon={EventIcon} title="My Wallet" className="header__link__image"/>
+                  </div>
+                  Event
+                </NavLink> : null
+            }
+            <button
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility(
+                  walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" ?
+                    this.props.rootStore.defaultWalletState :
+                    {
+                      visibility: "full",
+                      location: {
+                        page: "marketplace",
+                        params: {
+                          marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId
+                        }
+                      }
+                    }
+                );
+              }}
+              className={`header__link ${loggedIn && walletOpen && currentPage === "marketplace" ? "header__link-active" : ""}`}
+            >
+              <div className="header__link__icon">
+                <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image"/>
+              </div>
+              Marketplace
+            </button>
+            <button
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility(
+                  walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" ?
+                    this.props.rootStore.defaultWalletState :
+                    {
+                      visibility: "full",
+                      location: {
+                        page: "wallet"
+                      }
+                    }
+                );
+              }}
+              className={`header__link ${loggedIn && walletOpen && currentPage === "wallet" ? "header__link-active" : ""}`}
+            >
+              <div className="header__link__icon">
+                <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image" />
+              </div>
+              My Wallet
+            </button>
+          </div>
+        );
+      }
+    }
 
     const itemCount = this.props.cartStore.CartDetails().itemCount;
     const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
@@ -52,47 +147,89 @@ class Header extends React.Component {
     const link = this.props.siteStore.siteSlug === "ms" ? "https://www.microsoft.com/en-us/windows/get-windows-11" : window.location.origin;
 
     return (
-      <header className={`header ${this.props.mainPage ? "header-main" : ""} ${this.state.scrolled ? "header-scrolled" : ""} ${this.props.inverted ? "header-inverted" : ""}`}>
+      <div className="header__links">
         {
-          this.props.mainPage ?
-            <a href={link} className="header__logo">
-              <ImageIcon icon={logo} label="Eluvio Live" />
-            </a> :
-            <NavLink to={this.props.siteStore.baseSitePath} className="header__logo">
-              <ImageIcon icon={logo} label="Eluvio Live" />
-            </NavLink>
+          redeemAvailable && couponMode ?
+            <NavLink to={this.props.siteStore.SitePath("coupon-code")} className="header__link" activeClassName="header__link-active">
+              Redeem Coupon
+            </NavLink> : null
+        }
+        {
+          redeemAvailable ?
+            <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
+              Redeem Ticket
+            </NavLink> : null
+        }
+        {
+          this.props.siteStore.currentSiteInfo.state === "Inaccessible" || this.props.hideCheckout ? null :
+            <button
+              title="Your Cart"
+              onClick={this.props.cartStore.ToggleCartOverlay}
+              className="cart-overlay-toggle"
+            >
+              <ImageIcon
+                icon={CartIcon}
+              />
+              {
+                itemCount === 0 ? null :
+                  <div className="cart-overlay-item-count">{ itemCount }</div>
+              }
+            </button>
+        }
+      </div>
+    );
+  }
+
+  render() {
+    if(!this.props.siteStore.currentSite) { return null; }
+
+    let logo = <ImageIcon icon={DefaultLogo} title="Eluvio LIVE" className="header__logo header__logo-default" />;
+    let logoUrl = window.location.origin;
+
+    if(this.props.siteStore.SiteHasImage("logo")) {
+      logo = (
+        <div className="header__logo">
+          <ImageIcon
+            icon={this.props.siteStore.SiteImageUrl("logo")}
+            alternateIcon={DefaultLogo}
+            className="header__logo__image"
+            title="Logo"
+          />
+          <h2 className="header__logo__tagline">
+            Powered by <ImageIcon icon={EluvioLogo} className="header__logo__tagline__image" title="Eluv.io" />
+          </h2>
+        </div>
+      );
+
+      logoUrl = this.props.siteStore.currentSiteInfo.event_images && this.props.siteStore.currentSiteInfo.event_images.logo_link || logoUrl;
+    }
+
+    return (
+      <header className={`
+        header 
+        ${this.props.mainPage ? "header-main" : ""} 
+        ${this.state.scrolled ? "header-scrolled" : ""} 
+        ${this.props.siteStore.darkMode || this.props.dark ? "header-dark" : ""}
+        ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
+      `}>
+        {
+          this.props.rootStore.currentWalletState.visibility === "full" ?
+            <button
+              className="header__logo-container"
+              onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+            >
+              { logo }
+            </button> :
+            this.props.mainPage ?
+              <a href={logoUrl} className="header__logo-container">
+                { logo }
+              </a> :
+              <NavLink to={this.props.siteStore.baseSitePath} className="header__logo-container">
+                { logo }
+              </NavLink>
         }
         <div className="header__spacer" />
-        <div className="header__links">
-          {
-            redeemAvailable && couponMode ?
-              <NavLink to={this.props.siteStore.SitePath("coupon-code")} className="header__link" activeClassName="header__link-active">
-                Redeem Coupon
-              </NavLink> : null
-          }
-          {
-            redeemAvailable ?
-              <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
-                Redeem Ticket
-              </NavLink> : null
-          }
-          {
-            this.props.siteStore.currentSiteInfo.state === "Inaccessible" || this.props.hideCheckout ? null :
-              <button
-                title="Your Cart"
-                onClick={this.props.cartStore.ToggleCartOverlay}
-                className="cart-overlay-toggle"
-              >
-                <ImageIcon
-                  icon={CartIcon}
-                />
-                {
-                  itemCount === 0 ? null :
-                    <div className="cart-overlay-item-count">{ itemCount }</div>
-                }
-              </button>
-          }
-        </div>
+        { this.Links() }
         <CartOverlay />
         <Checkout />
       </header>

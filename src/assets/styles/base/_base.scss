@@ -1,3 +1,5 @@
+
+
 * {
   -webkit-overflow-scrolling: touch;
 }
@@ -83,7 +85,7 @@ body {
   background-color: $black;
   box-sizing: border-box;
   color: black;
-  font-family: Helvetica;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
   -webkit-overflow-scrolling: touch;
 
   &.hide-zd {
@@ -103,6 +105,14 @@ html,
 body,
 .app,
 .app-container,
+.site-app {
+  height: 100%;
+}
+
+html,
+body,
+.app,
+.app-container,
 .site-app,
 .main-app,
 .page-container {
@@ -111,7 +121,8 @@ body,
   flex: 1 1 auto;
   flex-direction: column;
   max-width: 100vw;
-  min-height: stretch;
+  //min-height: stretch;
+  //height: 100vh;
   overscroll-behavior-y: none;
   width: 100vw;
 }
@@ -188,6 +199,7 @@ input[type='checkbox'] {
 }
 
 .dark {
+  background-color: $black;
   color: white;
 
   a {
@@ -199,11 +211,11 @@ input[type='checkbox'] {
   }
 
   .site-app-container {
-    background: linear-gradient(180deg, #000 0%, #272213 100%);
+    background: $black;
   }
 
   .page-container {
-    background: linear-gradient(180deg, #000 0%, #272213 100%);
+    background: $black;
   }
 
   // Loader

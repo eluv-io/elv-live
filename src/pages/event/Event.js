@@ -1,10 +1,19 @@
 import React, {lazy, Suspense} from "react";
+import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
 import EventTabs from "Event/tabs/EventTabs";
 import Footer from "Layout/Footer";
 
 import Modal from "Common/Modal";
+import UpcomingEvents from "Common/UpcomingEvents";
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import ImageIcon from "Common/ImageIcon";
+import UrlJoin from "url-join";
+import ReactMarkdown from "react-markdown";
+import SanitizeHTML from "sanitize-html";
+import {Link} from "react-router-dom";
+import Countdown from "Common/Countdown";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -20,30 +29,10 @@ class Event extends React.Component {
 
     this.state = {
       showPromo: false,
+      showGetStartedModal: false,
       tab: 0,
-      heroBackground: null,
-      width: window.innerWidth
+      heroBackground: null
     };
-
-    this.HandleResize = this.HandleResize.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.HandleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.HandleResize);
-  }
-
-  HandleResize() {
-    clearTimeout(this.resizeTimeout);
-
-    this.resizeTimeout = setTimeout(() => {
-      if(this.state.width !== window.innerWidth) {
-        this.setState({width: window.innerWidth});
-      }
-    }, 200);
   }
 
   Promos() {
@@ -64,21 +53,193 @@ class Event extends React.Component {
     );
   }
 
-  ScrollToTickets = () => {
+  GetStartedModal() {
+    if(!this.state.showGetStartedModal) { return null; }
+
+    const messageInfo = this.props.siteStore.currentSiteInfo.event_info.modal_message_get_started;
+
+    if(!messageInfo || !messageInfo.show) {
+      this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
+      return;
+    }
+
+    return (
+      <Modal
+        className="event-message-container"
+        Toggle={() => this.setState({showGetStartedModal: false})}
+      >
+        <div className="event-message">
+          <div className="event-message__content">
+            <div
+              className="event-message__content__message"
+              ref={element => {
+                if(!element) { return; }
+
+                render(
+                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
+                    { SanitizeHTML(messageInfo.message) }
+                  </ReactMarkdown>,
+                  element
+                );
+              }}
+            />
+            {
+              !messageInfo.image ? null:
+                <ImageIcon
+                  className="event-message__content__image"
+                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "event_info", "modal_message_get_started", "image"))}
+                />
+            }
+          </div>
+          <div className="event-message__actions">
+            <button
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
+                this.setState({showGetStartedModal: false});
+              }}
+              className="event-message__button"
+            >
+              Create Wallet
+            </button>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+
+  ScrollToTickets() {
     this.setState({
       tab: 0,
     }, () => {
       const target = document.querySelector(".ticket-group") || document.querySelector("event-page__overview");
       window.scrollTo({top: target.getBoundingClientRect().top + window.pageYOffset - 80, behavior: "smooth"});
     });
-  };
+  }
+
+  NextDrop() {
+    if(!this.props.siteStore.isDropEvent) { return; }
+
+    return this.props.siteStore.upcomingDropEvents
+      .filter(({end_date}) => {
+        try {
+          return new Date(end_date).getTime() > Date.now();
+          // eslint-disable-next-line no-empty
+        } catch(_) {}
+      })
+      .sort((a, b) => a.date > b.date ? -1 : 1)[0];
+  }
+
+  Actions() {
+    if(this.props.siteStore.isDropEvent) {
+      const hasLoggedIn = (this.props.rootStore.walletLoggedIn || localStorage.getItem("hasLoggedIn"));
+      const nextDrop = this.NextDrop();
+      return (
+        <div className="event-page__buttons">
+          {
+            !hasLoggedIn ?
+              <button
+                className="btn btn--gold"
+                onClick={() => this.setState({showGetStartedModal: true})}
+              >
+                Get Started
+              </button> : null
+          }
+          {
+            hasLoggedIn && nextDrop ?
+              <Link
+                to={nextDrop.link}
+                className="btn btn--gold"
+                onClick={() => this.setState({showGetStartedModal: true})}
+              >
+                Join the Drop
+              </Link>
+              : null
+          }
+          {
+            this.props.siteStore.promos.length > 0 ?
+              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn && !nextDrop ? "btn--gold" : ""}`}>
+                Watch Promo
+              </button> : null
+          }
+        </div>
+      );
+    }
+
+    return (
+      <div className="event-page__buttons">
+        {
+          // Ended
+          this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
+          // Any tickets available for purchase
+          !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
+            null :
+            <button
+              className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
+              onClick={() => this.ScrollToTickets()}
+            >
+              Buy Tickets
+            </button>
+        }
+        {
+          this.props.siteStore.promos.length > 0 ?
+            <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
+              Watch Promo
+            </button> : null
+        }
+      </div>
+    );
+  }
+
+  HeroVideo() {
+    const heroVideo = this.props.siteStore.currentSiteInfo.event_images.hero_video;
+
+    if(!heroVideo || !heroVideo["."]) { return; }
+
+    return (
+      (
+        <div className="event-page__hero-video-container">
+          <div
+            className="event-page__hero-video"
+            ref={element => {
+              if(!element || this.state.player) { return; }
+
+              this.setState({
+                player: (
+                  new EluvioPlayer(
+                    element,
+                    {
+                      clientOptions: {
+                        client: this.props.rootStore.client
+                      },
+                      sourceOptions: {
+                        playoutParameters: {
+                          versionHash: heroVideo["."].source
+                        }
+                      },
+                      playerOptions: {
+                        watermark: EluvioPlayerParameters.watermark.OFF,
+                        muted: EluvioPlayerParameters.muted.ON,
+                        autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
+                        controls: EluvioPlayerParameters.controls.OFF,
+                        playerCallback: ({videoElement}) => this.setState({video: videoElement})
+                      }
+                    }
+                  )
+                )
+              });
+            }}
+          />
+        </div>
+      )
+    );
+  }
 
   render() {
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
     };
 
-    const mobile = this.state.width < this.mobileCutoff;
+    const mobile = this.props.rootStore.pageWidth < this.mobileCutoff;
     const heroKey = mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
@@ -88,10 +249,12 @@ class Event extends React.Component {
       style = {};
     }
 
+    const nextDrop = this.NextDrop();
     return (
       <div className={`page-container event-page ${this.props.siteStore.eventInfo.hero_info ? "event-page-no-header-info" : ""} ${mobile ? "event-page-mobile" : ""}`}>
         <div className="event-page__hero-container" style={style}>
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          { this.HeroVideo() }
           <div className="event-page__heading">
             {
               hasHeaderImage ?
@@ -110,38 +273,38 @@ class Event extends React.Component {
                 <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
             }
             {
-              this.props.siteStore.eventInfo.date ?
-                <h2 className="event-page__date">{this.props.siteStore.eventInfo.date}</h2> : null
+              this.props.siteStore.isDropEvent ?
+                <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader}</h2> :
+                this.props.siteStore.eventInfo.date ?
+                  <h2 className="event-page__date">{this.props.siteStore.eventInfo.date}</h2> : null
             }
           </div>
 
-          <div className="event-page__buttons">
-            {
-              // Ended
-              this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
-                // Any tickets available for purchase
-                !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
-                null :
-                <button
-                  className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
-                  onClick={() => this.ScrollToTickets()}
-                >
-                  Buy Tickets
-                </button>
-            }
-            {
-              this.props.siteStore.promos.length > 0 ?
-                <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
-                  Watch Promo
-                </button> : null
-            }
-          </div>
+          {
+            this.props.siteStore.isDropEvent && this.props.siteStore.eventInfo.show_countdown && nextDrop ?
+              <Countdown
+                time={nextDrop.start_date}
+                Render={({diff, countdown}) =>
+                  diff > 0 ? <div className="event-page__countdown">Next drop in {countdown}</div> : null
+                }
+              /> : null
+          }
+
+          { this.Actions() }
         </div>
+
+        {
+          this.props.siteStore.isDropEvent ?
+            <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} /> :
+            null
+        }
+
         <div className="event-page__overview">
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
+        { this.state.showGetStartedModal ? this.GetStartedModal(): null}
         <Footer />
       </div>
     );

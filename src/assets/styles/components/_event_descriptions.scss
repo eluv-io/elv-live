@@ -1,10 +1,6 @@
 .event-description {
   margin: 0 20px 40px;
 
-  * {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  }
-
   &__buttons {
     display: flex;
     margin: 0 auto;
@@ -147,10 +143,6 @@
 
   &__markdown {
     padding-bottom: 60px;
-
-    * {
-      font-family: 'Helvetica Neue', Helvetica, sans-serif;
-    }
 
     h1,
     h2,

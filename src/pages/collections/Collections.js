@@ -86,7 +86,7 @@ class Collections extends React.Component {
           key={`site-page-${this.props.match.url}`}
           _errorBoundaryClassname="page-container error-page-container"
           Load={async () => {
-            await this.props.siteStore.LoadTenant(tenantSlug);
+            await this.props.siteStore.LoadTenant({slug: tenantSlug});
 
             if(!this.props.siteStore.tenants[tenantSlug] || !this.props.siteStore.tenants[tenantSlug]) {
               return;

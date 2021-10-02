@@ -1,8 +1,4 @@
 .event-page {
-  * {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  }
-
   &-no-header-info {
     .event-page__hero {
       background-size: cover;
@@ -42,6 +38,39 @@
     top: 0;
   }
 
+  &__hero-video-container {
+    height: 100%;
+    left: 0;
+    mask-image: linear-gradient(#000, rgba(#f4f3f1, 1) 90%, rgba(#f4f3f1, 0) 100%);
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    .eluvio-player,
+    .eluvio-player__video {
+      background: transparent !important;
+
+      img {
+        object-fit: cover;
+      }
+
+      video {
+        object-fit: cover;
+      }
+    }
+
+    .event-page__hero-video {
+      /*
+      margin: 90px auto 0;
+      max-height: MIN(90vw * 9 / 16, calc(100vh - 400px));
+      max-width: MIN(90vw, calc((100vh - 400px) * 16 / 9));
+      min-height: MIN(90vw * 9 / 16, calc(100vh - 400px));
+      min-width: MIN(90vw, calc((100vh - 400px) * 16 / 9));
+
+       */
+    }
+  }
+
   &__heading {
     margin-bottom: 25px;
     max-width: 1200px;
@@ -55,19 +84,27 @@
 
   &__header-name,
   &__subheader,
-  &__date {
-    font-size: 34px;
+  &__date,
+  &__date-header,
+  &__countdown {
+    color: $black;
     font-style: normal;
-    font-weight: 300;
-    letter-spacing: 8px;
+    font-weight: 500;
     line-height: 150%;
+    margin: 5px auto;
+    max-width: 850px;
     padding: 0 30px;
     text-align: center;
+    text-shadow: 0 0 3px $white;
     text-transform: uppercase;
+
+    &::selection {
+      text-shadow: none;
+    }
   }
 
   &__header-name {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: normal;
 
     &.hidden {
@@ -75,9 +112,25 @@
     }
   }
 
-  &__date {
-    font-size: 25px;
+  &__subheader {
+    font-size: 14px;
+    max-width: 700px;
+  }
+
+  &__date,
+  &__date-header {
+    font-size: 32px;
+    font-weight: 200;
     letter-spacing: 0.095em;
+    margin-top: 20px;
+  }
+
+  &__countdown {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin: 0;
+    text-transform: initial;
   }
 
   &__header-logo {
@@ -130,21 +183,6 @@
       margin-bottom: 5px;
     }
 
-    &__header-name {
-      font-size: 36px;
-      letter-spacing: 0.07em;
-    }
-
-    &__subheader {
-      font-size: 26px;
-      font-weight: normal;
-      letter-spacing: 0.035em;
-    }
-
-    &__date {
-      letter-spacing: 2px;
-    }
-
     &__header-logo {
       height: 120px;
       margin-bottom: 5px;
@@ -163,6 +201,13 @@
       }
     }
 
+    &__header-name,
+    &__subheader,
+    &__date,
+    &__date-header {
+      padding: 0 10px;
+    }
+
     &__hero-container {
       height: 100vh;
     }
@@ -172,7 +217,12 @@
     }
 
     &__header-name {
-      font-size: 28px;
+      font-size: 18px;
+    }
+
+    &__date,
+    &__date-header {
+      font-size: 14px;
     }
 
     &__header-logo {
@@ -180,7 +230,7 @@
     }
 
     &__subheader {
-      font-size: 22px;
+      font-size: 12px;
       font-weight: normal;
       letter-spacing: 0.07em;
       margin-bottom: 10px;
@@ -190,6 +240,10 @@
     &__date {
       font-size: 16px;
       letter-spacing: 1px;
+    }
+
+    &__countdown {
+      font-size: 18px;
     }
 
     &__buttons {
@@ -211,12 +265,6 @@
       padding: 0 30px;
     }
   }
-
-  @media only screen and (max-width: 400px) {
-    &__subheader {
-      font-size: 20px;
-    }
-  }
 }
 
 .dark {
@@ -235,10 +283,22 @@
     }
   }
 
-  .event-page__buttons {
-    .btn {
-      &:not(.btn--gold) {
-        border: 1px solid rgba(255, 255, 255, 0.3);
+  .event-page {
+    &__header-name,
+    &__subheader,
+    &__date,
+    &__date-header,
+    &__countdown {
+      color: $white;
+      text-shadow: 0 0 3px $black;
+    }
+
+    &__buttons {
+      .btn {
+        &:not(.btn--gold),
+        &:hover {
+          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
       }
     }
   }
