@@ -26,7 +26,6 @@
   }
 
   &__hero {
-    background-color: black;
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
@@ -288,6 +287,10 @@
   }
 
   .event-page {
+    &__hero {
+      background-color: black;
+    }
+
     &__header-name,
     &__subheader,
     &__date,

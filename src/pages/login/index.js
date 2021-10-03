@@ -75,6 +75,16 @@ const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, site
   const [privateKey, setPrivateKey] = useState("");
   const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && siteStore.loginCustomization.redirectPath) || "");
 
+  const extraLoginParams = {};
+  if(siteStore.darkMode ) {
+    url.searchParams.set("d", "");
+    extraLoginParams.darkMode = true;
+  }
+
+  if(siteStore.loginCustomization.disable_third_party) {
+    extraLoginParams.disableThirdParty = true;
+  }
+
   const SignIn = async () => {
     if(loading) { return; }
 
@@ -136,7 +146,8 @@ const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, site
       if(!callbackPage && !rootStore.AuthInfo() && !rootStore.loggedOut && localStorage.getItem("hasLoggedIn")) {
         setTimeout(() => {
           auth0.loginWithRedirect({
-            redirectUri: callbackUrl.toString()
+            redirectUri: callbackUrl.toString(),
+            ...extraLoginParams
           });
         }, 1000);
       } else {
@@ -264,7 +275,8 @@ const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, site
 
         auth0.loginWithRedirect({
           redirectUri: callbackUrl.toString(),
-          initialScreen: "signUp"
+          initialScreen: "signUp",
+          ...extraLoginParams
         });
       }}
     >
@@ -287,7 +299,8 @@ const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, site
         );
 
         auth0.loginWithRedirect({
-          redirectUri: callbackUrl.toString()
+          redirectUri: callbackUrl.toString(),
+          ...extraLoginParams
         });
       }}
     >
@@ -340,7 +353,7 @@ const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, site
 const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, callbackPage=false}) => {
   return (
     <div
-      className={`login-modal ${siteStore.loginCustomization.darkMode ? "dark" : ""}`}
+      className={`login-modal ${siteStore.darkMode ? "dark" : ""}`}
       ref={element => {
         if(!element) { return; }
 
