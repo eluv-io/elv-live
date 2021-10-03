@@ -63,6 +63,8 @@ class Event extends React.Component {
       return;
     }
 
+    const nextDrop = this.NextDrop();
+
     return (
       <Modal
         className="event-message-container"
@@ -92,15 +94,25 @@ class Event extends React.Component {
             }
           </div>
           <div className="event-message__actions">
-            <button
-              onClick={() => {
-                this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
-                this.setState({showGetStartedModal: false});
-              }}
-              className="event-message__button"
-            >
-              Create Wallet
-            </button>
+            {
+              !nextDrop || nextDrop.requires_login ?
+                <button
+                  onClick={() => {
+                    this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
+                    this.setState({showGetStartedModal: false});
+                  }}
+                  className="event-message__button"
+                >
+                  Create Wallet
+                </button> :
+                <Link
+                  to={nextDrop.link}
+                  className="event-message__button"
+                  onClick={() => this.setState({showGetStartedModal: false})}
+                >
+                  Join the Drop
+                </Link>
+            }
           </div>
         </div>
       </Modal>
@@ -133,6 +145,7 @@ class Event extends React.Component {
     if(this.props.siteStore.isDropEvent) {
       const hasLoggedIn = (this.props.rootStore.walletLoggedIn || localStorage.getItem("hasLoggedIn"));
       const nextDrop = this.NextDrop();
+
       return (
         <div className="event-page__buttons">
           {

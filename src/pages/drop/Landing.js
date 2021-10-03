@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
 
-import Logo from "Assets/images/logo/whiteEluvioLogo.svg";
+import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import {NavLink, withRouter} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";

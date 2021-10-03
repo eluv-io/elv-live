@@ -9,9 +9,16 @@
   width: 100%;
 
   &-custom-background {
-    .landing-page__text,
+    .landing-page__text {
+      text-shadow: 1px 1px 1px $gray;
+
+      button {
+        filter: drop-shadow(1px 1px 1px $gray);
+      }
+    }
+
     .landing-page__logo {
-      filter: drop-shadow(2px 2px 2px $black);
+      filter: drop-shadow(1px 1px 0.5px $gray);
     }
   }
 
@@ -88,7 +95,6 @@
 
     * {
       fill: $white;
-      filter: drop-shadow(4px 4px 4px $black);
       stroke: $white;
     }
   }
