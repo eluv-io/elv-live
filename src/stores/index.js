@@ -240,11 +240,16 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, video}) {
+  SetDefaultWalletState({visibility, location, video, darkMode}) {
+    if(!darkMode){
+      darkMode = this.siteStore.darkMode;
+    }
+
     this.defaultWalletState = {
       visibility,
       location,
-      video
+      video,
+      darkMode
     };
   }
 
@@ -259,7 +264,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility({visibility, location, video}) {
+  SetWalletPanelVisibility({visibility, location, video, darkMode}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -267,6 +272,8 @@ class RootStore {
     if(!walletPanel || !visibilities.includes(visibility)) {
       return;
     }
+
+    darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
 
     this.walletClient.ToggleSidePanelMode(visibility === "side-panel");
 
@@ -283,6 +290,8 @@ class RootStore {
 
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
     }
+
+    this.walletClient.ToggleDarkMode(darkMode);
 
     if(location) {
       this.walletClient.Navigate(toJS(location));

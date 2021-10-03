@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {Route, BrowserRouter} from "react-router-dom";
 import WalletFrame from "Pages/wallet/WalletFrame";
-import Login from "Pages/login/index";
+import LoginModal from "Pages/login/index";
 import {Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
@@ -46,7 +46,7 @@ const LoginPage = inject("rootStore")(inject("siteStore")((observer(({rootStore,
 
   return (
     <div className={`page-container login-route ${siteStore.loginCustomization.darkMode ? "login-route-dark" : "login-page"}`}>
-      <Login callbackPage />
+      <LoginModal callbackPage />
     </div>
   );
 }))));

@@ -40,7 +40,7 @@ class Landing extends React.Component {
         <div className="landing-page__text-container">
           <div className="landing-page__text landing-page__text-begins">Event Happening Now!</div>
           {
-            this.props.rootStore.walletLoggedIn && this.Drop().requires_login ?
+            this.props.rootStore.walletLoggedIn || !this.Drop().requires_login ?
               <NavLink className="landing-page__enter-event" to={UrlJoin(this.props.location.pathname, "event")}>
                 Enter Event
               </NavLink> :

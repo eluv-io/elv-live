@@ -32,7 +32,7 @@
 
   &-side-panel,
   &-full {
-    height: stretch;
+    height: 100%;
     max-height: calc(100% - 60px);
     min-height: calc(100% - 60px);
   }

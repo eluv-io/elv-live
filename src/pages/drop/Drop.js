@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
 import {Redirect} from "react-router";
+import {Login} from "Pages/login/index";
 
 const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
   const [key, setKey] = useState(0);
@@ -78,6 +79,8 @@ const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
     <div
       className="drop-page__stream"
       ref={element => {
+        if(!streamHash) { return; }
+
         setVideoElement(element);
       }}
     />
@@ -109,7 +112,8 @@ class Drop extends React.Component {
           marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
           dropId: this.props.match.params.dropId
         }
-      }
+      },
+      darkMode: true
     });
 
     this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
@@ -243,63 +247,72 @@ class Drop extends React.Component {
     const { streamHash, streamOptions } = this.state.dropInfo;
 
     return (
-      <div className="page-container drop-page">
-        { this.Message() }
-        <div className="main-content-container drop-page__content wallet-panel-page-content">
-          <EventPlayer
-            key={`event-player-${streamHash}`}
-            client={this.props.rootStore.client}
-            streamHash={streamHash}
-            streamOptions={streamOptions}
-            OnLoad={videoElement => {
-              this.props.rootStore.SetDefaultWalletState({
-                visibility: "side-panel",
-                location: {
-                  page: "drop",
-                  params: {
-                    marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
-                    dropId: this.props.match.params.dropId
+      <>
+        {
+          !this.props.rootStore.walletLoggedIn ?
+            <div className="wallet-panel wallet-panel-side-panel">
+              <Login />
+            </div> : null
+        }
+        <div className="page-container drop-page">
+          { this.Message() }
+          <div className="main-content-container drop-page__content wallet-panel-page-content">
+            <EventPlayer
+              key={`event-player-${streamHash}`}
+              client={this.props.rootStore.client}
+              streamHash={streamHash}
+              streamOptions={streamOptions}
+              OnLoad={videoElement => {
+                this.props.rootStore.SetDefaultWalletState({
+                  visibility: "side-panel",
+                  location: {
+                    page: "drop",
+                    params: {
+                      marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
+                      dropId: this.props.match.params.dropId
+                    }
+                  },
+                  darkMode: true,
+                  video: !videoElement ? null : {
+                    element: videoElement.getElementsByTagName("video")[0],
+                    muted: videoElement.muted
                   }
-                },
-                video: !videoElement ? null : {
-                  element: videoElement.getElementsByTagName("video")[0],
-                  muted: videoElement.muted
-                }
-              });
-            }}
-          />
-          <div className="drop-page__info">
-            <div className="drop-page__info__headers">
-              <h1 className="drop-page__info__header">{ currentState.header }</h1>
-              { currentState.subheader ? <h2 className="drop-page__info__subheader">{ currentState.subheader }</h2> : null }
+                });
+              }}
+            />
+            <div className="drop-page__info">
+              <div className="drop-page__info__headers">
+                <h1 className="drop-page__info__header">{ currentState.header }</h1>
+                { currentState.subheader ? <h2 className="drop-page__info__subheader">{ currentState.subheader }</h2> : null }
+              </div>
+              {
+                nextState ?
+                  <Countdown
+                    key={`event-state-countdown-${currentState.state}`}
+                    time={nextState.start_date}
+                    OnEnded={() =>
+                      this.setState({
+                        showMessage: true,
+                        dropInfo: this.Drop()
+                      })
+                    }
+                    Render={({diff, countdown}) => (
+                      currentState.show_countdown ?
+                        <div className="drop-page__info__subheader drop-page__info__countdown">
+                          {
+                            diff > 0 ?
+                              `${countdown} left!` :
+                              "Drop has ended!"
+                          }
+                        </div> :
+                        <div className="drop-page__info__countdown" />
+                    )}
+                  /> : <div className="drop-page__info__countdown" />
+              }
             </div>
-            {
-              nextState ?
-                <Countdown
-                  key={`event-state-countdown-${currentState.state}`}
-                  time={nextState.start_date}
-                  OnEnded={() =>
-                    this.setState({
-                      showMessage: true,
-                      dropInfo: this.Drop()
-                    })
-                  }
-                  Render={({diff, countdown}) => (
-                    currentState.show_countdown ?
-                      <div className="drop-page__info__subheader drop-page__info__countdown">
-                        {
-                          diff > 0 ?
-                            `${countdown} left!` :
-                            "Drop has ended!"
-                        }
-                      </div> :
-                      <div className="drop-page__info__countdown" />
-                  )}
-                /> : <div className="drop-page__info__countdown" />
-            }
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
