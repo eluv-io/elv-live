@@ -64,7 +64,7 @@ const LoginBackground = inject("rootStore")(inject("siteStore")(observer(({rootS
   return null;
 })));
 
-const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore, callbackPage=false}) => {
+export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore, callbackPage=false}) => {
   const auth0 = useAuth0();
 
   window.auth0 = auth0;

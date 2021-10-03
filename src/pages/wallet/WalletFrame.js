@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Login from "Pages/login";
+import LoginModal from "Pages/login";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -12,7 +12,15 @@ class WalletFrame extends React.Component {
     const visibility = !this.props.rootStore.walletLoggedIn ? "hidden" : this.props.rootStore.currentWalletState.visibility;
     return (
       <>
-        { !this.props.rootStore.walletLoggedIn && this.props.rootStore.currentWalletState.visibility !== "hidden" && !window.location.pathname.startsWith("/wallet") ? <Login /> : null }
+        {
+          !this.props.rootStore.walletLoggedIn &&
+          this.props.rootStore.currentWalletState.visibility !== "hidden" &&
+          !window.location.pathname.startsWith("/wallet") &&
+          (this.props.siteStore.nextDrop || {}).requires_login
+            ?
+            <LoginModal />
+            : null
+        }
         <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">
           <div
             className="wallet-target"

@@ -63,8 +63,6 @@ class Event extends React.Component {
       return;
     }
 
-    const nextDrop = this.NextDrop();
-
     return (
       <Modal
         className="event-message-container"
@@ -72,19 +70,22 @@ class Event extends React.Component {
       >
         <div className="event-message">
           <div className="event-message__content">
-            <div
-              className="event-message__content__message"
-              ref={element => {
-                if(!element) { return; }
+            {
+              messageInfo.message ?
+                <div
+                  className="event-message__content__message"
+                  ref={element => {
+                    if(!element) { return; }
 
-                render(
-                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-                    { SanitizeHTML(messageInfo.message) }
-                  </ReactMarkdown>,
-                  element
-                );
-              }}
-            />
+                    render(
+                      <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                        {SanitizeHTML(messageInfo.message)}
+                      </ReactMarkdown>,
+                      element
+                    );
+                  }}
+                /> : null
+            }
             {
               !messageInfo.image ? null:
                 <ImageIcon
@@ -95,7 +96,7 @@ class Event extends React.Component {
           </div>
           <div className="event-message__actions">
             {
-              !nextDrop || nextDrop.requires_login ?
+              !this.props.siteStore.nextDrop || this.props.siteStore.nextDrop.requires_login ?
                 <button
                   onClick={() => {
                     this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
@@ -106,7 +107,7 @@ class Event extends React.Component {
                   Create Wallet
                 </button> :
                 <Link
-                  to={nextDrop.link}
+                  to={this.props.siteStore.nextDrop.link}
                   className="event-message__button"
                   onClick={() => this.setState({showGetStartedModal: false})}
                 >
@@ -128,23 +129,9 @@ class Event extends React.Component {
     });
   }
 
-  NextDrop() {
-    if(!this.props.siteStore.isDropEvent) { return; }
-
-    return this.props.siteStore.upcomingDropEvents
-      .filter(({end_date}) => {
-        try {
-          return new Date(end_date).getTime() > Date.now();
-          // eslint-disable-next-line no-empty
-        } catch(_) {}
-      })
-      .sort((a, b) => a.date > b.date ? -1 : 1)[0];
-  }
-
   Actions() {
     if(this.props.siteStore.isDropEvent) {
       const hasLoggedIn = (this.props.rootStore.walletLoggedIn || localStorage.getItem("hasLoggedIn"));
-      const nextDrop = this.NextDrop();
 
       return (
         <div className="event-page__buttons">
@@ -158,9 +145,9 @@ class Event extends React.Component {
               </button> : null
           }
           {
-            hasLoggedIn && nextDrop ?
+            hasLoggedIn && this.props.siteStore.nextDrop ?
               <Link
-                to={nextDrop.link}
+                to={this.props.siteStore.nextDrop.link}
                 className="btn btn--gold"
                 onClick={() => this.setState({showGetStartedModal: true})}
               >
@@ -170,7 +157,7 @@ class Event extends React.Component {
           }
           {
             this.props.siteStore.promos.length > 0 ?
-              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn && !nextDrop ? "btn--gold" : ""}`}>
+              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn && !this.props.siteStore.nextDrop ? "btn--gold" : ""}`}>
                 Watch Promo
               </button> : null
           }
@@ -262,7 +249,6 @@ class Event extends React.Component {
       style = {};
     }
 
-    const nextDrop = this.NextDrop();
     return (
       <div className={`page-container event-page ${this.props.siteStore.eventInfo.hero_info ? "event-page-no-header-info" : ""} ${mobile ? "event-page-mobile" : ""}`}>
         <div className="event-page__hero-container" style={style}>
@@ -294,9 +280,9 @@ class Event extends React.Component {
           </div>
 
           {
-            this.props.siteStore.isDropEvent && this.props.siteStore.eventInfo.show_countdown && nextDrop ?
+            this.props.siteStore.isDropEvent && this.props.siteStore.eventInfo.show_countdown && this.props.siteStore.nextDrop ?
               <Countdown
-                time={nextDrop.start_date}
+                time={this.props.siteStore.nextDrop.start_date}
                 Render={({diff, countdown}) =>
                   diff > 0 ? <div className="event-page__countdown">Next drop in {countdown}</div> : null
                 }

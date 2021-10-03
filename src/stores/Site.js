@@ -146,6 +146,19 @@ class SiteStore {
       }));
   }
 
+  @computed get nextDrop() {
+    if(!this.isDropEvent) { return undefined; }
+
+    return this.upcomingDropEvents
+      .filter(({end_date}) => {
+        try {
+          return new Date(end_date).getTime() > Date.now();
+          // eslint-disable-next-line no-empty
+        } catch(_) {}
+      })
+      .sort((a, b) => a.date > b.date ? -1 : 1)[0];
+  }
+
   @computed get baseSitePath() {
     if(!this.siteSlug) { return window.location.pathname; }
 
