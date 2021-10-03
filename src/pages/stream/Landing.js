@@ -1,11 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-import Logo from "Assets/images/logo/whiteEluvioLogo.svg";
 import {NavLink} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 import ImageIcon from "Common/ImageIcon";
+import EluvioLogo from "Images/logo/eluvio-logo";
 
 @inject("siteStore")
 @observer
@@ -100,7 +100,7 @@ class Landing extends React.Component {
 
   render() {
     if(!this.props.siteStore.currentSiteTicketSku) {
-      //return <Redirect to={this.props.siteStore.SitePath("code")} />;
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
     const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
@@ -127,7 +127,11 @@ class Landing extends React.Component {
                 Render={({diff, countdown}) => this.Countdown({diff, countdown})}
               />
           }
-          <ImageIcon icon={Logo} className="landing-page__logo" title="Eluvio"/>
+          <div className="landing-page__powered-by">
+            <a href="https://live.eluv.io" target="_blank" className="landing-page__powered-by__tagline">
+              Powered by <ImageIcon icon={EluvioLogo} className="landing-page__powered-by__logo" title="Eluv.io" />
+            </a>
+          </div>
           <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
         </div>
       </div>
