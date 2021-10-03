@@ -7,6 +7,8 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import Modal from "Common/Modal";
 import UrlJoin from "url-join";
+import ImageIcon from "Common/ImageIcon";
+import EluvioLogo from "Images/logo/eluvio-logo";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -136,6 +138,11 @@ class Footer extends React.Component {
             <div className="sponsor-logos">
               { hasSponsors ? this.Sponsors() : null }
             </div>
+          </div>
+          <div className="footer-info footer__powered-by">
+            <a href="https://live.eluv.io" target="_blank" className="footer-item footer__powered-by__tagline">
+              Powered by <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />
+            </a>
           </div>
         </div>
       </div>

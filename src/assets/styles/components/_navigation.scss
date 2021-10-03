@@ -45,32 +45,7 @@
   }
 
   &__logo {
-    height: 100%;
-
-    &-default {
-      height: 26px;
-    }
-
-    &__image {
-      height: 25px;
-      margin-bottom: 5px;
-    }
-
-    &__tagline {
-      align-items: flex-start;
-      display: flex;
-      font-size: 11px;
-      font-weight: 200;
-      height: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      user-select: none;
-
-      &__image {
-        height: 12px;
-        margin-left: 5px;
-      }
-    }
+    height: 26px;
   }
 
   &__links {
@@ -127,7 +102,7 @@
   @media screen and (max-width: 900px) {
     padding: 10px 25px 10px 15px;
 
-    &__logo-default {
+    &__logo {
       height: 20px;
     }
 
@@ -157,16 +132,6 @@
 
     &__logo-default {
       height: 16px;
-    }
-
-    &__logo__tagline {
-      align-items: baseline;
-      font-size: 8px;
-
-      &__image {
-        height: 8px;
-        margin-left: 4px;
-      }
     }
   }
 }
@@ -311,6 +276,22 @@
         padding: 0;
       }
     }
+  }
+}
+
+.footer__powered-by {
+  padding: 30px 0;
+
+  &__tagline {
+    font-size: 12px;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.783);
+    }
+  }
+
+  &__logo {
+    height: 10px;
   }
 }
 
@@ -485,22 +466,18 @@
 
   &.header-transparent {
     @media screen and (min-width: 1400px) {
-      .header__logo-container {
-        text-shadow: 0 0 3px $black;
-
-        * {
-          text-shadow: 0 0 3px $black;
-        }
-      }
-
-      .header__links {
-        * {
-          text-shadow: 0 0 3px $black;
+      &:not(.header-scrolled) {
+        .header__logo-default {
+          filter: drop-shadow(1px 1px 0.5px $gray);
         }
 
-        svg {
+        .header__links {
           * {
-            filter: drop-shadow(0 0 3px $black);
+            text-shadow: 1px 1px 2px $gray;
+          }
+
+          svg {
+            filter: drop-shadow(1px 1px 2px $gray);
           }
         }
       }
