@@ -6,7 +6,6 @@ import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
-import EluvioLogo from "Images/logo/eluvio-logo.svg";
 
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
@@ -185,17 +184,12 @@ class Header extends React.Component {
 
     if(this.props.siteStore.SiteHasImage("logo")) {
       logo = (
-        <div className="header__logo">
-          <ImageIcon
-            icon={this.props.siteStore.SiteImageUrl("logo")}
-            alternateIcon={DefaultLogo}
-            className="header__logo__image"
-            title="Logo"
-          />
-          <h2 className="header__logo__tagline">
-            Powered by <ImageIcon icon={EluvioLogo} className="header__logo__tagline__image" title="Eluv.io" />
-          </h2>
-        </div>
+        <ImageIcon
+          icon={this.props.siteStore.SiteImageUrl("logo")}
+          alternateIcon={DefaultLogo}
+          className="header__logo"
+          title="Logo"
+        />
       );
 
       logoUrl = this.props.siteStore.currentSiteInfo.event_images && this.props.siteStore.currentSiteInfo.event_images.logo_link || logoUrl;
