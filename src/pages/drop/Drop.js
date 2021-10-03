@@ -250,7 +250,7 @@ class Drop extends React.Component {
       <>
         {
           !this.props.rootStore.walletLoggedIn ?
-            <div className="wallet-panel wallet-panel-side-panel">
+            <div className="wallet-panel wallet-panel-side-panel dark">
               <Login />
             </div> : null
         }
