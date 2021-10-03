@@ -2,11 +2,11 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
 
-import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import {NavLink, withRouter} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 import ImageIcon from "Common/ImageIcon";
+import EluvioLogo from "Images/logo/eluvio-logo";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -37,7 +37,7 @@ class Landing extends React.Component {
   Countdown({diff, countdown}) {
     if(diff <= 0) {
       return (
-        <div className="landing-page__text">
+        <div className="landing-page__text-container">
           <div className="landing-page__text landing-page__text-begins">Event Happening Now!</div>
           {
             this.props.rootStore.walletLoggedIn && this.Drop().requires_login ?
@@ -68,7 +68,7 @@ class Landing extends React.Component {
     const noCountdown = landingInfo.hide_countdown;
 
     return (
-      <div className="landing-page__text">
+      <div className="landing-page__text-container">
         <div className="landing-page__text-group">
           {
             // Message 1
@@ -144,7 +144,11 @@ class Landing extends React.Component {
             time={this.Drop().start_date}
             Render={({diff, countdown}) => this.Countdown({diff, countdown})}
           />
-          <ImageIcon icon={Logo} className="landing-page__logo" title="Eluvio"/>
+          <div className="landing-page__powered-by">
+            <a href="https://live.eluv.io" target="_blank" className="landing-page__powered-by__tagline">
+              Powered by <ImageIcon icon={EluvioLogo} className="landing-page__powered-by__logo" title="Eluv.io" />
+            </a>
+          </div>
         </div>
       </div>
     );
