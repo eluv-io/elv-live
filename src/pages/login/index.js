@@ -143,6 +143,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     if(auth0.isAuthenticated) {
       SignIn();
     } else if(!auth0.isLoading) {
+      /*
       if(!callbackPage && !rootStore.AuthInfo() && !rootStore.loggedOut && localStorage.getItem("hasLoggedIn")) {
         setTimeout(() => {
           auth0.loginWithRedirect({
@@ -153,6 +154,9 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       } else {
         setAuth0Loading(false);
       }
+
+       */
+      setAuth0Loading(false);
     }
 
   }, [auth0.isAuthenticated, auth0.isLoading]);
