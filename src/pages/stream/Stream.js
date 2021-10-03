@@ -4,12 +4,11 @@ import ImageIcon from "Common/ImageIcon";
 import {NavLink, Redirect} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import LiveChat from "Stream/components/LiveChat";
-import {Counter, ToggleZendesk} from "Utils/Misc";
+import {ToggleZendesk} from "Utils/Misc";
 import EluvioConfiguration from "../../../configuration";
 
 import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
-import UsersIcon from "Icons/users";
 
 @inject("siteStore")
 @observer
@@ -120,15 +119,6 @@ class Stream extends React.Component {
     if(!this.props.siteStore.currentSiteTicket) {
       return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
-
-    /*
-      this.state.showChat ? null :
-        <div className="stream-page__header__viewer-count">
-          <ImageIcon title="Viewers" icon={UsersIcon}/>
-          <Counter to={this.props.siteStore.viewers} duration={2000} />
-        </div>
-
-       */
 
     return (
       <div className={`page-container stream-page ${this.state.showChat ? "stream-page-chat-visible" : "stream-page-chat-hidden"}`}>

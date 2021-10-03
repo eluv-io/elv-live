@@ -7,7 +7,7 @@ import Navigation from "Layout/Navigation";
 import InitializeEventData from "Utils/StructuredEventData";
 import {ToggleZendesk} from "Utils/Misc";
 
-const SitePage = (Component, {mainPage=false, showHeader=true, darkHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
+const SitePage = (Component, {mainPage=false, transparent=false, showHeader=true, darkHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
   @inject("siteStore")
   @withRouter
   @observer
@@ -38,7 +38,7 @@ const SitePage = (Component, {mainPage=false, showHeader=true, darkHeader=false,
 
       return (
         <>
-          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} dark={darkHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
+          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} transparent={transparent} dark={darkHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
           <Suspense fallback={<PageLoader />}>
             <AsyncComponent
               key={`site-page-${this.props.match.url}`}

@@ -53,7 +53,6 @@ class FeatureBlock extends React.Component {
         <div
           className="feature-block__video"
           ref={element => {
-            console.log("ELEMENT");
             if(!element || this.state.player) { return; }
 
             this.setState({
@@ -73,8 +72,7 @@ class FeatureBlock extends React.Component {
                       autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
                       controls: EluvioPlayerParameters.controls.DEFAULT,
                       loop: EluvioPlayerParameters.loop.ON,
-                      playerCallback: ({videoElement, hlsPlayer}) => {
-                        console.log("INIT", videoElement, hlsPlayer);
+                      playerCallback: ({videoElement}) => {
                         this.setState({video: videoElement});
                       }
                     }
