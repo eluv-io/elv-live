@@ -11,14 +11,14 @@
 }
 
 .event-message {
-  background-color: $black;
-  color: $white;
+  background-color: $white;
+  color: $black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   max-height: MIN(90vh, 700px);
   max-width: 600px;
-  min-height: MIN(90vh, 700px);
+  min-height: MIN(50vh, 700px);
   min-width: 600px;
 
   &__content {
@@ -64,20 +64,23 @@
     display: flex;
     height: 140px;
     justify-content: center;
+  }
 
-    button {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 3px;
-      color: $white;
-      cursor: pointer;
-      font-size: 16px;
-      height: 50px;
-      letter-spacing: 2px;
-      padding: 5px;
-      text-transform: uppercase;
-      width: 250px;
-    }
+  &__button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid rgba($black, 0.6);
+    border-radius: 3px;
+    color: $black;
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    height: 50px;
+    justify-content: center;
+    letter-spacing: 2px;
+    padding: 5px;
+    text-transform: uppercase;
+    width: 250px;
   }
 
   @media only screen and (max-width: 900px) {
@@ -165,6 +168,18 @@
     &__stream,
     video {
       max-height: 30vh;
+    }
+  }
+}
+
+.dark {
+  .event-message {
+    background-color: $black;
+    color: $white;
+
+    .event-message__button {
+      border: 1px solid rgba($white, 0.6);
+      color: $white;
     }
   }
 }

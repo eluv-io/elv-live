@@ -136,6 +136,8 @@ class SiteStore {
   @computed get upcomingDropEvents() {
     return (this.currentSiteInfo.drops || [])
       .map((drop, index) => ({
+        uuid: drop.uuid,
+        requires_login: drop.requires_login,
         header: drop.event_header,
         start_date: drop.start_date,
         end_date: drop.end_date,

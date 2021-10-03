@@ -9,6 +9,7 @@ import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
 import EluvioConfiguration from "../configuration";
+import CookieBanner from "react-cookie-banner";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -115,31 +116,60 @@ class SiteApp extends React.Component {
     }
 
     return (
-      <Switch>
-        <Route exact path="/wallet/callback" component={LoginPage} />
-        <Route exact path="/wallet/logout" component={LoginPage} />
+      <>
+        <CookieBanner
+          className="cookie-banner"
+          message="By continuing to browse the site you're agreeing to our use of cookies."
+          onAccept={() => {}}
+          cookie="user-has-accepted-cookies"
+          dismissOnScroll={false}
+          dismissOnClick
+          buttonMessage="Close"
+          styles={{
+            banner: {
+              position: "fixed",
+              bottom: 0,
+              zIndex: 999999
+            },
+            button: {
+              border: "0.5px solid white",
+              borderRadius: 4,
+              width: 66,
+              background: "transparent",
+              color: "white",
+              fontSize: "14px",
+              fontWeight: 600,
+              opacity: 1,
+              right: 20,
+            },
+          }}
+        />
+        <Switch>
+          <Route exact path="/wallet/callback" component={LoginPage} />
+          <Route exact path="/wallet/logout" component={LoginPage} />
 
-        <Route exact path="/:tenantSlug/collections" component={Collections} />
-        <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
+          <Route exact path="/:tenantSlug/collections" component={Collections} />
+          <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
 
-        <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
-        <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-        <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
+          <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
+          <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
+          <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
+          <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
+          <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
+          <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
+          <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
 
-        <Route>
-          <Route render={() => window.location.href = window.location.origin} />
-        </Route>
-      </Switch>
+          <Route>
+            <Route render={() => window.location.href = window.location.origin} />
+          </Route>
+        </Switch>
+      </>
     );
   }
 

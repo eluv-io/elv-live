@@ -284,6 +284,7 @@
 
   &__tagline {
     font-size: 12px;
+    font-weight: 300;
 
     &:hover {
       color: rgba(0, 0, 0, 0.783);
@@ -292,6 +293,7 @@
 
   &__logo {
     height: 10px;
+    margin-left: 2px;
   }
 }
 
@@ -373,6 +375,13 @@
 
     * {
       color: $white;
+    }
+
+    .footer__powered-by {
+      &__logo {
+        fill: $white;
+        stroke: $white;
+      }
     }
   }
 }

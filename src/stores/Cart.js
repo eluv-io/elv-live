@@ -1,6 +1,5 @@
 import {observable, action, flow, computed, toJS} from "mobx";
 import UrlJoin from "url-join";
-import {loadStripe} from "@stripe/stripe-js";
 import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
 import CountryCodesList from "country-codes-list";
@@ -349,6 +348,8 @@ class CartStore {
       })).session_id;
 
       // Redirect to stripe
+      const {loadStripe} = yield import("@stripe/stripe-js/pure");
+      loadStripe.setLoadParameters({advancedFraudSignals: false});
       const stripe = yield loadStripe(stripePublicKey);
       yield stripe.redirectToCheckout({sessionId});
     } catch(error) {

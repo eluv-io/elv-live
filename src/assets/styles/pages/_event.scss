@@ -163,7 +163,7 @@
       }
 
       .event-page__hero {
-        background-size: contain;
+        background-size: cover;
       }
     }
 
@@ -184,6 +184,12 @@
     &__header-logo {
       height: 120px;
       margin-bottom: 5px;
+    }
+
+    &__buttons {
+      .btn {
+        max-width: 200px;
+      }
     }
   }
 
