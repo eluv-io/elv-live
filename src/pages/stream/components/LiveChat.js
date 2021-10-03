@@ -18,7 +18,6 @@ import ChatSend from "Icons/chat send.svg";
 import ImageIcon from "Common/ImageIcon";
 import PopoutIcon from "Icons/external-link-arrow";
 import HypeIcon from "Icons/heart.svg";
-import UsersIcon from "Icons/users.svg";
 
 @inject("siteStore")
 @inject("rootStore")

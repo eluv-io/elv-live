@@ -143,9 +143,6 @@ class Header extends React.Component {
     const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
 
-    const logo = this.props.siteStore.siteSlug === "ms" ? WinLogo : EluvioLogo;
-    const link = this.props.siteStore.siteSlug === "ms" ? "https://www.microsoft.com/en-us/windows/get-windows-11" : window.location.origin;
-
     return (
       <div className="header__links">
         {
@@ -207,7 +204,7 @@ class Header extends React.Component {
     return (
       <header className={`
         header 
-        ${this.props.mainPage ? "header-main" : ""} 
+        ${this.props.transparent ? "header-transparent" : ""} 
         ${this.state.scrolled ? "header-scrolled" : ""} 
         ${this.props.siteStore.darkMode || this.props.dark ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}

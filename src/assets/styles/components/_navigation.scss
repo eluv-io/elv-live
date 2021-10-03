@@ -274,16 +274,16 @@
 }
 
 .footer-item {
+  background: transparent;
+  border: 0;
   color: rgba(0, 0, 0, 0.783);
+  cursor: pointer;
   font-size: 14px;
   font-style: normal;
   font-weight: normal;
   letter-spacing: 0.07em;
   line-height: 150%;
   padding: 0 35px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
 
   &:hover {
     color: $black;
@@ -438,13 +438,13 @@
     }
   }
 
-  &.header-main,
+  &.header-transparent,
   &.header-wallet,
   &.header-dark {
     border-bottom: 1px solid rgba($white, 0.5);
 
     &.header-wallet,
-    &:not(.header-main) {
+    &:not(.header-transparent) {
       background-color: $black;
     }
 
@@ -483,7 +483,7 @@
     }
   }
 
-  &.header-main {
+  &.header-transparent {
     @media screen and (min-width: 1400px) {
       .header__logo-container {
         text-shadow: 0 0 3px $black;

@@ -125,7 +125,7 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
         <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
-        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, mainPage: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
         <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
         <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
@@ -134,7 +134,7 @@ class SiteApp extends React.Component {
         <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
         <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
         <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-        <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true})} />
+        <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
 
         <Route>
           <Route render={() => window.location.href = window.location.origin} />
