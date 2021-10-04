@@ -6,6 +6,7 @@ import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/eluvio-logo";
+import Footer from "Layout/Footer";
 
 @inject("siteStore")
 @observer
@@ -134,6 +135,7 @@ class Landing extends React.Component {
           </div>
           <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
         </div>
+        <Footer noSponsors />
       </div>
     );
   }

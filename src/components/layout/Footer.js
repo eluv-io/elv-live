@@ -34,76 +34,74 @@ class Footer extends React.Component {
   }
 
   FooterLinks() {
-    const links = this.props.siteStore.currentSiteInfo.footer_links;
+    const links = (this.props.siteStore.currentSiteInfo.footer_links || []).map(({text, url, content_rich_text, content_html}, index) => {
+      if(url) {
+        return <a target="_blank" key={`footer-link-${index}`} className="footer-item" rel="noopener" href={url}>{ text }</a>;
+      } else if(content_rich_text || content_html) {
+        return (
+          <button
+            key={`footer-link-${index}`}
+            className="footer-item"
+            onClick={() => {
+              this.setState({
+                modal: (
+                  <Modal
+                    className="event-message-container"
+                    Toggle={() => this.setState({modal: undefined})}
+                  >
+                    {
+                      content_rich_text ?
+                        <div className="event-message">
+                          <div className="event-message__content">
+                            <div
+                              className="event-message__content__message"
+                              ref={element => {
+                                if(!element) {
+                                  return;
+                                }
 
-    if(!links || links.length === 0) {
-      return (
-        <>
-          <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
-            Support FAQ
-          </Link>
-          <Link to={this.props.siteStore.SitePath("terms")} className="footer-item">
-            Terms
-          </Link>
-          <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
-            Privacy Policy
-          </Link>
-        </>
-      );
-    }
+                                render(
+                                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                                    {SanitizeHTML(content_rich_text)}
+                                  </ReactMarkdown>,
+                                  element
+                                );
+                              }}
+                            />
+                          </div>
+                        </div> :
+                        <iframe
+                          className="event-message"
+                          src={this.props.siteStore.SiteUrl(UrlJoin("info", "footer_links", index.toString(), "content_html"))}
+                        />
+                    }
+                  </Modal>
+                )
+              });
+            }}
+          >
+            { text }
+          </button>
+        );
+      }
+    });
 
     return (
-      links.map(({text, url, content_rich_text, content_html}, index) => {
-        if(url) {
-          return <a target="_blank" key={`footer-link-${index}`} className="footer-item" rel="noopener" href={url}>{ text }</a>;
-        } else if(content_rich_text || content_html) {
-          return (
-            <button
-              key={`footer-link-${index}`}
-              className="footer-item"
-              onClick={() => {
-                this.setState({
-                  modal: (
-                    <Modal
-                      className="event-message-container"
-                      Toggle={() => this.setState({modal: undefined})}
-                    >
-                      {
-                        content_rich_text ?
-                          <div className="event-message">
-                            <div className="event-message__content">
-                              <div
-                                className="event-message__content__message"
-                                ref={element => {
-                                  if(!element) {
-                                    return;
-                                  }
-
-                                  render(
-                                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                                      {SanitizeHTML(content_rich_text)}
-                                    </ReactMarkdown>,
-                                    element
-                                  );
-                                }}
-                              />
-                            </div>
-                          </div> :
-                          <iframe
-                            className="event-message"
-                            src={this.props.siteStore.SiteUrl(UrlJoin("info", "footer_links", index.toString(), "content_html"))}
-                          />
-                      }
-                    </Modal>
-                  )
-                });
-              }}
-            >
-              { text }
-            </button>
-          );
+      <>
+        <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
+          Support FAQ
+        </Link>
+        <Link to={this.props.siteStore.SitePath("terms")} className="footer-item">
+          Terms
+        </Link>
+        {
+          links && links.length > 0 ?
+            links :
+            <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
+              Privacy Policy
+            </Link>
         }
-      })
+      </>
     );
   }
 
@@ -134,7 +132,7 @@ class Footer extends React.Component {
             }
           </div>
           {
-            hasSponsors ?
+            hasSponsors && !this.props.noSponsors ?
               <div className="sponsor-container-footer">
                 <div className="sponsor-message">Sponsored By</div>
                 <div className="sponsor-logos">
