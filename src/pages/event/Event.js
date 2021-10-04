@@ -85,7 +85,7 @@ class Event extends React.Component {
       this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
       return;
     }
-    
+
     return (
       <Modal
         className="event-message-container"

@@ -46,10 +46,6 @@ a {
 a,
 button,
 input {
-  &:focus {
-
-  }
-
   &:focus-visible {
     box-shadow: 0 0 3px rgba($blue, 0.8) !important;
     outline: 1px solid $blue !important;
