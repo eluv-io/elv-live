@@ -69,7 +69,7 @@ class Event extends React.Component {
         Toggle={() => this.setState({showGetStartedModal: false})}
       >
         <div className="event-message">
-          <div className="event-message__content">
+          <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
             {
               messageInfo.message ?
                 <div
@@ -89,7 +89,7 @@ class Event extends React.Component {
             {
               !messageInfo.image ? null:
                 <ImageIcon
-                  className="event-message__content__image"
+                  className={`event-message__content__image ${!messageInfo.message ? "no-padding" : ""}`}
                   icon={this.props.siteStore.SiteUrl(UrlJoin("info", "event_info", "modal_message_get_started", "image"))}
                 />
             }
