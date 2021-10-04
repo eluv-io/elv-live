@@ -576,6 +576,31 @@ class SiteStore {
   });
 
   @action.bound
+  LoadDropStreamOptions = flow(function * ({dropIndex, dropState, streamHash}) {
+    try {
+      const availableOfferings = yield this.rootStore.client.AvailableOfferings({
+        ...this.siteParams,
+        //versionHash: undefined, // Always pull latest
+        linkPath: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "info", "drops", dropIndex.toString(), dropState, "stream", "offerings"),
+        directLink: true,
+        resolveIncludeSource: true
+      });
+
+      const offeringId = Object.keys(availableOfferings || {})[0];
+
+      if(!offeringId) { return; }
+
+      return { offeringURI: availableOfferings[offeringId].uri };
+    } catch(error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+
+    // Not able to play as channel, let player handle playout
+    return { versionHash: streamHash };
+  });
+
+  @action.bound
   ShowCheckoutModal({ticketClass, sku}) {
     this.showCheckout = true;
     this.selectedTicket = { ticketClass, skuIndex: sku };

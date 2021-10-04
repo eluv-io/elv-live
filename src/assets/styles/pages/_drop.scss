@@ -86,6 +86,10 @@
   min-height: MIN(50vh, 700px);
   min-width: 600px;
 
+  * {
+    color: $black;
+  }
+
   &__content {
     align-items: center;
     display: flex;
@@ -183,7 +187,10 @@
 .dark {
   .event-message {
     background-color: $black;
-    color: $white;
+
+    * {
+      color: $white;
+    }
 
     .event-message__button {
       border: 1px solid rgba($white, 0.6);

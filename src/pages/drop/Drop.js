@@ -12,7 +12,7 @@ import UrlJoin from "url-join";
 import {Redirect} from "react-router";
 import {Login} from "Pages/login/index";
 
-const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
+const EventPlayer = inject("siteStore")(observer(({siteStore, client, dropIndex, dropState, streamHash, streamOptions, OnLoad}) => {
   const [key, setKey] = useState(0);
   const [videoElement, setVideoElement] = useState(0);
   const [player, setPlayer] = useState(undefined);
@@ -25,40 +25,44 @@ const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
         player.Destroy();
       }
 
-      setPlayer(
-        new EluvioPlayer(
-          videoElement,
-          {
-            clientOptions: {
-              network: EluvioConfiguration["config-url"].includes("main.net955305") ?
-                EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
-              client: client
-            },
-            sourceOptions: {
-              playoutParameters: {
-                versionHash: streamHash
-              }
-            },
-            playerOptions: {
-              loop: streamOptions.loop,
-              muted: EluvioPlayerParameters.muted.OFF,
-              autoplay: EluvioPlayerParameters.autoplay.ON,
-              controls: EluvioPlayerParameters.controls.AUTO_HIDE,
-              watermark: EluvioPlayerParameters.watermark.OFF,
-              errorCallback: error => {
-                // eslint-disable-next-line no-console
-                console.error(error);
+      siteStore.LoadDropStreamOptions({
+        dropIndex,
+        dropState,
+        streamHash
+      }).then(playoutParameters => {
+        setPlayer(
+          new EluvioPlayer(
+            videoElement,
+            {
+              clientOptions: {
+                network: EluvioConfiguration["config-url"].includes("main.net955305") ?
+                  EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
+                client: client
+              },
+              sourceOptions: {
+                playoutParameters
+              },
+              playerOptions: {
+                loop: streamOptions.loop,
+                muted: EluvioPlayerParameters.muted.OFF,
+                autoplay: EluvioPlayerParameters.autoplay.ON,
+                controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+                watermark: EluvioPlayerParameters.watermark.OFF,
+                errorCallback: error => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
 
-                setTimeout(() => {
-                  player && player.Destroy();
-                  setVideoElement(undefined);
-                  setKey(key + 1);
-                }, 5000);
+                  setTimeout(() => {
+                    player && player.Destroy();
+                    setVideoElement(undefined);
+                    setKey(key + 1);
+                  }, 10000);
+                }
               }
             }
-          }
-        )
-      );
+          )
+        );
+      });
 
       if(OnLoad) {
         OnLoad(videoElement);
@@ -85,7 +89,7 @@ const EventPlayer = ({client, streamHash, streamOptions, OnLoad}) => {
       }}
     />
   );
-};
+}));
 
 @inject("rootStore")
 @inject("siteStore")
@@ -216,8 +220,10 @@ class Drop extends React.Component {
 
     const currentState = states[currentStateIndex];
     let streamState = currentState;
+    let streamStateKey = currentState.state;
     if(currentState.use_main_stream) {
       streamState = states.find(state => state.state === "event_state_main");
+      streamStateKey = "event_state_main";
     }
 
     const streamHash = streamState && streamState.stream && streamState.stream["."].source;
@@ -230,6 +236,7 @@ class Drop extends React.Component {
       dropIndex,
       states,
       currentStateIndex,
+      streamStateKey,
       streamHash,
       streamOptions
     };
@@ -254,6 +261,8 @@ class Drop extends React.Component {
             <EventPlayer
               key={`event-player-${streamHash}`}
               client={this.props.rootStore.client}
+              dropIndex={drop.dropIndex}
+              dropState={drop.streamStateKey}
               streamHash={streamHash}
               streamOptions={streamOptions}
               OnLoad={videoElement => {
