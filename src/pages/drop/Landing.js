@@ -6,6 +6,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 import Footer from "Layout/Footer";
+import AddToCalendar from "react-add-to-calendar";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -66,6 +67,15 @@ class Landing extends React.Component {
     const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
     const noCountdown = landingInfo.hide_countdown;
 
+    const drop = this.Drop();
+    const calendarEvent = {
+      title: drop.event_header,
+      description: drop.event_header,
+      location: window.location.href,
+      startTime: drop.start_time,
+      endTime: drop.end_time
+    };
+
     return (
       <div className="landing-page__text-container">
         <div className="landing-page__text-group">
@@ -91,6 +101,16 @@ class Landing extends React.Component {
             landingInfo.message_2 || "Use the link in your email to return here at the time of the event"
           }
         </div>
+
+        <AddToCalendar
+          event={calendarEvent}
+          buttonLabel="Add to Calendar"
+          rootClass="calendar-button-container"
+          buttonWrapperClass="calendar-button"
+          buttonClassOpen="open"
+          dropdownClass="calendar-button-dropdown"
+          listItems={[ { outlook: "Outlook" }, { outlookcom: "Outlook.com" }, { apple: "Apple Calendar" }, { google: "Google" }, { yahoo: "Yahoo" } ]}
+        />
       </div>
     );
   }
@@ -140,7 +160,7 @@ class Landing extends React.Component {
         <div className="landing-page__content">
           { this.Header() }
           <Countdown
-            time={this.Drop().start_date}
+            time={Date.now() + 1000000 || this.Drop().start_date}
             Render={({diff, countdown}) => this.Countdown({diff, countdown})}
           />
         </div>

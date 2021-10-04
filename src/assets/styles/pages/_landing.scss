@@ -4,7 +4,8 @@
   color: $white;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  max-height: 100%;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
   width: 100%;
@@ -58,6 +59,7 @@
     margin: 0 auto;
     max-width: 800px;
     padding-top: 80px;
+    z-index: 2;
   }
 
   .live-footer {
@@ -204,6 +206,71 @@
         fill: $white;
         stroke: $white;
       }
+    }
+  }
+
+
+  .calendar-button-container {
+    position: relative;
+  }
+
+  .calendar-button {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto 0;
+    width: auto;
+
+    a {
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 300;
+      justify-content: center;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+  }
+
+  .calendar-button-dropdown {
+    bottom: 10px;
+    padding-bottom: 30px;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+
+    ul {
+      background-color: $white;
+      border-radius: 10px;
+      box-shadow: 0 4px 50px rgba(0, 0, 0, 0.15);
+      color: $black;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      height: 50px;
+
+      &:hover {
+        background-color: $lightgray;
+      }
+
+      &:not(:first-child) {
+        border-top: 1px solid rgba($gray, 0.1);
+      }
+    }
+
+    a {
+      align-items: center;
+      color: $black;
+      display: flex;
+      font-size: 14px;
+      font-weight: 300;
+      height: 100%;
+      justify-content: center;
+      line-height: 18px;
+      user-select: none;
+      width: 100%;
     }
   }
 
