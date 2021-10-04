@@ -160,7 +160,7 @@ class Landing extends React.Component {
         <div className="landing-page__content">
           { this.Header() }
           <Countdown
-            time={Date.now() + 1000000 || this.Drop().start_date}
+            time={this.Drop().start_date}
             Render={({diff, countdown}) => this.Countdown({diff, countdown})}
           />
         </div>
