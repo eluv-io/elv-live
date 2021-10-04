@@ -324,7 +324,7 @@ class RootStore {
   }
 
   @action.bound
-  SetAuthInfo = flow(function * ({idToken, authToken, privateKey, user, tenantId}) {
+  SetAuthInfo = flow(function * ({idToken, authToken, privateKey, user, tenantId, loginData={}}) {
     try {
       this.loggingIn = true;
       const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
@@ -334,7 +334,7 @@ class RootStore {
         const signer = wallet.AddAccount({privateKey});
         client.SetSigner({signer});
       } else {
-        yield client.SetRemoteSigner({idToken, authToken, tenantId});
+        yield client.SetRemoteSigner({idToken, authToken, tenantId, extraData: loginData});
       }
 
       let authInfo = {
