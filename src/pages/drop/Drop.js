@@ -248,12 +248,6 @@ class Drop extends React.Component {
 
     return (
       <>
-        {
-          !this.props.rootStore.walletLoggedIn ?
-            <div className="wallet-panel wallet-panel-side-panel dark">
-              <Login />
-            </div> : null
-        }
         <div className="page-container drop-page">
           { this.Message() }
           <div className="main-content-container drop-page__content wallet-panel-page-content">
@@ -312,6 +306,12 @@ class Drop extends React.Component {
             </div>
           </div>
         </div>
+        {
+          !this.props.rootStore.walletLoggedIn ?
+            <div className="wallet-panel wallet-panel-side-panel dark">
+              <Login />
+            </div> : null
+        }
       </>
     );
   }

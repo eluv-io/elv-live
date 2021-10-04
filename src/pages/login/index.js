@@ -11,6 +11,7 @@ import Modal from "Components/common/Modal";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import {Redirect} from "react-router";
+import PreLogin from "Pages/login/PreLogin";
 
 const baseUrl = new URL(UrlJoin(window.location.origin, "wallet"));
 
@@ -64,7 +65,7 @@ const LoginBackground = inject("rootStore")(inject("siteStore")(observer(({rootS
   return null;
 })));
 
-export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore, callbackPage=false}) => {
+export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
   const auth0 = useAuth0();
 
   window.auth0 = auth0;
@@ -74,6 +75,9 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [showPrivateKeyForm, setShowPrivateKeyForm] = useState(false);
   const [privateKey, setPrivateKey] = useState("");
   const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && siteStore.loginCustomization.redirectPath) || "");
+
+  const [loginData, setLoginData] = useState(siteStore.loginCustomization.loginData);
+  const loginDataRequired = siteStore.siteSlug === "ms" && !loginData;
 
   const extraLoginParams = {};
   if(siteStore.darkMode ) {
@@ -118,7 +122,16 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
       setLoading(true);
 
-      await rootStore.SetAuthInfo({idToken, user: userData});
+      await rootStore.SetAuthInfo({
+        tenantId: siteStore.loginCustomization.tenant_id,
+        idToken,
+        user: userData,
+        loginData
+      });
+
+      if(siteStore.loginCustomization.loginData) {
+        setLoginData(siteStore.loginCustomization.loginData);
+      }
 
       if(siteStore.loginCustomization.redirectPath) {
         setRedirectPath(siteStore.loginCustomization.redirectPath);
@@ -143,19 +156,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     if(auth0.isAuthenticated) {
       SignIn();
     } else if(!auth0.isLoading) {
-      /*
-      if(!callbackPage && !rootStore.AuthInfo() && !rootStore.loggedOut && localStorage.getItem("hasLoggedIn")) {
-        setTimeout(() => {
-          auth0.loginWithRedirect({
-            redirectUri: callbackUrl.toString(),
-            ...extraLoginParams
-          });
-        }, 1000);
-      } else {
-        setAuth0Loading(false);
-      }
-
-       */
       setAuth0Loading(false);
     }
 
@@ -219,6 +219,20 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     );
   }
 
+  if(loginDataRequired) {
+    return (
+      <div className={`page-container login-page ${customBackground ? "login-page-custom-background" : ""}`}>
+        <LoginBackground />
+        <div className="login-page__login-box">
+          { logo }
+          <PreLogin
+            onComplete={({data}) => setLoginData(data)}
+          />
+        </div>
+      </div>
+    );
+  }
+
   if(showPrivateKeyForm) {
     return (
       <div className={`page-container login-page ${customBackground ? "login-page-custom-background" : ""}`}>
@@ -234,7 +248,10 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
               try {
                 setLoading(true);
 
-                rootStore.SetAuthInfo({privateKey});
+                rootStore.SetAuthInfo({
+                  tenantId: siteStore.loginCustomization.tenant_id,
+                  privateKey
+                });
               } finally {
                 setLoading(false);
               }
@@ -272,6 +289,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
         localStorage.setItem(
           "loginCustomization",
           JSON.stringify({
+            loginData,
             redirectPath: window.location.pathname,
             ...siteStore.loginCustomization
           })
@@ -297,6 +315,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
         localStorage.setItem(
           "loginCustomization",
           JSON.stringify({
+            loginData,
             redirectPath: window.location.pathname,
             ...siteStore.loginCustomization
           })
