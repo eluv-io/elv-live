@@ -5,8 +5,7 @@ import UrlJoin from "url-join";
 import {NavLink, withRouter} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
-import ImageIcon from "Common/ImageIcon";
-import EluvioLogo from "Images/logo/eluvio-logo";
+import Footer from "Layout/Footer";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -144,12 +143,8 @@ class Landing extends React.Component {
             time={this.Drop().start_date}
             Render={({diff, countdown}) => this.Countdown({diff, countdown})}
           />
-          <div className="landing-page__powered-by">
-            <a href="https://live.eluv.io" target="_blank" className="landing-page__powered-by__tagline">
-              Powered by <ImageIcon icon={EluvioLogo} className="landing-page__powered-by__logo" title="Eluv.io" />
-            </a>
-          </div>
         </div>
+        <Footer />
       </div>
     );
   }

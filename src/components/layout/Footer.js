@@ -133,12 +133,15 @@ class Footer extends React.Component {
                 </select> : null
             }
           </div>
-          <div className="sponsor-container-footer">
-            { hasSponsors ? <div className="sponsor-message">Sponsored By</div> : null }
-            <div className="sponsor-logos">
-              { hasSponsors ? this.Sponsors() : null }
-            </div>
-          </div>
+          {
+            hasSponsors ?
+              <div className="sponsor-container-footer">
+                <div className="sponsor-message">Sponsored By</div>
+                <div className="sponsor-logos">
+                  { this.Sponsors() }
+                </div>
+              </div> : null
+          }
           <div className="footer-info footer__powered-by">
             <a href="https://live.eluv.io" target="_blank" className="footer-item footer__powered-by__tagline">
               Powered by <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />

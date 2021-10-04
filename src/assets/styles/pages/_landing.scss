@@ -2,7 +2,8 @@
   @include page-fade-in;
   background: $black !important;
   color: $white;
-  display: block;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   overflow: hidden;
   -webkit-overflow-scrolling: touch;
@@ -29,23 +30,6 @@
         color: $black;
       }
     }
-
-    .landing-page__powered-by {
-      &__tagline {
-        color: $black;
-
-        &:hover {
-          color: $black;
-        }
-      }
-
-      &__logo {
-        * {
-          fill: $black;
-          stroke: $black;
-        }
-      }
-    }
   }
 
   * {
@@ -65,12 +49,25 @@
 
   &__content {
     display: flex;
+    flex: 1 1 100%;
     flex-direction: column;
-    height: 100%;
     justify-content: space-between;
     margin: 0 auto;
     max-width: 800px;
     padding-top: 80px;
+  }
+
+  .live-footer {
+    height: 100px;
+
+    .footer-info {
+      align-items: center;
+      border: 0;
+      display: flex;
+      height: 35px;
+      margin: 0;
+      padding: 0;
+    }
   }
 
   &__text-container {
@@ -259,23 +256,6 @@
 
         &:hover {
           color: $white;
-        }
-      }
-
-      .landing-page__powered-by {
-        &__tagline {
-          color: $white;
-
-          &:hover {
-            color: $white;
-          }
-        }
-
-        &__logo {
-          * {
-            fill: $white;
-            stroke: $white;
-          }
         }
       }
     }
