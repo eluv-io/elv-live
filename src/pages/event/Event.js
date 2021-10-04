@@ -35,6 +35,29 @@ class Event extends React.Component {
     };
   }
 
+  Branding() {
+    const branding = this.props.siteStore.currentSiteInfo.branding || {};
+
+    let info = {};
+    Object.keys(branding).forEach(key => {
+      let styles = {};
+      Object.keys(branding[key] || {}).forEach(style => {
+        if(style === "background_color") {
+          styles.backgroundColor = branding[key].background_color.color;
+        } else if(style === "text_color") {
+          styles.color = branding[key].text_color.color;
+        }
+      });
+
+      info[key] = {
+        text: branding[key].text,
+        styles
+      };
+    });
+
+    return info;
+  }
+
   Promos() {
     if(!this.state.showPromo) { return; }
 
@@ -62,7 +85,7 @@ class Event extends React.Component {
       this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
       return;
     }
-
+    
     return (
       <Modal
         className="event-message-container"
@@ -104,14 +127,14 @@ class Event extends React.Component {
                   }}
                   className="event-message__button"
                 >
-                  Create Wallet
+                  { messageInfo.button_text || "Create Wallet" }
                 </button> :
                 <Link
                   to={this.props.siteStore.nextDrop.link}
                   className="event-message__button"
                   onClick={() => this.setState({showGetStartedModal: false})}
                 >
-                  Join the Drop
+                  { messageInfo.button_text || "Join the Drop" }
                 </Link>
             }
           </div>
@@ -133,32 +156,39 @@ class Event extends React.Component {
     if(this.props.siteStore.isDropEvent) {
       const hasLoggedIn = (this.props.rootStore.walletLoggedIn || localStorage.getItem("hasLoggedIn"));
 
+      const branding = this.Branding();
       return (
         <div className="event-page__buttons">
           {
             !hasLoggedIn ?
               <button
+                style={(branding.get_started || {}).styles}
                 className="btn btn--gold"
                 onClick={() => this.setState({showGetStartedModal: true})}
               >
-                Get Started
+                { (branding.get_started || {}).text || "Get Started" }
               </button> : null
           }
           {
             hasLoggedIn && this.props.siteStore.nextDrop ?
               <Link
+                style={(branding.join_drop || {}).styles}
                 to={this.props.siteStore.nextDrop.link}
                 className="btn btn--gold"
                 onClick={() => this.setState({showGetStartedModal: true})}
               >
-                Join the Drop
+                { (branding.join_drop || {}).text || "Join the Drop" }
               </Link>
               : null
           }
           {
             this.props.siteStore.promos.length > 0 ?
-              <button onClick={() => this.setState({showPromo: true})} className={`btn ${ this.props.rootStore.walletLoggedIn && !this.props.siteStore.nextDrop ? "btn--gold" : ""}`}>
-                Watch Promo
+              <button
+                style={(branding.watch_promo || {}).styles}
+                onClick={() => this.setState({showPromo: true})}
+                className={`btn ${ this.props.rootStore.walletLoggedIn && !this.props.siteStore.nextDrop ? "btn--gold" : ""}`}
+              >
+                { (branding.watch_promo || {}).text || "Watch Promo" }
               </button> : null
           }
         </div>
@@ -294,7 +324,7 @@ class Event extends React.Component {
 
         {
           this.props.siteStore.isDropEvent ?
-            <UpcomingEvents header="Upcoming Drops" events={this.props.siteStore.upcomingDropEvents} /> :
+            <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.upcomingDropEvents} /> :
             null
         }
 

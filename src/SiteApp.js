@@ -127,9 +127,11 @@ class SiteApp extends React.Component {
           buttonMessage="Close"
           styles={{
             banner: {
+              fontFamily: "'Helvetica Neue', Helvetica, sans-serif",
               position: "fixed",
               bottom: 0,
-              zIndex: 999999
+              zIndex: 999999,
+              height: 50
             },
             button: {
               border: "0.5px solid white",
@@ -142,6 +144,16 @@ class SiteApp extends React.Component {
               opacity: 1,
               right: 20,
             },
+            message: {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+              lineHeight: "1.2em",
+              fontSize: "12px",
+              padding: "5px 95px 5px 10px"
+            }
           }}
         />
         <Switch>

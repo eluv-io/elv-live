@@ -72,8 +72,8 @@ class Landing extends React.Component {
       title: drop.event_header,
       description: drop.event_header,
       location: window.location.href,
-      startTime: drop.start_time,
-      endTime: drop.end_time
+      startTime: drop.start_date,
+      endTime: drop.end_date
     };
 
     return (
