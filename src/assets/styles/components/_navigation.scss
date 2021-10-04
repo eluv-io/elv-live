@@ -379,6 +379,8 @@
     }
 
     .footer__powered-by {
+      border: 0;
+
       &__logo {
         fill: $white;
         stroke: $white;

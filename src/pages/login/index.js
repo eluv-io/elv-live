@@ -81,7 +81,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
   const extraLoginParams = {};
   if(siteStore.darkMode ) {
-    url.searchParams.set("d", "");
     extraLoginParams.darkMode = true;
   }
 

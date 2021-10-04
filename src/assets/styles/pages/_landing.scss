@@ -95,7 +95,7 @@
     color: #f0e5d4;
     font-size: 36px;
     font-weight: 300;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.2em;
     margin: 20px auto;
   }
 
@@ -243,6 +243,8 @@
 .dark {
   .landing-page {
     &-custom-background {
+      background-color: $black !important;
+
       .landing-page__text-container {
         background-color: rgba($black, 0.9);
         box-shadow: 0 4px 10px rgba($black, 0.25);
