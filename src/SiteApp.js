@@ -190,7 +190,7 @@ class SiteApp extends React.Component {
       <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
         <BrowserRouter>
           <Auth0Provider
-            domain={EluvioConfiguration["auth0-domain"] || "prod-elv.us.auth0.com"}
+            domain={EluvioConfiguration["auth0-domain"] || "auth.contentfabric.io"}
             clientId={EluvioConfiguration["auth0-configuration-id"] || "ONyubP9rFI5BHzmYglQKBZ1bBbiyoB3S"}
             redirectUri={callbackUrl.toString()}
             useRefreshTokens
