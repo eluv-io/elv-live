@@ -68,10 +68,11 @@ class Landing extends React.Component {
     const noCountdown = landingInfo.hide_countdown;
 
     const drop = this.Drop();
+    const calendarInfo = drop.calendar || {};
     const calendarEvent = {
-      title: drop.event_header,
-      description: drop.event_header,
-      location: window.location.href,
+      title: calendarInfo.title || drop.event_header,
+      description: calendarInfo.description || drop.event_header,
+      location: calendarInfo.location || window.location.href,
       startTime: drop.start_date,
       endTime: drop.end_date
     };

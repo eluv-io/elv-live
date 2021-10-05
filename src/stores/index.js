@@ -307,6 +307,7 @@ class RootStore {
       video
     };
 
+    /*
     // Mute video if video is present and moving into full wallet view
     if(visibility === "full" && this.defaultWalletState.video && this.defaultWalletState.video.element) {
       this.defaultWalletState = {
@@ -321,6 +322,8 @@ class RootStore {
     } else if(video && !video.muted) {
       video.element.muted = false;
     }
+
+     */
   }
 
   @action.bound
