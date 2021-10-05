@@ -1,6 +1,7 @@
 import React from "react";
 
-import TermsDocument from "Assets/documents/EventTerms.html";
+//import TermsDocument from "Assets/documents/EventTerms.html";
+import TermsDocument from "Assets/documents/EluvioStreamingExhibitionEndUserAgreementwith.html";
 
 class Privacy extends React.Component {
   constructor(props) {
