@@ -221,8 +221,10 @@ class RootStore {
       })
     );
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, () => {
-      this.InitializeWalletClient({target, marketplaceId, darkMode});
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
+      await this.InitializeWalletClient({target, marketplaceId, darkMode});
+
+      this.SetWalletPanelVisibility(this.defaultWalletState);
     });
 
     if(this.AuthInfo()) {
