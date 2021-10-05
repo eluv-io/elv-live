@@ -12,8 +12,16 @@ import UrlJoin from "url-join";
 import {Redirect} from "react-router";
 import {Login} from "Pages/login/index";
 
-const EventPlayer = inject("siteStore")(observer(({siteStore, client, dropIndex, dropState, streamHash, streamOptions, OnLoad}) => {
-  const [key, setKey] = useState(0);
+const EventPlayer = inject("siteStore")(observer(({
+  siteStore,
+  client,
+  dropIndex,
+  dropState,
+  streamHash,
+  streamOptions,
+  OnLoad,
+  Reload
+}) => {
   const [videoElement, setVideoElement] = useState(0);
   const [player, setPlayer] = useState(undefined);
 
@@ -21,15 +29,12 @@ const EventPlayer = inject("siteStore")(observer(({siteStore, client, dropIndex,
     try {
       if(!videoElement) { return; }
 
-      if(player) {
-        player.Destroy();
-      }
-
       siteStore.LoadDropStreamOptions({
         dropIndex,
         dropState,
         streamHash
       }).then(playoutParameters => {
+        let restarts = 0;
         setPlayer(
           new EluvioPlayer(
             videoElement,
@@ -48,15 +53,16 @@ const EventPlayer = inject("siteStore")(observer(({siteStore, client, dropIndex,
                 autoplay: EluvioPlayerParameters.autoplay.ON,
                 controls: EluvioPlayerParameters.controls.AUTO_HIDE,
                 watermark: EluvioPlayerParameters.watermark.OFF,
-                errorCallback: error => {
+                restartCallback: error => {
                   // eslint-disable-next-line no-console
                   console.error(error);
 
-                  setTimeout(() => {
+                  restarts += 1;
+                  if(restarts > 2) {
                     player && player.Destroy();
-                    setVideoElement(undefined);
-                    setKey(key + 1);
-                  }, 10000);
+
+                    setTimeout(() => Reload(), 5000);
+                  }
                 }
               }
             }
@@ -77,7 +83,7 @@ const EventPlayer = inject("siteStore")(observer(({siteStore, client, dropIndex,
 
       this.setState({error: true});
     }
-  }, [key, videoElement]);
+  }, [videoElement]);
 
   return (
     <div
@@ -99,6 +105,7 @@ class Drop extends React.Component {
     super(props);
 
     this.state = {
+      playerKey: 1,
       localstorageKey: `drop-status-${props.match.params.dropId}`,
       showMessage: true,
       dropInfo: this.Drop()
@@ -259,12 +266,13 @@ class Drop extends React.Component {
           { this.Message() }
           <div className="main-content-container drop-page__content wallet-panel-page-content">
             <EventPlayer
-              key={`event-player-${streamHash}`}
+              key={`event-player-${streamHash}-${this.state.playerKey}`}
               client={this.props.rootStore.client}
               dropIndex={drop.dropIndex}
               dropState={drop.streamStateKey}
               streamHash={streamHash}
               streamOptions={streamOptions}
+              Reload={() => this.setState({playerKey: this.state.playerKey + 1})}
               OnLoad={videoElement => {
                 this.props.rootStore.SetDefaultWalletState({
                   visibility: "side-panel",
