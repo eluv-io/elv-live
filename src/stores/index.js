@@ -195,7 +195,7 @@ class RootStore {
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl:
         EluvioConfiguration["config-url"].includes("main.net955305") ?
-          "https://core.test.contentfabric.io/elv-media-wallet-prod" :
+          "https://wallet.contentfabric.io/" :
           "https://core.test.contentfabric.io/elv-media-wallet",
       //walletAppUrl: "https://192.168.0.17:8090",
       target,
