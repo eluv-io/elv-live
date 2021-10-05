@@ -150,6 +150,10 @@
     display: flex;
     margin-top: 20px;
 
+    button {
+      border: 0;
+    }
+
     & > :not(:first-child) {
       margin-left: 15px;
     }
