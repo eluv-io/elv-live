@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import Collapsible from "react-collapsible";
 import Footer from "Layout/Footer";
 
-import { faq } from "Assets/copy/FAQ.yaml";
+import DefaultFAQ from "Assets/copy/FAQ.yaml";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -14,6 +14,12 @@ class Support extends React.Component {
   }
 
   render() {
+    let faq = this.props.siteStore.currentSiteInfo.faq;
+
+    if(!faq || faq.length === 0) {
+      faq = DefaultFAQ;
+    }
+
     return (
       <div className="page-container support-page">
         <div className="main-content-container support-container">
@@ -21,9 +27,9 @@ class Support extends React.Component {
             <h1 className="support-header--title">FAQ</h1>
           </div>
           <div className="support-body">
-            {Object.values(faq).map(({q, a}, index) =>
-              <Collapsible className="faq-entry" openedClassName="faq-entry faq-entry-open" transitionTime={150} trigger={q} key={index}>
-                <p>{ a }</p>
+            {Object.values(faq).map(({question, answer}, index) =>
+              <Collapsible className="faq-entry" openedClassName="faq-entry faq-entry-open" transitionTime={150} trigger={question} key={index}>
+                <p>{ answer }</p>
               </Collapsible>
             )}
           </div>
