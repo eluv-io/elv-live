@@ -53,6 +53,9 @@ const EventPlayer = inject("siteStore")(observer(({
                 autoplay: EluvioPlayerParameters.autoplay.ON,
                 controls: EluvioPlayerParameters.controls.AUTO_HIDE,
                 watermark: EluvioPlayerParameters.watermark.OFF,
+                playerCallback: () => {
+                  if(OnLoad) { OnLoad(videoElement); }
+                },
                 restartCallback: error => {
                   // eslint-disable-next-line no-console
                   console.error(error);
@@ -69,10 +72,6 @@ const EventPlayer = inject("siteStore")(observer(({
           )
         );
       });
-
-      if(OnLoad) {
-        OnLoad(videoElement);
-      }
 
       window.player = player;
 
@@ -275,15 +274,7 @@ class Drop extends React.Component {
               Reload={() => this.setState({playerKey: this.state.playerKey + 1})}
               OnLoad={videoElement => {
                 this.props.rootStore.SetDefaultWalletState({
-                  visibility: "side-panel",
-                  location: {
-                    page: "drop",
-                    params: {
-                      marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId,
-                      dropId: this.props.match.params.dropId
-                    }
-                  },
-                  darkMode: true,
+                  ...this.props.rootStore.defaultWalletState,
                   video: !videoElement ? null : {
                     element: videoElement.getElementsByTagName("video")[0],
                     muted: videoElement.muted
