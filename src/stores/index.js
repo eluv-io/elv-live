@@ -192,12 +192,22 @@ class RootStore {
 
     this.walletLoggedIn = false;
 
+    let walletAppUrl = "https://wallet.contentfabric.io";
+    if(window.location.hostname.startsWith("live-stg")) {
+      walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
+        "https://core.test.contentfabric.io/elv-media-wallet-prod" :
+        "https://core.test.contentfabric.io/elv-media-wallet";
+    } else {
+      // Prod
+      walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
+        "https://wallet.contentfabric.io" :
+        "https://wallet.demov3.contentfabric.io";
+    }
+
+    //walletAppUrl: "https://192.168.0.17:8090";
+
     this.walletClient = yield ElvWalletClient.InitializeFrame({
-      walletAppUrl:
-        EluvioConfiguration["config-url"].includes("main.net955305") ?
-          "https://wallet.contentfabric.io/" :
-          "https://core.test.contentfabric.io/elv-media-wallet",
-      //walletAppUrl: "https://192.168.0.17:8090",
+      walletAppUrl,
       target,
       marketplaceId,
       darkMode
