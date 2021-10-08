@@ -24,7 +24,7 @@
     "@auth0/auth0-react": "^1.8.0",
     "@eluvio/elv-client-js": "^3.1.71",
     "@eluvio/elv-player-js": "^1.0.63",
-    "@eluvio/elv-wallet-client": "^0.1.14",
+    "@eluvio/elv-wallet-client": "^0.1.15",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@paypal/react-paypal-js": "^4.0.2",

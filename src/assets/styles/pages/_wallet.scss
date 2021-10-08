@@ -19,6 +19,23 @@
   width: 0;
   z-index: 1000;
 
+  &__modal-close {
+    background-color: $white;
+    border: 0;
+    border-radius: 100%;
+    cursor: pointer;
+    font-weight: 400;
+    height: 35px;
+    outline: 0;
+    padding: 8px;
+    position: absolute;
+    right: 15px;
+    stroke: $black;
+    top: 15px;
+    width: 35px;
+    z-index: 10002;
+  }
+
   &-hidden {
     width: 0;
   }
@@ -58,9 +75,9 @@
       border: 1px solid #333;
       margin: auto;
 
-      max-height: MIN(90vh, 700px);
+      max-height: MIN(90vh, 800px);
       max-width: 600px;
-      min-height: MIN(90vh, 700px);
+      min-height: MIN(90vh, 800px);
       min-width: 600px;
     }
   }
@@ -96,10 +113,10 @@
   .wallet-panel {
     &-modal {
       .wallet-target {
-        max-height: 500px;
-        max-width: 90%;
-        min-height: 500px;
-        min-width: 90%;
+        max-height: 100%;
+        max-width: 100%;
+        min-height: 100%;
+        min-width: 100%;
       }
     }
 

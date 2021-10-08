@@ -81,9 +81,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: MIN(90vh, 700px);
+  max-height: MIN(90vh, 800px);
   max-width: 600px;
-  min-height: MIN(50vh, 700px);
+  min-height: MIN(50vh, 800px);
   min-width: 600px;
 
   * {
@@ -158,6 +158,11 @@
     padding: 5px;
     text-transform: uppercase;
     width: 250px;
+
+    &-marketplace {
+      font-size: 14px;
+      width: 275px;
+    }
   }
 
   @media only screen and (max-width: 900px) {

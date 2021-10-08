@@ -386,6 +386,8 @@ const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore
 
           rootStore.SetWalletPanelVisibility(rootStore.defaultWalletState);
 
+          localStorage.removeItem("showPostLoginModal");
+
           document.body.removeEventListener("click", Close);
         };
 

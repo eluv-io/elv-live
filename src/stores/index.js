@@ -204,7 +204,7 @@ class RootStore {
         "https://wallet.demov3.contentfabric.io";
     }
 
-    //walletAppUrl: "https://192.168.0.17:8090";
+    //walletAppUrl = "https://192.168.0.17:8090";
 
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl,
@@ -250,6 +250,10 @@ class RootStore {
     }
   }
 
+  SetMarketplaceFilters({filters}) {
+    this.walletClient && this.walletClient.SetMarketplaceFilters({filters: toJS(filters)});
+  }
+
   // Set default state for wallet
   @action.bound
   SetDefaultWalletState({visibility, location, video, darkMode}) {
@@ -276,6 +280,17 @@ class RootStore {
   }
 
   @action.bound
+  CloseWalletModal() {
+    // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
+    this.SetWalletPanelVisibility(this.defaultWalletState);
+
+    const walletPanel = document.getElementById("wallet-panel");
+
+    walletPanel.removeEventListener("click", this.CloseWalletModal);
+    this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
+  }
+
+  @action.bound
   SetWalletPanelVisibility({visibility, location, video, darkMode}) {
     const walletPanel = document.getElementById("wallet-panel");
 
@@ -287,9 +302,10 @@ class RootStore {
 
     darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
 
-    this.walletClient.ToggleSidePanelMode(visibility === "side-panel");
+    this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
 
     if(visibility === "modal") {
+      this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
       const Close = () => {
         // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
         this.SetWalletPanelVisibility(this.defaultWalletState);
@@ -299,7 +315,6 @@ class RootStore {
       };
 
       walletPanel.addEventListener("click", Close);
-
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
     }
 

@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from "react";
+import React, {useEffect, lazy, Suspense} from "react";
 import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
@@ -17,6 +17,162 @@ import Countdown from "Common/Countdown";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
+const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootStore, siteStore, Close}) => {
+  const messageInfo = siteStore.eventInfo.modal_message_get_started;
+
+  useEffect(() => {
+    if(!messageInfo || !messageInfo.show) {
+      // NOTE: Setting wallet panel visibility to modal when not logged in shows live's login modal
+      Close();
+      rootStore.SetWalletPanelVisibility({visibility: "modal", showPostLoginModal: true});
+    }
+  }, [messageInfo]);
+
+  if(!messageInfo || !messageInfo.show) {
+    return null;
+  }
+
+  return (
+    <Modal
+      className="event-message-container"
+      Toggle={Close}
+    >
+      <div className="event-message">
+        <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
+          {
+            messageInfo.message ?
+              <div
+                className="event-message__content__message"
+                ref={element => {
+                  if(!element) { return; }
+
+                  render(
+                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                      {SanitizeHTML(messageInfo.message)}
+                    </ReactMarkdown>,
+                    element
+                  );
+                }}
+              /> : null
+          }
+          {
+            !messageInfo.image ? null :
+              <ImageIcon
+                className={`event-message__content__image ${!messageInfo.message ? "no-padding" : ""}`}
+                icon={siteStore.SiteUrl(UrlJoin("info", "event_info", "modal_message_get_started", "image"))}
+              />
+          }
+        </div>
+        <div className="event-message__actions">
+          {
+            !siteStore.nextDrop || siteStore.nextDrop.requires_login ?
+              <button
+                onClick={() => {
+                  Close();
+                  localStorage.setItem("showPostLoginModal", "1");
+
+                  rootStore.SetWalletPanelVisibility({visibility: "modal", showPostLoginModal: true});
+                }}
+                className="event-message__button"
+              >
+                { messageInfo.button_text || "Create Wallet" }
+              </button> :
+              <Link
+                to={siteStore.nextDrop.link}
+                className="event-message__button"
+                onClick={Close}
+              >
+                { messageInfo.button_text || "Join the Drop" }
+              </Link>
+          }
+        </div>
+      </div>
+    </Modal>
+  );
+})));
+
+const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootStore, siteStore, Close}) => {
+  const messageInfo = (siteStore.eventInfo.modal_message_get_started || {}).post_login;
+
+  useEffect(() => {
+    localStorage.removeItem("showPostLoginModal");
+
+    if(!messageInfo || !messageInfo.show) {
+      Close();
+      rootStore.SetWalletPanelVisibility({visibility: "modal"});
+    }
+  }, [messageInfo]);
+
+  if(!messageInfo || !messageInfo.show) {
+    return null;
+  }
+
+  return (
+    <Modal
+      className="event-message-container"
+      Toggle={Close}
+    >
+      <div className="event-message">
+        <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
+          {
+            messageInfo.message ?
+              <div
+                className="event-message__content__message"
+                ref={element => {
+                  if(!element) { return; }
+
+                  render(
+                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                      {SanitizeHTML(messageInfo.message)}
+                    </ReactMarkdown>,
+                    element
+                  );
+                }}
+              /> : null
+          }
+          {
+            !messageInfo.image ? null :
+              <ImageIcon
+                className={`event-message__content__image ${!messageInfo.message ? "no-padding" : ""}`}
+                icon={siteStore.SiteUrl(UrlJoin("info", "event_info", "modal_message_get_started", "post_login", "image"))}
+              />
+          }
+        </div>
+        <div className="event-message__actions">
+          {
+            messageInfo.show_marketplace ?
+              <button
+                onClick={() => {
+                  Close();
+                  rootStore.SetWalletPanelVisibility({
+                    visibility: "modal",
+                    location: {
+                      page: "marketplace",
+                      params: {
+                        marketplaceId: siteStore.marketplaceId
+                      }
+                    }
+                  });
+
+                  rootStore.SetMarketplaceFilters({filters: messageInfo.marketplace_filters});
+                }}
+                className="event-message__button event-message__button-marketplace"
+              >
+                Go to the Marketplace
+              </button> :
+              <button
+                className="event-message__button"
+                onClick={Close}
+              >
+                Close
+              </button>
+          }
+        </div>
+      </div>
+    </Modal>
+  );
+})));
+
 @inject("rootStore")
 @inject("siteStore")
 @inject("cartStore")
@@ -30,6 +186,7 @@ class Event extends React.Component {
     this.state = {
       showPromo: false,
       showGetStartedModal: false,
+      showPostLoginModal: localStorage.getItem("showPostLoginModal"),
       tab: 0,
       heroBackground: null
     };
@@ -73,73 +230,6 @@ class Event extends React.Component {
           </Suspense>
         }
       />
-    );
-  }
-
-  GetStartedModal() {
-    if(!this.state.showGetStartedModal) { return null; }
-
-    const messageInfo = this.props.siteStore.currentSiteInfo.event_info.modal_message_get_started;
-
-    if(!messageInfo || !messageInfo.show) {
-      this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
-      return;
-    }
-
-    return (
-      <Modal
-        className="event-message-container"
-        Toggle={() => this.setState({showGetStartedModal: false})}
-      >
-        <div className="event-message">
-          <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
-            {
-              messageInfo.message ?
-                <div
-                  className="event-message__content__message"
-                  ref={element => {
-                    if(!element) { return; }
-
-                    render(
-                      <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                        {SanitizeHTML(messageInfo.message)}
-                      </ReactMarkdown>,
-                      element
-                    );
-                  }}
-                /> : null
-            }
-            {
-              !messageInfo.image ? null:
-                <ImageIcon
-                  className={`event-message__content__image ${!messageInfo.message ? "no-padding" : ""}`}
-                  icon={this.props.siteStore.SiteUrl(UrlJoin("info", "event_info", "modal_message_get_started", "image"))}
-                />
-            }
-          </div>
-          <div className="event-message__actions">
-            {
-              !this.props.siteStore.nextDrop || this.props.siteStore.nextDrop.requires_login ?
-                <button
-                  onClick={() => {
-                    this.props.rootStore.SetWalletPanelVisibility({visibility: "modal"});
-                    this.setState({showGetStartedModal: false});
-                  }}
-                  className="event-message__button"
-                >
-                  { messageInfo.button_text || "Create Wallet" }
-                </button> :
-                <Link
-                  to={this.props.siteStore.nextDrop.link}
-                  className="event-message__button"
-                  onClick={() => this.setState({showGetStartedModal: false})}
-                >
-                  { messageInfo.button_text || "Join the Drop" }
-                </Link>
-            }
-          </div>
-        </div>
-      </Modal>
     );
   }
 
@@ -333,7 +423,9 @@ class Event extends React.Component {
         </div>
 
         { this.state.showPromo ? this.Promos(): null}
-        { this.state.showGetStartedModal ? this.GetStartedModal(): null}
+
+        { this.state.showGetStartedModal ? <GetStartedModal Close={() => this.setState({showGetStartedModal: false})} /> : null }
+        { this.state.showPostLoginModal ? <PostLoginModal Close={() => this.setState({showPostLoginModal: false})} /> : null }
         <Footer />
       </div>
     );
