@@ -789,6 +789,7 @@ class SiteStore {
       show_countdown: false,
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       description: "",
+      modal_message_get_started: {}
     };
 
     return mergeWith(

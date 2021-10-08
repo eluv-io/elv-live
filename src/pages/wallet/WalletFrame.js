@@ -1,6 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import LoginModal from "Pages/login";
+import ImageIcon from "Common/ImageIcon";
+import CloseIcon from "Icons/x";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -22,6 +24,17 @@ class WalletFrame extends React.Component {
             : null
         }
         <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">
+          {
+            visibility === "modal" ?
+              <button
+                className="wallet-panel__modal-close"
+                onClick={rootStore.CloseWalletModal}
+              >
+                <ImageIcon
+                  icon={CloseIcon}
+                />
+              </button> : null
+          }
           <div
             className="wallet-target"
             ref={element => {
