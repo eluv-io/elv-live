@@ -205,10 +205,11 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     return <Redirect to={redirectPath} />;
   }
 
+  const largeLogoMode = customizationOptions.large_logo_mode;
   const customBackground = customizationOptions.background || customizationOptions.background_mobile;
   if(rootStore.loggingIn || loading || auth0Loading) {
     return (
-      <div className={`page-container login-page ${customBackground ? "login-page-custom-background" : ""}`}>
+      <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
         <LoginBackground />
         <div className="login-page__login-box">
           { logo }
@@ -220,7 +221,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
   if(loginDataRequired) {
     return (
-      <div className={`page-container login-page ${customBackground ? "login-page-custom-background" : ""}`}>
+      <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
         <LoginBackground />
         <div className="login-page__login-box">
           { logo }
@@ -234,7 +235,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
   if(showPrivateKeyForm) {
     return (
-      <div className={`page-container login-page ${customBackground ? "login-page-custom-background" : ""}`}>
+      <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
         <LoginBackground />
         <div className="login-page__login-box">
           { logo }
@@ -331,7 +332,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   );
 
   return (
-    <div className={`page-container login-page ${customBackground ? "login-page-custom-background" : ""}`}>
+    <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""}  ${customBackground ? "login-page-custom-background" : ""}`}>
       { showTermsModal ? <TermsModal Toggle={show => setShowTermsModal(show)} /> : null }
 
       <LoginBackground />

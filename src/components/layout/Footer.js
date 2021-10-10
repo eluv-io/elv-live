@@ -26,8 +26,8 @@ class Footer extends React.Component {
   Sponsors() {
     return (
       this.props.siteStore.sponsors.map((sponsor, index) =>
-        <a href={sponsor.link} target="_blank" rel="noopener" className={"sponsor-img-container-footer"} key={`footer-sponsor-${index}`} title={sponsor.name}>
-          <img src={this.props.siteStore.darkMode ? sponsor.light_image_url || sponsor.image_url : sponsor.image_url} className="big-sponsor-img-footer" alt={sponsor.name} />
+        <a href={sponsor.link} target="_blank" rel="noopener" className="footer__sponsors__link" key={`footer-sponsor-${index}`} title={sponsor.name}>
+          <img src={this.props.siteStore.darkMode ? sponsor.light_image_url || sponsor.image_url : sponsor.image_url} className="footer__sponsors__link__image" alt={sponsor.name} />
         </a>
       )
     );
@@ -36,12 +36,12 @@ class Footer extends React.Component {
   FooterLinks() {
     const links = (this.props.siteStore.currentSiteInfo.footer_links || []).map(({text, url, content_rich_text, content_html}, index) => {
       if(url) {
-        return <a target="_blank" key={`footer-link-${index}`} className="footer-item" rel="noopener" href={url}>{ text }</a>;
+        return <a target="_blank" key={`footer-link-${index}`} className="footer__item" rel="noopener" href={url}>{ text }</a>;
       } else if(content_rich_text || content_html) {
         return (
           <button
             key={`footer-link-${index}`}
-            className="footer-item"
+            className="footer__item"
             onClick={() => {
               this.setState({
                 modal: (
@@ -88,16 +88,16 @@ class Footer extends React.Component {
 
     return (
       <>
-        <Link to={this.props.siteStore.SitePath("support")} className="footer-item">
+        <Link to={this.props.siteStore.SitePath("support")} className="footer__item">
           Support FAQ
         </Link>
-        <Link to={this.props.siteStore.SitePath("terms")} className="footer-item">
+        <Link to={this.props.siteStore.SitePath("terms")} className="footer__item">
           Terms
         </Link>
         {
           links && links.length > 0 ?
             links :
-            <Link to={this.props.siteStore.SitePath("privacy")} className="footer-item">
+            <Link to={this.props.siteStore.SitePath("privacy")} className="footer__item">
               Privacy Policy
             </Link>
         }
@@ -110,41 +110,52 @@ class Footer extends React.Component {
     const languagesAvailable = (this.props.siteStore.currentSiteInfo.localizations || []).length > 0;
 
     return (
-      <div className="live-footer">
+      <div className="footer">
         { this.state.modal }
-        <div className="footer-container">
-          <div className="footer-info">
-            { this.FooterLinks() }
-            {
-              languagesAvailable ?
-                <select
-                  className="footer-language-selection footer-item"
-                  value={this.props.siteStore.language}
-                  onChange={event => this.props.siteStore.SetLanguage(event.target.value)}
-                >
-                  <option value="en">English</option>
-                  {
-                    this.props.siteStore.currentSiteInfo.localizations.map(code =>
-                      <option key={`footer-language-${code}`} value={code}>{ LanguageCodes[code] || code }</option>
-                    )
-                  }
-                </select> : null
-            }
-          </div>
+        {
+          hasSponsors && !this.props.noSponsors ?
+            <div className="footer__sponsors">
+              <div className="footer__sponsors__tagline">
+                {
+                  typeof this.props.siteStore.currentSiteInfo.sponsor_tagline === "undefined" ?
+                    "Sponsored By" :
+                    this.props.siteStore.currentSiteInfo.sponsor_tagline
+                }
+              </div>
+              <div className="footer__sponsors__links">
+                { this.Sponsors() }
+              </div>
+            </div> : null
+        }
+        <div className="footer__block">
+          { this.FooterLinks() }
           {
-            hasSponsors && !this.props.noSponsors ?
-              <div className="sponsor-container-footer">
-                <div className="sponsor-message">Sponsored By</div>
-                <div className="sponsor-logos">
-                  { this.Sponsors() }
-                </div>
-              </div> : null
+            languagesAvailable ?
+              <select
+                className="footer__item footer__language-selection"
+                value={this.props.siteStore.language}
+                onChange={event => this.props.siteStore.SetLanguage(event.target.value)}
+              >
+                <option value="en">English</option>
+                {
+                  this.props.siteStore.currentSiteInfo.localizations.map(code =>
+                    <option key={`footer-language-${code}`} value={code}>{ LanguageCodes[code] || code }</option>
+                  )
+                }
+              </select> : null
           }
-          <div className="footer-info footer__powered-by">
-            <a href="https://live.eluv.io" target="_blank" className="footer-item footer__powered-by__tagline">
-              Powered by <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />
-            </a>
-          </div>
+        </div>
+        <div className="footer__border" />
+        {
+          this.props.siteStore.eventInfo.copyright ?
+            <div className="footer__block footer__copyright">
+              { this.props.siteStore.eventInfo.copyright }
+            </div> : null
+        }
+        <div className="footer__block footer__powered-by">
+          <a href="https://live.eluv.io" target="_blank" className="footer__item footer__powered-by__tagline">
+            Powered by <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />
+          </a>
         </div>
       </div>
     );
