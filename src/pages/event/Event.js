@@ -158,13 +158,13 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
                 }}
                 className="event-message__button event-message__button-marketplace"
               >
-                Go to the Marketplace
+                { messageInfo.button_text || "Go to the Marketplace" }
               </button> :
               <button
                 className="event-message__button"
                 onClick={Close}
               >
-                Close
+                { messageInfo.button_text || "Close" }
               </button>
           }
         </div>
@@ -244,7 +244,7 @@ class Event extends React.Component {
 
   Actions() {
     if(this.props.siteStore.isDropEvent) {
-      const hasLoggedIn = (this.props.rootStore.walletLoggedIn || localStorage.getItem("hasLoggedIn"));
+      const hasLoggedIn = this.props.rootStore.walletLoggedIn; // || localStorage.getItem("hasLoggedIn");
 
       const branding = this.Branding();
       return (
