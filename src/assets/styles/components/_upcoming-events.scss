@@ -22,7 +22,7 @@ $element-width: $max-height + $date-width;
 
 .upcoming-events__event-card {
   background-color: #252525;
-  border-radius: 8px;
+  border-radius: 15px;
   display: flex;
   flex: 1 1 auto;
   height: 100%;
@@ -73,7 +73,6 @@ $element-width: $max-height + $date-width;
   }
 
   &__image {
-    border-radius: 8px;
     height: 100%;
     left: 0;
     object-fit: contain;
