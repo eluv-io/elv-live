@@ -175,6 +175,10 @@
 
     &__content {
       padding: 75px 30px 30px;
+
+      &.no-padding {
+        padding: 75px 30px 30px;
+      }
     }
 
     &__actions {
