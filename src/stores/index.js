@@ -291,7 +291,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility({visibility, location, video, darkMode}) {
+  SetWalletPanelVisibility({visibility, location, video, darkMode, hideNavigation=false}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -303,6 +303,8 @@ class RootStore {
     darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
 
     this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
+
+    this.walletClient.ToggleNavigation(!hideNavigation);
 
     if(visibility === "modal") {
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);

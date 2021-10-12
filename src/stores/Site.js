@@ -499,32 +499,31 @@ class SiteStore {
 
       this.eventSites[tenantKey][siteSlug] = site;
 
-      this.rootStore.cartStore.LoadLocalStorage();
-
       if(fullLoad) {
         this.InitializeAnalytics();
-      }
+        this.rootStore.cartStore.LoadLocalStorage();
 
-      try {
-        this.rootStore.cartStore.InitializeCurrency();
+        try {
+          this.rootStore.cartStore.InitializeCurrency();
 
-        if(site.localizations && Object.keys(site.localizations).length > 0) {
-          for(let language of navigator.languages || [navigator.language]) {
-            if(language.startsWith("en")) {
-              break;
-            }
+          if(site.localizations && Object.keys(site.localizations).length > 0) {
+            for(let language of navigator.languages || [navigator.language]) {
+              if(language.startsWith("en")) {
+                break;
+              }
 
-            language = language.toLowerCase();
-            if(site.localizations[language]) {
-              this.SetLanguage(language);
-            } else if(site.localizations[language.split("-")[0]]) {
-              this.SetLanguage(language.split("-")[0]);
+              language = language.toLowerCase();
+              if(site.localizations[language]) {
+                this.SetLanguage(language);
+              } else if(site.localizations[language.split("-")[0]]) {
+                this.SetLanguage(language.split("-")[0]);
+              }
             }
           }
+        } catch(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
         }
-      } catch(error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
       }
 
       return true;
@@ -790,6 +789,7 @@ class SiteStore {
       date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       description: "",
       copyright: "",
+      show_cookie_banner: false,
       modal_message_get_started: {}
     };
 

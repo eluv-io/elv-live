@@ -148,9 +148,21 @@ class Footer extends React.Component {
         <div className="footer__border" />
         {
           this.props.siteStore.eventInfo.copyright ?
-            <div className="footer__block footer__copyright">
-              { this.props.siteStore.eventInfo.copyright }
-            </div> : null
+            <div
+              className="footer__block footer__copyright"
+              ref={element => {
+                if(!element) {
+                  return;
+                }
+
+                render(
+                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                    {SanitizeHTML(this.props.siteStore.eventInfo.copyright)}
+                  </ReactMarkdown>,
+                  element
+                );
+              }}
+            /> : null
         }
         <div className="footer__block footer__powered-by">
           <a href="https://live.eluv.io" target="_blank" className="footer__item footer__powered-by__tagline">

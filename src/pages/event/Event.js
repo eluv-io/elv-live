@@ -99,7 +99,10 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
 
     if(!messageInfo || !messageInfo.show) {
       Close();
-      rootStore.SetWalletPanelVisibility({visibility: "modal"});
+      rootStore.SetWalletPanelVisibility({
+        visibility: "modal",
+        hideNavigation: messageInfo.hide_navigation
+      });
     }
   }, [messageInfo]);
 
@@ -151,7 +154,8 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
                       params: {
                         marketplaceId: siteStore.marketplaceId
                       }
-                    }
+                    },
+                    hideNavigation: messageInfo.hide_navigation
                   });
 
                   rootStore.SetMarketplaceFilters({filters: messageInfo.marketplace_filters});

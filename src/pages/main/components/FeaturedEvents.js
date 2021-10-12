@@ -89,6 +89,14 @@ class FeaturedEvents extends React.Component {
 
     const header = site.info.event_info.feature_header || site.info.event_info.event_header;
     const subheader = site.info.event_info.date_subheader || site.info.event_info.date;
+
+    let buttonStyle = {};
+    const buttonOptions = (site.info.event_info || {}).feature_button;
+    if(buttonOptions) {
+      buttonStyle.color = buttonOptions.text_color.color;
+      buttonStyle.backgroundColor = buttonOptions.background_color.color;
+    }
+
     return (
       <div
         className={`featured-event ${index === this.state.selected ? "featured-event-selected" : ""} ${index === this.state.previous ? "featured-event-fading-out" : ""}`}
@@ -113,8 +121,8 @@ class FeaturedEvents extends React.Component {
           }
           {
             accessible ?
-              <a href={UrlJoin("/", site.tenantSlug || "", site.siteSlug)} className="featured-event__event-link">
-                { site.info.type === "drop_event" ? "Join the Drop" : "Buy Tickets" }
+              <a href={UrlJoin("/", site.tenantSlug || "", site.siteSlug)} className="featured-event__event-link" style={buttonStyle}>
+                { buttonOptions ? buttonOptions.text : (site.info.type === "drop_event" ? "Join the Drop" : "Buy Tickets") }
               </a> : null
           }
         </div>
