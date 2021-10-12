@@ -238,6 +238,10 @@
   &__copyright {
     color: $gray;
     text-align: center;
+
+    a {
+      color: $blue;
+    }
   }
 
   &__powered-by {
@@ -366,6 +370,10 @@
     &__sponsors__tagline,
     &__copyright {
       color: $gray;
+
+      a {
+        color: $blue;
+      }
     }
 
     &__powered-by {

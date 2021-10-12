@@ -338,35 +338,46 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       <LoginBackground />
       <div className="login-page__login-box">
         { logo }
+        <div className="login-page__actions">
+          {
+            localStorage.getItem("hasLoggedIn") ?
+              <>
+                <LogInButton />
+                <SignUpButton />
+              </> :
+              <>
+                <SignUpButton />
+                <LogInButton />
+              </>
+          }
+          {
+            siteStore.loginCustomization && siteStore.loginCustomization.disable_private_key ?
+              null :
+              <button
+                className="login-page__login-button login-page__login-button-pk"
+                onClick={() => setShowPrivateKeyForm(true)}
+              >
+                Or Sign In With Private Key
+              </button>
+          }
+        </div>
         {
-          localStorage.getItem("hasLoggedIn") ?
-            <>
-              <LogInButton />
-              <SignUpButton />
-            </> :
-            <>
-              <SignUpButton />
-              <LogInButton />
-            </>
-        }
-        {
-          siteStore.loginCustomization && siteStore.loginCustomization.disable_private_key ?
-            null :
-            <button
-              className="login-page__login-button login-page__login-button-pk"
-              onClick={() => setShowPrivateKeyForm(true)}
-            >
-              Or Sign In With Private Key
-            </button>
-        }
-        {
-          siteStore.loginCustomization && (siteStore.loginCustomization.terms || siteStore.loginCustomization.terms_html) ?
-            <button
-              onClick={() => setShowTermsModal(true)}
-              className="login-page__terms-button"
-            >
-              Terms of Service
-            </button> : null
+          siteStore.loginCustomization && siteStore.loginCustomization.terms ?
+            <div
+              className="login-page__terms"
+              ref={element => {
+                if(!element) {
+                  return;
+                }
+
+                render(
+                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                    {SanitizeHTML(siteStore.loginCustomization.terms)}
+                  </ReactMarkdown>,
+                  element
+                );
+              }}
+            /> : null
         }
       </div>
     </div>
