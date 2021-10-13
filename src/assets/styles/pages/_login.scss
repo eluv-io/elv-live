@@ -70,10 +70,10 @@
     }
 
     .login-page__logo {
-      max-width: 450px;
-      width: 100%;
       margin-bottom: 20px;
       max-height: 300px;
+      max-width: 450px;
+      width: 100%;
     }
   }
 
@@ -171,8 +171,8 @@
 
   &__logo {
     margin-bottom: 20px;
-    width: 160px;
     object-fit: contain;
+    width: 160px;
   }
 
   &__logo-container {
