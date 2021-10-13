@@ -88,9 +88,12 @@ class Footer extends React.Component {
 
     return (
       <>
-        <Link to={this.props.siteStore.SitePath("support")} className="footer__item">
-          Support FAQ
-        </Link>
+        {
+          this.props.siteStore.currentSiteInfo.show_faq ?
+            <Link to={this.props.siteStore.SitePath("support")} className="footer__item">
+              Support FAQ
+            </Link> : null
+        }
         {
           links && links.length > 0 ?
             links :
