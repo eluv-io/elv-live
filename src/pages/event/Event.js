@@ -14,6 +14,7 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import {Link} from "react-router-dom";
 import Countdown from "Common/Countdown";
+import SocialMediaBar from "Event/tabs/SocialMediaBar";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -416,15 +417,17 @@ class Event extends React.Component {
           { this.Actions() }
         </div>
 
+
+        <div className="event-page__overview">
+          <SocialMediaBar />
+          { this.props.siteStore.isDropEvent ? null : <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} /> }
+        </div>
+
         {
           this.props.siteStore.isDropEvent ?
             <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.upcomingDropEvents} /> :
             null
         }
-
-        <div className="event-page__overview">
-          <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
-        </div>
 
         { this.state.showPromo ? this.Promos(): null}
 

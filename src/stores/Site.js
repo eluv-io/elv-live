@@ -819,7 +819,7 @@ class SiteStore {
   }
 
   @computed get socialLinks() {
-    return (this.currentSiteInfo.artist_info || {}).social_media_links || {};
+    return (this.currentSiteInfo.artist_info || {}).social_media_links || this.currentSiteInfo.social_media_links || {};
   }
 
   @computed get calendarEvent() {
