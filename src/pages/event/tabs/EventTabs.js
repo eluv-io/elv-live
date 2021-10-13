@@ -4,7 +4,6 @@ import InfoIcon from "@material-ui/icons/Info";
 
 import {inject, observer} from "mobx-react";
 import Merch from "Event/tabs/Merch";
-import SocialMediaBar from "Event/tabs/SocialMediaBar";
 import EventDescriptions from "Event/descriptions/EventDescriptions";
 import {ErrorBoundary} from "Common/ErrorBoundary";
 import Ticket from "Event/tickets/Ticket";
@@ -81,8 +80,6 @@ class EventTabs extends React.Component {
       <ErrorBoundary>
         <div className="event-tabs-container" id="tabs">
           { this.Tabs() }
-          <SocialMediaBar />
-
           { this.Content() }
         </div>
       </ErrorBoundary>
