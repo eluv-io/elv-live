@@ -29,7 +29,7 @@ class SiteStore {
 
   @observable siteId;
   @observable siteHash;
-  @observable marketplaceId;
+  @observable marketplaceHash;
 
   @observable chatChannel;
 
@@ -455,12 +455,12 @@ class SiteStore {
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
       if(fullLoad && site.info.marketplace) {
-        site.info.marketplaceId = this.client.utils.DecodeVersionHash(site.info.marketplace).objectId;
-        site.info.marketplaceHash = yield this.client.LatestVersionHash({objectId: site.info.marketplaceId});
-        this.marketplaceId = site.info.marketplaceId;
+        this.marketplaceHash = site.info.marketplace;
+        site.info.marketplaceHash = this.marketplaceHash;
+        site.info.marketplaceId = this.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
 
         if(this.rootStore.walletClient) {
-          this.rootStore.walletClient.SetMarketplace({marketplaceId: site.info.marketplaceId});
+          this.rootStore.walletClient.SetMarketplace({marketplaceHash: site.info.marketplaceHash});
         }
 
         const customizationMetadata = yield this.client.ContentObjectMetadata({
