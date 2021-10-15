@@ -104,7 +104,7 @@ class Header extends React.Component {
                       location: {
                         page: "marketplace",
                         params: {
-                          marketplaceId: this.props.siteStore.currentSiteInfo.marketplaceId
+                          marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
                         }
                       }
                     }

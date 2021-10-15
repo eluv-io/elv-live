@@ -42,7 +42,7 @@ class WalletFrame extends React.Component {
 
               this.props.rootStore.InitializeWalletClient({
                 target: element,
-                marketplaceId: this.props.siteStore.marketplaceId || this.props.siteStore.currentSiteInfo.marketplaceId,
+                marketplaceHash: this.props.siteStore.marketplaceHash || this.props.siteStore.currentSiteInfo.marketplaceHash,
                 darkMode: this.props.siteStore.darkMode
               });
             }}

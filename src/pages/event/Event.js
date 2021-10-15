@@ -153,7 +153,7 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
                     location: {
                       page: "marketplace",
                       params: {
-                        marketplaceId: siteStore.marketplaceId
+                        marketplaceHash: siteStore.marketplaceHash
                       }
                     },
                     hideNavigation: messageInfo.hide_navigation

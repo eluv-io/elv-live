@@ -183,7 +183,7 @@ class RootStore {
   });
 
   /* Wallet */
-  InitializeWalletClient = flow(function * ({target, marketplaceId, darkMode=false}) {
+  InitializeWalletClient = flow(function * ({target, marketplaceHash, darkMode=false}) {
     if(!target) { return; }
 
     this.walletTarget = target;
@@ -209,13 +209,13 @@ class RootStore {
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl,
       target,
-      marketplaceId,
+      marketplaceHash,
       darkMode
     });
 
-    if(this.siteStore.marketplaceId) {
-      marketplaceId = this.siteStore.marketplaceId;
-      this.walletClient.SetMarketplace({marketplaceId});
+    if(this.siteStore.marketplaceHash) {
+      marketplaceHash = this.siteStore.marketplaceHash;
+      this.walletClient.SetMarketplace({marketplaceHash});
     }
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
@@ -232,7 +232,7 @@ class RootStore {
     );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
-      await this.InitializeWalletClient({target, marketplaceId, darkMode});
+      await this.InitializeWalletClient({target, marketplaceHash, darkMode});
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
