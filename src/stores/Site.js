@@ -156,7 +156,7 @@ class SiteStore {
           // eslint-disable-next-line no-empty
         } catch(_) {}
       })
-      .sort((a, b) => a.date > b.date ? -1 : 1)[0];
+      .sort((a, b) => a.start_date > b.start_date ? 1 : -1)[0];
   }
 
   @computed get baseSitePath() {
