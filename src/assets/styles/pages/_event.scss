@@ -159,6 +159,24 @@
     }
   }
 
+  &__banner {
+    padding: 50px;
+    width: 100%;
+
+    button,
+    a {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      outline: 0;
+      padding: 0;
+    }
+
+    img {
+      border-radius: 15px;
+    }
+  }
+
   @media only screen and (max-width: 1400px) {
     &-no-header-info {
       .event-page__hero-container {
@@ -270,6 +288,11 @@
 
     &__overview {
       padding: 0 30px;
+    }
+
+    .upcoming-events,
+    &__banner {
+      padding: 35px;
     }
   }
 }

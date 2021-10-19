@@ -4,9 +4,7 @@
   color: $white;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-height: 100%;
-  overflow: hidden;
+  height: auto;
   -webkit-overflow-scrolling: touch;
   width: 100%;
 
@@ -25,6 +23,7 @@
       color: $black;
     }
 
+    .landing-page__enter-marketplace,
     .landing-page__enter-event {
       border: 1px solid rgba($black, 0.6);
       color: $black;
@@ -147,6 +146,7 @@
     width: 100%;
   }
 
+  &__enter-marketplace,
   &__enter-event {
     @include page-fade-in;
     align-items: center;
@@ -167,6 +167,11 @@
     &:hover {
       color: $white;
     }
+  }
+
+  &__enter-marketplace {
+    padding: 0 30px;
+    width: auto;
   }
 
   &__new-code-link {
@@ -208,7 +213,6 @@
       }
     }
   }
-
 
   .calendar-button-container {
     position: relative;
@@ -322,6 +326,7 @@
         color: $white;
       }
 
+      .landing-page__enter-marketplace,
       .landing-page__enter-event {
         border: 1px solid rgba($white, 0.6);
         color: $white;

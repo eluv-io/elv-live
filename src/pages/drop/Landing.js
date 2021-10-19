@@ -31,11 +31,40 @@ class Landing extends React.Component {
   }
 
   Drop() {
-    return this.props.siteStore.currentSiteInfo.drops.find(drop => drop.uuid === this.props.match.params.dropId);
+    return this.props.siteStore.upcomingDropEvents.find(drop => drop.uuid === this.props.match.params.dropId);
   }
 
   Countdown({diff, countdown}) {
+    const drop = this.Drop();
+
     if(diff <= 0) {
+      if(drop.type === "marketplace_drop") {
+        return (
+          <div className="landing-page__text-container">
+            <div className="landing-page__text landing-page__text-begins">{ drop.header }</div>
+            <button
+              className="landing-page__enter-marketplace"
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility(
+                  {
+                    visibility: "full",
+                    location: {
+                      page: "marketplace",
+                      params: {
+                        marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+                      }
+                    }
+                  }
+                );
+                this.props.rootStore.SetMarketplaceFilters({filters: drop.store_filters});
+              }}
+            >
+              Go to the Marketplace
+            </button>
+          </div>
+        );
+      }
+
       return (
         <div className="landing-page__text-container">
           <div className="landing-page__text landing-page__text-begins">Event Happening Now!</div>
@@ -67,11 +96,10 @@ class Landing extends React.Component {
     const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
     const noCountdown = landingInfo.hide_countdown;
 
-    const drop = this.Drop();
     const calendarInfo = drop.calendar || {};
     const calendarEvent = {
-      title: calendarInfo.title || drop.event_header,
-      description: calendarInfo.description || drop.event_header,
+      title: calendarInfo.title || drop.header,
+      description: calendarInfo.description || drop.header,
       location: calendarInfo.location || window.location.href,
       startTime: drop.start_date,
       endTime: drop.end_date
