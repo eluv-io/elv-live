@@ -392,7 +392,9 @@
   border-bottom: 1px solid rgba($black, 0.5);
 
   &.header-scrolled {
-    background-color: rgba($white, 0.2);
+    &:not(.header-wallet) {
+      background-color: rgba($white, 0.2);
+    }
   }
 
   &-header-wallet {
@@ -440,7 +442,9 @@
     }
 
     &.header-scrolled {
-      background-color: rgba($black, 0.8);
+      &:not(.header-wallet) {
+        background-color: rgba($black, 0.8);
+      }
     }
 
     .header__logo-container {

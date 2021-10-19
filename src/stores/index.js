@@ -306,6 +306,12 @@ class RootStore {
 
     this.walletClient.ToggleNavigation(!hideNavigation);
 
+    if(visibility === "full") {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+
     if(visibility === "modal") {
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
       const Close = () => {
