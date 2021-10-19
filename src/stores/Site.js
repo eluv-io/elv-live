@@ -134,8 +134,9 @@ class SiteStore {
   }
 
   @computed get upcomingDropEvents() {
-    return (this.currentSiteInfo.drops || [])
+    const dropEvents = (this.currentSiteInfo.drops || [])
       .map((drop, index) => ({
+        type: "drop_event",
         uuid: drop.uuid,
         requires_login: drop.requires_login,
         header: drop.event_header,
@@ -144,6 +145,24 @@ class SiteStore {
         image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
         link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
       }));
+
+    const marketplaceEvents = (this.currentSiteInfo.marketplace_drops || [])
+      .map((drop, index) => ({
+        type: "marketplace_drop",
+        uuid: drop.uuid,
+        requires_login: true,
+        header: drop.event_header,
+        start_date: drop.start_date,
+        end_date: new Date(new Date(drop.start_date).getTime() + (60 * 60 * 1000)),
+        marketplace_filters: drop.store_filters || [],
+        image: this.SiteUrl(UrlJoin("info", "marketplace_drops", index.toString(), "event_image")),
+        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
+      }));
+
+    return [
+      ...dropEvents,
+      ...marketplaceEvents
+    ].sort((a, b) => a.start_date > b.start_date ? 1 : -1);
   }
 
   @computed get nextDrop() {

@@ -359,6 +359,53 @@ class Event extends React.Component {
     );
   }
 
+  BottomBanner(mobile) {
+    const bannerInfo = this.props.siteStore.currentSiteInfo.event_images.main_page_banner;
+
+    if(!bannerInfo || !bannerInfo.show) { return null; }
+
+    const bannerImage = (
+      <ImageIcon
+        className="event-page__banner__image"
+        icon={
+          mobile && bannerInfo.image_mobile ?
+            this.props.siteStore.SiteUrl(UrlJoin("info", "event_images", "main_page_banner", "image_mobile")) :
+            this.props.siteStore.SiteUrl(UrlJoin("info", "event_images", "main_page_banner", "image"))
+        }
+        title="Banner"
+      />
+    );
+
+    return (
+      <div className="event-page__banner">
+        {
+          bannerInfo.type === "marketplace" ?
+            <button
+              onClick={() => {
+                this.props.rootStore.SetWalletPanelVisibility(
+                  {
+                    visibility: "full",
+                    location: {
+                      page: "marketplace",
+                      params: {
+                        marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+                      }
+                    }
+                  }
+                );
+                this.props.rootStore.SetMarketplaceFilters({filters: bannerInfo.marketplace_filters});
+              }}
+            >
+              { bannerImage }
+            </button> :
+            <a href={bannerInfo.link} rel="noopener" target="_blank">
+              { bannerImage }
+            </a>
+        }
+      </div>
+    );
+  }
+
   render() {
     const handleChange = (event, newValue) => {
       this.setState({tab: newValue});
@@ -428,6 +475,8 @@ class Event extends React.Component {
             <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.upcomingDropEvents} /> :
             null
         }
+
+        { this.BottomBanner(mobile) }
 
         { this.state.showPromo ? this.Promos(): null}
 
