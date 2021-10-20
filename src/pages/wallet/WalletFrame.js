@@ -36,6 +36,7 @@ class WalletFrame extends React.Component {
               </button> : null
           }
           <div
+            key={`wallet-frame-${this.props.rootStore.walletKey}`}
             className="wallet-target"
             ref={element => {
               if(!element || this.props.rootStore.walletTarget === element) { return; }

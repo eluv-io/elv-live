@@ -18,6 +18,7 @@ class RootStore {
   @observable pageWidth = window.innerWidth;
 
   @observable baseKey = 1;
+  @observable walletKey = 1;
   @observable client;
   @observable walletClient;
   @observable walletTarget;
@@ -248,6 +249,13 @@ class RootStore {
       this.walletClient.Destroy();
       this.walletClient = undefined;
     }
+  }
+
+  @action.bound
+  ReloadWallet() {
+    this.DestroyWalletClient();
+    this.walletLoggedIn = false;
+    this.walletKey += 1;
   }
 
   SetMarketplaceFilters({filters}) {
