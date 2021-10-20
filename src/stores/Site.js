@@ -11,6 +11,7 @@ class SiteStore {
   @observable mainSiteInfo;
   @observable baseSiteUrl;
 
+  @observable tenantKey;
   @observable tenantSlug;
   @observable tenants = {};
 
@@ -404,10 +405,29 @@ class SiteStore {
     }
   });
 
+  ReloadMarketplace = flow(function * () {
+    const latestMainSiteHash = yield this.client.LatestVersionHash(this.siteParams);
+    const marketplaceHash = yield this.client.ContentObjectMetadata({
+      versionHash: latestMainSiteHash,
+      metadataSubtree: UrlJoin(this.SiteMetadataPath({tenantSlug: this.tenantSlug, siteIndex: this.siteIndex, siteSlug: this.siteSlug}), "info", "marketplace"),
+    });
+
+    if(!marketplaceHash) { return; }
+
+    this.marketplaceHash = marketplaceHash;
+    this.eventSites[this.tenantKey][this.siteSlug].info.marketplaceHash = this.marketplaceHash;
+    this.eventSites[this.tenantKey][this.siteSlug].info.marketplaceId = this.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
+
+    this.rootStore.ReloadWallet();
+
+    // Give the wallet some time to re-initialize
+    yield new Promise(resolve => setTimeout(resolve, 3000));
+  });
+
   @action.bound
-  LoadSite = flow(function * ({tenantSlug, siteIndex, siteSlug, fullLoad=false}) {
+  LoadSite = flow(function * ({tenantSlug, siteIndex, siteSlug, fullLoad=false, forceReload=false}) {
     const tenantKey = tenantSlug || "featured";
-    if(this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
+    if(!forceReload && this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
       return true;
     }
 
@@ -416,6 +436,7 @@ class SiteStore {
     }
 
     try {
+      this.tenantKey = tenantKey;
       this.tenantSlug = tenantSlug;
       this.siteSlug = siteSlug;
 
@@ -453,14 +474,6 @@ class SiteStore {
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
       });
-
-      /*
-      if(site.info.tenant) {
-        tenantSlug = yield this.LoadTenant({versionHash: site.info.tenant});
-        this.tenantSlug = tenantSlug;
-      }
-
-       */
 
       yield heroPreloadPromise;
 
@@ -518,7 +531,7 @@ class SiteStore {
 
       this.eventSites[tenantKey][siteSlug] = site;
 
-      if(fullLoad) {
+      if(fullLoad && !forceReload) {
         this.InitializeAnalytics();
         this.rootStore.cartStore.LoadLocalStorage();
 

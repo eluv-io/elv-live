@@ -7,12 +7,21 @@ import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 import Footer from "Layout/Footer";
 import AddToCalendar from "react-add-to-calendar";
+import {Loader} from "Common/Loaders";
 
 @inject("rootStore")
 @inject("siteStore")
 @withRouter
 @observer
 class Landing extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      reloading: false
+    };
+  }
+
   componentDidMount() {
     ToggleZendesk(false);
 
@@ -42,25 +51,29 @@ class Landing extends React.Component {
         return (
           <div className="landing-page__text-container">
             <div className="landing-page__text landing-page__text-begins">{ drop.header }</div>
-            <button
-              className="landing-page__enter-marketplace"
-              onClick={() => {
-                this.props.rootStore.SetWalletPanelVisibility(
-                  {
-                    visibility: "full",
-                    location: {
-                      page: "marketplace",
-                      params: {
-                        marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+            {
+              this.state.reloading ?
+                <Loader/> :
+                <button
+                  className="landing-page__enter-marketplace"
+                  onClick={() => {
+                    this.props.rootStore.SetWalletPanelVisibility(
+                      {
+                        visibility: "full",
+                        location: {
+                          page: "marketplace",
+                          params: {
+                            marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+                          }
+                        }
                       }
-                    }
-                  }
-                );
-                this.props.rootStore.SetMarketplaceFilters({filters: drop.store_filters});
-              }}
-            >
-              Go to the Marketplace
-            </button>
+                    );
+                    this.props.rootStore.SetMarketplaceFilters({filters: drop.store_filters});
+                  }}
+                >
+                  Go to the Marketplace
+                </button>
+            }
           </div>
         );
       }
@@ -191,6 +204,17 @@ class Landing extends React.Component {
           <Countdown
             time={this.Drop().start_date}
             Render={({diff, countdown}) => this.Countdown({diff, countdown})}
+            OnEnded={async () => {
+              if(this.Drop().type === "marketplace_drop") {
+                this.setState({reloading: true});
+
+                try {
+                  await this.props.siteStore.ReloadMarketplace();
+                } finally {
+                  this.setState({reloading: false});
+                }
+              }
+            }}
           />
         </div>
         <Footer />
