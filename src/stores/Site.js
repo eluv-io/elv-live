@@ -154,7 +154,7 @@ class SiteStore {
         requires_login: true,
         header: drop.event_header,
         start_date: drop.start_date,
-        end_date: new Date(new Date(drop.start_date).getTime() + (60 * 60 * 1000)),
+        end_date: new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000)),
         marketplace_filters: drop.store_filters || [],
         image: this.SiteUrl(UrlJoin("info", "marketplace_drops", index.toString(), "event_image")),
         link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
