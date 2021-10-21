@@ -9,7 +9,7 @@ import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
 import EluvioConfiguration from "../configuration";
-import CookieBanner from "react-cookie-banner";
+import CookieBanner from "Common/CookieBanner";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -77,25 +77,7 @@ const LogOutHandler = inject("rootStore")(inject("siteStore")((observer(({rootSt
 @inject("cartStore")
 @observer
 class SiteApp extends React.Component {
-  InitializeZendeskWidget() {
-    if(document.getElementById("ze-snippet")) { return; }
-
-    const zendeskImport = document.createElement("script");
-    zendeskImport.id = "ze-snippet";
-    zendeskImport.type = "text/javascript";
-    zendeskImport.async = true;
-    zendeskImport.src = "https://static.zdassets.com/ekr/snippet.js?key=cec6052c-e357-45e1-86b0-30f30e12eb85";
-    zendeskImport.addEventListener("load", () => {
-      if(typeof zE === "undefined") { return; }
-
-      zE("webWidget", "helpCenter:setSuggestions", { search: "eluvio" });
-    });
-    document.body.appendChild(zendeskImport);
-  }
-
   async componentDidMount() {
-    this.InitializeZendeskWidget();
-
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
   }
@@ -117,49 +99,7 @@ class SiteApp extends React.Component {
 
     return (
       <>
-        {
-          this.props.siteStore.eventInfo.show_cookie_banner ?
-            <CookieBanner
-              className="cookie-banner"
-              message="By continuing to browse the site you're agreeing to our use of cookies."
-              onAccept={() => {
-              }}
-              cookie="user-has-accepted-cookies"
-              dismissOnScroll={false}
-              dismissOnClick
-              buttonMessage="Close"
-              styles={{
-                banner: {
-                  fontFamily: "'Helvetica Neue', Helvetica, sans-serif",
-                  position: "fixed",
-                  bottom: 0,
-                  zIndex: 999999,
-                  height: 50
-                },
-                button: {
-                  border: "0.5px solid white",
-                  borderRadius: 4,
-                  width: 66,
-                  background: "transparent",
-                  color: "white",
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  opacity: 1,
-                  right: 20,
-                },
-                message: {
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                  height: "100%",
-                  lineHeight: "1.2em",
-                  fontSize: "12px",
-                  padding: "5px 95px 5px 10px"
-                }
-              }}
-            /> : null
-        }
+        <CookieBanner />
         <Switch>
           <Route exact path="/wallet/callback" component={LoginPage} />
           <Route exact path="/wallet/logout" component={LoginPage} />

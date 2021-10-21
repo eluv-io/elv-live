@@ -194,7 +194,9 @@ class RootStore {
     this.walletLoggedIn = false;
 
     let walletAppUrl = "https://wallet.contentfabric.io";
-    if(window.location.hostname.startsWith("live-stg")) {
+    if(window.location.hostname.startsWith("192.")) {
+      walletAppUrl = `https://${window.location.hostname}:8090`;
+    } else if(window.location.hostname.startsWith("live-stg")) {
       walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
         "https://core.test.contentfabric.io/elv-media-wallet-prod" :
         "https://core.test.contentfabric.io/elv-media-wallet";
@@ -204,9 +206,7 @@ class RootStore {
         "https://wallet.contentfabric.io" :
         "https://wallet.demov3.contentfabric.io";
     }
-
-    //walletAppUrl = "https://192.168.0.17:8090";
-
+    
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl,
       target,
