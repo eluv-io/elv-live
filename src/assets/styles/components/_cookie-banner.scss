@@ -1,0 +1,61 @@
+.cookie-banner {
+  align-items: center;
+  background: rgba($blue, 0.8);
+  bottom: 0;
+  color: white;
+  display: flex;
+  height: auto;
+  justify-content: space-between;
+  left: 0;
+  padding: 12px 25px 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 100000;
+
+  &__message {
+    flex-grow: 1;
+    padding-right: 20px;
+    text-align: center;
+  }
+
+  &__actions {
+    display: flex;
+    flex-shrink: 1;
+  }
+
+  &__action {
+    background: transparent;
+    border: 1px solid $white;
+    color: $white;
+    cursor: pointer;
+    height: min-content;
+    padding: 5px 10px;
+    width: 150px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    &-allow {
+      background: $white;
+      color: darken($blue, 10%);
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+
+    &__message {
+      padding: 0 0 20px;
+    }
+
+    &__actions {
+      flex-wrap: wrap;
+      width: min-content;
+    }
+
+    &__action {
+      margin: 0 0 5px;
+    }
+  }
+}

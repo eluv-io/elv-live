@@ -532,7 +532,6 @@ class SiteStore {
       this.eventSites[tenantKey][siteSlug] = site;
 
       if(fullLoad && !forceReload) {
-        this.InitializeAnalytics();
         this.rootStore.cartStore.LoadLocalStorage();
 
         try {
@@ -660,8 +659,12 @@ class SiteStore {
             // eslint-disable-next-line no-inner-declarations
             function gtag() { window.dataLayer.push(arguments); }
 
-            gtag("js", new Date());
-            gtag("config", entry.id);
+            const config = {
+              "cookie_expires": 31536000
+            };
+
+            gtag("js", new Date(), config);
+            gtag("config", entry.id, config);
 
             break;
           case "Google Tag Manager ID":
@@ -804,6 +807,51 @@ class SiteStore {
         }
       }
     });
+  }
+
+  LoadCookieDependentItems(allow=false) {
+    if(allow) {
+      // Load Google Analytics
+      window.dataLayer = window.dataLayer || [];
+
+      // eslint-disable-next-line no-inner-declarations
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      const config = {
+        "cookie_expires": 31536000
+      };
+
+      gtag("js", new Date());
+
+      gtag("config", "G-JV6YRZHYG5", config);
+
+      window.ac = {
+        g: gtag
+      };
+
+      this.InitializeAnalytics();
+    }
+
+    // Load Zendesk
+    if(document.getElementById("ze-snippet")) { return; }
+
+    window.zESettings = {
+      cookies: allow
+    };
+
+    const zendeskImport = document.createElement("script");
+    zendeskImport.id = "ze-snippet";
+    zendeskImport.type = "text/javascript";
+    zendeskImport.async = true;
+    zendeskImport.src = "https://static.zdassets.com/ekr/snippet.js?key=cec6052c-e357-45e1-86b0-30f30e12eb85";
+    zendeskImport.addEventListener("load", () => {
+      if(typeof zE === "undefined") { return; }
+
+      zE("webWidget", "helpCenter:setSuggestions", { search: "eluvio" });
+    });
+    document.body.appendChild(zendeskImport);
   }
 
   /* Site attributes */

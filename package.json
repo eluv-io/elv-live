@@ -48,7 +48,6 @@
     "react": "^16.8.6",
     "react-add-to-calendar": "^0.1.5",
     "react-collapsible": "^2.8.1",
-    "react-cookie-banner": "^4.1.0",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
     "react-inlinesvg": "^2.2.2",
