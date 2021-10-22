@@ -206,7 +206,7 @@ class RootStore {
         "https://wallet.contentfabric.io" :
         "https://wallet.demov3.contentfabric.io";
     }
-    
+
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl,
       target,
