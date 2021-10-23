@@ -17,8 +17,7 @@ class WalletFrame extends React.Component {
         {
           !this.props.rootStore.walletLoggedIn &&
           this.props.rootStore.currentWalletState.visibility !== "hidden" &&
-          !window.location.pathname.startsWith("/wallet") &&
-          (this.props.siteStore.nextDrop || {}).requires_login
+          !window.location.pathname.startsWith("/wallet")
             ?
             <LoginModal />
             : null
