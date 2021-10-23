@@ -177,14 +177,15 @@
     }
   }
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1300px) and (min-width: 600px) {
     &-no-header-info {
       .event-page__hero-container {
-        height: calc(100vw * 9 / 16);
+        height: MIN(calc(100vh - 60px), calc(100vw * 9 / 16 + 60px));
       }
 
       .event-page__hero {
         background-size: cover;
+        height: calc(100vw * 9 / 16);
       }
     }
 

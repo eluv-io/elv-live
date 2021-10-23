@@ -54,6 +54,7 @@ $element-width: $max-height + $date-width;
   }
 
   &__info {
+    border-radius: 0 15px 15px 0;
     height: 100%;
     max-height: 300px;
     max-width: 300px;
