@@ -618,7 +618,9 @@ class SiteStore {
 
       const offeringId = Object.keys(availableOfferings || {})[0];
 
-      if(!offeringId) { return; }
+      if(!offeringId) {
+        return { versionHash: streamHash };
+      }
 
       return { offeringURI: availableOfferings[offeringId].uri };
     } catch(error) {
