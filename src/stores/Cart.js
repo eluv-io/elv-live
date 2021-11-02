@@ -319,8 +319,9 @@ class CartStore {
 
     const baseUrl = UrlJoin(window.location.origin, this.rootStore.siteStore.baseSitePath);
 
+    const mode = this.rootStore.siteStore.mainSiteInfo.info.mode === "test" ? "develop" : "production";
     return {
-      mode: this.rootStore.siteStore.mainSiteInfo.info.mode,
+      mode,
       currency: this.currency,
       email: this.email,
       client_reference_id: checkoutId,
