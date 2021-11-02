@@ -5,7 +5,7 @@ import {v4 as UUID, parse as UUIDParse} from "uuid";
 import CountryCodesList from "country-codes-list";
 
 // 10% service fee
-const SERVICE_FEE_RATE = 10;
+const SERVICE_FEE_RATE = 5;
 
 const PUBLIC_KEYS = {
   stripe: {
