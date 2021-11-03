@@ -22,7 +22,7 @@ class EventTabs extends React.Component {
   Content() {
     switch(this.state.tab) {
       case "event":
-        if(this.props.siteStore.currentSiteInfo.state === "Live Ended") {
+        if(["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state)) {
           return null;
         }
 
@@ -62,7 +62,7 @@ class EventTabs extends React.Component {
   }
 
   Tabs() {
-    const ticketsAvailable = this.props.siteStore.currentSiteInfo.state !== "Live Ended";
+    const ticketsAvailable = !["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
     const merchAvailable = this.props.siteStore.Merchandise().length > 0;
 
     if(!ticketsAvailable || !merchAvailable) { return <div className="event-tabs" />; }
