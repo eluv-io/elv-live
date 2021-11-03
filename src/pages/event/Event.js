@@ -301,7 +301,7 @@ class Event extends React.Component {
         { hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
-          this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
+          ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||
           // Any tickets available for purchase
           !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
             null : <BuyTicketsButton />

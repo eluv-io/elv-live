@@ -151,7 +151,7 @@ class Header extends React.Component {
     }
 
     const itemCount = this.props.cartStore.CartDetails().itemCount;
-    const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
+    const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
 
     return (
