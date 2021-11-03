@@ -109,15 +109,13 @@ const CookieBanner = inject("siteStore")(observer(({siteStore}) => {
   };
 
   const required = siteStore.currentSiteInfo.event_info && siteStore.currentSiteInfo.event_info.show_cookie_banner;
-
   useEffect(() => {
-    // Required may be undefined, do not load unless it is specifically false
-    if(settings || required === false) {
+    if(settings || (siteStore.currentSiteInfo.event_info && !required)) {
       siteStore.LoadCookieDependentItems((settings && settings.analytics) || required === false);
     }
-  }, [settings]);
+  }, [required, settings]);
 
-  if(typeof required === "undefined" || required === false || settings) { return null; }
+  if(!required || settings) { return null; }
 
   if(showDetails) {
     return <CookieDetails SetPreferences={SetCookiePermissions} Close={() => setShowDetails(false)} />;
