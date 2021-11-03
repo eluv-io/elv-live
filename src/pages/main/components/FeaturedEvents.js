@@ -85,7 +85,7 @@ class FeaturedEvents extends React.Component {
 
     const accessible = typeof site.info.state === "undefined"
       ? site.info.accessible :
-      !["Inaccessible", "Live Ended"].includes(site.info.state);
+      !["Inaccessible", "Ended", "Live Ended"].includes(site.info.state);
 
     const header = site.info.event_info.feature_header || site.info.event_info.event_header;
     const subheader = site.info.event_info.date_subheader || site.info.event_info.date;
