@@ -17,7 +17,7 @@ class Support extends React.Component {
     let faq = this.props.siteStore.currentSiteInfo.faq;
 
     if(!faq || faq.length === 0) {
-      faq = DefaultFAQ;
+      faq = DefaultFAQ.faq;
     }
 
     return (
