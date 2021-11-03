@@ -372,32 +372,50 @@ class Event extends React.Component {
       />
     );
 
-    return (
-      <div className="event-page__banner">
-        {
-          bannerInfo.type === "marketplace" ?
-            <button
-              onClick={() => {
-                this.props.rootStore.SetWalletPanelVisibility(
-                  {
-                    visibility: "full",
-                    location: {
-                      page: "marketplace",
-                      params: {
-                        marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
-                      }
+    if(bannerInfo.type === "marketplace") {
+      return (
+        <div className="event-page__banner">
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility(
+                {
+                  visibility: "full",
+                  location: {
+                    page: "marketplace",
+                    params: {
+                      marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
                     }
                   }
-                );
-                this.props.rootStore.SetMarketplaceFilters({filters: bannerInfo.marketplace_filters});
-              }}
-            >
-              { bannerImage }
-            </button> :
-            <a href={bannerInfo.link} rel="noopener" target="_blank">
-              { bannerImage }
-            </a>
-        }
+                }
+              );
+              this.props.rootStore.SetMarketplaceFilters({filters: bannerInfo.marketplace_filters});
+            }}
+          >
+            { bannerImage }
+          </button>
+        </div>
+      );
+    }
+
+    if(bannerInfo.type === "drop") {
+      const dropId = bannerInfo.drop_uuid || (this.props.siteStore.nextDrop || {}).uuid;
+
+      if(!dropId) { return null; }
+
+      return (
+        <div className="event-page__banner">
+          <Link to={this.props.siteStore.SitePath(UrlJoin("drop", dropId))}>
+            { bannerImage }
+          </Link>
+        </div>
+      );
+    }
+
+    return (
+      <div className="event-page__banner">
+        <a href={bannerInfo.link} rel="noopener" target="_blank">
+          { bannerImage }
+        </a>
       </div>
     );
   }
