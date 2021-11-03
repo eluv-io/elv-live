@@ -53,6 +53,12 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+
+    &-no-icons {
+      .header__link__icon {
+        display: none;
+      }
+    }
   }
 
   &__link {
@@ -74,8 +80,7 @@
 
     &__icon {
       align-items: flex-end;
-      //display: flex;
-      display: none;
+      display: flex;
       margin-right: 10px;
       padding-bottom: 5px;
 
@@ -129,6 +134,10 @@
       &__icon {
         display: none;
       }
+    }
+
+    &__link-wallet {
+      display: none;
     }
 
     &__logo-default {

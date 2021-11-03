@@ -45,7 +45,7 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    if(!this.props.siteStore.marketplaceHash || !this.props.siteStore.currentSiteInfo.allow_login) {
+    if(!this.props.siteStore.marketplaceHash || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.currentSiteInfo.allow_login)) {
       return null;
     }
 
@@ -133,7 +133,7 @@ class Header extends React.Component {
                   }
               );
             }}
-            className={`header__link ${loggedIn && walletOpen && currentPage === "wallet" ? "header__link-active" : ""}`}
+            className={`header__link header__link-wallet ${loggedIn && walletOpen && currentPage === "wallet" ? "header__link-active" : ""}`}
           >
             <div className="header__link__icon">
               <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
@@ -146,6 +146,10 @@ class Header extends React.Component {
   }
 
   Links() {
+    if(this.props.siteStore.ticketClasses.length === 0) {
+      return null;
+    }
+
     const itemCount = this.props.cartStore.CartDetails().itemCount;
     const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
@@ -203,6 +207,8 @@ class Header extends React.Component {
       logoUrl = this.props.siteStore.currentSiteInfo.event_images && this.props.siteStore.currentSiteInfo.event_images.logo_link || logoUrl;
     }
 
+    const hasTickets = this.props.siteStore.ticketClasses.length > 0;
+
     return (
       <header className={`
         header 
@@ -228,9 +234,9 @@ class Header extends React.Component {
               </NavLink>
         }
         <div className="header__spacer" />
-        <div className="header__links">
+        <div className={`header__links ${hasTickets ? "header__links-no-icons" : ""}`}>
           { this.MarketplaceLinks() }
-          { this.Links() }
+          { hasTickets ? this.Links() : null }
         </div>
         <CartOverlay />
         <Checkout />
