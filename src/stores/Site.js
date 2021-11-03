@@ -96,10 +96,6 @@ class SiteStore {
     return {};
   }
 
-  @computed get isDropEvent() {
-    return this.currentSiteInfo.type === "drop_event";
-  }
-
   @computed get promos() {
     if(this.currentSite.promos) {
       return Object.keys(this.currentSite.promos || {}).map(index => {
@@ -167,8 +163,6 @@ class SiteStore {
   }
 
   @computed get nextDrop() {
-    if(!this.isDropEvent) { return undefined; }
-
     return this.upcomingDropEvents
       .filter(({end_date}) => {
         try {
@@ -590,10 +584,17 @@ class SiteStore {
 
     if(!channelKey) { return; }
 
+    let streamPath;
+    if((this.currentSiteInfo.stream_page || {}).stream) {
+      streamPath = UrlJoin(this.SiteMetadataPath({...this.currentSite}), "info", "stream_page", "stream", "offerings");
+    } else {
+      streamPath = UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings");
+    }
+
     const availableOfferings = yield this.rootStore.client.AvailableOfferings({
       ...this.siteParams,
       versionHash: undefined, // Always pull latest
-      linkPath: UrlJoin(this.SiteMetadataPath({...this.currentSite}), "channels", channelKey, "offerings"),
+      linkPath: streamPath,
       directLink: true,
       resolveIncludeSource: true
     });

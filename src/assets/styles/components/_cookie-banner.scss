@@ -79,8 +79,12 @@
   max-height: 100%;
   max-width: 600px;
   overflow-y: scroll;
-  padding: 30px 40px;
+  padding: 30px 40px 100px;
   width: 100%;
+
+  * {
+    color: $black;
+  }
 
   &__header {
     border-bottom: 1px solid $lightgray;
@@ -111,9 +115,10 @@
     border-radius: 3px;
     color: $white;
     cursor: pointer;
+    display: block;
     font-size: 18px;
     font-weight: 300;
-    margin: 20px 0;
+    margin: 50px auto 0;
     padding: 5px 30px;
   }
 }

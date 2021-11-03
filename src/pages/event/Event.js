@@ -248,69 +248,65 @@ class Event extends React.Component {
   }
 
   Actions() {
-    if(this.props.siteStore.isDropEvent) {
-      const hasLoggedIn = this.props.rootStore.walletLoggedIn; // || localStorage.getItem("hasLoggedIn");
+    const branding = this.Branding();
+    const hasLoggedIn = this.props.rootStore.walletLoggedIn;
+    const hasDrops =
+      (this.props.siteStore.currentSiteInfo.drops || []).length > 0 ||
+      (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
 
-      const branding = this.Branding();
-      return (
-        <div className="event-page__buttons">
-          {
-            !hasLoggedIn ?
-              <button
-                style={(branding.get_started || {}).styles}
-                className="btn btn--gold"
-                onClick={() => this.setState({showGetStartedModal: true})}
-              >
-                { (branding.get_started || {}).text || "Get Started" }
-              </button> : null
-          }
-          {
-            hasLoggedIn && this.props.siteStore.nextDrop ?
-              <Link
-                style={(branding.join_drop || {}).styles}
-                to={this.props.siteStore.nextDrop.link}
-                className="btn btn--gold"
-                onClick={() => this.setState({showGetStartedModal: true})}
-              >
-                { (branding.join_drop || {}).text || "Join the Drop" }
-              </Link>
-              : null
-          }
-          {
-            this.props.siteStore.promos.length > 0 ?
-              <button
-                style={(branding.watch_promo || {}).styles}
-                onClick={() => this.setState({showPromo: true})}
-                className={`btn ${ this.props.rootStore.walletLoggedIn && !this.props.siteStore.nextDrop ? "btn--gold" : ""}`}
-              >
-                { (branding.watch_promo || {}).text || "Watch Promo" }
-              </button> : null
-          }
-        </div>
-      );
-    }
+    const GetStartedButton = () => (
+      <button
+        style={(branding.get_started || {}).styles}
+        className="btn"
+        onClick={() => this.setState({showGetStartedModal: true})}
+      >
+        { (branding.get_started || {}).text || "Get Started" }
+      </button>
+    );
+
+    const JoinDropButton = () => (
+      <Link
+        style={(branding.join_drop || {}).styles}
+        to={this.props.siteStore.nextDrop.link}
+        className="btn"
+        onClick={() => this.setState({showGetStartedModal: true})}
+      >
+        { (branding.join_drop || {}).text || "Join the Drop" }
+      </Link>
+    );
+
+    const WatchPromoButton = () => (
+      <button
+        style={(branding.watch_promo || {}).styles}
+        onClick={() => this.setState({showPromo: true})}
+        className="btn"
+      >
+        { (branding.watch_promo || {}).text || "Watch Promo" }
+      </button>
+    );
+
+    const BuyTicketsButton = () => (
+      <button
+        style={(branding.buy_tickets || {}).styles}
+        className="btn"
+        onClick={() => this.ScrollToTickets()}
+      >
+        { (branding.buy_tickets || {}).text || "Buy Tickets" }
+      </button>
+    );
 
     return (
       <div className="event-page__buttons">
+        { hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
+        { hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
           this.props.siteStore.currentSiteInfo.state === "Live Ended" ||
           // Any tickets available for purchase
           !this.props.siteStore.ticketClasses.find(ticketClass => !ticketClass.hidden && (!ticketClass.release_date || ticketClass.release_date < new Date())) ?
-            null :
-            <button
-              className={this.props.siteStore.promos.length > 0 ? "btn" : "btn btn--gold"}
-              onClick={() => this.ScrollToTickets()}
-            >
-              Buy Tickets
-            </button>
+            null : <BuyTicketsButton />
         }
-        {
-          this.props.siteStore.promos.length > 0 ?
-            <button onClick={() => this.setState({showPromo: true})} className="btn btn--gold">
-              Watch Promo
-            </button> : null
-        }
+        { this.props.siteStore.promos.length > 0 ? <WatchPromoButton /> : null }
       </div>
     );
   }
@@ -444,15 +440,13 @@ class Event extends React.Component {
                 <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
             }
             {
-              this.props.siteStore.isDropEvent ?
-                <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader}</h2> :
-                this.props.siteStore.eventInfo.date ?
-                  <h2 className="event-page__date">{this.props.siteStore.eventInfo.date}</h2> : null
+              this.props.siteStore.eventInfo.date || this.props.siteStore.eventInfo.date_subheader ?
+                <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader || this.props.siteStore.eventInfo.date}</h2> : null
             }
           </div>
 
           {
-            this.props.siteStore.isDropEvent && this.props.siteStore.eventInfo.show_countdown && this.props.siteStore.nextDrop ?
+            this.props.siteStore.eventInfo.show_countdown && this.props.siteStore.nextDrop ?
               <Countdown
                 time={this.props.siteStore.nextDrop.start_date}
                 Render={({diff, countdown}) =>
@@ -467,14 +461,10 @@ class Event extends React.Component {
 
         <div className="event-page__overview">
           <SocialMediaBar />
-          { this.props.siteStore.isDropEvent ? null : <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} /> }
+          <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
         </div>
 
-        {
-          this.props.siteStore.isDropEvent ?
-            <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.upcomingDropEvents} /> :
-            null
-        }
+        <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.upcomingDropEvents} />
 
         { this.BottomBanner(mobile) }
 
