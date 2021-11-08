@@ -13,7 +13,7 @@ class CodeAccess extends React.Component {
 
     this.state = {
       error: "",
-      code: "",
+      code: (props.siteStore.currentSiteTicket || {}).code,
       email: "",
       receiveEmails: false,
       loading: false,
