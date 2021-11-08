@@ -164,7 +164,7 @@ class Header extends React.Component {
         }
         {
           redeemAvailable ?
-            <NavLink to={this.props.siteStore.SitePath(this.props.siteStore.currentSiteTicketSku ? "event" : "code")} className="header__link" activeClassName="header__link-active">
+            <NavLink to={this.props.siteStore.SitePath("code")} className="header__link" activeClassName="header__link-active">
               Redeem Ticket
             </NavLink> : null
         }

@@ -12,13 +12,14 @@ import UrlJoin from "url-join";
 import {Redirect} from "react-router";
 import {Login} from "Pages/login/index";
 
-const EventPlayer = inject("siteStore")(observer(({
+const EventPlayer = inject("rootStore")(inject("siteStore")(observer(({
+  rootStore,
   siteStore,
-  client,
   dropIndex,
   dropState,
   streamHash,
   streamOptions,
+  requiresTicket,
   OnLoad,
   Reload
 }) => {
@@ -32,7 +33,8 @@ const EventPlayer = inject("siteStore")(observer(({
       siteStore.LoadDropStreamOptions({
         dropIndex,
         dropState,
-        streamHash
+        streamHash,
+        requiresTicket
       }).then(playoutParameters => {
         let restarts = 0;
         setPlayer(
@@ -42,7 +44,7 @@ const EventPlayer = inject("siteStore")(observer(({
               clientOptions: {
                 network: EluvioConfiguration["config-url"].includes("main.net955305") ?
                   EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
-                client: client
+                client: rootStore.client
               },
               sourceOptions: {
                 playoutParameters
@@ -94,7 +96,7 @@ const EventPlayer = inject("siteStore")(observer(({
       }}
     />
   );
-}));
+})));
 
 @inject("rootStore")
 @inject("siteStore")
@@ -232,7 +234,9 @@ class Drop extends React.Component {
       streamStateKey = "event_state_main";
     }
 
-    const streamHash = streamState && streamState.stream && streamState.stream["."].source;
+    const streamHash = streamState && streamState.stream &&
+      ((streamState.stream["/"] && streamState.stream["/"].split("/").find(component => component.startsWith("hq__")) || streamState.stream["."].source));
+
     const streamOptions = {
       loop: streamState.loop_stream
     };
@@ -266,11 +270,11 @@ class Drop extends React.Component {
           <div className="main-content-container drop-page__content wallet-panel-page-content">
             <EventPlayer
               key={`event-player-${streamHash}-${this.state.playerKey}`}
-              client={this.props.rootStore.client}
               dropIndex={drop.dropIndex}
               dropState={drop.streamStateKey}
               streamHash={streamHash}
               streamOptions={streamOptions}
+              requiresTicket={drop.requires_ticket}
               Reload={() => this.setState({playerKey: this.state.playerKey + 1})}
               OnLoad={videoElement => {
                 this.props.rootStore.SetDefaultWalletState({

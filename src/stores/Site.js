@@ -619,7 +619,18 @@ class SiteStore {
   });
 
   @action.bound
-  LoadDropStreamOptions = flow(function * ({dropIndex, dropState, streamHash}) {
+  LoadDropStreamOptions = flow(function * ({dropIndex, dropState, streamHash, requiresTicket=false}) {
+    if(requiresTicket && !this.rootStore.redeemedTicket) {
+      const ticketCode = (this.currentSiteTicket || {}).code;
+
+      if(!ticketCode) {
+        return;
+      }
+
+      // Ensure code is redeemed
+      yield this.rootStore.RedeemCode(ticketCode);
+    }
+
     try {
       const availableOfferings = yield this.rootStore.client.AvailableOfferings({
         ...this.siteParams,

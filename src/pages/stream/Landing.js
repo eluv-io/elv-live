@@ -7,6 +7,7 @@ import Countdown from "Common/Countdown";
 import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/eluvio-logo";
 import Footer from "Layout/Footer";
+import {Redirect} from "react-router";
 
 @inject("siteStore")
 @observer
