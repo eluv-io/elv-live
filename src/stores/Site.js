@@ -130,7 +130,7 @@ class SiteStore {
     }
   }
 
-  @computed get upcomingDropEvents() {
+  @computed get dropEvents() {
     const dropEvents = (this.currentSiteInfo.drops || [])
       .map((drop, index) => ({
         type: "drop_event",
@@ -163,7 +163,19 @@ class SiteStore {
   }
 
   @computed get nextDrop() {
-    return this.upcomingDropEvents
+    return this.dropEvents
+      .filter(({end_date}) => {
+        try {
+          return new Date(end_date).getTime() > Date.now();
+          // eslint-disable-next-line no-empty
+        } catch(_) {}
+      })
+      .sort((a, b) => a.start_date > b.start_date ? 1 : -1)[0];
+  }
+
+  @computed get nextDropEvent() {
+    return this.dropEvents
+      .filter(({type}) => type === "drop_event")
       .filter(({end_date}) => {
         try {
           return new Date(end_date).getTime() > Date.now();

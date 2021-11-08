@@ -369,6 +369,7 @@ class RootStore {
      */
   }
 
+  // NOTE: Logging in via OAuth does NOT replace the client used in live, it only passes auth to the wallet frame
   @action.bound
   SetAuthInfo = flow(function * ({idToken, authToken, privateKey, user, tenantId, loginData={}}) {
     try {
