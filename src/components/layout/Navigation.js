@@ -45,7 +45,7 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    if(!this.props.siteStore.marketplaceHash || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.currentSiteInfo.allow_login)) {
+    if(!this.props.siteStore.marketplaceHash || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.dropEvents.length > 0)) {
       return null;
     }
 

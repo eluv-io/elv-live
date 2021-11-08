@@ -8,6 +8,7 @@ import Countdown from "Common/Countdown";
 import Footer from "Layout/Footer";
 import AddToCalendar from "react-add-to-calendar";
 import {Loader} from "Common/Loaders";
+import {Redirect} from "react-router";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -40,7 +41,7 @@ class Landing extends React.Component {
   }
 
   Drop() {
-    return this.props.siteStore.upcomingDropEvents.find(drop => drop.uuid === this.props.match.params.dropId);
+    return this.props.siteStore.dropEvents.find(drop => drop.uuid === this.props.match.params.dropId);
   }
 
   Countdown({diff, countdown}) {
@@ -182,6 +183,16 @@ class Landing extends React.Component {
   }
 
   render() {
+    const drop = this.Drop();
+
+    if(!drop) {
+      return <Redirect to={this.props.siteStore.SitePath("")} />;
+    }
+
+    if(drop.requires_ticket && !this.props.siteStore.currentSiteTicketSku) {
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    }
+
     const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
 
     let background;
@@ -202,10 +213,10 @@ class Landing extends React.Component {
         <div className="landing-page__content">
           { this.Header() }
           <Countdown
-            time={this.Drop().start_date}
+            time={drop.start_date}
             Render={({diff, countdown}) => this.Countdown({diff, countdown})}
             OnEnded={async () => {
-              if(this.Drop().type === "marketplace_drop") {
+              if(drop.type === "marketplace_drop") {
                 this.setState({reloading: true});
 
                 try {
@@ -217,6 +228,7 @@ class Landing extends React.Component {
             }}
           />
         </div>
+        <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
         <Footer />
       </div>
     );

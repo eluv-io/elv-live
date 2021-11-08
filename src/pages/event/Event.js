@@ -482,7 +482,7 @@ class Event extends React.Component {
           <EventTabs title={null} tab={this.state.tab} handleChange={handleChange} type={"concert"} />
         </div>
 
-        <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.upcomingDropEvents} />
+        <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.dropEvents} />
 
         { this.BottomBanner(mobile) }
 
