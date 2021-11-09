@@ -17,6 +17,7 @@ class MainStore {
     if(!this.rootStore.siteStore.featuredSitesLoaded) { return []; }
 
     return Object.values(this.rootStore.siteStore.eventSites["featured"] || {})
+      .filter(site => !(site.info || {}).hide_featured)
       .sort((a, b) => a.siteIndex < b.siteIndex ? -1 : 1);
   }
 
