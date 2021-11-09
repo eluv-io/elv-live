@@ -299,13 +299,17 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility({visibility, location, video, darkMode, hideNavigation=false}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, video, darkMode, hideNavigation=false}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
 
     if(!walletPanel || !visibilities.includes(visibility)) {
       return;
+    }
+
+    if(location) {
+      yield this.walletClient.Navigate(toJS(location));
     }
 
     darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
@@ -336,10 +340,6 @@ class RootStore {
 
     this.walletClient.ToggleDarkMode(darkMode);
 
-    if(location) {
-      this.walletClient.Navigate(toJS(location));
-    }
-
     if(visibility !== "hidden") {
       this.walletClient.SetActive(true);
     }
@@ -367,7 +367,7 @@ class RootStore {
     }
 
      */
-  }
+  });
 
   // NOTE: Logging in via OAuth does NOT replace the client used in live, it only passes auth to the wallet frame
   @action.bound
