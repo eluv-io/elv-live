@@ -54,7 +54,7 @@
     display: flex;
     flex: 1 1 100%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 0 auto;
     max-width: 800px;
     min-height: 100vh;
@@ -76,7 +76,7 @@
   }
 
   &__text-container {
-    margin: auto;
+    margin: 20px auto;
     max-width: 500px;
   }
 
@@ -84,7 +84,7 @@
     font-size: 24px;
     font-weight: 200;
     letter-spacing: 0.1em;
-    margin: auto;
+    margin: 20px auto;
     max-width: 500px;
     text-align: center;
   }
@@ -134,8 +134,8 @@
 
   &__event-logo {
     flex: 1 1 150px;
-    margin: 20px auto 30px;
-    max-height: 150px;
+    margin: 30px auto;
+    max-height: 300px;
   }
 
   &__event-header {

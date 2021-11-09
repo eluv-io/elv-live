@@ -136,6 +136,7 @@ class SiteStore {
         type: "drop_event",
         uuid: drop.uuid,
         requires_login: drop.requires_login,
+        requires_ticket: drop.requires_ticket,
         header: drop.event_header,
         start_date: drop.start_date,
         end_date: drop.end_date,
