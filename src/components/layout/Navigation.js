@@ -57,10 +57,6 @@ class Header extends React.Component {
     if(!this.props.rootStore.walletClient) {
       return null;
     } else if(!this.props.rootStore.walletLoggedIn) {
-      if(this.props.siteStore.nextDrop && !this.props.siteStore.nextDrop.requires_login) {
-        return null;
-      }
-
       return (
         <>
           <button
