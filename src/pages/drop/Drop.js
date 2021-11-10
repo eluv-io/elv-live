@@ -260,6 +260,10 @@ class Drop extends React.Component {
       return <Redirect to={UrlJoin("/", this.props.siteStore.currentSite.tenantSlug || "", this.props.siteStore.currentSite.siteSlug || "", "drop", this.props.match.params.dropId)} />;
     }
 
+    if(drop.requires_ticket && !this.props.siteStore.currentSiteTicketSku) {
+      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+    }
+
     const currentState = drop.states[drop.currentStateIndex];
     const nextState = drop.states[drop.currentStateIndex + 1];
     const { streamHash, streamOptions } = this.state.dropInfo;
