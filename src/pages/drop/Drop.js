@@ -125,7 +125,8 @@ class Drop extends React.Component {
           dropId: this.props.match.params.dropId
         }
       },
-      darkMode: true
+      darkMode: true,
+      requireLogin: this.Drop().requires_login
     });
 
     this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);

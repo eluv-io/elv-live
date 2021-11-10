@@ -35,13 +35,15 @@ class RootStore {
     visibility: "hidden",
     location: {
       page: "wallet"
-    }
+    },
+    requireLogin: true
   };
   @observable defaultWalletState = {
     visibility: "hidden",
     location: {
       page: "wallet"
-    }
+    },
+    requireLogin: true
   };
 
   @observable savedTickets = {};
@@ -264,7 +266,7 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, video, darkMode}) {
+  SetDefaultWalletState({visibility, location, video, darkMode, requireLogin=true}) {
     if(!darkMode){
       darkMode = this.siteStore.darkMode;
     }
@@ -273,7 +275,8 @@ class RootStore {
       visibility,
       location,
       video,
-      darkMode
+      darkMode,
+      requireLogin
     };
   }
 
@@ -283,7 +286,8 @@ class RootStore {
       visibility: "hidden",
       location: {
         page: "wallet"
-      }
+      },
+      requireLogin: false
     };
   }
 
@@ -299,7 +303,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility = flow(function * ({visibility, location, video, darkMode, hideNavigation=false}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, video, darkMode, hideNavigation=false, requireLogin=true}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -347,7 +351,8 @@ class RootStore {
     this.currentWalletState = {
       visibility,
       location,
-      video
+      video,
+      requireLogin
     };
 
     /*
