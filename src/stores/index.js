@@ -200,8 +200,8 @@ class RootStore {
       walletAppUrl = `https://${window.location.hostname}:8090`;
     } else if(window.location.hostname.startsWith("live-stg")) {
       walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
-        "https://core.test.contentfabric.io/elv-media-wallet-prod" :
-        "https://core.test.contentfabric.io/elv-media-wallet";
+        "https://core.test.contentfabric.io/wallet" :
+        "https://core.test.contentfabric.io/wallet-demo";
     } else {
       // Prod
       walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
@@ -437,6 +437,8 @@ class RootStore {
         const { authToken, address, user } = JSON.parse(this.client.utils.FromB64(tokenInfo));
         const expiration = JSON.parse(atob(authToken)).exp;
         if(expiration - Date.now() < 4 * 3600 * 1000) {
+          this.ClearAuthInfo();
+        } else if(!user) {
           this.ClearAuthInfo();
         } else {
           return { authToken, address, user };

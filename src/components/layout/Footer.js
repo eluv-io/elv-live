@@ -121,11 +121,7 @@ class Footer extends React.Component {
           hasSponsors && !this.props.noSponsors ?
             <div className="footer__sponsors">
               <div className="footer__sponsors__tagline">
-                {
-                  typeof this.props.siteStore.currentSiteInfo.sponsor_tagline === "undefined" ?
-                    "Sponsored By" :
-                    this.props.siteStore.currentSiteInfo.sponsor_tagline
-                }
+                { this.props.siteStore.currentSiteInfo.sponsor_tagline }
               </div>
               <div className="footer__sponsors__links">
                 { this.Sponsors() }
