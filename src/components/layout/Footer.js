@@ -9,6 +9,7 @@ import Modal from "Common/Modal";
 import UrlJoin from "url-join";
 import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/eluvio-logo";
+import CookieBanner from "Common/CookieBanner";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -130,6 +131,7 @@ class Footer extends React.Component {
         }
         <div className="footer__block">
           { this.FooterLinks() }
+          <CookieBanner />
           {
             languagesAvailable ?
               <select

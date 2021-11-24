@@ -52,6 +52,7 @@ const CookieDetails = ({SetPreferences, Close}) => {
             Done();
           }}
           className="cookie-details__button"
+          autoFocus
         >
           Allow All
         </button>
@@ -115,26 +116,41 @@ const CookieBanner = inject("siteStore")(observer(({siteStore}) => {
     }
   }, [required, settings]);
 
-  if(!required || settings) { return null; }
+  if(!required) { return null; }
 
-  if(showDetails) {
-    return <CookieDetails SetPreferences={SetCookiePermissions} Close={() => setShowDetails(false)} />;
-  }
-
+  // This is rendered in the footer and has 3 components:
+  // - The 'Cookie Preferences' footer link that allows changing of cookie settings on demand
+  // - The cookie bottom banner
+  // - The detailed cookie settings mobile
   return (
-    <div className="cookie-banner">
-      <div className="cookie-banner__message">
-        This site uses cookies to help us provide the best possible experience
-      </div>
-      <div className="cookie-banner__actions">
-        <button className="cookie-banner__action cookie-banner__action-allow" onClick={() => SetCookiePermissions({required: true, analytics: true, functional: true})}>
-          Accept All
-        </button>
-        <button className="cookie-banner__action cookie-banner__action-reject" onClick={() => setShowDetails(true)}>
-          Manage Preferences
-        </button>
-      </div>
-    </div>
+    <>
+      <button className="footer__item" onClick={() => setShowDetails(true)}>
+        Cookie Preferences
+      </button>
+      { showDetails ? <CookieDetails SetPreferences={SetCookiePermissions} Close={() => setShowDetails(false)} /> : null }
+      {
+        settings ? null :
+          <div className="cookie-banner">
+            <div className="cookie-banner__message">
+              This site uses cookies to help us provide the best possible experience
+            </div>
+            <div className="cookie-banner__actions">
+              <button
+                className="cookie-banner__action cookie-banner__action-allow"
+                onClick={() => SetCookiePermissions({required: true, analytics: true, functional: true})}
+              >
+                Accept All
+              </button>
+              <button
+                className="cookie-banner__action cookie-banner__action-reject"
+                onClick={() => setShowDetails(true)}
+              >
+                Manage Preferences
+              </button>
+            </div>
+          </div>
+      }
+    </>
   );
 }));
 
