@@ -9,7 +9,6 @@ import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
 import EluvioConfiguration from "../configuration";
-import CookieBanner from "Common/CookieBanner";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -99,7 +98,6 @@ class SiteApp extends React.Component {
 
     return (
       <>
-        <CookieBanner />
         <Switch>
           <Route exact path="/wallet/callback" component={LoginPage} />
           <Route exact path="/wallet/logout" component={LoginPage} />
