@@ -177,3 +177,25 @@
   }
 }
 
+.dark {
+  .footer {
+    .cookie-banner {
+      &__action {
+        &-allow {
+          color: darken($blue, 10%);
+        }
+      }
+
+    }
+
+    .cookie-details {
+      * {
+        color: $black;
+      }
+
+      &__button {
+        color: $white;
+      }
+    }
+  }
+}
