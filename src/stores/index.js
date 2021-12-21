@@ -216,6 +216,10 @@ class RootStore {
       darkMode
     });
 
+    if(this.AuthInfo()) {
+      this.walletClient.SetAuthInfo(this.AuthInfo());
+    }
+
     if(this.siteStore.marketplaceHash) {
       marketplaceHash = this.siteStore.marketplaceHash;
       this.walletClient.SetMarketplace({marketplaceHash});
@@ -239,10 +243,6 @@ class RootStore {
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
-
-    if(this.AuthInfo()) {
-      this.walletClient.SetAuthInfo(this.AuthInfo());
-    }
   });
 
   @action.bound
