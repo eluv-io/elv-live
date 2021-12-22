@@ -217,6 +217,11 @@ class RootStore {
       this.walletClient.SetAuthInfo(this.AuthInfo());
     }
 
+    const initialVisibility = sessionStorage.getItem(`${this.siteStore.siteSlug}-wallet-visibility`);
+    if(initialVisibility) {
+      this.SetWalletPanelVisibility({visibility: initialVisibility});
+    }
+
     if(this.siteStore.marketplaceHash) {
       marketplaceHash = this.siteStore.marketplaceHash;
       this.walletClient.SetMarketplace({marketplaceHash});
@@ -363,6 +368,12 @@ class RootStore {
       video,
       requireLogin
     };
+
+    if(visibility === "full") {
+      sessionStorage.setItem(`${this.siteStore.siteSlug}-wallet-visibility`, "full");
+    } else {
+      sessionStorage.removeItem(`${this.siteStore.siteSlug}-wallet-visibility`);
+    }
 
     /*
     // Mute video if video is present and moving into full wallet view
