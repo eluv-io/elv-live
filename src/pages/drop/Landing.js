@@ -57,8 +57,8 @@ class Landing extends React.Component {
                 <Loader/> :
                 <button
                   className="landing-page__enter-marketplace"
-                  onClick={() => {
-                    this.props.rootStore.SetWalletPanelVisibility(
+                  onClick={async () => {
+                    await this.props.rootStore.SetWalletPanelVisibility(
                       {
                         visibility: "full",
                         location: {
@@ -69,7 +69,8 @@ class Landing extends React.Component {
                         }
                       }
                     );
-                    this.props.rootStore.SetMarketplaceFilters({filters: drop.store_filters});
+
+                    await this.props.rootStore.SetMarketplaceFilters({filters: drop.marketplace_filters});
                   }}
                 >
                   Go to the Marketplace
