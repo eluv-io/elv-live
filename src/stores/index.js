@@ -29,7 +29,7 @@ class RootStore {
 
   @observable loggedOut = false;
   @observable loggingIn = false;
-  @observable walletLoggedIn = false;
+  @observable walletLoggedIn = sessionStorage.getItem("wallet-logged-in");
   @observable walletVisibility = "hidden";
   @observable currentWalletState = {
     visibility: "hidden",
@@ -190,8 +190,6 @@ class RootStore {
 
     this.DestroyWalletClient();
 
-    this.walletLoggedIn = false;
-
     let walletAppUrl = "https://wallet.contentfabric.io";
     if(window.location.hostname.startsWith("192.")) {
       walletAppUrl = `https://${window.location.hostname}:8090`;
@@ -213,7 +211,7 @@ class RootStore {
       darkMode
     });
 
-    if(this.AuthInfo()) {
+    if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
       this.walletClient.SetAuthInfo(this.AuthInfo());
     }
 
@@ -228,17 +226,21 @@ class RootStore {
     }
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
+      sessionStorage.setItem("wallet-logged-in", "true");
+
       runInAction(() => this.walletLoggedIn = true);
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_OUT, () =>
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_OUT, () => {
+      sessionStorage.removeItem("wallet-logged-in");
+
       runInAction(() => {
         this.walletLoggedIn = false;
         this.loggedOut = true;
 
         this.ClearAuthInfo();
-      })
-    );
+      });
+    });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
       await this.InitializeWalletClient({target, marketplaceHash, darkMode});
@@ -258,7 +260,6 @@ class RootStore {
   @action.bound
   ReloadWallet() {
     this.DestroyWalletClient();
-    this.walletLoggedIn = false;
     this.walletKey += 1;
   }
 

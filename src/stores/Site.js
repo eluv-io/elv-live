@@ -419,7 +419,9 @@ class SiteStore {
       metadataSubtree: UrlJoin(this.SiteMetadataPath({tenantSlug: this.tenantSlug, siteIndex: this.siteIndex, siteSlug: this.siteSlug}), "info", "marketplace"),
     });
 
-    if(!marketplaceHash) { return; }
+    if(!marketplaceHash || marketplaceHash === this.marketplaceHash) {
+      return;
+    }
 
     this.marketplaceHash = marketplaceHash;
     this.eventSites[this.tenantKey][this.siteSlug].info.marketplaceHash = this.marketplaceHash;
