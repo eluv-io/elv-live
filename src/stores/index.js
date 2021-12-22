@@ -40,9 +40,6 @@ class RootStore {
   };
   @observable defaultWalletState = {
     visibility: "hidden",
-    location: {
-      page: "wallet"
-    },
     requireLogin: true
   };
 
@@ -284,9 +281,6 @@ class RootStore {
   ResetDefaultWalletState() {
     this.defaultWalletState = {
       visibility: "hidden",
-      location: {
-        page: "wallet"
-      },
       requireLogin: false
     };
   }
@@ -313,7 +307,22 @@ class RootStore {
     }
 
     if(location) {
-      yield this.walletClient.Navigate(toJS(location));
+      const currentPath = (yield this.walletClient.CurrentPath()) || "";
+
+      if(location.generalLocation) {
+        if(
+          !(
+            // If we generally want to navigate to the wallet or marketplace, check if we're already in it. If not, navigate to it
+            location.page === "wallet" && currentPath.startsWith("/wallet") ||
+            location.page === "marketplace" && currentPath.startsWith("/marketplaces")
+          // If we're in a drop event, always navigate
+          ) || currentPath.includes("/events/")
+        ) {
+          yield this.walletClient.Navigate(toJS(location));
+        }
+      } else {
+        yield this.walletClient.Navigate(toJS(location));
+      }
     }
 
     darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
