@@ -101,6 +101,7 @@ class Header extends React.Component {
                   {
                     visibility: "full",
                     location: {
+                      generalLocation: true,
                       page: "marketplace",
                       params: {
                         marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
@@ -124,6 +125,7 @@ class Header extends React.Component {
                   {
                     visibility: "full",
                     location: {
+                      generalLocation: true,
                       page: "wallet"
                     }
                   }
