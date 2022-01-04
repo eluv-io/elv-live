@@ -879,6 +879,19 @@ class SiteStore {
       if(typeof zE === "undefined") { return; }
 
       zE("webWidget", "helpCenter:setSuggestions", { search: "eluvio" });
+
+      window.zESettings = {
+        webWidget: {
+          color: {
+            theme: "#111111"
+          },
+          offset: {
+            mobile: {
+              vertical: "75px"
+            }
+          }
+        }
+      };
     });
     document.body.appendChild(zendeskImport);
   }
