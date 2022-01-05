@@ -35,7 +35,7 @@ Eluvio is transforming the management, distribution, and economics of premium di
 
 Jean Guerin - [jean.guerin@fox.com](mailto:jean.guerin@fox.com) - 310/369-2843
 
-Les Eisner - [les.eisner@fox.com](mailto:les.eisner@fox.com) -310/369-3276
+Les Eisner - [les.eisner@fox.com](mailto:les.eisner@fox.com) - 310/369-3276
 
  
 **For Eluvio:**
