@@ -16,6 +16,8 @@ import RitaOraImage2 from "Assets/documents/news/Rita Ora - August 23rd/Rita-New
 
 import FoxRelease from "Assets/documents/news/Fox - August 25th/index.md";
 
+import SundanceRelease from "Assets/documents/news/Sundance - January 5th 2022/index.md";
+
 import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
 
@@ -45,6 +47,17 @@ class News extends React.Component {
   Navigation() {
     return (
       <div className="news-page__navigation">
+        <a
+          href="#2022-1-5"
+          className="news-page__navigation-button"
+        >
+          <div className="news-page__navigation-button__subheader">
+            January 5th, 2022
+          </div>
+          <div className="news-page__navigation-button__header">
+            Liquid Media Launches Blockchain Framework during 2022 Sundance Film Festival
+          </div>
+        </a>
         <a
           href="#2021-8-25"
           className="news-page__navigation-button"
@@ -160,6 +173,22 @@ class News extends React.Component {
     return (
       <div className="page-content news-page">
         <div className="news-page__content">
+          {
+            this.NewsItem({
+              date: "January 5th, 2022",
+              header:
+                <div>
+                  <div>
+                    Liquid Media Launches Blockchain Framework during 2022 Sundance Film Festival
+                  </div>
+                </div>,
+              content:
+                <div className="news-page__item__content">
+                  {this.Markdown(SundanceRelease)}
+                </div>,
+              anchor: "2022-1-5"
+            })
+          }
           {
             this.NewsItem({
               date: "August 25th, 2021",
