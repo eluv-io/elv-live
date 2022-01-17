@@ -97,7 +97,7 @@ class SiteStore {
   }
 
   @computed get promos() {
-    if(this.currentSite.promos) {
+    if(this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0) {
       return Object.keys(this.currentSite.promos || {}).map(index => {
         const slug = Object.keys(this.currentSite.promos[index])[0];
 
