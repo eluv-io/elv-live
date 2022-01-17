@@ -76,8 +76,7 @@ class EventDescriptionsModal extends React.Component {
     if(this.state.page < section.pages.length - 1) {
       nextPage = { section: this.state.section, page: this.state.page + 1};
     } else {
-      const nextValidSectionIndex = validSections.reverse().find(index => index > this.state.section);
-
+      const nextValidSectionIndex = validSections.find(index => index > this.state.section);
       if(nextValidSectionIndex >= 0) {
         nextPage = {
           section: nextValidSectionIndex,

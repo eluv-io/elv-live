@@ -141,7 +141,8 @@ class SiteStore {
         start_date: drop.start_date,
         end_date: drop.end_date,
         image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
-        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
+        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid),
+        landing_page_info: drop.custom_landing_page ? drop.event_landing_page : undefined
       }));
 
     const marketplaceEvents = (this.currentSiteInfo.marketplace_drops || [])
@@ -154,7 +155,8 @@ class SiteStore {
         end_date: new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000)),
         marketplace_filters: drop.store_filters || [],
         image: this.SiteUrl(UrlJoin("info", "marketplace_drops", index.toString(), "event_image")),
-        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid)
+        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid),
+        landing_page_info: drop.custom_landing_page ? drop.event_landing_page : undefined
       }));
 
     return [
@@ -482,6 +484,7 @@ class SiteStore {
         resolveLinks: true,
         resolveIncludeSource: true,
         resolveIgnoreErrors: true,
+        produceLinkUrls: true
       });
 
       yield heroPreloadPromise;
