@@ -98,9 +98,9 @@ const InitializeEventData = siteStore => {
   } else {
     baseEvent.subEvent = searchInfo.showings.map(showing => {
       let event = CloneDeep(baseEvent);
-      event.startDate = new Date(showing.start_time).toISOString();
+      event.startDate = showing.start_time ? new Date(showing.start_time).toISOString() : undefined;
       event.endDate = showing.end_time ? new Date(showing.start_time).toISOString() : undefined;
-      event.offers = showingOffers[new Date(showing.start_time).valueOf()];
+      event.offers = showing.start_time ? showingOffers[new Date(showing.start_time).valueOf()] : undefined;
 
       return event;
     });
