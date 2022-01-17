@@ -108,7 +108,7 @@ class Landing extends React.Component {
       );
     }
 
-    const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
+    const landingInfo = drop.landing_page_info || this.props.siteStore.currentSiteInfo.event_landing_page || {};
     const noCountdown = landingInfo.hide_countdown;
 
     const calendarInfo = drop.calendar || {};
@@ -160,13 +160,13 @@ class Landing extends React.Component {
   }
 
   Header() {
-    const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
+    const landingInfo = this.Drop().landing_page_info || this.props.siteStore.currentSiteInfo.event_landing_page || {};
 
     if(landingInfo.header_image) {
       return (
         <img
           className="landing-page__event-logo"
-          src={this.props.siteStore.SiteUrl("info/event_landing_page/header_image")}
+          src={landingInfo.header_image.url}
           alt={landingInfo.header_text || this.props.siteStore.eventInfo.event_header}
         />
       );
@@ -194,12 +194,12 @@ class Landing extends React.Component {
       return <Redirect to={this.props.siteStore.SitePath("code")} />;
     }
 
-    const landingInfo = this.props.siteStore.currentSiteInfo.event_landing_page || {};
+    const landingInfo = drop.landing_page_info || this.props.siteStore.currentSiteInfo.event_landing_page || {};
 
     let background;
     if(landingInfo.background_image || landingInfo.background_image_mobile) {
-      let backgroundUrl = landingInfo.background_image ? this.props.siteStore.SiteUrl(UrlJoin("info", "event_landing_page", "background_image")) : "";
-      let mobileBackgroundUrl = landingInfo.background_image_mobile ? this.props.siteStore.SiteUrl(UrlJoin("info", "event_landing_page", "background_image_mobile")) : "";
+      let backgroundUrl = landingInfo.background_image ? landingInfo.background_image.url : "";
+      let mobileBackgroundUrl = landingInfo.background_image_mobile ? landingInfo.background_image_mobile.url : "";
 
       if(this.props.rootStore.pageWidth > 900) {
         background = <div className="landing-page__background" style={{ backgroundImage: `url("${backgroundUrl || mobileBackgroundUrl}")` }} />;

@@ -156,6 +156,9 @@
   }
 
   &__banner {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     margin: 0 auto;
     padding: 50px;
     width: 100%;
