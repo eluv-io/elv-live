@@ -342,6 +342,7 @@ class Event extends React.Component {
                         muted: EluvioPlayerParameters.muted.ON,
                         autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
                         controls: EluvioPlayerParameters.controls.OFF,
+                        loop: EluvioPlayerParameters.loop.ON,
                         playerCallback: ({videoElement}) => this.setState({video: videoElement})
                       }
                     }
