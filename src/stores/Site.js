@@ -1059,12 +1059,10 @@ class SiteStore {
 
   /* Images */
 
-  SiteUrl(path) {
+  LocalizedSitePath(path) {
     if(!path) {
       return "";
     }
-
-    const uri = URI(this.baseSiteUrl);
 
     // If the current localization has the desired link, point to it
     let localizationPath = "";
@@ -1075,8 +1073,14 @@ class SiteStore {
       localizationPath = UrlJoin("localizations", this.language);
     }
 
+    return UrlJoin(this.currentSiteMetadataPath, localizationPath, path.toString());
+  }
+
+  SiteUrl(path) {
+    const uri = URI(this.baseSiteUrl);
+
     return uri
-      .path(UrlJoin(uri.path(), "meta", this.currentSiteMetadataPath, localizationPath, path.toString()))
+      .path(UrlJoin(uri.path(), "meta", this.LocalizedSitePath(path)))
       .toString();
   }
 

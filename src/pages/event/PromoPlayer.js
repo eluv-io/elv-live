@@ -1,9 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
-
+import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import EluvioConfiguration from "EluvioConfiguration";
 import {ErrorWrapper} from "Common/ErrorBoundary";
+import Player from "Common/Player";
 
 @inject("siteStore")
 @observer
@@ -27,42 +27,33 @@ class PromoPlayer extends React.Component {
   }
 
   Video(linkPath) {
-    const network = EluvioConfiguration["config-url"].includes("demov3") ? EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN;
-
     return (
-      <div
-        className="promo-video"
-        ref={element => {
-          if(!element) { return; }
-
-          new EluvioPlayer(
-            element,
-            {
-              clientOptions: {
-                network,
-                client: this.props.siteStore.rootStore.client
-              },
-              sourceOptions: {
-                drms: [
-                  "clear",
-                  "aes-128",
-                  "sample-aes",
-                  "widevine"
-                ],
-                playoutParameters: {
-                  objectId: EluvioConfiguration["live-site-id"],
-                  linkPath
-                }
-              },
-              playerOptions: {
-                watermark: EluvioPlayerParameters.watermark.OFF,
-                muted: EluvioPlayerParameters.muted.OFF,
-                autoplay: EluvioPlayerParameters.autoplay.ON,
-                controls: EluvioPlayerParameters.controls.AUTO_HIDE
+      <Player
+        params={
+          {
+            clientOptions: {
+              client: this.props.siteStore.rootStore.client
+            },
+            sourceOptions: {
+              drms: [
+                "clear",
+                "aes-128",
+                "sample-aes",
+                "widevine"
+              ],
+              playoutParameters: {
+                objectId: EluvioConfiguration["live-site-id"],
+                linkPath
               }
+            },
+            playerOptions: {
+              watermark: EluvioPlayerParameters.watermark.OFF,
+              muted: EluvioPlayerParameters.muted.OFF,
+              autoplay: EluvioPlayerParameters.autoplay.ON,
+              controls: EluvioPlayerParameters.controls.AUTO_HIDE
             }
-          );
-        }}
+          }
+        }
       />
     );
   }
