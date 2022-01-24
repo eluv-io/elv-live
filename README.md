@@ -9,10 +9,10 @@ React Application for Eluvio Live
     After cloning the repository, navigate into the project's directory to install the necessary npm packages.
 
     ```sh
-    git clone https://github.com/eluv-io/elv-live-web.git
+    git clone https://github.com/eluv-io/elv-live.git
     
-    cd elv-live-web
-    npm install  
+    cd elv-live
+    npm install 
     ```
 
 2.  **Start developing.**
