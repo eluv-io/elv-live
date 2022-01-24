@@ -7,6 +7,7 @@ import Merch from "Event/tabs/Merch";
 import EventDescriptions from "Event/descriptions/EventDescriptions";
 import {ErrorBoundary} from "Common/ErrorBoundary";
 import Ticket from "Event/tickets/Ticket";
+import EventInfoButtons from "Event/EventInfoModal";
 
 @inject("siteStore")
 @observer
@@ -28,7 +29,11 @@ class EventTabs extends React.Component {
 
         return (
           <div className={"overview-container"} id="overview-container">
-            <EventDescriptions />
+            {
+              this.props.siteStore.currentSiteInfo.event_info_modals && this.props.siteStore.currentSiteInfo.event_info_modals.length > 0 ?
+                <EventInfoButtons/> :
+                <EventDescriptions/>
+            }
             <div className="ticket-group">
               {
                 this.props.siteStore.ticketClasses

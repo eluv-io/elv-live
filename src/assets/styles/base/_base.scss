@@ -185,6 +185,44 @@ input[type='checkbox'] {
   font-size: 36px;
 }
 
+.arrow-left,
+.arrow-right,
+.arrow-up,
+.arrow-down {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  height: 50px;
+  padding: 10px;
+  position: absolute;
+  width: 36px;
+  z-index: 15;
+
+  svg {
+    * {
+      fill: transparent;
+      stroke: rgba(255, 255, 255, 0.5);
+      stroke-width: 8px;
+    }
+  }
+}
+
+.arrow-up {
+  left: unset;
+  margin: 0 auto;
+  right: 25px;
+  top: 75px;
+  transform: rotate(90deg);
+}
+
+.arrow-down {
+  bottom: 25px;
+  left: unset;
+  margin: 0 auto;
+  right: 25px;
+  transform: rotate(270deg);
+}
+
 @media only screen and (max-width: 900px) {
   .no-mobile {
     display: none !important;

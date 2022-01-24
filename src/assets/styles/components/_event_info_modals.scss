@@ -1,0 +1,167 @@
+.event-info-modal {
+  background-color: $white;
+  display: grid;
+  grid-template-rows: 75vh 1fr;
+  height: 100%;
+
+  &-no-image {
+    grid-template-rows: 1fr;
+  }
+
+  &__text-container {
+    padding: 20px 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+  }
+
+  &__image {
+    display: none;
+    height: 100%;
+    left: 0;
+    object-fit: contain;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  &__image-active {
+    animation: fadein 0.35s linear;
+    display: block;
+    z-index: 2;
+  }
+
+  &__image-fading-out {
+    animation: fadeout 0.35s linear;
+    display: block;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  &__image-controls {
+    align-items: center;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.15);
+    display: flex;
+    height: 55px;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+
+    .arrow-right,
+    .arrow-left {
+      position: absolute;
+    }
+
+    .arrow-right {
+      right: 25px;
+    }
+
+    .arrow-left {
+      left: 25px;
+    }
+
+    .arrow-right-text {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 300;
+      position: absolute;
+      right: 60px;
+    }
+  }
+
+  &__image-controls-title {
+    font-size: 28px;
+    font-weight: 200;
+    letter-spacing: 0.035em;
+    padding: 0 50px;
+    text-align: center;
+  }
+
+  &__markdown {
+    padding-bottom: 20px;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: normal;
+      letter-spacing: 0.09em;
+      line-height: 1.5em;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 300;
+    }
+
+    h2 {
+      font-size: 32px;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+
+    h4 {
+      font-size: 20px;
+    }
+
+    blockquote {
+      font-style: italic;
+      font-weight: 300;
+      margin: 20px 2em;
+    }
+
+    p {
+      font-size: 16px;
+      letter-spacing: 1px;
+      line-height: 25px;
+    }
+
+    li {
+      font-size: 16px;
+      padding-left: 5px;
+    }
+
+    img {
+      background: var(--eventDescriptionBackground);
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__image-controls-title {
+      font-size: 18px;
+      font-weight: normal;
+      margin-bottom: 5px;
+      padding-top: 5px;
+
+      &:last-child {
+        margin-bottom: 5px;
+      }
+    }
+
+    .arrow-right-text {
+      display: none;
+    }
+
+    .arrow-right,
+    .arrow-left {
+      svg {
+        * {
+          stroke-width: 8px;
+        }
+      }
+    }
+  }
+}
