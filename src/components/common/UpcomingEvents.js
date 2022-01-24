@@ -47,17 +47,35 @@ const EventCard = ({event, hardLink=false}) => {
 const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
-  events = events.sort((a, b) => a.start_date < b.start_date ? -1 : 1);
-
   let yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   yesterday = yesterday.toISOString().split("T")[0];
+
+  let today = new Date();
+  today = today.toISOString().split("T")[0];
+
+  // Sort events by start date, but put ongoing events before events that have passed, even if they started later.
+  events = events
+    .map(event => ({
+      ...event,
+      past: event.end_date < yesterday,
+      ongoing: event.start_date <= today && event.end_date >= today
+    }))
+    .sort((a, b) => {
+      if(a.past && b.ongoing) {
+        return 1;
+      } else if(b.past && a.ongoing) {
+        return -1;
+      }
+
+      return a.start_date < b.start_date ? -1 : 1;
+    });
 
   return (
     <div className={`upcoming-events ${className}`}>
       <h2 className="upcoming-events__header">{ header }</h2>
       <Carousel
-        startIndex={Math.max(0, events.findIndex(event => event.start_date >= yesterday))}
+        startIndex={Math.max(0, events.findIndex(event => event.ongoing || event.start_date >= yesterday))}
         minVisible={1}
         maxVisible={4}
         className="upcoming-events__carousel"
