@@ -35,69 +35,72 @@ class EventInfoModal extends React.Component {
   constructor(props) {
     super(props);
 
+    const pages = [];
+
+    this.props.siteStore.currentSiteInfo.event_info_modals.forEach((section, sectionIndex) =>
+      section.pages.forEach((page, pageIndex) => {
+        pages.push({sectionIndex, pageIndex});
+      })
+    );
+
     this.state = {
-      selectedMedia: 0,
-      previousMedia: undefined
+      page: props.initialSection ? pages.findIndex(pageInfo => props.initialSection === pageInfo.sectionIndex) : 0,
+      pages
     };
   }
 
-  Media() {
-    return this.props.siteStore.currentSiteInfo.event_info_modals[this.props.index].media || [];
+  CurrentPage() {
+    const { sectionIndex, pageIndex } = this.state.pages[this.state.page];
+    return this.props.siteStore.currentSiteInfo.event_info_modals[sectionIndex].pages[pageIndex];
   }
 
-  ChangeMedia(page) {
-    const media = this.Media();
-
-    this.setState({
-      selectedMedia: page % media.length,
-      previousMedia: this.state.selectedMedia
-    }, () => setTimeout(() => this.setState({previousMedia: undefined}), 1500));
-  }
-
-  MediaControls() {
+  PageControls() {
     let leftArrow, rightArrow, rightText;
 
-    const pageInfo = this.props.siteStore.currentSiteInfo.event_info_modals[this.props.index];
-    const textColor = pageInfo.text_color.color;
+    const textColor = this.CurrentPage().text_color.color || "#000000";
 
-    if(this.state.selectedMedia > 0) {
+    if(this.state.page > 0) {
       leftArrow = (
         <button
           style={{color: textColor}}
           className="arrow-left"
-          onClick={() => this.ChangeMedia(this.state.selectedMedia - 1)}
+          onClick={() => this.setState({page: this.state.page - 1})}
         >
           <LeftArrow color={textColor} />
         </button>
       );
     }
 
-    if(this.state.selectedMedia < this.Media().length - 1) {
+    if(this.state.page < this.state.pages.length - 1) {
       rightArrow = (
         <button
           style={{color: textColor}}
           className="arrow-right"
-          onClick={() => this.ChangeMedia(this.state.selectedMedia + 1)}
+          onClick={() => this.setState({page: this.state.page + 1})}
         >
           <RightArrow color={textColor} />
         </button>
       );
 
-      const nextTitle = (this.Media()[this.state.selectedMedia + 1] || {}).label || "";
-      if(nextTitle) {
-        rightText = (
-          <button
-            style={{color: textColor}}
-            className="arrow-right-text"
-            onClick={() => this.ChangeMedia(this.state.selectedMedia + 1)}
-          >
-            View { nextTitle }
-          </button>
-        );
+      const nextPage = this.state.pages[this.state.page + 1];
+      if(nextPage) {
+        const nextPageInfo = this.props.siteStore.currentSiteInfo.event_info_modals[nextPage.sectionIndex].pages[nextPage.pageIndex];
+
+        if(nextPageInfo.page_title) {
+          rightText = (
+            <button
+              style={{color: textColor}}
+              className="arrow-right-text"
+              onClick={() => this.setState({page: this.state.page + 1})}
+            >
+              { nextPageInfo.page_title }
+            </button>
+          );
+        }
       }
     }
 
-    const title = (this.Media()[this.state.selectedMedia] || {}).label || "";
+    const title = this.CurrentPage().page_title || "";
 
     return (
       <div className="event-info-modal__image-controls">
@@ -112,65 +115,73 @@ class EventInfoModal extends React.Component {
   }
 
   MediaSection() {
-    if(this.Media().length === 0) {
-      return null;
-    }
+    const { page_title, image, video } = this.CurrentPage();
+    const { sectionIndex, pageIndex } = this.state.pages[this.state.page];
 
-    return this.Media().map(({label, image}, index) =>
-      image ?
+    if(image) {
+      return (
         <ImageIcon
-          key={`card-image-${index}`}
-          className={`event-info-modal__image ${index === this.state.selectedMedia ? "event-info-modal__image-active" : ""} ${index === this.state.previousMedia ? "event-info-modal__image-fading-out" : ""}`}
+          key={`info-modal-image-${image.url}`}
+          className="event-info-modal__image event-info-modal__image-active"
           icon={image.url}
-          label={label}
-        /> :
-        index !== this.state.selectedMedia ? null :
-          <Player
-            className="event-info-modal__video"
-            params={
-              {
-                clientOptions: {
-                  client: this.props.siteStore.rootStore.client
-                },
-                sourceOptions: {
-                  drms: [
-                    "clear",
-                    "aes-128",
-                    "sample-aes",
-                    "widevine"
-                  ],
-                  playoutParameters: {
-                    objectId: EluvioConfiguration["live-site-id"],
-                    linkPath: this.props.siteStore.LocalizedSitePath(UrlJoin("info", "event_info_modals", this.props.index.toString(), "media", index.toString(), "video", "sources", "default")),
-                  }
-                },
-                playerOptions: {
-                  watermark: EluvioPlayerParameters.watermark.OFF,
-                  muted: EluvioPlayerParameters.muted.OFF,
-                  autoplay: EluvioPlayerParameters.autoplay.ON,
-                  controls: EluvioPlayerParameters.controls.AUTO_HIDE
+          label={page_title}
+        />
+      );
+    } else if(video) {
+      const linkPath = this.props.siteStore.LocalizedSitePath(UrlJoin("info", "event_info_modals", sectionIndex.toString(), "pages", pageIndex.toString(), "video", "sources", "default"));
+      const videoHash = video["."] && video["."].source;
+
+      return (
+        <Player
+          key={`info-modal-player-${videoHash}`}
+          className="event-info-modal__video"
+          params={
+            {
+              clientOptions: {
+                client: this.props.siteStore.rootStore.client
+              },
+              sourceOptions: {
+                drms: [
+                  "clear",
+                  "aes-128",
+                  "sample-aes",
+                  "widevine"
+                ],
+                playoutParameters: {
+                  objectId: EluvioConfiguration["live-site-id"],
+                  linkPath
                 }
+              },
+              playerOptions: {
+                watermark: EluvioPlayerParameters.watermark.OFF,
+                muted: EluvioPlayerParameters.muted.OFF,
+                autoplay: EluvioPlayerParameters.autoplay.ON,
+                controls: EluvioPlayerParameters.controls.AUTO_HIDE
               }
             }
-          />
-    );
+          }
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
-    const pageInfo = this.props.siteStore.currentSiteInfo.event_info_modals[this.props.index];
-    const textColor = pageInfo.text_color.color;
-    const backgroundColor = pageInfo.background_color.color;
+    const { text, text_color, background_color, image, video } = this.CurrentPage();
+    const textColor = text_color.color || "#000000";
+    const backgroundColor = background_color.color || "#FFFFFF";
 
     return (
       <Modal Toggle={this.props.Close}>
         <div
           style={{backgroundColor, color: textColor, "*": { backgroundColor, color: `${textColor} !important` }}}
-          className={`event-info-modal ${this.props.small ? "event-info-modal-small" : ""} ${this.Media().length === 0 ? "event-info-modal-no-image" : ""}`}
+          className={`event-info-modal ${this.props.small ? "event-info-modal-small" : ""} ${!image && !video ? "event-info-modal-no-image" : ""}`}
         >
           <div className="event-info-modal__image-container">
             { this.MediaSection() }
           </div>
-          { this.MediaControls() }
+          { this.PageControls() }
           <div className="event-info-modal__text-container">
             <div
               style={{backgroundColor, color: textColor}}
@@ -180,7 +191,7 @@ class EventInfoModal extends React.Component {
 
                 render(
                   <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-                    { SanitizeHTML(pageInfo.text) }
+                    { SanitizeHTML(text) }
                   </ReactMarkdown>,
                   element
                 );
@@ -202,16 +213,16 @@ class EventInfoButtons extends React.Component {
 
     this.state = {
       showModal: false,
-      index: 0
+      section: 0
     };
 
     this.ToggleModal = this.ToggleModal.bind(this);
   }
 
-  ToggleModal(showModal=false, index=0) {
+  ToggleModal(showModal=false, section=0) {
     this.setState({
       showModal,
-      index
+      section
     });
   }
 
@@ -226,11 +237,11 @@ class EventInfoButtons extends React.Component {
       <div className="event-description">
         <div className="event-description__buttons">
           {
-            eventInfoModals.map((page, index) =>
+            eventInfoModals.map((page, section) =>
               <button
-                key={`description-button-${index}`}
+                key={`description-button-${section}`}
                 className="btn event-description__button"
-                onClick={() => this.ToggleModal(true, index)}
+                onClick={() => this.ToggleModal(true, section)}
               >
                 { page.button_text }
               </button>
@@ -238,7 +249,7 @@ class EventInfoButtons extends React.Component {
           }
         </div>
 
-        { this.state.showModal ? <EventInfoModal index={this.state.index} Close={this.ToggleModal} /> : null }
+        { this.state.showModal ? <EventInfoModal initialSection={this.state.section} Close={this.ToggleModal} /> : null }
       </div>
     );
   }

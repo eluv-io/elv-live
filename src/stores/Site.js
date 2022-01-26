@@ -202,7 +202,9 @@ class SiteStore {
   @action.bound
   SetLanguage(code) {
     this.language = code;
-    document.title = `${this.eventInfo.event_title} | Eluvio Live`;
+    if(this.eventInfo.event_title) {
+      document.title = `${this.eventInfo.event_title} | Eluvio Live`;
+    }
   }
 
   @action.bound

@@ -2,7 +2,9 @@
   margin: 0 20px 40px;
 
   &__buttons {
+    align-items: center;
     display: flex;
+    justify-content: center;
     margin: 0 auto;
     max-width: 1200px;
   }
@@ -15,7 +17,7 @@
     flex: 1 1 auto;
     font-size: 14px;
     height: 42px;
-    max-width: 1200px;
+    max-width: 300px;
     width: auto;
 
     &:not(:last-child) {
@@ -221,7 +223,7 @@
 .dark {
   .event-description {
     &__button {
-      border: 1px solid white;
+      border: 1px solid $mediumgray;
       color: white;
     }
   }
