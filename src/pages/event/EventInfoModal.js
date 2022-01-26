@@ -119,9 +119,10 @@ class EventInfoModal extends React.Component {
     const { sectionIndex, pageIndex } = this.state.pages[this.state.page];
 
     if(image) {
+      const imagePath = image["."] && image["."]["/"];
       return (
         <ImageIcon
-          key={`info-modal-image-${image.url}`}
+          key={`info-modal-image-${imagePath}`}
           className="event-info-modal__image event-info-modal__image-active"
           icon={image.url}
           label={page_title}
