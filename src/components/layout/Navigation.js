@@ -45,7 +45,8 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    if(!this.props.siteStore.marketplaceHash || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.dropEvents.length > 0)) {
+    const marketplaceInfo = this.props.siteStore.currentSiteInfo.marketplace_info || {};
+    if(!marketplaceInfo.marketplace_slug || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.dropEvents.length > 0)) {
       return null;
     }
 
@@ -104,7 +105,8 @@ class Header extends React.Component {
                       generalLocation: true,
                       page: "marketplace",
                       params: {
-                        marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+                        tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                        marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
                       }
                     }
                   }

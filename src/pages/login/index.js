@@ -25,7 +25,7 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
         siteStore.loginCustomization.terms_html ?
           <iframe
             className="login-page__terms-modal__terms"
-            src={rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "terms_html")})}
+            src={siteStore.loginCustomization.terms_html.url}
           />:
           <div
             className="login-page__terms-modal__terms"
@@ -52,8 +52,8 @@ const LoginBackground = inject("rootStore")(inject("siteStore")(observer(({rootS
   const customizationOptions = siteStore.loginCustomization || {};
 
   if(customizationOptions.background || customizationOptions.background_mobile) {
-    let backgroundUrl = customizationOptions.background ? rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "login_customization", "background")}) : "";
-    let mobileBackgroundUrl = customizationOptions.background_mobile ? rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "login_customization", "background_mobile")}) : "";
+    const backgroundUrl = (customizationOptions.background || {}).url;
+    const mobileBackgroundUrl = (customizationOptions.background_mobile || {}).url;
 
     if(rootStore.pageWidth > 900) {
       return <div className="login-page__background" style={{ backgroundImage: `url("${backgroundUrl || mobileBackgroundUrl}")` }} />;
@@ -170,7 +170,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       logo = (
         <div className="login-page__logo-container">
           <ImageIcon
-            icon={rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "login_customization", "logo")})}
+            icon={customizationOptions.logo.url}
             alternateIcon={Logo}
             className="login-page__logo"
             title="Logo"

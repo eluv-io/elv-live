@@ -183,7 +183,7 @@ class RootStore {
   });
 
   /* Wallet */
-  InitializeWalletClient = flow(function * ({target, marketplaceHash, darkMode=false}) {
+  InitializeWalletClient = flow(function * ({target, tenantSlug, marketplaceSlug, darkMode=false}) {
     if(!target) { return; }
 
     this.walletTarget = target;
@@ -207,22 +207,24 @@ class RootStore {
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl,
       target,
-      marketplaceHash,
+      tenantSlug,
+      marketplaceSlug,
       darkMode
     });
 
     if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
-      this.walletClient.SetAuthInfo(this.AuthInfo());
+      const { authToken, address, user } = this.AuthInfo();
+      this.walletClient.SignIn({
+        name: (user || {}).name,
+        email: (user || {}).email,
+        address,
+        authToken
+      });
     }
 
     const initialVisibility = sessionStorage.getItem(`${this.siteStore.siteSlug}-wallet-visibility`);
     if(initialVisibility) {
       this.SetWalletPanelVisibility({visibility: initialVisibility});
-    }
-
-    if(this.siteStore.marketplaceHash) {
-      marketplaceHash = this.siteStore.marketplaceHash;
-      this.walletClient.SetMarketplace({marketplaceHash});
     }
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
@@ -243,7 +245,7 @@ class RootStore {
     });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
-      await this.InitializeWalletClient({target, marketplaceHash, darkMode});
+      await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug, darkMode});
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
@@ -424,6 +426,10 @@ class RootStore {
         authInfo.authToken = client.signer.authToken;
       }
 
+      if(idToken) {
+        authInfo.idToken = idToken;
+      }
+
       localStorage.setItem(
         "auth",
         this.client.utils.B64(JSON.stringify(authInfo))
@@ -434,7 +440,14 @@ class RootStore {
       }
 
       if(this.walletClient) {
-        this.walletClient.SetAuthInfo(authInfo);
+        this.walletClient.SignIn({
+          name: (user || {}).name,
+          email: (user || {}).email,
+          address: client.signer.address,
+          idToken,
+          authToken,
+          privateKey
+        });
       }
     } catch(error){
       // eslint-disable-next-line no-console
