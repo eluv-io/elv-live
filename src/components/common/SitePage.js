@@ -38,43 +38,46 @@ const SitePage = (Component, {mainPage=false, transparent=false, showHeader=true
 
       return (
         <>
-          { showHeader && this.props.siteStore.siteSlug ? <Navigation mainPage={mainPage} transparent={transparent} dark={darkHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
-          <Suspense fallback={<PageLoader />}>
-            <AsyncComponent
-              key={`site-page-${this.props.match.url}`}
-              _errorBoundaryClassname="page-container error-page-container"
-              Load={async () => {
-                if(!isFeatured) {
-                  await this.props.siteStore.LoadTenant({slug: tenantSlug});
+          { showHeader && this.props.siteStore.siteSlug ?
+            <Navigation mainPage={mainPage} transparent={transparent} dark={darkHeader} hideCheckout={hideCheckout} hideRedeem={hideRedeem} /> : null }
+            <Suspense fallback={<PageLoader />}>
+              <AsyncComponent
+                key={`site-page-${this.props.match.url}`}
+                _errorBoundaryClassname="page-container error-page-container"
+                Load={async () => {
+                  if(!isFeatured) {
+                    await this.props.siteStore.LoadTenant({slug: tenantSlug});
+                  }
+
+                  const validSlug = await this.props.siteStore.LoadSite({
+                    tenantSlug,
+                    siteSlug,
+                    fullLoad: true
+                  });
+
+                  try {
+                    InitializeEventData(this.props.siteStore);
+                  } catch(error) {
+                    // eslint-disable-next-line no-console
+                    console.error("Failed to initialize structured event data:");
+                    // eslint-disable-next-line no-console
+                    console.error(error);
+                  }
+
+                  if(this.props.siteStore.eventInfo.event_title) {
+                    document.title = `${this.props.siteStore.eventInfo.event_title} | Eluvio Live`;
+                  }
+
+                  this.setState({validSlug});
+                }}
+              >
+                {
+                  this.state.validSlug ?
+                    <Component {...this.props} /> :
+                    <Redirect to="/" />
                 }
-
-                const validSlug = await this.props.siteStore.LoadSite({
-                  tenantSlug,
-                  siteSlug,
-                  fullLoad: true
-                });
-
-                try {
-                  InitializeEventData(this.props.siteStore);
-                } catch(error) {
-                  // eslint-disable-next-line no-console
-                  console.error("Failed to initialize structured event data:");
-                  // eslint-disable-next-line no-console
-                  console.error(error);
-                }
-
-                document.title = `${this.props.siteStore.eventInfo.event_title} | Eluvio Live`;
-
-                this.setState({validSlug});
-              }}
-            >
-              {
-                this.state.validSlug ?
-                  <Component {...this.props} /> :
-                  <Redirect to="/" />
-              }
-            </AsyncComponent>
-          </Suspense>
+              </AsyncComponent>
+            </Suspense>
         </>
       );
     }
