@@ -309,8 +309,9 @@ class Event extends React.Component {
     );
   }
 
-  HeroVideo() {
+  HeroVideo(mobile) {
     const heroVideo = this.props.siteStore.currentSiteInfo.event_images.hero_video;
+    const heroVideoMobile = this.props.siteStore.currentSiteInfo.event_images.hero_video_mobile;
 
     if(!heroVideo || !heroVideo["."]) { return; }
 
@@ -332,7 +333,7 @@ class Event extends React.Component {
                       },
                       sourceOptions: {
                         playoutParameters: {
-                          versionHash: heroVideo["."].source
+                          versionHash: mobile && heroVideoMobile ? heroVideoMobile["."].source || heroVideo["."].source : heroVideo["."].source
                         }
                       },
                       playerOptions: {
@@ -354,19 +355,12 @@ class Event extends React.Component {
     );
   }
 
-  BottomBanner(mobile) {
-    const bannerInfo = this.props.siteStore.currentSiteInfo.event_images.main_page_banner;
-
-    if(!bannerInfo || !bannerInfo.show) { return null; }
+  Banner(bannerInfo, index, mobile) {
 
     const bannerImage = (
       <ImageIcon
         className="event-page__banner__image"
-        icon={
-          mobile && bannerInfo.image_mobile ?
-            this.props.siteStore.SiteUrl(UrlJoin("info", "event_images", "main_page_banner", "image_mobile")) :
-            this.props.siteStore.SiteUrl(UrlJoin("info", "event_images", "main_page_banner", "image"))
-        }
+        icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
         title="Banner"
       />
     );
@@ -411,12 +405,32 @@ class Event extends React.Component {
     }
 
     return (
-      <div className="event-page__banner">
-        <a href={bannerInfo.link} rel="noopener" target="_blank">
+      <div className="event-page__banner" key={`banner-${index}`}>
+        <a
+          href={bannerInfo.link || undefined}
+          rel="noopener"
+          target={bannerInfo.link ? "_blank" : ""}
+        >
           { bannerImage }
         </a>
       </div>
     );
+  }
+
+  BottomBanners(mobile) {
+    let banners = this.props.siteStore.currentSiteInfo.main_page_banners || [];
+
+    if(banners.length === 0) {
+      const oldBanner = this.props.siteStore.currentSiteInfo.event_images.main_page_banner || {};
+
+      if(oldBanner && oldBanner.show){
+        banners = [ oldBanner ];
+      } else {
+        return null;
+      }
+    }
+
+    return banners.map((bannerInfo, index) => this.Banner(bannerInfo, index, mobile));
   }
 
   Hero() {
@@ -433,7 +447,7 @@ class Event extends React.Component {
     return (
       <div className="event-page__hero-container" style={style}>
         <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
-        { this.HeroVideo() }
+        { this.HeroVideo(mobile) }
         <div className="event-page__heading">
           {
             hasHeaderImage ?
@@ -489,7 +503,7 @@ class Event extends React.Component {
             <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.dropEvents}/>
         }
 
-        { this.BottomBanner(mobile) }
+        { this.BottomBanners(mobile) }
 
         { this.state.showPromo ? this.Promos() : null}
         { this.state.showGetStartedModal ? <GetStartedModal Close={() => this.setState({showGetStartedModal: false})} /> : null }
