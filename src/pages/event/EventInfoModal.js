@@ -169,6 +169,10 @@ class EventInfoModal extends React.Component {
   }
 
   render() {
+    if(!this.state.pages || this.state.pages.length === 0) {
+      return null;
+    }
+
     const { text, text_color, background_color, image, video } = this.CurrentPage();
     const textColor = text_color.color || "#000000";
     const backgroundColor = background_color.color || "#FFFFFF";

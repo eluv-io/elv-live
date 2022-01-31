@@ -69,7 +69,7 @@
   }
 
   &__heading {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     max-width: 1200px;
 
     h1 {
@@ -110,8 +110,9 @@
   }
 
   &__subheader {
-    font-size: 14px;
-    max-width: 700px;
+    font-size: 20px;
+    max-width: 1000px;
+    text-transform: unset;
   }
 
   &__date,
@@ -256,7 +257,7 @@
     }
 
     &__subheader {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: normal;
       letter-spacing: 0.07em;
       margin-bottom: 10px;
