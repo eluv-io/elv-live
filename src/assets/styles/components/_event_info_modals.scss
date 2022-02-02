@@ -1,16 +1,16 @@
 .event-info-modal {
   background-color: $white;
+  border: 1px solid rgba($gray, 0.25);
   display: grid;
   grid-template-rows: 65vh 1fr;
   height: 100%;
-  border: 1px solid rgba($gray, 0.25);
 
   &-no-image {
     grid-template-rows: 1fr;
   }
 
   &__text-container {
-    padding: 20px 40px;
+    padding: 20px 100px;
     position: relative;
     z-index: 2;
   }
@@ -97,6 +97,7 @@
       font-weight: normal;
       letter-spacing: 0.09em;
       line-height: 1.5em;
+      margin: 0 0 1em;
       text-align: left;
       text-decoration: none;
     }
@@ -141,6 +142,10 @@
   }
 
   @media only screen and (max-width: 900px) {
+    &__text-container {
+      padding: 20px 40px;
+    }
+
     &__image-controls-title {
       font-size: 18px;
       font-weight: normal;

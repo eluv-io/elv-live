@@ -169,9 +169,9 @@
     justify-content: center;
     letter-spacing: 0.14em;
     margin: 20px auto 0;
-    padding: 10px 0;
+    padding: 10px 20px;
     transition: background-color 0.3s linear, color 0.3s linear;
-    width: 250px;
+    width: max-content;
 
     &:hover {
       color: $black;
@@ -224,11 +224,10 @@
       font-size: 14px;
       height: 30px;
       margin-top: 10px;
-      width: 150px;
     }
 
     .featured-event__hero-video {
-      margin-top: 0
+      margin-top: 0;
     }
   }
 
