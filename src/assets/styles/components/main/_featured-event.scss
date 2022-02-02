@@ -120,14 +120,7 @@
     .eluvio-player,
     .eluvio-player__video {
       background: transparent !important;
-    }
-
-    .featured-event__hero-video {
-      margin: 90px auto 0;
-      max-height: MIN(70vw * 9 / 16, calc(100vh - 350px));
-      max-width: MIN(70vw, calc((100vh - 350px) * 16 / 9));
-      min-height: MIN(70vw * 9 / 16, calc(100vh - 350px));
-      min-width: MIN(70vw, calc((100vh - 350px) * 16 / 9));
+      object-fit: cover;
     }
   }
 
@@ -187,7 +180,7 @@
 
   @media only screen and (max-width: 1250px) {
     .featured-event__hero-video {
-      margin-top: 70px;
+      margin-top: 60px;
     }
 
     &__header {
@@ -205,14 +198,6 @@
   }
 
   @media only screen and (max-width: 900px) {
-    .featured-event__hero-video {
-      margin-top: 10px;
-      max-height: MIN(65vw * 9 / 16, calc(100vh - 350px));
-      max-width: MIN(65vw, calc((100vh - 350px) * 16 / 9));
-      min-height: MIN(65vw * 9 / 16, calc(100vh - 350px));
-      min-width: MIN(65vw, calc((100vh - 350px) * 16 / 9));
-    }
-
     &__header {
       font-size: 22px;
       font-weight: 300;
@@ -240,6 +225,10 @@
       height: 30px;
       margin-top: 10px;
       width: 150px;
+    }
+
+    .featured-event__hero-video {
+      margin-top: 0
     }
   }
 
