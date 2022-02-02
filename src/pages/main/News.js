@@ -48,6 +48,19 @@ class News extends React.Component {
     return (
       <div className="news-page__navigation">
         <a
+          href="https://variety.com/2022/digital/news/the-walking-dead-nft-orange-comet-1235169700"
+          rel="noopener"
+          target="_blank"
+          className="news-page__navigation-button"
+        >
+          <div className="news-page__navigation-button__subheader">
+            February 2nd, 2022
+          </div>
+          <div className="news-page__navigation-button__header">
+            'The Walking Dead' Is Unleashing a Swarm of NFTs for Final Season
+          </div>
+        </a>
+        <a
           href="#2022-1-5"
           className="news-page__navigation-button"
         >
