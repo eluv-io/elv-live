@@ -21,6 +21,7 @@ class RootStore {
   @observable walletKey = 1;
   @observable client;
   @observable walletClient;
+  @observable showWalletLinks = false;
   @observable walletTarget;
   @observable redeemedTicket;
   @observable error = "";
@@ -211,6 +212,9 @@ class RootStore {
       marketplaceSlug,
       darkMode
     });
+
+    // Give the wallet a chance to send the log in event before showing links
+    setTimeout(() => runInAction(() => this.showWalletLinks = true), 2250);
 
     if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
       const { authToken, address, user } = this.AuthInfo();
