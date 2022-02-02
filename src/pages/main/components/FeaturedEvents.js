@@ -8,6 +8,7 @@ import LeftArrow from "Icons/left-arrow.svg";
 import RightArrow from "Icons/right-arrow.svg";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
+@inject("rootStore")
 @inject("mainStore")
 @inject("siteStore")
 @observer
@@ -39,6 +40,8 @@ class FeaturedEvents extends React.Component {
 
   HeroVideo(site) {
     const heroVideo = site.info.event_images.hero_video;
+    const heroVideoMobile = site.info.event_images.hero_video_mobile;
+    const mobile = this.props.rootStore.pageWidth < this.mobileCutoff;
 
     if(!heroVideo || !heroVideo["."]) { return; }
 
@@ -60,14 +63,14 @@ class FeaturedEvents extends React.Component {
                       },
                       sourceOptions: {
                         playoutParameters: {
-                          versionHash: heroVideo["."].source
+                          versionHash: mobile && heroVideoMobile ? heroVideoMobile["."].source || heroVideo["."].source : heroVideo["."].source
                         }
                       },
                       playerOptions: {
                         watermark: EluvioPlayerParameters.watermark.OFF,
-                        muted: EluvioPlayerParameters.muted.OFF,
-                        autoplay: EluvioPlayerParameters.autoplay.OFF,
-                        controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+                        muted: EluvioPlayerParameters.muted.ON,
+                        autoplay: EluvioPlayerParameters.autoplay.ON,
+                        controls: EluvioPlayerParameters.controls.OFF,
                       }
                     }
                   )
