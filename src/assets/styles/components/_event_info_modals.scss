@@ -3,6 +3,7 @@
   display: grid;
   grid-template-rows: 65vh 1fr;
   height: 100%;
+  border: 1px solid rgba($gray, 0.25);
 
   &-no-image {
     grid-template-rows: 1fr;
