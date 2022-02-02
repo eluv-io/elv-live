@@ -47,7 +47,7 @@ class Footer extends React.Component {
               this.setState({
                 modal: (
                   <Modal
-                    className="event-message-container"
+                    className={`event-message-container footer__modal ${content_rich_text ? "footer__modal-rich-text" : "footer__modal-frame"}`}
                     Toggle={() => this.setState({modal: undefined})}
                   >
                     {

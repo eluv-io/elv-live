@@ -338,6 +338,17 @@
     width: 250px;
   }
 
+  &__modal {
+    &-frame {
+      .event-message {
+        height: 100vh;
+        max-width: 800px;
+        width: 800px;
+      }
+    }
+  }
+
+
   @media only screen and (max-width: 900px) {
     padding: 25px 25px 70px;
 

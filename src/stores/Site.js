@@ -107,9 +107,9 @@ class SiteStore {
 
     return (
       this.currentSiteInfo.promo_videos || []).map((promo, index) => {
-        if(!promo.video) { return; }
-        return UrlJoin(this.currentSiteMetadataPath, "info", "promo_videos", index.toString(), "video", "sources", "default");
-      })
+      if(!promo.video) { return; }
+      return UrlJoin(this.currentSiteMetadataPath, "info", "promo_videos", index.toString(), "video", "sources", "default");
+    })
       .filter(promo => promo);
   }
 
