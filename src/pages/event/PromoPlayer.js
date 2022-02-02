@@ -59,7 +59,6 @@ class PromoPlayer extends React.Component {
   }
 
   render() {
-    //if(!this.props.siteStore.promos || this.props.siteStore.promos.length === 0) { return null; }
     const promoLinks = this.props.siteStore.promos;
 
     let nextButton, previousButton;

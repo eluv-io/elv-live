@@ -54,6 +54,12 @@ class EventInfoModal extends React.Component {
     return this.props.siteStore.currentSiteInfo.event_info_modals[sectionIndex].pages[pageIndex];
   }
 
+  SetPage(page) {
+    this.setState({page});
+
+    document.querySelector(".modal__content").scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   PageControls() {
     let leftArrow, rightArrow, rightText;
 
@@ -64,7 +70,7 @@ class EventInfoModal extends React.Component {
         <button
           style={{color: textColor}}
           className="arrow-left"
-          onClick={() => this.setState({page: this.state.page - 1})}
+          onClick={() => this.SetPage(this.state.page - 1)}
         >
           <LeftArrow color={textColor} />
         </button>
@@ -76,7 +82,7 @@ class EventInfoModal extends React.Component {
         <button
           style={{color: textColor}}
           className="arrow-right"
-          onClick={() => this.setState({page: this.state.page + 1})}
+          onClick={() => this.SetPage(this.state.page + 1)}
         >
           <RightArrow color={textColor} />
         </button>
@@ -91,7 +97,7 @@ class EventInfoModal extends React.Component {
             <button
               style={{color: textColor}}
               className="arrow-right-text"
-              onClick={() => this.setState({page: this.state.page + 1})}
+              onClick={() => this.SetPage(this.state.page + 1)}
             >
               { nextPageInfo.page_title }
             </button>

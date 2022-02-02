@@ -105,9 +105,12 @@ class SiteStore {
       });
     }
 
-    return (this.currentSiteInfo.promo_videos || []).map((_, index) => {
-      return UrlJoin(this.currentSiteMetadataPath, "info", "promo_videos", index.toString(), "video", "sources", "default");
-    });
+    return (
+      this.currentSiteInfo.promo_videos || []).map((promo, index) => {
+        if(!promo.video) { return; }
+        return UrlJoin(this.currentSiteMetadataPath, "info", "promo_videos", index.toString(), "video", "sources", "default");
+      })
+      .filter(promo => promo);
   }
 
   @computed get currentSiteTicket() {
