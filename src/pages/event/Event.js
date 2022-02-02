@@ -439,13 +439,8 @@ class Event extends React.Component {
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
-    let style = { height: window.innerHeight - (window.innerWidth < 1400 ? 60 : 0) };
-    if(this.props.siteStore.eventInfo.hero_info && window.innerWidth > this.mobileCutoff) {
-      style = {};
-    }
-
     return (
-      <div className="event-page__hero-container" style={style}>
+      <div className="event-page__hero-container" style={{height: window.innerHeight}}>
         <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
         { this.HeroVideo(mobile) }
         <div className="event-page__heading">
