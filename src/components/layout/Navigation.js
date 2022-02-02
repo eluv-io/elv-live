@@ -10,6 +10,7 @@ import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
+import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -55,7 +56,7 @@ class Header extends React.Component {
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
 
-    if(!this.props.rootStore.walletClient) {
+    if(!this.props.rootStore.walletClient || !this.props.rootStore.showWalletLinks) {
       return null;
     } else if(!this.props.rootStore.walletLoggedIn) {
       return (
@@ -220,10 +221,13 @@ class Header extends React.Component {
         {
           this.props.rootStore.currentWalletState.visibility === "full" ?
             <button
-              className="header__logo-container"
+              className="header__wallet-close-button"
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
             >
-              { logo }
+              <ImageIcon
+                icon={CloseIcon}
+                title="Close Wallet"
+              />
             </button> :
             this.props.mainPage ?
               <a href={logoUrl} className="header__logo-container">
