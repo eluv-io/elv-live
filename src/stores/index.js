@@ -234,6 +234,10 @@ class RootStore {
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
       sessionStorage.setItem("wallet-logged-in", "true");
 
+      if(marketplaceSlug) {
+        this.walletClient.SetMarketplace({tenantSlug, marketplaceSlug});
+      }
+
       runInAction(() => this.walletLoggedIn = true);
     });
 
@@ -326,7 +330,7 @@ class RootStore {
           !(
             // If we generally want to navigate to the wallet or marketplace, check if we're already in it. If not, navigate to it
             location.page === "wallet" && currentPath.startsWith("/wallet") ||
-            location.page === "marketplace" && currentPath.startsWith("/marketplaces")
+            location.page === "marketplace" && currentPath.startsWith("/marketplace")
           // If we're in a drop event, always navigate
           ) || currentPath.includes("/events/")
         ) {
