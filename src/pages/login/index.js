@@ -46,25 +46,6 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
   );
 }));
 
-const LoginBackground = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
-  if(!rootStore.basePublicUrl) { return null; }
-
-  const customizationOptions = siteStore.loginCustomization || {};
-
-  if(customizationOptions.background || customizationOptions.background_mobile) {
-    const backgroundUrl = (customizationOptions.background || {}).url;
-    const mobileBackgroundUrl = (customizationOptions.background_mobile || {}).url;
-
-    if(rootStore.pageWidth > 900) {
-      return <div className="login-page__background" style={{ backgroundImage: `url("${backgroundUrl || mobileBackgroundUrl}")` }} />;
-    } else {
-      return <div className="login-page__background" style={{ backgroundImage: `url("${mobileBackgroundUrl || backgroundUrl}")` }} />;
-    }
-  }
-
-  return null;
-})));
-
 export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
   const auth0 = useAuth0();
 
@@ -210,7 +191,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   if(rootStore.loggingIn || loading || auth0Loading) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <LoginBackground />
         <div className="login-page__login-box">
           { logo }
           <Loader />
@@ -222,12 +202,9 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   if(loginDataRequired) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <LoginBackground />
         <div className="login-page__login-box">
           { logo }
-          <PreLogin
-            onComplete={({data}) => setLoginData(data)}
-          />
+          <PreLogin onComplete={({data}) => setLoginData(data)} />
         </div>
       </div>
     );
@@ -236,7 +213,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   if(showPrivateKeyForm) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <LoginBackground />
         <div className="login-page__login-box">
           { logo }
           <h1>Enter your Private Key</h1>
@@ -335,7 +311,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""}  ${customBackground ? "login-page-custom-background" : ""}`}>
       { showTermsModal ? <TermsModal Toggle={show => setShowTermsModal(show)} /> : null }
 
-      <LoginBackground />
       <div className="login-page__login-box">
         { logo }
         <div className="login-page__actions">

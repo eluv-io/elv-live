@@ -67,32 +67,30 @@ const PrivacyPolicy = () => {
         onClick={() => {
           setPolicyModal(
             <Modal
-              className="event-message-container"
+              className="pre-login__privacy-modal"
               Toggle={() => setPolicyModal(null)}
             >
               {
                 rich_text ?
-                  <div className="event-message">
-                    <div className="event-message__content">
-                      <div
-                        className="markdown-document event-message__content__message"
-                        ref={element => {
-                          if(!element) {
-                            return;
-                          }
+                  <div className="pre-login__privacy-modal__content">
+                    <div
+                      className="markdown-document event-message__content__message"
+                      ref={element => {
+                        if(!element) {
+                          return;
+                        }
 
-                          render(
-                            <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                              {SanitizeHTML(rich_text)}
-                            </ReactMarkdown>,
-                            element
-                          );
-                        }}
-                      />
-                    </div>
+                        render(
+                          <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                            {SanitizeHTML(rich_text)}
+                          </ReactMarkdown>,
+                          element
+                        );
+                      }}
+                    />
                   </div> :
                   <iframe
-                    className="event-message"
+                    className="pre-login__privacy-frame"
                     src={html.url}
                   />
               }
