@@ -3,6 +3,7 @@ import {render} from "react-dom";
 import Modal from "Common/Modal";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
+import {siteStore} from "Stores";
 
 const PreLoginMS = ({onComplete}) => {
   const [country, setCountry] = useState("United States");
@@ -45,25 +46,22 @@ const PreLoginMS = ({onComplete}) => {
 const PrivacyPolicy = () => {
   const [policyModal, setPolicyModal] = useState(null);
 
-  const policy = {
-    rich_text: "<h1>Rich Text</h1>",
-    html: undefined
-  };
+  let { link, rich_text, html } = siteStore.loginCustomization.privacy_policy || {};
 
-  let link;
-  if(policy.url) {
-    link = (
+  let policyLink;
+  if(link) {
+    policyLink = (
       <a
         target="_blank"
         className="pre-login__privacy-link"
         rel="noopener"
-        href={policy.url}
+        href={link}
       >
         Privacy Policy
       </a>
     );
-  } else if(policy.rich_text || policy.html) {
-    link = (
+  } else if(rich_text || html) {
+    policyLink = (
       <button
         className="pre-login__privacy-link"
         onClick={() => {
@@ -73,11 +71,11 @@ const PrivacyPolicy = () => {
               Toggle={() => setPolicyModal(null)}
             >
               {
-                policy.rich_text ?
+                rich_text ?
                   <div className="event-message">
                     <div className="event-message__content">
                       <div
-                        className="event-message__content__message"
+                        className="markdown-document event-message__content__message"
                         ref={element => {
                           if(!element) {
                             return;
@@ -85,7 +83,7 @@ const PrivacyPolicy = () => {
 
                           render(
                             <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                              {SanitizeHTML(policy.rich_text)}
+                              {SanitizeHTML(rich_text)}
                             </ReactMarkdown>,
                             element
                           );
@@ -95,7 +93,7 @@ const PrivacyPolicy = () => {
                   </div> :
                   <iframe
                     className="event-message"
-                    src={policy.html.url}
+                    src={html.url}
                   />
               }
             </Modal>
@@ -112,7 +110,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       { policyModal }
-      { link }
+      { policyLink }
     </>
   );
 };
@@ -120,12 +118,28 @@ const PrivacyPolicy = () => {
 const PreLogin = ({onComplete}) => {
   const [consent, setConsent] = useState(true);
 
+  if(siteStore.siteSlug === "ms") {
+    return <PreLoginMS />;
+  }
+
   return (
     <div className="pre-login">
       <div className="pre-login__text">
-        <h2 className="pre-login__header">
-          This is a consent form with custom text
-        </h2>
+        <div
+          className="markdown-document pre-login__header"
+          ref={element => {
+            if(!element) {
+              return;
+            }
+
+            render(
+              <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                {SanitizeHTML(siteStore.loginCustomization.consent_form_text)}
+              </ReactMarkdown>,
+              element
+            );
+          }}
+        />
 
         <div className="pre-login__consent">
           <input name="consent" type="checkbox" checked={consent} onChange={() => setConsent(!consent)} className="pre-login__consent-checkbox" />
@@ -135,17 +149,17 @@ const PreLogin = ({onComplete}) => {
         </div>
       </div>
 
-      <div className="pre-login__actions">
-        <button className="login-page__login-button login-page__login-button-pre-login pre-login__button" onClick={() => onComplete({consent})}>
-          Continue
-        </button>
-      </div>
-
       <div className="pre-login__privacy-policy">
         <PrivacyPolicy />
+      </div>
+
+      <div className="pre-login__actions">
+        <button className="login-page__login-button login-page__login-button-pre-login pre-login__button" onClick={() => onComplete({data: { consent }})}>
+          Continue
+        </button>
       </div>
     </div>
   );
 };
 
-export default PreLoginMS;
+export default PreLogin;

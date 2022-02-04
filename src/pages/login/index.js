@@ -77,7 +77,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && siteStore.loginCustomization.redirectPath) || "");
 
   const [loginData, setLoginData] = useState(siteStore.loginCustomization.loginData);
-  const loginDataRequired = siteStore.siteSlug === "ms" && !loginData;
+  const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
 
   const extraLoginParams = {};
   if(siteStore.darkMode ) {
