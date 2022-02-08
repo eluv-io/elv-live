@@ -1,6 +1,6 @@
 import {configure, observable, action, flow, runInAction, toJS} from "mobx";
 import {ElvClient} from "@eluvio/elv-client-js";
-import { ElvWalletClient } from "@eluvio/elv-wallet-client/src/index";
+import { ElvWalletClient } from "@eluvio/elv-wallet-client";
 import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
