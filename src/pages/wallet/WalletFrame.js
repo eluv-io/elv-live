@@ -39,14 +39,20 @@ class WalletFrame extends React.Component {
             key={`wallet-frame-${this.props.rootStore.walletKey}`}
             className="wallet-target"
             ref={element => {
+              let marketplaceHash;
               const marketplaceInfo = this.props.siteStore.currentSiteInfo.marketplace_info;
 
-              if(!element || this.props.rootStore.walletTarget === element || !marketplaceInfo) { return; }
+              if(!marketplaceInfo) {
+                marketplaceHash = this.props.siteStore.marketplaceHash || this.props.siteStore.currentSiteInfo.marketplaceHash;
+              }
+
+              if(!element || this.props.rootStore.walletTarget === element || (!marketplaceInfo && !marketplaceHash)) { return; }
 
               this.props.rootStore.InitializeWalletClient({
                 target: element,
-                tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug,
+                tenantSlug: (marketplaceInfo || {}).tenant_slug,
+                marketplaceSlug: (marketplaceInfo || {}).marketplace_slug,
+                marketplaceHash,
                 darkMode: this.props.siteStore.darkMode
               });
             }}
