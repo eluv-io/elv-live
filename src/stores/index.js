@@ -32,6 +32,8 @@ class RootStore {
   @observable loggingIn = false;
   @observable walletLoggedIn = sessionStorage.getItem("wallet-logged-in");
   @observable walletVisibility = "hidden";
+
+  @observable currentWalletRoute = "";
   @observable currentWalletState = {
     visibility: "hidden",
     location: {
@@ -213,6 +215,8 @@ class RootStore {
       darkMode
     });
 
+    this.currentWalletRoute = yield this.walletClient.CurrentPath();
+
     // Give the wallet a chance to send the log in event before showing links
     setTimeout(() => runInAction(() => this.showWalletLinks = true), 2250);
 
@@ -230,6 +234,10 @@ class RootStore {
     if(initialVisibility) {
       this.SetWalletPanelVisibility({visibility: initialVisibility});
     }
+
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event =>
+      runInAction(() => this.currentWalletRoute = event.data)
+    );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
       sessionStorage.setItem("wallet-logged-in", "true");
@@ -376,6 +384,7 @@ class RootStore {
     this.currentWalletState = {
       visibility,
       location,
+      route: yield this.walletClient.CurrentPath(),
       video,
       requireLogin
     };

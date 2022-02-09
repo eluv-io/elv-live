@@ -77,7 +77,7 @@
     }
 
     &-active {
-      font-weight: bold;
+      text-shadow: 0 0 1px $black;
     }
 
     &__icon {
@@ -89,6 +89,12 @@
       .header__link__image {
         * {
           stroke-width: 1.3px;
+        }
+      }
+
+      &-marketplace {
+        * {
+          fill: $white;
         }
       }
     }
@@ -137,11 +143,7 @@
         display: none;
       }
     }
-
-    &__link-wallet {
-      display: none;
-    }
-
+    
     &__logo-default {
       height: 16px;
     }
@@ -440,7 +442,6 @@
 
   &.header-wallet {
     // When wallet panel is full screen, header is reduced height
-    background-color: $white;
     height: $small-header-height;
     padding-bottom: 5px;
     padding-top: 5px;
@@ -468,6 +469,15 @@
         svg {
           fill: $darkgray;
         }
+      }
+
+      .header__link {
+        color: $mediumgray;
+      }
+
+      .header__link-active {
+        color: $white;
+        text-shadow: 0 0 1px $white;
       }
     }
   }

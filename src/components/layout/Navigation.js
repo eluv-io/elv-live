@@ -7,6 +7,7 @@ import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
+import MarketplacesIcon from "Icons/squares.svg";
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
@@ -56,6 +57,10 @@ class Header extends React.Component {
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
 
+    // Actual current wallet path matches the one that the button has opened - so a second click should close it
+    const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
+
+
     if(!this.props.rootStore.walletClient || !this.props.rootStore.showWalletLinks) {
       return null;
     } else if(!this.props.rootStore.walletLoggedIn) {
@@ -98,12 +103,11 @@ class Header extends React.Component {
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" ?
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" && matchingPage ?
                   this.props.rootStore.defaultWalletState :
                   {
                     visibility: "full",
                     location: {
-                      generalLocation: true,
                       page: "marketplace",
                       params: {
                         tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
@@ -118,17 +122,37 @@ class Header extends React.Component {
             <div className="header__link__icon">
               <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image"/>
             </div>
-            Marketplace
+            Store
           </button>
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" ?
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
                   this.props.rootStore.defaultWalletState :
                   {
                     visibility: "full",
                     location: {
-                      generalLocation: true,
+                      page: "marketplaces"
+                    }
+                  }
+              );
+            }}
+            className={`header__link ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
+          >
+            <div className="header__link__icon header__link__icon-marketplace">
+              <ImageIcon icon={MarketplacesIcon} title="My Wallet" className="header__link__image"/>
+            </div>
+            All Marketplaces
+          </button>
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility(
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" && matchingPage ?
+                  this.props.rootStore.defaultWalletState :
+                  {
+                    visibility: "full",
+                    location: {
+                      //generalLocation: true,
                       page: "wallet"
                     }
                   }
@@ -215,7 +239,7 @@ class Header extends React.Component {
         header 
         ${this.props.transparent ? "header-transparent" : ""} 
         ${this.state.scrolled ? "header-scrolled" : ""} 
-        ${this.props.siteStore.darkMode || this.props.dark ? "header-dark" : ""}
+        ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
       `}>
         {
