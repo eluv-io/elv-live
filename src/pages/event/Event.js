@@ -461,8 +461,8 @@ class Event extends React.Component {
               <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
           }
           {
-            this.props.siteStore.eventInfo.date || this.props.siteStore.eventInfo.date_subheader ?
-              <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader || this.props.siteStore.eventInfo.date}</h2> : null
+            this.props.siteStore.eventInfo.date_subheader ?
+              <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader}</h2> : null
           }
         </div>
 
