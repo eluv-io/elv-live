@@ -241,6 +241,11 @@ class SiteStore {
     runInAction(() => this.darkMode = !!this.loginCustomization.darkMode);
   }
 
+  @action.bound
+  ToggleDarkMode(enabled) {
+    this.darkMode = enabled;
+  }
+
   SiteMetadataPath({tenantSlug, siteIndex, siteSlug}={}) {
     if(tenantSlug) {
       // Tenant site
