@@ -517,7 +517,7 @@ class SiteStore {
 
       const marketplaceInfo = site.info.marketplace_info;
       if(fullLoad && marketplaceInfo && marketplaceInfo.marketplace_slug) {
-        const customizationMetadata = yield this.client.ContentObjectMetadata({
+        const customizationMetadata = (yield this.client.ContentObjectMetadata({
           ...this.siteParams,
           metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", marketplaceInfo.tenant_slug, "marketplaces", marketplaceInfo.marketplace_slug, "info"),
           select: [
@@ -529,9 +529,9 @@ class SiteStore {
           ],
           resolveIncludeSource: true,
           produceLinkUrls: true,
-        });
+        })) || {};
 
-        this.marketplaceHash = customizationMetadata["."].source;
+        this.marketplaceHash = customizationMetadata["."] && customizationMetadata["."].source;
 
         site.info.loginCustomization = {
           darkMode: site.info.theme === "dark",
