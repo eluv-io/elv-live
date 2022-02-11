@@ -219,6 +219,7 @@
     &-no-header-info {
       .event-page__hero-container {
         height: calc(100vh - 60px);
+        margin-top: 60px;
       }
 
       .event-page__hero {

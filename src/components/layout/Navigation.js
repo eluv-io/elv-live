@@ -142,7 +142,7 @@ class Header extends React.Component {
             <div className="header__link__icon header__link__icon-marketplace">
               <ImageIcon icon={MarketplacesIcon} title="My Wallet" className="header__link__image"/>
             </div>
-            All Marketplaces
+            Marketplaces
           </button>
           <button
             onClick={() => {
