@@ -261,7 +261,7 @@ class RootStore {
     });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
-      await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug, darkMode});
+      await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug});
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
@@ -287,16 +287,11 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, video, darkMode, requireLogin=true}) {
-    if(!darkMode){
-      darkMode = this.siteStore.darkMode;
-    }
-
+  SetDefaultWalletState({visibility, location, video, requireLogin=true}) {
     this.defaultWalletState = {
       visibility,
       location,
       video,
-      darkMode,
       requireLogin
     };
   }
@@ -321,7 +316,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility = flow(function * ({visibility, location, video, darkMode, hideNavigation=false, requireLogin=true}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, video, hideNavigation=false, requireLogin=true}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -349,8 +344,6 @@ class RootStore {
       }
     }
 
-    darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
-
     this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
 
     this.walletClient.ToggleNavigation(!hideNavigation);
@@ -374,8 +367,6 @@ class RootStore {
       walletPanel.addEventListener("click", Close);
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
     }
-
-    this.walletClient.ToggleDarkMode(darkMode);
 
     if(visibility !== "hidden") {
       this.walletClient.SetActive(true);
