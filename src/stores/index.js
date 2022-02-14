@@ -15,6 +15,8 @@ configure({
 });
 
 class RootStore {
+  @observable app = "main";
+
   @observable pageWidth = window.innerWidth;
 
   @observable baseKey = 1;
@@ -30,7 +32,7 @@ class RootStore {
 
   @observable loggedOut = false;
   @observable loggingIn = false;
-  @observable walletLoggedIn = sessionStorage.getItem("wallet-logged-in");
+  @observable walletLoggedIn;
   @observable walletVisibility = "hidden";
 
   @observable currentWalletRoute = "";
@@ -59,6 +61,11 @@ class RootStore {
     window.rootStore = this;
 
     window.addEventListener("resize", () => this.HandleResize());
+  }
+
+  @action.bound
+  SetApp(app="main") {
+    this.app = app;
   }
 
   PublicLink({versionHash, path, queryParams={}}) {

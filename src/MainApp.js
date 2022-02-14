@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
-//import UrlJoin from "url-join";
 
 import "Styles/main-app.scss";
 import {PageLoader} from "Common/Loaders";
@@ -20,7 +19,7 @@ import Next from "Pages/main/Next";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import Privacy from "Pages/main/Privacy";
-import WalletFrame from "Pages/wallet/WalletFrame";
+import AuthWrapper from "Common/AuthWrapper";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -72,8 +71,9 @@ class MainApp extends React.Component {
     return (
       <div className="main-app">
         <BrowserRouter>
-          { this.Content() }
-          <WalletFrame />
+          <AuthWrapper>
+            { this.Content() }
+          </AuthWrapper>
         </BrowserRouter>
       </div>
     );
