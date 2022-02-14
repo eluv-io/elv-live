@@ -153,7 +153,8 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
                     location: {
                       page: "marketplace",
                       params: {
-                        marketplaceHash: siteStore.marketplaceHash
+                        tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                        marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
                       }
                     },
                     hideNavigation: messageInfo.hide_navigation
@@ -376,7 +377,8 @@ class Event extends React.Component {
                   location: {
                     page: "marketplace",
                     params: {
-                      marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+                      tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                      marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
                     }
                   }
                 }

@@ -7,9 +7,11 @@ import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
+import MarketplacesIcon from "Icons/squares.svg";
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
+import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -45,7 +47,8 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    if(!this.props.siteStore.marketplaceHash || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.dropEvents.length > 0)) {
+    const marketplaceInfo = this.props.siteStore.currentSiteInfo.marketplace_info || {};
+    if(!marketplaceInfo.marketplace_slug || !(this.props.siteStore.currentSiteInfo.type === "drop_event" || this.props.siteStore.dropEvents.length > 0)) {
       return null;
     }
 
@@ -54,7 +57,11 @@ class Header extends React.Component {
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
 
-    if(!this.props.rootStore.walletClient) {
+    // Actual current wallet path matches the one that the button has opened - so a second click should close it
+    const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
+
+
+    if(!this.props.rootStore.walletClient || !this.props.rootStore.showWalletLinks) {
       return null;
     } else if(!this.props.rootStore.walletLoggedIn) {
       return (
@@ -96,15 +103,15 @@ class Header extends React.Component {
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" ?
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" && matchingPage ?
                   this.props.rootStore.defaultWalletState :
                   {
                     visibility: "full",
                     location: {
-                      generalLocation: true,
                       page: "marketplace",
                       params: {
-                        marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash
+                        tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                        marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
                       }
                     }
                   }
@@ -115,17 +122,37 @@ class Header extends React.Component {
             <div className="header__link__icon">
               <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image"/>
             </div>
-            Marketplace
+            Store
           </button>
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" ?
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
                   this.props.rootStore.defaultWalletState :
                   {
                     visibility: "full",
                     location: {
-                      generalLocation: true,
+                      page: "marketplaces"
+                    }
+                  }
+              );
+            }}
+            className={`header__link ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
+          >
+            <div className="header__link__icon header__link__icon-marketplace">
+              <ImageIcon icon={MarketplacesIcon} title="My Wallet" className="header__link__image"/>
+            </div>
+            Marketplaces
+          </button>
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility(
+                walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" && matchingPage ?
+                  this.props.rootStore.defaultWalletState :
+                  {
+                    visibility: "full",
+                    location: {
+                      //generalLocation: true,
                       page: "wallet"
                     }
                   }
@@ -212,16 +239,19 @@ class Header extends React.Component {
         header 
         ${this.props.transparent ? "header-transparent" : ""} 
         ${this.state.scrolled ? "header-scrolled" : ""} 
-        ${this.props.siteStore.darkMode || this.props.dark ? "header-dark" : ""}
+        ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
       `}>
         {
           this.props.rootStore.currentWalletState.visibility === "full" ?
             <button
-              className="header__logo-container"
+              className="header__wallet-close-button"
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
             >
-              { logo }
+              <ImageIcon
+                icon={CloseIcon}
+                title="Close Wallet"
+              />
             </button> :
             this.props.mainPage ?
               <a href={logoUrl} className="header__logo-container">

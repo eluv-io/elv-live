@@ -1,6 +1,6 @@
 import {configure, observable, action, flow, runInAction, toJS} from "mobx";
 import {ElvClient} from "@eluvio/elv-client-js";
-import { ElvWalletClient } from "@eluvio/elv-wallet-client/src/index";
+import { ElvWalletClient } from "@eluvio/elv-wallet-client";
 import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
@@ -21,6 +21,7 @@ class RootStore {
   @observable walletKey = 1;
   @observable client;
   @observable walletClient;
+  @observable showWalletLinks = false;
   @observable walletTarget;
   @observable redeemedTicket;
   @observable error = "";
@@ -31,6 +32,8 @@ class RootStore {
   @observable loggingIn = false;
   @observable walletLoggedIn = sessionStorage.getItem("wallet-logged-in");
   @observable walletVisibility = "hidden";
+
+  @observable currentWalletRoute = "";
   @observable currentWalletState = {
     visibility: "hidden",
     location: {
@@ -183,7 +186,7 @@ class RootStore {
   });
 
   /* Wallet */
-  InitializeWalletClient = flow(function * ({target, marketplaceHash, darkMode=false}) {
+  InitializeWalletClient = flow(function * ({target, tenantSlug, marketplaceSlug, darkMode=false}) {
     if(!target) { return; }
 
     this.walletTarget = target;
@@ -207,12 +210,24 @@ class RootStore {
     this.walletClient = yield ElvWalletClient.InitializeFrame({
       walletAppUrl,
       target,
-      marketplaceHash,
+      tenantSlug,
+      marketplaceSlug,
       darkMode
     });
 
+    this.currentWalletRoute = yield this.walletClient.CurrentPath();
+
+    // Give the wallet a chance to send the log in event before showing links
+    setTimeout(() => runInAction(() => this.showWalletLinks = true), 2250);
+
     if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
-      this.walletClient.SetAuthInfo(this.AuthInfo());
+      const { authToken, address, user } = this.AuthInfo();
+      this.walletClient.SignIn({
+        name: (user || {}).name,
+        email: (user || {}).email,
+        address,
+        authToken
+      });
     }
 
     const initialVisibility = sessionStorage.getItem(`${this.siteStore.siteSlug}-wallet-visibility`);
@@ -220,13 +235,16 @@ class RootStore {
       this.SetWalletPanelVisibility({visibility: initialVisibility});
     }
 
-    if(this.siteStore.marketplaceHash) {
-      marketplaceHash = this.siteStore.marketplaceHash;
-      this.walletClient.SetMarketplace({marketplaceHash});
-    }
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event =>
+      runInAction(() => this.currentWalletRoute = event.data)
+    );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
       sessionStorage.setItem("wallet-logged-in", "true");
+
+      if(marketplaceSlug) {
+        this.walletClient.SetMarketplace({tenantSlug, marketplaceSlug});
+      }
 
       runInAction(() => this.walletLoggedIn = true);
     });
@@ -243,7 +261,7 @@ class RootStore {
     });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
-      await this.InitializeWalletClient({target, marketplaceHash, darkMode});
+      await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug});
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
@@ -269,16 +287,11 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, video, darkMode, requireLogin=true}) {
-    if(!darkMode){
-      darkMode = this.siteStore.darkMode;
-    }
-
+  SetDefaultWalletState({visibility, location, video, requireLogin=true}) {
     this.defaultWalletState = {
       visibility,
       location,
       video,
-      darkMode,
       requireLogin
     };
   }
@@ -303,7 +316,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility = flow(function * ({visibility, location, video, darkMode, hideNavigation=false, requireLogin=true}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, video, hideNavigation=false, requireLogin=true}) {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
@@ -320,7 +333,7 @@ class RootStore {
           !(
             // If we generally want to navigate to the wallet or marketplace, check if we're already in it. If not, navigate to it
             location.page === "wallet" && currentPath.startsWith("/wallet") ||
-            location.page === "marketplace" && currentPath.startsWith("/marketplaces")
+            location.page === "marketplace" && currentPath.startsWith("/marketplace")
           // If we're in a drop event, always navigate
           ) || currentPath.includes("/events/")
         ) {
@@ -330,8 +343,6 @@ class RootStore {
         yield this.walletClient.Navigate(toJS(location));
       }
     }
-
-    darkMode = typeof darkMode === "undefined" ? this.siteStore.darkMode : darkMode;
 
     this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
 
@@ -357,8 +368,6 @@ class RootStore {
       this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
     }
 
-    this.walletClient.ToggleDarkMode(darkMode);
-
     if(visibility !== "hidden") {
       this.walletClient.SetActive(true);
     }
@@ -366,6 +375,7 @@ class RootStore {
     this.currentWalletState = {
       visibility,
       location,
+      route: yield this.walletClient.CurrentPath(),
       video,
       requireLogin
     };
@@ -424,6 +434,10 @@ class RootStore {
         authInfo.authToken = client.signer.authToken;
       }
 
+      if(idToken) {
+        authInfo.idToken = idToken;
+      }
+
       localStorage.setItem(
         "auth",
         this.client.utils.B64(JSON.stringify(authInfo))
@@ -434,7 +448,14 @@ class RootStore {
       }
 
       if(this.walletClient) {
-        this.walletClient.SetAuthInfo(authInfo);
+        this.walletClient.SignIn({
+          name: (user || {}).name,
+          email: (user || {}).email,
+          address: client.signer.address,
+          idToken,
+          authToken,
+          privateKey
+        });
       }
     } catch(error){
       // eslint-disable-next-line no-console
