@@ -46,9 +46,6 @@ class SiteApp extends React.Component {
     if(!this.props.siteStore.siteLoaded) {
       return (
         <Switch>
-          <Route exact path="/wallet/callback" component={LoginPage} />
-          <Route exact path="/wallet/logout" component={LoginPage} />
-
           <Route>
             <Route component={PageLoader} />
           </Route>

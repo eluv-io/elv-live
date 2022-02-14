@@ -151,8 +151,8 @@ $header-height: 60px;
     padding: 0 25px 0 15px;
 
     &__logo {
-      padding: 0;
       min-width: 0;
+      padding: 0;
     }
 
     &__links {
@@ -172,8 +172,8 @@ $header-height: 60px;
     &__wallet-button {
       img {
         height: 100%;
-        padding: 5px;
         margin-right: 5px;
+        padding: 5px;
       }
     }
   }

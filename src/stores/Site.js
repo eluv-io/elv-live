@@ -89,6 +89,10 @@ class SiteStore {
 
   @computed get loginCustomization() {
     try {
+      if(this.rootStore.app === "main") {
+        return {};
+      }
+
       return this.currentSiteInfo.loginCustomization || JSON.parse(localStorage.getItem("loginCustomization")) || {};
     // eslint-disable-next-line no-empty
     } catch(error) {}

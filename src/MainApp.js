@@ -19,7 +19,7 @@ import Next from "Pages/main/Next";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import Privacy from "Pages/main/Privacy";
-import AuthWrapper from "Common/AuthWrapper";
+import AuthWrapper, {LoginPage} from "Common/AuthWrapper";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -40,6 +40,9 @@ class MainApp extends React.Component {
   Routes() {
     return (
       <Switch>
+        <Route exact path="/wallet/callback" component={LoginPage} />
+        <Route exact path="/wallet/logout" component={LoginPage} />
+
         <Route exact path="/"> <Main /> </Route>
         <Route exact path="/partners"> <Partners /> </Route>
         <Route exact path="/technology"> <Technology /> </Route>
