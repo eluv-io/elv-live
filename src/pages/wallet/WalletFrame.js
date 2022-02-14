@@ -18,8 +18,7 @@ class WalletFrame extends React.Component {
           !this.props.rootStore.walletLoggedIn &&
           this.props.rootStore.currentWalletState.visibility !== "hidden" &&
           (this.props.rootStore.app === "main" || this.props.rootStore.currentWalletState.requireLogin) &&
-          !window.location.pathname.startsWith("/wallet")
-            ?
+          !window.location.pathname.startsWith("/wallet") ?
             <LoginModal />
             : null
         }
@@ -28,7 +27,7 @@ class WalletFrame extends React.Component {
             visibility === "modal" ?
               <button
                 className="wallet-panel__modal-close"
-                onClick={rootStore.CloseWalletModal}
+                onClick={this.props.rootStore.CloseWalletModal}
               >
                 <ImageIcon
                   icon={CloseIcon}
@@ -39,14 +38,17 @@ class WalletFrame extends React.Component {
             key={`wallet-frame-${this.props.rootStore.walletKey}`}
             className="wallet-target"
             ref={element => {
-              let marketplaceHash;
-              const marketplaceInfo = this.props.siteStore.currentSiteInfo.marketplace_info;
+              let marketplaceHash, marketplaceInfo;
 
-              if(!marketplaceInfo) {
-                marketplaceHash = this.props.siteStore.marketplaceHash || this.props.siteStore.currentSiteInfo.marketplaceHash;
+              if(this.props.rootStore.app === "site") {
+                marketplaceInfo = this.props.siteStore.currentSiteInfo.marketplace_info;
+
+                if(!marketplaceInfo) {
+                  marketplaceHash = this.props.siteStore.marketplaceHash || this.props.siteStore.currentSiteInfo.marketplaceHash;
+                }
               }
 
-              if(!element || this.props.rootStore.walletTarget === element || (!marketplaceInfo && !marketplaceHash)) { return; }
+              if(!element || this.props.rootStore.walletTarget === element || (this.props.rootStore.app === "site" && (!marketplaceInfo && !marketplaceHash))) { return; }
 
               this.props.rootStore.InitializeWalletClient({
                 target: element,

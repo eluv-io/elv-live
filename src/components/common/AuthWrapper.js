@@ -8,12 +8,6 @@ import WalletFrame from "Pages/wallet/WalletFrame";
 
 const baseUrl = new URL(window.location.origin);
 
-const callbackUrl = new URL(baseUrl.toString());
-callbackUrl.pathname = "/wallet/callback";
-
-const logOutUrl = new URL(baseUrl.toString());
-logOutUrl.pathname = "/wallet/logout";
-
 export const LoginPage = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore}) => {
   if(!rootStore.client) { return <PageLoader />; }
 
@@ -24,17 +18,13 @@ export const LoginPage = inject("rootStore")(inject("siteStore")((observer(({roo
   );
 }))));
 
-const LogOutHandler = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore}) => {
+const LogOutHandler = inject("rootStore")((observer(({rootStore}) => {
   const auth0 = useAuth0();
+  const logOutUrl = new URL(baseUrl.toString());
+  logOutUrl.pathname = "/wallet/logout";
 
   if(rootStore.loggedOut) {
-    localStorage.setItem(
-      "loginCustomization",
-      JSON.stringify({
-        redirectPath: window.location.pathname,
-        ...siteStore.loginCustomization
-      })
-    );
+    localStorage.setItem("redirectPath", window.location.pathname);
 
     auth0.logout({
       returnTo: logOutUrl.toString()
@@ -42,10 +32,13 @@ const LogOutHandler = inject("rootStore")(inject("siteStore")((observer(({rootSt
   }
 
   return null;
-}))));
+})));
 
 
 const AuthWrapper = inject("siteStore")(observer(({siteStore, children}) => {
+  const callbackUrl = new URL(baseUrl.toString());
+  callbackUrl.pathname = "/wallet/callback";
+
   return (
     <Auth0Provider
       domain={EluvioConfiguration["auth0-domain"] || "auth.contentfabric.io"}

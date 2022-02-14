@@ -96,13 +96,17 @@ class Header extends React.Component {
   }
 
   render() {
-    const mainPage = this.props.location.pathname === "/";
+    const mainPage = this.props.location.pathname === "/" || this.props.location.pathname.startsWith("/wallet");
     const walletState = this.props.rootStore.currentWalletState || {};
     const loggedIn = this.props.rootStore.walletLoggedIn;
     const walletOpen = walletState.visibility === "full";
     const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
 
     const CloseWallet = () => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
+
+    if(window.location.pathname.startsWith("/wallet")) {
+      return null;
+    }
 
     return (
       <header className={`
@@ -134,8 +138,7 @@ class Header extends React.Component {
           <NavLink to="/blockchain" className="main-header__link" onClick={CloseWallet}>Blockchain</NavLink>
           <NavLink to="/news" className="main-header__link" onClick={CloseWallet}>News</NavLink>
           <button
-            className={`main-header__link main-header__wallet-button ${loggedIn && walletOpen ? "active" : ""}`}
-
+            className={`main-header__link main-header__wallet-button ${loggedIn && walletOpen ? "active" : ""} ${this.props.rootStore.walletClient ? "" : "invisible"}`}
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
                 walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
@@ -149,7 +152,7 @@ class Header extends React.Component {
               );
             }}
           >
-            <ImageIcon icon={ELogo} label="Eluvio" />
+            <ImageIcon icon={ELogo} label="Eluvio"/>
             Discover Marketplaces
           </button>
         </div>

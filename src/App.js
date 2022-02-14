@@ -41,7 +41,12 @@ class App extends React.Component {
   render() {
     const mainPages = ["/", "/partners", "/technology", "/blockchain", "/next", "/contact", "/terms", "/privacy", "/news"];
 
-    if(mainPages.includes(window.location.pathname)) {
+    let mainSite = mainPages.includes(window.location.pathname);
+    if(window.location.pathname.startsWith("/wallet")) {
+      mainSite = mainPages.includes(localStorage.getItem("redirectPath") || "");
+    }
+
+    if(mainSite) {
       // Main site
       return (
         <div key={`main-page-${this.props.rootStore.baseKey}`} className="app-container main-app-container">
