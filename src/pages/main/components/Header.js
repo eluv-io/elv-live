@@ -3,8 +3,7 @@ import {inject, observer} from "mobx-react";
 import {NavLink, withRouter} from "react-router-dom";
 import ImageIcon from "Common/ImageIcon";
 
-import Logo from "Images/logo/EluvioGrayscale.png";
-import LogoShadow from "Images/logo/EluvioLogoShadow.png";
+import Logo from "Images/logo/EluvioLogoShadow.png";
 import ELogo from "Images/logo/EGrayscale.png";
 import CloseIcon from "Icons/arrow-left-circle";
 import MenuIcon from "Icons/menu.svg";
@@ -124,7 +123,7 @@ class Header extends React.Component {
               />
             </button> :
             <NavLink to="/" className="main-header__logo">
-              <ImageIcon icon={mainPage || walletOpen ? Logo : LogoShadow} label="Eluvio Live" />
+              <ImageIcon icon={Logo} label="Eluvio Live" />
             </NavLink>
         }
 

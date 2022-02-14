@@ -40,7 +40,6 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
               );
             }}
           />
-
       }
     </Modal>
   );
