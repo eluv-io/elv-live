@@ -30,7 +30,6 @@ class SiteStore {
 
   @observable siteId;
   @observable siteHash;
-  @observable marketplaceHash;
 
   @observable chatChannel;
 
@@ -245,6 +244,11 @@ class SiteStore {
     runInAction(() => this.darkMode = !!this.loginCustomization.darkMode);
   }
 
+  @action.bound
+  ToggleDarkMode(enabled) {
+    this.darkMode = enabled;
+  }
+
   SiteMetadataPath({tenantSlug, siteIndex, siteSlug}={}) {
     if(tenantSlug) {
       // Tenant site
@@ -295,6 +299,7 @@ class SiteStore {
 
       const mainSiteInfo = (yield this.client.ContentObjectMetadata({
         ...this.siteParams,
+        produceLinkUrls: true,
         metadataSubtree: "public/asset_metadata",
         resolveLinks: false
       })) || {};
@@ -357,6 +362,7 @@ class SiteStore {
       if(slug) {
         this.tenants[slug] = (yield this.client.ContentObjectMetadata({
           ...this.siteParams,
+          produceLinkUrls: true,
           metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", slug),
           resolveLinks: true,
           linkDepthLimit: 0,
@@ -371,6 +377,7 @@ class SiteStore {
         const tenantInfo = (yield this.client.ContentObjectMetadata({
           versionHash,
           metadataSubtree: UrlJoin("public", "asset_metadata"),
+          produceLinkUrls: true,
           resolveLinks: true,
           linkDepthLimit: 0,
           select: [
@@ -420,17 +427,25 @@ class SiteStore {
   });
 
   ReloadMarketplace = flow(function * () {
-    const latestMainSiteHash = yield this.client.LatestVersionHash(this.siteParams);
-    const marketplaceHash = yield this.client.ContentObjectMetadata({
-      versionHash: latestMainSiteHash,
-      metadataSubtree: UrlJoin(this.SiteMetadataPath({tenantSlug: this.tenantSlug, siteIndex: this.siteIndex, siteSlug: this.siteSlug}), "info", "marketplace"),
-    });
+    const marketplaceInfo = this.currentSiteInfo.marketplace_info;
 
-    if(!marketplaceHash || marketplaceHash === this.marketplaceHash) {
+    if(!marketplaceInfo || !this.marketplaceHash) {
       return;
     }
 
-    this.marketplaceHash = marketplaceHash;
+    const latestMainSiteHash = yield this.client.LatestVersionHash(this.siteParams);
+    const marketplace = yield this.client.ContentObjectMetadata({
+      versionHash: latestMainSiteHash,
+      metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", marketplaceInfo.tenant_slug, "marketplaces", marketplaceInfo.marketplace_slug, "info"),
+      resolveIncludeSource: true,
+      select: [".", "tenant_id"]
+    });
+
+    if(!marketplace || marketplace["."].source === this.marketplaceHash) {
+      return;
+    }
+
+    this.marketplaceHash = marketplace["."].source;
     this.eventSites[this.tenantKey][this.siteSlug].info.marketplaceHash = this.marketplaceHash;
     this.eventSites[this.tenantKey][this.siteSlug].info.marketplaceId = this.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
 
@@ -503,25 +518,23 @@ class SiteStore {
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
-      if(fullLoad && site.info.marketplace) {
-        this.marketplaceHash = site.info.marketplace;
-        site.info.marketplaceHash = this.marketplaceHash;
-        site.info.marketplaceId = this.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
-
-        if(this.rootStore.walletClient) {
-          this.rootStore.walletClient.SetMarketplace({marketplaceHash: site.info.marketplaceHash});
-        }
-
-        const customizationMetadata = yield this.client.ContentObjectMetadata({
-          versionHash: site.info.marketplaceHash,
-          metadataSubtree: "public/asset_metadata/info",
+      const marketplaceInfo = site.info.marketplace_info;
+      if(fullLoad && marketplaceInfo && marketplaceInfo.marketplace_slug) {
+        const customizationMetadata = (yield this.client.ContentObjectMetadata({
+          ...this.siteParams,
+          metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", marketplaceInfo.tenant_slug, "marketplaces", marketplaceInfo.marketplace_slug, "info"),
           select: [
+            ".",
             "tenant_id",
             "terms",
             "terms_html",
             "login_customization"
-          ]
-        });
+          ],
+          resolveIncludeSource: true,
+          produceLinkUrls: true,
+        })) || {};
+
+        this.marketplaceHash = customizationMetadata["."] && customizationMetadata["."].source;
 
         site.info.loginCustomization = {
           darkMode: site.info.theme === "dark",

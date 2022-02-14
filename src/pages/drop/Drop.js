@@ -121,7 +121,9 @@ class Drop extends React.Component {
       location: {
         page: "drop",
         params: {
-          marketplaceHash: this.props.siteStore.currentSiteInfo.marketplaceHash,
+          tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+          marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug,
+          eventSlug: this.props.siteStore.siteSlug,
           dropId: this.props.match.params.dropId
         }
       },

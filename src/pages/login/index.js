@@ -25,7 +25,7 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
         siteStore.loginCustomization.terms_html ?
           <iframe
             className="login-page__terms-modal__terms"
-            src={rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "terms_html")})}
+            src={siteStore.loginCustomization.terms_html.url}
           />:
           <div
             className="login-page__terms-modal__terms"
@@ -46,25 +46,6 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
   );
 }));
 
-const LoginBackground = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
-  if(!rootStore.basePublicUrl) { return null; }
-
-  const customizationOptions = siteStore.loginCustomization || {};
-
-  if(customizationOptions.background || customizationOptions.background_mobile) {
-    let backgroundUrl = customizationOptions.background ? rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "login_customization", "background")}) : "";
-    let mobileBackgroundUrl = customizationOptions.background_mobile ? rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "login_customization", "background_mobile")}) : "";
-
-    if(rootStore.pageWidth > 900) {
-      return <div className="login-page__background" style={{ backgroundImage: `url("${backgroundUrl || mobileBackgroundUrl}")` }} />;
-    } else {
-      return <div className="login-page__background" style={{ backgroundImage: `url("${mobileBackgroundUrl || backgroundUrl}")` }} />;
-    }
-  }
-
-  return null;
-})));
-
 export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
   const auth0 = useAuth0();
 
@@ -77,7 +58,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && siteStore.loginCustomization.redirectPath) || "");
 
   const [loginData, setLoginData] = useState(siteStore.loginCustomization.loginData);
-  const loginDataRequired = siteStore.siteSlug === "ms" && !loginData;
+  const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
 
   const extraLoginParams = {};
   if(siteStore.darkMode ) {
@@ -170,7 +151,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       logo = (
         <div className="login-page__logo-container">
           <ImageIcon
-            icon={rootStore.PublicLink({versionHash: siteStore.loginCustomization.marketplaceHash, path: UrlJoin("public", "asset_metadata", "info", "login_customization", "logo")})}
+            icon={customizationOptions.logo.url}
             alternateIcon={Logo}
             className="login-page__logo"
             title="Logo"
@@ -210,7 +191,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   if(rootStore.loggingIn || loading || auth0Loading) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <LoginBackground />
         <div className="login-page__login-box">
           { logo }
           <Loader />
@@ -222,12 +202,9 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   if(loginDataRequired) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <LoginBackground />
         <div className="login-page__login-box">
           { logo }
-          <PreLogin
-            onComplete={({data}) => setLoginData(data)}
-          />
+          <PreLogin onComplete={({data}) => setLoginData(data)} />
         </div>
       </div>
     );
@@ -236,7 +213,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   if(showPrivateKeyForm) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <LoginBackground />
         <div className="login-page__login-box">
           { logo }
           <h1>Enter your Private Key</h1>
@@ -335,7 +311,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""}  ${customBackground ? "login-page-custom-background" : ""}`}>
       { showTermsModal ? <TermsModal Toggle={show => setShowTermsModal(show)} /> : null }
 
-      <LoginBackground />
       <div className="login-page__login-box">
         { logo }
         <div className="login-page__actions">
