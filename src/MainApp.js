@@ -20,6 +20,7 @@ import Next from "Pages/main/Next";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import Privacy from "Pages/main/Privacy";
+import WalletFrame from "Pages/wallet/WalletFrame";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -72,6 +73,7 @@ class MainApp extends React.Component {
       <div className="main-app">
         <BrowserRouter>
           { this.Content() }
+          <WalletFrame />
         </BrowserRouter>
       </div>
     );
