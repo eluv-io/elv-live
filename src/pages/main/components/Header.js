@@ -138,7 +138,7 @@ class Header extends React.Component {
           <NavLink to="/blockchain" className="main-header__link" onClick={CloseWallet}>Blockchain</NavLink>
           <NavLink to="/news" className="main-header__link" onClick={CloseWallet}>News</NavLink>
           <button
-            className={`main-header__link main-header__wallet-button ${loggedIn && walletOpen ? "active" : ""} ${this.props.rootStore.walletClient ? "" : "invisible"}`}
+            className={`main-header__link main-header__wallet-button ${loggedIn && walletOpen ? "active" : ""}`}
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
                 walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import EluvioConfiguration from "EluvioConfiguration";
 import {inject, observer} from "mobx-react";
 import {PageLoader} from "Common/Loaders";
@@ -8,7 +8,16 @@ import WalletFrame from "Pages/wallet/WalletFrame";
 
 const baseUrl = new URL(window.location.origin);
 
-export const LoginPage = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore}) => {
+export const LoginPage = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, openWallet, closeWallet}) => {
+  useEffect(() => {
+    if(openWallet) {
+      sessionStorage.setItem("wallet-visibility", "full");
+    } else if(closeWallet) {
+      sessionStorage.removeItem("wallet-visibility");
+      rootStore.SetWalletPanelVisibility({visibility: "hidden"});
+    }
+  }, []);
+
   if(!rootStore.client) { return <PageLoader />; }
 
   return (

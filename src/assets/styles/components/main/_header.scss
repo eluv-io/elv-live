@@ -72,6 +72,7 @@ $header-height: 60px;
     img {
       height: 50%;
       margin-right: 10px;
+      object-fit: contain;
       width: auto;
     }
   }
@@ -107,8 +108,6 @@ $header-height: 60px;
     // When wallet panel is full screen, header is reduced height
     background-color: $black;
     height: $small-header-height;
-    //padding-bottom: 5px;
-    //padding-top: 5px;
 
     * {
       color: $white;
@@ -146,9 +145,16 @@ $header-height: 60px;
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media screen and (max-width: 1250px) {
+    padding: 0 25px;
+
+    &__link {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
     height: 35px;
-    padding: 0 25px 0 15px;
 
     &__logo {
       min-width: 0;
@@ -180,6 +186,7 @@ $header-height: 60px;
 
   @media only screen and (max-width: 600px) {
     height: 35px;
+    padding: 0 10px;
 
     &__link {
       font-size: 9px;
