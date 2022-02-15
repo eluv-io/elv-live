@@ -4,7 +4,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import ImageIcon from "Common/ImageIcon";
 
 import Logo from "Images/logo/EluvioLogoShadow.png";
-import ELogo from "Images/logo/EGrayscale.png";
+import ELogo from "Images/logo/ELogo.png";
 import CloseIcon from "Icons/arrow-left-circle";
 import MenuIcon from "Icons/menu.svg";
 import Modal from "Common/Modal";
