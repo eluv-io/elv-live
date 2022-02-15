@@ -237,7 +237,9 @@ class RootStore {
       });
     }
 
-    const initialVisibility = sessionStorage.getItem("wallet-visibility");
+    const visibilityParam =
+      new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full";
+    const initialVisibility = sessionStorage.getItem("wallet-visibility") || visibilityParam;
     if(initialVisibility) {
       this.SetWalletPanelVisibility({visibility: initialVisibility});
     }
