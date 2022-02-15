@@ -237,7 +237,7 @@ class RootStore {
       });
     }
 
-    const initialVisibility = sessionStorage.getItem(`${this.siteStore.siteSlug}-wallet-visibility`);
+    const initialVisibility = sessionStorage.getItem("wallet-visibility");
     if(initialVisibility) {
       this.SetWalletPanelVisibility({visibility: initialVisibility});
     }
@@ -260,6 +260,7 @@ class RootStore {
       sessionStorage.removeItem("wallet-logged-in");
 
       runInAction(() => {
+        this.currentWalletState.visibility = "hidden";
         this.walletLoggedIn = false;
         this.loggedOut = true;
 
@@ -332,6 +333,10 @@ class RootStore {
       return;
     }
 
+    while(!this.walletClient) {
+      yield new Promise(r => setTimeout(r, 100));
+    }
+
     if(location) {
       const currentPath = (yield this.walletClient.CurrentPath()) || "";
 
@@ -388,9 +393,9 @@ class RootStore {
     };
 
     if(visibility === "full") {
-      sessionStorage.setItem(`${this.siteStore.siteSlug}-wallet-visibility`, "full");
+      sessionStorage.setItem("wallet-visibility", "full");
     } else {
-      sessionStorage.removeItem(`${this.siteStore.siteSlug}-wallet-visibility`);
+      sessionStorage.removeItem("wallet-visibility");
     }
 
     /*

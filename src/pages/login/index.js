@@ -54,12 +54,12 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [loginData, setLoginData] = useState(siteStore.loginCustomization.loginData);
   const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
 
-  const darkMode = rootStore.app === "main" ? true : siteStore.darkMode;
+  const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
   const baseUrl = new URL(UrlJoin(window.location.origin, "wallet"));
 
   const callbackUrl = new URL(baseUrl.toString());
   callbackUrl.pathname = "/wallet/callback";
-  
+
   const extraLoginParams = {};
   if(darkMode) {
     extraLoginParams.darkMode = true;
@@ -94,12 +94,19 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
       let userData;
       if(auth0.isAuthenticated) {
-        idToken = (await auth0.getIdTokenClaims()).__raw;
+        try {
+          idToken = (await auth0.getIdTokenClaims()).__raw;
 
-        userData = {
-          name: auth0.user.name,
-          email: auth0.user.email
-        };
+          userData = {
+            name: auth0.user.name,
+            email: auth0.user.email
+          };
+        } catch(error) {
+          // eslint-disable-next-line no-console
+          console.error("Failed to get Auth0 ID Token:");
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       }
 
       if(!idToken) {
@@ -349,7 +356,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 })));
 
 const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, callbackPage=false}) => {
-  const darkMode = rootStore.app === "main" ? true : siteStore.darkMode;
+  const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
 
   return (
     <div

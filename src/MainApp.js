@@ -40,8 +40,8 @@ class MainApp extends React.Component {
   Routes() {
     return (
       <Switch>
-        <Route exact path="/wallet/callback" component={LoginPage} />
-        <Route exact path="/wallet/logout" component={LoginPage} />
+        <Route exact path="/wallet/callback"><LoginPage openWallet /></Route>
+        <Route exact path="/wallet/logout"><LoginPage closeWallet /></Route>
 
         <Route exact path="/"> <Main /> </Route>
         <Route exact path="/partners"> <Partners /> </Route>
