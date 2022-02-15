@@ -198,7 +198,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
   const largeLogoMode = customizationOptions.large_logo_mode;
   const customBackground = customizationOptions.background || customizationOptions.background_mobile;
-  if(rootStore.loggingIn || loading || auth0Loading) {
+  if(rootStore.walletLoggedIn || rootStore.loggingIn || loading || auth0Loading) {
     return (
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
         <div className="login-page__login-box">
