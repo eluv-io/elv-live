@@ -470,6 +470,8 @@ class RootStore {
           authToken,
           privateKey
         });
+
+        yield new Promise(resolve => setTimeout(resolve, 2000));
       }
     } catch(error){
       // eslint-disable-next-line no-console

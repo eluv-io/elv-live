@@ -73,11 +73,11 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     if(loading) { return; }
 
     try {
+      setLoading(true);
+
       const authInfo = rootStore.AuthInfo();
 
       if(authInfo) {
-        setLoading(true);
-
         if(!rootStore.walletLoggedIn) {
           rootStore.SetAuthInfo({
             ...rootStore.AuthInfo()
