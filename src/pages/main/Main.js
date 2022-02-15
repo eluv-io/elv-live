@@ -35,6 +35,9 @@ class Main extends React.Component {
           <h2 className="main-page__header">
             { Copy.main.header }
           </h2>
+          <h2 className="main-page__subheader">
+            { Copy.main.subheader }
+          </h2>
         </div>
         <div className="main-page__content-container">
           { this.props.mainStore.copyKeys.map(copyKey =>
