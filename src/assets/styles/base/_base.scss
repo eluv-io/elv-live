@@ -223,6 +223,14 @@ input[type='checkbox'] {
   transform: rotate(270deg);
 }
 
+.hidden {
+  display: none;
+}
+
+.invisible {
+  opacity: 0;
+}
+
 @media only screen and (max-width: 900px) {
   .no-mobile {
     display: none !important;

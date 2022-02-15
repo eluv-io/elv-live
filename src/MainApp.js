@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
-//import UrlJoin from "url-join";
 
 import "Styles/main-app.scss";
 import {PageLoader} from "Common/Loaders";
@@ -20,6 +19,7 @@ import Next from "Pages/main/Next";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import Privacy from "Pages/main/Privacy";
+import AuthWrapper, {LoginPage} from "Common/AuthWrapper";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -40,6 +40,9 @@ class MainApp extends React.Component {
   Routes() {
     return (
       <Switch>
+        <Route exact path="/wallet/callback"><LoginPage openWallet /></Route>
+        <Route exact path="/wallet/logout"><LoginPage closeWallet /></Route>
+
         <Route exact path="/"> <Main /> </Route>
         <Route exact path="/partners"> <Partners /> </Route>
         <Route exact path="/technology"> <Technology /> </Route>
@@ -71,7 +74,9 @@ class MainApp extends React.Component {
     return (
       <div className="main-app">
         <BrowserRouter>
-          { this.Content() }
+          <AuthWrapper>
+            { this.Content() }
+          </AuthWrapper>
         </BrowserRouter>
       </div>
     );

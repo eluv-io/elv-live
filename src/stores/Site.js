@@ -1,4 +1,4 @@
-import {observable, action, flow, computed, runInAction} from "mobx";
+import {observable, action, flow, computed, runInAction, toJS} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import EluvioConfiguration from "EluvioConfiguration";
@@ -89,7 +89,11 @@ class SiteStore {
 
   @computed get loginCustomization() {
     try {
-      return this.currentSiteInfo.loginCustomization || JSON.parse(localStorage.getItem("loginCustomization")) || {};
+      if(this.rootStore.app === "main") {
+        return {};
+      }
+
+      return this.currentSiteInfo.loginCustomization || JSON.parse(sessionStorage.getItem("login-customization") || "{}") || {};
     // eslint-disable-next-line no-empty
     } catch(error) {}
     return {};
@@ -544,6 +548,8 @@ class SiteStore {
           terms_html: customizationMetadata.terms_html,
           ...((customizationMetadata || {}).login_customization || {})
         };
+
+        sessionStorage.setItem("login-customization", JSON.stringify(toJS(site.info.loginCustomization)));
 
         switch(site.info.loginCustomization.font) {
           case "Inter":
