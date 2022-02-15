@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CloseIcon from "Icons/x";
 import {ToggleZendesk} from "Utils/Misc";
+import {createPortal} from "react-dom";
 
 @observer
 class Modal extends React.Component {
@@ -55,4 +56,13 @@ class Modal extends React.Component {
   }
 }
 
-export default Modal;
+const ModalPortal = (args) => {
+  return (
+    createPortal(
+      <Modal {...args} />,
+      document.getElementById("app")
+    )
+  );
+};
+
+export default ModalPortal;

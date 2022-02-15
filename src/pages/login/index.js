@@ -13,11 +13,6 @@ import SanitizeHTML from "sanitize-html";
 import {Redirect} from "react-router";
 import PreLogin from "Pages/login/PreLogin";
 
-const baseUrl = new URL(UrlJoin(window.location.origin, "wallet"));
-
-const callbackUrl = new URL(baseUrl.toString());
-callbackUrl.pathname = "/wallet/callback";
-
 const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
   return (
     <Modal className={`login-page__terms-modal ${siteStore.loginCustomization.terms_html ? "login-page__terms-modal-frame" : ""}`} Toggle={Toggle}>
@@ -40,7 +35,6 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
               );
             }}
           />
-
       }
     </Modal>
   );
@@ -55,13 +49,19 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [auth0Loading, setAuth0Loading] = useState(true);
   const [showPrivateKeyForm, setShowPrivateKeyForm] = useState(false);
   const [privateKey, setPrivateKey] = useState("");
-  const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && siteStore.loginCustomization.redirectPath) || "");
+  const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && localStorage.getItem("redirectPath")) || "");
 
   const [loginData, setLoginData] = useState(siteStore.loginCustomization.loginData);
   const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
 
+  const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
+  const baseUrl = new URL(UrlJoin(window.location.origin, "wallet"));
+
+  const callbackUrl = new URL(baseUrl.toString());
+  callbackUrl.pathname = "/wallet/callback";
+
   const extraLoginParams = {};
-  if(siteStore.darkMode ) {
+  if(darkMode) {
     extraLoginParams.darkMode = true;
   }
 
@@ -77,6 +77,12 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
       if(authInfo) {
         setLoading(true);
+
+        if(!rootStore.walletLoggedIn) {
+          rootStore.SetAuthInfo({
+            ...rootStore.AuthInfo()
+          });
+        }
         return;
       }
 
@@ -88,12 +94,19 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 
       let userData;
       if(auth0.isAuthenticated) {
-        idToken = (await auth0.getIdTokenClaims()).__raw;
+        try {
+          idToken = (await auth0.getIdTokenClaims()).__raw;
 
-        userData = {
-          name: auth0.user.name,
-          email: auth0.user.email
-        };
+          userData = {
+            name: auth0.user.name,
+            email: auth0.user.email
+          };
+        } catch(error) {
+          // eslint-disable-next-line no-console
+          console.error("Failed to get Auth0 ID Token:");
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
       }
 
       if(!idToken) {
@@ -113,8 +126,8 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
         setLoginData(siteStore.loginCustomization.loginData);
       }
 
-      if(siteStore.loginCustomization.redirectPath) {
-        setRedirectPath(siteStore.loginCustomization.redirectPath);
+      if(localStorage.getItem("redirectPath")) {
+        setRedirectPath(localStorage.getItem("redirectPath"));
       }
     } catch(error) {
       // eslint-disable-next-line no-console
@@ -125,21 +138,18 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   };
 
   useEffect(() => {
-    const authInfo = rootStore.AuthInfo();
+    let interval;
+    interval = setInterval(() => {
+      if(!auth0.isLoading) {
+        if(auth0.isAuthenticated) {
+          SignIn();
+        }
 
-    if(!loading && authInfo) {
-      setLoading(true);
-
-      return;
-    }
-
-    if(auth0.isAuthenticated) {
-      SignIn();
-    } else if(!auth0.isLoading) {
-      setAuth0Loading(false);
-    }
-
-  }, [auth0.isAuthenticated, auth0.isLoading]);
+        setAuth0Loading(false);
+        clearInterval(interval);
+      }
+    }, 500);
+  }, []);
 
   const customizationOptions = siteStore.loginCustomization || {};
   let logo = <ImageIcon icon={Logo} className="login-page__logo" title="Eluv.io" />;
@@ -262,14 +272,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       style={signUpButtonStyle}
       autoFocus={!loginButtonActive}
       onClick={() => {
-        localStorage.setItem(
-          "loginCustomization",
-          JSON.stringify({
-            loginData,
-            redirectPath: window.location.pathname,
-            ...siteStore.loginCustomization
-          })
-        );
+        localStorage.setItem("redirectPath", window.location.pathname);
 
         auth0.loginWithRedirect({
           redirectUri: callbackUrl.toString(),
@@ -288,14 +291,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       autoFocus={loginButtonActive}
       className="login-page__login-button login-page__login-button-auth0"
       onClick={() => {
-        localStorage.setItem(
-          "loginCustomization",
-          JSON.stringify({
-            loginData,
-            redirectPath: window.location.pathname,
-            ...siteStore.loginCustomization
-          })
-        );
+        localStorage.setItem("redirectPath", window.location.pathname);
 
         auth0.loginWithRedirect({
           redirectUri: callbackUrl.toString(),
@@ -360,9 +356,11 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 })));
 
 const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, callbackPage=false}) => {
+  const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
+
   return (
     <div
-      className={`login-modal ${siteStore.darkMode ? "dark" : ""}`}
+      className={`login-modal ${darkMode ? "dark" : ""}`}
       ref={element => {
         if(!element) { return; }
 

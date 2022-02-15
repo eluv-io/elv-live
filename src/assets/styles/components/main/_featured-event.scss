@@ -3,6 +3,7 @@
   height: 100vh;
   max-height: 100vh;
   position: relative;
+  transition: padding 0.25s;
   width: 100%;
 
   .arrow-right,
@@ -34,7 +35,7 @@
   }
 
   @media only screen and (max-width: 900px) {
-    padding-top: 40px;
+    padding-top: 35px;
 
     .arrow-left,
     .arrow-right {
@@ -216,8 +217,8 @@
     }
 
     &.featured-event-fading-out {
-      height: calc(100% - 40px);
-      top: 40px;
+      height: calc(100% - 35px);
+      top: 35px;
     }
 
     &__event-link {

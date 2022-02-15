@@ -2,13 +2,10 @@ import React, {lazy} from "react";
 import {inject, observer} from "mobx-react";
 import {Switch} from "react-router";
 import {Route, BrowserRouter} from "react-router-dom";
-import WalletFrame from "Pages/wallet/WalletFrame";
-import LoginModal from "Pages/login/index";
-import {Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
-import EluvioConfiguration from "../configuration";
+import AuthWrapper, {LoginPage} from "Common/AuthWrapper";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -32,51 +29,14 @@ const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
 const Collection = MinLoadDelay(import("Pages/collections/Collection"));
 const Collections = MinLoadDelay(import("Pages/collections/Collections"));
 
-const baseUrl = new URL(window.location.origin);
-
-const callbackUrl = new URL(baseUrl.toString());
-callbackUrl.pathname = "/wallet/callback";
-
-const logOutUrl = new URL(baseUrl.toString());
-logOutUrl.pathname = "/wallet/logout";
-
-const LoginPage = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore}) => {
-  if(!rootStore.client) { return <PageLoader />; }
-
-  return (
-    <div className={`page-container login-route ${siteStore.loginCustomization.darkMode ? "login-route-dark" : "login-page"}`}>
-      <LoginModal callbackPage />
-    </div>
-  );
-}))));
-
-const LogOutHandler = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore}) => {
-  const auth0 = useAuth0();
-
-  if(rootStore.loggedOut) {
-    localStorage.setItem(
-      "loginCustomization",
-      JSON.stringify({
-        redirectPath: window.location.pathname,
-        ...siteStore.loginCustomization
-      })
-    );
-
-    auth0.logout({
-      returnTo: logOutUrl.toString()
-    });
-  }
-
-  return null;
-}))));
-
-
 @inject("rootStore")
 @inject("siteStore")
 @inject("cartStore")
 @observer
 class SiteApp extends React.Component {
   async componentDidMount() {
+    this.props.rootStore.SetApp("site");
+
     await this.props.rootStore.InitializeClient();
     await this.props.siteStore.LoadMainSite();
   }
@@ -86,9 +46,6 @@ class SiteApp extends React.Component {
     if(!this.props.siteStore.siteLoaded) {
       return (
         <Switch>
-          <Route exact path="/wallet/callback" component={LoginPage} />
-          <Route exact path="/wallet/logout" component={LoginPage} />
-
           <Route>
             <Route component={PageLoader} />
           </Route>
@@ -99,8 +56,8 @@ class SiteApp extends React.Component {
     return (
       <>
         <Switch>
-          <Route exact path="/wallet/callback" component={LoginPage} />
-          <Route exact path="/wallet/logout" component={LoginPage} />
+          <Route exact path="/wallet/callback"><LoginPage /></Route>
+          <Route exact path="/wallet/logout"><LoginPage closeWallet /></Route>
 
           <Route exact path="/:tenantSlug/collections" component={Collections} />
           <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
@@ -131,17 +88,9 @@ class SiteApp extends React.Component {
     return (
       <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
         <BrowserRouter>
-          <Auth0Provider
-            domain={EluvioConfiguration["auth0-domain"] || "auth.contentfabric.io"}
-            clientId={EluvioConfiguration["auth0-configuration-id"] || "ONyubP9rFI5BHzmYglQKBZ1bBbiyoB3S"}
-            redirectUri={callbackUrl.toString()}
-            useRefreshTokens
-            darkMode={this.props.siteStore.loginCustomization.darkMode}
-          >
+          <AuthWrapper>
             { this.SiteRoutes() }
-            <WalletFrame />
-            <LogOutHandler />
-          </Auth0Provider>
+          </AuthWrapper>
         </BrowserRouter>
       </div>
     );

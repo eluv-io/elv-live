@@ -15,6 +15,8 @@ configure({
 });
 
 class RootStore {
+  @observable app = "main";
+
   @observable pageWidth = window.innerWidth;
 
   @observable baseKey = 1;
@@ -30,7 +32,7 @@ class RootStore {
 
   @observable loggedOut = false;
   @observable loggingIn = false;
-  @observable walletLoggedIn = sessionStorage.getItem("wallet-logged-in");
+  @observable walletLoggedIn;
   @observable walletVisibility = "hidden";
 
   @observable currentWalletRoute = "";
@@ -59,6 +61,11 @@ class RootStore {
     window.rootStore = this;
 
     window.addEventListener("resize", () => this.HandleResize());
+  }
+
+  @action.bound
+  SetApp(app="main") {
+    this.app = app;
   }
 
   PublicLink({versionHash, path, queryParams={}}) {
@@ -230,7 +237,7 @@ class RootStore {
       });
     }
 
-    const initialVisibility = sessionStorage.getItem(`${this.siteStore.siteSlug}-wallet-visibility`);
+    const initialVisibility = sessionStorage.getItem("wallet-visibility");
     if(initialVisibility) {
       this.SetWalletPanelVisibility({visibility: initialVisibility});
     }
@@ -253,6 +260,7 @@ class RootStore {
       sessionStorage.removeItem("wallet-logged-in");
 
       runInAction(() => {
+        this.currentWalletState.visibility = "hidden";
         this.walletLoggedIn = false;
         this.loggedOut = true;
 
@@ -325,6 +333,10 @@ class RootStore {
       return;
     }
 
+    while(!this.walletClient) {
+      yield new Promise(r => setTimeout(r, 100));
+    }
+
     if(location) {
       const currentPath = (yield this.walletClient.CurrentPath()) || "";
 
@@ -381,9 +393,9 @@ class RootStore {
     };
 
     if(visibility === "full") {
-      sessionStorage.setItem(`${this.siteStore.siteSlug}-wallet-visibility`, "full");
+      sessionStorage.setItem("wallet-visibility", "full");
     } else {
-      sessionStorage.removeItem(`${this.siteStore.siteSlug}-wallet-visibility`);
+      sessionStorage.removeItem("wallet-visibility");
     }
 
     /*

@@ -30,6 +30,10 @@ class Footer extends React.Component {
   }
 
   render() {
+    if(window.location.pathname.startsWith("/wallet")) {
+      return null;
+    }
+
     return (
       <footer className="footer" id="footer">
         <div className="footer__logo-container">
