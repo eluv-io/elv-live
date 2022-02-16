@@ -532,7 +532,8 @@ class SiteStore {
             "tenant_id",
             "terms",
             "terms_html",
-            "login_customization"
+            "login_customization",
+            "branding"
           ],
           resolveIncludeSource: true,
           produceLinkUrls: true,
@@ -546,6 +547,8 @@ class SiteStore {
           tenant_id: (customizationMetadata.tenant_id),
           terms: customizationMetadata.terms,
           terms_html: customizationMetadata.terms_html,
+          ...marketplaceInfo,
+          ...((customizationMetadata || {}).branding || {}),
           ...((customizationMetadata || {}).login_customization || {})
         };
 

@@ -47,7 +47,7 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    const marketplaceInfo = this.props.siteStore.currentSiteInfo.marketplace_info || {};
+    const marketplaceInfo = this.props.siteStore.loginCustomization || {};
     if(!marketplaceInfo.marketplace_slug) {
       return null;
     }
@@ -56,6 +56,7 @@ class Header extends React.Component {
     const loggedIn = this.props.rootStore.walletLoggedIn;
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
+    const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
 
     // Actual current wallet path matches the one that the button has opened - so a second click should close it
     const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
@@ -110,8 +111,8 @@ class Header extends React.Component {
                     location: {
                       page: "marketplace",
                       params: {
-                        tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                        marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                        tenantSlug: marketplaceInfo.tenant_slug,
+                        marketplaceSlug: marketplaceInfo.marketplace_slug
                       }
                     }
                   }
@@ -124,26 +125,29 @@ class Header extends React.Component {
             </div>
             Store
           </button>
-          <button
-            onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
-                  this.props.rootStore.defaultWalletState :
-                  {
-                    visibility: "full",
-                    location: {
-                      page: "marketplaces"
-                    }
-                  }
-              );
-            }}
-            className={`header__link ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
-          >
-            <div className="header__link__icon header__link__icon-marketplace">
-              <ImageIcon icon={MarketplacesIcon} title="My Wallet" className="header__link__image"/>
-            </div>
-            Marketplaces
-          </button>
+          {
+            !hideGlobalNavigation ?
+              <button
+                onClick={() => {
+                  this.props.rootStore.SetWalletPanelVisibility(
+                    walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
+                      this.props.rootStore.defaultWalletState :
+                      {
+                        visibility: "full",
+                        location: {
+                          page: "marketplaces"
+                        }
+                      }
+                  );
+                }}
+                className={`header__link ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
+              >
+                <div className="header__link__icon header__link__icon-marketplace">
+                  <ImageIcon icon={MarketplacesIcon} title="My Wallet" className="header__link__image"/>
+                </div>
+                Marketplaces
+              </button> : null
+          }
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
@@ -152,13 +156,16 @@ class Header extends React.Component {
                   {
                     visibility: "full",
                     location: {
-                      //generalLocation: true,
-                      page: "wallet"
+                      page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
+                      params: {
+                        tenantSlug: marketplaceInfo.tenant_slug,
+                        marketplaceSlug: marketplaceInfo.marketplace_slug
+                      }
                     }
                   }
               );
             }}
-            className={`header__link header__link-wallet ${loggedIn && walletOpen && currentPage === "wallet" ? "header__link-active" : ""}`}
+            className={`header__link header__link-wallet ${loggedIn && walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
           >
             <div className="header__link__icon">
               <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>

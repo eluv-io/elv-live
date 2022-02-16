@@ -357,9 +357,9 @@ class Event extends React.Component {
   }
 
   Banner(bannerInfo, index, mobile) {
-
     const bannerImage = (
       <ImageIcon
+        key={`banner-${index}`}
         className="event-page__banner__image"
         icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
         title="Banner"
@@ -368,7 +368,7 @@ class Event extends React.Component {
 
     if(bannerInfo.type === "marketplace") {
       return (
-        <div className="event-page__banner">
+        <div className="event-page__banner" key={`banner-${index}`}>
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
@@ -398,7 +398,7 @@ class Event extends React.Component {
       if(!dropId) { return null; }
 
       return (
-        <div className="event-page__banner">
+        <div className="event-page__banner" key={`banner-${index}`}>
           <Link to={this.props.siteStore.SitePath(UrlJoin("drop", dropId))}>
             { bannerImage }
           </Link>
