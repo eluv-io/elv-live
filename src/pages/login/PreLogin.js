@@ -132,7 +132,7 @@ const PreLogin = ({onComplete}) => {
 
             render(
               <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                {SanitizeHTML(siteStore.loginCustomization.consent_form_text)}
+                {SanitizeHTML((siteStore.loginCustomization || {}).consent_form_text)}
               </ReactMarkdown>,
               element
             );
@@ -142,7 +142,7 @@ const PreLogin = ({onComplete}) => {
         <div className="pre-login__consent">
           <input name="consent" type="checkbox" checked={consent} onChange={() => setConsent(!consent)} className="pre-login__consent-checkbox" />
           <label htmlFor="consent" className="pre-login__consent-label"  onClick={() => setConsent(!consent)}>
-            By checking this box, I agree to share my email with Eluvio and its partners
+            By checking this box, I give consent for my email address to be stored with my wallet address and shared with { (siteStore.loginCustomization || {}).tenant_name || "Eluvio's Partner" }
           </label>
         </div>
       </div>
