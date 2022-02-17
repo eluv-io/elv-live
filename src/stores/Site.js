@@ -550,6 +550,7 @@ class SiteStore {
           darkMode: site.info.theme === "dark",
           marketplaceHash: site.info.marketplaceHash,
           tenant_id: (customizationMetadata.tenant_id),
+          tenant_name: (customizationMetadata.tenant_name),
           terms: customizationMetadata.terms,
           terms_html: customizationMetadata.terms_html,
           ...marketplaceInfo,

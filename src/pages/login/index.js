@@ -11,7 +11,6 @@ import Modal from "Components/common/Modal";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import {Redirect} from "react-router";
-import PreLogin from "Pages/login/PreLogin";
 
 const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
   return (
@@ -142,6 +141,8 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     try {
       if(sessionStorage.getItem("login-data")) {
         SaveLoginData(JSON.parse(sessionStorage.getItem("login-data")));
+      } else {
+        SaveLoginData({ share_email: true });
       }
       // eslint-disable-next-line no-empty
     } catch(error) {}
@@ -215,17 +216,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
         <div className="login-page__login-box">
           { logo }
           <Loader />
-        </div>
-      </div>
-    );
-  }
-
-  if(loginDataRequired) {
-    return (
-      <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
-        <div className="login-page__login-box">
-          { logo }
-          <PreLogin onComplete={({data}) => SaveLoginData(data)} />
         </div>
       </div>
     );
@@ -314,6 +304,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
     </button>
   );
 
+  const tenantName = siteStore.loginCustomization.tenant_name;
   return (
     <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""}  ${customBackground ? "login-page-custom-background" : ""}`}>
       { showTermsModal ? <TermsModal Toggle={show => setShowTermsModal(show)} /> : null }
@@ -343,27 +334,47 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
               </button>
           }
         </div>
-        {
-          siteStore.loginCustomization && siteStore.loginCustomization.terms ?
-            <div
-              className="login-page__terms"
-              ref={element => {
-                if(!element) {
-                  return;
-                }
+        <div className="login-page__text-section">
+          {
+            siteStore.loginCustomization && siteStore.loginCustomization.terms ?
+              <div
+                className="login-page__terms"
+                ref={element => {
+                  if(!element) { return; }
 
-                render(
-                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                    {SanitizeHTML(siteStore.loginCustomization.terms)}
-                  </ReactMarkdown>,
-                  element
-                );
-              }}
-            /> : null
-        }
+                  render(
+                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
+                      { SanitizeHTML(siteStore.loginCustomization.terms) }
+                    </ReactMarkdown>,
+                    element
+                  );
+                }}
+              /> : null
+          }
 
-        <div className="login-page__terms login-page__eluvio-terms">
-          By creating an account or signing in, I agree to the <a href="https://live.eluv.io/privacy" target="_blank">Eluvio Privacy Policy</a> and the <a href="https://live.eluv.io/terms" target="_blank">Eluvio Terms and Conditions</a>.
+          <div className="login-page__terms login-page__eluvio-terms">
+            By creating an account or signing in, I agree to the <a href="https://live.eluv.io/privacy" target="_blank">Eluvio Privacy Policy</a> and the <a href="https://live.eluv.io/terms" target="_blank">Eluvio Terms and Conditions</a>.
+          </div>
+
+          {
+            siteStore.loginCustomization.require_consent ?
+              <div className="login-page__consent">
+                <input
+                  name="consent"
+                  type="checkbox"
+                  checked={loginData && loginData.share_email}
+                  onChange={event => SaveLoginData({share_email: event.target.checked})}
+                  className="login-page__consent-checkbox"
+                />
+                <label
+                  htmlFor="consent"
+                  className="login-page__consent-label"
+                  onClick={() => SaveLoginData({share_email: !(loginData || {}).share_email})}
+                >
+                  By checking this box, I give consent for my email address to be stored with my wallet address { tenantName ? ` and shared with ${tenantName}` : "" }
+                </label>
+              </div> : null
+          }
         </div>
       </div>
     </div>
