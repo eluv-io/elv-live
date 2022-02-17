@@ -31,6 +31,9 @@ class SiteStore {
   @observable siteId;
   @observable siteHash;
 
+  @observable marketplaceHash;
+  @observable marketplaceId;
+
   @observable chatChannel;
 
   @observable error = "";
@@ -530,6 +533,7 @@ class SiteStore {
           select: [
             ".",
             "tenant_id",
+            "tenant_name",
             "terms",
             "terms_html",
             "login_customization",
@@ -540,6 +544,7 @@ class SiteStore {
         })) || {};
 
         this.marketplaceHash = customizationMetadata["."] && customizationMetadata["."].source;
+        this.marketplaceId = rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
 
         site.info.loginCustomization = {
           darkMode: site.info.theme === "dark",

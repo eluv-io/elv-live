@@ -50,9 +50,14 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [showPrivateKeyForm, setShowPrivateKeyForm] = useState(false);
   const [privateKey, setPrivateKey] = useState("");
   const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && localStorage.getItem("redirectPath")) || "");
+  const [loginData, setLoginData] = useState(undefined);
 
-  const [loginData, setLoginData] = useState(siteStore.loginCustomization.loginData);
   const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
+
+  const SaveLoginData = (data) => {
+    setLoginData(data);
+    sessionStorage.setItem("login-data", JSON.stringify(data));
+  };
 
   const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
   const baseUrl = new URL(UrlJoin(window.location.origin, "wallet"));
@@ -122,10 +127,6 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
         loginData
       });
 
-      if(siteStore.loginCustomization.loginData) {
-        setLoginData(siteStore.loginCustomization.loginData);
-      }
-
       if(localStorage.getItem("redirectPath")) {
         setRedirectPath(localStorage.getItem("redirectPath"));
       }
@@ -138,18 +139,28 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   };
 
   useEffect(() => {
+    try {
+      if(sessionStorage.getItem("login-data")) {
+        SaveLoginData(JSON.parse(sessionStorage.getItem("login-data")));
+      }
+      // eslint-disable-next-line no-empty
+    } catch(error) {}
+
     let interval;
     interval = setInterval(() => {
       if(!auth0.isLoading) {
-        if(auth0.isAuthenticated) {
-          SignIn();
-        }
-
         setAuth0Loading(false);
         clearInterval(interval);
       }
     }, 500);
   }, []);
+
+  useEffect(() => {
+    if(!auth0.isLoading && auth0.isAuthenticated && (!loginDataRequired || loginData)) {
+      SignIn();
+    }
+
+  }, [auth0Loading, loginData, auth0.isAuthenticated]);
 
   const customizationOptions = siteStore.loginCustomization || {};
   let logo = <ImageIcon icon={Logo} className="login-page__logo" title="Eluv.io" />;
@@ -214,7 +225,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
       <div className={`page-container login-page ${largeLogoMode ? "login-page-large-logo-mode" : ""} ${customBackground ? "login-page-custom-background" : ""}`}>
         <div className="login-page__login-box">
           { logo }
-          <PreLogin onComplete={({data}) => setLoginData(data)} />
+          <PreLogin onComplete={({data}) => SaveLoginData(data)} />
         </div>
       </div>
     );
@@ -350,6 +361,10 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
               }}
             /> : null
         }
+
+        <div className="login-page__terms login-page__eluvio-terms">
+          By creating an account or signing in, I agree to the <a href="https://live.eluv.io/privacy" target="_blank">Eluvio Privacy Policy</a> and the <a href="https://live.eluv.io/terms" target="_blank">Eluvio Terms and Conditions</a>.
+        </div>
       </div>
     </div>
   );
