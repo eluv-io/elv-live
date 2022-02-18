@@ -49,7 +49,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   const [showPrivateKeyForm, setShowPrivateKeyForm] = useState(false);
   const [privateKey, setPrivateKey] = useState("");
   const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && localStorage.getItem("redirectPath")) || "");
-  const [loginData, setLoginData] = useState(undefined);
+  const [loginData, setLoginData] = useState({ share_email: true });
 
   const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
 
@@ -384,27 +384,29 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
 const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, callbackPage=false}) => {
   const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
 
+  const Close = event => {
+    const loginPage = (document.getElementsByClassName("login-page"))[0];
+
+    if(window.location.pathname.startsWith("/wallet") || !loginPage || loginPage.contains(event.target)) { return; }
+
+    rootStore.SetWalletPanelVisibility(rootStore.defaultWalletState);
+
+    localStorage.removeItem("showPostLoginModal");
+
+    document.body.removeEventListener("click", Close);
+  };
+
   return (
     <div
-      className={`login-modal ${darkMode ? "dark" : ""}`}
+      className={`login-modal ${darkMode ? "login-dark" : ""}`}
       ref={element => {
         if(!element) { return; }
-
-        const Close = event => {
-          const loginPage = (document.getElementsByClassName("login-page"))[0];
-
-          if(window.location.pathname.startsWith("/wallet") || !loginPage || loginPage.contains(event.target)) { return; }
-
-          rootStore.SetWalletPanelVisibility(rootStore.defaultWalletState);
-
-          localStorage.removeItem("showPostLoginModal");
-
-          document.body.removeEventListener("click", Close);
-        };
 
         document.body.addEventListener("click", Close);
       }}
     >
+      <button className="login-modal__close-button" onClick={Close}>X</button>
+
       <Login callbackPage={callbackPage} />
     </div>
   );
