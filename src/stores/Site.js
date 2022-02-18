@@ -546,8 +546,15 @@ class SiteStore {
         this.marketplaceHash = customizationMetadata["."] && customizationMetadata["."].source;
         this.marketplaceId = rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
 
+        let darkMode = site.darkMode;
+        if(((customizationMetadata || {}).branding || {}).color_scheme === "Dark") {
+          darkMode = true;
+        } else if(((customizationMetadata || {}).branding || {}).color_scheme === "Light") {
+          darkMode = false;
+        }
+
         site.info.loginCustomization = {
-          darkMode: site.info.theme === "dark",
+          darkMode,
           marketplaceHash: site.info.marketplaceHash,
           tenant_id: (customizationMetadata.tenant_id),
           tenant_name: (customizationMetadata.tenant_name),
