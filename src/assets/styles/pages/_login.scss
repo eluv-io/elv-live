@@ -44,9 +44,17 @@
     margin: auto;
 
     max-height: MIN(95vh, 800px);
-    max-width: 600px;
-    min-height: MIN(90vh, 800px);
-    min-width: 600px;
+    max-width: 450px;
+    height: max-content;
+    min-width: 450px;
+
+    &-large-logo-mode {
+      max-width: 500px;
+
+      .login-page__login-box {
+        max-width: 500px;
+      }
+    }
   }
 
   @media screen and (max-width: 700px) {
@@ -55,6 +63,7 @@
       max-width: 100%;
       min-height: 100%;
       min-width: 100%;
+      height: 100%;
     }
 
     &__close-button {
@@ -72,7 +81,7 @@
   margin: 0;
   max-height: 100%;
   max-width: 100%;
-  padding: 0 30px;
+  padding: 20px 30px;
   position: relative;
   width: 100%;
 
@@ -102,14 +111,16 @@
 
     .login-page__login-box {
       height: 100%;
-      max-height: 100%;
-      max-width: 100%;
-      min-height: 600px;
       width: 100%;
+      max-width: 500px;
+    }
+
+    .login-page__logo-container {
+      margin-bottom: 30px;
     }
 
     .login-page__logo {
-      margin-bottom: 20px;
+      //margin-bottom: 20px;
       max-height: 300px;
       max-width: 450px;
       width: 100%;
@@ -145,9 +156,9 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    height: max-content;
+    height: 100%;
     justify-content: space-evenly;
-    max-width: 400px;
+    max-width: 450px;
     overflow-y: auto;
     padding: 50px 30px 20px;
     position: relative;
@@ -210,7 +221,7 @@
   }
 
   &__logo {
-    margin-bottom: 20px;
+    margin-bottom: 100px;
     object-fit: contain;
     width: 160px;
   }
@@ -358,6 +369,16 @@
   }
 
   @media screen and (max-width: 700px) {
+    height: 100%;
+    width: 100%;
+
+    &__login-box {
+      height: 100%;
+      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
     &__terms-modal {
       .modal__content {
         bottom: 0;
@@ -382,6 +403,8 @@
 
 .login-dark {
   .login-page {
+    background: $black;
+
     &__login-box {
       background: $black;
     }
