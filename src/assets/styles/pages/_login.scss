@@ -44,9 +44,14 @@
     margin: auto;
 
     max-height: MIN(95vh, 800px);
+    min-height: 450px;
     max-width: 450px;
     height: max-content;
     min-width: 450px;
+
+    &__login-box {
+      min-height: 450px;
+    }
 
     &-large-logo-mode {
       max-width: 500px;
