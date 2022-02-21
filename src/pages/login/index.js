@@ -371,7 +371,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
                   className="login-page__consent-label"
                   onClick={() => SaveLoginData({share_email: !(loginData || {}).share_email})}
                 >
-                  By checking this box, I give consent for my email address to be stored with my wallet address { tenantName ? ` and shared with ${tenantName}` : "" }
+                  By checking this box, I give consent for my email address to be stored with my wallet address{ tenantName ? ` and shared with ${tenantName}` : "" }. Eluvio may also send informational and marketing emails to this address.
                 </label>
               </div> : null
           }
