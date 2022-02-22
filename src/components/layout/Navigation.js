@@ -104,7 +104,7 @@ class Header extends React.Component {
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplace" && matchingPage ?
+                walletState.visibility === "full" && walletState.location && ["marketplace", "marketplaceListings"].includes(currentPage) && matchingPage ?
                   this.props.rootStore.defaultWalletState :
                   {
                     visibility: "full",
@@ -118,7 +118,7 @@ class Header extends React.Component {
                   }
               );
             }}
-            className={`header__link ${loggedIn && walletOpen && currentPage === "marketplace" ? "header__link-active" : ""}`}
+            className={`header__link ${loggedIn && walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
           >
             <div className="header__link__icon">
               <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image"/>
