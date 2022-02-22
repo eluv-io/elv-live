@@ -2,18 +2,17 @@ import React, {useEffect, useState} from "react";
 
 const Countdown = ({time, showSeconds=false, Render, OnEnded}) => {
   const [countdown, setCountdown] = useState({diff: 0, countdown: ""});
-  const [loop, setLoop] = useState(undefined);
 
   useEffect(() => {
-    if(loop) { return; }
-
     let lastDiff, ended;
-    setLoop(setInterval(() => {
+    const interval = setInterval(() => {
       let diffSeconds = Math.ceil((new Date(time) - new Date()) / 1000);
 
-      if(!ended && diffSeconds <= 0 && OnEnded) {
+      if(!ended && diffSeconds <= 0) {
         ended = true;
-        OnEnded();
+        clearInterval(interval);
+
+        OnEnded && OnEnded();
       }
 
       if(diffSeconds === lastDiff) { return; }
@@ -64,12 +63,11 @@ const Countdown = ({time, showSeconds=false, Render, OnEnded}) => {
         minutes,
         seconds
       });
-    }, 100));
+    }, 100);
 
     // Stop interval on unmount
     return () => {
-      setLoop(undefined);
-      clearInterval(loop);
+      clearInterval(interval);
     };
   }, []);
 
