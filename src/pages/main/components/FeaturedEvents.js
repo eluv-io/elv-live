@@ -100,8 +100,8 @@ class FeaturedEvents extends React.Component {
       buttonStyle.backgroundColor = buttonOptions.background_color.color;
     }
 
-    const openMarketplace = true || site.info.feature_location === "Marketplace";
-    const { tenant_slug, marketplace_slug } = (site.info.marketplace_info || {});
+    const openMarketplace = (site.info.event_info || {}).feature_location === "Marketplace";
+    const { tenant_slug, marketplace_slug, default_store_page } = (site.info.marketplace_info || {});
 
     return (
       <div
@@ -131,7 +131,7 @@ class FeaturedEvents extends React.Component {
                 onClick={() => this.props.rootStore.SetWalletPanelVisibility({
                   visibility: "full",
                   location: {
-                    page: "marketplace",
+                    page: default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
                     params: { tenantSlug: tenant_slug, marketplaceSlug: marketplace_slug }
                   }
                 })}
