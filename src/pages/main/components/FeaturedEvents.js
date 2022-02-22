@@ -100,6 +100,9 @@ class FeaturedEvents extends React.Component {
       buttonStyle.backgroundColor = buttonOptions.background_color.color;
     }
 
+    const openMarketplace = true || site.info.feature_location === "Marketplace";
+    const { tenant_slug, marketplace_slug } = (site.info.marketplace_info || {});
+
     return (
       <div
         className={`featured-event ${index === this.state.selected ? "featured-event-selected" : ""} ${index === this.state.previous ? "featured-event-fading-out" : ""}`}
@@ -123,7 +126,23 @@ class FeaturedEvents extends React.Component {
               </h3>
           }
           {
-            accessible ?
+            site.info.state !== "Inaccessible" && openMarketplace ?
+              <button
+                onClick={() => this.props.rootStore.SetWalletPanelVisibility({
+                  visibility: "full",
+                  location: {
+                    page: "marketplace",
+                    params: { tenantSlug: tenant_slug, marketplaceSlug: marketplace_slug }
+                  }
+                })}
+                className="featured-event__event-link" style={buttonStyle}
+              >
+                { buttonOptions ? buttonOptions.text : (site.info.type === "drop_event" ? "Join the Drop" : "Buy Tickets") }
+              </button> : null
+          }
+
+          {
+            accessible && !openMarketplace ?
               <a href={UrlJoin("/", site.tenantSlug || "", site.siteSlug)} className="featured-event__event-link" style={buttonStyle}>
                 { buttonOptions ? buttonOptions.text : (site.info.type === "drop_event" ? "Join the Drop" : "Buy Tickets") }
               </a> : null
