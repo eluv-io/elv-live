@@ -47,7 +47,7 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    const marketplaceInfo = this.props.siteStore.loginCustomization || {};
+    let marketplaceInfo = this.props.siteStore.loginCustomization || {};
     if(!marketplaceInfo.marketplace_slug) {
       return null;
     }
@@ -109,7 +109,7 @@ class Header extends React.Component {
                   {
                     visibility: "full",
                     location: {
-                      page: "marketplace",
+                      page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
                       params: {
                         tenantSlug: marketplaceInfo.tenant_slug,
                         marketplaceSlug: marketplaceInfo.marketplace_slug
