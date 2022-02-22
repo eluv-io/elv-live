@@ -117,9 +117,9 @@ class FeaturedEvents extends React.Component {
           <h2 className="featured-event__header">{ header }</h2>
 
           {
-            site.info.event_info.hero_info ? null :
+            site.info.event_info.hero_info && subheader ? null :
               <h3 className="featured-event__subheader">
-                {subheader || "Streaming Soon"}
+                { subheader }
               </h3>
           }
           {
