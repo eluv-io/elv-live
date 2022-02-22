@@ -62,7 +62,7 @@ class Landing extends React.Component {
                       {
                         visibility: "full",
                         location: {
-                          page: "marketplace",
+                          page: drop.store_page === "Listings" ? "marketplaceListings" : "marketplace",
                           params: {
                             tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
                             marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
