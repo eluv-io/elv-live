@@ -149,6 +149,7 @@ class SiteStore {
         header: drop.event_header,
         start_date: drop.start_date,
         end_date: drop.end_date,
+        calendar: drop.calendar,
         image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
         link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid),
         landing_page_info: drop.custom_landing_page ? drop.event_landing_page : undefined
@@ -162,6 +163,7 @@ class SiteStore {
         header: drop.event_header,
         start_date: drop.start_date,
         end_date: new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000)),
+        calendar: drop.calendar,
         store_page: drop.store_page,
         marketplace_filters: drop.store_filters || [],
         image: this.SiteUrl(UrlJoin("info", "marketplace_drops", index.toString(), "event_image")),
