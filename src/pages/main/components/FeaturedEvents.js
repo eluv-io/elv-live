@@ -115,7 +115,7 @@ class FeaturedEvents extends React.Component {
             className="featured-event__hero-image"
           />
         </div>
-        { this.HeroVideo(site) }
+        { index === this.state.selected ? this.HeroVideo(site) : null }
         <div className="featured-event__details">
           <h2 className="featured-event__header">{ header }</h2>
 
