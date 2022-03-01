@@ -57,7 +57,7 @@ class News extends React.Component {
             March 1st, 2022
           </div>
           <div className="news-page__navigation-button__header">
-            Dolly Parton to live stream first-ever South by Southwest performance on the blockchain
+            Dolly Parton to Live Stream First-ever South by Southwest Performance on the Blockchain
           </div>
         </a>
         <a
@@ -81,7 +81,7 @@ class News extends React.Component {
             January 5th, 2022
           </div>
           <div className="news-page__navigation-button__header">
-            Liquid Media Launches Blockchain Framework during 2022 Sundance Film Festival
+            Liquid Media Launches Blockchain Framework During 2022 Sundance Film Festival
           </div>
         </a>
         <a
@@ -92,7 +92,7 @@ class News extends React.Component {
             August 25th, 2021
           </div>
           <div className="news-page__navigation-button__header">
-            Fox Corporation makes strategic investment in Eluvio
+            Fox Corporation Makes Strategic Investment in Eluvio
           </div>
         </a>
         <a
@@ -103,7 +103,7 @@ class News extends React.Component {
             August 23rd, 2021
           </div>
           <div className="news-page__navigation-button__header">
-            Rita Ora in partnership with Melrose Media announce performance from the legendary Eiffel Tower
+            Rita Ora in Partnership with Melrose Media Announce Performance from the Legendary Eiffel Tower
           </div>
         </a>
         <a
@@ -114,7 +114,7 @@ class News extends React.Component {
             March 18th, 2021
           </div>
           <div className="news-page__navigation-button__header">
-            Eluvio LIVE provides artists with novel blockchain-based streaming and ticketing platform
+            Eluvio LIVE Provides Artists with Novel Blockchain-based Streaming and Ticketing Platform
           </div>
         </a>
       </div>
