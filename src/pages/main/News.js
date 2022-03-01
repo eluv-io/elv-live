@@ -18,6 +18,8 @@ import FoxRelease from "Assets/documents/news/Fox - August 25th/index.md";
 
 import SundanceRelease from "Assets/documents/news/Sundance - January 5th 2022/index.md";
 
+import DollyRelease from "Assets/documents/news/Dolly - March 1/index.md";
+
 import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
 
@@ -47,6 +49,17 @@ class News extends React.Component {
   Navigation() {
     return (
       <div className="news-page__navigation">
+        <a
+          href="#2022-3-1"
+          className="news-page__navigation-button"
+        >
+          <div className="news-page__navigation-button__subheader">
+            March 1st, 2022
+          </div>
+          <div className="news-page__navigation-button__header">
+            Dolly Parton to live stream first-ever South by Southwest performance on the blockchain
+          </div>
+        </a>
         <a
           href="https://variety.com/2022/digital/news/the-walking-dead-nft-orange-comet-1235169700"
           rel="noopener"
@@ -186,6 +199,22 @@ class News extends React.Component {
     return (
       <div className="page-content news-page">
         <div className="news-page__content">
+          {
+            this.NewsItem({
+              date: "March 1st, 2022",
+              header:
+                <div>
+                  <div>
+                    DOLLY PARTON TO LIVE STREAM FIRST-EVER SOUTH BY SOUTHWEST PERFORMANCE ON THE BLOCKCHAIN, TIMED TO RELEASE OF NEW NOVEL RUN, ROSE, RUN, CO-WRITTEN WITH JAMES PATTERSON, AND COMPANION ALBUM SHE WROTE AND PRODUCED
+                  </div>
+                </div>,
+              content:
+                <div className="news-page__item__content">
+                  {this.Markdown(DollyRelease)}
+                </div>,
+              anchor: "2022-3-1"
+            })
+          }
           {
             this.NewsItem({
               date: "January 5th, 2022",
