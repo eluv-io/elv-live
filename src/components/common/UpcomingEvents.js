@@ -1,7 +1,9 @@
 import React from "react";
+import {rootStore, siteStore} from "Stores";
 import Carousel from "Common/Carousel";
 import ImageIcon from "Common/ImageIcon";
 import {Link} from "react-router-dom";
+
 
 const EventCard = ({event, hardLink=false}) => {
   let date = new Date();
@@ -17,6 +19,7 @@ const EventCard = ({event, hardLink=false}) => {
 
   if(!date || !month) { return null; }
 
+  const openMarketplace = event.ongoing && event.type === "marketplace_drop" && rootStore.app === "site";
   return (
     <div className="upcoming-events__event-card">
       <div className="upcoming-events__event-card__date">
@@ -28,17 +31,41 @@ const EventCard = ({event, hardLink=false}) => {
         </div>
       </div>
       {
-        hardLink ?
-          <a href={event.link} className="upcoming-events__event-card__info">
+        openMarketplace ?
+          <button
+            onClick={async () => {
+              await rootStore.SetWalletPanelVisibility(
+                {
+                  visibility: "full",
+                  location: {
+                    page: event.store_page === "Listings" ? "marketplaceListings" : "marketplace",
+                    params: {
+                      tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                      marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                    }
+                  }
+                }
+              );
+
+              await rootStore.SetMarketplaceFilters({filters: event.marketplace_filters});
+            }}
+            className="upcoming-events__event-card__info"
+          >
             <div className="upcoming-events__event-card__square">
               <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
             </div>
-          </a> :
-          <Link to={event.link} className="upcoming-events__event-card__info">
-            <div className="upcoming-events__event-card__square">
-              <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
-            </div>
-          </Link>
+          </button> :
+          hardLink ?
+            <a href={event.link} className="upcoming-events__event-card__info">
+              <div className="upcoming-events__event-card__square">
+                <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
+              </div>
+            </a> :
+            <Link to={event.link} className="upcoming-events__event-card__info">
+              <div className="upcoming-events__event-card__square">
+                <ImageIcon icon={event.image} title={event.header} className="upcoming-events__event-card__image" />
+              </div>
+            </Link>
       }
     </div>
   );

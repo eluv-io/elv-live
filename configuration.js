@@ -10,7 +10,7 @@ const EluvioConfiguration = {
   "live-site-id": "iq__inauxD1KLyKWPHargCWjdCh2ayr",
 
   // Prod
-  "live-site-id": "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
+  //"live-site-id": "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
 
   //"auth0-domain": "prod-elv.us.auth0.com",
   //"auth0-domain": "auth.contentfabric.io",
