@@ -162,7 +162,7 @@ class SiteStore {
         requires_login: true,
         header: drop.event_header,
         start_date: drop.start_date,
-        end_date: new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000)),
+        end_date: drop.end_date || new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000)),
         calendar: drop.calendar,
         store_page: drop.store_page,
         marketplace_filters: drop.store_filters || [],
