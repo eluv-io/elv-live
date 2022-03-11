@@ -497,8 +497,9 @@
       }
 
       .header__link-active {
-        color: $white;
-        text-shadow: 0 0 1px $white;
+        &:not(.header__link--no-wallet) {
+          color: $white;
+        }
       }
     }
   }
@@ -547,6 +548,17 @@
           stroke: $white;
         }
       }
+    }
+  }
+
+  &.header-dark {
+    .header__link {
+      color: $mediumgray;
+    }
+
+    .header__link-active {
+      color: $white;
+      text-shadow: 0 0 1px $white;
     }
   }
 
