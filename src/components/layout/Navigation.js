@@ -185,6 +185,8 @@ class Header extends React.Component {
     const itemCount = this.props.cartStore.CartDetails().itemCount;
     const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
+    const ticketsAvailable = !!this.props.siteStore.ticketClasses
+      .find(ticketClass => !ticketClass.hidden && (ticketClass.skus || []).find(sku => !sku.hidden));
 
     return (
       <>
@@ -211,7 +213,7 @@ class Header extends React.Component {
             </NavLink> : null
         }
         {
-          this.props.siteStore.currentSiteInfo.state === "Inaccessible" || this.props.hideCheckout ? null :
+          !ticketsAvailable || this.props.siteStore.currentSiteInfo.state === "Inaccessible" || this.props.hideCheckout ? null :
             <button
               title="Your Cart"
               onClick={this.props.cartStore.ToggleCartOverlay}
