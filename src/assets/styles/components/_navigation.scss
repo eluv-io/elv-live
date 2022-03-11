@@ -500,9 +500,10 @@
         color: $white;
         text-shadow: 0 0 1px $white;
       }
+
       .header__link--no-wallet {
-        text-shadow: none;
         color: $mediumgray;
+        text-shadow: none;
       }
     }
   }

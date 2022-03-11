@@ -176,9 +176,11 @@ class CodeAccess extends React.Component {
             <h2 className="code-header-title">
               Redeem Ticket
             </h2>
-            <Link to={this.props.siteStore.baseSitePath} className="code-header-p">
-              Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b>
-            </Link>
+            {
+              this.props.siteStore.siteSlug === "indieflix" ?
+                <a href="https://indieflix.com" rel="noopener" target="_blank">Need a code? Go to Indieflix.com</a> :
+                <Link to={this.props.siteStore.baseSitePath} className="code-header-p">Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b></Link>
+            }
           </div>
 
           <input
