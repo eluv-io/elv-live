@@ -264,14 +264,36 @@ class Event extends React.Component {
     );
 
     const JoinDropButton = () => (
-      <Link
-        style={(branding.join_drop || {}).styles}
-        to={this.props.siteStore.nextDrop.link}
-        className="btn"
-        onClick={() => this.setState({showGetStartedModal: true})}
-      >
-        { (branding.join_drop || {}).text || "Join the Drop" }
-      </Link>
+      this.props.siteStore.nextDrop && this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
+        <button
+          style={(branding.join_drop || {}).styles}
+          className="btn"
+          onClick={async () => {
+            await this.props.rootStore.SetWalletPanelVisibility(
+              {
+                visibility: "full",
+                location: {
+                  page: this.props.siteStore.nextDrop.store_page === "Listings" ? "marketplaceListings" : "marketplace",
+                  params: {
+                    tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                    marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                  }
+                }
+              }
+            );
+
+            await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop.marketplace_filters});
+          }}
+        >
+          { (branding.join_drop || {}).text || "Join the Drop" }
+        </button> :
+        <Link
+          style={(branding.join_drop || {}).styles}
+          to={this.props.siteStore.nextDrop.link}
+          className="btn"
+        >
+          { (branding.join_drop || {}).text || "Join the Drop" }
+        </Link>
     );
 
     const WatchPromoButton = () => (
@@ -296,8 +318,8 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { this.props.rootStore.showWalletLinks && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
+        { this.props.rootStore.showWalletLinks && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||
