@@ -497,10 +497,19 @@
       }
 
       .header__link-active {
-        &:not(.header__link--no-wallet) {
-          color: $white;
-        }
+        color: $white;
+        text-shadow: 0 0 1px $white;
       }
+      .header__link--no-wallet {
+        text-shadow: none;
+        color: $mediumgray;
+      }
+    }
+  }
+
+  &.header-dark {
+    .header__link-active {
+      text-shadow: 0 0 1px $white;
     }
   }
 
@@ -548,17 +557,6 @@
           stroke: $white;
         }
       }
-    }
-  }
-
-  &.header-dark {
-    .header__link {
-      color: $mediumgray;
-    }
-
-    .header__link-active {
-      color: $white;
-      text-shadow: 0 0 1px $white;
     }
   }
 
