@@ -190,13 +190,23 @@ class Header extends React.Component {
       <>
         {
           redeemAvailable && couponMode ?
-            <NavLink to={this.props.siteStore.SitePath("coupon-code")} className="header__link" activeClassName="header__link-active">
+            <NavLink
+              to={this.props.siteStore.SitePath("coupon-code")}
+              onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+              className="header__link"
+              activeClassName="header__link-active"
+            >
               Redeem Coupon
             </NavLink> : null
         }
         {
           redeemAvailable ?
-            <NavLink to={this.props.siteStore.SitePath("code")} className="header__link" activeClassName="header__link-active">
+            <NavLink
+              to={this.props.siteStore.SitePath("code")}
+              onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+              className="header__link"
+              activeClassName="header__link-active"
+            >
               Redeem Ticket
             </NavLink> : null
         }
