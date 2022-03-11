@@ -225,7 +225,7 @@ class RootStore {
     this.currentWalletRoute = yield this.walletClient.CurrentPath();
 
     // Give the wallet a chance to send the log in event before showing links
-    setTimeout(() => runInAction(() => this.showWalletLinks = true), 2250);
+    setTimeout(() => runInAction(() => this.showWalletLinks = true), 2750);
 
     if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
       const { authToken, address, user } = this.AuthInfo();
