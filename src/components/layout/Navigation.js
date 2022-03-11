@@ -193,7 +193,7 @@ class Header extends React.Component {
             <NavLink
               to={this.props.siteStore.SitePath("coupon-code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-              className="header__link"
+              className="header__link header__link--no-wallet"
               activeClassName="header__link-active"
             >
               Redeem Coupon
@@ -204,7 +204,7 @@ class Header extends React.Component {
             <NavLink
               to={this.props.siteStore.SitePath("code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-              className="header__link"
+              className="header__link header__link--no-wallet"
               activeClassName="header__link-active"
             >
               Redeem Ticket
