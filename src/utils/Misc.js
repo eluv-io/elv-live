@@ -7,6 +7,36 @@ DayJS.extend(DayJSAdvancedFormatting);
 import moment from "moment-timezone";
 import React, {useEffect, useState} from "react";
 
+const ParseDate = date => {
+  try {
+    return new Date(date);
+  // eslint-disable-next-line no-empty
+  } catch(error) {}
+};
+
+export const DateStatus = (start_date, end_date) => {
+  start_date = ParseDate(start_date);
+  end_date = ParseDate(start_date);
+
+  let yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  new Date(yesterday.toISOString().split("T")[0]);
+
+  let today = new Date();
+  new Date(today.toISOString().split("T")[0]);
+
+  const now = new Date();
+
+  console.log(start_date, end_date, yesterday, today, start_date <= now && (!end_date || end_date >= today), end_date && end_date < yesterday);
+
+  return {
+    start_date: start_date,
+    end_date: end_date,
+    ongoing: start_date <= now && (!end_date || end_date >= today),
+    past: end_date && end_date < yesterday
+  };
+};
+
 export const FormatDateString = (date, dateOnly=false, timeOnly=false, shortDate=false) => {
   if(!date) { return ""; }
 
