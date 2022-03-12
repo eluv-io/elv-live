@@ -27,8 +27,6 @@ export const DateStatus = (start_date, end_date) => {
 
   const now = new Date();
 
-  console.log(start_date, end_date, yesterday, today, start_date <= now && (!end_date || end_date >= today), end_date && end_date < yesterday);
-
   return {
     start_date: start_date,
     end_date: end_date,
