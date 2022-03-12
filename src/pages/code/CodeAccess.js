@@ -94,8 +94,14 @@ class CodeAccess extends React.Component {
     }
 
     if(this.state.redeemed) {
-      if(this.props.siteStore.nextDropEvent) {
-        return <Redirect to={this.props.siteStore.SitePath("drop", this.props.siteStore.nextDropEvent.uuid)} />;
+      const dropEvent =
+        this.props.siteStore.nextDropEvent ||
+        this.props.siteStore.dropEvents
+          .filter(drop => drop.type === "drop_event")
+          .slice(-1)[0];
+
+      if(dropEvent) {
+        return <Redirect to={this.props.siteStore.SitePath("drop", dropEvent.uuid)} />;
       }
 
       if(this.state.couponMode) {
