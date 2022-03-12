@@ -6,6 +6,7 @@ import EluvioConfiguration from "EluvioConfiguration";
 const CHAT_ROOM_SIZE = 5000;
 
 import mergeWith from "lodash/mergeWith";
+import {DateStatus} from "Utils/Misc";
 
 class SiteStore {
   @observable mainSiteInfo;
@@ -140,42 +141,38 @@ class SiteStore {
   }
 
   @computed get dropEvents() {
-    let yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    yesterday = yesterday.toISOString().split("T")[0];
-
-    let today = new Date();
-    today = today.toISOString().split("T")[0];
-
     const dropEvents = (this.currentSiteInfo.drops || [])
-      .map((drop, index) => ({
-        type: "drop_event",
-        uuid: drop.uuid,
-        requires_login: drop.requires_login,
-        requires_ticket: drop.requires_ticket,
-        header: drop.event_header,
-        start_date: drop.start_date,
-        end_date: drop.end_date,
-        past: drop.end_date < yesterday,
-        ongoing: drop.start_date <= today && drop.end_date >= today,
-        calendar: drop.calendar,
-        image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
-        link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid),
-        landing_page_info: drop.custom_landing_page ? drop.event_landing_page : undefined
-      }));
+      .map((drop, index) => {
+        const { start_date, end_date, ongoing, past } = DateStatus(drop.start_date, drop.end_date);
+        return {
+          type: "drop_event",
+          uuid: drop.uuid,
+          requires_login: drop.requires_login,
+          requires_ticket: drop.requires_ticket,
+          header: drop.event_header,
+          start_date,
+          end_date,
+          past,
+          ongoing,
+          calendar: drop.calendar,
+          image: this.SiteUrl(UrlJoin("info", "drops", index.toString(), "event_image")),
+          link: UrlJoin("/", this.currentSite.tenantSlug || "", this.currentSite.siteSlug || "", "drop", drop.uuid),
+          landing_page_info: drop.custom_landing_page ? drop.event_landing_page : undefined
+        };
+      });
 
     const marketplaceEvents = (this.currentSiteInfo.marketplace_drops || [])
       .map((drop, index) => {
-        const end_date = drop.end_date || new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000));
+        const { start_date, end_date, ongoing, past } = DateStatus(drop.start_date, drop.end_date || new Date(new Date(drop.start_date).getTime() + (24 * 60 * 60 * 1000)));
         return {
           type: "marketplace_drop",
           uuid: drop.uuid,
           requires_login: true,
           header: drop.event_header,
-          start_date: drop.start_date,
+          start_date,
           end_date,
-          past: end_date < yesterday,
-          ongoing: drop.start_date <= today && end_date >= today,
+          past,
+          ongoing,
           calendar: drop.calendar,
           store_page: drop.store_page,
           marketplace_filters: drop.store_filters || [],

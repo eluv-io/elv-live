@@ -3,6 +3,7 @@ import {rootStore, siteStore} from "Stores";
 import Carousel from "Common/Carousel";
 import ImageIcon from "Common/ImageIcon";
 import {Link} from "react-router-dom";
+import {DateStatus} from "Utils/Misc";
 
 
 const EventCard = ({event, hardLink=false}) => {
@@ -74,20 +75,16 @@ const EventCard = ({event, hardLink=false}) => {
 const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   if(!events || events.length === 0) { return null; }
 
-  let yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  yesterday = yesterday.toISOString().split("T")[0];
-
-  let today = new Date();
-  today = today.toISOString().split("T")[0];
-
   // Sort events by start date, but put ongoing events before events that have passed, even if they started later.
   events = events
-    .map(event => ({
-      ...event,
-      past: event.end_date < yesterday,
-      ongoing: event.start_date <= today && event.end_date >= today
-    }))
+    .map(event =>  {
+      const { ongoing, past } = DateStatus(event.start_date, event.end_date);
+      return {
+        ...event,
+        past,
+        ongoing
+      };
+    })
     .sort((a, b) => {
       if(a.past && b.ongoing) {
         return 1;
@@ -98,11 +95,12 @@ const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
       return a.start_date < b.start_date ? -1 : 1;
     });
 
+  const nextEventIndex = events.findIndex(event => !event.past);
   return (
     <div className={`upcoming-events ${className}`}>
       <h2 className="upcoming-events__header">{ header }</h2>
       <Carousel
-        startIndex={Math.max(0, events.findIndex(event => event.ongoing || event.start_date >= yesterday))}
+        startIndex={Math.max(0, nextEventIndex >= 0 ? nextEventIndex : events.length - 1)}
         minVisible={1}
         maxVisible={4}
         className="upcoming-events__carousel"
