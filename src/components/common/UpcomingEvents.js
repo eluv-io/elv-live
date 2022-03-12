@@ -87,9 +87,9 @@ const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
     })
     .sort((a, b) => {
       if(a.past && b.ongoing) {
-        return 1;
-      } else if(b.past && a.ongoing) {
         return -1;
+      } else if(b.past && a.ongoing) {
+        return 1;
       }
 
       return a.start_date < b.start_date ? -1 : 1;
