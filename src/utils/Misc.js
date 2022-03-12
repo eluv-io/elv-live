@@ -16,7 +16,7 @@ const ParseDate = date => {
 
 export const DateStatus = (start_date, end_date) => {
   start_date = ParseDate(start_date);
-  end_date = ParseDate(start_date);
+  end_date = ParseDate(end_date);
 
   let yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
