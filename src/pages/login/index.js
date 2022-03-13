@@ -39,7 +39,7 @@ const TermsModal = inject("siteStore")(observer(({siteStore, Toggle}) => {
   );
 }));
 
-export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
+export const LoginBox = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
   const auth0 = useAuth0();
 
   window.auth0 = auth0;
@@ -381,7 +381,7 @@ export const Login = inject("rootStore")(inject("siteStore")(observer(({rootStor
   );
 })));
 
-const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, callbackPage=false}) => {
+const Login = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, modal=false}) => {
   const darkMode = rootStore.app === "main" ? true : siteStore.loginCustomization.darkMode;
 
   const Close = event => {
@@ -396,6 +396,14 @@ const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore
     document.body.removeEventListener("click", Close);
   };
 
+  if(!modal) {
+    return (
+      <div className={siteStore.loginCustomization.darkMode ? "login-dark" : ""}>
+        <LoginBox />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`login-modal ${darkMode ? "login-dark" : ""}`}
@@ -407,9 +415,9 @@ const LoginModal = inject("rootStore")(inject("siteStore")((observer(({rootStore
     >
       <button className="login-modal__close-button" onClick={Close}>X</button>
 
-      <Login callbackPage={callbackPage} />
+      <LoginBox />
     </div>
   );
 }))));
 
-export default LoginModal;
+export default Login;

@@ -464,7 +464,7 @@ class Event extends React.Component {
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
     return (
-      <div className="event-page__hero-container" style={{height: window.innerHeight}}>
+      <div className="event-page__hero-container">
         <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
         { this.HeroVideo(mobile) }
         <div className="event-page__heading">

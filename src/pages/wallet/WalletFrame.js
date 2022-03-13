@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import LoginModal from "Pages/login";
+import Login from "Pages/login";
 import ImageIcon from "Common/ImageIcon";
 import CloseIcon from "Icons/x";
 
@@ -19,7 +19,7 @@ class WalletFrame extends React.Component {
           this.props.rootStore.currentWalletState.visibility !== "hidden" &&
           (this.props.rootStore.app === "main" || this.props.rootStore.currentWalletState.requireLogin) &&
           !window.location.pathname.startsWith("/wallet") ?
-            <LoginModal />
+            <Login modal />
             : null
         }
         <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">

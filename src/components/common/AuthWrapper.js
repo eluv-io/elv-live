@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import EluvioConfiguration from "EluvioConfiguration";
 import {inject, observer} from "mobx-react";
 import {PageLoader} from "Common/Loaders";
-import LoginModal from "Pages/login";
+import Login from "Pages/login";
 import {Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import WalletFrame from "Pages/wallet/WalletFrame";
 
@@ -22,7 +22,7 @@ export const LoginPage = inject("rootStore")(inject("siteStore")((observer(({roo
 
   return (
     <div className={`page-container login-route ${siteStore.loginCustomization.darkMode ? "login-route-dark" : "login-page"}`}>
-      <LoginModal callbackPage />
+      <Login modal />
     </div>
   );
 }))));
