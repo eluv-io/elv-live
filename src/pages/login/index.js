@@ -48,7 +48,7 @@ export const LoginBox = inject("rootStore")(inject("siteStore")(observer(({rootS
   const [auth0Loading, setAuth0Loading] = useState(true);
   const [showPrivateKeyForm, setShowPrivateKeyForm] = useState(false);
   const [privateKey, setPrivateKey] = useState("");
-  const [redirectPath, setRedirectPath] = useState((window.location.pathname === "/wallet/logout" && localStorage.getItem("redirectPath")) || "");
+  const [redirectPath, setRedirectPath] = useState(window.location.pathname === "/wallet/logout" ? localStorage.getItem("redirectPath") || "/" : "");
   const [loginData, setLoginData] = useState({ share_email: true });
 
   const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
