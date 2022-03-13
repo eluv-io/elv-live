@@ -79,7 +79,7 @@ class Header extends React.Component {
             className="header__link"
           >
             <div className="header__link__icon">
-              <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
+              <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
             </div>
             Log In
           </button>
@@ -96,7 +96,7 @@ class Header extends React.Component {
                 className={`header__link ${loggedIn && currentPage === "drop" ? "header__link-active" : ""}`}
               >
                 <div className="header__link__icon">
-                  <ImageIcon icon={EventIcon} title="My Wallet" className="header__link__image"/>
+                  <ImageIcon icon={EventIcon} title="Event" className="header__link__image"/>
                 </div>
                 Event
               </NavLink> : null
@@ -121,7 +121,7 @@ class Header extends React.Component {
             className={`header__link ${loggedIn && walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
           >
             <div className="header__link__icon">
-              <ImageIcon icon={CartIcon} title="My Wallet" className="header__link__image"/>
+              <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
             </div>
             Store
           </button>
@@ -143,7 +143,7 @@ class Header extends React.Component {
                 className={`header__link ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
               >
                 <div className="header__link__icon header__link__icon-marketplace">
-                  <ImageIcon icon={MarketplacesIcon} title="My Wallet" className="header__link__image"/>
+                  <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
                 </div>
                 Marketplaces
               </button> : null
@@ -165,7 +165,7 @@ class Header extends React.Component {
                   }
               );
             }}
-            className={`header__link header__link-wallet ${loggedIn && walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
+            className={`header__link header__link-wallet header__link--no-mobile ${loggedIn && walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
           >
             <div className="header__link__icon">
               <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
