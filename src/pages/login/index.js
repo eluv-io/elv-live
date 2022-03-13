@@ -50,6 +50,7 @@ export const LoginBox = inject("rootStore")(inject("siteStore")(observer(({rootS
   const [privateKey, setPrivateKey] = useState("");
   const [redirectPath, setRedirectPath] = useState(window.location.pathname === "/wallet/logout" ? localStorage.getItem("redirectPath") || "/" : "");
   const [loginData, setLoginData] = useState({ share_email: true });
+  const [signInAttempted, setSignInAttempted] = useState(false);
 
   const loginDataRequired = siteStore.loginCustomization.require_consent && !loginData;
 
@@ -134,6 +135,7 @@ export const LoginBox = inject("rootStore")(inject("siteStore")(observer(({rootS
       console.error(error);
     } finally {
       setLoading(false);
+      setSignInAttempted(true);
     }
   };
 
@@ -303,6 +305,12 @@ export const LoginBox = inject("rootStore")(inject("siteStore")(observer(({rootS
       Log In
     </button>
   );
+
+  if(signInAttempted && window.location.pathname === "/wallet/callback") {
+    // Callback, but haven't redirected yet
+    setRedirectPath(localStorage.getItem("redirectPath") || "/");
+  }
+
 
   const tenantName = siteStore.loginCustomization.tenant_name;
   return (
