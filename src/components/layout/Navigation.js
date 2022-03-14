@@ -191,7 +191,7 @@ class Header extends React.Component {
     return (
       <>
         {
-          redeemAvailable && couponMode ?
+          !this.props.siteStore.currentDropEvent && redeemAvailable && couponMode ?
             <NavLink
               to={this.props.siteStore.SitePath("coupon-code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
@@ -202,7 +202,7 @@ class Header extends React.Component {
             </NavLink> : null
         }
         {
-          redeemAvailable ?
+          !this.props.siteStore.currentDropEvent && redeemAvailable ?
             <NavLink
               to={this.props.siteStore.SitePath("code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}

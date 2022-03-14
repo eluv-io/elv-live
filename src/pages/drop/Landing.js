@@ -229,11 +229,13 @@ class Landing extends React.Component {
               }
             }}
           />
+          {
+            drop.requires_ticket ?
+              <div className="landing-page__new-code-link-container">
+                <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink>
+              </div> : null
+          }
         </div>
-        {
-          drop.requires_ticket ?
-            <NavLink className="landing-page__new-code-link" to={this.props.siteStore.SitePath("code")}>Want to use a different ticket?</NavLink> : null
-        }
         <Footer />
       </div>
     );

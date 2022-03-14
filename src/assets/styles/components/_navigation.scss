@@ -59,7 +59,7 @@
   &__links {
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     position: relative;
 
     &-no-icons {
@@ -144,11 +144,18 @@
   }
 
   @media screen and (max-width: 600px) {
+    padding: 0 10px;
+
     &__logo-container {
       max-width: 115px;
     }
 
     &__link {
+      font-size: 10px;
+      margin: 0;
+      padding: 0 7px;
+      text-align: center;
+
       &__icon {
         display: none;
       }
@@ -156,10 +163,20 @@
       &--no-mobile {
         display: none;
       }
+
+      & + .header__link {
+        margin-left: 0;
+      }
     }
 
     &__logo-default {
       height: 16px;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    &__logo-container {
+      max-width: 80px;
     }
   }
 }
