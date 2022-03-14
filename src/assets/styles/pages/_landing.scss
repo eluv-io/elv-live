@@ -59,6 +59,7 @@
     max-width: 800px;
     min-height: 100vh;
     padding-top: 80px;
+    width: 100%;
     z-index: 2;
   }
 
@@ -175,14 +176,23 @@
     width: auto;
   }
 
-  &__new-code-link {
+  &__new-code-link-container {
+    align-items: flex-end;
     bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    position: absolute;
+    right: 20px;
+    width: 100%;
+  }
+
+  &__new-code-link {
     color: $white;
     font-size: 16px;
     font-weight: 300;
     letter-spacing: 0.03em;
     opacity: 0.5;
-    position: absolute;
     right: 30px;
 
     &:hover {
@@ -308,6 +318,14 @@
 
     &__text-confirmation {
       font-size: 12px;
+    }
+
+    &__new-code-link-container {
+      height: 50px;
+      justify-content: center;
+      padding: 0;
+      position: unset;
+      width: 100%;
     }
 
     &__new-code-link {
