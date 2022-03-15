@@ -402,23 +402,20 @@ class RootStore {
       sessionStorage.removeItem("wallet-visibility");
     }
 
-    /*
     // Mute video if video is present and moving into full wallet view
     if(visibility === "full" && this.defaultWalletState.video && this.defaultWalletState.video.element) {
       this.defaultWalletState = {
         ...this.defaultWalletState,
         video: {
           ...this.defaultWalletState.video,
-          muted: this.defaultWalletState.video.element.muted
+          paused: this.defaultWalletState.video.element.muted
         }
       };
 
-      this.defaultWalletState.video.element.muted = true;
-    } else if(video && !video.muted) {
-      video.element.muted = false;
+      this.defaultWalletState.video.element.pause();
+    } else if(video && !video.paused) {
+      video.element.play();
     }
-
-     */
   });
 
   // NOTE: Logging in via OAuth does NOT replace the client used in live, it only passes auth to the wallet frame
