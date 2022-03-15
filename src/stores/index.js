@@ -402,18 +402,18 @@ class RootStore {
       sessionStorage.removeItem("wallet-visibility");
     }
 
-    // Mute video if video is present and moving into full wallet view
+    // Pause video if video is present and moving into full wallet view
     if(visibility === "full" && this.defaultWalletState.video && this.defaultWalletState.video.element) {
       this.defaultWalletState = {
         ...this.defaultWalletState,
         video: {
           ...this.defaultWalletState.video,
-          paused: this.defaultWalletState.video.element.muted
+          playing: !this.defaultWalletState.video.element.paused
         }
       };
 
       this.defaultWalletState.video.element.pause();
-    } else if(video && !video.paused) {
+    } else if(video && video.playing) {
       video.element.play();
     }
   });
