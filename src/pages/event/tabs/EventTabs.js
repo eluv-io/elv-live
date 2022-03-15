@@ -1,13 +1,14 @@
 import React from "react";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import InfoIcon from "@material-ui/icons/Info";
-
 import {inject, observer} from "mobx-react";
 import Merch from "Event/tabs/Merch";
 import EventDescriptions from "Event/descriptions/EventDescriptions";
 import {ErrorBoundary} from "Common/ErrorBoundary";
 import Ticket from "Event/tickets/Ticket";
 import EventInfoButtons from "Event/EventInfoModal";
+
+import EventIcon from "Assets/icons/info.svg";
+import CartIcon from "Assets/icons/cart-icon.svg";
+import ImageIcon from "Common/ImageIcon";
 
 @inject("siteStore")
 @observer
@@ -74,8 +75,8 @@ class EventTabs extends React.Component {
 
     return (
       <div className="event-tabs">
-        { ticketsAvailable ? this.Tab("event", <InfoIcon />) : null }
-        { merchAvailable ? this.Tab("merch", <ShoppingCartIcon />) : null }
+        { ticketsAvailable ? this.Tab("event", <ImageIcon icon={EventIcon} label="Event" />) : null }
+        { merchAvailable ? this.Tab("merch", <ImageIcon icon={CartIcon} label="Merchandise" />) : null }
       </div>
     );
   }
