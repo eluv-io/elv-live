@@ -70,6 +70,8 @@
   }
 
   &__link {
+    @include page-fade-in;
+    
     align-items: center;
     background-color: transparent;
     border: 0;

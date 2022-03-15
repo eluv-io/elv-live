@@ -22,9 +22,6 @@ class RootStore {
   @observable baseKey = 1;
   @observable walletKey = 1;
   @observable client;
-  @observable walletClient;
-  @observable showWalletLinks = false;
-  @observable walletTarget;
   @observable redeemedTicket;
   @observable error = "";
 
@@ -32,7 +29,11 @@ class RootStore {
 
   @observable loggedOut = false;
   @observable loggingIn = false;
-  @observable walletLoggedIn;
+
+  @observable walletClient;
+  @observable walletTarget;
+  @observable walletLoaded = false;
+  @observable walletLoggedIn = false;
   @observable walletVisibility = "hidden";
 
   @observable currentWalletRoute = "";
@@ -224,9 +225,6 @@ class RootStore {
 
     this.currentWalletRoute = yield this.walletClient.CurrentPath();
 
-    // Give the wallet a chance to send the log in event before showing links
-    setTimeout(() => runInAction(() => this.showWalletLinks = true), 2750);
-
     if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
       const { authToken, address, user } = this.AuthInfo();
       this.walletClient.SignIn({
@@ -269,6 +267,10 @@ class RootStore {
         this.ClearAuthInfo();
       });
     });
+
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOADED, () =>
+      runInAction(() => this.walletLoaded = true)
+    );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
       await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug});
