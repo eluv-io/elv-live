@@ -68,6 +68,10 @@
     }
   }
 
+  .btn {
+    @include page-fade-in;
+  }
+
   &__heading {
     margin-bottom: 15px;
     max-width: 1200px;

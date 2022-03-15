@@ -318,8 +318,8 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { this.props.rootStore.showWalletLinks && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { this.props.rootStore.showWalletLinks && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { this.props.rootStore.walletLoaded && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
+        { this.props.rootStore.walletLoaded && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||

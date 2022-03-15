@@ -62,7 +62,7 @@ class Header extends React.Component {
     const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
 
 
-    if(!this.props.rootStore.walletClient || !this.props.rootStore.showWalletLinks) {
+    if(!this.props.rootStore.walletClient || !this.props.rootStore.walletLoaded) {
       return null;
     } else if(!this.props.rootStore.walletLoggedIn) {
       return (
