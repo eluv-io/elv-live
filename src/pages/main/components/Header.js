@@ -45,8 +45,12 @@ const MobileNavigationMenu = inject("rootStore")(observer(({rootStore, Close}) =
   );
 }));
 
-const MobileNavigation = ({marketplace}) => {
+const MobileNavigation = inject("rootStore")(observer(({rootStore, marketplace}) => {
   const [showMenu, setShowMenu] = useState(false);
+
+  if(rootStore.currentWalletState.visibility === "full") {
+    return null;
+  }
 
   return (
     <>
@@ -66,7 +70,7 @@ const MobileNavigation = ({marketplace}) => {
       }
     </>
   );
-};
+}));
 
 @inject("rootStore")
 @withRouter
