@@ -288,7 +288,7 @@ class Drop extends React.Component {
                   ...this.props.rootStore.defaultWalletState,
                   video: !videoElement ? null : {
                     element: videoElement.getElementsByTagName("video")[0],
-                    paused: videoElement.paused
+                    playing: !videoElement.paused
                   }
                 });
               }}
