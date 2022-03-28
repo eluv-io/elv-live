@@ -19,6 +19,9 @@ class RootStore {
 
   @observable pageWidth = window.innerWidth;
 
+  @observable loginLoaded = false;
+  @observable showLogin = false;
+
   @observable baseKey = 1;
   @observable walletKey = 1;
   @observable client;
@@ -28,7 +31,6 @@ class RootStore {
   @observable basePublicUrl;
 
   @observable loggedOut = false;
-  @observable loggingIn = false;
 
   @observable walletClient;
   @observable walletTarget;
@@ -260,7 +262,7 @@ class RootStore {
       sessionStorage.removeItem("wallet-logged-in");
 
       runInAction(() => {
-        this.currentWalletState.visibility = "hidden";
+        this.SetWalletPanelVisibility({visibility: "hidden"});
         this.walletLoggedIn = false;
         this.loggedOut = true;
 
@@ -332,6 +334,13 @@ class RootStore {
     const walletPanel = document.getElementById("wallet-panel");
 
     const visibilities = ["hidden", "side-panel", "modal", "full"];
+
+    if(visibility !== "hidden" && !this.walletLoggedIn) {
+      this.showLogin ? this.HideLogin() : this.ShowLogin();
+
+      return;
+    }
+
 
     if(!walletPanel || !visibilities.includes(visibility)) {
       return;
@@ -420,7 +429,7 @@ class RootStore {
 
   // NOTE: Logging in via OAuth does NOT replace the client used in live, it only passes auth to the wallet frame
   @action.bound
-  SetAuthInfo = flow(function * ({idToken, authToken, privateKey, user, tenantId, loginData={}}) {
+  SetAuthInfo = flow(function * ({idToken, authToken, privateKey, user, tenantId}) {
     try {
       this.loggingIn = true;
       const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
@@ -430,7 +439,7 @@ class RootStore {
         const signer = wallet.AddAccount({privateKey});
         client.SetSigner({signer});
       } else {
-        yield client.SetRemoteSigner({idToken, authToken, tenantId, extraData: loginData});
+        yield client.SetRemoteSigner({idToken, authToken, tenantId, extraData: user?.userData});
       }
 
       let authInfo = {
@@ -481,6 +490,21 @@ class RootStore {
       this.loggingIn = false;
     }
   });
+
+  @action.bound
+  SetLoginLoaded() {
+    this.loginLoaded = true;
+  }
+
+  @action.bound
+  ShowLogin() {
+    this.showLogin = true;
+  }
+
+  @action.bound
+  HideLogin() {
+    this.showLogin = false;
+  }
 
   ClearAuthInfo() {
     localStorage.removeItem("auth");

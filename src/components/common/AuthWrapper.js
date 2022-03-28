@@ -1,51 +1,98 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import EluvioConfiguration from "EluvioConfiguration";
 import {inject, observer} from "mobx-react";
 import {PageLoader} from "Common/Loaders";
-import Login from "Pages/login";
+import Login from "../../login/Login";
 import {Auth0Provider, useAuth0} from "@auth0/auth0-react";
 import WalletFrame from "Pages/wallet/WalletFrame";
+import Modal from "Common/Modal";
+import {Redirect} from "react-router";
 
-const baseUrl = new URL(window.location.origin);
+export const LoginModal = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
+  if(rootStore.walletLoggedIn || !rootStore.client || rootStore.loggedOut || (rootStore.app === "site" && !siteStore.marketplaceHash)) {
+    return null;
+  }
 
-export const LoginPage = inject("rootStore")(inject("siteStore")((observer(({rootStore, siteStore, openWallet, closeWallet}) => {
-  useEffect(() => {
-    if(openWallet) {
-      sessionStorage.setItem("wallet-visibility", "full");
-    } else if(closeWallet) {
-      sessionStorage.removeItem("wallet-visibility");
-      rootStore.SetWalletPanelVisibility({visibility: "hidden"});
-    }
-  }, []);
+  if(!rootStore.showLogin) { return null; }
 
-  if(!rootStore.client) { return <PageLoader />; }
+  sessionStorage.setItem("redirectPath", window.location.pathname);
+
+  const callbackUrl = new URL(window.location.origin);
+  callbackUrl.pathname = "/wallet/callback";
 
   return (
-    <div className={`page-container login-route ${siteStore.loginCustomization.darkMode ? "login-route-dark" : "login-page"}`}>
-      <Login modal />
-    </div>
+    <Modal className="login-modal" Toggle={() => rootStore.HideLogin()}>
+      <Login
+        darkMode={rootStore.app === "site" ? siteStore.darkMode : true}
+        callbackUrl={callbackUrl.toString()}
+        Loaded={() => rootStore.SetLoginLoaded()}
+        LoadCustomizationOptions={async () => await siteStore.LoadLoginCustomization()}
+        SignIn={params => rootStore.SetAuthInfo(params)}
+        Close={() => rootStore.HideLogin()}
+      />
+    </Modal>
   );
-}))));
+})));
 
-const LogOutHandler = inject("rootStore")((observer(({rootStore}) => {
+export const LoggedOutRedirect = () => {
+  const redirectUrl = sessionStorage.getItem("redirectPath") || "/";
+
+  return <Redirect to={redirectUrl} />;
+};
+
+export const LogOutHandler = inject("rootStore")((observer(({rootStore}) => {
   const auth0 = useAuth0();
-  const logOutUrl = new URL(baseUrl.toString());
-  logOutUrl.pathname = "/wallet/logout";
 
-  if(rootStore.loggedOut) {
-    localStorage.setItem("redirectPath", window.location.pathname);
+  useEffect(() => {
+    if(!rootStore.loggedOut) { return; }
+
+    sessionStorage.setItem("redirectPath", window.location.pathname);
+
+    const logOutUrl = new URL(window.location.origin);
+    logOutUrl.pathname = "/wallet/logout";
 
     auth0.logout({
       returnTo: logOutUrl.toString()
     });
-  }
+  }, [rootStore.loggedOut]);
 
   return null;
 })));
 
+export const LogInHandler = inject("rootStore")(inject("siteStore")(observer(({rootStore, siteStore}) => {
+  const [redirect, setRedirect] = useState(false);
+
+  const redirectPath = sessionStorage.getItem("redirectPath");
+
+  if(redirect) {
+    return <Redirect to={redirectPath} />;
+  }
+
+  return (
+    <>
+      <PageLoader />
+      <Login
+        silent
+        Loaded={() => rootStore.SetLoginLoaded()}
+        LoadCustomizationOptions={async () => await siteStore.LoadLoginCustomization()}
+        SignIn={async params => {
+          try {
+            await rootStore.SetAuthInfo(params);
+          } catch(error) {
+            // eslint-disable-next-line no-console
+            console.error("Error logging in:", error);
+          } finally {
+            setRedirect(true);
+          }
+        }}
+      />
+    </>
+  );
+})));
+
 
 const AuthWrapper = inject("siteStore")(observer(({siteStore, children}) => {
-  const callbackUrl = new URL(baseUrl.toString());
+  const callbackUrl = new URL(window.location.origin);
   callbackUrl.pathname = "/wallet/callback";
 
   return (
@@ -57,6 +104,7 @@ const AuthWrapper = inject("siteStore")(observer(({siteStore, children}) => {
       darkMode={siteStore.loginCustomization.darkMode}
     >
       { children }
+      <LoginModal />
       <LogOutHandler />
       <WalletFrame />
     </Auth0Provider>

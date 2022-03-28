@@ -5,7 +5,7 @@ import {Route, BrowserRouter} from "react-router-dom";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
-import AuthWrapper, {LoginPage} from "Common/AuthWrapper";
+import AuthWrapper, {LoggedOutRedirect, LogInHandler} from "Common/AuthWrapper";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -56,8 +56,8 @@ class SiteApp extends React.Component {
     return (
       <>
         <Switch>
-          <Route exact path="/wallet/callback"><LoginPage /></Route>
-          <Route exact path="/wallet/logout"><LoginPage closeWallet /></Route>
+          <Route exact path="/wallet/callback"><LogInHandler /></Route>
+          <Route exact path="/wallet/logout"><LoggedOutRedirect /></Route>
 
           <Route exact path="/:tenantSlug/collections" component={Collections} />
           <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
