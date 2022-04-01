@@ -147,7 +147,7 @@ class SiteStore {
         return {
           type: "drop_event",
           uuid: drop.uuid,
-          requires_login: drop.requires_login,
+          requires_login: drop.requires_login || true,
           requires_ticket: drop.requires_ticket,
           header: drop.event_header,
           start_date,

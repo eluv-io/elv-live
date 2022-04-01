@@ -239,9 +239,16 @@ class RootStore {
 
     const visibilityParam =
       new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full";
-    const initialVisibility = sessionStorage.getItem("wallet-visibility") || visibilityParam;
+    let initialVisibility = visibilityParam ?  { visibility: visibilityParam } : null;
+    if(sessionStorage.getItem("wallet-visibility")) {
+      try {
+        initialVisibility = JSON.parse(sessionStorage.getItem("wallet-visibility"));
+      // eslint-disable-next-line no-empty
+      } catch(error) {}
+    }
+
     if(initialVisibility) {
-      this.SetWalletPanelVisibility({visibility: initialVisibility});
+      this.SetWalletPanelVisibility(initialVisibility);
     }
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event =>
@@ -331,99 +338,106 @@ class RootStore {
 
   @action.bound
   SetWalletPanelVisibility = flow(function * ({visibility, location, video, hideNavigation=false, requireLogin=true}) {
-    const walletPanel = document.getElementById("wallet-panel");
+    try {
+      const walletPanel = document.getElementById("wallet-panel");
 
-    const visibilities = ["hidden", "side-panel", "modal", "full"];
+      const visibilities = ["hidden", "side-panel", "modal", "full"];
 
-    if(visibility !== "hidden" && !this.walletLoggedIn) {
-      this.showLogin ? this.HideLogin() : this.ShowLogin();
-
-      return;
-    }
-
-
-    if(!walletPanel || !visibilities.includes(visibility)) {
-      return;
-    }
-
-    while(!this.walletClient) {
-      yield new Promise(r => setTimeout(r, 100));
-    }
-
-    if(location) {
-      const currentPath = (yield this.walletClient.CurrentPath()) || "";
-
-      if(location.generalLocation) {
-        if(
-          !(
-            // If we generally want to navigate to the wallet or marketplace, check if we're already in it. If not, navigate to it
-            location.page === "wallet" && currentPath.startsWith("/wallet") ||
-            location.page === "marketplace" && currentPath.startsWith("/marketplace")
-          // If we're in a drop event, always navigate
-          ) || currentPath.includes("/events/")
-        ) {
-          yield this.walletClient.Navigate(toJS(location));
-        }
-      } else {
-        yield this.walletClient.Navigate(toJS(location));
+      if(visibility !== "hidden" && !this.walletLoggedIn) {
+        this.showLogin ? this.HideLogin() : this.ShowLogin();
       }
-    }
 
-    this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
 
-    this.walletClient.ToggleNavigation(!hideNavigation);
+      if(!walletPanel || !visibilities.includes(visibility)) {
+        return;
+      }
 
-    if(visibility === "full") {
-      document.body.style.overflowY = "hidden";
-    } else {
-      document.body.style.overflowY = "auto";
-    }
+      while(!this.walletClient && this.walletLoggedIn) {
+        yield new Promise(r => setTimeout(r, 100));
+      }
 
-    if(visibility === "modal") {
-      this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
-      const Close = () => {
-        // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
-        this.SetWalletPanelVisibility(this.defaultWalletState);
+      if(this.walletClient) {
+        if(location) {
+          const currentPath = (yield this.walletClient.CurrentPath()) || "";
 
-        walletPanel.removeEventListener("click", Close);
-        this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
-      };
-
-      walletPanel.addEventListener("click", Close);
-      this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
-    }
-
-    if(visibility !== "hidden") {
-      this.walletClient.SetActive(true);
-    }
-
-    this.currentWalletState = {
-      visibility,
-      location,
-      route: yield this.walletClient.CurrentPath(),
-      video,
-      requireLogin
-    };
-
-    if(visibility === "full") {
-      sessionStorage.setItem("wallet-visibility", "full");
-    } else {
-      sessionStorage.removeItem("wallet-visibility");
-    }
-
-    // Pause video if video is present and moving into full wallet view
-    if(visibility === "full" && this.defaultWalletState.video && this.defaultWalletState.video.element) {
-      this.defaultWalletState = {
-        ...this.defaultWalletState,
-        video: {
-          ...this.defaultWalletState.video,
-          playing: !this.defaultWalletState.video.element.paused
+          if(location.generalLocation) {
+            if(
+              !(
+                // If we generally want to navigate to the wallet or marketplace, check if we're already in it. If not, navigate to it
+                location.page === "wallet" && currentPath.startsWith("/wallet") ||
+                location.page === "marketplace" && currentPath.startsWith("/marketplace")
+                // If we're in a drop event, always navigate
+              ) || currentPath.includes("/events/")
+            ) {
+              yield this.walletClient.Navigate(toJS(location));
+            }
+          } else {
+            yield this.walletClient.Navigate(toJS(location));
+          }
         }
+
+        this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
+
+        this.walletClient.ToggleNavigation(!hideNavigation);
+
+        if(visibility === "modal") {
+          this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
+          const Close = () => {
+            // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
+            this.SetWalletPanelVisibility(this.defaultWalletState);
+
+            walletPanel.removeEventListener("click", Close);
+            this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
+          };
+
+          walletPanel.addEventListener("click", Close);
+          this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
+        }
+
+        if(visibility !== "hidden") {
+          this.walletClient.SetActive(true);
+        }
+      }
+
+      if(visibility === "full") {
+        document.body.style.overflowY = "hidden";
+      } else {
+        document.body.style.overflowY = "";
+      }
+
+      this.currentWalletState = {
+        visibility,
+        location,
+        route: yield this.walletClient.CurrentPath(),
+        video,
+        requireLogin
       };
 
-      this.defaultWalletState.video.element.pause();
-    } else if(video && video.playing) {
-      video.element.play();
+      if(visibility === "full") {
+        sessionStorage.setItem("wallet-visibility", JSON.stringify({visibility, location, requireLogin}));
+      } else {
+        sessionStorage.removeItem("wallet-visibility");
+      }
+
+      // Pause video if video is present and moving into full wallet view
+      if(visibility === "full" && this.defaultWalletState.video && this.defaultWalletState.video.element) {
+        this.defaultWalletState = {
+          ...this.defaultWalletState,
+          video: {
+            ...this.defaultWalletState.video,
+            playing: !this.defaultWalletState.video.element.paused
+          }
+        };
+
+        this.defaultWalletState.video.element.pause();
+      } else if(video && video.playing) {
+        video.element.play();
+      }
+    } catch(error) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to adjust wallet client visibility:");
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   });
 
