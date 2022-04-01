@@ -140,7 +140,7 @@ class Header extends React.Component {
                       }
                   );
                 }}
-                className={`header__link ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
+                className={`header__link header__link--no-mobile ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
               >
                 <div className="header__link__icon header__link__icon-marketplace">
                   <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
@@ -165,7 +165,7 @@ class Header extends React.Component {
                   }
               );
             }}
-            className={`header__link header__link-wallet header__link--no-mobile ${loggedIn && walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
+            className={`header__link header__link-wallet ${loggedIn && walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
           >
             <div className="header__link__icon">
               <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>

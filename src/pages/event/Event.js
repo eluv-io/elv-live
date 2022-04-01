@@ -23,9 +23,9 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
 
   useEffect(() => {
     if(!messageInfo || !messageInfo.show) {
-      // NOTE: Setting wallet panel visibility to modal when not logged in shows live's login modal
       Close();
-      rootStore.SetWalletPanelVisibility({visibility: "modal", showPostLoginModal: true});
+
+      rootStore.SetWalletPanelVisibility({visibility: "modal"});
     }
   }, [messageInfo]);
 
@@ -72,7 +72,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
                   Close();
                   localStorage.setItem("showPostLoginModal", "1");
 
-                  rootStore.SetWalletPanelVisibility({visibility: "modal", showPostLoginModal: true});
+                  rootStore.SetWalletPanelVisibility({visibility: "modal"});
                 }}
                 className="event-message__button"
               >
@@ -526,7 +526,7 @@ class Event extends React.Component {
 
         { this.state.showPromo ? this.Promos() : null}
         { this.state.showGetStartedModal ? <GetStartedModal Close={() => this.setState({showGetStartedModal: false})} /> : null }
-        { this.state.showPostLoginModal ? <PostLoginModal Close={() => this.setState({showPostLoginModal: false})} /> : null }
+        { this.state.showPostLoginModal && this.props.rootStore.walletLoggedIn ? <PostLoginModal Close={() => this.setState({showPostLoginModal: false})} /> : null }
         <Footer />
       </div>
     );

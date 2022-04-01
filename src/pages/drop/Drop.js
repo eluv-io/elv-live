@@ -10,7 +10,6 @@ import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
 import {Redirect} from "react-router";
-import Login from "Pages/login";
 
 const EventPlayer = inject("rootStore")(inject("siteStore")(observer(({
   rootStore,
@@ -325,12 +324,6 @@ class Drop extends React.Component {
             </div>
           </div>
         </div>
-        {
-          !this.props.rootStore.walletLoggedIn ?
-            <div className="wallet-panel wallet-panel-side-panel dark">
-              <Login />
-            </div> : null
-        }
       </>
     );
   }
