@@ -43,7 +43,7 @@ class App extends React.Component {
 
     let mainSite = mainPages.includes(window.location.pathname);
     if(window.location.pathname.startsWith("/wallet")) {
-      mainSite = mainPages.includes(localStorage.getItem("redirectPath") || "");
+      mainSite = mainPages.includes(sessionStorage.getItem("redirectPath") || "");
     }
 
     if(mainSite) {

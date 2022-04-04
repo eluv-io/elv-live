@@ -147,7 +147,7 @@ class SiteStore {
         return {
           type: "drop_event",
           uuid: drop.uuid,
-          requires_login: drop.requires_login,
+          requires_login: drop.requires_login || true,
           requires_ticket: drop.requires_ticket,
           header: drop.event_header,
           start_date,
@@ -215,6 +215,48 @@ class SiteStore {
     if(!this.siteSlug) { return window.location.pathname; }
 
     return UrlJoin("/", this.tenantSlug || "", this.siteSlug);
+  }
+
+  async LoadLoginCustomization() {
+    if(!this.marketplaceHash) {
+      return {};
+    }
+
+    // Attempt to load from cache
+    const savedData = sessionStorage.getItem(`marketplace-login-${this.marketplaceHash}`);
+    if(savedData) {
+      try {
+        return JSON.parse(atob(savedData));
+        // eslint-disable-next-line no-empty
+      } catch(error) {}
+    }
+
+    let metadata = (
+      await this.client.ContentObjectMetadata({
+        versionHash: this.marketplaceHash,
+        metadataSubtree: UrlJoin("public", "asset_metadata", "info"),
+        select: [
+          "branding",
+          "login_customization",
+          "tenant_id",
+          "terms"
+        ],
+        produceLinkUrls: true
+      })
+    ) || {};
+
+    metadata = {
+      ...(metadata.login_customization || {}),
+      darkMode: metadata?.branding?.color_scheme === "Dark",
+      marketplaceId: this.marketplaceId,
+      marketplaceHash: this.marketplaceHash,
+      tenant_id: metadata.tenant_id,
+      terms: metadata.terms
+    };
+
+    sessionStorage.setItem(`marketplace-login-${this.marketplaceHash}`, btoa(JSON.stringify(metadata)));
+
+    return metadata;
   }
 
   @action.bound
