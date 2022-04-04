@@ -184,7 +184,7 @@ class EventInfoModal extends React.Component {
     const backgroundColor = background_color.color || "#FFFFFF";
 
     return (
-      <Modal Toggle={this.props.Close}>
+      <Modal Toggle={this.props.Close} className="event-info-modal-modal">
         <div
           style={{backgroundColor, color: textColor, "*": { backgroundColor, color: `${textColor} !important` }}}
           className={`event-info-modal ${this.props.small ? "event-info-modal-small" : ""} ${!image && !video ? "event-info-modal-no-image" : ""}`}
@@ -193,9 +193,8 @@ class EventInfoModal extends React.Component {
             { this.MediaSection() }
           </div>
           { this.PageControls() }
-          <div className="event-info-modal__text-container">
+          <div className="event-info-modal__text-container" style={{backgroundColor, color: textColor}}>
             <div
-              style={{backgroundColor, color: textColor}}
               className="event-info-modal__markdown markdown-document"
               ref={element => {
                 if(!element) { return; }
