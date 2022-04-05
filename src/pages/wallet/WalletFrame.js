@@ -10,12 +10,11 @@ class WalletFrame extends React.Component {
   render() {
     if(!this.props.siteStore.currentSiteInfo || !this.props.siteStore.siteId) { return null; }
 
-    const visibility = !this.props.rootStore.walletLoggedIn ? "hidden" : this.props.rootStore.currentWalletState.visibility;
     return (
       <>
-        <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">
+        <div className={`wallet-panel wallet-panel-${this.props.rootStore.currentWalletState.visibility}`} id="wallet-panel" key="wallet-panel">
           {
-            visibility === "modal" ?
+            this.props.rootStore.currentWalletState.visibility === "modal" ?
               <button
                 className="wallet-panel__modal-close"
                 onClick={this.props.rootStore.CloseWalletModal}

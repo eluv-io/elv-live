@@ -53,7 +53,6 @@ class Header extends React.Component {
     }
 
     const walletState = this.props.rootStore.currentWalletState || {};
-    const loggedIn = this.props.rootStore.walletLoggedIn;
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
     const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
@@ -61,120 +60,131 @@ class Header extends React.Component {
     // Actual current wallet path matches the one that the button has opened - so a second click should close it
     const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
 
+    let loginButton, walletButton;
+    if(this.props.rootStore.walletLoggedIn) {
+      walletButton = (
+        <button
+          onClick={() => {
+            this.props.rootStore.SetWalletPanelVisibility(
+              walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" && matchingPage ?
+                this.props.rootStore.defaultWalletState :
+                {
+                  visibility: "full",
+                  location: {
+                    page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
+                    params: {
+                      tenantSlug: marketplaceInfo.tenant_slug,
+                      marketplaceSlug: marketplaceInfo.marketplace_slug
+                    }
+                  }
+                }
+            );
+          }}
+          className={`header__link header__link-wallet ${walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
+        >
+          <div className="header__link__icon">
+            <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
+          </div>
+          My Wallet
+        </button>
+      );
+    } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
+      loginButton = (
+        <button
+          onClick={() => this.props.rootStore.ShowLogin()}
+          className="header__link"
+        >
+          <div className="header__link__icon">
+            <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
+          </div>
+          Log In
+        </button>
+      );
+    }
+
+    let eventButton;
+    if(this.props.siteStore.currentDropEvent) {
+      eventButton = (
+        <NavLink
+          to={this.props.siteStore.SitePath("drop", this.props.siteStore.currentDropEvent, "event")}
+          onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
+          className={`header__link ${currentPage === "drop" ? "header__link-active" : ""}`}
+        >
+          <div className="header__link__icon">
+            <ImageIcon icon={EventIcon} title="Event" className="header__link__image"/>
+          </div>
+          Event
+        </NavLink>
+      );
+    }
+
+    const storeButton = (
+      <button
+        onClick={() => {
+          this.props.rootStore.SetWalletPanelVisibility(
+            walletState.visibility === "full" && walletState.location && ["marketplace", "marketplaceListings"].includes(currentPage) && matchingPage ?
+              this.props.rootStore.defaultWalletState :
+              {
+                visibility: "full",
+                location: {
+                  page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
+                  params: {
+                    tenantSlug: marketplaceInfo.tenant_slug,
+                    marketplaceSlug: marketplaceInfo.marketplace_slug
+                  }
+                }
+              }
+          );
+        }}
+        className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
+      >
+        <div className="header__link__icon">
+          <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
+        </div>
+        Store
+      </button>
+    );
+
+    let marketplacesButton;
+    if(!hideGlobalNavigation) {
+      marketplacesButton = (
+        <button
+          onClick={() => {
+            this.props.rootStore.SetWalletPanelVisibility(
+              walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
+                this.props.rootStore.defaultWalletState :
+                {
+                  visibility: "full",
+                  location: {
+                    page: "marketplaces"
+                  }
+                }
+            );
+          }}
+          className={`header__link header__link--no-mobile ${walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
+        >
+          <div className="header__link__icon header__link__icon-marketplace">
+            <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
+          </div>
+          Marketplaces
+        </button>
+      );
+    }
+
 
     if(!this.props.rootStore.walletClient || !this.props.rootStore.walletLoaded) {
       return null;
-    } else if(!this.props.rootStore.walletLoggedIn) {
-      return (
-        <>
-          <button
-            onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility({
-                visibility: "modal",
-                location: {
-                  page: "wallet"
-                }
-              });
-            }}
-            className="header__link"
-          >
-            <div className="header__link__icon">
-              <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
-            </div>
-            Log In
-          </button>
-        </>
-      );
-    } else {
-      return (
-        <>
-          {
-            this.props.siteStore.currentDropEvent ?
-              <NavLink
-                to={this.props.siteStore.SitePath("drop", this.props.siteStore.currentDropEvent, "event")}
-                onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-                className={`header__link ${loggedIn && currentPage === "drop" ? "header__link-active" : ""}`}
-              >
-                <div className="header__link__icon">
-                  <ImageIcon icon={EventIcon} title="Event" className="header__link__image"/>
-                </div>
-                Event
-              </NavLink> : null
-          }
-          <button
-            onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && ["marketplace", "marketplaceListings"].includes(currentPage) && matchingPage ?
-                  this.props.rootStore.defaultWalletState :
-                  {
-                    visibility: "full",
-                    location: {
-                      page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
-                      params: {
-                        tenantSlug: marketplaceInfo.tenant_slug,
-                        marketplaceSlug: marketplaceInfo.marketplace_slug
-                      }
-                    }
-                  }
-              );
-            }}
-            className={`header__link ${loggedIn && walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
-          >
-            <div className="header__link__icon">
-              <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
-            </div>
-            Store
-          </button>
-          {
-            !hideGlobalNavigation ?
-              <button
-                onClick={() => {
-                  this.props.rootStore.SetWalletPanelVisibility(
-                    walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
-                      this.props.rootStore.defaultWalletState :
-                      {
-                        visibility: "full",
-                        location: {
-                          page: "marketplaces"
-                        }
-                      }
-                  );
-                }}
-                className={`header__link header__link--no-mobile ${loggedIn && walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
-              >
-                <div className="header__link__icon header__link__icon-marketplace">
-                  <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
-                </div>
-                Marketplaces
-              </button> : null
-          }
-          <button
-            onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" && matchingPage ?
-                  this.props.rootStore.defaultWalletState :
-                  {
-                    visibility: "full",
-                    location: {
-                      page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
-                      params: {
-                        tenantSlug: marketplaceInfo.tenant_slug,
-                        marketplaceSlug: marketplaceInfo.marketplace_slug
-                      }
-                    }
-                  }
-              );
-            }}
-            className={`header__link header__link-wallet ${loggedIn && walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
-          >
-            <div className="header__link__icon">
-              <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
-            </div>
-            My Wallet
-          </button>
-        </>
-      );
     }
+
+    return (
+      <>
+        { loginButton }
+        { eventButton}
+        { storeButton }
+        { marketplacesButton }
+        { walletButton }
+      </>
+    );
   }
 
   Links() {

@@ -11,7 +11,6 @@ import Modal from "Common/Modal";
 
 const MobileNavigationMenu = inject("rootStore")(observer(({rootStore, Close}) => {
   const walletState = rootStore.currentWalletState || {};
-  const loggedIn = rootStore.walletLoggedIn;
   const walletOpen = walletState.visibility === "full";
 
   const CloseWallet = () => {
@@ -27,7 +26,7 @@ const MobileNavigationMenu = inject("rootStore")(observer(({rootStore, Close}) =
       <NavLink to="/blockchain" className="mobile-navigation__link" onClick={CloseWallet}>Blockchain</NavLink>
       <NavLink to="/news" className="mobile-navigation__link" onClick={CloseWallet}>News</NavLink>
       <button
-        className={`mobile-navigation__link ${loggedIn && walletOpen ? "active" : ""}`}
+        className={`mobile-navigation__link ${walletOpen ? "active" : ""}`}
         onClick={() => {
           rootStore.SetWalletPanelVisibility({
             visibility: "full",
@@ -102,7 +101,6 @@ class Header extends React.Component {
   render() {
     const mainPage = this.props.location.pathname === "/" || this.props.location.pathname.startsWith("/wallet");
     const walletState = this.props.rootStore.currentWalletState || {};
-    const loggedIn = this.props.rootStore.walletLoggedIn;
     const walletOpen = walletState.visibility === "full";
     const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
 
@@ -142,7 +140,7 @@ class Header extends React.Component {
           <NavLink to="/blockchain" className="main-header__link" onClick={CloseWallet}>Blockchain</NavLink>
           <NavLink to="/news" className="main-header__link" onClick={CloseWallet}>News</NavLink>
           <button
-            className={`main-header__link main-header__wallet-button ${loggedIn && walletOpen ? "active" : ""}`}
+            className={`main-header__link main-header__wallet-button ${walletOpen ? "active" : ""}`}
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
                 walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?

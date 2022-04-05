@@ -25,7 +25,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
     if(!messageInfo || !messageInfo.show) {
       Close();
 
-      rootStore.SetWalletPanelVisibility({visibility: "modal"});
+      rootStore.ShowLogin();
     }
   }, [messageInfo]);
 
@@ -72,7 +72,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
                   Close();
                   localStorage.setItem("showPostLoginModal", "1");
 
-                  rootStore.SetWalletPanelVisibility({visibility: "modal"});
+                  rootStore.ShowLogin();
                 }}
                 className="event-message__button"
               >
