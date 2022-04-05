@@ -222,6 +222,7 @@ class RootStore {
       target,
       tenantSlug,
       marketplaceSlug,
+      captureLogin: true,
       darkMode
     });
 
@@ -250,6 +251,10 @@ class RootStore {
     if(initialVisibility) {
       this.SetWalletPanelVisibility(initialVisibility);
     }
+
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN_REQUESTED, () =>
+      runInAction(() => this.ShowLogin())
+    );
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event =>
       runInAction(() => this.currentWalletRoute = event.data)
@@ -343,16 +348,11 @@ class RootStore {
 
       const visibilities = ["hidden", "side-panel", "modal", "full"];
 
-      if(visibility !== "hidden" && !this.walletLoggedIn) {
-        this.showLogin ? this.HideLogin() : this.ShowLogin();
-      }
-
-
       if(!walletPanel || !visibilities.includes(visibility)) {
         return;
       }
 
-      while(!this.walletClient && this.walletLoggedIn) {
+      while(!this.walletClient) {
         yield new Promise(r => setTimeout(r, 100));
       }
 
