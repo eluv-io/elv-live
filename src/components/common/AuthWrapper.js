@@ -15,7 +15,9 @@ export const LoginModal = inject("rootStore")(inject("siteStore")(observer(({roo
 
   if(!rootStore.showLogin) { return null; }
 
-  sessionStorage.setItem("redirectPath", window.location.pathname);
+  if(!window.location.pathname?.startsWith("/wallet/")) {
+    sessionStorage.setItem("redirectPath", window.location.pathname);
+  }
 
   const callbackUrl = new URL(window.location.origin);
   callbackUrl.pathname = "/wallet/callback";
@@ -45,8 +47,10 @@ export const LogOutHandler = inject("rootStore")((observer(({rootStore}) => {
 
   useEffect(() => {
     if(!rootStore.loggedOut) { return; }
-
-    sessionStorage.setItem("redirectPath", window.location.pathname);
+    
+    if(!window.location.pathname?.startsWith("/wallet/")) {
+      sessionStorage.setItem("redirectPath", window.location.pathname);
+    }
 
     const logOutUrl = new URL(window.location.origin);
     logOutUrl.pathname = "/wallet/logout";
