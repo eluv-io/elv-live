@@ -226,32 +226,6 @@ class RootStore {
       darkMode
     });
 
-    this.currentWalletRoute = yield this.walletClient.CurrentPath();
-
-    if(!sessionStorage.getItem("wallet-logged-in") && this.AuthInfo()) {
-      const { authToken, address, user } = this.AuthInfo();
-      this.walletClient.SignIn({
-        name: (user || {}).name,
-        email: (user || {}).email,
-        address,
-        authToken
-      });
-    }
-
-    const visibilityParam =
-      new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full";
-    let initialVisibility = visibilityParam ?  { visibility: visibilityParam } : null;
-    if(sessionStorage.getItem("wallet-visibility")) {
-      try {
-        initialVisibility = JSON.parse(sessionStorage.getItem("wallet-visibility"));
-      // eslint-disable-next-line no-empty
-      } catch(error) {}
-    }
-
-    if(initialVisibility) {
-      this.SetWalletPanelVisibility(initialVisibility);
-    }
-
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN_REQUESTED, () =>
       runInAction(() => this.ShowLogin())
     );
@@ -282,15 +256,48 @@ class RootStore {
       });
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOADED, () =>
-      runInAction(() => this.walletLoaded = true)
-    );
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOADED, async () => {
+      // Wallet loaded but not logged in - pass our auth info if present
+      if(!this.walletLoggedIn && this.AuthInfo()) {
+        this.ShowLogin();
+
+        const { authToken, address, user } = this.AuthInfo();
+        await this.walletClient.SignIn({
+          name: (user || {}).name,
+          email: (user || {}).email,
+          address,
+          authToken
+        });
+      }
+
+      // Saved wallet visibility + path
+      const visibilityParam =
+        new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full";
+      let initialVisibility = visibilityParam ?  { visibility: visibilityParam } : null;
+      if(sessionStorage.getItem("wallet-visibility")) {
+        try {
+          initialVisibility = JSON.parse(sessionStorage.getItem("wallet-visibility"));
+
+          if(initialVisibility) {
+            this.SetWalletPanelVisibility(initialVisibility);
+          }
+          // eslint-disable-next-line no-empty
+        } catch(error) {}
+      }
+
+      runInAction(() => this.walletLoaded = true);
+    });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
       await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug});
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
+
+    this.currentWalletRoute = yield this.walletClient.CurrentPath();
+
+    // Fallback in case load event is not received
+    setTimeout(() => runInAction(() => this.walletLoaded = true), 10000);
   });
 
   @action.bound
