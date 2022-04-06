@@ -4,6 +4,7 @@ import ImageIcon from "Common/ImageIcon";
 import CloseIcon from "Icons/x";
 import {ToggleZendesk} from "Utils/Misc";
 import {createPortal} from "react-dom";
+import {rootStore} from "Stores";
 
 @observer
 class Modal extends React.Component {
@@ -33,7 +34,10 @@ class Modal extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.Close);
-    document.body.style.overflowY = "auto";
+
+    if(rootStore.currentWalletState.visibility !== "full") {
+      document.body.style.overflowY = "auto";
+    }
 
     ToggleZendesk(true);
   }
