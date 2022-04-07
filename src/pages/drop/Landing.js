@@ -84,16 +84,7 @@ const LandingCountdown = observer(({drop, diff, countdown, reloading}) => {
             </NavLink> :
             <button
               className="landing-page__enter-event"
-              onClick={() => {
-                rootStore.SetWalletPanelVisibility(
-                  {
-                    visibility: "modal",
-                    location: {
-                      page: "wallet"
-                    }
-                  }
-                );
-              }}
+              onClick={() => rootStore.ShowLogin()}
             >
               Log In
             </button>
@@ -167,12 +158,7 @@ const Landing = observer(() => {
 
   useEffect(() => {
     if(rootStore.walletLoaded && !rootStore.walletLoggedIn && drop.requires_login) {
-      rootStore.SetWalletPanelVisibility({
-        visibility: "modal",
-        location: {
-          page: "wallet"
-        }
-      });
+      rootStore.ShowLogin();
     }
   }, [rootStore.walletLoaded, rootStore.walletLoggedIn]);
 
