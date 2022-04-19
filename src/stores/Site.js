@@ -218,12 +218,14 @@ class SiteStore {
   }
 
   async LoadLoginCustomization() {
-    if(!this.marketplaceHash) {
+    const marketplaceHash = this.marketplaceHash || sessionStorage.getItem("marketplaceHash");
+
+    if(!marketplaceHash) {
       return {};
     }
 
     // Attempt to load from cache
-    const savedData = sessionStorage.getItem(`marketplace-login-${this.marketplaceHash}`);
+    const savedData = sessionStorage.getItem(`marketplace-login-${marketplaceHash}`);
     if(savedData) {
       try {
         return JSON.parse(atob(savedData));
@@ -233,7 +235,7 @@ class SiteStore {
 
     let metadata = (
       await this.client.ContentObjectMetadata({
-        versionHash: this.marketplaceHash,
+        versionHash: marketplaceHash,
         metadataSubtree: UrlJoin("public", "asset_metadata", "info"),
         select: [
           "branding",
@@ -248,13 +250,13 @@ class SiteStore {
     metadata = {
       ...(metadata.login_customization || {}),
       darkMode: metadata?.branding?.color_scheme === "Dark",
-      marketplaceId: this.marketplaceId,
-      marketplaceHash: this.marketplaceHash,
+      marketplaceId: this.client.utils.DecodeVersionHash(marketplaceHash).objectId,
+      marketplaceHash: marketplaceHash,
       tenant_id: metadata.tenant_id,
       terms: metadata.terms
     };
 
-    sessionStorage.setItem(`marketplace-login-${this.marketplaceHash}`, btoa(JSON.stringify(metadata)));
+    sessionStorage.setItem(`marketplace-login-${marketplaceHash}`, btoa(JSON.stringify(metadata)));
 
     return metadata;
   }
