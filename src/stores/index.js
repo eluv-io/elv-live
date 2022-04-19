@@ -259,8 +259,6 @@ class RootStore {
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOADED, async () => {
       // Wallet loaded but not logged in - pass our auth info if present
       if(!this.walletLoggedIn && this.AuthInfo()) {
-        this.ShowLogin();
-
         const { authToken, address, user } = this.AuthInfo();
         await this.walletClient.SignIn({
           name: (user || {}).name,
@@ -268,6 +266,8 @@ class RootStore {
           address,
           authToken
         });
+
+        this.ShowLogin();
       }
 
       // Saved wallet visibility + path
@@ -399,10 +399,6 @@ class RootStore {
 
           walletPanel.addEventListener("click", Close);
           this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
-        }
-
-        if(visibility !== "hidden") {
-          this.walletClient.SetActive(true);
         }
       }
 

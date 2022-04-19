@@ -384,7 +384,7 @@ class Event extends React.Component {
         key={`banner-${index}`}
         className="event-page__banner__image"
         icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
-        title="Banner"
+        label="Banner"
       />
     );
 
