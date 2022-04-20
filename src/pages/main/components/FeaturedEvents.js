@@ -101,6 +101,8 @@ class FeaturedEvents extends React.Component {
     }
 
     const openMarketplace = (site.info.event_info || {}).feature_location === "Marketplace";
+    const externalLink = (site.info.event_info || {}).feature_location === "External Link" && site.info.event_info.external_url;
+
     const { tenant_slug, marketplace_slug, default_store_page } = (site.info.marketplace_info || {});
 
     return (
@@ -143,7 +145,13 @@ class FeaturedEvents extends React.Component {
 
           {
             accessible && !openMarketplace ?
-              <a href={UrlJoin("/", site.tenantSlug || "", site.siteSlug)} className="featured-event__event-link" style={buttonStyle}>
+              <a
+                href={externalLink || UrlJoin("/", site.tenantSlug || "", site.siteSlug)}
+                className="featured-event__event-link"
+                target={externalLink ? "_blank" : ""}
+                style={buttonStyle}
+                rel="noopener"
+              >
                 { buttonOptions ? buttonOptions.text : (site.info.type === "drop_event" ? "Join the Drop" : "Buy Tickets") }
               </a> : null
           }
