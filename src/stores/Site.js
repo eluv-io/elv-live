@@ -574,14 +574,16 @@ class SiteStore {
 
       yield heroPreloadPromise;
 
-      this.darkMode = site.info.theme === "dark";
-
       site.siteSlug = siteSlug;
       site.siteIndex = parseInt(siteIndex);
       site.tenantSlug = tenantSlug;
 
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
+
+      if(fullLoad) {
+        this.darkMode = site.info.theme === "dark";
+      }
 
       const marketplaceInfo = site.info.marketplace_info;
       if(fullLoad && marketplaceInfo && marketplaceInfo.marketplace_slug) {
