@@ -4,6 +4,7 @@
   height: 100%;
   justify-content: center;
   margin-left: 15px;
+  min-width: 35px;
   width: max-content;
 
   &__menu-button {
@@ -17,6 +18,7 @@
     svg {
       height: 100%;
       stroke: $darkgray;
+      width: auto;
     }
   }
 
