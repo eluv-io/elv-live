@@ -4,7 +4,8 @@ const autoprefixer = require("autoprefixer");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+//const TerserPlugin = require("terser-webpack-plugin");
+const fs = require("fs");
 // entry: "./src/components/original/index.js",
 
 module.exports = {
@@ -17,6 +18,11 @@ module.exports = {
     publicPath: "/"
   },
   devServer: {
+    https: {
+      key: fs.readFileSync("./https/private.key"),
+      cert: fs.readFileSync("./https/dev.local.crt"),
+      ca: fs.readFileSync("./https/private.pem")
+    },
     disableHostCheck: true,
     inline: true,
     port: 8086,
@@ -52,14 +58,6 @@ module.exports = {
   optimization: {
     providedExports: true,
     usedExports: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          keep_classnames: true,
-          keep_fnames: true
-        }
-      })
-    ],
     splitChunks: {
       chunks: "all"
     }
@@ -85,6 +83,7 @@ module.exports = {
     rules: [
       {
         test: /\.(css|scss)$/,
+        exclude: /\.(theme|font)\.(css|scss)$/i,
         use: [
           "style-loader",
           {
@@ -102,6 +101,10 @@ module.exports = {
           "sass-loader"
         ],
 
+      },
+      {
+        test: /\.(theme|font)\.(css|scss)$/i,
+        loader: "raw-loader"
       },
       {
         test: /\.(js|mjs)$/,

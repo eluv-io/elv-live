@@ -444,56 +444,97 @@ class RootStore {
     }
   });
 
+  MetamaskAvailable() {
+    return window.ethereum && window.ethereum.isMetaMask && window.ethereum.chainId;
+  }
+
+  SignMetamask = flow(function * (message) {
+    yield window.ethereum.request({method: "eth_requestAccounts"});
+    const from = window.ethereum.selectedAddress;
+    return yield window.ethereum.request({
+      method: "personal_sign",
+      params: [message, from, ""],
+    });
+  });
+
   // NOTE: Logging in via OAuth does NOT replace the client used in live, it only passes auth to the wallet frame
   @action.bound
-  SetAuthInfo = flow(function * ({idToken, authToken, privateKey, user, tenantId}) {
+  Authenticate = flow(function * ({idToken, fabricToken, authToken, address, user, tenantId, externalWallet, expiresAt}) {
     try {
       this.loggingIn = true;
       const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
 
-      if(privateKey) {
-        const wallet = client.GenerateWallet();
-        const signer = wallet.AddAccount({privateKey});
-        client.SetSigner({signer});
-      } else {
-        yield client.SetRemoteSigner({idToken, authToken, tenantId, extraData: user?.userData});
+      // Show MM download page or mobile app
+      if(externalWallet === "metamask" && !this.MetamaskAvailable()) {
+        const url = new URL(window.location.href);
+        const a = document.createElement("a");
+        a.href = `https://metamask.app.link/dapp/${url.toString().replace("https://", "")}`;
+
+        a.target = "_self";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        return;
       }
+
+      if(externalWallet) {
+        if(externalWallet === "metamask") {
+          address = client.utils.FormatAddress(window.ethereum && window.ethereum.selectedAddress);
+
+          const duration = 24 * 60 * 60 * 1000;
+          const buffer = 8 * 60 * 60 * 1000;
+          fabricToken = yield client.CreateFabricToken({
+            address,
+            duration,
+            Sign: this.SignMetamask,
+            addEthereumPrefix: false
+          });
+
+          // Expire token early so it does not stop working during usage
+          expiresAt = Date.now() + duration - buffer;
+        } else {
+          throw Error("Unknown external wallet: " + externalWallet);
+        }
+      } else if(fabricToken && !authToken) {
+        // Signed in previously with external wallet
+      } else if(idToken || authToken) {
+        yield client.SetRemoteSigner({idToken, authToken, tenantId, extraData: user?.userData, unsignedPublicAuth: true});
+        expiresAt = JSON.parse(atob(client.signer.authToken)).exp;
+        fabricToken = yield client.CreateFabricToken({duration: expiresAt - Date.now()});
+        authToken = client.signer.authToken;
+        address = client.utils.FormatAddress(client.CurrentAccountAddress());
+      } else if(!fabricToken) {
+        throw Error("Neither ID token nor auth token provided to Authenticate");
+      }
+
+      const walletName = externalWallet || "Eluvio";
 
       let authInfo = {
-        address: client.signer.address,
-        user: {
-          name: (user || {}).name,
-          email: (user || {}).email
-        }
+        address,
+        authToken,
+        fabricToken,
+        walletName,
+        user,
+        tenantId,
       };
 
-      if(privateKey) {
-        authInfo.privateKey = privateKey;
-      } else {
-        authInfo.authToken = client.signer.authToken;
-      }
-
-      if(idToken) {
-        authInfo.idToken = idToken;
-      }
 
       localStorage.setItem(
         "auth",
         this.client.utils.B64(JSON.stringify(authInfo))
       );
 
-      if(!privateKey) {
-        localStorage.setItem("hasLoggedIn", "true");
-      }
+      localStorage.setItem("hasLoggedIn", "true");
 
       if(this.walletClient) {
         this.walletClient.SignIn({
           name: (user || {}).name,
           email: (user || {}).email,
-          address: client.signer.address,
-          idToken,
+          address,
           authToken,
-          privateKey
+          fabricToken,
+          walletName
         });
 
         yield new Promise(resolve => setTimeout(resolve, 2000));

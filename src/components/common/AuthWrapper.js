@@ -33,9 +33,10 @@ export const LoginModal = inject("rootStore")(inject("siteStore")(observer(({roo
       <Login
         darkMode={rootStore.app === "site" ? siteStore.darkMode : true}
         callbackUrl={callbackUrl.toString()}
+        authenticating={rootStore.loggingIn}
         Loaded={() => rootStore.SetLoginLoaded()}
         LoadCustomizationOptions={async () => await siteStore.LoadLoginCustomization()}
-        SignIn={params => rootStore.SetAuthInfo(params)}
+        SignIn={async params => await rootStore.Authenticate(params)}
         Close={() => rootStore.HideLogin()}
       />
     </Modal>
@@ -87,7 +88,7 @@ export const LogInHandler = inject("rootStore")(inject("siteStore")(observer(({r
         LoadCustomizationOptions={async () => await siteStore.LoadLoginCustomization()}
         SignIn={async params => {
           try {
-            await rootStore.SetAuthInfo(params);
+            await rootStore.Authenticate(params);
           } catch(error) {
             // eslint-disable-next-line no-console
             console.error("Error logging in:", error);
