@@ -58,7 +58,7 @@ class Header extends React.Component {
     const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
 
     // Actual current wallet path matches the one that the button has opened - so a second click should close it
-    const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
+    const matchingPage = walletState.route === walletState.route;
 
     let loginButton, walletButton;
     if(this.props.rootStore.walletLoggedIn) {

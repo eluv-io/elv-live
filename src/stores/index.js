@@ -38,8 +38,8 @@ class RootStore {
   @observable walletLoggedIn = false;
   @observable walletVisibility = "hidden";
 
-  @observable currentWalletRoute = "";
   @observable currentWalletState = {
+    route: "",
     visibility: "hidden",
     location: {
       page: "wallet"
@@ -230,9 +230,13 @@ class RootStore {
       runInAction(() => this.ShowLogin())
     );
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event =>
-      runInAction(() => this.currentWalletRoute = event.data)
-    );
+    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event => {
+      runInAction(() => this.currentWalletState.route = event.data);
+
+      if(this.walletLoaded) {
+        sessionStorage.setItem("wallet-route", event.data);
+      }
+    });
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
       sessionStorage.setItem("wallet-logged-in", "true");
@@ -246,6 +250,7 @@ class RootStore {
 
     this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_OUT, () => {
       sessionStorage.removeItem("wallet-logged-in");
+      sessionStorage.removeItem("wallet-route");
 
       runInAction(() => {
         this.SetWalletPanelVisibility({visibility: "hidden"});
@@ -279,6 +284,8 @@ class RootStore {
           initialVisibility = JSON.parse(sessionStorage.getItem("wallet-visibility"));
 
           if(initialVisibility) {
+            initialVisibility.route = sessionStorage.getItem("wallet-route");
+
             this.SetWalletPanelVisibility(initialVisibility);
           }
           // eslint-disable-next-line no-empty
@@ -294,7 +301,7 @@ class RootStore {
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
 
-    this.currentWalletRoute = yield this.walletClient.CurrentPath();
+    this.currentWalletState.route = yield this.walletClient.CurrentPath();
 
     // Fallback in case load event is not received
     setTimeout(() => runInAction(() => this.walletLoaded = true), 10000);
@@ -349,7 +356,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility = flow(function * ({visibility, location, video, hideNavigation=false, requireLogin=true}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false, requireLogin=true}) {
     try {
       const walletPanel = document.getElementById("wallet-panel");
 
@@ -364,7 +371,9 @@ class RootStore {
       }
 
       if(this.walletClient) {
-        if(location) {
+        if(route) {
+          yield this.walletClient.Navigate({path: route});
+        } else if(location) {
           const currentPath = (yield this.walletClient.CurrentPath()) || "";
 
           if(location.generalLocation) {

@@ -102,7 +102,7 @@ class Header extends React.Component {
     const mainPage = this.props.location.pathname === "/" || this.props.location.pathname.startsWith("/wallet");
     const walletState = this.props.rootStore.currentWalletState || {};
     const walletOpen = walletState.visibility === "full";
-    const matchingPage = walletState.route === this.props.rootStore.currentWalletRoute;
+    const matchingPage = walletState.route === walletState.route;
 
     const CloseWallet = () => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
 
