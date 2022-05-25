@@ -483,7 +483,6 @@ class RootStore {
           address = client.utils.FormatAddress(window.ethereum && window.ethereum.selectedAddress);
 
           const duration = 24 * 60 * 60 * 1000;
-          const buffer = 8 * 60 * 60 * 1000;
           fabricToken = yield client.CreateFabricToken({
             address,
             duration,
@@ -491,8 +490,7 @@ class RootStore {
             addEthereumPrefix: false
           });
 
-          // Expire token early so it does not stop working during usage
-          expiresAt = Date.now() + duration - buffer;
+          expiresAt = Date.now() + duration;
         } else {
           throw Error("Unknown external wallet: " + externalWallet);
         }
@@ -517,6 +515,7 @@ class RootStore {
         walletName,
         user,
         tenantId,
+        expiresAt
       };
 
 
@@ -534,7 +533,8 @@ class RootStore {
           address,
           authToken,
           fabricToken,
-          walletName
+          walletName,
+          expiresAt
         });
 
         yield new Promise(resolve => setTimeout(resolve, 2000));
@@ -573,14 +573,16 @@ class RootStore {
       const tokenInfo = localStorage.getItem("auth");
 
       if(tokenInfo) {
-        const { authToken, address, user } = JSON.parse(this.client.utils.FromB64(tokenInfo));
-        const expiration = JSON.parse(atob(authToken)).exp;
-        if(expiration - Date.now() < 4 * 3600 * 1000) {
-          this.ClearAuthInfo();
-        } else if(!user) {
+        let { authToken, fabricToken, address, user, tenantId, expiresAt, walletName } = JSON.parse(this.client.utils.FromB64(tokenInfo));
+
+        // Expire tokens early so they don't stop working while in use
+        const expirationBuffer = 4 * 60 * 60 * 1000;
+
+        expiresAt = expiresAt || (authToken && JSON.parse(atob(authToken)).exp);
+        if(expiresAt && expiresAt - Date.now() < expirationBuffer) {
           this.ClearAuthInfo();
         } else {
-          return { authToken, address, user };
+          return { authToken, fabricToken, address, user, tenantId, expiresAt, walletName };
         }
       }
     } catch(error) {
