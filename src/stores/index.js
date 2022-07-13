@@ -64,7 +64,7 @@ class RootStore {
 
   @observable savedTickets = {};
 
-  @observable marketplaceParams = {};
+  @observable marketplaceParams;
 
   constructor() {
     this.siteStore = new SiteStore(this);
