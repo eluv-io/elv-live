@@ -135,6 +135,8 @@ class RootStore {
 
     this.walletClient.appUrl = walletAppUrl;
 
+    this.mainSiteId = this.walletClient.mainSiteId;
+
     if(this.walletClient.ClientAuthToken()) {
       this.walletLoggedIn = true;
     }
@@ -217,16 +219,17 @@ class RootStore {
     }
   });
 
-  CheckFrameAddress = flow(function * () {
+  CheckFrameAddress = flow(function * (logIn=false) {
     const frameAddress = (yield this.frameClient.UserProfile())?.address;
 
-    if(!frameAddress) { return; }
-
-    if(!this.client.utils.EqualAddress(frameAddress, this.walletClient.UserAddress())) {
+    if(frameAddress && !this.client.utils.EqualAddress(frameAddress, this.walletClient.UserAddress())) {
       // eslint-disable-next-line no-console
       console.error("Frame logged in with wrong account");
 
-      this.frameClient.SignOut();
+      this.frameClient.LogOut();
+    } else if(!frameAddress && logIn && this.walletClient.ClientAuthToken()) {
+      console.log("LOGGING IN WALLEt");
+      this.frameClient.LogIn({clientAuthToken: this.walletClient.ClientAuthToken()});
     }
   });
 
@@ -252,10 +255,6 @@ class RootStore {
         tenantSlug,
         marketplaceSlug
       };
-    }
-
-    if(this.walletLoggedIn) {
-      this.frameClient.LogIn({clientAuthToken: this.walletClient.ClientAuthToken()});
     }
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN_REQUESTED, () =>
@@ -284,7 +283,7 @@ class RootStore {
     });
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOADED, async () => {
-      this.CheckFrameAddress();
+      this.CheckFrameAddress(true);
 
       // Saved wallet visibility + path
       const visibilityParam =

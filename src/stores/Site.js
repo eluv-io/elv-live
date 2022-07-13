@@ -309,7 +309,7 @@ class SiteStore {
   @action.bound
   LoadMainSite = flow(function * () {
     try {
-      const objectId = EluvioConfiguration["live-site-id"];
+      const objectId = this.rootStore.mainSiteId;
       const libraryId = yield this.client.ContentObjectLibraryId({objectId});
 
       this.siteParams = {

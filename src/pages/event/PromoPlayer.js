@@ -42,7 +42,7 @@ class PromoPlayer extends React.Component {
                 "widevine"
               ],
               playoutParameters: {
-                objectId: EluvioConfiguration["live-site-id"],
+                objectId: this.props.siteStore.rootStore.mainSiteId,
                 linkPath
               }
             },
