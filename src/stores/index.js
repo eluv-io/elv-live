@@ -247,10 +247,12 @@ class RootStore {
       darkMode
     });
 
-    this.marketplaceParams = {
-      tenantSlug,
-      marketplaceSlug
-    };
+    if(marketplaceSlug) {
+      this.marketplaceParams = {
+        tenantSlug,
+        marketplaceSlug
+      };
+    }
 
     if(this.walletLoggedIn) {
       this.frameClient.LogIn({clientAuthToken: this.walletClient.ClientAuthToken()});
