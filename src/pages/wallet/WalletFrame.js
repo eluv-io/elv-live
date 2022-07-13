@@ -40,7 +40,7 @@ class WalletFrame extends React.Component {
 
               if(!element || this.props.rootStore.walletTarget === element || (this.props.rootStore.app === "site" && (!marketplaceInfo && !marketplaceHash))) { return; }
 
-              this.props.rootStore.InitializeWalletClient({
+              this.props.rootStore.InitializeFrameClient({
                 target: element,
                 tenantSlug: (marketplaceInfo || {}).tenant_slug,
                 marketplaceSlug: (marketplaceInfo || {}).marketplace_slug,

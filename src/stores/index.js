@@ -1,6 +1,6 @@
 import {configure, observable, action, flow, runInAction, toJS} from "mobx";
-import {ElvClient} from "@eluvio/elv-client-js";
-import { ElvWalletClient } from "@eluvio/elv-wallet-client";
+import { ElvWalletClient } from "@eluvio/elv-client-js/src/walletClient";
+import { ElvWalletFrameClient } from "@eluvio/elv-wallet-frame-client";
 import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
@@ -14,13 +14,24 @@ configure({
   enforceActions: "always"
 });
 
+let walletAppUrl;
+if(window.location.hostname.startsWith("192.")) {
+  walletAppUrl = `https://${window.location.hostname}:8090`;
+} else if(window.location.hostname.startsWith("live-stg")) {
+  walletAppUrl = EluvioConfiguration["config-url"].network === "main" ?
+    "https://core.test.contentfabric.io/wallet" :
+    "https://core.test.contentfabric.io/wallet-demo";
+} else {
+  // Prod
+  walletAppUrl = EluvioConfiguration["config-url"].network === "main" ?
+    "https://wallet.contentfabric.io" :
+    "https://wallet.demov3.contentfabric.io";
+}
+
 class RootStore {
   @observable app = "main";
 
   @observable pageWidth = window.innerWidth;
-
-  @observable loginLoaded = false;
-  @observable showLogin = false;
 
   @observable baseKey = 1;
   @observable walletKey = 1;
@@ -30,9 +41,9 @@ class RootStore {
 
   @observable basePublicUrl;
 
-  @observable loggedOut = false;
-
   @observable walletClient;
+  @observable frameClient;
+
   @observable walletTarget;
   @observable walletLoaded = false;
   @observable walletLoggedIn = false;
@@ -52,6 +63,8 @@ class RootStore {
   };
 
   @observable savedTickets = {};
+
+  @observable marketplaceParams = {};
 
   constructor() {
     this.siteStore = new SiteStore(this);
@@ -115,16 +128,25 @@ class RootStore {
   InitializeClient = flow(function * () {
     if(this.client) { return; }
 
-    const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
+    this.walletClient = yield ElvWalletClient.Initialize({
+      network: EluvioConfiguration.network,
+      mode: EluvioConfiguration.mode
+    });
 
-    this.basePublicUrl = yield client.FabricUrl({
+    this.walletClient.appUrl = walletAppUrl;
+
+    if(this.walletClient.ClientAuthToken()) {
+      this.walletLoggedIn = true;
+    }
+
+    this.basePublicUrl = yield this.walletClient.client.FabricUrl({
       queryParams: {
         authorization: this.staticToken
       },
       noAuth: true
     });
 
-    this.client = client;
+    this.client = this.walletClient.client;
   });
 
   @action.bound
@@ -195,29 +217,28 @@ class RootStore {
     }
   });
 
+  CheckFrameAddress = flow(function * () {
+    const frameAddress = (yield this.frameClient.UserProfile())?.address;
+
+    if(!frameAddress) { return; }
+
+    if(!this.client.utils.EqualAddress(frameAddress, this.walletClient.UserAddress())) {
+      // eslint-disable-next-line no-console
+      console.error("Frame logged in with wrong account");
+
+      this.frameClient.SignOut();
+    }
+  });
+
   /* Wallet */
-  InitializeWalletClient = flow(function * ({target, tenantSlug, marketplaceSlug, darkMode=false}) {
+  InitializeFrameClient = flow(function * ({target, tenantSlug, marketplaceSlug, darkMode=false}) {
     if(!target) { return; }
 
     this.walletTarget = target;
 
-    this.DestroyWalletClient();
+    this.DestroyFrameClient();
 
-    let walletAppUrl = "https://wallet.contentfabric.io";
-    if(window.location.hostname.startsWith("192.")) {
-      walletAppUrl = `https://${window.location.hostname}:8090`;
-    } else if(window.location.hostname.startsWith("live-stg")) {
-      walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
-        "https://core.test.contentfabric.io/wallet" :
-        "https://core.test.contentfabric.io/wallet-demo";
-    } else {
-      // Prod
-      walletAppUrl = EluvioConfiguration["config-url"].includes("main.net955305") ?
-        "https://wallet.contentfabric.io" :
-        "https://wallet.demov3.contentfabric.io";
-    }
-
-    this.walletClient = yield ElvWalletClient.InitializeFrame({
+    this.frameClient = yield ElvWalletFrameClient.InitializeFrame({
       walletAppUrl,
       target,
       tenantSlug,
@@ -226,11 +247,20 @@ class RootStore {
       darkMode
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN_REQUESTED, () =>
-      runInAction(() => this.ShowLogin())
+    this.marketplaceParams = {
+      tenantSlug,
+      marketplaceSlug
+    };
+
+    if(this.walletLoggedIn) {
+      this.frameClient.LogIn({clientAuthToken: this.walletClient.ClientAuthToken()});
+    }
+
+    this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN_REQUESTED, () =>
+      runInAction(() => this.LogIn())
     );
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.ROUTE_CHANGE, event => {
+    this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.ROUTE_CHANGE, event => {
       runInAction(() => this.currentWalletState.route = event.data);
 
       if(this.walletLoaded) {
@@ -238,46 +268,26 @@ class RootStore {
       }
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, () => {
-      sessionStorage.setItem("wallet-logged-in", "true");
+    this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, () => this.CheckFrameAddress());
 
-      if(marketplaceSlug) {
-        this.walletClient.SetMarketplace({tenantSlug, marketplaceSlug});
-      }
+    this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_OUT, () => {
+      this.walletClient.LogOut();
 
-      runInAction(() => this.walletLoggedIn = true);
-    });
-
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_OUT, () => {
-      sessionStorage.removeItem("wallet-logged-in");
       sessionStorage.removeItem("wallet-route");
 
       runInAction(() => {
         this.SetWalletPanelVisibility({visibility: "hidden"});
         this.walletLoggedIn = false;
-        this.loggedOut = true;
-
-        this.ClearAuthInfo();
       });
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOADED, async () => {
-      // Wallet loaded but not logged in - pass our auth info if present
-      if(!this.walletLoggedIn && this.AuthInfo()) {
-        const { authToken, address, user } = this.AuthInfo();
-        await this.walletClient.SignIn({
-          name: (user || {}).name,
-          email: (user || {}).email,
-          address,
-          authToken
-        });
-
-        this.ShowLogin();
-      }
+    this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOADED, async () => {
+      this.CheckFrameAddress();
 
       // Saved wallet visibility + path
       const visibilityParam =
         new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full";
+
       let initialVisibility = visibilityParam ?  { visibility: visibilityParam } : null;
       if(sessionStorage.getItem("wallet-visibility")) {
         try {
@@ -295,34 +305,34 @@ class RootStore {
       runInAction(() => this.walletLoaded = true);
     });
 
-    this.walletClient.AddEventListener(ElvWalletClient.EVENTS.CLOSE, async () => {
-      await this.InitializeWalletClient({target, tenantSlug, marketplaceSlug});
+    this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.CLOSE, async () => {
+      await this.InitializeFrameClient({target, tenantSlug, marketplaceSlug});
 
       this.SetWalletPanelVisibility(this.defaultWalletState);
     });
 
-    this.currentWalletState.route = yield this.walletClient.CurrentPath();
+    this.currentWalletState.route = yield this.frameClient.CurrentPath();
 
     // Fallback in case load event is not received
     setTimeout(() => runInAction(() => this.walletLoaded = true), 10000);
   });
 
   @action.bound
-  DestroyWalletClient() {
-    if(this.walletClient) {
-      this.walletClient.Destroy();
-      this.walletClient = undefined;
+  DestroyFrameClient() {
+    if(this.frameClient) {
+      this.frameClient.Destroy();
+      this.frameClient = undefined;
     }
   }
 
   @action.bound
   ReloadWallet() {
-    this.DestroyWalletClient();
+    this.DestroyFrameClient();
     this.walletKey += 1;
   }
 
   SetMarketplaceFilters({filters}) {
-    this.walletClient && this.walletClient.SetMarketplaceFilters({filters: toJS(filters)});
+    this.frameClient && this.frameClient.SetMarketplaceFilters({filters: toJS(filters)});
   }
 
   // Set default state for wallet
@@ -352,7 +362,7 @@ class RootStore {
     const walletPanel = document.getElementById("wallet-panel");
 
     walletPanel.removeEventListener("click", this.CloseWalletModal);
-    this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
+    this.frameClient.RemoveEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, this.CloseWalletModal);
   }
 
   @action.bound
@@ -366,15 +376,15 @@ class RootStore {
         return;
       }
 
-      while(!this.walletClient) {
+      while(!this.frameClient) {
         yield new Promise(r => setTimeout(r, 100));
       }
 
-      if(this.walletClient) {
+      if(this.frameClient) {
         if(route) {
-          yield this.walletClient.Navigate({path: route});
+          yield this.frameClient.Navigate({path: route});
         } else if(location) {
-          const currentPath = (yield this.walletClient.CurrentPath()) || "";
+          const currentPath = (yield this.frameClient.CurrentPath()) || "";
 
           if(location.generalLocation) {
             if(
@@ -385,29 +395,29 @@ class RootStore {
                 // If we're in a drop event, always navigate
               ) || currentPath.includes("/events/")
             ) {
-              yield this.walletClient.Navigate(toJS(location));
+              yield this.frameClient.Navigate(toJS(location));
             }
           } else {
-            yield this.walletClient.Navigate(toJS(location));
+            yield this.frameClient.Navigate(toJS(location));
           }
         }
 
-        this.walletClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
+        this.frameClient.ToggleSidePanelMode(["modal", "side-panel"].includes(visibility));
 
-        this.walletClient.ToggleNavigation(!hideNavigation);
+        this.frameClient.ToggleNavigation(!hideNavigation);
 
         if(visibility === "modal") {
-          this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, this.CloseWalletModal);
+          this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, this.CloseWalletModal);
           const Close = () => {
             // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
             this.SetWalletPanelVisibility(this.defaultWalletState);
 
             walletPanel.removeEventListener("click", Close);
-            this.walletClient.RemoveEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
+            this.frameClient.RemoveEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, Close);
           };
 
           walletPanel.addEventListener("click", Close);
-          this.walletClient.AddEventListener(ElvWalletClient.EVENTS.LOG_IN, Close);
+          this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, Close);
         }
       }
 
@@ -420,7 +430,7 @@ class RootStore {
       this.currentWalletState = {
         visibility,
         location,
-        route: yield this.walletClient.CurrentPath(),
+        route: yield this.frameClient.CurrentPath(),
         video,
         requireLogin
       };
@@ -453,10 +463,6 @@ class RootStore {
     }
   });
 
-  MetamaskAvailable() {
-    return window.ethereum && window.ethereum.isMetaMask && window.ethereum.chainId;
-  }
-
   SignMetamask = flow(function * (message) {
     yield window.ethereum.request({method: "eth_requestAccounts"});
     const from = window.ethereum.selectedAddress;
@@ -466,140 +472,14 @@ class RootStore {
     });
   });
 
-  // NOTE: Logging in via OAuth does NOT replace the client used in live, it only passes auth to the wallet frame
   @action.bound
-  Authenticate = flow(function * ({idToken, fabricToken, authToken, address, user, tenantId, externalWallet, expiresAt}) {
-    try {
-      this.loggingIn = true;
-      const client = yield ElvClient.FromConfigurationUrl({configUrl: EluvioConfiguration["config-url"]});
-
-      // Show MM download page or mobile app
-      if(externalWallet === "metamask" && !this.MetamaskAvailable()) {
-        const url = new URL(window.location.href);
-        const a = document.createElement("a");
-        a.href = `https://metamask.app.link/dapp/${url.toString().replace("https://", "")}`;
-
-        a.target = "_self";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-
-        return;
-      }
-
-      if(externalWallet) {
-        if(externalWallet === "metamask") {
-          address = client.utils.FormatAddress(window.ethereum && window.ethereum.selectedAddress);
-
-          const duration = 24 * 60 * 60 * 1000;
-          fabricToken = yield client.CreateFabricToken({
-            address,
-            duration,
-            Sign: this.SignMetamask,
-            addEthereumPrefix: false
-          });
-
-          expiresAt = Date.now() + duration;
-        } else {
-          throw Error("Unknown external wallet: " + externalWallet);
-        }
-      } else if(fabricToken && !authToken) {
-        // Signed in previously with external wallet
-      } else if(idToken || authToken) {
-        yield client.SetRemoteSigner({idToken, authToken, tenantId, extraData: user?.userData, unsignedPublicAuth: true});
-        expiresAt = JSON.parse(atob(client.signer.authToken)).exp;
-        fabricToken = yield client.CreateFabricToken({duration: expiresAt - Date.now()});
-        authToken = client.signer.authToken;
-        address = client.utils.FormatAddress(client.CurrentAccountAddress());
-      } else if(!fabricToken) {
-        throw Error("Neither ID token nor auth token provided to Authenticate");
-      }
-
-      const walletName = externalWallet || "Eluvio";
-
-      let authInfo = {
-        address,
-        authToken,
-        fabricToken,
-        walletName,
-        user,
-        tenantId,
-        expiresAt
-      };
-
-
-      localStorage.setItem(
-        "auth",
-        this.client.utils.B64(JSON.stringify(authInfo))
-      );
-
-      localStorage.setItem("hasLoggedIn", "true");
-
-      if(this.walletClient) {
-        this.walletClient.SignIn({
-          name: (user || {}).name,
-          email: (user || {}).email,
-          address,
-          authToken,
-          fabricToken,
-          walletName,
-          expiresAt
-        });
-
-        yield new Promise(resolve => setTimeout(resolve, 2000));
-      }
-    } catch(error){
-      // eslint-disable-next-line no-console
-      console.error("Error logging in:");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      this.loggingIn = false;
-    }
-  });
-
-  @action.bound
-  SetLoginLoaded() {
-    this.loginLoaded = true;
-  }
-
-  @action.bound
-  ShowLogin() {
-    this.showLogin = true;
-  }
-
-  @action.bound
-  HideLogin() {
-    this.showLogin = false;
-  }
-
-  ClearAuthInfo() {
-    localStorage.removeItem("auth");
-  }
-
-  AuthInfo() {
-    try {
-      const tokenInfo = localStorage.getItem("auth");
-
-      if(tokenInfo) {
-        let { authToken, fabricToken, address, user, tenantId, expiresAt, walletName } = JSON.parse(this.client.utils.FromB64(tokenInfo));
-
-        // Expire tokens early so they don't stop working while in use
-        const expirationBuffer = 4 * 60 * 60 * 1000;
-
-        expiresAt = expiresAt || (authToken && JSON.parse(atob(authToken)).exp);
-        if(expiresAt && expiresAt - Date.now() < expirationBuffer) {
-          this.ClearAuthInfo();
-        } else {
-          return { authToken, fabricToken, address, user, tenantId, expiresAt, walletName };
-        }
-      }
-    } catch(error) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to retrieve auth info");
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
+  LogIn() {
+    this.walletClient.LogIn({
+      method: "redirect",
+      callbackUrl: window.location.href,
+      marketplaceParams: this.marketplaceParams,
+      clearLogin: true
+    });
   }
 
   @action.bound

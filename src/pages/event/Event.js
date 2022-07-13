@@ -25,7 +25,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
     if(!messageInfo || !messageInfo.show) {
       Close();
 
-      rootStore.ShowLogin();
+      rootStore.LogIn();
     }
   }, [messageInfo]);
 
@@ -72,7 +72,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
                   Close();
                   localStorage.setItem("showPostLoginModal", "1");
 
-                  rootStore.ShowLogin();
+                  rootStore.LogIn();
                 }}
                 className="event-message__button"
               >

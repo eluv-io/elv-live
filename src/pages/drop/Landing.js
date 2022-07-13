@@ -84,7 +84,7 @@ const LandingCountdown = observer(({drop, diff, countdown, reloading}) => {
             </NavLink> :
             <button
               className="landing-page__enter-event"
-              onClick={() => rootStore.ShowLogin()}
+              onClick={() => rootStore.LogIn()}
             >
               Log In
             </button>
@@ -158,7 +158,7 @@ const Landing = observer(() => {
 
   useEffect(() => {
     if(rootStore.walletLoaded && !rootStore.walletLoggedIn && drop.requires_login) {
-      rootStore.ShowLogin();
+      rootStore.LogIn();
     }
   }, [rootStore.walletLoaded, rootStore.walletLoggedIn]);
 

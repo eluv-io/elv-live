@@ -19,7 +19,7 @@ import Next from "Pages/main/Next";
 import Contact from "Pages/main/Contact";
 import Terms from "Pages/main/Terms";
 import Privacy from "Pages/main/Privacy";
-import AuthWrapper, {LoggedOutRedirect, LogInHandler} from "Common/AuthWrapper";
+import WalletFrame from "Pages/wallet/WalletFrame";
 
 @inject("rootStore")
 @inject("siteStore")
@@ -40,9 +40,6 @@ class MainApp extends React.Component {
   Routes() {
     return (
       <Switch>
-        <Route exact path="/wallet/callback"><LogInHandler /></Route>
-        <Route exact path="/wallet/logout"><LoggedOutRedirect /></Route>
-
         <Route exact path="/"> <Main /> </Route>
         <Route exact path="/partners"> <Partners /> </Route>
         <Route exact path="/technology"> <Technology /> </Route>
@@ -74,10 +71,9 @@ class MainApp extends React.Component {
     return (
       <div className="main-app">
         <BrowserRouter>
-          <AuthWrapper>
-            { this.Content() }
-          </AuthWrapper>
+          { this.Content() }
         </BrowserRouter>
+        <WalletFrame />
       </div>
     );
   }
