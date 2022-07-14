@@ -18,12 +18,12 @@ let walletAppUrl;
 if(window.location.hostname.startsWith("192.")) {
   walletAppUrl = `https://${window.location.hostname}:8090`;
 } else if(window.location.hostname.startsWith("live-stg")) {
-  walletAppUrl = EluvioConfiguration["config-url"].network === "main" ?
+  walletAppUrl = EluvioConfiguration.network === "main" ?
     "https://core.test.contentfabric.io/wallet" :
     "https://core.test.contentfabric.io/wallet-demo";
 } else {
   // Prod
-  walletAppUrl = EluvioConfiguration["config-url"].network === "main" ?
+  walletAppUrl = EluvioConfiguration.network === "main" ?
     "https://wallet.contentfabric.io" :
     "https://wallet.demov3.contentfabric.io";
 }
@@ -228,7 +228,6 @@ class RootStore {
 
       this.frameClient.LogOut();
     } else if(!frameAddress && logIn && this.walletClient.ClientAuthToken()) {
-      console.log("LOGGING IN WALLEt");
       this.frameClient.LogIn({clientAuthToken: this.walletClient.ClientAuthToken()});
     }
   });
