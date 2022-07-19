@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import {NavLink, Redirect} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
-import LiveChat from "Stream/components/LiveChat";
+//import LiveChat from "Stream/components/LiveChat";
 import {ToggleZendesk} from "Utils/Misc";
 import EluvioConfiguration from "../../../configuration";
 
@@ -164,7 +164,9 @@ class Stream extends React.Component {
             </div>
           </div>
         </div>
-        <LiveChat hidden={!this.state.showChat} streamPage Hide={() => this.setState({showChat: false})} />
+        {
+          /*<LiveChat hidden={!this.state.showChat} streamPage Hide={() => this.setState({showChat: false})} /> */
+        }
       </div>
     );
   }

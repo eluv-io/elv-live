@@ -91,7 +91,7 @@ class Header extends React.Component {
     } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
       loginButton = (
         <button
-          onClick={() => this.props.rootStore.ShowLogin()}
+          onClick={() => this.props.rootStore.LogIn()}
           className="header__link"
         >
           <div className="header__link__icon">
@@ -172,7 +172,7 @@ class Header extends React.Component {
     }
 
 
-    if(!this.props.rootStore.walletClient || !this.props.rootStore.walletLoaded) {
+    if(!this.props.rootStore.frameClient || !this.props.rootStore.walletLoaded) {
       return null;
     }
 

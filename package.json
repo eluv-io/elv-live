@@ -22,9 +22,9 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "@eluvio/elv-client-js": "^3.1.95",
+    "@eluvio/elv-client-js": "^3.2.0",
     "@eluvio/elv-player-js": "^1.0.75",
-    "@eluvio/elv-wallet-client": "^1.0.12",
+    "@eluvio/elv-wallet-frame-client": "^2.0.2",
     "@paypal/react-paypal-js": "^4.0.2",
     "@react-hook/resize-observer": "^1.2.2",
     "@stripe/stripe-js": "^1.19.0",
@@ -61,7 +61,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.18.6",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.6",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-syntax-jsx": "^7.2.0",
@@ -76,7 +77,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^8.2.5",
     "babel-plugin-syntax-async-functions": "^6.13.0",
     "babel-preset-mobx": "^2.0.0",
     "copy-webpack-plugin": "^4.6.0",
@@ -105,10 +106,10 @@
     "stylelint-scss": "^3.18.0",
     "svg-inline-loader": "^0.8.0",
     "svg-inline-react": "^3.1.0",
-    "webpack": "^4.29.6",
-    "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.11.0",
+    "webpack": "^4.46.0",
+    "webpack-bundle-analyzer": "^3.9.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2",
     "yaml-loader": "^0.6.0"
   },
   "babel": {
