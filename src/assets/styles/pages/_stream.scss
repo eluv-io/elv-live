@@ -13,6 +13,10 @@ $mobile-footer-height: 100px;
 
 $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
+body {
+  --chat-panel-min-width: 400px;
+}
+
 @keyframes hype {
   33% { transform: rotate(-10deg) scale(0.8); }
   66% { transform: rotate(10deg) scale(0.8); }
@@ -41,7 +45,7 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
   &-chat-visible {
     // Grow chat panel to keep video at 16/9, with min-width fallback
-    grid-template-columns: 1fr calc(max(#{$chat-panel-min-width}, 100vw - (100vh - #{$offset}) * 16 / 9));
+    grid-template-columns: 1fr calc(max(var(--chat-panel-min-width), 100vw - (100vh - #{$offset}) * 16 / 9));
   }
 
   &__main {
@@ -393,10 +397,10 @@ $mobile-offset: $mobile-header-height + $mobile-footer-height;
     overflow-x: hidden;
 
     &-chat-visible {
-      grid-template-columns: 1fr $chat-panel-min-width / 1.5;
+      grid-template-columns: 1fr var(--chat-panel-min-width) / 1.5;
 
       .stream-page__main {
-        max-width: calc(100vw - #{$chat-panel-min-width / 1.5});
+        max-width: calc(100vw - #{var(--chat-panel-min-width) / 1.5});
       }
     }
 

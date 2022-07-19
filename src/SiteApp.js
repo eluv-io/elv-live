@@ -5,7 +5,7 @@ import {Route, BrowserRouter} from "react-router-dom";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
-import AuthWrapper, {LoggedOutRedirect, LogInHandler} from "Common/AuthWrapper";
+import WalletFrame from "Pages/wallet/WalletFrame";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -18,7 +18,7 @@ const Support = MinLoadDelay(import("Support/Support"));
 const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
-const Chat = MinLoadDelay(import("Stream/components/LiveChat"));
+//const Chat = MinLoadDelay(import("Stream/components/LiveChat"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
 const Success = MinLoadDelay(import("Confirmation/Success"));
 const Privacy = MinLoadDelay(import("Event/Privacy"));
@@ -56,9 +56,6 @@ class SiteApp extends React.Component {
     return (
       <>
         <Switch>
-          <Route exact path="/wallet/callback"><LogInHandler /></Route>
-          <Route exact path="/wallet/logout"><LoggedOutRedirect /></Route>
-
           <Route exact path="/:tenantSlug/collections" component={Collections} />
           <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
 
@@ -66,7 +63,7 @@ class SiteApp extends React.Component {
           <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
           <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
           <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
-          <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} />
+          { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} /> */ }
           <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
           <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
           <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
@@ -88,10 +85,10 @@ class SiteApp extends React.Component {
     return (
       <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
         <BrowserRouter>
-          <AuthWrapper>
-            { this.SiteRoutes() }
-          </AuthWrapper>
+          { this.SiteRoutes() }
         </BrowserRouter>
+
+        <WalletFrame />
       </div>
     );
   }

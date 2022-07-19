@@ -212,83 +212,11 @@ class SiteStore {
   }
 
   @computed get baseSitePath() {
-    if(!this.siteSlug) { return window.location.pathname; }
+    if(!this.siteSlug) {
+      return window.location.pathname;
+    }
 
     return UrlJoin("/", this.tenantSlug || "", this.siteSlug);
-  }
-
-  async LoadLoginCustomization() {
-    const marketplaceHash = this.marketplaceHash || sessionStorage.getItem("marketplaceHash");
-
-    if(!marketplaceHash) {
-      return {};
-    }
-
-    // Attempt to load from cache
-    let metadata;
-    const savedData = sessionStorage.getItem(`marketplace-login-${marketplaceHash}`);
-    if(savedData) {
-      try {
-        metadata = JSON.parse(atob(savedData));
-        // eslint-disable-next-line no-empty
-      } catch(error) {}
-    } else {
-      metadata = (
-        await this.client.ContentObjectMetadata({
-          versionHash: marketplaceHash,
-          metadataSubtree: UrlJoin("public", "asset_metadata", "info"),
-          select: [
-            "branding",
-            "login_customization",
-            "tenant_id",
-            "terms"
-          ],
-          produceLinkUrls: true
-        })
-      ) || {};
-
-      metadata = {
-        ...(metadata.login_customization || {}),
-        branding: metadata?.branding || {},
-        darkMode: metadata?.branding?.color_scheme === "Dark",
-        customCSS: metadata?.branding?.color_scheme === "Custom" && metadata?.branding?.custom_css,
-        marketplaceId: this.client.utils.DecodeVersionHash(marketplaceHash).objectId,
-        marketplaceHash: marketplaceHash,
-        tenant_id: metadata.tenant_id,
-        terms: metadata.terms
-      };
-    }
-
-    if(metadata?.branding?.color_scheme === "Custom") {
-      metadata.sign_up_button = undefined;
-      metadata.log_in_button = undefined;
-    }
-
-    sessionStorage.setItem(`marketplace-login-${marketplaceHash}`, btoa(JSON.stringify(metadata)));
-
-    const themeContainer = document.querySelector("#_theme");
-    if(!metadata.darkMode) {
-      themeContainer.innerHTML = "";
-      themeContainer.dataset.theme = "default";
-    } else if(themeContainer.dataset.theme !== "dark") {
-      import("Assets/styles/themes/dark.theme.css")
-        .then(theme => {
-          themeContainer.innerHTML = theme.default;
-        });
-
-      themeContainer.dataset.theme = "dark";
-    }
-
-    const customCSSContainer = document.querySelector("#_custom-css");
-    if(!metadata.customCSS) {
-      customCSSContainer.innerHTML = "";
-      customCSSContainer.dataset.theme = "default";
-    } else if(customCSSContainer.dataset.theme !== "dark") {
-      customCSSContainer.innerHTML = metadata.customCSS;
-      customCSSContainer.dataset.theme = "custom";
-    }
-
-    return metadata;
   }
 
   @action.bound
@@ -381,7 +309,7 @@ class SiteStore {
   @action.bound
   LoadMainSite = flow(function * () {
     try {
-      const objectId = EluvioConfiguration["live-site-id"];
+      const objectId = this.rootStore.mainSiteId;
       const libraryId = yield this.client.ContentObjectLibraryId({objectId});
 
       this.siteParams = {
