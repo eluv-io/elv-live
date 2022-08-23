@@ -13,11 +13,9 @@ class CollectionStore {
   EmbedURL({tenantSlug, collectionSlug, item}) {
     const collection = this.collections[tenantSlug][collectionSlug];
 
-    const network = EluvioConfiguration["config-url"].includes("demov3") ? "demo" : "main";
-
     const embedUrl = URI("https://embed.v3.contentfabric.io")
       .query({
-        net: network,
+        net: EluvioConfiguration.network,
         ptk: null,
         p: null,
         dk: null,

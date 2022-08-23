@@ -66,25 +66,34 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
         </div>
         <div className="event-message__actions">
           {
-            !siteStore.nextDrop || siteStore.nextDrop.requires_login ?
-              <button
-                onClick={() => {
-                  Close();
-                  localStorage.setItem("showPostLoginModal", "1");
+            messageInfo.button_link ?
+              <a
+                href={messageInfo.button_link}
+                target="_blank"
+                rel="noopener"
+                className="event-message__button"
+              >
+                { messageInfo.button_text || "Link" }
+              </a> :
+              !siteStore.nextDrop || siteStore.nextDrop.requires_login ?
+                <button
+                  onClick={() => {
+                    Close();
+                    localStorage.setItem("showPostLoginModal", "1");
 
-                  rootStore.LogIn();
-                }}
-                className="event-message__button"
-              >
-                { messageInfo.button_text || "Create Wallet" }
-              </button> :
-              <Link
-                to={siteStore.nextDrop.link}
-                className="event-message__button"
-                onClick={Close}
-              >
-                { messageInfo.button_text || "Join the Drop" }
-              </Link>
+                    rootStore.LogIn();
+                  }}
+                  className="event-message__button"
+                >
+                  { messageInfo.button_text || "Create Wallet" }
+                </button> :
+                <Link
+                  to={siteStore.nextDrop.link}
+                  className="event-message__button"
+                  onClick={Close}
+                >
+                  { messageInfo.button_text || "Join the Drop" }
+                </Link>
           }
         </div>
       </div>
@@ -144,34 +153,43 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
         </div>
         <div className="event-message__actions">
           {
-            messageInfo.show_marketplace ?
-              <button
-                onClick={async () => {
-                  Close();
-                  await rootStore.SetWalletPanelVisibility({
-                    visibility: "modal",
-                    location: {
-                      page: "marketplace",
-                      params: {
-                        tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                        marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
-                      }
-                    },
-                    hideNavigation: messageInfo.hide_navigation
-                  });
-
-                  await rootStore.SetMarketplaceFilters({filters: messageInfo.marketplace_filters});
-                }}
-                className="event-message__button event-message__button-marketplace"
-              >
-                { messageInfo.button_text || "Go to the Marketplace" }
-              </button> :
-              <button
+            messageInfo.button_link ?
+              <a
+                href={messageInfo.button_link}
+                target="_blank"
+                rel="noopener"
                 className="event-message__button"
-                onClick={Close}
               >
-                { messageInfo.button_text || "Close" }
-              </button>
+                { messageInfo.button_text || "Link" }
+              </a> :
+              messageInfo.show_marketplace ?
+                <button
+                  onClick={async () => {
+                    Close();
+                    await rootStore.SetWalletPanelVisibility({
+                      visibility: "modal",
+                      location: {
+                        page: "marketplace",
+                        params: {
+                          tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                          marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                        }
+                      },
+                      hideNavigation: messageInfo.hide_navigation
+                    });
+
+                    await rootStore.SetMarketplaceFilters({filters: messageInfo.marketplace_filters});
+                  }}
+                  className="event-message__button event-message__button-marketplace"
+                >
+                  { messageInfo.button_text || "Go to the Marketplace" }
+                </button> :
+                <button
+                  className="event-message__button"
+                  onClick={Close}
+                >
+                  { messageInfo.button_text || "Close" }
+                </button>
           }
         </div>
       </div>

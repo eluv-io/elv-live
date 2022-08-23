@@ -4,7 +4,6 @@ import {inject, observer} from "mobx-react";
 
 import ImageIcon from "Common/ImageIcon";
 import Modal from "Common/Modal";
-import EluvioConfiguration from "EluvioConfiguration";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import UrlJoin from "url-join";
 import ReactMarkdown from "react-markdown";

@@ -8,6 +8,7 @@ import MainStore from "Stores/Main";
 import CollectionStore from "Stores/Collection";
 
 import EluvioConfiguration from "EluvioConfiguration";
+import {ElvClient} from "@eluvio/elv-client-js";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -15,7 +16,7 @@ configure({
 });
 
 let walletAppUrl;
-if(window.location.hostname.startsWith("192.")) {
+if(window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
   walletAppUrl = `https://${window.location.hostname}:8090`;
 } else if(window.location.hostname.startsWith("live-stg")) {
   walletAppUrl = EluvioConfiguration.network === "main" ?
@@ -154,8 +155,8 @@ class RootStore {
   @action.bound
   RedeemCode = flow(function * (code) {
     try {
-      const client = yield ElvClient.FromConfigurationUrl({
-        configUrl: EluvioConfiguration["config-url"]
+      const client = yield ElvClient.FromNetworkName({
+        configUrl: EluvioConfiguration.network
       });
 
       const { objectId, ntpId } = yield client.RedeemCode({

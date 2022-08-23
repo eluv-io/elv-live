@@ -1,7 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
-import EluvioConfiguration from "EluvioConfiguration";
 import {ErrorWrapper} from "Common/ErrorBoundary";
 import Player from "Common/Player";
 

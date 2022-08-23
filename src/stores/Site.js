@@ -1,7 +1,6 @@
 import {observable, action, flow, computed, runInAction, toJS} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
-import EluvioConfiguration from "EluvioConfiguration";
 
 const CHAT_ROOM_SIZE = 5000;
 
