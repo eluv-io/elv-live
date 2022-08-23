@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "@eluvio/elv-client-js": "^3.2.0",
+    "@eluvio/elv-client-js": "^3.2.12",
     "@eluvio/elv-player-js": "^1.0.75",
     "@eluvio/elv-wallet-frame-client": "^2.0.2",
     "@paypal/react-paypal-js": "^4.0.2",
@@ -53,7 +53,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "sanitize-html": "^2.3.3",
     "scroll-behavior-polyfill": "^2.0.13",
-    "stream-chat": "^3.7.0",
+    "stream-chat": "^3.1.4",
     "stream-chat-react": "^5.1.7",
     "urijs": "^1.19.10",
     "url-join": "^4.0.1",

@@ -51,8 +51,8 @@ class Stream extends React.Component {
         element,
         {
           clientOptions: {
-            network: EluvioConfiguration["config-url"].includes("main.net955305") ?
-              EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
+            network: EluvioConfiguration.network === "demo" ?
+              EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN,
             client: this.props.siteStore.client
           },
           sourceOptions: {

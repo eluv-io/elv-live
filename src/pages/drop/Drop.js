@@ -41,8 +41,8 @@ const EventPlayer = inject("rootStore")(inject("siteStore")(observer(({
             videoElement,
             {
               clientOptions: {
-                network: EluvioConfiguration["config-url"].includes("main.net955305") ?
-                  EluvioPlayerParameters.networks.MAIN : EluvioPlayerParameters.networks.DEMO,
+                network: EluvioConfiguration.network === "demo" ?
+                  EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN,
                 client: rootStore.client
               },
               sourceOptions: {
