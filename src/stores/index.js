@@ -29,6 +29,10 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
     "https://wallet.demov3.contentfabric.io";
 }
 
+walletAppUrl = new URL(walletAppUrl);
+walletAppUrl.searchParams.set("hgm", "");
+walletAppUrl = walletAppUrl.toString();
+
 class RootStore {
   @observable app = "main";
 
