@@ -48,6 +48,7 @@
 
   &__logo-container {
     max-width: 400px;
+    width: 100%;
   }
 
   &__logo {
@@ -71,7 +72,7 @@
 
   &__link {
     @include page-fade-in;
-    
+
     align-items: center;
     background-color: transparent;
     border: 0;
