@@ -98,7 +98,7 @@ const UpcomingEvents = ({header, events, hardLink=false, className=""}) => {
   const nextEventIndex = events.findIndex(event => !event.past);
   return (
     <div className={`upcoming-events ${className}`}>
-      <h2 className="upcoming-events__header">{ header }</h2>
+      { header ? <h2 className="upcoming-events__header">{ header }</h2> : null }
       <Carousel
         startIndex={Math.max(0, nextEventIndex >= 0 ? nextEventIndex : events.length - 1)}
         minVisible={1}

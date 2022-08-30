@@ -537,7 +537,7 @@ class Event extends React.Component {
 
         {
           this.props.siteStore.currentSiteInfo.hide_upcoming_events ? null :
-            <UpcomingEvents header="Upcoming Events" events={this.props.siteStore.dropEvents}/>
+            <UpcomingEvents events={this.props.siteStore.dropEvents}/>
         }
 
         { this.BottomBanners(mobile) }

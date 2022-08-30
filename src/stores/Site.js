@@ -166,7 +166,7 @@ class SiteStore {
         return {
           type: "marketplace_drop",
           uuid: drop.uuid,
-          requires_login: true,
+          requires_login: false,
           header: drop.event_header,
           start_date,
           end_date,
