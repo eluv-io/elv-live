@@ -20,6 +20,10 @@ import SundanceRelease from "Assets/documents/news/Sundance - January 5th 2022/i
 
 import DollyRelease from "Assets/documents/news/Dolly - March 1/index.md";
 
+import CannonballRelease from "Assets/documents/news/Cannonball Run - August 31 2022/index.md";
+import CannonballImage1 from "Assets/documents/news/Cannonball Run - August 31 2022/base_Cannonball_Racers_1979.jpg";
+import CannonballImage2 from "Assets/documents/news/Cannonball Run - August 31 2022/base_The_Real_Cannonball_Run.jpg";
+
 import Logo from "Assets/images/logo/fixed-eluvio-live-logo-light.svg";
 import HeaderLine from "Assets/images/logo/HeaderLine.png";
 
@@ -49,6 +53,17 @@ class News extends React.Component {
   Navigation() {
     return (
       <div className="news-page__navigation">
+        <a
+          href="#2022-8-31"
+          className="news-page__navigation-button"
+        >
+          <div className="news-page__navigation-button__subheader">
+            August 31st, 2022
+          </div>
+          <div className="news-page__navigation-button__header">
+            The Real Cannonball Run Documentary Launches Web3 Experience Ahead of Debut in 2023
+          </div>
+        </a>
         <a
           href="#2022-3-1"
           className="news-page__navigation-button"
@@ -121,13 +136,13 @@ class News extends React.Component {
     );
   }
 
-  Image(image, alt, credit) {
+  Image(image, label) {
     return (
       <div className="news-page__item__image">
-        <img src={image} alt={alt} className="news-page__item__image__image" />
-        {credit ?
+        <img src={image} alt={label} className="news-page__item__image__image" />
+        {label ?
           <div className="news-page__item__image__credit">
-            {credit}
+            {label}
           </div> : null
         }
       </div>
@@ -199,6 +214,24 @@ class News extends React.Component {
     return (
       <div className="page-content news-page">
         <div className="news-page__content">
+          {
+            this.NewsItem({
+              date: "August 31st, 2022",
+              header:
+                <div>
+                  <div>
+                    The Real Cannonball Run Documentary Launches Web3 Experience Ahead of Debut in 2023
+                  </div>
+                </div>,
+              content:
+                <div className="news-page__item__content">
+                  {this.Image(CannonballImage1, "Cannonball racers 1979 - Credit Paul Allen")}
+                  {this.Image(CannonballImage2, "The Real Cannonball Run to Debut in 2023 - Credit: base & Gero Hoschek")}
+                  {this.Markdown(CannonballRelease)}
+                </div>,
+              anchor: "2022-8-31"
+            })
+          }
           {
             this.NewsItem({
               date: "March 1st, 2022",
