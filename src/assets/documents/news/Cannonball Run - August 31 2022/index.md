@@ -1,5 +1,3 @@
-
-
 *Groundbreaking Web3 docuseries, powered by **base** on the Eluvio Content Blockchain, to provide exclusive access to trailers, behind-the-scenes content, specially minted NFTs, and incrementally released exclusive content*
 
 *Fans will have the opportunity to become part of the filmmaking experience, purchase exclusive minted assets and collectibles, access behind-the-scenes content, win experiences in real Cannonball race cars, and more*
@@ -8,7 +6,7 @@
 
 *Web3 filmmaking details to be showcased at Eluvio Community Event at IBC on September 10, Hall 8, at 1 PM*
 
-LONDON, Aug. 31, 2022 /PRNewswire/ -- **[base](https://www.base-mc.com)**, a leading provider of cloud-native media solutions, today announced a groundbreaking Web3 documentary experience for The Real Cannonball Run, a fast-paced upcoming docuseries, which will tell the true story of the legendary coast-to-coast automotive protest race across America. Initial details can be found at http://realcannonball.com/.
+LONDON, Aug. 31, 2022 /PRNewswire/ -- **[base](https://www.base-mc.com)**, a leading provider of cloud-native media solutions, today announced a groundbreaking Web3 documentary experience for The Real Cannonball Run, a fast-paced upcoming docuseries, which will tell the true story of the legendary coast-to-coast automotive protest race across America. Initial details can be found at [https://realcannonball.com](https://realcannonball.com).
 
 This will be one of the first films to have ever been produced, curated, and distributed on the blockchain directly to fans. The initiative uses cutting-edge cloud and Web3 technology provided through a technical solutions partnership with **base**, and powered by [Eluvio's Content Blockchain](https://live.eluv.io).
 
@@ -24,13 +22,13 @@ When the documentary is completed and mastered, entirely conducted on **base**'s
 
 "BeBop and **base** are long-time partners and champions of adapting new technology for media and entertainment; working together with Eluvio and as stakeholders in the Eluvio Content Blockchain has allowed us to show what's possible, in a practical and tangible way, when Web 3.0 is leveraged with remote, virtual post-production on the BeBop OS," said David Benson, President & Chief Product Officer for BeBop Technology. "For The Real Cannonball Run, we'll be direct-publishing to the Eluvio network, but this only scratches the surface of our exciting product roadmap and joint plans with **base** in the months and years to come."
 
-Both Bebop and **base** are node providers in the Blockchain Content Fabric Network and stakeholders in the utility value of the network, allowing their earnings to offset utility costs such as streaming distribution and other production expenses. On September 10 at IBC at 1 p.m. in Hall 8 (8.MS4), Filmmaker Gero Hoschek and **base**'s Ben Foakes will join others from across the industry at a global Eluvio Community Event to discuss the use of the Blockchain Content Fabric for multi-chain content ownership and distribution (registration info at https://live.eluv.io).
+Both Bebop and **base** are node providers in the Blockchain Content Fabric Network and stakeholders in the utility value of the network, allowing their earnings to offset utility costs such as streaming distribution and other production expenses. On September 10 at IBC at 1 p.m. in Hall 8 (8.MS4), Filmmaker Gero Hoschek and **base**'s Ben Foakes will join others from across the industry at a global Eluvio Community Event to discuss the use of the Blockchain Content Fabric for multi-chain content ownership and distribution (registration info at [https://live.eluv.io](https://live.eluv.io)).
 
 The Real Cannonball Run will feature experiential NFTs, rather than one-off transactional NFTs, as part of its Web3 experience. The first NFT drop for fans will happen on September 10 and will include complimentary film artwork and pre-release trailer access. In addition, one lucky fan will receive early access to mint a one-of-kind, 3D-rendered digital twin (NFT) of the legendary Cannonball Countach LP400S Supercar. Tiered experience NFTs will then drop on September 17, concurrent with the Great Marques Concours, Long Island, New York auto show, where hundreds of Cannonball fans and historical racers will congregate.
 
 Additional details about The Real Cannonball Run will be disclosed in the coming months.
 
-More information about **base** is available at [www.base-mc.com](https://base-mc.com). Additional information about Eluvio is at https://live.eluv.io.
+More information about **base** is available at [www.base-mc.com](https://base-mc.com). Additional information about Eluvio is at [https://live.eluv.io](https://live.eluv.io).
 About **base**
 
 **base** designs, build and manage end-to-end digital content chains in the cloud so clients don't have to. The company's award-winning team of cloud experts in sales, marketing, engineering and software development are renowned for providing outstanding customer service, driven by their passion for excellence and their genuine love of what they do.
