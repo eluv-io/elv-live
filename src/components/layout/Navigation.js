@@ -243,7 +243,7 @@ class Header extends React.Component {
   }
 
   render() {
-    if(!this.props.siteStore.currentSite) { return null; }
+    if(!this.props.siteStore.currentSite || this.props.siteStore.marketplaceOnly) { return null; }
 
     let logo = <ImageIcon icon={DefaultLogo} title="Eluvio LIVE" className="header__logo header__logo-default" />;
     let logoUrl = window.location.origin;

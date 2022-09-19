@@ -59,12 +59,10 @@ class RootStore {
     visibility: "hidden",
     location: {
       page: "wallet"
-    },
-    requireLogin: true
+    }
   };
   @observable defaultWalletState = {
-    visibility: "hidden",
-    requireLogin: true
+    visibility: "hidden"
   };
 
   @observable savedTickets = {};
@@ -134,6 +132,7 @@ class RootStore {
     if(this.client) { return; }
 
     this.walletClient = yield ElvWalletClient.Initialize({
+      appId: "eluvio-live",
       network: EluvioConfiguration.network,
       mode: EluvioConfiguration.mode
     });
@@ -291,29 +290,29 @@ class RootStore {
 
       // Saved wallet visibility + path
       const visibilityParam =
-        new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full";
+        (new URLSearchParams(decodeURIComponent(window.location.search)).has("w") && "full") ||
+        "hidden";
 
-      let initialVisibility = visibilityParam ?  { visibility: visibilityParam } : null;
+      let initialVisibility = { visibility: visibilityParam };
       if(sessionStorage.getItem("wallet-visibility")) {
         try {
           initialVisibility = JSON.parse(sessionStorage.getItem("wallet-visibility"));
-
-          if(initialVisibility) {
-            initialVisibility.route = sessionStorage.getItem("wallet-route");
-
-            this.SetWalletPanelVisibility(initialVisibility);
-          }
           // eslint-disable-next-line no-empty
         } catch(error) {}
       }
+
+      initialVisibility.route = initialVisibility.route = sessionStorage.getItem("wallet-route") || "";
+      this.SetWalletPanelVisibility(initialVisibility);
 
       runInAction(() => this.walletLoaded = true);
     });
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.CLOSE, async () => {
-      await this.InitializeFrameClient({target, tenantSlug, marketplaceSlug});
+      setTimeout(async () => {
+        await this.InitializeFrameClient({target, tenantSlug, marketplaceSlug});
 
-      this.SetWalletPanelVisibility(this.defaultWalletState);
+        this.SetWalletPanelVisibility(this.defaultWalletState);
+      }, 2000);
     });
 
     this.currentWalletState.route = yield this.frameClient.CurrentPath();
@@ -342,20 +341,18 @@ class RootStore {
 
   // Set default state for wallet
   @action.bound
-  SetDefaultWalletState({visibility, location, video, requireLogin=true}) {
+  SetDefaultWalletState({visibility, location, video}) {
     this.defaultWalletState = {
       visibility,
       location,
-      video,
-      requireLogin
+      video
     };
   }
 
   @action.bound
   ResetDefaultWalletState() {
     this.defaultWalletState = {
-      visibility: "hidden",
-      requireLogin: false
+      visibility: "hidden"
     };
   }
 
@@ -371,11 +368,11 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false, requireLogin=true}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false}) {
     try {
       const walletPanel = document.getElementById("wallet-panel");
 
-      const visibilities = ["hidden", "side-panel", "modal", "full"];
+      const visibilities = ["hidden", "side-panel", "modal", "full", "exclusive"];
 
       if(!walletPanel || !visibilities.includes(visibility)) {
         return;
@@ -396,7 +393,7 @@ class RootStore {
               !(
                 // If we generally want to navigate to the wallet or marketplace, check if we're already in it. If not, navigate to it
                 location.page === "wallet" && currentPath.startsWith("/wallet") ||
-                location.page === "marketplace" && currentPath.startsWith("/marketplace")
+                location.page === "marketplace" && currentPath.startsWith("/marketplace/")
                 // If we're in a drop event, always navigate
               ) || currentPath.includes("/events/")
             ) {
@@ -426,7 +423,7 @@ class RootStore {
         }
       }
 
-      if(visibility === "full") {
+      if(["full", "exclusive"].includes(visibility)) {
         document.body.style.overflowY = "hidden";
       } else {
         document.body.style.overflowY = "";
@@ -436,12 +433,11 @@ class RootStore {
         visibility,
         location,
         route: yield this.frameClient.CurrentPath(),
-        video,
-        requireLogin
+        video
       };
 
       if(visibility === "full") {
-        sessionStorage.setItem("wallet-visibility", JSON.stringify({visibility, location, requireLogin}));
+        sessionStorage.setItem("wallet-visibility", JSON.stringify({visibility, location}));
       } else {
         sessionStorage.removeItem("wallet-visibility");
       }
