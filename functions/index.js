@@ -37,7 +37,7 @@ const getNetworkPrefix = (req) => {
       + "/q/" + WalletConfiguration[network][mode].siteId;
 };
 
-const MaxCacheAge = 1000 * 60 * 5;  // 5 min in millis
+const MaxCacheAge = 1000 * 60 * 2;  // 2 min in millis
 let elv_live_data_cache = {};
 
 //
@@ -123,7 +123,7 @@ const loadElvLiveAsync = async (req) => {
     functions.logger.info("cache is empty");
   } else {
     const age_millis = Date.now() - cache_date;
-    functions.logger.info("cache is from", new Date(cache_date), "aged", age_millis/1000);
+    functions.logger.info("cache is from", new Date(cache_date), "aged", age_millis/1000, "sec");
     if(age_millis > MaxCacheAge) {
       functions.logger.info("cache is old, re-fetch");
     } else {
