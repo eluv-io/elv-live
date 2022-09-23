@@ -137,13 +137,15 @@ const loadElvLiveAsync = async (req) => {
     let sites = tenant_obj["sites"];
     for(const [site_name, _] of Object.entries(sites)) {
       functions.logger.info("found", tenant_name, site_name);
-      tenantsAndSite[tenant_name] = site_name;
+      tenantsAndSite[tenant_name + "/" + site_name] = { tenant: tenant_name, site: site_name };
     }
   }
-  functions.logger.info("returning tenants", tenantsAndSite);
+  functions.logger.info("returning tenants+sites", tenantsAndSite);
 
   let ret = {};
-  for(const [tenant_name, site_name] of Object.entries(tenantsAndSite)) {
+  for(const [_, tenantAndSite] of Object.entries(tenantsAndSite)) {
+    const tenant_name = tenantAndSite.tenant;
+    const site_name = tenantAndSite.site;
     functions.logger.info("load site", tenant_name, site_name);
 
     const site = tenantData[tenant_name]["sites"][site_name]["info"];
