@@ -8,6 +8,9 @@ import mergeWith from "lodash/mergeWith";
 import {DateStatus} from "Utils/Misc";
 
 class SiteStore {
+  @observable marketplaceOnly = false;
+  @observable marketplaceNavigated = false;
+
   @observable mainSiteInfo;
   @observable baseSiteUrl;
 
@@ -538,11 +541,31 @@ class SiteStore {
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
 
+      const marketplaceInfo = site.info.marketplace_info;
+
       if(fullLoad) {
         this.darkMode = site.info.theme === "dark";
+
+        if(marketplaceInfo.marketplace_only) {
+          this.marketplaceOnly = true;
+          const currentRoute = this.rootStore.currentWalletState.route || "";
+          yield this.rootStore.SetWalletPanelVisibility({
+            visibility: "exclusive",
+            route: currentRoute.startsWith("/marketplace/iq") ? currentRoute : "",
+            location: {
+              generalLocation: true,
+              page: "marketplace",
+              params: {
+                tenantSlug: marketplaceInfo.tenant_slug,
+                marketplaceSlug: marketplaceInfo.marketplace_slug
+              }
+            }
+          });
+
+          this.marketplaceNavigated = true;
+        }
       }
 
-      const marketplaceInfo = site.info.marketplace_info;
       if(fullLoad && marketplaceInfo && marketplaceInfo.marketplace_slug) {
         const customizationMetadata = (yield this.client.ContentObjectMetadata({
           ...this.siteParams,
@@ -561,7 +584,7 @@ class SiteStore {
         })) || {};
 
         this.marketplaceHash = customizationMetadata["."] && customizationMetadata["."].source;
-        this.marketplaceId = rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
+        this.marketplaceId = this.rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
 
         let darkMode = site.darkMode;
         if(((customizationMetadata || {}).branding || {}).color_scheme === "Dark") {
