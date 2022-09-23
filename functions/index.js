@@ -127,6 +127,7 @@ const loadElvLiveAsync = async (req) => {
 
   const tenantsUrl = getNetworkPrefix(req) +
       "/meta/public/asset_metadata/tenants";
+  functions.logger.info("using tenants url", tenantsUrl);
 
   const resp = await axios.get(tenantsUrl + "/?link_depth=2");
   const tenantData = resp.data;
@@ -167,6 +168,7 @@ const loadElvLiveAsync = async (req) => {
 
   const featuredEventsUrl = getNetworkPrefix(req) +
       "/meta/public/asset_metadata/featured_events";
+  functions.logger.info("using features_events url", featuredEventsUrl);
 
   const fe = await axios.get(featuredEventsUrl);
   const featuredEventData = fe.data;

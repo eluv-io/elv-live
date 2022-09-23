@@ -56,10 +56,13 @@ emu:
 	firebase emulators:start
 
 featured_sites:
-	curl -s "https://host-76-74-91-11.contentfabric.io/s/main/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/"  |jq ".featured_events | . [] | keys" | paste - - -
+	@echo --- main
+	curl -s "https://host-76-74-91-11.contentfabric.io/s/main/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/" | jq ".featured_events | . [] | keys" | paste - - -
 	curl -s -L https://main.net955305.contentfabric.io/s/main/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/info/domain_map | jq .
+	@echo --- demov3
+	curl -L -s "https://demov3.net955210.contentfabric.io/s/demov3/qlibs/ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD/q/iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG/meta/public/asset_metadata/" |jq ".featured_events | . [] | keys" | paste - - -
+
 
 network_and_mode_test:
-	time curl -s "https://host-76-74-91-11.contentfabric.io/s/main/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/" | jq . | head
 	time curl -s -L "https://main.net955305.contentfabric.io/s/main/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/" | jq . | head
-	time curl -s -L "https://demov3.net955210.contentfabric.io/s/demov3/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/" | jq . | head
+	time curl -s -L "https://demov3.net955210.contentfabric.io/s/demov3/qlibs/ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD/q/iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG/meta/public/asset_metadata/" | jq . | head
