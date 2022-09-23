@@ -1,12 +1,46 @@
 const functions = require("firebase-functions");
+const date = require("date");
 const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 
-const Networks = {
-  main: "https://main.net955305.contentfabric.io/s/main/",
-  demo: "https://demov3.net955210.contentfabric.io/s/demov3/",
+
+let WalletConfiguration = {
+  demo: {
+    configUrl: "https://demov3.net955210.contentfabric.io/config",
+    contentUrl: "https://demov3.net955210.contentfabric.io/s/demov3",
+    staging: {
+      siteId: "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
+      libId: "ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD",
+    }
+  },
+  main: {
+    configUrl: "https://main.net955305.contentfabric.io/config",
+    contentUrl: "https://main.net955305.contentfabric.io/s/main",
+    staging: {
+      siteId: "iq__inauxD1KLyKWPHargCWjdCh2ayr",
+      libId: "ilib____________",
+    },
+    production: {
+      siteId: "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
+      libId: "ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9",
+    }
+  }
 };
+
+
+const getNetworkPrefix = (req) => {
+  const originalHost = req.headers["x-forwarded-host"] || "";
+  let network = originalHost.indexOf("demov3") > -1 ? "demo" : "main";
+  let mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
+
+  // "qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/";
+  return WalletConfiguration[network].contentUrl + "/qlibs/" + WalletConfiguration[network][mode].libId
+      + "/q/" + WalletConfiguration[network][mode].siteId;
+};
+
+// unused until cache invalidation supported
+let elv_live_data_cache = {};
 
 //
 // Firebase cloud functions definitions for rewrite support
@@ -37,7 +71,7 @@ exports.ping = functions.https.onRequest((req, res) => {
 
 exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
   try {
-    let sites = await loadElvLiveAsync();
+    let sites = await loadElvLiveAsync(req);
     functions.logger.info("loaded elv-live sites", sites);
 
     res.status(200).send(sites);
@@ -51,7 +85,7 @@ exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
 exports.create_index_html = functions.https.onRequest(async (req, res) => {
   let html = fs.readFileSync(Path.resolve(__dirname, "./index-template.html")).toString();
 
-  let sites = await loadElvLiveAsync();
+  let sites = await loadElvLiveAsync(req);
 
   // Inject metadata
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
@@ -83,11 +117,16 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 });
 
 
-const loadElvLiveAsync = async () => {
+const loadElvLiveAsync = async (req) => {
+  const cache_date = elv_live_data_cache?.date;
+  if(!cache_date) {
+    functions.logger.info("cache is empty");
+  } else {
+    functions.logger.info("cache is from", new Date(cache_date));
+  }
 
-  const tenantsUrl = Networks.main +
-    "qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/" +
-    "q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/tenants";
+  const tenantsUrl = getNetworkPrefix(req) +
+      "/meta/public/asset_metadata/tenants";
 
   const resp = await axios.get(tenantsUrl + "/?link_depth=2");
   const tenantData = resp.data;
@@ -126,9 +165,8 @@ const loadElvLiveAsync = async () => {
     };
   }
 
-  const featuredEventsUrl = Networks.main +
-    "qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/" +
-    "q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/featured_events";
+  const featuredEventsUrl = getNetworkPrefix(req) +
+      "/meta/public/asset_metadata/featured_events";
 
   const fe = await axios.get(featuredEventsUrl);
   const featuredEventData = fe.data;
@@ -153,5 +191,8 @@ const loadElvLiveAsync = async () => {
   }
 
   functions.logger.info("elv-live site metadata", ret);
+  elv_live_data_cache = ret;
+  elv_live_data_cache["date"] = new Date().getTime();
+  functions.logger.info("elv_live_data_cache date", elv_live_data_cache["date"]);
   return ret;
 };
