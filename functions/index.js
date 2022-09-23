@@ -4,8 +4,7 @@ const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 
-
-let WalletConfiguration = {
+const WalletConfiguration = {
   demo: {
     configUrl: "https://demov3.net955210.contentfabric.io/config",
     contentUrl: "https://demov3.net955210.contentfabric.io/s/demov3",
@@ -28,18 +27,17 @@ let WalletConfiguration = {
   }
 };
 
-
 const getNetworkPrefix = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || "";
   let network = originalHost.indexOf("demov3") > -1 ? "demo" : "main";
   let mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
 
-  // "qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/";
-  return WalletConfiguration[network].contentUrl + "/qlibs/" + WalletConfiguration[network][mode].libId
+  return WalletConfiguration[network].contentUrl +
+      "/qlibs/" + WalletConfiguration[network][mode].libId
       + "/q/" + WalletConfiguration[network][mode].siteId;
 };
 
-// unused until cache invalidation supported
+const MaxCacheAge = 1000 * 60 * 5;  // 5 min in millis
 let elv_live_data_cache = {};
 
 //
@@ -47,7 +45,7 @@ let elv_live_data_cache = {};
 // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 
-// ping: header dump utility
+// header dump utility
 exports.ping = functions.https.onRequest((req, res) => {
   functions.logger.info("headers dumper", {host: req.hostname});
 
@@ -59,16 +57,17 @@ exports.ping = functions.https.onRequest((req, res) => {
   }
 
   res.status(200).send(`<!doctype html>
-    <head> 
-      <title>functions test</title> 
+    <head>
+      <title>cloud functions headers test</title>
       ${meta}
     </head>
-    <body> 
+    <body>
       ${req.hostname} / ${req.url} / ${req.href} / ${req.referrer} / ${req.originalUrl} / ${req.path}<br/>
       ${body}
-    </body> </html> `);
+    </body> </html>`);
 });
 
+// load and return elv-live data for this network/mode
 exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
   try {
     let sites = await loadElvLiveAsync(req);
@@ -117,16 +116,24 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 });
 
 
+// load elv-live data from network or cache
 const loadElvLiveAsync = async (req) => {
   const cache_date = elv_live_data_cache?.date;
   if(!cache_date) {
     functions.logger.info("cache is empty");
   } else {
-    functions.logger.info("cache is from", new Date(cache_date));
+    const age_millis = Date.now() - cache_date;
+    functions.logger.info("cache is from", new Date(cache_date), "aged", age_millis/1000);
+    if(age_millis > MaxCacheAge) {
+      functions.logger.info("cache is old, re-fetch");
+    } else {
+      if(elv_live_data_cache.data)
+        return elv_live_data_cache.data;
+    }
   }
 
-  const tenantsUrl = getNetworkPrefix(req) +
-      "/meta/public/asset_metadata/tenants";
+  // load sites
+  const tenantsUrl = getNetworkPrefix(req) + "/meta/public/asset_metadata/tenants";
   functions.logger.info("using tenants url", tenantsUrl);
 
   const resp = await axios.get(tenantsUrl + "/?link_depth=2");
@@ -143,7 +150,7 @@ const loadElvLiveAsync = async (req) => {
   functions.logger.info("returning tenants+sites", tenantsAndSite);
 
   let ret = {};
-  for(const [_, tenantAndSite] of Object.entries(tenantsAndSite)) {
+  for(const tenantAndSite of Object.values(tenantsAndSite)) {
     const tenant_name = tenantAndSite.tenant;
     const site_name = tenantAndSite.site;
     functions.logger.info("load site", tenant_name, site_name);
@@ -168,8 +175,8 @@ const loadElvLiveAsync = async (req) => {
     };
   }
 
-  const featuredEventsUrl = getNetworkPrefix(req) +
-      "/meta/public/asset_metadata/featured_events";
+  // load featured events
+  const featuredEventsUrl = getNetworkPrefix(req) + "/meta/public/asset_metadata/featured_events";
   functions.logger.info("using features_events url", featuredEventsUrl);
 
   const fe = await axios.get(featuredEventsUrl);
@@ -195,7 +202,7 @@ const loadElvLiveAsync = async (req) => {
   }
 
   functions.logger.info("elv-live site metadata", ret);
-  elv_live_data_cache = ret;
+  elv_live_data_cache = { data: ret };
   elv_live_data_cache["date"] = new Date().getTime();
   functions.logger.info("elv_live_data_cache date", elv_live_data_cache["date"]);
   return ret;
