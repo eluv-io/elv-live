@@ -29,12 +29,14 @@ const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
   const mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
+
   return [network, mode];
 };
 
 const getNetworkPrefix = async (req) => {
   const [network, mode] = getNetworkAndMode(req);
   const prefix = await getFabricApi(network);
+
   return prefix + "/s/" + network +
       "/qlibs/" + FabricConfiguration[network][mode].libId +
       "/q/" + FabricConfiguration[network][mode].siteId;
@@ -44,10 +46,8 @@ const getFabricApi = async (network) => {
   const configUrl = FabricConfiguration[network].configUrl;
 
   const resp = await axios.get(configUrl);
-  const config = resp.data;
-  functions.logger.info("selecting fabric_api from", {"config": config});
 
-  return config["network"]["seed_nodes"]["fabric_api"][0];
+  return resp.data["network"]["seed_nodes"]["fabric_api"][0];
 };
 
 const MaxCacheAge = 1000 * 60 * 2;  // 2 min in millis
@@ -145,8 +145,10 @@ const loadElvLiveAsync = async (req) => {
     }
   }
 
+  const networkPrefix = await getNetworkPrefix(req);
+
   // load sites
-  const tenantsUrl = await getNetworkPrefix(req) + "/meta/public/asset_metadata/tenants";
+  const tenantsUrl = networkPrefix + "/meta/public/asset_metadata/tenants";
   functions.logger.info("using tenants url", tenantsUrl);
 
   const resp = await axios.get(tenantsUrl + "/?link_depth=2");
@@ -189,8 +191,8 @@ const loadElvLiveAsync = async (req) => {
   }
 
   // load featured events
-  const featuredEventsUrl = await getNetworkPrefix(req) + "/meta/public/asset_metadata/featured_events";
-  functions.logger.info("using features_events url", featuredEventsUrl);
+  const featuredEventsUrl = networkPrefix + "/meta/public/asset_metadata/featured_events";
+  functions.logger.info("using featured_events url", featuredEventsUrl);
 
   const fe = await axios.get(featuredEventsUrl);
   const featuredEventData = fe.data;
@@ -215,12 +217,8 @@ const loadElvLiveAsync = async (req) => {
   }
 
   // load DNS info
-  const dnsMappings = "https://host-76-74-28-228.contentfabric.io/s/main/" +
-      "qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/" +
-      "q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R" +
-      "/meta/public/asset_metadata/info/domain_map";
-
-
+  const dnsMappings = networkPrefix + "/meta/public/asset_metadata/info/domain_map";
+  functions.logger.info("domain map", {"domain-map": dnsMappings});
 
 
 
