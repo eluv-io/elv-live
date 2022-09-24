@@ -217,10 +217,21 @@ const loadElvLiveAsync = async (req) => {
   }
 
   // load DNS info
-  const dnsMappings = networkPrefix + "/meta/public/asset_metadata/info/domain_map";
+  const dnsMappingsUrl = networkPrefix + "/meta/public/asset_metadata/info/domain_map";
+  functions.logger.info("using domain_map url", dnsMappingsUrl);
+
+  const dr = await axios.get(dnsMappingsUrl);
+  const dnsMappings = dr.data;
   functions.logger.info("domain map", {"domain-map": dnsMappings});
 
-
+  dnsMappings.forEach(domain => {
+    const t = domain["tenant_slug"];
+    const e = domain["event_slug"];
+    const path = t == "" ? e : t + "/" + e;
+    if(ret[path]) {
+      ret[domain.domain] = { ...(ret[path]) };
+    }
+  });
 
   functions.logger.info("elv-live site metadata", ret);
   elv_live_data_cache = { data: ret };
