@@ -16,7 +16,7 @@ const FabricConfiguration = {
     configUrl: "https://main.net955305.contentfabric.io/config",
     staging: {
       siteId: "iq__inauxD1KLyKWPHargCWjdCh2ayr",
-      libId: "ilib____________",
+      libId: "ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9",
     },
     production: {
       siteId: "iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R",
@@ -27,8 +27,8 @@ const FabricConfiguration = {
 
 const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
-  let network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
-  let mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
+  const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
+  const mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
   return [network, mode];
 };
 
