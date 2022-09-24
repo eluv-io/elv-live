@@ -31,12 +31,12 @@ toplevel-test:
 	curl -s https://elv-rewriter.web.app/eluvio/community | head -20
 
 emu-test:
-	curl -s http://localhost:5050/maskverse | head -20
-	curl -s http://localhost:5050/dolly/dolly | head -20
+	#curl -s http://localhost:5050/maskverse | head -20
+	#curl -s http://localhost:5050/dolly/dolly | head -20
 	curl -s http://localhost:5050/indieflix/indieflix | head -20
-	curl -s http://localhost:5050/microsoft/ms | head -20
+	#curl -s http://localhost:5050/microsoft/ms | head -20
 	curl -s http://localhost:5050/eluvio/community | head -20
-	curl -s http://localhost:5050/emp | head
+	curl -s http://localhost:5050/emp | head -20
 
 functions-test:
 	@echo --- emulator

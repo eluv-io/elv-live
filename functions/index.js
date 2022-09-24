@@ -5,9 +5,8 @@ const Path = require("path");
 const axios = require("axios");
 
 const WalletConfiguration = {
-  demo: {
+  demov3: {
     configUrl: "https://demov3.net955210.contentfabric.io/config",
-    contentUrl: "https://demov3.net955210.contentfabric.io/s/demov3",
     staging: {
       siteId: "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
       libId: "ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD",
@@ -15,7 +14,6 @@ const WalletConfiguration = {
   },
   main: {
     configUrl: "https://main.net955305.contentfabric.io/config",
-    contentUrl: "https://main.net955305.contentfabric.io/s/main",
     staging: {
       siteId: "iq__inauxD1KLyKWPHargCWjdCh2ayr",
       libId: "ilib____________",
@@ -27,14 +25,29 @@ const WalletConfiguration = {
   }
 };
 
-const getNetworkPrefix = (req) => {
+const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || "";
-  let network = originalHost.indexOf("demov3") > -1 ? "demo" : "main";
+  let network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
   let mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
+  return [network, mode];
+};
 
-  return WalletConfiguration[network].contentUrl +
-      "/qlibs/" + WalletConfiguration[network][mode].libId
-      + "/q/" + WalletConfiguration[network][mode].siteId;
+const getNetworkPrefix = async (req) => {
+  const [network, mode] = getNetworkAndMode(req);
+  const prefix = await getFabricApi(network);
+  return prefix + "/s/" + network +
+      "/qlibs/" + WalletConfiguration[network][mode].libId +
+      "/q/" + WalletConfiguration[network][mode].siteId;
+};
+
+const getFabricApi = async (network) => {
+  const configUrl = WalletConfiguration[network].configUrl;
+
+  const resp = await axios.get(configUrl);
+  const config = resp.data;
+  functions.logger.info("selecting fabric_api from", {"config": config});
+
+  return config["network"]["seed_nodes"]["fabric_api"][0];
 };
 
 const MaxCacheAge = 1000 * 60 * 2;  // 2 min in millis
@@ -71,7 +84,7 @@ exports.ping = functions.https.onRequest((req, res) => {
 exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
   try {
     let sites = await loadElvLiveAsync(req);
-    functions.logger.info("loaded elv-live sites", sites);
+    functions.logger.info("loaded elv-live sites", {sites: sites});
 
     res.status(200).send(sites);
   } catch(error) {
@@ -86,7 +99,6 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
   let sites = await loadElvLiveAsync(req);
 
-  // Inject metadata
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const originalUrl = req.headers["x-forwarded-url"] || req.url;
   const fullPath = originalHost + originalUrl;
@@ -96,13 +108,14 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   let description = "Eluvio Media wallet accessed from " + fullPath;
   let image = "https://live.eluv.io/875458425032ed6b77076d67678a20a1.png";
 
-  for(const [key, value] of Object.entries(sites)) {
-    functions.logger.info("checking", key);
-    if(originalUrl.indexOf(key) > -1) {
-      functions.logger.info("match", key);
-      title = value.title;
-      description = value.description;
-      image = value.image;
+  // Inject metadata
+  for(const [site, site_metadata] of Object.entries(sites)) {
+    functions.logger.info("checking", site);
+    if(originalUrl.indexOf(site) > -1) {
+      functions.logger.info("match", site);
+      title = site_metadata.title;
+      description = site_metadata.description;
+      image = site_metadata.image;
       break;
     }
   }
@@ -133,7 +146,7 @@ const loadElvLiveAsync = async (req) => {
   }
 
   // load sites
-  const tenantsUrl = getNetworkPrefix(req) + "/meta/public/asset_metadata/tenants";
+  const tenantsUrl = await getNetworkPrefix(req) + "/meta/public/asset_metadata/tenants";
   functions.logger.info("using tenants url", tenantsUrl);
 
   const resp = await axios.get(tenantsUrl + "/?link_depth=2");
@@ -176,7 +189,7 @@ const loadElvLiveAsync = async (req) => {
   }
 
   // load featured events
-  const featuredEventsUrl = getNetworkPrefix(req) + "/meta/public/asset_metadata/featured_events";
+  const featuredEventsUrl = await getNetworkPrefix(req) + "/meta/public/asset_metadata/featured_events";
   functions.logger.info("using features_events url", featuredEventsUrl);
 
   const fe = await axios.get(featuredEventsUrl);
@@ -200,6 +213,16 @@ const loadElvLiveAsync = async (req) => {
       };
     }
   }
+
+  // load DNS info
+  const dnsMappings = "https://host-76-74-28-228.contentfabric.io/s/main/" +
+      "qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/" +
+      "q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R" +
+      "/meta/public/asset_metadata/info/domain_map";
+
+
+
+
 
   functions.logger.info("elv-live site metadata", ret);
   elv_live_data_cache = { data: ret };
