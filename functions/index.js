@@ -4,7 +4,7 @@ const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 
-const WalletConfiguration = {
+const FabricConfiguration = {
   demov3: {
     configUrl: "https://demov3.net955210.contentfabric.io/config",
     staging: {
@@ -36,12 +36,12 @@ const getNetworkPrefix = async (req) => {
   const [network, mode] = getNetworkAndMode(req);
   const prefix = await getFabricApi(network);
   return prefix + "/s/" + network +
-      "/qlibs/" + WalletConfiguration[network][mode].libId +
-      "/q/" + WalletConfiguration[network][mode].siteId;
+      "/qlibs/" + FabricConfiguration[network][mode].libId +
+      "/q/" + FabricConfiguration[network][mode].siteId;
 };
 
 const getFabricApi = async (network) => {
-  const configUrl = WalletConfiguration[network].configUrl;
+  const configUrl = FabricConfiguration[network].configUrl;
 
   const resp = await axios.get(configUrl);
   const config = resp.data;
