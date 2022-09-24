@@ -26,7 +26,7 @@ const FabricConfiguration = {
 };
 
 const getNetworkAndMode = (req) => {
-  const originalHost = req.headers["x-forwarded-host"] || "";
+  const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   let network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
   let mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
   return [network, mode];
