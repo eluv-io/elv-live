@@ -378,10 +378,6 @@ class RootStore {
         return;
       }
 
-      while(!this.frameClient) {
-        yield new Promise(r => setTimeout(r, 100));
-      }
-
       if(this.frameClient) {
         if(route) {
           yield this.frameClient.Navigate({path: route});
@@ -421,6 +417,13 @@ class RootStore {
           walletPanel.addEventListener("click", Close);
           this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, Close);
         }
+
+        this.currentWalletState = {
+          visibility,
+          location,
+          route: yield this.frameClient.CurrentPath(),
+          video
+        };
       }
 
       if(["full", "exclusive"].includes(visibility)) {
@@ -428,13 +431,6 @@ class RootStore {
       } else {
         document.body.style.overflowY = "";
       }
-
-      this.currentWalletState = {
-        visibility,
-        location,
-        route: yield this.frameClient.CurrentPath(),
-        video
-      };
 
       if(visibility === "full") {
         sessionStorage.setItem("wallet-visibility", JSON.stringify({visibility, location}));

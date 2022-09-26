@@ -11,6 +11,7 @@ class WalletFrame extends React.Component {
   render() {
     const alwaysVisible = this.props.siteStore.marketplaceOnly;
     const visibility = alwaysVisible ? "exclusive" : this.props.rootStore.currentWalletState.visibility;
+    const loaded = this.props.rootStore.app === "main" ? this.props.siteStore.siteLoaded : this.props.siteStore.currentSite;
 
     return (
       <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">
@@ -27,9 +28,11 @@ class WalletFrame extends React.Component {
             </button> : null
         }
         <div
-          key={`wallet-frame-${this.props.rootStore.walletKey}`}
+          key={`wallet-frame-${this.props.rootStore.walletKey}-${loaded}`}
           className="wallet-target"
           ref={element => {
+            if(!loaded) { return; }
+
             let marketplaceHash, marketplaceInfo;
 
             if(this.props.rootStore.app === "site") {
