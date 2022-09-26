@@ -370,6 +370,10 @@ class RootStore {
   @action.bound
   SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false}) {
     try {
+      if(this.siteStore.marketplaceOnly) {
+        visibility = "exclusive";
+      }
+
       const walletPanel = document.getElementById("wallet-panel");
 
       const visibilities = ["hidden", "side-panel", "modal", "full", "exclusive"];
