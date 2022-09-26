@@ -520,6 +520,7 @@ class SiteStore {
         ...this.siteParams,
         select: [
           ".",
+          "tenant_slug",
           "localizations",
           "info",
           "promos",
@@ -536,7 +537,7 @@ class SiteStore {
 
       site.siteSlug = siteSlug;
       site.siteIndex = parseInt(siteIndex);
-      site.tenantSlug = tenantSlug;
+      site.tenantSlug = tenantSlug || site.tenant_slug;
 
       this.siteHash = site["."].source;
       this.siteId = this.client.utils.DecodeVersionHash(this.siteHash).objectId;
