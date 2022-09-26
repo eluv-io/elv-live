@@ -102,7 +102,6 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const originalUrl = req.headers["x-forwarded-url"] || req.url;
   const fullPath = originalHost + originalUrl;
-  const meta = "<meta property=\"rewritten-from\" content=\"" + fullPath + "\" />\n";
 
   let title = "Eluvio Media Wallet";
   let description = "Eluvio Media wallet accessed from " + fullPath;
@@ -123,7 +122,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   html = html.replace(/@@TITLE@@/g, title);
   html = html.replace(/@@DESCRIPTION@@/g, description);
   html = html.replace(/@@IMAGE@@/g, image);
-  html = html.replace(/@@ADDITIONAL_META@@/g, meta);
+  html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
 
   res.status(200).send(html);
 });
