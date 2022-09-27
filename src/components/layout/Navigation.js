@@ -57,28 +57,21 @@ class Header extends React.Component {
     const walletOpen = walletState.visibility === "full";
     const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
 
-    // Actual current wallet path matches the one that the button has opened - so a second click should close it
-    const matchingPage = walletState.route === walletState.route;
-
     let loginButton, walletButton;
     if(this.props.rootStore.walletLoggedIn) {
       walletButton = (
         <button
           onClick={() => {
-            this.props.rootStore.SetWalletPanelVisibility(
-              walletState.visibility === "full" && walletState.location && walletState.location.page === "wallet" && matchingPage ?
-                this.props.rootStore.defaultWalletState :
-                {
-                  visibility: "full",
-                  location: {
-                    page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
-                    params: {
-                      tenantSlug: marketplaceInfo.tenant_slug,
-                      marketplaceSlug: marketplaceInfo.marketplace_slug
-                    }
-                  }
+            this.props.rootStore.SetWalletPanelVisibility({
+              visibility: "full",
+              location: {
+                page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
+                params: {
+                  tenantSlug: marketplaceInfo.tenant_slug,
+                  marketplaceSlug: marketplaceInfo.marketplace_slug
                 }
-            );
+              }
+            });
           }}
           className={`header__link header__link-wallet ${walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
         >
@@ -121,20 +114,16 @@ class Header extends React.Component {
     const storeButton = (
       <button
         onClick={() => {
-          this.props.rootStore.SetWalletPanelVisibility(
-            walletState.visibility === "full" && walletState.location && ["marketplace", "marketplaceListings"].includes(currentPage) && matchingPage ?
-              this.props.rootStore.defaultWalletState :
-              {
-                visibility: "full",
-                location: {
-                  page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
-                  params: {
-                    tenantSlug: marketplaceInfo.tenant_slug,
-                    marketplaceSlug: marketplaceInfo.marketplace_slug
-                  }
-                }
+          this.props.rootStore.SetWalletPanelVisibility({
+            visibility: "full",
+            location: {
+              page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
+              params: {
+                tenantSlug: marketplaceInfo.tenant_slug,
+                marketplaceSlug: marketplaceInfo.marketplace_slug
               }
-          );
+            }
+          });
         }}
         className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
       >
@@ -150,16 +139,12 @@ class Header extends React.Component {
       marketplacesButton = (
         <button
           onClick={() => {
-            this.props.rootStore.SetWalletPanelVisibility(
-              walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
-                this.props.rootStore.defaultWalletState :
-                {
-                  visibility: "full",
-                  location: {
-                    page: "marketplaces"
-                  }
-                }
-            );
+            this.props.rootStore.SetWalletPanelVisibility({
+              visibility: "full",
+              location: {
+                page: "marketplaces"
+              }
+            });
           }}
           className={`header__link header__link--no-mobile ${walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
         >
