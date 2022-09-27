@@ -50,7 +50,7 @@ const getFabricApi = async (network) => {
   return resp.data["network"]["seed_nodes"]["fabric_api"][0];
 };
 
-const MaxCacheAge = 1000 * 60 * 2;  // 2 min in millis
+const MaxCacheAge = 1000 * 60 * 5;  // 5min in millis
 let elv_live_data_cache = {};
 
 //
