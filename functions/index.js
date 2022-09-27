@@ -113,7 +113,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
     functions.logger.info("checking", site);
     // match dns hostname, or match a path
     if(originalHost == site || originalUrl == ("/" + site)) {
-      functions.logger.info("match", site);
+      functions.logger.info("match", site, site_metadata);
       title = site_metadata.title;
       description = site_metadata.description;
       image = site_metadata.image;
@@ -179,11 +179,6 @@ const loadElvLiveAsync = async (req) => {
       "/info/event_images/hero_background?width=1200";
 
     ret[tenant_name + "/" + site_name] = {
-      "title": title,
-      "description": description,
-      "image": image,
-    };
-    ret[site_name] = {
       "title": title,
       "description": description,
       "image": image,
