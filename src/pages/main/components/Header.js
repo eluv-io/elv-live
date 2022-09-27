@@ -142,16 +142,12 @@ class Header extends React.Component {
           <button
             className={`main-header__link main-header__wallet-button ${walletOpen ? "active" : ""}`}
             onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility(
-                walletState.visibility === "full" && walletState.location && walletState.location.page === "marketplaces" && matchingPage ?
-                  this.props.rootStore.defaultWalletState :
-                  {
-                    visibility: "full",
-                    location: {
-                      page: "marketplaces"
-                    }
-                  }
-              );
+              this.props.rootStore.SetWalletPanelVisibility({
+                visibility: "full",
+                location: {
+                  page: "marketplaces"
+                }
+              });
             }}
           >
             <ImageIcon icon={ELogo} label="Eluvio"/>
