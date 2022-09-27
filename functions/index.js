@@ -108,9 +108,11 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   let image = "https://live.eluv.io/875458425032ed6b77076d67678a20a1.png";
 
   // Inject metadata
+  functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
   for(const [site, site_metadata] of Object.entries(sites)) {
     functions.logger.info("checking", site);
-    if(originalUrl.indexOf(site) > -1) {
+    // match dns hostname, or match a path
+    if(originalHost == site || originalUrl == ("/" + site)) {
       functions.logger.info("match", site);
       title = site_metadata.title;
       description = site_metadata.description;
