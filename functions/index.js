@@ -168,7 +168,7 @@ const loadElvLiveAsync = async (req) => {
   for(const tenantAndSite of Object.values(tenantsAndSite)) {
     const tenant_name = tenantAndSite.tenant;
     const site_name = tenantAndSite.site;
-    functions.logger.info("load site", tenant_name, site_name);
+    //functions.logger.info("load site", tenant_name, site_name);
 
     const site = tenantData[tenant_name]["sites"][site_name]["info"];
     const event_info = site["event_info"] || {};
@@ -194,7 +194,7 @@ const loadElvLiveAsync = async (req) => {
 
   for(const [idx, event] of Object.entries(featuredEventData)) {
     for(const [eventName, eventData] of Object.entries(event)) {
-      functions.logger.info("load featured_event", eventName);
+      //functions.logger.info("load featured_event", eventName);
       const fe = eventData["info"];
       const event_info = fe["event_info"] || {};
 
