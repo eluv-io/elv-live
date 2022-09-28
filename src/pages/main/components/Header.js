@@ -94,7 +94,11 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    const fadePoint = this.props.location.pathname === "/" ? window.innerHeight * 0.25 : 20;
+    let fadePoint = 0;
+    if(this.props.location.pathname === "/") {
+      fadePoint = window.innerWidth < 900 ? 0 : window.innerHeight * (window.innerWidth > 1250 ? 0.75 : 0.25);
+    }
+
     this.setState({scrolled: window.scrollY > fadePoint});
   }
 
@@ -102,7 +106,6 @@ class Header extends React.Component {
     const mainPage = this.props.location.pathname === "/" || this.props.location.pathname.startsWith("/wallet");
     const walletState = this.props.rootStore.currentWalletState || {};
     const walletOpen = walletState.visibility === "full";
-    const matchingPage = walletState.route === walletState.route;
 
     const CloseWallet = () => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
 
