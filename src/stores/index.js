@@ -20,7 +20,8 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
   walletAppUrl = `https://${window.location.hostname}:8090`;
 } else if(window.location.hostname.startsWith("live-stg")) {
   walletAppUrl = EluvioConfiguration.network === "main" ?
-    "https://core.test.contentfabric.io/wallet" :
+    //"https://core.test.contentfabric.io/wallet" :
+    "https://wallet.preview.contentfabric.io" :
     "https://core.test.contentfabric.io/wallet-demo";
 } else {
   // Prod
