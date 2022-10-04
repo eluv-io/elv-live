@@ -1,0 +1,29 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "index.html"
+    ],
+    "rewrites": [
+      { "source": "/ping", "function": "ping" },
+      { "source": "**", "function": "create_index_html" }
+    ]
+  },
+  "functions": {
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log"
+    ]
+  },
+  "emulators": {
+    "hosting": {
+      "host": "localhost",
+      "port": 5050
+    }
+  }
+}
