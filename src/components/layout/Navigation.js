@@ -51,7 +51,7 @@ class Header extends React.Component {
   }
 
   MarketplaceLinks() {
-    let marketplaceInfo = this.props.siteStore.loginCustomization || {};
+    let marketplaceInfo = this.props.siteStore.marketplaceInfo || {};
     if(!marketplaceInfo.marketplace_slug) {
       return null;
     }
