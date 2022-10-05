@@ -41,7 +41,7 @@ class Header extends React.Component {
     let fadePoint = 0;
     const isMainPage = this.props.match.path.replace("/:tenantSlug?/:siteSlug", "") === "";
     if(isMainPage) {
-      fadePoint = window.innerWidth < 900 ? 0 : window.innerHeight * (window.innerWidth > 1250 ? 0.95 : 0.25);
+      fadePoint = window.innerWidth < 900 ? 0 : window.innerHeight * (window.innerWidth > 1250 ? 0.75 : 0.25);
     }
 
     const scrolled = window.scrollY > fadePoint;
