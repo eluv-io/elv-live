@@ -20,7 +20,8 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
   walletAppUrl = `https://${window.location.hostname}:8090`;
 } else if(window.location.hostname.startsWith("live-stg")) {
   walletAppUrl = EluvioConfiguration.network === "main" ?
-    "https://core.test.contentfabric.io/wallet" :
+    //"https://core.test.contentfabric.io/wallet" :
+    "https://wallet.preview.contentfabric.io" :
     "https://core.test.contentfabric.io/wallet-demo";
 } else {
   // Prod
@@ -370,6 +371,10 @@ class RootStore {
   @action.bound
   SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false}) {
     try {
+      if(this.siteStore.marketplaceOnly) {
+        visibility = "exclusive";
+      }
+
       const walletPanel = document.getElementById("wallet-panel");
 
       const visibilities = ["hidden", "side-panel", "modal", "full", "exclusive"];

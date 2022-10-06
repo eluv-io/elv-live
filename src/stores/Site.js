@@ -1,6 +1,7 @@
-import {observable, action, flow, computed, runInAction, toJS} from "mobx";
+import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
+import SanitizeHTML from "sanitize-html";
 
 const CHAT_ROOM_SIZE = 5000;
 
@@ -25,6 +26,7 @@ class SiteStore {
   @observable siteSlug;
   @observable siteIndex;
   @observable darkMode = false;
+  @observable marketplaceInfo;
 
   @observable streams = [];
 
@@ -91,18 +93,6 @@ class SiteStore {
 
   @computed get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
-  }
-
-  @computed get loginCustomization() {
-    try {
-      if(this.rootStore.app === "main") {
-        return {};
-      }
-
-      return this.currentSiteInfo.loginCustomization || JSON.parse(sessionStorage.getItem("login-customization") || "{}") || {};
-    // eslint-disable-next-line no-empty
-    } catch(error) {}
-    return {};
   }
 
   @computed get promos() {
@@ -265,8 +255,6 @@ class SiteStore {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
-
-    runInAction(() => this.darkMode = !!this.loginCustomization.darkMode);
   }
 
   @action.bound
@@ -547,6 +535,31 @@ class SiteStore {
       if(fullLoad) {
         this.darkMode = site.info.theme === "dark";
 
+        switch(site.info.font) {
+          case "Inter":
+            import("Assets/fonts/Inter/font.css");
+            break;
+
+          case "Selawik":
+            import("Assets/fonts/Selawik/font.css");
+            break;
+
+          case "Compacta":
+            import("Assets/fonts/Compacta/font.css");
+            break;
+
+          case "Albertus":
+            import("Assets/fonts/Albertus/font.css");
+            break;
+
+          default:
+            break;
+        }
+
+        if(site.info.custom_css) {
+          document.querySelector("#_custom-css").innerHTML = SanitizeHTML(site.info.custom_css);
+        }
+
         if(marketplaceInfo.marketplace_only) {
           this.marketplaceOnly = true;
           const currentRoute = this.rootStore.currentWalletState.route || "";
@@ -568,58 +581,25 @@ class SiteStore {
       }
 
       if(fullLoad && marketplaceInfo && marketplaceInfo.marketplace_slug) {
-        const customizationMetadata = (yield this.client.ContentObjectMetadata({
+        const marketplace = (yield this.client.ContentObjectMetadata({
           ...this.siteParams,
-          metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", marketplaceInfo.tenant_slug, "marketplaces", marketplaceInfo.marketplace_slug, "info"),
+          metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", marketplaceInfo.tenant_slug, "marketplaces", marketplaceInfo.marketplace_slug, "info", "branding"),
           select: [
             ".",
-            "tenant_id",
-            "tenant_name",
-            "terms",
-            "terms_html",
-            "login_customization",
-            "branding"
+            "hide_global_navigation"
           ],
-          resolveIncludeSource: true,
-          produceLinkUrls: true,
+          resolveIncludeSource: true
         })) || {};
 
-        this.marketplaceHash = customizationMetadata["."] && customizationMetadata["."].source;
-        this.marketplaceId = this.rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
+        this.marketplaceHash = marketplace["."]?.source;
+        this.marketplaceId = this.marketplaceHash && this.rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
 
-        let darkMode = site.darkMode;
-        if(((customizationMetadata || {}).branding || {}).color_scheme === "Dark") {
-          darkMode = true;
-        } else if(((customizationMetadata || {}).branding || {}).color_scheme === "Light") {
-          darkMode = false;
-        }
-
-        site.info.loginCustomization = {
-          darkMode,
-          marketplaceHash: site.info.marketplaceHash,
-          tenant_id: (customizationMetadata.tenant_id),
-          tenant_name: (customizationMetadata.tenant_name),
-          terms: customizationMetadata.terms,
-          terms_html: customizationMetadata.terms_html,
+        this.marketplaceInfo = {
           ...marketplaceInfo,
-          ...((customizationMetadata || {}).branding || {}),
-          ...((customizationMetadata || {}).login_customization || {})
+          ...marketplace,
+          marketplaceHash: this.marketplaceHash,
+          marketplaceId: this.marketplaceId,
         };
-
-        sessionStorage.setItem("login-customization", JSON.stringify(toJS(site.info.loginCustomization)));
-
-        switch(site.info.loginCustomization.font) {
-          case "Inter":
-            import("Assets/fonts/Inter/font.css");
-
-            break;
-          case "Selawik":
-            import("Assets/fonts/Selawik/font.css");
-
-            break;
-          default:
-            break;
-        }
       }
 
       this.eventSites[tenantKey][siteSlug] = site;
