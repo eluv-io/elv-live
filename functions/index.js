@@ -28,13 +28,18 @@ const FabricConfiguration = {
 const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
-  const mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
+  const mode = originalHost.indexOf("stg") > -1 || network == "demov3" ? "staging" : "production";
+
+  // allow testing instance to hit either config
+  if(originalHost == "elv-rewriter.web.app") { return ["main", "staging"]; }
+  if(originalHost == "elv-rewriter.firebaseapp.com") {return ["demov3", "staging"]; }
 
   return [network, mode];
 };
 
 const getNetworkPrefix = async (req) => {
   const [network, mode] = getNetworkAndMode(req);
+  functions.logger.info("network/mode:", network, mode);
   const prefix = await getFabricApi(network);
 
   return prefix + "/s/" + network +
@@ -106,17 +111,19 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   let title = "Eluvio Media Wallet";
   let description = "Eluvio Media wallet accessed from " + fullPath;
   let image = "https://live.eluv.io/875458425032ed6b77076d67678a20a1.png";
+  let favicon = "/favicon.png";
 
   // Inject metadata
   functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
+  functions.logger.info("checking sites", Object.keys(sites));
   for(const [site, site_metadata] of Object.entries(sites)) {
-    functions.logger.info("checking", site);
     // match dns hostname, or match a path
     if(originalHost == site || originalUrl == ("/" + site)) {
       functions.logger.info("match", site, site_metadata);
       title = site_metadata.title;
       description = site_metadata.description;
       image = site_metadata.image;
+      favicon = site_metadata.favicon;
       break;
     }
   }
@@ -124,6 +131,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   html = html.replace(/@@TITLE@@/g, title);
   html = html.replace(/@@DESCRIPTION@@/g, description);
   html = html.replace(/@@IMAGE@@/g, image);
+  html = html.replace(/@@FAVICON@@/g, favicon);
   html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
 
   res.status(200).send(html);
@@ -177,11 +185,16 @@ const loadElvLiveAsync = async (req) => {
     const description = event_info["description"] || "";
     const image = tenantsUrl + "/" + tenant_name + "/sites/" + site_name +
       "/info/event_images/hero_background?width=1200";
+    let favicon = "/favicon.png";
+    if("favicon" in site) {
+      favicon = tenantsUrl + "/" + tenant_name + "/sites/" + site_name + "/info/favicon";
+    }
 
     ret[tenant_name + "/" + site_name] = {
       "title": title,
       "description": description,
       "image": image,
+      "favicon": favicon,
     };
   }
 
@@ -201,12 +214,17 @@ const loadElvLiveAsync = async (req) => {
       const title = event_info["event_title"] || "";
       const description = event_info["description"] || "";
       const image = featuredEventsUrl + "/" + idx + "/" + eventName +
-        "/info/event_images/hero_background?width=1200";
+          "/info/event_images/hero_background?width=1200";
+      let favicon = "/favicon.png";
+      if("favicon" in fe) {
+        favicon = featuredEventsUrl + "/" + idx + "/" + eventName + "/info/favicon";
+      }
 
       ret[eventName] = {
         "title": title,
         "description": description,
         "image": image,
+        "favicon": favicon,
       };
     }
   }

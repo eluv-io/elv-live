@@ -19,16 +19,19 @@ open:
 	open http://localhost:8086
 
 deploy:
-	#firebase use production-260101
 	firebase use elv-rewriter
 	#npm run build && firebase deploy --only functions,hosting:elv-rewriter
 	firebase deploy --only functions,hosting:elv-rewriter
 
 toplevel-test:
+	echo "main"
 	curl -s https://elv-rewriter.web.app/maskverse | head -20
 	curl -s https://elv-rewriter.firebaseapp.com/dolly/dolly | head -20
 	curl -s https://elv-rewriter.web.app/indieflix/indieflix | head -20
 	curl -s https://elv-rewriter.web.app/eluvio/community | head -20
+	echo "demov3"
+	curl -s https://elv-rewriter.firebaseapp.com/bcl-live/masked-singer-drop-event | head -20
+	curl -s https://elv-rewriter.firebaseapp.com/starflicks/starflicks | head -20
 
 emu-test:
 	#curl -s http://localhost:5050/maskverse | head -20
@@ -66,3 +69,9 @@ featured_sites:
 network_and_mode_test:
 	time curl -s -L "https://main.net955305.contentfabric.io/s/main/qlibs/ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9/q/iq__suqRJUt2vmXsyiWS5ZaSGwtFU9R/meta/public/asset_metadata/" | jq . | head
 	time curl -s -L "https://demov3.net955210.contentfabric.io/s/demov3/qlibs/ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD/q/iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG/meta/public/asset_metadata/" | jq . | head
+
+diff:
+	diff --color ../elv-live/functions/index.js functions/index.js
+	diff --color ../elv-live/functions/index-template.html functions/index-template.html
+copy:
+	cp ../elv-live/functions/index.js functions/index.js ; cp ../elv-live/functions/index-template.html functions/index-template.html
