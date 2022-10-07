@@ -58,8 +58,8 @@ const getFabricApi = async (network) => {
   return resp.data["network"]["seed_nodes"]["fabric_api"][0];
 };
 
-const MaxCacheAge = 1000 * 60 * 5;  // 5min in millis
-let elvLiveDataCaches = {};
+const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
+let elvLiveDataCache = {};
 
 //
 // Firebase cloud functions definitions for rewrite support
@@ -143,10 +143,10 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 // load elv-live data from network or cache
 const loadElvLiveAsync = async (req) => {
   const [networkPrefix, networkId] = await getNetworkPrefix(req);
-  functions.logger.info("cache keys", Object.keys(elvLiveDataCaches));
-  let elvLiveDataCache = elvLiveDataCaches[networkId];
+  functions.logger.info("cache keys", Object.keys(elvLiveDataCache));
+  let elvLiveData = elvLiveDataCache[networkId];
 
-  const cache_date = elvLiveDataCache?.date;
+  const cache_date = elvLiveData?.date;
   if(!cache_date) {
     functions.logger.info("cache is empty");
   } else {
@@ -155,8 +155,8 @@ const loadElvLiveAsync = async (req) => {
     if(age_millis > MaxCacheAge) {
       functions.logger.info("cache is old, re-fetch");
     } else {
-      if(elvLiveDataCache.data)
-        return elvLiveDataCache.data;
+      if(elvLiveData.data)
+        return elvLiveData.data;
     }
   }
 
@@ -250,11 +250,10 @@ const loadElvLiveAsync = async (req) => {
     }
   });
 
-  elvLiveDataCache = { data: ret };
-  elvLiveDataCache["date"] = new Date().getTime();
-  functions.logger.info("elvLiveDataCache date", elvLiveDataCache["date"]);
-  //functions.logger.info("elv-live site metadata cache entry", elvLiveDataCache);
+  elvLiveData = { data: ret };
+  elvLiveData["date"] = new Date().getTime();
+  functions.logger.info("elvLiveData date", elvLiveData["date"]);
 
-  elvLiveDataCaches[networkId] = elvLiveDataCache;
+  elvLiveDataCache[networkId] = elvLiveData;
   return ret;
 };
