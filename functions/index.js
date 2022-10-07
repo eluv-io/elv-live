@@ -110,8 +110,8 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   const originalUrl = req.headers["x-forwarded-url"] || req.url;
   const fullPath = originalHost + originalUrl;
 
-  let title = "Eluvio Media Wallet";
-  let description = "Eluvio Media wallet accessed from " + fullPath;
+  let title = "Eluvio: The Content Blockchain";
+  let description = "Web3 native content storage, streaming, distribution, and tokenization";
   let image = "https://live.eluv.io/875458425032ed6b77076d67678a20a1.png";
   let favicon = "/favicon.png";
 
