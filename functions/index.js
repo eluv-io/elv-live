@@ -30,7 +30,7 @@ const getNetworkAndMode = (req) => {
   const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
   const mode = originalHost.indexOf("stg") > -1 || network == "demov3" ? "staging" : "production";
 
-  // allow testing instance to hit either config
+  // allow testing instance to hit both configs
   if(originalHost == "elv-rewriter.web.app") { return ["main", "staging"]; }
   if(originalHost == "elv-rewriter.firebaseapp.com") {return ["demov3", "staging"]; }
 
@@ -42,9 +42,12 @@ const getNetworkPrefix = async (req) => {
   functions.logger.info("network/mode:", network, mode);
   const prefix = await getFabricApi(network);
 
-  return prefix + "/s/" + network +
-      "/qlibs/" + FabricConfiguration[network][mode].libId +
-      "/q/" + FabricConfiguration[network][mode].siteId;
+  return [
+    prefix + "/s/" + network +
+    "/qlibs/" + FabricConfiguration[network][mode].libId +
+    "/q/" + FabricConfiguration[network][mode].siteId,
+    network + ":" + mode
+  ];
 };
 
 const getFabricApi = async (network) => {
@@ -56,7 +59,7 @@ const getFabricApi = async (network) => {
 };
 
 const MaxCacheAge = 1000 * 60 * 5;  // 5min in millis
-let elv_live_data_cache = {};
+let elvLiveDataCaches = {};
 
 //
 // Firebase cloud functions definitions for rewrite support
@@ -90,7 +93,6 @@ exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
   try {
     let sites = await loadElvLiveAsync(req);
     functions.logger.info("loaded elv-live sites", {sites: sites});
-
     res.status(200).send(sites);
   } catch(error) {
     functions.logger.info(error);
@@ -140,7 +142,11 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
 // load elv-live data from network or cache
 const loadElvLiveAsync = async (req) => {
-  const cache_date = elv_live_data_cache?.date;
+  const [networkPrefix, networkId] = await getNetworkPrefix(req);
+  functions.logger.info("cache keys", Object.keys(elvLiveDataCaches));
+  let elvLiveDataCache = elvLiveDataCaches[networkId];
+
+  const cache_date = elvLiveDataCache?.date;
   if(!cache_date) {
     functions.logger.info("cache is empty");
   } else {
@@ -149,12 +155,10 @@ const loadElvLiveAsync = async (req) => {
     if(age_millis > MaxCacheAge) {
       functions.logger.info("cache is old, re-fetch");
     } else {
-      if(elv_live_data_cache.data)
-        return elv_live_data_cache.data;
+      if(elvLiveDataCache.data)
+        return elvLiveDataCache.data;
     }
   }
-
-  const networkPrefix = await getNetworkPrefix(req);
 
   // load sites
   const tenantsUrl = networkPrefix + "/meta/public/asset_metadata/tenants";
@@ -214,7 +218,7 @@ const loadElvLiveAsync = async (req) => {
       const title = event_info["event_title"] || "";
       const description = event_info["description"] || "";
       const image = featuredEventsUrl + "/" + idx + "/" + eventName +
-          "/info/event_images/hero_background?width=1200";
+        "/info/event_images/hero_background?width=1200";
       let favicon = "/favicon.png";
       if("favicon" in fe) {
         favicon = featuredEventsUrl + "/" + idx + "/" + eventName + "/info/favicon";
@@ -246,9 +250,11 @@ const loadElvLiveAsync = async (req) => {
     }
   });
 
-  functions.logger.info("elv-live site metadata", ret);
-  elv_live_data_cache = { data: ret };
-  elv_live_data_cache["date"] = new Date().getTime();
-  functions.logger.info("elv_live_data_cache date", elv_live_data_cache["date"]);
+  elvLiveDataCache = { data: ret };
+  elvLiveDataCache["date"] = new Date().getTime();
+  functions.logger.info("elvLiveDataCache date", elvLiveDataCache["date"]);
+  //functions.logger.info("elv-live site metadata cache entry", elvLiveDataCache);
+
+  elvLiveDataCaches[networkId] = elvLiveDataCache;
   return ret;
 };
