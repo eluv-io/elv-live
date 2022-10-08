@@ -112,7 +112,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
   let title = "Eluvio: The Content Blockchain";
   let description = "Web3 native content storage, streaming, distribution, and tokenization";
-  let image = "https://live.eluv.io/875458425032ed6b77076d67678a20a1.png";
+  let image = "https://live.eluv.io/7e927f3fc81c2e11f1ac317087288944.png";
   let favicon = "/favicon.png";
 
   // Inject metadata
