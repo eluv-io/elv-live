@@ -36,6 +36,12 @@
     top: 0;
   }
 
+  &__hero-banner {
+    position: fixed;
+    top: $normal-header-height;
+    z-index: 100;
+  }
+
   &__hero-video-container {
     height: 100%;
     left: 0;
@@ -182,7 +188,7 @@
     }
   }
 
-  @media only screen and (max-width: 1300px) and (min-width: 600px) {
+  @media only screen and (max-width: 1300px) and (min-width: 700px) {
     &-no-header-info {
       .event-page__hero-container {
         height: MIN(calc(100vh - 60px), calc(100vw * 9 / 16 + 60px));
