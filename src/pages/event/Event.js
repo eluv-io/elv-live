@@ -205,7 +205,7 @@ class Event extends React.Component {
   constructor(props) {
     super(props);
 
-    this.mobileCutoff = this.props.siteStore.eventInfo.hero_info ? 600 : 900;
+    this.mobileCutoff = this.props.siteStore.eventInfo.hero_info ? 700 : 900;
 
     this.state = {
       showPromo: false,
@@ -478,48 +478,55 @@ class Event extends React.Component {
   Hero() {
     const mobile = this.props.rootStore.pageWidth < this.mobileCutoff;
     const heroKey = mobile && this.props.siteStore.SiteHasImage("hero_background_mobile") ? "hero_background_mobile" : "hero_background";
+    const heroBannerKey = mobile && this.props.siteStore.SiteHasImage("hero_banner_mobile") ?
+      "hero_banner_mobile" :
+      this.props.siteStore.SiteHasImage("hero_banner") ?
+        "hero_banner" : "";
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
 
     return (
-      <div className="event-page__hero-container">
-        <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
-        { this.HeroVideo(mobile) }
-        <div className="event-page__heading">
+      <>
+        { heroBannerKey ? <img className="event-page__hero-banner" src={this.props.siteStore.SiteImageUrl(heroBannerKey)} alt="Banner" /> : null }
+        <div className="event-page__hero-container">
+          <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          { this.HeroVideo(mobile) }
+          <div className="event-page__heading">
+            {
+              hasHeaderImage ?
+                <div className="event-page__header-logo">
+                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl(headerKey)} alt={this.props.siteStore.eventInfo.event_header} />
+                </div>
+                : null
+            }
+
+            <h1 className={`event-page__header-name ${hasHeaderImage ? "hidden" : ""}`}>
+              { this.props.siteStore.eventInfo.event_header }
+            </h1>
+
+            {
+              this.props.siteStore.eventInfo.event_subheader ?
+                <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
+            }
+            {
+              this.props.siteStore.eventInfo.date_subheader ?
+                <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader}</h2> : null
+            }
+          </div>
+
           {
-            hasHeaderImage ?
-              <div className="event-page__header-logo">
-                <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl(headerKey)} alt={this.props.siteStore.eventInfo.event_header} />
-              </div>
-              : null
+            this.props.siteStore.eventInfo.show_countdown && this.props.siteStore.nextDrop ?
+              <Countdown
+                time={this.props.siteStore.nextDrop.start_date}
+                Render={({diff, countdown}) =>
+                  diff > 0 ? <div className="event-page__countdown">Next drop in {countdown}</div> : null
+                }
+              /> : null
           }
 
-          <h1 className={`event-page__header-name ${hasHeaderImage ? "hidden" : ""}`}>
-            { this.props.siteStore.eventInfo.event_header }
-          </h1>
-
-          {
-            this.props.siteStore.eventInfo.event_subheader ?
-              <h2 className="event-page__subheader">{this.props.siteStore.eventInfo.event_subheader}</h2> : null
-          }
-          {
-            this.props.siteStore.eventInfo.date_subheader ?
-              <h2 className="event-page__date-header">{this.props.siteStore.eventInfo.date_subheader}</h2> : null
-          }
+          { this.Actions() }
         </div>
-
-        {
-          this.props.siteStore.eventInfo.show_countdown && this.props.siteStore.nextDrop ?
-            <Countdown
-              time={this.props.siteStore.nextDrop.start_date}
-              Render={({diff, countdown}) =>
-                diff > 0 ? <div className="event-page__countdown">Next drop in {countdown}</div> : null
-              }
-            /> : null
-        }
-
-        { this.Actions() }
-      </div>
+      </>
     );
   }
 
