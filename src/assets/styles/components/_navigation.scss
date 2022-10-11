@@ -476,7 +476,7 @@
     }
   }
 
-  &.header-scrolled {
+  &.header-faded {
     &:not(.header-wallet) {
       background-color: rgba($white, 0.2);
     }
@@ -543,7 +543,7 @@
       background-color: $black;
     }
 
-    &.header-scrolled {
+    &.header-faded {
       &:not(.header-wallet) {
         background-color: rgba($black, 0.7);
       }
@@ -606,7 +606,7 @@
   &.header-transparent {
     &:not(.header-wallet) {
       @media screen and (min-width: 1400px) {
-        &:not(.header-scrolled) {
+        &:not(.header-faded) {
           .header__logo-default {
             filter: drop-shadow(1px 1px 0.5px $gray);
           }

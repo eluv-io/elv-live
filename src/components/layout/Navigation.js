@@ -23,7 +23,8 @@ class Header extends React.Component {
     super(props);
 
     this.state = {
-      scrolled: false
+      scrolled: false,
+      scrolledPastHero: false
     };
 
     this.ScrollFade = this.ScrollFade.bind(this);
@@ -38,10 +39,10 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    const scrolled = window.scrollY > 0;
-    if(scrolled !== this.state.scrolled) {
-      this.setState({scrolled});
-    }
+    this.setState({
+      scrolled: window.scrollY > 0,
+      scrolledPastHero: window.scrollY > window.innerHeight - 200
+    });
   }
 
   MarketplaceLinks() {
@@ -249,8 +250,9 @@ class Header extends React.Component {
     return (
       <header className={`
         header 
-        ${this.props.transparent ? "header-transparent" : ""} 
-        ${this.state.scrolled ? "header-scrolled" : ""} 
+        ${this.props.transparent ? "header-transparent" : ""}
+        ${this.state.scrolledPastHero ? "header-scrolled" : ""}  
+        ${this.state.scrolled ? "header-faded" : ""} 
         ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
       `}>
