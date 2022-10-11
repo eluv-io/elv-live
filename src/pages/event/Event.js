@@ -1,4 +1,4 @@
-import React, {useEffect, lazy, Suspense} from "react";
+import React, {useEffect, lazy, Suspense, useState} from "react";
 import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
@@ -196,6 +196,21 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
     </Modal>
   );
 })));
+
+const HeroBanner = ({imageUrl}) => {
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+
+  useEffect(() => {
+    const SetScroll = () => setScrolledPastHero(window.scrollY > window.innerHeight - 200);
+
+    document.addEventListener("scroll", SetScroll);
+
+    return () => document.removeEventListener("scroll", SetScroll);
+  }, []);
+
+
+  return <img className={`event-page__hero-banner ${scrolledPastHero ? "event-page__hero-banner--hidden" : ""}`} src={imageUrl} alt="Banner" />;
+};
 
 @inject("rootStore")
 @inject("siteStore")
@@ -487,7 +502,7 @@ class Event extends React.Component {
 
     return (
       <>
-        { heroBannerKey ? <img className="event-page__hero-banner" src={this.props.siteStore.SiteImageUrl(heroBannerKey)} alt="Banner" /> : null }
+        { heroBannerKey ? <HeroBanner imageUrl={this.props.siteStore.SiteImageUrl(heroBannerKey)} /> : null }
         <div className="event-page__hero-container">
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           { this.HeroVideo(mobile) }
