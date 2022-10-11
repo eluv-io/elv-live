@@ -28,18 +28,26 @@ const FabricConfiguration = {
 const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
-  const mode = originalHost.indexOf("stg") > -1 ? "staging" : "production";
+  const mode = originalHost.indexOf("stg") > -1 || network == "demov3" ? "staging" : "production";
+
+  // allow testing instance to hit both configs
+  if(originalHost == "elv-rewriter.web.app") { return ["main", "staging"]; }
+  if(originalHost == "elv-rewriter.firebaseapp.com") {return ["demov3", "staging"]; }
 
   return [network, mode];
 };
 
 const getNetworkPrefix = async (req) => {
   const [network, mode] = getNetworkAndMode(req);
+  functions.logger.info("network/mode:", network, mode);
   const prefix = await getFabricApi(network);
 
-  return prefix + "/s/" + network +
-      "/qlibs/" + FabricConfiguration[network][mode].libId +
-      "/q/" + FabricConfiguration[network][mode].siteId;
+  return [
+    prefix + "/s/" + network +
+    "/qlibs/" + FabricConfiguration[network][mode].libId +
+    "/q/" + FabricConfiguration[network][mode].siteId,
+    network + ":" + mode
+  ];
 };
 
 const getFabricApi = async (network) => {
@@ -50,8 +58,8 @@ const getFabricApi = async (network) => {
   return resp.data["network"]["seed_nodes"]["fabric_api"][0];
 };
 
-const MaxCacheAge = 1000 * 60 * 5;  // 5min in millis
-let elv_live_data_cache = {};
+const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
+let elvLiveDataCache = {};
 
 //
 // Firebase cloud functions definitions for rewrite support
@@ -85,7 +93,6 @@ exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
   try {
     let sites = await loadElvLiveAsync(req);
     functions.logger.info("loaded elv-live sites", {sites: sites});
-
     res.status(200).send(sites);
   } catch(error) {
     functions.logger.info(error);
@@ -103,20 +110,22 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   const originalUrl = req.headers["x-forwarded-url"] || req.url;
   const fullPath = originalHost + originalUrl;
 
-  let title = "Eluvio Media Wallet";
-  let description = "Eluvio Media wallet accessed from " + fullPath;
-  let image = "https://live.eluv.io/875458425032ed6b77076d67678a20a1.png";
+  let title = "Eluvio: The Content Blockchain";
+  let description = "Web3 native content storage, streaming, distribution, and tokenization";
+  let image = "https://live.eluv.io/7e927f3fc81c2e11f1ac317087288944.png";
+  let favicon = "/favicon.png";
 
   // Inject metadata
   functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
+  functions.logger.info("checking sites", Object.keys(sites));
   for(const [site, site_metadata] of Object.entries(sites)) {
-    functions.logger.info("checking", site);
     // match dns hostname, or match a path
     if(originalHost == site || originalUrl == ("/" + site)) {
       functions.logger.info("match", site, site_metadata);
       title = site_metadata.title;
       description = site_metadata.description;
       image = site_metadata.image;
+      favicon = site_metadata.favicon;
       break;
     }
   }
@@ -124,6 +133,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   html = html.replace(/@@TITLE@@/g, title);
   html = html.replace(/@@DESCRIPTION@@/g, description);
   html = html.replace(/@@IMAGE@@/g, image);
+  html = html.replace(/@@FAVICON@@/g, favicon);
   html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
 
   res.status(200).send(html);
@@ -132,7 +142,11 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
 // load elv-live data from network or cache
 const loadElvLiveAsync = async (req) => {
-  const cache_date = elv_live_data_cache?.date;
+  const [networkPrefix, networkId] = await getNetworkPrefix(req);
+  functions.logger.info("cache keys", Object.keys(elvLiveDataCache));
+  let elvLiveData = elvLiveDataCache[networkId];
+
+  const cache_date = elvLiveData?.date;
   if(!cache_date) {
     functions.logger.info("cache is empty");
   } else {
@@ -141,12 +155,10 @@ const loadElvLiveAsync = async (req) => {
     if(age_millis > MaxCacheAge) {
       functions.logger.info("cache is old, re-fetch");
     } else {
-      if(elv_live_data_cache.data)
-        return elv_live_data_cache.data;
+      if(elvLiveData.data)
+        return elvLiveData.data;
     }
   }
-
-  const networkPrefix = await getNetworkPrefix(req);
 
   // load sites
   const tenantsUrl = networkPrefix + "/meta/public/asset_metadata/tenants";
@@ -177,11 +189,16 @@ const loadElvLiveAsync = async (req) => {
     const description = event_info["description"] || "";
     const image = tenantsUrl + "/" + tenant_name + "/sites/" + site_name +
       "/info/event_images/hero_background?width=1200";
+    let favicon = "/favicon.png";
+    if("favicon" in site) {
+      favicon = tenantsUrl + "/" + tenant_name + "/sites/" + site_name + "/info/favicon";
+    }
 
     ret[tenant_name + "/" + site_name] = {
       "title": title,
       "description": description,
       "image": image,
+      "favicon": favicon,
     };
   }
 
@@ -202,11 +219,16 @@ const loadElvLiveAsync = async (req) => {
       const description = event_info["description"] || "";
       const image = featuredEventsUrl + "/" + idx + "/" + eventName +
         "/info/event_images/hero_background?width=1200";
+      let favicon = "/favicon.png";
+      if("favicon" in fe) {
+        favicon = featuredEventsUrl + "/" + idx + "/" + eventName + "/info/favicon";
+      }
 
       ret[eventName] = {
         "title": title,
         "description": description,
         "image": image,
+        "favicon": favicon,
       };
     }
   }
@@ -228,9 +250,10 @@ const loadElvLiveAsync = async (req) => {
     }
   });
 
-  functions.logger.info("elv-live site metadata", ret);
-  elv_live_data_cache = { data: ret };
-  elv_live_data_cache["date"] = new Date().getTime();
-  functions.logger.info("elv_live_data_cache date", elv_live_data_cache["date"]);
+  elvLiveData = { data: ret };
+  elvLiveData["date"] = new Date().getTime();
+  functions.logger.info("elvLiveData date", elvLiveData["date"]);
+
+  elvLiveDataCache[networkId] = elvLiveData;
   return ret;
 };
