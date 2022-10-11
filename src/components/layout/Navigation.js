@@ -252,7 +252,6 @@ class Header extends React.Component {
         header 
         ${this.props.transparent ? "header-transparent" : ""}
         ${this.state.scrolledPastHero ? "header-scrolled" : ""}  
-        ${this.state.scrolled ? "header-faded" : ""} 
         ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
       `}>
