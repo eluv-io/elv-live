@@ -143,7 +143,6 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 // load elv-live data from network or cache
 const loadElvLiveAsync = async (req) => {
   const [networkPrefix, networkId] = await getNetworkPrefix(req);
-  functions.logger.info("cache keys", Object.keys(elvLiveDataCache));
   let elvLiveData = elvLiveDataCache[networkId];
 
   const cache_date = elvLiveData?.date;
@@ -189,8 +188,8 @@ const loadElvLiveAsync = async (req) => {
     const description = event_info["description"] || "";
     const image = tenantsUrl + "/" + tenant_name + "/sites/" + site_name +
       "/info/event_images/hero_background?width=1200";
-    let favicon = "/favicon.png";
-    if("favicon" in site) {
+    let favicon = "";
+    if("favicon" in site && site.favicon != null) {
       favicon = tenantsUrl + "/" + tenant_name + "/sites/" + site_name + "/info/favicon";
     }
 
@@ -219,8 +218,8 @@ const loadElvLiveAsync = async (req) => {
       const description = event_info["description"] || "";
       const image = featuredEventsUrl + "/" + idx + "/" + eventName +
         "/info/event_images/hero_background?width=1200";
-      let favicon = "/favicon.png";
-      if("favicon" in fe) {
+      let favicon = "";
+      if("favicon" in fe && fe.favicon != null) {
         favicon = featuredEventsUrl + "/" + idx + "/" + eventName + "/info/favicon";
       }
 
@@ -252,7 +251,7 @@ const loadElvLiveAsync = async (req) => {
 
   elvLiveData = { data: ret };
   elvLiveData["date"] = new Date().getTime();
-  functions.logger.info("elvLiveData date", elvLiveData["date"]);
+  functions.logger.info("elvLiveData", elvLiveData);
 
   elvLiveDataCache[networkId] = elvLiveData;
   return ret;
