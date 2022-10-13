@@ -35,10 +35,10 @@ class Footer extends React.Component {
   }
 
   FooterLinks() {
-    const links = (this.props.siteStore.currentSiteInfo.footer_links || []).map(({text, url, content_rich_text, content_html}, index) => {
+    const links = (this.props.siteStore.currentSiteInfo.footer_links || []).map(({text, url, image, image_alt_text, content_rich_text, content_html}, index) => {
       if(url) {
         return <a target="_blank" key={`footer-link-${index}`} className="footer__item" rel="noopener" href={url}>{ text }</a>;
-      } else if(content_rich_text || content_html) {
+      } else if(content_rich_text || content_html || image) {
         return (
           <button
             key={`footer-link-${index}`}
@@ -51,30 +51,32 @@ class Footer extends React.Component {
                     Toggle={() => this.setState({modal: undefined})}
                   >
                     {
-                      content_rich_text ?
-                        <div className="event-message">
-                          <div className="event-message__content">
-                            <div
-                              className="event-message__content__message"
-                              ref={element => {
-                                if(!element) {
-                                  return;
-                                }
+                      image ?
+                        <img src={image?.url} className="event-message__content__image" alt={image_alt_text} /> :
+                        content_rich_text ?
+                          <div className="event-message">
+                            <div className="event-message__content">
+                              <div
+                                className="event-message__content__message"
+                                ref={element => {
+                                  if(!element) {
+                                    return;
+                                  }
 
-                                render(
-                                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                                    {SanitizeHTML(content_rich_text)}
-                                  </ReactMarkdown>,
-                                  element
-                                );
-                              }}
-                            />
-                          </div>
-                        </div> :
-                        <iframe
-                          className="event-message"
-                          src={this.props.siteStore.SiteUrl(UrlJoin("info", "footer_links", index.toString(), "content_html"))}
-                        />
+                                  render(
+                                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                                      {SanitizeHTML(content_rich_text)}
+                                    </ReactMarkdown>,
+                                    element
+                                  );
+                                }}
+                              />
+                            </div>
+                          </div> :
+                          <iframe
+                            className="event-message"
+                            src={this.props.siteStore.SiteUrl(UrlJoin("info", "footer_links", index.toString(), "content_html"))}
+                          />
                     }
                   </Modal>
                 )

@@ -2,6 +2,7 @@
   @include page-fade-in;
   align-items: center;
   background-color: rgba($color-background, 0.8);
+  backdrop-filter: blur(2px);
   display: flex;
   height: 100vh;
   justify-content: center;
