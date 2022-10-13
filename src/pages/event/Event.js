@@ -245,6 +245,7 @@ class Event extends React.Component {
 
       info[key] = {
         text: branding[key].text,
+        button_image: branding[key].button_image,
         styles
       };
     });
@@ -286,13 +287,18 @@ class Event extends React.Component {
       (this.props.siteStore.currentSiteInfo.drops || []).length > 0 ||
       (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
 
+    const ButtonContent = (info={}, defaultText) =>
+      info.button_image ?
+        <img className="btn__image" src={info.button_image.url} alt={info.text || defaultText} /> :
+        info.text || defaultText;
+
     const GetStartedButton = () => (
       <button
         style={(branding.get_started || {}).styles}
-        className="btn"
+        className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
         onClick={() => this.setState({showGetStartedModal: true})}
       >
-        { (branding.get_started || {}).text || "Get Started" }
+        { ButtonContent(branding.get_started, "Get Started") }
       </button>
     );
 
@@ -300,7 +306,7 @@ class Event extends React.Component {
       this.props.siteStore.nextDrop && this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
         <button
           style={(branding.join_drop || {}).styles}
-          className="btn"
+          className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
           onClick={async () => {
             await this.props.rootStore.SetWalletPanelVisibility(
               {
@@ -318,14 +324,14 @@ class Event extends React.Component {
             await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop.marketplace_filters});
           }}
         >
-          { (branding.join_drop || {}).text || "Join the Drop" }
+          { ButtonContent(branding.join_drop, "Join the Drop") }
         </button> :
         <Link
           style={(branding.join_drop || {}).styles}
           to={this.props.siteStore.nextDrop.link}
-          className="btn"
+          className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
         >
-          { (branding.join_drop || {}).text || "Join the Drop" }
+          { ButtonContent(branding.join_drop, "Join the Drop") }
         </Link>
     );
 
@@ -333,19 +339,19 @@ class Event extends React.Component {
       <button
         style={(branding.watch_promo || {}).styles}
         onClick={() => this.setState({showPromo: true})}
-        className="btn"
+        className={`btn ${branding.watch_promo?.button_image ? "btn--image" : ""}`}
       >
-        { (branding.watch_promo || {}).text || "Watch Promo" }
+        { ButtonContent(branding.watch_promo, "Watch Promo") }
       </button>
     );
 
     const BuyTicketsButton = () => (
       <button
         style={(branding.buy_tickets || {}).styles}
-        className="btn"
+        className={`btn ${branding.buy_tickets?.button_image ? "btn--image" : ""}}`}
         onClick={() => this.ScrollToTickets()}
       >
-        { (branding.buy_tickets || {}).text || "Buy Tickets" }
+        { ButtonContent(branding.buy_tickets, "Buy Tickets") }
       </button>
     );
 
