@@ -169,15 +169,14 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
                   onClick={async () => {
                     Close();
                     await rootStore.SetWalletPanelVisibility({
-                      visibility: "modal",
+                      visibility: "full",
                       location: {
                         page: "marketplace",
                         params: {
                           tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
                           marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
                         }
-                      },
-                      hideNavigation: messageInfo.hide_navigation
+                      }
                     });
 
                     await rootStore.SetMarketplaceFilters({filters: messageInfo.marketplace_filters});
