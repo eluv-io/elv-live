@@ -152,6 +152,24 @@ class Footer extends React.Component {
         </div>
         <div className="footer__border" />
         {
+          this.props.siteStore.currentSiteInfo.footer_text ?
+            <div
+              className="markdown-document footer__block footer__copyright"
+              ref={element => {
+                if(!element) {
+                  return;
+                }
+
+                render(
+                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
+                    {SanitizeHTML(this.props.siteStore.currentSiteInfo.footer_text)}
+                  </ReactMarkdown>,
+                  element
+                );
+              }}
+            /> : null
+        }
+        {
           this.props.siteStore.eventInfo.copyright ?
             <div
               className="footer__block footer__copyright"

@@ -40,8 +40,7 @@ class Header extends React.Component {
 
   ScrollFade() {
     this.setState({
-      scrolled: window.scrollY > 0,
-      scrolledPastHero: window.scrollY > window.innerHeight - 200
+      scrolled: window.scrollY > 0
     });
   }
 
@@ -250,8 +249,9 @@ class Header extends React.Component {
     return (
       <header className={`
         header 
+        ${this.props.mainPage ? "header-main" : ""}
         ${this.props.transparent ? "header-transparent" : ""}
-        ${this.state.scrolledPastHero ? "header-scrolled" : ""}  
+        ${this.state.scrolled ? "header-scrolled" : ""}  
         ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
       `}>

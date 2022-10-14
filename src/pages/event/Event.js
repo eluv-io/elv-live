@@ -18,6 +18,11 @@ import SocialMediaBar from "Event/tabs/SocialMediaBar";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
+const ButtonContent = (info={}, defaultText) =>
+  info.button_image ?
+    <img className="btn__image" src={info.button_image.url} alt={info.text || defaultText} /> :
+    info.text || defaultText;
+
 const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootStore, siteStore, Close}) => {
   const messageInfo = siteStore.eventInfo.modal_message_get_started;
 
@@ -71,9 +76,9 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
                 href={messageInfo.button_link}
                 target="_blank"
                 rel="noopener"
-                className="event-message__button"
+                className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
               >
-                { messageInfo.button_text || "Link" }
+                { ButtonContent(messageInfo, "Link") }
               </a> :
               !siteStore.nextDrop || siteStore.nextDrop.requires_login ?
                 <button
@@ -83,16 +88,16 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
 
                     rootStore.LogIn();
                   }}
-                  className="event-message__button"
+                  className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
                 >
-                  { messageInfo.button_text || "Create Wallet" }
+                  { ButtonContent(messageInfo || "Create Wallet") }
                 </button> :
                 <Link
                   to={siteStore.nextDrop.link}
-                  className="event-message__button"
+                  className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
                   onClick={Close}
                 >
-                  { messageInfo.button_text || "Join the Drop" }
+                  { ButtonContent(messageInfo || "Join the Drop") }
                 </Link>
           }
         </div>
@@ -109,10 +114,7 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
 
     if(!messageInfo || !messageInfo.show) {
       Close();
-      rootStore.SetWalletPanelVisibility({
-        visibility: "modal",
-        hideNavigation: messageInfo.hide_navigation
-      });
+      rootStore.SetWalletPanelVisibility({visibility: "full"});
     }
   }, [messageInfo]);
 
@@ -197,19 +199,30 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
   );
 })));
 
-const HeroBanner = ({imageUrl}) => {
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+const HeroBanner = ({link, imageUrl}) => {
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const SetScroll = () => setScrolledPastHero(window.scrollY > window.innerHeight - 200);
+    const SetScroll = () => setScrolled(window.scrollY > 0);
 
     document.addEventListener("scroll", SetScroll);
 
     return () => document.removeEventListener("scroll", SetScroll);
   }, []);
 
+  if(link) {
+    return (
+      <a href={link} rel="noopener" target="_blank" className={`event-page__hero-banner ${scrolled ? "event-page__hero-banner--hidden" : ""}`}>
+        <img className="event-page__hero-banner__image" src={imageUrl} alt="Banner" />
+      </a>
+    );
+  }
 
-  return <img className={`event-page__hero-banner ${scrolledPastHero ? "event-page__hero-banner--hidden" : ""}`} src={imageUrl} alt="Banner" />;
+  return (
+    <div className={`event-page__hero-banner ${scrolled ? "event-page__hero-banner--hidden" : ""}`}>
+      <img className="event-page__hero-banner__image" src={imageUrl} alt="Banner" />
+    </div>
+  );
 };
 
 @inject("rootStore")
@@ -287,18 +300,13 @@ class Event extends React.Component {
       (this.props.siteStore.currentSiteInfo.drops || []).length > 0 ||
       (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
 
-    const ButtonContent = (info={}, defaultText) =>
-      info.button_image ?
-        <img className="btn__image" src={info.button_image.url} alt={info.text || defaultText} /> :
-        info.text || defaultText;
-
     const GetStartedButton = () => (
       <button
         style={(branding.get_started || {}).styles}
         className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
         onClick={() => this.setState({showGetStartedModal: true})}
       >
-        { ButtonContent(branding.get_started, "Get Started") }
+        { ButtonContent(branding.get_started, "Ge Started") }
       </button>
     );
 
@@ -508,7 +516,7 @@ class Event extends React.Component {
 
     return (
       <>
-        { heroBannerKey ? <HeroBanner imageUrl={this.props.siteStore.SiteImageUrl(heroBannerKey)} /> : null }
+        { heroBannerKey ? <HeroBanner link={this.props.siteStore.currentSiteInfo?.event_images?.hero_banner_link} imageUrl={this.props.siteStore.SiteImageUrl(heroBannerKey)} /> : null }
         <div className="event-page__hero-container">
           <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           { this.HeroVideo(mobile) }
