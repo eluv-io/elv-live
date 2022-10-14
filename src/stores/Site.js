@@ -760,6 +760,7 @@ class SiteStore {
             gtag("config", entry.id, config);
 
             break;
+
           case "Google Tag Manager ID":
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
                 new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
@@ -768,6 +769,7 @@ class SiteStore {
             })(window,document,"script","dataLayer",entry.id);
 
             break;
+
           case "Facebook Pixel ID":
             !function(f,b,e,v,n,t,s)
             {if(f.fbq) return;n=f.fbq=function(){n.callMethod?
@@ -783,6 +785,7 @@ class SiteStore {
             window.ac[`${this.siteSlug}-${analytics.label}-f`] = fbq;
 
             break;
+
           case "App Nexus Segment ID":
             const pixel = document.createElement("img");
 
@@ -794,6 +797,15 @@ class SiteStore {
             document.body.appendChild(pixel);
 
             break;
+
+          case "Twitter Pixel ID":
+            !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+            },s.version="1.1",s.queue=[],u=t.createElement(n),u.async=!0,u.src="https://static.ads-twitter.com/uwt.js",
+            a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a));}(window,document,"script");
+            twq("config",entry.id);
+
+            break;
+
           default:
             break;
         }

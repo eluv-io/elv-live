@@ -162,6 +162,12 @@
     text-transform: uppercase;
     width: 250px;
 
+    &--image {
+      background: transparent !important;
+      border: 0 !important;
+      height: auto;
+    }
+
     &-marketplace {
       font-size: 14px;
       width: 275px;
