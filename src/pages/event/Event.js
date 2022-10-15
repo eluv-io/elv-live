@@ -181,15 +181,15 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
 
                     await rootStore.SetMarketplaceFilters({filters: messageInfo.marketplace_filters});
                   }}
-                  className="event-message__button event-message__button-marketplace"
+                  className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""} event-message__button-marketplace`}
                 >
-                  { messageInfo.button_text || "Go to the Marketplace" }
+                  { ButtonContent(messageInfo, "Go to the Marketplace") }
                 </button> :
                 <button
-                  className="event-message__button"
+                  className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
                   onClick={Close}
                 >
-                  { messageInfo.button_text || "Close" }
+                  { ButtonContent(messageInfo, "Close") }
                 </button>
           }
         </div>
