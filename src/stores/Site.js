@@ -161,6 +161,7 @@ class SiteStore {
           uuid: drop.uuid,
           requires_login: false,
           header: drop.event_header,
+          skip_countdown_page: drop.skip_countdown_page,
           start_date,
           end_date,
           past,

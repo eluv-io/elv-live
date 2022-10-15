@@ -80,7 +80,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
               >
                 { ButtonContent(messageInfo, "Link") }
               </a> :
-              !siteStore.nextDrop || siteStore.nextDrop.requires_login ?
+              !siteStore.nextDrop || siteStore.nextDrop.requires_login || siteStore.nextDrop.skip_countdown_page ?
                 <button
                   onClick={() => {
                     Close();
