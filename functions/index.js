@@ -66,7 +66,7 @@ let elvLiveDataCache = {};
 // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 
-// header dump utility
+// health check and header dump utility
 exports.ping = functions.https.onRequest((req, res) => {
   functions.logger.info("headers dumper", {host: req.hostname});
 
@@ -77,7 +77,7 @@ exports.ping = functions.https.onRequest((req, res) => {
     body = body + "\tmeta property=\"og:" + key + "\" content=\"" + value + "\"<br/>\n";
   }
 
-  res.status(200).send(`<!doctype html>
+  res.status(200).send(`<!DOCTYPE html><html>
     <head>
       <title>cloud functions headers test</title>
       ${meta}
@@ -104,7 +104,12 @@ exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
 exports.create_index_html = functions.https.onRequest(async (req, res) => {
   let html = fs.readFileSync(Path.resolve(__dirname, "./index-template.html")).toString();
 
-  let sites = await loadElvLiveAsync(req);
+  let sites = {};
+  try {
+    sites = await loadElvLiveAsync(req);
+  } catch(e) {
+    functions.logger.error("cannot loadElvLiveAsync", e);
+  }
 
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const originalUrl = req.headers["x-forwarded-url"] || req.url;
