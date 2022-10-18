@@ -77,8 +77,8 @@ exports.ping = functions.https.onRequest((req, res) => {
     body = body + "\tmeta property=\"og:" + key + "\" content=\"" + value + "\"<br/>\n";
   }
 
-  res.status(200).send(`<!DOCTYPE html><html>
-    <head> <title>cloud functions headers test</title> ${meta} </head>
+  res.status(200).send(`<!DOCTYPE html>
+    <html> <head> <title>cloud functions headers test</title> ${meta} </head>
     <body> ${req.hostname} / ${req.url} / ${req.href} / ${req.referrer} / ${req.originalUrl} / ${req.path}<br/>
       ${body} </body> </html>`);
 });
