@@ -429,6 +429,8 @@ class RootStore {
           route: yield this.frameClient.CurrentPath(),
           video
         };
+      } else {
+        this.currentWalletState.visibility = visibility;
       }
 
       if(["full", "exclusive"].includes(visibility)) {

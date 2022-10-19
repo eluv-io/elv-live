@@ -71,6 +71,7 @@ class SiteApp extends React.Component {
           <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
           <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
           <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
+          <Route path="/:tenantSlug?/:siteSlug/marketplace" component={SitePage(Event, {mainPage: true, transparent: true, showMarketplace: true})} />
           <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
 
           <Route>
