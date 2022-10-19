@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CloseIcon from "Icons/x";
@@ -8,10 +8,29 @@ import UrlJoin from "url-join";
 
 const WalletFrame = observer(() => {
   const [frameLoaded, setFrameLoaded] = useState(false);
+  const [storefrontAnalyticsFired, setStorefrontAnalyticsFired] = useState(false);
   const marketplaceRoute = window.location.pathname.includes("/marketplace");
   const alwaysVisible = siteStore.marketplaceOnly;
   const visibility = alwaysVisible ? "exclusive" : rootStore.currentWalletState.visibility;
   const loaded = rootStore.app === "main" ? siteStore.siteLoaded : siteStore.currentSite;
+
+  useEffect(() => {
+    if(
+      storefrontAnalyticsFired ||
+      !siteStore.analyticsInitialized ||
+      !(rootStore.currentWalletState.visibility === "full" || siteStore.marketplaceOnly) ||
+      !(rootStore.currentWalletState.route || "").startsWith("/marketplace/")
+    ) {
+      return;
+    }
+
+    siteStore.AddAnalyticsEvent({
+      analytics: siteStore.currentSiteInfo.marketplace_page_view_analytics,
+      eventName: "Marketplace Page View"
+    });
+
+    setStorefrontAnalyticsFired(true);
+  }, [siteStore.analyticsInitialized, rootStore.currentWalletState]);
 
   return (
     <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">

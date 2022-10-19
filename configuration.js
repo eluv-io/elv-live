@@ -4,8 +4,8 @@ const EluvioConfiguration = {
   "network": "demo",
   "mode": "staging",
 
-  "network": "main",
-  "mode": "staging",
+  //"network": "main",
+  //"mode": "staging",
 
   //"mode": "production",
 

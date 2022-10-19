@@ -62,6 +62,7 @@ class RootStore {
       page: "wallet"
     }
   };
+
   @observable defaultWalletState = {
     visibility: "hidden"
   };
@@ -81,6 +82,17 @@ class RootStore {
     window.rootStore = this;
 
     window.addEventListener("resize", () => this.HandleResize());
+  }
+
+  Log(message="", error=false) {
+    // eslint-disable-next-line no-console
+    const logMethod = error === "warn" ? console.warn : error ? console.error : console.log;
+
+    if(typeof message === "string") {
+      message = `Eluvio Live | ${message}`;
+    }
+
+    logMethod(message);
   }
 
   @action.bound
