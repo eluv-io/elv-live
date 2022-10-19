@@ -239,6 +239,11 @@ class Event extends React.Component {
       showGetStartedModal: false,
       showPostLoginModal: localStorage.getItem("showPostLoginModal")
     };
+
+    props.siteStore.AddAnalyticsEvent({
+      analytics: props.siteStore.currentSiteInfo.landing_page_view_analytics,
+      eventName: "Landing Page View"
+    });
   }
 
   Branding() {

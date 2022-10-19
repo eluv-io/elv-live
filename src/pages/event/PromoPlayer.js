@@ -34,12 +34,6 @@ class PromoPlayer extends React.Component {
               client: this.props.siteStore.rootStore.client
             },
             sourceOptions: {
-              drms: [
-                "clear",
-                "aes-128",
-                "sample-aes",
-                "widevine"
-              ],
               playoutParameters: {
                 objectId: this.props.siteStore.rootStore.mainSiteId,
                 linkPath
