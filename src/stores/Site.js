@@ -735,6 +735,7 @@ class SiteStore {
     this.showCheckout = false;
   }
 
+  // Synchronize with elv-media-wallet
   InitializeAnalytics() {
     (this.currentSiteInfo.analytics_ids || []).forEach(analytics => {
       const ids = analytics.ids;

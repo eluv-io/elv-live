@@ -379,6 +379,7 @@
     &-frame {
       .event-message {
         height: 100vh;
+        max-height: unset;
         max-width: 800px;
         width: 800px;
       }

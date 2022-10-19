@@ -95,6 +95,13 @@
     color: $black;
   }
 
+  &--frame {
+    border: 0;
+    border-radius: 0;
+    height: 100%;
+    padding-bottom: 0;
+  }
+
   &__content {
     align-items: center;
     display: flex;

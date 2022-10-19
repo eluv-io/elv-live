@@ -74,7 +74,7 @@ class Footer extends React.Component {
                             </div>
                           </div> :
                           <iframe
-                            className="event-message"
+                            className="event-message event-message--frame"
                             src={this.props.siteStore.SiteUrl(UrlJoin("info", "footer_links", index.toString(), "content_html"))}
                           />
                     }
