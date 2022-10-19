@@ -1,9 +1,17 @@
 const functions = require("firebase-functions");
-const date = require("date");
+require("date");
 const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 
+//
+// Firebase cloud function definitions for elv-live rewrite support
+// docs: https://firebase.google.com/docs/functions/
+// logs: https://console.cloud.google.com/logs/query
+//
+
+const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
+let elvLiveDataCache = {};
 const FabricConfiguration = {
   demov3: {
     configUrl: "https://demov3.net955210.contentfabric.io/config",
@@ -58,18 +66,10 @@ const getFabricApi = async (network) => {
   return resp.data["network"]["seed_nodes"]["fabric_api"][0];
 };
 
-const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
-let elvLiveDataCache = {};
 
-//
-// Firebase cloud functions definitions for rewrite support
-// https://firebase.google.com/docs/functions/write-firebase-functions
-//
-
-// header dump utility
+// health check and header dump utility
 exports.ping = functions.https.onRequest((req, res) => {
   functions.logger.info("headers dumper", {host: req.hostname});
-
   let meta = "";
   let body = "";
   for(const [key, value] of Object.entries(req.headers)) {
@@ -77,15 +77,10 @@ exports.ping = functions.https.onRequest((req, res) => {
     body = body + "\tmeta property=\"og:" + key + "\" content=\"" + value + "\"<br/>\n";
   }
 
-  res.status(200).send(`<!doctype html>
-    <head>
-      <title>cloud functions headers test</title>
-      ${meta}
-    </head>
-    <body>
-      ${req.hostname} / ${req.url} / ${req.href} / ${req.referrer} / ${req.originalUrl} / ${req.path}<br/>
-      ${body}
-    </body> </html>`);
+  res.status(200).send(`<!DOCTYPE html>
+    <html> <head> <title>cloud functions headers test</title> ${meta} </head>
+    <body> ${req.hostname} / ${req.url} / ${req.href} / ${req.referrer} / ${req.originalUrl} / ${req.path}<br/>
+      ${body} </body> </html>`);
 });
 
 // load and return elv-live data for this network/mode
@@ -104,7 +99,12 @@ exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
 exports.create_index_html = functions.https.onRequest(async (req, res) => {
   let html = fs.readFileSync(Path.resolve(__dirname, "./index-template.html")).toString();
 
-  let sites = await loadElvLiveAsync(req);
+  let sites = {};
+  try {
+    sites = await loadElvLiveAsync(req);
+  } catch(e) {
+    functions.logger.error("cannot loadElvLiveAsync", e);
+  }
 
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const originalUrl = req.headers["x-forwarded-url"] || req.url;
@@ -168,7 +168,7 @@ const loadElvLiveAsync = async (req) => {
 
   let tenantsAndSite = {};
   for(const [tenant_name, tenant_obj] of Object.entries(tenantData)) {
-    let sites = tenant_obj["sites"];
+    let sites = tenant_obj?.["sites"];
     for(const [site_name, _] of Object.entries(sites)) {
       tenantsAndSite[tenant_name + "/" + site_name] = { tenant: tenant_name, site: site_name };
     }
@@ -176,16 +176,17 @@ const loadElvLiveAsync = async (req) => {
   functions.logger.info("returning tenants+sites", tenantsAndSite);
 
   let ret = {};
+
   for(const tenantAndSite of Object.values(tenantsAndSite)) {
     const tenant_name = tenantAndSite.tenant;
     const site_name = tenantAndSite.site;
     //functions.logger.info("load site", tenant_name, site_name);
 
-    const site = tenantData[tenant_name]["sites"][site_name]["info"];
-    const event_info = site["event_info"] || {};
+    const site = tenantData?.[tenant_name]?.["sites"]?.[site_name]?.["info"] || {};
+    const event_info = site?.["event_info"] || {};
 
-    const title = event_info["event_title"] || "";
-    const description = event_info["description"] || "";
+    const title = event_info?.["event_title"] || "";
+    const description = event_info?.["description"] || "";
     const image = tenantsUrl + "/" + tenant_name + "/sites/" + site_name +
       "/info/event_images/hero_background?width=1200";
     let favicon = "";
@@ -211,11 +212,11 @@ const loadElvLiveAsync = async (req) => {
   for(const [idx, event] of Object.entries(featuredEventData)) {
     for(const [eventName, eventData] of Object.entries(event)) {
       //functions.logger.info("load featured_event", eventName);
-      const fe = eventData["info"];
-      const event_info = fe["event_info"] || {};
+      const fe = eventData?.["info"] || {};
+      const event_info = fe?.["event_info"] || {};
 
-      const title = event_info["event_title"] || "";
-      const description = event_info["description"] || "";
+      const title = event_info?.["event_title"] || "";
+      const description = event_info?.["description"] || "";
       const image = featuredEventsUrl + "/" + idx + "/" + eventName +
         "/info/event_images/hero_background?width=1200";
       let favicon = "";
