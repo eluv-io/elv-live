@@ -3,20 +3,16 @@ import {inject, observer} from "mobx-react";
 
 import Copy from "Assets/copy/Main.yaml";
 
-import Image1 from "Assets/images/technology/1-Content-Fabric-Architecture.png";
-import Image2 from "Assets/images/technology/2-Content-Fabric-Distribution.png";
-import Image3 from "Assets/images/technology/3-Streaming-Your-Content.png";
-import Image4 from "Assets/images/technology/4-Selling-and-Licensing-Your-Content.png";
-import Image5 from "Assets/images/technology/5-Selling-NFTs-and-Other-Digital-Collectibles.png";
+import Image1 from "Assets/images/technology/Content-Fabric-Architecture.jpg";
+import Image2 from "Assets/images/technology/Content-Fabric-Distribution.jpg";
+import Image3 from "Assets/images/technology/How-you-Earn-Blockchain-Monetization.jpg";
 
 import Whitepaper from "Assets/documents/EluvioContentFabricProtocolWhitepaper.pdf";
 
 const IMAGES = {
   "architecture": Image1,
   "how_it_works": Image2,
-  "streaming": Image3,
-  "buying": Image4,
-  "nfts": Image5
+  "streaming": Image3
 };
 
 @inject("siteStore")
