@@ -236,16 +236,8 @@ technology:
       alt: Eluvio LIVE Content Favbric distribution process and pipeline
     streaming:
       subheader: How You Earn
-      header: Streaming/Viewing
-      alt: Streaming your content on Eluvio LIVE
-    buying:
-      subheader: How You Earn
-      header: Buying/Licensing
-      alt: Selling and licensing your content on Eluvio LIVE
-    nfts:
-      subheader: How You Earn
-      header: NFTs and Digital Collectibles
-      alt: Selling NFTs and other digital collectibles from your content on Eluvio LIVE
+      header: On-Chain Monetization
+      alt: On-Chain Monetization
 blockchain:
   sections:
     main:
