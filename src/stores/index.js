@@ -9,6 +9,7 @@ import CollectionStore from "Stores/Collection";
 
 import EluvioConfiguration from "EluvioConfiguration";
 import {ElvClient} from "@eluvio/elv-client-js";
+import {ToggleZendesk} from "Utils/Misc";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -447,8 +448,10 @@ class RootStore {
 
       if(["full", "exclusive"].includes(visibility)) {
         document.body.style.overflowY = "hidden";
+        ToggleZendesk(false);
       } else {
         document.body.style.overflowY = "";
+        ToggleZendesk(true);
       }
 
       if(visibility === "full") {
