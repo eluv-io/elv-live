@@ -20,8 +20,8 @@ const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
 const ButtonContent = (info={}, defaultText) =>
   info.button_image ?
-    <img className="btn__image" src={info.button_image.url} alt={info.text || defaultText} /> :
-    info.text || defaultText;
+    <img className="btn__image" src={info.button_image.url} alt={info.button_text || info.text || defaultText}/> :
+    info.button_text || info.text || defaultText;
 
 const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootStore, siteStore, Close}) => {
   const messageInfo = siteStore.eventInfo.modal_message_get_started;
@@ -90,14 +90,14 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
                   }}
                   className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
                 >
-                  { ButtonContent(messageInfo || "Create Wallet") }
+                  { ButtonContent(messageInfo, "Create Wallet") }
                 </button> :
                 <Link
                   to={siteStore.nextDrop.link}
                   className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
                   onClick={Close}
                 >
-                  { ButtonContent(messageInfo || "Join the Drop") }
+                  { ButtonContent(messageInfo, "Join the Drop") }
                 </Link>
           }
         </div>
@@ -310,7 +310,7 @@ class Event extends React.Component {
         className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
         onClick={() => this.setState({showGetStartedModal: true})}
       >
-        { ButtonContent(branding.get_started, "Ge Started") }
+        { ButtonContent(branding.get_started, "Get Started") }
       </button>
     );
 
