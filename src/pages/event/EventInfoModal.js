@@ -30,8 +30,8 @@ const RightArrow = ({color}) => (
 
 const ButtonContent = (info={}, defaultText) =>
   info.button_image ?
-    <img className="btn__image" src={info.button_image.url} alt={info.text || defaultText} /> :
-    info.text || defaultText;
+    <img className="btn__image" src={info.button_image.url} alt={info.button_text || info.text || defaultText} /> :
+    info.button_text || info.text || defaultText;
 
 @inject("siteStore")
 @observer
