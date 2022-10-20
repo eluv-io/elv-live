@@ -129,6 +129,16 @@ module.exports = {
         loader: "file-loader",
       },
       {
+        test: /\.(pdf)$/i,
+        loader: "file-loader",
+        options: {
+          name(resourcePath) {
+            // Retain filename for PDF links
+            return resourcePath.split("/").slice(-1)[0];
+          },
+        }
+      },
+      {
         test: /\.(gif|png|jpe?g)$/i,
         use: [
           "file-loader",
