@@ -13,7 +13,7 @@ class CodeAccess extends React.Component {
 
     this.state = {
       error: "",
-      code: (props.siteStore.currentSiteTicket || {}).code,
+      code: (props.siteStore.currentSiteTicket || {}).code || "",
       email: "",
       receiveEmails: false,
       loading: false,
@@ -180,13 +180,8 @@ class CodeAccess extends React.Component {
           { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
           <div className="code-header">
             <h2 className="code-header-title">
-              Redeem Ticket
+              Redeem Code
             </h2>
-            {
-              this.props.siteStore.siteSlug === "indieflix" ?
-                <a href="https://indieflix.com" rel="noopener" target="_blank">Need a code? Go to Indieflix.com</a> :
-                <Link to={this.props.siteStore.baseSitePath} className="code-header-p">Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b></Link>
-            }
           </div>
 
           <input
