@@ -202,7 +202,7 @@ class Header extends React.Component {
               className="header__link header__link--no-wallet"
               activeClassName="header__link-active"
             >
-              Redeem Ticket
+              Redeem Code
             </NavLink> : null
         }
         {

@@ -115,7 +115,8 @@ class Drop extends React.Component {
   async componentDidMount() {
     this.props.siteStore.SetCurrentDropEvent(this.props.match.params.dropId);
 
-    this.props.rootStore.SetDefaultWalletState({
+    /*
+    this.props.rootStore.SetWalletPanelVisibility({
       visibility: "side-panel",
       location: {
         page: "drop",
@@ -125,12 +126,10 @@ class Drop extends React.Component {
           eventSlug: this.props.siteStore.siteSlug,
           dropId: this.props.match.params.dropId
         }
-      },
-      darkMode: true,
-      requireLogin: this.Drop().requires_login
+      }
     });
 
-    this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState);
+     */
   }
 
   componentWillUnmount() {
@@ -273,7 +272,7 @@ class Drop extends React.Component {
       <>
         <div className="page-container drop-page">
           { this.Message() }
-          <div className="main-content-container drop-page__content wallet-panel-page-content">
+          <div className="main-content-container drop-page__content">
             <EventPlayer
               key={`event-player-${streamHash}-${this.state.playerKey}`}
               dropIndex={drop.dropIndex}

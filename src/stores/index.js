@@ -31,10 +31,6 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
     "https://wallet.demov3.contentfabric.io";
 }
 
-walletAppUrl = new URL(walletAppUrl);
-walletAppUrl.searchParams.set("hgm", "");
-walletAppUrl = walletAppUrl.toString();
-
 class RootStore {
   @observable app = "main";
 
@@ -173,7 +169,7 @@ class RootStore {
   RedeemCode = flow(function * (code) {
     try {
       const client = yield ElvClient.FromNetworkName({
-        configUrl: EluvioConfiguration.network
+        networkName: EluvioConfiguration.network
       });
 
       const { objectId, ntpId } = yield client.RedeemCode({
@@ -257,6 +253,12 @@ class RootStore {
     this.walletTarget = target;
 
     this.DestroyFrameClient();
+
+    if(marketplaceSlug) {
+      walletAppUrl = new URL(walletAppUrl);
+      walletAppUrl.searchParams.set("hgm", "");
+      walletAppUrl = walletAppUrl.toString();
+    }
 
     this.frameClient = yield ElvWalletFrameClient.InitializeFrame({
       walletAppUrl,
