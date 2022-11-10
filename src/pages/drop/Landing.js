@@ -86,7 +86,7 @@ const LandingCountdown = observer(({drop, diff, countdown, reloading}) => {
               className="landing-page__enter-event"
               onClick={() => rootStore.LogIn()}
             >
-              Log In
+              Sign In
             </button>
         }
       </div>

@@ -7,7 +7,7 @@ import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
-import MarketplacesIcon from "Icons/squares.svg";
+import MarketplacesIcon from "Icons/projects.svg";
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
@@ -88,7 +88,7 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
           </div>
-          Log In
+          Sign In
         </button>
       );
     }
@@ -149,7 +149,7 @@ class Header extends React.Component {
           <div className="header__link__icon header__link__icon-marketplace">
             <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
           </div>
-          Marketplaces
+          Discover Projects
         </button>
       );
     }

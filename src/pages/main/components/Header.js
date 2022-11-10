@@ -38,7 +38,7 @@ const MobileNavigationMenu = inject("rootStore")(observer(({rootStore, Close}) =
           Close();
         }}
       >
-        Discover Marketplaces
+        Discover Projects
       </button>
     </nav>
   );
@@ -142,6 +142,7 @@ class Header extends React.Component {
           <NavLink to="/technology" className="main-header__link" onClick={CloseWallet}>Technology</NavLink>
           <NavLink to="/blockchain" className="main-header__link" onClick={CloseWallet}>Blockchain</NavLink>
           <NavLink to="/news" className="main-header__link" onClick={CloseWallet}>News</NavLink>
+          <div className="main-header__separator" />
           <button
             className={`main-header__link main-header__wallet-button ${walletOpen ? "active" : ""}`}
             onClick={() => {
@@ -154,7 +155,7 @@ class Header extends React.Component {
             }}
           >
             <ImageIcon icon={ELogo} label="Eluvio"/>
-            Discover Marketplaces
+            Discover Projects
           </button>
         </div>
         <MobileNavigation />
