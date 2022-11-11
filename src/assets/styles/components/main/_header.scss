@@ -181,7 +181,10 @@ $header-height: 60px;
 
     &__link {
       margin: 0;
-      display: none;
+
+      &:not(.main-header__wallet-button) {
+        display: none;
+      }
     }
 
     &__wallet-button {
@@ -189,6 +192,12 @@ $header-height: 60px;
         height: 100%;
         margin-right: 5px;
         padding: 5px;
+      }
+    }
+
+    &.header-wallet {
+      .main-header__link {
+        display: none;
       }
     }
   }
