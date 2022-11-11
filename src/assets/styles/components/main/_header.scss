@@ -181,10 +181,7 @@ $header-height: 60px;
 
     &__link {
       margin: 0;
-
-      &:not(.main-header__wallet-button) {
-        display: none;
-      }
+      display: none;
     }
 
     &__wallet-button {
