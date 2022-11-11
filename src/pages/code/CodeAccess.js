@@ -1,7 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
-import {Link} from "react-router-dom";
 import {onEnterPressed, ValidEmail} from "Utils/Misc";
 
 @inject("siteStore")
