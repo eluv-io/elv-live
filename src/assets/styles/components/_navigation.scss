@@ -79,6 +79,7 @@
     display: flex;
     font-size: 16px;
     outline: 0;
+    width: max-content;
 
     & + .header__link {
       margin-left: 20px;
@@ -115,6 +116,10 @@
     letter-spacing: 0.07em;
   }
 
+  @media screen and (max-width: 1250px) {
+    padding: 0 25px;
+  }
+
   @media screen and (max-width: 900px) {
     padding: 0 25px 0 15px;
 
@@ -147,7 +152,7 @@
     }
 
     &__link {
-      font-size: 10px;
+      font-size: 12px;
       margin: 0;
       padding: 0 7px;
       text-align: center;

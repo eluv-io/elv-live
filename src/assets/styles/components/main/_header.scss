@@ -201,7 +201,12 @@ $header-height: 60px;
     padding: 0 10px;
 
     &__link {
-      font-size: 9px;
+      font-size: 12px;
+
+      img,
+      svg {
+        display: none;
+      }
     }
   }
 }
