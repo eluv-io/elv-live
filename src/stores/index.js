@@ -166,6 +166,16 @@ class RootStore {
   });
 
   @action.bound
+  RedeemOffer = flow(function * ({tenantId, ntpId, code}) {
+    return yield this.client.RedeemCode({
+      tenantId,
+      ntpId,
+      code,
+      includeNTPId: true
+    });
+  });
+
+  @action.bound
   RedeemCode = flow(function * (code) {
     try {
       const client = yield ElvClient.FromNetworkName({
@@ -320,7 +330,9 @@ class RootStore {
       initialVisibility.route = initialVisibility.route = sessionStorage.getItem("wallet-route") || "";
       this.SetWalletPanelVisibility(initialVisibility);
 
-      runInAction(() => this.walletLoaded = true);
+      setTimeout(() => {
+        runInAction(() => this.walletLoaded = true);
+      }, 500);
     });
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.CLOSE, async () => {
