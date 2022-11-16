@@ -166,6 +166,16 @@ class RootStore {
   });
 
   @action.bound
+  RedeemOffer = flow(function * ({tenantId, ntpId, code}) {
+    return yield this.client.RedeemCode({
+      tenantId,
+      ntpId,
+      code,
+      includeNTPId: true
+    });
+  });
+
+  @action.bound
   RedeemCode = flow(function * (code) {
     try {
       const client = yield ElvClient.FromNetworkName({

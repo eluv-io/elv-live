@@ -20,11 +20,12 @@ const OfferPage = observer(() => {
     try {
       setError(undefined);
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 2000));
 
-      if(code === "error") {
-        throw "error";
-      }
+      await rootStore.RedeemOffer({
+        tenantId: offer.tenant_id || this.siteStore.currentSiteInfo.tenant_id,
+        ntpId: offer.ntp_id,
+        code
+      });
 
       rootStore.SetWalletPanelVisibility({
         visibility: "full",
