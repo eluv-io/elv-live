@@ -330,7 +330,9 @@ class RootStore {
       initialVisibility.route = initialVisibility.route = sessionStorage.getItem("wallet-route") || "";
       this.SetWalletPanelVisibility(initialVisibility);
 
-      runInAction(() => this.walletLoaded = true);
+      setTimeout(() => {
+        runInAction(() => this.walletLoaded = true);
+      }, 500);
     });
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.CLOSE, async () => {

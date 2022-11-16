@@ -1,15 +1,17 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {observer} from "mobx-react";
 import {onEnterPressed} from "Utils/Misc";
 import {useState} from "react";
 import {RichText} from "Common/Components";
-import {useRouteMatch} from "react-router";
+import {useHistory, useRouteMatch} from "react-router";
 import {rootStore, siteStore} from "Stores";
+import {PageLoader} from "Common/Loaders";
 
 const initialCode = (new URLSearchParams(window.location.search)).get("code");
 
 const OfferPage = observer(() => {
   const match = useRouteMatch();
+  const history = useHistory();
   const [code, setCode] = useState(initialCode || "");
   const [error, setError] = useState(undefined);
   const [loading, setLoading] = useState(false);
@@ -38,13 +40,19 @@ const OfferPage = observer(() => {
           }
         }
       });
+
+      setTimeout(() => history.push(siteStore.SitePath("")), 500);
     } catch(error) {
       setError("Failed to redeem code");
     } finally {
       setLoading(false);
     }
   };
-  
+
+  if(!rootStore.walletLoaded) {
+    return <PageLoader />;
+  }
+
   return (
     <div className="page-container code-entry-page-container">
       <div className="main-content-container offer-page">
