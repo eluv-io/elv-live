@@ -44,13 +44,7 @@ const OfferPage = observer(() => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if(initialCode) {
-      RedeemOffer();
-    }
-  }, []);
-
+  
   return (
     <div className="page-container code-entry-page-container">
       <div className="main-content-container offer-page">
