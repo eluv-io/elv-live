@@ -41,7 +41,8 @@ const OfferPage = observer(() => {
         }
       });
 
-      setTimeout(() => history.push(siteStore.SitePath("")), 500);
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      history.push(siteStore.SitePath(""));
     } catch(error) {
       setError("Failed to redeem code");
     } finally {
