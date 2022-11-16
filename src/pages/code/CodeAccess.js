@@ -86,12 +86,6 @@ class CodeAccess extends React.Component {
   render() {
     if(!this.props.siteStore.client) { return null; }
 
-    const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
-
-    if(this.state.couponMode && !couponInfo.coupon_mode) {
-      return <Redirect to={this.props.siteStore.SitePath("")} />;
-    }
-
     if(this.state.redeemed) {
       const dropEvent =
         this.props.siteStore.nextDropEvent ||
