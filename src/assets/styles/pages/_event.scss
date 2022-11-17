@@ -36,6 +36,18 @@
     top: 0;
   }
 
+  &__hero-banner {
+    position: fixed;
+    top: $normal-header-height;
+    transition: opacity 0.35s linear;
+    z-index: 100;
+
+    &--hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
   &__hero-video-container {
     height: 100%;
     left: 0;
@@ -69,7 +81,17 @@
   }
 
   .btn {
-    @include page-fade-in;
+    &--image {
+      background: transparent !important;
+      border: 0 !important;
+      height: auto;
+
+      img {
+        height: 100%;
+        object-fit: contain;
+        width: 100%;
+      }
+    }
   }
 
   &__heading {
@@ -182,7 +204,7 @@
     }
   }
 
-  @media only screen and (max-width: 1300px) and (min-width: 600px) {
+  @media only screen and (max-width: 1300px) and (min-width: 700px) {
     &-no-header-info {
       .event-page__hero-container {
         height: MIN(calc(100vh - 60px), calc(100vw * 9 / 16 + 60px));

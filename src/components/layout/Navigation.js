@@ -7,7 +7,7 @@ import Checkout from "Event/checkout/Checkout";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
-import MarketplacesIcon from "Icons/squares.svg";
+import MarketplacesIcon from "Icons/projects.svg";
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
@@ -23,7 +23,8 @@ class Header extends React.Component {
     super(props);
 
     this.state = {
-      scrolled: false
+      scrolled: false,
+      scrolledPastHero: false
     };
 
     this.ScrollFade = this.ScrollFade.bind(this);
@@ -38,16 +39,9 @@ class Header extends React.Component {
   }
 
   ScrollFade() {
-    let fadePoint = 0;
-    const isMainPage = this.props.match.path.replace("/:tenantSlug?/:siteSlug", "") === "";
-    if(isMainPage) {
-      fadePoint = window.innerWidth < 900 ? 0 : window.innerHeight * (window.innerWidth > 1250 ? 0.75 : 0.25);
-    }
-
-    const scrolled = window.scrollY > fadePoint;
-    if(scrolled !== this.state.scrolled) {
-      this.setState({scrolled});
-    }
+    this.setState({
+      scrolled: window.scrollY > 0
+    });
   }
 
   MarketplaceLinks() {
@@ -94,7 +88,7 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
           </div>
-          Log In
+          Sign In
         </button>
       );
     }
@@ -155,7 +149,7 @@ class Header extends React.Component {
           <div className="header__link__icon header__link__icon-marketplace">
             <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
           </div>
-          Marketplaces
+          Discover Projects
         </button>
       );
     }
@@ -182,7 +176,7 @@ class Header extends React.Component {
     }
 
     const itemCount = this.props.cartStore.CartDetails().itemCount;
-    const redeemAvailable = !this.props.hideRedeem && !["Inaccessible", "Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state);
+    const redeemAvailable = false;
     const couponMode = redeemAvailable && (this.props.siteStore.currentSiteInfo.coupon_redemption || {}).coupon_mode;
     const ticketsAvailable = !!this.props.siteStore.ticketClasses
       .find(ticketClass => !ticketClass.hidden && (ticketClass.skus || []).find(sku => !sku.hidden));
@@ -208,7 +202,7 @@ class Header extends React.Component {
               className="header__link header__link--no-wallet"
               activeClassName="header__link-active"
             >
-              Redeem Ticket
+              Redeem Code
             </NavLink> : null
         }
         {
@@ -255,8 +249,9 @@ class Header extends React.Component {
     return (
       <header className={`
         header 
-        ${this.props.transparent ? "header-transparent" : ""} 
-        ${this.state.scrolled ? "header-scrolled" : ""} 
+        ${this.props.mainPage ? "header-main" : ""}
+        ${this.props.transparent ? "header-transparent" : ""}
+        ${this.state.scrolled ? "header-scrolled" : ""}  
         ${this.props.siteStore.darkMode || this.props.dark || this.props.rootStore.currentWalletState.visibility === "full" ? "header-dark" : ""}
         ${this.props.rootStore.currentWalletState.visibility === "full" ? "header-wallet" : ""}
       `}>

@@ -3,18 +3,16 @@ import {inject, observer} from "mobx-react";
 
 import Copy from "Assets/copy/Main.yaml";
 
-import Image1 from "Assets/images/technology/1-Content-Fabric-Architecture.png";
-import Image2 from "Assets/images/technology/2-Content-Fabric-Distribution.png";
-import Image3 from "Assets/images/technology/3-Streaming-Your-Content.png";
-import Image4 from "Assets/images/technology/4-Selling-and-Licensing-Your-Content.png";
-import Image5 from "Assets/images/technology/5-Selling-NFTs-and-Other-Digital-Collectibles.png";
+import Image1 from "Assets/images/technology/Content-Fabric-Architecture.jpg";
+import Image2 from "Assets/images/technology/Content-Fabric-Distribution.jpg";
+import Image3 from "Assets/images/technology/How-you-Earn-Blockchain-Monetization.jpg";
+
+import Whitepaper from "Assets/documents/EluvioContentFabricProtocolWhitepaper.pdf";
 
 const IMAGES = {
   "architecture": Image1,
   "how_it_works": Image2,
-  "streaming": Image3,
-  "buying": Image4,
-  "nfts": Image5
+  "streaming": Image3
 };
 
 @inject("siteStore")
@@ -83,6 +81,18 @@ class Technology extends React.Component {
             </button>
           )
         }
+        <a
+          href={Whitepaper}
+          target="_blank"
+          className="technology-page__navigation-button"
+        >
+          <div className="technology-page__navigation-button__subheader">
+            Content Fabric
+          </div>
+          <div className="technology-page__navigation-button__header">
+            Protocol Whitepaper
+          </div>
+        </a>
       </div>
     );
   }
@@ -96,7 +106,11 @@ class Technology extends React.Component {
             className={`technology-page__item technology-page__copy-block ${this.state.page === "main" ? "active" : ""}`}
           >
             <h2 className="technology-page__copy-header">Eluv.io Technology</h2>
-            <pre className="technology-page__copy">{ Copy.technology.sections.main.text }</pre>
+            <pre className="technology-page__copy">
+              { Copy.technology.sections.main.text }
+              <br />
+              <a target="_blank" className="technology-page__link" href={Whitepaper}>Content Fabric Protocol Whitepaper</a>
+            </pre>
           </div> :
           <img
             key={`technology-page__image-${key}`}
@@ -104,7 +118,7 @@ class Technology extends React.Component {
             alt={Copy.technology.sections[key].alt}
             className={`technology-page__item technology-page__image ${this.state.page === key ? "active" : ""}`}
           />
-      )
+      ),
     ];
   }
 

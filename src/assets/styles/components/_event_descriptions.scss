@@ -20,6 +20,12 @@
     max-width: 300px;
     width: auto;
 
+    &--image {
+      background: transparent !important;
+      border: 0 !important;
+      height: auto;
+    }
+
     &:not(:last-child) {
       margin-right: 30px;
     }

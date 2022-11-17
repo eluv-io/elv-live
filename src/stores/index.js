@@ -9,6 +9,7 @@ import CollectionStore from "Stores/Collection";
 
 import EluvioConfiguration from "EluvioConfiguration";
 import {ElvClient} from "@eluvio/elv-client-js";
+import {ToggleZendesk} from "Utils/Misc";
 
 // Force strict mode so mutations are only allowed within actions.
 configure({
@@ -29,10 +30,6 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
     "https://wallet.contentfabric.io" :
     "https://wallet.demov3.contentfabric.io";
 }
-
-walletAppUrl = new URL(walletAppUrl);
-walletAppUrl.searchParams.set("hgm", "");
-walletAppUrl = walletAppUrl.toString();
 
 class RootStore {
   @observable app = "main";
@@ -62,6 +59,7 @@ class RootStore {
       page: "wallet"
     }
   };
+
   @observable defaultWalletState = {
     visibility: "hidden"
   };
@@ -81,6 +79,17 @@ class RootStore {
     window.rootStore = this;
 
     window.addEventListener("resize", () => this.HandleResize());
+  }
+
+  Log(message="", error=false) {
+    // eslint-disable-next-line no-console
+    const logMethod = error === "warn" ? console.warn : error ? console.error : console.log;
+
+    if(typeof message === "string") {
+      message = `Eluvio Live | ${message}`;
+    }
+
+    logMethod(message);
   }
 
   @action.bound
@@ -157,10 +166,20 @@ class RootStore {
   });
 
   @action.bound
+  RedeemOffer = flow(function * ({tenantId, ntpId, code}) {
+    return yield this.client.RedeemCode({
+      tenantId,
+      ntpId,
+      code,
+      includeNTPId: true
+    });
+  });
+
+  @action.bound
   RedeemCode = flow(function * (code) {
     try {
       const client = yield ElvClient.FromNetworkName({
-        configUrl: EluvioConfiguration.network
+        networkName: EluvioConfiguration.network
       });
 
       const { objectId, ntpId } = yield client.RedeemCode({
@@ -245,6 +264,12 @@ class RootStore {
 
     this.DestroyFrameClient();
 
+    if(marketplaceSlug) {
+      walletAppUrl = new URL(walletAppUrl);
+      walletAppUrl.searchParams.set("hgm", "");
+      walletAppUrl = walletAppUrl.toString();
+    }
+
     this.frameClient = yield ElvWalletFrameClient.InitializeFrame({
       walletAppUrl,
       target,
@@ -305,7 +330,9 @@ class RootStore {
       initialVisibility.route = initialVisibility.route = sessionStorage.getItem("wallet-route") || "";
       this.SetWalletPanelVisibility(initialVisibility);
 
-      runInAction(() => this.walletLoaded = true);
+      setTimeout(() => {
+        runInAction(() => this.walletLoaded = true);
+      }, 500);
     });
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.CLOSE, async () => {
@@ -429,12 +456,16 @@ class RootStore {
           route: yield this.frameClient.CurrentPath(),
           video
         };
+      } else {
+        this.currentWalletState.visibility = visibility;
       }
 
       if(["full", "exclusive"].includes(visibility)) {
         document.body.style.overflowY = "hidden";
+        ToggleZendesk(false);
       } else {
         document.body.style.overflowY = "";
+        ToggleZendesk(true);
       }
 
       if(visibility === "full") {

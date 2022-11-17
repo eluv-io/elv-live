@@ -6,6 +6,7 @@ const EluvioConfiguration = {
 
   //"network": "main",
   //"mode": "staging",
+
   //"mode": "production",
 
   "version": "elv-live@main",

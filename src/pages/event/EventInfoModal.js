@@ -28,6 +28,11 @@ const RightArrow = ({color}) => (
   </svg>
 );
 
+const ButtonContent = (info={}, defaultText) =>
+  info.button_image ?
+    <img className="btn__image" src={info.button_image.url} alt={info.button_text || info.text || defaultText} /> :
+    info.button_text || info.text || defaultText;
+
 @inject("siteStore")
 @observer
 class EventInfoModal extends React.Component {
@@ -249,10 +254,10 @@ class EventInfoButtons extends React.Component {
             eventInfoModals.map((page, section) =>
               <button
                 key={`description-button-${section}`}
-                className="btn event-description__button"
+                className={`btn event-description__button ${page.button_image ? "event-description__button--image" : ""}`}
                 onClick={() => this.ToggleModal(true, section)}
               >
-                { page.button_text }
+                { ButtonContent(page, page.button_text) }
               </button>
             )
           }

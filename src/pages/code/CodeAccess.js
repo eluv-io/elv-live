@@ -1,7 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
-import {Link} from "react-router-dom";
 import {onEnterPressed, ValidEmail} from "Utils/Misc";
 
 @inject("siteStore")
@@ -13,7 +12,7 @@ class CodeAccess extends React.Component {
 
     this.state = {
       error: "",
-      code: (props.siteStore.currentSiteTicket || {}).code,
+      code: (props.siteStore.currentSiteTicket || {}).code || "",
       email: "",
       receiveEmails: false,
       loading: false,
@@ -86,12 +85,6 @@ class CodeAccess extends React.Component {
 
   render() {
     if(!this.props.siteStore.client) { return null; }
-
-    const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});
-
-    if(this.state.couponMode && !couponInfo.coupon_mode) {
-      return <Redirect to={this.props.siteStore.SitePath("")} />;
-    }
 
     if(this.state.redeemed) {
       const dropEvent =
@@ -180,13 +173,8 @@ class CodeAccess extends React.Component {
           { this.state.error ? <div className="error-message"> {this.state.error} </div> : null }
           <div className="code-header">
             <h2 className="code-header-title">
-              Redeem Ticket
+              Redeem Code
             </h2>
-            {
-              this.props.siteStore.siteSlug === "indieflix" ?
-                <a href="https://indieflix.com" rel="noopener" target="_blank">Need a code? Go to Indieflix.com</a> :
-                <Link to={this.props.siteStore.baseSitePath} className="code-header-p">Don't have a ticket yet? <b className="code-header-bold"> Purchase here.</b></Link>
-            }
           </div>
 
           <input

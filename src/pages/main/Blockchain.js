@@ -4,6 +4,8 @@ import {inject, observer} from "mobx-react";
 import ReactMarkdown from "react-markdown";
 import Copy from "Assets/copy/Main.yaml";
 
+import Whitepaper from "Assets/documents/EluvioContentFabricProtocolWhitepaper.pdf";
+
 @inject("siteStore")
 @observer
 class Technology extends React.Component {
@@ -67,6 +69,15 @@ class Technology extends React.Component {
             </button>
           )
         }
+        <a
+          href={Whitepaper}
+          target="_blank"
+          className="technology-page__navigation-button technology-page__navigation-button-short"
+        >
+          <div className="technology-page__navigation-button__header">
+            Protocol Whitepaper
+          </div>
+        </a>
       </div>
     );
   }

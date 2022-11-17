@@ -7,13 +7,18 @@ import Navigation from "Layout/Navigation";
 import InitializeEventData from "Utils/StructuredEventData";
 import {ToggleZendesk} from "Utils/Misc";
 
-const SitePage = (Component, {mainPage=false, transparent=false, showHeader=true, darkHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
+const SitePage = (Component, {mainPage=false, transparent=false, showHeader=true, showMarketplace=false, darkHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
+  @inject("rootStore")
   @inject("siteStore")
   @withRouter
   @observer
   class SitePageComponent extends React.Component {
     constructor(props) {
       super(props);
+
+      if(showMarketplace) {
+        props.rootStore.SetWalletPanelVisibility({visibility: "full"});
+      }
 
       this.state = {
         validSlug: false

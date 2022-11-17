@@ -1,5 +1,5 @@
 import React from "react";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CloseIcon from "Icons/x";
 import {ToggleZendesk} from "Utils/Misc";
@@ -7,6 +7,7 @@ import {createPortal} from "react-dom";
 import {rootStore} from "Stores";
 
 @observer
+@inject("siteStore")
 class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,7 @@ class Modal extends React.Component {
 
   render() {
     return (
-      <div className={`modal ${this.props.className || ""}`} onClick={() => this.Close()}>
+      <div className={`modal ${this.props.siteStore.darkMode ? "dark" : ""} ${this.props.className || ""}`} onClick={() => this.Close()}>
         <ImageIcon
           key={"back-icon-Close Modal"}
           className={"modal__close-button"}

@@ -16,6 +16,7 @@ const MinLoadDelay = (Import, delay=500) => lazy(async () => {
 
 const Support = MinLoadDelay(import("Support/Support"));
 const CodeAccess = MinLoadDelay(import("Code/CodeAccess"));
+const Offer = MinLoadDelay(import("Code/Offer"));
 const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 //const Chat = MinLoadDelay(import("Stream/components/LiveChat"));
@@ -65,12 +66,14 @@ class SiteApp extends React.Component {
           <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
           { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} /> */ }
           <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
+          <Route exact path="/:tenantSlug?/:siteSlug/offer/:offerId" component={SitePage(Offer)} />
           <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
           <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
           <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
           <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
           <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
           <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
+          <Route path="/:tenantSlug?/:siteSlug/marketplace" component={SitePage(Event, {mainPage: true, transparent: true, showMarketplace: true})} />
           <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
 
           <Route>

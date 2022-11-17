@@ -1,7 +1,6 @@
 .header {
   align-items: center;
   background-color: transparent;
-  border-bottom: 1px solid $black;
   display: flex;
   height: $normal-header-height;
   justify-content: space-between;
@@ -80,6 +79,7 @@
     display: flex;
     font-size: 16px;
     outline: 0;
+    width: max-content;
 
     & + .header__link {
       margin-left: 20px;
@@ -100,12 +100,6 @@
           stroke-width: 1.3px;
         }
       }
-
-      &-marketplace {
-        * {
-          fill: $white;
-        }
-      }
     }
 
     &__image {
@@ -120,6 +114,10 @@
     font-size: 14px;
     justify-content: center;
     letter-spacing: 0.07em;
+  }
+
+  @media screen and (max-width: 1250px) {
+    padding: 0 25px;
   }
 
   @media screen and (max-width: 900px) {
@@ -154,7 +152,7 @@
     }
 
     &__link {
-      font-size: 10px;
+      font-size: 12px;
       margin: 0;
       padding: 0 7px;
       text-align: center;
@@ -380,6 +378,7 @@
     &-frame {
       .event-message {
         height: 100vh;
+        max-height: unset;
         max-width: 800px;
         width: 800px;
       }
@@ -447,8 +446,6 @@
 
 // All colors for various header states
 .header {
-  border-bottom: 1px solid rgba($black, 0.5);
-
   &__logo-container {
     * {
       color: $black;
@@ -541,8 +538,6 @@
   &.header-transparent,
   &.header-wallet,
   &.header-dark {
-    border-bottom: 1px solid rgba($mediumgray, 0.5);
-
     &.header-wallet,
     &:not(.header-transparent) {
       background-color: $black;
@@ -550,7 +545,7 @@
 
     &.header-scrolled {
       &:not(.header-wallet) {
-        background-color: rgba($black, 0.8);
+        background-color: rgba($black, 0.7);
       }
     }
 
@@ -588,7 +583,6 @@
   &.header-wallet {
     &:not(.header-dark) {
       background-color: $white;
-      border-bottom: 0.5px solid rgba($black, 0.5);
 
       .header__links {
         * {
