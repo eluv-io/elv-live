@@ -39,7 +39,12 @@ class App extends React.Component {
   }
 
   render() {
-    const mainPages = ["/", "/partners", "/technology", "/blockchain", "/next", "/contact", "/terms", "/privacy", "/news"];
+    if(window.location.pathname === "/careers") {
+      window.location.href = "https://eluvio.workable.com/";
+      return null;
+    }
+
+    const mainPages = ["/", "/partners", "/technology", "/blockchain", "/next", "/contact", "/terms", "/privacy", "/news", "/careers"];
 
     let mainSite = mainPages.includes(window.location.pathname);
     if(window.location.pathname.startsWith("/wallet")) {
