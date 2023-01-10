@@ -11,9 +11,7 @@ import LeftArrow from "Assets/icons/left-arrow.svg";
 import RightArrow from "Assets/icons/right-arrow.svg";
 import ImageIcon from "Common/ImageIcon";
 
-@inject("siteStore")
-@observer
-class EventDescriptionsModal extends React.Component {
+class EventDescriptionsModalClass extends React.Component {
   constructor(props) {
     super(props);
 
@@ -152,8 +150,8 @@ class EventDescriptionsModal extends React.Component {
   }
 }
 
-@inject("siteStore")
-@observer
+const EventDescriptionsModal = inject("siteStore")(observer(EventDescriptionsModalClass));
+
 class EventDescriptions extends React.Component {
   constructor(props) {
     super(props);
@@ -206,4 +204,4 @@ class EventDescriptions extends React.Component {
   }
 }
 
-export default EventDescriptions;
+export default inject("siteStore")(observer(EventDescriptions));

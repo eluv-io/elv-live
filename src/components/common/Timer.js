@@ -3,10 +3,7 @@ import {inject, observer} from "mobx-react";
 import { FaRegClock} from "react-icons/fa";
 import { IconContext } from "react-icons";
 
-@inject("rootStore")
-@inject("siteStore")
-@observer
-export default class Timer extends Component {
+class Timer extends Component {
     state = {
       days: 0,
       hours: 0,
@@ -130,3 +127,5 @@ export default class Timer extends Component {
       );
     }
 }
+
+export default inject("rootStore")(inject("siteStore")(observer(Timer)));

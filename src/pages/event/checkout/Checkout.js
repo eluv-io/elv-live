@@ -14,9 +14,6 @@ import {Redirect} from "react-router";
 import {Loader} from "Common/Loaders";
 import {retryRequest} from "Utils/retryRequest";
 
-@inject("cartStore")
-@inject("siteStore")
-@observer
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
@@ -509,4 +506,4 @@ class Checkout extends React.Component {
   }
 }
 
-export default Checkout;
+export default inject("cartStore")(inject("siteStore")(observer(Checkout)));

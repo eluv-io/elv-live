@@ -3,10 +3,6 @@ import {inject, observer} from "mobx-react";
 import Select from "react-select";
 import {FormatDateString} from "Utils/Misc";
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@observer
 class Ticket extends React.Component {
   constructor(props) {
     super(props);
@@ -149,4 +145,4 @@ class Ticket extends React.Component {
   }
 }
 
-export default Ticket;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Ticket))));

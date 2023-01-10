@@ -9,8 +9,6 @@ import EluvioLogo from "Images/logo/eluvio-logo";
 import Footer from "Layout/Footer";
 import {Redirect} from "react-router";
 
-@inject("siteStore")
-@observer
 class Landing extends React.Component {
   constructor(props) {
     super(props);
@@ -142,4 +140,4 @@ class Landing extends React.Component {
   }
 }
 
-export default Landing;
+export default inject("siteStore")(observer(Landing));

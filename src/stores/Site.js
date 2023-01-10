@@ -1,4 +1,4 @@
-import {observable, action, flow, computed} from "mobx";
+import {flow, makeAutoObservable} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import SanitizeHTML from "sanitize-html";
@@ -9,78 +9,78 @@ import mergeWith from "lodash/mergeWith";
 import {DateStatus} from "Utils/Misc";
 
 class SiteStore {
-  @observable marketplaceOnly = false;
-  @observable marketplaceNavigated = false;
+  marketplaceOnly = false;
+  marketplaceNavigated = false;
 
-  @observable mainSiteInfo;
-  @observable baseSiteUrl;
+  mainSiteInfo;
+  baseSiteUrl;
 
-  @observable tenantKey;
-  @observable tenantSlug;
-  @observable tenants = {};
+  tenantKey;
+  tenantSlug;
+  tenants = {};
 
-  @observable featuredSitesLoaded = false;
-  @observable carouselSitesLoaded = false;
+  featuredSitesLoaded = false;
+  carouselSitesLoaded = false;
 
-  @observable eventSites = { featured: {} };
-  @observable siteSlug;
-  @observable siteIndex;
-  @observable darkMode = false;
-  @observable marketplaceInfo;
+  eventSites = { featured: {} };
+  siteSlug;
+  siteIndex;
+  darkMode = false;
+  marketplaceInfo;
 
-  @observable streams = [];
+  streams = [];
 
-  @observable showCheckout = false;
-  @observable selectedTicket;
+  showCheckout = false;
+  selectedTicket;
 
-  @observable siteId;
-  @observable siteHash;
+  siteId;
+  siteHash;
 
-  @observable marketplaceHash;
-  @observable marketplaceId;
+  marketplaceHash;
+  marketplaceId;
 
-  @observable chatChannel;
+  chatChannel;
 
-  @observable error = "";
+  error = "";
 
-  @observable language = "en";
+  language = "en";
 
-  @observable viewers = 0;
+  viewers = 0;
 
-  @observable analyticsInitialized = false;
-  @observable analyticsEvents = [];
+  analyticsInitialized = false;
+  analyticsEvents = [];
 
-  @computed get client() {
+  get client() {
     return this.rootStore.client;
   }
 
-  @computed get siteLoaded() {
+  get siteLoaded() {
     return this.rootStore.client && this.mainSiteInfo;
   }
 
-  @computed get production() {
+  get production() {
     return this.mainSiteInfo.info.mode === "production";
   }
 
   // Main site
-  @computed get availableTenants() {
+  get availableTenants() {
     return Object.keys((this.mainSiteInfo || {}).tenants || {});
   }
 
-  @computed get featuredSiteKeys() {
+  get featuredSiteKeys() {
     const featured = (this.mainSiteInfo || {}).featured_events || {};
     return Object.keys(featured)
       .map(index => ({index: index.toString(), slug: Object.keys(featured[index])[0]}));
   }
 
-  @computed get carouselSiteKeys() {
+  get carouselSiteKeys() {
     const carousel = (this.mainSiteInfo || {}).carousel_events || {};
     return Object.keys(carousel)
       .map(index => ({index: index.toString(), slug: Object.keys(carousel[index])[0]}));
   }
 
   // Event Site
-  @computed get currentSite() {
+  get currentSite() {
     try {
       let site = this.eventSites[this.tenantSlug || "featured"][this.siteSlug];
 
@@ -94,11 +94,11 @@ class SiteStore {
     }
   }
 
-  @computed get currentSiteInfo() {
+  get currentSiteInfo() {
     return (this.currentSite || {}).info || {};
   }
 
-  @computed get promos() {
+  get promos() {
     if(this.currentSite.promos && Object.keys(this.currentSite.promos).length > 0) {
       return Object.keys(this.currentSite.promos || {}).map(index => {
         const slug = Object.keys(this.currentSite.promos[index])[0];
@@ -115,17 +115,17 @@ class SiteStore {
       .filter(promo => promo);
   }
 
-  @computed get currentSiteTicket() {
+  get currentSiteTicket() {
     return this.rootStore.savedTickets[this.siteSlug];
   }
 
-  @computed get currentSiteTicketSku() {
+  get currentSiteTicketSku() {
     if(!this.currentSiteTicket) { return null; }
 
     return this.TicketSkuByNTPId(this.currentSiteTicket.ntpId);
   }
 
-  @computed get currentSiteMetadataPath() {
+  get currentSiteMetadataPath() {
     if(this.tenantSlug) {
       // Tenant site
       return UrlJoin("public", "asset_metadata", "tenants", this.tenantSlug, "sites", this.siteSlug || "");
@@ -135,7 +135,7 @@ class SiteStore {
     }
   }
 
-  @computed get dropEvents() {
+  get dropEvents() {
     const dropEvents = (this.currentSiteInfo.drops || [])
       .map((drop, index) => {
         const { start_date, end_date, ongoing, past } = DateStatus(drop.start_date, drop.end_date);
@@ -184,7 +184,7 @@ class SiteStore {
     ].sort((a, b) => a.start_date > b.start_date ? 1 : -1);
   }
 
-  @computed get nextDrop() {
+  get nextDrop() {
     return this.dropEvents
       .filter(({end_date}) => {
         try {
@@ -195,7 +195,7 @@ class SiteStore {
       .sort((a, b) => a.start_date > b.start_date ? 1 : -1)[0];
   }
 
-  @computed get nextDropEvent() {
+  get nextDropEvent() {
     return this.dropEvents
       .filter(({type}) => type === "drop_event")
       .filter(({end_date}) => {
@@ -207,7 +207,7 @@ class SiteStore {
       .sort((a, b) => a.start_date > b.start_date ? 1 : -1)[0];
   }
 
-  @computed get baseSitePath() {
+  get baseSitePath() {
     if(!this.siteSlug) {
       return window.location.pathname;
     }
@@ -215,12 +215,10 @@ class SiteStore {
     return UrlJoin("/", this.tenantSlug || "", this.siteSlug);
   }
 
-  @action.bound
   UpdateViewers(count) {
     this.viewers = count;
   }
 
-  @action.bound
   SetLanguage(code) {
     this.language = code;
     if(this.eventInfo.event_title) {
@@ -228,12 +226,10 @@ class SiteStore {
     }
   }
 
-  @action.bound
   SetCurrentDropEvent(dropId) {
     this.currentDropEvent = dropId;
   }
 
-  @action.bound
   ChatChannel() {
     if(!this.chatChannel) {
       const startTime = this.currentSiteTicketSku.start_time;
@@ -258,12 +254,13 @@ class SiteStore {
   }
 
   constructor(rootStore) {
+    makeAutoObservable(this);
+
     this.rootStore = rootStore;
 
     this.Log = rootStore.Log;
   }
 
-  @action.bound
   ToggleDarkMode(enabled) {
     this.darkMode = enabled;
   }
@@ -296,13 +293,11 @@ class SiteStore {
     }
   }
 
-  @action.bound
   Reset() {
     this.assets = {};
     this.error = "";
   }
 
-  @action.bound
   LoadMainSite = flow(function * () {
     try {
       const objectId = this.rootStore.mainSiteId;
@@ -352,7 +347,6 @@ class SiteStore {
     }
   });
 
-  @action.bound
   LoadFeaturedSites = flow(function * () {
     this.featuredSitesLoaded = false;
 
@@ -373,7 +367,6 @@ class SiteStore {
     this.carouselSitesLoaded = true;
   });
 
-  @action.bound
   LoadTenant = flow(function * ({slug, versionHash}) {
     try {
       if(this.tenants[slug]) { return; }
@@ -474,7 +467,6 @@ class SiteStore {
     yield new Promise(resolve => setTimeout(resolve, 3000));
   });
 
-  @action.bound
   LoadSite = flow(function * ({tenantSlug, siteIndex, siteSlug, fullLoad=false, forceReload=false}) {
     const tenantKey = tenantSlug || "featured";
     if(!forceReload && this.eventSites[tenantKey] && this.eventSites[tenantKey][siteSlug]) {
@@ -656,7 +648,6 @@ class SiteStore {
     return ((meta || {})["."] || {}).container;
   }
 
-  @action.bound
   LoadStreamURI = flow(function * () {
     const ticketCode = (this.currentSiteTicket || {}).code;
 
@@ -691,7 +682,6 @@ class SiteStore {
     return availableOfferings[offeringId].uri;
   });
 
-  @action.bound
   LoadDropStreamOptions = flow(function * ({dropIndex, dropState, streamHash, requiresTicket=false}) {
     if(requiresTicket && !this.rootStore.redeemedTicket) {
       const ticketCode = (this.currentSiteTicket || {}).code;
@@ -729,19 +719,16 @@ class SiteStore {
     return { versionHash: streamHash };
   });
 
-  @action.bound
   ShowCheckoutModal({ticketClass, sku}) {
     this.showCheckout = true;
     this.selectedTicket = { ticketClass, skuIndex: sku };
   }
 
-  @action.bound
   CloseCheckoutModal() {
     this.showCheckout = false;
   }
 
   // Synchronize with elv-media-wallet
-  @action.bound
   InitializeAnalytics() {
     (this.currentSiteInfo.analytics_ids || []).forEach(analytics => {
       const ids = analytics.ids;
@@ -867,14 +854,12 @@ class SiteStore {
   }
 
   // Events may be added before analytics is ready - add to a list and process when possible
-  @action.bound
   AddAnalyticsEvent({analytics, eventName}) {
     this.analyticsEvents.push({analytics, eventName});
 
     this.ProcessAnalyticsEvents();
   }
 
-  @action.bound
   ProcessAnalyticsEvents() {
     if(!this.analyticsInitialized) { return; }
 
@@ -1086,7 +1071,7 @@ class SiteStore {
 
   /* Site attributes */
 
-  @computed get eventInfo() {
+  get eventInfo() {
     let eventInfo = {
       hero_info: false,
       feature_header: "",
@@ -1110,7 +1095,7 @@ class SiteStore {
     );
   }
 
-  @computed get artistBio() {
+  get artistBio() {
     let artistBio = {
       intro: (this.currentSiteInfo.artist_info || {}).intro || "INTRO",
       full_name: "FULL_NAME",
@@ -1128,11 +1113,11 @@ class SiteStore {
     );
   }
 
-  @computed get socialLinks() {
+  get socialLinks() {
     return (this.currentSiteInfo.artist_info || {}).social_media_links || this.currentSiteInfo.social_media_links || {};
   }
 
-  @computed get calendarEvent() {
+  get calendarEvent() {
     let calendarInfo = {
       title: "",
       description: "",
@@ -1146,7 +1131,7 @@ class SiteStore {
     );
   }
 
-  @computed get sponsors() {
+  get sponsors() {
     return (this.currentSiteInfo.sponsors || []).map(({name, link, image, image_light}, index) => {
       return {
         name,
@@ -1156,7 +1141,7 @@ class SiteStore {
       };
     });
   }
-  @computed get merchTab() {
+  get merchTab() {
     return (this.currentSiteInfo.merch_tab || []).map(({name, price, url}, index) => {
       return {
         name,
@@ -1168,7 +1153,7 @@ class SiteStore {
     });
   }
 
-  @computed get streamPageInfo() {
+  get streamPageInfo() {
     let streamPageInfo = {
       header: "HEADER",
       subheader: "SUBHEADER"
@@ -1183,7 +1168,7 @@ class SiteStore {
 
   /* Tickets and Products */
 
-  @computed get ticketClasses() {
+  get ticketClasses() {
     return (this.currentSiteInfo.tickets || []).map((ticketClass, index) => {
       return {
         ...ticketClass,

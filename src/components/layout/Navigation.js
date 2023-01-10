@@ -13,11 +13,6 @@ import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
 import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@withRouter
-@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -286,4 +281,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(withRouter(observer(Header)))));

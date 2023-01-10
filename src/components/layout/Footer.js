@@ -11,10 +11,6 @@ import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/eluvio-logo";
 import CookieBanner from "Common/CookieBanner";
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@observer
 class Footer extends React.Component {
   constructor(props) {
     super(props);
@@ -197,4 +193,4 @@ class Footer extends React.Component {
   }
 }
 
-export default Footer;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Footer))));

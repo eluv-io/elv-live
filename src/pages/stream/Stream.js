@@ -10,8 +10,6 @@ import EluvioConfiguration from "../../../configuration";
 import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
 
-@inject("siteStore")
-@observer
 class Stream extends React.Component {
   constructor(props) {
     super(props);
@@ -172,4 +170,4 @@ class Stream extends React.Component {
   }
 }
 
-export default Stream;
+export default inject("siteStore")(observer(Stream));

@@ -8,10 +8,6 @@ import InitializeEventData from "Utils/StructuredEventData";
 import {ToggleZendesk} from "Utils/Misc";
 
 const SitePage = (Component, {mainPage=false, transparent=false, showHeader=true, showMarketplace=false, darkHeader=false, hideCheckout=false, hideRedeem=false, hideZendesk=false}={}) => {
-  @inject("rootStore")
-  @inject("siteStore")
-  @withRouter
-  @observer
   class SitePageComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -88,7 +84,7 @@ const SitePage = (Component, {mainPage=false, transparent=false, showHeader=true
     }
   }
 
-  return SitePageComponent;
+  return inject("rootStore")(inject("siteStore")(withRouter(observer(SitePageComponent))));
 };
 
 export default SitePage;

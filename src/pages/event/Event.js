@@ -224,10 +224,6 @@ const HeroBanner = ({link, imageUrl}) => {
   );
 };
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@observer
 class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -591,4 +587,4 @@ class Event extends React.Component {
   }
 }
 
-export default Event;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Event))));

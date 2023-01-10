@@ -3,9 +3,6 @@ import {inject, observer} from "mobx-react";
 import {Redirect} from "react-router";
 import {onEnterPressed, ValidEmail} from "Utils/Misc";
 
-@inject("siteStore")
-@inject("rootStore")
-@observer
 class CodeAccess extends React.Component {
   constructor(props) {
     super(props);
@@ -202,4 +199,4 @@ class CodeAccess extends React.Component {
   }
 }
 
-export default CodeAccess;
+export default inject("siteStore")(inject("rootStore")(observer(CodeAccess)));

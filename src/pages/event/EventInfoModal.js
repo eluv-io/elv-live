@@ -33,9 +33,7 @@ const ButtonContent = (info={}, defaultText) =>
     <img className="btn__image" src={info.button_image.url} alt={info.button_text || info.text || defaultText} /> :
     info.button_text || info.text || defaultText;
 
-@inject("siteStore")
-@observer
-class EventInfoModal extends React.Component {
+class EventInfoModalClass extends React.Component {
   constructor(props) {
     super(props);
 
@@ -219,8 +217,8 @@ class EventInfoModal extends React.Component {
   }
 }
 
-@inject("siteStore")
-@observer
+const EventInfoModal = inject("siteStore")(observer(EventInfoModalClass));
+
 class EventInfoButtons extends React.Component {
   constructor(props) {
     super(props);
@@ -269,4 +267,4 @@ class EventInfoButtons extends React.Component {
   }
 }
 
-export default EventInfoButtons;
+export default inject("siteStore")(observer(EventInfoButtons));

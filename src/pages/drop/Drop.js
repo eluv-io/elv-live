@@ -97,9 +97,6 @@ const EventPlayer = inject("rootStore")(inject("siteStore")(observer(({
   );
 })));
 
-@inject("rootStore")
-@inject("siteStore")
-@observer
 class Drop extends React.Component {
   constructor(props) {
     super(props);
@@ -328,4 +325,4 @@ class Drop extends React.Component {
   }
 }
 
-export default Drop;
+export default inject("rootStore")(inject("siteStore")(observer(Drop)));
