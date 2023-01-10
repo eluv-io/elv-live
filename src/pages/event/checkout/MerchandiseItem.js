@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import {inject, observer} from "mobx-react";
 import isEqual from "lodash/isEqual";
 
-@inject("cartStore")
-@observer
 class MerchandiseItem extends React.Component {
   constructor(props) {
     super(props);
@@ -329,4 +327,4 @@ MerchandiseItem.propTypes = {
   RemoveItem: PropTypes.func
 };
 
-export default MerchandiseItem;
+export default inject("cartStore")(observer(MerchandiseItem));

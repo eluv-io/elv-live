@@ -1,5 +1,5 @@
 import React from "react";
-import {render} from "react-dom";
+import {createRoot} from "react-dom/client";
 import ReactMarkdown from "react-markdown";
 import SanitizeHTML from "sanitize-html";
 
@@ -10,11 +10,10 @@ export const RichText = ({richText, className=""}) => {
       ref={element => {
         if(!element) { return; }
 
-        render(
+        createRoot(element).render(
           <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
             { SanitizeHTML(richText) }
           </ReactMarkdown>,
-          element
         );
       }}
     />

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
@@ -13,11 +13,6 @@ import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
 import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@withRouter
-@observer
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -189,8 +184,7 @@ class Header extends React.Component {
             <NavLink
               to={this.props.siteStore.SitePath("coupon-code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-              className="header__link header__link--no-wallet"
-              activeClassName="header__link-active"
+              className={({isActive}) => `header__link header__link--no-wallet ${isActive ? "header__link-active" : ""}`}
             >
               Redeem Coupon
             </NavLink> : null
@@ -200,8 +194,7 @@ class Header extends React.Component {
             <NavLink
               to={this.props.siteStore.SitePath("code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-              className="header__link header__link--no-wallet"
-              activeClassName="header__link-active"
+              className={({isActive}) => `header__link header__link--no-wallet ${isActive ? "header__link-active" : ""}`}
             >
               { this.props.siteStore.l10n.header.redeem_code }
             </NavLink> : null
@@ -287,4 +280,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Header))));

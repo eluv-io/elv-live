@@ -1,7 +1,23 @@
-@import 'common';
+// Base
+@import 'themes/default.css';
+@import 'base/actions';
+
+@import 'base/semantic.css';
+@import 'base/variables';
+@import 'base/reset';
+@import 'base/animations';
+@import 'base/mixins';
+@import 'base/base';
+
+// Components
+@import 'components/loaders';
+@import 'components/modal';
+@import 'components/cookie-banner';
+@import 'components/mobile-navigation';
+
 
 //COMPONENTS
-@import 'components/main/markdown';
+@import 'components/markdown';
 @import 'components/modal';
 @import 'components/button';
 @import 'components/ticket';
@@ -13,7 +29,7 @@
 @import 'components/inputs';
 @import 'components/event_descriptions';
 @import 'components/event_info_modals';
-@import 'components/main/card';
+@import 'components/card';
 @import 'components/terms_link';
 @import 'components/carousel';
 @import 'components/upcoming-events';

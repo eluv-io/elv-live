@@ -12,9 +12,6 @@ import {
   FaSpotify
 } from "react-icons/fa";
 
-@inject("rootStore")
-@inject("siteStore")
-@observer
 class SocialMediaBar extends React.Component {
   SocialButton(href, Icon, name) {
     if(!href) { return null; }
@@ -48,4 +45,4 @@ class SocialMediaBar extends React.Component {
   }
 }
 
-export default SocialMediaBar;
+export default inject("rootStore")(inject("siteStore")(observer(SocialMediaBar)));
