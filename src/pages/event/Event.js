@@ -1,5 +1,4 @@
 import React, {useEffect, lazy, Suspense, useState} from "react";
-import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
 import EventTabs from "Event/tabs/EventTabs";
@@ -10,13 +9,12 @@ import UpcomingEvents from "Common/UpcomingEvents";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import ImageIcon from "Common/ImageIcon";
 import UrlJoin from "url-join";
-import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
 import {Link} from "react-router-dom";
 import Countdown from "Common/Countdown";
 import SocialMediaBar from "Event/tabs/SocialMediaBar";
 import {rootStore, siteStore} from "Stores";
 import Player from "Common/Player";
+import {RichText} from "Common/Components";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -47,22 +45,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
     >
       <div className="event-message">
         <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
-          {
-            messageInfo.message ?
-              <div
-                className="event-message__content__message"
-                ref={element => {
-                  if(!element) { return; }
-
-                  render(
-                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                      {SanitizeHTML(messageInfo.message)}
-                    </ReactMarkdown>,
-                    element
-                  );
-                }}
-              /> : null
-          }
+          { messageInfo.message ? <RichText richText={messageInfo.message} className="event-message__content__message" /> : null }
           {
             !messageInfo.image ? null :
               <ImageIcon
@@ -133,18 +116,9 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
         <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
           {
             messageInfo.message ?
-              <div
+              <RichText
+                richText={messageInfo.message}
                 className="event-message__content__message"
-                ref={element => {
-                  if(!element) { return; }
-
-                  render(
-                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                      {SanitizeHTML(messageInfo.message)}
-                    </ReactMarkdown>,
-                    element
-                  );
-                }}
               /> : null
           }
           {
@@ -343,10 +317,6 @@ const Banner = observer(({bannerInfo, mobile, className="event-page__banner", im
   );
 });
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@observer
 class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -757,4 +727,4 @@ class Event extends React.Component {
   }
 }
 
-export default Event;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Event))));

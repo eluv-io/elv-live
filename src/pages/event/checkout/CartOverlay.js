@@ -3,9 +3,6 @@ import {inject, observer} from "mobx-react";
 import CloseIcon from "Icons/x";
 import ImageIcon from "Common/ImageIcon";
 
-@inject("siteStore")
-@inject("cartStore")
-@observer
 class CartOverlay extends React.Component {
   constructor(props) {
     super(props);
@@ -141,4 +138,4 @@ class CartOverlay extends React.Component {
   }
 }
 
-export default CartOverlay;
+export default inject("siteStore")(inject("cartStore")(observer(CartOverlay)));

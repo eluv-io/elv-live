@@ -1,4 +1,4 @@
-import {observable, action, flow, computed, toJS} from "mobx";
+import {flow, toJS, makeAutoObservable} from "mobx";
 import UrlJoin from "url-join";
 import {retryRequest} from "Utils/retryRequest";
 import {v4 as UUID, parse as UUIDParse} from "uuid";
@@ -21,45 +21,47 @@ const PUBLIC_KEYS = {
 const currencyNames = CountryCodesList.customList("currencyCode", "{currencyNameEn}");
 
 class CartStore {
-  @observable currency = "USD";
+  currency = "USD";
 
-  @observable showCartOverlay = false;
-  @observable showTicketOverlay = false;
-  @observable showCheckoutOverlay = false;
+  showCartOverlay = false;
+  showTicketOverlay = false;
+  showCheckoutOverlay = false;
 
-  @observable cartOverlayMessage;
-  @observable ticketOverlayOptions = {};
+  cartOverlayMessage;
+  ticketOverlayOptions = {};
 
-  @observable email = "";
-  @observable confirmationId = "";
+  email = "";
+  confirmationId = "";
 
-  @observable tickets = [];
-  @observable merchandise = [];
+  tickets = [];
+  merchandise = [];
 
-  @observable featuredTickets = {};
-  @observable featuredMerchandise = {};
-  @observable featuredDonations = {};
+  featuredTickets = {};
+  featuredMerchandise = {};
+  featuredDonations = {};
 
-  @observable submittingOrder = false;
+  submittingOrder = false;
 
-  @observable paymentServicePublicKeys = {};
+  paymentServicePublicKeys = {};
 
-  @observable purchasedTicketStartDate;
-  @observable purchasedTicketEndDate;
+  purchasedTicketStartDate;
+  purchasedTicketEndDate;
 
-  @observable lastAdded;
+  lastAdded;
 
-  @computed get shippingCountries() {
+  get shippingCountries() {
     return (this.rootStore.siteStore.currentSiteInfo.shipping_countries || [])
       .map(country => country.split(":")[0]);
   }
 
-  @computed get currencies() {
+  get currencies() {
     return (this.rootStore.siteStore.currentSiteInfo.payment_currencies || [])
       .map(currency => ({ code: currency, name: currencyNames[currency] }));
   }
 
   constructor(rootStore) {
+    makeAutoObservable(this);
+
     this.rootStore = rootStore;
   }
 
@@ -99,7 +101,6 @@ class CartStore {
     this.SetCurrency(this.currencies[0].code);
   }
 
-  @action.bound
   SetCurrency(currency) {
     if(!this.currencies.find(({code}) => currency === code)) {
       return;
@@ -110,7 +111,6 @@ class CartStore {
     this.SaveLocalStorage();
   }
 
-  @action.bound
   ToggleCartOverlay(show, message) {
     if(typeof show === "boolean") {
       this.showCartOverlay = show;
@@ -123,13 +123,11 @@ class CartStore {
     this.cartOverlayMessage = message || "";
   }
 
-  @action.bound
   ToggleTicketOverlay(show, options={}) {
     this.showTicketOverlay = show;
     this.ticketOverlayOptions = options;
   }
 
-  @action.bound
   ToggleCheckoutOverlay(show) {
     this.showCheckoutOverlay = show;
 
@@ -145,12 +143,10 @@ class CartStore {
     this.featuredMerchandise = {};
   }
 
-  @action.bound
   UpdateEmail(email) {
     this.email = email;
   }
 
-  @action.bound
   AddItem({itemType, uuid, optionIndex, quantity}) {
     const existingIndex = this[itemType].findIndex(existingItem =>
       uuid === existingItem.uuid &&
@@ -180,7 +176,6 @@ class CartStore {
     this.SaveLocalStorage();
   }
 
-  @action.bound
   UpdateItem({itemType, index, optionIndex, quantity}) {
     if(typeof optionIndex !== "undefined") {
       this[itemType][index].optionIndex = optionIndex;
@@ -193,7 +188,6 @@ class CartStore {
     this.SaveLocalStorage();
   }
 
-  @action.bound
   RemoveItem({itemType, index}) {
     this[itemType] = this[itemType].filter((_, i) => i !== index);
 
@@ -202,7 +196,6 @@ class CartStore {
     this.SaveLocalStorage();
   }
 
-  @action.bound
   AddFeaturedItem({itemType, uuid, optionIndex, quantity}) {
     this[`featured${itemType.charAt(0).toUpperCase() + itemType.slice(1)}`][uuid] = {
       uuid,
@@ -211,7 +204,6 @@ class CartStore {
     } ;
   }
 
-  @action.bound
   RemoveFeaturedItem({itemType, uuid}) {
     // Capitalize
     itemType = itemType.charAt(0).toUpperCase() + itemType.slice(1);
@@ -305,7 +297,6 @@ class CartStore {
 
   // Payment
 
-  @action.bound
   PaymentServerRequestParams() {
     const cartDetails = this.CartDetails();
 
@@ -331,7 +322,6 @@ class CartStore {
     };
   }
 
-  @action.bound
   StripeSubmit = flow(function * () {
     try {
       this.submittingOrder = true;
@@ -359,7 +349,6 @@ class CartStore {
     }
   });
 
-  @action.bound
   CoinbaseSubmit = flow(function * () {
     try {
       this.submittingOrder = true;
@@ -381,7 +370,6 @@ class CartStore {
     }
   });
 
-  @action.bound
   // eslint-disable-next-line require-yield
   PaypalSubmit = flow(function * (data, actions) {
     try {
@@ -503,7 +491,6 @@ class CartStore {
 
   // LocalStorage
 
-  @action.bound
   OrderComplete(confirmationId) {
     this.rootStore.siteStore.TrackPurchase(confirmationId, this.CartDetails());
 
@@ -515,7 +502,7 @@ class CartStore {
     this.SaveLocalStorage();
   }
 
-  @computed get localStorageKey() {
+  get localStorageKey() {
     return `${this.rootStore.siteStore.siteParams.objectId}-${this.rootStore.siteStore.siteHash}`;
   }
 

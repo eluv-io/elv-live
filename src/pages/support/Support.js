@@ -8,9 +8,6 @@ import {RichText} from "Common/Components";
 
 const initialKey = new URLSearchParams(window.location.search).get("q");
 
-@inject("rootStore")
-@inject("siteStore")
-@observer
 class Support extends React.Component {
   componentDidMount() {
     if(initialKey) {
@@ -64,4 +61,4 @@ class Support extends React.Component {
 }
 
 
-export default Support;
+export default inject("rootStore")(inject("siteStore")(observer(Support)));

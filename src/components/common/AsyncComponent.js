@@ -4,7 +4,6 @@ import {observer} from "mobx-react";
 import {PageLoader} from "Common/Loaders";
 import {ErrorWrapper} from "Common/ErrorBoundary";
 
-@observer
 class AsyncComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -64,4 +63,4 @@ AsyncComponent.propTypes = {
   children: PropTypes.node
 };
 
-export default ErrorWrapper(AsyncComponent);
+export default ErrorWrapper(observer(AsyncComponent));

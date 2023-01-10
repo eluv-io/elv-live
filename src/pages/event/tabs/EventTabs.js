@@ -10,8 +10,6 @@ import EventIcon from "Assets/icons/info.svg";
 import CartIcon from "Assets/icons/cart-icon.svg";
 import ImageIcon from "Common/ImageIcon";
 
-@inject("siteStore")
-@observer
 class EventTabs extends React.Component {
   constructor(props) {
     super(props);
@@ -93,4 +91,4 @@ class EventTabs extends React.Component {
   }
 }
 
-export default EventTabs;
+export default inject("siteStore")(observer(EventTabs));

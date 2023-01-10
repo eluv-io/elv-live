@@ -1,11 +1,12 @@
-import React, {lazy} from "react";
-import {inject, observer} from "mobx-react";
-import {Switch} from "react-router";
-import {Route, BrowserRouter} from "react-router-dom";
+import React, {Suspense, lazy, useEffect} from "react";
+import {createRoot} from "react-dom/client";
+import {inject, observer, Provider} from "mobx-react";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
 import WalletFrame from "Pages/wallet/WalletFrame";
+import * as Stores from "Stores";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -27,74 +28,81 @@ const Terms = MinLoadDelay(import("Event/Terms"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
 const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
 
-const Collection = MinLoadDelay(import("Pages/collections/Collection"));
-const Collections = MinLoadDelay(import("Pages/collections/Collections"));
+const RedirectToMain = () => {
+  useEffect(() => {
+    window.history.replaceState({}, null, "/");
+    window.location.reload();
+  }, []);
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@observer
-class SiteApp extends React.Component {
-  async componentDidMount() {
-    this.props.rootStore.SetApp("site");
+  return null;
+};
 
-    await this.props.rootStore.InitializeClient();
-    await this.props.siteStore.LoadMainSite();
-  }
+const SiteApp = inject("rootStore")(
+  inject("siteStore")(inject("cartStore")(observer(class SiteApp extends React.Component {
+    async componentDidMount() {
+      this.props.rootStore.SetApp("site");
 
-  /* Site specific */
-  SiteRoutes() {
-    if(!this.props.siteStore.siteLoaded) {
+      await this.props.rootStore.InitializeClient();
+      await this.props.siteStore.LoadMainSite();
+    }
+
+    /* Site specific */
+    SiteRoutes() {
+      if(!this.props.siteStore.siteLoaded) {
+        return (
+          <Routes>
+            <Route path="*" element={<PageLoader />} />
+          </Routes>
+        );
+      }
+
       return (
-        <Switch>
-          <Route>
-            <Route component={PageLoader} />
-          </Route>
-        </Switch>
+        <>
+          <Routes>
+            <Route exact path="/:tenantSlug?/:siteSlug/event" element={<SitePage Component={Landing} darkHeader hideCheckout hideRedeem />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/stream" element={<SitePage Component={Stream} showHeader={false} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" element={<SitePage Component={Drop} darkHeader hideZendesk hideCheckout hideRedeem />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" element={<SitePage Component={DropLanding} darkHeader hideCheckout hideRedeem transparent />} />
+            { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" element={<SitePage Component=hat} {showHeader={false} hideZendesk})} /> */ }
+            <Route exact path="/:tenantSlug?/:siteSlug/success/:id" element={<SitePage Component={Success} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/offer/:offerId" element={<SitePage Component={Offer} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/code" element={<SitePage Component={CodeAccess} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" element={<SitePage Component={CodeAccess} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" element={<SitePage Component={Landing} darkHeader hideCheckout hideRedeem />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/support" element={<SitePage Component={Support} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/privacy" element={<SitePage Component={Privacy} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/terms" element={<SitePage Component={Terms} />} />
+            <Route path="/:tenantSlug?/:siteSlug/marketplace/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
+
+            <Route exact path="/:tenantSlug?/:siteSlug" element={<SitePage Component={Event} mainPage transparent />} />
+
+            <Route path="*" element={<RedirectToMain />} />
+          </Routes>
+        </>
       );
     }
 
-    return (
-      <>
-        <Switch>
-          <Route exact path="/:tenantSlug/collections" component={Collections} />
-          <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
+    render() {
+      return (
+        <div key={`main-page-${this.props.rootStore.baseKey}`} className="app-container site-app-container">
+          <Suspense fallback={<PageLoader/>}>
+            <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
+              <BrowserRouter>
+                { this.SiteRoutes() }
+              </BrowserRouter>
 
-          <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
-          <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-          <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
-          <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
-          { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} /> */ }
-          <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
-          <Route exact path="/:tenantSlug?/:siteSlug/offer/:offerId" component={SitePage(Offer)} />
-          <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-          <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
-          <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
-          <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
-          <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
-          <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-          <Route path="/:tenantSlug?/:siteSlug/marketplace" component={SitePage(Event, {mainPage: true, transparent: true, showMarketplace: true})} />
-          <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
+              <WalletFrame />
+            </div>
+          </Suspense>
+        </div>
+      );
+    }
+  })))
+);
 
-          <Route>
-            <Route render={() => window.location.href = window.location.origin} />
-          </Route>
-        </Switch>
-      </>
-    );
-  }
 
-  render() {
-    return (
-      <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
-        <BrowserRouter>
-          { this.SiteRoutes() }
-        </BrowserRouter>
-
-        <WalletFrame />
-      </div>
-    );
-  }
-}
-
-export default SiteApp;
+createRoot(document.getElementById("app")).render(
+  <Provider {...Stores}>
+    <SiteApp />
+  </Provider>
+);

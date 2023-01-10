@@ -6,10 +6,12 @@ import {NavLink} from "react-router-dom";
 import {ToggleZendesk} from "Utils/Misc";
 import Countdown from "Common/Countdown";
 import Footer from "Layout/Footer";
-import AddToCalendar from "react-add-to-calendar";
+//import AddToCalendar from "react-add-to-calendar";
 import {Loader} from "Common/Loaders";
-import {Redirect, useLocation, useRouteMatch} from "react-router";
+import {useParams} from "react-router";
+import {useLocation} from "react-router-dom";
 import {rootStore, siteStore} from "Stores";
+import {Navigate} from "react-router";
 
 const LandingHeader = observer(({drop}) => {
   const landingInfo = drop.landing_page_info || siteStore.currentSiteInfo.event_landing_page || {};
@@ -131,6 +133,9 @@ const LandingCountdown = observer(({drop, diff, countdown, reloading}) => {
         }
       </div>
 
+      {
+        /*
+
       <AddToCalendar
         event={calendarEvent}
         buttonLabel="Add to Calendar"
@@ -140,13 +145,16 @@ const LandingCountdown = observer(({drop, diff, countdown, reloading}) => {
         dropdownClass="calendar-button-dropdown"
         listItems={[ { outlook: "Outlook" }, { outlookcom: "Outlook.com" }, { apple: "Apple Calendar" }, { google: "Google" }, { yahoo: "Yahoo" } ]}
       />
+
+         */
+      }
     </div>
   );
 });
 
 const Landing = observer(() => {
-  const match = useRouteMatch();
-  const drop = siteStore.dropEvents.find(drop => drop.uuid === match.params.dropId);
+  const {dropId} = useParams();
+  const drop = siteStore.dropEvents.find(drop => drop.uuid === dropId);
 
   const [reloading, setReloading] = useState(false);
 
@@ -163,11 +171,11 @@ const Landing = observer(() => {
   }, [rootStore.walletLoaded, rootStore.walletLoggedIn]);
 
   if(!drop) {
-    return <Redirect to={siteStore.SitePath("")} />;
+    return <Navigate replace to={siteStore.SitePath("")} />;
   }
 
   if(drop.requires_ticket && !siteStore.currentSiteTicketSku) {
-    return <Redirect to={siteStore.SitePath("code")} />;
+    return <Navigate replace to={siteStore.SitePath("code")} />;
   }
 
   const landingInfo = drop.landing_page_info || siteStore.currentSiteInfo.event_landing_page || {};
