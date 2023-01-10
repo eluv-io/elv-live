@@ -3,8 +3,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-@inject("siteStore")
-@observer
 class Class extends React.Component {
   render() {
     return (
@@ -15,4 +13,4 @@ class Class extends React.Component {
   }
 }
 
-export default Class;
+export default inject("siteStore")(observer(Class));

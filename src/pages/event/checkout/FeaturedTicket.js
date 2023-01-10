@@ -2,8 +2,6 @@ import {inject, observer} from "mobx-react";
 import React from "react";
 import {FormatDateString} from "Utils/Misc";
 
-@inject("cartStore")
-@observer
 class FeaturedTicket extends React.Component {
   constructor(props) {
     super(props);
@@ -88,4 +86,4 @@ class FeaturedTicket extends React.Component {
   }
 }
 
-export default FeaturedTicket;
+export default inject("cartStore")(observer(FeaturedTicket));

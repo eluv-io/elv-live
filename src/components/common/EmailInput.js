@@ -1,8 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-@inject("cartStore")
-@observer
 class EmailInput extends React.Component {
   render() {
     return (
@@ -31,4 +29,4 @@ class EmailInput extends React.Component {
   }
 }
 
-export default EmailInput;
+export default inject("cartStore")(observer(EmailInput));
