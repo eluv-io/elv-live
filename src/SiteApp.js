@@ -1,11 +1,13 @@
-import React, {lazy} from "react";
-import {inject, observer} from "mobx-react";
+import React, {Suspense, lazy} from "react";
+import {render} from "react-dom";
+import {inject, observer, Provider} from "mobx-react";
 import {Switch} from "react-router";
 import {Route, BrowserRouter} from "react-router-dom";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
 import WalletFrame from "Pages/wallet/WalletFrame";
+import * as Stores from "Stores";
 
 // Ensure that if the app waits for loading, it shows the spinner for some minimum time to prevent annoying spinner flash
 const MinLoadDelay = (Import, delay=500) => lazy(async () => {
@@ -26,9 +28,6 @@ const Privacy = MinLoadDelay(import("Event/Privacy"));
 const Terms = MinLoadDelay(import("Event/Terms"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
 const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
-
-const Collection = MinLoadDelay(import("Pages/collections/Collection"));
-const Collections = MinLoadDelay(import("Pages/collections/Collections"));
 
 @inject("rootStore")
 @inject("siteStore")
@@ -57,9 +56,6 @@ class SiteApp extends React.Component {
     return (
       <>
         <Switch>
-          <Route exact path="/:tenantSlug/collections" component={Collections} />
-          <Route exact path="/:tenantSlug/collections/:collectionSlug" component={Collection} />
-
           <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
           <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
           <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
@@ -86,15 +82,27 @@ class SiteApp extends React.Component {
 
   render() {
     return (
-      <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
-        <BrowserRouter>
-          { this.SiteRoutes() }
-        </BrowserRouter>
+      <div key={`main-page-${this.props.rootStore.baseKey}`} className="app-container site-app-container">
+        <Suspense fallback={<PageLoader/>}>
+          <div className={`site-app ${this.props.siteStore.darkMode ? "dark" : ""}`}>
+            <BrowserRouter>
+              { this.SiteRoutes() }
+            </BrowserRouter>
 
-        <WalletFrame />
+            <WalletFrame />
+          </div>
+        </Suspense>
       </div>
     );
   }
 }
 
-export default SiteApp;
+
+render(
+  (
+    <Provider {...Stores}>
+      <SiteApp />
+    </Provider>
+  ),
+  document.getElementById("app")
+);

@@ -4,7 +4,6 @@ import { ElvWalletFrameClient } from "@eluvio/elv-wallet-frame-client";
 import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
-import MainStore from "Stores/Main";
 import CollectionStore from "Stores/Collection";
 
 import EluvioConfiguration from "EluvioConfiguration";
@@ -71,7 +70,6 @@ class RootStore {
   constructor() {
     this.siteStore = new SiteStore(this);
     this.cartStore = new CartStore(this);
-    this.mainStore = new MainStore(this);
     this.collectionStore = new CollectionStore(this);
 
     this.LoadRedeemedTickets();
@@ -549,5 +547,4 @@ const root = new RootStore();
 export const rootStore = root;
 export const siteStore = root.siteStore;
 export const cartStore = root.cartStore;
-export const mainStore = root.mainStore;
 export const collectionStore = root.collectionStore;
