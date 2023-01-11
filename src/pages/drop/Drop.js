@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from "react";
-import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import EluvioConfiguration from "../../../configuration";
 import Countdown from "Common/Countdown";
 import Modal from "Common/Modal";
 import ImageIcon from "Common/ImageIcon";
-import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
 import UrlJoin from "url-join";
-import {Redirect} from "react-router";
+import {RichText} from "Common/Components";
+import {Navigate} from "react-router";
 
 const EventPlayer = inject("rootStore")(inject("siteStore")(observer(({
   rootStore,
@@ -181,19 +179,7 @@ class Drop extends React.Component {
                   icon={this.props.siteStore.SiteUrl(UrlJoin("info", "drops", drop.dropIndex.toString(), currentState.state, "modal_message", "image"))}
                 />
             }
-            <div
-              className="event-message__content__message"
-              ref={element => {
-                if(!element) { return; }
-
-                render(
-                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-                    { SanitizeHTML(messageInfo.message) }
-                  </ReactMarkdown>,
-                  element
-                );
-              }}
-            />
+            <RichText richText={messageInfo.message} className="event-message__content__message" />
           </div>
           <div className="event-message__actions">
             <button
@@ -254,11 +240,11 @@ class Drop extends React.Component {
     const drop = this.state.dropInfo;
 
     if(!this.props.rootStore.walletLoggedIn && drop.requires_login) {
-      return <Redirect to={UrlJoin("/", this.props.siteStore.currentSite.tenantSlug || "", this.props.siteStore.currentSite.siteSlug || "", "drop", this.props.match.params.dropId)} />;
+      return <Navigate replace to={UrlJoin("/", this.props.siteStore.currentSite.tenantSlug || "", this.props.siteStore.currentSite.siteSlug || "", "drop", this.props.match.params.dropId)} />;
     }
 
     if(drop.requires_ticket && !this.props.siteStore.currentSiteTicketSku) {
-      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+      return <Navigate replace to={this.props.siteStore.SitePath("code")} />;
     }
 
     const currentState = drop.states[drop.currentStateIndex];

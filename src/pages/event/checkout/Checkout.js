@@ -10,9 +10,9 @@ import EmailInput from "Common/EmailInput";
 import {FormatDateString, ValidEmail} from "Utils/Misc";
 import StripeLogo from "Images/logo/logo-stripe";
 import {FUNDING, PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
-import {Redirect} from "react-router";
 import {Loader} from "Common/Loaders";
 import {retryRequest} from "Utils/retryRequest";
+import {Navigate} from "react-router";
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -400,7 +400,8 @@ class Checkout extends React.Component {
   PaymentActions() {
     if(this.state.redirect) {
       return (
-        <Redirect
+        <Navigate
+          replace
           to={this.props.siteStore.SitePath("success", this.props.cartStore.confirmationId)}
         />
       );

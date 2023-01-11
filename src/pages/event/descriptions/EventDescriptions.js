@@ -1,15 +1,13 @@
 import React from "react";
-import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 import UrlJoin from "url-join";
-import SanitizeHTML from "sanitize-html";
-import ReactMarkdown from "react-markdown";
 
 import Modal from "Common/Modal";
 
 import LeftArrow from "Assets/icons/left-arrow.svg";
 import RightArrow from "Assets/icons/right-arrow.svg";
 import ImageIcon from "Common/ImageIcon";
+import {RichText} from "Common/Components";
 
 class EventDescriptionsModalClass extends React.Component {
   constructor(props) {
@@ -31,20 +29,7 @@ class EventDescriptionsModalClass extends React.Component {
 
   Markdown(content) {
     return (
-      <div
-        className="event-description-modal__markdown markdown-document"
-        ref={element => {
-          if(!element) { return; }
-
-          render(
-            <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-              { SanitizeHTML(content) }
-            </ReactMarkdown>,
-            element
-          );
-        }}
-      >
-      </div>
+      <RichText richText={content} className="event-description-modal__markdown markdown-document" />
     );
   }
 

@@ -7,14 +7,14 @@ import Countdown from "Common/Countdown";
 import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/eluvio-logo";
 import Footer from "Layout/Footer";
-import {Redirect} from "react-router";
+import {Navigate} from "react-router";
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      couponMode: props.location.pathname.endsWith("coupon-redeemed"),
+      couponMode: window.location.pathname.endsWith("coupon-redeemed"),
       tick: 0,
       interval:
         this.props.siteStore.currentSiteTicketSku.start_time
@@ -100,7 +100,7 @@ class Landing extends React.Component {
 
   render() {
     if(!this.props.siteStore.currentSiteTicketSku) {
-      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+      return <Navigate replace to={this.props.siteStore.SitePath("code")} />;
     }
 
     const couponInfo = (this.props.siteStore.currentSiteInfo.coupon_redemption || {});

@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import AddToCalendar from "react-add-to-calendar";
+//import AddToCalendar from "react-add-to-calendar";
 
 class Success extends React.Component {
   componentDidMount() {
@@ -47,6 +47,7 @@ class Success extends React.Component {
           </div>
 
           {
+            /*
             calendarEvent ?
               <AddToCalendar
                 event={calendarEvent}
@@ -56,6 +57,8 @@ class Success extends React.Component {
                 buttonClassOpen="open"
                 dropdownClass="calendar-button-dropdown"
               /> : null
+
+             */
           }
         </div>
       </div>

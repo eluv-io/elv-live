@@ -1,15 +1,13 @@
 import React from "react";
-import { render } from "react-dom";
 import {inject, observer} from "mobx-react";
 import { Link } from "react-router-dom";
 import LanguageCodes from "Assets/LanguageCodes";
-import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
 import Modal from "Common/Modal";
 import UrlJoin from "url-join";
 import ImageIcon from "Common/ImageIcon";
 import EluvioLogo from "Images/logo/eluvio-logo";
 import CookieBanner from "Common/CookieBanner";
+import {RichText} from "Common/Components";
 
 class Footer extends React.Component {
   constructor(props) {
@@ -52,20 +50,9 @@ class Footer extends React.Component {
                         content_rich_text ?
                           <div className="event-message">
                             <div className="event-message__content">
-                              <div
+                              <RichText
+                                richText={content_rich_text}
                                 className="event-message__content__message"
-                                ref={element => {
-                                  if(!element) {
-                                    return;
-                                  }
-
-                                  render(
-                                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                                      {SanitizeHTML(content_rich_text)}
-                                    </ReactMarkdown>,
-                                    element
-                                  );
-                                }}
                               />
                             </div>
                           </div> :
@@ -149,38 +136,16 @@ class Footer extends React.Component {
         <div className="footer__border" />
         {
           this.props.siteStore.currentSiteInfo.footer_text ?
-            <div
+            <RichText
+              richText={this.props.siteStore.currentSiteInfo.footer_text}
               className="markdown-document footer__block footer__copyright"
-              ref={element => {
-                if(!element) {
-                  return;
-                }
-
-                render(
-                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                    {SanitizeHTML(this.props.siteStore.currentSiteInfo.footer_text)}
-                  </ReactMarkdown>,
-                  element
-                );
-              }}
             /> : null
         }
         {
           this.props.siteStore.eventInfo.copyright ?
-            <div
+            <RichText
+              richText={this.props.siteStore.eventInfo.copyright}
               className="footer__block footer__copyright"
-              ref={element => {
-                if(!element) {
-                  return;
-                }
-
-                render(
-                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                    {SanitizeHTML(this.props.siteStore.eventInfo.copyright)}
-                  </ReactMarkdown>,
-                  element
-                );
-              }}
             /> : null
         }
         <div className="footer__block footer__powered-by">

@@ -3,20 +3,20 @@ import {observer} from "mobx-react";
 import {onEnterPressed} from "Utils/Misc";
 import {useState} from "react";
 import {RichText} from "Common/Components";
-import {useHistory, useRouteMatch} from "react-router";
 import {rootStore, siteStore} from "Stores";
 import {PageLoader} from "Common/Loaders";
+import {useNavigate, useParams} from "react-router";
 
 const initialCode = (new URLSearchParams(window.location.search)).get("code");
 
 const OfferPage = observer(() => {
-  const match = useRouteMatch();
-  const history = useHistory();
+  const {offerId} = useParams();
+  const navigate = useNavigate();
   const [code, setCode] = useState(initialCode || "");
   const [error, setError] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
-  const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === match.params.offerId) || {};
+  const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === offerId) || {};
 
   const RedeemOffer = async () => {
     try {
@@ -42,7 +42,7 @@ const OfferPage = observer(() => {
       });
 
       await new Promise(resolve => setTimeout(resolve, 3000));
-      history.push(siteStore.SitePath(""));
+      navigate(siteStore.SitePath(""));
     } catch(error) {
       setError("Failed to redeem code");
     } finally {

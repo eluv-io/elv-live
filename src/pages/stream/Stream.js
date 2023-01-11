@@ -1,7 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 //import LiveChat from "Stream/components/LiveChat";
 import {ToggleZendesk} from "Utils/Misc";
@@ -9,6 +9,7 @@ import EluvioConfiguration from "../../../configuration";
 
 import Logo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 import ChatIcon from "Assets/icons/chat icon simple.svg";
+import {Navigate} from "react-router";
 
 class Stream extends React.Component {
   constructor(props) {
@@ -115,7 +116,7 @@ class Stream extends React.Component {
 
   render() {
     if(!this.props.siteStore.currentSiteTicket) {
-      return <Redirect to={this.props.siteStore.SitePath("code")} />;
+      return <Navigate replace to={this.props.siteStore.SitePath("code")} />;
     }
 
     return (

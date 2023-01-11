@@ -1,6 +1,6 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Select from "react-select";
+//import Select from "react-select";
 import {FormatDateString} from "Utils/Misc";
 
 class Ticket extends React.Component {

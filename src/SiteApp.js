@@ -1,8 +1,7 @@
-import React, {Suspense, lazy} from "react";
-import {render} from "react-dom";
+import React, {Suspense, lazy, useEffect} from "react";
+import {createRoot} from "react-dom/client";
 import {inject, observer, Provider} from "mobx-react";
-import {Switch} from "react-router";
-import {Route, BrowserRouter} from "react-router-dom";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 import "Styles/site-app.scss";
 import SitePage from "Common/SitePage";
 import {PageLoader} from "Common/Loaders";
@@ -29,6 +28,15 @@ const Terms = MinLoadDelay(import("Event/Terms"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
 const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
 
+const RedirectToMain = () => {
+  useEffect(() => {
+    window.history.replaceState({}, null, "/");
+    window.location.reload();
+  }, []);
+
+  return null;
+};
+
 const SiteApp = inject("rootStore")(
   inject("siteStore")(inject("cartStore")(observer(class SiteApp extends React.Component {
     async componentDidMount() {
@@ -42,37 +50,34 @@ const SiteApp = inject("rootStore")(
     SiteRoutes() {
       if(!this.props.siteStore.siteLoaded) {
         return (
-          <Switch>
-            <Route>
-              <Route component={PageLoader} />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="*" element={<PageLoader />} />
+          </Routes>
         );
       }
 
       return (
         <>
-          <Switch>
-            <Route exact path="/:tenantSlug?/:siteSlug/event" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
-            <Route exact path="/:tenantSlug?/:siteSlug/stream" component={SitePage(Stream, {showHeader: false})} />
-            <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" component={SitePage(Drop, {darkHeader: true, hideZendesk: true, hideCheckout: true, hideRedeem: true})} />
-            <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" component={SitePage(DropLanding, {darkHeader: true, hideCheckout: true, hideRedeem: true, transparent: true})} />
-            { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" component={SitePage(Chat, {showHeader: false, hideZendesk: true})} /> */ }
-            <Route exact path="/:tenantSlug?/:siteSlug/success/:id" component={SitePage(Success)} />
-            <Route exact path="/:tenantSlug?/:siteSlug/offer/:offerId" component={SitePage(Offer)} />
-            <Route exact path="/:tenantSlug?/:siteSlug/code" component={SitePage(CodeAccess)} />
-            <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" component={SitePage(CodeAccess)} />
-            <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" component={SitePage(Landing, {darkHeader: true, hideCheckout: true, hideRedeem: true})} />
-            <Route exact path="/:tenantSlug?/:siteSlug/support" component={SitePage(Support)} />
-            <Route exact path="/:tenantSlug?/:siteSlug/privacy" component={SitePage(Privacy)} />
-            <Route exact path="/:tenantSlug?/:siteSlug/terms" component={SitePage(Terms)} />
-            <Route path="/:tenantSlug?/:siteSlug/marketplace" component={SitePage(Event, {mainPage: true, transparent: true, showMarketplace: true})} />
-            <Route exact path="/:tenantSlug?/:siteSlug" component={SitePage(Event, {mainPage: true, transparent: true})} />
+          <Routes>
+            <Route exact path="/:tenantSlug?/:siteSlug/event" element={<SitePage Component={Landing} darkHeader hideCheckout hideRedeem />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/stream" element={<SitePage Component={Stream} showHeader={false} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" element={<SitePage Component={Drop} darkHeader hideZendesk hideCheckout hideRedeem />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" element={<SitePage Component={DropLanding} darkHeader hideCheckout hideRedeem transparent />} />
+            { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" element={<SitePage Component=hat} {showHeader={false} hideZendesk})} /> */ }
+            <Route exact path="/:tenantSlug?/:siteSlug/success/:id" element={<SitePage Component={Success} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/offer/:offerId" element={<SitePage Component={Offer} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/code" element={<SitePage Component={CodeAccess} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" element={<SitePage Component={CodeAccess} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" element={<SitePage Component={Landing} darkHeader hideCheckout hideRedeem />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/support" element={<SitePage Component={Support} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/privacy" element={<SitePage Component={Privacy} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/terms" element={<SitePage Component={Terms} />} />
+            <Route path="/:tenantSlug?/:siteSlug/marketplace/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
 
-            <Route>
-              <Route render={() => window.location.href = window.location.origin} />
-            </Route>
-          </Switch>
+            <Route exact path="/:tenantSlug?/:siteSlug" element={<SitePage Component={Event} mainPage transparent />} />
+
+            <Route path="*" element={<RedirectToMain />} />
+          </Routes>
         </>
       );
     }
@@ -96,11 +101,8 @@ const SiteApp = inject("rootStore")(
 );
 
 
-render(
-  (
-    <Provider {...Stores}>
-      <SiteApp />
-    </Provider>
-  ),
-  document.getElementById("app")
+createRoot(document.getElementById("app")).render(
+  <Provider {...Stores}>
+    <SiteApp />
+  </Provider>
 );

@@ -59,15 +59,13 @@ class Modal extends React.Component {
   }
 }
 
-const MobxModal = inject("rootStore")(observer(Modal));
-
-const ModalPortal = (args) => {
+const ModalPortal = inject("rootStore")(inject("siteStore")(observer((args) => {
   return (
     createPortal(
-      <MobxModal {...args} />,
+      <Modal {...args} />,
       document.getElementById("app")
     )
   );
-};
+})));
 
 export default ModalPortal;
