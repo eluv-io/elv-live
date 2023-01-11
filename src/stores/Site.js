@@ -1,5 +1,4 @@
 import {flow, makeAutoObservable} from "mobx";
-import URI from "urijs";
 import UrlJoin from "url-join";
 import SanitizeHTML from "sanitize-html";
 
@@ -408,27 +407,24 @@ class SiteStore {
       this.tenantSlug = slug;
 
       if(this.tenants[slug].info && this.tenants[slug].info.logo) {
-        const url = URI(this.baseSiteUrl);
+        const url = new URL(this.baseSiteUrl);
+        url.pathname = UrlJoin(url.pathname, "meta", "public", "asset_metadata", "tenants", slug, "info", "logo");
 
-        this.tenants[slug].logoUrl = URI(this.baseSiteUrl)
-          .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "logo"))
-          .toString();
+        this.tenants[slug].logoUrl = url.toString();
       }
 
       if(this.tenants[slug].info && this.tenants[slug].info.privacy_policy_html) {
-        const url = URI(this.baseSiteUrl);
+        const url = new URL(this.baseSiteUrl);
+        url.pathname = UrlJoin(url.pathname, "meta", "public", "asset_metadata", "tenants", slug, "info", "privacy_policy_html");
 
-        this.tenants[slug].privacyPolicyUrl = url
-          .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "privacy_policy_html"))
-          .toString();
+        this.tenants[slug].privacyPolicyUrl = url.toString();
       }
 
       if(this.tenants[slug].info && this.tenants[slug].info.terms_html) {
-        const url = URI(this.baseSiteUrl);
+        const url = new URL(this.baseSiteUrl);
+        url.pathname = UrlJoin(url.pathname, "meta", "public", "asset_metadata", "tenants", slug, "info", "terms_html");
 
-        this.tenants[slug].termsUrl = url
-          .path(UrlJoin(url.path(), "meta", "public", "asset_metadata", "tenants", slug, "info", "terms_html"))
-          .toString();
+        this.tenants[slug].termsUrl = url.toString();
       }
 
       return slug;
@@ -1247,11 +1243,10 @@ class SiteStore {
   }
 
   SiteUrl(path) {
-    const uri = URI(this.baseSiteUrl);
+    const url = new URL(this.baseSiteUrl);
+    url.pathname = UrlJoin(url.pathname, "meta", this.LocalizedSitePath(path));
 
-    return uri
-      .path(UrlJoin(uri.path(), "meta", this.LocalizedSitePath(path)))
-      .toString();
+    return url.toString();
   }
 
   SiteHasImage(key) {
