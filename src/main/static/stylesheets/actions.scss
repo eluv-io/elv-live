@@ -1,0 +1,234 @@
+.button {
+  height: 60px;
+  padding-inline: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: var(--font-size-body-3);
+  font-weight: 600;
+  gap: 15px;
+  width: max-content;
+  transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+
+  &:disabled {
+    opacity: 0.75;
+    cursor: default;
+  }
+
+  .action__icon {
+    height: 30px;
+  }
+
+  &.small {
+    font-size: var(--font-size-body-4);
+    height: 40px;
+    padding-inline: 15px;
+    gap: 10px;
+    border-radius: 5px;
+
+    .action__icon {
+      height: 20px;
+    }
+  }
+
+  &.extra-small {
+    font-size: var(--font-size-body-4);
+    height: 30px;
+    padding-inline: 10px;
+    gap: 7px;
+    border-radius: 5px;
+    font-weight: 400;
+
+    .action__icon {
+      height: 15px;
+    }
+  }
+
+  &.light {
+    &.primary {
+      background: var(--color-highlight-2);
+      color: var(--color-text-dark-1);
+
+      &:hover,
+      &:focus-visible {
+        &:not(&:active) {
+          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+        }
+      }
+
+      .action__icon {
+        color: var(--color-text-dark-1);
+      }
+
+      .loader {
+        --loader-color: var(--color-text-dark-1);
+      }
+    }
+
+    &.secondary {
+      background: var(--background-light-2);
+      color: var(--color-text-light-2);
+      border: 2px solid var(--color-highlight-3);
+
+      &:hover,
+      &:focus-visible {
+        &:not(&:active) {
+          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+        }
+      }
+
+      .action__icon {
+        color: var(--color-icon);
+      }
+
+      .loader {
+        --loader-color: var(--color-text-light-2);
+      }
+    }
+  }
+
+  &.dark {
+    &.primary {
+      background: var(--background-dark-3);
+      color: var(--color-text-dark-3);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--color-highlight-1);
+        color: var(--color-text-dark-1);
+
+        &:not(&:active) {
+          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+        }
+
+        .loader {
+          --loader-color: var(--color-text-dark-1);
+        }
+      }
+
+      .loader {
+        --loader-color: var(--color-text-dark-3);
+      }
+    }
+
+    &.secondary {
+      background: transparent;
+      border: 2px solid var(--color-text-dark-1);
+      color: var(--color-text-dark-1);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--background-dark-2);
+        color: var(--color-highlight-1);
+        border: 2px solid var(--color-highlight-1);
+
+        &:not(&:active) {
+          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+        }
+
+        .loader {
+          --loader-color: var(--color-highlight-1);
+        }
+      }
+
+      .loader {
+        --loader-color: var(--color-text-dark-1);
+      }
+    }
+  }
+}
+
+.loader-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > * {
+    transition: opacity 0.15s ease!important;
+  }
+
+  &__indicator {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loader {
+    height: 40px;
+    width: 40px;
+    opacity: 0.75;
+  }
+
+  &.small {
+    .loader {
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  &.extra-small {
+    .loader {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &.normal {
+    & > :not(.loader-button__indicator) {
+      opacity: 1;
+    }
+
+    .loader-button__indicator {
+      opacity: 0;
+    }
+  }
+
+  &.loading {
+    & > :not(.loader-button__indicator) {
+      opacity: 0;
+    }
+
+    .loader-button__indicator {
+      opacity: 1;
+    }
+  }
+}
+
+.link {
+  font-size: var(--font-size-body-2);
+  width: max-content;
+  transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+
+  &.light {
+    color: var(--color-text-light-1);
+
+    &.inactive {
+      color: var(--color-text-light-4);
+    }
+
+    &.active {
+      color: var(--color-text-light-2);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-highlight-3);
+    }
+  }
+
+  &.dark {
+    color: var(--color-text-dark-1);
+
+    &:hover,
+    &:focus-visible,
+    &.active {
+      color: var(--color-highlight-1);
+    }
+  }
+}

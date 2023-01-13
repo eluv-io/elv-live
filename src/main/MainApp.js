@@ -1,15 +1,22 @@
 import React from "react";
-import "Styles/main-app.scss";
+import "./static/stylesheets/app.scss";
 
 //import ScrollToTop from "Common/ScrollToTop";
 import {createRoot} from "react-dom/client";
 import {Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
+import ComponentTest from "./ComponentTest";
+import {Routes} from "react-router";
+import {BrowserRouter, Route} from "react-router-dom";
 
 const MainApp = () => {
   return (
     <div className="main">
-      Main
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<ComponentTest />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

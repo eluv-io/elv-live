@@ -1,4 +1,5 @@
 import {configure, flow, makeAutoObservable, runInAction} from "mobx";
+import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 
 configure({
@@ -20,6 +21,8 @@ class MainStore {
     runInAction(() => this.InitializeClient());
 
     window.mainStore = this;
+
+    this.uiStore = new UIStore();
   }
 
   InitializeClient = flow(function * () {
@@ -38,3 +41,4 @@ class MainStore {
 const store = new MainStore();
 
 export const mainStore = store;
+export const uiStore = store.uiStore;

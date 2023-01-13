@@ -1,0 +1,372 @@
+.merch-container {
+  @include item-block;
+
+  margin-bottom: 50px;
+}
+
+.merchandise-item {
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: 4fr 5fr;
+
+  // Left side
+  .item-image {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    .selected-image {
+      max-height: 500px;
+      min-height: 500px;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  .image-options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 45px;
+  }
+
+  .image-option {
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    height: 63px;
+    object-fit: contain;
+    width: 63px;
+
+    &.selected {
+      outline: 1px solid $black;
+    }
+  }
+
+  // Right side
+
+  .item-details {
+    height: 100%;
+    padding: 44px 0;
+    position: relative;
+  }
+
+  .item-header {
+    font-size: 36px;
+    line-height: 41px;
+    margin-bottom: 16px;
+  }
+
+  .item-price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  .item-description {
+    color: #212121;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 30px;
+    max-width: 75%;
+  }
+
+  .item-option-label {
+    display: flex;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 6px;
+
+    .option-label {
+      font-weight: normal;
+      margin-left: 5px;
+    }
+  }
+
+  .item-option,
+  .item-colors {
+    display: flex;
+    margin-bottom: 31px;
+  }
+
+  .item-color,
+  .item-color-swatch {
+    background-color: transparent;
+    border: 0;
+    border-radius: 100%;
+  }
+
+  .item-color {
+    align-items: center;
+    display: flex;
+    height: 23px;
+    justify-content: center;
+    margin-right: 6px;
+    padding: 0;
+    width: 23px;
+
+    &.selected {
+      border: 1px solid $black;
+
+      .item-color-swatch {
+        border: 0;
+      }
+    }
+  }
+
+  .item-color-swatch {
+    border: 1px solid #bfbfbf;
+    height: 19px;
+    width: 19px;
+  }
+
+  .item-option {
+    width: 225px;
+
+    select {
+      width: 100%;
+    }
+  }
+
+  .item-quantity {
+    display: block;
+    width: 85px;
+  }
+
+  .item-add {
+    border-radius: 3px;
+    font-size: 16px;
+    height: 42px;
+    margin-top: 42px;
+  }
+
+  &.main-view {
+    .selected-image {
+      padding: 20px;
+    }
+  }
+
+  &.cart-view {
+    grid-gap: 43px;
+    grid-template-columns: auto 1fr;
+
+    .item-details {
+      padding: 7px 0;
+    }
+
+    .item-image,
+    .selected-image {
+      max-height: 246px;
+      min-height: 246px;
+      width: 168px;
+    }
+
+    .item-description {
+      max-width: unset;
+    }
+  }
+
+  &.featured-view {
+    @include item-block;
+
+    display: block;
+    margin-bottom: 20px;
+    width: 611px;
+
+    .remove-item {
+      margin-top: 20px;
+      position: initial;
+      text-align: right;
+      width: 100%;
+    }
+
+    .featured-item-selection {
+      height: 19px;
+      margin-right: 62px;
+      width: 19px;
+    }
+
+    .item-header-price {
+      font-size: 18px;
+      font-weight: bold;
+      position: absolute;
+      right: 0;
+    }
+
+    .item-container {
+      display: grid;
+      grid-gap: 15px;
+      grid-template-columns: auto 1fr;
+
+      .item-image,
+      .selected-image {
+        max-height: 139px;
+        min-height: 139px;
+        width: 160px;
+      }
+    }
+
+    .item-details {
+      padding: 0;
+    }
+
+    .item-options-container {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 1fr auto;
+      margin-bottom: 23px;
+
+      select {
+        margin: 0;
+      }
+    }
+
+    .item-options {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 1fr 1fr;
+
+      .item-option {
+        width: auto;
+      }
+    }
+
+    .item-description {
+      margin: 0;
+      text-align: left;
+    }
+  }
+
+  &.donation-view {
+    width: 575px;
+
+    .item-container {
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      .item-image,
+      .selected-image {
+        max-height: 93px;
+        min-height: 93px;
+        width: 105px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .merchandise-item {
+    grid-template-columns: 1fr;
+
+    * {
+      text-align: center;
+    }
+
+    .item-image {
+      .selected-image {
+        max-height: 300px;
+        object-position: center;
+      }
+    }
+
+    .item-header {
+      font-size: 28px;
+    }
+
+    .item-details {
+      padding: 0 10px 24px;
+    }
+
+    .item-description {
+      max-width: 100%;
+    }
+
+    .item-option-label {
+      display: flex;
+      justify-content: center;
+    }
+
+    .item-option,
+    .item-colors {
+      justify-content: center;
+    }
+
+    .item-color {
+      height: 30px;
+      width: 30px;
+    }
+
+    .item-color-swatch {
+      height: 24px;
+      width: 24px;
+    }
+
+    select {
+      margin: 0 auto 43px;
+    }
+
+    .item-quantity {
+      text-align: left;
+    }
+
+    .item-add {
+      margin-top: 10px;
+    }
+
+    &.cart-view {
+      grid-template-columns: 1fr 3fr;
+      width: 100%;
+
+      .item-image,
+      .selected-image {
+        max-height: 150px;
+        min-height: 150px;
+        width: 100px !important;
+      }
+    }
+
+    &.mobile-cart-view {
+      .item-header {
+        font-weight: bold;
+      }
+    }
+
+    &.featured-view {
+      width: 100%;
+
+      .item-header-price {
+        font-size: 16px;
+      }
+
+      .item-container {
+        grid-template-columns: 1fr 10fr;
+        justify-items: center;
+      }
+
+      .item-image,
+      .selected-image {
+        max-height: 100px;
+        max-width: 100px;
+      }
+
+      .item-options-container,
+      .item-options {
+        display: block;
+
+        select {
+          margin-bottom: 10px;
+          width: 100% !important;
+        }
+      }
+
+      .featured-item-selection {
+        margin-right: 10px;
+      }
+
+      select {
+        text-align: left;
+        width: 100%;
+      }
+    }
+  }
+}

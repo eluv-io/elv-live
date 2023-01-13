@@ -1,0 +1,22 @@
+/* Albertus */
+@font-face {
+  font-family: 'Albertus MT Std';
+  src: url('./files/AlbertusMT.otf') format('opentype'),
+    url('./files/AlbertusMTStd.otf') format('opentype'),
+    url('./files/AlbertusMTStdLight.otf') format('opentype'),
+    url('./files/AlbertusMTStdItalic.otf') format('opentype');
+}
+
+
+:root { font-family: 'Albertus MT Std', sans-serif; }
+@supports (font-variation-settings: normal) {
+  :root { font-family: 'Albertus MT Std', sans-serif; }
+}
+
+body {
+  font-family: 'Albertus MT Std', sans-serif;
+}
+
+body * {
+  font-family: 'Albertus MT Std', sans-serif;
+}

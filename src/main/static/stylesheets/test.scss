@@ -1,0 +1,34 @@
+.component-test {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: var(--background-light-1);
+
+  &.dark {
+    background: var(--background-dark-1);
+  }
+
+  &__captioned-image {
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  &__modal {
+    background: var(--background-light-1);
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+    border-radius: 8px;
+    height: max-content;
+
+    &.full {
+      max-width: unset;
+      min-height: 100vh;
+      flex: 1 1 100%;
+      border-radius: 0;
+    }
+  }
+}

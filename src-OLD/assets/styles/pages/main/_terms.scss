@@ -1,0 +1,37 @@
+.terms-page,
+.privacy-page {
+  &__header {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.045em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &__document-frame {
+    border: 0;
+    display: block;
+    flex: 1 1 100%;
+    margin: 0 auto;
+    max-height: 60vh;
+    max-width: 750px;
+    min-height: 60vh;
+    outline: 0;
+    overflow-y: scroll;
+    padding: 0 20px;
+    width: 750px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__header {
+      font-size: 32px;
+    }
+
+    &__document-frame {
+      max-height: 50vh;
+      max-width: 100%;
+      min-height: 50vh;
+      width: 100%;
+    }
+  }
+}
