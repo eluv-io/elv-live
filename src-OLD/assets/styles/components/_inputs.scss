@@ -1,0 +1,29 @@
+.email-entry {
+  @include item-block;
+
+  padding: 26px 54px;
+  width: 611px;
+
+  input {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 15px 40px;
+    width: 100%;
+  }
+
+  .hint {
+    font-weight: normal;
+    letter-spacing: 0.03em;
+    margin-top: 22px;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding: 26px;
+    width: 100%;
+
+    input {
+      padding: 21px;
+    }
+  }
+}

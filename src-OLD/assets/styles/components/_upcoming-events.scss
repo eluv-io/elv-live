@@ -1,0 +1,100 @@
+$max-height: 300px;
+$date-width: 120px;
+$element-width: $max-height + $date-width;
+
+.upcoming-events {
+  padding: 50px 50px 0;
+
+  &-disabled {
+    a {
+      cursor: initial;
+      pointer-events: none;
+    }
+  }
+
+  &__header {
+    color: $black;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+}
+
+.upcoming-events__event-card {
+  background-color: #252525;
+  border-radius: 15px;
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+  max-height: 300px;
+  max-width: $element-width;
+  width: 100%;
+
+  &-placeholder {
+    opacity: 0;
+  }
+
+  &__date {
+    align-items: center;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    user-select: none;
+    width: 120px;
+  }
+
+  &__day {
+    font-size: 36px;
+    font-weight: 500;
+  }
+
+  &__month {
+    font-size: 18px;
+  }
+
+  &__info {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0 15px 15px 0;
+    cursor: pointer;
+    height: 100%;
+    max-height: 300px;
+    max-width: 300px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+  }
+
+  &__square {
+    display: flex;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    padding-top: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  &__image {
+    height: 100%;
+    left: 0;
+    object-fit: contain;
+    object-position: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.dark {
+  .upcoming-events {
+    background-color: $black;
+
+    &__header {
+      color: $white;
+      font-weight: 200;
+    }
+  }
+}

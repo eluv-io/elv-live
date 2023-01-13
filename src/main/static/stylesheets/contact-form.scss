@@ -1,0 +1,110 @@
+.contact-form {
+  display: grid;
+  gap: 75px;
+  grid-template-columns: 450px 1fr;
+  padding-bottom: 75px;
+  padding-top: 75px;
+
+  &__copy-header {
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  &__copy-message {
+    font-size: var(--font-size-body-2);
+  }
+
+  &__form {
+    border: 2px solid var(--color-highlight-2);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 15px 105px 15px 15px;
+    position: relative;
+    width: 100%;
+  }
+
+  &__input,
+  &__message {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--color-text-light-1);
+    font-size: var(--font-size-body-3);
+    padding: 10px;
+    transition: box-shadow 0.15s ease;
+    width: 100%;
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.75;
+    }
+
+    &:focus-visible {
+      border: 1px solid var(--color-highlight-2);
+      box-shadow: 0 0 3px rgba(155, 81, 224, 0.5);
+      outline: 0;
+    }
+
+    &.invalid {
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+  }
+
+  &__separator {
+    height: 1px;
+    margin: 5px 0;
+    width: 250px;
+  }
+
+  &__submit {
+    bottom: 15px;
+    position: absolute;
+    right: 15px;
+  }
+
+  &.light {
+    background: linear-gradient(180deg, rgba(155, 81, 224, 0) 0%, rgba(155, 81, 224, 0.05) 100%);
+
+    .contact-form__form {
+      background: var(--background-light-1);
+      filter: drop-shadow(0 0 40px rgba(155, 81, 224, 0.13));
+    }
+
+    .contact-form__input,
+    .contact-form__message {
+      color: var(--color-text-light-1);
+    }
+
+    .contact-form__separator {
+      background: var(--background-light-3);
+    }
+  }
+
+  &.dark {
+    .contact-form__copy {
+      color: var(--color-text-dark-1);
+    }
+
+    .contact-form__form {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(180deg, #000 0%, rgba(29, 29, 29, 0.65) 100%);
+      box-shadow: 0 0 40px rgba(155, 81, 224, 0.13);
+    }
+
+    .contact-form__input,
+    .contact-form__message {
+      color: var(--color-text-dark-1);
+    }
+
+    .contact-form__separator {
+      background: var(--background-dark-3);
+    }
+  }
+
+  @media screen and (max-width: $width-laptop) {
+    gap: 35px;
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    grid-template-columns: 1fr;
+  }
+}

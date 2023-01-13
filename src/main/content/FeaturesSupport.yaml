@@ -1,0 +1,83 @@
+header: "Customer Service and Support"
+description: "Eluvio strives to provide the highest quality content streaming and delivery experience and an always-available service. All platform availability/service degraded issues are resolved with continuous highest priority according to the SLAs in the Eluvio Platform Services Agreement. Streaming quality means high picture quality, streaming at the maximum currently available bandwidth of the end client, and negligible rebuffering."
+gridItems:
+  - label: "24x7 Platform Monitoring with Service Credits per Agreement"
+    payAsYouGo: true
+    advanced: true
+    enterprise: true
+    icons:
+      aroundClock: false
+      email: false
+      telephone: false
+      slack: false
+  - label: "Standard Customer Service"
+    payAsYouGo: true
+    advanced: true
+    enterprise: true
+    icons:
+      aroundClock: false
+      email: true
+      telephone: false
+      slack: false
+  - label: "Standard Customer Service"
+    payAsYouGo: false
+    advanced: true
+    enterprise: true
+    icons:
+      aroundClock: false
+      email: true
+      telephone: true
+      slack: false
+  - label: "Priority Customer Service"
+    payAsYouGo: false
+    advanced: false
+    enterprise: true
+    icons:
+      aroundClock: true
+      email: true
+      telephone: true
+      slack: true
+  - label: "Best Effort Developer API Support"
+    payAsYouGo: false
+    advanced: true
+    enterprise: true
+    icons:
+      aroundClock: false
+      email: true
+      telephone: false
+      slack: false
+  - label: "Dedicated Developer API Support"
+    payAsYouGo: false
+    advanced: false
+    enterprise: true
+    icons:
+      aroundClock: false
+      email: false
+      telephone: false
+      slack: true
+standardCustomerService:
+  header: "Standard Customer Service"
+  items:
+    - label: "Provided Monday - Friday, 8 am to 6"
+      icon: clockIcon
+    - label: "Email via support@eluv.io"
+      icon: mailIcon
+    - label: "Telephone via Google Voice"
+      icon: telephoneIcon
+priorityCustomerService:
+  header: "Priority Customer Service"
+  items:
+    - label: "Provided 24x7x365 "
+      icon: clockIcon
+    - label: "Dedicated slack channel"
+      icon: slackIcon
+    - label: "Telephone via Google Voice with Paging"
+      icon: telephoneIcon
+    - label: "Guaranteed 2-hour initial response on customer specific trouble tickets"
+      icon: flagIcon
+    - label: "Best effort same day resolution on high severity issues"
+      icon: minimizeIcon
+    - label: "Best effort next day resolution on medium severity issues"
+      icon: minimizeIcon
+    - label: "Priority early access to new capabilities and roadmap review"
+      icon: mapIcon

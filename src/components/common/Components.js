@@ -1,18 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import {createRoot} from "react-dom/client";
 import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
+import DOMPurify from "dompurify";
 
 export const RichText = ({richText, className=""}) => {
+  const [reactRoot, setReactRoot] = useState(undefined);
+
   return (
     <div
       className={`rich-text ${className}`}
       ref={element => {
         if(!element) { return; }
 
-        createRoot(element).render(
+        const root = reactRoot || createRoot(element);
+        setReactRoot(root);
+
+        root.render(
           <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-            { SanitizeHTML(richText) }
+            { DOMPurify.sanitize(richText) }
           </ReactMarkdown>,
         );
       }}
