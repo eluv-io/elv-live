@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {createPortal} from "react-dom";
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";

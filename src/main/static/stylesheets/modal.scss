@@ -1,13 +1,13 @@
 .modal {
-  height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: flex;
   align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  height: 100vh;
   justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
 
   &.full {
     .modal__content {
@@ -16,24 +16,24 @@
   }
 
   &__content {
-    width: max-content;
     height: max-content;
     max-height: 100vh;
     overflow-y: auto;
+    width: max-content;
   }
 
   &__close-button {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    padding: 5px;
-    color: var(--color-text-light-1);
     border: 2px solid var(--color-text-light-1);
+    border-radius: 100%;
+    color: var(--color-text-light-1);
+    display: flex;
+    justify-content: center;
     opacity: 0.5;
+    padding: 5px;
+    position: absolute;
+    right: 50px;
+    top: 50px;
     transition: opacity 0.15s ease;
     z-index: 1000;
 
@@ -49,16 +49,16 @@
   }
 
   .modal__close-button {
-    color: var(--color-text-light-1);
     background: var(--background-light-1);
     border: 2px solid var(--color-text-light-1);
+    color: var(--color-text-light-1);
   }
 
   &.dark {
     .modal__close-button {
-      color: var(--color-text-dark-1);
       background: var(--background-dark-1);
       border: 2px solid var(--color-text-dark-1);
+      color: var(--color-text-dark-1);
     }
   }
 }

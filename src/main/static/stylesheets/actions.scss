@@ -1,19 +1,19 @@
 .button {
-  height: 60px;
-  padding-inline: 30px;
-  display: flex;
   align-items: center;
-  justify-content: center;
   border-radius: 8px;
+  display: flex;
   font-size: var(--font-size-body-3);
   font-weight: 600;
   gap: 15px;
-  width: max-content;
+  height: 60px;
+  justify-content: center;
+  padding-inline: 30px;
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+  width: max-content;
 
   &:disabled {
-    opacity: 0.75;
     cursor: default;
+    opacity: 0.75;
   }
 
   .action__icon {
@@ -21,11 +21,11 @@
   }
 
   &.small {
+    border-radius: 5px;
     font-size: var(--font-size-body-4);
+    gap: 10px;
     height: 40px;
     padding-inline: 15px;
-    gap: 10px;
-    border-radius: 5px;
 
     .action__icon {
       height: 20px;
@@ -33,12 +33,12 @@
   }
 
   &.extra-small {
-    font-size: var(--font-size-body-4);
-    height: 30px;
-    padding-inline: 10px;
-    gap: 7px;
     border-radius: 5px;
+    font-size: var(--font-size-body-4);
     font-weight: 400;
+    gap: 7px;
+    height: 35px;
+    padding-inline: 10px;
 
     .action__icon {
       height: 15px;
@@ -53,7 +53,7 @@
       &:hover,
       &:focus-visible {
         &:not(&:active) {
-          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
         }
       }
 
@@ -68,13 +68,13 @@
 
     &.secondary {
       background: var(--background-light-2);
-      color: var(--color-text-light-2);
       border: 2px solid var(--color-highlight-3);
+      color: var(--color-text-light-2);
 
       &:hover,
       &:focus-visible {
         &:not(&:active) {
-          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
         }
       }
 
@@ -90,7 +90,7 @@
 
   &.dark {
     &.primary {
-      background: var(--background-dark-3);
+      background: var(--background-dark-4);
       color: var(--color-text-dark-3);
 
       &:hover,
@@ -99,7 +99,7 @@
         color: var(--color-text-dark-1);
 
         &:not(&:active) {
-          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
         }
 
         .loader {
@@ -120,11 +120,11 @@
       &:hover,
       &:focus-visible {
         background: var(--background-dark-2);
-        color: var(--color-highlight-1);
         border: 2px solid var(--color-highlight-1);
+        color: var(--color-highlight-1);
 
         &:not(&:active) {
-          filter: drop-shadow(0px 0px 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
         }
 
         .loader {
@@ -140,29 +140,29 @@
 }
 
 .loader-button {
-  position: relative;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
+  position: relative;
 
-  & > * {
-    transition: opacity 0.15s ease!important;
+  > * {
+    transition: opacity 0.15s ease !important;
   }
 
   &__indicator {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .loader {
     height: 40px;
-    width: 40px;
     opacity: 0.75;
+    width: 40px;
   }
 
   &.small {
@@ -180,7 +180,7 @@
   }
 
   &.normal {
-    & > :not(.loader-button__indicator) {
+    > :not(.loader-button__indicator) {
       opacity: 1;
     }
 
@@ -190,7 +190,7 @@
   }
 
   &.loading {
-    & > :not(.loader-button__indicator) {
+    > :not(.loader-button__indicator) {
       opacity: 0;
     }
 
@@ -202,8 +202,8 @@
 
 .link {
   font-size: var(--font-size-body-2);
-  width: max-content;
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+  width: max-content;
 
   &.light {
     color: var(--color-text-light-1);

@@ -14,10 +14,13 @@
     "add-build": "git add dist",
     "lint-js": "eslint \"src/**/*.js\"",
     "fix-js": "eslint \"src/**/*.js\" --fix",
-    "lint-scss": "stylelint '**/*.scss' --config stylelint.config.js",
-    "fix-scss": "stylelint '**/*.scss' --config stylelint.config.js --fix",
+    "fix-js-main": "eslint \"src/main/**/*.js\" --fix",
+    "lint-scss": "stylelint 'src/**/*.scss' --config stylelint.config.js",
+    "fix-scss": "stylelint 'src/**/*.scss' --config stylelint.config.js --fix",
+    "fix-scss-main": "stylelint 'src/main/**/*.scss' --config stylelint.config.js --fix",
     "lint-show": "npm run lint-scss ; npm run lint-js",
     "lint": "npm run fix-scss ; npm run fix-js",
+    "lint-main": "npm run fix-scss-main ; npm run fix-js-main",
     "test": "jest"
   },
   "dependencies": {

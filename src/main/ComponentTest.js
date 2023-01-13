@@ -123,6 +123,8 @@ const ComponentTest = observer(() => {
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="dark primary extra-small">Send</ButtonWithLoader>
 
         <CaptionedImage image={TestImage2} expandable caption="This is an image caption. It will wrap if it is too long." className="component-test__captioned-image dark" imageClassName="component-test__image" />
+
+        <ContactForm className="dark" />
       </div>
     </>
   );

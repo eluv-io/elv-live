@@ -1,7 +1,12 @@
+$width-laptop: 1440px;
+$width-tablet: 1000px;
+$width-mobile: 600px;
+
 :root {
   --font-size-header-1: 40px;
-  --font-size-header-2: 32px;
-  --font-size-header-3: 20px;
+  --font-size-header-2: 40px;
+  --font-size-header-3: 32px;
+  --font-size-header-4: 20px;
 
   --font-size-body-1: 32px;
   --font-size-body-2: 24px;
@@ -10,35 +15,48 @@
   --font-size-body-5: 12px;
 
   /* Colors */
-  --color-highlight-1: #C07CFF;
-  --color-highlight-2: #9B51E0;
-  --color-highlight-3: #791CD0;
+  --color-highlight-1: #c07cff;
+  --color-highlight-2: #9b51e0;
+  --color-highlight-3: #791cd0;
 
-  --color-icon-light-1: #56CCF2;
+  --color-icon-light-1: #56ccf2;
 
-  --color-icon-dark-1: #000000;
-  --color-icon-dark-2: #FFFFFF;
+  --color-icon-dark-1: #000;
+  --color-icon-dark-2: #fff;
 
-  --color-text-light-1: #000000;
-  --color-text-light-2: #11243E;
+  --color-text-light-1: #000;
+  --color-text-light-2: #11243e;
   --color-text-light-3: #465465;
-  --color-text-light-4: #AAADB3;
+  --color-text-light-4: #aaadb3;
   --color-text-light-highlight: var(--color-highlight-2);
 
-  --color-text-dark-1: #FFFFFF;
+  --color-text-dark-1: #fff;
   --color-text-dark-2: #949494;
-  --color-text-dark-3: #11243E;
+  --color-text-dark-3: #11243e;
 
-  --background-dark-1: #0D0D0E;
-  --background-dark-2: #1A1A1A;
-  --background-dark-3: #FFFFFF;
+  --background-dark-1: #0d0d0e;
+  --background-dark-2: #1a1a1a;
+  --background-dark-3: #2e2e2e;
+  --background-dark-4: #fff;
 
-  --background-light-1: #F7F9FC;
-  --background-light-2: #FFFFFF;
-  --background-light-3: #DEDEDE;
+  --background-light-1: #f7f9fc;
+  --background-light-2: #fff;
+  --background-light-3: #dedede;
 
   --background-gradient-footer-light: linear-gradient(180deg, rgba(155, 81, 224, 0) 0%, rgba(155, 81, 224, 0.1) 100%);
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
+
+  @media screen and (max-width: $width-tablet) {
+    --font-size-header-2: 32px;
+    --font-size-header-3: 24px;
+    --font-size-header-4: 18px;
+
+    --font-size-body-1: 28px;
+    --font-size-body-2: 20px;
+    --font-size-body-3: 16px;
+    --font-size-body-4: 12px;
+    --font-size-body-5: 10px;
+  }
 
   @keyframes fadein {
     from { opacity: 0; }

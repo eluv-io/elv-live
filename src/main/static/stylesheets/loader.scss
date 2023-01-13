@@ -19,12 +19,12 @@
 }
 
 .loader {
+  --loader-color: #fff;
   font-size: 18px;
   height: 30px;
   letter-spacing: 1px;
   position: relative;
   width: 30px;
-  --loader-color: #FFFFFF;
 
   &__element {
     animation-direction: normal, normal;
