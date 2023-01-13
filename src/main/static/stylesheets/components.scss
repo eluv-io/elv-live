@@ -1,0 +1,292 @@
+.rich-text {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p,
+  ul {
+    margin-bottom: 20px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 500;
+  }
+
+  a {
+    color: var(--color-highlight-2);
+  }
+
+  ul {
+    margin-left: 50px;
+
+    li {
+      list-style-type: disc;
+    }
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    ul {
+      margin-left: 20px;
+    }
+  }
+}
+
+.captioned-image {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  &__caption {
+    color: var(--color-text-light-1);
+    font-size: var(--font-size-body-4);
+    font-style: italic;
+    margin-top: 5px;
+  }
+
+  &.dark {
+    .captioned-image__caption {
+      color: var(--color-text-dark-1);
+    }
+  }
+
+  &--expandable {
+    cursor: pointer;
+  }
+
+  &--expanded {
+    &.captioned-image {
+      justify-content: center;
+      max-height: 100vh;
+      max-width: 100vw;
+      object-fit: contain;
+
+      .captioned-image__image {
+        max-height: 100vh;
+        max-width: 100vw;
+      }
+
+      .captioned-image__caption {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        bottom: 20px;
+        color: var(--color-text-dark-1);
+        left: 20px;
+        margin-right: 20px;
+        padding: 7px 15px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.curved-box {
+  border-radius: 25px;
+  padding: 25px 45px 35px;
+
+  &.light {
+    background: var(--background-light-2);
+    color: var(--color-text-light-1);
+  }
+
+  &.dark {
+    background: var(--background-dark-2);
+    color: var(--color-text-dark-1);
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    padding: 30px 30px 40px;
+  }
+}
+
+
+.info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  width: max-content;
+
+
+  &__content {
+    display: flex;
+    gap: 30px;
+  }
+
+  &__icon-container {
+    display: flex;
+    width: max-content;
+  }
+
+  &__icon {
+    height: 45px;
+    max-width: 45px;
+    width: auto;
+  }
+
+  &__header {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  &__links {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    margin-left: 40px;
+    max-width: 300px;
+    width: 100%;
+  }
+
+  &__link {
+    min-width: 320px;
+    width: 100%;
+  }
+
+  &.news-item {
+    .info-box__header {
+      font-size: var(--font-size-body-4);
+    }
+  }
+
+  &.light {
+    .info-box__subheader {
+      color: var(--color-text-light-3);
+    }
+
+    .info-box__text-content {
+      color: var(--color-text-light-3);
+    }
+  }
+
+  &.dark {
+    .info-box__subheader {
+      color: var(--color-text-dark-3);
+    }
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    &__content {
+      display: grid;
+      gap: 15px;
+    }
+
+    &__icon-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    &__icon {
+      height: 75px;
+      max-width: 75px;
+    }
+
+    &__links {
+      margin: 20px 0 0;
+    }
+
+    &__link {
+      max-width: 600px;
+      min-width: 250px;
+      width: 100%;
+    }
+  }
+}
+
+.tabbed-info-box {
+  display: grid;
+  gap: 30px;
+  height: max-content;
+  max-width: 100%;
+  width: 100%;
+
+  &__tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  &__tab {
+    font-size: var(--font-size-body-2);
+  }
+
+  &__content--shadow {
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.25);
+  }
+
+  @media screen and (max-width: $width-laptop) {
+    &__tab {
+      font-size: var(--font-size-body-3);
+    }
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    &__tab {
+      height: 50px;
+      padding-inline: 20px;
+    }
+
+    &__tab-text {
+      display: none;
+    }
+  }
+}
+
+.carousel {
+  width: 100%;
+
+  &__slide {
+    padding: 20px;
+    width: max-content;
+  }
+
+  .swiper-wrapper {
+    margin-bottom: 20px;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  &.centered {
+    justify-content: center;
+  }
+}
+
+.accordion {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+    width: 100%;
+  }
+
+  &__description {
+    margin: 24px 0;
+  }
+
+  svg {
+    margin-right: 28px;
+  }
+}
+
+@media screen and (max-width: $width-tablet) {
+  .faqs .accordion .accordion__header {
+    padding: 15px 5px;
+  }
+}

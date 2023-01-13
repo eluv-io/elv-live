@@ -1,0 +1,369 @@
+.landing-page {
+  @include page-fade-in;
+  background: $black !important;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+
+  &-custom-background {
+    background: $white !important;
+
+    .landing-page__text-container {
+      background-color: rgba($white, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      color: $black;
+      padding: 30px;
+    }
+
+    .landing-page__text-countdown {
+      color: $black;
+    }
+
+    .landing-page__enter-marketplace,
+    .landing-page__enter-event {
+      border: 1px solid rgba($black, 0.6);
+      color: $black;
+
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+
+  * {
+    z-index: 1;
+  }
+
+  &__background {
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    left: 0;
+    mask-image: linear-gradient(rgba($white, 1) 75%, rgba($white, 0.5) 85%, rgba($white, 0) 100%);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 auto;
+    max-width: 800px;
+    min-height: 100vh;
+    padding-top: 80px;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .live-footer {
+    height: 120px;
+
+    .footer-info {
+      align-items: center;
+      border: 0;
+      display: flex;
+      height: 38px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &__text-container {
+    margin: 20px auto;
+    max-width: 500px;
+  }
+
+  &__text {
+    font-size: 24px;
+    font-weight: 200;
+    letter-spacing: 0.1em;
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  &__text-bold {
+    font-weight: 500;
+  }
+
+  &__text-countdown {
+    color: #f0e5d4;
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    margin: 20px auto;
+  }
+
+  &__text-return {
+    font-size: 18px;
+    margin: 0 auto;
+    max-width: 475px;
+  }
+
+  &__text-confirmation {
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    margin-top: 5px;
+  }
+
+  &__logo,
+  &__event-logo {
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+  }
+
+  &__logo {
+    height: 40px;
+    margin: 0 auto 40px;
+    width: 100%;
+
+    * {
+      fill: $white;
+      stroke: $white;
+    }
+  }
+
+  &__event-logo {
+    flex: 1 1 150px;
+    margin: 30px auto;
+    max-height: 300px;
+  }
+
+  &__event-header {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    margin: 30px auto;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__enter-marketplace,
+  &__enter-event {
+    @include page-fade-in;
+    align-items: center;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 3px;
+    color: $white;
+    cursor: pointer;
+    display: flex;
+    font-size: 18px;
+    height: 50px;
+    justify-content: center;
+    letter-spacing: 0.14em;
+    margin: 20px auto;
+    text-transform: uppercase;
+    width: 255px;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  &__enter-marketplace {
+    padding: 0 30px;
+    width: auto;
+  }
+
+  &__new-code-link-container {
+    align-items: flex-end;
+    bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    position: absolute;
+    right: 20px;
+    width: 100%;
+  }
+
+  &__new-code-link {
+    color: $white;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    opacity: 0.5;
+    right: 30px;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  &__powered-by {
+    margin: 0 auto;
+    padding: 30px 0;
+
+    &__tagline {
+      color: $white;
+      font-size: 12px;
+      font-weight: 300;
+
+      &:hover {
+        color: $white;
+      }
+    }
+
+    &__logo {
+      height: 10px;
+      margin-left: 2px;
+
+      * {
+        fill: $white;
+        stroke: $white;
+      }
+    }
+  }
+
+  .loader {
+    margin-top: 20px;
+  }
+
+  .calendar-button-container {
+    position: relative;
+  }
+
+  .calendar-button {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto 0;
+    width: auto;
+
+    a {
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 300;
+      justify-content: center;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+  }
+
+  .calendar-button-dropdown {
+    bottom: 10px;
+    padding-bottom: 30px;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+
+    ul {
+      background-color: $white;
+      border-radius: 10px;
+      box-shadow: 0 4px 50px rgba(0, 0, 0, 0.15);
+      color: $black;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      border-radius: 10px;
+      height: 50px;
+
+      &:hover {
+        background-color: $lightgray;
+      }
+
+      &:not(:first-child) {
+        border-top: 1px solid rgba($gray, 0.1);
+      }
+    }
+
+    a {
+      align-items: center;
+      color: $black;
+      display: flex;
+      font-size: 14px;
+      font-weight: 300;
+      height: 100%;
+      justify-content: center;
+      line-height: 18px;
+      user-select: none;
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    &__enter-marketplace,
+    &__enter-event {
+      font-size: 14px;
+    }
+
+    &__content {
+      max-width: unset;
+      padding: 100px 20px 20px;
+      width: 100%;
+    }
+
+    &__event-logo {
+      height: 125px;
+    }
+
+    &__text {
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+    }
+
+    &__text-countdown {
+      font-size: 22px;
+      font-weight: normal;
+    }
+
+    &__text-confirmation {
+      font-size: 12px;
+    }
+
+    &__new-code-link-container {
+      height: 50px;
+      justify-content: center;
+      padding: 0;
+      position: unset;
+      width: 100%;
+    }
+
+    &__new-code-link {
+      font-size: 14px;
+      right: 20px;
+    }
+  }
+}
+
+.dark {
+  .landing-page {
+    &-custom-background {
+      background-color: $black !important;
+
+      .landing-page__text-container {
+        background-color: rgba($black, 0.9);
+        box-shadow: 0 4px 10px rgba($black, 0.25);
+        color: $white;
+      }
+
+      .landing-page__text-countdown {
+        color: $white;
+      }
+
+      .landing-page__enter-marketplace,
+      .landing-page__enter-event {
+        border: 1px solid rgba($white, 0.6);
+        color: $white;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+}

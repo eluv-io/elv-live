@@ -1,0 +1,108 @@
+$width-max: 1600px;
+
+$width-laptop: 1440px;
+$width-tablet: 1000px;
+$width-mobile: 600px;
+
+:root {
+  --horizontal-content-padding: 150px;
+
+  --font-size-header-1: 40px;
+  --font-size-header-2: 40px;
+  --font-size-header-3: 32px;
+  --font-size-header-4: 24px;
+  --font-size-header-5: 20px;
+
+  --font-size-body-1: 32px;
+  --font-size-body-2: 24px;
+  --font-size-body-3: 18px;
+  --font-size-body-4: 14px;
+  --font-size-body-5: 12px;
+  --font-size-body-6: 10px;
+
+  /* Colors */
+  --color-highlight-1: #c07cff;
+  --color-highlight-2: #9b51e0;
+  --color-highlight-3: #791cd0;
+
+  --color-icon-light-1: #56ccf2;
+  --color-icon-light-2: #2d9cdb;
+
+  --color-icon-dark-1: #000;
+  --color-icon-dark-2: #fff;
+
+  --color-text-light-1: #000;
+  --color-text-light-2: #11243e;
+  --color-text-light-3: #465465;
+  --color-text-light-4: #434343;
+  --color-text-light-5: #aaadb3;
+  --color-text-light-6: #aaa9a9;
+  --color-text-light-7: #36c;
+  --color-text-light-8: #505050;
+  --color-text-light-highlight: var(--color-highlight-2);
+
+  --color-text-dark-1: #fff;
+  --color-text-dark-2: #949494;
+  --color-text-dark-3: #949494;
+  --color-text-dark-4: #11243e;
+  --color-text-dark-highlight: #56ccf2;
+
+  --background-dark-1: #0d0d0e;
+  --background-dark-2: #1a1a1a;
+  --background-dark-3: #2e2e2e;
+  --background-dark-4: #fff;
+
+  --background-light-1: #f7f9fc;
+  --background-light-2: #fff;
+  --background-light-3: #dedede;
+  --background-light-4: #f5f5f5;
+  --background-light-5: #efecf4;
+  --background-light-6: #d9d9d9;
+
+  --background-gradient-footer-light: linear-gradient(180deg, rgba(155, 81, 224, 0) 0%, rgba(155, 81, 224, 0.1) 100%);
+  --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
+  --background-gradient-features-banner: linear-gradient(180deg, #471671 0%, #371870 100%);
+
+  @media screen and (max-width: $width-laptop) {
+    --horizontal-content-padding: 100px;
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    --horizontal-content-padding: 50px;
+
+    --font-size-header-2: 32px;
+    --font-size-header-3: 24px;
+    --font-size-header-4: 18px;
+
+    --font-size-body-1: 28px;
+    --font-size-body-2: 20px;
+    --font-size-body-3: 16px;
+    --font-size-body-4: 12px;
+    --font-size-body-5: 10px;
+  }
+
+  @media screen and (max-width: $width-mobile) {
+    --horizontal-content-padding: 20px;
+
+    --font-size-header-1: 32px;
+    --font-size-header-2: 28px;
+    --font-size-header-3: 22px;
+    --font-size-header-4: 16px;
+
+    --font-size-body-1: 26px;
+    --font-size-body-2: 18px;
+    --font-size-body-3: 14px;
+    --font-size-body-4: 10px;
+    --font-size-body-5: 8px;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+}

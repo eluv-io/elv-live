@@ -1,0 +1,590 @@
+.checkout {
+  background: $white;
+  color: black;
+  max-width: 100%;
+  padding: 20px 0 50px;
+  position: relative;
+  width: 100%;
+
+  * {
+    font-size: 16px;
+  }
+
+  .checkout-page-section {
+    padding: 0 37px 37px 91px;
+  }
+
+  .bottom-border {
+    background: #d0d0d0;
+    height: 1px;
+    left: -37px;
+    margin-top: 37px;
+    position: absolute;
+    width: calc(100% + 37px);
+  }
+
+  .cart-section {
+    padding-bottom: 0;
+
+    &.empty {
+      color: #818181;
+      font-size: 18px;
+      font-weight: normal;
+      line-height: 23px;
+      padding-bottom: 37px;
+      text-align: center;
+    }
+  }
+
+  .checkout-section-header {
+    align-items: center;
+    display: flex;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.07em;
+    line-height: 28px;
+    margin: 41px 0 26px;
+    position: relative;
+    text-transform: uppercase;
+
+    svg {
+      height: 30px;
+      margin-right: 17px;
+      width: 30px;
+    }
+  }
+
+  .checkout-section-text {
+    align-items: center;
+    display: flex;
+    font-size: 24px;
+  }
+
+  .currency-selection-container {
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    font-weight: 300;
+    position: absolute;
+    right: 0;
+  }
+
+  .currency-selection {
+    font-size: 14px;
+    margin-left: 10px;
+    width: 250px;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-gap: 13px;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    position: relative;
+
+    .bottom-border {
+      bottom: 0;
+      left: -91px;
+      margin: 0;
+      width: calc(100% + 127px);
+    }
+  }
+
+  .cart-header {
+    height: 71px;
+  }
+
+  .cart-header-column {
+    align-items: center;
+    background-color: #f7f4f2;
+    display: flex;
+    font-weight: 300;
+    height: 71px;
+    justify-content: center;
+
+    &.long {
+      justify-content: flex-start;
+      padding-left: 56px;
+    }
+  }
+
+  .cart-item-cell {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 24px 10px;
+
+    &:not(.cart-item-info) {
+      align-items: flex-start;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .cart-item-price,
+  .cart-item-total {
+    padding-top: 34px;
+  }
+
+  .item-name {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    line-height: 28px;
+    padding: 20px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .ticket-item {
+    display: grid;
+    grid-gap: 43px;
+    grid-template-columns: auto 1fr;
+
+    .ticket-item-image {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      max-height: 246px;
+      min-height: 246px;
+      width: 168px;
+
+      img {
+        max-height: 100%;
+      }
+    }
+
+    * {
+      font-size: 18px;
+      font-weight: normal;
+    }
+  }
+
+  .ticket-item-detail {
+    line-height: 22px;
+    text-transform: capitalize;
+  }
+
+  .ticket-item-description {
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 19px;
+  }
+
+  .item-quantity {
+    background-color: $white;
+    border: 1px solid $black;
+    width: 85px;
+  }
+
+  .remove-item {
+    background: transparent;
+    border: 0;
+    bottom: 19px;
+    color: #4e4e4e;
+    cursor: pointer;
+    outline: 0;
+    position: absolute;
+    right: 10px;
+    text-decoration: underline;
+  }
+
+  .order-summary {
+    background: #f2eeea;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding: 30px 45px;
+    width: 611px;
+
+    label {
+      margin-bottom: 10px;
+    }
+
+    .spacer {
+      height: 30px;
+    }
+
+    .hint {
+      color: #999;
+      display: flex;
+      font-size: 10px;
+      height: 10px;
+      margin-left: 1px;
+      top: 18px;
+      width: auto;
+    }
+
+    .order-value {
+      font-weight: bold;
+      text-align: right;
+    }
+  }
+
+  .email-entry {
+    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    margin-top: 27px;
+  }
+
+  .featured-tickets {
+    display: grid;
+    grid-gap: 42px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .featured-ticket {
+    @include item-block;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+
+    * {
+      font-weight: 300;
+    }
+
+    .featured-ticket-header {
+      font-size: 18px;
+
+    }
+
+    .featured-ticket-selection {
+      margin-right: 10px;
+      min-height: 20px;
+      min-width: 20px;
+    }
+
+    .featured-ticket-price {
+      font-size: 18px;
+      font-weight: bold;
+      position: absolute;
+      right: 0;
+    }
+
+    .featured-ticket-details {
+      display: flex;
+      margin-top: 17px;
+
+      .ticket-item-detail {
+        font-size: 14px;
+      }
+
+      .separator {
+        font-weight: bold;
+        padding: 0 6px;
+      }
+    }
+
+    .featured-ticket-options {
+      align-items: flex-end;
+      display: flex;
+      flex: 1 1 auto;
+      margin-top: 23px;
+
+      .ticket-sku {
+        width: 100%;
+
+        select {
+          width: 225px;
+        }
+      }
+
+      .item-quantity {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .checkout-button {
+    align-items: center;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    letter-spacing: 0.14em;
+    position: relative;
+    text-transform: uppercase;
+  }
+
+  .coinbase-button {
+    background: #1569cd;
+  }
+
+  .stripe-checkout-logo {
+    height: 38px;
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    width: auto;
+  }
+
+  .payment-actions {
+    margin-top: 27px;
+
+    &.disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    & > * {
+      margin-top: 10px;
+    }
+
+    .checkout-error-message {
+      color: $black;
+    }
+
+    .checkout-button,
+    .paypal-button {
+      width: 611px;
+    }
+
+    .paypal-button {
+      margin-bottom: 10px;
+
+      & > div {
+        height: 50px;
+      }
+    }
+
+    .loader {
+      height: 170px;
+      max-width: 611px;
+    }
+  }
+
+  .sponsors-message {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    letter-spacing: 0.07em;
+    margin-bottom: 10px;
+    max-width: 611px;
+    text-align: center;
+    width: 611px;
+  }
+
+  .sponsors-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 50px;
+    max-width: 611px;
+    padding: 0;
+    width: 611px;
+  }
+
+  .sponsor-image-container {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    height: 100px;
+    justify-content: center;
+    margin: 10px 5px 10px 0;
+    max-height: 80px;
+    overflow: hidden;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .sponsor-image {
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .checkout {
+    min-height: 100vh;
+    padding: 0 0 150px;
+    width: 100vw;
+
+    .checkout-page-section {
+      padding: 10px 20px 20px;
+
+      &:not(.no-border) {
+        border-bottom: 1px solid #d0d0d0;
+      }
+    }
+
+    .checkout-section-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .currency-selection-container {
+      align-self: center;
+      flex-direction: column;
+      font-size: 12px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .currency-selection {
+      font-size: 12px;
+      width: 215px;
+    }
+
+    .bottom-border {
+      display: none;
+    }
+
+    .cart-item {
+      display: block;
+      margin-bottom: 42px;
+    }
+
+    .cart-item-cell {
+      padding: 0;
+    }
+
+    .merchandise-item {
+      margin-bottom: 42px;
+    }
+
+    .ticket-item-mobile {
+      @include item-block;
+      display: block;
+      width: 100%;
+
+      h2 {
+        font-weight: bold;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        padding: 0;
+      }
+
+      .ticket-item {
+        grid-gap: 15px;
+      }
+
+      .ticket-item-image {
+        max-height: 150px;
+        min-height: 150px;
+        width: 120px !important;
+      }
+
+      .ticket-item-price {
+        margin-left: 10px;
+      }
+
+      .item-quantity {
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .remove-item {
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+        position: initial;
+        text-align: right;
+        width: 100%;
+      }
+    }
+
+    .featured-tickets {
+      display: block;
+    }
+
+    .featured-ticket {
+      margin-bottom: 42px;
+
+      .featured-ticket-options {
+        .ticket-sku {
+          flex: 1 1 auto;
+          font-size: 12px;
+          width: 100%;
+        }
+      }
+
+      .ticket-item-detail {
+        text-align: center;
+      }
+
+      .featured-ticket-price {
+        font-size: 16px;
+      }
+    }
+
+    .featured-ticket-details {
+      flex-direction: column;
+
+      & > div {
+        font-size: 12px;
+        text-align: left;
+      }
+
+      .separator {
+        display: none;
+      }
+    }
+
+    .email-entry {
+      width: 611px;
+    }
+
+    .checkout-button {
+      font-size: 14px;
+      justify-content: space-evenly;
+    }
+
+    .stripe-checkout-logo {
+      position: relative;
+      right: 0;
+    }
+  }
+}
+
+// Paypal button max width is 750px, so don't adjust order summary section until we can 100% it
+@media only screen and (max-width: 750px) {
+  .checkout {
+    .email-entry {
+      width: 100%;
+    }
+
+    .order-summary {
+      width: 100%;
+    }
+
+    .payment-actions {
+      .checkout-button,
+      .paypal-button,
+      .paypal-buttons {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    .sponsors-message,
+    .sponsors-container {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .checkout {
+    .ticket-item-mobile {
+      .subheader {
+        display: none;
+      }
+    }
+
+    .ticket-item {
+      grid-template-columns: 1fr;
+
+      .ticket-item-image {
+        margin: auto;
+        max-height: unset;
+        width: 50% !important;
+      }
+    }
+  }
+}
