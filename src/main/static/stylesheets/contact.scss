@@ -1,0 +1,16 @@
+.contact {
+  &__connect {
+    margin-top: 50px;
+  }
+
+  &__link-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px 0;
+  }
+
+  &__link {
+    text-align: left;
+  }
+}

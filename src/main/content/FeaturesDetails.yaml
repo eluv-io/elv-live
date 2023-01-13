@@ -1,0 +1,276 @@
+- header: "Media Application Platform"
+  id: "media-application"
+  items:
+    - title: "Direct Ingest from File System and Cloud Storage"
+      items:
+        - contentTitle: "By reference and by copy"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "From S3 and Glacier, via Direct Connect"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Any master format"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Automatic creation of serviceable master and mezz"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Publishing APIs (github)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Live Streaming Ingest"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Automatic Versioning of Content w/ Metadata"
+      items:
+        - contentTitle: "All content (master and mezz) versions recorded"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "All version updates (tracks, metadata) by reference so no copies"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Native IMF ingest and version updates"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Metadata and Video Update and Versioning"
+      items:
+        - contentTitle: "Frame Accurate Video Editor with metadata curation, clipping, editing"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Automatic upres of SD / lower quality content using ML"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Site API & Static Content Delivery"
+      items:
+        - contentTitle: "Reusable \"site\" API for dynamic and static content in front end"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Static & dynamic URL-based content delivery for images, metadata"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Customizable publishing app (replaces CMS)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Search API"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Automatic Tagging of Asset using ML"
+      items:
+        - contentTitle: "Object, Celebrity, Landmark (frame level)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Segment Content (period level)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Textual capture (in video, subtitles, captions)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Content Tag & Video Search"
+      items:
+        - contentTitle: "Across site assets by tag"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Via video understanding API (ML tagged)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Dynamic Playlists and Channels"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Dynamic Bitcode API"
+      items:
+        - contentTitle: "Build interactive branching experiences/games"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+
+- header: "Content Distribution Features"
+  id: "content-distribution"
+  items:
+    - title: "Global Streaming (ABR) on publishing"
+      items:
+        - contentTitle: "Web, mobile, TVE"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "H264 DASH/HLS"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "H265/HEVC DASH/HLS"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "HDR"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "DRM Widevine, HLS-AES, etc."
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "No 3rd party CDN, cloud transcoding, or storage"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Globally replicated, no single points or geo of failure"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Trustless security model"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Any standards-compliant player and Streaming APIs"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "File Download API"
+      items:
+        - contentTitle: "File and directory download of assets"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Built-in Rights/Availability Management"
+      items:
+        - contentTitle: "Time, Viewer Geo, by User, by Group, by Offering"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Visible Watermarking"
+      items:
+        - contentTitle: "JIT text or image watermarking in single offering"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "JIT text or image watermarking in any number offerings"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Per user visible watermarking with user id"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Dynamic Clip Generation"
+      items:
+        - contentTitle: "Using time code or metadata tags"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+
+    - title: "Dynamic Packaging and Download (BtoB)"
+      items:
+        - contentTitle: "Dynamic packaging and asset download API"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Automatic packaging metadata from profile"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Per asset, per user permissioning"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Built in and extensible profiles for major OTT/resale outlets"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Automatic availability management (time, geo, group, offering)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+
+- header: "Web3 Capabilities"
+  id: "web-3"
+  items:
+    - title: "Audience Access Data"
+      items:
+        - contentTitle: "Basic audience watch data (summarized)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "Detailed and provable (blockchain recorded)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+        - contentTitle: "All playback and access events with user detail (platform, format, geo, etc)"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Enterprise OAuth Integration"
+      items:
+        - contentTitle: "Fabric access control with OAuth/SSO groups"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "User Wallet API"
+      items:
+        - contentTitle: "Favorites lists and other per user data"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Media Wallet"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Media Wallet & API"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Turn-key Marketplace Primary and Secondary"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Flexible Payments Gateway"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Wallet Transaction and Watch Analytics"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Oauth Integration"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Native ARC271155 Tokenization and Minting (check this)"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Dynamic and Generative Mints"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Token Gated Content with Flexible Policy"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Extensible Smart Contracts"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "Blockchain Ticketing & Unique Authorization Codes"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+
+    - title: "On-chain Redeemable Offers"
+      items:
+        - contentTitle: "Feature"
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra."
+          link: "/"
+

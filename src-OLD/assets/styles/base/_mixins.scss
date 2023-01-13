@@ -1,0 +1,91 @@
+@mixin breakpoint($range) {
+  $screen-xs-max: 425px; // Small phones
+  $screen-sm-max: 576px; // Small tablets and large smartphones (landscape view)
+  $screen-md-max: 768px; // Small tablets (portrait view)
+  $screen-lg-max: 992px; // Tablets and small desktops
+  $screen-xl-max: 1200px; // Large tablets and desktops
+  $screen-xxl-max: 1824px; // Desktop
+
+  @if $range == phone-sm {
+    @media (max-width: $screen-xs-max) {
+      @content;
+    }
+  }
+
+  @else if $range == phone-lg {
+    @media (max-width: $screen-sm-max) {
+      @content;
+    }
+  }
+
+  @else if $range == tablet-sm {
+    @media (max-width: $screen-md-max) {
+      @content;
+    }
+  }
+
+  @else if $range == tablet-lg {
+    @media (max-width: $screen-lg-max) {
+      @content;
+    }
+  }
+
+  @else if $range == desktop-sm {
+    @media (max-width: $screen-xl-max) {
+      @content;
+    }
+  }
+
+  @else if $range == desktop-lg {
+    @media (max-width: $screen-xxl-max) {
+      @content;
+    }
+  }
+}
+
+@mixin page-fade-in($duration: 0.5s) {
+  animation: $duration fadein ease-in;
+}
+
+@mixin page-fade-out {
+  animation: 0.5s fadeout ease-in;
+}
+
+@mixin item-block {
+  background: $white;
+  border-radius: 10px;
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+  padding: 15px 25px 25px;
+
+  h2 {
+    align-items: flex-start;
+    display: flex;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.07em;
+    padding-right: 70px;
+    position: relative;
+    text-align: left;
+    text-transform: uppercase;
+
+    input[type='checkbox'] {
+      margin-top: 0.2em;
+    }
+
+    .subheader {
+      font-weight: 300;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    h2 {
+      font-size: 17px;
+      padding: 0 60px 0 0;
+
+
+      input[type='checkbox'] {
+        //margin-top: 0.6em;
+      }
+    }
+  }
+}
