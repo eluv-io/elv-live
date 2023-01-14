@@ -3,6 +3,8 @@ $width-tablet: 1000px;
 $width-mobile: 600px;
 
 :root {
+  --horizontal-content-padding: 150px;
+
   --font-size-header-1: 40px;
   --font-size-header-2: 40px;
   --font-size-header-3: 32px;
@@ -27,12 +29,14 @@ $width-mobile: 600px;
   --color-text-light-1: #000;
   --color-text-light-2: #11243e;
   --color-text-light-3: #465465;
-  --color-text-light-4: #aaadb3;
+  --color-text-light-4: #434343;
+  --color-text-light-5: #aaadb3;
   --color-text-light-highlight: var(--color-highlight-2);
 
   --color-text-dark-1: #fff;
   --color-text-dark-2: #949494;
-  --color-text-dark-3: #11243e;
+  --color-text-dark-3: #949494;
+  --color-text-dark-4: #11243e;
 
   --background-dark-1: #0d0d0e;
   --background-dark-2: #1a1a1a;
@@ -46,7 +50,14 @@ $width-mobile: 600px;
   --background-gradient-footer-light: linear-gradient(180deg, rgba(155, 81, 224, 0) 0%, rgba(155, 81, 224, 0.1) 100%);
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
 
+
+  @media screen and (max-width: $width-laptop) {
+    --horizontal-content-padding: 25px;
+  }
+
   @media screen and (max-width: $width-tablet) {
+    --horizontal-content-padding: 20px;
+
     --font-size-header-2: 32px;
     --font-size-header-3: 24px;
     --font-size-header-4: 18px;

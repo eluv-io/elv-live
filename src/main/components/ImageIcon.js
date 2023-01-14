@@ -13,10 +13,14 @@ const ImageIcon = ({icon, alternateIcon, label, useLoadingIndicator=false, class
   if(!currentIcon) { return null; }
 
   if(currentIcon.startsWith("<svg")) {
+    className = "image-icon--svg " + className;
+
     return (
       <SVG alt={label} className={className} src={currentIcon} {...props} />
     );
   } else {
+    className = "image-icon--image " + className;
+
     className = loading && useLoadingIndicator ? "image-icon-with-loader " + className : className;
 
     return (

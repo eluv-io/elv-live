@@ -17,7 +17,7 @@ const ContactForm = observer(({className="light"}) => {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <div className={`contact-form ${className}`}>
+    <div className={`contact-form padded-block ${className}`}>
       <div className="contact-form__copy">
         <h3 className="contact-form__copy-header">
           Inspired to create with us?

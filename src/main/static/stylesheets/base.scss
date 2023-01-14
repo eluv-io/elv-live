@@ -20,6 +20,14 @@ h4 {
   font-size: var(--font-size-header-4);
 }
 
+.image-icon--svg {
+  width: 20px;
+}
+
 .fade-in {
   animation: fadein 0.25s ease;
+}
+
+.padded-block {
+  padding-inline: var(--horizontal-content-padding);
 }

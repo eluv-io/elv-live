@@ -10,6 +10,7 @@ import TestIcon2 from "./static/test/link.svg";
 import TestImage from "./static/test/newRO3.jpg";
 import TestImage2 from "./static/test/heroRita.jpg";
 import ContactForm from "./components/ContactForm";
+import Footer from "./components/Footer";
 
 
 const ModalTest = ({scroll=false, className=""}) => {
@@ -87,7 +88,7 @@ const ComponentTest = observer(() => {
         <TextLink to={"/asd"} useNavLink className="light">Inactive Link</TextLink>
         <TextLink to={"/"} useNavLink className="light">Active Link</TextLink>
 
-        <CaptionedImage expandable image={TestImage} caption="This is an image caption. It will wrap if it is too long." className="component-test__captioned-image" imageClassName="component-test__image" />
+        <CaptionedImage expandable image={TestImage} caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image" imageClassName="component-test__image" />
 
         <Button onClick={() => setShowModal(true)} className="light primary">Show Default Modal</Button>
         <Button onClick={() => setShowFullWidthModal(true)} className="light primary">Show Full Screen Modal (Short)</Button>
@@ -106,6 +107,7 @@ const ComponentTest = observer(() => {
         </Modal>
 
         <ContactForm />
+        <Footer />
       </div>
       <div className="component-test dark">
         <Button className="dark primary">Dark Button</Button>
@@ -122,9 +124,10 @@ const ComponentTest = observer(() => {
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="dark secondary small">Button with Loader</ButtonWithLoader>
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="dark primary extra-small">Send</ButtonWithLoader>
 
-        <CaptionedImage image={TestImage2} expandable caption="This is an image caption. It will wrap if it is too long." className="component-test__captioned-image dark" imageClassName="component-test__image" />
+        <CaptionedImage image={TestImage2} expandable caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image dark" imageClassName="component-test__image" />
 
         <ContactForm className="dark" />
+        <Footer dark />
       </div>
     </>
   );

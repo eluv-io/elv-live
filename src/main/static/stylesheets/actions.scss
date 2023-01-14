@@ -9,6 +9,7 @@
   justify-content: center;
   padding-inline: 30px;
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+  user-select: none;
   width: max-content;
 
   &:disabled {
@@ -91,7 +92,7 @@
   &.dark {
     &.primary {
       background: var(--background-dark-4);
-      color: var(--color-text-dark-3);
+      color: var(--color-text-dark-4);
 
       &:hover,
       &:focus-visible {
@@ -108,7 +109,7 @@
       }
 
       .loader {
-        --loader-color: var(--color-text-dark-3);
+        --loader-color: var(--color-text-dark-4);
       }
     }
 
@@ -201,15 +202,27 @@
 }
 
 .link {
-  font-size: var(--font-size-body-2);
+  font-size: var(--font-size-body-3);
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
   width: max-content;
+
+  &.large {
+    font-size: var(--font-size-body-2);
+  }
+
+  &.small {
+    font-size: var(--font-size-body-4);
+  }
+
+  &.extra-small {
+    font-size: var(--font-size-body-5);
+  }
 
   &.light {
     color: var(--color-text-light-1);
 
     &.inactive {
-      color: var(--color-text-light-4);
+      color: var(--color-text-light-5);
     }
 
     &.active {

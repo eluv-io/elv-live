@@ -1,9 +1,9 @@
-
 .contact-form {
   display: grid;
   gap: 75px;
   grid-template-columns: 450px 1fr;
-  padding: 75px 150px;
+  padding-bottom: 75px;
+  padding-top: 75px;
 
   &__copy-header {
     font-weight: 700;
@@ -102,11 +102,9 @@
 
   @media screen and (max-width: $width-laptop) {
     gap: 35px;
-    padding-inline: 25px;
   }
 
   @media screen and (max-width: $width-tablet) {
     grid-template-columns: 1fr;
-    padding-inline: 20px;
   }
 }
