@@ -35,6 +35,22 @@ const Action = (props) => {
     delete props.icon;
   }
 
+  // Allow links to be specified with 'to' param
+  if(props.to?.startsWith("https://")) {
+    props.href = props.to;
+    delete props.to;
+  }
+
+  if(props.includeArrow) {
+    props.children = (
+      <>
+        {props.children}
+        →
+      </>
+    );
+    delete props.includeArrow;
+  }
+
   if(props.to) {
     if(useNavLink) {
       return <NavLink {...props} className={({isActive}) => PrependClassName(isActive ? "active" : "inactive", props.className)} />;

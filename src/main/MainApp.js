@@ -1,7 +1,6 @@
 import React from "react";
 import "./static/stylesheets/app.scss";
 
-//import ScrollToTop from "Common/ScrollToTop";
 import {createRoot} from "react-dom/client";
 import {Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
@@ -20,7 +19,6 @@ const MainApp = () => {
     </div>
   );
 };
-
 
 createRoot(document.getElementById("app")).render(
   <Provider {...Stores}>

@@ -1,16 +1,19 @@
 import React, {useState} from "react";
 import {Button, ButtonWithLoader, TextLink} from "./components/Actions";
-import {CaptionedImage} from "./components/Misc";
+import {CaptionedImage, InfoBox} from "./components/Misc";
 import Modal from "./components/Modal";
 import {observer} from "mobx-react";
 import {uiStore} from "./stores/Main";
+
+import ContactForm from "./components/ContactForm";
+import Footer from "./components/Footer";
+import PartnerIcon from "./pages/partners/PartnerIcon";
 
 import TestIcon from "./static/test/Event icon.svg";
 import TestIcon2 from "./static/test/link.svg";
 import TestImage from "./static/test/newRO3.jpg";
 import TestImage2 from "./static/test/heroRita.jpg";
-import ContactForm from "./components/ContactForm";
-import Footer from "./components/Footer";
+import EluvioLogo from "./static/images/logos/eluvio-logo.svg";
 
 
 const ModalTest = ({scroll=false, className=""}) => {
@@ -69,6 +72,48 @@ const ComponentTest = observer(() => {
         <h3>Header 3</h3>
         <h4>Header 4</h4>
 
+        <InfoBox
+          icon={TestIcon}
+          header="Info Box"
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+          links={[
+            {
+              to: "https://google.com",
+              text: "Link 1",
+              icon: TestIcon
+            },
+            {
+              to: "https://google.com",
+              text: "Link 2",
+              icon: TestIcon
+            },
+            {
+              to: "https://google.com",
+              text: "Link 3",
+              icon: TestIcon
+            }
+          ]}
+
+        />
+
+        <InfoBox
+          icon={TestIcon}
+          header="Info Box no Links"
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+        />
+
+        <InfoBox
+          header="The Real Cannonball Run Documentary Launches Web3 Experience Ahead of Debut in 2023"
+          subheader={"January 14th, 2023"}
+          links={[
+            {
+              to: "https://google.com",
+              text: "Read More",
+              icon: TestIcon
+            }
+          ]}
+        />
+
         <Button className="light primary">Light Button</Button>
         <Button icon={TestIcon} className="light primary">Light Button with Icon</Button>
 
@@ -79,6 +124,17 @@ const ComponentTest = observer(() => {
         <Button icon={TestIcon} className="light primary small secondary">Small Secondary Light Button with Icon</Button>
 
         <Button icon={TestIcon2} className="light primary extra-small">Extra Small</Button>
+
+        <Button to={"https://google.com"} icon={TestIcon} includeArrow className="light secondary">External Link</Button>
+        <TextLink to={"https://google.com"} includeArrow className="light">External Link</TextLink>
+
+        <PartnerIcon
+          logo={EluvioLogo}
+          name="Eluvio"
+          isValidator
+          isProvider
+          modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+        />
 
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 10000))} className="light primary">Button with Loader</ButtonWithLoader>
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="light secondary small">Button with Loader</ButtonWithLoader>
@@ -115,6 +171,51 @@ const ComponentTest = observer(() => {
 
         <Button className="dark secondary">Secondary Dark Button</Button>
         <Button icon={TestIcon} className="dark secondary">Secondary Dark Button with Icon</Button>
+
+        <InfoBox
+          dark
+          icon={TestIcon}
+          header="Info Box"
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+          links={[
+            {
+              to: "https://google.com",
+              text: "Link 1",
+              icon: TestIcon
+            },
+            {
+              to: "https://google.com",
+              text: "Link 2",
+              icon: TestIcon
+            },
+            {
+              to: "https://google.com",
+              text: "Link 3",
+              icon: TestIcon
+            }
+          ]}
+
+        />
+
+        <InfoBox
+          dark
+          icon={TestIcon}
+          header="Info Box no Links"
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+        />
+
+        <InfoBox
+          dark
+          header="The Real Cannonball Run Documentary Launches Web3 Experience Ahead of Debut in 2023"
+          subheader={"January 14th, 2023"}
+          links={[
+            {
+              to: "https://google.com",
+              text: "Read More",
+              icon: TestIcon
+            }
+          ]}
+        />
 
         <TextLink to={"/asd"} className="dark">Link</TextLink>
         <TextLink to={"/asd"} useNavLink className="dark">Inactive Link</TextLink>

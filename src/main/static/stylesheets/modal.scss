@@ -62,3 +62,25 @@
     }
   }
 }
+
+.modal-box {
+  background: var(--background-light-2);
+  border-radius: 25px;
+  max-height: MIN(800px, 100vh);
+  max-width: $width-tablet;
+  overflow-y: auto;
+  padding: 50px 80px 100px;
+  position: relative;
+
+  &__close-button {
+    right: 25px;
+    top: 25px;
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    border-radius: 0;
+    height: 100vh;
+    max-height: unset;
+    padding-top: 100px;
+  }
+}

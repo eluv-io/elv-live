@@ -6,12 +6,12 @@ import FocusTrap from "focus-trap-react";
 
 import CloseIcon from "../static/icons/x.svg";
 
-const ModalComponent = ({children, className="", CloseModal}) => {
+const ModalComponent = ({children, hideCloseButton, className="", CloseModal}) => {
   return (
     <FocusTrap>
       <div className={`modal fade-in ${className || ""}`} onClick={() => CloseModal()}>
         {
-          CloseModal ?
+          CloseModal && !hideCloseButton ?
             <button className="modal__close-button">
               <ImageIcon
                 title="Close"
@@ -32,7 +32,7 @@ const ModalComponent = ({children, className="", CloseModal}) => {
   );
 };
 
-const Modal = observer(({children, active, Close, className=""}) => {
+const Modal = observer(({children, active, hideCloseButton, Close, className=""}) => {
   const CloseModal = (event) => {
     if(!Close) { return; }
 
@@ -58,7 +58,7 @@ const Modal = observer(({children, active, Close, className=""}) => {
 
   return (
     createPortal(
-      <ModalComponent children={children} className={className} CloseModal={Close ? CloseModal : undefined} />,
+      <ModalComponent children={children} className={className} hideCloseButton={hideCloseButton} CloseModal={Close ? CloseModal : undefined} />,
       document.getElementById("app")
     )
   );
