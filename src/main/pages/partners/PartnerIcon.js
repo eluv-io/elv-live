@@ -44,7 +44,7 @@ const PartnerIcon = ({name, logo, modalContent, isProvider, isValidator}) => {
         <ImageIcon icon={logo} title={name} className="partner-icon__logo" />
         <div className="partner-icon__action">Read More</div>
       </button>
-      <Modal active={showModal} Close={() => setShowModal(false)} hideCloseButton className="partner-modal">
+      <Modal active={showModal} Close={() => setShowModal(false)} hideCloseButton className="modal--modal-box partner-modal">
         <PartnerInfo name={name} logo={logo} modalContent={modalContent} isProvider={isProvider} isValidator={isValidator} setShowModal={setShowModal} />
       </Modal>
     </>

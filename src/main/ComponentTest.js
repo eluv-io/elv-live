@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, ButtonWithLoader, TextLink} from "./components/Actions";
-import {CaptionedImage, InfoBox} from "./components/Misc";
+import {CaptionedImage, GridCarousel, InfoBox} from "./components/Misc";
 import Modal from "./components/Modal";
 import {observer} from "mobx-react";
 import {uiStore} from "./stores/Main";
@@ -56,6 +56,53 @@ const ModalTest = ({scroll=false, className=""}) => {
   );
 };
 
+const childs = (
+  <>
+    <PartnerIcon
+      logo={EluvioLogo}
+      name="Eluvio"
+      isValidator
+      isProvider
+      modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+    />
+
+    <PartnerIcon
+      logo={EluvioLogo}
+      name="Eluvio"
+      isProvider
+      modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+    />
+
+    <PartnerIcon
+      logo={EluvioLogo}
+      name="Eluvio"
+      isValidator
+      modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+    />
+    <PartnerIcon
+      logo={EluvioLogo}
+      name="Eluvio"
+      isValidator
+      isProvider
+      modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+    />
+
+    <PartnerIcon
+      logo={EluvioLogo}
+      name="Eluvio"
+      isProvider
+      modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+    />
+
+    <PartnerIcon
+      logo={EluvioLogo}
+      name="Eluvio"
+      isValidator
+      modalContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
+    />
+  </>
+);
+
 const ComponentTest = observer(() => {
   const [showModal, setShowModal] = useState(false);
   const [showFullWidthModal, setShowFullWidthModal] = useState(false);
@@ -71,6 +118,10 @@ const ComponentTest = observer(() => {
         <h2>Header 2</h2>
         <h3>Header 3</h3>
         <h4>Header 4</h4>
+
+        <GridCarousel className="partners__list" classNameGrid="partners__list--grid" classNameCarousel="partners__list--carousel">
+          { childs }
+        </GridCarousel>
 
         <InfoBox
           icon={TestIcon}

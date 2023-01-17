@@ -113,12 +113,6 @@ module.exports = {
         loader: "babel-loader",
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react", "babel-preset-mobx"],
-          plugins: [
-            require("@babel/plugin-proposal-object-rest-spread"),
-            require("@babel/plugin-transform-regenerator"),
-            require("@babel/plugin-transform-runtime"),
-            require("@babel/plugin-proposal-class-properties", { "loose": false })
-          ]
         }
       },
       {

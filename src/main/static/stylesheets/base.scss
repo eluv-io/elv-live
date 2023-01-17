@@ -1,6 +1,25 @@
+* {
+  ::-webkit-scrollbar {
+    opacity: 1;
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background-dark-2);
+    opacity: 1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-text-dark-3);
+    opacity: 1;
+  }
+}
+
 body {
   font-family: Inter var, sans-serif;
   font-size: 18px;
+  max-width: 100vw;
+  overflow-y: scroll;
   position: relative;
 }
 

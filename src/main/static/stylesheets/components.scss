@@ -147,3 +147,26 @@
     }
   }
 }
+
+.carousel {
+  width: 500px;
+  width: 100vw;
+
+  &__slide {
+    padding: 20px;
+    width: max-content;
+  }
+  //width: 500px;
+  //width: max-content;
+  //width: auto;
+  //overflow: visible;
+  //height: 500px;
+  //position: relative;
+  //width: 100%;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

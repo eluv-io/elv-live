@@ -8,10 +8,18 @@
   position: fixed;
   top: 0;
   width: 100vw;
+  z-index: 10;
 
   &.full {
     .modal__content {
       min-height: 100%;
+    }
+  }
+
+  &--modal-box {
+    .modal__content {
+      border-radius: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
   }
 

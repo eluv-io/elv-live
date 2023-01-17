@@ -5,6 +5,12 @@ import SanitizeHTML from "sanitize-html";
 import ImageIcon from "./ImageIcon";
 import Modal from "./Modal";
 import {Button} from "./Actions";
+import SwiperCore, {Lazy, Pagination} from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {uiStore} from "../stores/Main";
+import {observer} from "mobx-react";
+
+SwiperCore.use([Lazy, Pagination]);
 
 export const RichText = ({richText, className=""}) => {
   const [reactRoot, setReactRoot] = useState(undefined);
@@ -59,7 +65,6 @@ export const CaptionedImage = ({image, caption, className="", imageClassName="",
   );
 };
 
-
 export const InfoBox = ({header, subheader, content, icon, links, dark=false}) => {
   return (
     <div className={`info-box ${dark ? "dark" : "light"}`}>
@@ -99,3 +104,51 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false}) =
     </div>
   );
 };
+
+
+export const Carousel = ({children, slidesPerView="auto", className=""}) => {
+  if(!Array.isArray(children)) {
+    children = children.props.children;
+  }
+
+  return (
+    <div className={`carousel ${className}`}>
+      <Swiper
+        className="carousel__swiper"
+        slidesPerView={slidesPerView}
+        lazy={{
+          enabled: true,
+          loadPrevNext: true,
+          loadOnTransitionStart: true
+        }}
+        pagination={{
+          clickable: true
+        }}
+        updateOnWindowResize
+      >
+        { children.map((element, index) =>
+          <SwiperSlide className="carousel__slide" key={`slide-${index}`}>
+            { element }
+          </SwiperSlide>
+        )}
+      </Swiper>
+    </div>
+  );
+};
+
+// Show a grid of items on desktop and a carousel on mobile
+export const GridCarousel = observer(({children, cutOff=600, className="", classNameGrid="", classNameCarousel=""}) => {
+  if(uiStore.pageWidth <= cutOff) {
+    return (
+      <Carousel slidesPerView={1} className={`${className} ${classNameCarousel}`}>
+        { children }
+      </Carousel>
+    );
+  }
+
+  return (
+    <div className={`grid ${className} ${classNameGrid}`}>
+      { children }
+    </div>
+  );
+});

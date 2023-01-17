@@ -3,6 +3,9 @@
 @import 'variables';
 @import 'base';
 
+@import '~swiper/swiper-bundle.min.css';
+
+
 @import 'modal';
 @import 'loader';
 @import 'actions';
@@ -13,3 +16,7 @@
 @import 'partners';
 
 @import 'test';
+
+.swiper-slide {
+  //width: 300px!important;
+}
