@@ -204,6 +204,7 @@
 }
 
 .link {
+  display: flex;
   font-size: var(--font-size-body-3);
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
   width: max-content;
@@ -220,6 +221,10 @@
     font-size: var(--font-size-body-5);
   }
 
+  &.inactive--underline {
+    border-bottom: 3px solid transparent;
+  }
+
   &.light {
     color: var(--color-text-light-1);
 
@@ -229,6 +234,10 @@
 
     &.active {
       color: var(--color-text-light-2);
+    }
+
+    &.active--underline {
+      border-bottom: 3px solid var(--color-text-light-2);
     }
 
     &:hover,
@@ -244,6 +253,10 @@
     &:focus-visible,
     &.active {
       color: var(--color-highlight-1);
+    }
+
+    &.active--underline {
+      border-bottom: 3px solid var(--color-highlight-1);
     }
   }
 }

@@ -8,6 +8,7 @@ import {uiStore} from "./stores/Main";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import PartnerIcon from "./pages/partners/PartnerIcon";
+import Header from "./components/Header";
 
 import TestIcon from "./static/test/Event icon.svg";
 import TestIcon2 from "./static/test/link.svg";
@@ -110,6 +111,7 @@ const ComponentTest = observer(() => {
 
   return (
     <>
+      <Header />
       <div className="component-test">
         <div>Page Width: {uiStore.pageWidth}</div>
         <div>Page Height: {uiStore.pageHeight}</div>

@@ -53,7 +53,10 @@ const Action = (props) => {
 
   if(props.to) {
     if(useNavLink) {
-      return <NavLink {...props} className={({isActive}) => PrependClassName(isActive ? "active" : "inactive", props.className)} />;
+      return <NavLink
+        {...props}
+        className={({isActive}) => PrependClassName(isActive ? `active ${props.underline ? "active--underline" : ""}` : `inactive ${props.underline ? "inactive--underline" : ""}`, props.className)}
+      />;
     } else {
       return <Link {...props} />;
     }

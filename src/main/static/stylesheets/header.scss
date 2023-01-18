@@ -1,0 +1,33 @@
+.header {
+  align-items: center;
+  background: var(--background-dark-2);
+  color: var(--color-text-dark-1);
+  display: flex;
+  gap: 50px;
+  height: 75px;
+  overflow: visible;
+  padding: 0 75px;
+
+  &__logo {
+    height: 100%;
+    padding: 10px 0;
+  }
+
+  &__nav,
+  &__icons {
+    align-items: center;
+    display: flex;
+    gap: 40px;
+    height: 100%;
+  }
+
+  &__nav {
+    flex-grow: 1;
+  }
+
+  &__nav-link {
+    align-items: center;
+    display: flex;
+    height: 100%;
+  }
+}

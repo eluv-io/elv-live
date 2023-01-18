@@ -19,7 +19,8 @@ window.addEventListener("resize", SetHeight);
 const MAIN_SITE_PATHS = [
   "/",
   "/partners",
-  "/blockchain"
+  "/blockchain",
+  "/partners"
 ];
 
 const Load = async () => {
@@ -34,7 +35,7 @@ const Load = async () => {
     return;
   }
 
-  if(MAIN_SITE_PATHS.includes(path)) {
+  if(MAIN_SITE_PATHS.find(mainPath => path.startsWith(mainPath))) {
     await import("./main/MainApp");
   } else {
     await import("./SiteApp");
