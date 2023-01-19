@@ -39,7 +39,7 @@ const Header = observer(({notification}) => {
 
         { /* Desktop */ }
         <nav className="header__nav desktop">
-          <Action to="/about" useNavLink underline className="dark header__nav-link">
+          <Action to="/partners" useNavLink underline className="dark header__nav-link">
             About
           </Action>
           <Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">

@@ -93,6 +93,8 @@
   }
 
   @media screen and (max-width: $width-tablet) {
+    padding-bottom: 50px;
+
     &__branding {
       align-items: flex-start;
       flex-direction: column;
@@ -135,7 +137,7 @@
       }
 
       .footer__link-section {
-        background: var(--background-light-1);
+        background: var(--background-light-2);
       }
     }
 

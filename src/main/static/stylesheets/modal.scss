@@ -14,12 +14,9 @@
     .modal__content {
       min-height: 100%;
     }
-  }
 
-  &--modal-box {
-    .modal__content {
-      border-radius: 25px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    &__close-button {
+      position: fixed;
     }
   }
 
@@ -80,6 +77,12 @@
   padding: 50px 80px 100px;
   position: relative;
 
+  &.full {
+    border-radius: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+  }
+
   &__close-button {
     right: 25px;
     top: 25px;
@@ -89,6 +92,10 @@
     border-radius: 0;
     height: 100vh;
     max-height: unset;
-    padding-top: 100px;
+    padding: 50px 30px 100px;
+
+    &__close-button {
+      position: fixed;
+    }
   }
 }

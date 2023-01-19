@@ -8,7 +8,6 @@ import {uiStore} from "./stores/Main";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import PartnerIcon from "./pages/partners/PartnerIcon";
-import Header from "./components/Header";
 
 import TestIcon from "./static/test/Event icon.svg";
 import TestIcon2 from "./static/test/link.svg";
@@ -19,7 +18,7 @@ import EluvioLogo from "./static/images/logos/eluvio-logo.svg";
 
 const ModalTest = ({scroll=false, className=""}) => {
   return (
-    <div className={`component-test__modal ${className}`}>
+    <div className={`component-test__modal modal-box ${className}`}>
       <Button className="light primary">Light Button</Button>
       <Button icon={TestIcon} className="light primary">Light Button with Icon</Button>
 
@@ -111,16 +110,6 @@ const ComponentTest = observer(() => {
 
   return (
     <>
-      <Header
-        notification={(
-          <>
-            <h2>Notification</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-            </p>
-          </>
-        )}
-      />
       <div className="component-test">
         <div>Page Width: {uiStore.pageWidth}</div>
         <div>Page Height: {uiStore.pageHeight}</div>
@@ -212,7 +201,7 @@ const ComponentTest = observer(() => {
         <Button onClick={() => setShowFullWidthModal(true)} className="light primary">Show Full Screen Modal (Short)</Button>
         <Button onClick={() => setShowFullWidthScrollModal(true)} className="light primary">Show Full Screen Modal (Long)</Button>
 
-        <Modal active={showModal} Close={() => setShowModal(false)}>
+        <Modal className="modal--modal-box" active={showModal} Close={() => setShowModal(false)}>
           <ModalTest />
         </Modal>
 
