@@ -203,7 +203,8 @@
   }
 }
 
-.link {
+.action {
+  align-items: center;
   display: flex;
   font-size: var(--font-size-body-3);
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;

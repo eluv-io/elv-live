@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, ButtonWithLoader, TextLink} from "./components/Actions";
+import {Button, ButtonWithLoader, Action} from "./components/Actions";
 import {CaptionedImage, GridCarousel, InfoBox} from "./components/Misc";
 import Modal from "./components/Modal";
 import {observer} from "mobx-react";
@@ -23,9 +23,9 @@ const ModalTest = ({scroll=false, className=""}) => {
       <Button className="light primary">Light Button</Button>
       <Button icon={TestIcon} className="light primary">Light Button with Icon</Button>
 
-      <TextLink to={"/asd"} className="light">Link</TextLink>
-      <TextLink to={"/asd"} useNavLink className="light">Inactive Link</TextLink>
-      <TextLink to={"/"} useNavLink className="light">Active Link</TextLink>
+      <Action to={"/asd"} className="light">Link</Action>
+      <Action to={"/asd"} useNavLink className="light">Inactive Link</Action>
+      <Action to={"/"} useNavLink className="light">Active Link</Action>
 
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -111,7 +111,16 @@ const ComponentTest = observer(() => {
 
   return (
     <>
-      <Header />
+      <Header
+        notification={(
+          <>
+            <h2>Notification</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+            </p>
+          </>
+        )}
+      />
       <div className="component-test">
         <div>Page Width: {uiStore.pageWidth}</div>
         <div>Page Height: {uiStore.pageHeight}</div>
@@ -179,7 +188,7 @@ const ComponentTest = observer(() => {
         <Button icon={TestIcon2} className="light primary extra-small">Extra Small</Button>
 
         <Button to={"https://google.com"} icon={TestIcon} includeArrow className="light secondary">External Link</Button>
-        <TextLink to={"https://google.com"} includeArrow className="light">External Link</TextLink>
+        <Action to={"https://google.com"} includeArrow className="light">External Link</Action>
 
         <PartnerIcon
           logo={EluvioLogo}
@@ -193,9 +202,9 @@ const ComponentTest = observer(() => {
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="light secondary small">Button with Loader</ButtonWithLoader>
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="light primary extra-small">Send</ButtonWithLoader>
 
-        <TextLink to={"/asd"} className="light">Link</TextLink>
-        <TextLink to={"/asd"} useNavLink className="light">Inactive Link</TextLink>
-        <TextLink to={"/"} useNavLink className="light">Active Link</TextLink>
+        <Action to={"/asd"} className="light">Link</Action>
+        <Action to={"/asd"} useNavLink className="light">Inactive Link</Action>
+        <Action to={"/"} useNavLink className="light">Active Link</Action>
 
         <CaptionedImage expandable image={TestImage} caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image" imageClassName="component-test__image" />
 
@@ -270,9 +279,9 @@ const ComponentTest = observer(() => {
           ]}
         />
 
-        <TextLink to={"/asd"} className="dark">Link</TextLink>
-        <TextLink to={"/asd"} useNavLink className="dark">Inactive Link</TextLink>
-        <TextLink to={"/"} useNavLink className="dark">Active Link</TextLink>
+        <Action to={"/asd"} className="dark">Link</Action>
+        <Action to={"/asd"} useNavLink className="dark">Inactive Link</Action>
+        <Action to={"/"} useNavLink className="dark">Active Link</Action>
 
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 10000))} className="dark primary">Button with Loader</ButtonWithLoader>
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="dark secondary small">Button with Loader</ButtonWithLoader>

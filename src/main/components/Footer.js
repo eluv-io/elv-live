@@ -13,7 +13,7 @@ import FacebookIcon from "../static/icons/social/facebook.svg";
 import LinkedInIcon from "../static/icons/social/linkedin.svg";
 import GithubIcon from "../static/icons/social/github.svg";
 import DiscordIcon from "../static/icons/social/discord.svg";
-import {TextLink} from "./Actions";
+import {Action} from "./Actions";
 
 const SocialLinks = () => {
   const links = [
@@ -55,7 +55,7 @@ const Links = ({dark=false}) => {
                 const href = link.startsWith("https://") ? link : undefined;
 
                 return (
-                  <TextLink
+                  <Action
                     to={to}
                     href={href}
                     rel="noopener"
@@ -64,7 +64,7 @@ const Links = ({dark=false}) => {
                     className={`footer__link ${dark ? "dark" : "light"}`}
                   >
                     { text}
-                  </TextLink>
+                  </Action>
                 );
               })
             }

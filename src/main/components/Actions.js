@@ -4,10 +4,10 @@ import ImageIcon from "./ImageIcon";
 import {Loader} from "./Loader";
 
 // Classname might be a function because of react-router navlink
-const PrependClassName = (addition, className) => {
+const PrependClassName = (addition, className="") => {
   let updatedClassName;
   if(typeof className !== "function") {
-    updatedClassName = `${addition} ${className || ""}`;
+    updatedClassName = `${addition} ${className}`;
   } else {
     updatedClassName = (...args) => {
       const classResults = className(...args);
@@ -19,7 +19,7 @@ const PrependClassName = (addition, className) => {
   return updatedClassName;
 };
 
-const Action = (props) => {
+export const ActionComponent = (props) => {
   const useNavLink = props.useNavLink;
 
   props = { ...props };
@@ -51,11 +51,14 @@ const Action = (props) => {
     delete props.includeArrow;
   }
 
+  let underline = props.underline;
+  delete props.underline;
+
   if(props.to) {
     if(useNavLink) {
       return <NavLink
         {...props}
-        className={({isActive}) => PrependClassName(isActive ? `active ${props.underline ? "active--underline" : ""}` : `inactive ${props.underline ? "inactive--underline" : ""}`, props.className)}
+        className={({isActive}) => PrependClassName(isActive ? `active ${underline ? "active--underline" : ""}` : `inactive ${underline ? "inactive--underline" : ""}`, props.className)}
       />;
     } else {
       return <Link {...props} />;
@@ -69,7 +72,7 @@ const Action = (props) => {
 
 export const Button = (props) => {
   return (
-    <Action
+    <ActionComponent
       {...props}
       className={PrependClassName("button", props.className)}
     />
@@ -108,11 +111,11 @@ export const ButtonWithLoader = (props) => {
   );
 };
 
-export const TextLink = (props) => {
+export const Action = (props) => {
   return (
-    <Action
+    <ActionComponent
       {...props}
-      className={PrependClassName("link", props.className)}
+      className={PrependClassName("action", props.className)}
     />
   );
 };
