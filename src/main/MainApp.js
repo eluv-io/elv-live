@@ -8,9 +8,11 @@ import ComponentTest from "./ComponentTest";
 import {Routes, useLocation} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
 
-import Partners from "./pages/partners/Partners";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+import Partners from "./pages/partners/Partners";
+import Technology from "./pages/technology/Technology";
 
 const PageContainer = ({children, padded=false, dark=false}) => {
   const location = useLocation();
@@ -44,6 +46,7 @@ const MainApp = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/partners" element={<PageContainer padded><Partners /></PageContainer>} />
+          <Route path="/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="*" element={<PageContainer><ComponentTest /></PageContainer>} />
         </Routes>
       </BrowserRouter>

@@ -48,9 +48,14 @@
     }
   }
 
+  &.ghost {
+    border: 2px solid transparent;
+  }
+
   &.light {
     &.primary {
       background: var(--color-highlight-2);
+      border: 2px solid transparent;
       color: var(--color-text-dark-1);
 
       &:hover,
@@ -94,6 +99,7 @@
   &.dark {
     &.primary {
       background: var(--background-dark-4);
+      border: 2px solid transparent;
       color: var(--color-text-dark-4);
 
       &:hover,

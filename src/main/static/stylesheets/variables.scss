@@ -60,7 +60,7 @@ $width-mobile: 600px;
   }
 
   @media screen and (max-width: $width-tablet) {
-    --horizontal-content-padding: 20px;
+    --horizontal-content-padding: 50px;
 
     --font-size-header-2: 32px;
     --font-size-header-3: 24px;
@@ -74,6 +74,8 @@ $width-mobile: 600px;
   }
 
   @media screen and (max-width: $width-mobile) {
+    --horizontal-content-padding: 20px;
+
     --font-size-header-1: 32px;
     --font-size-header-2: 28px;
     --font-size-header-3: 22px;

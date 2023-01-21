@@ -9,6 +9,8 @@
   position: relative;
 
   &__image {
+    max-height: 100%;
+    max-width: 100%;
     object-fit: contain;
   }
 
@@ -58,7 +60,7 @@
 .info-box {
   border-radius: 25px;
   max-width: 100%;
-  padding: 25px 45px;
+  padding: 25px 45px 35px;
   width: max-content;
 
   &__content {
@@ -83,9 +85,13 @@
   }
 
   &__links {
-    display: grid;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
+    justify-content: center;
     margin-left: 40px;
+    width: 100%;
   }
 
   &__link {
@@ -118,7 +124,7 @@
   }
 
   @media screen and (max-width: $width-tablet) {
-    padding: 30px 20px 40px;
+    padding: 30px 30px 40px;
 
     &__content {
       display: grid;
@@ -137,13 +143,66 @@
     }
 
     &__links {
-      margin: 0;
+      margin: 20px 0 0;
     }
 
     &__link {
-      max-width: 450px;
+      max-width: 600px;
       min-width: 250px;
       width: 100%;
+    }
+  }
+}
+
+.tabbed-info-box {
+  border-radius: 25px;
+  display: grid;
+  gap: 30px;
+  height: max-content;
+  max-width: 100%;
+  padding: 25px 45px 35px;
+  width: 100%;
+
+  &__tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  &__tab {
+    font-size: var(--font-size-body-2);
+  }
+
+  &__content {
+    box-shadow: 0 0 11px rgba(0, 0, 0, 0.25);
+  }
+
+  &.light {
+    background: var(--background-light-2);
+    color: var(--color-text-light-1);
+  }
+
+  &.dark {
+    background: var(--background-dark-2);
+    color: var(--color-text-dark-1);
+  }
+
+  @media screen and (max-width: $width-laptop) {
+    &__tab {
+      font-size: var(--font-size-body-3);
+    }
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    padding: 30px 30px 40px;
+
+    &__tab {
+      height: 50px;
+      padding-inline: 20px;
+    }
+
+    &__tab-text {
+      display: none;
     }
   }
 }

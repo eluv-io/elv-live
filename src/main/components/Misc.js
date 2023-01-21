@@ -34,16 +34,19 @@ export const RichText = ({richText, className=""}) => {
   );
 };
 
-export const CaptionedImage = ({image, caption, className="", imageClassName="", captionClassName="", expandable}) => {
+export const ExpandableImage = ({image, caption, className="", imageClassName="", captionClassName="", expandable}) => {
   const [showFullScreen, setShowFullScreen] = useState(false);
 
   return (
     <>
       <figure onClick={expandable ? () => setShowFullScreen(true) : undefined} className={`captioned-image ${expandable ? "captioned-image--expandable" : ""} ${className}`}>
         <ImageIcon icon={image} className={`captioned-image__image ${imageClassName}`} />
-        <figcaption className={`captioned-image__caption ${captionClassName}`}>
-          { caption }
-        </figcaption>
+        {
+          !caption ? null :
+            <figcaption className={`captioned-image__caption ${captionClassName}`}>
+              {caption}
+            </figcaption>
+        }
       </figure>
       {
         showFullScreen ?
@@ -52,7 +55,7 @@ export const CaptionedImage = ({image, caption, className="", imageClassName="",
             Close={() => setShowFullScreen(false)}
             className="captioned-image__modal dark"
           >
-            <CaptionedImage
+            <ExpandableImage
               image={image}
               caption={caption}
               className={`${className} captioned-image--expanded`}
@@ -100,6 +103,33 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false}) =
               )}
             </div>
         }
+      </div>
+    </div>
+  );
+};
+
+export const TabbedInfoBox = ({tabs, dark=false}) => {
+  const [activeTabIndex, setActiveTabIndex] = useState(Math.max(tabs.findIndex(tab => tab?.default), 0));
+
+  return (
+    <div className={`tabbed-info-box ${dark ? "dark" : "light"}`}>
+      <div className="tabbed-info-box__tabs">
+        { tabs.map(({icon, title}, index) =>
+          <Button
+            icon={icon}
+            iconLabel={title}
+            onClick={() => setActiveTabIndex(index)}
+            className={`${dark ? "dark" : "light"} tabbed-info-box__tab ${index === activeTabIndex ? "secondary active" : "ghost inactive"}`}
+            key={`tab-${title}`}
+          >
+            <div className="tabbed-info-box__tab-text">
+              { title }
+            </div>
+          </Button>
+        )}
+      </div>
+      <div className="tabbed-info-box__content">
+        { tabs[activeTabIndex].content }
       </div>
     </div>
   );

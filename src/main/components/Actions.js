@@ -28,7 +28,7 @@ export const ActionComponent = (props) => {
   if(props.icon) {
     props.children = (
       <>
-        <ImageIcon icon={props.icon} className="action__icon" />
+        <ImageIcon icon={props.icon} title={props.iconLabel} className="action__icon" />
         { props.children }
       </>
     );

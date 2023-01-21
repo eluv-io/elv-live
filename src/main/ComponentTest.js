@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, ButtonWithLoader, Action} from "./components/Actions";
-import {CaptionedImage, GridCarousel, InfoBox} from "./components/Misc";
+import {ExpandableImage, GridCarousel, InfoBox, TabbedInfoBox} from "./components/Misc";
 import Modal from "./components/Modal";
 import {observer} from "mobx-react";
 import {uiStore} from "./stores/Main";
@@ -11,8 +11,16 @@ import PartnerIcon from "./pages/partners/PartnerIcon";
 
 import TestIcon from "./static/test/Event icon.svg";
 import TestIcon2 from "./static/test/link.svg";
+import TestIcon3 from "./static/test/send.svg";
+
 import TestImage from "./static/test/newRO3.jpg";
 import TestImage2 from "./static/test/heroRita.jpg";
+import TestImage3 from "./static/test/sponsorR03.png";
+
+import TestDiagram from "./static/test/51c686b52d63c93ac35839f981af186b.jpg";
+import TestDiagram2 from "./static/test/78dfa85f5d6742b6816bbe0fa2f4ef3f.jpg";
+import TestDiagram3 from "./static/test/de05266e8751e287614b51e700ce751b.jpg";
+
 import EluvioLogo from "./static/images/logos/eluvio-logo.svg";
 
 
@@ -110,7 +118,7 @@ const ComponentTest = observer(() => {
 
   return (
     <>
-      <div className="component-test">
+      <div className="component-test padded-block">
         <div>Page Width: {uiStore.pageWidth}</div>
         <div>Page Height: {uiStore.pageHeight}</div>
 
@@ -118,6 +126,33 @@ const ComponentTest = observer(() => {
         <h2>Header 2</h2>
         <h3>Header 3</h3>
         <h4>Header 4</h4>
+
+        <TabbedInfoBox
+          tabs={[
+            {
+              title: "Architecture",
+              icon: TestIcon,
+              content: (
+                <ExpandableImage expandable image={TestDiagram} imageClassName="component-test__image" />
+              )
+            },
+            {
+              title: "How it Works",
+              icon: TestIcon2,
+              content: (
+                <ExpandableImage expandable image={TestDiagram2} imageClassName="component-test__image" />
+              )
+            },
+            {
+              title: "On-Chain Monetization",
+              icon: TestIcon3,
+              content: (
+                <ExpandableImage expandable image={TestDiagram3} imageClassName="component-test__image" />
+              )
+            }
+          ]}
+        />
+
 
         <GridCarousel className="partners__list" classNameGrid="partners__list--grid" classNameCarousel="partners__list--carousel">
           { childs }
@@ -195,7 +230,7 @@ const ComponentTest = observer(() => {
         <Action to={"/asd"} useNavLink className="light">Inactive Link</Action>
         <Action to={"/"} useNavLink className="light">Active Link</Action>
 
-        <CaptionedImage expandable image={TestImage} caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image" imageClassName="component-test__image" />
+        <ExpandableImage expandable image={TestImage} caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image" imageClassName="component-test__image" />
 
         <Button onClick={() => setShowModal(true)} className="light primary">Show Default Modal</Button>
         <Button onClick={() => setShowFullWidthModal(true)} className="light primary">Show Full Screen Modal (Short)</Button>
@@ -276,7 +311,7 @@ const ComponentTest = observer(() => {
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="dark secondary small">Button with Loader</ButtonWithLoader>
         <ButtonWithLoader icon={TestIcon2} onClick={async () => await new Promise(resolve => setTimeout(resolve, 1000))} className="dark primary extra-small">Send</ButtonWithLoader>
 
-        <CaptionedImage image={TestImage2} expandable caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image dark" imageClassName="component-test__image" />
+        <ExpandableImage image={TestImage2} expandable caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image dark" imageClassName="component-test__image" />
 
         <ContactForm className="dark" />
         <Footer dark />

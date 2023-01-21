@@ -91,11 +91,24 @@ h4 {
 
   &__copy {
     font-size: var(--font-size-body-2);
+
+    &.multi-column {
+      column-count: 2;
+      column-gap: 50px;
+    }
+
+    a {
+      color: var(--color-highlight-2);
+    }
   }
 
   @media screen and (max-width: $width-tablet) {
     &__header-container {
       text-align: left;
+    }
+
+    .multi-column {
+      column-count: 1;
     }
   }
 }
