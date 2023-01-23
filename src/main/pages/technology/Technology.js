@@ -38,12 +38,12 @@ const Technology = () => {
             {
               text: "Content Fabric",
               icon: LinkIcon,
-              link: "https://google.com"
+              to: "/content-fabric"
             },
             {
               text: "Whitepaper",
               icon: LinkIcon,
-              link: "https://google.com"
+              to: "https://google.com"
             }
           ]}
         />

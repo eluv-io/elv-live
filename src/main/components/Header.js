@@ -45,7 +45,7 @@ const Header = observer(({notification}) => {
           <Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">
             Creators & Publishers
           </Action>
-          <Action to="/technology" useNavLink underline className="dark header__nav-link">
+          <Action to="/content-fabric" useNavLink underline className="dark header__nav-link">
             Content Fabric
           </Action>
           <Action to="/community" useNavLink underline className="dark header__nav-link">

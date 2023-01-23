@@ -313,7 +313,7 @@ const ComponentTest = observer(() => {
 
         <ExpandableImage image={TestImage2} expandable caption="This is an image caption. It will wrap if it is too long. You can click the image to expand." className="component-test__captioned-image dark" imageClassName="component-test__image" />
 
-        <ContactForm className="dark" />
+        <ContactForm dark />
         <Footer dark />
       </div>
     </>

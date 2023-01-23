@@ -38,6 +38,8 @@ export const ActionComponent = (props) => {
   // Allow links to be specified with 'to' param
   if(props.to?.startsWith("https://")) {
     props.href = props.to;
+    props.target = "_blank";
+    props.rel = "external";
     delete props.to;
   }
 
@@ -45,7 +47,9 @@ export const ActionComponent = (props) => {
     props.children = (
       <>
         {props.children}
-        →
+        <div className="action__arrow">
+          →
+        </div>
       </>
     );
     delete props.includeArrow;

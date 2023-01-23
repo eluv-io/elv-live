@@ -56,11 +56,28 @@
   }
 }
 
+.curved-box {
+  border-radius: 25px;
+  padding: 25px 45px 35px;
+
+  &.light {
+    background: var(--background-light-2);
+    color: var(--color-text-light-1);
+  }
+
+  &.dark {
+    background: var(--background-dark-2);
+    color: var(--color-text-dark-1);
+  }
+
+  @media screen and (max-width: $width-tablet) {
+    padding: 30px 30px 40px;
+  }
+}
+
 
 .info-box {
-  border-radius: 25px;
   max-width: 100%;
-  padding: 25px 45px 35px;
   width: max-content;
 
   &__content {
@@ -95,7 +112,7 @@
   }
 
   &__link {
-    min-width: 300px;
+    min-width: 320px;
     width: 100%;
   }
 
@@ -106,26 +123,22 @@
   }
 
   &.light {
-    background: var(--background-light-2);
-    color: var(--color-text-light-1);
-
     .info-box__subheader {
+      color: var(--color-text-light-3);
+    }
+
+    .info-box__text-content {
       color: var(--color-text-light-3);
     }
   }
 
   &.dark {
-    background: var(--background-dark-2);
-    color: var(--color-text-dark-1);
-
     .info-box__subheader {
       color: var(--color-text-dark-3);
     }
   }
 
   @media screen and (max-width: $width-tablet) {
-    padding: 30px 30px 40px;
-
     &__content {
       display: grid;
       gap: 15px;
@@ -155,12 +168,10 @@
 }
 
 .tabbed-info-box {
-  border-radius: 25px;
   display: grid;
   gap: 30px;
   height: max-content;
   max-width: 100%;
-  padding: 25px 45px 35px;
   width: 100%;
 
   &__tabs {
@@ -177,16 +188,6 @@
     box-shadow: 0 0 11px rgba(0, 0, 0, 0.25);
   }
 
-  &.light {
-    background: var(--background-light-2);
-    color: var(--color-text-light-1);
-  }
-
-  &.dark {
-    background: var(--background-dark-2);
-    color: var(--color-text-dark-1);
-  }
-
   @media screen and (max-width: $width-laptop) {
     &__tab {
       font-size: var(--font-size-body-3);
@@ -194,8 +195,6 @@
   }
 
   @media screen and (max-width: $width-tablet) {
-    padding: 30px 30px 40px;
-
     &__tab {
       height: 50px;
       padding-inline: 20px;

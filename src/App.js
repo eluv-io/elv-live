@@ -18,8 +18,8 @@ window.addEventListener("resize", SetHeight);
 
 const MAIN_SITE_PATHS = [
   "/",
-  "/partners",
-  "/blockchain",
+  "/technology",
+  "/content-fabric",
   "/partners"
 ];
 

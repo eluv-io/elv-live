@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./static/stylesheets/app.scss";
 
 import {createRoot} from "react-dom/client";
@@ -13,9 +13,16 @@ import Footer from "./components/Footer";
 
 import Partners from "./pages/partners/Partners";
 import Technology from "./pages/technology/Technology";
+import ContentFabric from "./pages/technology/ContentFabric";
+import Blockchain from "./pages/technology/Blockchain";
+import ContactForm from "./components/ContactForm";
 
-const PageContainer = ({children, padded=false, dark=false}) => {
+const PageContainer = ({children, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <>
@@ -31,10 +38,11 @@ const PageContainer = ({children, padded=false, dark=false}) => {
       />
       <div
         key={`page-container-${location.pathname}`}
-        className={`page-container fade-in ${padded ? "padded-block" : ""} ${dark ? "dark" : "light"}`}
+        className={`page-container fade-in ${padded ? "padded-block" : ""} ${dark ? "dark" : "light"} ${unbound ? "unbound" : ""}`}
       >
         {children}
       </div>
+      <ContactForm dark={dark} />
       <Footer dark={dark} />
     </>
   );
@@ -46,8 +54,10 @@ const MainApp = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/partners" element={<PageContainer padded><Partners /></PageContainer>} />
-          <Route path="/technology" element={<PageContainer padded><Technology /></PageContainer>} />
-          <Route path="*" element={<PageContainer><ComponentTest /></PageContainer>} />
+          <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
+          <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
+          <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
+          <Route path="*" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
         </Routes>
       </BrowserRouter>
     </div>

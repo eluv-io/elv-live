@@ -9,7 +9,7 @@ export const ValidEmail = email => {
     .test(email);
 };
 
-const ContactForm = observer(({className="light"}) => {
+const ContactForm = observer(({dark=false}) => {
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [message, setMessage] = useState("");
@@ -17,7 +17,7 @@ const ContactForm = observer(({className="light"}) => {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <div className={`contact-form padded-block ${className}`}>
+    <div className={`contact-form padded-block ${dark ? "dark" : "light"}`}>
       <div className="contact-form__copy">
         <h3 className="contact-form__copy-header">
           Inspired to create with us?

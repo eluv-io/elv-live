@@ -70,8 +70,8 @@ export const ExpandableImage = ({image, caption, className="", imageClassName=""
 
 export const InfoBox = ({header, subheader, content, icon, links, dark=false}) => {
   return (
-    <div className={`info-box ${dark ? "dark" : "light"}`}>
-      { subheader ? <h4 className="info-box__subheader">{ subheader }</h4> : null }
+    <div className={`curved-box info-box ${dark ? "dark" : "light"}`}>
+      { subheader ? <h5 className="info-box__subheader">{ subheader }</h5> : null }
       <div className="info-box__content">
         {
           !icon ? null :
@@ -91,10 +91,11 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false}) =
         {
           !links || links.length === 0 ? null :
             <div className="info-box__links">
-              {links.map(({text, to, icon}) =>
+              {links.map(({text, to, icon, includeArrow=true}) =>
                 <Button
                   icon={icon}
                   to={to}
+                  includeArrow={includeArrow}
                   className={`${dark ? "dark" : "light"} secondary info-box__link`}
                   key={`info-box-link-${text}`}
                 >
@@ -112,7 +113,7 @@ export const TabbedInfoBox = ({tabs, dark=false}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(Math.max(tabs.findIndex(tab => tab?.default), 0));
 
   return (
-    <div className={`tabbed-info-box ${dark ? "dark" : "light"}`}>
+    <div className={`curved-box tabbed-info-box ${dark ? "dark" : "light"}`}>
       <div className="tabbed-info-box__tabs">
         { tabs.map(({icon, title}, index) =>
           <Button

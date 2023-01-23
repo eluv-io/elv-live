@@ -45,10 +45,10 @@ const Links = ({dark=false}) => {
       {
         FooterConfiguration.map(({title, links}) =>
           <div key={`footer-section-${title}`} className="footer__link-section">
-            <h4 className="footer__link-section__header">
+            <h5 className="footer__link-section__header">
               <ImageIcon icon={TechnologyIcon} className="footer__link-section__header-icon" />
               { title }
-            </h4>
+            </h5>
             {
               links.map(({text, link}) => {
                 const to = link.startsWith("https://") ? undefined : link;

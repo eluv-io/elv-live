@@ -1,7 +1,7 @@
 .button {
   align-items: center;
   border-radius: 8px;
-  display: flex;
+  display: inline-flex;
   font-size: var(--font-size-body-3);
   font-weight: 600;
   gap: 15px;
@@ -211,8 +211,7 @@
 
 .action {
   align-items: center;
-  display: flex;
-  font-size: var(--font-size-body-3);
+  display: inline-flex;
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
   width: max-content;
 
