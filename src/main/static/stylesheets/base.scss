@@ -15,6 +15,14 @@
   }
 }
 
+html,
+body,
+.app,
+.main,
+.page-loader {
+  min-height: 100vh;
+}
+
 body {
   background: var(--background-light-1);
   font-family: Inter var, sans-serif;
@@ -146,6 +154,7 @@ h4 {
   &__side-link {
     font-size: var(--font-size-body-2);
     text-align: left;
+    transition: color 0.15s ease;
     width: 100%;
 
     &.active {

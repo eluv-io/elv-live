@@ -22,10 +22,16 @@ const NotificationBanner = ({children, Dismiss, className=""}) => {
 };
 
 const Header = observer(({notification}) => {
-  const [showNotification, setShowNotification] = useState(!!notification);
+  const [showNotification, setShowNotification] = useState(!!mainStore.notification);
 
   const notificationBanner = showNotification ?
-    <NotificationBanner Dismiss={() => setShowNotification(false)} className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"}>
+    <NotificationBanner
+      Dismiss={() => {
+        setShowNotification(false);
+        mainStore.DismissNotification();
+      }}
+      className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"}
+    >
       {notification}
     </NotificationBanner> : null;
 

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import "./static/stylesheets/app.scss";
 
 import {createRoot} from "react-dom/client";
-import {Provider} from "mobx-react";
+import {observer, Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
 import ComponentTest from "./ComponentTest";
 import {Routes, useLocation} from "react-router";
@@ -17,12 +17,16 @@ import ContentFabric from "./pages/technology/ContentFabric";
 import Blockchain from "./pages/technology/Blockchain";
 import ContactForm from "./components/ContactForm";
 
-const PageContainer = ({children, padded=false, dark=false, unbound=false}) => {
+const PageContainer = observer(({children, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  if(!Stores.mainStore.mainSite) {
+    return null;
+  }
 
   return (
     <>
@@ -46,7 +50,7 @@ const PageContainer = ({children, padded=false, dark=false, unbound=false}) => {
       <Footer dark={dark} />
     </>
   );
-};
+});
 
 const MainApp = () => {
   return (
