@@ -54,6 +54,7 @@ class Header extends React.Component {
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
     const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
+    const l10n = this.props.siteStore.l10n;
 
     let loginButton, walletButton;
     if(this.props.rootStore.walletLoggedIn) {
@@ -76,7 +77,7 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
           </div>
-          My Wallet
+          { l10n.header.my_wallet }
         </button>
       );
     } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
@@ -88,7 +89,7 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
           </div>
-          Sign In
+          { l10n.header.sign_in }
         </button>
       );
     }
@@ -104,7 +105,7 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={EventIcon} title="Event" className="header__link__image"/>
           </div>
-          Event
+          { l10n.header.event }
         </NavLink>
       );
     }
@@ -128,7 +129,7 @@ class Header extends React.Component {
         <div className="header__link__icon">
           <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
         </div>
-        Store
+        { l10n.header.store }
       </button>
     );
 
@@ -149,7 +150,7 @@ class Header extends React.Component {
           <div className="header__link__icon header__link__icon-marketplace">
             <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
           </div>
-          Discover Projects
+          { l10n.header.discover_projects }
         </button>
       );
     }
@@ -202,7 +203,7 @@ class Header extends React.Component {
               className="header__link header__link--no-wallet"
               activeClassName="header__link-active"
             >
-              Redeem Code
+              { this.props.siteStore.l10n.header.redeem_code }
             </NavLink> : null
         }
         {

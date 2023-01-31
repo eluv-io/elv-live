@@ -2,6 +2,7 @@ import {observable, action, flow, computed} from "mobx";
 import URI from "urijs";
 import UrlJoin from "url-join";
 import SanitizeHTML from "sanitize-html";
+import LocalizationEN from "Assets/localizations/en.yml";
 
 const CHAT_ROOM_SIZE = 5000;
 
@@ -9,6 +10,9 @@ import mergeWith from "lodash/mergeWith";
 import {DateStatus} from "Utils/Misc";
 
 class SiteStore {
+  @observable language = "en";
+  @observable l10n = LocalizationEN;
+
   @observable marketplaceOnly = false;
   @observable marketplaceNavigated = false;
 
@@ -42,8 +46,6 @@ class SiteStore {
   @observable chatChannel;
 
   @observable error = "";
-
-  @observable language = "en";
 
   @observable viewers = 0;
 
@@ -220,13 +222,63 @@ class SiteStore {
     this.viewers = count;
   }
 
-  @action.bound
-  SetLanguage(code) {
-    this.language = code;
+  SetLanguage = flow(function * (language, save=false) {
+    if(Array.isArray(language)) {
+      for(let i = 0; i < language.length; i++) {
+        if(yield this.SetLanguage(language[i], save)) {
+          return;
+        }
+      }
+
+      language = "en";
+    }
+
+    language = language.toLowerCase();
+
+    if(language.startsWith("en")) {
+      this.l10n = LocalizationEN;
+      this.language = "en";
+      save ? localStorage.setItem("lang", "en") : localStorage.removeItem("lang");
+    } else {
+
+      // Find matching preference (including variants, e.g. pt-br === pt)
+      const availableLocalizations = ["pt-br", "test"];
+      language = availableLocalizations.find(key => key.startsWith(language) || language.startsWith("key"));
+
+      if(!language) {
+        return false;
+      }
+
+      const localization = (yield import(`Assets/localizations/${language}.yml`)).default;
+
+      const MergeLocalization = (l10n, en) => {
+        if(Array.isArray(en)) {
+          return en.map((entry, index) => MergeLocalization((l10n || [])[index], entry));
+        } else if(typeof l10n === "object") {
+          let newl10n = {};
+          Object.keys(en).forEach(key => newl10n[key] = MergeLocalization((l10n || {})[key], en[key]));
+
+          return newl10n;
+        } else {
+          return l10n || en;
+        }
+      };
+
+      // Merge non-english localizations with english to ensure defaults are set for all fields
+      this.l10n = MergeLocalization(localization, LocalizationEN);
+      this.language = language;
+    }
+
+    if(save) {
+      localStorage.setItem("lang", language);
+    }
+
     if(this.eventInfo.event_title) {
       document.title = `${this.eventInfo.event_title} | Eluvio Live`;
     }
-  }
+
+    return true;
+  });
 
   @action.bound
   SetCurrentDropEvent(dropId) {

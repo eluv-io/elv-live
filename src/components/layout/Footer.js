@@ -94,7 +94,7 @@ class Footer extends React.Component {
         {
           this.props.siteStore.currentSiteInfo.show_faq ?
             <Link to={this.props.siteStore.SitePath("support")} className="footer__item">
-              Support FAQ
+              { this.props.siteStore.l10n.footer.support_faq }
             </Link> : null
         }
         {
@@ -102,10 +102,10 @@ class Footer extends React.Component {
             links :
             <>
               <Link to={this.props.siteStore.SitePath("privacy")} className="footer__item">
-                Privacy Policy
+                { this.props.siteStore.l10n.footer.privacy_policy }
               </Link>
               <Link to={this.props.siteStore.SitePath("terms")} className="footer__item">
-                Terms
+                { this.props.siteStore.l10n.footer.terms }
               </Link>
             </>
         }
@@ -189,7 +189,8 @@ class Footer extends React.Component {
         }
         <div className="footer__block footer__powered-by">
           <a href="https://live.eluv.io" target="_blank" className="footer__item footer__powered-by__tagline">
-            Powered by <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />
+            { this.props.siteStore.l10n.footer.powered_by }
+            <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />
           </a>
         </div>
       </div>
