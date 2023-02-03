@@ -5,7 +5,7 @@ import {createRoot} from "react-dom/client";
 import {observer, Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
 import ComponentTest from "./ComponentTest";
-import {Routes, useLocation} from "react-router";
+import {Navigate, Routes, useLocation} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
 
 import Header from "./components/Header";
@@ -16,6 +16,8 @@ import Technology from "./pages/technology/Technology";
 import ContentFabric from "./pages/technology/ContentFabric";
 import Blockchain from "./pages/technology/Blockchain";
 import ContactForm from "./components/ContactForm";
+import News from "./pages/news/News";
+import NewsItem from "./pages/news/NewsItem";
 
 const PageContainer = observer(({children, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -58,10 +60,13 @@ const MainApp = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/partners" element={<PageContainer padded><Partners /></PageContainer>} />
+          <Route path="/news" element={<PageContainer padded><News /></PageContainer>} />
+          <Route path="/news/:slug" element={<PageContainer padded><NewsItem /></PageContainer>} />
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
-          <Route path="*" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
+          <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
+          <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,6 +1,6 @@
 import {flow, makeAutoObservable} from "mobx";
 import UrlJoin from "url-join";
-import SanitizeHTML from "sanitize-html";
+import DOMPurify from "dompurify";
 import LocalizationEN from "Assets/localizations/en.yml";
 
 const CHAT_ROOM_SIZE = 5000;
@@ -604,7 +604,7 @@ class SiteStore {
         }
 
         if(site.info.custom_css) {
-          document.querySelector("#_custom-css").innerHTML = SanitizeHTML(site.info.custom_css);
+          document.querySelector("#_custom-css").innerHTML = DOMPurify.sanitize(site.info.custom_css);
         }
 
         if(marketplaceInfo.marketplace_only) {

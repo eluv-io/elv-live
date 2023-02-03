@@ -113,6 +113,10 @@ module.exports = {
         loader: "babel-loader",
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react", "babel-preset-mobx"],
+          plugins: [
+            ["@babel/plugin-proposal-private-methods", { loose: true }],
+            ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
+          ]
         }
       },
       {

@@ -51,6 +51,15 @@ button {
   text-align: center;
 }
 
+em {
+  font-style: italic;
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
 /* revert for bug in Chromium browsers
    - fix for the content editable attribute will work properly. */
 :where([contenteditable]) {

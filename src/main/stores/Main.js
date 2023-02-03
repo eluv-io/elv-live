@@ -66,9 +66,14 @@ class MainStore {
   }
 
   InitializeClient = flow(function * () {
+    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
+    metadataUrl.searchParams.set("resolve", "false");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
+    metadataUrl.searchParams.set("resolve_include_source", "true");
+
     const metadata = ProduceMetadataLinks({
       path: "/public/asset_metadata",
-      metadata: yield (yield fetch(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"))).json()
+      metadata: yield (yield fetch(metadataUrl)).json()
     });
 
     this.mainSite = metadata.info;

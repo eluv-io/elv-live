@@ -24,8 +24,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@eluvio/elv-client-js": "^4.0.2",
-    "@eluvio/elv-player-js": "^1.0.75",
+    "@eluvio/elv-client-js": "^4.0.10",
+    "@eluvio/elv-player-js": "^1.0.101",
     "@eluvio/elv-wallet-frame-client": "^2.0.2",
     "@paypal/react-paypal-js": "^4.0.2",
     "@react-hook/resize-observer": "^1.2.2",
@@ -34,6 +34,7 @@
     "country-codes-list": "^1.6.8",
     "dateformat": "^3.0.3",
     "dayjs": "^1.10.4",
+    "dompurify": "^2.4.3",
     "ethers": "^5.3.0",
     "focus-trap-react": "^10.0.2",
     "isarray": "^2.0.5",
@@ -52,7 +53,6 @@
     "react-router": "^6.6.2",
     "react-router-dom": "^6.6.2",
     "resize-observer-polyfill": "^1.5.1",
-    "sanitize-html": "2.7.0",
     "scroll-behavior-polyfill": "^2.0.13",
     "swiper": "^8.4.6",
     "url-join": "^4.0.1",

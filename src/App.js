@@ -17,10 +17,11 @@ SetHeight();
 window.addEventListener("resize", SetHeight);
 
 const MAIN_SITE_PATHS = [
-  "/",
+  //"/",
   "/technology",
   "/content-fabric",
-  "/partners"
+  "/partners",
+  "/news"
 ];
 
 const Load = async () => {
@@ -35,7 +36,7 @@ const Load = async () => {
     return;
   }
 
-  if(MAIN_SITE_PATHS.find(mainPath => path.startsWith(mainPath))) {
+  if(path === "/" || MAIN_SITE_PATHS.find(mainPath => path.startsWith(mainPath))) {
     await import("./main/MainApp");
   } else {
     await import("./SiteApp");

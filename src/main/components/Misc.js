@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {createRoot} from "react-dom/client";
 import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
+import DOMPurify from "dompurify";
 import ImageIcon from "./ImageIcon";
 import Modal from "./Modal";
 import {Button} from "./Actions";
@@ -9,11 +9,28 @@ import SwiperCore, {Lazy, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
+import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import EluvioConfiguration from "EluvioConfiguration";
 
 SwiperCore.use([Lazy, Pagination]);
 
-export const RichText = ({richText, className=""}) => {
+export const RichText = ({richText, children, markdown=false, className=""}) => {
   const [reactRoot, setReactRoot] = useState(undefined);
+
+  if(!markdown) {
+    return (
+      <div
+        ref={element => {
+          if(!element) { return; }
+
+          element.innerHTML = element.innerHTML + " " + DOMPurify.sanitize(richText);
+        }}
+        className={`rich-text ${className}`}
+      >
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -25,14 +42,60 @@ export const RichText = ({richText, className=""}) => {
         setReactRoot(root);
 
         root.render(
-          <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-            { SanitizeHTML(richText) }
+          <ReactMarkdown
+            linkTarget="_blank"
+            allowDangerousHtml
+            includeNodeIndex
+            components
+          >
+            { DOMPurify.sanitize(richText) }
           </ReactMarkdown>,
         );
       }}
     />
   );
 };
+
+export const Video = observer(({versionHash, videoMetadata, className=""}) => {
+  const [player, setPlayer] = useState(undefined);
+
+  useEffect(() => () => player?.Destroy(), []);
+
+  if(!videoMetadata) { return null; }
+
+  if(!versionHash) {
+    if(videoMetadata["/"]) {
+      versionHash = videoMetadata["/"].split("/").find(element => element.startsWith("hq__"));
+    } else if(videoMetadata["."] && videoMetadata["."].source) {
+      versionHash = videoMetadata["."].source;
+    }
+  }
+
+  return (
+    <div
+      ref={element => {
+        if(!element || player) { return; }
+
+        setPlayer(
+          new EluvioPlayer(
+            element,
+            {
+              clientOptions: {
+                network: EluvioPlayerParameters.networks[EluvioConfiguration.network === "main" ? "MAIN" : "DEMO"]
+              },
+              sourceOptions: {
+                playoutParameters: {
+                  versionHash
+                }
+              }
+            }
+          )
+        );
+      }}
+      className={`player-container ${className}`}
+    />
+  );
+});
 
 export const ExpandableImage = ({image, caption, className="", imageClassName="", captionClassName="", expandable}) => {
   const [showFullScreen, setShowFullScreen] = useState(false);
@@ -68,9 +131,9 @@ export const ExpandableImage = ({image, caption, className="", imageClassName=""
   );
 };
 
-export const InfoBox = ({header, subheader, content, icon, links, dark=false}) => {
+export const InfoBox = ({header, subheader, content, icon, links, dark=false, className=""}) => {
   return (
-    <div className={`curved-box info-box ${dark ? "dark" : "light"}`}>
+    <div className={`curved-box info-box ${dark ? "dark" : "light"} ${className}`}>
       { subheader ? <h5 className="info-box__subheader">{ subheader }</h5> : null }
       <div className="info-box__content">
         {
