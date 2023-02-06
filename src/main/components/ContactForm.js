@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {observer} from "mobx-react";
 import {ButtonWithLoader} from "./Actions";
 
-import SubmitIcon from "../static/icons/send.svg";
+import {SendIcon} from "../static/icons/Icons";
 
 export const ValidEmail = email => {
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -56,7 +56,7 @@ const ContactForm = observer(({dark=false}) => {
         />
         <ButtonWithLoader
           disabled={!emailValid || !messageValid || submitted}
-          icon={SubmitIcon}
+          icon={SendIcon}
           onClick={async event => {
             event.preventDefault();
 

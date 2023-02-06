@@ -14,23 +14,8 @@ import EluvioConfiguration from "EluvioConfiguration";
 
 SwiperCore.use([Lazy, Pagination]);
 
-export const RichText = ({richText, children, markdown=false, className=""}) => {
+export const RichText = ({richText, children, className=""}) => {
   const [reactRoot, setReactRoot] = useState(undefined);
-
-  if(!markdown) {
-    return (
-      <div
-        ref={element => {
-          if(!element) { return; }
-
-          element.innerHTML = element.innerHTML + " " + DOMPurify.sanitize(richText);
-        }}
-        className={`rich-text ${className}`}
-      >
-        {children}
-      </div>
-    );
-  }
 
   return (
     <div
@@ -42,14 +27,17 @@ export const RichText = ({richText, children, markdown=false, className=""}) => 
         setReactRoot(root);
 
         root.render(
-          <ReactMarkdown
-            linkTarget="_blank"
-            allowDangerousHtml
-            includeNodeIndex
-            components
-          >
-            { DOMPurify.sanitize(richText) }
-          </ReactMarkdown>,
+          <>
+            { children }
+            <ReactMarkdown
+              linkTarget="_blank"
+              allowDangerousHtml
+              includeNodeIndex
+              components
+            >
+              { DOMPurify.sanitize(richText) }
+            </ReactMarkdown>
+          </>
         );
       }}
     />

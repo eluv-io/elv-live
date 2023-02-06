@@ -36,7 +36,7 @@ export const ActionComponent = (props) => {
   }
 
   // Allow links to be specified with 'to' param
-  if(props.to?.startsWith("https://")) {
+  if(props.to?.startsWith("https://") || props.to?.startsWith("mailto:")) {
     props.href = props.to;
     props.target = "_blank";
     props.rel = "external";

@@ -4,7 +4,7 @@ import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
 import FocusTrap from "focus-trap-react";
 
-import CloseIcon from "../static/icons/x.svg";
+import {XIcon} from "../static/icons/Icons";
 
 const ModalComponent = ({children, hideCloseButton, className="", CloseModal}) => {
   return (
@@ -15,7 +15,7 @@ const ModalComponent = ({children, hideCloseButton, className="", CloseModal}) =
             <button className="modal__close-button">
               <ImageIcon
                 title="Close"
-                icon={CloseIcon}
+                icon={XIcon}
                 onClick={() => CloseModal()}
               />
             </button> :

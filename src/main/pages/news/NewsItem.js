@@ -9,7 +9,7 @@ import {FormatDate} from "../../utils/Utils";
 const NewsItem = observer(() => {
   const params = useParams();
 
-  const { title, full_title, date, text, images, video } = mainStore.mainSite?.news?.find(item => item.slug === params.slug);
+  const { title, full_title, date, text, images, videos } = mainStore.mainSite?.news?.find(item => item.slug === params.slug);
 
   return (
     <div className="page light">
@@ -23,13 +23,22 @@ const NewsItem = observer(() => {
         <h2 className="news__title">{full_title || title}</h2>
       </div>
       <div className="news__content">
-        { video ? <Video videoMetadata={video} className="news__video" /> : null }
+        {
+          !videos || videos.length === 0 ? null :
+            videos.map(({video, caption}, index) =>
+              <div className="news__video-container">
+                <Video key={`video-${index}`} videoMetadata={video} className="news__video" />
+                { caption ? <caption className="news__video-caption">{ caption }</caption> : null }
+              </div>
+            )
+        }
+
         <RichText richText={text} className="news__text">
           {
             images?.length > 0 ?
               <div className="news__images">
                 {images.map(({image, caption}, index) =>
-                  <ExpandableImage image={image?.url} key={`image-${index}`} caption={caption} className="news__image" />
+                  <ExpandableImage expandable image={image?.url} key={`image-${index}`} caption={caption} className="news__image" />
                 )}
               </div> : null
           }

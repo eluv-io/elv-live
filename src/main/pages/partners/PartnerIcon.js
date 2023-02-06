@@ -3,7 +3,7 @@ import ImageIcon from "../../components/ImageIcon";
 import Modal from "../../components/Modal";
 import {RichText} from "../../components/Misc";
 
-import CloseIcon from "../../static/icons/x.svg";
+import {XIcon} from "../../static/icons/Icons";
 
 const PartnerInfo = ({name, logo, modalContent, isProvider, isValidator, setShowModal}) => {
   return (
@@ -22,7 +22,7 @@ const PartnerInfo = ({name, logo, modalContent, isProvider, isValidator, setShow
           <div className="partner-info__content">{modalContent}</div>
       }
       <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
-        <ImageIcon icon={CloseIcon} title="Close" className="modal-box__close-button-icon" />
+        <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
       </button>
     </div>
   );

@@ -3,9 +3,9 @@ import {observer} from "mobx-react";
 import UrlJoin from "url-join";
 import {mainStore} from "../../stores/Main";
 import {InfoBox} from "../../components/Misc";
-
-import NewsIcon from "../../static/icons/read-more.svg";
 import {FormatDate} from "../../utils/Utils";
+
+import {NewsIcon} from "../../static/icons/Icons";
 
 const News = observer(() => {
   const newsItems = mainStore.mainSite?.news || [];
@@ -17,7 +17,7 @@ const News = observer(() => {
       </div>
       <div className="news__list">
         {
-          newsItems.map(({title, date, slug}, index) => {
+          newsItems.map(({title, date, slug, external_link}, index) => {
             return (
               <InfoBox
                 className="news__list-item"
@@ -26,7 +26,7 @@ const News = observer(() => {
                 subheader={FormatDate(date)}
                 links={[
                   {
-                    to: UrlJoin("/news", slug || index.toString()),
+                    to: external_link || UrlJoin("/news", slug || index.toString()),
                     text: "Read More",
                     icon: NewsIcon
                   }

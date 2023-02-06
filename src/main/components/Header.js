@@ -6,16 +6,16 @@ import {Action} from "./Actions";
 import {uiStore} from "../stores/Main";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
-import CloseIcon from "../static/icons/x.svg";
 import Icon from "../static/icons/send.svg";
-import MobileMenuIcon from "../static/icons/menu.svg";
+
+import {MenuIcon, XIcon} from "../static/icons/Icons";
 
 const NotificationBanner = ({children, Dismiss, className=""}) => {
   return (
     <div className={`notification-banner ${className}`}>
       { children }
       <button onClick={Dismiss} className="notification-banner__close-button">
-        <ImageIcon icon={CloseIcon} title="Dismiss" className="notification-banner__close-icon" />
+        <ImageIcon icon={XIcon} title="Dismiss" className="notification-banner__close-icon" />
       </button>
     </div>
   );
@@ -68,7 +68,7 @@ const Header = observer(({notification}) => {
             Discover Projects
           </Action>
         </nav>
-        <Action icon={MobileMenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => {}} />
+        <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => {}} />
       </header>
       { uiStore.pageWidth > 1000 ? notificationBanner : null }
     </>

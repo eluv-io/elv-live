@@ -2,8 +2,9 @@ import React, {useState} from "react";
 import {InfoBox} from "../../components/Misc";
 
 import TestIcon from "../../static/icons/learn-more-about-the-technology.svg";
-import LinkIcon from "../../static/icons/link.svg";
-import DocumentIcon from "../../static/icons/view-document.svg";
+import {DocumentIcon, LinkIcon} from "../../static/icons/Icons";
+
+
 
 const tabs = [
   ["Our Blockchain", "our-blockchain"],

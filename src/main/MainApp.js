@@ -18,6 +18,7 @@ import Blockchain from "./pages/technology/Blockchain";
 import ContactForm from "./components/ContactForm";
 import News from "./pages/news/News";
 import NewsItem from "./pages/news/NewsItem";
+import Contact from "./pages/contact/Contact";
 
 const PageContainer = observer(({children, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -59,6 +60,7 @@ const MainApp = () => {
     <div className="main">
       <BrowserRouter>
         <Routes>
+          <Route path="/contact" element={<PageContainer padded><Contact /></PageContainer>} />
           <Route path="/partners" element={<PageContainer padded><Partners /></PageContainer>} />
           <Route path="/news" element={<PageContainer padded><News /></PageContainer>} />
           <Route path="/news/:slug" element={<PageContainer padded><NewsItem /></PageContainer>} />

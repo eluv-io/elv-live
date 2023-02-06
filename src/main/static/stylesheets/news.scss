@@ -31,11 +31,23 @@
     max-width: 500px;
   }
 
-  &__video {
-    &.eluvio-player {
-      margin: 0 auto 20px;
+  &__video-container {
+    margin-bottom: 20px;
+
+    .news__video {
+      margin: 0 auto;
       max-width: $width-tablet;
     }
+  }
+
+  &__video-caption {
+    color: var(--color-text-light-1);
+    display: block;
+    font-size: var(--font-size-body-4);
+    font-style: italic;
+    margin: 5px auto 0;
+    max-width: $width-tablet;
+    width: 100%;
   }
 
   &__text {
