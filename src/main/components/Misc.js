@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {createRoot} from "react-dom/client";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import DOMPurify from "dompurify";
 import ImageIcon from "./ImageIcon";
 import Modal from "./Modal";
-import {Button} from "./Actions";
+import {Action, Button} from "./Actions";
 import SwiperCore, {Lazy, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {uiStore} from "../stores/Main";
@@ -31,9 +32,10 @@ export const RichText = ({richText, children, className=""}) => {
             { children }
             <ReactMarkdown
               linkTarget="_blank"
-              allowDangerousHtml
-              includeNodeIndex
-              components
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                a: props => <Action {...props} target={["https:", "mailto:"].find(prefix => props.href?.startsWith(prefix)) ? "_blank" : ""} />
+              }}
             >
               { DOMPurify.sanitize(richText) }
             </ReactMarkdown>
