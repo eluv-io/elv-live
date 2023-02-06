@@ -142,13 +142,13 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false, cl
         {
           !links || links.length === 0 ? null :
             <div className="info-box__links">
-              {links.map(({text, to, icon, includeArrow=true}) =>
+              {links.map(({text, to, icon, includeArrow=true}, index) =>
                 <Button
                   icon={icon}
                   to={to}
                   includeArrow={includeArrow}
                   className={`${dark ? "dark" : "light"} secondary info-box__link`}
-                  key={`info-box-link-${text}`}
+                  key={`info-box-link-${index}`}
                 >
                   { text }
                 </Button>

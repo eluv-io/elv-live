@@ -1,14 +1,11 @@
 import React from "react";
 import {ExpandableImage, InfoBox, TabbedInfoBox} from "../../components/Misc";
 
-import Icon from "../../static/test/learn-more-about-the-technology.svg";
-import LinkIcon from "../../static/test/send.svg";
-import TestIcon from "../../static/test/Event icon.svg";
-import TestDiagram from "../../static/test/51c686b52d63c93ac35839f981af186b.jpg";
-import TestIcon2 from "../../static/test/link.svg";
-import TestDiagram2 from "../../static/test/78dfa85f5d6742b6816bbe0fa2f4ef3f.jpg";
-import TestIcon3 from "../../static/test/send.svg";
-import TestDiagram3 from "../../static/test/de05266e8751e287614b51e700ce751b.jpg";
+import ArchitectureDiagram from "../../static/images/technology/architecture.jpg";
+import HowItWorksDiagram from "../../static/images/technology/how-it-works.jpg";
+import MonetizationDiagram from "../../static/images/technology/on-chain-monetization.jpg";
+
+import {LinkIcon, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 
 const Technology = () => {
   return (
@@ -31,7 +28,7 @@ const Technology = () => {
 
       <div className="page__content-block">
         <InfoBox
-          icon={Icon}
+          icon={TechnologyIcons.LearnMoreFabricIcon}
           header="Learn More About the Content Fabric"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
@@ -42,7 +39,7 @@ const Technology = () => {
             },
             {
               text: "Whitepaper",
-              icon: LinkIcon,
+              icon: DocumentIcon,
               to: "https://google.com"
             }
           ]}
@@ -54,23 +51,23 @@ const Technology = () => {
           tabs={[
             {
               title: "Architecture",
-              icon: TestIcon,
+              icon: TechnologyIcons.ArchitectureIcon,
               content: (
-                <ExpandableImage expandable image={TestDiagram} imageClassName="component-test__image" />
+                <ExpandableImage expandable image={ArchitectureDiagram} imageClassName="component-test__image" />
               )
             },
             {
               title: "How it Works",
-              icon: TestIcon2,
+              icon: TechnologyIcons.HowItWorksIcon,
               content: (
-                <ExpandableImage expandable image={TestDiagram2} imageClassName="component-test__image" />
+                <ExpandableImage expandable image={HowItWorksDiagram} imageClassName="component-test__image" />
               )
             },
             {
               title: "On-Chain Monetization",
-              icon: TestIcon3,
+              icon: TechnologyIcons.OnChainMonetizationIcon,
               content: (
-                <ExpandableImage expandable image={TestDiagram3} imageClassName="component-test__image" />
+                <ExpandableImage expandable image={MonetizationDiagram} imageClassName="component-test__image" />
               )
             }
           ]}

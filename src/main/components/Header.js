@@ -6,7 +6,6 @@ import {Action} from "./Actions";
 import {uiStore} from "../stores/Main";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
-import Icon from "../static/icons/send.svg";
 
 import {MenuIcon, XIcon} from "../static/icons/Icons";
 
@@ -59,7 +58,7 @@ const Header = observer(({notification}) => {
           </Action>
         </nav>
         <nav className="header__icons desktop">
-          <Action to="/wallet" icon={Icon} useNavLink className="dark header__nav-link" />
+          <Action to="/wallet" icon={MenuIcon} useNavLink className="dark header__nav-link" />
         </nav>
 
         { /* Mobile */ }

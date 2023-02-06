@@ -32,7 +32,9 @@ export const ActionComponent = (props) => {
         { props.children }
       </>
     );
+
     delete props.icon;
+    delete props.iconLabel;
   }
 
   // Allow links to be specified with 'to' param

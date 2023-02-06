@@ -17,10 +17,6 @@ import TestImage from "./static/test/newRO3.jpg";
 import TestImage2 from "./static/test/heroRita.jpg";
 import TestImage3 from "./static/test/sponsorR03.png";
 
-import TestDiagram from "./static/test/51c686b52d63c93ac35839f981af186b.jpg";
-import TestDiagram2 from "./static/test/78dfa85f5d6742b6816bbe0fa2f4ef3f.jpg";
-import TestDiagram3 from "./static/test/de05266e8751e287614b51e700ce751b.jpg";
-
 import EluvioLogo from "./static/images/logos/eluvio-logo.svg";
 
 
@@ -126,32 +122,6 @@ const ComponentTest = observer(() => {
         <h2>Header 2</h2>
         <h3>Header 3</h3>
         <h4>Header 4</h4>
-
-        <TabbedInfoBox
-          tabs={[
-            {
-              title: "Architecture",
-              icon: TestIcon,
-              content: (
-                <ExpandableImage expandable image={TestDiagram} imageClassName="component-test__image" />
-              )
-            },
-            {
-              title: "How it Works",
-              icon: TestIcon2,
-              content: (
-                <ExpandableImage expandable image={TestDiagram2} imageClassName="component-test__image" />
-              )
-            },
-            {
-              title: "On-Chain Monetization",
-              icon: TestIcon3,
-              content: (
-                <ExpandableImage expandable image={TestDiagram3} imageClassName="component-test__image" />
-              )
-            }
-          ]}
-        />
 
 
         <GridCarousel className="partners__list" classNameGrid="partners__list--grid" classNameCarousel="partners__list--carousel">

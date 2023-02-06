@@ -1,4 +1,5 @@
 - title: "Technology"
+  icon: "link"
   links:
     - text: "Eluvio Technology"
       link: "/"
@@ -11,6 +12,7 @@
     - text: "Careers"
       link: "https://eluvio.workable.com/"
 - title: "Discover"
+  icon: "discover"
   links:
     - text: "Discover Marketplaces"
       link: "/"
@@ -21,6 +23,7 @@
     - text: "Github"
       link: "/"
 - title: "NFTs"
+  icon: "link"
   links:
     - text: "Join our Community"
       link: "/"
@@ -33,6 +36,7 @@
     - text: "Community Meeting #3"
       link: "/careers"
 - title: "Documents"
+  icon: "document"
   links:
     - text: "Whitepaper"
       link: "/"

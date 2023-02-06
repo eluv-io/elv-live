@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import {InfoBox} from "../../components/Misc";
 
-import TestIcon from "../../static/icons/learn-more-about-the-technology.svg";
-import {DocumentIcon, LinkIcon} from "../../static/icons/Icons";
-
+import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
 
 
 const tabs = [
@@ -54,7 +52,7 @@ const Blockchain = () => {
       </div>
       <div className="page__content-block">
         <InfoBox
-          icon={TestIcon}
+          icon={TechnologyIcons.LearnMoreFabricIcon}
           header="Learn More About the Content Fabric"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[

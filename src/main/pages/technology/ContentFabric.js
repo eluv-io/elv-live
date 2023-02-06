@@ -3,10 +3,9 @@ import ImageIcon from "../../components/ImageIcon";
 import {InfoBox} from "../../components/Misc";
 import {Action} from "../../components/Actions";
 
-import TestIcon from "../../static/icons/learn-more-about-the-technology.svg";
-import LinkIcon from "../../static/icons/link.svg";
-import DocumentIcon from "../../static/icons/view-document.svg";
 import BlockchainImage from "../../static/images/technology/blockchain-graphic.png";
+
+import {LinkIcon, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 
 const ContentFabric = () => {
   return (
@@ -23,7 +22,7 @@ const ContentFabric = () => {
               <h4>Hyper Efficient</h4>
               <h4>No File Copies</h4>
             </div>
-            <ImageIcon icon={TestIcon} className="icon-box__icon" />
+            <ImageIcon icon={TechnologyIcons.NoFileCopiesIcon} className="icon-box__icon" />
           </div>
           <div className="curved-box icon-box light">
             <div className="icon-box__headers">
@@ -31,7 +30,7 @@ const ContentFabric = () => {
               <h4>Distribution</h4>
               <h4>Streaming</h4>
             </div>
-            <ImageIcon icon={TestIcon} className="icon-box__icon" />
+            <ImageIcon icon={TechnologyIcons.StorageDistributionIcon} className="icon-box__icon" />
           </div>
           <div className="curved-box icon-box light">
             <div className="icon-box__headers">
@@ -39,7 +38,7 @@ const ContentFabric = () => {
               <h4>Versioning</h4>
               <h4>Access</h4>
             </div>
-            <ImageIcon icon={TestIcon} className="icon-box__icon" />
+            <ImageIcon icon={TechnologyIcons.OnChainOwnershipIcon} className="icon-box__icon" />
           </div>
         </div>
       </div>
@@ -60,7 +59,7 @@ const ContentFabric = () => {
       </div>
       <div className="page__content-block">
         <InfoBox
-          icon={TestIcon}
+          icon={TechnologyIcons.LearnMoreTechnologyIcon}
           header="Learn More About the Technology"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
@@ -80,7 +79,7 @@ const ContentFabric = () => {
       <div className="page__content-block">
         <div className="curved-box mainnet-info light">
           <h3 className="mainnet-info__header">
-            <ImageIcon icon={DocumentIcon} className="mainnet-info__header-icon" />
+            <ImageIcon icon={TechnologyIcons.MainNetIcon} className="mainnet-info__header-icon" />
             MainNet
           </h3>
           <div className="mainnet-info__text">
@@ -88,15 +87,15 @@ const ContentFabric = () => {
           </div>
           <div className="mainnet-info__icons">
             <div className="mainnet-info__icon">
-              <ImageIcon icon={TestIcon} className="mainnet-info__icon__icon" />
+              <ImageIcon icon={TechnologyIcons.FabricBrowserIcon} className="mainnet-info__icon__icon" />
               <div className="mainnet-info__icon__text">Fabric Browser</div>
             </div>
             <div className="mainnet-info__icon">
-              <ImageIcon icon={TestIcon} className="mainnet-info__icon__icon" />
+              <ImageIcon icon={TechnologyIcons.BlockchainExplorerIcon} className="mainnet-info__icon__icon" />
               <div className="mainnet-info__icon__text">Blockchain Explorer</div>
             </div>
             <div className="mainnet-info__icon">
-              <ImageIcon icon={TestIcon} className="mainnet-info__icon__icon" />
+              <ImageIcon icon={TechnologyIcons.GithubRepoIcon} className="mainnet-info__icon__icon" />
               <div className="mainnet-info__icon__text">Github Repo</div>
             </div>
           </div>
@@ -104,7 +103,7 @@ const ContentFabric = () => {
       </div>
       <div className="page__content-block">
         <InfoBox
-          icon={TestIcon}
+          icon={TechnologyIcons.NodeValidatorProvidersIcon}
           header="Node & Validator Providers"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
@@ -118,7 +117,7 @@ const ContentFabric = () => {
       </div>
       <div className="page__content-block">
         <InfoBox
-          icon={TestIcon}
+          icon={TechnologyIcons.APIDevsIcon}
           header="API Developers"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
@@ -142,7 +141,7 @@ const ContentFabric = () => {
       </div>
       <div className="page__content-block">
         <InfoBox
-          icon={TestIcon}
+          icon={TechnologyIcons.CurrentRoadmapIcon}
           header="Current State & Roadmap"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
@@ -156,7 +155,7 @@ const ContentFabric = () => {
       </div>
       <div className="page__content-block">
         <InfoBox
-          icon={TestIcon}
+          icon={TechnologyIcons.BecomeNodeOperatorIcon}
           header="Become a Node Operator"
           content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
@@ -171,6 +170,7 @@ const ContentFabric = () => {
       <div className="page__content-block">
         <InfoBox
           header="Community"
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
           links={[
             {
               to: "https://google.com",

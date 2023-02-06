@@ -5,9 +5,7 @@ import FooterConfiguration from "../content/Footer.yaml";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo.svg";
 
-import TechnologyIcon from "../static/icons/send.svg";
-
-import {SocialIcons} from "../static/icons/Icons";
+import {LinkIcon, DiscoverIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
 
 import {Action} from "./Actions";
 
@@ -36,13 +34,19 @@ const SocialLinks = () => {
 };
 
 const Links = ({dark=false}) => {
+  const icons = {
+    discover: DiscoverIcon,
+    document: DocumentIcon,
+    link: LinkIcon,
+  };
+
   return (
     <div className="footer__links">
       {
-        FooterConfiguration.map(({title, links}) =>
+        FooterConfiguration.map(({title, icon, links}) =>
           <div key={`footer-section-${title}`} className="footer__link-section">
             <h5 className="footer__link-section__header">
-              <ImageIcon icon={TechnologyIcon} className="footer__link-section__header-icon" />
+              <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
               { title }
             </h5>
             {
