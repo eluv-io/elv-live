@@ -22,7 +22,7 @@ const MAIN_SITE_PATHS = [
   "/content-fabric",
   "/news",
   "/partners",
-  "/technology",
+  "/technology"
 ];
 
 const Load = async () => {

@@ -83,6 +83,12 @@
     font-size: var(--font-size-header-4);
   }
 
+  &__text {
+    a {
+      color: var(--color-text-dark-highlight);
+    }
+  }
+
   &__close-button {
     align-items: center;
     display: flex;

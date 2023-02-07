@@ -33,16 +33,7 @@ const PageContainer = observer(({children, padded=false, dark=false, unbound=fal
 
   return (
     <>
-      <Header
-        notification={(
-          <>
-            <h2>Notification</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-            </p>
-          </>
-        )}
-      />
+      <Header />
       <div
         key={`page-container-${location.pathname}`}
         className={`page-container fade-in ${padded ? "padded-block" : ""} ${dark ? "dark" : "light"} ${unbound ? "unbound" : ""}`}

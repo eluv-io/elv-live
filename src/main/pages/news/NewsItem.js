@@ -26,10 +26,10 @@ const NewsItem = observer(() => {
         {
           !videos || videos.length === 0 ? null :
             videos.map(({video, caption}, index) =>
-              <div className="news__video-container">
-                <Video key={`video-${index}`} videoMetadata={video} className="news__video" />
+              <figure className="news__video-container" key={`video-${index}`}>
+                <Video videoMetadata={video} className="news__video" />
                 { caption ? <caption className="news__video-caption">{ caption }</caption> : null }
-              </div>
+              </figure>
             )
         }
 

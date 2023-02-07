@@ -104,6 +104,8 @@ class MainStore {
 
     const messageLength = notification.header.length + notification.text.length;
     localStorage.setItem("dismissed-notification", messageLength);
+
+    this.mainSite.notification.active = false;
   }
 }
 
