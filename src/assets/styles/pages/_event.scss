@@ -182,6 +182,15 @@
     }
   }
 
+  .upcoming-events {
+    width: 100%;
+
+    .carousel {
+      margin: 0 auto;
+      max-width: 1600px;
+    }
+  }
+
   &__banner {
     align-items: center;
     display: flex;
@@ -202,6 +211,47 @@
     img {
       border-radius: 15px;
     }
+  }
+
+  &__banner-cards {
+    margin: 20px 0;
+    padding: 50px 50px 100px;
+    position: relative;
+
+    &__header {
+      display: block;
+      font-size: 32px;
+      margin-bottom: 50px;
+      position: relative;
+      text-align: center;
+      width: 100%;
+    }
+
+    &__background {
+      display: block;
+      height: 100%;
+      left: 0;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &__cards {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      position: relative;
+    }
+  }
+
+  &__banner-card {
+    margin: 0;
+    max-width: 600px;
+    padding: 0;
+    width: auto;
   }
 
   @media only screen and (max-width: 1300px) and (min-width: 700px) {
@@ -317,6 +367,14 @@
     .upcoming-events,
     &__banner {
       padding: 35px;
+    }
+
+    &__banner-cards {
+      padding-inline: 30px;
+    }
+
+    &__banner-card {
+      padding: 0;
     }
   }
 }
