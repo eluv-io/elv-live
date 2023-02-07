@@ -429,11 +429,11 @@ class Event extends React.Component {
     );
   }
 
-  Banner(bannerInfo, index, mobile) {
+  Banner({bannerInfo, index, mobile, className="event-page__banner", imageClassName="event-page__banner__image"}) {
     const bannerImage = (
       <ImageIcon
         key={`banner-${index}`}
-        className="event-page__banner__image"
+        className={imageClassName}
         icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
         label="Banner"
       />
@@ -441,7 +441,7 @@ class Event extends React.Component {
 
     if(bannerInfo.type === "marketplace") {
       return (
-        <div className="event-page__banner" key={`banner-${index}`}>
+        <div className={className} key={`banner-${index}`}>
           <button
             onClick={() => {
               this.props.rootStore.SetWalletPanelVisibility(
@@ -471,7 +471,7 @@ class Event extends React.Component {
       if(!dropId) { return null; }
 
       return (
-        <div className="event-page__banner" key={`banner-${index}`}>
+        <div className={className} key={`banner-${index}`}>
           <Link to={this.props.siteStore.SitePath(UrlJoin("drop", dropId))}>
             { bannerImage }
           </Link>
@@ -480,7 +480,7 @@ class Event extends React.Component {
     }
 
     return (
-      <div className="event-page__banner" key={`banner-${index}`}>
+      <div className={className} key={`banner-${index}`}>
         <a
           href={bannerInfo.link || undefined}
           rel="noopener"
@@ -488,6 +488,31 @@ class Event extends React.Component {
         >
           { bannerImage }
         </a>
+      </div>
+    );
+  }
+
+  BottomBannerCards(mobile) {
+    let { header, background_image, background_image_mobile, cards } = this.props.siteStore.currentSiteInfo.main_page_banner_cards || {};
+
+    if((cards || []).length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="event-page__banner-cards">
+        {
+          background_image ?
+            <ImageIcon
+              className="event-page__banner-cards__background"
+              icon={(((mobile && background_image_mobile) || background_image) || {}).url}
+              label="Banner"
+            /> : null
+        }
+        { header ? <h3 className="event-page__banner-cards__header">{header}</h3> : null }
+        <div className="event-page__banner-cards__cards">
+          { cards.map((bannerInfo, index) => this.Banner({bannerInfo, index, className: "event-page__banner event-page__banner-card", imageClassName: "event-page__banner-card__image"})) }
+        </div>
       </div>
     );
   }
@@ -505,7 +530,7 @@ class Event extends React.Component {
       }
     }
 
-    return banners.map((bannerInfo, index) => this.Banner(bannerInfo, index, mobile));
+    return banners.map((bannerInfo, index) => this.Banner({bannerInfo, index, mobile}));
   }
 
   Hero() {
@@ -580,6 +605,7 @@ class Event extends React.Component {
             <UpcomingEvents events={this.props.siteStore.dropEvents}/>
         }
 
+        { this.BottomBannerCards(mobile) }
         { this.BottomBanners(mobile) }
 
         { this.state.showPromo ? this.Promos() : null}
