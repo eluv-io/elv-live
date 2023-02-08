@@ -22,7 +22,7 @@ import Contact from "./pages/contact/Contact";
 import Features from "./pages/features/Features";
 import Details from "./pages/features/Details";
 
-const PageContainer = observer(({children, padded=false, dark=false, unbound=false}) => {
+export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -36,12 +36,14 @@ const PageContainer = observer(({children, padded=false, dark=false, unbound=fal
   return (
     <>
       <Header />
+      { before }
       <div
         key={`page-container-${location.pathname}`}
         className={`page-container fade-in ${padded ? "padded-block" : ""} ${dark ? "dark" : "light"} ${unbound ? "unbound" : ""}`}
       >
         {children}
       </div>
+      { after }
       <ContactForm dark={dark} />
       <Footer dark={dark} />
     </>
@@ -60,7 +62,7 @@ const MainApp = () => {
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
-          <Route path="/features" element={<PageContainer ><Features /></PageContainer>} />
+          <Route path="/features" element={<Features />} />
           <Route path="/features/rates" element={<Features />} />
           <Route path="/features/support" element={<Features />} />
           <Route path="/features/details" element={<PageContainer padded><Details /></PageContainer>} />
