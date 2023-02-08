@@ -7,6 +7,8 @@ import MenuIcon from "./menu.svg";
 import NewsIcon from "./read-more.svg";
 import SendIcon from "./send.svg";
 import XIcon from "./x.svg";
+import CheckmarkIcon from "./checkmark.svg";
+import PlayCircleIcon from "./play-circle.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -27,6 +29,7 @@ const SocialIcons = {
 };
 
 export {
+  CheckmarkIcon,
   DiscoverIcon,
   DocumentIcon,
   LinkIcon,
@@ -34,6 +37,7 @@ export {
   MapIcon,
   MenuIcon,
   NewsIcon,
+  PlayCircleIcon,
   SendIcon,
   XIcon,
 

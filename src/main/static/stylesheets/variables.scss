@@ -24,6 +24,8 @@ $width-mobile: 600px;
   --color-highlight-1: #c07cff;
   --color-highlight-2: #9b51e0;
   --color-highlight-3: #791cd0;
+  --color-highlight-4: #efecf4;
+  --color-highlight-5: #d9d9d9;
 
   --color-icon-light-1: #56ccf2;
   --color-icon-light-2: #2d9cdb;
@@ -36,6 +38,8 @@ $width-mobile: 600px;
   --color-text-light-3: #465465;
   --color-text-light-4: #434343;
   --color-text-light-5: #aaadb3;
+  --color-text-light-6: #aaa9a9;
+  --color-text-light-7: #36c;
   --color-text-light-highlight: var(--color-highlight-2);
 
   --color-text-dark-1: #fff;
@@ -55,7 +59,7 @@ $width-mobile: 600px;
 
   --background-gradient-footer-light: linear-gradient(180deg, rgba(155, 81, 224, 0) 0%, rgba(155, 81, 224, 0.1) 100%);
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
-
+  --background-gradient-banner: linear-gradient(180deg, #471671 0%, #371870 100%);
 
   @media screen and (max-width: $width-laptop) {
     --horizontal-content-padding: 100px;

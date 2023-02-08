@@ -53,6 +53,7 @@ const Header = observer(() => {
           <Action to="/community" useNavLink underline className="dark header__nav-link">
             Community
           </Action>
+          <Action to="/features" useNavLink underline className="dark header__nav-link">Features</Action>
         </nav>
         <nav className="header__icons desktop">
           <Action to="/wallet" icon={MenuIcon} useNavLink className="dark header__nav-link" />

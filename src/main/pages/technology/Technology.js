@@ -53,21 +53,27 @@ const Technology = () => {
               title: "Architecture",
               icon: TechnologyIcons.ArchitectureIcon,
               content: (
-                <ExpandableImage expandable image={ArchitectureDiagram} imageClassName="component-test__image" />
+                <div className="tabbed-info-box--shadow">
+                  <ExpandableImage expandable image={ArchitectureDiagram} imageClassName="component-test__image" />
+                </div>
               )
             },
             {
               title: "How it Works",
               icon: TechnologyIcons.HowItWorksIcon,
               content: (
-                <ExpandableImage expandable image={HowItWorksDiagram} imageClassName="component-test__image" />
+                <div className="tabbed-info-box--shadow">
+                  <ExpandableImage expandable image={HowItWorksDiagram} imageClassName="component-test__image" />
+                </div>
               )
             },
             {
               title: "On-Chain Monetization",
               icon: TechnologyIcons.OnChainMonetizationIcon,
               content: (
-                <ExpandableImage expandable image={MonetizationDiagram} imageClassName="component-test__image" />
+                <div className="tabbed-info-box--shadow">
+                  <ExpandableImage expandable image={MonetizationDiagram} imageClassName="component-test__image" />
+                </div>
               )
             }
           ]}

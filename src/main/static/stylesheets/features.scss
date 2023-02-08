@@ -1,0 +1,234 @@
+.tenancies-list {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.features-connect {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 6.5rem;
+
+  &__button {
+    width: 390px;
+  }
+}
+
+.features-faqs {
+  background-color: var(--background-light-2);
+  font-weight: 700;
+  padding: 40px 140px;
+  width: 100%;
+}
+
+.features-banner {
+  background: var(--background-gradient-banner);
+  color: var(--color-text-dark-1);
+  padding: 55px 2rem;
+
+  &__list {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 70px;
+    justify-content: center;
+
+    &__item-details {
+      max-width: 260px;
+
+      &__title,
+      .image-icon,
+      &__paragraph {
+        margin-bottom: 18px;
+      }
+
+      &__title {
+        font-weight: 700;
+      }
+
+      &__main-icon {
+        height: 30px;
+        width: 30px;
+
+        g path {
+          fill: var(--color-icon-dark-2);
+        }
+
+        path {
+          stroke: var(--color-icon-dark-2);
+        }
+      }
+
+      &__learn-button {
+        &__text {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}
+
+.tenancy-info {
+  background-color: var(--color-highlight-4);
+  border: 1.5px solid var(--color-highlight-3);
+  border-radius: 22px;
+  max-width: 350px;
+  min-height: 430px;
+  padding: 36px 40px;
+
+  hr {
+    background-color: var(--color-highlight-5);
+    height: 1px;
+    margin: 10px 0;
+  }
+
+  &__level,
+  &__service {
+    color: var(--color-highlight-2);
+    font-size: var(--font-size-body-5);
+    font-weight: 700;
+  }
+
+  &__level {
+    font-size: var(--font-size-body-5);
+    text-transform: uppercase;
+  }
+
+  &__tenancy {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  &__features {
+    align-items: center;
+    display: flex;
+    min-height: 165px;
+
+    &__content {
+      &__header {
+        color: var(--color-text-light-7);
+        display: flex;
+        font-weight: 700;
+        gap: 8px;
+        margin-bottom: 12px;
+
+        &__details {
+          font-size: var(--font-size-body-5);
+        }
+      }
+
+      &__list {
+        &__item {
+          position: relative;
+
+          &::before {
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.39754 5.43746L1.31254 3.35246L0.602539 4.05746L3.39754 6.85246L9.39754 0.852461L8.69254 0.147461L3.39754 5.43746Z' fill='%23353437'/%3E%3C/svg%3E%0A");
+            background-position: center;
+            background-repeat: no-repeat;
+            content: '';
+            display: inline-block;
+            height: 20px;
+            left: 0;
+            position: absolute;
+            top: 6px;
+            width: 20px;
+          }
+
+          &__text {
+            padding-left: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  &__pricing {
+    align-items: center;
+    display: flex;
+
+    &__amount {
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    &__rate {
+      line-height: 1;
+
+      &--column {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.5;
+      }
+
+      &--row {
+        span:first-child {
+          padding-right: 3px;
+        }
+      }
+
+      &__month,
+      &__fees {
+        font-size: var(--font-size-body-5);
+        font-weight: 500;
+      }
+
+      &__month {
+        color: var(--color-text-light-6);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $width-tablet) {
+  .page__header-container {
+    padding-inline: var(--horizontal-content-padding);
+  }
+
+  .tabbed-info-box__tab-text {
+    display: flex;
+  }
+
+  .tenancies-list {
+    //flex-direction: column;
+  }
+
+  .features-banner {
+    &__list {
+      //flex-direction: column;
+    }
+  }
+
+  .tenancy-info {
+    &__level,
+    &__service {
+      font-size: var(--font-size-body-3);
+    }
+
+    &__features__content__header {
+      flex-direction: column;
+      gap: 0;
+
+      &__details {
+        font-size: var(--font-size-body-4);
+      }
+    }
+
+    &__pricing {
+      align-items: flex-start;
+      flex-direction: column;
+
+      &__rate__month,
+      &__rate__fees {
+        font-size: var(--font-size-body-4);
+      }
+    }
+  }
+
+  .features-faqs {
+    padding: 40px;
+  }
+}

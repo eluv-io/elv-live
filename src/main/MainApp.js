@@ -19,6 +19,7 @@ import ContactForm from "./components/ContactForm";
 import News from "./pages/news/News";
 import NewsItem from "./pages/news/NewsItem";
 import Contact from "./pages/contact/Contact";
+import Features from "./pages/features/Features";
 
 const PageContainer = observer(({children, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -58,6 +59,9 @@ const MainApp = () => {
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
+          <Route path="/features" element={<PageContainer ><Features /></PageContainer>} />
+          <Route path="/features/rates" element={<Features />} />
+          <Route path="/features/support" element={<Features />} />
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>

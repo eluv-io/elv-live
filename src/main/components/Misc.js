@@ -162,11 +162,11 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false, cl
   );
 };
 
-export const TabbedInfoBox = ({tabs, dark=false}) => {
+export const TabbedInfoBox = ({tabs, dark=false, noBackgroundStyling=false}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(Math.max(tabs.findIndex(tab => tab?.default), 0));
 
   return (
-    <div className={`curved-box tabbed-info-box ${dark ? "dark" : "light"}`}>
+    <div className={`curved-box tabbed-info-box ${noBackgroundStyling ? "" : dark ? "dark" : "light"}`}>
       <div className="tabbed-info-box__tabs">
         { tabs.map(({icon, title}, index) =>
           <Button
