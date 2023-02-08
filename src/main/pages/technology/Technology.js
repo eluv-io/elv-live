@@ -53,7 +53,7 @@ const Technology = () => {
               title: "Architecture",
               icon: TechnologyIcons.ArchitectureIcon,
               content: (
-                <div className="tabbed-info-box--shadow">
+                <div className="tabbed-info-box__content--shadow">
                   <ExpandableImage expandable image={ArchitectureDiagram} imageClassName="component-test__image" />
                 </div>
               )
@@ -62,7 +62,7 @@ const Technology = () => {
               title: "How it Works",
               icon: TechnologyIcons.HowItWorksIcon,
               content: (
-                <div className="tabbed-info-box--shadow">
+                <div className="tabbed-info-box__content--shadow">
                   <ExpandableImage expandable image={HowItWorksDiagram} imageClassName="component-test__image" />
                 </div>
               )
@@ -71,7 +71,7 @@ const Technology = () => {
               title: "On-Chain Monetization",
               icon: TechnologyIcons.OnChainMonetizationIcon,
               content: (
-                <div className="tabbed-info-box--shadow">
+                <div className="tabbed-info-box__content--shadow">
                   <ExpandableImage expandable image={MonetizationDiagram} imageClassName="component-test__image" />
                 </div>
               )

@@ -17,17 +17,17 @@ const Features = () => {
 
   const BannerBox = ({title, icon, paragraph, link}) => {
     return (
-      <div className="features-banner__list__item-details">
+      <div className="features-banner__item-details">
         <ImageIcon
-          className="features-banner__list__item-details__main-icon"
+          className="features-banner__main-icon"
           icon={icons[icon]}
           label={title}
           title={title}
         />
-        <h5 className="features-banner__list__item-details__title">{ title }</h5>
-        <p className="features-banner__list__item-details__paragraph">{ paragraph }</p>
-        <Action to={link} includeArrow={true} className="features-banner__list__item-details__learn-button">
-          <div className="features-banner__list__item-details__learn-button__text">Learn More</div>
+        <h5>{ title }</h5>
+        <p>{ paragraph }</p>
+        <Action to={link} includeArrow={true}>
+          <div className="features-banner__button-text">Learn More</div>
         </Action>
       </div>
     );

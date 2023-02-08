@@ -25,22 +25,22 @@ const TenancyInfo = ({
   return (
     <div className="tenancy-info">
       <div className="tenancy-info__level">{ level }</div>
-      <h4 className="tenancy-info__tenancy">{ tenanciesMap[tenancy] }</h4>
+      <h4>{ tenanciesMap[tenancy] }</h4>
       <div className="tenancy-info__service">{ service }</div>
       <hr />
 
       <div className="tenancy-info__features">
-        <div className="tenancy-info__features__content">
-          <div className="tenancy-info__features__content__header">
-            <h4 className="tenancy-info__features__content__header__percentage">{ addedBenefitPercentage }</h4>
-            <div className="tenancy-info__features__content__header__details">{ addedBenefitText }</div>
+        <div className="tenancy-info__content">
+          <div className="tenancy-info__content__header">
+            <h4>{ addedBenefitPercentage }</h4>
+            <div className="tenancy-info__content__header-details">{ addedBenefitText }</div>
           </div>
 
-          <ul className="tenancy-info__features__content__list">
+          <ul>
             {
               features.map(feature => (
-                <li key={`features-list-item-${feature}`} className="tenancy-info__features__content__list__item">
-                  <span className="tenancy-info__features__content__list__item__text">{ featuresMap[feature] }</span>
+                <li key={`features-list-item-${feature}`} className="tenancy-info__list-item">
+                  <span>{ featuresMap[feature] }</span>
                 </li>
               ))
             }
@@ -50,10 +50,10 @@ const TenancyInfo = ({
       <hr />
 
       <div className="tenancy-info__pricing">
-        <h1 className="tenancy-info__pricing__amount">${ monthlyPrice || "" }</h1>
-        <div className={`tenancy-info__pricing__rate tenancy-info__pricing__rate--${additionalCostText.length < 15 ? "column" : "row"}`}>
-          <span className="tenancy-info__pricing__rate__month">per month</span>
-          <span className="tenancy-info__pricing__rate__fees">{ additionalCostText }</span>
+        <h1>${ monthlyPrice || "" }</h1>
+        <div className={`tenancy-info__pricing-rate tenancy-info__pricing-rate--${additionalCostText.length < 15 ? "column" : "row"}`}>
+          <span>per month</span>
+          <span>{ additionalCostText }</span>
         </div>
       </div>
     </div>
