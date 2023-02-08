@@ -1,6 +1,4 @@
 import React from "react";
-import ImageIcon from "../../components/ImageIcon";
-import {CheckmarkIcon} from "../../static/icons/Icons";
 
 const tenanciesMap = {
   "PAY_AS_YOU_GO": "Pay As You Go",

@@ -267,3 +267,13 @@
     justify-content: center;
   }
 }
+
+.accordion {
+  &__header {
+    display: flex;
+
+    &__button {
+      margin-left: auto;
+    }
+  }
+}

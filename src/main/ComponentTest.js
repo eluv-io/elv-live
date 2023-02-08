@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, ButtonWithLoader, Action} from "./components/Actions";
-import {ExpandableImage, GridCarousel, InfoBox, TabbedInfoBox} from "./components/Misc";
+import {Accordion, ExpandableImage, GridCarousel, InfoBox} from "./components/Misc";
 import Modal from "./components/Modal";
 import {observer} from "mobx-react";
 import {uiStore} from "./stores/Main";
@@ -217,6 +217,10 @@ const ComponentTest = observer(() => {
         <Modal active={showFullWidthScrollModal} className="full" Close={() => setShowFullWidthScrollModal(false)}>
           <ModalTest scroll className="full" />
         </Modal>
+
+        <Accordion title="Accordion">
+          Test content
+        </Accordion>
 
         <ContactForm />
         <Footer />

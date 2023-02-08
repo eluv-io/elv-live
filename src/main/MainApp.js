@@ -20,6 +20,7 @@ import News from "./pages/news/News";
 import NewsItem from "./pages/news/NewsItem";
 import Contact from "./pages/contact/Contact";
 import Features from "./pages/features/Features";
+import Details from "./pages/features/Details";
 
 const PageContainer = observer(({children, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -62,6 +63,7 @@ const MainApp = () => {
           <Route path="/features" element={<PageContainer ><Features /></PageContainer>} />
           <Route path="/features/rates" element={<Features />} />
           <Route path="/features/support" element={<Features />} />
+          <Route path="/features/details" element={<PageContainer padded><Details /></PageContainer>} />
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>

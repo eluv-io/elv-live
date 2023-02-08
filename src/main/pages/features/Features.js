@@ -70,7 +70,7 @@ const Features = () => {
   return (
     <div className="page">
       <div className="page__header-container">
-        <h1>Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
+        <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
         <h3>What works best for your brand?</h3>
       </div>
       <div className="page__content-block">

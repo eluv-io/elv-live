@@ -9,6 +9,7 @@ import SendIcon from "./send.svg";
 import XIcon from "./x.svg";
 import CheckmarkIcon from "./checkmark.svg";
 import PlayCircleIcon from "./play-circle.svg";
+import PlusIcon from "./plus.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -38,6 +39,7 @@ export {
   MenuIcon,
   NewsIcon,
   PlayCircleIcon,
+  PlusIcon,
   SendIcon,
   XIcon,
 
