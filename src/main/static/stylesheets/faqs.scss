@@ -1,18 +1,22 @@
 .faqs {
   background-color: var(--background-light-2);
+  color: var(--color-text-light-1);
   font-weight: 700;
   width: 100%;
 
   &__content-section {
-    border-bottom: 1px solid var(--color-text-light-1);
     display: flex;
     flex-wrap: wrap;
     gap: 32px 0;
     justify-content: space-between;
-    padding: 32px 0;
+    padding: 32px 0 64px;
 
     &:first-child {
       border-top: 1px solid var(--color-text-light-1);
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-text-light-1);
     }
   }
 

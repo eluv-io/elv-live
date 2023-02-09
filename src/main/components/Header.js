@@ -70,9 +70,6 @@ const Header = observer(() => {
           >
             Content Fabric
           </ButtonWithMenu>
-          <Action to="/community" useNavLink underline className="dark header__nav-link">
-            Community
-          </Action>
           <ButtonWithMenu
             className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
             optionsClassName="dark"
@@ -85,9 +82,6 @@ const Header = observer(() => {
           >
             Features
           </ButtonWithMenu>
-        </nav>
-        <nav className="header__icons desktop">
-          <Action to="/wallet" icon={MenuIcon} useNavLink className="dark header__nav-link" />
         </nav>
 
         { /* Mobile */ }

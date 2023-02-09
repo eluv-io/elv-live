@@ -290,3 +290,12 @@
     padding: 15px 5px;
   }
 }
+
+.player-container {
+  &--loading {
+    aspect-ratio: 16/9;
+    background-color: var(--background-dark-1);
+    height: 100%;
+    width: 100%;
+  }
+}

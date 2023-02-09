@@ -2,6 +2,7 @@ import {configure, flow, makeAutoObservable, runInAction} from "mobx";
 import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
+import {ElvWalletClient} from "@eluvio/elv-client-js";
 
 configure({
   computedRequiresReaction: true,
@@ -77,7 +78,19 @@ class MainStore {
     });
 
     this.mainSite = metadata.info;
+
+    this.walletClient = yield ElvWalletClient.Initialize({
+      appId: "eluvio-live",
+      network: EluvioConfiguration.network,
+      mode: EluvioConfiguration.mode
+    });
+
+    this.client = this.walletClient.client;
   });
+
+  get headerLoopURL() {
+    return new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/header_loop")).toString();
+  }
 
   get notification() {
     const notification = this.mainSite?.notification;

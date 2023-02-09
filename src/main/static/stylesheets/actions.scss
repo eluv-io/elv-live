@@ -254,6 +254,7 @@
       border-bottom: 3px solid var(--color-text-light-2);
     }
 
+    &.highlight,
     &:hover,
     &:focus-visible {
       color: var(--color-highlight-3);
@@ -263,6 +264,7 @@
   &.dark {
     color: var(--color-text-dark-1);
 
+    &.highlight,
     &:hover,
     &:focus-visible,
     &.active {

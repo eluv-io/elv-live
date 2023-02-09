@@ -1,0 +1,12 @@
+.wallet {
+  background: var(--background-dark-1);
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+
+  iframe {
+    background: var(--background-dark-1);
+    border: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
