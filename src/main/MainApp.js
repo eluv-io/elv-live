@@ -19,8 +19,10 @@ import ContactForm from "./components/ContactForm";
 import News from "./pages/news/News";
 import NewsItem from "./pages/news/NewsItem";
 import Contact from "./pages/contact/Contact";
-import Features from "./pages/features/Features";
+import TenancyLevels from "./pages/features/TenancyLevels";
 import Details from "./pages/features/Details";
+import Rates from "./pages/features/Rates";
+import FeaturesSupport from "./pages/features/Support";
 
 export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -62,13 +64,11 @@ const MainApp = () => {
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/features/rates" element={<Features />} />
-          <Route path="/features/support" element={<Features />} />
-          <Route path="/features" element={<Navigate replace to={"/features/media-application"} />} />
-          <Route path="/features/media-application" element={<PageContainer padded><Details data="mediaApplicationPlatform" /></PageContainer>} />
-          <Route path="/features/content-distribution" element={<PageContainer padded><Details data="contentDistributionFeatures" /></PageContainer>} />
-          <Route path="/features/web3" element={<PageContainer padded><Details data="web3Capabilities" /></PageContainer>} />
+          <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
+          <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
+          <Route path="/features/rates" element={<Rates />} />
+          <Route path="/features/support" element={<FeaturesSupport />} />
+          <Route path="/features/details" element={<PageContainer padded><Details /></PageContainer>} />
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>

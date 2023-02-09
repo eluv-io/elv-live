@@ -8,7 +8,7 @@ import {PlayCircleIcon} from "../../static/icons/Icons";
 import {TabbedInfoBox} from "../../components/Misc";
 import {PageContainer} from "../../MainApp";
 
-const Features = () => {
+const TenancyLevels = () => {
   const icons = {
     blockchainExplorer: TechnologyIcons.BlockchainExplorerIcon,
     nodeValidatorProviders: TechnologyIcons.NodeValidatorProvidersIcon,
@@ -121,4 +121,4 @@ const Features = () => {
   );
 };
 
-export default Features;
+export default TenancyLevels;

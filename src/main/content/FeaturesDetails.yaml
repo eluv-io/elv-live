@@ -1,5 +1,4 @@
-mediaApplicationPlatform:
-  header: "Media Application Platform"
+- header: "Media Application Platform"
   items:
     - title: "Direct Ingest from File System and Cloud Storage"
       items:
@@ -92,8 +91,7 @@ mediaApplicationPlatform:
           link: "/"
 
 
-contentDistributionFeatures:
-  header: "Content Distribution Features"
+- header: "Content Distribution Features"
   items:
     - title: "Global Streaming (ABR) on publishing"
       items:
@@ -175,8 +173,7 @@ contentDistributionFeatures:
           link: "/"
 
 
-web3Capabilities:
-  header: "Web3 Capabilities"
+- header: "Web3 Capabilities"
   items:
     - title: "Audience Access Data"
       items:

@@ -184,6 +184,10 @@
 }
 
 .features-details {
+  &__section {
+    margin-bottom: 100px;
+  }
+
   &__header {
     color: var(--color-highlight-3);
   }
@@ -226,7 +230,6 @@
     &__content {
       align-items: center;
       display: flex;
-      flex-wrap: wrap;
       gap: 50px;
 
       .action {
@@ -281,7 +284,11 @@
     padding: 40px;
   }
 
-  .features-details__item-card__content span {
-    flex: unset;
+  .features-details__item-card__content {
+    flex-wrap: wrap;
+
+    span {
+      flex: unset;
+    }
   }
 }
