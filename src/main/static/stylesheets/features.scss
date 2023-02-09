@@ -226,6 +226,7 @@
     &__content {
       align-items: center;
       display: flex;
+      flex-wrap: wrap;
       gap: 50px;
 
       .action {
@@ -278,5 +279,9 @@
 
   .features-faqs {
     padding: 40px;
+  }
+
+  .features-details__item-card__content span {
+    flex: unset;
   }
 }

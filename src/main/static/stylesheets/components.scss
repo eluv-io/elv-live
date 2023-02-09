@@ -279,3 +279,9 @@
     }
   }
 }
+
+@media screen and (max-width: $width-tablet) {
+  .accordion {
+    padding: 15px 0;
+  }
+}
