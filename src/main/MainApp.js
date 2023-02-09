@@ -66,8 +66,8 @@ const MainApp = () => {
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
-          <Route path="/features/rates" element={<Rates />} />
-          <Route path="/features/support" element={<FeaturesSupport />} />
+          <Route path="/features/rates" element={<PageContainer padded><Rates /></PageContainer>} />
+          <Route path="/features/support" element={<PageContainer padded><FeaturesSupport /></PageContainer>} />
           <Route path="/features/details" element={<PageContainer padded><Details /></PageContainer>} />
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />

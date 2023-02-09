@@ -24,26 +24,26 @@ const Details = () => {
 
   const detailSection = (
     detailsData.map(({header, items}) => (
-      <div className="features-details__section">
-        <div className="features-details__info-box curved-box info-box light">
-        <div className="info-box__content">
-          <div className="info-box__icon-container">
-            <ImageIcon icon={PlayCircleIcon} className="info-box__icon" title="Media Application Platform" />
+      <div className="features__section">
+        <div className="features__info-box curved-box info-box light">
+          <div className="info-box__content">
+            <div className="info-box__icon-container">
+              <ImageIcon icon={PlayCircleIcon} className="info-box__icon" title="Media Application Platform" />
+            </div>
+            <div className="info-box__text">
+              <h3 className="info-box__header">{ header }</h3>
+            </div>
           </div>
-          <div className="info-box__text">
-            <h3 className="info-box__header">{ header }</h3>
-          </div>
+          {
+            (items || []).map(itemData => (
+              <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features__accordion">
+                {
+                  (itemData.items || []).map(itemData => ItemCard(itemData))
+                }
+              </Accordion>
+            ))
+          }
         </div>
-        {
-          (items || []).map(itemData => (
-            <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features-details__accordion">
-              {
-                (itemData.items || []).map(itemData => ItemCard(itemData))
-              }
-            </Accordion>
-          ))
-        }
-      </div>
       </div>
     ))
   );
@@ -51,7 +51,7 @@ const Details = () => {
   return (
     <div className="page">
       <div className="page__header-container">
-        <h1 className="features-details__header">Features</h1>
+        <h1 className="features--purple-header">Features</h1>
       </div>
       <div className="page__content-block">
         { detailSection }

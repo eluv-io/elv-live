@@ -1,8 +1,96 @@
 import React from "react";
+import ImageIcon from "../../components/ImageIcon";
+import {CheckSquareIcon, ClockIcon, MailIcon, SocialIcons, SupportIcon, TelephoneIcon} from "../../static/icons/Icons";
+import SupportData from "../../content/FeaturesSupport.yaml";
 
 const FeaturesSupport = () => {
+  const ItemCard = (data) => {
+    const iconMap = {
+      aroundClock: {
+        label: "24x7",
+        icon: ClockIcon
+      },
+      email: {
+        label: "Email",
+        icon: MailIcon
+      },
+      telephone: {
+        label: "Telephone",
+        icon: TelephoneIcon
+      },
+      slack: {
+        label: "Slack",
+        icon: SocialIcons.SlackIcon
+      }
+    };
+
+    const {label, payAsYouGo, enterprise, advanced, icons} = data;
+
+    return (
+      <div className="features-support__item-card" key={`item-card-${label}`}>
+        <div className="features-support__item-card-content">
+          <span>
+            { label }
+            <div className="features-support__item-card-communication">
+              {
+                Object.keys(icons || {}).map(iconKey => (
+                  icons[iconKey] && <span><ImageIcon icon={iconMap[iconKey].icon}/>&nbsp;{iconMap[iconKey].label}</span>
+                ))
+              }
+            </div>
+          </span>
+          <span className="centered">{ payAsYouGo ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+          <span className="centered">{ advanced ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+          <span className="centered">{ enterprise ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="support"></div>
+    <div className="page">
+      <div className="page__header-container">
+        <h1 className="features--purple-header">Support</h1>
+      </div>
+      <div className="page__content-block">
+        <div className="features__section">
+          <div className="features__info-box curved-box info-box light">
+            <div className="info-box__content">
+              <div className="info-box__icon-container">
+                <ImageIcon icon={SupportIcon} className="info-box__icon" title="Media Application Platform" />
+              </div>
+              <div className="info-box__text">
+                <h3 className="info-box__header">{ SupportData.header }</h3>
+                <p>{ SupportData.description }</p>
+              </div>
+            </div>
+
+            <div className="features-support__grid-container">
+              <div className="features-support__header-row">
+                <span></span>
+                <span className="features-support__header-text">
+                  <span className="features-support__header-text__subheader">Level 1</span>
+                  <h5>Pay As You Go</h5>
+                </span>
+                <span className="features-support__header-text">
+                  <span className="features-support__header-text__subheader">Level 2</span>
+                  <h5>Advanced</h5>
+                </span>
+                <span className="features-support__header-text">
+                  <span className="features-support__header-text__subheader">Level 3</span>
+                  <h5>Enterprise</h5>
+                </span>
+              </div>
+              {
+                SupportData.gridItems.map(item => (
+                  ItemCard(item)
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
