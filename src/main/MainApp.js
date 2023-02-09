@@ -65,7 +65,10 @@ const MainApp = () => {
           <Route path="/features" element={<Features />} />
           <Route path="/features/rates" element={<Features />} />
           <Route path="/features/support" element={<Features />} />
-          <Route path="/features/details" element={<PageContainer padded><Details /></PageContainer>} />
+          <Route path="/features" element={<Navigate replace to={"/features/media-application"} />} />
+          <Route path="/features/media-application" element={<PageContainer padded><Details data="mediaApplicationPlatform" /></PageContainer>} />
+          <Route path="/features/content-distribution" element={<PageContainer padded><Details data="contentDistributionFeatures" /></PageContainer>} />
+          <Route path="/features/web3" element={<PageContainer padded><Details data="web3Capabilities" /></PageContainer>} />
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>

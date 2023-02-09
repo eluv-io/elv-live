@@ -3,17 +3,20 @@ import {Accordion} from "../../components/Misc";
 import {Action} from "../../components/Actions";
 import {PlayCircleIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
+import FeatureDetails from "../../content/FeaturesDetails.yaml";
 
-const Details = () => {
-  const AccordionItemCard = () => {
+const Details = ({data}) => {
+  const detailsData = FeatureDetails[data] || {};
+
+  const ItemCard = (data) => {
+    const {contentTitle, description, link} = data;
+
     return (
-      <div className="features-details__item-card">
+      <div className="features-details__item-card" key={`item-card-${contentTitle}`}>
         <div className="features-details__item-card__content">
-          <span>By reference and by copy</span>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra.
-          </p>
-          <Action to="/">View Doc</Action>
+          <span>{ contentTitle }</span>
+          <p>{ description }</p>
+          <Action to={link}>View Doc</Action>
         </div>
       </div>
     );
@@ -31,12 +34,18 @@ const Details = () => {
               <ImageIcon icon={PlayCircleIcon} className="info-box__icon" title="Media Application Platform" />
             </div>
             <div className="info-box__text">
-              <h3 className="info-box__header">Media Application Platform</h3>
+              <h3 className="info-box__header">{ detailsData.header }</h3>
             </div>
           </div>
-          <Accordion title="Direct Ingest from File System & Cloud Storage" className="features-details__accordion">
-            { AccordionItemCard() }
-          </Accordion>
+          {
+            (detailsData.items || []).map(itemData => (
+              <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features-details__accordion">
+                {
+                  (itemData.items || []).map(itemData => ItemCard(itemData))
+                }
+              </Accordion>
+            ))
+          }
         </div>
       </div>
     </div>

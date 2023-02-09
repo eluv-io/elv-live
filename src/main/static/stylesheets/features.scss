@@ -229,7 +229,9 @@
       gap: 50px;
 
       .action {
+        color: var(--color-highlight-3);
         flex: 0 0 110px;
+        font-weight: 700;
       }
 
       p {
