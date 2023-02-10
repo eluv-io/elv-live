@@ -1,4 +1,5 @@
 - header: "Media Application Platform"
+  id: "media-application"
   items:
     - title: "Direct Ingest from File System and Cloud Storage"
       items:
@@ -92,6 +93,7 @@
 
 
 - header: "Content Distribution Features"
+  id: "content-distribution"
   items:
     - title: "Global Streaming (ABR) on publishing"
       items:
@@ -174,6 +176,7 @@
 
 
 - header: "Web3 Capabilities"
+  id: "web-3"
   items:
     - title: "Audience Access Data"
       items:

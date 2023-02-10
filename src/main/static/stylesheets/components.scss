@@ -273,10 +273,7 @@
 
   &__header {
     display: flex;
-
-    &__button {
-      margin-left: auto;
-    }
+    justify-content: space-between;
   }
 }
 

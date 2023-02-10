@@ -1,14 +1,14 @@
 - title: "Advanced Media Features"
   icon: "playCircle"
   paragraph: "Some extra detail of media application platform that are super interesting. 4 to 5 lines of content will probably looks good."
-  link: "/features/details"
+  link: "/features/details#media-application"
 
 - title: "Content Distribution"
   icon: "nodeValidatorProviders"
   paragraph: "Some extra detail of media application platform that are super interesting. 4 to 5 lines of content will probably looks good."
-  link: "/features/details"
+  link: "/features/details#content-distribution"
 
 - title: "Web3 Capabilities"
   icon: "blockchainExplorer"
   paragraph: "Some extra detail of media application platform that are super interesting. 4 to 5 lines of content will probably looks good."
-  link: "/features/details"
+  link: "/features/details#web-3"

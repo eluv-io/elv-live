@@ -75,6 +75,7 @@ const TenancyLevels = () => {
           {
             FeaturesDetails.map(({title, icon, paragraph, link}) => (
               <BannerBox
+                key={`features-banner-${title}`}
                 title={title}
                 icon={icon}
                 paragraph={paragraph}

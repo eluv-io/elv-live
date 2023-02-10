@@ -392,11 +392,38 @@
     padding: 40px;
   }
 
+  .features-details__item-card {
+    padding: 1rem;
+  }
+
   .features-details__item-card__content {
     flex-wrap: wrap;
+    gap: 10px;
 
     span {
       flex: unset;
     }
+
+    .action {
+      flex-basis: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: $width-mobile) {
+  .features-details__item-card__content {
+    flex-direction: column;
+
+    .action {
+      flex-basis: 35px;
+    }
+  }
+
+  .features__info-box.curved-box {
+    padding: 15px 20px 20px;
+  }
+
+  .features__section {
+    margin-bottom: 50px;
   }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {Accordion} from "../../components/Misc";
 import {Action} from "../../components/Actions";
 import {PlayCircleIcon} from "../../static/icons/Icons";
@@ -7,6 +7,19 @@ import FeatureDetails from "../../content/FeaturesDetails.yaml";
 
 const Details = () => {
   const detailsData = FeatureDetails || {};
+  const web3Ref = useRef(null);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if(hash) {
+      const element = document.getElementById(hash.substring(1));
+      setTimeout(() => {
+        if(element) {
+          element.scrollIntoView({behavior: "auto"});
+        }
+      }, 10);
+    }
+  }, []);
 
   const ItemCard = (data) => {
     const {contentTitle, description, link} = data;
@@ -23,8 +36,8 @@ const Details = () => {
   };
 
   const detailSection = (
-    detailsData.map(({header, items}) => (
-      <div className="features__section">
+    detailsData.map(({header, id, items}) => (
+      <div className="features__section" key={`features-section-${id}`} id={id}>
         <div className="features__info-box curved-box info-box light">
           <div className="info-box__content">
             <div className="info-box__icon-container">

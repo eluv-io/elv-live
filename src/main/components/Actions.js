@@ -34,6 +34,9 @@ export const ActionComponent = (props) => {
     );
 
     delete props.icon;
+  }
+
+  if(props.iconLabel) {
     delete props.iconLabel;
   }
 
