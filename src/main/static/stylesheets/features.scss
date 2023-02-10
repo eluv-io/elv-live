@@ -287,8 +287,40 @@
 
       path {
         stroke: var(--color-text-light-3);
+        stroke-width: 1px;
       }
     }
+  }
+
+  &__customer-service {
+    margin-top: 36px;
+    padding: 0 100px;
+
+    h4 {
+      font-weight: 700;
+    }
+
+    svg {
+      height: 15px;
+      width: 15px;
+    }
+
+    svg path {
+      stroke: var(--color-icon-dark-1);
+      stroke-width: 1px;
+    }
+  }
+
+  &__customer-service-section {
+    margin-bottom: 32px;
+  }
+
+  &__customer-service-detail {
+    align-items: center;
+    display: flex;
+    font-size: var(--font-size-body-3);
+    line-height: 2.25;
+    gap: 15px;
   }
 }
 

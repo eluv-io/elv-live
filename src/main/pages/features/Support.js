@@ -1,6 +1,14 @@
 import React from "react";
 import ImageIcon from "../../components/ImageIcon";
-import {CheckSquareIcon, ClockIcon, MailIcon, SocialIcons, SupportIcon, TelephoneIcon} from "../../static/icons/Icons";
+import {
+  CheckSquareIcon,
+  ClockIcon,
+  FlagIcon,
+  MailIcon, MinimizeIcon,
+  SocialIcons, SpreadMapIcon,
+  SupportIcon,
+  TelephoneIcon
+} from "../../static/icons/Icons";
 import SupportData from "../../content/FeaturesSupport.yaml";
 
 const FeaturesSupport = () => {
@@ -47,6 +55,38 @@ const FeaturesSupport = () => {
     );
   };
 
+  const CustomerServiceSection = () => {
+    const iconsMap = {
+      clockIcon: ClockIcon,
+      mailIcon: MailIcon,
+      telephoneIcon: TelephoneIcon,
+      slackIcon: SocialIcons.SlackIcon,
+      flagIcon: FlagIcon,
+      minimizeIcon: MinimizeIcon,
+      mapIcon: SpreadMapIcon
+    };
+
+    return (
+      <div className="features-support__customer-service">
+        {
+          ["standardCustomerService", "priorityCustomerService"].map(service => (
+            <div key={`customer-service-${service}`} className="features-support__customer-service-section">
+              <h4>{ SupportData[service].header }</h4>
+              {
+                SupportData[service].items.map(({icon, label}) => (
+                  <div className="features-support__customer-service-detail">
+                    <ImageIcon icon={iconsMap[icon]} title={label} />
+                    &nbsp;{ label }
+                  </div>
+                ))
+              }
+            </div>
+          ))
+        }
+      </div>
+    );
+  };
+
   return (
     <div className="page">
       <div className="page__header-container">
@@ -87,6 +127,8 @@ const FeaturesSupport = () => {
                 ))
               }
             </div>
+
+            { CustomerServiceSection() }
           </div>
         </div>
       </div>

@@ -14,6 +14,9 @@ import SupportIcon from "./support.svg";
 import CheckSquareIcon from "./check-square.svg";
 import TelephoneIcon from "./phone.svg";
 import ClockIcon from "./clock.svg";
+import FlagIcon from "./flag.svg";
+import SpreadMapIcon from "./map.svg";
+import MinimizeIcon from "./minimize.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -36,21 +39,24 @@ const SocialIcons = {
 };
 
 export {
-  ClockIcon,
-  TelephoneIcon,
   CheckSquareIcon,
   CheckmarkIcon,
+  ClockIcon,
   DiscoverIcon,
   DocumentIcon,
+  FlagIcon,
   LinkIcon,
   MailIcon,
   MapIcon,
   MenuIcon,
+  MinimizeIcon,
   NewsIcon,
   PlayCircleIcon,
   PlusIcon,
   SendIcon,
+  SpreadMapIcon,
   SupportIcon,
+  TelephoneIcon,
   XIcon,
 
   SocialIcons,

@@ -55,3 +55,29 @@ gridItems:
       email: false
       telephone: false
       slack: true
+standardCustomerService:
+  header: "Standard Customer Service"
+  items:
+    - label: "Provided Monday - Friday, 8 am to 6"
+      icon: clockIcon
+    - label: "Email via support@eluv.io"
+      icon: mailIcon
+    - label: "Telephone via Google Voice"
+      icon: telephoneIcon
+priorityCustomerService:
+  header: "Priority Customer Service"
+  items:
+    - label: "Provided 24x7x365 "
+      icon: clockIcon
+    - label: "Dedicated slack channel"
+      icon: slackIcon
+    - label: "Telephone via Google Voice with Paging"
+      icon: telephoneIcon
+    - label: "Guaranteed 2-hour initial response on customer specific trouble tickets"
+      icon: flagIcon
+    - label: "Best effort same day resolution on high severity issues"
+      icon: minimizeIcon
+    - label: "Best effort next day resolution on medium severity issues"
+      icon: minimizeIcon
+    - label: "Priority early access to new capabilities and roadmap review"
+      icon: mapIcon
