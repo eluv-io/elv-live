@@ -304,6 +304,34 @@ class Event extends React.Component {
       (this.props.siteStore.currentSiteInfo.drops || []).length > 0 ||
       (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
 
+    const eventButtonOpensMarketplace = this.props.siteStore.currentSiteInfo.event_info.event_button_opens_marketplace;
+
+    let OpenMarketplaceButton;
+    if(eventButtonOpensMarketplace) {
+      OpenMarketplaceButton = () => (
+        <button
+          style={(branding.get_started || {}).styles}
+          className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+          onClick={() => {
+            this.props.rootStore.SetWalletPanelVisibility(
+              {
+                visibility: "full",
+                location: {
+                  page: "marketplace",
+                  params: {
+                    tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                    marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                  }
+                }
+              }
+            );
+          }}
+        >
+          {ButtonContent(branding.get_started, "Get Started")}
+        </button>
+      );
+    }
+
     const GetStartedButton = () => (
       <button
         style={(branding.get_started || {}).styles}
@@ -369,8 +397,9 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { this.props.rootStore.walletLoaded && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { this.props.rootStore.walletLoaded && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { eventButtonOpensMarketplace && this.props.rootStore.walletLoaded ? <OpenMarketplaceButton /> : null }
+        { !eventButtonOpensMarketplace && this.props.rootStore.walletLoaded && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
+        { !eventButtonOpensMarketplace && this.props.rootStore.walletLoaded && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||
