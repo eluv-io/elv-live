@@ -1,13 +1,13 @@
 header:
-  discover_projects: Discover Projects
-  event: Event
-  my_wallet: My Wallet
-  redeem_code: Redeem Code
-  sign_in: Sign In
-  store: Store
+  discover_projects: Explore projetos
+  event: Evento
+  my_wallet: Minha carteira
+  redeem_code: Resgate um código
+  sign_in: Entrar
+  store: Loja
 
 footer:
   powered_by: Powered by
-  support_faq: Support FAQ
-  privacy_policy: Privacy Policy
-  terms: terms
+  support_faq: FAQ de suporte
+  privacy_policy: Política de privacidade
+  terms: Termos de uso
