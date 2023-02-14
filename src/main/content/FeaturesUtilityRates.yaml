@@ -78,7 +78,7 @@ baseRentalOperations:
   header: "Base Rental and Operations"
   basePriceLabel: "base price"
   unitLabel: "unit"
-  caption: "**metadata,parts downloads, files downloads (not reps)"
+  caption: "**metadata, parts downloads, files downloads (not reps)"
   items:
     - operation: "Tenants"
       unit: "per month"

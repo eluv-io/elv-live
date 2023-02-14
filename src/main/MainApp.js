@@ -23,6 +23,7 @@ import TenancyLevels from "./pages/features/TenancyLevels";
 import Details from "./pages/features/Details";
 import Rates from "./pages/features/Rates";
 import FeaturesSupport from "./pages/features/Support";
+import FeaturesFAQs from "./pages/features/FeaturesFAQs";
 
 export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -66,9 +67,9 @@ const MainApp = () => {
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
-          <Route path="/features/rates" element={<PageContainer padded><Rates /></PageContainer>} />
-          <Route path="/features/support" element={<PageContainer padded><FeaturesSupport /></PageContainer>} />
-          <Route path="/features/details" element={<PageContainer padded><Details /></PageContainer>} />
+          <Route path="/features/rates" element={<PageContainer padded after={<FeaturesFAQs />}><Rates /></PageContainer>} />
+          <Route path="/features/support" element={<PageContainer padded after={<FeaturesFAQs />}><FeaturesSupport /></PageContainer>} />
+          <Route path="/features/details" element={<PageContainer padded after={<FeaturesFAQs />}><Details /></PageContainer>} />
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
