@@ -243,10 +243,10 @@ export const Accordion = ({title, description, className="", icon=PlusIcon, chil
 
   return (
     <div className={`accordion ${className}`}>
-      <div className="accordion__header">
+      <Action className="accordion__header" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
         <div className="accordion__header__title">{ title }</div>
-        <Action className="accordion__header__button" icon={icon} onClick={() => setIsOpen(prevState => !prevState)} />
-      </div>
+        <ImageIcon icon={icon} />
+      </Action>
       {
         isOpen &&
         <div className="accordion__content">
