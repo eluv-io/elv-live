@@ -50,7 +50,7 @@ const TenancyInfo = ({
       <hr />
 
       <div className="tenancy-info__pricing">
-        <h1>${ monthlyPrice || "" }</h1>
+        <h1>{ monthlyPrice || "" }</h1>
         <div className={`tenancy-info__pricing-rate tenancy-info__pricing-rate--${additionalCostText.length < 15 ? "column" : "row"}`}>
           <span>per month</span>
           <span>{ additionalCostText }</span>

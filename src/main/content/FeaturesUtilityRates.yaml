@@ -1,0 +1,478 @@
+committedUtilityLevel:
+  icon: "supportIcon"
+  header: "Committed Utility Level"
+  description: "Tenants have the option to commit to a base purchase of content utility fees in exchange for significantly discounted blockchain transaction fees. In addition, ELVs will be set aside for the tenant as part of a token allocation program for early stakeholders. The tenant may claim these over the program's duration as described in the program agreement."
+  basePriceLabel: "base price"
+  unitLabel: "unit"
+  items:
+    - title: "Enterprise"
+      unit: "base utility purchase per month"
+      priceMonthly: 0
+      priceAnnual: 0
+    - title: "Advanced"
+      unit: "Feature Title"
+      priceMonthly: 1
+      priceAnnual: 1
+    - title: "Pay As You Go"
+      unit: "base utility purchase per month"
+      priceMonthly: 10000
+      priceAnnual: 8333.33
+
+blockchainTransactions:
+  icon: "supportIcon"
+  header: "Blockchain Transactions"
+  basePriceLabel: "base price"
+  unitLabel: "unit"
+  items:
+    - title: "NFT Contract Creation"
+      description: "ERC-721, 1155 or similar contract deployed to the Content Fabric blockchain."
+      unit: "per NFT contract (one per Edition)"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .10
+    - title: "NFT Minting"
+      description: "On-demand or batch minting of ERC-721/1155 tokens in the Content Fabric blockchain"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+    - title: "NFT Burn"
+      description: "Burning of ERC-721/1155 tokens in the Content Fabric blockchain"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+    - title: "NFT Transfer"
+      description: "Transfer of ERC-721/1155 tokens from one owner to another, e.g. in trades or sales"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+    - title: "Redeemable Offer"
+      description: "On-chain redeemable offer"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+    - title: "ERC-20 Mint"
+      description: "On-demand or batch minting of ERC-20 tokens in the Content Fabric blockchain"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+    - title: "ERC-20 Burn"
+      description: "Burning of ERC-20 tokens in the Content Fabric blockchain"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+    - title: "ERC-20 Transfer"
+      description: "Transfer of ERC-20 tokens between addresses"
+      unit: "per mint"
+      pricePayAsYouGo: 1
+      priceAdvanced: .5
+      priceEnterprise: .1
+
+baseRentalOperations:
+  icon: "supportIcon"
+  header: "Base Rental and Operations"
+  basePriceLabel: "base price"
+  unitLabel: "unit"
+  caption: "**metadata,parts downloads, files downloads (not reps)"
+  items:
+    - operation: "Tenants"
+      unit: "per month"
+      basePrice: 1
+      itemDescription: "Base object for each tenancy owned"
+    - operation: "Objects"
+      unit: "per month"
+      basePrice: .1
+      itemDescription: "Total content objects owned"
+    - operation: "Libraries"
+      unit: "per month"
+      basePrice: .1
+      itemDescription: "Total libraries owned"
+    - operation: "Storage"
+      unit: "per gigabyte per month"
+      basePrice: .02
+      itemDescription: "Total gigabytes stored by all objects and libraries owned"
+    - operation: "Download**"
+      unit: "per gigabyte per month"
+      basePrice: .01
+      itemDescription: "Bytes downloaded from objects owned including metadata, parts, files (but not bitcode operations)"
+
+bitcodeOperations:
+  icon: "supportIcon"
+  header: "Bitcode Operations"
+  basePriceLabel: "base price"
+  unitLabel: "unit"
+  items:
+    - title: "Playout"
+      sections:
+        - title: "HD (1080p) Mezzanine"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000069
+              itemDescription: "Streaming video served at 1080p resolution, Live and VoD DASH or HLS CMAF-formatted HTTP Adaptive Bit Rate"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000067
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000061
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000054
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000046
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000039
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000031
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000022
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000011
+              itemDescription: ""
+        - title: "4K (3840p) Mezzanine"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000083
+              itemDescription: ""
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .00008
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000073
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000065
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000055
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000047
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000037
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000026
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000013
+              itemDescription: ""
+        - title: "Audio Only"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000014
+              itemDescription: "Streaming audio only, multichannel 5.1 surround"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000013
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000012
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000011
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000009
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000008
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000006
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000004
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000002
+              itemDescription: ""
+    - title: "Playout Add-Ons"
+      sections:
+        - title: "HDR"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000021
+              itemDescription: "Add on for High Dynamic Range HDR10"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000020
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000018
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000016
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000014
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000012
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000009
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000007
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000003
+              itemDescription: ""
+        - title: "DRM"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000035
+              itemDescription: "Add on for streaming video served with Digital Rights Management (Google Widevine, Apple Fairplay, or Sample AES/AES-128)"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000034
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000031
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000027
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000023
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000020
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000016
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000011
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000006
+              itemDescription: ""
+        - title: "Audio DRM"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000021
+              itemDescription: "Add on for streaming audio served with Digital Rights Management"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000020
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000018
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000016
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000014
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000012
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000009
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000007
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000003
+              itemDescription: ""
+        - title: "Text Watermark"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000035
+              itemDescription: "Add on for dynamic visible watermarking (text)"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000034
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000031
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000027
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000023
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000020
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000016
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000011
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000006
+              itemDescription: ""
+        - title: "Image Watermark"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000069
+              itemDescription: "Add on for dynamic visible watermarking (image)"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000067
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000061
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000054
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000046
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000039
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000031
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000022
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000011
+              itemDescription: ""
+        - title: "Clip API"
+          items:
+            - unit: "per video second >0 up to 500 hours (L1 Cap)"
+              basePrice: .000014
+              itemDescription: "Add on for dynamic clip generation API Serves streaming clips from start and endpoint offsets with no pre-processing"
+            - unit: "per video second >500 up to 2,000 hours (L2)"
+              basePrice: .000013
+              itemDescription: ""
+            - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
+              basePrice: .000012
+              itemDescription: ""
+            - unit: ""
+              basePrice: .000021
+              itemDescription: ""
+            - unit: "per video second >5,000 up to 10,000 hours"
+              basePrice: .000011
+              itemDescription: ""
+            - unit: "per video second >10,000 up to 20,000 hours"
+              basePrice: .000009
+              itemDescription: ""
+            - unit: "per video second >20,000 up to 50,000 hours"
+              basePrice: .000008
+              itemDescription: ""
+            - unit: "per video second >50,000 up to 100,000 hours"
+              basePrice: .000006
+              itemDescription: ""
+            - unit: "per video second >100,000 up to 200,000 hours"
+              basePrice: .000004
+              itemDescription: ""
+            - unit: "per video second >200,000 hours"
+              basePrice: .000002
+              itemDescription: ""
+  itemsFourCol:
+    - title: "Image & Thumbnail"
+      items:
+        - detail: "Transformation"
+          unit: "per image"
+          basePrice: .0004
+          itemDescription: "Dynamic image resizing"
+        - detail: "Watermark"
+          unit: "per image"
+          basePrice: .0004
+          itemDescription: "Add on for dynamic visible watermarking"
+    - title: "Media Ingest"
+      items:
+        - detail: "h264 encoded mezzanine @1080p,<=10Mbps"
+          unit: "per video second"
+          basePrice: .0011
+          itemDescription: "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores"
+        - detail: "h264 encoded mezzanine @3840p >10 Mbps"
+          unit: "per video second"
+          basePrice: .0017
+          itemDescription: "On Demand or Live Video ingest to h264 mezzanines @ 3840p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores."
+        - detail: "h265 encoded mezzanine >=1080p, >=10 Mbps"
+          unit: "per video second"
+          basePrice: .0056
+          itemDescription: "On Demand or Live Video ingest to h265 mezzanines. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores."
+        - detail: "jpeg2000 or custom encoded mezzanine (master)"
+          unit: "per video second"
+          basePrice: .00111
+          itemDescription: "Master Video ingest using JPEG2000 or custom encoding. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores."
+        - detail: "Audio Only"
+          unit: "per audio second"
+          basePrice: .0006
+          itemDescription: "Audio Only ingest"
+    - title: "Search"
+      items:
+        - detail: "Search Index"
+          unit: "per GB per month"
+          basePrice: 15
+          itemDescription: "Dynamic search API indexed by any content object metadata or ML-labelled tags"
+    - title: "Tagging Via Machine Learning"
+      description: "Any object using advanced features to serve multiple consumable output versions such as subtitles, localized variants, captions, storyboards, localized audio tracks, custom bitcode, dynamic playlists, multi-view channels, and personalization. Can apply to objects of type Title Mezzanine, HTML Embed Apps, Live Streams/Channels, and other custom types. The count applies only to the base object."
+      items:
+        - detail: "Celebrity Recognition"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: ""
+        - detail: "Landmark Recognition"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: ""
+        - detail: "OCR Text Recognition"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: ""
+        - detail: "Object Recognition"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: ""
+        - detail: "Activity Recognition"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: ""
+        - detail: "Shot Boundary Detection"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: "Automatic detection of shot boundaries"
+        - detail: "Technical Cues Detection (black, color bars, etc.)"
+          unit: "per video second"
+          basePrice: .002
+          itemDescription: "Automatic detection of cues such as black, color bars, etc."
+        - detail: "Speech to Text"
+          unit: "per audio second"
+          basePrice: .002
+          itemDescription: ""
+        - detail: "Celebrity Recognition"
+          unit: "per image"
+          basePrice: .001
+          itemDescription: "Dynamic labelling of image content using machine learning"
+        - detail: "Landmark Recognition"
+          unit: "per image"
+          basePrice: .001
+          itemDescription: ""
+        - detail: "OCR Text Recognition"
+          unit: "per image"
+          basePrice: .001
+          itemDescription: ""
+        - detail: "Object Recognition"
+          unit: "per image"
+          basePrice: .001
+          itemDescription: ""
+
+
+platformServiceFee:
+  icon: "supportIcon"
+  header: "Platform Service Fee"
+  basePriceLabel: "Fee"
+  caption: "Includes: Stripe, EBANX, Coinbase, Wallet Balance, Circle USDC"
+  items:
+    - label: "Processor Fee + 2.5%"
+      fee: "Processor Fee + 2.5%"
+      itemDescription: "Added as a line item to the final sale price of digital goods at consumer's point of purchase"

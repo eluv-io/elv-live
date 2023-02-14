@@ -238,7 +238,7 @@ export const GridCarousel = observer(({children, cutOff=600, className="", class
   );
 });
 
-export const Accordion = observer(({title, className="", icon=PlusIcon, children}) => {
+export const Accordion = ({title, description, className="", icon=PlusIcon, children}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -249,8 +249,16 @@ export const Accordion = observer(({title, className="", icon=PlusIcon, children
       </div>
       {
         isOpen &&
-        <div className="accordion__content">{children}</div>
+        <div className="accordion__content">
+          {
+            description &&
+            <div className="accordion__description">
+              {description}
+            </div>
+          }
+          {children}
+        </div>
       }
     </div>
   );
-});
+};

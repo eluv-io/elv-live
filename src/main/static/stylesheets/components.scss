@@ -275,6 +275,10 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &__description {
+    margin: 24px 0;
+  }
 }
 
 @media screen and (max-width: $width-tablet) {

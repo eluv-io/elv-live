@@ -4,3 +4,14 @@ export const FormatDate = date => {
   date = new Date(date);
   return `${date.toLocaleString("default", { month: "long" })} ${DateOrdinal(date.getDate())}, ${date.getFullYear()}`;
 };
+
+export const FormatCurrency = ({number, locale = "en-US", currency = "USD", maximumFractionDigits = 8}) => {
+  const options = {
+    style: "currency",
+    currency,
+    currencyDisplay: "narrowSymbol",
+    maximumFractionDigits
+  };
+
+  return new Intl.NumberFormat(locale, options).format(number);
+};

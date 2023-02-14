@@ -7,7 +7,6 @@ import FeatureDetails from "../../content/FeaturesDetails.yaml";
 
 const Details = () => {
   const detailsData = FeatureDetails || {};
-  const web3Ref = useRef(null);
 
   useEffect(() => {
     const hash = window.location.hash;

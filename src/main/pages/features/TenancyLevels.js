@@ -7,6 +7,7 @@ import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
 import {PlayCircleIcon} from "../../static/icons/Icons";
 import {TabbedInfoBox} from "../../components/Misc";
 import {PageContainer} from "../../MainApp";
+import {FormatCurrency} from "../../utils/Utils";
 
 const TenancyLevels = () => {
   const icons = {
@@ -49,7 +50,7 @@ const TenancyLevels = () => {
           level="Level 2"
           service="Tier 1 Support"
           features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-          monthlyPrice={monthly ? "995" : "833"}
+          monthlyPrice={FormatCurrency({number: monthly ? "995" : "833", maximumFractionDigits: 0})}
           additionalCostText={monthly ? "+ utility fees" : "+ utility fees in annual commit"}
           addedBenefitPercentage="50+%"
           addedBenefitText="On selected Content Fabric utility rates"
@@ -59,7 +60,7 @@ const TenancyLevels = () => {
           level="Level 3"
           service=" Full Valet Service"
           features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-          monthlyPrice={monthly ? "9,995" : "8,333"}
+          monthlyPrice={FormatCurrency({number: monthly ? "9995" : "8333", maximumFractionDigits: 0})}
           additionalCostText={monthly ? "+ utility fees" : "+ utility fees in annual commit"}
           addedBenefitPercentage="90+%"
           addedBenefitText="On selected Content Fabric utility rates"
