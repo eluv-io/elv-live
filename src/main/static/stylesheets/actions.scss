@@ -274,3 +274,35 @@
     }
   }
 }
+
+.button-menu {
+  &__container {
+    display: inline-block;
+    height: 100%;
+    position: relative;
+  }
+
+  &__options {
+    background: var(--background-dark-2);
+    color: var(--color-text-dark-1);
+    left: 0;
+    padding: 1rem 0;
+    position: absolute;
+    right: auto;
+    top: 100%;
+    width: max-content;
+    z-index: 999;
+  }
+
+  &__item {
+    line-height: 2;
+    padding: 0 22px;
+    white-space: nowrap;
+    width: 100%;
+
+    a,
+    button {
+      width: 100%;
+    }
+  }
+}

@@ -33,6 +33,12 @@
     align-items: center;
     display: flex;
     height: 100%;
+
+    &:active,
+    &:focus {
+      border-bottom: 3px solid var(--color-highlight-1);
+      color: var(--color-highlight-1);
+    }
   }
 
   @media screen and (min-width: CALC(#{$width-tablet} + 1px)) {

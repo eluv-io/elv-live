@@ -43,7 +43,7 @@ const TenancyLevels = () => {
           level="Level 1"
           service="Self Service"
           features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-          monthlyPrice="0"
+          monthlyPrice={FormatCurrency({number: 0, maximumFractionDigits: 0})}
           additionalCostText="+ utility fees"
         />
         <TenancyInfo

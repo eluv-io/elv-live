@@ -12,7 +12,7 @@ import {
 import SupportData from "../../content/FeaturesSupport.yaml";
 
 const FeaturesSupport = () => {
-  const ItemCard = (data) => {
+  const ItemCard = (data, key) => {
     const iconMap = {
       aroundClock: {
         label: "24x7",
@@ -35,14 +35,14 @@ const FeaturesSupport = () => {
     const {label, payAsYouGo, enterprise, advanced, icons} = data;
 
     return (
-      <div className="features-support__item-card" key={`item-card-${label}`}>
+      <div className="features-support__item-card" key={key}>
         <div className="features-support__item-card-content">
           <span>
             { label }
             <div className="features-support__item-card-communication">
               {
                 Object.keys(icons || {}).map(iconKey => (
-                  icons[iconKey] && <span><ImageIcon icon={iconMap[iconKey].icon}/>&nbsp;{iconMap[iconKey].label}</span>
+                  icons[iconKey] && <span key={`${key}-icon-${iconKey}`}><ImageIcon icon={iconMap[iconKey].icon}/>&nbsp;{iconMap[iconKey].label}</span>
                 ))
               }
             </div>
@@ -74,7 +74,7 @@ const FeaturesSupport = () => {
               <h4>{ SupportData[service].header }</h4>
               {
                 SupportData[service].items.map(({icon, label}) => (
-                  <div className="features-support__customer-service-detail">
+                  <div className="features-support__customer-service-detail" key={`features-support-customer-service-${label}`}>
                     <ImageIcon icon={iconsMap[icon]} title={label} />
                     &nbsp;{ label }
                   </div>
@@ -122,8 +122,8 @@ const FeaturesSupport = () => {
                 </span>
               </div>
               {
-                SupportData.gridItems.map(item => (
-                  ItemCard(item)
+                SupportData.gridItems.map((item, index) => (
+                  ItemCard(item, `item-card-${item.label}-${index}`)
                 ))
               }
             </div>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import ImageIcon from "./ImageIcon";
 import {Loader} from "./Loader";
@@ -117,6 +117,53 @@ export const ButtonWithLoader = (props) => {
       }}
       className={PrependClassName(`loader-button ${loading ? "loading" : "normal"}`, props.className)}
     />
+  );
+};
+
+export const ButtonWithMenu = (props) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const outsideContainerRef = useRef(null);
+
+  const HandleClickOutside = (event) => {
+    if(outsideContainerRef.current && !outsideContainerRef.current.contains(event.target)) {
+      setMenuOpen(false);
+    }
+  };
+
+  const HandleEscapeKey = (event) => {
+    if(event.key === "Escape") {
+      setMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", HandleClickOutside);
+    document.addEventListener("keydown", HandleEscapeKey);
+
+    return (() => {
+      document.removeEventListener("mousedown", HandleClickOutside);
+      document.removeEventListener("keydown", HandleEscapeKey);
+    });
+  }, []);
+
+  return (
+    <div className="button-menu__container" ref={outsideContainerRef}>
+      <ActionComponent
+        className={PrependClassName("action", props.className)}
+        children={props.children}
+        onClick={() => setMenuOpen(prevState => !prevState)}
+      />
+      {
+        menuOpen &&
+        <ul className="button-menu__options">
+          {(props.items || []).map((item, index) => (
+            <li key={`button-menu-${index}`} className="button-menu__item">
+              <Action className={props.optionsClassName} to={item.to} onClick={() => setMenuOpen(false)}>{ item.label }</Action>
+            </li>
+          ))}
+        </ul>
+      }
+    </div>
   );
 };
 

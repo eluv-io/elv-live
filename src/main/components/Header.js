@@ -2,8 +2,9 @@ import React from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
-import {Action} from "./Actions";
+import {Action, ButtonWithMenu} from "./Actions";
 import {uiStore, mainStore} from "../stores/Main";
+import {useLocation} from "react-router";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
 
@@ -29,6 +30,7 @@ const NotificationBanner = observer(({className=""}) => {
 
 const Header = observer(() => {
   const notificationBanner = <NotificationBanner className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"} />;
+  const location = useLocation();
 
   return (
     <>
@@ -53,7 +55,16 @@ const Header = observer(() => {
           <Action to="/community" useNavLink underline className="dark header__nav-link">
             Community
           </Action>
-          <Action to="/features" useNavLink underline className="dark header__nav-link">Features</Action>
+          <ButtonWithMenu
+            className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
+            optionsClassName="dark"
+            items={[
+              {label: "Tenancy Levels", to: "/features/tenancy-levels"},
+              {label: "Details", to: "/features/details"},
+              {label: "Content Fabric Utility Rates", to: "/features/rates"},
+              {label: "Support", to: "/features/support"},
+            ]}
+          >Features</ButtonWithMenu>
         </nav>
         <nav className="header__icons desktop">
           <Action to="/wallet" icon={MenuIcon} useNavLink className="dark header__nav-link" />
