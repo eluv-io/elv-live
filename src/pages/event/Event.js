@@ -397,9 +397,9 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { eventButtonOpensMarketplace && this.props.rootStore.walletLoaded ? <OpenMarketplaceButton /> : null }
-        { !eventButtonOpensMarketplace && this.props.rootStore.walletLoaded && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { !eventButtonOpensMarketplace && this.props.rootStore.walletLoaded && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { eventButtonOpensMarketplace ? <OpenMarketplaceButton /> : null }
+        { !eventButtonOpensMarketplace && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
+        { !eventButtonOpensMarketplace && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||

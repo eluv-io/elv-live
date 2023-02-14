@@ -24,7 +24,7 @@ const OfferPage = observer(() => {
       setLoading(true);
 
       await rootStore.RedeemOffer({
-        tenantId: offer.tenant_id || this.siteStore.currentSiteInfo.tenant_id,
+        tenantId: offer.tenant_id || siteStore.currentSiteInfo.tenant_id,
         ntpId: offer.ntp_id,
         code
       });
@@ -44,7 +44,8 @@ const OfferPage = observer(() => {
       await new Promise(resolve => setTimeout(resolve, 3000));
       history.push(siteStore.SitePath(""));
     } catch(error) {
-      setError("Failed to redeem code");
+      console.log(error);
+      setError(siteStore.l10n.codes.errors.failed);
     } finally {
       setLoading(false);
     }
@@ -57,14 +58,14 @@ const OfferPage = observer(() => {
   return (
     <div className="page-container code-entry-page-container">
       <div className="main-content-container offer-page">
-        <h2 className="offer-page__title">{ offer?.title || "Redeem Offer"}</h2>
-        <RichText richText={offer.description || "Description"} className="markdown-document offer-page__description" />
+        <h2 className="offer-page__title">{ offer?.title || siteStore.l10n.codes.redeem_offer }</h2>
+        { offer.description ? <RichText richText={offer.description} className="markdown-document offer-page__description" /> : null }
 
         { error ? <div className="error-message offer-page__error"> {error} </div> : null }
 
         <input
           className="offer-page__input"
-          placeholder="Redemption Code"
+          placeholder={siteStore.l10n.codes.redemption_code}
           value={code}
           onChange={event => {
             setError(undefined);
@@ -76,7 +77,7 @@ const OfferPage = observer(() => {
         <button
           disabled={!code || error}
           onClick={RedeemOffer}
-          title="Submit"
+          title={siteStore.l10n.codes.redeem_offer}
           className="btn offer-page__button"
         >
           {loading ?
@@ -85,7 +86,7 @@ const OfferPage = observer(() => {
                 <div></div>
               </div>
             </div> :
-            "Redeem Offer"
+            siteStore.l10n.codes.redeem_offer
           }
         </button>
       </div>
