@@ -4,6 +4,7 @@ committedUtilityLevel:
   description: "Tenants have the option to commit to a base purchase of content utility fees in exchange for significantly discounted blockchain transaction fees. In addition, ELVs will be set aside for the tenant as part of a token allocation program for early stakeholders. The tenant may claim these over the program's duration as described in the program agreement."
   basePriceLabel: "base price"
   unitLabel: "unit"
+  rowClassName: "features-grid__row--3col-a"
   items:
     - title: "Enterprise"
       unit: "base utility purchase per month"
@@ -23,6 +24,7 @@ blockchainTransactions:
   header: "Blockchain Transactions"
   basePriceLabel: "base price"
   unitLabel: "unit"
+  rowClassName: "features-grid__row--4col-a"
   items:
     - title: "NFT Contract Creation"
       description: "ERC-721, 1155 or similar contract deployed to the Content Fabric blockchain."
@@ -79,6 +81,7 @@ baseRentalOperations:
   basePriceLabel: "base price"
   unitLabel: "unit"
   caption: "**metadata, parts downloads, files downloads (not reps)"
+  rowClassName: "features-grid__row--4col-b"
   items:
     - operation: "Tenants"
       unit: "per month"
@@ -106,6 +109,7 @@ bitcodeOperations:
   header: "Bitcode Operations"
   basePriceLabel: "base price"
   unitLabel: "unit"
+  rowClassName: "features-grid__row--3col-b"
   items:
     - title: "Playout"
       sections:
@@ -377,6 +381,7 @@ bitcodeOperations:
               itemDescription: ""
   itemsFourCol:
     - title: "Image & Thumbnail"
+      rowClassName: "features-grid__row--4col-b"
       items:
         - detail: "Transformation"
           unit: "per image"
@@ -387,6 +392,7 @@ bitcodeOperations:
           basePrice: .0004
           itemDescription: "Add on for dynamic visible watermarking"
     - title: "Media Ingest"
+      rowClassName: "features-grid__row--4col-b"
       items:
         - detail: "h264 encoded mezzanine @1080p,<=10Mbps"
           unit: "per video second"
@@ -409,12 +415,14 @@ bitcodeOperations:
           basePrice: .0006
           itemDescription: "Audio Only ingest"
     - title: "Search"
+      rowClassName: "features-grid__row--4col-b"
       items:
         - detail: "Search Index"
           unit: "per GB per month"
           basePrice: 15
           itemDescription: "Dynamic search API indexed by any content object metadata or ML-labelled tags"
     - title: "Tagging Via Machine Learning"
+      rowClassName: "features-grid__row--4col-b"
       description: "Any object using advanced features to serve multiple consumable output versions such as subtitles, localized variants, captions, storyboards, localized audio tracks, custom bitcode, dynamic playlists, multi-view channels, and personalization. Can apply to objects of type Title Mezzanine, HTML Embed Apps, Live Streams/Channels, and other custom types. The count applies only to the base object."
       items:
         - detail: "Celebrity Recognition"
@@ -472,6 +480,7 @@ platformServiceFee:
   header: "Platform Service Fee"
   basePriceLabel: "Fee"
   caption: "Includes: Stripe, EBANX, Coinbase, Wallet Balance, Circle USDC"
+  rowClassName: "features-grid__row--3col-b"
   items:
     - label: "Processor Fee + 2.5%"
       fee: "Processor Fee + 2.5%"

@@ -30,7 +30,10 @@ const Pricing = () => {
     );
   };
 
-  const CommittedUtilityLevel = ({header, icon, items=[]}) => {
+  const CommittedUtilityLevel = () => {
+    const {header, items, rowClassName, unitLabel, basePriceLabel} = committedUtilityLevel;
+    const icon = iconMap[committedUtilityLevel.icon];
+
     return (
       <SectionWrapper header={header} icon={icon}>
         {
@@ -40,9 +43,8 @@ const Pricing = () => {
                 headerRows={[
                   {
                     id: `committed-utility-header-${itemData.title}-1`,
-                    className: "features-grid__main-header",
+                    className: `${rowClassName} features-grid__main-header`,
                     cells: [
-                      {label: ""},
                       {label: ""},
                       {label: "Monthly"},
                       {label: "Annual"}
@@ -50,20 +52,20 @@ const Pricing = () => {
                   },
                   {
                     id: `committed-utility-header-${itemData.title}-2`,
-                    className: "features-grid__helper-header",
+                    className: `${rowClassName} features-grid__helper-header`,
                     cells: [
-                      {label: committedUtilityLevel.unitLabel},
-                      {label: ""},
-                      {label: committedUtilityLevel.basePriceLabel}
+                      {label: unitLabel},
+                      {label: basePriceLabel},
+                      {label: ""}
                     ]
                   }
                 ]}
                 bodyRows={[
                   {
                     id: `committed-utility-body-${index}`,
+                    className: rowClassName,
                     cells: [
                       {label: itemData.unit},
-                      {label: ""},
                       {label: FormatCurrency({number: itemData.priceMonthly})},
                       {label: FormatCurrency({number: itemData.priceAnnual})},
                     ]
@@ -77,7 +79,10 @@ const Pricing = () => {
     );
   };
 
-  const BlockchainTransactions = ({header, icon, items=[]}) => {
+  const BlockchainTransactions = () => {
+    const {header, items, rowClassName, unitLabel, basePriceLabel} = blockchainTransactions;
+    const icon = iconMap[blockchainTransactions.icon];
+
     return (
       <SectionWrapper header={header} icon={icon}>
         {
@@ -92,7 +97,7 @@ const Pricing = () => {
                 headerRows={[
                   {
                     id: `blockchain-transactions-header-${itemData.title}-1`,
-                    className: "features-grid__top-header",
+                    className: `${rowClassName} features-grid__top-header`,
                     cells: [
                       {label: ""},
                       {label: "Level 1"},
@@ -102,7 +107,7 @@ const Pricing = () => {
                   },
                   {
                     id: `blockchain-transactions-header-${itemData.title}-2`,
-                    className: "features-grid__main-header",
+                    className: `${rowClassName} features-grid__main-header`,
                     cells: [
                       {label: ""},
                       {label: "Pay As You Go"},
@@ -112,16 +117,17 @@ const Pricing = () => {
                   },
                   {
                     id: `blockchain-transactions-header-${itemData.title}-3`,
-                    className: "features-grid__helper-header",
+                    className: `${rowClassName} features-grid__helper-header`,
                     cells: [
-                      {label: committedUtilityLevel.unitLabel},
-                      {label: committedUtilityLevel.basePriceLabel}
+                      {label: unitLabel},
+                      {label: basePriceLabel}
                     ]
                   }
                 ]}
                 bodyRows={[
                   {
                     id: `blockchain-transactions-body-${index}`,
+                    className: rowClassName,
                     cells: [
                       {label: itemData.unit},
                       {label: FormatCurrency({number: itemData.pricePayAsYouGo})},
@@ -138,19 +144,22 @@ const Pricing = () => {
     );
   };
 
-  const BaseRentalOperations = ({header, icon, items=[]}) => {
+  const BaseRentalOperations = () => {
+    const {header, items, unitLabel, basePriceLabel, rowClassName, caption} = baseRentalOperations;
+    const icon = iconMap[baseRentalOperations.icon];
+
     return (
       <SectionWrapper header={header} icon={icon}>
         <FeaturesGrid
-          caption={baseRentalOperations.caption}
+          caption={caption}
           headerRows={[
             {
               id: "base-rental-header-1",
-              className: "features-grid__base-rental",
+              className: rowClassName,
               cells: [
                 {label: ""},
-                {label: baseRentalOperations.unitLabel},
-                {label: baseRentalOperations.basePriceLabel},
+                {label: unitLabel},
+                {label: basePriceLabel},
                 {label: ""}
               ]
             }
@@ -160,7 +169,7 @@ const Pricing = () => {
               return {
                 id: `base-rental-body-${index}`,
                 className:
-              "features-grid__base-rental",
+              rowClassName,
                 cells:
                 [
                   {label: operation},
@@ -176,19 +185,21 @@ const Pricing = () => {
     );
   };
 
-  const PlatformServiceFee = ({header, icon, items=[]}) => {
+  const PlatformServiceFee = () => {
+    const {header, items, basePriceLabel, rowClassName, caption} = platformServiceFee;
+    const icon = iconMap[platformServiceFee.icon];
+
     return (
       <SectionWrapper header={header} icon={icon}>
         <FeaturesGrid
-          caption={platformServiceFee.caption}
+          caption={caption}
           headerRows={[
             {
               id: "platform-service-header-1",
-              className: "features-grid__base-rental",
+              className: rowClassName,
               cells: [
                 {label: ""},
-                {label: ""},
-                {label: platformServiceFee.basePriceLabel},
+                {label: basePriceLabel},
                 {label: ""}
               ]
             }
@@ -198,11 +209,10 @@ const Pricing = () => {
               return {
                 id: `platform-service-body-${index}`,
                 className:
-                  "features-grid__base-rental",
+                  rowClassName,
                 cells:
                   [
                     {label: label},
-                    {label: ""},
                     {label: fee},
                     {label: itemDescription, className: "features-grid__light-text"}
                   ]
@@ -214,7 +224,10 @@ const Pricing = () => {
     );
   };
 
-  const BitcodeOperations = ({header, icon, items=[], itemsFourCol=[]}) => {
+  const BitcodeOperations = () => {
+    const {header, items, itemsFourCol, rowClassName, unitLabel, basePriceLabel} = bitcodeOperations;
+    const icon = iconMap[bitcodeOperations.icon];
+
     return (
       <SectionWrapper header={header} icon={icon}>
         {
@@ -228,10 +241,10 @@ const Pricing = () => {
                       headerRows={[
                         {
                           id: `bitcode-playout-header-${sectionIndex}`,
-                          className: "features-grid__bitcode-operations",
+                          className: rowClassName,
                           cells: [
-                            {label: bitcodeOperations.unitLabel},
-                            {label: bitcodeOperations.basePriceLabel}
+                            {label: unitLabel},
+                            {label: basePriceLabel}
                           ]
                         }
                       ]}
@@ -239,7 +252,7 @@ const Pricing = () => {
                         section.items.map(({unit, basePrice, itemDescription}, index) => {
                           return {
                             id: `bitcode-operations-section-${sectionIndex}-body-${index}`,
-                            className: "features-grid__bitcode-operations",
+                            className: rowClassName,
                             cells: [
                               {label: unit},
                               {label: FormatCurrency({number: basePrice})},
@@ -262,11 +275,11 @@ const Pricing = () => {
                 headerRows={[
                   {
                     id: `bitcode-playout-header-${itemData.title}-${accordionIndex}`,
-                    className: "features-grid__base-rental features-grid__helper-header",
+                    className: `${itemData.rowClassName} features-grid__helper-header`,
                     cells: [
                       {label: ""},
-                      {label: bitcodeOperations.unitLabel},
-                      {label: bitcodeOperations.basePriceLabel},
+                      {label: unitLabel},
+                      {label: basePriceLabel},
                       {label: ""}
                     ]
                   }
@@ -275,7 +288,7 @@ const Pricing = () => {
                   itemData.items.map(({detail, unit, basePrice, itemDescription}, index) => (
                     {
                       id: `bitcode-operations-4col-section-${accordionIndex}-${index}`,
-                      className: "features-grid__base-rental",
+                      className: itemData.rowClassName,
                       cells: [
                         {label: detail},
                         {label: unit},
@@ -299,32 +312,11 @@ const Pricing = () => {
         <h1 className="features--purple-header">Pricing</h1>
       </div>
       <div className="page__content-block">
-        { CommittedUtilityLevel({
-          header: committedUtilityLevel.header,
-          icon: iconMap[committedUtilityLevel.icon],
-          items: committedUtilityLevel.items
-        }) }
-        { BlockchainTransactions({
-          header: blockchainTransactions.header,
-          icon: iconMap[blockchainTransactions.icon],
-          items: blockchainTransactions.items
-        })}
-        { BaseRentalOperations({
-          header: baseRentalOperations.header,
-          icon: iconMap[baseRentalOperations.icon],
-          items: baseRentalOperations.items
-        })}
-        { BitcodeOperations({
-          header: bitcodeOperations.header,
-          icon: iconMap[bitcodeOperations.icon],
-          items: bitcodeOperations.items,
-          itemsFourCol: bitcodeOperations.itemsFourCol
-        })}
-        { PlatformServiceFee({
-          header: platformServiceFee.header,
-          icon: iconMap[platformServiceFee.icon],
-          items: platformServiceFee.items
-        })}
+        { CommittedUtilityLevel() }
+        { BlockchainTransactions()}
+        { BaseRentalOperations()}
+        { BitcodeOperations()}
+        { PlatformServiceFee()}
       </div>
     </div>
   );
