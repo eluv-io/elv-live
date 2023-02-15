@@ -6,7 +6,7 @@ import {Accordion} from "../../components/Misc";
 import FeaturesGrid from "./FeaturesGrid";
 import {FormatCurrency} from "../../utils/Utils";
 
-const Rates = () => {
+const Pricing = () => {
   const {committedUtilityLevel, blockchainTransactions, baseRentalOperations, platformServiceFee, bitcodeOperations} = UtilityRatesData;
   const iconMap = {
     supportIcon: SupportIcon
@@ -330,4 +330,4 @@ const Rates = () => {
   );
 };
 
-export default Rates;
+export default Pricing;

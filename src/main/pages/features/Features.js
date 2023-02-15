@@ -5,7 +5,7 @@ import {PlayCircleIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
 import FeatureDetails from "../../content/FeaturesDetails.yaml";
 
-const Details = () => {
+const Features = () => {
   const detailsData = FeatureDetails || {};
 
   useEffect(() => {
@@ -72,4 +72,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default Features;

@@ -60,8 +60,8 @@ const Header = observer(() => {
             optionsClassName="dark"
             items={[
               {label: "Tenancy Levels", to: "/features/tenancy-levels"},
-              {label: "Details", to: "/features/details"},
-              {label: "Content Fabric Utility Rates", to: "/features/rates"},
+              {label: "Features", to: "/features/details"},
+              {label: "Pricing", to: "/features/pricing"},
               {label: "Support", to: "/features/support"},
             ]}
           >Features</ButtonWithMenu>
