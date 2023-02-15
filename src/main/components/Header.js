@@ -43,15 +43,31 @@ const Header = observer(() => {
 
         { /* Desktop */ }
         <nav className="header__nav desktop">
-          <Action to="/partners" useNavLink underline className="dark header__nav-link">
+          <ButtonWithMenu
+            className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
+            optionsClassName="dark"
+            items={[
+              {label: "News", to: "/about/news"},
+              {label: "Partners", to: "/about/partners"},
+              {label: "Contact Us", to: "/about/contact"},
+            ]}
+          >
             About
-          </Action>
+          </ButtonWithMenu>
           <Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">
             Creators & Publishers
           </Action>
-          <Action to="/content-fabric" useNavLink underline className="dark header__nav-link">
+          <ButtonWithMenu
+            className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
+            optionsClassName="dark"
+            items={[
+              {label: "The Content Fabric Protocol", to: "/content-fabric"},
+              {label: "Eluv.io Technology", to: "/content-fabric/technology"},
+              {label: "Eluv.io Blockchain", to: "/content-fabric/blockchain"},
+            ]}
+          >
             Content Fabric
-          </Action>
+          </ButtonWithMenu>
           <Action to="/community" useNavLink underline className="dark header__nav-link">
             Community
           </Action>
@@ -64,7 +80,9 @@ const Header = observer(() => {
               {label: "Pricing", to: "/features/pricing"},
               {label: "Support", to: "/features/support"},
             ]}
-          >Features</ButtonWithMenu>
+          >
+            Features
+          </ButtonWithMenu>
         </nav>
         <nav className="header__icons desktop">
           <Action to="/wallet" icon={MenuIcon} useNavLink className="dark header__nav-link" />

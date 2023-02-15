@@ -18,12 +18,9 @@ window.addEventListener("resize", SetHeight);
 
 const MAIN_SITE_PATHS = [
   //"/",
-  "/contact",
   "/content-fabric",
-  "/news",
-  "/partners",
-  "/technology",
-  "/features"
+  "/features",
+  "/about"
 ];
 
 const Load = async () => {

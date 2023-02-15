@@ -58,18 +58,26 @@ const MainApp = () => {
     <div className="main">
       <BrowserRouter>
         <Routes>
-          <Route path="/contact" element={<PageContainer padded><Contact /></PageContainer>} />
-          <Route path="/partners" element={<PageContainer padded><Partners /></PageContainer>} />
-          <Route path="/news" element={<PageContainer padded><News /></PageContainer>} />
-          <Route path="/news/:slug" element={<PageContainer padded><NewsItem /></PageContainer>} />
+          {/* About Routes */}
+          <Route path="/about/contact" element={<PageContainer padded><Contact /></PageContainer>} />
+          <Route path="/about/partners" element={<PageContainer padded><Partners /></PageContainer>} />
+          <Route path="/about/news" element={<PageContainer padded><News /></PageContainer>} />
+          <Route path="/about/news/:slug" element={<PageContainer padded><NewsItem /></PageContainer>} />
+          {/* Creators & Publishers Routes */}
+          <Route path="/creators-and-publishers" element={<PageContainer padded><ComponentTest /></PageContainer>} />
+          {/* Content Fabric Routes*/}
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
+          {/* Community Routes */}
+          <Route path="/community" element={<PageContainer padded><ComponentTest /></PageContainer>} />
+          {/* Features Routes */}
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
           <Route path="/features/pricing" element={<PageContainer padded after={<FeaturesFAQs />}><Pricing /></PageContainer>} />
           <Route path="/features/support" element={<PageContainer padded after={<FeaturesFAQs />}><FeaturesSupport /></PageContainer>} />
           <Route path="/features/details" element={<PageContainer padded after={<FeaturesFAQs />}><Features /></PageContainer>} />
+          {/* Defaults */}
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
