@@ -43,7 +43,8 @@
       font-weight: 700;
     }
 
-    .accordion__header path {
+    .accordion__header path,
+    .accordion__header rect {
       fill: var(--color-highlight-3);
     }
   }
@@ -54,19 +55,6 @@
 
   &__section:not(:last-child) {
     margin-bottom: 100px;
-  }
-}
-
-.features-faqs {
-  background-color: var(--background-light-2);
-  font-weight: 700;
-  padding: 10px 265px 10px 170px;
-  width: 100%;
-
-  .accordion {
-    font-size: var(--font-size-header-1);
-    margin: 0 auto;
-    max-width: 1600px;
   }
 }
 
@@ -368,61 +356,9 @@
   }
 }
 
-@media screen and (max-width: $width-tablet) {
-  .tabbed-info-box__tab-text {
-    display: flex;
-  }
-
-  .tenancy-info {
-    &__level,
-    &__service {
-      font-size: var(--font-size-body-3);
-    }
-
-    &__features__content__header {
-      flex-direction: column;
-      gap: 0;
-
-      &__details {
-        font-size: var(--font-size-body-4);
-      }
-    }
-
-    &__pricing {
-      align-items: flex-start;
-      flex-direction: column;
-
-      &__rate__month,
-      &__rate__fees {
-        font-size: var(--font-size-body-4);
-      }
-    }
-  }
-
-  .features-faqs {
-    padding: 40px;
-  }
-
-  .features-details__item-card {
-    padding: 1rem;
-  }
-
-  .features-details__item-card__content {
-    flex-wrap: wrap;
-    gap: 10px;
-
-    span {
-      flex: unset;
-    }
-
-    .action {
-      flex-basis: 100px;
-    }
-  }
-}
-
 .features-grid {
   display: grid;
+  width: 100%;
 
   &__header-row {
     display: grid;
@@ -496,6 +432,86 @@
   }
 }
 
+@media screen and (max-width: $width-tablet) {
+  .tabbed-info-box__tab-text {
+    display: flex;
+  }
+
+  .tenancy-info {
+    &__level,
+    &__service {
+      font-size: var(--font-size-body-3);
+    }
+
+    &__features__content__header {
+      flex-direction: column;
+      gap: 0;
+
+      &__details {
+        font-size: var(--font-size-body-4);
+      }
+    }
+
+    &__pricing {
+      align-items: flex-start;
+      flex-direction: column;
+
+      &__rate__month,
+      &__rate__fees {
+        font-size: var(--font-size-body-4);
+      }
+    }
+  }
+
+  .faqs {
+    padding: 40px;
+  }
+
+  .features-details__item-card {
+    padding: 1rem;
+  }
+
+  .features-details__item-card__content {
+    flex-wrap: wrap;
+    gap: 10px;
+
+    span {
+      flex: unset;
+    }
+
+    .action {
+      flex-basis: 100px;
+    }
+  }
+
+  .features__accordion .accordion__header {
+    padding: 10px 0 10px 5px;
+  }
+
+  .features-grid {
+    font-size: 12px;
+    overflow-x: auto;
+
+    &__item-card {
+      padding: 12px 6px;
+      width: 100%;
+    }
+
+    &__main-header {
+      font-size: var(--font-size-header-4);
+    }
+  }
+
+  .features-grid__body-row,
+  .features-grid__header-row {
+    grid-template-columns: repeat(4, 100px);
+  }
+
+  .features-grid__header-row {
+    padding: 0;
+  }
+}
+
 @media screen and (max-width: $width-mobile) {
   .features-details__item-card__content {
     flex-direction: column;
@@ -506,7 +522,7 @@
   }
 
   .features__info-box.curved-box {
-    padding: 15px 20px 20px;
+    padding: 15px 10px 20px;
   }
 
   .features__section {

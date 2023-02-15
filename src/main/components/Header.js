@@ -44,7 +44,7 @@ const Header = observer(() => {
         { /* Desktop */ }
         <nav className="header__nav desktop">
           <ButtonWithMenu
-            className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
+            className={`dark header__nav-link ${location.pathname.includes("about") ? "active active--underline" : "inactive inactive--underline"}`}
             optionsClassName="dark"
             items={[
               {label: "News", to: "/about/news"},
@@ -58,7 +58,7 @@ const Header = observer(() => {
             Creators & Publishers
           </Action>
           <ButtonWithMenu
-            className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
+            className={`dark header__nav-link ${location.pathname.includes("content-fabric") ? "active active--underline" : "inactive inactive--underline"}`}
             optionsClassName="dark"
             items={[
               {label: "The Content Fabric Protocol", to: "/content-fabric"},

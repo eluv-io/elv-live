@@ -23,7 +23,7 @@ import TenancyLevels from "./pages/features/TenancyLevels";
 import Features from "./pages/features/Features";
 import Pricing from "./pages/features/Pricing";
 import FeaturesSupport from "./pages/features/Support";
-import FeaturesFAQs from "./pages/features/FeaturesFAQs";
+import FAQs from "./pages/features/FAQs";
 
 export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false}) => {
   const location = useLocation();
@@ -74,9 +74,9 @@ const MainApp = () => {
           {/* Features Routes */}
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
-          <Route path="/features/pricing" element={<PageContainer padded after={<FeaturesFAQs />}><Pricing /></PageContainer>} />
-          <Route path="/features/support" element={<PageContainer padded after={<FeaturesFAQs />}><FeaturesSupport /></PageContainer>} />
-          <Route path="/features/details" element={<PageContainer padded after={<FeaturesFAQs />}><Features /></PageContainer>} />
+          <Route path="/features/pricing" element={<PageContainer padded after={<FAQs />}><Pricing /></PageContainer>} />
+          <Route path="/features/support" element={<PageContainer padded after={<FAQs />}><FeaturesSupport /></PageContainer>} />
+          <Route path="/features/details" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           {/* Defaults */}
           <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />

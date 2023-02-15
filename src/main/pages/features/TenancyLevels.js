@@ -8,7 +8,7 @@ import {PlayCircleIcon} from "../../static/icons/Icons";
 import {TabbedInfoBox} from "../../components/Misc";
 import {PageContainer} from "../../MainApp";
 import {FormatCurrency} from "../../utils/Utils";
-import FeaturesFAQs from "./FeaturesFAQs";
+import FAQs from "./FAQs";
 
 const TenancyLevels = () => {
   const icons = {
@@ -87,7 +87,7 @@ const TenancyLevels = () => {
           }
         </div>
       </div>
-      <FeaturesFAQs />
+      <FAQs />
     </>
   );
 

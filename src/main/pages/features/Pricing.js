@@ -296,7 +296,7 @@ const Pricing = () => {
   return (
     <div className="page">
       <div className="page__header-container">
-        <h1 className="features--purple-header">Content Fabric Utility Rates</h1>
+        <h1 className="features--purple-header">Pricing</h1>
       </div>
       <div className="page__content-block">
         { CommittedUtilityLevel({

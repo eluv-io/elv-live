@@ -12,7 +12,7 @@ import {uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import EluvioConfiguration from "EluvioConfiguration";
-import {PlusIcon} from "../static/icons/Icons";
+import {MinusIcon, PlusIcon} from "../static/icons/Icons";
 
 SwiperCore.use([Lazy, Pagination]);
 
@@ -238,14 +238,14 @@ export const GridCarousel = observer(({children, cutOff=600, className="", class
   );
 });
 
-export const Accordion = ({title, description, className="", icon=PlusIcon, children}) => {
+export const Accordion = ({title, description, className="", openIcon=PlusIcon, closeIcon=MinusIcon, children}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={`accordion ${className}`}>
       <Action className="accordion__header" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
         <div className="accordion__header__title">{ title }</div>
-        <ImageIcon icon={icon} />
+        <ImageIcon icon={isOpen ? closeIcon : openIcon} />
       </Action>
       {
         isOpen &&

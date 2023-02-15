@@ -269,16 +269,19 @@
 }
 
 .accordion {
-  padding: 30px 20px 30px 50px;
-
   &__header {
     display: flex;
     justify-content: space-between;
+    padding: 30px 20px 30px 50px;
     width: 100%;
   }
 
   &__description {
     margin: 24px 0;
+  }
+
+  svg {
+    margin-right: 28px;
   }
 }
 

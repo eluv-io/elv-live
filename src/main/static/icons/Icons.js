@@ -17,6 +17,7 @@ import ClockIcon from "./clock.svg";
 import FlagIcon from "./flag.svg";
 import SpreadMapIcon from "./map.svg";
 import MinimizeIcon from "./minimize.svg";
+import MinusIcon from "./minus.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -50,6 +51,7 @@ export {
   MapIcon,
   MenuIcon,
   MinimizeIcon,
+  MinusIcon,
   NewsIcon,
   PlayCircleIcon,
   PlusIcon,
