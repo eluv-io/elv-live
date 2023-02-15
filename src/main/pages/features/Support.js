@@ -42,7 +42,11 @@ const FeaturesSupport = () => {
             <div className="features-support__item-card-communication">
               {
                 Object.keys(icons || {}).map(iconKey => (
-                  icons[iconKey] && <span key={`${key}-icon-${iconKey}`}><ImageIcon icon={iconMap[iconKey].icon}/>&nbsp;{iconMap[iconKey].label}</span>
+                  icons[iconKey] &&
+                  <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
+                    <ImageIcon icon={iconMap[iconKey].icon}/>
+                    <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
+                  </span>
                 ))
               }
             </div>

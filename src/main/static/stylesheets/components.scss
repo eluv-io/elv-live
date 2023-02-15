@@ -272,7 +272,6 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    padding: 30px 20px 30px 50px;
     width: 100%;
   }
 
@@ -286,7 +285,7 @@
 }
 
 @media screen and (max-width: $width-tablet) {
-  .accordion {
-    padding: 15px 0;
+  .faqs .accordion .accordion__header {
+    padding: 15px 5px;
   }
 }

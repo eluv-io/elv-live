@@ -273,7 +273,7 @@
     gap: 25px;
     margin-top: 15px;
 
-    span {
+    &__item {
       align-items: center;
       display: flex;
       gap: 9px;
@@ -463,10 +463,6 @@
     }
   }
 
-  .faqs {
-    padding: 40px;
-  }
-
   .features-details__item-card {
     padding: 1rem;
   }
@@ -489,7 +485,7 @@
   }
 
   .features-grid {
-    font-size: 12px;
+    font-size: var(--font-size-body-5);
     overflow-x: auto;
 
     &__item-card {
@@ -508,6 +504,47 @@
   }
 
   .features-grid__header-row {
+    padding: 0;
+  }
+
+  .features-support {
+    &__item-card {
+      padding: 12px 6px;
+      width: 100%;
+    }
+
+    &__grid-container {
+      font-size: var(--font-size-body-4);
+      overflow-x: auto;
+    }
+
+    &__header-text h5 {
+      font-size: var(--font-size-header-4);
+    }
+
+    &__item-card-communication {
+      gap: 12px;
+    }
+
+    &__icon-text {
+      display: none;
+    }
+
+    &__customer-service {
+      padding: 0 10px;
+    }
+  }
+
+  .features-support__header-row,
+  .features-support__item-card-content {
+    grid-template-columns: 100px repeat(3, 75px);
+
+    svg {
+      width: 15px;
+    }
+  }
+
+  .features-support__header-row {
     padding: 0;
   }
 }
