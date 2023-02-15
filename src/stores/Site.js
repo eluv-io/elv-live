@@ -240,7 +240,6 @@ class SiteStore {
       this.language = "en";
       save ? localStorage.setItem("lang", "en") : localStorage.removeItem("lang");
     } else {
-
       // Find matching preference (including variants, e.g. pt-br === pt)
       const availableLocalizations = ["pt-br", "test"];
       language = availableLocalizations.find(key => key.startsWith(language) || language.startsWith("key"));
@@ -276,6 +275,8 @@ class SiteStore {
     if(this.eventInfo.event_title) {
       document.title = `${this.eventInfo.event_title} | Eluvio Live`;
     }
+
+    this.rootStore.frameClient.SetLanguage({languageCode: language});
 
     return true;
   });
