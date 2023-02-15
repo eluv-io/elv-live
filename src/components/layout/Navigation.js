@@ -46,7 +46,7 @@ class Header extends React.Component {
 
   MarketplaceLinks() {
     let marketplaceInfo = this.props.siteStore.marketplaceInfo || {};
-    if(!marketplaceInfo.marketplace_slug) {
+    if(!marketplaceInfo.marketplace_slug || marketplaceInfo.disable_marketplace) {
       return null;
     }
 

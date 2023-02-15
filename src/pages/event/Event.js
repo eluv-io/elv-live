@@ -305,6 +305,7 @@ class Event extends React.Component {
       (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
 
     const eventButtonOpensMarketplace = this.props.siteStore.currentSiteInfo.event_info.event_button_opens_marketplace;
+    const marketplaceDisabled = this.props.siteStore.marketplaceInfo?.disable_marketplace;
 
     let OpenMarketplaceButton;
     if(eventButtonOpensMarketplace) {
@@ -397,9 +398,9 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { eventButtonOpensMarketplace ? <OpenMarketplaceButton /> : null }
-        { !eventButtonOpensMarketplace && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { !eventButtonOpensMarketplace && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { eventButtonOpensMarketplace && !marketplaceDisabled ? <OpenMarketplaceButton /> : null }
+        { !eventButtonOpensMarketplace && !marketplaceDisabled && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
+        { !eventButtonOpensMarketplace && !marketplaceDisabled && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||
