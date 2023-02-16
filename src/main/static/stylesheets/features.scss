@@ -500,7 +500,7 @@
 
   .features-grid {
     font-size: var(--font-size-body-4);
-    overflow-x: scroll;
+    overflow-x: auto;
 
     &__item-card {
       padding: 12px 6px;
@@ -546,7 +546,7 @@
 
     &__grid-container {
       font-size: var(--font-size-body-4);
-      overflow-x: scroll;
+      overflow-x: auto;
     }
 
     &__header-text h5 {
