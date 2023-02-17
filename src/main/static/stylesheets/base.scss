@@ -1,17 +1,36 @@
 * {
-  ::-webkit-scrollbar {
-    opacity: 1;
-    width: 8px;
+  .dark {
+    ::-webkit-scrollbar {
+      opacity: 1;
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--background-light-1);
+      opacity: 1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-text-light-5);
+      opacity: 1;
+    }
   }
 
-  ::-webkit-scrollbar-track {
-    background: var(--background-dark-2);
-    opacity: 1;
-  }
+  .light {
+    ::-webkit-scrollbar {
+      opacity: 1;
+      width: 8px;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-text-dark-3);
-    opacity: 1;
+    ::-webkit-scrollbar-track {
+      background: var(--background-dark-2);
+      opacity: 1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-text-dark-3);
+      opacity: 1;
+    }
   }
 }
 

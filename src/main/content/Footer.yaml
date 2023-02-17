@@ -2,7 +2,7 @@
   icon: "link"
   links:
     - text: "Eluvio Technology"
-      link: "/"
+      link: "/content-fabric/technology"
     - text: "Become an Node Operator"
       link: "/"
     - text: "Features & Functionality"
@@ -21,7 +21,7 @@
     - text: "Get Started"
       link: "/"
     - text: "Github"
-      link: "/"
+      link: "https://github.com/eluv-io"
 - title: "NFTs"
   icon: "link"
   links:

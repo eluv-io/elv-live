@@ -1,5 +1,5 @@
 import React from "react";
-import UtilityRatesData from "../../content/FeaturesUtilityRates.yaml";
+import UtilityRatesData from "../../content/FeaturesPricing.yaml";
 import ImageIcon from "../../components/ImageIcon";
 import {SupportIcon} from "../../static/icons/Icons";
 import {Accordion} from "../../components/Misc";

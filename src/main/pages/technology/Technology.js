@@ -6,6 +6,7 @@ import HowItWorksDiagram from "../../static/images/technology/how-it-works.jpg";
 import MonetizationDiagram from "../../static/images/technology/on-chain-monetization.jpg";
 
 import {LinkIcon, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
+import WhitepaperPDF from "./documents/EluvioContentFabricProtocolWhitepaper.pdf";
 
 const Technology = () => {
   return (
@@ -40,7 +41,8 @@ const Technology = () => {
             {
               text: "Whitepaper",
               icon: DocumentIcon,
-              to: "https://google.com"
+              to: WhitepaperPDF,
+              target: "_blank"
             }
           ]}
         />

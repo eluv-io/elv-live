@@ -20,11 +20,11 @@ const Features = () => {
     }
   }, []);
 
-  const ItemCard = (data) => {
+  const ItemCard = (data, dark=false) => {
     const {contentTitle, description, link} = data;
 
     return (
-      <div className="features-details__item-card" key={`item-card-${contentTitle}`}>
+      <div className={`features-details__item-card ${dark ? "dark" : "light"}`} key={`item-card-${contentTitle}`}>
         <div className="features-details__item-card__content">
           <span>{ contentTitle }</span>
           <p>{ description }</p>

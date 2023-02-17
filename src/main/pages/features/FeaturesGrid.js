@@ -1,12 +1,12 @@
 import React from "react";
 
-const FeaturesGrid = ({headerRows=[], bodyRows=[], caption}) => {
+const FeaturesGrid = ({headerRows=[], bodyRows=[], caption, dark=false}) => {
   const GridRows = () => {
     return (
       <>
         {
           bodyRows.map(({id, cells, className}, rowIndex) => (
-            <div className="features-grid__item-card" key={`item-card-${id}`}>
+            <div className={`features-grid__item-card ${dark ? "dark" : "light"}`} key={`item-card-${id}`}>
               <div className={`features-grid__body-row ${className}`}>
                 {
                   cells.map(({label, className}, index) => <span key={`header-row-${rowIndex}-cell-${index}`} className={className}>{ label }</span>)
