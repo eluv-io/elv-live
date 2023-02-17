@@ -358,9 +358,6 @@ bitcodeOperations:
             - unit: "per video second >2,000 up to 5,000 hours (L2 Cap)"
               basePrice: .000012
               itemDescription: ""
-            - unit: ""
-              basePrice: .000021
-              itemDescription: ""
             - unit: "per video second >5,000 up to 10,000 hours"
               basePrice: .000011
               itemDescription: ""

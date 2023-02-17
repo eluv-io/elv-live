@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {InfoBox} from "../../components/Misc";
 
 import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
-
+import WhitepaperPDF from "./documents/EluvioContentFabricProtocolWhitepaper.pdf";
 
 const tabs = [
   ["Our Blockchain", "our-blockchain"],
@@ -62,7 +62,8 @@ const Blockchain = () => {
               icon: LinkIcon
             },
             {
-              to: "https://google.com",
+              to: WhitepaperPDF,
+              target: "_blank",
               text: "Whitepaper",
               icon: DocumentIcon
             }
