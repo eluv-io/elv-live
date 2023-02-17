@@ -12,7 +12,7 @@ import {
 import SupportData from "../../content/FeaturesSupport.yaml";
 
 const FeaturesSupport = () => {
-  const ItemCard = (data, key) => {
+  const ItemCard = (data, key, dark=false) => {
     const iconMap = {
       aroundClock: {
         label: "24x7",
@@ -35,7 +35,7 @@ const FeaturesSupport = () => {
     const {label, payAsYouGo, enterprise, advanced, icons} = data;
 
     return (
-      <div className="features-support__item-card" key={key}>
+      <div className={`features-support__item-card ${dark ? "dark" : "light"}`} key={key}>
         <div className="features-support__item-card-content">
           <span>
             { label }

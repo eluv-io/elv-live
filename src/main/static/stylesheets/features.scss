@@ -325,8 +325,17 @@
 .features-support__item-card,
 .features-details__item-card,
 .features-grid__item-card, {
-  background-color: var(--background-light-4);
   margin-top: 1rem;
+
+  &.light {
+    background-color: var(--background-light-4);
+    color: var(--color-text-light-1);
+  }
+
+  &.dark {
+    background-color: var(--background-dark-3);
+    color: var(--color-text-dark-1);
+  }
 }
 
 .features-details {
