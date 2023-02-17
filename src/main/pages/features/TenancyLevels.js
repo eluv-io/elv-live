@@ -114,7 +114,7 @@ const TenancyLevels = () => {
           />
 
           <div className="features-connect">
-            <Button className="light primary features-connect__button">Connect with us</Button>
+            <Button className="light primary features-connect__button" to="/about/contact">Connect with us</Button>
           </div>
         </div>
       </div>

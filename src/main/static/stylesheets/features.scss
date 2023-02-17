@@ -325,8 +325,17 @@
 .features-support__item-card,
 .features-details__item-card,
 .features-grid__item-card, {
-  background-color: var(--background-light-4);
   margin-top: 1rem;
+
+  &.light {
+    background-color: var(--background-light-4);
+    color: var(--color-text-light-1);
+  }
+
+  &.dark {
+    background-color: var(--background-dark-3);
+    color: var(--color-text-dark-1);
+  }
 }
 
 .features-details {
@@ -495,7 +504,7 @@
   }
 
   .features__accordion .accordion__header {
-    padding: 10px 0 10px 5px;
+    padding: 20px 0 25px 5px;
   }
 
   .features-grid {
@@ -590,7 +599,7 @@
   }
 
   .features__info-box.curved-box {
-    padding: 15px 10px 20px;
+    padding: 15px 20px 20px;
   }
 
   .features__section {

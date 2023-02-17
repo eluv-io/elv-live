@@ -145,10 +145,11 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false, cl
         {
           !links || links.length === 0 ? null :
             <div className="info-box__links">
-              {links.map(({text, to, icon, includeArrow=true}, index) =>
+              {links.map(({text, to, icon, includeArrow=true, target}, index) =>
                 <Button
                   icon={icon}
                   to={to}
+                  target={target}
                   includeArrow={includeArrow}
                   className={`${dark ? "dark" : "light"} secondary info-box__link`}
                   key={`info-box-link-${index}`}
@@ -243,7 +244,7 @@ export const Accordion = ({title, description, className="", openIcon=PlusIcon, 
 
   return (
     <div className={`accordion ${className}`}>
-      <Action className="accordion__header" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
+      <Action className="accordion__header left-align" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
         <div className="accordion__header__title">{ title }</div>
         <ImageIcon icon={isOpen ? closeIcon : openIcon} />
       </Action>
