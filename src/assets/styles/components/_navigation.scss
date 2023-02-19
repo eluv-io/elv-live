@@ -387,15 +387,21 @@
 
 
   @media only screen and (max-width: 900px) {
-    padding: 25px 25px 70px;
+    padding: 100px 25px 70px;
 
     &__block {
-      flex-wrap: wrap;
-      justify-content: space-around;
+      flex-direction: column;
+      gap: 10px;
     }
 
     &__item {
-      margin-bottom: 15px;
+      align-items: center;
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      margin: 0;
+      text-align: center;
+      width: 100%;
 
       &:not(select) {
         padding: 0;
