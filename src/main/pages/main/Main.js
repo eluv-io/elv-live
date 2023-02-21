@@ -4,6 +4,8 @@ import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
 import {Video} from "../../components/Misc";
+import {Action, Button} from "../../components/Actions";
+import SiteCarousel from "./SiteCarousel";
 
 import EluvioLogo from "../../static/images/logos/eluvio-logo-color.png";
 import FeaturesImage from "../../static/images/main/Advanced-full-feature-platform.png";
@@ -11,7 +13,6 @@ import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Busin
 import ExperiencesImage2 from "../../static/images/main/Developers-and-Node-Providers.jpg";
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
-import {Action, Button} from "../../components/Actions";
 
 const Header = () => {
   return (
@@ -259,6 +260,7 @@ const MainPageMobile = observer(() => {
         </div>
         <div className="padded-block">
           <BrowseProjectsBlock mobile />
+          <SiteCarousel mobile />
         </div>
       </div>
     </div>
@@ -282,6 +284,7 @@ const MainPageDesktop = observer(() => {
         </div>
         <div className="padded-block">
           <BrowseProjectsBlock />
+          <SiteCarousel />
         </div>
       </div>
     </div>

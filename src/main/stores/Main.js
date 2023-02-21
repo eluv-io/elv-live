@@ -55,6 +55,7 @@ class MainStore {
 
   mainSite;
   mainSiteHash;
+  featuredSites;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true, autoAction: true });
@@ -68,9 +69,13 @@ class MainStore {
 
   InitializeClient = flow(function * () {
     const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
-    metadataUrl.searchParams.set("resolve", "false");
+    metadataUrl.searchParams.set("resolve", "true");
     metadataUrl.searchParams.set("resolve_ignore_errors", "true");
     metadataUrl.searchParams.set("resolve_include_source", "true");
+    metadataUrl.searchParams.append("select", "info");
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
 
     const metadata = ProduceMetadataLinks({
       path: "/public/asset_metadata",
@@ -78,6 +83,28 @@ class MainStore {
     });
 
     this.mainSite = metadata.info;
+
+    const baseImagePath = UrlJoin("meta", "public", "asset_metadata", "featured_events");
+
+    let featuredSites = [];
+    Object.keys(metadata.featured_events).forEach(index =>
+      Object.keys(metadata.featured_events[index]).forEach(slug => {
+        const site = metadata.featured_events[index][slug];
+        const {event_images} = site.info;
+        const siteUrl = new URL(UrlJoin(window.location.origin, slug));
+
+        featuredSites.push({
+          name: site.display_title,
+          hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseImagePath, index, slug, "info", "event_images", "hero_background"))).toString(),
+          hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseImagePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
+          index,
+          slug,
+          siteUrl
+        });
+      })
+    );
+
+    this.featuredSites = featuredSites;
 
     this.walletClient = yield ElvWalletClient.Initialize({
       appId: "eluvio-live",

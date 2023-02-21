@@ -71,6 +71,10 @@ $width-mobile: 600px;
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
   --background-gradient-features-banner: linear-gradient(180deg, #471671 0%, #371870 100%);
 
+  /* Swiper */
+  --swiper-pagination-color: var(--color-highlight-2);
+  --swiper-pagination-bullet-inactive-color: var(--color-highlight-1);
+
   @media screen and (max-width: $width-laptop) {
     --horizontal-content-padding: 75px;
 

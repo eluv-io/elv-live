@@ -18,12 +18,13 @@
   }
 
   &.dark {
+    background: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
+
     .contact-form__copy {
       color: var(--color-text-dark-1);
     }
 
     .contact-form__form {
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(180deg, #000 0%, rgba(29, 29, 29, 0.65) 100%);
       box-shadow: 0 0 40px rgba(155, 81, 224, 0.13);
     }
 
