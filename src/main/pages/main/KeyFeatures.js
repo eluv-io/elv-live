@@ -1,5 +1,6 @@
 import React from "react";
-
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Pagination} from "swiper";
 import Feature1 from "../../static/images/main/features/1_Live-Events-_-Drops-Card-Face.png";
 import Feature2 from "../../static/images/main/features/2_Marketplace-Card-Face.png";
 import Feature3 from "../../static/images/main/features/3_Payment Gateway Card Face.png";
@@ -46,7 +47,42 @@ const FeatureCards = [
   }
 ];
 
-const KeyFeatures = () => {
+const KeyFeaturesCards = ({mobile}) => {
+  if(!mobile) {
+    return (
+      <div className="main-page-block__key-features__list">
+        { FeatureCards.map(({image, text}) =>
+          <button key={`key-feature-${text}`} className="main-page-block__key-feature">
+            <ImageIcon icon={image} label={text} className="main-page-block__key-feature__image" />
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <Swiper
+      className="main-page-block__key-features__carousel"
+      spaceBetween={20}
+      slidesPerView={1.5}
+      pagination={{
+        enabled: true,
+        clickable: true
+      }}
+      modules={[Pagination]}
+    >
+      { FeatureCards.map(({image, text}) =>
+        <SwiperSlide className="main-page-block__key-features__slide">
+          <button key={`key-feature-${text}`} className="main-page-block__key-feature">
+            <ImageIcon icon={image} label={text} className="main-page-block__key-feature__image" />
+          </button>
+        </SwiperSlide>
+      )}
+    </Swiper>
+  );
+};
+
+const KeyFeatures = ({mobile}) => {
   return (
     <div className="main-page-block main-page-block--key-features">
       <div className="main-page-block__key-features__header-container">
@@ -57,13 +93,7 @@ const KeyFeatures = () => {
           Learn More
         </Action>
       </div>
-      <div className="main-page-block__key-features__list">
-        { FeatureCards.map(({image, text}) =>
-          <button key={`key-feature-${text}`} className="main-page-block__key-feature">
-            <ImageIcon icon={image} label={text} className="main-page-block__key-feature__image" />
-          </button>
-        )}
-      </div>
+      <KeyFeaturesCards mobile={mobile} />
     </div>
   );
 };

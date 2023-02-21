@@ -196,7 +196,7 @@
 
     &--key-features {
       background: var(--background-dark-2);
-      padding-bottom: 100px;
+      padding-bottom: 50px;
       padding-top: 30px;
     }
 
@@ -425,7 +425,13 @@
     &__list {
       display: grid;
       gap: 30px;
-      grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    &__carousel {
+      height: max-content;
+      padding: 0 var(--horizontal-content-padding) 45px;
+      width: 100%;
     }
   }
 
@@ -500,6 +506,12 @@
 
       .main-page-block__copy {
         margin: 0;
+      }
+    }
+
+    &__key-features {
+      &__header-container {
+        padding: 0 var(--horizontal-content-padding);
       }
     }
   }

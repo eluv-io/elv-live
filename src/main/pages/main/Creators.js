@@ -130,9 +130,7 @@ const CreatorsMobile = observer(() => {
           <GetStartedBlock />
         </div>
         <div className="main-page__block main-page__block--key-features">
-          <div className="padded-block">
-            <KeyFeatures />
-          </div>
+          <KeyFeatures mobile />
         </div>
       </div>
       <FAQs />

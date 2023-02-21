@@ -1,5 +1,3 @@
-import "swiper/swiper-bundle.min.css";
-
 import React, {useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
