@@ -11,13 +11,13 @@ const MobileNav = ({open, onOpenChange}) => {
       <div className="mobile-nav__menu-content">
         <div className="mobile-nav__menu-header mobile-nav__menu-section">
           <Action className="mobile-nav__menu-header-item" icon={DiscoverIcon} alt="Projects" to="/about">
-            <span>Projects</span>
+            Projects
           </Action>
           <Action className="mobile-nav__menu-header-item" icon={ProfileIcon} alt="Profile" to="/">
-            <span>Profile</span>
+            Profile
           </Action>
           <Action className="mobile-nav__menu-header-item" icon={WalletIcon} alt="Wallet" to="/">
-            <span>Wallet</span>
+            Wallet
           </Action>
         </div>
         <div className="mobile-nav__menu-links mobile-nav__menu-section mobile-nav__menu-primary-links">
