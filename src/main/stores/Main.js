@@ -54,28 +54,27 @@ class MainStore {
   walletClient;
 
   mainSite;
-  mainSiteHash;
   featuredSites;
+  marketplaces;
+  newsItems;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true, autoAction: true });
 
-    runInAction(() => this.InitializeClient());
+    runInAction(() => this.Initialize());
 
     window.mainStore = this;
 
     this.uiStore = new UIStore();
   }
 
-  InitializeClient = flow(function * () {
-    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
-    metadataUrl.searchParams.set("resolve", "true");
-    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
-    metadataUrl.searchParams.set("resolve_include_source", "true");
-    metadataUrl.searchParams.append("select", "info");
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
+  Initialize = flow(function * () {
+    if(this.mainSite) { return; }
+
+    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info"));
+    metadataUrl.searchParams.set("resolve", "false");
+
+    metadataUrl.searchParams.append("remove", "news");
 
     const metadata = ProduceMetadataLinks({
       path: "/public/asset_metadata",
@@ -83,8 +82,41 @@ class MainStore {
     });
 
     this.mainSite = metadata.info;
+  });
 
-    const baseImagePath = UrlJoin("meta", "public", "asset_metadata", "featured_events");
+  InitializeWalletClient = flow(function * () {
+    if(this.walletClient) { return; }
+
+    this.walletClient = yield ElvWalletClient.Initialize({
+      appId: "eluvio-live",
+      network: EluvioConfiguration.network,
+      mode: EluvioConfiguration.mode
+    });
+
+    this.client = this.walletClient.client;
+  });
+
+  LoadFeaturedSites = flow(function * () {
+    if(this.featuredSites) { return; }
+
+    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
+    metadataUrl.searchParams.set("resolve", "true");
+    metadataUrl.searchParams.set("link_depth", "1");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
+    metadataUrl.searchParams.set("resolve_include_source", "true");
+
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
+    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
+
+    const metadata = ProduceMetadataLinks({
+      path: "/public/asset_metadata",
+      metadata: yield (yield fetch(metadataUrl)).json()
+    });
+
+
+    const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "featured_events");
 
     let featuredSites = [];
     Object.keys(metadata.featured_events).forEach(index =>
@@ -95,8 +127,8 @@ class MainStore {
 
         featuredSites.push({
           name: site.display_title,
-          hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseImagePath, index, slug, "info", "event_images", "hero_background"))).toString(),
-          hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseImagePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
+          hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", "hero_background"))).toString(),
+          hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
           index,
           slug,
           siteUrl
@@ -105,14 +137,32 @@ class MainStore {
     );
 
     this.featuredSites = featuredSites;
+  });
 
-    this.walletClient = yield ElvWalletClient.Initialize({
-      appId: "eluvio-live",
-      network: EluvioConfiguration.network,
-      mode: EluvioConfiguration.mode
+  LoadMarketplaces = flow(function * () {
+    if(this.marketplaces) { return; }
+
+    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
+    metadataUrl.searchParams.set("resolve", "true");
+    metadataUrl.searchParams.set("link_depth", "2");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
+    metadataUrl.searchParams.set("resolve_include_source", "true");
+
+    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
+
+    const metadata = ProduceMetadataLinks({
+      path: "/public/asset_metadata",
+      metadata: yield (yield fetch(metadataUrl)).json()
     });
+  })
 
-    this.client = this.walletClient.client;
+  LoadNews = flow(function * () {
+    if(this.newsItems) { return; }
+
+    this.newsItems = ProduceMetadataLinks({
+      path: "/public/asset_metadata/info/news",
+      metadata: yield (yield fetch(new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/news")))).json()
+    });
   });
 
   get headerLoopURL() {

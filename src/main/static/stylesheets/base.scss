@@ -92,6 +92,7 @@ h4 {
 .padded-block {
   margin: 0 auto;
   max-width: MIN(100vw, $width-max);
+  overflow: hidden;
   padding-inline: var(--horizontal-content-padding);
   width: 100%;
 }

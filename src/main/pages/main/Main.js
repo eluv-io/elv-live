@@ -59,7 +59,7 @@ const FeatureBanner = () => {
   );
 };
 
-const VideoBlock = ({mobile}) => {
+const VideoBlock = observer(({mobile}) => {
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--video">
@@ -119,7 +119,7 @@ const VideoBlock = ({mobile}) => {
       </div>
     </div>
   );
-};
+});
 
 const FeaturesBlock = ({mobile}) => {
   if(mobile) {
@@ -260,8 +260,8 @@ const MainPageMobile = observer(() => {
         </div>
         <div className="padded-block">
           <BrowseProjectsBlock mobile />
-          <SiteCarousel mobile />
         </div>
+        <SiteCarousel mobile />
       </div>
     </div>
   );
@@ -284,8 +284,8 @@ const MainPageDesktop = observer(() => {
         </div>
         <div className="padded-block">
           <BrowseProjectsBlock />
-          <SiteCarousel />
         </div>
+        <SiteCarousel />
       </div>
     </div>
   );

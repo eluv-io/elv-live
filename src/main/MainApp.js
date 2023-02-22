@@ -34,10 +34,6 @@ export const PageContainer = observer(({children, before, after, padded=false, d
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  if(!Stores.mainStore.mainSite) {
-    return null;
-  }
-
   return (
     <div className={`main ${dark ? "dark" : "light"}`}>
       <Header />

@@ -72,8 +72,8 @@ const KeyFeaturesCards = ({mobile}) => {
       modules={[Pagination]}
     >
       { FeatureCards.map(({image, text}) =>
-        <SwiperSlide className="main-page-block__key-features__slide">
-          <button key={`key-feature-${text}`} className="main-page-block__key-feature">
+        <SwiperSlide key={`key-feature-${text}`} className="main-page-block__key-features__slide">
+          <button className="main-page-block__key-feature">
             <ImageIcon icon={image} label={text} className="main-page-block__key-feature__image" />
           </button>
         </SwiperSlide>

@@ -19,7 +19,7 @@
 }
 
 :root {
-  --loader-color: #fff;
+  --loader-color: var(--color-highlight-2);
 }
 
 .loader {

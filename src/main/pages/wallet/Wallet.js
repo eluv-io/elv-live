@@ -77,6 +77,8 @@ const Wallet = observer(() => {
   const [frameClient, setFrameClient] = useState(undefined);
 
   useEffect(() => {
+    mainStore.InitializeWalletClient();
+
     document.body.style.overflowY = "hidden";
 
     return () => document.body.style.overflowY = "auto";

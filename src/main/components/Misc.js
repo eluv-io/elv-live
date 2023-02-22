@@ -58,7 +58,9 @@ export const Video = observer(({
 }) => {
   const [player, setPlayer] = useState(undefined);
 
-  useEffect(() => () => player?.Destroy(), [mainStore.client, player]);
+  useEffect(() => {
+    return () => player?.Destroy();
+  }, [mainStore.client, player]);
 
   if(!versionHash) {
     if(videoMetadata["/"]) {
@@ -79,7 +81,7 @@ export const Video = observer(({
       <div
         className="player-container__player"
         ref={element => {
-          if(!element || !mainStore.client || player) { return; }
+          if(!element || player) { return; }
 
           setPlayer(
             new EluvioPlayer(

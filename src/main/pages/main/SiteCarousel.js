@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
 import {observer} from "mobx-react";
@@ -9,6 +9,7 @@ import {Action} from "../../components/Actions";
 const SiteCard = observer(({name, mobile, hero, hero_mobile, siteUrl}) => {
   return (
     <Action href={siteUrl} className="site-carousel__site">
+      <div className="site-carousel__placeholder" />
       <ImageIcon
         icon={(mobile && hero_mobile) || hero}
         label={name}
@@ -19,7 +20,12 @@ const SiteCard = observer(({name, mobile, hero, hero_mobile, siteUrl}) => {
 });
 
 const SiteCarousel = observer(({mobile}) => {
+  useEffect(() => {
+    mainStore.LoadFeaturedSites();
+  }, []);
+
   const [activeSlide, setActiveSlide] = useState(0);
+
   if(!mainStore.featuredSites) { return null; }
 
   return (
@@ -37,8 +43,8 @@ const SiteCarousel = observer(({mobile}) => {
       onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
     >
       {mainStore.featuredSites.map((site, index) =>
-        <SwiperSlide className={`site-carousel__slide ${activeSlide === index ? "site-carousel__slide--active" : ""}`}>
-          <SiteCard {...site} mobile={mobile} key={`site-${site.slug}`} />
+        <SwiperSlide key={`site-${site.slug}`} className={`site-carousel__slide ${activeSlide === index ? "site-carousel__slide--active" : ""}`}>
+          <SiteCard {...site} mobile={mobile} />
         </SwiperSlide>
       )}
     </Swiper>
