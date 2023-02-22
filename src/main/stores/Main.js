@@ -61,11 +61,11 @@ class MainStore {
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true, autoAction: true });
 
-    runInAction(() => this.Initialize());
-
     window.mainStore = this;
 
     this.uiStore = new UIStore();
+
+    this.Initialize();
   }
 
   Initialize = flow(function * () {
@@ -76,12 +76,10 @@ class MainStore {
 
     metadataUrl.searchParams.append("remove", "news");
 
-    const metadata = ProduceMetadataLinks({
+    this.mainSite = ProduceMetadataLinks({
       path: "/public/asset_metadata",
       metadata: yield (yield fetch(metadataUrl)).json()
     });
-
-    this.mainSite = metadata.info;
   });
 
   InitializeWalletClient = flow(function * () {
@@ -110,11 +108,7 @@ class MainStore {
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
     metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
 
-    const metadata = ProduceMetadataLinks({
-      path: "/public/asset_metadata",
-      metadata: yield (yield fetch(metadataUrl)).json()
-    });
-
+    const metadata = yield (yield fetch(metadataUrl)).json();
 
     const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "featured_events");
 
@@ -148,12 +142,52 @@ class MainStore {
     metadataUrl.searchParams.set("resolve_ignore_errors", "true");
     metadataUrl.searchParams.set("resolve_include_source", "true");
 
+    metadataUrl.searchParams.append("select", "info/marketplace_order");
+    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "display_title"));
     metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
+    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "show"));
 
-    const metadata = ProduceMetadataLinks({
-      path: "/public/asset_metadata",
-      metadata: yield (yield fetch(metadataUrl)).json()
-    });
+    const metadata = yield (yield fetch(metadataUrl)).json();
+
+    const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "tenants");
+
+    let marketplaces = [];
+    Object.keys(metadata.tenants).forEach(tenantSlug =>
+      Object.keys(metadata.tenants[tenantSlug].marketplaces).forEach(marketplaceSlug => {
+        const marketplace = metadata.tenants[tenantSlug].marketplaces[marketplaceSlug] || {};
+
+        if(!marketplace?.info?.branding?.show) {
+          return;
+        }
+
+        marketplaces.push({
+          tenantSlug,
+          marketplaceSlug,
+          name: marketplace?.info?.branding?.name || marketplace?.display_title,
+          card_front: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "marketplaces", marketplaceSlug, "info", "branding", "card_banner_front"))).toString(),
+          card_back: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "marketplaces", marketplaceSlug, "info", "branding", "card_banner_back"))).toString()
+        });
+      })
+    );
+
+    const order = metadata.info?.marketplace_order || [];
+    this.marketplaces = marketplaces
+      .sort((a, b) => {
+        const aSlugIndex = order.findIndex(slug => slug === a.marketplaceSlug);
+        const bSlugIndex = order.findIndex(slug => slug === b.marketplaceSlug);
+
+        if(aSlugIndex >= 0) {
+          if(bSlugIndex >= 0) {
+            return aSlugIndex < bSlugIndex ? -1 : 1;
+          }
+
+          return -1;
+        } else if(bSlugIndex >= 0) {
+          return 1;
+        } else {
+          return a.name > b.name ? 1 : -1;
+        }
+      });
   })
 
   LoadNews = flow(function * () {

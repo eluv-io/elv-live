@@ -5,11 +5,12 @@ import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
 import {Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
+import KeyFeatures from "./KeyFeatures";
+import FAQs from "../features/FAQs";
+import Marketplaces from "./Marketplaces";
 
 import HeaderImage from "../../static/images/main/2_built-for-new-creator-economy-(no-gradient).png";
 import {MoneyIcon, TrendingUpIcon, DiscoverIcon} from "../../static/icons/Icons";
-import KeyFeatures from "./KeyFeatures";
-import FAQs from "../features/FAQs";
 
 const Header = ({mobile}) => {
   if(mobile) {
@@ -124,7 +125,9 @@ const CreatorsMobile = observer(() => {
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock />
-          <CustomizeBlock />
+        </div>
+        <div className="main-page-block--marketplace">
+          <Marketplaces mobile />
         </div>
         <div className="padded-block">
           <GetStartedBlock />
@@ -146,6 +149,9 @@ const CreatorsDesktop = observer(() => {
         <div className="padded-block">
           <VideoBlock />
           <CustomizeBlock />
+        </div>
+        <div className="main-page-block--marketplace">
+          <Marketplaces />
         </div>
         <div className="padded-block">
           <GetStartedBlock />
