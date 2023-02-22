@@ -18,6 +18,8 @@ import FlagIcon from "./flag.svg";
 import SpreadMapIcon from "./map.svg";
 import MinimizeIcon from "./minimize.svg";
 import MinusIcon from "./minus.svg";
+import WalletIcon from "./wallet.svg";
+import ProfileIcon from "./profile.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -55,10 +57,12 @@ export {
   NewsIcon,
   PlayCircleIcon,
   PlusIcon,
+  ProfileIcon,
   SendIcon,
   SpreadMapIcon,
   SupportIcon,
   TelephoneIcon,
+  WalletIcon,
   XIcon,
 
   SocialIcons,
