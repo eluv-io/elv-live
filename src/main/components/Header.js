@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
@@ -10,6 +10,7 @@ import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
 
 import {MenuIcon, XIcon} from "../static/icons/Icons";
 import {RichText} from "./Misc";
+import MobileNav from "./MobileNav";
 
 const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
@@ -31,6 +32,7 @@ const NotificationBanner = observer(({className=""}) => {
 const Header = observer(() => {
   const notificationBanner = <NotificationBanner className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"} />;
   const location = useLocation();
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
     <>
@@ -94,8 +96,9 @@ const Header = observer(() => {
             Discover Projects
           </Action>
         </nav>
-        <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => {}} />
+        <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
       </header>
+      <MobileNav open={showMobileMenu} onOpenChange={value => setShowMobileMenu(value)} />
 
       { uiStore.pageWidth > 1000 ? notificationBanner : null }
     </>
