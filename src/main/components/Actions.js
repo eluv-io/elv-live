@@ -1,7 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import ImageIcon from "./ImageIcon";
 import {Loader} from "./Loader";
+import {useCombinedRefs} from "../utils/Utils";
 
 // Classname might be a function because of react-router navlink
 const PrependClassName = (addition, className="") => {
@@ -19,17 +20,44 @@ const PrependClassName = (addition, className="") => {
   return updatedClassName;
 };
 
-export const ActionComponent = (props) => {
-  const useNavLink = props.useNavLink;
-
+export const ActionComponent = React.forwardRef((props, ref) => {
   props = { ...props };
+
+  // Handle navlink
+  const useNavLink = props.useNavLink;
+  const exact = props.exact;
+  const underline = props.underline;
+  const basePath = props.basePath;
+
   delete props.useNavLink;
+  delete props.exact;
+  delete props.underline;
+  delete props.basePath;
+
+  if(useNavLink) {
+    const location = useLocation();
+
+    const to = props.to || basePath || "";
+    let routeActive;
+    if(exact || location.pathname === "/") {
+      routeActive = location.pathname === to;
+    } else {
+      routeActive = location.pathname.startsWith(to) || to.startsWith(location.pathname);
+    }
+
+    props.className = PrependClassName(routeActive ? `active ${underline ? "active--underline" : ""}` : `inactive ${underline ? "inactive--underline" : ""}`, props.className);
+  }
 
   if(props.icon) {
     props.children = (
       <>
         <ImageIcon icon={props.icon} title={props.iconLabel} className="action__icon" />
-        { props.children }
+        {
+          props.children ?
+            <span className="action__content">
+              {props.children}
+            </span> : null
+        }
       </>
     );
 
@@ -46,6 +74,16 @@ export const ActionComponent = (props) => {
     props.target = "_blank";
     props.rel = "external";
     delete props.to;
+  } else if(props.to?.includes("#")) {
+    const [to, hash] = props.to.split("#");
+
+    props.to = to;
+    const originalOnClick = props.onClick;
+    props.onClick = async () => {
+      originalOnClick && await originalOnClick();
+
+      setTimeout(() => window.location.hash = "#" + hash, 50);
+    };
   }
 
   if(props.includeArrow) {
@@ -60,40 +98,32 @@ export const ActionComponent = (props) => {
     delete props.includeArrow;
   }
 
-  let underline = props.underline;
-  delete props.underline;
-
   if(props.to) {
-    if(useNavLink) {
-      return <NavLink
-        {...props}
-        className={({isActive}) => PrependClassName(isActive ? `active ${underline ? "active--underline" : ""}` : `inactive ${underline ? "inactive--underline" : ""}`, props.className)}
-      />;
-    } else {
-      return <Link {...props} />;
-    }
+    return <Link {...props} ref={ref} />;
   } else if(props.href) {
-    return <a {...props} />;
+    return <a {...props} ref={ref} />;
   } else {
-    return <button {...props} />;
+    return <button {...props} ref={ref} />;
   }
-};
+});
 
-export const Button = (props) => {
+export const Button = React.forwardRef((props, ref) => {
   return (
     <ActionComponent
       {...props}
+      ref={ref}
       className={PrependClassName("button", props.className)}
     />
   );
-};
+});
 
-export const ButtonWithLoader = (props) => {
+export const ButtonWithLoader = React.forwardRef((props, ref) => {
   const [loading, setLoading] = useState(false);
 
   return (
     <Button
       {...props}
+      ref={ref}
       children={
         <>
           <div className="loader-button__content">
@@ -118,14 +148,26 @@ export const ButtonWithLoader = (props) => {
       className={PrependClassName(`loader-button ${loading ? "loading" : "normal"}`, props.className)}
     />
   );
-};
+});
 
-export const ButtonWithMenu = (props) => {
+export const Action = React.forwardRef((props, ref) => {
+  return (
+    <ActionComponent
+      {...props}
+      ref={ref}
+      className={PrependClassName("action", props.className)}
+    />
+  );
+});
+
+export const MenuButton = React.forwardRef((props, ref) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const outsideContainerRef = useRef(null);
+
+  const containerRef = useRef(null);
+  const combinedRef = useCombinedRefs(ref, containerRef);
 
   const HandleClickOutside = (event) => {
-    if(outsideContainerRef.current && !outsideContainerRef.current.contains(event.target)) {
+    if(containerRef.current && !containerRef.current.contains(event.target)) {
       setMenuOpen(false);
     }
   };
@@ -146,32 +188,34 @@ export const ButtonWithMenu = (props) => {
     });
   }, []);
 
+  props = {...props};
+  const items = props.items || [];
+  const optionClassName = props.optionClassName || "";
+  delete props.items;
+  delete props.optionClassName;
+
   return (
-    <div className="button-menu__container" ref={outsideContainerRef}>
-      <ActionComponent
-        className={PrependClassName("action", props.className)}
-        children={props.children}
-        onClick={() => setMenuOpen(prevState => !prevState)}
-      />
+    <Action
+      {...props}
+      ref={combinedRef}
+      onClick={event => {
+        event.preventDefault();
+        event.stopPropagation();
+        setMenuOpen(!menuOpen);
+      }}
+      className={PrependClassName("menu-button", props.className)}
+    >
+      { props.children }
       {
         menuOpen &&
-        <ul className="button-menu__options">
-          {(props.items || []).map((item, index) => (
-            <li key={`button-menu-${index}`} className="button-menu__item">
-              <Action className={props.optionsClassName} to={item.to} onClick={() => setMenuOpen(false)}>{ item.label }</Action>
+        <ul className="menu-button__options">
+          {(items || []).map((item, index) => (
+            <li key={`menu-button-${index}`} className="menu-button__item">
+              <Action to={item.to} onClick={() => setMenuOpen(false)} className={optionClassName} {...item.props}>{ item.label }</Action>
             </li>
           ))}
         </ul>
       }
-    </div>
+    </Action>
   );
-};
-
-export const Action = (props) => {
-  return (
-    <ActionComponent
-      {...props}
-      className={PrependClassName("action", props.className)}
-    />
-  );
-};
+});

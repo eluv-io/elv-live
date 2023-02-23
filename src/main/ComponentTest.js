@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, ButtonWithLoader, Action} from "./components/Actions";
-import {Accordion, ExpandableImage, GridCarousel, InfoBox} from "./components/Misc";
+import {ExpandableImage, GridCarousel, InfoBox} from "./components/Misc";
 import Modal from "./components/Modal";
 import {observer} from "mobx-react";
 import {uiStore} from "./stores/Main";
@@ -11,11 +11,9 @@ import PartnerIcon from "./pages/partners/PartnerIcon";
 
 import TestIcon from "./static/test/Event icon.svg";
 import TestIcon2 from "./static/test/link.svg";
-import TestIcon3 from "./static/test/send.svg";
 
 import TestImage from "./static/test/newRO3.jpg";
 import TestImage2 from "./static/test/heroRita.jpg";
-import TestImage3 from "./static/test/sponsorR03.png";
 
 import EluvioLogo from "./static/images/logos/eluvio-logo.svg";
 
@@ -217,10 +215,6 @@ const ComponentTest = observer(() => {
         <Modal active={showFullWidthScrollModal} className="full" Close={() => setShowFullWidthScrollModal(false)}>
           <ModalTest scroll className="full" />
         </Modal>
-
-        <Accordion title="Accordion">
-          Test content
-        </Accordion>
 
         <ContactForm />
         <Footer />

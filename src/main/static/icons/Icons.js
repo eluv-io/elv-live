@@ -1,10 +1,15 @@
+import BlockchainIcon from "./blockchain.svg";
 import DiscoverIcon from "./discover.svg";
 import DocumentIcon from "./view-document.svg";
+import FilmIcon from "./film.svg";
 import LinkIcon from "./link.svg";
 import MailIcon from "./contact-email.svg";
 import MapIcon from "./contact-location.svg";
 import MenuIcon from "./menu.svg";
+import MoneyIcon from "./money.svg";
 import NewsIcon from "./read-more.svg";
+import PlayIcon from "./play button.svg";
+import PowerIcon from "./power.svg";
 import SendIcon from "./send.svg";
 import XIcon from "./x.svg";
 import CheckmarkIcon from "./checkmark.svg";
@@ -20,6 +25,7 @@ import MinimizeIcon from "./minimize.svg";
 import MinusIcon from "./minus.svg";
 import WalletIcon from "./wallet.svg";
 import ProfileIcon from "./profile.svg";
+import TrendingUpIcon from "./trending-up.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -48,6 +54,8 @@ export {
   DiscoverIcon,
   DocumentIcon,
   FlagIcon,
+  BlockchainIcon,
+  FilmIcon,
   LinkIcon,
   MailIcon,
   MapIcon,
@@ -58,13 +66,16 @@ export {
   PlayCircleIcon,
   PlusIcon,
   ProfileIcon,
+  MoneyIcon,
+  PlayIcon,
+  PowerIcon,
   SendIcon,
   SpreadMapIcon,
   SupportIcon,
   TelephoneIcon,
   WalletIcon,
+  TrendingUpIcon,
   XIcon,
-
   SocialIcons,
   TechnologyIcons
 };

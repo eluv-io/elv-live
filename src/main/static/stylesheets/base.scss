@@ -49,6 +49,25 @@ body {
   max-width: 100vw;
   overflow-y: scroll;
   position: relative;
+
+  &.wallet,
+  &.mobile-menu {
+    overflow: hidden;
+  }
+}
+
+.main {
+  transition: background-color 0.15s ease;
+
+  &.dark {
+    background-color: var(--background-dark-1);
+    color: var(--color-text-dark-1);
+  }
+
+  &.light {
+    background: var(--background-light-1);
+    color: var(--color-text-light-1);
+  }
 }
 
 h1 {
@@ -76,14 +95,16 @@ h4 {
 }
 
 .padded-block {
+  margin: 0 auto;
+  max-width: MIN(100vw, $width-max);
+  overflow: hidden;
   padding-inline: var(--horizontal-content-padding);
+  width: 100%;
 }
 
 .page-container {
   margin: 0 auto;
   max-width: $width-max;
-  padding-bottom: 50px;
-  padding-top: 50px;
 
   &.unbound {
     max-width: unset;
@@ -91,6 +112,10 @@ h4 {
 }
 
 .page {
+  &:not(.no-padding) {
+    padding: 50px 0;
+  }
+
   &.light {
     .page__copy {
       color: var(--color-text-light-3);
@@ -143,6 +168,7 @@ h4 {
     a {
       color: var(--color-highlight-2);
 
+      // sass-lint:disable selector-no-qualifying-type
       &.action {
         color: var(--color-highlight-2);
       }
@@ -208,6 +234,11 @@ h4 {
     .left-image {
       grid-template-columns: 1fr;
     }
+
+    .right-links {
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -221,4 +252,17 @@ h4 {
 
 .right-align {
   text-align: right;
+}
+
+
+@media screen and (max-width: $width-tablet) {
+  .no-tablet {
+    display: none !important; // sass-lint:disable-line no-important
+  }
+}
+
+@media screen and (max-width: $width-mobile) {
+  .no-mobile {
+    display: none !important; // sass-lint:disable-line no-important
+  }
 }

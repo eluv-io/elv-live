@@ -5,8 +5,11 @@ import PartnerIcon from "./PartnerIcon";
 import ImageIcon from "../../components/ImageIcon";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
+import {PageLoader} from "../../components/Loader";
 
 const Partners = observer(() => {
+  if(!mainStore.mainSite) { return <PageLoader />; }
+
   const partners = mainStore.mainSite.partners || [];
   const ecosystem = mainStore.mainSite.ecosystem || [];
 

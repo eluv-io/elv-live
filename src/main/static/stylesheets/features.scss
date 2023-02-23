@@ -351,6 +351,7 @@
     .action {
       color: var(--color-highlight-3);
       flex: 0 0 110px;
+      font-size: var(--font-size-body-4);
       font-weight: 700;
       text-transform: uppercase;
     }
@@ -501,10 +502,6 @@
     .action {
       flex-basis: 100px;
     }
-  }
-
-  .features__accordion .accordion__header {
-    padding: 20px 0 25px 5px;
   }
 
   .features-grid {

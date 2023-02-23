@@ -9,7 +9,7 @@ import {LinkIcon, DiscoverIcon, DocumentIcon, SocialIcons} from "../static/icons
 
 import {Action} from "./Actions";
 
-const SocialLinks = () => {
+const SocialLinks = ({dark=false}) => {
   const links = [
     { name: "Instagram", link: "https://www.instagram.com/eluvioinc", icon: SocialIcons.InstagramIcon },
     { name: "Twitter", link: "https://twitter.com/eluvioinc", icon: SocialIcons.TwitterIcon },
@@ -24,9 +24,9 @@ const SocialLinks = () => {
     <div className="footer__social-links">
       {
         links.map(({name, link, icon}) =>
-          <a href={link} target="_blank" rel="noopener" className="footer__social-link" key={`link-${name}`}>
+          <Action href={link} target="_blank" rel="noopener" className={`${dark ? "dark" : "light"} footer__social-link`} key={`link-${name}`}>
             <ImageIcon icon={icon} title={name} className="footer__social-link__icon" />
-          </a>
+          </Action>
         )
       }
     </div>
@@ -80,7 +80,7 @@ const Footer = ({dark=false, className=""}) => {
     <footer className={`footer padded-block ${dark ? "dark" : "light"} ${className}`}>
       <div className="footer__branding">
         <ImageIcon icon={EluvioLogo} title="Eluvio" className="footer__logo" />
-        <SocialLinks />
+        <SocialLinks dark={dark} />
       </div>
       <Links dark={dark} />
     </footer>
