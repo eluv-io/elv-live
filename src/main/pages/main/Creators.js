@@ -1,6 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {mainStore, uiStore} from "../../stores/Main";
+import {uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
 import {Video} from "../../components/Misc";

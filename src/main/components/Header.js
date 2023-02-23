@@ -2,15 +2,14 @@ import React, {useState} from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
-import {Action, ButtonWithMenu} from "./Actions";
+import {Action, MenuButton} from "./Actions";
 import {uiStore, mainStore} from "../stores/Main";
-import {useLocation} from "react-router";
-
-import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
-
-import {MenuIcon, XIcon} from "../static/icons/Icons";
 import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
+
+import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
+import {DiscoverIcon, MenuIcon, ProfileIcon, WalletIcon, XIcon} from "../static/icons/Icons";
+
 
 const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
@@ -31,7 +30,6 @@ const NotificationBanner = observer(({className=""}) => {
 
 const Header = observer(() => {
   const notificationBanner = <NotificationBanner className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"} />;
-  const location = useLocation();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   return (
@@ -44,55 +42,69 @@ const Header = observer(() => {
         </Action>
 
         { /* Desktop */ }
-        <nav className="header__nav desktop">
-          <ButtonWithMenu
-            className={`dark header__nav-link ${location.pathname.includes("about") ? "active active--underline" : "inactive inactive--underline"}`}
-            optionsClassName="dark"
+        <nav className="header__nav header__nav--links desktop">
+          <MenuButton
+            basePath="/about"
+            className="dark header__nav-link"
+            optionClassName="dark"
+            useNavLink
+            underline
             items={[
-              {label: "News", to: "/about/news"},
-              {label: "Partners", to: "/about/partners"},
-              {label: "Contact Us", to: "/about/contact"},
+              {label: "News", to: "/about/news", props: {useNavLink: true, exact: true}},
+              {label: "Partners", to: "/about/partners", props: {useNavLink: true, exact: true}},
+              {label: "Contact Us", to: "/about/contact", props: {useNavLink: true, exact: true}},
             ]}
           >
             About
-          </ButtonWithMenu>
+          </MenuButton>
           <Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">
             Creators & Publishers
           </Action>
-          <ButtonWithMenu
-            className={`dark header__nav-link ${location.pathname.includes("content-fabric") ? "active active--underline" : "inactive inactive--underline"}`}
-            optionsClassName="dark"
+          <MenuButton
+            basePath="/content-fabric"
+            className="dark header__nav-link"
+            optionClassName="dark"
+            useNavLink
+            underline
             items={[
-              {label: "The Content Fabric Protocol", to: "/content-fabric"},
-              {label: "Eluv.io Technology", to: "/content-fabric/technology"},
-              {label: "Eluv.io Blockchain", to: "/content-fabric/blockchain"},
+              {label: "The Content Fabric Protocol", to: "/content-fabric", props: {useNavLink: true, exact: true}},
+              {label: "Eluv.io Technology", to: "/content-fabric/technology", props: {useNavLink: true, exact: true}},
+              {label: "Eluv.io Blockchain", to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}},
             ]}
           >
             Content Fabric
-          </ButtonWithMenu>
-          <ButtonWithMenu
-            className={`dark header__nav-link ${location.pathname.includes("features") ? "active active--underline" : "inactive inactive--underline"}`}
-            optionsClassName="dark"
+          </MenuButton>
+          <MenuButton
+            basePath="/features"
+            className="dark header__nav-link"
+            optionClassName="dark"
+            useNavLink
+            underline
             items={[
-              {label: "Tenancy Levels", to: "/features/tenancy-levels"},
-              {label: "Features", to: "/features/details"},
-              {label: "Pricing", to: "/features/pricing"},
-              {label: "Support", to: "/features/support"},
+              {label: "Tenancy Levels", to: "/features/tenancy-levels", props: {useNavLink: true, exact: true}},
+              {label: "Features", to: "/features/details", props: {useNavLink: true, exact: true}},
+              {label: "Pricing", to: "/features/pricing", props: {useNavLink: true, exact: true}},
+              {label: "Support", to: "/features/support", props: {useNavLink: true, exact: true}},
             ]}
           >
             Features
-          </ButtonWithMenu>
+          </MenuButton>
+        </nav>
+        <nav className="header__nav header__nav--icons desktop">
+          <Action icon={DiscoverIcon} to={"/wallet#/"} className="dark header__nav-link" />
+          <Action icon={ProfileIcon} to={"/wallet#/wallet/users/me"} className="dark header__nav-link" />
+          <Action icon={WalletIcon} to={"/wallet#/wallet/profile"} className="dark header__nav-link" />
         </nav>
 
         { /* Mobile */ }
-        <nav className="header__nav mobile">
-          <Action to="/about" useNavLink underline className="dark header__nav-link">
+        <nav className="header__nav header__nav--links mobile">
+          <Action to="/wallet" useNavLink underline className="dark header__nav-link">
             Discover Projects
           </Action>
         </nav>
         <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
       </header>
-      <MobileNav open={showMobileMenu} onOpenChange={value => setShowMobileMenu(value)} />
+      <MobileNav visible={showMobileMenu} Close={() => setShowMobileMenu(false)} />
 
       { uiStore.pageWidth > 1000 ? notificationBanner : null }
     </>

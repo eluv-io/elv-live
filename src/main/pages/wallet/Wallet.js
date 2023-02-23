@@ -48,13 +48,15 @@ const InitializeFrame = async (target) => {
     setTimeout(async () => InitializeFrame(target), 2000);
   });
 
-  frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN_REQUESTED, () =>
+  frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN_REQUESTED, async () => {
+    if(mainStore.walletClient.loggedIn) { return; }
+
     mainStore.walletClient.LogIn({
       method: "redirect",
       callbackUrl: window.location.href,
       clearLogin: true
-    })
-  );
+    });
+  });
 
   frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_OUT, () => {
     mainStore.walletClient.LogOut();
@@ -79,9 +81,12 @@ const Wallet = observer(() => {
   useEffect(() => {
     mainStore.InitializeWalletClient();
 
-    document.body.style.overflowY = "hidden";
+    window.scrollTo(0, 0);
 
-    return () => document.body.style.overflowY = "auto";
+    // Disable body scroll so only wallet app can scroll
+    document.body.classList.add("wallet");
+
+    return () => document.body.classList.remove("wallet");
   }, []);
 
   useEffect(() => {
@@ -107,7 +112,7 @@ const Wallet = observer(() => {
 
   return (
     <div
-      key={`wallet-container-${!!mainStore.walletClient}`}
+      key={`wallet-${!!mainStore.walletClient}`}
       className="page dark no-padding wallet"
       ref={async element =>
         element &&

@@ -1,4 +1,4 @@
-import {configure, flow, makeAutoObservable, runInAction} from "mobx";
+import {configure, flow, makeAutoObservable} from "mobx";
 import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
