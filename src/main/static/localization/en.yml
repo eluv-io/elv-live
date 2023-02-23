@@ -1,0 +1,240 @@
+header:
+  about: About
+  news: News
+  partners: Partners
+  contact: Contact Us
+  creators_and_publishers: Creators & Publishers
+  content_fabric: Content Fabric
+  content_fabric_protocol: The Content Fabric Protocol
+  eluvio_technology: Eluv.io Technology
+  eluvio_blockchain: Eluv.io Blockchain
+  features: Features
+  tenancy_levels: Tenancy Levels
+  pricing: Pricing
+  support: Support
+  wallet: Wallet
+  profile: Profile
+  discover_projects: Discover Projects
+  projects: Projects
+
+# Main Page
+main:
+  heading:
+    header: Own Your Destiny
+    subheader: The content Blockchain
+    tagline: We believe in creative IP and the future of individual ownership
+  feature_banner:
+    - Creators own the fruits of their work
+    - Content distribution is efficient & sustainable
+    - Users own their data
+    - Clear market opportunity for publishers & sponsors
+    - Transparency for all
+  video_block:
+    subheader: Enabled by
+    header: The Content Fabric Technology
+    features:
+      - A novel utility blockchain network built for content
+      - Programmable, Hyper Efficient, and Sustainable (50X today's CDNs)
+      - Storage, Distribution, Streaming and more
+      - On Chain Ownership, Versioning and Access Control
+    features_mobile:
+      - An Eco-Friendly Content Blockchain
+      - A Hyper Efficient Video Distribution Platform
+      - A Crypto friendly Commerce Platform
+      - An API that powers all content needs
+      - An all-in-one media API
+  features_block:
+    subheader: Resulting in
+    header: Advanced Full-Feature Platform For All Web3 Media
+    header_mobile: Advanced Full-Feature Media Platform
+    text: |
+      All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content.
+
+      Low Latency 4K Streaming with Beautiful Quality & Advanced Video Features. Built in Monetization through Blockchain - tickets, tokens, & payments.
+      
+      [See Feature Details](/features/details)
+    text_mobile: |
+      Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support.
+
+      Replaces traditional CDNs.
+  experiences_block:
+    header: Create, Distribute & Own Stunning Web3 Experiences
+    creators: Creators & Content Businesses
+    developers: Developers & Node Providers
+  projects_block:
+    header: Discover Web3 Media Projects.
+    subheader: All built on the Content Blockchain.
+
+
+
+# Creators & Publishers Page
+creators:
+  heading:
+    header: Built for the New Creator Economy
+    subheader: Create, Distribute & Sell Your Content
+  video_block:
+    header: Full-feature media platform eliminates the need for CDNs and transcoding services
+    text: |
+      Publish and instantly distribute your content. Beautiful Quality & Advanced Video Features.
+
+      Built in Monetization through Blockchain: turn-key sites, tickets, tokens, payments & brand-able marketplaces
+      
+      [See Feature Details](/features/details)
+  customize: Customize Your Experience & Build your Community
+  monetize: Create & Monetize as your Brand Grows
+  marketplaces:
+    header: Release singles, albums, videos, apps, books & media packages, all on the Content Blockchain
+  get_started_block:
+    header: Create & Own Your Web3 Brand
+    text: | 
+      Take control of your content and get started creating your first digital offering. Custom sites, stores & resale marketplaces for any media type content release.
+    cta: Get Started Now
+  key_features:
+    header: Key Features
+
+
+
+# Other pages
+
+content_fabric:
+  title: The Content Fabric Protocol
+  header: Utility Blockchain Network for Content
+  cards:
+    1:
+      - Programmable
+      - Hyper Efficient
+      - No File Copies
+    2:
+      - Storage
+      - Distribution
+      - Streaming
+    3:
+      - On-chain Ownership
+      - Versioning
+      - Access
+  protocol:
+    header: Eco-Friendly Consensus & Just-In-Time Protocol
+    text: |
+      Through a novel compositional and just-in-time protocol, the [Eluvio Content Blockchain](/content-fabric/blockchain) does not make digital file copies and dramatically reduces the network storage and usage requirements significantly as compared to today’s traditional streaming and content distribution systems.
+
+      It also uses an eco-friendly consensus, which avoids the high energy consumption of computational “proof-of-work” blockchains. And the digital content itself, not just the token is owned on the blockchain so your digital assets are exclusive to you.
+  learn_more:
+    header: Learn More About the Technology
+    text: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+  mainnet:
+    header: MainNet
+    text: Integer rutrum nibh nisi, et semper quam varius ut. Sed pellentesque sagittis purus a pellentesque. Pellentesque vitae lobortis nisl. Nunc sed nulla rutrum sapien porta fermentum. Fusce rhoncus nunc dictum, porttitor orci ac, dapibus nulla. Vestibulum consectetur diam non felis dapibus, sed sodales nisl tincidunt.
+    fabric_browser: Fabric Browser
+    blockchain_explorer: Blockchain Explorer
+    github_repo: Github Repo
+  nodes:
+    header: Node & Validator Providers
+    text: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+  api:
+    header: API Developers
+    text: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+  roadmap:
+    header: Current State & Roadmap
+    text: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+  node_operator:
+    header: Become a Node Operator
+    text: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+  community:
+    header: Community
+    text: |
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    genesis_nft: Genesis NFT
+    meeting_2_nft: "Meeting #2 NFT"
+    meeting_3_nft: "Meeting #3 NFT"
+
+technology:
+  title: Eluv.io Technology
+  header: The Technology behind the Content Fabric
+  text: |
+    Eluvio LIVE is powered by the [Eluvio Content Fabric](/content-fabric), the most advanced technology for Internet video. A decentralized, global platform built on blockchain, the Fabric provides low latency, high quality (4K) content distribution, content monetization, and just-in-time streaming. Under the control of blockchain smart contracts, video content is dynamically served from the source as live and on demand streaming as well as dynamic sequences without need for 3rd party services. The Eluvio Content Fabric's just-in-time capabilities replace and consolidate the standard functions of live ingest, cloud origin, live transcoding, content management, encryption/DRM, program sequencing, rights and avails controls, direct-to-consumer streaming, and static content distribution. All of this at a significantly lower cost point, with lower latency, and a naturally greater range of creative experiences than conventional technologies. The platform uses open APIs and a programmable approach for ingest, content distribution, content management, and rights control. All operations are blockchain provable. The Content Fabric was invented by a team led by Michelle Munson and Serban Simu, founders of the industry standard Aspera high speed transfer technology (acquired by IBM in 2014) and is currently used by tier 1 Hollywood studios, broadcasters, and mobile streaming providers. The Eluvio Content Fabric was recognized with the 2020 Hollywood Professional Association Engineering Excellence Award.
+  architecture: Architecture
+  how_it_works: How it works
+  monetization: On-Chain Monetization
+
+blockchain:
+  title: Eluv.io Blockchain
+  header: A Comprehensive Overview of Our Blockchain
+  pages:
+    our_blockchain:
+      label: Our Blockchain
+      text: |
+        2020 brought many profound and irreversible changes to the content creation industry. The challenges and opportunity of the global pandemic dramatically accelerated many trends, such as the monetization of deep libraries, remote and online production; the creation of self service properties for selling, screening, licensing and servicing; direct-to-audience models including no-windows streaming releases; fully virtual live performances and broadcasts and the complete virtualization of marketing, pre-release screening, and advertising sales.
+  
+        Perhaps most significant of all, the end of 2020 and early 2021 brought the first mainstream monetization of content on the blockchain with the release of the first high value NFTs created from digital art, digital collectible communities for fans, and the first direct-to-consumer content distribution models backed by blockchain ticketing and sales. We are fortunate to be part of this, and have helped to enable the first just-in-time supply chains with our customers in their drive to fully digitize, transform costs, and embrace the power of blockchain economics to create significant new revenue opportunities for premium content.
+  
+        Our involvement with organizations such as ETC, HPA, SMPTE, NIVA, EVR1, SXSW, and the Blockchain Xcelerator, influence from major established media companies, labels and bands, and input from various independent creators have helped us to grow the Content Fabric platform—a blockchain controlled real-time content storage and distribution network—to a point of scale and practical decentralization for our user community. The Content Fabric’s blockchain is the foundation of this capability.
+    technology_background:
+      label: Technology Background
+      text: |
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    blockchain_protocol:
+      label: Blockchain Protocol
+      text:
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    token_model:
+      label: Token Model
+      text: |
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    tokens_and_metering:
+      label: Tokens & Metering
+      text: |
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    nfts:
+      label: NFTs
+      text: |
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    apis:
+      label: APIs
+      text: |
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    common_questions:
+      label: Common Questions
+      text: |
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+
+news:
+  title: News
+  back: Back to All News
+
+partners:
+  title: Our Partners
+  text: |
+    Eluvio partnerships are built on the principals of bringing outstanding content and experiences to their audience in a fundamentally groundbreaking way. Our content partners bring new and innovative ways of experiencing content through visual, interactive and gamified engagement. Our technology partners are innovating on our platform to deliver the new wave of content supply chain to the market, with levels of security, efficiency and sustainability never before possible. Together we are changing the way the creators and consumers are brought closer together.
+  providers_validators: Node Providers & Validators
+  node_provider: Node Provider
+  governance_validator: Governance Validator
+  ecosystem: Ecosystem
+
+contact:
+  title: Contact Us
+  header: Inspired to utilize the Content Fabric?
+  text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+  connect: Ways to connect
+  address: Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710
+
+contact_form:
+  header: Inspired to create with us?
+  text: Send us a message to get started, we're excited to hear from you.
+  email: Your Email
+  message: Message
+  send: Send
+  sent: Sent!
+
+misc:
+  read_more: Read More
+  learn_more: Learn More
+  view_document: View Document
+  browse_all_projects: Browse All Projects
+  see_feature_details: See Feature Details
+  technology_section: Technology Section
+  whitepaper: Whitepaper

@@ -1,41 +1,23 @@
 import React, {useState} from "react";
-import {InfoBox} from "../../components/Misc";
+import {RichText} from "../../components/Misc";
+import {observer} from "mobx-react";
+import {mainStore} from "../../stores/Main";
+import LearnMore from "./LearnMore";
 
-import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
-import WhitepaperPDF from "./documents/EluvioContentFabricProtocolWhitepaper.pdf";
+const Blockchain = observer(() => {
+  const copy = mainStore.l10n.blockchain;
+  const tabs = Object.keys(copy.pages).map(key => [copy.pages[key].label, key]);
 
-const tabs = [
-  ["Our Blockchain", "our-blockchain"],
-  ["Technology Background", "technology-background"],
-  ["Blockchain Protocol", "blockchain-protocol"],
-  ["Token Model", "token-model"],
-  ["Tokens and Metering", "tokens-and-metering"],
-  ["NFTs", "nfts"],
-  ["APIs", "apis"],
-  ["Common Questions", "common-questions"]
-];
-
-const Blockchain = () => {
-  const [tab, setTab] = useState("our-blockchain");
+  const [tab, setTab] = useState("our_blockchain");
 
   return (
     <div className="page light">
       <div className="page__header-container">
-        <h1>Eluv.io BlockChain</h1>
-        <h3>A Comprehensive Overview of Our Blockchain</h3>
+        <h1>{ copy.title }</h1>
+        <h3>{ copy.header }</h3>
       </div>
       <div className="page__content-block right-links">
-        <div className="page__copy">
-          <p>
-          2020 brought many profound and irreversible changes to the content creation industry. The challenges and opportunity of the global pandemic dramatically accelerated many trends, such as the monetization of deep libraries, remote and online production; the creation of self service properties for selling, screening, licensing and servicing; direct-to-audience models including no-windows streaming releases; fully virtual live performances and broadcasts and the complete virtualization of marketing, pre-release screening, and advertising sales.
-          </p>
-          <p>
-          Perhaps most significant of all, the end of 2020 and early 2021 brought the first mainstream monetization of content on the blockchain with the release of the first high value NFTs created from digital art, digital collectible communities for fans, and the first direct-to-consumer content distribution models backed by blockchain ticketing and sales. We are fortunate to be part of this, and have helped to enable the first just-in-time supply chains with our customers in their drive to fully digitize, transform costs, and embrace the power of blockchain economics to create significant new revenue opportunities for premium content.
-          </p>
-          <p>
-          Our involvement with organizations such as ETC, HPA, SMPTE, NIVA, EVR1, SXSW, and the Blockchain Xcelerator, influence from major established media companies, labels and bands, and input from various independent creators have helped us to grow the Content Fabric platform—a blockchain controlled real-time content storage and distribution network—to a point of scale and practical decentralization for our user community. The Content Fabric’s blockchain is the foundation of this capability.
-          </p>
-        </div>
+        <RichText richText={copy.pages[tab].text} key={`page-${tab}`} className="page__copy fade-in--slow" />
         <div className="page__side-links">
           {
             tabs.map(([label, key]) =>
@@ -51,27 +33,10 @@ const Blockchain = () => {
         </div>
       </div>
       <div className="page__content-block">
-        <InfoBox
-          icon={TechnologyIcons.LearnMoreFabricIcon}
-          header="Learn More About the Content Fabric"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis."
-          links={[
-            {
-              to: "/content-fabric/",
-              text: "Content Fabric",
-              icon: LinkIcon
-            },
-            {
-              to: WhitepaperPDF,
-              target: "_blank",
-              text: "Whitepaper",
-              icon: DocumentIcon
-            }
-          ]}
-        />
+        <LearnMore />
       </div>
     </div>
   );
-};
+});
 
 export default Blockchain;

@@ -1,10 +1,10 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {uiStore} from "../../stores/Main";
+import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {Video} from "../../components/Misc";
-import {Action, Button} from "../../components/Actions";
+import {RichText, Video} from "../../components/Misc";
+import {Button} from "../../components/Actions";
 import KeyFeatures from "./KeyFeatures";
 import FAQs from "../features/FAQs";
 import Marketplaces from "./Marketplaces";
@@ -12,16 +12,18 @@ import Marketplaces from "./Marketplaces";
 import HeaderImage from "../../static/images/main/2_built-for-new-creator-economy-(no-gradient).png";
 import {MoneyIcon, TrendingUpIcon, DiscoverIcon} from "../../static/icons/Icons";
 
-const Header = ({mobile}) => {
+const Header = observer(({mobile}) => {
+  const { header, subheader } = mainStore.l10n.creators.heading;
+
   if(mobile) {
     return (
       <MainHeader video={false}>
         <div className="main-page-header__copy-container">
           <h1 className="main-page-header__copy main-page-header__copy--feature">
-            Built for the New Creator Economy
+            { header }
           </h1>
           <h2 className="main-page-header__copy main-page-header__copy--faded">
-            Create, Distribute & Let Your Community Own
+            { subheader }
           </h2>
         </div>
         <ImageIcon icon={HeaderImage} label="Example content" className="main-page-header__image" />
@@ -33,76 +35,59 @@ const Header = ({mobile}) => {
     <MainHeader>
       <div className="main-page-header__copy-container">
         <h2 className="main-page-header__copy main-page-header__copy--feature">
-          Built for the New Creator Economy
+          { header }
         </h2>
         <h2 className="main-page-header__copy main-page-header__copy--faded">
-          Create, Distribute & Sell Your Content
+          { subheader }
         </h2>
       </div>
       <ImageIcon icon={HeaderImage} label="Example content" className="main-page-header__image" />
     </MainHeader>
   );
-};
+});
 
-const VideoBlock = () => {
+const VideoBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--video">
       <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
       <div className="main-page-block__copy-container">
         <h2 className="main-page-block__copy-header">
-          Full-feature media platform eliminates the need for CDNs and transcoding services
+          { mainStore.l10n.creators.video_block.header }
         </h2>
-        <div className="main-page-block__copy">
-          <div>
-            <p>
-              Publish and instantly distribute your content. Beautiful Quality & Advanced Video Features.
-            </p>
-            <p>
-              Built in Monetization through Blockchain: turn-key sites, tickets, tokens, payments & brand-able marketplaces
-            </p>
-            <p>
-              <Action to="/features/details" className="dark highlight">See Feature Details</Action>
-            </p>
-          </div>
-        </div>
+
+        <RichText richText={mainStore.l10n.creators.video_block.text} className="main-page-block__copy" />
       </div>
     </div>
   );
-};
+});
 
-const CustomizeBlock = () => {
+const CustomizeBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--customize">
       <div className="main-page-block__customize">
         <ImageIcon icon={TrendingUpIcon} className="main-page-block__customize__icon" />
         <div className="main-page-block__customize__text">
-          Customize Your Experience & Build your Community
+          { mainStore.l10n.creators.customize }
         </div>
       </div>
       <div className="main-page-block__customize">
         <ImageIcon icon={MoneyIcon} className="main-page-block__customize__icon" />
         <div className="main-page-block__customize__text">
-          Create & Monetize as your Brand Grows
+          { mainStore.l10n.creators.monetize }
         </div>
       </div>
     </div>
   );
-};
+});
 
-const GetStartedBlock = () => {
+const GetStartedBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--get-started">
       <div className="main-page-block__copy-container main-page-block__copy-container center-align">
         <h2 className="main-page-block__copy-header">
-          Create & Own Your Web3 Brand
+          { mainStore.l10n.creators.get_started_block.header }
         </h2>
-        <div className="main-page-block__copy main-page-block__copy--faded">
-          <div>
-            <p>
-              Take control of your content and get started creating your first digital offering. Custom sites, stores & resale marketplaces for any media type content release.
-            </p>
-          </div>
-        </div>
+        <RichText richText={mainStore.l10n.creators.get_started_block.text} className="main-page-block__copy main-page-block__copy--faded" />
         <div className="main-page-block__copy-actions">
           <Button
             icon={DiscoverIcon}
@@ -110,15 +95,15 @@ const GetStartedBlock = () => {
             to="/about/contact"
             className="dark secondary main-page-block__copy-action"
           >
-            Get Started Now
+            { mainStore.l10n.creators.get_started_block.cta }
           </Button>
         </div>
       </div>
     </div>
   );
-};
+});
 
-const CreatorsMobile = observer(() => {
+const CreatorsMobile = () => {
   return (
     <div className="page dark no-padding">
       <Header mobile />
@@ -139,9 +124,9 @@ const CreatorsMobile = observer(() => {
       <FAQs />
     </div>
   );
-});
+};
 
-const CreatorsDesktop = observer(() => {
+const CreatorsDesktop = () => {
   return (
     <div className="page dark no-padding">
       <Header />
@@ -165,7 +150,7 @@ const CreatorsDesktop = observer(() => {
       <FAQs />
     </div>
   );
-});
+};
 
 const Creators = observer(() => {
   return uiStore.pageWidth < 1000 ? <CreatorsMobile /> : <CreatorsDesktop />;

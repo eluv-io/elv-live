@@ -1,8 +1,10 @@
-import {configure, flow, makeAutoObservable} from "mobx";
+import {configure, flow, makeAutoObservable, runInAction} from "mobx";
 import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
 import {ElvWalletClient} from "@eluvio/elv-client-js";
+
+import LocalizationEN from "../static/localization/en.yml";
 
 configure({
   computedRequiresReaction: true,
@@ -10,7 +12,7 @@ configure({
   observableRequiresReaction: true,
 
   // May help debugging
-  //disableErrorBoundaries: true
+  disableErrorBoundaries: true
 });
 
 const libraryId = "ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD";
@@ -50,6 +52,8 @@ const ProduceMetadataLinks = ({path="/", metadata}) => {
 };
 
 class MainStore {
+  l10n = LocalizationEN;
+
   client;
   walletClient;
 
@@ -65,7 +69,7 @@ class MainStore {
 
     this.uiStore = new UIStore();
 
-    this.Initialize();
+    runInAction(() => this.Initialize());
   }
 
   Initialize = flow(function * () {
@@ -197,6 +201,10 @@ class MainStore {
       path: "/public/asset_metadata/info/news",
       metadata: yield (yield fetch(new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/news")))).json()
     });
+  });
+
+  TestLocalization = flow(function * () {
+    this.l10n = (yield import("../static/localization/test.yml")).default;
   });
 
   get headerLoopURL() {

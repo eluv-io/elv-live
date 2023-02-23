@@ -51,7 +51,7 @@ export const ActionComponent = React.forwardRef((props, ref) => {
   if(props.icon) {
     props.children = (
       <>
-        <ImageIcon icon={props.icon} title={props.iconLabel} className="action__icon" />
+        <ImageIcon icon={props.icon} label={props.iconLabel} className="action__icon" />
         {
           props.children ?
             <span className="action__content">
@@ -62,9 +62,6 @@ export const ActionComponent = React.forwardRef((props, ref) => {
     );
 
     delete props.icon;
-  }
-
-  if(props.iconLabel) {
     delete props.iconLabel;
   }
 

@@ -9,6 +9,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
 
 import BackgroundImage from "../../static/images/main/Creators-&-Content-Businesses.jpg";
+import {runInAction} from "mobx";
 
 const MarketplaceGrid = observer(({mobile}) => {
   const marketplaces = mainStore.marketplaces.slice(0, 4);
@@ -67,7 +68,7 @@ const MarketplaceGrid = observer(({mobile}) => {
 
 const Marketplaces = observer(({mobile}) => {
   useEffect(() => {
-    mainStore.LoadMarketplaces();
+    runInAction(() => mainStore.LoadMarketplaces());
   }, []);
 
   if(!mainStore.marketplaces) { return null; }
@@ -78,7 +79,7 @@ const Marketplaces = observer(({mobile}) => {
       <MarketplaceGrid mobile={mobile} />
       <div className="marketplace__info">
         <h3 className="marketplace_text">
-          Release singles, albums, videos, apps, books & media packages, all on the Content Blockchain
+          { mainStore.l10n.creators.marketplaces.header }
         </h3>
         {
           mobile ? null :
@@ -89,7 +90,7 @@ const Marketplaces = observer(({mobile}) => {
                 to="/wallet"
                 className="dark secondary marketplace__action"
               >
-                Browse All Projects
+                { mainStore.l10n.misc.browse_all_projects }
               </Button>
             </div>
         }

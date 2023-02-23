@@ -303,29 +303,31 @@
   &__copy {
     align-items: flex-start;
     display: flex;
+    flex-direction: column;
     gap: 20px;
-
-    > div {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
 
     p {
       font-size: var(--font-size-body-2);
-      //margin-bottom: 30px;
+    }
+
+    a {
+      color: var(--color-highlight-1);
     }
 
     &--large {
       p {
         font-size: var(--font-size-body-1);
-        //margin-bottom: 50px;
       }
     }
 
     &--faded {
       color: var(--color-text-dark-3);
     }
+  }
+
+  &__copy-with-icons {
+    display: flex;
+    gap: 30px;
   }
 
   &__copy-actions {
@@ -347,7 +349,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 5px;
   }
 
   &__icon {

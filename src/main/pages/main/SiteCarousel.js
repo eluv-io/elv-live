@@ -5,8 +5,9 @@ import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {Action} from "../../components/Actions";
+import {runInAction} from "mobx";
 
-const SiteCard = observer(({name, mobile, hero, hero_mobile, siteUrl}) => {
+const SiteCard = ({name, mobile, hero, hero_mobile, siteUrl}) => {
   return (
     <Action href={siteUrl} className="site-carousel__site">
       <div className="site-carousel__placeholder" />
@@ -17,11 +18,11 @@ const SiteCard = observer(({name, mobile, hero, hero_mobile, siteUrl}) => {
       />
     </Action>
   );
-});
+};
 
 const SiteCarousel = observer(({mobile}) => {
   useEffect(() => {
-    mainStore.LoadFeaturedSites();
+    runInAction(() => mainStore.LoadFeaturedSites());
   }, []);
 
   const [activeSlide, setActiveSlide] = useState(0);

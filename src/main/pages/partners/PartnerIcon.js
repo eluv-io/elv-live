@@ -2,17 +2,19 @@ import React, {useState} from "react";
 import ImageIcon from "../../components/ImageIcon";
 import Modal from "../../components/Modal";
 import {RichText} from "../../components/Misc";
+import {mainStore} from "../../stores/Main";
 
 import {XIcon} from "../../static/icons/Icons";
+import {observer} from "mobx-react";
 
-const PartnerInfo = ({name, logo, modalContent, isProvider, isValidator, setShowModal}) => {
+const PartnerInfo = observer(({name, logo, modalContent, isProvider, isValidator, setShowModal}) => {
   return (
     <div className="partner-info modal-box">
       {
         !isProvider && !isValidator ? null :
           <div className="partner__tags">
-            {isProvider ? <div className="partner__tag partner__tag--provider">Node Provider</div> : null}
-            {isValidator ? <div className="partner__tag partner__tag--validator">Governance Validator</div> : null}
+            {isProvider ? <div className="partner__tag partner__tag--provider">{ mainStore.l10n.partners.node_provider }</div> : null}
+            {isValidator ? <div className="partner__tag partner__tag--validator">{ mainStore.l10n.partners.governance_validator }</div> : null}
           </div>
       }
       <ImageIcon icon={logo} title={name} className="partner-info__logo" />
@@ -26,9 +28,9 @@ const PartnerInfo = ({name, logo, modalContent, isProvider, isValidator, setShow
       </button>
     </div>
   );
-};
+});
 
-const PartnerIcon = ({name, logo, modalContent, isProvider, isValidator}) => {
+const PartnerIcon = observer(({name, logo, modalContent, isProvider, isValidator}) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -37,18 +39,18 @@ const PartnerIcon = ({name, logo, modalContent, isProvider, isValidator}) => {
         {
           !isProvider && !isValidator ? null :
             <div className="partner__tags">
-              {isProvider ? <div className="partner__tag partner__tag--provider">Node Provider</div> : null}
-              {isValidator ? <div className="partner__tag partner__tag--validator">Governance Validator</div> : null}
+              {isProvider ? <div className="partner__tag partner__tag--provider">{ mainStore.l10n.partners.node_provider }</div> : null}
+              {isValidator ? <div className="partner__tag partner__tag--validator">{ mainStore.l10n.partners.governance_validator }</div> : null}
             </div>
         }
         <ImageIcon icon={logo} title={name} className="partner-icon__logo" />
-        <div className="partner-icon__action">Read More</div>
+        <div className="partner-icon__action">{ mainStore.l10n.misc.read_more }</div>
       </button>
       <Modal active={showModal} Close={() => setShowModal(false)} hideCloseButton className="modal--modal-box partner-modal">
         <PartnerInfo name={name} logo={logo} modalContent={modalContent} isProvider={isProvider} isValidator={isValidator} setShowModal={setShowModal} />
       </Modal>
     </>
   );
-};
+});
 
 export default PartnerIcon;

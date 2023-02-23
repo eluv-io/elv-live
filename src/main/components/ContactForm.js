@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {observer} from "mobx-react";
 import {ButtonWithLoader} from "./Actions";
+import {mainStore} from "../stores/Main";
 
 import {SendIcon} from "../static/icons/Icons";
 
@@ -21,10 +22,10 @@ const ContactForm = observer(({dark=false}) => {
       <div className="contact-form padded-block">
         <div className="contact-form__copy">
           <h3 className="contact-form__copy-header">
-            Inspired to create with us?
+            { mainStore.l10n.contact_form.header }
           </h3>
           <div className="contact-form__copy-message">
-            Send us a message to get started, we're excited to hear from you.
+            { mainStore.l10n.contact_form.text }
           </div>
         </div>
         <form
@@ -38,7 +39,7 @@ const ContactForm = observer(({dark=false}) => {
             disabled={submitted}
             type="email"
             value={email}
-            placeholder="Your Email"
+            placeholder={mainStore.l10n.contact_form.email}
             onChange={event => setEmail(event.target.value)}
             onFocus={() => setEmailValid(true)}
             onBlur={() => setEmailValid(ValidEmail(email))}
@@ -49,7 +50,7 @@ const ContactForm = observer(({dark=false}) => {
             disabled={submitted}
             required
             value={message}
-            placeholder="Message"
+            placeholder={mainStore.l10n.contact_form.message}
             onChange={event => setMessage(event.target.value)}
             onFocus={() => setMessageValid(true)}
             onBlur={() => setMessageValid(!!message)}
@@ -79,7 +80,7 @@ const ContactForm = observer(({dark=false}) => {
             }}
             className="light primary extra-small contact-form__submit"
           >
-            { submitted ? "Sent!" : "Send" }
+            { mainStore.l10n.contact_form[submitted ? "sent" : "send"] }
           </ButtonWithLoader>
         </form>
       </div>

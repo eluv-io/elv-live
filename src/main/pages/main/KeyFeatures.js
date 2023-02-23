@@ -1,6 +1,11 @@
 import React from "react";
+import {Action} from "../../components/Actions";
+import ImageIcon from "../../components/ImageIcon";
+import {observer} from "mobx-react";
+import {mainStore} from "../../stores/Main";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
+
 import Feature1 from "../../static/images/main/features/1_Live-Events-_-Drops-Card-Face.png";
 import Feature2 from "../../static/images/main/features/2_Marketplace-Card-Face.png";
 import Feature3 from "../../static/images/main/features/3_Payment Gateway Card Face.png";
@@ -9,8 +14,6 @@ import Feature5 from "../../static/images/main/features/5_Dynamic-Traits-Card-Fa
 import Feature6 from "../../static/images/main/features/6_Market-Making-Curation-_-Matching-Card-Facing.png";
 import Feature7 from "../../static/images/main/features/7_Customization-Card-Face.png";
 import Feature8 from "../../static/images/main/features/8_Data-Card-Face.png";
-import {Action} from "../../components/Actions";
-import ImageIcon from "../../components/ImageIcon";
 
 const FeatureCards = [
   {
@@ -84,20 +87,20 @@ const KeyFeaturesCards = ({mobile}) => {
   );
 };
 
-const KeyFeatures = ({mobile}) => {
+const KeyFeatures = observer(({mobile}) => {
   return (
     <div className="main-page-block main-page-block--key-features">
       <div className="main-page-block__key-features__header-container">
         <h4 className="main-page-block__key-features__header">
-          Key Features
+          { mainStore.l10n.creators.key_features.header }
         </h4>
         <Action to="/features/details" className="dark highlight small main-page-block__key-features__header-link">
-          Learn More
+          { mainStore.l10n.misc.learn_more }
         </Action>
       </div>
       <KeyFeaturesCards mobile={mobile} />
     </div>
   );
-};
+});
 
 export default KeyFeatures;

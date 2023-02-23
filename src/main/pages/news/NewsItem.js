@@ -6,10 +6,11 @@ import {ExpandableImage, RichText, Video} from "../../components/Misc";
 import {Action} from "../../components/Actions";
 import {FormatDate} from "../../utils/Utils";
 import {PageLoader} from "../../components/Loader";
+import {runInAction} from "mobx";
 
 const NewsItem = observer(() => {
   useEffect(() => {
-    mainStore.LoadNews();
+    runInAction(() => mainStore.LoadNews());
   }, []);
 
   const params = useParams();
@@ -23,8 +24,8 @@ const NewsItem = observer(() => {
   return (
     <div className="page light">
       <div className="page__header-container">
-        <Action to="/about/news" className="page__header-back">← Back to All News</Action>
-        <h1>News</h1>
+        <Action to="/about/news" className="page__header-back">← { mainStore.l10n.news.back }</Action>
+        <h1>{ mainStore.l10n.news.title }</h1>
       </div>
 
       <div className="news__header-container">
