@@ -612,7 +612,7 @@
     .marketplace__card,
     .marketplace__card-image {
       height: auto;
-      max-width: 600px;
+      max-width: 450px;
       width: 100%;
     }
   }
@@ -621,7 +621,7 @@
     display: flex;
     justify-content: center;
     max-width: 100vw;
-    padding: var(--horizontal-content-padding);
+    padding: var(--horizontal-content-padding) var(--horizontal-content-padding) 50px;
     width: 100%;
   }
 
@@ -660,7 +660,7 @@
 
   @media screen and (max-width: $width-tablet) {
     background: linear-gradient(180deg, var(--background-dark-1) 0%, rgba(20, 58, 46, 0.4) 100%);
-    padding-bottom: 50px;
+    padding: 0 0 50px;
 
     &__info {
       margin-top: 25px;

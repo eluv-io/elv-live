@@ -65,6 +65,8 @@ const KeyFeaturesCards = ({mobile}) => {
       className="main-page-block__key-features__carousel"
       spaceBetween={20}
       slidesPerView={1.5}
+      centeredSlides
+      loop
       pagination={{
         enabled: true,
         clickable: true
