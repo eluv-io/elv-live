@@ -33,7 +33,7 @@ const News = observer(() => {
                 links={[
                   {
                     to: external_link || UrlJoin("/about/news", slug || index.toString()),
-                    text: mainStore.l10n.misc.read_more,
+                    text: mainStore.l10n.actions.read_more,
                     icon: NewsIcon
                   }
                 ]}

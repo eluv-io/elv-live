@@ -1,13 +1,22 @@
 import React from "react";
-import UtilityRatesData from "../../content/FeaturesPricing.yaml";
 import ImageIcon from "../../components/ImageIcon";
-import {SupportIcon} from "../../static/icons/Icons";
 import {Accordion} from "../../components/Misc";
 import FeaturesGrid from "./FeaturesGrid";
 import {FormatCurrency} from "../../utils/Utils";
+import {observer} from "mobx-react";
+import {mainStore} from "../../stores/Main";
 
-const Pricing = () => {
-  const {committedUtilityLevel, blockchainTransactions, baseRentalOperations, platformServiceFee, bitcodeOperations} = UtilityRatesData;
+import {SupportIcon} from "../../static/icons/Icons";
+
+const Pricing = observer(() => {
+  const {
+    committedUtilityLevel,
+    blockchainTransactions,
+    baseRentalOperations,
+    platformServiceFee,
+    bitcodeOperations
+  } = mainStore.l10n.features.pricing;
+
   const iconMap = {
     supportIcon: SupportIcon
   };
@@ -320,6 +329,6 @@ const Pricing = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Pricing;

@@ -230,7 +230,29 @@ contact_form:
   send: Send
   sent: Sent!
 
-misc:
+faq:
+  header: FAQs
+  questions:
+    - question: Who owns my content?
+      answer: |
+        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet. Aliquam nisi porta viverra hac nec elementum. Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
+    - question: How do I get paid?
+      answer: |
+        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
+    - question: What are the fees?
+      answer: |
+        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
+    - question: What control do I have after a collectible is sold?
+      answer: |
+        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet. Aliquam nisi porta viverra hac nec elementum. Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
+    - question: What control do I have after a collectible is sold?
+      answer: |
+        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet.
+    - question: Do I get a percentage of every re-trade after the initial sale?
+      answer: |
+        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet.
+
+actions:
   read_more: Read More
   learn_more: Learn More
   view_document: View Document
@@ -238,3 +260,53 @@ misc:
   see_feature_details: See Feature Details
   technology_section: Technology Section
   whitepaper: Whitepaper
+
+footer:
+  - title: "Technology"
+    icon: "link"
+    links:
+      - text: "Eluvio Technology"
+        link: "/content-fabric/technology"
+      - text: "Become an Node Operator"
+        link: "/"
+      - text: "Features & Functionality"
+        link: "/"
+      - text: "Questions & Answers"
+        link: "/"
+      - text: "Careers"
+        link: "https://eluvio.workable.com/"
+  - title: "Discover"
+    icon: "discover"
+    links:
+      - text: "Discover Marketplaces"
+        link: "/"
+      - text: "Join our Newsletter"
+        link: "/"
+      - text: "Get Started"
+        link: "/"
+      - text: "Github"
+        link: "https://github.com/eluv-io"
+  - title: "NFTs"
+    icon: "link"
+    links:
+      - text: "Join our Community"
+        link: "/"
+      - text: "Genesis NFT"
+        link: "/"
+      - text: "Community Meeting #1"
+        link: "/"
+      - text: "Community Meeting #2"
+        link: "/"
+      - text: "Community Meeting #3"
+        link: "/careers"
+  - title: "Documents"
+    icon: "document"
+    links:
+      - text: "Whitepaper"
+        link: "/"
+      - text: "Node & Validator Providers"
+        link: "/"
+      - text: "API Developers"
+        link: "/"
+      - text: "Current State & Roadmap"
+        link: "/"

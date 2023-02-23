@@ -184,7 +184,7 @@ const BrowseProjectsBlock = observer(({mobile}) => {
             to="/wallet"
             className="dark secondary main-page-block__browse__action"
           >
-            { mainStore.l10n.misc.browse_all_projects }
+            { mainStore.l10n.actions.browse_all_projects }
           </Button>
         </div>
         <div className="main-page-block__copy-container main-page-block__browse__copy">
@@ -215,7 +215,7 @@ const BrowseProjectsBlock = observer(({mobile}) => {
           to="/wallet"
           className="dark secondary main-page-block__browse__action"
         >
-          { mainStore.l10n.misc.browse_all_projects }
+          { mainStore.l10n.actions.browse_all_projects }
         </Button>
       </div>
     </div>

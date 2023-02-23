@@ -1,17 +1,23 @@
 import React from "react";
 import ImageIcon from "../../components/ImageIcon";
+import {observer} from "mobx-react";
+import {mainStore} from "../../stores/Main";
+
 import {
   CheckSquareIcon,
   ClockIcon,
   FlagIcon,
-  MailIcon, MinimizeIcon,
-  SocialIcons, SpreadMapIcon,
+  MailIcon,
+  MinimizeIcon,
+  SocialIcons,
+  SpreadMapIcon,
   SupportIcon,
   TelephoneIcon
 } from "../../static/icons/Icons";
-import SupportData from "../../content/FeaturesSupport.yaml";
 
-const FeaturesSupport = () => {
+const FeaturesSupport = observer(() => {
+  const supportData = mainStore.l10n.features.support;
+
   const ItemCard = (data, key, dark=false) => {
     const iconMap = {
       aroundClock: {
@@ -75,9 +81,9 @@ const FeaturesSupport = () => {
         {
           ["standardCustomerService", "priorityCustomerService"].map(service => (
             <div key={`customer-service-${service}`} className="features-support__customer-service-section">
-              <h4>{ SupportData[service].header }</h4>
+              <h4>{ supportData[service].header }</h4>
               {
-                SupportData[service].items.map(({icon, label}) => (
+                supportData[service].items.map(({icon, label}) => (
                   <div className="features-support__customer-service-detail" key={`features-support-customer-service-${label}`}>
                     <ImageIcon icon={iconsMap[icon]} title={label} />
                     &nbsp;{ label }
@@ -104,8 +110,8 @@ const FeaturesSupport = () => {
                 <ImageIcon icon={SupportIcon} className="info-box__icon" title="Media Application Platform" />
               </div>
               <div className="info-box__text">
-                <h3 className="info-box__header">{ SupportData.header }</h3>
-                <p>{ SupportData.description }</p>
+                <h3 className="info-box__header">{ supportData.header }</h3>
+                <p>{ supportData.description }</p>
               </div>
             </div>
 
@@ -126,7 +132,7 @@ const FeaturesSupport = () => {
                 </span>
               </div>
               {
-                SupportData.gridItems.map((item, index) => (
+                supportData.gridItems.map((item, index) => (
                   ItemCard(item, `item-card-${item.label}-${index}`)
                 ))
               }
@@ -138,6 +144,6 @@ const FeaturesSupport = () => {
       </div>
     </div>
   );
-};
+});
 
 export default FeaturesSupport;

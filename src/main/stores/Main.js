@@ -4,7 +4,11 @@ import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
 import {ElvWalletClient} from "@eluvio/elv-client-js";
 
-import LocalizationEN from "../static/localization/en.yml";
+import LocalizationEN from "../static/localization/en/en.yml";
+import FeaturesBannerEN from "../static/localization/en/FeaturesBanner.yaml";
+import FeaturesDetailsEN from "../static/localization/en/FeaturesDetails.yaml";
+import FeaturesPricingEN from "../static/localization/en/FeaturesPricing.yaml";
+import FeaturesSupportEN from "../static/localization/en/FeaturesSupport.yaml";
 
 configure({
   computedRequiresReaction: true,
@@ -52,7 +56,15 @@ const ProduceMetadataLinks = ({path="/", metadata}) => {
 };
 
 class MainStore {
-  l10n = LocalizationEN;
+  l10n = {
+    ...LocalizationEN,
+    features: {
+      banner: FeaturesBannerEN,
+      details: FeaturesDetailsEN,
+      pricing: FeaturesPricingEN,
+      support: FeaturesSupportEN
+    }
+  };
 
   client;
   walletClient;
@@ -204,7 +216,10 @@ class MainStore {
   });
 
   TestLocalization = flow(function * () {
-    this.l10n = (yield import("../static/localization/test.yml")).default;
+    this.l10n = {
+      ...this.l10n,
+      ...(yield import("../static/localization/test.yml")).default
+    };
   });
 
   get headerLoopURL() {

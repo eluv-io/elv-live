@@ -44,7 +44,7 @@ const PartnerIcon = observer(({name, logo, modalContent, isProvider, isValidator
             </div>
         }
         <ImageIcon icon={logo} title={name} className="partner-icon__logo" />
-        <div className="partner-icon__action">{ mainStore.l10n.misc.read_more }</div>
+        <div className="partner-icon__action">{ mainStore.l10n.actions.read_more }</div>
       </button>
       <Modal active={showModal} Close={() => setShowModal(false)} hideCloseButton className="modal--modal-box partner-modal">
         <PartnerInfo name={name} logo={logo} modalContent={modalContent} isProvider={isProvider} isValidator={isValidator} setShowModal={setShowModal} />

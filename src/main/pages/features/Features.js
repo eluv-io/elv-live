@@ -1,12 +1,14 @@
 import React, {useEffect} from "react";
 import {Accordion} from "../../components/Misc";
 import {Action} from "../../components/Actions";
-import {PlayCircleIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
-import FeatureDetails from "../../content/FeaturesDetails.yaml";
+import {mainStore} from "../../stores/Main";
+import {observer} from "mobx-react";
 
-const Features = () => {
-  const detailsData = FeatureDetails || {};
+import {PlayCircleIcon} from "../../static/icons/Icons";
+
+const Features = observer(() => {
+  const detailsData = mainStore.l10n.features.details;
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -70,6 +72,6 @@ const Features = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Features;

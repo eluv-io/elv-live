@@ -2,15 +2,17 @@ import React from "react";
 import {Action, Button} from "../../components/Actions";
 import TenancyInfo from "./TenancyInfo";
 import ImageIcon from "../../components/ImageIcon";
-import FeaturesDetails from "../../content/FeaturesBanner.yaml";
-import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
-import {PlayCircleIcon} from "../../static/icons/Icons";
 import {TabbedInfoBox} from "../../components/Misc";
 import {PageContainer} from "../../MainApp";
 import {FormatCurrency} from "../../utils/Utils";
 import FAQs from "./FAQs";
+import {observer} from "mobx-react";
+import {mainStore} from "../../stores/Main";
 
-const TenancyLevels = () => {
+import {PlayCircleIcon} from "../../static/icons/Icons";
+import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
+
+const TenancyLevels = observer(() => {
   const icons = {
     blockchainExplorer: TechnologyIcons.BlockchainExplorerIcon,
     nodeValidatorProviders: TechnologyIcons.NodeValidatorProvidersIcon,
@@ -75,7 +77,7 @@ const TenancyLevels = () => {
       <div className="features-banner">
         <div className="features-banner__list">
           {
-            FeaturesDetails.map(({title, icon, paragraph, link}) => (
+            mainStore.l10n.features.banner.map(({title, icon, paragraph, link}) => (
               <BannerBox
                 key={`features-banner-${title}`}
                 title={title}
@@ -120,6 +122,6 @@ const TenancyLevels = () => {
       </div>
     </PageContainer>
   );
-};
+});
 
 export default TenancyLevels;

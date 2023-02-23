@@ -1,13 +1,12 @@
 import React from "react";
 import ImageIcon from "./ImageIcon";
-
-import FooterConfiguration from "../content/Footer.yaml";
+import {Action} from "./Actions";
+import {mainStore} from "../stores/Main";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo.svg";
-
 import {LinkIcon, DiscoverIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
+import {observer} from "mobx-react";
 
-import {Action} from "./Actions";
 
 const SocialLinks = ({dark=false}) => {
   const links = [
@@ -33,7 +32,7 @@ const SocialLinks = ({dark=false}) => {
   );
 };
 
-const Links = ({dark=false}) => {
+const Links = observer(({dark=false}) => {
   const icons = {
     discover: DiscoverIcon,
     document: DocumentIcon,
@@ -43,7 +42,7 @@ const Links = ({dark=false}) => {
   return (
     <div className="footer__links">
       {
-        FooterConfiguration.map(({title, icon, links}) =>
+        mainStore.l10n.footer.map(({title, icon, links}) =>
           <div key={`footer-section-${title}`} className="footer__link-section">
             <h5 className="footer__link-section__header">
               <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
@@ -73,7 +72,7 @@ const Links = ({dark=false}) => {
       }
     </div>
   );
-};
+});
 
 const Footer = ({dark=false, className=""}) => {
   return (
