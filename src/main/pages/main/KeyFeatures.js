@@ -95,7 +95,7 @@ const KeyFeatures = observer(({mobile}) => {
           { mainStore.l10n.creators.key_features.header }
         </h4>
         <Action to="/features/details" className="dark highlight small main-page-block__key-features__header-link">
-          { mainStore.l10n.misc.learn_more }
+          { mainStore.l10n.actions.learn_more }
         </Action>
       </div>
       <KeyFeaturesCards mobile={mobile} />

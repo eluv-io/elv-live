@@ -62,8 +62,9 @@ export const ActionComponent = React.forwardRef((props, ref) => {
     );
 
     delete props.icon;
-    delete props.iconLabel;
   }
+
+  delete props.iconLabel;
 
   // Allow links to be specified with 'to' param
   if(props.to?.startsWith("https://") || props.to?.startsWith("mailto:")) {

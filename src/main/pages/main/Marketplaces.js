@@ -90,7 +90,7 @@ const Marketplaces = observer(({mobile}) => {
                 to="/wallet"
                 className="dark secondary marketplace__action"
               >
-                { mainStore.l10n.misc.browse_all_projects }
+                { mainStore.l10n.actions.browse_all_projects }
               </Button>
             </div>
         }

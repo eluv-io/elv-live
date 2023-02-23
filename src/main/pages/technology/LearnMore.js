@@ -14,12 +14,12 @@ const LearnMore = observer(() => {
       links={[
         {
           to: "/content-fabric/technology",
-          text: mainStore.l10n.misc.technology_section,
+          text: mainStore.l10n.actions.technology_section,
           icon: LinkIcon
         },
         {
           to: "https://google.com",
-          text: mainStore.l10n.misc.whitepaper,
+          text: mainStore.l10n.actions.whitepaper,
           icon: DocumentIcon
         }
       ]}

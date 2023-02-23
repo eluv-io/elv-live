@@ -93,7 +93,7 @@ const ContentFabric = observer(() => {
           links={[
             {
               to: "https://google.com",
-              text: mainStore.l10n.misc.view_document,
+              text: mainStore.l10n.actions.view_document,
               icon: DocumentIcon
             }
           ]}
@@ -107,17 +107,17 @@ const ContentFabric = observer(() => {
           links={[
             {
               to: "https://google.com",
-              text: mainStore.l10n.misc.view_document,
+              text: mainStore.l10n.actions.view_document,
               icon: DocumentIcon
             },
             {
               to: "https://google.com",
-              text: mainStore.l10n.misc.view_document,
+              text: mainStore.l10n.actions.view_document,
               icon: DocumentIcon
             },
             {
               to: "https://google.com",
-              text: mainStore.l10n.misc.view_document,
+              text: mainStore.l10n.actions.view_document,
               icon: DocumentIcon
             }
           ]}
@@ -131,7 +131,7 @@ const ContentFabric = observer(() => {
           links={[
             {
               to: "https://google.com",
-              text: mainStore.l10n.misc.view_document,
+              text: mainStore.l10n.actions.view_document,
               icon: DocumentIcon
             }
           ]}
@@ -145,7 +145,7 @@ const ContentFabric = observer(() => {
           links={[
             {
               to: "https://google.com",
-              text: mainStore.l10n.misc.view_document,
+              text: mainStore.l10n.actions.view_document,
               icon: DocumentIcon
             }
           ]}
