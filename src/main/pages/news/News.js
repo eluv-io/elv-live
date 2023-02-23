@@ -7,10 +7,11 @@ import {FormatDate} from "../../utils/Utils";
 
 import {NewsIcon} from "../../static/icons/Icons";
 import {PageLoader} from "../../components/Loader";
+import {runInAction} from "mobx";
 
 const News = observer(() => {
   useEffect(() => {
-    mainStore.LoadNews();
+    runInAction(() => mainStore.LoadNews());
   }, []);
 
   if(!mainStore.newsItems) { return <PageLoader />; }
@@ -18,7 +19,7 @@ const News = observer(() => {
   return (
     <div className="page light">
       <div className="page__header-container">
-        <h1>News</h1>
+        <h1>{ mainStore.l10n.news.title }</h1>
       </div>
       <div className="news__list">
         {
@@ -32,7 +33,7 @@ const News = observer(() => {
                 links={[
                   {
                     to: external_link || UrlJoin("/about/news", slug || index.toString()),
-                    text: "Read More",
+                    text: mainStore.l10n.misc.read_more,
                     icon: NewsIcon
                   }
                 ]}

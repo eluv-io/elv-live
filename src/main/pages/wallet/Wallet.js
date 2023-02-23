@@ -5,6 +5,7 @@ import {ElvWalletFrameClient} from "@eluvio/elv-wallet-frame-client";
 import {Utils} from "@eluvio/elv-client-js";
 
 import EluvioConfiguration from "EluvioConfiguration";
+import {runInAction} from "mobx";
 
 let walletAppUrl;
 if(window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
@@ -20,7 +21,7 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
     "https://wallet.demov3.contentfabric.io";
 }
 
-const InitializeFrame = async (target) => {
+const InitializeFrame = async (target, walletClient) => {
   const frameClient = await ElvWalletFrameClient.InitializeFrame({
     target,
     darkMode: true,
@@ -32,15 +33,15 @@ const InitializeFrame = async (target) => {
   frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOADED, async () => {
     const frameAddress = (await frameClient.UserProfile())?.address;
 
-    if(frameAddress && !Utils.EqualAddress(frameAddress, mainStore.walletClient.UserAddress())) {
+    if(frameAddress && !Utils.EqualAddress(frameAddress, walletClient.UserAddress())) {
       // eslint-disable-next-line no-console
       //console.error("Frame logged in with wrong account");
 
       // If account in frame is not the same as wallet client, or if frame is logged in but wallet client is not, log out of frame
       // Don't think we need this for the main site
       // frameClient.LogOut();
-    } else if(!frameAddress && mainStore.walletClient.ClientAuthToken()) {
-      await frameClient.LogIn({clientAuthToken: mainStore.walletClient.ClientAuthToken()});
+    } else if(!frameAddress && walletClient.ClientAuthToken()) {
+      await frameClient.LogIn({clientAuthToken: walletClient.ClientAuthToken()});
     }
   });
 
@@ -49,9 +50,9 @@ const InitializeFrame = async (target) => {
   });
 
   frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN_REQUESTED, async () => {
-    if(mainStore.walletClient.loggedIn) { return; }
+    if(walletClient.loggedIn) { return; }
 
-    mainStore.walletClient.LogIn({
+    walletClient.LogIn({
       method: "redirect",
       callbackUrl: window.location.href,
       clearLogin: true
@@ -59,7 +60,7 @@ const InitializeFrame = async (target) => {
   });
 
   frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_OUT, () => {
-    mainStore.walletClient.LogOut();
+    walletClient.LogOut();
   });
 
   if(window.location.hash) {
@@ -77,9 +78,10 @@ const InitializeFrame = async (target) => {
 
 const Wallet = observer(() => {
   const [frameClient, setFrameClient] = useState(undefined);
+  const walletClient = mainStore.walletClient;
 
   useEffect(() => {
-    mainStore.InitializeWalletClient();
+    runInAction(() => mainStore.InitializeWalletClient());
 
     window.scrollTo(0, 0);
 
@@ -112,13 +114,13 @@ const Wallet = observer(() => {
 
   return (
     <div
-      key={`wallet-${!!mainStore.walletClient}`}
+      key={`wallet-${!!walletClient}`}
       className="page dark no-padding wallet"
       ref={async element =>
         element &&
         !frameClient &&
-        mainStore.walletClient &&
-        setFrameClient(await InitializeFrame(element))
+        walletClient &&
+        setFrameClient(await InitializeFrame(element, walletClient))
       }
     />
   );

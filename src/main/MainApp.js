@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import "./static/stylesheets/app.scss";
 
 import {createRoot} from "react-dom/client";
-import {observer, Provider} from "mobx-react";
+import {Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
 import {Navigate, Routes, useLocation} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
@@ -27,7 +27,7 @@ import FAQs from "./pages/features/FAQs";
 import Creators from "./pages/main/Creators";
 import Wallet from "./pages/wallet/Wallet";
 
-export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false, noFooter=false}) => {
+export const PageContainer = ({children, before, after, padded=false, dark=false, unbound=false, noFooter=false}) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const PageContainer = observer(({children, before, after, padded=false, d
       }
     </div>
   );
-});
+};
 
 const MainApp = () => {
   return (

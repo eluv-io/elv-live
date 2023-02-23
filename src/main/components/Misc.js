@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import {createRoot} from "react-dom/client";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import DOMPurify from "dompurify";
@@ -17,33 +16,18 @@ import {MinusIcon, PlusIcon} from "../static/icons/Icons";
 SwiperCore.use([Lazy, Pagination]);
 
 export const RichText = ({richText, children, className=""}) => {
-  const [reactRoot, setReactRoot] = useState(undefined);
-
   return (
-    <div
-      className={`rich-text ${className}`}
-      ref={element => {
-        if(!element) { return; }
-
-        const root = reactRoot || createRoot(element);
-        setReactRoot(root);
-
-        root.render(
-          <>
-            { children }
-            <ReactMarkdown
-              linkTarget="_blank"
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                a: props => <Action {...props} target={["https:", "mailto:"].find(prefix => props.href?.startsWith(prefix)) ? "_blank" : ""} />
-              }}
-            >
-              { DOMPurify.sanitize(richText) }
-            </ReactMarkdown>
-          </>
-        );
-      }}
-    />
+    <div className={`rich-text ${className}`}>
+      { children }
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          a: props => <Action {...props} to={props.href} />
+        }}
+      >
+        { DOMPurify.sanitize(richText) }
+      </ReactMarkdown>
+    </div>
   );
 };
 
@@ -57,6 +41,7 @@ export const Video = observer(({
   className=""
 }) => {
   const [player, setPlayer] = useState(undefined);
+  const client = mainStore.client;
 
   useEffect(() => {
     return () => player?.Destroy();
@@ -88,7 +73,7 @@ export const Video = observer(({
               element,
               {
                 clientOptions: {
-                  client: mainStore.client,
+                  client,
                   network: EluvioPlayerParameters.networks[EluvioConfiguration.network === "main" ? "MAIN" : "DEMO"],
                   ...clientOptions
                 },

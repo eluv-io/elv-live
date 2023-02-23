@@ -1,9 +1,9 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {uiStore} from "../../stores/Main";
+import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {Video} from "../../components/Misc";
+import {RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
@@ -14,81 +14,67 @@ import ExperiencesImage2 from "../../static/images/main/Developers-and-Node-Prov
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
 
-const Header = () => {
+const Header = observer(() => {
   return (
     <MainHeader>
       <h1 className="main-page-header__logo-container">
         <ImageIcon icon={EluvioLogo} label="Eluvio" className="main-page-header__logo" />
         <div className="main-page-header__logo-header">
-          Own your Destiny
+          { mainStore.l10n.main.heading.header }
         </div>
         <div className="main-page-header__logo-subheader">
-          The Content Blockchain
+          { mainStore.l10n.main.heading.subheader }
         </div>
       </h1>
       <div className="main-page-header__copy-container no-tablet">
         <h2 className="main-page-header__copy">
-          We believe in creative IP and the future of individual ownership
+          { mainStore.l10n.main.heading.tagline }
         </h2>
       </div>
     </MainHeader>
   );
-};
+});
 
-const FeatureBanner = () => {
+const FeatureBanner = observer(() => {
   return (
     <div className="main-page-feature-banner no-tablet">
       <div className="main-page-feature-banner__items">
-        <div className="main-page-feature-banner__item">
-          Creators own the fruits of their work
-        </div>
-        <div className="main-page-feature-banner__item">
-          Content distribution is efficient & sustainable
-        </div>
-        <div className="main-page-feature-banner__item">
-          Users own their data
-        </div>
-        <div className="main-page-feature-banner__item">
-          Clear market opportunity for publishers & sponsors
-        </div>
-        <div className="main-page-feature-banner__item">
-          Transparency for all
-        </div>
+        {mainStore.l10n.main.feature_banner.map(feature =>
+          <div key={feature} className="main-page-feature-banner__item">
+            {feature}
+          </div>
+        )}
       </div>
     </div>
   );
-};
+});
 
 const VideoBlock = observer(({mobile}) => {
+  const { header, subheader, features, features_mobile } = mainStore.l10n.main.video_block;
+
+  const icons = [
+    BlockchainIcon,
+    PlayIcon,
+    MoneyIcon,
+    PowerIcon,
+    FilmIcon
+  ];
+
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--video">
         <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
         <div className="main-page-block__copy-container">
-          <h3 className="main-page-block__copy-header">The Content Fabric Technology</h3>
+          <h3 className="main-page-block__copy-header">
+            { header }
+          </h3>
           <div className="main-page-block__copy">
-            <div>
-              <div className="main-page-block__icon-copy">
-                <ImageIcon icon={BlockchainIcon} label="blockchain" className="main-page-block__icon" />
-                <p>An Eco-Friendly Content Blockchain</p>
+            {features_mobile.map((feature, index) =>
+              <div key={feature} className="main-page-block__icon-copy">
+                <ImageIcon icon={icons[index]} className="main-page-block__icon" />
+                <p>{feature}</p>
               </div>
-              <div className="main-page-block__icon-copy">
-                <ImageIcon icon={PlayIcon} label="blockchain" className="main-page-block__icon" />
-                <p>A Hyper Efficient Video Distribution Platform</p>
-              </div>
-              <div className="main-page-block__icon-copy">
-                <ImageIcon icon={MoneyIcon} label="blockchain" className="main-page-block__icon" />
-                <p>A Crypto friendly Commerce Platform</p>
-              </div>
-              <div className="main-page-block__icon-copy">
-                <ImageIcon icon={PowerIcon} label="blockchain" className="main-page-block__icon" />
-                <p>An API that powers all content needs</p>
-              </div>
-              <div className="main-page-block__icon-copy">
-                <ImageIcon icon={FilmIcon} label="blockchain" className="main-page-block__icon" />
-                <p>An all-in-one media API</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -99,9 +85,13 @@ const VideoBlock = observer(({mobile}) => {
     <div className="main-page-block main-page-block--video">
       <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
       <div className="main-page-block__copy-container">
-        <h5 className="main-page-block__copy-subheader">Enabled By</h5>
-        <h2 className="main-page-block__copy-header">The Content Fabric Technology</h2>
-        <div className="main-page-block__copy">
+        <h5 className="main-page-block__copy-subheader">
+          { subheader }
+        </h5>
+        <h2 className="main-page-block__copy-header">
+          { header }
+        </h2>
+        <div className="main-page-block__copy-with-icons">
           <div className="main-page-block__icon-column">
             <ImageIcon icon={BlockchainIcon} label="blockchain" className="main-page-block__icon" />
             <ImageIcon icon={PlayIcon} label="play" className="main-page-block__icon" />
@@ -109,11 +99,8 @@ const VideoBlock = observer(({mobile}) => {
             <ImageIcon icon={PowerIcon} label="power" className="main-page-block__icon" />
             <ImageIcon icon={FilmIcon} label="film" className="main-page-block__icon" />
           </div>
-          <div>
-            <p>A novel utility blockchain network built for content</p>
-            <p>Programmable, Hyper Efficient, and Sustainable (50X today's CDNs)</p>
-            <p>Storage, Distribution, Streaming and more</p>
-            <p>On Chain Ownership, Versioning and Access Control</p>
+          <div className="main-page-block__copy">
+            { features.map(feature => <p key={feature}>{feature}</p>)}
           </div>
         </div>
       </div>
@@ -121,25 +108,20 @@ const VideoBlock = observer(({mobile}) => {
   );
 });
 
-const FeaturesBlock = ({mobile}) => {
+const FeaturesBlock = observer(({mobile}) => {
+  const copy = mainStore.l10n.main.features_block;
+
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--features">
         <div className="main-page-block__copy-container">
-          <h2 className="main-page-block__copy-header main-page-block__copy-header--feature">Advanced Full-Feature Media Platform</h2>
+          <h2 className="main-page-block__copy-header main-page-block__copy-header--feature">
+            { copy.header_mobile }
+          </h2>
         </div>
         <ImageIcon icon={FeaturesImage} label="featured images" className="main-page-block__image" />
         <div className="main-page-block__copy-container">
-          <div className="main-page-block__copy main-page-block__copy--faded">
-            <div>
-              <p>
-                Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support.
-              </p>
-              <p>
-                Replaces traditional CDNs.
-              </p>
-            </div>
-          </div>
+          <RichText richText={copy.text_mobile} className="main-page-block__copy main-page-block__copy--faded" />
         </div>
       </div>
     );
@@ -148,56 +130,52 @@ const FeaturesBlock = ({mobile}) => {
   return (
     <div className="main-page-block main-page-block--features">
       <div className="main-page-block__copy-container">
-        <h5 className="main-page-block__copy-subheader">Resulting In</h5>
-        <h2 className="main-page-block__copy-header">Advanced Full-Feature Platform For All Web3 Media</h2>
-        <div className="main-page-block__copy">
-          <div>
-            <p>
-              All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content.
-            </p>
-            <p>
-              Low Latency 4K Streaming with Beautiful Quality & Advanced Video Features. Built in Monetization through Blockchain - tickets, tokens, & payments.
-            </p>
-            <p>
-              <Action to="/features/details" className="dark highlight">
-                See Feature Details
-              </Action>
-            </p>
-          </div>
-        </div>
+        <h5 className="main-page-block__copy-subheader">
+          { copy.subheader }
+        </h5>
+        <h2 className="main-page-block__copy-header">
+          { copy.header }
+        </h2>
+        <RichText richText={copy.text} className="main-page-block__copy" />
       </div>
       <ImageIcon icon={FeaturesImage} label="featured images" className="main-page-block__image" />
     </div>
   );
-};
+});
 
-const ExperiencesBlock = ({mobile}) => {
+const ExperiencesBlock = observer(({mobile}) => {
   return (
     <div className="main-page-block main-page-block--experiences">
       <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`}>
-        Create, Distribute & Own Stunning Web3 Experiences
+        { mainStore.l10n.main.experiences_block.header }
       </h3>
       <div className="main-page-block__separator" />
       <div className="main-page-block__experience-images">
         <Action to="/creators-and-publishers" className="main-page-block__experience-image">
           <ImageIcon icon={ExperiencesImage1} className="main-page-block__experience-image__image" />
-          <h4 className="main-page-block__experience-image__text">Creators & Content Businesses</h4>
+          <h4 className="main-page-block__experience-image__text">
+            { mainStore.l10n.main.experiences_block.creators }
+          </h4>
         </Action>
         <Action to="/content-fabric" className="main-page-block__experience-image">
           <ImageIcon icon={ExperiencesImage2} className="main-page-block__experience-image__image" />
-          <h4 className="main-page-block__experience-image__text">Developers & Node Providers</h4>
+          <h4 className="main-page-block__experience-image__text">
+            { mainStore.l10n.main.experiences_block.developers }
+          </h4>
         </Action>
       </div>
     </div>
   );
-};
+});
 
-const BrowseProjectsBlock = ({mobile}) => {
+const BrowseProjectsBlock = observer(({mobile}) => {
+  const { header, subheader } = mainStore.l10n.main.projects_block;
+
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--browse">
         <h3 className="main-page-block__browse__text">
-          Discover Web3 Media Projects
+          { header }
         </h3>
         <div className="main-page-block__browse__actions">
           <Button
@@ -206,13 +184,13 @@ const BrowseProjectsBlock = ({mobile}) => {
             to="/wallet"
             className="dark secondary main-page-block__browse__action"
           >
-            Browse All Projects
+            { mainStore.l10n.misc.browse_all_projects }
           </Button>
         </div>
         <div className="main-page-block__copy-container main-page-block__browse__copy">
           <div className="main-page-block__copy main-page-block__copy--faded">
             <p>
-              All built on the Content Blockchain
+              { subheader }
             </p>
           </div>
         </div>
@@ -224,10 +202,10 @@ const BrowseProjectsBlock = ({mobile}) => {
     <div className="main-page-block main-page-block--browse">
       <h2 className="main-page-block__browse__text">
         <div>
-          Discover Web3 Media Projects.
+          { header }
         </div>
         <div>
-          All build on the Content Blockchain.
+          { subheader }
         </div>
       </h2>
       <div className="main-page-block__browse__actions">
@@ -237,14 +215,14 @@ const BrowseProjectsBlock = ({mobile}) => {
           to="/wallet"
           className="dark secondary main-page-block__browse__action"
         >
-          Browse All Projects
+          { mainStore.l10n.misc.browse_all_projects }
         </Button>
       </div>
     </div>
   );
-};
+});
 
-const MainPageMobile = observer(() => {
+const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
       <Header />
@@ -265,9 +243,9 @@ const MainPageMobile = observer(() => {
       </div>
     </div>
   );
-});
+};
 
-const MainPageDesktop = observer(() => {
+const MainPageDesktop = () => {
   return (
     <div className="page dark no-padding">
       <Header />
@@ -289,7 +267,7 @@ const MainPageDesktop = observer(() => {
       </div>
     </div>
   );
-});
+};
 
 const MainPage = observer(() => {
   return uiStore.pageWidth < 1000 ? <MainPageMobile /> : <MainPageDesktop />;
