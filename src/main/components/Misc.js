@@ -8,7 +8,7 @@ import Modal from "./Modal";
 import {Action, Button} from "./Actions";
 import SwiperCore, {Lazy, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {uiStore} from "../stores/Main";
+import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import EluvioConfiguration from "EluvioConfiguration";
@@ -47,12 +47,20 @@ export const RichText = ({richText, children, className=""}) => {
   );
 };
 
-export const Video = observer(({versionHash, videoMetadata, className=""}) => {
+export const Video = observer(({
+  versionHash,
+  videoMetadata,
+  clientOptions={},
+  sourceOptions={},
+  playoutParameters={},
+  playerOptions={},
+  className=""
+}) => {
   const [player, setPlayer] = useState(undefined);
 
-  useEffect(() => () => player?.Destroy(), []);
-
-  if(!videoMetadata) { return null; }
+  useEffect(() => {
+    return () => player?.Destroy();
+  }, [mainStore.client, player]);
 
   if(!versionHash) {
     if(videoMetadata["/"]) {
@@ -62,29 +70,50 @@ export const Video = observer(({versionHash, videoMetadata, className=""}) => {
     }
   }
 
-  return (
-    <div
-      ref={element => {
-        if(!element || player) { return; }
+  if(!versionHash) {
+    // eslint-disable-next-line no-console
+    console.warn("Unable to determine playout hash for video");
+    return null;
+  }
 
-        setPlayer(
-          new EluvioPlayer(
-            element,
-            {
-              clientOptions: {
-                network: EluvioPlayerParameters.networks[EluvioConfiguration.network === "main" ? "MAIN" : "DEMO"]
-              },
-              sourceOptions: {
-                playoutParameters: {
-                  versionHash
+  return (
+    <div className={`player-container ${player ? "player-container--loaded" : "player-container--loading"} ${className}`}>
+      <div
+        className="player-container__player"
+        ref={element => {
+          if(!element || player) { return; }
+
+          setPlayer(
+            new EluvioPlayer(
+              element,
+              {
+                clientOptions: {
+                  client: mainStore.client,
+                  network: EluvioPlayerParameters.networks[EluvioConfiguration.network === "main" ? "MAIN" : "DEMO"],
+                  ...clientOptions
+                },
+                sourceOptions: {
+                  protocols: [EluvioPlayerParameters.protocols.HLS],
+                  ...sourceOptions,
+                  playoutParameters: {
+                    versionHash,
+                    ...playoutParameters
+                  }
+                },
+                playerOptions: {
+                  watermark: EluvioPlayerParameters.watermark.OFF,
+                  muted: EluvioPlayerParameters.muted.OFF,
+                  autoplay: EluvioPlayerParameters.autoplay.OFF,
+                  controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+                  loop: EluvioPlayerParameters.loop.OFF,
+                  ...playerOptions
                 }
               }
-            }
-          )
-        );
-      }}
-      className={`player-container ${className}`}
-    />
+            )
+          );
+        }}
+      />
+    </div>
   );
 });
 
@@ -246,7 +275,7 @@ export const Accordion = ({title, description, className="", openIcon=PlusIcon, 
     <div className={`accordion ${className}`}>
       <Action className="accordion__header left-align" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
         <div className="accordion__header__title">{ title }</div>
-        <ImageIcon icon={isOpen ? closeIcon : openIcon} />
+        <ImageIcon icon={isOpen ? closeIcon : openIcon} className="accordion__header__icon" />
       </Action>
       {
         isOpen &&

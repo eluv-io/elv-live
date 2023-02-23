@@ -271,22 +271,36 @@
 .accordion {
   &__header {
     display: flex;
+    font-size: var(--font-size-header-4);
+    gap: 20px;
     justify-content: space-between;
-    padding: 30px 0;
+    padding: 30px 25px 30px 0;
     width: 100%;
+
+    &__icon {
+      height: 12px;
+      min-height: 12px;
+      min-width: 12px;
+      width: 12px;
+    }
   }
 
   &__description {
     margin: 24px 0;
-  }
-
-  svg {
-    margin-right: 28px;
   }
 }
 
 @media screen and (max-width: $width-tablet) {
   .faqs .accordion .accordion__header {
     padding: 15px 5px;
+  }
+}
+
+.player-container {
+  &--loading {
+    aspect-ratio: 16/9;
+    background-color: var(--background-dark-1);
+    height: 100%;
+    width: 100%;
   }
 }

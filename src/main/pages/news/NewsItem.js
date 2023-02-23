@@ -1,20 +1,29 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import {useParams} from "react-router";
 import {ExpandableImage, RichText, Video} from "../../components/Misc";
 import {Action} from "../../components/Actions";
 import {FormatDate} from "../../utils/Utils";
+import {PageLoader} from "../../components/Loader";
 
 const NewsItem = observer(() => {
+  useEffect(() => {
+    mainStore.LoadNews();
+  }, []);
+
   const params = useParams();
 
-  const { title, full_title, date, text, images, videos } = mainStore.mainSite?.news?.find(item => item.slug === params.slug);
+  const newsItem = mainStore.newsItems?.find(item => item.slug === params.slug);
+
+  if(!newsItem) { return <PageLoader />; }
+
+  const { title, full_title, date, text, images, videos } = newsItem;
 
   return (
     <div className="page light">
       <div className="page__header-container">
-        <Action to="/news" className="page__header-back">← Back to All News</Action>
+        <Action to="/about/news" className="page__header-back">← Back to All News</Action>
         <h1>News</h1>
       </div>
 
@@ -28,7 +37,7 @@ const NewsItem = observer(() => {
             videos.map(({video, caption}, index) =>
               <figure className="news__video-container" key={`video-${index}`}>
                 <Video videoMetadata={video} className="news__video" />
-                { caption ? <caption className="news__video-caption">{ caption }</caption> : null }
+                { caption ? <figcaption className="news__video-caption">{ caption }</figcaption> : null }
               </figure>
             )
         }

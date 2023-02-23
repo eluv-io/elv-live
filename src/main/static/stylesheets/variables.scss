@@ -6,6 +6,12 @@ $width-mobile: 600px;
 
 :root {
   --horizontal-content-padding: 150px;
+  --header-height: 75px;
+
+  --font-family-alternate-1: 'Montserrat', sans-serif;
+
+  --font-size-feature-header: 50px;
+  --font-size-feature-subheader: 30px;
 
   --font-size-header-1: 40px;
   --font-size-header-2: 40px;
@@ -42,7 +48,7 @@ $width-mobile: 600px;
   --color-text-light-highlight: var(--color-highlight-2);
 
   --color-text-dark-1: #fff;
-  --color-text-dark-2: #949494;
+  --color-text-dark-2: #d9d9d9;
   --color-text-dark-3: #949494;
   --color-text-dark-4: #11243e;
   --color-text-dark-highlight: #56ccf2;
@@ -51,6 +57,8 @@ $width-mobile: 600px;
   --background-dark-2: #1a1a1a;
   --background-dark-3: #2e2e2e;
   --background-dark-4: #fff;
+  --background-dark-5: #262240;
+  --background-dark-6: #000;
 
   --background-light-1: #f7f9fc;
   --background-light-2: #fff;
@@ -63,8 +71,23 @@ $width-mobile: 600px;
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
   --background-gradient-features-banner: linear-gradient(180deg, #471671 0%, #371870 100%);
 
+  /* Swiper */
+  --swiper-pagination-color: var(--color-highlight-2);
+  --swiper-pagination-bullet-inactive-color: var(--color-highlight-1);
+
   @media screen and (max-width: $width-laptop) {
-    --horizontal-content-padding: 100px;
+    --horizontal-content-padding: 75px;
+    --header-height: 50px;
+
+    //--font-size-feature-header: var(--font-size-header-1);
+    --font-size-feature-header: 38px;
+    --font-size-feature-subheader: var(--font-size-header-4);
+
+    --font-size-header-1: 36px;
+    --font-size-header-2: 32px;
+
+    --font-size-body-1: 28px;
+    --font-size-body-2: 22px;
   }
 
   @media screen and (max-width: $width-tablet) {
@@ -84,13 +107,13 @@ $width-mobile: 600px;
   @media screen and (max-width: $width-mobile) {
     --horizontal-content-padding: 20px;
 
-    --font-size-header-1: 32px;
-    --font-size-header-2: 28px;
+    --font-size-header-1: 28px;
+    --font-size-header-2: 24px;
     --font-size-header-3: 22px;
     --font-size-header-4: 16px;
 
-    --font-size-body-1: 26px;
-    --font-size-body-2: 18px;
+    --font-size-body-1: 24px;
+    --font-size-body-2: 16px;
     --font-size-body-3: 14px;
     --font-size-body-4: 10px;
     --font-size-body-5: 8px;

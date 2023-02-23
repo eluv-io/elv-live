@@ -4,13 +4,13 @@ import "./static/stylesheets/app.scss";
 import {createRoot} from "react-dom/client";
 import {observer, Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
-import ComponentTest from "./ComponentTest";
 import {Navigate, Routes, useLocation} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import MainPage from "./pages/main/Main";
 import Partners from "./pages/partners/Partners";
 import Technology from "./pages/technology/Technology";
 import ContentFabric from "./pages/technology/ContentFabric";
@@ -24,20 +24,18 @@ import Features from "./pages/features/Features";
 import Pricing from "./pages/features/Pricing";
 import FeaturesSupport from "./pages/features/Support";
 import FAQs from "./pages/features/FAQs";
+import Creators from "./pages/main/Creators";
+import Wallet from "./pages/wallet/Wallet";
 
-export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false}) => {
+export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false, noFooter=false}) => {
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  if(!Stores.mainStore.mainSite) {
-    return null;
-  }
-
   return (
-    <>
+    <div className={`main ${dark ? "dark" : "light"}`}>
       <Header />
       { before }
       <div
@@ -47,9 +45,14 @@ export const PageContainer = observer(({children, before, after, padded=false, d
         {children}
       </div>
       { after }
-      <ContactForm dark={dark} />
-      <Footer dark={dark} />
-    </>
+      {
+        noFooter ? null :
+          <>
+            <ContactForm dark={dark}/>
+            <Footer dark={dark}/>
+          </>
+      }
+    </div>
   );
 });
 
@@ -64,21 +67,23 @@ const MainApp = () => {
           <Route path="/about/news" element={<PageContainer padded><News /></PageContainer>} />
           <Route path="/about/news/:slug" element={<PageContainer padded><NewsItem /></PageContainer>} />
           {/* Creators & Publishers Routes */}
-          <Route path="/creators-and-publishers" element={<PageContainer padded><ComponentTest /></PageContainer>} />
+          <Route path="/creators-and-publishers" element={<PageContainer unbound dark><Creators /></PageContainer>} />
           {/* Content Fabric Routes*/}
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
           {/* Community Routes */}
-          <Route path="/community" element={<PageContainer padded><ComponentTest /></PageContainer>} />
+          <Route path="/community" element={<PageContainer padded></PageContainer>} />
           {/* Features Routes */}
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
           <Route path="/features/pricing" element={<PageContainer padded after={<FAQs />}><Pricing /></PageContainer>} />
           <Route path="/features/support" element={<PageContainer padded after={<FAQs />}><FeaturesSupport /></PageContainer>} />
           <Route path="/features/details" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
+          {/* Wallet */}
+          <Route path="/wallet/*" element={<PageContainer unbound noFooter><Wallet /></PageContainer>} />
           {/* Defaults */}
-          <Route path="/" element={<PageContainer unbound><ComponentTest /></PageContainer>} />
+          <Route path="/" element={<PageContainer unbound dark><MainPage /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>

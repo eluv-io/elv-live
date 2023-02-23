@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {observer} from "mobx-react";
 import UrlJoin from "url-join";
 import {mainStore} from "../../stores/Main";
@@ -6,9 +6,14 @@ import {InfoBox} from "../../components/Misc";
 import {FormatDate} from "../../utils/Utils";
 
 import {NewsIcon} from "../../static/icons/Icons";
+import {PageLoader} from "../../components/Loader";
 
 const News = observer(() => {
-  const newsItems = mainStore.mainSite?.news || [];
+  useEffect(() => {
+    mainStore.LoadNews();
+  }, []);
+
+  if(!mainStore.newsItems) { return <PageLoader />; }
 
   return (
     <div className="page light">
@@ -17,7 +22,7 @@ const News = observer(() => {
       </div>
       <div className="news__list">
         {
-          newsItems.map(({title, date, slug, external_link}, index) => {
+          mainStore.newsItems.map(({title, date, slug, external_link}, index) => {
             return (
               <InfoBox
                 className="news__list-item"
@@ -26,7 +31,7 @@ const News = observer(() => {
                 subheader={FormatDate(date)}
                 links={[
                   {
-                    to: external_link || UrlJoin("/news", slug || index.toString()),
+                    to: external_link || UrlJoin("/about/news", slug || index.toString()),
                     text: "Read More",
                     icon: NewsIcon
                   }
