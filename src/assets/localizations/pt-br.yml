@@ -7,7 +7,7 @@ header:
   store: Loja
 codes:
   redemption_code: Código de Resgate
-  redeem_offer: Resgatar oferta
+  redeem_offer: Resgate seu brinde
   errors:
     failed: Falha para resgatar o código
 footer:
