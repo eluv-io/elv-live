@@ -5,10 +5,8 @@ import UrlJoin from "url-join";
 import {ElvWalletClient} from "@eluvio/elv-client-js";
 
 import LocalizationEN from "../static/localization/en/en.yml";
-import FeaturesBannerEN from "../static/localization/en/FeaturesBanner.yaml";
 import FeaturesDetailsEN from "../static/localization/en/FeaturesDetails.yaml";
 import FeaturesPricingEN from "../static/localization/en/FeaturesPricing.yaml";
-import FeaturesSupportEN from "../static/localization/en/FeaturesSupport.yaml";
 
 configure({
   computedRequiresReaction: true,
@@ -59,10 +57,8 @@ class MainStore {
   l10n = {
     ...LocalizationEN,
     features: {
-      banner: FeaturesBannerEN,
       details: FeaturesDetailsEN,
-      pricing: FeaturesPricingEN,
-      support: FeaturesSupportEN
+      pricing: FeaturesPricingEN
     }
   };
 

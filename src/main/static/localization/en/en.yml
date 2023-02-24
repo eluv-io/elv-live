@@ -51,7 +51,7 @@ main:
       All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content.
 
       Low Latency 4K Streaming with Beautiful Quality & Advanced Video Features. Built in Monetization through Blockchain - tickets, tokens, & payments.
-      
+
       [See Feature Details](/features/details)
     text_mobile: |
       Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support.
@@ -78,7 +78,7 @@ creators:
       Publish and instantly distribute your content. Beautiful Quality & Advanced Video Features.
 
       Built in Monetization through Blockchain: turn-key sites, tickets, tokens, payments & brand-able marketplaces
-      
+
       [See Feature Details](/features/details)
   customize: Customize Your Experience & Build your Community
   monetize: Create & Monetize as your Brand Grows
@@ -86,7 +86,7 @@ creators:
     header: Release singles, albums, videos, apps, books & media packages, all on the Content Blockchain
   get_started_block:
     header: Create & Own Your Web3 Brand
-    text: | 
+    text: |
       Take control of your content and get started creating your first digital offering. Custom sites, stores & resale marketplaces for any media type content release.
     cta: Get Started Now
   key_features:
@@ -169,9 +169,9 @@ blockchain:
       label: Our Blockchain
       text: |
         2020 brought many profound and irreversible changes to the content creation industry. The challenges and opportunity of the global pandemic dramatically accelerated many trends, such as the monetization of deep libraries, remote and online production; the creation of self service properties for selling, screening, licensing and servicing; direct-to-audience models including no-windows streaming releases; fully virtual live performances and broadcasts and the complete virtualization of marketing, pre-release screening, and advertising sales.
-  
+
         Perhaps most significant of all, the end of 2020 and early 2021 brought the first mainstream monetization of content on the blockchain with the release of the first high value NFTs created from digital art, digital collectible communities for fans, and the first direct-to-consumer content distribution models backed by blockchain ticketing and sales. We are fortunate to be part of this, and have helped to enable the first just-in-time supply chains with our customers in their drive to fully digitize, transform costs, and embrace the power of blockchain economics to create significant new revenue opportunities for premium content.
-  
+
         Our involvement with organizations such as ETC, HPA, SMPTE, NIVA, EVR1, SXSW, and the Blockchain Xcelerator, influence from major established media companies, labels and bands, and input from various independent creators have helped us to grow the Content Fabric platform—a blockchain controlled real-time content storage and distribution network—to a point of scale and practical decentralization for our user community. The Content Fabric’s blockchain is the foundation of this capability.
     technology_background:
       label: Technology Background
@@ -251,6 +251,105 @@ faq:
     - question: Do I get a percentage of every re-trade after the initial sale?
       answer: |
         Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet.
+
+features_banner:
+  - title: Advanced Media Features
+    icon: playCircle
+    paragraph: Some extra detail of media application platform that are super interesting. 4 to 5 lines of content will probably looks good.
+    link: /features/details#media-application
+  - title: Content Distribution
+    icon: nodeValidatorProviders
+    paragraph: Some extra detail of media application platform that are super interesting. 4 to 5 lines of content will probably looks good.
+    link: /features/details#content-distribution
+  - title: Web3 Capabilities
+    icon: blockchainExplorer
+    paragraph: Some extra detail of media application platform that are super interesting. 4 to 5 lines of content will probably looks good.
+    link: /features/details#web-3
+
+features_support:
+  header: Customer Service and Support
+  description: Eluvio strives to provide the highest quality content streaming and delivery experience and an always-available service. All platform availability/service degraded issues are resolved with continuous highest priority according to the SLAs in the Eluvio Platform Services Agreement. Streaming quality means high picture quality, streaming at the maximum currently available bandwidth of the end client, and negligible rebuffering.
+  gridItems:
+    - label: 24x7 Platform Monitoring with Service Credits per Agreement
+      payAsYouGo: true
+      advanced: true
+      enterprise: true
+      icons:
+        aroundClock: false
+        email: false
+        telephone: false
+        slack: false
+    - label: Standard Customer Service
+      payAsYouGo: true
+      advanced: true
+      enterprise: true
+      icons:
+        aroundClock: false
+        email: true
+        telephone: false
+        slack: false
+    - label: Standard Customer Service
+      payAsYouGo: false
+      advanced: true
+      enterprise: true
+      icons:
+        aroundClock: false
+        email: true
+        telephone: true
+        slack: false
+    - label: Priority Customer Service
+      payAsYouGo: false
+      advanced: false
+      enterprise: true
+      icons:
+        aroundClock: true
+        email: true
+        telephone: true
+        slack: true
+    - label: Best Effort Developer API Support
+      payAsYouGo: false
+      advanced: true
+      enterprise: true
+      icons:
+        aroundClock: false
+        email: true
+        telephone: false
+        slack: false
+    - label: Dedicated Developer API Support
+      payAsYouGo: false
+      advanced: false
+      enterprise: true
+      icons:
+        aroundClock: false
+        email: false
+        telephone: false
+        slack: true
+  standardCustomerService:
+    header: Standard Customer Service
+    items:
+      - label: Provided Monday - Friday, 8 am to 6
+        icon: clockIcon
+      - label: Email via support@eluv.io
+        icon: mailIcon
+      - label: Telephone via Google Voice
+        icon: telephoneIcon
+  priorityCustomerService:
+    header: Priority Customer Service
+    items:
+      - label: Provided 24x7x365
+        icon: clockIcon
+      - label: Dedicated slack channel
+        icon: slackIcon
+      - label: Telephone via Google Voice with Paging
+        icon: telephoneIcon
+      - label: Guaranteed 2-hour initial response on customer specific trouble tickets
+        icon: flagIcon
+      - label: Best effort same day resolution on high severity issues
+        icon: minimizeIcon
+      - label: Best effort next day resolution on medium severity issues
+        icon: minimizeIcon
+      - label: Priority early access to new capabilities and roadmap review
+        icon: mapIcon
 
 actions:
   read_more: Read More
