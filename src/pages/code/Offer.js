@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {observer} from "mobx-react";
 import {onEnterPressed} from "Utils/Misc";
 import {useState} from "react";
@@ -44,12 +44,20 @@ const OfferPage = observer(() => {
       await new Promise(resolve => setTimeout(resolve, 3000));
       history.push(siteStore.SitePath(""));
     } catch(error) {
-      console.log(error);
+      // eslint-disable-next-line no-console
+      console.error(error);
       setError(siteStore.l10n.codes.errors.failed);
     } finally {
       setLoading(false);
     }
   };
+
+  // Automatically redeem if code specified
+  useEffect(() => {
+    if(code) {
+      RedeemOffer();
+    }
+  }, []);
 
   if(!rootStore.walletLoaded) {
     return <PageLoader />;
@@ -75,7 +83,7 @@ const OfferPage = observer(() => {
         />
 
         <button
-          disabled={!code || error}
+          disabled={!code}
           onClick={RedeemOffer}
           title={siteStore.l10n.codes.redeem_offer}
           className="btn offer-page__button"
