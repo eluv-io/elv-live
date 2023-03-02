@@ -31,6 +31,7 @@ class SiteStore {
   @observable siteIndex;
   @observable darkMode = false;
   @observable marketplaceInfo;
+  @observable additionalMarketplaces = [];
 
   @observable streams = [];
 
@@ -640,25 +641,43 @@ class SiteStore {
       }
 
       if(fullLoad && marketplaceInfo && marketplaceInfo.marketplace_slug) {
-        const marketplace = (yield this.client.ContentObjectMetadata({
-          ...this.siteParams,
-          metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", marketplaceInfo.tenant_slug, "marketplaces", marketplaceInfo.marketplace_slug, "info", "branding"),
-          select: [
-            ".",
-            "hide_global_navigation"
-          ],
-          resolveIncludeSource: true
-        })) || {};
+        const marketplaces = [
+          marketplaceInfo,
+          ...(site.info.additional_marketplaces || [])
+        ];
 
-        this.marketplaceHash = marketplace["."]?.source;
-        this.marketplaceId = this.marketplaceHash && this.rootStore.client.utils.DecodeVersionHash(this.marketplaceHash).objectId;
+        const marketplaceData = yield Promise.all(
+          marketplaces.map(async ({tenant_slug, marketplace_slug}) => {
+            let marketplace = (await this.client.ContentObjectMetadata({
+              ...this.siteParams,
+              metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", tenant_slug, "marketplaces", marketplace_slug, "info", "branding"),
+              select: [
+                ".",
+                "hide_global_navigation",
+                "name"
+              ],
+              resolveIncludeSource: true
+            })) || {};
 
+            marketplace.tenant_slug = tenant_slug;
+            marketplace.marketplace_slug = marketplace_slug;
+            marketplace.marketplaceHash = marketplace["."]?.source;
+            marketplace.marketplaceId = marketplace.marketplaceHash && this.rootStore.client.utils.DecodeVersionHash(marketplace.marketplaceHash).objectId;
+
+            return marketplace;
+          })
+        );
+
+        this.marketplaceHash = marketplaceData[0].marketplaceHash;
+        this.marketplaceId = marketplaceData[0].marketplaceId;
         this.marketplaceInfo = {
           ...marketplaceInfo,
-          ...marketplace,
-          marketplaceHash: this.marketplaceHash,
-          marketplaceId: this.marketplaceId,
+          ...marketplaceData[0]
         };
+
+        if(marketplaceData.length > 1) {
+          this.additionalMarketplaces = marketplaceData.slice(1);
+        }
       }
 
       this.eventSites[tenantKey][siteSlug] = site;
