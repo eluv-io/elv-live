@@ -4,6 +4,8 @@ import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
+import MenuButton from "Common/MenuButton";
+import {rootStore, siteStore} from "Stores";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
@@ -12,6 +14,53 @@ import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
 import CloseIcon from "Assets/icons/arrow-left-circle.svg";
+
+
+const StoreDropdown = observer(({walletOpen, currentPage}) => {
+  const marketplaces = [siteStore.marketplaceInfo, ...siteStore.additionalMarketplaces];
+
+  const ShowMarketplace = ({tenant_slug, marketplace_slug, default_store_page}) => {
+    rootStore.SetWalletPanelVisibility({
+      visibility: "full",
+      location: {
+        page: default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
+        params: {
+          tenantSlug: tenant_slug,
+          marketplaceSlug: marketplace_slug
+        }
+      }
+    });
+  };
+
+  if(marketplaces.length === 1) {
+    return (
+      <button
+        onClick={() => ShowMarketplace({...marketplaces[0]})}
+        className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
+      >
+        <div className="header__link__icon">
+          <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
+        </div>
+        { siteStore.l10n.header.store }
+      </button>
+    );
+  }
+
+  return (
+    <MenuButton
+      items={marketplaces.map(marketplaceInfo => ({
+        onClick: () => ShowMarketplace({...marketplaceInfo}),
+        label: marketplaceInfo.name
+      }))}
+      className={`header__link header__dropdown ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
+    >
+      <div className="header__link__icon">
+        <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
+      </div>
+      { siteStore.l10n.header.stores }
+    </MenuButton>
+  );
+});
 
 @inject("rootStore")
 @inject("siteStore")
@@ -110,28 +159,7 @@ class Header extends React.Component {
       );
     }
 
-    const storeButton = (
-      <button
-        onClick={() => {
-          this.props.rootStore.SetWalletPanelVisibility({
-            visibility: "full",
-            location: {
-              page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
-              params: {
-                tenantSlug: marketplaceInfo.tenant_slug,
-                marketplaceSlug: marketplaceInfo.marketplace_slug
-              }
-            }
-          });
-        }}
-        className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
-      >
-        <div className="header__link__icon">
-          <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
-        </div>
-        { l10n.header.store }
-      </button>
-    );
+    const storeButton = <StoreDropdown walletOpen currentPage />;
 
     let marketplacesButton;
     if(!hideGlobalNavigation) {

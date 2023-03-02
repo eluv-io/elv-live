@@ -5,6 +5,7 @@ header:
   redeem_code: Redeem Code
   sign_in: Sign In
   store: Store
+  stores: Stores
 codes:
   redemption_code: Redemption Code
   redeem_offer: Redeem Offer
