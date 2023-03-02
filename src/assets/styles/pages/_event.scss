@@ -197,10 +197,10 @@
     justify-content: center;
     margin: 0 auto;
     padding: 50px;
+    position: relative;
     width: 100%;
 
-    button,
-    a {
+    &__image-container {
       background: transparent;
       border: 0;
       cursor: pointer;
@@ -210,6 +210,15 @@
 
     img {
       border-radius: 15px;
+    }
+
+    &__video {
+      &.eluvio-player {
+        background: $black;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+      }
     }
   }
 
@@ -248,8 +257,9 @@
   }
 
   &__banner-card {
+    flex: 1 1 100%;
     margin: 0;
-    max-width: 600px;
+    max-width: 400px;
     padding: 0;
     width: auto;
   }
