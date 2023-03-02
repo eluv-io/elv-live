@@ -226,12 +226,11 @@ const HeroBanner = ({link, imageUrl}) => {
   );
 };
 
-const Banner = observer(({bannerInfo, index, mobile, className="event-page__banner", imageClassName="event-page__banner__image"}) => {
+const Banner = observer(({bannerInfo, mobile, className="event-page__banner", imageClassName="event-page__banner__image"}) => {
   const [showVideo, setShowVideo] = useState(false);
 
   const bannerImage = (
     <ImageIcon
-      key={`banner-${index}`}
       className={imageClassName}
       icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
       label="Banner"
@@ -240,7 +239,7 @@ const Banner = observer(({bannerInfo, index, mobile, className="event-page__bann
 
   if(bannerInfo.type === "video" && bannerInfo.video && bannerInfo.video["."]) {
     return (
-      <div className={className} key={`banner-${index}`}>
+      <div className={className}>
         <button className="event-page__banner__image-container" onClick={() => setShowVideo(true)}>
           { bannerImage }
         </button>
@@ -281,7 +280,7 @@ const Banner = observer(({bannerInfo, index, mobile, className="event-page__bann
       siteStore.marketplaceInfo;
 
     return (
-      <div className={className} key={`banner-${index}`}>
+      <div className={className}>
         <button
           className="event-page__banner__image-container"
           onClick={() => {
@@ -314,7 +313,7 @@ const Banner = observer(({bannerInfo, index, mobile, className="event-page__bann
     if(!dropId) { return null; }
 
     return (
-      <div className={className} key={`banner-${index}`}>
+      <div className={className}>
         <Link className="event-page__banner__image-container" to={siteStore.SitePath(UrlJoin("drop", dropId))}>
           { bannerImage }
         </Link>
@@ -324,7 +323,7 @@ const Banner = observer(({bannerInfo, index, mobile, className="event-page__bann
 
   if(bannerInfo.type === "link") {
     return (
-      <div className={className} key={`banner-${index}`}>
+      <div className={className}>
         <a
           className="event-page__banner__image-container"
           href={bannerInfo.link || undefined}
@@ -338,7 +337,7 @@ const Banner = observer(({bannerInfo, index, mobile, className="event-page__bann
   }
 
   return (
-    <div className={className} key={`banner-${index}`}>
+    <div className={className}>
       { bannerImage }
     </div>
   );
@@ -599,7 +598,12 @@ class Event extends React.Component {
         { header ? <h3 className="event-page__banner-cards__header">{header}</h3> : null }
         <div className="event-page__banner-cards__cards">
           {cards.map((bannerInfo, index) =>
-            <Banner bannerInfo={bannerInfo} index={index} className="event-page__banner event-page__banner-card" imageClassName="event-page__banner-card__image" />
+            <Banner
+              key={`banner-card-${index}`}
+              bannerInfo={bannerInfo}
+              className="event-page__banner event-page__banner-card"
+              imageClassName="event-page__banner-card__image"
+            />
           )}
         </div>
       </div>
@@ -620,7 +624,7 @@ class Event extends React.Component {
     }
 
     return banners.map((bannerInfo, index) =>
-      <Banner bannerInfo={bannerInfo} index={index} mobile={mobile} />
+      <Banner key={`banner-${index}`} bannerInfo={bannerInfo} index={index} mobile={mobile} />
     );
   }
 
