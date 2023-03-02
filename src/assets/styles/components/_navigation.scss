@@ -9,7 +9,7 @@
   top: 0;
   user-select: none;
   width: 100%;
-  z-index: 1000;
+  z-index: 10001;
 
   & > * {
     flex: 1 1 auto;
@@ -491,8 +491,19 @@
   }
 
   .menu-button__options {
+    padding: 10px 0;
     background-color: rgba($black, 0.7);
     border-radius: 0 3px 3px;
+  }
+
+  .menu-button__option {
+    opacity: 0.75;
+
+    &:hover,
+    &:active,
+    &:focus-visible {
+      opacity: 1;
+    }
   }
 
   .menu-button--active {
