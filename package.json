@@ -23,7 +23,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
     "@eluvio/elv-client-js": "^3.2.12",
-    "@eluvio/elv-player-js": "^1.0.75",
+    "@eluvio/elv-player-js": "^1.0.102",
     "@eluvio/elv-wallet-frame-client": "^2.0.2",
     "@paypal/react-paypal-js": "^4.0.2",
     "@react-hook/resize-observer": "^1.2.2",
