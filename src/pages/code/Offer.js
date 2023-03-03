@@ -17,17 +17,22 @@ const OfferPage = observer(() => {
   const [loading, setLoading] = useState(false);
 
   const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === match.params.offerId) || {};
+  const previouslyRedeemed = localStorage.getItem(`${match.params.offerId}-code`);
 
   const RedeemOffer = async () => {
     try {
       setError(undefined);
       setLoading(true);
 
-      await rootStore.RedeemOffer({
-        tenantId: offer.tenant_id || siteStore.currentSiteInfo.tenant_id,
-        ntpId: offer.ntp_id,
-        code
-      });
+      if(!previouslyRedeemed) {
+        await rootStore.RedeemOffer({
+          tenantId: offer.tenant_id || siteStore.currentSiteInfo.tenant_id,
+          ntpId: offer.ntp_id,
+          code
+        });
+
+        localStorage.setItem(`${match.params.offerId}-code`, code);
+      }
 
       rootStore.SetWalletPanelVisibility({
         visibility: "full",
@@ -54,7 +59,7 @@ const OfferPage = observer(() => {
 
   // Automatically redeem if code specified
   useEffect(() => {
-    if(code) {
+    if(code || previouslyRedeemed) {
       RedeemOffer();
     }
   }, []);
