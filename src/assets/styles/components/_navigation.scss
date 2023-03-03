@@ -561,6 +561,10 @@
         text-shadow: none;
       }
     }
+
+    .menu-button__options {
+      background: $black;
+    }
   }
 
   &.header-dark {
