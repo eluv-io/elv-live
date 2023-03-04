@@ -423,7 +423,7 @@ class Event extends React.Component {
     const marketplaceDisabled = this.props.siteStore.marketplaceInfo?.disable_marketplace;
 
     let eventButton;
-    if(eventInfo.event_button_action === "marketplace" || eventInfo.event_button_opens_marketplace) {
+    if(eventInfo.event_button_action === "marketplace" || (!eventInfo.event_button_action && eventInfo.event_button_opens_marketplace)) {
       const marketplace = eventInfo.event_button_marketplace ?
         siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === eventInfo.event_button_marketplace) :
         siteStore.marketplaceInfo;
