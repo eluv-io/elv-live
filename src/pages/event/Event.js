@@ -419,16 +419,16 @@ class Event extends React.Component {
   Actions() {
     const branding = this.Branding();
     const hasLoggedIn = this.props.rootStore.walletLoggedIn;
-    const hasDrops =
-      (this.props.siteStore.currentSiteInfo.drops || []).length > 0 ||
-      (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
-
-    const eventButtonOpensMarketplace = this.props.siteStore.currentSiteInfo.event_info.event_button_opens_marketplace;
+    const eventInfo = this.props.siteStore.currentSiteInfo.event_info || {};
     const marketplaceDisabled = this.props.siteStore.marketplaceInfo?.disable_marketplace;
 
-    let OpenMarketplaceButton;
-    if(eventButtonOpensMarketplace) {
-      OpenMarketplaceButton = () => (
+    let eventButton;
+    if(eventInfo.event_button_action === "marketplace" || eventInfo.event_button_opens_marketplace) {
+      const marketplace = eventInfo.event_button_marketplace ?
+        siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === eventInfo.event_button_marketplace) :
+        siteStore.marketplaceInfo;
+
+      eventButton = (
         <button
           style={(branding.get_started || {}).styles}
           className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
@@ -439,8 +439,8 @@ class Event extends React.Component {
                 location: {
                   page: "marketplace",
                   params: {
-                    tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                    marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                    tenantSlug: marketplace.tenant_slug,
+                    marketplaceSlug: marketplace.marketplace_slug
                   }
                 }
               }
@@ -450,50 +450,64 @@ class Event extends React.Component {
           {ButtonContent(branding.get_started, "Get Started")}
         </button>
       );
-    }
-
-    const GetStartedButton = () => (
-      <button
-        style={(branding.get_started || {}).styles}
-        className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
-        onClick={() => this.setState({showGetStartedModal: true})}
-      >
-        { ButtonContent(branding.get_started, "Get Started") }
-      </button>
-    );
-
-    const JoinDropButton = () => (
-      this.props.siteStore.nextDrop && this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
-        <button
-          style={(branding.join_drop || {}).styles}
-          className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
-          onClick={async () => {
-            await this.props.rootStore.SetWalletPanelVisibility(
-              {
-                visibility: "full",
-                location: {
-                  page: this.props.siteStore.nextDrop.store_page === "Listings" ? "marketplaceListings" : "marketplace",
-                  params: {
-                    tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                    marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+    } else if(eventInfo.event_button_action === "link") {
+      eventButton = (
+        <a
+          href={eventInfo.event_button_link}
+          rel="noopener"
+          target="_blank"
+          style={(branding.get_started || {}).styles}
+          className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+        >
+          {ButtonContent(branding.get_started, "Get Started")}
+        </a>
+      );
+    } else if(eventInfo.event_button_action !== "hidden" && !marketplaceDisabled) {
+      if(hasLoggedIn) {
+        eventButton = (
+          this.props.siteStore.nextDrop && this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
+            <button
+              style={(branding.join_drop || {}).styles}
+              className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
+              onClick={async () => {
+                await this.props.rootStore.SetWalletPanelVisibility(
+                  {
+                    visibility: "full",
+                    location: {
+                      page: this.props.siteStore.nextDrop.store_page === "Listings" ? "marketplaceListings" : "marketplace",
+                      params: {
+                        tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                        marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                      }
+                    }
                   }
-                }
-              }
-            );
+                );
 
-            await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop.marketplace_filters});
-          }}
-        >
-          { ButtonContent(branding.join_drop, "Join the Drop") }
-        </button> :
-        <Link
-          style={(branding.join_drop || {}).styles}
-          to={this.props.siteStore.nextDrop.link}
-          className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
-        >
-          { ButtonContent(branding.join_drop, "Join the Drop") }
-        </Link>
-    );
+                await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop.marketplace_filters});
+              }}
+            >
+              { ButtonContent(branding.join_drop, "Join the Drop") }
+            </button> :
+            <Link
+              style={(branding.join_drop || {}).styles}
+              to={this.props.siteStore.nextDrop.link}
+              className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
+            >
+              { ButtonContent(branding.join_drop, "Join the Drop") }
+            </Link>
+        );
+      } else {
+        eventButton = (
+          <button
+            style={(branding.get_started || {}).styles}
+            className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+            onClick={() => this.setState({showGetStartedModal: true})}
+          >
+            { ButtonContent(branding.get_started, "Get Started") }
+          </button>
+        );
+      }
+    }
 
     const WatchPromoButton = () => (
       <button
@@ -517,9 +531,7 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { eventButtonOpensMarketplace && !marketplaceDisabled ? <OpenMarketplaceButton /> : null }
-        { !eventButtonOpensMarketplace && !marketplaceDisabled && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { !eventButtonOpensMarketplace && !marketplaceDisabled && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { eventButton }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||
