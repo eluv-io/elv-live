@@ -463,9 +463,9 @@ class Event extends React.Component {
         </a>
       );
     } else if(eventInfo.event_button_action !== "hidden" && !marketplaceDisabled) {
-      if(hasLoggedIn) {
+      if(hasLoggedIn && this.props.siteStore.nextDrop) {
         eventButton = (
-          this.props.siteStore.nextDrop && this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
+          this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
             <button
               style={(branding.join_drop || {}).styles}
               className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
@@ -474,7 +474,7 @@ class Event extends React.Component {
                   {
                     visibility: "full",
                     location: {
-                      page: this.props.siteStore.nextDrop.store_page === "Listings" ? "marketplaceListings" : "marketplace",
+                      page: this.props.siteStore.nextDrop?.store_page === "Listings" ? "marketplaceListings" : "marketplace",
                       params: {
                         tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
                         marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
@@ -483,7 +483,7 @@ class Event extends React.Component {
                   }
                 );
 
-                await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop.marketplace_filters});
+                // await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop?.marketplace_filters});
               }}
             >
               { ButtonContent(branding.join_drop, "Join the Drop") }
@@ -496,7 +496,7 @@ class Event extends React.Component {
               { ButtonContent(branding.join_drop, "Join the Drop") }
             </Link>
         );
-      } else {
+      } else if(!hasLoggedIn) {
         eventButton = (
           <button
             style={(branding.get_started || {}).styles}
