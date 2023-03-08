@@ -422,8 +422,10 @@ class Event extends React.Component {
     const eventInfo = this.props.siteStore.currentSiteInfo.event_info || {};
     const marketplaceDisabled = this.props.siteStore.marketplaceInfo?.disable_marketplace;
 
+    const action = (hasLoggedIn && eventInfo.event_button_action_post_login) || eventInfo.event_button_action;
+
     let eventButton;
-    if(eventInfo.event_button_action === "marketplace" || (!eventInfo.event_button_action && eventInfo.event_button_opens_marketplace)) {
+    if(action === "marketplace" || (!eventInfo.event_button_action && eventInfo.event_button_opens_marketplace)) {
       const marketplace = eventInfo.event_button_marketplace ?
         siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === eventInfo.event_button_marketplace) :
         siteStore.marketplaceInfo;
@@ -450,7 +452,7 @@ class Event extends React.Component {
           {ButtonContent(branding.get_started, "Get Started")}
         </button>
       );
-    } else if(eventInfo.event_button_action === "link") {
+    } else if(action === "link") {
       eventButton = (
         <a
           href={eventInfo.event_button_link}
@@ -462,7 +464,7 @@ class Event extends React.Component {
           {ButtonContent(branding.get_started, "Get Started")}
         </a>
       );
-    } else if(eventInfo.event_button_action !== "hidden" && !marketplaceDisabled) {
+    } else if(action !== "hidden" && !marketplaceDisabled) {
       if(hasLoggedIn && this.props.siteStore.nextDrop) {
         eventButton = (
           this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
