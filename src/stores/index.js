@@ -505,10 +505,15 @@ class RootStore {
   });
 
   @action.bound
-  LogIn() {
+  LogIn(path) {
+    let callbackUrl = new URL(window.location.href);
+    if(path) {
+      callbackUrl.pathname = path;
+    }
+
     this.walletClient.LogIn({
       method: "redirect",
-      callbackUrl: window.location.href,
+      callbackUrl: callbackUrl.toString(),
       marketplaceParams: this.marketplaceParams,
       clearLogin: true
     });

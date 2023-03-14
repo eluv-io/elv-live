@@ -6,6 +6,7 @@ import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
 import MenuButton from "Common/MenuButton";
 import {rootStore, siteStore} from "Stores";
+import UrlJoin from "url-join";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
@@ -132,7 +133,19 @@ class Header extends React.Component {
     } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
       loginButton = (
         <button
-          onClick={() => this.props.rootStore.LogIn()}
+          onClick={() => {
+            const postLogin = this.props.siteStore.currentSiteInfo.event_info?.post_login || {};
+            let path;
+            if(postLogin.action === "marketplace") {
+              path = UrlJoin("/", this.props.siteStore.tenantSlug || "", this.props.siteStore.siteSlug, "marketplace");
+
+              if(postLogin.sku) {
+                path = UrlJoin(path, "store", postLogin.sku);
+              }
+            }
+
+            this.props.rootStore.LogIn(path);
+          }}
           className="header__link"
         >
           <div className="header__link__icon">
