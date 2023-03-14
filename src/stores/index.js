@@ -310,10 +310,9 @@ class RootStore {
       });
     });
 
+    const marketplaceRoute = window.location.pathname.includes("/marketplace");
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOADED, async () => {
       this.CheckFrameAddress(true);
-
-      const marketplaceRoute = window.location.pathname.includes("/marketplace");
 
       // Marketplace route specified - allow other code to handle wallet visibility
       if(marketplaceRoute) {
