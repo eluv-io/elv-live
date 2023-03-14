@@ -85,6 +85,8 @@ const WalletFrame = observer(() => {
                 path: UrlJoin("/marketplace", siteStore.marketplaceId, path)
               });
             }
+
+            window.history.replaceState(undefined, undefined, window.location.href.replace(/\/marketplace\/.+/, ""));
           }
 
           setFrameLoaded(true);
