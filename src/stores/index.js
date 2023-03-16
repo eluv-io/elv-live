@@ -286,7 +286,17 @@ class RootStore {
     }
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN_REQUESTED, () =>
-      runInAction(() => this.LogIn())
+      runInAction(async () => {
+        while(!this.walletLoaded) {
+          await new Promise(resolve => setTimeout(resolve, 250));
+        }
+
+        const frameAddress = (await this.frameClient.UserProfile())?.address;
+
+        if(!frameAddress) {
+          this.LogIn();
+        }
+      })
     );
 
     this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.ROUTE_CHANGE, event => {
