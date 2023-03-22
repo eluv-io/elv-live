@@ -7,6 +7,20 @@ import {observer} from "mobx-react";
 
 import {PlayCircleIcon} from "../../static/icons/Icons";
 
+const ItemCard = (data, dark=false) => {
+  const {contentTitle, description, link} = data;
+
+  return (
+    <div className={`features-details__item-card ${dark ? "dark" : "light"}`} key={`item-card-${contentTitle}`}>
+      <div className="features-details__item-card__content">
+        <span>{ contentTitle }</span>
+        <p>{ description }</p>
+        <Action to={link}>View Doc</Action>
+      </div>
+    </div>
+  );
+};
+
 const Features = observer(() => {
   const detailsData = mainStore.l10n.features.details;
 
@@ -21,20 +35,6 @@ const Features = observer(() => {
       }, 10);
     }
   }, []);
-
-  const ItemCard = (data, dark=false) => {
-    const {contentTitle, description, link} = data;
-
-    return (
-      <div className={`features-details__item-card ${dark ? "dark" : "light"}`} key={`item-card-${contentTitle}`}>
-        <div className="features-details__item-card__content">
-          <span>{ contentTitle }</span>
-          <p>{ description }</p>
-          <Action to={link}>View Doc</Action>
-        </div>
-      </div>
-    );
-  };
 
   const detailSection = (
     detailsData.map(({header, id, items}) => (

@@ -15,87 +15,88 @@ import {
   TelephoneIcon
 } from "../../static/icons/Icons";
 
-const FeaturesSupport = observer(() => {
-  const supportData = mainStore.l10n.features.support;
+const ItemCard = (data, key, dark=false) => {
+  const iconMap = {
+    aroundClock: {
+      label: "24x7",
+      icon: ClockIcon
+    },
+    email: {
+      label: "Email",
+      icon: MailIcon
+    },
+    telephone: {
+      label: "Telephone",
+      icon: TelephoneIcon
+    },
+    slack: {
+      label: "Slack",
+      icon: SocialIcons.SlackIcon
+    }
+  };
 
-  const ItemCard = (data, key, dark=false) => {
-    const iconMap = {
-      aroundClock: {
-        label: "24x7",
-        icon: ClockIcon
-      },
-      email: {
-        label: "Email",
-        icon: MailIcon
-      },
-      telephone: {
-        label: "Telephone",
-        icon: TelephoneIcon
-      },
-      slack: {
-        label: "Slack",
-        icon: SocialIcons.SlackIcon
+  const {label, payAsYouGo, enterprise, advanced, icons} = data;
+
+  return (
+    <div className={`features-support__item-card ${dark ? "dark" : "light"}`} key={key}>
+      <div className="features-support__item-card-content">
+        <span>
+          { label }
+          <div className="features-support__item-card-communication">
+            {
+              Object.keys(icons || {}).map(iconKey => (
+                icons[iconKey] &&
+                <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
+                  <ImageIcon icon={iconMap[iconKey].icon}/>
+                  <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
+                </span>
+              ))
+            }
+          </div>
+        </span>
+        <span className="centered">{ payAsYouGo ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ advanced ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ enterprise ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+      </div>
+    </div>
+  );
+};
+
+const CustomerServiceSection = () => {
+  const supportData = mainStore.l10n.features_support;
+  const iconsMap = {
+    clockIcon: ClockIcon,
+    mailIcon: MailIcon,
+    telephoneIcon: TelephoneIcon,
+    slackIcon: SocialIcons.SlackIcon,
+    flagIcon: FlagIcon,
+    minimizeIcon: MinimizeIcon,
+    mapIcon: SpreadMapIcon
+  };
+
+  return (
+    <div className="features-support__customer-service">
+      {
+        ["standardCustomerService", "priorityCustomerService"].map(service => (
+          <div key={`customer-service-${service}`} className="features-support__customer-service-section">
+            <h4>{ supportData[service].header }</h4>
+            {
+              supportData[service].items.map(({icon, label}) => (
+                <div className="features-support__customer-service-detail" key={`features-support-customer-service-${label}`}>
+                  <ImageIcon icon={iconsMap[icon]} title={label} />
+                  &nbsp;{ label }
+                </div>
+              ))
+            }
+          </div>
+        ))
       }
-    };
+    </div>
+  );
+};
 
-    const {label, payAsYouGo, enterprise, advanced, icons} = data;
-
-    return (
-      <div className={`features-support__item-card ${dark ? "dark" : "light"}`} key={key}>
-        <div className="features-support__item-card-content">
-          <span>
-            { label }
-            <div className="features-support__item-card-communication">
-              {
-                Object.keys(icons || {}).map(iconKey => (
-                  icons[iconKey] &&
-                  <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
-                    <ImageIcon icon={iconMap[iconKey].icon}/>
-                    <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
-                  </span>
-                ))
-              }
-            </div>
-          </span>
-          <span className="centered">{ payAsYouGo ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-          <span className="centered">{ advanced ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-          <span className="centered">{ enterprise ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        </div>
-      </div>
-    );
-  };
-
-  const CustomerServiceSection = () => {
-    const iconsMap = {
-      clockIcon: ClockIcon,
-      mailIcon: MailIcon,
-      telephoneIcon: TelephoneIcon,
-      slackIcon: SocialIcons.SlackIcon,
-      flagIcon: FlagIcon,
-      minimizeIcon: MinimizeIcon,
-      mapIcon: SpreadMapIcon
-    };
-
-    return (
-      <div className="features-support__customer-service">
-        {
-          ["standardCustomerService", "priorityCustomerService"].map(service => (
-            <div key={`customer-service-${service}`} className="features-support__customer-service-section">
-              <h4>{ supportData[service].header }</h4>
-              {
-                supportData[service].items.map(({icon, label}) => (
-                  <div className="features-support__customer-service-detail" key={`features-support-customer-service-${label}`}>
-                    <ImageIcon icon={iconsMap[icon]} title={label} />
-                    &nbsp;{ label }
-                  </div>
-                ))
-              }
-            </div>
-          ))
-        }
-      </div>
-    );
-  };
+const FeaturesSupport = observer(() => {
+  const supportData = mainStore.l10n.features_support;
 
   return (
     <div className="page">
