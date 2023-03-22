@@ -78,7 +78,7 @@ const WalletFrame = observer(() => {
           });
 
           if(marketplaceRoute) {
-            const path = window.location.pathname.split("/marketplace")[1];
+            const path = window.location.pathname.split("/marketplace")[1] + window.location.search;
 
             if(path) {
               rootStore.frameClient.Navigate({
