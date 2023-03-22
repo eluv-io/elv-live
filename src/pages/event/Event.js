@@ -425,7 +425,33 @@ class Event extends React.Component {
     const action = (hasLoggedIn && eventInfo.event_button_action_post_login) || eventInfo.event_button_action;
 
     let eventButton;
-    if(action === "marketplace" || (!eventInfo.event_button_action && eventInfo.event_button_opens_marketplace)) {
+    if(action === "sign_in" && !rootStore.walletLoggedIn) {
+      eventButton = (
+        <button
+          style={(branding.get_started || {}).styles}
+          className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+          onClick={() => {
+            const postLogin = eventInfo.post_login || {};
+
+            let path;
+            if(postLogin.action === "marketplace") {
+              path = UrlJoin("/", this.props.siteStore.tenantSlug || "", this.props.siteStore.siteSlug, "marketplace");
+
+              if(postLogin.sku) {
+                path = UrlJoin(path, "store", postLogin.sku);
+                if(postLogin.sku && postLogin.redirect_to_owned_item) {
+                  path = path + "?redirect=owned";
+                }
+              }
+            }
+
+            this.props.rootStore.LogIn(path);
+          }}
+        >
+          {ButtonContent(branding.get_started, "Get Started")}
+        </button>
+      );
+    } else if(action === "marketplace" || (!eventInfo.event_button_action && eventInfo.event_button_opens_marketplace)) {
       const marketplace = eventInfo.event_button_marketplace ?
         siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === eventInfo.event_button_marketplace) :
         siteStore.marketplaceInfo;
@@ -469,7 +495,7 @@ class Event extends React.Component {
           {ButtonContent(branding.get_started, "Get Started")}
         </a>
       );
-    } else if(action !== "hidden" && !marketplaceDisabled) {
+    } else if(!marketplaceDisabled && (typeof action === "undefined" || action === "modal")) {
       if(hasLoggedIn && this.props.siteStore.nextDrop) {
         eventButton = (
           this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
