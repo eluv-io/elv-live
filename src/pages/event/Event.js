@@ -429,6 +429,8 @@ class Event extends React.Component {
       const marketplace = eventInfo.event_button_marketplace ?
         siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === eventInfo.event_button_marketplace) :
         siteStore.marketplaceInfo;
+      const sku = eventInfo.event_button_marketplace_sku;
+      const redirectToOwned = sku && eventInfo.event_button_marketplace_redirect_to_owned_item;
 
       eventButton = (
         <button
@@ -438,12 +440,15 @@ class Event extends React.Component {
             this.props.rootStore.SetWalletPanelVisibility(
               {
                 visibility: "full",
+                delay: redirectToOwned ? 1000 : 0,
                 location: {
-                  page: "marketplace",
-                  params: {
-                    tenantSlug: marketplace.tenant_slug,
-                    marketplaceSlug: marketplace.marketplace_slug
-                  }
+                  path : UrlJoin(
+                    "/marketplace",
+                    marketplace.marketplaceId,
+                    "store",
+                    sku || "",
+                    redirectToOwned ? "?redirect=owned" : ""
+                  )
                 }
               }
             );

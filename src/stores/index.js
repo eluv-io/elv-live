@@ -411,7 +411,7 @@ class RootStore {
   }
 
   @action.bound
-  SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false}) {
+  SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false, delay=0}) {
     try {
       if(this.siteStore.marketplaceOnly) {
         visibility = "exclusive";
@@ -463,6 +463,10 @@ class RootStore {
 
           walletPanel.addEventListener("click", Close);
           this.frameClient.AddEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, Close);
+        }
+
+        if(delay) {
+          yield new Promise(resolve => setTimeout(resolve, delay));
         }
 
         this.currentWalletState = {
