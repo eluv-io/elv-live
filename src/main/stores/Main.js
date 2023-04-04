@@ -85,6 +85,7 @@ class MainStore {
 
     const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info"));
     metadataUrl.searchParams.set("resolve", "false");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
 
     metadataUrl.searchParams.append("remove", "news");
 
@@ -205,9 +206,13 @@ class MainStore {
   LoadNews = flow(function * () {
     if(this.newsItems) { return; }
 
+    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/news"));
+    metadataUrl.searchParams.set("resolve", "false");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
+
     this.newsItems = ProduceMetadataLinks({
       path: "/public/asset_metadata/info/news",
-      metadata: yield (yield fetch(new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/news")))).json()
+      metadata: yield (yield fetch(metadataUrl)).json()
     });
   });
 

@@ -52,6 +52,16 @@
 
   &__text {
     clear: both;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    ul {
+      margin-bottom: 20px;
+    }
   }
 
   @media screen and (max-width: $width-tablet) {

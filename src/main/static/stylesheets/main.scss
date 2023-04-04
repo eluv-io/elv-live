@@ -638,7 +638,9 @@
 
   &__card,
   &__card-image {
+    border-radius: 24px;
     height: auto;
+    overflow: hidden;
     width: auto;
   }
 
