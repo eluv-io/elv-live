@@ -545,10 +545,29 @@
     width: 100%;
   }
 
+  &__site-video {
+    position: relative;
+  }
+
+  &__site-video-cover {
+    background: transparent;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  &__site-video-player {
+    user-select: none;
+  }
+
   &__site-image,
   &__placeholder {
     aspect-ratio: 16/9;
     height: 100%;
+    overflow: hidden;
     width: 100%;
   }
 

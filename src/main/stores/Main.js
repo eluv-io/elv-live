@@ -119,6 +119,8 @@ class MainStore {
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video_mobile"));
     metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
 
     const metadata = yield (yield fetch(metadataUrl)).json();
@@ -129,13 +131,15 @@ class MainStore {
     Object.keys(metadata.featured_events).forEach(index =>
       Object.keys(metadata.featured_events[index]).forEach(slug => {
         const site = metadata.featured_events[index][slug];
-        const {event_images} = site.info;
+        const {event_images} = site.info || {};
         const siteUrl = new URL(UrlJoin(window.location.origin, slug));
 
         featuredSites.push({
           name: site.display_title,
           hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", "hero_background"))).toString(),
           hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
+          hero_video: event_images.hero_video,
+          hero_video_mobile: event_images.hero_video_mobile,
           index,
           slug,
           siteUrl

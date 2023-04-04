@@ -9,7 +9,7 @@
   top: 0;
   user-select: none;
   width: 100%;
-  z-index: 10001;
+  z-index: 10000;
 
   & > * {
     flex: 1 1 auto;
@@ -247,6 +247,10 @@
     margin: auto;
     padding: 2px 0 30px;
     width: 75vw;
+
+    &.rich-text {
+      flex-direction: column;
+    }
   }
 
   &__item {

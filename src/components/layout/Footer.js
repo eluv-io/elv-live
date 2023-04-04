@@ -52,7 +52,7 @@ class Footer extends React.Component {
                             <div className="event-message__content">
                               <RichText
                                 richText={content_rich_text}
-                                className="event-message__content__message"
+                                className="event-message__content__message markdown-document"
                               />
                             </div>
                           </div> :

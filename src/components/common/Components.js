@@ -1,26 +1,17 @@
-import React, {useState} from "react";
-import {createRoot} from "react-dom/client";
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import DOMPurify from "dompurify";
+import rehypeRaw from "rehype-raw";
 
-export const RichText = ({richText, className=""}) => {
-  const [reactRoot, setReactRoot] = useState(undefined);
-
+export const RichText = ({richText, children, className=""}) => {
   return (
-    <div
-      className={`rich-text ${className}`}
-      ref={element => {
-        if(!element) { return; }
-
-        const root = reactRoot || createRoot(element);
-        setReactRoot(root);
-
-        root.render(
-          <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-            { DOMPurify.sanitize(richText) }
-          </ReactMarkdown>,
-        );
-      }}
-    />
+    <div className={`rich-text ${className}`}>
+      { children }
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
+      >
+        { DOMPurify.sanitize(richText) }
+      </ReactMarkdown>
+    </div>
   );
 };
