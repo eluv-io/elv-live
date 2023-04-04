@@ -49,7 +49,7 @@ const Header = observer(({mobile}) => {
 const VideoBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--video">
-      <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
+      <Video versionHash="hq__JhKMqDXNrmCMqfBzhW5v3Uw1r92gsn6aQtc2WpdAErBWD6bLh2QPiKQ4WMoMP8wGJWU1Ha6fCb" className="main-page-block__video" />
       <div className="main-page-block__copy-container">
         <h2 className="main-page-block__copy-header">
           { mainStore.l10n.creators.video_block.header }

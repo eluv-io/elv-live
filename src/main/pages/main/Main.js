@@ -7,10 +7,10 @@ import {RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
-import EluvioLogo from "../../static/images/logos/eluvio-logo-color.png";
+import EluvioLogo from "../../static/images/logos/eluvio-logo-with-taglines.png";
 import FeaturesImage from "../../static/images/main/Advanced-full-feature-platform.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
-import ExperiencesImage2 from "../../static/images/main/Developers-and-Node-Providers.jpg";
+import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
 
@@ -19,12 +19,6 @@ const Header = observer(() => {
     <MainHeader>
       <h1 className="main-page-header__logo-container">
         <ImageIcon icon={EluvioLogo} label="Eluvio" className="main-page-header__logo" />
-        <div className="main-page-header__logo-header">
-          { mainStore.l10n.main.heading.header }
-        </div>
-        <div className="main-page-header__logo-subheader">
-          { mainStore.l10n.main.heading.subheader }
-        </div>
       </h1>
       <div className="main-page-header__copy-container no-tablet">
         <h2 className="main-page-header__copy">

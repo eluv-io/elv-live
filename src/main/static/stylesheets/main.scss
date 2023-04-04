@@ -47,26 +47,9 @@
   }
 
   &__logo {
-    height: 175px;
+    height: 305px;
     object-fit: contain;
     width: auto;
-  }
-
-  &__logo-header,
-  &__logo-subheader {
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  &__logo-header {
-    font-size: var(--font-size-feature-header);
-  }
-
-  &__logo-subheader {
-    font-size: var(--font-size-feature-subheader);
   }
 
   &__copy-container {
@@ -102,12 +85,6 @@
     position: absolute;
     width: 100%;
     z-index: 1;
-  }
-
-  @media screen and (max-width: $width-laptop) {
-    &__logo-header {
-      font-size: var(--font-size-header-1);
-    }
   }
 
   @media screen and (max-width: $width-tablet) {
@@ -629,7 +606,6 @@
   }
 
   &__background {
-    filter: blur(25px);
     height: 100%;
     left: 0;
     object-fit: cover;
