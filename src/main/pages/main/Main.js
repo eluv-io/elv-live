@@ -57,7 +57,7 @@ const VideoBlock = observer(({mobile}) => {
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--video">
-        <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
+        <Video versionHash="hq__JhKMqDXNrmCMqfBzhW5v3Uw1r92gsn6aQtc2WpdAErBWD6bLh2QPiKQ4WMoMP8wGJWU1Ha6fCb" className="main-page-block__video" />
         <div className="main-page-block__copy-container">
           <h3 className="main-page-block__copy-header">
             { header }
@@ -77,7 +77,7 @@ const VideoBlock = observer(({mobile}) => {
 
   return (
     <div className="main-page-block main-page-block--video">
-      <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
+      <Video versionHash="hq__JhKMqDXNrmCMqfBzhW5v3Uw1r92gsn6aQtc2WpdAErBWD6bLh2QPiKQ4WMoMP8wGJWU1Ha6fCb" className="main-page-block__video" />
       <div className="main-page-block__copy-container">
         <h5 className="main-page-block__copy-subheader">
           { subheader }
@@ -87,14 +87,14 @@ const VideoBlock = observer(({mobile}) => {
         </h2>
         <div className="main-page-block__copy-with-icons">
           <div className="main-page-block__icon-column">
-            <ImageIcon icon={BlockchainIcon} label="blockchain" className="main-page-block__icon" />
-            <ImageIcon icon={PlayIcon} label="play" className="main-page-block__icon" />
-            <ImageIcon icon={MoneyIcon} label="money" className="main-page-block__icon" />
-            <ImageIcon icon={PowerIcon} label="power" className="main-page-block__icon" />
-            <ImageIcon icon={FilmIcon} label="film" className="main-page-block__icon" />
           </div>
           <div className="main-page-block__copy">
-            { features.map(feature => <p key={feature}>{feature}</p>)}
+            { features.map((feature, index) => (
+              <div key={feature} className="main-page-block__icon-copy">
+                <ImageIcon icon={icons[index]} className="main-page-block__icon" />
+                <p>{feature}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
