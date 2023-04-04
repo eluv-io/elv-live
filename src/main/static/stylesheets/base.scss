@@ -50,8 +50,8 @@ body {
   overflow-y: scroll;
   position: relative;
 
-  &.wallet,
-  &.mobile-menu {
+  .wallet,
+  .mobile-menu {
     overflow: hidden;
   }
 }
@@ -172,7 +172,6 @@ h4 {
     a {
       color: var(--color-highlight-2);
 
-      // sass-lint:disable selector-no-qualifying-type
       &.action {
         color: var(--color-highlight-2);
       }

@@ -331,8 +331,8 @@
   }
 
   &__icon {
-    min-height: 26px;
-    min-width: 26px;
+    min-height: 30px;
+    min-width: 30px;
   }
 
   &__separator {
@@ -465,6 +465,11 @@
     &__icon-column {
       height: 100%;
       justify-content: space-between;
+    }
+
+    &__icon {
+      min-height: 26px;
+      min-width: 26px;
     }
 
     &--browse {

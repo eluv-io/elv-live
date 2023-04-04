@@ -3,6 +3,7 @@ import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
 import {ElvWalletClient} from "@eluvio/elv-client-js";
+import SiteConfiguration from "@eluvio/elv-client-js/src/walletClient/Configuration";
 
 import LocalizationEN from "../static/localization/en/en.yml";
 import FeaturesDetailsEN from "../static/localization/en/FeaturesDetails.yaml";
@@ -17,14 +18,13 @@ configure({
   disableErrorBoundaries: true
 });
 
-const libraryId = "ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD";
-const objectId = "iq__2APUwchUAmMAKRgWStEN7ZXtAKkV";
+const mainSiteConfig = SiteConfiguration[EluvioConfiguration.network][EluvioConfiguration.mode];
 
 const staticUrl = EluvioConfiguration.network === "main" ?
   "https://main.net955305.contentfabric.io/s/main" :
   "https://demov3.net955210.contentfabric.io/s/demov3";
 
-const staticSiteUrl = UrlJoin(staticUrl, "qlibs", libraryId, "q", objectId);
+const staticSiteUrl = UrlJoin(staticUrl, "qlibs", mainSiteConfig.siteLibraryId, "q", mainSiteConfig.siteId);
 
 const ProduceMetadataLinks = ({path="/", metadata}) => {
   // Primitive
@@ -217,10 +217,6 @@ class MainStore {
       ...(yield import("../static/localization/test.yml")).default
     };
   });
-
-  get headerLoopURL() {
-    return new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/header_loop")).toString();
-  }
 
   get notification() {
     const notification = this.mainSite?.notification;

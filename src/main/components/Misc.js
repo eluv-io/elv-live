@@ -47,6 +47,10 @@ export const Video = observer(({
     return () => player?.Destroy();
   }, [mainStore.client, player]);
 
+  if(!videoMetadata && !versionHash) {
+    return <div className="player-container player-container--loading" />;
+  }
+
   if(!versionHash) {
     if(videoMetadata["/"]) {
       versionHash = videoMetadata["/"].split("/").find(element => element.startsWith("hq__"));

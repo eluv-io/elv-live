@@ -57,7 +57,7 @@ const VideoBlock = observer(({mobile}) => {
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--video">
-        <Video versionHash="hq__JhKMqDXNrmCMqfBzhW5v3Uw1r92gsn6aQtc2WpdAErBWD6bLh2QPiKQ4WMoMP8wGJWU1Ha6fCb" className="main-page-block__video" />
+        <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
         <div className="main-page-block__copy-container">
           <h3 className="main-page-block__copy-header">
             { header }
@@ -77,7 +77,7 @@ const VideoBlock = observer(({mobile}) => {
 
   return (
     <div className="main-page-block main-page-block--video">
-      <Video versionHash="hq__JhKMqDXNrmCMqfBzhW5v3Uw1r92gsn6aQtc2WpdAErBWD6bLh2QPiKQ4WMoMP8wGJWU1Ha6fCb" className="main-page-block__video" />
+      <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
       <div className="main-page-block__copy-container">
         <h5 className="main-page-block__copy-subheader">
           { subheader }
