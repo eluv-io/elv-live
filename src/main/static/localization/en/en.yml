@@ -6,8 +6,8 @@ header:
   creators_and_publishers: Creators & Publishers
   content_fabric: Content Fabric
   content_fabric_protocol: The Content Fabric Protocol
-  eluvio_technology: Eluv.io Technology
-  eluvio_blockchain: Eluv.io Blockchain
+  eluvio_technology: Content Fabric Technology
+  eluvio_blockchain: Content Fabric Blockchain
   features: Features
   tenancy_levels: Tenancy Levels
   pricing: Pricing
@@ -21,22 +21,24 @@ header:
 main:
   heading:
     header: Own Your Destiny
-    subheader: The content Blockchain
-    tagline: We believe in creative IP and the future of individual ownership
+    subheader: The Content Blockchain
+    tagline: Unlocking the value of creative IP with direct distribution and individual ownership
   feature_banner:
-    - Creators own the fruits of their work
-    - Content distribution is efficient & sustainable
-    - Users own their data
-    - Clear market opportunity for publishers & sponsors
-    - Transparency for all
+    - Fast, transparent, beautiful, and sustainable
+    - Content owners control their assets and profitability
+    - Users control their data
+    - Brands and users engage without middle parties
+    - Royalties scale without limit
+    - Creative IP achieves maximum value
   video_block:
     subheader: Enabled by
     header: The Content Fabric Technology
     features:
-      - A novel utility blockchain network built for content
-      - Programmable, Hyper Efficient, and Sustainable (50X today's CDNs)
-      - Storage, Distribution, Streaming and more
-      - On Chain Ownership, Versioning and Access Control
+      - A novel utility blockchain network for any content
+      - Programmable, Hyper Efficient, and Sustainable
+      - 50X more efficient and up to 80% less costly than clouds and CDNs
+      - Storage, Distribution, Streaming
+      - Tamper-free on chain Ownership, Versioning, Access Control
     features_mobile:
       - An Eco-Friendly Content Blockchain
       - A Hyper Efficient Video Distribution Platform
@@ -48,9 +50,9 @@ main:
     header: Advanced Full-Feature Platform For All Web3 Media
     header_mobile: Advanced Full-Feature Media Platform
     text: |
-      All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content.
+      All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content with one Fabric protocol.
 
-      Low Latency 4K Streaming with Beautiful Quality & Advanced Video Features. Built in Monetization through Blockchain - tickets, tokens, & payments.
+      Low Latency 4K Streaming, Live and On Demand with Beautiful Quality & Advanced Features. Built in Blockchain Monetization and Web3 Native. Tokens, payments, tickets, wallets, and more.
 
       [See Feature Details](/features/details)
     text_mobile: |
@@ -63,7 +65,7 @@ main:
     developers: Developers & Node Providers
   projects_block:
     header: Discover Web3 Media Projects.
-    subheader: All built on the Content Blockchain.
+    subheader: All built on the Blockchain Content Fabric.
 
 
 
@@ -71,23 +73,28 @@ main:
 creators:
   heading:
     header: Built for the New Creator Economy
-    subheader: Create, Distribute & Sell Your Content
+    subheader: Create, Host, Distribute & Sell Your Content with the Most Advanced Platform for Content Ever Made
   video_block:
     header: Full-feature media platform eliminates the need for CDNs and transcoding services
     text: |
-      Publish and instantly distribute your content. Beautiful Quality & Advanced Video Features.
+      Publish and instantly distribute your content. Beautiful Quality, Live, On Demand and Immersive/XR Content with Advanced Features & Personalization.
 
-      Built in Monetization through Blockchain: turn-key sites, tickets, tokens, payments & brand-able marketplaces
+      Web3 Native with Built-in Blockchain Monetization: Turn-key, customizable sites, drops, events, marketplaces & APIs
+      
+      Token gated authorization (subscription and sell through), minting and digital payments (fiat and crypto); blockchain ticketing; on chain royalties; and redeemable offers and claims. 
+      
+      Media Wallet for web2-web3 easy sign on, cryptographic signing, token management, and lean-back viewing with global content streaming and distribution from the Content Fabric.    
 
       [See Feature Details](/features/details)
   customize: Customize Your Experience & Build your Community
-  monetize: Create & Monetize as your Brand Grows
+  monetize: Monetize as your Brand Grows & Keep Your Revenue
   marketplaces:
     header: Release singles, albums, videos, apps, books & media packages, all on the Content Blockchain
   get_started_block:
     header: Create & Own Your Web3 Brand
     text: |
-      Take control of your content and get started creating your first digital offering. Custom sites, stores & resale marketplaces for any media type content release.
+      Take control of your content and get started creating your first digital offering. Custom sites, channels, stores & resale marketplaces with  multi-party sales and royalties for any media type & content release.
+      Harness new revenue opportunities, huge savings, and brand loyalty.
     cta: Get Started Now
   key_features:
     header: Key Features
@@ -364,48 +371,40 @@ footer:
   - title: "Technology"
     icon: "link"
     links:
-      - text: "Eluvio Technology"
+      - text: "Content Fabric Technology"
         link: "/content-fabric/technology"
-      - text: "Become an Node Operator"
-        link: "/"
+      - text: "Become a Node Operator"
+        link: "https://maintainer.doc.eluv.io/overview/"
       - text: "Features & Functionality"
-        link: "/"
-      - text: "Questions & Answers"
-        link: "/"
+        link: "/features/details"
       - text: "Careers"
-        link: "https://eluvio.workable.com/"
+        link: "https://apply.workable.com/eluvio/"
   - title: "Discover"
     icon: "discover"
     links:
       - text: "Discover Marketplaces"
-        link: "/"
-      - text: "Join our Newsletter"
-        link: "/"
+        link: "/wallet#/marketplaces"
       - text: "Get Started"
-        link: "/"
+        link: "/about/contact"
       - text: "Github"
         link: "https://github.com/eluv-io"
-  - title: "NFTs"
+  - title: "Community"
     icon: "link"
     links:
       - text: "Join our Community"
-        link: "/"
-      - text: "Genesis NFT"
-        link: "/"
-      - text: "Community Meeting #1"
-        link: "/"
-      - text: "Community Meeting #2"
-        link: "/"
-      - text: "Community Meeting #3"
-        link: "/careers"
-  - title: "Documents"
+        link: "https://live.eluv.io/community"
+      - text: "Community Site"
+        link: "https://live.eluv.io/community"
+      - text: "Community NFT Store"
+        link: "https://wallet.contentfabric.io/#/marketplace/iq__2PHzgKZRmMVnrPFCmbg1wQ2KJEug/store"
+  - title: "Resources"
     icon: "document"
     links:
       - text: "Whitepaper"
-        link: "/"
+        link: "https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf"
       - text: "Node & Validator Providers"
-        link: "/"
+        link: "https://maintainer.doc.eluv.io/overview/"
       - text: "API Developers"
-        link: "/"
+        link: "https://hub.doc.eluv.io/content/"
       - text: "Current State & Roadmap"
         link: "/"
