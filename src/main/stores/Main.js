@@ -3,6 +3,7 @@ import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
 import {ElvWalletClient} from "@eluvio/elv-client-js";
+import SiteConfiguration from "@eluvio/elv-client-js/src/walletClient/Configuration";
 
 import LocalizationEN from "../static/localization/en/en.yml";
 import FeaturesDetailsEN from "../static/localization/en/FeaturesDetails.yaml";
@@ -17,14 +18,13 @@ configure({
   disableErrorBoundaries: true
 });
 
-const libraryId = "ilib36Wi5fJDLXix8ckL7ZfaAJwJXWGD";
-const objectId = "iq__2APUwchUAmMAKRgWStEN7ZXtAKkV";
+const mainSiteConfig = SiteConfiguration[EluvioConfiguration.network][EluvioConfiguration.mode];
 
 const staticUrl = EluvioConfiguration.network === "main" ?
   "https://main.net955305.contentfabric.io/s/main" :
   "https://demov3.net955210.contentfabric.io/s/demov3";
 
-const staticSiteUrl = UrlJoin(staticUrl, "qlibs", libraryId, "q", objectId);
+const staticSiteUrl = UrlJoin(staticUrl, "qlibs", mainSiteConfig.siteLibraryId, "q", mainSiteConfig.siteId);
 
 const ProduceMetadataLinks = ({path="/", metadata}) => {
   // Primitive
@@ -85,6 +85,7 @@ class MainStore {
 
     const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info"));
     metadataUrl.searchParams.set("resolve", "false");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
 
     metadataUrl.searchParams.append("remove", "news");
 
@@ -118,6 +119,8 @@ class MainStore {
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
     metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video"));
+    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video_mobile"));
     metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
 
     const metadata = yield (yield fetch(metadataUrl)).json();
@@ -128,13 +131,15 @@ class MainStore {
     Object.keys(metadata.featured_events).forEach(index =>
       Object.keys(metadata.featured_events[index]).forEach(slug => {
         const site = metadata.featured_events[index][slug];
-        const {event_images} = site.info;
+        const {event_images} = site.info || {};
         const siteUrl = new URL(UrlJoin(window.location.origin, slug));
 
         featuredSites.push({
           name: site.display_title,
           hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", "hero_background"))).toString(),
           hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
+          hero_video: event_images.hero_video,
+          hero_video_mobile: event_images.hero_video_mobile,
           index,
           slug,
           siteUrl
@@ -205,9 +210,13 @@ class MainStore {
   LoadNews = flow(function * () {
     if(this.newsItems) { return; }
 
+    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/news"));
+    metadataUrl.searchParams.set("resolve", "false");
+    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
+
     this.newsItems = ProduceMetadataLinks({
       path: "/public/asset_metadata/info/news",
-      metadata: yield (yield fetch(new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/news")))).json()
+      metadata: yield (yield fetch(metadataUrl)).json()
     });
   });
 
@@ -217,10 +226,6 @@ class MainStore {
       ...(yield import("../static/localization/test.yml")).default
     };
   });
-
-  get headerLoopURL() {
-    return new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata/info/header_loop")).toString();
-  }
 
   get notification() {
     const notification = this.mainSite?.notification;

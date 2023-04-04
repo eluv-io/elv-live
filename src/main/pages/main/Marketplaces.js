@@ -8,7 +8,7 @@ import ImageIcon from "../../components/ImageIcon";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
 
-import BackgroundImage from "../../static/images/main/Creators-&-Content-Businesses.jpg";
+import BackgroundImage from "../../static/images/main/release-singles-albums.jpg";
 import {runInAction} from "mobx";
 
 const MarketplaceGrid = observer(({mobile}) => {

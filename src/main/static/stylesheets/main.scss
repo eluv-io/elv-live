@@ -47,26 +47,9 @@
   }
 
   &__logo {
-    height: 175px;
+    height: 305px;
     object-fit: contain;
     width: auto;
-  }
-
-  &__logo-header,
-  &__logo-subheader {
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  &__logo-header {
-    font-size: var(--font-size-feature-header);
-  }
-
-  &__logo-subheader {
-    font-size: var(--font-size-feature-subheader);
   }
 
   &__copy-container {
@@ -102,12 +85,6 @@
     position: absolute;
     width: 100%;
     z-index: 1;
-  }
-
-  @media screen and (max-width: $width-laptop) {
-    &__logo-header {
-      font-size: var(--font-size-header-1);
-    }
   }
 
   @media screen and (max-width: $width-tablet) {
@@ -354,8 +331,8 @@
   }
 
   &__icon {
-    min-height: 26px;
-    min-width: 26px;
+    min-height: 30px;
+    min-width: 30px;
   }
 
   &__separator {
@@ -490,6 +467,11 @@
       justify-content: space-between;
     }
 
+    &__icon {
+      min-height: 26px;
+      min-width: 26px;
+    }
+
     &--browse {
       gap: 30px;
       text-align: center;
@@ -563,10 +545,29 @@
     width: 100%;
   }
 
+  &__site-video {
+    position: relative;
+  }
+
+  &__site-video-cover {
+    background: transparent;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  &__site-video-player {
+    user-select: none;
+  }
+
   &__site-image,
   &__placeholder {
     aspect-ratio: 16/9;
     height: 100%;
+    overflow: hidden;
     width: 100%;
   }
 
@@ -629,7 +630,6 @@
   }
 
   &__background {
-    filter: blur(25px);
     height: 100%;
     left: 0;
     object-fit: cover;
@@ -657,7 +657,9 @@
 
   &__card,
   &__card-image {
+    border-radius: 24px;
     height: auto;
+    overflow: hidden;
     width: auto;
   }
 

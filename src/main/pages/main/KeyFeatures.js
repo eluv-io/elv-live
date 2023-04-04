@@ -18,35 +18,43 @@ import Feature8 from "../../static/images/main/features/8_Data-Card-Face.png";
 const FeatureCards = [
   {
     image: Feature1,
-    text: "Live Events & Drops"
+    text: "Live Events & Drops\nLorem ipsum dolor sit amet consectetur.",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature2,
     text: "Marketplace",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature3,
     text: "Payment Gateway",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature4,
     text: "Content Investing",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature5,
     text: "Dynamic Traits",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature6,
     text: "Market Making Curation & Matching",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature7,
     text: "Customization",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   },
   {
     image: Feature8,
     text: "Data",
+    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
   }
 ];
 

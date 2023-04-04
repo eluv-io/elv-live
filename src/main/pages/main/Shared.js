@@ -1,6 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {mainStore} from "../../stores/Main";
+import HeaderLoop from "../../static/videos/header-loop.mp4";
 
 const HeaderVideo = observer(() => {
   return (
@@ -9,7 +9,7 @@ const HeaderVideo = observer(() => {
       muted
       autoPlay
       className="main-page-header__video"
-      src={mainStore.headerLoopURL}
+      src={HeaderLoop}
     />
   );
 });

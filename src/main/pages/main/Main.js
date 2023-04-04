@@ -7,10 +7,10 @@ import {RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
-import EluvioLogo from "../../static/images/logos/eluvio-logo-color.png";
+import EluvioLogo from "../../static/images/logos/eluvio-logo-with-taglines.png";
 import FeaturesImage from "../../static/images/main/Advanced-full-feature-platform.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
-import ExperiencesImage2 from "../../static/images/main/Developers-and-Node-Providers.jpg";
+import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
 
@@ -19,12 +19,6 @@ const Header = observer(() => {
     <MainHeader>
       <h1 className="main-page-header__logo-container">
         <ImageIcon icon={EluvioLogo} label="Eluvio" className="main-page-header__logo" />
-        <div className="main-page-header__logo-header">
-          { mainStore.l10n.main.heading.header }
-        </div>
-        <div className="main-page-header__logo-subheader">
-          { mainStore.l10n.main.heading.subheader }
-        </div>
       </h1>
       <div className="main-page-header__copy-container no-tablet">
         <h2 className="main-page-header__copy">
@@ -63,7 +57,7 @@ const VideoBlock = observer(({mobile}) => {
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--video">
-        <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
+        <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
         <div className="main-page-block__copy-container">
           <h3 className="main-page-block__copy-header">
             { header }
@@ -83,7 +77,7 @@ const VideoBlock = observer(({mobile}) => {
 
   return (
     <div className="main-page-block main-page-block--video">
-      <Video versionHash="hq__AxfX3M5EixtPpKzLnca4wzyveT3ZSXjsKNi3ZpwfdBEzUJB9tUqnvdx7JfXzrmofs1qKdAJ5rg" className="main-page-block__video" />
+      <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
       <div className="main-page-block__copy-container">
         <h5 className="main-page-block__copy-subheader">
           { subheader }
@@ -93,14 +87,14 @@ const VideoBlock = observer(({mobile}) => {
         </h2>
         <div className="main-page-block__copy-with-icons">
           <div className="main-page-block__icon-column">
-            <ImageIcon icon={BlockchainIcon} label="blockchain" className="main-page-block__icon" />
-            <ImageIcon icon={PlayIcon} label="play" className="main-page-block__icon" />
-            <ImageIcon icon={MoneyIcon} label="money" className="main-page-block__icon" />
-            <ImageIcon icon={PowerIcon} label="power" className="main-page-block__icon" />
-            <ImageIcon icon={FilmIcon} label="film" className="main-page-block__icon" />
           </div>
           <div className="main-page-block__copy">
-            { features.map(feature => <p key={feature}>{feature}</p>)}
+            { features.map((feature, index) => (
+              <div key={feature} className="main-page-block__icon-copy">
+                <ImageIcon icon={icons[index]} className="main-page-block__icon" />
+                <p>{feature}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
