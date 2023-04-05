@@ -90,7 +90,7 @@
   @media screen and (max-width: $width-tablet) {
     &__content {
       flex-direction: column;
-      gap: 30px;
+      gap: 50px;
       padding: 20px;
     }
 
@@ -106,17 +106,24 @@
       text-align: center;
     }
 
+    &__copy {
+      font-size: var(--font-size-header-2);
+    }
+
+    &__logo-container {
+      padding-inline: 20px;
+      width: 100%;
+    }
+
     &__logo {
-      height: 150px;
+      height: auto;
+      max-width: 450px;
+      width: 100%;
     }
   }
 
   @media screen and (max-width: $width-mobile) {
     height: calc(100vh - 40px);
-
-    &__logo {
-      height: 140px;
-    }
   }
 }
 
@@ -454,7 +461,8 @@
   @media screen and (max-width: $width-laptop) {
     gap: 35px;
 
-    &__key-features__list {
+    &__key-features__list,
+    &--text-boxes {
       gap: 20px;
     }
 

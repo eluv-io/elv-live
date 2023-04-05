@@ -5,8 +5,10 @@ import HeaderLoop from "../../static/videos/header-loop.mp4";
 const HeaderVideo = observer(() => {
   return (
     <video
+      // Muted isn't set properly in react
+      ref={element => element?.setAttribute("muted", "1")}
       loop
-      muted
+      playsInline
       autoPlay
       className="main-page-header__video"
       src={HeaderLoop}
