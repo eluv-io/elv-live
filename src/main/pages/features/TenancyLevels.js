@@ -39,34 +39,17 @@ const BannerBox = ({title, icon, paragraph, link}) => {
 const TenanciesList = ({monthly=false}) => {
   return (
     <div className="tenancies-list">
-      <TenancyInfo
-        tenancy="PAY_AS_YOU_GO"
-        level="Level 1"
-        service="Self Service"
-        features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-        monthlyPrice={FormatCurrency({number: 0, maximumFractionDigits: 0})}
-        additionalCostText="+ utility fees"
-      />
-      <TenancyInfo
-        tenancy="ADVANCED"
-        level="Level 2"
-        service="Tier 1 Support"
-        features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-        monthlyPrice={FormatCurrency({number: monthly ? "995" : "833", maximumFractionDigits: 0})}
-        additionalCostText={monthly ? "+ utility fees" : "+ utility fees in annual commit"}
-        addedBenefitPercentage="50+%"
-        addedBenefitText="On selected Content Fabric utility rates"
-      />
-      <TenancyInfo
-        tenancy="ENTERPRISE"
-        level="Level 3"
-        service=" Full Valet Service"
-        features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-        monthlyPrice={FormatCurrency({number: monthly ? "9995" : "8333", maximumFractionDigits: 0})}
-        additionalCostText={monthly ? "+ utility fees" : "+ utility fees in annual commit"}
-        addedBenefitPercentage="90+%"
-        addedBenefitText="On selected Content Fabric utility rates"
-      />
+      {mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features}) => (
+        <TenancyInfo
+          header={header}
+          subHeader={sub_header}
+          monthlyPrice={monthly ? monthly_price : annual_price}
+          additionalCostText="+ utility fees"
+          addedBenefitPercentage={added_benefit_percentage}
+          addedBenefitText={added_benefit_text}
+          features={features}
+        />
+      ))}
     </div>
   );
 };
@@ -98,7 +81,7 @@ const TenancyLevels = observer(() => {
       <div className="page">
         <div className="page__header-container">
           <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
-          <h3>What works best for your brand?</h3>
+          <h3>What works best for your creative brand?</h3>
         </div>
         <div className="page__content-block">
           <TabbedInfoBox

@@ -35,28 +35,31 @@ const ItemCard = (data, key, dark=false) => {
     }
   };
 
-  const {label, payAsYouGo, enterprise, advanced, icons} = data;
+  const {label, level_1, level_2, level_3, icons} = data;
 
   return (
     <div className={`features-support__item-card ${dark ? "dark" : "light"}`} key={key}>
       <div className="features-support__item-card-content">
         <span>
           { label }
-          <div className="features-support__item-card-communication">
-            {
-              Object.keys(icons || {}).map(iconKey => (
-                icons[iconKey] &&
-                <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
-                  <ImageIcon icon={iconMap[iconKey].icon}/>
-                  <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
-                </span>
-              ))
-            }
-          </div>
+          {
+            Object.values(icons).some(iconName => iconName) &&
+            <div className="features-support__item-card-communication">
+              {
+                Object.keys(icons || {}).map(iconKey => (
+                  icons[iconKey] &&
+                  <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
+                    <ImageIcon icon={iconMap[iconKey].icon}/>
+                    <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
+                  </span>
+                ))
+              }
+            </div>
+          }
         </span>
-        <span className="centered">{ payAsYouGo ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        <span className="centered">{ advanced ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        <span className="centered">{ enterprise ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ level_1 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ level_2 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ level_3 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
       </div>
     </div>
   );
@@ -121,15 +124,15 @@ const FeaturesSupport = observer(() => {
                 <span></span>
                 <span className="features-support__header-text">
                   <span className="features-support__header-text__subheader">Level 1</span>
-                  <h5>Pay As You Go</h5>
+                  <div className="features-support__header">Pay As You Go</div>
                 </span>
                 <span className="features-support__header-text">
                   <span className="features-support__header-text__subheader">Level 2</span>
-                  <h5>Advanced</h5>
+                  <div className="features-support__header">Professional Creator</div>
                 </span>
                 <span className="features-support__header-text">
                   <span className="features-support__header-text__subheader">Level 3</span>
-                  <h5>Enterprise</h5>
+                  <div className="features-support__header">Creative Enterprise</div>
                 </span>
               </div>
               {

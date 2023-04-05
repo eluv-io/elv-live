@@ -1,0 +1,129 @@
+levels:
+  - header: |
+      Pay As You Go
+      Self Service
+    sub_header: Level 1
+    monthly_price: $0
+    annual_price: $0
+    features:
+      - Open Source Content Fabric Application Suite
+      - Email Support
+  - header: Professional Creator
+    sub_header: Level 2
+    monthly_price: $2,000
+    annual_price: $1,666.67
+    added_benefit_text: |
+      Off selected
+      Content Fabric utilities
+    added_benefit_percentage: 50+%
+    features:
+      - Open Source Content Fabric Application Suite
+      - Turnkey Web3 Content Experience and Storefronts
+      - 1 Brandable Property
+      - $0.5 Minting (NFT, ERC-20)
+      - Priority Technical Support
+  - header: Creative Enterprise
+    sub_header: Level 3
+    monthly_price: $10,000
+    annual_price: $8,333.33
+    added_benefit_text: |
+      Off selected
+      Content Fabric utilities
+    added_benefit_percentage: 90+%
+    features:
+      - Open Source Content Fabric Application Suite
+      - Turnkey Web3 Content Experience and Storefronts
+      - Unlimited Brandable Properties
+      - $0.10 Minting (NFT, ERC-20)
+      - 24x7 Premium Technical Support, Valet Content Ops & Dedicated API Support
+
+## Feature Comparison at a Glance Table
+comparison_table:
+  - header: Content Fabric Core Utilities - All Features
+    items:
+      - label: Content Distribution, Advanced Media Features and Supporting Services
+        level_1: true
+        level_2: true
+        level_3: true
+  - header: Management Applications and Tools
+    items:
+      - label: Fabric Browser
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Asset Manager CMS
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Video Editor
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Media Ingest UI
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Site Sample
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Clipping Console
+        level_1: true
+        level_2: true
+        level_3: true
+  - header: '"Powered by Eluvio" Web3 Content Experiences and Stores'
+    items:
+      - label: Token Authorized Content (Suscription and Single Purchase)
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Integrated Minting On Demand (NFT and ERC-20)
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Integrated Blockchain Tickets
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: In-wallet "On Chain" Redeemable Offers
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Integrated Payments
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Single Click Claim & Mint URLs for Email and Ecommerce
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Media Wallet with Web 2 Open ID + Web 3 Metamask Easy Sign On
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Configurable Media Galleries - Live/On Demand Streams, Immersive AR/XR, HTML Apps, E-books
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Dedicated Site Customization/Visual Design Support
+        level_1: false
+        level_2: false
+        level_3: true
+      - label: Landing/Event Object
+        level_1: 1
+        level_2: 1
+        level_3: Unlimited
+      - label: Site Object
+        level_1: 1
+        level_2: 1
+        level_3: Unlimited
+      - label: Marketplace Object (primary and secondary trading)
+        level_1: 1
+        level_2: 1
+        level_3: Unlimited
+      - label: '"Powered by Eluvio" Web3 Content Experiences and Stores'
+        level_1: |
+          $1,500.00
+          per month
+        level_2: Included in plan
+        level_3: Included in plan
