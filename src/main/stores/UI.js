@@ -3,6 +3,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 class UIStore {
   pageWidth = window.innerWidth;
   pageHeight = window.innerHeight;
+  isWalletPage = window.location.pathname?.startsWith("/wallet");
 
   constructor() {
     makeAutoObservable(this);
@@ -14,6 +15,10 @@ class UIStore {
     });
 
     this.resizeHandler.observe(document.body);
+  }
+
+  SetWalletPage(isWalletPage){
+    this.isWalletPage = isWalletPage;
   }
 
   HandleResize({width, height}) {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
-import {mainStore} from "../../stores/Main";
+import {mainStore, uiStore} from "../../stores/Main";
 import {ElvWalletFrameClient} from "@eluvio/elv-wallet-frame-client";
 import {Utils} from "@eluvio/elv-client-js";
 
@@ -79,6 +79,12 @@ const InitializeFrame = async (target, walletClient) => {
 const Wallet = observer(() => {
   const [frameClient, setFrameClient] = useState(undefined);
   const walletClient = mainStore.walletClient;
+
+  useEffect(() => {
+    uiStore.SetWalletPage(true);
+
+    return () => uiStore.SetWalletPage(false);
+  }, []);
 
   useEffect(() => {
     runInAction(() => mainStore.InitializeWalletClient());

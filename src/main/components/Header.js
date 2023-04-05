@@ -8,6 +8,8 @@ import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
+import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
+
 import {DiscoverIcon, MenuIcon, ProfileIcon, WalletIcon, XIcon} from "../static/icons/Icons";
 
 
@@ -36,9 +38,9 @@ const Header = observer(() => {
     <>
       { uiStore.pageWidth <= 1000 ? notificationBanner : null }
 
-      <header className="header">
+      <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""}`}>
         <Action useNavLink to="/" className="header__logo-container">
-          <ImageIcon icon={EluvioLogo} title="Eluvio" className="header__logo" />
+          <ImageIcon icon={uiStore.isWalletPage ? EluvioLogoIcon : EluvioLogo} title="Eluvio" className="header__logo" />
         </Action>
 
         { /* Desktop */ }
@@ -99,7 +101,7 @@ const Header = observer(() => {
         { /* Mobile */ }
         <nav className="header__nav header__nav--links mobile">
           <Action to="/wallet" useNavLink underline className="dark header__nav-link">
-            { mainStore.l10n.header.discover_projects}
+            { mainStore.l10n.header.discover_projects }
           </Action>
         </nav>
         <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />

@@ -1,6 +1,6 @@
 .wallet {
   background: var(--background-dark-6);
-  height: calc(100vh - var(--header-height));
+  height: calc(100vh - var(--header-height--compact));
   width: 100%;
 
   iframe {

@@ -8,6 +8,34 @@
   overflow: visible;
   padding: 0 var(--horizontal-content-padding);
 
+  &,
+  * {
+    transition: height 0.35s ease, background-color 0.35s linear, color 0.35s linear, border 0.35s linear, stroke 0.35s linear, fill 0.35s linear, opacity 0.35s linear, font-size 0.35s linear;
+  }
+
+  &--compact {
+    height: var(--header-height--compact);
+
+    .header {
+      &__logo {
+        padding: 5px 0;
+      }
+
+      &__nav-link {
+        font-size: var(--font-size-body-5);
+      }
+
+      &__nav--icons {
+        opacity: 0;
+        user-select: none;
+
+        .action__icon {
+          height: 50%;
+        }
+      }
+    }
+  }
+
   &__logo-container {
     height: 100%;
   }
@@ -80,6 +108,13 @@
   @media screen and (max-width: $width-tablet) {
     gap: 30px;
     padding: 0 20px;
+
+    &--compact {
+      .header__nav-link {
+        opacity: 0;
+        user-select: none;
+      }
+    }
 
     .desktop {
       display: none;

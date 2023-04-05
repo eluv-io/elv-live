@@ -227,10 +227,17 @@
     &__tab {
       height: 50px;
       padding-inline: 20px;
+      width: 100%;
     }
 
     &__tab-text {
       display: none;
+    }
+  }
+
+  @media screen and (max-width: $width-mobile) {
+    &__tabs {
+      flex-direction: column;
     }
   }
 }
