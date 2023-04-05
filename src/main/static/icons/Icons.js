@@ -26,6 +26,7 @@ import MinusIcon from "./minus.svg";
 import WalletIcon from "./wallet.svg";
 import ProfileIcon from "./profile.svg";
 import TrendingUpIcon from "./trending-up.svg";
+import DollarIcon from "./dollar-sign.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -51,6 +52,7 @@ export {
   CheckSquareIcon,
   CheckmarkIcon,
   ClockIcon,
+  DollarIcon,
   DiscoverIcon,
   DocumentIcon,
   FlagIcon,

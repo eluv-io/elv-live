@@ -68,13 +68,11 @@ creators:
     text: |
       Publish and instantly distribute your content. Beautiful Quality, Live, On Demand and Immersive/XR Content with Advanced Features & Personalization.
 
-      Web3 Native with Built-in Blockchain Monetization: Turn-key, customizable sites, drops, events, marketplaces & APIs
-
-      Token gated authorization (subscription and sell through), minting and digital payments (fiat and crypto); blockchain ticketing; on chain royalties; and redeemable offers and claims.
-
-      Media Wallet for web2-web3 easy sign on, cryptographic signing, token management, and lean-back viewing with global content streaming and distribution from the Content Fabric.
-
       [See Feature Details](/features/details)
+    text_boxes:
+      -  "Web3 Native with Built-in Blockchain Monetization: Turn-key, customizable sites, drops, events, marketplaces & APIs"
+      - Token gated authorization (subscription and sell through), minting and digital payments (fiat and crypto); blockchain ticketing; on chain royalties; and redeemable offers and claims.
+      - Media Wallet for web2-web3 easy sign on, cryptographic signing, token management, and lean-back viewing with global content streaming and distribution from the Content Fabric.
   customize: Customize Your Experience & Build your Community
   monetize: Monetize as your Brand Grows & Keep Your Revenue
   marketplaces:

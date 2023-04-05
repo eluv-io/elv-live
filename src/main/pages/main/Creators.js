@@ -10,7 +10,14 @@ import FAQs from "../features/FAQs";
 import Marketplaces from "./Marketplaces";
 
 import HeaderImage from "../../static/images/main/2_built-for-new-creator-economy-(no-gradient).png";
-import {MoneyIcon, TrendingUpIcon, DiscoverIcon} from "../../static/icons/Icons";
+import {
+  MoneyIcon,
+  TrendingUpIcon,
+  DiscoverIcon,
+  BlockchainIcon,
+  WalletIcon,
+  DollarIcon
+} from "../../static/icons/Icons";
 
 const Header = observer(({mobile}) => {
   const { header, subheader } = mainStore.l10n.creators.heading;
@@ -57,6 +64,25 @@ const VideoBlock = observer(() => {
 
         <RichText richText={mainStore.l10n.creators.video_block.text} className="main-page-block__copy" />
       </div>
+    </div>
+  );
+});
+
+const TextBoxesBlock = observer(() => {
+  const icons = [BlockchainIcon, DollarIcon, WalletIcon];
+
+  return (
+    <div className="main-page-block main-page-block--text-boxes">
+      {(mainStore.l10n.creators.video_block.text_boxes || []).map((item, index) => (
+        <div key={item} className="main-page-block__text-box">
+          <div className="main-page-block__text-box-content">
+            <ImageIcon icon={icons[index]} className="main-page-block__text-box-content__icon" />
+            <div className="main-page-block__text-box-content__text">
+              {item}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 });
@@ -110,6 +136,7 @@ const CreatorsMobile = () => {
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock />
+          <TextBoxesBlock />
         </div>
         <div className="main-page-block--marketplace">
           <Marketplaces mobile />
@@ -133,6 +160,7 @@ const CreatorsDesktop = () => {
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock />
+          <TextBoxesBlock />
           <CustomizeBlock />
         </div>
         <div className="main-page-block--marketplace">
