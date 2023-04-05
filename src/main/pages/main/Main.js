@@ -20,7 +20,7 @@ const Header = observer(() => {
       <h1 className="main-page-header__logo-container">
         <ImageIcon icon={EluvioLogo} label="Eluvio" className="main-page-header__logo" />
       </h1>
-      <div className="main-page-header__copy-container no-tablet">
+      <div className="main-page-header__copy-container">
         <h2 className="main-page-header__copy">
           { mainStore.l10n.main.heading.tagline }
         </h2>
@@ -31,7 +31,7 @@ const Header = observer(() => {
 
 const FeatureBanner = observer(() => {
   return (
-    <div className="main-page-feature-banner no-tablet">
+    <div className="main-page-feature-banner">
       <div className="main-page-feature-banner__items">
         {mainStore.l10n.main.feature_banner.map(feature =>
           <div key={feature} className="main-page-feature-banner__item">
@@ -44,7 +44,7 @@ const FeatureBanner = observer(() => {
 });
 
 const VideoBlock = observer(({mobile}) => {
-  const { header, subheader, features, features_mobile } = mainStore.l10n.main.video_block;
+  const { header, subheader, features } = mainStore.l10n.main.video_block;
 
   const icons = [
     BlockchainIcon,
@@ -54,27 +54,6 @@ const VideoBlock = observer(({mobile}) => {
     FilmIcon
   ];
 
-  if(mobile) {
-    return (
-      <div className="main-page-block main-page-block--video">
-        <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
-        <div className="main-page-block__copy-container">
-          <h3 className="main-page-block__copy-header">
-            { header }
-          </h3>
-          <div className="main-page-block__copy">
-            {features_mobile.map((feature, index) =>
-              <div key={feature} className="main-page-block__icon-copy">
-                <ImageIcon icon={icons[index]} className="main-page-block__icon" />
-                <p>{feature}</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="main-page-block main-page-block--video">
       <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
@@ -82,20 +61,25 @@ const VideoBlock = observer(({mobile}) => {
         <h5 className="main-page-block__copy-subheader">
           { subheader }
         </h5>
-        <h2 className="main-page-block__copy-header">
-          { header }
-        </h2>
-        <div className="main-page-block__copy-with-icons">
-          <div className="main-page-block__icon-column">
-          </div>
-          <div className="main-page-block__copy">
-            { features.map((feature, index) => (
-              <div key={feature} className="main-page-block__icon-copy">
-                <ImageIcon icon={icons[index]} className="main-page-block__icon" />
-                <p>{feature}</p>
-              </div>
-            ))}
-          </div>
+        {
+          mobile &&
+          <h3 className="main-page-block__copy-header">
+            { header }
+          </h3>
+        }
+        {
+          !mobile &&
+          <h2 className="main-page-block__copy-header">
+            { header }
+          </h2>
+        }
+        <div className="main-page-block__copy">
+          {features.map((feature, index) => (
+            <div key={feature} className="main-page-block__icon-copy">
+              <ImageIcon icon={icons[index]} className="main-page-block__icon" />
+              <p>{feature}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -108,14 +92,17 @@ const FeaturesBlock = observer(({mobile}) => {
   if(mobile) {
     return (
       <div className="main-page-block main-page-block--features">
-        <div className="main-page-block__copy-container">
-          <h2 className="main-page-block__copy-header main-page-block__copy-header--feature">
-            { copy.header_mobile }
-          </h2>
-        </div>
         <ImageIcon icon={FeaturesImage} label="featured images" className="main-page-block__image" />
         <div className="main-page-block__copy-container">
-          <RichText richText={copy.text_mobile} className="main-page-block__copy main-page-block__copy--faded" />
+          <h5 className="main-page-block__copy-subheader">
+            { copy.subheader }
+          </h5>
+          <h3 className="main-page-block__copy-header">
+            { copy.header }
+          </h3>
+        </div>
+        <div className="main-page-block__copy-container">
+          <RichText richText={copy.text} className="main-page-block__copy" />
         </div>
       </div>
     );
@@ -222,8 +209,8 @@ const MainPageMobile = () => {
       <Header />
       <div className="main-page__blocks">
         <div className="padded-block">
-          <FeaturesBlock mobile />
           <VideoBlock mobile />
+          <FeaturesBlock mobile />
         </div>
         <div className="main-page__block main-page__block--experiences">
           <div className="padded-block">

@@ -39,26 +39,15 @@ main:
       - 50X more efficient and up to 80% less costly than clouds and CDNs
       - Storage, Distribution, Streaming
       - Tamper-free on chain Ownership, Versioning, Access Control
-    features_mobile:
-      - An Eco-Friendly Content Blockchain
-      - A Hyper Efficient Video Distribution Platform
-      - A Crypto friendly Commerce Platform
-      - An API that powers all content needs
-      - An all-in-one media API
   features_block:
     subheader: Resulting in
     header: Advanced Full-Feature Platform For All Web3 Media
-    header_mobile: Advanced Full-Feature Media Platform
     text: |
       All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content with one Fabric protocol.
 
       Low Latency 4K Streaming, Live and On Demand with Beautiful Quality & Advanced Features. Built in Blockchain Monetization and Web3 Native. Tokens, payments, tickets, wallets, and more.
 
       [See Feature Details](/features/details)
-    text_mobile: |
-      Hyper-efficient, decentralized platform provides dramatically faster and lower-cost distribution. Adaptive bandwidth, 4K/HDR, and multiplatform support.
-
-      Replaces traditional CDNs.
   experiences_block:
     header: Create, Distribute & Own Stunning Web3 Experiences
     creators: Creators & Content Businesses
@@ -80,10 +69,10 @@ creators:
       Publish and instantly distribute your content. Beautiful Quality, Live, On Demand and Immersive/XR Content with Advanced Features & Personalization.
 
       Web3 Native with Built-in Blockchain Monetization: Turn-key, customizable sites, drops, events, marketplaces & APIs
-      
-      Token gated authorization (subscription and sell through), minting and digital payments (fiat and crypto); blockchain ticketing; on chain royalties; and redeemable offers and claims. 
-      
-      Media Wallet for web2-web3 easy sign on, cryptographic signing, token management, and lean-back viewing with global content streaming and distribution from the Content Fabric.    
+
+      Token gated authorization (subscription and sell through), minting and digital payments (fiat and crypto); blockchain ticketing; on chain royalties; and redeemable offers and claims.
+
+      Media Wallet for web2-web3 easy sign on, cryptographic signing, token management, and lean-back viewing with global content streaming and distribution from the Content Fabric.
 
       [See Feature Details](/features/details)
   customize: Customize Your Experience & Build your Community
