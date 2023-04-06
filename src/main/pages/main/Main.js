@@ -8,7 +8,7 @@ import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
 import EluvioLogo from "../../static/images/logos/eluvio-logo-with-taglines.png";
-import FeaturesImage from "../../static/images/main/Advanced-full-feature-platform.png";
+import FeaturesImage from "../../static/images/main/Homepage-MS-PS-WB.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 

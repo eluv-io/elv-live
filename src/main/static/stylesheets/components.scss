@@ -203,14 +203,23 @@
   max-width: 100%;
   width: 100%;
 
+  &--small-tabs {
+    .tabbed-info-box__tab {
+      font-size: var(--font-size-body-3);
+    }
+  }
+
   &__tabs {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
   }
 
   &__tab {
     font-size: var(--font-size-body-2);
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   &__content--shadow {

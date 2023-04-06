@@ -13,7 +13,7 @@ module.exports = {
   target: "web",
   output: {
     path: Path.resolve(__dirname, "dist"),
-    filename: "vendors~main.bundle.js",
+    filename: "App.js",
     chunkFilename: "[name].bundle.js",
     publicPath: "/"
   },

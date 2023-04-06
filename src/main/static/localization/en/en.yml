@@ -189,6 +189,8 @@ technology:
   architecture: Architecture
   how_it_works: How it works
   monetization: On-Chain Monetization
+  cross_chain_authorization: Cross-Chain Authorization
+  on_chain_payments: On-Chain Payments
 
 blockchain:
   title: Eluv.io Blockchain

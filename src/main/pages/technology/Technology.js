@@ -8,9 +8,6 @@ import ArchitectureDiagram from "../../static/images/technology/architecture.jpg
 import HowItWorksDiagram from "../../static/images/technology/how-it-works.jpg";
 import MonetizationDiagram from "../../static/images/technology/on-chain-monetization.jpg";
 
-import {TechnologyIcons} from "../../static/icons/Icons";
-
-
 const Technology = observer(() => {
   const copy = mainStore.l10n.technology;
 
@@ -34,31 +31,45 @@ const Technology = observer(() => {
 
       <div className="page__content-block">
         <TabbedInfoBox
+          className="tabbed-info-box--small-tabs"
           tabs={[
             {
               title: copy.architecture,
-              icon: TechnologyIcons.ArchitectureIcon,
               content: (
                 <div className="tabbed-info-box__content--shadow">
-                  <ExpandableImage expandable image={ArchitectureDiagram} imageClassName="component-test__image" />
+                  <ExpandableImage expandable image={ArchitectureDiagram} />
                 </div>
               )
             },
             {
               title: copy.how_it_works,
-              icon: TechnologyIcons.HowItWorksIcon,
               content: (
                 <div className="tabbed-info-box__content--shadow">
-                  <ExpandableImage expandable image={HowItWorksDiagram} imageClassName="component-test__image" />
+                  <ExpandableImage expandable image={HowItWorksDiagram} />
                 </div>
               )
             },
             {
               title: copy.monetization,
-              icon: TechnologyIcons.OnChainMonetizationIcon,
               content: (
                 <div className="tabbed-info-box__content--shadow">
-                  <ExpandableImage expandable image={MonetizationDiagram} imageClassName="component-test__image" />
+                  <ExpandableImage expandable image={MonetizationDiagram} />
+                </div>
+              )
+            },
+            {
+              title: copy.cross_chain_authorization,
+              content: (
+                <div className="tabbed-info-box__content--shadow">
+                  <ExpandableImage expandable image={MonetizationDiagram} />
+                </div>
+              )
+            },
+            {
+              title: copy.on_chain_payments,
+              content: (
+                <div className="tabbed-info-box__content--shadow">
+                  <ExpandableImage expandable image={MonetizationDiagram} />
                 </div>
               )
             }

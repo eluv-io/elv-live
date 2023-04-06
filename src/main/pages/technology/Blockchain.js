@@ -1,8 +1,14 @@
 import React, {useState} from "react";
-import {RichText} from "../../components/Misc";
+import {ExpandableImage, RichText} from "../../components/Misc";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import LearnMore from "./LearnMore";
+
+import TestImage from "../../static/images/blockchain/test.jpg";
+
+const images = {
+  our_blockchain: TestImage
+};
 
 const Blockchain = observer(() => {
   const copy = mainStore.l10n.blockchain;
@@ -17,7 +23,10 @@ const Blockchain = observer(() => {
         <h3>{ copy.header }</h3>
       </div>
       <div className="page__content-block right-links">
-        <RichText richText={copy.pages[tab].text} key={`page-${tab}`} className="page__copy fade-in--slow" />
+        <div className="page__copy-block">
+          <RichText richText={copy.pages[tab].text} key={`page-${tab}`} className="page__copy fade-in--slow" />
+          { images[tab] ? <ExpandableImage image={images[tab]} expandable /> : null }
+        </div>
         <div className="page__side-links">
           {
             tabs.map(([label, key]) =>
