@@ -28,10 +28,11 @@ const Partners = observer(() => {
         </h3>
         <GridCarousel classNameGrid="centered partners__list--grid" classNameCarousel="partners__list--carousel">
           {
-            partners.map(({name, logo, info, is_provider, is_validator}, index) =>
+            partners.map(({name, logo, link, info, is_provider, is_validator}, index) =>
               <PartnerIcon
                 name={name}
                 logo={logo?.url}
+                link={link}
                 modalContent={info}
                 isProvider={is_provider}
                 isValidator={is_validator}

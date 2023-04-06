@@ -30,22 +30,33 @@ const PartnerInfo = observer(({name, logo, modalContent, isProvider, isValidator
   );
 });
 
-const PartnerIcon = observer(({name, logo, modalContent, isProvider, isValidator}) => {
+const PartnerIcon = observer(({name, logo, link, modalContent, isProvider, isValidator}) => {
   const [showModal, setShowModal] = useState(false);
+
+  let content = (
+    <>
+      {
+        !isProvider && !isValidator ? null :
+          <div className="partner__tags">
+            {isProvider ? <div className="partner__tag partner__tag--provider">{ mainStore.l10n.partners.node_provider }</div> : null}
+            {isValidator ? <div className="partner__tag partner__tag--validator">{ mainStore.l10n.partners.governance_validator }</div> : null}
+          </div>
+      }
+      <ImageIcon icon={logo} title={name} className="partner-icon__logo" />
+      <div className="partner-icon__action">{ mainStore.l10n.actions.read_more }</div>
+    </>
+  );
+
+  let card;
+  if(link) {
+    card = <a href={link} target="_blank" className="partner-icon">{ content }</a>;
+  } else {
+    card = <button onClick={() => setShowModal(true)} className="partner-icon">{ content }</button>;
+  }
 
   return (
     <>
-      <button onClick={() => setShowModal(true)} className="partner-icon">
-        {
-          !isProvider && !isValidator ? null :
-            <div className="partner__tags">
-              {isProvider ? <div className="partner__tag partner__tag--provider">{ mainStore.l10n.partners.node_provider }</div> : null}
-              {isValidator ? <div className="partner__tag partner__tag--validator">{ mainStore.l10n.partners.governance_validator }</div> : null}
-            </div>
-        }
-        <ImageIcon icon={logo} title={name} className="partner-icon__logo" />
-        <div className="partner-icon__action">{ mainStore.l10n.actions.read_more }</div>
-      </button>
+      { card }
       <Modal active={showModal} Close={() => setShowModal(false)} hideCloseButton className="modal--modal-box partner-modal">
         <PartnerInfo name={name} logo={logo} modalContent={modalContent} isProvider={isProvider} isValidator={isValidator} setShowModal={setShowModal} />
       </Modal>
