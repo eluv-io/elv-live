@@ -16,7 +16,7 @@ const Partners = observer(() => {
   return (
     <div className="page light">
       <div className="page__header-container">
-        <h1>{ mainStore.l10n.partners.title }</h1>
+        <h1 className="center-align">{ mainStore.l10n.partners.title }</h1>
       </div>
       <div className="page__content-block">
         <RichText richText={mainStore.l10n.partners.text} className="page__copy" />
