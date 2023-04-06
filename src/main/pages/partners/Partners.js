@@ -48,8 +48,12 @@ const Partners = observer(() => {
           { mainStore.l10n.partners.ecosystem }
         </h3>
         <div className="grid partners__ecosystem">
-          { ecosystem.map(({name, logo}, index) =>
-            <ImageIcon title={name} icon={logo?.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />
+          { ecosystem.map(({name, logo, link}, index) =>
+            link ?
+              <a href={link} target="_blank">
+                <ImageIcon title={name} icon={logo?.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />
+              </a> :
+              <ImageIcon title={name} icon={logo?.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />
           )}
         </div>
       </div>
