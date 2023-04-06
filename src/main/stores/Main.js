@@ -8,6 +8,7 @@ import SiteConfiguration from "@eluvio/elv-client-js/src/walletClient/Configurat
 import LocalizationEN from "../static/localization/en/en.yml";
 import FeaturesDetailsEN from "../static/localization/en/FeaturesDetails.yaml";
 import FeaturesPricingEN from "../static/localization/en/FeaturesPricing.yaml";
+import FeaturesTenanciesEN from "../static/localization/en/FeaturesTenancies.yaml";
 
 configure({
   computedRequiresReaction: true,
@@ -58,7 +59,8 @@ class MainStore {
     ...LocalizationEN,
     features: {
       details: FeaturesDetailsEN,
-      pricing: FeaturesPricingEN
+      pricing: FeaturesPricingEN,
+      tenancies: FeaturesTenanciesEN
     }
   };
 

@@ -4,7 +4,6 @@ import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 
 import {
-  CheckSquareIcon,
   ClockIcon,
   FlagIcon,
   MailIcon,
@@ -14,55 +13,9 @@ import {
   SupportIcon,
   TelephoneIcon
 } from "../../static/icons/Icons";
+import SupportGrid from "./SupportGrid";
 
-const ItemCard = (data, key, dark=false) => {
-  const iconMap = {
-    aroundClock: {
-      label: "24x7",
-      icon: ClockIcon
-    },
-    email: {
-      label: "Email",
-      icon: MailIcon
-    },
-    telephone: {
-      label: "Telephone",
-      icon: TelephoneIcon
-    },
-    slack: {
-      label: "Slack",
-      icon: SocialIcons.SlackIcon
-    }
-  };
-
-  const {label, payAsYouGo, enterprise, advanced, icons} = data;
-
-  return (
-    <div className={`features-support__item-card ${dark ? "dark" : "light"}`} key={key}>
-      <div className="features-support__item-card-content">
-        <span>
-          { label }
-          <div className="features-support__item-card-communication">
-            {
-              Object.keys(icons || {}).map(iconKey => (
-                icons[iconKey] &&
-                <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
-                  <ImageIcon icon={iconMap[iconKey].icon}/>
-                  <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
-                </span>
-              ))
-            }
-          </div>
-        </span>
-        <span className="centered">{ payAsYouGo ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        <span className="centered">{ advanced ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        <span className="centered">{ enterprise ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-      </div>
-    </div>
-  );
-};
-
-const CustomerServiceSection = () => {
+export const CustomerServiceSection = observer(({smallFont=false}) => {
   const supportData = mainStore.l10n.features_support;
   const iconsMap = {
     clockIcon: ClockIcon,
@@ -75,7 +28,7 @@ const CustomerServiceSection = () => {
   };
 
   return (
-    <div className="features-support__customer-service">
+    <div className={`features-support__customer-service ${smallFont ? "features-support__customer-service--small-font" : ""}`}>
       {
         ["standardCustomerService", "priorityCustomerService"].map(service => (
           <div key={`customer-service-${service}`} className="features-support__customer-service-section">
@@ -93,9 +46,9 @@ const CustomerServiceSection = () => {
       }
     </div>
   );
-};
+});
 
-const FeaturesSupport = observer(() => {
+export const FeaturesSupport = observer(() => {
   const supportData = mainStore.l10n.features_support;
 
   return (
@@ -116,35 +69,11 @@ const FeaturesSupport = observer(() => {
               </div>
             </div>
 
-            <div className="features-support__grid-container">
-              <div className="features-support__header-row">
-                <span></span>
-                <span className="features-support__header-text">
-                  <span className="features-support__header-text__subheader">Level 1</span>
-                  <h5>Pay As You Go</h5>
-                </span>
-                <span className="features-support__header-text">
-                  <span className="features-support__header-text__subheader">Level 2</span>
-                  <h5>Advanced</h5>
-                </span>
-                <span className="features-support__header-text">
-                  <span className="features-support__header-text__subheader">Level 3</span>
-                  <h5>Enterprise</h5>
-                </span>
-              </div>
-              {
-                supportData.gridItems.map((item, index) => (
-                  ItemCard(item, `item-card-${item.label}-${index}`)
-                ))
-              }
-            </div>
-
-            { CustomerServiceSection() }
+            <SupportGrid items={supportData.gridItems} />
+            <CustomerServiceSection />
           </div>
         </div>
       </div>
     </div>
   );
 });
-
-export default FeaturesSupport;

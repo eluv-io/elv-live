@@ -3,8 +3,26 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 40px;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.tenancies-comparison {
+  width: 100%;
+
+  &__table-container {
+    margin-bottom: 27px;
+
+    .features-support__customer-service {
+      padding: 0;
+    }
+  }
+
+  &__header {
+    font-size: var(--font-size-header-4);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
 }
 
 .features-connect {
@@ -55,6 +73,13 @@
 
   &__section:not(:last-child) {
     margin-bottom: 100px;
+  }
+
+  &__section-header {
+    font-size: var(--font-size-header-3);
+    margin-bottom: 0.5rem;
+    margin-left: 2rem;
+    text-transform: uppercase;
   }
 }
 
@@ -111,7 +136,7 @@
   border: 1.5px solid var(--color-highlight-3);
   border-radius: 22px;
   max-width: 350px;
-  min-height: 430px;
+  min-height: 480px;
   padding: 36px 40px;
 
   hr {
@@ -120,8 +145,7 @@
     margin: 10px 0;
   }
 
-  &__level,
-  &__service {
+  &__level {
     color: var(--color-highlight-2);
     font-size: var(--font-size-body-5);
     font-weight: 700;
@@ -135,12 +159,13 @@
   h4 {
     font-weight: 700;
     text-transform: uppercase;
+    white-space: break-spaces;
   }
 
   &__features {
     align-items: center;
     display: flex;
-    min-height: 165px;
+    min-height: 215px;
 
   }
 
@@ -155,11 +180,15 @@
 
     &__header-details {
       font-size: var(--font-size-body-5);
+      white-space: break-spaces;
     }
 
   }
 
   &__list-item {
+    font-size: var(--font-size-body-5);
+    font-weight: 700;
+    margin-bottom: 4px;
     position: relative;
 
     &::before {
@@ -168,15 +197,15 @@
       background-repeat: no-repeat;
       content: '';
       display: inline-block;
-      height: 20px;
+      height: 10px;
       left: 0;
       position: absolute;
-      top: 6px;
-      width: 20px;
+      top: 3px;
+      width: 10px;
     }
 
     span {
-      padding-left: 1.5rem;
+      padding-left: 0.875rem;
     }
   }
 
@@ -219,17 +248,19 @@
 
 .features-support {
   &__header-text {
+    align-items: flex-start;
     color: var(--color-highlight-3);
+    display: flex;
+    flex-direction: column;
 
     &__subheader {
       font-size: var(--font-size-body-5);
       font-weight: 700;
     }
+  }
 
-    h5 {
-      font-size: var(--font-size-header-5);
-      font-weight: 700;
-    }
+  &__header {
+    font-weight: 700;
   }
 
   &__grid-container {
@@ -240,13 +271,46 @@
     display: grid;
     gap: 40px;
     grid-column: 1 / -1;
-    grid-template-columns: 2fr repeat(3, 150px);
-    padding: 0 2rem;
+    grid-template-columns: 2fr 140px repeat(2, 190px);
     text-align: center;
   }
 
   &__item-card {
-    padding: 2rem 2rem 2rem 100px;
+    font-size: var(--font-size-body-7);
+    height: 65px;
+    padding: 0 10px 0 75px;
+
+    &.light.features-support__item-card--xs,
+    &.light.features-support__item-card--sm {
+      margin-top: 0.5rem;
+    }
+
+    &--sm,
+    &--xs {
+      font-size: var(--font-size-body-5);
+      padding: 0 20px;
+
+      .features-support__item-card-communication {
+        font-size: var(--font-size-body-6);
+
+        &__item {
+          gap: 3px;
+        }
+
+        .image-icon {
+          height: 15px;
+          width: 15px;
+        }
+      }
+    }
+
+    &--sm {
+      height: 45px;
+    }
+
+    &--xs {
+      height: 38px;
+    }
   }
 
   &__item-card-content {
@@ -254,11 +318,12 @@
     display: grid;
     gap: 40px;
     grid-column: 1 / -1;
-    grid-template-columns: 2fr repeat(3, 150px);
+    grid-template-columns: 1fr 140px repeat(2, 190px);
+    height: 100%;
 
     svg {
-      height: 30px;
-      width: 30px;
+      height: 25px;
+      width: 25px;
     }
 
     .centered {
@@ -271,7 +336,7 @@
     color: var(--color-text-light-3);
     display: flex;
     gap: 25px;
-    margin-top: 15px;
+    margin-top: 3px;
 
     &__item {
       align-items: center;
@@ -307,6 +372,17 @@
       stroke: var(--color-icon-dark-1);
       stroke-width: 1px;
     }
+
+    &--small-font {
+      h4 {
+        font-size: var(--font-size-header-5);
+      }
+
+      .features-support__customer-service-detail {
+        font-size: var(--font-size-body-4);
+        gap: 9px;
+      }
+    }
   }
 
   &__customer-service-section {
@@ -319,6 +395,12 @@
     font-size: var(--font-size-body-3);
     gap: 15px;
     line-height: 2.25;
+  }
+
+  &__grid-section-header {
+    font-size: var(--font-size-body-7);
+    font-weight: 700;
+    margin-top: 1rem;
   }
 }
 
@@ -340,13 +422,15 @@
 
 .features-details {
   &__item-card {
-    padding: 2rem;
+    height: 65px;
+    padding: 0 20px;
   }
 
   &__item-card__content {
     align-items: center;
     display: flex;
     gap: 50px;
+    height: 100%;
 
     .action {
       color: var(--color-highlight-3);
@@ -357,7 +441,8 @@
     }
 
     p {
-      font-size: var(--font-size-body-4);
+      color: var(--color-text-light-3);
+      font-size: var(--font-size-body-5);
     }
 
     span {
@@ -374,7 +459,7 @@
     display: grid;
     gap: 40px;
     grid-column: 1 / -1;
-    padding: 0 2rem;
+    padding-right: 0.5rem;
     text-align: left;
   }
 
@@ -461,10 +546,20 @@
     display: flex;
   }
 
+  .tenancies-list {
+    gap: 10px;
+  }
+
   .tenancy-info {
-    &__level,
-    &__service {
+    min-height: 200px;
+
+    &__level {
       font-size: var(--font-size-body-3);
+    }
+
+    &__features {
+      height: max-content;
+      min-height: max-content;
     }
 
     &__features__content__header {
@@ -479,11 +574,16 @@
     &__pricing {
       align-items: flex-start;
       flex-direction: column;
+    }
 
-      &__rate__month,
-      &__rate__fees {
+    &__pricing-rate {
+      span {
         font-size: var(--font-size-body-4);
       }
+    }
+
+    &__list-item {
+      font-size: var(--font-size-body-3);
     }
   }
 
@@ -555,10 +655,6 @@
       overflow-x: auto;
     }
 
-    &__header-text h5 {
-      font-size: var(--font-size-header-4);
-    }
-
     &__item-card-communication {
       gap: 12px;
     }
@@ -572,9 +668,18 @@
     }
   }
 
+  .features-support__item-card {
+    height: 60px;
+  }
+
+  .features-support__header-text__subheader {
+    font-size: var(--font-size-body-4);
+  }
+
   .features-support__header-row,
   .features-support__item-card-content {
-    grid-template-columns: 100px repeat(3, 75px);
+    font-size: var(--font-size-body-2);
+    grid-template-columns: 450px repeat(3, 85px);
 
     svg {
       width: 15px;

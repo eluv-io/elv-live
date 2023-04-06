@@ -1,4 +1,5 @@
 - header: "Media Application Platform"
+  sectionHeader: "Core Utilities"
   id: "media-application"
   items:
     - title: "Direct Ingest from File System and Cloud Storage"

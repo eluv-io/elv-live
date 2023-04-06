@@ -1,21 +1,8 @@
 import React from "react";
 
-const tenanciesMap = {
-  "PAY_AS_YOU_GO": "Pay As You Go",
-  "ADVANCED": "Advanced",
-  "ENTERPRISE": "Enterprise"
-};
-
-const featuresMap = {
-  "ALL_MEDIA_PLATFORM": "All Media Platform Features",
-  "ALL_CONTENT_DISTRIBUTION": "All Content Distribution Features",
-  "ALL_WEB3": "All Web3 Features"
-};
-
 const TenancyInfo = ({
-  level,
-  tenancy,
-  service,
+  header,
+  subHeader,
   features=[],
   addedBenefitPercentage="",
   addedBenefitText="",
@@ -24,9 +11,8 @@ const TenancyInfo = ({
 }) => {
   return (
     <div className="tenancy-info">
-      <div className="tenancy-info__level">{ level }</div>
-      <h4>{ tenanciesMap[tenancy] }</h4>
-      <div className="tenancy-info__service">{ service }</div>
+      <div className="tenancy-info__level">{ subHeader }</div>
+      <h4>{ header }</h4>
       <hr />
 
       <div className="tenancy-info__features">
@@ -40,7 +26,7 @@ const TenancyInfo = ({
             {
               features.map(feature => (
                 <li key={`features-list-item-${feature}`} className="tenancy-info__list-item">
-                  <span>{ featuresMap[feature] }</span>
+                  <span>{ feature }</span>
                 </li>
               ))
             }

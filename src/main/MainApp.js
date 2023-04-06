@@ -22,7 +22,7 @@ import Contact from "./pages/contact/Contact";
 import TenancyLevels from "./pages/features/TenancyLevels";
 import Features from "./pages/features/Features";
 import Pricing from "./pages/features/Pricing";
-import FeaturesSupport from "./pages/features/Support";
+import {FeaturesSupport} from "./pages/features/Support";
 import FAQs from "./pages/features/FAQs";
 import Creators from "./pages/main/Creators";
 import Wallet from "./pages/wallet/Wallet";

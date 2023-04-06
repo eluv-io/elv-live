@@ -4,13 +4,16 @@ import TenancyInfo from "./TenancyInfo";
 import ImageIcon from "../../components/ImageIcon";
 import {TabbedInfoBox} from "../../components/Misc";
 import {PageContainer} from "../../MainApp";
-import {FormatCurrency} from "../../utils/Utils";
 import FAQs from "./FAQs";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 
-import {PlayCircleIcon} from "../../static/icons/Icons";
+import {
+  PlayCircleIcon,
+} from "../../static/icons/Icons";
 import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
+import SupportGrid from "./SupportGrid";
+import {CustomerServiceSection} from "./Support";
 
 const BannerBox = ({title, icon, paragraph, link}) => {
   const icons = {
@@ -36,37 +39,38 @@ const BannerBox = ({title, icon, paragraph, link}) => {
   );
 };
 
+const TableSection = observer(() => {
+  return (
+    <div className="tenancies-comparison curved-box info-box light">
+      <div className="tenancies-comparison__table-container">
+        <div className="tenancies-comparison__header">Feature Comparison at a Glance</div>
+        <SupportGrid sections={mainStore.l10n.features.tenancies.comparison_table} compactRows={"xs"} />
+      </div>
+
+      <div className="tenancies-comparison__table-container">
+        <div className="tenancies-comparison__header">Customer Service and Support</div>
+        <SupportGrid items={mainStore.l10n.features_support.gridItems} compactRows={"sm"} />
+        <CustomerServiceSection smallFont={true} />
+      </div>
+    </div>
+  );
+});
+
 const TenanciesList = ({monthly=false}) => {
   return (
     <div className="tenancies-list">
-      <TenancyInfo
-        tenancy="PAY_AS_YOU_GO"
-        level="Level 1"
-        service="Self Service"
-        features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-        monthlyPrice={FormatCurrency({number: 0, maximumFractionDigits: 0})}
-        additionalCostText="+ utility fees"
-      />
-      <TenancyInfo
-        tenancy="ADVANCED"
-        level="Level 2"
-        service="Tier 1 Support"
-        features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-        monthlyPrice={FormatCurrency({number: monthly ? "995" : "833", maximumFractionDigits: 0})}
-        additionalCostText={monthly ? "+ utility fees" : "+ utility fees in annual commit"}
-        addedBenefitPercentage="50+%"
-        addedBenefitText="On selected Content Fabric utility rates"
-      />
-      <TenancyInfo
-        tenancy="ENTERPRISE"
-        level="Level 3"
-        service=" Full Valet Service"
-        features={["ALL_MEDIA_PLATFORM", "ALL_CONTENT_DISTRIBUTION", "ALL_WEB3"]}
-        monthlyPrice={FormatCurrency({number: monthly ? "9995" : "8333", maximumFractionDigits: 0})}
-        additionalCostText={monthly ? "+ utility fees" : "+ utility fees in annual commit"}
-        addedBenefitPercentage="90+%"
-        addedBenefitText="On selected Content Fabric utility rates"
-      />
+      {mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features}) => (
+        <TenancyInfo
+          key={header}
+          header={header}
+          subHeader={sub_header}
+          monthlyPrice={monthly ? monthly_price : annual_price}
+          additionalCostText="+ utility fees"
+          addedBenefitPercentage={added_benefit_percentage}
+          addedBenefitText={added_benefit_text}
+          features={features}
+        />
+      ))}
     </div>
   );
 };
@@ -98,7 +102,7 @@ const TenancyLevels = observer(() => {
       <div className="page">
         <div className="page__header-container">
           <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
-          <h3>What works best for your brand?</h3>
+          <h3>What works best for your creative brand?</h3>
         </div>
         <div className="page__content-block">
           <TabbedInfoBox
@@ -118,6 +122,7 @@ const TenancyLevels = observer(() => {
           <div className="features-connect">
             <Button className="light primary features-connect__button" to="/about/contact">Connect with us</Button>
           </div>
+          <TableSection />
         </div>
       </div>
     </PageContainer>
