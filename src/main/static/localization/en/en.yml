@@ -288,7 +288,7 @@ features_support:
       level_3: true
       icons:
         aroundClock: false
-        email: true
+        priorityEmail: true
         telephone: true
         slack: false
     - label: Best Effort Developer API Support

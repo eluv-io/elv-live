@@ -3,8 +3,26 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 40px;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.tenancies-comparison {
+  width: 100%;
+
+  &__table-container {
+    margin-bottom: 27px;
+
+    .features-support__customer-service {
+      padding: 0;
+    }
+  }
+
+  &__header {
+    font-size: var(--font-size-header-4);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
 }
 
 .features-connect {
@@ -232,7 +250,6 @@
       font-size: var(--font-size-body-5);
       font-weight: 700;
     }
-
   }
 
   &__header {
@@ -255,6 +272,25 @@
     font-size: 16px;
     height: 65px;
     padding: 0 10px 0 75px;
+
+    &--compact {
+      font-size: var(--font-size-body-4);
+      height: 45px;
+      padding: 0 20px;
+
+      .features-support__item-card-communication {
+        font-size: var(--font-size-body-6);
+
+        &__item {
+          gap: 3px;
+        }
+
+        .image-icon {
+          height: 15px;
+          width: 15px;
+        }
+      }
+    }
   }
 
   &__item-card-content {
@@ -315,6 +351,17 @@
     svg path {
       stroke: var(--color-icon-dark-1);
       stroke-width: 1px;
+    }
+
+    &--small-font {
+      h4 {
+        font-size: var(--font-size-header-5);
+      }
+
+      .features-support__customer-service-detail {
+        font-size: var(--font-size-body-4);
+        gap: 9px;
+      }
     }
   }
 

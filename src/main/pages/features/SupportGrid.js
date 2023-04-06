@@ -1,0 +1,90 @@
+import {CheckSquareIcon, ClockIcon, MailIcon, SocialIcons, TelephoneIcon} from "../../static/icons/Icons";
+import ImageIcon from "../../components/ImageIcon";
+import React from "react";
+
+const ItemCard = ({data, key, dark = false, compactRows=false}) => {
+  const iconMap = {
+    aroundClock: {
+      label: "24x7",
+      icon: ClockIcon
+    },
+    email: {
+      label: "Email",
+      icon: MailIcon
+    },
+    priorityEmail: {
+      label: "Priority Email",
+      icon: MailIcon
+    },
+    telephone: {
+      label: "Telephone",
+      icon: TelephoneIcon
+    },
+    slack: {
+      label: "Slack",
+      icon: SocialIcons.SlackIcon
+    }
+  };
+
+  const {label, level_1, level_2, level_3, icons={}} = data;
+
+  return (
+    <div className={`features-support__item-card ${dark ? "dark" : "light"} ${compactRows ? "features-support__item-card--compact" : ""}`} key={key}>
+      <div className="features-support__item-card-content">
+        <span>
+          { label }
+          {
+            Object.values(icons).some(iconName => iconName) &&
+            <div className="features-support__item-card-communication">
+              {
+                Object.keys(icons || {}).map(iconKey => (
+                  icons[iconKey] &&
+                  <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
+                    <ImageIcon icon={iconMap[iconKey].icon}/>
+                    <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
+                  </span>
+                ))
+              }
+            </div>
+          }
+        </span>
+        <span className="centered">{ level_1 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ level_2 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">{ level_3 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+      </div>
+    </div>
+  );
+};
+
+const SupportGrid = ({items=[], compactRows=false}) => {
+  return (
+    <div className="features-support__grid-container">
+      <div className="features-support__header-row">
+        <span></span>
+        <span className="features-support__header-text">
+          <span className="features-support__header-text__subheader">Level 1</span>
+          <div className="features-support__header">Pay As You Go</div>
+        </span>
+        <span className="features-support__header-text">
+          <span className="features-support__header-text__subheader">Level 2</span>
+          <div className="features-support__header">Professional Creator</div>
+        </span>
+        <span className="features-support__header-text">
+          <span className="features-support__header-text__subheader">Level 3</span>
+          <div className="features-support__header">Creative Enterprise</div>
+        </span>
+      </div>
+      {
+        items.map((item, index) => (
+          <ItemCard
+            data={item}
+            key={`item-card-${item.label}-${index}`}
+            compactRows={compactRows}
+          />
+        ))
+      }
+    </div>
+  );
+};
+
+export default SupportGrid;
