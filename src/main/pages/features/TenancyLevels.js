@@ -41,7 +41,6 @@ const BannerBox = ({title, icon, paragraph, link}) => {
 };
 
 const TableSection = observer(() => {
-  console.log("items", toJS(mainStore.l10n.features.tenancies.comparison_table))
   return (
     <div className="tenancies-comparison curved-box info-box light">
       <div className="tenancies-comparison__table-container">

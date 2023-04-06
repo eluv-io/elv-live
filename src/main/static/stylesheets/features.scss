@@ -536,9 +536,20 @@
     display: flex;
   }
 
+  .tenancies-list {
+    gap: 10px;
+  }
+
   .tenancy-info {
+    min-height: 200px;
+
     &__level {
       font-size: var(--font-size-body-3);
+    }
+
+    &__features {
+      height: max-content;
+      min-height: max-content;
     }
 
     &__features__content__header {
@@ -553,11 +564,16 @@
     &__pricing {
       align-items: flex-start;
       flex-direction: column;
+    }
 
-      &__rate__month,
-      &__rate__fees {
+    &__pricing-rate {
+      span {
         font-size: var(--font-size-body-4);
       }
+    }
+
+    &__list-item {
+      font-size: var(--font-size-body-3);
     }
   }
 
@@ -642,9 +658,18 @@
     }
   }
 
+  .features-support__item-card {
+    height: 60px;
+  }
+
+  .features-support__header-text__subheader {
+    font-size: var(--font-size-body-4);
+  }
+
   .features-support__header-row,
   .features-support__item-card-content {
-    grid-template-columns: 100px repeat(3, 75px);
+    font-size: var(--font-size-body-2);
+    grid-template-columns: 450px repeat(3, 85px);
 
     svg {
       width: 15px;
