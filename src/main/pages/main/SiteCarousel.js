@@ -9,7 +9,7 @@ import {runInAction} from "mobx";
 import {Video} from "../../components/Misc";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 
-const SiteCard = ({name, mobile, hero, hero_mobile, hero_video, hero_video_mobile, siteUrl, active, index}) => {
+const SiteCard = ({name, hero, hero_mobile, hero_video, hero_video_mobile, siteUrl, active, index}) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const SiteCard = ({name, mobile, hero, hero_mobile, hero_video, hero_video_mobil
     setLoaded(true);
   }, [active, index]);
 
-  const video = (mobile && hero_video_mobile) || hero_video;
+  const video = hero_video_mobile || hero_video;
 
   return (
     <Action href={siteUrl} className="site-carousel__site">
@@ -44,7 +44,7 @@ const SiteCard = ({name, mobile, hero, hero_mobile, hero_video, hero_video_mobil
             </div>:
             <ImageIcon
               loading="lazy"
-              icon={(mobile && hero_mobile) || hero}
+              icon={hero_mobile || hero}
               label={name}
               className="site-carousel__site-image"
             />
@@ -77,8 +77,8 @@ const SiteCarousel = observer(({mobile}) => {
   return (
     <Swiper
       className="site-carousel"
-      spaceBetween={mobile ? 0 : 25}
-      slidesPerView={mobile ? 2 : 1.5}
+      spaceBetween={0}
+      slidesPerView={mobile ? 2 : 3.5}
       centeredSlides
       loop
       pagination={{

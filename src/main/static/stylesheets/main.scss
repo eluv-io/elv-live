@@ -728,9 +728,15 @@
   }
 
   &__site-image,
-  &__placeholder {
-    aspect-ratio: 16/9;
+  &__site-video,
+  &__placeholder,
+  .eluvio-player,
+  .player-container,
+  video {
+    aspect-ratio: 3/5;
     height: 100%;
+    object-fit: cover;
+    object-position: top;
     overflow: hidden;
     width: 100%;
   }
@@ -740,14 +746,6 @@
     left: 0;
     position: absolute;
     top: 0;
-  }
-
-  @media screen and (max-width: $width-tablet) {
-    &__site-image,
-    &__placeholder {
-      aspect-ratio: 3/4;
-      object-position: top;
-    }
   }
 }
 

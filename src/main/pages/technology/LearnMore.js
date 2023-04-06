@@ -5,6 +5,8 @@ import {InfoBox} from "../../components/Misc";
 
 import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
 
+import Whitepaper from "./documents/EluvioContentFabricProtocolWhitepaper.pdf";
+
 const LearnMore = observer(() => {
   return (
     <InfoBox
@@ -18,7 +20,8 @@ const LearnMore = observer(() => {
           icon: LinkIcon
         },
         {
-          to: "https://google.com",
+          to: Whitepaper,
+          target: "_blank",
           text: mainStore.l10n.actions.whitepaper,
           icon: DocumentIcon
         }

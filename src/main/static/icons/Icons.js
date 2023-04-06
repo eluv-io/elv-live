@@ -5,7 +5,7 @@ import FilmIcon from "./film.svg";
 import LinkIcon from "./link.svg";
 import MailIcon from "./contact-email.svg";
 import MapIcon from "./contact-location.svg";
-import MenuIcon from "./menu.svg";
+import MenuIcon from "./more-horizontal.svg";
 import MoneyIcon from "./money.svg";
 import NewsIcon from "./read-more.svg";
 import PlayIcon from "./play button.svg";

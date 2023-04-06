@@ -34,6 +34,17 @@
         }
       }
     }
+
+    .menu-button__options {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .menu-button__item {
+      .action {
+        font-size: var(--font-size-body-4);
+      }
+    }
   }
 
   &__logo-container {
