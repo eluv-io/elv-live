@@ -75,7 +75,7 @@ const TenanciesList = ({monthly=false}) => {
   );
 };
 
-const fullWidthElements = (
+const FullWidthElements = observer(() => (
   <>
     <div className="features-banner">
       <div className="features-banner__list">
@@ -94,11 +94,11 @@ const fullWidthElements = (
     </div>
     <FAQs />
   </>
-);
+));
 
 const TenancyLevels = observer(() => {
   return (
-    <PageContainer after={fullWidthElements} padded>
+    <PageContainer after={<FullWidthElements />} padded>
       <div className="page">
         <div className="page__header-container">
           <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
