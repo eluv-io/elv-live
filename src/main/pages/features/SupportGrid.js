@@ -68,36 +68,36 @@ const ItemCard = ({data, dark = false, compactRows}) => {
   );
 };
 
-const SupportGrid = ({items=[], compactRows, sections=[]}) => {
-  const ItemElements = () => {
-    if(sections.length > 0) {
-      return sections.map(section => (
-        <div key={section.header}>
-          <div className="features-support__grid-section-header">{ section.header }</div>
-          {
-            section.items.map((sectionItem, index) => (
-              <ItemCard
-                data={sectionItem}
-                key={`item-card-${sectionItem.label}-${index}`}
-                compactRows={compactRows}
-              />
-            ))
-          }
-        </div>
-      ));
-    } else {
-      return (
-        items.map((item, index) => (
-          <ItemCard
-            data={item}
-            key={`item-card-${item.label}-${index}`}
-            compactRows={compactRows}
-          />
-        ))
-      );
-    }
-  };
+const ItemElements = ({items=[], compactRows, sections=[]}) => {
+  if(sections.length > 0) {
+    return sections.map(section => (
+      <div key={section.header}>
+        <div className="features-support__grid-section-header">{ section.header }</div>
+        {
+          section.items.map((sectionItem, index) => (
+            <ItemCard
+              data={sectionItem}
+              key={`item-card-${sectionItem.label}-${index}`}
+              compactRows={compactRows}
+            />
+          ))
+        }
+      </div>
+    ));
+  } else {
+    return (
+      items.map((item, index) => (
+        <ItemCard
+          data={item}
+          key={`item-card-${item.label}-${index}`}
+          compactRows={compactRows}
+        />
+      ))
+    );
+  }
+};
 
+const SupportGrid = ({items=[], compactRows, sections=[]}) => {
   return (
     <div className="features-support__grid-container">
       <div className="features-support__header-row">
@@ -115,7 +115,7 @@ const SupportGrid = ({items=[], compactRows, sections=[]}) => {
           <div className="features-support__header">Creative Enterprise</div>
         </span>
       </div>
-      { ItemElements() }
+      <ItemElements items={items} compactRows={compactRows} sections={sections} />
     </div>
   );
 };
