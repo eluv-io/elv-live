@@ -2,7 +2,7 @@ import {CheckSquareIcon, ClockIcon, MailIcon, SocialIcons, TelephoneIcon} from "
 import ImageIcon from "../../components/ImageIcon";
 import React from "react";
 
-const ItemCard = ({data, key, dark = false, compactRows=false}) => {
+const ItemCard = ({data, dark = false, compactRows}) => {
   const iconMap = {
     aroundClock: {
       label: "24x7",
@@ -26,10 +26,10 @@ const ItemCard = ({data, key, dark = false, compactRows=false}) => {
     }
   };
 
-  const {label, level_1, level_2, level_3, icons={}} = data;
+  const {label, level_1, level_2, level_3, level_1_text, level_2_text, level_3_text, icons={}} = data;
 
   return (
-    <div className={`features-support__item-card ${dark ? "dark" : "light"} ${compactRows ? "features-support__item-card--compact" : ""}`} key={key}>
+    <div className={`features-support__item-card ${dark ? "dark" : "light"} ${compactRows ? `features-support__item-card--${compactRows}` : ""}`}>
       <div className="features-support__item-card-content">
         <span>
           { label }
@@ -39,7 +39,7 @@ const ItemCard = ({data, key, dark = false, compactRows=false}) => {
               {
                 Object.keys(icons || {}).map(iconKey => (
                   icons[iconKey] &&
-                  <span key={`${key}-icon-${iconKey}`} className="features-support__item-card-communication__item">
+                  <span key={`icon-${iconKey}`} className="features-support__item-card-communication__item">
                     <ImageIcon icon={iconMap[iconKey].icon}/>
                     <span className="features-support__icon-text">&nbsp;{iconMap[iconKey].label}</span>
                   </span>
@@ -48,15 +48,56 @@ const ItemCard = ({data, key, dark = false, compactRows=false}) => {
             </div>
           }
         </span>
-        <span className="centered">{ level_1 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        <span className="centered">{ level_2 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
-        <span className="centered">{ level_3 ? <ImageIcon icon={CheckSquareIcon} /> : "" }</span>
+        <span className="centered">
+          {
+            level_1_text ? level_1_text : level_1 ? <ImageIcon icon={CheckSquareIcon} /> : ""
+          }
+        </span>
+        <span className="centered">
+          {
+            level_2_text ? level_2_text : level_2 ? <ImageIcon icon={CheckSquareIcon} /> : ""
+          }
+        </span>
+        <span className="centered">
+          {
+            level_3_text ? level_3_text : level_3 ? <ImageIcon icon={CheckSquareIcon} /> : ""
+          }
+        </span>
       </div>
     </div>
   );
 };
 
-const SupportGrid = ({items=[], compactRows=false}) => {
+const SupportGrid = ({items=[], compactRows, sections=[]}) => {
+  const ItemElements = () => {
+    if(sections.length > 0) {
+      return sections.map(section => (
+        <div key={section.header}>
+          <div className="features-support__grid-section-header">{ section.header }</div>
+          {
+            section.items.map((sectionItem, index) => (
+              <ItemCard
+                data={sectionItem}
+                key={`item-card-${sectionItem.label}-${index}`}
+                compactRows={compactRows}
+              />
+            ))
+          }
+        </div>
+      ));
+    } else {
+      return (
+        items.map((item, index) => (
+          <ItemCard
+            data={item}
+            key={`item-card-${item.label}-${index}`}
+            compactRows={compactRows}
+          />
+        ))
+      );
+    }
+  };
+
   return (
     <div className="features-support__grid-container">
       <div className="features-support__header-row">
@@ -74,15 +115,7 @@ const SupportGrid = ({items=[], compactRows=false}) => {
           <div className="features-support__header">Creative Enterprise</div>
         </span>
       </div>
-      {
-        items.map((item, index) => (
-          <ItemCard
-            data={item}
-            key={`item-card-${item.label}-${index}`}
-            compactRows={compactRows}
-          />
-        ))
-      }
+      { ItemElements() }
     </div>
   );
 };

@@ -269,13 +269,18 @@
   }
 
   &__item-card {
-    font-size: 16px;
+    font-size: var(--font-size-body-7);
     height: 65px;
     padding: 0 10px 0 75px;
 
-    &--compact {
-      font-size: var(--font-size-body-4);
-      height: 45px;
+    &.light.features-support__item-card--xs,
+    &.light.features-support__item-card--sm {
+      margin-top: 0.5rem;
+    }
+
+    &--sm,
+    &--xs {
+      font-size: var(--font-size-body-5);
       padding: 0 20px;
 
       .features-support__item-card-communication {
@@ -290,6 +295,14 @@
           width: 15px;
         }
       }
+    }
+
+    &--sm {
+      height: 45px;
+    }
+
+    &--xs {
+      height: 38px;
     }
   }
 
@@ -375,6 +388,12 @@
     font-size: var(--font-size-body-3);
     gap: 15px;
     line-height: 2.25;
+  }
+
+  &__grid-section-header {
+    font-size: var(--font-size-body-7);
+    font-weight: 700;
+    margin-top: 1rem;
   }
 }
 

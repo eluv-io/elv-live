@@ -14,6 +14,7 @@ import {
 import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
 import SupportGrid from "./SupportGrid";
 import {CustomerServiceSection} from "./Support";
+import {toJS} from "mobx";
 
 const BannerBox = ({title, icon, paragraph, link}) => {
   const icons = {
@@ -40,16 +41,17 @@ const BannerBox = ({title, icon, paragraph, link}) => {
 };
 
 const TableSection = observer(() => {
+  console.log("items", toJS(mainStore.l10n.features.tenancies.comparison_table))
   return (
     <div className="tenancies-comparison curved-box info-box light">
       <div className="tenancies-comparison__table-container">
         <div className="tenancies-comparison__header">Feature Comparison at a Glance</div>
-        <SupportGrid />
+        <SupportGrid sections={mainStore.l10n.features.tenancies.comparison_table} compactRows={"xs"} />
       </div>
 
       <div className="tenancies-comparison__table-container">
         <div className="tenancies-comparison__header">Customer Service and Support</div>
-        <SupportGrid items={mainStore.l10n.features_support.gridItems} compactRows={true} />
+        <SupportGrid items={mainStore.l10n.features_support.gridItems} compactRows={"sm"} />
         <CustomerServiceSection smallFont={true} />
       </div>
     </div>

@@ -110,20 +110,20 @@ comparison_table:
         level_2: false
         level_3: true
       - label: Landing/Event Object
-        level_1: 1
-        level_2: 1
-        level_3: Unlimited
+        level_1_text: 1
+        level_2_text: 1
+        level_3_text: Unlimited
       - label: Site Object
-        level_1: 1
-        level_2: 1
-        level_3: Unlimited
+        level_1_text: 1
+        level_2_text: 1
+        level_3_text: Unlimited
       - label: Marketplace Object (primary and secondary trading)
-        level_1: 1
-        level_2: 1
-        level_3: Unlimited
+        level_1_text: 1
+        level_2_text: 1
+        level_3_text: Unlimited
       - label: '"Powered by Eluvio" Web3 Content Experiences and Stores'
-        level_1: |
+        level_1_text: |
           $1,500.00
           per month
-        level_2: Included in plan
-        level_3: Included in plan
+        level_2_text: Included in plan
+        level_3_text: Included in plan
