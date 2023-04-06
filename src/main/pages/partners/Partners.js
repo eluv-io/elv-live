@@ -23,7 +23,7 @@ const Partners = observer(() => {
       </div>
 
       <div className="page__content-block">
-        <h3 className="page__content-block__header">
+        <h3 className="page__content-block__header center-align">
           { mainStore.l10n.partners.providers_validators }
         </h3>
         <GridCarousel classNameGrid="centered partners__list--grid" classNameCarousel="partners__list--carousel">
@@ -31,7 +31,7 @@ const Partners = observer(() => {
             partners.map(({name, logo, info, is_provider, is_validator}, index) =>
               <PartnerIcon
                 name={name}
-                logo={logo.url}
+                logo={logo?.url}
                 modalContent={info}
                 isProvider={is_provider}
                 isValidator={is_validator}
@@ -43,12 +43,12 @@ const Partners = observer(() => {
       </div>
 
       <div className="page__content-block">
-        <h3 className="page__content-block__header">
+        <h3 className="page__content-block__header center-align">
           { mainStore.l10n.partners.ecosystem }
         </h3>
         <div className="grid partners__ecosystem">
           { ecosystem.map(({name, logo}, index) =>
-            <ImageIcon title={name} icon={logo.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />
+            <ImageIcon title={name} icon={logo?.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />
           )}
         </div>
       </div>

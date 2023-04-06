@@ -21,7 +21,7 @@ const MobileNav = observer(({visible, Close}) => {
     } else {
       // Scroll back up to top after fading out
       setTimeout(() => {
-        document.querySelector(".mobile-nav").scrollTo(0, 0);
+        document.querySelector(".mobile-nav")?.scrollTo(0, 0);
       }, 500);
     }
   }, [visible]);
