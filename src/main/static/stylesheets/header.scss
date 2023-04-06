@@ -57,7 +57,8 @@
     flex-grow: 1;
 
     .header__nav-link {
-      padding-inline: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
 
       &.active,
       &:active,

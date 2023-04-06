@@ -4,14 +4,10 @@ import HeaderLoop from "../../static/videos/header-loop.mp4";
 
 const HeaderVideo = observer(() => {
   return (
-    <video
-      // Muted isn't set properly in react
-      ref={element => element?.setAttribute("muted", "1")}
-      loop
-      playsInline
-      autoPlay
+    <div
       className="main-page-header__video"
-      src={HeaderLoop}
+      // React doesn't handle muted attribute properly, which breaks autoplay
+      dangerouslySetInnerHTML={{__html: `<video src=${HeaderLoop} loop muted playsinline="" autoplay class="main-page-header__video" />`}}
     />
   );
 });

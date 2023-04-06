@@ -111,7 +111,8 @@
     }
 
     &__logo-container {
-      padding-inline: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
       width: 100%;
     }
 
@@ -148,7 +149,7 @@
 
   &__item {
     font-family: var(--font-family-alternate-1);
-    font-size: var(--font-size-body-2);
+    font-size: var(--font-size-body-3);
     font-weight: 300;
     letter-spacing: 0.015em;
     text-align: center;
@@ -160,7 +161,7 @@
     }
 
     &__item {
-      font-size: var(--font-size-body-3);
+      font-size: var(--font-size-body-4);
     }
   }
 }
@@ -627,7 +628,8 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: center;
     max-width: 100%;
-    padding-inline: var(--horizontal-content-padding);
+    padding-left: var(--horizontal-content-padding);
+    padding-right: var(--horizontal-content-padding);
     position: relative;
     width: 100%;
   }
@@ -670,7 +672,8 @@
     gap: 50px;
     justify-content: space-between;
     margin-top: 50px;
-    padding-inline: var(--horizontal-content-padding);
+    padding-left: var(--horizontal-content-padding);
+    padding-right: var(--horizontal-content-padding);
     position: relative;
     z-index: 10;
   }

@@ -7,7 +7,8 @@
   gap: 15px;
   height: 60px;
   justify-content: center;
-  padding-inline: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
   user-select: none;
   width: max-content;
@@ -28,7 +29,8 @@
     font-size: var(--font-size-body-4);
     gap: 10px;
     height: 40px;
-    padding-inline: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 
     .action__icon {
       height: 20px;
@@ -41,7 +43,8 @@
     font-weight: 400;
     gap: 7px;
     height: 35px;
-    padding-inline: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 
     .action__icon {
       height: 15px;
