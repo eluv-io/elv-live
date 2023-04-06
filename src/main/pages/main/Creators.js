@@ -72,7 +72,7 @@ const TextBoxesBlock = observer(() => {
   const icons = [BlockchainIcon, DollarIcon, WalletIcon];
 
   return (
-    <div className="main-page-block main-page-block--text-boxes">
+    <div className="main-page-block__text-boxes">
       {(mainStore.l10n.creators.video_block.text_boxes || []).map((item, index) => (
         <div key={item} className="main-page-block__text-box">
           <div className="main-page-block__text-box-content">

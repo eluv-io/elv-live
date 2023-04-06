@@ -1,72 +1,94 @@
-import React from "react";
+import React, {useState} from "react";
 import {Action} from "../../components/Actions";
-import ImageIcon from "../../components/ImageIcon";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
 
-import Feature1 from "../../static/images/main/features/1_Live-Events-_-Drops-Card-Face.png";
-import Feature2 from "../../static/images/main/features/2_Marketplace-Card-Face.png";
-import Feature3 from "../../static/images/main/features/3_Payment Gateway Card Face.png";
-import Feature4 from "../../static/images/main/features/4_Content-Investing-Card-Face.png";
-import Feature5 from "../../static/images/main/features/5_Dynamic-Traits-Card-Face.png";
-import Feature6 from "../../static/images/main/features/6_Market-Making-Curation-_-Matching-Card-Facing.png";
-import Feature7 from "../../static/images/main/features/7_Customization-Card-Face.png";
-import Feature8 from "../../static/images/main/features/8_Data-Card-Face.png";
+import {
+  PlayCircleIcon,
+  DiscoverIcon,
+  DollarIcon,
+  SmileIcon,
+  AppIcon,
+  PulseIcon,
+  BarsIcon
+} from "../../static/icons/Icons";
 
-const FeatureCards = [
-  {
-    image: Feature1,
-    text: "Live Events & Drops\nLorem ipsum dolor sit amet consectetur.",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature2,
-    text: "Marketplace",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature3,
-    text: "Payment Gateway",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature4,
-    text: "Content Investing",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature5,
-    text: "Dynamic Traits",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature6,
-    text: "Market Making Curation & Matching",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature7,
-    text: "Customization",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  },
-  {
-    image: Feature8,
-    text: "Data",
-    description: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur."
-  }
-];
+import FeatureCardFront from "../../static/images/main/features/key-features-front.png";
+import FeatureCardBack from "../../static/images/main/features/key-features-back.png";
+import ImageIcon from "../../components/ImageIcon";
 
-const KeyFeaturesCards = ({mobile}) => {
+let icons = {
+  play: PlayCircleIcon,
+  discover: DiscoverIcon,
+  money: DollarIcon,
+  app: AppIcon,
+  smile: SmileIcon,
+  pulse: PulseIcon,
+  bars: BarsIcon
+};
+
+const KeyFeatureCard = observer(({mobile, feature, flipped, setFlipped}) => {
+  return (
+    <button
+      className={`key-feature-card ${flipped ? "key-feature-card--flipped" : ""}`}
+      onClick={event => {
+        if(mobile || flipped) { return; }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        setFlipped(true);
+      }}
+    >
+      <div className="key-feature-card__wrapper">
+        <div className="key-feature-card__banner-container key-feature-card__banner-container--front">
+          <img
+            alt={feature.front}
+            className="key-feature-card__banner"
+            src={FeatureCardFront}
+          />
+          <div className="key-feature-card__content key-feature-card__content--front">
+            <ImageIcon icon={icons[feature.icon]} className="key-feature-card__icon" />
+            <div className="key-feature-card__title">{ feature.front }</div>
+            <div className="key-feature-card__learn-more">{ mainStore.l10n.creators.key_features.learn_more }</div>
+          </div>
+        </div>
+        <div className="key-feature-card__banner-container key-feature-card__banner-container--back">
+          <img
+            alt={feature.back}
+            className="key-feature-card__banner"
+            src={FeatureCardBack}
+          />
+          <div className="key-feature-card__content key-feature-card__content--back">
+            <div className="key-feature-card__text">{ feature.back }</div>
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+});
+
+const KeyFeaturesCards = observer(({mobile}) => {
+  const [flippedIndex, setFlippedIndex] = useState(-1);
+
+  const featureCards = (
+    mainStore.l10n.creators.key_features.cards.map((feature, index) =>
+      <KeyFeatureCard
+        key={`feature-${index}`}
+        feature={feature}
+        flipped={index === flippedIndex}
+        setFlipped={flip => setFlippedIndex(flip ? index : -1)}
+        mobile={mobile}
+      />
+    )
+  );
+
   if(!mobile) {
     return (
       <div className="main-page-block__key-features__list">
-        { FeatureCards.map(({image, text}) =>
-          <button key={`key-feature-${text}`} className="main-page-block__key-feature">
-            <ImageIcon icon={image} label={text} className="main-page-block__key-feature__image" />
-          </button>
-        )}
+        { featureCards }
       </div>
     );
   }
@@ -84,16 +106,14 @@ const KeyFeaturesCards = ({mobile}) => {
       }}
       modules={[Pagination]}
     >
-      { FeatureCards.map(({image, text}) =>
-        <SwiperSlide key={`key-feature-${text}`} className="main-page-block__key-features__slide">
-          <button className="main-page-block__key-feature">
-            <ImageIcon icon={image} label={text} className="main-page-block__key-feature__image" />
-          </button>
+      { featureCards.map((featureCard, index) =>
+        <SwiperSlide key={`key-feature-${index}`} className="main-page-block__key-features__slide">
+          { featureCard }
         </SwiperSlide>
       )}
     </Swiper>
   );
-};
+});
 
 const KeyFeatures = observer(({mobile}) => {
   return (

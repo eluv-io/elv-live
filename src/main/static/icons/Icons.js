@@ -27,6 +27,10 @@ import WalletIcon from "./wallet.svg";
 import ProfileIcon from "./profile.svg";
 import TrendingUpIcon from "./trending-up.svg";
 import DollarIcon from "./dollar-sign.svg";
+import AppIcon from "./marketmaking.svg";
+import SmileIcon from "./customization.svg";
+import PulseIcon from "./data";
+import BarsIcon from "./dynamic.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -49,6 +53,8 @@ const SocialIcons = {
 };
 
 export {
+  AppIcon,
+  BarsIcon,
   CheckSquareIcon,
   CheckmarkIcon,
   ClockIcon,
@@ -65,13 +71,15 @@ export {
   MinimizeIcon,
   MinusIcon,
   NewsIcon,
-  PlayCircleIcon,
   PlusIcon,
   ProfileIcon,
   MoneyIcon,
+  PlayCircleIcon,
   PlayIcon,
   PowerIcon,
+  PulseIcon,
   SendIcon,
+  SmileIcon,
   SpreadMapIcon,
   SupportIcon,
   TelephoneIcon,

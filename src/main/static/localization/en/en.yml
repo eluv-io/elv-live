@@ -85,6 +85,41 @@ creators:
     cta: Get Started Now
   key_features:
     header: Key Features
+    learn_more: Learn More
+    cards:
+      -
+        icon: play
+        front: Live Events & Drops
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: discover
+        front: Marketplace
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: money
+        front: Payment Gateway
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: money
+        front: Content Investing
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: bars
+        front: Dynamic Traits
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: app
+        front: Market Making Curation & Matching
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: smile
+        front: Customization
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+      -
+        icon: pulse
+        front: Data
+        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+
 
 
 
