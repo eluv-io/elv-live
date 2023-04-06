@@ -74,6 +74,13 @@
   &__section:not(:last-child) {
     margin-bottom: 100px;
   }
+
+  &__section-header {
+    font-size: var(--font-size-header-3);
+    margin-bottom: 0.5rem;
+    margin-left: 2rem;
+    text-transform: uppercase;
+  }
 }
 
 .features-banner {
@@ -415,13 +422,15 @@
 
 .features-details {
   &__item-card {
-    padding: 2rem;
+    height: 65px;
+    padding: 0 20px;
   }
 
   &__item-card__content {
     align-items: center;
     display: flex;
     gap: 50px;
+    height: 100%;
 
     .action {
       color: var(--color-highlight-3);
@@ -432,7 +441,8 @@
     }
 
     p {
-      font-size: var(--font-size-body-4);
+      color: var(--color-text-light-3);
+      font-size: var(--font-size-body-5);
     }
 
     span {

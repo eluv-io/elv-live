@@ -6,6 +6,8 @@ import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 
 import {PlayCircleIcon} from "../../static/icons/Icons";
+import SupportGrid from "./SupportGrid";
+import {CustomerServiceSection} from "./Support";
 
 const ItemCard = (data, dark=false) => {
   const {contentTitle, description, link} = data;
@@ -21,24 +23,45 @@ const ItemCard = (data, dark=false) => {
   );
 };
 
-const Features = observer(() => {
-  const detailsData = mainStore.l10n.features.details;
+const ApplicationSection = observer(() => {
+  return (
+    <div className="features__section">
+      <div className="features__section-header">Applications</div>
 
-  useEffect(() => {
-    const hash = window.location.hash;
-    if(hash) {
-      const element = document.getElementById(hash.substring(1));
-      setTimeout(() => {
-        if(element) {
-          element.scrollIntoView({behavior: "auto"});
-        }
-      }, 10);
-    }
-  }, []);
+      <div className="tenancies-comparison features__info-box curved-box info-box light">
+        <div className="tenancies-comparison__table-container">
+          <div className="info-box__content">
+            <div className="info-box__icon-container">
+              <ImageIcon icon={PlayCircleIcon} className="info-box__icon" title="Media Application Platform" />
+            </div>
+            <div className="info-box__text">
+              <h3 className="info-box__header">Blockchain Content Applications (provided by Eluvio, Inc.)</h3>
+            </div>
+          </div>
 
-  const detailSection = (
-    detailsData.map(({header, id, items}) => (
+          {
+            mainStore.l10n.features.tenancies.comparison_table.map(({header, items}) => (
+              <Accordion key={`accordion-${header}`} title={header} className="features__accordion">
+                <SupportGrid items={items} />
+              </Accordion>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const DetailSection = observer(() => {
+  const data = mainStore.l10n.features.details;
+
+  return (
+    data.map(({header, sectionHeader, id, items}) => (
       <div className="features__section" key={`features-section-${id}`} id={id}>
+        {
+          sectionHeader &&
+          <div className="features__section-header">{ sectionHeader }</div>
+        }
         <div className="features__info-box curved-box info-box light">
           <div className="info-box__content">
             <div className="info-box__icon-container">
@@ -61,6 +84,20 @@ const Features = observer(() => {
       </div>
     ))
   );
+});
+
+const Features = () => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if(hash) {
+      const element = document.getElementById(hash.substring(1));
+      setTimeout(() => {
+        if(element) {
+          element.scrollIntoView({behavior: "auto"});
+        }
+      }, 10);
+    }
+  }, []);
 
   return (
     <div className="page">
@@ -68,10 +105,11 @@ const Features = observer(() => {
         <h1 className="features--purple-header">Features</h1>
       </div>
       <div className="page__content-block">
-        { detailSection }
+        <ApplicationSection />
+        <DetailSection />
       </div>
     </div>
   );
-});
+};
 
 export default Features;

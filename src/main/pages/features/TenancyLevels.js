@@ -14,7 +14,6 @@ import {
 import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
 import SupportGrid from "./SupportGrid";
 import {CustomerServiceSection} from "./Support";
-import {toJS} from "mobx";
 
 const BannerBox = ({title, icon, paragraph, link}) => {
   const icons = {
