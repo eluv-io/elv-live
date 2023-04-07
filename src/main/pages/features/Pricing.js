@@ -34,31 +34,6 @@ const BlockchainTransactions = observer(() => {
 
   return (
     <SectionWrapper header={header} icon={iconMap[icon]}>
-      <FeaturesGrid
-        headerRows={[
-          {
-            id: "blockchain-transactions-header-top",
-            className: rowClassName,
-            cells: headerItems.map(headerItem => ({label: headerItem}))
-          }
-        ]}
-        bodyRows={[
-          {
-            id: "blockchain-transactions-body-top",
-            className: rowClassName,
-            cells: [
-              {label: "NFT Contract Creation"},
-              {label: "per NFT contract (one per Edition)"},
-              {label: "$10.00"},
-              {
-                label: mobile ? undefined : "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores",
-                className: mobile ? undefined : "features-grid__light-text",
-                tooltipText: mobile ? "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores" : undefined
-              }
-            ]
-          }
-        ]}
-      />
       {
         items.map((itemData, index) => (
           <Accordion
@@ -66,7 +41,6 @@ const BlockchainTransactions = observer(() => {
             title={itemData.title}
             subtitle={itemData.subtitle}
             description={itemData.description}
-            triggerText="VIEW DETAILS"
             className="features__accordion features__blockchain-accordion"
           >
             <FeaturesGrid
