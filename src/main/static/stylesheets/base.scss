@@ -51,7 +51,7 @@ body {
   position: relative;
 
   .wallet,
-  .mobile-menu {
+  &.mobile-menu {
     overflow: hidden;
   }
 }
