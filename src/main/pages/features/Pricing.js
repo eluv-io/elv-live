@@ -2,18 +2,9 @@ import React from "react";
 import ImageIcon from "../../components/ImageIcon";
 import {Accordion} from "../../components/Misc";
 import FeaturesGrid from "./FeaturesGrid";
-import {FormatCurrency} from "../../utils/Utils";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import {SupportIcon} from "../../static/icons/Icons";
-
-const {
-  committedUtilityLevel,
-  blockchainTransactions,
-  baseRentalOperations,
-  platformServiceFee,
-  bitcodeOperations
-} = mainStore.l10n.features.pricing;
 
 const iconMap = {
   supportIcon: SupportIcon
@@ -37,126 +28,77 @@ const SectionWrapper = ({children, header, icon}) => {
   );
 };
 
-const CommittedUtilityLevel = () => {
-  const {header, items, rowClassName, unitLabel, basePriceLabel} = committedUtilityLevel;
-  const icon = iconMap[committedUtilityLevel.icon];
+const BlockchainTransactions = observer(() => {
+  const {header, items, rowClassName, icon, headerItems} = mainStore.l10n.features.pricing.blockchainTransactions;
 
   return (
-    <SectionWrapper header={header} icon={icon}>
-      {
-        items.map((itemData, index) => (
-          <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features__accordion">
-            <FeaturesGrid
-              headerRows={[
-                {
-                  id: `committed-utility-header-${itemData.title}-1`,
-                  className: `${rowClassName} features-grid__main-header`,
-                  cells: [
-                    {label: ""},
-                    {label: "Monthly"},
-                    {label: "Annual"}
-                  ]
-                },
-                {
-                  id: `committed-utility-header-${itemData.title}-2`,
-                  className: `${rowClassName} features-grid__helper-header`,
-                  cells: [
-                    {label: unitLabel},
-                    {label: basePriceLabel},
-                    {label: ""}
-                  ]
-                }
-              ]}
-              bodyRows={[
-                {
-                  id: `committed-utility-body-${index}`,
-                  className: rowClassName,
-                  cells: [
-                    {label: itemData.unit},
-                    {label: FormatCurrency({number: itemData.priceMonthly})},
-                    {label: FormatCurrency({number: itemData.priceAnnual})},
-                  ]
-                }
-              ]}
-            />
-          </Accordion>
-        ))
-      }
-    </SectionWrapper>
-  );
-};
-
-const BlockchainTransactions = () => {
-  const {header, items, rowClassName, unitLabel, basePriceLabel} = blockchainTransactions;
-  const icon = iconMap[blockchainTransactions.icon];
-
-  return (
-    <SectionWrapper header={header} icon={icon}>
+    <SectionWrapper header={header} icon={iconMap[icon]}>
+      <FeaturesGrid
+        headerRows={[
+          {
+            id: "blockchain-transactions-header-top",
+            className: rowClassName,
+            cells: headerItems.map(headerItem => ({label: headerItem}))
+          }
+        ]}
+        bodyRows={[
+          {
+            id: "blockchain-transactions-body-top",
+            className: rowClassName,
+            cells: [
+              {label: "NFT Contract Creation"},
+              {label: "per NFT contract (one per Edition)"},
+              {label: "$0.0011"},
+              {label: "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores", className: "features-grid__light-text"}
+            ]
+          }
+        ]}
+      />
       {
         items.map((itemData, index) => (
           <Accordion
             key={`accordion-${itemData.title}`}
             title={itemData.title}
+            subtitle={itemData.subtitle}
             description={itemData.description}
-            className="features__accordion"
+            triggerText="VIEW DETAILS"
+            className="features__accordion features__blockchain-accordion"
           >
             <FeaturesGrid
               headerRows={[
                 {
-                  id: `blockchain-transactions-header-${itemData.title}-1`,
-                  className: `${rowClassName} features-grid__top-header`,
-                  cells: [
-                    {label: ""},
-                    {label: "Level 1"},
-                    {label: "Level 2"},
-                    {label: "Level 3"}
-                  ]
-                },
-                {
-                  id: `blockchain-transactions-header-${itemData.title}-2`,
-                  className: `${rowClassName} features-grid__main-header`,
-                  cells: [
-                    {label: ""},
-                    {label: "Pay As You Go"},
-                    {label: "Advanced"},
-                    {label: "Enterprise"}
-                  ]
-                },
-                {
-                  id: `blockchain-transactions-header-${itemData.title}-3`,
+                  id: `blockchain-transactions-header-${itemData.title}-${index}`,
                   className: `${rowClassName} features-grid__helper-header`,
-                  cells: [
-                    {label: unitLabel},
-                    {label: basePriceLabel}
-                  ]
+                  cells: headerItems.map(headerItem => ({label: headerItem}))
                 }
               ]}
-              bodyRows={[
-                {
-                  id: `blockchain-transactions-body-${index}`,
-                  className: rowClassName,
-                  cells: [
-                    {label: itemData.unit},
-                    {label: FormatCurrency({number: itemData.pricePayAsYouGo})},
-                    {label: FormatCurrency({number: itemData.priceAdvanced})},
-                    {label: FormatCurrency({number: itemData.priceEnterprise})}
-                  ]
-                }
-              ]}
+              bodyRows={
+                itemData.items.map(rowItem => (
+                  {
+                    id: `blockchain-transactions-body-${itemData.title}-${rowItem.detail}`,
+                    className: rowClassName,
+                    cells: [
+                      {label: rowItem.detail},
+                      {label: rowItem.unit},
+                      {label: rowItem.basePrice},
+                      {label: rowItem.description}
+                    ]
+                  }
+                ))
+              }
             />
           </Accordion>
         ))
       }
     </SectionWrapper>
   );
-};
+});
 
-const BaseRentalOperations = () => {
-  const {header, items, unitLabel, basePriceLabel, rowClassName, caption} = baseRentalOperations;
-  const icon = iconMap[baseRentalOperations.icon];
+const BaseRentalOperations = observer(() => {
+  const {header, items, unitLabel, basePriceLabel, rowClassName, caption, icon} = mainStore.l10n.features.pricing.baseRentalOperations;
 
   return (
-    <SectionWrapper header={header} icon={icon}>
+    <SectionWrapper header={header} icon={iconMap[icon]}>
       <FeaturesGrid
         caption={caption}
         headerRows={[
@@ -181,7 +123,7 @@ const BaseRentalOperations = () => {
               [
                 {label: operation},
                 {label: unit},
-                {label: FormatCurrency({number: basePrice})},
+                {label: basePrice},
                 {label: itemDescription, className: "features-grid__light-text"}
               ]
             };
@@ -190,29 +132,25 @@ const BaseRentalOperations = () => {
       />
     </SectionWrapper>
   );
-};
+});
 
-const PlatformServiceFee = () => {
-  const {header, items, basePriceLabel, rowClassName, caption} = platformServiceFee;
-  const icon = iconMap[platformServiceFee.icon];
+const PlatformServiceFee = observer(() => {
+  const {header, items, headerItems, rowClassName, icon} = mainStore.l10n.features.pricing.platformServiceFee;
 
   return (
-    <SectionWrapper header={header} icon={icon}>
+    <SectionWrapper header={header} icon={iconMap[icon]}>
       <FeaturesGrid
-        caption={caption}
         headerRows={[
           {
             id: "platform-service-header-1",
             className: rowClassName,
-            cells: [
-              {label: ""},
-              {label: basePriceLabel},
-              {label: ""}
-            ]
+            cells: headerItems.map(headerItem => ({
+              label: headerItem
+            }))
           }
         ]}
         bodyRows={
-          items.map(({label, fee, itemDescription}, index) => {
+          items.map(({label, fee, minimum, itemDescription}, index) => {
             return {
               id: `platform-service-body-${index}`,
               className:
@@ -221,6 +159,7 @@ const PlatformServiceFee = () => {
                 [
                   {label: label},
                   {label: fee},
+                  {label: minimum},
                   {label: itemDescription, className: "features-grid__light-text"}
                 ]
             };
@@ -229,40 +168,146 @@ const PlatformServiceFee = () => {
       />
     </SectionWrapper>
   );
-};
+});
 
-const BitcodeOperations = () => {
-  const {header, items, itemsFourCol, rowClassName, unitLabel, basePriceLabel} = bitcodeOperations;
-  const icon = iconMap[bitcodeOperations.icon];
+const ContentDistributionGrid = observer(({section, sectionIndex, rowClassName, itemData}) => {
+  if(section.subSections && section.subSections.length > 0) {
+    return (
+      section.subSections.map(subSection => (
+        <div className="features__sub-section" key={`sub-section-${subSection.title}`}>
+          {
+            subSection.title &&
+            <div className="features__sub-section-title">{subSection.title}</div>
+          }
+          <FeaturesGrid
+            className="features-grid--indented"
+            headerRows={[
+              {
+                id: `content-distribution-${subSection.title}-${sectionIndex}`,
+                className: rowClassName,
+                cells: (subSection.headerItems || itemData.headerItems).map(headerItem => (
+                  {label: headerItem}
+                ))
+              }
+            ]}
+            bodyRows={
+              subSection.items.map(({detail, perSec, perHour, multiplier, itemDescription}, index) => {
+                return {
+                  id: `content-distribution-${sectionIndex} -${index}`,
+                  key: `content-distribution-${sectionIndex}-${index}`,
+                  className: rowClassName,
+                  cells: [
+                    {label: detail},
+                    {label: perSec},
+                    {label: perHour},
+                    {label: multiplier},
+                    {label: itemDescription, className: "features-grid__light-text"}
+                  ]
+                };
+              })
+            }
+          />
+        </div>
+      ))
+    );
+  } else {
+    return (
+      <FeaturesGrid
+        headerRows={[
+          {
+            id: `content-distribution-${section.title}-${sectionIndex}`,
+            className: section.rowClassName || rowClassName,
+            cells: (section.headerItems || itemData.headerItems).map(headerItem => (
+              {label: headerItem}
+            ))
+          }
+        ]}
+        bodyRows={
+          section.items.map(({detail, unit, perSec, perHour, multiplier, itemDescription}, index) => {
+            return {
+              id: `content-distribution-${sectionIndex} -${index}`,
+              key: `content-distribution-${sectionIndex}-${index}`,
+              className: section.rowClassName || rowClassName,
+              cells: [
+                {label: detail},
+                {label: unit},
+                {label: perSec},
+                {label: perHour},
+                {label: multiplier},
+                {label: itemDescription, className: "features-grid__light-text"}
+              ]
+            };
+          })
+        }
+      />
+    );
+  }
+});
+
+const ContentDistribution = observer(() => {
+  const {header, items, rowClassName, icon} = mainStore.l10n.features.pricing.contentDistribution;
 
   return (
-    <SectionWrapper header={header} icon={icon}>
+    <SectionWrapper header={header} icon={iconMap[icon]}>
       {
         items.map(itemData => (
-          <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features__accordion">
+          <Accordion title={itemData.title} className="features__accordion" key={`accordion-${itemData.title}`}>
             {
               itemData.sections.map((section, sectionIndex) => (
-                <div key={`bitcode-operations-section-${itemData.title}-${sectionIndex}`}>
-                  <div className="features-grid__section-description">{ section.title }</div>
+                <div key={`accordion-${itemData.title}-${section.title}`}>
+                  <div className="features__section-title">{ section.title }</div>
+                  <div className="features__section-description">{section.description}</div>
+
+                  <ContentDistributionGrid
+                    section={section}
+                    sectionIndex={sectionIndex}
+                    rowClassName={itemData.rowClassName || rowClassName}
+                    itemData={itemData}
+                  />
+                </div>
+              ))
+            }
+          </Accordion>
+        ))
+      }
+    </SectionWrapper>
+  );
+});
+
+const AdvancedContentServices = observer(() => {
+  const {header, items, rowClassName, icon, headerItems} = mainStore.l10n.features.pricing.advancedContentServices;
+
+  return (
+    <SectionWrapper header={header} icon={iconMap[icon]}>
+      {
+        items.map(itemData => (
+          <Accordion title={itemData.title} description={itemData.description} className="features__accordion" key={`accordion-${itemData.title}`}>
+            {
+              itemData.sections.map((section, sectionIndex) => (
+                <div key={`section-${sectionIndex}`}>
+                  <div className="features__section-title">{ section.title }</div>
                   <FeaturesGrid
                     headerRows={[
                       {
-                        id: `bitcode-playout-header-${sectionIndex}`,
-                        className: rowClassName,
-                        cells: [
-                          {label: unitLabel},
-                          {label: basePriceLabel}
-                        ]
+                        id: `content-distribution-${section.title || ""}-${sectionIndex}`,
+                        className: section.rowClassName || rowClassName,
+                        cells: (headerItems).map(headerItem => (
+                          {label: headerItem}
+                        ))
                       }
                     ]}
                     bodyRows={
-                      section.items.map(({unit, basePrice, itemDescription}, index) => {
+                      section.items.map(({detail, unit, perSec, perHour, multiplier, itemDescription}, index) => {
                         return {
-                          id: `bitcode-operations-section-${sectionIndex}-body-${index}`,
-                          className: rowClassName,
+                          id: `content-distribution-${sectionIndex} -${index}`,
+                          key: `content-distribution-${sectionIndex}-${index}`,
+                          className: section.rowClassName || rowClassName,
                           cells: [
+                            {label: detail},
                             {label: unit},
-                            {label: FormatCurrency({number: basePrice})},
+                            {label: perSec},
+                            {label: perHour},
+                            {label: multiplier},
                             {label: itemDescription, className: "features-grid__light-text"}
                           ]
                         };
@@ -275,59 +320,25 @@ const BitcodeOperations = () => {
           </Accordion>
         ))
       }
-      {
-        itemsFourCol.map((itemData, accordionIndex) => (
-          <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features__accordion" description={itemData.description}>
-            <FeaturesGrid
-              headerRows={[
-                {
-                  id: `bitcode-playout-header-${itemData.title}-${accordionIndex}`,
-                  className: `${itemData.rowClassName} features-grid__helper-header`,
-                  cells: [
-                    {label: ""},
-                    {label: unitLabel},
-                    {label: basePriceLabel},
-                    {label: ""}
-                  ]
-                }
-              ]}
-              bodyRows={
-                itemData.items.map(({detail, unit, basePrice, itemDescription}, index) => (
-                  {
-                    id: `bitcode-operations-4col-section-${accordionIndex}-${index}`,
-                    className: itemData.rowClassName,
-                    cells: [
-                      {label: detail},
-                      {label: unit},
-                      {label: FormatCurrency({number: basePrice})},
-                      {label: itemDescription, className: "features-grid__light-text"}
-                    ]
-                  }
-                ))
-              }
-            />
-          </Accordion>
-        ))
-      }
     </SectionWrapper>
   );
-};
+});
 
-const Pricing = observer(() => {
+const Pricing = () => {
   return (
     <div className="page">
       <div className="page__header-container">
         <h1 className="features--purple-header">Pricing</h1>
       </div>
       <div className="page__content-block">
-        { CommittedUtilityLevel() }
-        { BlockchainTransactions()}
-        { BaseRentalOperations()}
-        { BitcodeOperations()}
-        { PlatformServiceFee()}
+        <BaseRentalOperations />
+        <ContentDistribution />
+        <AdvancedContentServices />
+        <BlockchainTransactions />
+        <PlatformServiceFee />
       </div>
     </div>
   );
-});
+};
 
 export default Pricing;

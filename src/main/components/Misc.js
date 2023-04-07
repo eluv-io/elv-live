@@ -257,14 +257,22 @@ export const GridCarousel = observer(({children, cutOff=600, className="", class
   );
 });
 
-export const Accordion = ({title, description, className="", openIcon=PlusIcon, closeIcon=MinusIcon, children}) => {
+export const Accordion = ({title, subtitle="", description, className="", openIcon=PlusIcon, closeIcon=MinusIcon, children, triggerText}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={`accordion ${className}`}>
       <Action className="accordion__header left-align" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
-        <div className="accordion__header__title">{ title }</div>
-        <ImageIcon icon={isOpen ? closeIcon : openIcon} className="accordion__header__icon" />
+        <div className="accordion__header-container">
+          <div className="accordion__header-subtitle">{ subtitle }</div>
+          <div className="accordion__header__title">{ title }</div>
+        </div>
+
+        { triggerText && <div className="accordion__trigger-text">{triggerText}</div> }
+        {
+          !triggerText &&
+          <ImageIcon icon={isOpen ? closeIcon : openIcon} className="accordion__header__icon"/>
+        }
       </Action>
       {
         isOpen &&
