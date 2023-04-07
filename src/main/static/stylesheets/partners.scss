@@ -6,12 +6,23 @@
   }
 
   &__ecosystem {
-    gap: 30px;
+    gap: 50px;
+    justify-content: center;
   }
 
   &__ecosystem-icon {
-    height: auto;
-    width: 150px;
+    height: 75px;
+    width: auto;
+  }
+
+  @media screen and (max-width: $width-mobile) {
+    &__ecosystem {
+      gap: 25px;
+    }
+
+    &__ecosystem-icon {
+      height: 50px;
+    }
   }
 }
 
