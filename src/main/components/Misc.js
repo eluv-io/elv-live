@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import DOMPurify from "dompurify";
@@ -11,7 +11,7 @@ import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import EluvioConfiguration from "EluvioConfiguration";
-import {MinusIcon, PlusIcon} from "../static/icons/Icons";
+import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
 
 SwiperCore.use([Lazy, Pagination]);
 
@@ -284,6 +284,36 @@ export const Accordion = ({title, subtitle="", description, className="", openIc
             </div>
           }
           {children}
+        </div>
+      }
+    </div>
+  );
+};
+
+export const Tooltip = ({className, content}) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const HandleClickOutside = (event) => {
+      if(ref.current && !ref.current.contains(event.target)) {
+        setShowTooltip(false);
+      }
+    };
+
+    document.addEventListener("mousedown", HandleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", HandleClickOutside);
+    };
+  }, [ref]);
+
+  return (
+    <div className={`tooltip ${className}`}>
+      <Action ref={ref} icon={InfoIcon} className="tooltip__icon" onClick={() => setShowTooltip(prevState => !prevState)} />
+      {
+        showTooltip && <div className="tooltip__content">
+          {content}
         </div>
       }
     </div>

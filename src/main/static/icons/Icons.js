@@ -31,6 +31,7 @@ import AppIcon from "./marketmaking.svg";
 import SmileIcon from "./customization.svg";
 import PulseIcon from "./data";
 import BarsIcon from "./dynamic.svg";
+import InfoIcon from "./info.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -64,6 +65,7 @@ export {
   FlagIcon,
   BlockchainIcon,
   FilmIcon,
+  InfoIcon,
   LinkIcon,
   MailIcon,
   MapIcon,
