@@ -92,7 +92,7 @@ class MainStore {
     metadataUrl.searchParams.append("remove", "news");
 
     this.mainSite = ProduceMetadataLinks({
-      path: "/public/asset_metadata",
+      path: "/public/asset_metadata/info",
       metadata: yield (yield fetch(metadataUrl)).json()
     });
   });

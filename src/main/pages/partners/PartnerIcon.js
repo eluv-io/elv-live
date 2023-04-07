@@ -33,16 +33,17 @@ const PartnerInfo = observer(({name, logo, modalContent, isProvider, isValidator
 const PartnerIcon = observer(({name, logo, link, modalContent, isProvider, isValidator}) => {
   const [showModal, setShowModal] = useState(false);
 
+  const hasTags = isValidator || isProvider;
   let content = (
     <>
       {
-        !isProvider && !isValidator ? null :
+        hasTags ?
           <div className="partner__tags">
-            {isProvider ? <div className="partner__tag partner__tag--provider">{ mainStore.l10n.partners.node_provider }</div> : null}
-            {isValidator ? <div className="partner__tag partner__tag--validator">{ mainStore.l10n.partners.governance_validator }</div> : null}
-          </div>
+            {isProvider ? <div className="partner__tag partner__tag--provider">{mainStore.l10n.partners.node_provider}</div> : null}
+            {isValidator ? <div className="partner__tag partner__tag--validator">{mainStore.l10n.partners.governance_validator}</div> : null}
+          </div> : null
       }
-      <ImageIcon icon={logo} title={name} className="partner-icon__logo" />
+      <ImageIcon icon={logo} title={name} className={`partner-icon__logo ${hasTags ? "partner-icon__logo--tags" : ""}`} />
       <div className="partner-icon__action">{ mainStore.l10n.actions.read_more }</div>
     </>
   );
