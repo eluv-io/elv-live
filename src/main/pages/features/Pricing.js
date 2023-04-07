@@ -48,7 +48,7 @@ const BlockchainTransactions = observer(() => {
             cells: [
               {label: "NFT Contract Creation"},
               {label: "per NFT contract (one per Edition)"},
-              {label: "$0.0011"},
+              {label: "$10.00"},
               {label: "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores", className: "features-grid__light-text"}
             ]
           }

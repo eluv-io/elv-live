@@ -104,15 +104,15 @@ const SupportGrid = observer(({items=[], compactRows, sections=[]}) => {
       <div className="features-support__header-row">
         <span></span>
         <span className="features-support__header-text">
-          <span className="features-support__header-text__subheader">Level 1</span>
+          <span className="features-support__header-text__subheader no-tablet">Level 1</span>
           <div className="features-support__header">Pay As You Go</div>
         </span>
         <span className="features-support__header-text">
-          <span className="features-support__header-text__subheader">Level 2</span>
+          <span className="features-support__header-text__subheader no-tablet">Level 2</span>
           <div className="features-support__header">Professional Creator</div>
         </span>
         <span className="features-support__header-text">
-          <span className="features-support__header-text__subheader">Level 3</span>
+          <span className="features-support__header-text__subheader no-tablet">Level 3</span>
           <div className="features-support__header">Creative Enterprise</div>
         </span>
       </div>
