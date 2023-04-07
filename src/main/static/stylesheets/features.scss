@@ -221,7 +221,6 @@
       font-size: var(--font-size-body-5);
       white-space: break-spaces;
     }
-
   }
 
   &__list-item {
@@ -662,11 +661,26 @@
     }
   }
 
-  .features-grid {
-    font-size: var(--font-size-body-4);
-    overflow-x: auto;
+  .features-grid__body-row svg {
+    height: 15px;
+    width: 15px;
 
+    path {
+      color: var(--color-text-dark-3);
+      stroke: unset;
+      stroke-width: 1px;
+    }
+  }
+
+  .features__blockchain-accordion {
+    .accordion__trigger-text {
+      font-size: var(--font-size-body-4);
+    }
+  }
+
+  .features-grid {
     &__item-card {
+      font-size: var(--font-size-body-8);
       padding: 12px 6px;
       width: 100%;
     }
@@ -682,15 +696,32 @@
 
 
     &__row--4col-a {
-      grid-template-columns: repeat(3, 75px) 200px;
+      gap: 15px;
+      grid-template-columns: 100px repeat(2, 55px) 60px;
+    }
+
+    &__row--5col-a {
+      gap: 15px;
+      grid-template-columns: 70px 40px 40px 20px 10px;
     }
 
     &__row--6col-a {
-      grid-template-columns: 200px repeat(2, 100px) repeat(2, 50px) 200px;
+      gap: 15px;
+      grid-template-columns: 70px 45px 35px repeat(2, 20px) 100px;
+    }
+
+    &--indented {
+      margin-left: 1rem;
     }
   }
 
+  .features__sub-section-title {
+    font-size: var(--font-size-body-6);
+    margin-left: 1rem;
+  }
+
   .features-grid__header-row {
+    font-size: var(--font-size-body-8);
     padding: 0 6px;
   }
 
@@ -776,13 +807,6 @@
   .features__info-box {
     .info-box__icon-container {
       width: max-content;
-
-      .info-box__icon {
-        height: 30px;
-        max-height: 30px;
-        max-width: 30px;
-        width: 30px;
-      }
     }
 
     .info-box__content {
@@ -791,6 +815,13 @@
       flex-direction: row;
       gap: 10px;
       margin-bottom: 1rem;
+
+      .info-box__icon {
+        height: 30px;
+        max-height: 30px;
+        max-width: 30px;
+        width: 30px;
+      }
     }
 
     .info-box__header {
@@ -803,6 +834,11 @@
 
     .accordion__header {
       padding: 14px 10px;
+    }
+
+    .accordion__description {
+      font-size: var(--font-size-body-5);
+      padding-left: 10px;
     }
 
     .accordion__header__title {
@@ -827,6 +863,11 @@
     &__item-details .image-icon {
       margin-bottom: 4px;
     }
+  }
+
+  .features__section-description {
+    font-size: var(--font-size-body-5);
+    padding-left: 10px;
   }
 
   .faqs .accordion__header__title {

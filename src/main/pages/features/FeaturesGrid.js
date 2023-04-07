@@ -1,4 +1,5 @@
 import React from "react";
+import {Tooltip} from "../../components/Misc";
 
 const GridRows = ({bodyRows=[], dark=false}) => {
   return (
@@ -8,7 +9,15 @@ const GridRows = ({bodyRows=[], dark=false}) => {
           <div className={`features-grid__item-card ${dark ? "dark" : "light"}`} key={`item-card-${id}`}>
             <div className={`features-grid__body-row ${className}`}>
               {
-                cells.map(({label, className}, index) => <span key={`header-row-${rowIndex}-cell-${index}`} className={className}>{ label }</span>)
+                cells.map(({label, className, tooltipText}, index) => (
+                  <span key={`header-row-${rowIndex}-cell-${index}`} className={className}>
+                    {
+                      tooltipText ?
+                        <Tooltip content={tooltipText} /> :
+                        label
+                    }
+                  </span>
+                ))
               }
             </div>
           </div>
@@ -19,7 +28,6 @@ const GridRows = ({bodyRows=[], dark=false}) => {
 };
 
 const FeaturesGrid = ({headerRows=[], bodyRows=[], caption, dark=false, className}) => {
-
   return (
     <div className={`features-grid-container ${className || ""}`}>
       <div className="features-grid">
@@ -28,7 +36,9 @@ const FeaturesGrid = ({headerRows=[], bodyRows=[], caption, dark=false, classNam
             <div key={id} className={`features-grid__header-row ${className}`}>
               {
                 cells.map(({label, className}, index) => (
-                  <span className={className} key={`grid-header-${rowIndex}-cell-${index}`}>{ label }</span>
+                  <span className={className} key={`grid-header-${rowIndex}-cell-${index}`}>
+                    { label }
+                  </span>
                 ))
               }
             </div>

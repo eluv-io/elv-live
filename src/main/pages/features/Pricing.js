@@ -3,7 +3,7 @@ import ImageIcon from "../../components/ImageIcon";
 import {Accordion} from "../../components/Misc";
 import FeaturesGrid from "./FeaturesGrid";
 import {observer} from "mobx-react";
-import {mainStore} from "../../stores/Main";
+import {mainStore, uiStore} from "../../stores/Main";
 import {SupportIcon} from "../../static/icons/Icons";
 
 const iconMap = {
@@ -30,6 +30,7 @@ const SectionWrapper = ({children, header, icon}) => {
 
 const BlockchainTransactions = observer(() => {
   const {header, items, rowClassName, icon, headerItems} = mainStore.l10n.features.pricing.blockchainTransactions;
+  const mobile = uiStore.pageWidth < 1000;
 
   return (
     <SectionWrapper header={header} icon={iconMap[icon]}>
@@ -49,7 +50,11 @@ const BlockchainTransactions = observer(() => {
               {label: "NFT Contract Creation"},
               {label: "per NFT contract (one per Edition)"},
               {label: "$10.00"},
-              {label: "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores", className: "features-grid__light-text"}
+              {
+                label: mobile ? undefined : "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores",
+                className: mobile ? undefined : "features-grid__light-text",
+                tooltipText: mobile ? "On Demand or Live Video ingest to h264 mezzanines @ 1080p. Broad support for source encodings, e.g. h264, hevc, mpeg2, dnxhd, prores" : undefined
+              }
             ]
           }
         ]}
@@ -81,7 +86,10 @@ const BlockchainTransactions = observer(() => {
                       {label: rowItem.detail},
                       {label: rowItem.unit},
                       {label: rowItem.basePrice},
-                      {label: rowItem.description}
+                      {
+                        label: mobile ? undefined : rowItem.description,
+                        tooltipText: mobile ? rowItem.description : undefined
+                      }
                     ]
                   }
                 ))
@@ -96,6 +104,7 @@ const BlockchainTransactions = observer(() => {
 
 const BaseRentalOperations = observer(() => {
   const {header, items, unitLabel, basePriceLabel, rowClassName, caption, icon} = mainStore.l10n.features.pricing.baseRentalOperations;
+  const mobile = uiStore.pageWidth < 1000;
 
   return (
     <SectionWrapper header={header} icon={iconMap[icon]}>
@@ -124,7 +133,11 @@ const BaseRentalOperations = observer(() => {
                 {label: operation},
                 {label: unit},
                 {label: basePrice},
-                {label: itemDescription, className: "features-grid__light-text"}
+                {
+                  label: mobile ? undefined : itemDescription,
+                  className: mobile ? undefined : "features-grid__light-text",
+                  tooltipText: mobile ? itemDescription : undefined
+                }
               ]
             };
           })
@@ -136,6 +149,7 @@ const BaseRentalOperations = observer(() => {
 
 const PlatformServiceFee = observer(() => {
   const {header, items, headerItems, rowClassName, icon} = mainStore.l10n.features.pricing.platformServiceFee;
+  const mobile = uiStore.pageWidth < 1000;
 
   return (
     <SectionWrapper header={header} icon={iconMap[icon]}>
@@ -160,7 +174,11 @@ const PlatformServiceFee = observer(() => {
                   {label: label},
                   {label: fee},
                   {label: minimum},
-                  {label: itemDescription, className: "features-grid__light-text"}
+                  {
+                    label: mobile ? undefined : itemDescription,
+                    className: mobile ? undefined : "features-grid__light-text",
+                    tooltipText: mobile ? itemDescription : undefined
+                  }
                 ]
             };
           })
@@ -171,6 +189,8 @@ const PlatformServiceFee = observer(() => {
 });
 
 const ContentDistributionGrid = observer(({section, sectionIndex, rowClassName, itemData}) => {
+  const mobile = uiStore.pageWidth < 1000;
+
   if(section.subSections && section.subSections.length > 0) {
     return (
       section.subSections.map(subSection => (
@@ -201,7 +221,11 @@ const ContentDistributionGrid = observer(({section, sectionIndex, rowClassName, 
                     {label: perSec},
                     {label: perHour},
                     {label: multiplier},
-                    {label: itemDescription, className: "features-grid__light-text"}
+                    {
+                      label: mobile ? undefined : itemDescription,
+                      className: mobile ? undefined : "features-grid__light-text",
+                      tooltipText: mobile ? itemDescription : undefined
+                    }
                   ]
                 };
               })
@@ -234,7 +258,11 @@ const ContentDistributionGrid = observer(({section, sectionIndex, rowClassName, 
                 {label: perSec},
                 {label: perHour},
                 {label: multiplier},
-                {label: itemDescription, className: "features-grid__light-text"}
+                {
+                  label: mobile ? undefined : itemDescription,
+                  className: mobile ? undefined : "features-grid__light-text",
+                  tooltipText: mobile ? itemDescription : undefined
+                }
               ]
             };
           })
@@ -276,6 +304,7 @@ const ContentDistribution = observer(() => {
 
 const AdvancedContentServices = observer(() => {
   const {header, items, rowClassName, icon, headerItems} = mainStore.l10n.features.pricing.advancedContentServices;
+  const mobile = uiStore.pageWidth < 1000;
 
   return (
     <SectionWrapper header={header} icon={iconMap[icon]}>
@@ -308,7 +337,11 @@ const AdvancedContentServices = observer(() => {
                             {label: perSec},
                             {label: perHour},
                             {label: multiplier},
-                            {label: itemDescription, className: "features-grid__light-text"}
+                            {
+                              label: mobile ? undefined : itemDescription,
+                              className: mobile ? undefined : "features-grid__light-text",
+                              tooltipText: mobile ? itemDescription : undefined
+                            }
                           ]
                         };
                       })

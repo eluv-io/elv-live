@@ -310,6 +310,22 @@
   }
 }
 
+.tooltip {
+  &__icon {
+    position: relative;
+  }
+
+  &__content {
+    background-color: var(--background-dark-3);
+    color: var(--color-text-dark-1);
+    left: 50%;
+    padding: 0.5rem;
+    position: absolute;
+    width: 160px;
+    z-index: 1000;
+  }
+}
+
 @media screen and (max-width: $width-tablet) {
   .faqs .accordion .accordion__header {
     padding: 15px 5px;
