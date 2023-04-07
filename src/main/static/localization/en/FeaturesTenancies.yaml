@@ -11,7 +11,7 @@ levels:
   - header: Professional Creator
     sub_header: Level 2
     monthly_price: $2,000
-    annual_price: $1,666.67
+    annual_price: $1,667
     added_benefit_text: |
       Off selected
       Content Fabric utilities
@@ -25,7 +25,7 @@ levels:
   - header: Creative Enterprise
     sub_header: Level 3
     monthly_price: $10,000
-    annual_price: $8,333.33
+    annual_price: $8,333
     added_benefit_text: |
       Off selected
       Content Fabric utilities
