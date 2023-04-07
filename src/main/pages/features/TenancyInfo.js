@@ -1,6 +1,7 @@
 import React from "react";
+import {observer} from "mobx-react";
 
-const TenancyInfo = ({
+const TenancyInfo = observer(({
   header,
   subHeader,
   features=[],
@@ -44,6 +45,6 @@ const TenancyInfo = ({
       </div>
     </div>
   );
-};
+});
 
 export default TenancyInfo;

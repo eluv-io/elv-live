@@ -324,7 +324,7 @@ const AdvancedContentServices = observer(() => {
   );
 });
 
-const Pricing = observer(() => {
+const Pricing = () => {
   return (
     <div className="page">
       <div className="page__header-container">
@@ -339,6 +339,6 @@ const Pricing = observer(() => {
       </div>
     </div>
   );
-});
+};
 
 export default Pricing;

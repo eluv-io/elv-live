@@ -56,7 +56,7 @@ const TableSection = observer(() => {
   );
 });
 
-const TenanciesList = ({monthly=false}) => {
+const TenanciesList = observer(({monthly=false}) => {
   return (
     <div className="tenancies-list">
       {mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features}) => (
@@ -73,7 +73,7 @@ const TenanciesList = ({monthly=false}) => {
       ))}
     </div>
   );
-};
+});
 
 const FullWidthElements = observer(() => (
   <>
@@ -96,7 +96,7 @@ const FullWidthElements = observer(() => (
   </>
 ));
 
-const TenancyLevels = observer(() => {
+const TenancyLevels = () => {
   return (
     <PageContainer after={<FullWidthElements />} padded>
       <div className="page">
@@ -128,6 +128,6 @@ const TenancyLevels = observer(() => {
       </div>
     </PageContainer>
   );
-});
+};
 
 export default TenancyLevels;
