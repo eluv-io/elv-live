@@ -110,11 +110,12 @@ const TenancyLevels = observer(() => {
             tabs={[
               {
                 title: "Monthly",
-                content: TenanciesList({monthly: true})
+                content: <TenanciesList monthly={true} />
               },
               {
                 title: "Annually",
-                content: TenanciesList({monthly: false})
+                default: true,
+                content: <TenanciesList monthly={false} />
               }
             ]}
           />

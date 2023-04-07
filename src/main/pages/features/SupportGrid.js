@@ -1,8 +1,9 @@
 import {CheckSquareIcon, ClockIcon, MailIcon, SocialIcons, TelephoneIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
 import React from "react";
+import {observer} from "mobx-react";
 
-const ItemCard = ({data, dark = false, compactRows}) => {
+const ItemCard = observer(({data, dark = false, compactRows}) => {
   const iconMap = {
     aroundClock: {
       label: "24x7",
@@ -66,9 +67,9 @@ const ItemCard = ({data, dark = false, compactRows}) => {
       </div>
     </div>
   );
-};
+});
 
-const ItemElements = ({items=[], compactRows, sections=[]}) => {
+const ItemElements = observer(({items=[], compactRows, sections=[]}) => {
   if(sections.length > 0) {
     return sections.map(section => (
       <div key={section.header}>
@@ -95,9 +96,9 @@ const ItemElements = ({items=[], compactRows, sections=[]}) => {
       ))
     );
   }
-};
+});
 
-const SupportGrid = ({items=[], compactRows, sections=[]}) => {
+const SupportGrid = observer(({items=[], compactRows, sections=[]}) => {
   return (
     <div className="features-support__grid-container">
       <div className="features-support__header-row">
@@ -118,6 +119,6 @@ const SupportGrid = ({items=[], compactRows, sections=[]}) => {
       <ItemElements items={items} compactRows={compactRows} sections={sections} />
     </div>
   );
-};
+});
 
 export default SupportGrid;

@@ -71,8 +71,12 @@
     color: var(--color-highlight-3);
   }
 
-  &__section:not(:last-child) {
-    margin-bottom: 100px;
+  &__section {
+    font-size: var(--font-size-body-7);
+
+    &:not(:last-child) {
+      margin-bottom: 100px;
+    }
   }
 
   &__section-header {
@@ -80,6 +84,41 @@
     margin-bottom: 0.5rem;
     margin-left: 2rem;
     text-transform: uppercase;
+  }
+
+  &__section-title {
+    font-size: var(--font-size-body-3);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &__section-description {
+    color: var(--color-text-light-3);
+    font-size: var(--font-size-body-7);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  &__sub-section-title {
+    font-size: var(--font-size-body-7);
+    font-weight: 500;
+    margin: 1rem 0 1rem 3rem;
+  }
+
+  &__blockchain-accordion {
+    .accordion__header-subtitle {
+      color: var(--color-highlight-3);
+      font-size: var(--font-size-body-5);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .accordion__header__title {
+      color: var(--color-text-light-1);
+      font-size: var(--font-size-header-5);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -459,28 +498,25 @@
     display: grid;
     gap: 40px;
     grid-column: 1 / -1;
-    padding-right: 0.5rem;
+    padding: 0 20px;
     text-align: left;
   }
 
   &__row--4col-a {
-    grid-template-columns: 2fr repeat(3, 150px);
-  }
-
-  &__row--4col-b {
     grid-template-columns: 200px 250px 150px 1fr;
   }
 
-  &__row--3col-a {
-    grid-template-columns: 2fr repeat(2, 150px);
+  &__row--5col-a {
+    grid-template-columns: 370px 125px repeat(2, 80px) 300px;
   }
 
-  &__row--3col-b {
-    grid-template-columns: 1fr 150px 1fr;
+  &__row--6col-a {
+    grid-template-columns: 1fr repeat(2, 125px) repeat(2, 80px) 300px;
   }
 
   &__item-card {
-    padding: 28px 2rem;
+    height: 65px;
+    padding: 0 20px;
   }
 
   &__body-row {
@@ -488,6 +524,7 @@
     display: grid;
     gap: 40px;
     grid-column: 1 / -1;
+    height: 100%;
 
     svg {
       height: 30px;
@@ -538,6 +575,10 @@
   &__light-text {
     color: var(--color-text-light-3);
     font-size: var(--font-size-body-4);
+  }
+
+  &--indented {
+    margin-left: 3rem;
   }
 }
 
@@ -624,19 +665,11 @@
 
 
     &__row--4col-a {
-      grid-template-columns: 150px repeat(3, 100px);
-    }
-
-    &__row--4col-b {
       grid-template-columns: repeat(3, 75px) 200px;
     }
 
-    &__row--3col-a {
-      grid-template-columns: 150px repeat(2, 100px);
-    }
-
-    &__row--3col-b {
-      grid-template-columns: 150px 50px 150px;
+    &__row--6col-a {
+      grid-template-columns: 200px repeat(2, 100px) repeat(2, 50px) 200px;
     }
   }
 

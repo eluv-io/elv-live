@@ -18,10 +18,10 @@ const GridRows = ({bodyRows=[], dark=false}) => {
   );
 };
 
-const FeaturesGrid = ({headerRows=[], bodyRows=[], caption, dark=false}) => {
+const FeaturesGrid = ({headerRows=[], bodyRows=[], caption, dark=false, className}) => {
 
   return (
-    <div className="features-grid-container">
+    <div className={`features-grid-container ${className || ""}`}>
       <div className="features-grid">
         {
           headerRows.map(({id, cells, className=""}, rowIndex) => (
