@@ -7,7 +7,8 @@ import LearnMore from "./LearnMore";
 import TestImage from "../../static/images/blockchain/test.jpg";
 
 const images = {
-  our_blockchain: TestImage
+  our_blockchain: TestImage,
+  technology_background: [ TestImage, TestImage ]
 };
 
 const Blockchain = observer(() => {
@@ -15,6 +16,11 @@ const Blockchain = observer(() => {
   const tabs = Object.keys(copy.pages).map(key => [copy.pages[key].label, key]);
 
   const [tab, setTab] = useState("our_blockchain");
+
+  let currentImages;
+  if(images[tab]) {
+    currentImages = Array.isArray(images[tab]) ? images[tab] : [images[tab]];
+  }
 
   return (
     <div className="page light">
@@ -25,7 +31,15 @@ const Blockchain = observer(() => {
       <div className="page__content-block right-links">
         <div className="page__copy-block">
           <RichText richText={copy.pages[tab].text} key={`page-${tab}`} className="page__copy fade-in--slow" />
-          { images[tab] ? <ExpandableImage image={images[tab]} expandable /> : null }
+          {
+            currentImages ?
+              <div className="page__copy-images">
+                {
+                  currentImages.map((image, index) =>
+                    <ExpandableImage key={`image-${index}`} image={image} expandable/>)
+                }
+              </div> : null
+          }
         </div>
         <div className="page__side-links">
           {

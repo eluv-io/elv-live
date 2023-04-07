@@ -183,6 +183,12 @@ h4 {
     }
   }
 
+  &__copy-images {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .multi-column {
     column-count: 2;
     column-gap: 50px;
@@ -242,6 +248,10 @@ h4 {
     .right-links {
       gap: 20px;
       grid-template-columns: 1fr;
+    }
+
+    &__side-links {
+      margin-top: 30px;
     }
   }
 }
