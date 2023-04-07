@@ -6,13 +6,14 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Pagination} from "swiper";
 
 import {
-  PlayCircleIcon,
   DiscoverIcon,
   DollarIcon,
   SmileIcon,
   AppIcon,
   PulseIcon,
-  BarsIcon
+  BarsIcon,
+  PlayScreenIcon,
+  WrenchIcon
 } from "../../static/icons/Icons";
 
 import FeatureCardFront from "../../static/images/main/features/key-features-front.png";
@@ -20,13 +21,14 @@ import FeatureCardBack from "../../static/images/main/features/key-features-back
 import ImageIcon from "../../components/ImageIcon";
 
 let icons = {
-  play: PlayCircleIcon,
+  play: PlayScreenIcon,
   discover: DiscoverIcon,
   money: DollarIcon,
   app: AppIcon,
   smile: SmileIcon,
   pulse: PulseIcon,
-  bars: BarsIcon
+  bars: BarsIcon,
+  wrench: WrenchIcon
 };
 
 const KeyFeatureCard = observer(({mobile, feature, flipped, setFlipped}) => {
@@ -62,7 +64,19 @@ const KeyFeatureCard = observer(({mobile, feature, flipped, setFlipped}) => {
             src={FeatureCardBack}
           />
           <div className="key-feature-card__content key-feature-card__content--back">
-            <div className="key-feature-card__text">{ feature.back }</div>
+            <div className="key-feature-card__text">
+              {
+                Array.isArray(feature.back) ?
+                  (
+                    <ul className="key-feature-card__text-list">
+                      { feature.back.map(text => (
+                        <li className="key-feature-card__text-list-item">{ text }</li>
+                      ))}
+                    </ul>
+                  ) :
+                  feature.back
+              }
+            </div>
           </div>
         </div>
       </div>

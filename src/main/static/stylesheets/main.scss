@@ -649,7 +649,16 @@
 
   &__text {
     font-size: var(--font-size-body-3);
-    padding: 0 20px;
+    padding: 0 2rem;
+  }
+
+  &__text-list {
+    margin-left: 1rem;
+  }
+
+  &__text-list-item {
+    list-style: disc;
+    text-align: left;
   }
 
   // Switch to no-flip fade on mobile and all safari (bug in safari re. backface-visibility

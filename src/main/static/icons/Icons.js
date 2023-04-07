@@ -34,6 +34,8 @@ import BarsIcon from "./dynamic.svg";
 import InfoIcon from "./info.svg";
 import NodeGroupIcon from "./node-group.svg";
 import Web3Icon from "./web-3.svg";
+import PlayScreenIcon from "./play-screen.svg";
+import WrenchIcon from "./wrench.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -81,6 +83,7 @@ export {
   MoneyIcon,
   PlayCircleIcon,
   PlayIcon,
+  PlayScreenIcon,
   PowerIcon,
   PulseIcon,
   SendIcon,
@@ -90,6 +93,7 @@ export {
   TelephoneIcon,
   WalletIcon,
   Web3Icon,
+  WrenchIcon,
   TrendingUpIcon,
   XIcon,
   SocialIcons,
