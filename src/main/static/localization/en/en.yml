@@ -142,15 +142,17 @@ content_fabric:
       - Versioning
       - Access
   protocol:
-    header: Eco-Friendly Consensus & Just-In-Time Protocol
+    header:  Just-in-Time, Realtime, Eco-Friendly, Scalable
     text: |
-      Through a novel compositional and just-in-time protocol, the [Eluvio Content Blockchain](/content-fabric/blockchain) does not make digital file copies and dramatically reduces the network storage and usage requirements significantly as compared to today’s traditional streaming and content distribution systems.
+      Through a novel compositional and just-in-time decentralized protocol, the Content Fabric software does not make digital file copies and dramatically reduces the network storage and usage requirements significantly as compared to traditional streaming and content distribution systems while providing real-time video, low latency serving, and efficient personalization for any content.
 
-      It also uses an eco-friendly consensus, which avoids the high energy consumption of computational “proof-of-work” blockchains. And the digital content itself, not just the token is owned on the blockchain so your digital assets are exclusive to you.
+      As both a full-stack open source Ethereum blockchain and decentralized content protocol, it combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and an eco-friendly blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain so your digital assets are exclusive to you.
+      
+      The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP, and now unlocking the era of Content.
   learn_more:
     header: Learn More About the Technology
     text: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+      Read a summary of the Content Fabric technology or dive into the comprehensive protocol whitepaper.
   mainnet:
     header: MainNet
     text: Integer rutrum nibh nisi, et semper quam varius ut. Sed pellentesque sagittis purus a pellentesque. Pellentesque vitae lobortis nisl. Nunc sed nulla rutrum sapien porta fermentum. Fusce rhoncus nunc dictum, porttitor orci ac, dapibus nulla. Vestibulum consectetur diam non felis dapibus, sed sodales nisl tincidunt.
@@ -182,10 +184,30 @@ content_fabric:
     meeting_3_nft: "Meeting #3 NFT"
 
 technology:
-  title: Eluv.io Technology
+  title: Content Fabric Technology
   header: The Technology behind the Content Fabric
   text: |
-    Eluvio LIVE is powered by the [Eluvio Content Fabric](/content-fabric), the most advanced technology for Internet video. A decentralized, global platform built on blockchain, the Fabric provides low latency, high quality (4K) content distribution, content monetization, and just-in-time streaming. Under the control of blockchain smart contracts, video content is dynamically served from the source as live and on demand streaming as well as dynamic sequences without need for 3rd party services. The Eluvio Content Fabric's just-in-time capabilities replace and consolidate the standard functions of live ingest, cloud origin, live transcoding, content management, encryption/DRM, program sequencing, rights and avails controls, direct-to-consumer streaming, and static content distribution. All of this at a significantly lower cost point, with lower latency, and a naturally greater range of creative experiences than conventional technologies. The platform uses open APIs and a programmable approach for ingest, content distribution, content management, and rights control. All operations are blockchain provable. The Content Fabric was invented by a team led by Michelle Munson and Serban Simu, founders of the industry standard Aspera high speed transfer technology (acquired by IBM in 2014) and is currently used by tier 1 Hollywood studios, broadcasters, and mobile streaming providers. The Eluvio Content Fabric was recognized with the 2020 Hollywood Professional Association Engineering Excellence Award.
+    The Content Fabric is the most advanced technology for Internet content. 
+    Built to support the insatiable global demand for video, immersive, and rich content, it combines content-native routing, efficient composition, and blockchain design to achieve low latency, high quality (4K) content distribution, monetization, and just-in-time output. 
+    Live and on demand streaming video, rich content, immersive applications, and metadata are dynamically composed and served from their source just-in-time without the need for 3rd party services and under the control of blockchain contracts.
+    
+    The protocol is universal. It runs across an open and ever growing network of nodes as an application protocol on top of TCP/IP. Its just-in-time software pipeline powers all phases of the content life cycle - ingest, 
+    content transcoding and packaging, content management, personalization, and rights control with one extensible and dynamic pipeline. All output is composed on-demand using programmable "bitcode", raw media and data stored in the content objects and as "parts" distributed and stored throughout the nodes in the network. 
+    
+    It consolidates and eliminates the separate phases of live ingest, cloud origin, live transcoding, content management, encryption/DRM, program sequencing, rights and avails controls, direct-to-consumer streaming, and static content distribution.
+    All of this at a significantly lower cost point, with lower latency, and a naturally greater range of creative experiences than conventional technologies. 
+    
+    Published content object parts are encrypted for their owner and all operations are blockchain provable and authorized. This allows the Fabric to fundamentally protect all creative IP for the owner, and to natively back any Web3 application of Content from token-gated content to direct distribution, sell-through, content-rich web sites, on chain royalties and user-to-user sharing of media assets. 
+    
+    Unlike "public clouds" that are actually provisioned centrally, the Content Fabric network is a utility blockchain ecosystem in which node providers run the Content Fabric software, and join its open Fabric network to provide the content utility "work" on behalf 
+    of content providers who use the infrastructure. Resource usage is paid directly from content providers to the node providers without middle parties and complements the protocol efficiencies to tear down the barriers to scalable content distribution and ownership
+    once and for all. 
+    
+    All participants including end users interact with the Content Fabric with a provable blockchain identity, releasing audience analytics from the hold of middle parties, making all engagement provable, and giving brands direct and measurable interaction with their audiences,
+    and users control over their data. 
+    
+    The Content Fabric development is led by Serban Simu and Michelle Munson, founders of the industry standard Aspera high speed transfer technology, and is currently used by tier one creative enterprises to individual creators. The active mainnet and the testnet are EVM-compliant
+    blockchains, and have full stack implementations built on both Ethereum and Polkadot Substrate forks. The technology was recognized with the 2020 Hollywood Professional Association Engineering Excellence Award, multiple product awards, has 10 issued US patents, and has an active blockchain and creative developer community with multiple third party node providers and stakeholders.
   architecture: Architecture
   how_it_works: How it works
   monetization: On-Chain Monetization
@@ -193,45 +215,472 @@ technology:
   on_chain_payments: On-Chain Payments
 
 blockchain:
-  title: Eluv.io Blockchain
-  header: A Comprehensive Overview of Our Blockchain
+  title: Content Fabric Blockchain
+  header: A Comprehensive Overview of the Blockchain Protocol
   pages:
     our_blockchain:
-      label: Our Blockchain
+      label: Background
       text: |
-        2020 brought many profound and irreversible changes to the content creation industry. The challenges and opportunity of the global pandemic dramatically accelerated many trends, such as the monetization of deep libraries, remote and online production; the creation of self service properties for selling, screening, licensing and servicing; direct-to-audience models including no-windows streaming releases; fully virtual live performances and broadcasts and the complete virtualization of marketing, pre-release screening, and advertising sales.
+        The Fabric is a blockchain controlled, realtime, and programmable content storage and distribution network in which nodes execute a novel content-native blockchain protocol called the **Content Fabric Protocol (CFP)**. 
+        The CFP is designed to enable a fully decentralized Creator Economy with high quality, highly efficient and verifiable digital content ownership, distribution, and monetization. It provides the essential functions for 
+        managing and distributing digital content over the Internet in a blockchain network to power Web3-native content experiences at unlimited scale. 
+        <br><br>
+        The design goals are low latency, high resolution publishing, hosting, streaming, download, 
+        and interactive access to digital content globally with maximum efficiency and lowest cost, on chain content provenance, ownership and rights protection without middle parties, on chain content access control; and scalable person-to-person transactions. 
+        The following sections describe the key facets of the protocol. For a deep dive, please refer to the complete protocol white paper.
+        <br>
+      our_blockchain: ContentFabricNetworkImage
 
-        Perhaps most significant of all, the end of 2020 and early 2021 brought the first mainstream monetization of content on the blockchain with the release of the first high value NFTs created from digital art, digital collectible communities for fans, and the first direct-to-consumer content distribution models backed by blockchain ticketing and sales. We are fortunate to be part of this, and have helped to enable the first just-in-time supply chains with our customers in their drive to fully digitize, transform costs, and embrace the power of blockchain economics to create significant new revenue opportunities for premium content.
+    design_goals:
+      label: Design Goals
+      text: |
+        The CFP has a comprehensive and novel design:
+        - **Self-scaling via a trust-less security model**, an open fabric-extend protocol, and strong incentives allowing content owners, viewers, sponsors and infrastructure suppliers to benefit.
+        - **Extreme bandwidth and storage efficiency** compared to traditional cloud, CDN and digital asset management architectures through a new content centric storage and distribution design.
+        - **Predictable high resolution and low latency** delivery for on demand and live content. 
+        - **Programmable output**, allowing content to carry its “code” and just-in-time application when serving output versions.
+        - **Certifiable, tamper-proof content** where all version history including derivatives are transparent and provable from on-chain data.
+        - **On-chain verification of ownership and authorization** to content.
+        <br><br>
+        With blockchain token technologies, such as non-fungible and fungible tokens, this last point has opened a huge range of possible new applications where content can be directly monetized and re-monetized using digital tokens.
+        The Content Fabric provides both a utility network to scale the provision of services and a new on-chain and cross-chain paradigm for attestation of ownership and authorization in content distribution using digital tokens.
+        This new paradigm applies to tokenized ownership and selling of media of all variations including fungible and non-fungible tokens (NFTs). It utilizes the Content Fabric’s core capabilities to support the secure and verifiable reading of or writing
+        to any representation of digital media content under the control and verification of a policy stored on chain, at scale. In other words, "on chain" content release windows, rights, and payments.  Read on to learn more.
 
-        Our involvement with organizations such as ETC, HPA, SMPTE, NIVA, EVR1, SXSW, and the Blockchain Xcelerator, influence from major established media companies, labels and bands, and input from various independent creators have helped us to grow the Content Fabric platform—a blockchain controlled real-time content storage and distribution network—to a point of scale and practical decentralization for our user community. The Content Fabric’s blockchain is the foundation of this capability.
     technology_background:
-      label: Technology Background
+      label: Functional Overview
+
       text: |
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    blockchain_protocol:
-      label: Blockchain Protocol
-      text:
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    token_model:
-      label: Token Model
+      
+        The Content Fabric achieves high performance (low latency and high bandwidth) delivery and self-scales because of its design and user incentives. A global network of nodes run the Content Fabric Protocol (CFP). 
+        CFP is an application-specific blockchain protocol and a just-in-time component content storage and distribution protocol. It is purpose-built to serve content at scale with direct owner to consumer provenance. 
+        The same software stack executes on and across the global network of hosting nodes through which video, imagery, apps and other active content is dynamically served directly from source objects as live and on-demand streaming and
+        dynamic combinations. Static metadata such as descriptions, synopsis, and tags are served from the same source objects and pipeline, replacing the legacy CMS, A/V stack and CDN.
+        <br><br>
+        Blockchain contracts and on-chain policy authorization secure the ownership, access and versioning of content. The nodes are peered directly with all of the major public clouds allowing for local ingest from cloud storage
+        buckets, and have high capacity (multi-terabit / second) IP transit capacity for direct ingest of content including live, and egress distribution of streaming and static content to end users.
+        <br><br>
+        The current production network (main.net955305.contentfabric.io) has been built using a standard open source fork of the Ethereum network and has utilized Ethereum standard addressing, cryptographic signatures and keys, and smart
+        contracts. The CFP can be independently implemented using any full stack layer 1 blockchain, and thus provides an open and universal design for content in a federated and heterogeneous blockchain ecosystem consisting of many
+        interoperable blockchains. The current testnet uses the Polkadot substrate blockchain and the W3F inter-blockchain validation and messaging features.
+        The content authorization is independent of where (on which blockchain) proof of content ownership exists, allowing for any cross-chain content applications including ownership, authorization ("token gating") and sales.
+        
+      technology_background: ContentFabricArchitectureImage
+      
+
+    on_chain_content_objects:
+      label: On Chain Content Objects
       text: |
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    tokens_and_metering:
-      label: Tokens & Metering
+        Functionally, the CFP eliminates the need for individual content transcoding, aggregation, management, and distribution
+        services by consolidating many conventional functions such as live ingest, cloud origin, live transcoding, content management,
+        encryption/DRM, program sequencing, rights and avails control, CDN streaming, and static content distribution.
+        The Content Fabric creates and serves output such as adaptive bit rate streaming manifests and segments, and static
+        content through a just-in-time process that executes within the nodes in the network. This process relies on a novel decentralized data storage and distribution protocol and a component object representation of media essence, metadata and code
+        called a <b>content object</b>. The content object is a data structure comprised of references to the cryptographic hash signatures
+        of the binary “parts” that comprise the object.
+        
+        <b>Publishing</b> - On ingest, the Fabric software decomposes master file media, assets, data, or streams into content object parts, and
+        distributes them throughout the network, creating a new content object. Any re-use of the parts within an object is by reference - rather than by copy - and
+        common bytes are copied only on update. This is carried through rendering, such that all re-rendered output is built from
+        parts, avoiding all file copy representations through the network and in storage for efficiency. 
+        
+        <b>JIT Output</b> - When a client requests a URL from the Fabric, a fast part routing algorithm allows for parts to be found in the network in 
+        real-time and composed to generate the desired output, including just-in-time transcoding, packaging and extensible A/V
+        processing within the protocol. HTTP adaptive bit rate streaming, file serving, image transformation etc. are built in functions.
+        
+        <b>On Chain Versioning</b> - When an object is created or updated, its version hash is stored on chain, allowing for a tamper proof record of the version
+        history of the object (‘who changed what when’) and real-time verification of the object when its output is read. 
+        The verification applies not only to the stored object media parts but also to its code and data parts, and thus
+        any active representations (streaming, file serving, etc.) are self-verifying. 
+        
+        <b>Blockchain Controlled Encryption</b> - Content parts are encrypted for their owner and re-encrypted for the reader on authorization. This process is tied
+        to the on chain verification and management of content authorization.
+        
+        In total, the approach <b>dramatically lowers the cost and latency of traditional cloud stack + CMS + CDN</b> with fundamental efficiency and 
+        is <b>much more capable than decentralized hash-based storage systems like IPFS.</b>
+        <br>
+        They do not provide "active" capability in their storage, serving, or content verification and do not tie their 
+        access control to blockchain encryption and authorization. This fundamentally limits what they can do for content. 
+        <br>
+
+      on_chain_content_objects: ContentObjectImage
+
+    protocol_design_principles:
+      label: Protocol Design Principles
       text: |
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    nfts:
-      label: NFTs
+        **Content Internet Overlay**- A single soft stack runs on all nodes for maximum scalability. Nodes communicate with one
+        another to securely store and serve end-user content using a decentralized design, meaning no state need be shared via
+        any centralized entities (databases, tables, ledgers, etc.).
+        <br> <br>
+        **Low Latency and High Performance with Scalability** - Content is served using a maximally resource efficient content
+        routing protocol that ensures low latency (<500 milliseconds time to first segment) and high bandwidth delivery (at the
+        client’s bottleneck bandwidth) with minimum server and network bandwidth resources. The performance properties
+        hold with the expansion of the number of nodes and number of content objects stored.
+        <br> <br>
+        **Content and Metadata are Stored “Once” and End Versions are Rendered on Demand** - All content is stored in an
+        object structure consisting of content, metadata, and “code” that operates on the media at serving time (“just in time”)
+        to yield the consumable versions. All data ingested into the fabric (comprising the content, metadata, and code) is
+        divided into chunks of bytes (“Parts”) that are stored on the disks of nodes running the Fabric software. Only the hash
+        of a part is stored into each content object structure and parts re-used in new versions or in derivative objects are never
+        copied: New versions of the same content object and new content objects that derive from existing content objects refer
+        to the hashes of its parts. The “code” that operates on the content and metadata is compiled and executed just-in-time,
+        allowing for flexible re-use of the media, updates of the code without updating the CFP software (for scalability), and
+        security and metering.
+         <br> <br>
+        **Nodes are Not Trusted and Content is Protected (encrypted)** - The CFP is “trust-less” in that content is encrypted for
+        owners and re-encrypted for authorized receivers without the software or nodes on which it runs accessing content in
+        plain-text or having access to the content’s encryption keys. Nodes that perform trusted operations that require the
+        content to be plain-text (unencrypted) are rated publicly, take a stake in their correct behavior, and are incentivized
+        to behave well with higher compensation.
+         <br> <br>
+        **Access is Mediated through Blockchain Transactions** - All access to content objects – create, update (write), and
+        view (read) – are mediated by transactions on an embedded blockchain ledger. The application interface supports
+        programmable blockchain transactions, e.g. the current mainnet.955305 implements the Ethereum Virtual Machine
+        and executes EVM smart contracts. Each life cycle operation on a content object is implemented as a transaction
+        against a smart contract for that object, in turn recording the address of the entity/user that made the operation, the
+        identifier of the content object and any details of the transaction.
+         <br> <br>
+        **Content Operations are Programmable** - The base smart contract interface for content objects references the hash of an
+        extensible policy data structure, and offers a generalizable interface for authorization of content operations via on-or off
+        chain data such as identity, token ownership, credit or debit of an account, time, geography or roles, etc. for intrinsic
+        commerce, rights management, and workflow capabilities. The “in object” execution of bitcode allows for extensible
+        content operations such as interactive and personal variants also under blockchain access control.
+         <br> <br>
+        **Content Versions are Provable and Tamper-resistant** - Every content object has a version proof consisting of a Merkle
+        tree root hash of the object’s part hashes for fast verification of the integrity of the object. The root value of the Merkle
+        proof is recorded in the blockchain transactions for that content object on any committed update, allowing for a tamper proof record of the version
+        history of the object (‘who changed what when’).
+        
+
+    key_innovations:
+      label: Key Innovations
       text: |
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    apis:
-      label: APIs
+        The Content Fabric protocol has four major areas of innovation:
+        
+        **1. A decentralized, low latency and efficient content native storage model and content routing system**. 
+        <br> <br>
+        **2. Just-in-time composition of metadata, content, and code.**
+         <br> <br>
+        **3. A blockchain protocol combining a trustless security model, blockchain controlled content access using proxy re-encryption and authorization and
+        access control via policy stored within blockchain contracts.**
+         <br> <br>
+        **4. Content integrity verification and origin traceability** implemented with a fast, provable content version history backed by blockchain transactions. This lays the foundation for the
+        new on-chain and cross-chain paradigm for attestation of ownership and authorization in decentralized content distribution
+        using digital tokens. 
+         <br> <br>
+        Please refer to our detailed <a href="https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf">whitepaper</a> for an overview of each of these innovations.
+
+      key_innovations: ContentFabricPipelineImage
+
+    jit_composition:
+      label: Just-in-Time Composition of Media, Metadata, and Code
       text: |
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    common_questions:
-      label: Common Questions
+        The fast Content Routing algorithm allows for parts to be found in the network in real-time and supports just-in-time
+        transformation, transcoding and packaging, and extensible A/V, dynamic data, and “active” processing within the CFP. End
+        clients request “representations” of content objects which are effectively built on demand, from Parts. 
+        <br><br>
+        This mechanism is a novel break from traditional active web, video, and gaming pipelines, which create output variations a priori and transmit
+        finished or near-finished versions as files (or chunks thereof) through networks, caches and end systems, usually between
+        multiple applications. Instead, in the CFP, parts are fetched and composited to create unique output variants just-in-time
+        in response to read requests from end clients.
+        <br><br>
+        This removes byte duplication over the network and in storage, eliminates significant I/O otherwise consumed in reading
+        and writing pre-made file variants, eliminates latencies through the pipeline for any content serving, and allows individual
+        and personalized variants to be built not just at the edge but with minimal data. 
+        <br><br>
+        A key example is <b>low latency live 4K video</b>
+        streaming to broadcast client audiences with 3-5 seconds latency sustained globally. The CFP implements a bitcode execution environment that can compile and execute this AST code in combination with
+        metadata and binary parts JIT. The AST is managed using LLVM and WASM technologies. Applications of this mechanism are wide.
+      jit_composition: ImageXcodePipelineImage,
+
+    content_lifecycle:
+      label: Content Lifecycle and Blockchain Security Model
       text: |
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+        <br><br>
+        Blockchain technology offers a new paradigm for protecting and controlling access to content distributed by 
+        networks that are not trusted, and not centrally managed by a single organization, and for scaling content transactions
+        person-to-person with intrinsic trust. Blockchains systematically distribute trust over a network of actors that are incentivized
+        economically to behave in a “trustworthy” manner by carrying out a common protocol that is safe and scalable by virtue of its
+        cryptography and mathematical design. Non-fungible and fungible digital asset standards provide scalable
+        ownership, provable access statistics, and decentralized payments and transactions.
+        <br><br>
+        The CFP builds upon these features of decentralized blockchain ledgers by backing all content access control -- operations
+        to create, update, or access content -- with blockchain transactions and policy attested on chain executed through a native
+        ledger embedded in the CFP stack. The system ensures that all parties are authentic, and its consensus ensures that only valid (authorized) transactions on
+        the content can be carried out.
+        <br><br>
+        Key concepts are as follows:
+        <br><br>
+        **The life cycle of a Content Object is controlled by a decentralized publish and commit process that results in the entire
+        content version history being stored in the blockchain, and all access to write or read content being authorized through
+        a blockchain transaction (either off or on-chain), and recorded as events on the blockchain.**
+        <br><br>
+        **All content parts are encrypted for the owner and under the control of a blockchain contract that is part of each
+        object. All actors in the system - content owners, content accessors, and nodes - identify and authenticate themselves
+        in the network using blockchain authentication, and all content encryption uses a trustless proxy re-encryption.**
+
+      content_lifecycle: GeneralFlowOfFabricOpsPolicyImage
+
+    content_authorization:
+        label: On Chain, Policy-Based Content Authorization
+        text: |
+          The CFP couples control over the content’s modification and access to the blockchain, while maintaining scalable storage
+          and distribution outside of the blockchain. Specifically, the content access process evaluates the terms of a <b>policy</b> that is tied to a smart contract for that content,
+          including both access to data as well as access to decryption keys. Thus, there is an <b>inseparable on chain linkage between
+          the content’s identity, the integrity of its source and representations, and access to these by users.</b>
+          <br><br>
+          Most Web2/Web3 content infrastructure in practice at least partially defers access control
+          and distribution to external/3rd party systems running separately from the blockchain ledger. The difference is especially
+          obvious for content sold as or permissioned by NFTs.  Unlike other blockchains for NFTs, the CFP has a strong coupling of the media asset and the token contract, and
+          verifies token ownership via the on chain policy associated with the content object. The policy is also extensible to account for any client-attestable or verifiable attribute - 
+          geo, user identity, position of an on chain token, time window etc. This allows for flexible policies that are both certifiable on chain and can fit virtually any business requirement.
+
+        content_authorization: ContentObjectComponentsImage
+
+
+
+    stakeholders:
+      label: The Ledger and Key Stakeholders
+      text: |
+        The Fabric 'Ledger' has three essential functions:
+        <br><br>
+        **Providing the authoritative ‘directory’ of all content including the only trusted reference to the list of
+        versions of each content object and the final verification ‘hash’ (the ground truth) for each of these versions;**
+        <br><br>
+        **Optional execution of on-chain ‘access control’ logic allowing users to read and write content** - on-chain
+        contract terms enforcement and Commercial terms reconciliation (payments and credits);
+        <br><br>
+        **Attestation of all content access operations** - Content access is recorded by content fabric nodes and periodically
+        packaged into a special content object. The hash of these usage parts is committed on blockchain. Optionally when
+        content access requires on-chain enforcement, the corresponding transaction ID is also recorded in the content parts
+        and can be correlated to the contract terms that it enforces (either on-chain or off-chain).
+        <br><br>
+        ***Key Stakeholders*** 
+        <br><br>
+        **Node Providers** - Each node provider is represented by a dedicated contract. A node provider registers one or more
+        Content Fabric Nodes to participate in the Fabric. Each node has a blockchain account, represented by its public/private
+        key pair and is responsible for running the Fabric software. A Node Provider submits periodic usage records and is
+        paid for the services provided by its nodes.
+        <br><br>
+        **Tenant** - A Tenant is the contractual entity representing an organization or an individual using Content Fabric resources
+        and is represented by a dedicated Tenant contract which periodically pays the charges for the Content Fabric services
+        used by its resources. It is also the containing entity for all content belonging to this tenant.
+        <br><br>
+        **Content Space** - The Content Space in the entity that sets the base rules binding Node Providers and Tenants,
+        including the rules for accepting new Content Fabric Nodes, creating new Tenants, and the rate of the service charges.
+        A Content Fabric network may operate as a single, global Content Space or support multiple Content Spaces.
+        <br><br>
+        **Fabric Users** - Each user has a blockchain account represented by its public/private key pair.
+        <br><br>
+        **Library** - A repository of Content created inside a Tenant, setting the policies for how all of its containing Content
+        Objects behave.
+        <br><br>
+        **Content** - The direct representation of a set of digital assets (for example a movie, all its media tracks, associated
+        artwork, metadata, etc.). Content is created inside a Tenant Library and is represented by either a dedicated contract
+        or an entity contained in the Tenant contract.
+      stakeholders: ContentFabricEconomicsImage
+
+    on_chain_authorization:
+      label: On Chain / Cross Chain Ownership of Content and Authorization ("Token Gating")
+      text:  |
+        Operations on content objects in the Fabric follow a two part flow as follows:
+        <br><br>
+        **Creating an access token of appropriate scope, signed by the authoritative entity**: Either (1) creating
+        a Client-signed access token attesting to the identity and context of the request signed by the client’s private key using a
+        direct or custodial signing operation, optionally including a transaction ID when on-chain authorization is required OR (2)
+        creating an Editor-signed access token or a delegated Authority-signed access token where the signer is an owner or editor of
+        the content or an authority specifically listed and trusted by the tenant and content object contract.
+        <br><br>
+        **Making an authorized API call on the Content Fabric using this access token.**  The access token and authorization protocol described in section 4.4 can be applied and extended to verify digital token
+        ownership as a generalized criteria for authorizing any content object access or representation. 
+        
+        This has widely applicable use including all of the following:
+        <br> <br>
+        ****“Token gating” exclusive content experiences based on utility NFT ownership;****
+        <br> <br>
+        ****Non fungible tokens for “rental”, “purchase”;****
+        <br> <br>
+        ****Fractional ownership of content and distributed disbursement via fractional fungible tokens;****
+        <br> <br>
+        ****On chain micro payments models for media consumption enforcement of new re-trading and derivative works rights
+        where the token owner has the permission to create and publish new work from the same content;****
+        <br> <br>
+        ****Fractional payments from content sales, e.g. to promotors, sponsors, and multiple creators.****
+        <br><br>
+        We believe this system of inter-related technology capabilities can be a foundation for an on-chain creator economy.
+        We have built a generalized protocol that builds on the CFP for on chain and cross chain verification of ownership of
+        digital tokens in content distribution and re-use. The protocol can be carried out entirely on chain, as described in our
+        specification, or supported through API Authority Services.
+        <br>
+      on_chain_authorization: OnChainCrossChainTokenGatedAccessImage
+
+    token_economics:
+      label: Token Economics & Content Utility
+      text:  |
+        The Content Fabric Protocol provides all content utility on-chain, effected through the circulation of a digital utility token. 
+        This allows the business layer to use common fungible and non-fungible tokens to implement content commerce and ownership.
+        Content access based on token ownership can result in token payments against project contracts and back to the project
+        stakeholders. While there are many variations in dividing royalties and revenue, this model allows for flexibility across all
+        kinds of creative projects and terms. 
+        
+        The <b>ELV utility token</b> is currently implemented as an ERC20 token that circulates through the Fabric ecosystem.
+        It has a stable value tied to USD/USD stable coins, and allows for Content Providers, Node Providers, and the other stakeholders 
+        to extract, provide, and pay for utility operations.
+  
+        As an application-specific blockchain providing just-in-time decentralized content creation, storage, and distribution
+        platform, the Content Fabric provides several essential utility functions for digital media: content
+        creation and publishing, encrypted content storage, transcoding (to generate consumable output media), egress bandwidth
+        distribution for streaming, interactive application, and file content, internal transmission, minting of tokens (NFTs and
+        fungible tokens), and issuing/redemption of one-time and persistent passcodes (“tickets”).
+        
+        These essential utility functions are complemented by additional application-specific utility functions such as forensic
+        watermarking, application of digital rights management, automated machine learning tagging of content, content search,
+        dynamic clipping, content download/archiving, and others upon which can be built higher level full Creator Stack API
+        Functions such as payments gateways, marketplaces, live events, market making, and sponsorship, etc.
+        
+        All Stakeholders in the Content Fabric network have an address in the network and access
+        the network via blockchain identity and blockchain signatures using private keys and blockchain transactions. The
+        Fabric is a network of Nodes that all run the same Content Fabric protocol, and thus carry out these utility functions on
+        behalf of Content Owners. Each Node has a contract address allowing it to be compensated for processing transactions for
+        these utility functions.
+        
+        Some nodes are Validator Nodes that specifically validate the Fabric blockchain transactions on
+        behalf of the network. These Nodes currently run a proof-of-authority based consensus protocol (adapted Ethereum Clique),
+        but also participate in the network with their own governance contracts, which can be staked for a proof-of-stake based
+        consensus and governance in an inter-blockchain network. (A PoS based implementation is currently underway). 
+        
+        Content Owners or Media Businesses acting on their behalf (Tenants) use these utility services to reach their Users, in order to gain
+        and hold their attention and/or to sell access to their media.
+
+        Users gain access to view, experience, re-trade, or remix the Content directly via the Content Fabric:
+        the Fabric serves media to authorized Viewers directly by default. It can also be used to serve it to proxies (content delivery
+        networks or head ends, etc. that in turn serve the content to the Users). 
+        
+        Users are authorized to view/experience/re-trade/create derivative content (through the Fabric’s trust-less owner-to-reader encryption model)
+        via blockchain attestation. This can be self-attestation only where appropriate for low risk, modest value transactions, or fully on-chain for high value (e.g.
+        publishing) operations. 
+        
+        The Content Owner thus either directly authorizes the Users to access the Content via the Fabric’s
+        capabilities or indirectly, through an authorized authority. The User is explicitly in control of any exchange of value for
+        his/her attention to the Content.
+        
+        Content Owners may sell to third parties (Sponsors) the option to present content to the
+        Users alongside the primary content and the ability to offer Users value in exchange for their data.
+        
+        The above relationships between Nodes, Validator Nodes, Content Owners, and Sponsors are currently implemented as a Tenant within a Space in
+        the Content Fabric. A Space is a collection of content objects owned by one or more Content Owners. The group of content
+        objects owned by a specific Content Owner and the access groups and policies for accessing these is a Tenant, and the Space
+        is a collection of Tenants that all follow the same general security groups and quality of service guarantees.
+
+      token_economics: ContentFabricEconomicsImage
+
+
+
+  
+    utility_token_circulation:
+      label: Utility Token Circulation in the Creator Stack
+      text: |
+        **Utility Token Circulation in the Creator Stack**
+        
+        Today’s production Content Fabric has only one active space (Active Space 1), but the implementation allows for the addition
+        of more Spaces that would allow for different classes of security and levels of distribution service as the platform grows. The
+        current mainnet 955305 is built on an Ethereum-standards based blockchain architecture and standard EVM contracts (ERC
+        20, 721, 1155), and uses a proof-of-authority Clique based protocol (no proof of work), and a network of Validators run by
+        media companies and stakeholders in the network. A substrate-compatible testnet ready for inter-blockchain communication
+        has also been built to allow for decentralizing stake and open scaling. These architectures together are not only fast, ecological, and
+        standards based but also flexible for the rapidly evolving future for application-specific chains.
+    
+        Transactions in the Network are effected using the ELV utility token. Utility work done by Nodes for Content
+        Owners is metered and is used as a normalized measure of the utility’s value. A Node that is primarily serving streaming
+        content to end user audiences may for example perform 0.01 units of transcoding, 0.1 units of egress bandwidth, and 0.005
+        units of storage, scaled to reflect the actual cost of providing these services. Current values are grounded in real world costs
+        based on production use over the past three years. The utility pricing is currently set by
+        the network’s governance and can be independently set in a fully decentralized governance.
+        
+        Each Content Owner as a Tenant on the Fabric has the option to assign value to User interaction with their Content 
+        via these utility services and to offer a tenant specific token type tied to the utility token. This may function 
+        as an Attention Token for that Tenant’s Content and can be used to measure, incentivize and monetize User engagement 
+        and promotion. 
+       
+        In summary, the utility token compensates Node Providers
+        for the utility “work” done by Nodes on behalf of Content Owners; provides a software mechanism in order to 
+        charge Content Owner Tenants for the work done; and provides a utility price for Content
+        Owners to consider in valuing their tenant specific services. 
+        
+        This results in a value flow in the Content Fabric as follows:
+        <br><br>
+        A core flow of ELVs is carried out by the Content Fabric Space continuously (via daily settlement) on behalf of Content Owners (Tenants) and the Nodes
+        <br><br>
+        The Nodes carry out utility work that is authorized and/or metered as blockchain transactions to record
+        their Transcoding, Egress Transmission, Publishing Transmission and new content Storage, as well as Application-specific utility work.
+        <br><br>
+        The Space contract charges a Tenant (Content Owner) contract in ELV, and credits the Node contracts.
+        <br><br>
+        The Validator Nodes continuously validate the transactions allowing the network cycle progress, and accumulate transaction fees on each validation.
+        <br><br>
+        As Nodes earn more, their ELV stake in the network increases, and they may extract value via the ELV-USD exchange.
+
+      utility_token_circulation: ContentFabricTokenFlowImage
+
+    unique_benefits for_nft_media:
+      label: Unique Benefits for Content NFTs
+      text: |
+        The Content Fabric is the natural home for creative IP as NFTs, solving all major pain points and truly delivering upon the promised
+        brand loyalty and utility capabilities of Web3.
+        
+        Some NFTs for creative IP have been stored, managed, and rendered in separate storage systems such as decentralized storage
+        or centralized cloud storage/Web2 systems. These have revealed shortcomings around 
+        security, authenticity, uniqueness, rarity, chain of ownership, user experience, and cost/minting efficiency 
+         and the weak link between NFTs as contracts and the media assets to which
+        they refer.  
+        <br>
+        While these limitations may not matter as much for early adoption, static/JPEG based NFTs and a limited market, they fundamentally
+        restrict mainstream tokenized ownership, "token gating", and loyalty campaigns around content. 
+        <b>The CFP addresses these shortcomings and brings deep and unparalleled benefits to content NFTs.</b>
+        <br><br>
+        **Automatic:** The CFP automatically mints NFTs (ERC 721 and 1155) from any
+          content object as a native function and as a uniquely versioned content object (with its own unique blockchain contract
+          address).
+         <br><br>
+        **Authenticity**: The NFT contract has a direct, inseparable link to the original content object that was used to create it.
+        The CFP hash is a cryptographic fingerprint that proves that the content referred to by the NFT is actually the same
+        as the original content, and can be verified through an open source proof. The original content stored in the Fabric
+        is also encrypted and all authorization to it uses on chain data or a valid transaction, making the original content
+        tamper free and truly unique. Many NFTs refer to storage of the digital content that is unprotected and, sometimes,
+        not verifiable.
+         <br><br>
+        **Uniqueness and Rarity**: Each NFT minted by the CFP is guaranteed unique, as it refers to a unique version of the
+        original content object, minted with a unique issue number among a finite set. Access to each unique NFT and its
+        viewing experience is enforced through a crypto wallet or a digital ticket code that is cryptographically verified against
+        a blockchain contract that backs the NFT batch and that particular issue number. A unique issue number can be
+        dynamically watermarked into the NFT when accessed with a ticket code or crypto wallet to display proof of ownership
+        to others.
+         <br><br>
+        **Any Content**: Unlike traditional NFT platforms that require a third party media storage or distribution system to
+        serve the digital content (static images, small videos), the Fabric can render any digital content—a full length movie,
+        concert, or even a continuous performance—as an NFT. This opens up virtually unlimited possibilities for collectible
+        experiences.
+         <br><br>
+        **Chain of Ownership and Secondary Payments**: Because the Fabric couples the transfer of ownership of NFTs to the
+        content contract, it is possible to have any royalty or other payments to creators part of every NFT transaction and to
+        enforce this in the availability of the content itself.
+        <br><br>
+        **User Experience**: All NFTs are content objects that can be directly authorized and displayed in user wallets as a native
+        media experience (video/audio streaming, resizing, live, continuous, with metadata, etc.) avoiding all separate content
+        storage and streaming systems. Key management can be delegated to the Fabric avoiding the challenges of tedious
+        crypto wallets.
+        <br><br>
+        **Dynamic Gamification and Generative Pipelines**: Functions such as spawning, burning, trait mixing, branching stories,
+        and permissioned offerings are natively supported by the Fabric’s dynamic content serving and blockchain policy
+        permissions, and generative NFTs can be created and served from single content objects with ease and low cost;
+        <br><br>
+        **Enables Low Cost Minting and Extreme Efficiency:** The Fabric content and blockchain efficiencies enable applications
+        to mint on demand, at high speed, with low cost. Applications can offer their users low cost, gas-free minting at scale,
+        and for any content experience the Fabric renders. The CFP’s “zero file copy” and dynamic, componentized distribution
+        protocol is dramatically more resource efficient (>50X) than traditional content storage and distribution networks and
+        along with its PoA/PoS blockchain, is a very efficient and low cost solution for the Creator Economy.
+    
+  
 
 news:
   title: News
