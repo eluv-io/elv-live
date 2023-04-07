@@ -4,12 +4,58 @@ import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import LearnMore from "./LearnMore";
 
-import TestImage from "../../static/images/blockchain/test.jpg";
+import BlockchainEcosystemImage from "../../static/images/blockchain/blockchain_ecosystem.png";
 
-const images = {
-  our_blockchain: TestImage,
-  technology_background: [ TestImage, TestImage ]
+import ContentFabricArchitectureImage from "../../static/images/blockchain/cfab_architecture.png";
+
+import ContentFabricEconomicsImage from "../../static/images/blockchain/content_fabric_economics.png";
+
+// import CfabAccessEncryptedImage from "../../static/images/blockchain/content_access_encrypted.png";
+
+import ContentFabricNetworkImage from "../../static/images/blockchain/content_fabric_network.png";
+
+import ContentFabricPipelineImage from "../../static/images/blockchain/content_fabric_pipeline.png";
+
+import ContentFabricTokenFlowImage from "../../static/images/blockchain/content_fabric_token_flow.png";
+
+// import ContentFabricUtilityServicesImage from "../../static/images/blockchain/content_fabric_utility_services.png";
+
+import ContentObjectComponentsImage from "../../static/images/blockchain/content_object_components.png";
+
+import ContentObjectImage from "../../static/images/blockchain/content_object.png";
+
+// import CrossChainAuthorizationProtocolImage from "../../static/images/blockchain/cross_chain_authorization_protocol.png";
+
+// import EluvioAPILayerImage from "../../static/images/blockchain/eluvio_api_layer.png";
+
+import GeneralFlowOfFabricOpsPolicyImage from "../../static/images/blockchain/general_flow_of_fabric_ops_policy.png";
+
+import ImageXcodePipelineImage from "../../static/images/blockchain/image-xcode-pipeline.png";
+
+import OnChainCrossChainTokenGatedAccessImage from "../../static/images/blockchain/onchain_crosschain_token_gated_access.png";
+
+
+
+const images= {
+  our_blockchain: ContentFabricNetworkImage,
+  technology_background: ContentFabricArchitectureImage,
+  on_chain_content_objects: ContentObjectImage,
+  jit_composition: ImageXcodePipelineImage,
+  content_authorization: ContentObjectComponentsImage,
+  token_economics: BlockchainEcosystemImage,
+  stakeholders: ContentFabricEconomicsImage,
+  utility_token_circulation: ContentFabricTokenFlowImage,
+  key_innovations: ContentFabricPipelineImage,
+  // CfabAccessEncryptedImage,
+  // ContentFabricUtilityServicesImage,
+  // CrossChainAuthorizationProtocolImage,
+  // EluvioAPILayerImage,
+  content_lifecycle: GeneralFlowOfFabricOpsPolicyImage,
+  on_chain_authorization: OnChainCrossChainTokenGatedAccessImage,
 };
+
+
+
 
 const Blockchain = observer(() => {
   const copy = mainStore.l10n.blockchain;
