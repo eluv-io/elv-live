@@ -16,8 +16,12 @@ const MobileNav = observer(({visible, Close}) => {
 
       // Disable body scroll so only nav menu can scroll
       document.body.classList.add("mobile-menu");
+      document.body.style.overflowY = "hidden";
 
-      return () => document.body.classList.remove("mobile-menu");
+      return () => {
+        document.body.classList.remove("mobile-menu");
+        document.body.style.overflowY = "scroll";
+      };
     } else {
       // Scroll back up to top after fading out
       setTimeout(() => {

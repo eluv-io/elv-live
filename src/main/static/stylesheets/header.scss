@@ -119,7 +119,7 @@
 
   @media screen and (max-width: $width-tablet) {
     gap: 30px;
-    padding: 0 20px;
+    padding: 0 25px;
 
     &--compact {
       .header__nav-link {
@@ -155,6 +155,7 @@
       width: max-content;
 
       .action__icon {
+        color: var(--color-text-dark-5);
         height: 25px;
         margin-bottom: 2px;
         max-width: unset;
