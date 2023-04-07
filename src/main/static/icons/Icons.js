@@ -32,6 +32,8 @@ import SmileIcon from "./customization.svg";
 import PulseIcon from "./data";
 import BarsIcon from "./dynamic.svg";
 import InfoIcon from "./info.svg";
+import NodeGroupIcon from "./node-group.svg";
+import Web3Icon from "./web-3.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -73,6 +75,7 @@ export {
   MinimizeIcon,
   MinusIcon,
   NewsIcon,
+  NodeGroupIcon,
   PlusIcon,
   ProfileIcon,
   MoneyIcon,
@@ -86,6 +89,7 @@ export {
   SupportIcon,
   TelephoneIcon,
   WalletIcon,
+  Web3Icon,
   TrendingUpIcon,
   XIcon,
   SocialIcons,

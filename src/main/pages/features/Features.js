@@ -5,7 +5,7 @@ import ImageIcon from "../../components/ImageIcon";
 import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 
-import {PlayCircleIcon} from "../../static/icons/Icons";
+import {BlockchainIcon, NodeGroupIcon, PlayCircleIcon, Web3Icon} from "../../static/icons/Icons";
 import SupportGrid from "./SupportGrid";
 import {CustomerServiceSection} from "./Support";
 
@@ -26,16 +26,11 @@ const ItemCard = (data, dark=false) => {
 const ApplicationSection = observer(() => {
   return (
     <div className="features__section">
-      <div className="features__section-header">Applications</div>
-
       <div className="tenancies-comparison features__info-box curved-box info-box light">
         <div className="tenancies-comparison__table-container">
-          <div className="info-box__content">
-            <div className="info-box__icon-container">
-              <ImageIcon icon={PlayCircleIcon} className="info-box__icon" title="Media Application Platform" />
-            </div>
+          <div className="info-box__content center">
             <div className="info-box__text">
-              <h3 className="info-box__header">Blockchain Content Applications (provided by Eluvio, Inc.)</h3>
+              <h3 className="features__section-header">Blockchain Content Applications</h3>
             </div>
           </div>
 
@@ -54,9 +49,14 @@ const ApplicationSection = observer(() => {
 
 const DetailSection = observer(() => {
   const data = mainStore.l10n.features.details;
+  const iconMap = {
+    "playIcon": PlayCircleIcon,
+    "blockchainIcon": Web3Icon,
+    "nodeGroupIcon": NodeGroupIcon
+  };
 
   return (
-    data.map(({header, sectionHeader, id, items}) => (
+    data.map(({header, sectionHeader, id, items, icon}) => (
       <div className="features__section" key={`features-section-${id}`} id={id}>
         {
           sectionHeader &&
@@ -65,7 +65,7 @@ const DetailSection = observer(() => {
         <div className="features__info-box curved-box info-box light">
           <div className="info-box__content">
             <div className="info-box__icon-container">
-              <ImageIcon icon={PlayCircleIcon} className="info-box__icon" title="Media Application Platform" />
+              <ImageIcon icon={iconMap[icon]} className="info-box__icon" title="Media Application Platform" />
             </div>
             <div className="info-box__text">
               <h3 className="info-box__header">{ header }</h3>
@@ -102,7 +102,7 @@ const Features = () => {
   return (
     <div className="page">
       <div className="page__header-container">
-        <h1 className="features--purple-header">Features</h1>
+        <h1 className="features--purple-header">Platform Features</h1>
       </div>
       <div className="page__content-block">
         <ApplicationSection />
