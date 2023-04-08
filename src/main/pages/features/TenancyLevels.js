@@ -6,7 +6,7 @@ import {TabbedInfoBox} from "../../components/Misc";
 import {PageContainer} from "../../MainApp";
 import FAQs from "./FAQs";
 import {observer} from "mobx-react";
-import {mainStore} from "../../stores/Main";
+import {mainStore, uiStore} from "../../stores/Main";
 
 import {
   PlayCircleIcon,
@@ -14,6 +14,8 @@ import {
 import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
 import SupportGrid from "./SupportGrid";
 import {CustomerServiceSection} from "./Support";
+import {Pagination} from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
 
 const BannerBox = ({title, icon, paragraph, link}) => {
   const icons = {
@@ -57,22 +59,52 @@ const TableSection = observer(() => {
 });
 
 const TenanciesList = observer(({monthly=false}) => {
-  return (
-    <div className="tenancies-list">
-      {mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features}) => (
-        <TenancyInfo
-          key={header}
-          header={header}
-          subHeader={sub_header}
-          monthlyPrice={monthly ? monthly_price : annual_price}
-          additionalCostText="+ utility fees"
-          addedBenefitPercentage={added_benefit_percentage}
-          addedBenefitText={added_benefit_text}
-          features={features}
-        />
-      ))}
-    </div>
+  const mobile = uiStore.pageWidth < 1000;
+  const tablet = mobile && uiStore.pageWidth > 700;
+
+  const tenancyCards = (
+    mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features}) => (
+      <TenancyInfo
+        key={header}
+        header={header}
+        subHeader={sub_header}
+        monthlyPrice={monthly ? monthly_price : annual_price}
+        additionalCostText="+ utility fees"
+        addedBenefitPercentage={added_benefit_percentage}
+        addedBenefitText={added_benefit_text}
+        features={features}
+      />
+    ))
   );
+
+  if(mobile) {
+    return (
+      <Swiper
+        className="tenancy-info__carousel"
+        spaceBetween={10}
+        slidesPerView={tablet ? 2 : 1.5}
+        centeredSlides
+        loop
+        pagination={{
+          enabled: true,
+          clickable: true
+        }}
+        modules={[Pagination]}
+      >
+        { tenancyCards.map((tenancyCard, index) =>
+          <SwiperSlide key={`key-feature-${index}`} className="main-page-block__key-features__slide">
+            { tenancyCard }
+          </SwiperSlide>
+        ) }
+      </Swiper>
+    );
+  } else {
+    return (
+      <div className="tenancies-list">
+        { tenancyCards }
+      </div>
+    );
+  }
 });
 
 const FullWidthElements = observer(() => (
@@ -99,13 +131,14 @@ const FullWidthElements = observer(() => (
 const TenancyLevels = () => {
   return (
     <PageContainer after={<FullWidthElements />} padded>
-      <div className="page">
+      <div className="page tenancy-levels">
         <div className="page__header-container">
           <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
           <h3>What works best for your creative brand?</h3>
         </div>
         <div className="page__content-block">
           <TabbedInfoBox
+            className="tenancy-info__tabbed-box"
             noBackgroundStyling={true}
             tabs={[
               {

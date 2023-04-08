@@ -10,13 +10,15 @@ const GridRows = ({bodyRows=[], dark=false}) => {
             <div className={`features-grid__body-row ${className}`}>
               {
                 cells.map(({label, className, tooltipText}, index) => (
-                  <span key={`header-row-${rowIndex}-cell-${index}`} className={className}>
-                    {
-                      tooltipText ?
-                        <Tooltip content={tooltipText} /> :
-                        label
-                    }
-                  </span>
+                  <div key={`header-row-${rowIndex}-cell-${index}`} className={`features-grid__cell-container ${className || ""}`}>
+                    <div className="features-grid__cell-content">
+                      {
+                        tooltipText ?
+                          <Tooltip content={tooltipText} /> :
+                          label
+                      }
+                    </div>
+                  </div>
                 ))
               }
             </div>

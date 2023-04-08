@@ -102,14 +102,6 @@ blockchainTransactions:
           unit: "per transfer"
           basePrice: "$0.10"
 
-#  items:
-#    - title: "NFT Contract Creation"
-#      description: "ERC-721, 1155 or similar contract deployed to the Content Fabric blockchain."
-#      unit: "per NFT contract (one per Edition)"
-#      pricePayAsYouGo: 1
-#      priceAdvanced: .5
-#      priceEnterprise: .10
-
 baseRentalOperations:
   icon: "supportIcon"
   header: "Base Rental and Operations"

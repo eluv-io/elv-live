@@ -89,36 +89,50 @@ creators:
     cards:
       -
         icon: play
-        front: Live Events & Drops
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        front: Live Events & Drops With Low Latency 4k
+        back: Low Latency 4K + Video Streaming - Live, On Demand, 360
       -
-        icon: discover
-        front: Marketplace
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        icon: smile
+        front: Customizable Marketplaces
+        back:
+          - Turnkey Web3 Content Experience/Storefronts,
+          - Turnkey platform for rich media digital properties & websites
+          - Configurable Media Galleries & Brandable Property
       -
         icon: money
-        front: Payment Gateway
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        front: Sell Through, Royalties & Payment Gateways
+        back:
+          - Content Sell Through and On-Chain Royalties,
+          - Native Web3 Media Wallet & On-chain/Cross Chain Token Gated Content
       -
-        icon: money
-        front: Content Investing
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        icon: wrench
+        front: Large Library Servicing & Decentralized CDN
+        back:
+          - Watch and Access from Anywhere
+          - Multiple apps on Single Content Fabric Substrate
+          - Unlimited Titles & Assets
       -
         icon: bars
-        front: Dynamic Traits
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        front: AI-driven & Dynamic Traits
+        back:
+          - Dynamic Traits, Mints, & Collections
+          - AI-driven, zero-touch clip licensing solutions
+          - ML Content Tagging, Automated ML Clip Search & Generation
       -
         icon: app
         front: Market Making Curation & Matching
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        back: Just-in-time "smart stage" streaming & retail monetization
       -
-        icon: smile
-        front: Customization
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        icon: discover
+        front: WebXR and Immersive Content Serving
+        back: Low Latency, Data Driven, 3D, and XR Content with Personalization & Ownership
       -
         icon: pulse
-        front: Data
-        back: Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.
+        front: Data Without Middle Parties
+        back:
+          - All Engagement Data On-Chain
+          - Wallets to Publishers and Brands
+          - User Controlled, No Middle Parties
 
 
 

@@ -1,5 +1,6 @@
 - header: "Media Application Platform"
-  sectionHeader: "Core Utilities"
+  sectionHeader: "Content Fabric Core Utilities"
+  icon: "playIcon"
   id: "media-application"
   items:
     - title: "Direct Ingest from File System and Cloud Storage"
@@ -94,6 +95,7 @@
 
 
 - header: "Content Distribution Features"
+  icon: "nodeGroupIcon"
   id: "content-distribution"
   items:
     - title: "Global Streaming (ABR) on publishing"
@@ -177,6 +179,7 @@
 
 
 - header: "Web3 Capabilities"
+  icon: "blockchainIcon"
   id: "web-3"
   items:
     - title: "Audience Access Data"
