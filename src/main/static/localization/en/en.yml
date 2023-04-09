@@ -207,7 +207,7 @@ content_fabric:
     links:
       - text: "Content Fabric Docs"
         to: https://hub.doc.eluv.io
-      - text: "Rest API"
+      - text: "REST/HTTP API"
         to: https://main.net955305.contentfabric.io/doc
       - text: "JavaScript SDK"
         to: https://eluv-io.github.io/elv-client-js/
