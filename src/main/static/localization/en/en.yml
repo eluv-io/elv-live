@@ -164,7 +164,7 @@ content_fabric:
       The Content Fabric software provides real-time video, low latency serving, and efficient personalization for any content while dramatically reducing the network bandwidth, storage, and compute requirements as compared to traditional streaming and content distribution systems through its novel compositional and just-in-time protocol.
 
       Built on a trustless security model and as an open source Ethereum blockchain, it provides a uniqe end-to-end content encryption system that combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and an eco-friendly blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain so your digital assets are exclusive to you.
-      
+
       The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP. Universal and infinitely scalable, it is designed to unlock the value of Content.
   learn_more:
     header: Learn More About the Technology
@@ -172,33 +172,69 @@ content_fabric:
       Read a summary of the Content Fabric technology or dive into the comprehensive protocol whitepaper.
   mainnet:
     header: MainNet
-    text: Integer rutrum nibh nisi, et semper quam varius ut. Sed pellentesque sagittis purus a pellentesque. Pellentesque vitae lobortis nisl. Nunc sed nulla rutrum sapien porta fermentum. Fusce rhoncus nunc dictum, porttitor orci ac, dapibus nulla. Vestibulum consectetur diam non felis dapibus, sed sodales nisl tincidunt.
+    text: The main Content Fabric network is an EVM-compatible network (ID 955305) consisting of PoA validators and Content Fabric nodes distributed globally, providing over 3 Tbps aggregate content distribution capacity and several PB of content storage.
     fabric_browser: Fabric Browser
     blockchain_explorer: Blockchain Explorer
     github_repo: Github Repo
+    links: # Only for reference
+      fabric_browser:  https://core.v3.contentfabric.io
+      blockchain_explorer: https://explorer.contentfabric.io
+      github_repo: https://github.com/eluv-io
+  tenant:
+    header: Get Started
+    text:  |
+      As a Content Fabric tenant you can ingest and organize your media content and provide full streaming and content distribution services to your applications.
+    links:
+      - text: "Tenancy Setup"
+        to: https://hub.doc.eluv.io/setup/tenant/
+      - text: "Content Fabric Docs"
+        to: https://hub.doc.eluv.io
   nodes:
     header: Node & Validator Providers
-    text: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+    text:  |
+      The Content Fabric is a network comprised of Content Fabric Nodes and Validators.  Learn how to become a node provider, set up Content Fabric Nodes and Validators and join your infrastructure to the Content Fabric. As a tenant you also have the ability to join your public or private nodes to the Content Fabric to offset utility fees.
+    links:
+      - text: "Maintainer Docs"
+        to: https://maintainer.doc.eluv.io
+      - text: "Validator Setup"
+        to: https://maintainer.doc.eluv.io/setup/validator_setup/
+      - text: "Fabric Node Setup"
+        to: https://maintainer.doc.eluv.io/setup/fabric_node_setup/
   api:
-    header: API Developers
+    header: Application Developers
     text: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+      Use the Content Fabric API to ingest video, set up media assets of all kinds, organize and manage content and build media-rich applications.
+    links:
+      - text: "Content Fabric Docs"
+        to: https://hub.doc.eluv.io
+      - text: "Rest API"
+        to: https://main.net955305.contentfabric.io/doc
+      - text: "JavaScript SDK"
+        to: https://eluv-io.github.io/elv-client-js/
+  mwapi:
+    header: Media Wallet Application Developers
+    text: |
+      Use the Eluvio Media Wallet SDK to build commerce applications for media and digital goods, through built-in marketplace and store components.
+    links:
+      - text: "JavaScript SDK"
+        to:  https://eluv-io.github.io/elv-client-js/wallet-client
+      - text: "DAPP Sample"
+        to: https://dapp-sample.app.eluv.io/
+
   roadmap:
     header: Current State & Roadmap
     text: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-  node_operator:
-    header: Become a Node Operator
-    text: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
+      The Content Fabric main network has been released for production in 2019 and the Eluvio Media Wallet application suite in 2021.  Learn about the roadmap to creating the next-generation content space and tenancy scale-out layer, the Substrate/Polkadot Content Fabric and the new Eluvio creator stack.
+    links:
+      - text: "Roadmap"
+        to: https://eluv.io
   community:
     header: Community
     text: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis.
-    genesis_nft: Genesis NFT
-    meeting_2_nft: "Meeting #2 NFT"
-    meeting_3_nft: "Meeting #3 NFT"
+      The Content Fabric ecosystem consists of node infrastructure providers, content owners and content businesses represented as tenants, content creators, blockchain enthusiasts and digital media fans.  Learn about the Eluvio Community and its next activities.
+    links:
+      - text: "Community Site"
+        to: https://eluv.io/community
 
 technology:
   title: Content Fabric Technology
