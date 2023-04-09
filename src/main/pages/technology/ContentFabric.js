@@ -87,13 +87,42 @@ const ContentFabric = observer(() => {
       </div>
       <div className="page__content-block">
         <InfoBox
+          icon={TechnologyIcons.BecomeNodeOperatorIcon}
+          header={copy.tenant.header}
+          content={copy.tenant.text}
+          links={[
+            {
+              to: copy.tenant.links[0].to,
+              text: copy.tenant.links[0].text,
+              icon: DocumentIcon
+            },
+            {
+              to: copy.tenant.links[1].to,
+              text: copy.tenant.links[1].text,
+              icon: DocumentIcon
+            }
+          ]}
+        />
+      </div>
+      <div className="page__content-block">
+        <InfoBox
           icon={TechnologyIcons.NodeValidatorProvidersIcon}
           header={copy.nodes.header}
           content={copy.nodes.text}
           links={[
             {
-              to: "https://google.com",
-              text: mainStore.l10n.actions.view_document,
+              to: copy.nodes.links[0].to,
+              text: copy.nodes.links[0].text,
+              icon: DocumentIcon
+            },
+            {
+              to: copy.nodes.links[1].to,
+              text: copy.nodes.links[1].text,
+              icon: DocumentIcon
+            },
+            {
+              to: copy.nodes.links[2].to,
+              text: copy.nodes.links[2].text,
               icon: DocumentIcon
             }
           ]}
@@ -106,18 +135,37 @@ const ContentFabric = observer(() => {
           content={copy.api.text}
           links={[
             {
-              to: "https://google.com",
-              text: mainStore.l10n.actions.view_document,
+              to: copy.api.links[0].to,
+              text: copy.api.links[0].text,
               icon: DocumentIcon
             },
             {
-              to: "https://google.com",
-              text: mainStore.l10n.actions.view_document,
+              to: copy.api.links[1].to,
+              text: copy.api.links[1].text,
               icon: DocumentIcon
             },
             {
-              to: "https://google.com",
-              text: mainStore.l10n.actions.view_document,
+              to: copy.api.links[2].to,
+              text: copy.api.links[2].text,
+              icon: DocumentIcon
+            }
+          ]}
+        />
+      </div>
+      <div className="page__content-block">
+        <InfoBox
+          icon={TechnologyIcons.APIDevsIcon}
+          header={copy.mwapi.header}
+          content={copy.mwapi.text}
+          links={[
+            {
+              to: copy.mwapi.links[0].to,
+              text: copy.mwapi.links[0].text,
+              icon: DocumentIcon
+            },
+            {
+              to: copy.mwapi.links[1].to,
+              text: copy.mwapi.links[1].text,
               icon: DocumentIcon
             }
           ]}
@@ -130,22 +178,8 @@ const ContentFabric = observer(() => {
           content={copy.roadmap.text}
           links={[
             {
-              to: "https://google.com",
-              text: mainStore.l10n.actions.view_document,
-              icon: DocumentIcon
-            }
-          ]}
-        />
-      </div>
-      <div className="page__content-block">
-        <InfoBox
-          icon={TechnologyIcons.BecomeNodeOperatorIcon}
-          header={copy.node_operator.header}
-          content={copy.node_operator.text}
-          links={[
-            {
-              to: "https://google.com",
-              text: mainStore.l10n.actions.view_document,
+              to: copy.roadmap.links[0].to,
+              text: copy.roadmap.links[0].text,
               icon: DocumentIcon
             }
           ]}
@@ -157,18 +191,8 @@ const ContentFabric = observer(() => {
           content={copy.community.text}
           links={[
             {
-              to: "https://google.com",
-              text: "Genesis NFT",
-              icon: DocumentIcon
-            },
-            {
-              to: "https://google.com",
-              text: "Meeting #2 NFT",
-              icon: DocumentIcon
-            },
-            {
-              to: "https://google.com",
-              text: "Meeting #3 NFT",
+              to: copy.community.links[0].to,
+              text: copy.community.links[0].text,
               icon: DocumentIcon
             }
           ]}
