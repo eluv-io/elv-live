@@ -227,7 +227,6 @@ content_fabric:
       The Content Fabric main network has been released for production in 2019 and the Eluvio Media Wallet application suite in 2021.  Learn about the roadmap to creating the next-generation content space and tenancy scale-out layer, the Substrate/Polkadot Content Fabric and the new Eluvio creator stack.
     links:
       - text: "Roadmap"
-        to: https://live.eluv.io/Technology-Roadmap-Full.pdf
   community:
     header: Community
     text: |

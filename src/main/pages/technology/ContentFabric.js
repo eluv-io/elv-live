@@ -9,6 +9,8 @@ import BlockchainImage from "../../static/images/technology/blockchain-graphic.p
 import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import LearnMore from "./LearnMore";
 
+import TechnologyRoadmap from "./documents/Technology-Roadmap-Full.pdf";
+
 const ContentFabric = observer(() => {
   const copy = mainStore.l10n.content_fabric;
 
@@ -178,7 +180,8 @@ const ContentFabric = observer(() => {
           content={copy.roadmap.text}
           links={[
             {
-              to: copy.roadmap.links[0].to,
+              to: TechnologyRoadmap,
+              target: "_blank",
               text: copy.roadmap.links[0].text,
               icon: DocumentIcon
             }
@@ -187,6 +190,7 @@ const ContentFabric = observer(() => {
       </div>
       <div className="page__content-block">
         <InfoBox
+          icon={TechnologyIcons.BecomeNodeOperatorIcon}
           header={copy.community.header}
           content={copy.community.text}
           links={[

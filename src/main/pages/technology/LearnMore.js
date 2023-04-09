@@ -6,7 +6,6 @@ import {InfoBox} from "../../components/Misc";
 import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
 
 import Whitepaper from "./documents/EluvioContentFabricProtocolWhitepaper.pdf";
-import TechnologyRoadmap from "./documents/Technology-Roadmap-Full.pdf";
 
 const LearnMore = observer(() => {
   return (
@@ -16,7 +15,7 @@ const LearnMore = observer(() => {
       content={mainStore.l10n.content_fabric.learn_more.text}
       links={[
         {
-          to: TechnologyRoadmap,
+          to: "/content-fabric/technology",
           target: "_blank",
           text: mainStore.l10n.actions.technology_section,
           icon: LinkIcon
