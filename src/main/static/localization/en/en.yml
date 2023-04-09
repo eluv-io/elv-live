@@ -24,7 +24,7 @@ main:
     subheader: The Content Blockchain
     tagline: Unlocking the value of creative IP with direct distribution and individual ownership
   feature_banner:
-    - Fast, transparent, beautiful, and sustainable
+    - Beautiful, fast streaming
     - Content owners control their assets and profitability
     - Users control their data
     - Brands and users engage without middle parties
@@ -89,11 +89,11 @@ creators:
     cards:
       -
         icon: play
-        front: Live Events & Drops With Low Latency 4k
+        front: Low Latency 4k Live and On Demand Streaming
         back: Low Latency 4K + Video Streaming - Live, On Demand, 360
       -
         icon: smile
-        front: Customizable Marketplaces
+        front: Customizable Events, Drops, & Marketplaces
         back:
           - Turnkey Web3 Content Experience/Storefronts,
           - Turnkey platform for rich media digital properties & websites
@@ -144,25 +144,28 @@ content_fabric:
   header: Utility Blockchain Network for Content
   cards:
     1:
+      - Just-in-Time
       - Programmable
       - Hyper Efficient
       - No File Copies
     2:
-      - Storage
+      - Decentralized Streaming
       - Distribution
-      - Streaming
+      - Storage
+
+
     3:
       - On-chain Ownership
       - Versioning
-      - Access
+      - Access Control
   protocol:
     header:  Just-in-Time, Realtime, Eco-Friendly, Scalable
     text: |
-      Through a novel compositional and just-in-time decentralized protocol, the Content Fabric software does not make digital file copies and dramatically reduces the network storage and usage requirements significantly as compared to traditional streaming and content distribution systems while providing real-time video, low latency serving, and efficient personalization for any content.
+      The Content Fabric software provides real-time video, low latency serving, and efficient personalization for any content while dramatically reducing the network bandwidth, storage, and compute requirements as compared to traditional streaming and content distribution systems through its novel compositional and just-in-time protocol.
 
-      As both a full-stack open source Ethereum blockchain and decentralized content protocol, it combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and an eco-friendly blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain so your digital assets are exclusive to you.
+      Built on a trustless security model and as an open source Ethereum blockchain, it provides a uniqe end-to-end content encryption system that combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and an eco-friendly blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain so your digital assets are exclusive to you.
       
-      The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP, and now unlocking the era of Content.
+      The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP. Universal and infinitely scalable, it is designed to unlock the value of Content.
   learn_more:
     header: Learn More About the Technology
     text: |
