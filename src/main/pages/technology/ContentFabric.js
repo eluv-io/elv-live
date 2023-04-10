@@ -67,7 +67,7 @@ const ContentFabric = observer(() => {
           </h3>
           <RichText richText={copy.mainnet.text} className="mainnet-info__text" />
           <div className="mainnet-info__icons">
-            <Action to="/" target="_blank">
+            <Action to={copy.mainnet.links.fabric_browser} target="_blank">
               <div className="mainnet-info__icon">
                 <ImageIcon icon={TechnologyIcons.FabricBrowserIcon} className="mainnet-info__icon__icon" />
                 <div className="mainnet-info__icon__text">
@@ -75,7 +75,7 @@ const ContentFabric = observer(() => {
                 </div>
               </div>
             </Action>
-            <Action to="/" target="_blank">
+            <Action to={copy.mainnet.links.blockchain_explorer} target="_blank">
               <div className="mainnet-info__icon">
                 <ImageIcon icon={TechnologyIcons.BlockchainExplorerIcon} className="mainnet-info__icon__icon" />
                 <div className="mainnet-info__icon__text">
@@ -83,7 +83,7 @@ const ContentFabric = observer(() => {
                 </div>
               </div>
             </Action>
-            <Action to="/" target="_blank">
+            <Action to={copy.mainnet.links.github_repo} target="_blank">
               <div className="mainnet-info__icon">
                 <ImageIcon icon={TechnologyIcons.GithubRepoIcon} className="mainnet-info__icon__icon" />
                 <div className="mainnet-info__icon__text">
