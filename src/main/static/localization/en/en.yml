@@ -787,6 +787,10 @@ faq:
     - question: Is my Eluvio wallet compatible with Metamask?
       answer: |
         Yes, your Eluvio wallet allows you to sign transactions on the mainnet955305 network  using your private keys and is fully compatible with Metamask and other Ethereum standard wallets.  It also has an option for email/Open ID sign in that allows you to access a Fabric-provided signing API.  Anys  NFTS and ERC20 tokens minted on the Content Fabric blockchain are standards compliant. Contracts are open source and published at <a href="https://github.com/eluv-io" target="_blank">https://github.com/eluv-io</a>
+    - question: I am interested in becoming a Node Provider in the network. How do I find out more?
+      answer: |
+        Eluvio node providers can join the network as validators or full Fabric Nodes that host and serve content on the Content Fabric.  Information about how to install and set up either type of node can be found on the <a href="https://maintainer.doc.eluv.io/setup/" target="_blank">Maintainers Documentation</a> site.  There is also a dedicated Slack for node operators.  To get access to the Eluvio Community Slack, you can use this <a href="https://share.hsforms.com/1XJ1v8Jr-S6aWgavyqhVoOw3pje1" target="_blank">form</a> to express your interest and get in contact with someone at Eluvio who can answer questions and guide you to the right area of documentation.
+
 features_banner:
   - title: Advanced Media Features
     icon: playCircle
