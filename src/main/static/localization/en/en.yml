@@ -765,25 +765,28 @@ contact_form:
 faq:
   header: FAQs
   questions:
-    - question: Who owns my content?
+    - question: What is the Blockchain Content Fabric?
       answer: |
-        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet. Aliquam nisi porta viverra hac nec elementum. Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
-    - question: How do I get paid?
+        The Content Fabric is an open utility blockchain network that provides decentralized streaming, distribution, and storage for any digital content.  It features are real-time video, low latency serving, and efficient personalization for any content while dramatically reducing the network bandwidth, storage, and compute requirements as compared to traditional streaming and content distribution systems. The nodes in the network all run its novel compositional and just-in-time protocol, the Content Fabric Protocol.
+    - question: What is the Blockchain within the Content Fabric?
       answer: |
-        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
-    - question: What are the fees?
+        The current production network (main.net955305.contentfabric.io) has been built using a standard open source fork of the Ethereum network and has utilized Ethereum standard addressing, cryptographic signatures and keys, and smart contracts and runs a PoA consensus with a mixture of 3rd Party and Eluvio, Inc. validators.  You can access the RPC interface at https://main.net955305.contentfabric.io/config
+        The Fabric protocol can be independently implemented using any full stack layer 1 blockchain, and thus provides an open and universal design for content in a federated and heterogeneous blockchain ecosystem consisting of many interoperable blockchains. The current testnet uses the Polkadot substrate blockchain and the W3F inter-blockchain validation and messaging features and PoS. The content authorization is independent of where (on which blockchain) proof of content ownership exists, allowing for any cross-chain content applications including ownership, authorization ("token gating") and sales.
+    - question: Is the Content Fabric a CDN (Content Delivery Network)?
       answer: |
-        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
-    - question: What control do I have after a collectible is sold?
+        Yes, it is a global decentralized CDN, and a full stack video, media, and content management platform so you don’t need to provide any of these separately. It replaces traditional CDNs and cloud stacks with high efficiency and novel capabilities. The current network has multiple Terabits per second of capacity and is infinitely expandable and open.
+    - question: Who created it?
       answer: |
-        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet. Aliquam nisi porta viverra hac nec elementum. Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim.
-    - question: What control do I have after a collectible is sold?
+        The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP. That team is now 30+ people strong around the world and led by Serban Simu and Michelle Munson headquartered in Berkeley, California.
+    - question: Who owns the assets I publish?
       answer: |
-        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet.
-    - question: Do I get a percentage of every re-trade after the initial sale?
+        You do, as the owner. The Fabric has a  trustless security model with a uniqe end-to-end content encryption system where content is owned by the publishing user and re-encrypted to the recipient user using trustless cryptography.  It also combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and  blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain.
+    - question: How do I get support?
       answer: |
-        Lacus morbi varius pulvinar commodo aliquam diam nisl integer. At fermentum habitasse amet eleifend at enim. You do! Lorem ipsum dolor sit amet consectetur. Tempor ornare id eget egestas malesuada ut erat tellus amet.
-
+        Please email <a href="mailto:support@eluv.io">support@eluv.io</a> or join our community discord.  We have a 24x7x365 support team covered by our core team staff.
+    - question: Is my Eluvio wallet compatible with Metamask?
+      answer: |
+        Yes, your Eluvio wallet allows you to sign transactions on the mainnet955305 network  using your private keys and is fully compatible with Metamask and other Ethereum standard wallets.  It also has an option for email/Open ID sign in that allows you to access a Fabric-provided signing API.  Anys  NFTS and ERC20 tokens minted on the Content Fabric blockchain are standards compliant. Contracts are open source and published at <a href="https://github.com/eluv-io" target="_blank">https://github.com/eluv-io</a>
 features_banner:
   - title: Advanced Media Features
     icon: playCircle
