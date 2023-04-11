@@ -167,6 +167,9 @@ content_fabric:
 
       The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP. Universal and infinitely scalable, it is designed to unlock the value of Content.
   learn_more:
+    content_fabric_header: Learn More About the Content Fabric
+    content_fabric_text: |
+      Read a summary of the Content Fabric protocol or dive into the comprehensive protocol whitepaper.
     header: Learn More About the Technology
     text: |
       Read a summary of the Content Fabric technology or dive into the comprehensive protocol whitepaper.
@@ -177,7 +180,7 @@ content_fabric:
     blockchain_explorer: Blockchain Explorer
     github_repo: Github Repo
     links:
-      fabric_browser:  https://core.v3.contentfabric.io
+      fabric_browser:  https://core.v3.contentfabric.io/#/apps
       blockchain_explorer: https://explorer.contentfabric.io
       github_repo: https://github.com/eluv-io
   tenant:
@@ -750,7 +753,10 @@ partners:
 contact:
   title: Contact Us
   header: Inspired to utilize the Content Fabric?
-  text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+  text: |
+    Eluvio LIVE and our partners have an incredible lineup of artists and events to bring to you in upcoming weeks. Keep an eye on this site as we formally open ticket sales.
+
+    If you would like to create an event with us, find out more about our offerings, or sign up for our newsletter please complete the form below.
   connect: Ways to connect
   address: Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710
 
@@ -897,6 +903,7 @@ actions:
   browse_all_projects: Browse All Projects
   see_feature_details: See Feature Details
   technology_section: Technology Section
+  content_fabric_section: Content Fabric
   whitepaper: Whitepaper
 
 footer:
@@ -938,5 +945,3 @@ footer:
         link: "https://maintainer.doc.eluv.io/overview/"
       - text: "API Developers"
         link: "https://hub.doc.eluv.io/content/"
-      - text: "Current State & Roadmap"
-        link: "/"
