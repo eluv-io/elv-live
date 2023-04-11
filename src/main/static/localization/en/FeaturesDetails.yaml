@@ -22,7 +22,7 @@
           link: "https://hub.doc.eluv.io/guides/ingestingmedia/getting-started/"
         - contentTitle: "Live Streaming Ingest"
           description: "Supports automatic ingest of H.264/AVC, H.265/HEVC live streaming content packaged as MPEG-TS/UDP or RTMP/TCP, 30-50fps+, SD-4K UHD High Bandwidth"
-          link: "https://hub.doc.eluv.io/content/ingestingmedia/workflow-examples/"
+          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
 
     - title: "Automatic Versioning of Content with Metadata"
       items:
@@ -97,13 +97,13 @@
           link: "https://github.com/eluv-io/elv-wasm/"
         - contentTitle: "Multi-view Live and On-Demand Channels"
           description: "Up to 8 unique dynamic views/live streams with dynamic multiplexing to any HLS/DASH ABR player. Fabric synthesizes the selected view on-demand and advertises in the manifest. Client loads only one stream for lightweight processing and fast switching."
-          link: "https://hub.doc.eluv.io/content/ingestingmedia/workflow-examples/"
+          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
         - contentTitle: "Dynamic Ad Insertion and FAST"
           description: "Automatic and dynamic video sequences with next-sequenced content selection based on customizable bitcode and metadata."
-          link: "https://hub.doc.eluv.io/content/ingestingmedia/workflow-examples/"
+          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
         - contentTitle: "Embeddable Hot Spots in Immersive Content"
           description: "Automatic loading of video, audio, imagery, XR objects from interactive hotspots, either statically bound or via bitcode evaluated for dynamic selection/personalization."
-          link: "https://hub.doc.eluv.io/content/ingestingmedia/workflow-examples/"
+          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
 
 
 
