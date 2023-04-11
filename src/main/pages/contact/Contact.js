@@ -23,7 +23,7 @@ const Contact = observer(() => {
           <h4>{ mainStore.l10n.contact.connect }</h4>
           <div className="contact__link-container">
             <Action className="light contact__link" to="mailto:contact@eluv.io" icon={MailIcon}>
-              events@live.eluv.io
+              contact@eluv.io
             </Action>
           </div>
           <div className="contact__link-container">
