@@ -228,7 +228,7 @@
       items:
         - contentTitle: "Turnkey Marketplaces and APIs for Content Sales and Minting"
           description: "Supports brand-able and customizable primary (publisher-to-user) and secondary (user-to-user) marketplaces for listing content object offerings or collections for sale as one-time or subscription-based offerings. The offerings may include any combination of media in a gallery or as single items.  APIs support fully custom/white label embed or turnkey hosted storefronts"
-          link: ""
+          link: "https://hub.doc.eluv.io/eluviolive/marketplace_setup/"
 
     - title: "Flexible Payments Gateway"
       items:
