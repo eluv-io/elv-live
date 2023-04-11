@@ -38,6 +38,7 @@ const Links = observer(({dark=false}) => {
     document: DocumentIcon,
     link: LinkIcon,
   };
+  const roadmapDoc = require("../pages/technology/documents/Technology-Roadmap-Full.pdf");
 
   return (
     <div className="footer__links">
@@ -66,6 +67,17 @@ const Links = observer(({dark=false}) => {
                   </Action>
                 );
               })
+            }
+            {
+              title === "Resources" &&
+              <Action
+                href={roadmapDoc}
+                rel="noopener"
+                target="_blank"
+                className={`footer__link ${dark ? "dark" : "light"}`}
+              >
+                Current State & Roadmap
+              </Action>
             }
           </div>
         )

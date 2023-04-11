@@ -10,6 +10,7 @@ import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import LearnMore from "./LearnMore";
 
 import TechnologyRoadmap from "./documents/Technology-Roadmap-Full.pdf";
+import {Action} from "../../components/Actions";
 
 const ContentFabric = observer(() => {
   const copy = mainStore.l10n.content_fabric;
@@ -66,24 +67,30 @@ const ContentFabric = observer(() => {
           </h3>
           <RichText richText={copy.mainnet.text} className="mainnet-info__text" />
           <div className="mainnet-info__icons">
-            <div className="mainnet-info__icon">
-              <ImageIcon icon={TechnologyIcons.FabricBrowserIcon} className="mainnet-info__icon__icon" />
-              <div className="mainnet-info__icon__text">
-                { copy.mainnet.fabric_browser }
+            <Action to={copy.mainnet.links.fabric_browser} target="_blank">
+              <div className="mainnet-info__icon">
+                <ImageIcon icon={TechnologyIcons.FabricBrowserIcon} className="mainnet-info__icon__icon" />
+                <div className="mainnet-info__icon__text">
+                  { copy.mainnet.fabric_browser }
+                </div>
               </div>
-            </div>
-            <div className="mainnet-info__icon">
-              <ImageIcon icon={TechnologyIcons.BlockchainExplorerIcon} className="mainnet-info__icon__icon" />
-              <div className="mainnet-info__icon__text">
-                { copy.mainnet.blockchain_explorer }
+            </Action>
+            <Action to={copy.mainnet.links.blockchain_explorer} target="_blank">
+              <div className="mainnet-info__icon">
+                <ImageIcon icon={TechnologyIcons.BlockchainExplorerIcon} className="mainnet-info__icon__icon" />
+                <div className="mainnet-info__icon__text">
+                  { copy.mainnet.blockchain_explorer }
+                </div>
               </div>
-            </div>
-            <div className="mainnet-info__icon">
-              <ImageIcon icon={TechnologyIcons.GithubRepoIcon} className="mainnet-info__icon__icon" />
-              <div className="mainnet-info__icon__text">
-                { copy.mainnet.github_repo }
+            </Action>
+            <Action to={copy.mainnet.links.github_repo} target="_blank">
+              <div className="mainnet-info__icon">
+                <ImageIcon icon={TechnologyIcons.GithubRepoIcon} className="mainnet-info__icon__icon" />
+                <div className="mainnet-info__icon__text">
+                  { copy.mainnet.github_repo }
+                </div>
               </div>
-            </div>
+            </Action>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import {mainStore} from "../../stores/Main";
 import LearnMore from "./LearnMore";
 
 import BlockchainEcosystemImage from "../../static/images/blockchain/blockchain_ecosystem.png";
-import ContentFabricArchitectureImage from "../../static/images/blockchain/cfab_architecture.png";
+import ContentFabricArchitectureImage from "../../static/images/blockchain/cfab_architecture.jpeg";
 import ContentFabricEconomicsImage from "../../static/images/blockchain/content_fabric_economics.png";
 import ContentFabricNetworkImage from "../../static/images/blockchain/content_fabric_network.png";
 import ContentFabricPipelineImage from "../../static/images/blockchain/content_fabric_pipeline.png";

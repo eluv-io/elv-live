@@ -319,7 +319,7 @@
 
   &__item-card {
     font-size: var(--font-size-body-7);
-    height: 65px;
+    height: 70px;
     padding: 0 10px 0 75px;
 
     &.light.features-support__item-card--xs,
@@ -464,7 +464,7 @@
 
 .features-details {
   &__item-card {
-    height: 65px;
+    height: 70px;
     padding: 0 20px;
   }
 
@@ -518,7 +518,7 @@
   }
 
   &__item-card {
-    height: 65px;
+    height: 70px;
     padding: 0 20px;
   }
 
@@ -606,6 +606,69 @@
   }
 }
 
+@media screen and (max-width: $width-laptop) {
+  .features-support {
+    &__item-card--xs {
+      height: 45px;
+    }
+
+    &__header {
+      text-align: left;
+    }
+
+    &__header-text {
+      font-size: 7px;
+    }
+
+    &__header-row,
+    &__item-card-content {
+      grid-template-columns: 1fr 110px repeat(2, 150px);
+    }
+
+    &__item-card-content {
+      font-size: var(--font-size-body-6);
+
+      .image-icon {
+        width: 15px;
+      }
+    }
+  }
+
+  .features-details {
+    &__item-card__content {
+      font-size: var(--font-size-body-6);
+
+      span {
+        flex: 1;
+      }
+
+      p {
+        flex: 3;
+        font-size: var(--font-size-body-6);
+      }
+    }
+  }
+
+  .features-grid {
+    &__row--4col-a {
+      grid-template-columns: 150px 200px 150px 1fr;
+    }
+
+    &__row--5col-a {
+      grid-template-columns: 215px 125px repeat(2, 80px) 1fr;
+    }
+
+    &__row--6col-a {
+      grid-template-columns: 120px 100px 90px repeat(2, 80px) 1fr;
+    }
+
+    &__item-card,
+    &__light-text {
+      font-size: var(--font-size-body-6);
+    }
+  }
+}
+
 @media screen and (max-width: $width-tablet) {
   .tabbed-info-box__tab-text {
     display: flex;
@@ -674,6 +737,10 @@
       flex: unset;
       font-size: var(--font-size-body-3);
       text-align: center;
+    }
+
+    p {
+      flex: unset
     }
 
     .action {
@@ -762,6 +829,11 @@
       gap: 12px;
     }
 
+    &__item-card-communication__item {
+      height: 11px;
+      width: 11px;
+    }
+
     &__icon-text {
       display: none;
     }
@@ -812,7 +884,7 @@
   .features-support__header-row,
   .features-support__item-card-content {
     gap: 20px;
-    grid-template-columns: 120px repeat(3, 30px);
+    grid-template-columns: 110px repeat(3, 35px);
 
     svg {
       width: 15px;

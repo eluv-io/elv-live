@@ -15,7 +15,7 @@ const Contact = observer(() => {
         <div className="page__header-container">
           <h3 className="left-align">{ mainStore.l10n.contact.header }</h3>
         </div>
-        <p className="page__copy">
+        <p className="page__copy contact__text">
           { mainStore.l10n.contact.text }
         </p>
 

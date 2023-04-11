@@ -28,7 +28,7 @@ const Technology = observer(() => {
       </div>
 
       <div className="page__content-block">
-        <LearnMore />
+        <LearnMore contentFabric={true} />
       </div>
 
       <div className="page__content-block">
