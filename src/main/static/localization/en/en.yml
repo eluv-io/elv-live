@@ -163,7 +163,7 @@ content_fabric:
     text: |
       The Content Fabric software provides real-time video, low latency serving, and efficient personalization for any content while dramatically reducing the network bandwidth, storage, and compute requirements as compared to traditional streaming and content distribution systems through its novel compositional and just-in-time protocol.
 
-      Built on a trustless security model and as an open source Ethereum blockchain, it provides a uniqe end-to-end content encryption system that combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and an eco-friendly blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain so your digital assets are exclusive to you.
+      Built on a trustless security model and as an open source Ethereum blockchain, it provides a unique end-to-end content encryption system that combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and an eco-friendly blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain so your digital assets are exclusive to you.
 
       The protocol was created by a team of innovative technologists specializing in scalable content distribution, real time video, trust-less security, and blockchain ownership, the same team that created Aspera FASP. Universal and infinitely scalable, it is designed to unlock the value of Content.
   learn_more:
@@ -175,7 +175,7 @@ content_fabric:
       Read a summary of the Content Fabric technology or dive into the comprehensive protocol whitepaper.
   mainnet:
     header: MainNet
-    text: The main Content Fabric network is an EVM-compatible network (ID 955305) consisting of PoA validators and Content Fabric nodes distributed globally, providing over 3 Tbps aggregate content distribution capacity and several PB of content storage.
+    text: The main Content Fabric network is an EVM-compatible network (ID 955305) consisting of PoA validators and Content Fabric nodes distributed globally, providing over multiple terabits per second (Tbps) of aggregate content distribution capacity and several petabytes (PB) of content storage.
     fabric_browser: Fabric Browser
     blockchain_explorer: Blockchain Explorer
     github_repo: Github Repo
@@ -521,7 +521,7 @@ blockchain:
         and is represented by a dedicated Tenant contract which periodically pays the charges for the Content Fabric services
         used by its resources. It is also the containing entity for all content belonging to this tenant.
         <br><br>
-        **Content Space** - The Content Space in the entity that sets the base rules binding Node Providers and Tenants,
+        **Content Space** - The Content Space is the entity that sets the base rules binding Node Providers and Tenants,
         including the rules for accepting new Content Fabric Nodes, creating new Tenants, and the rate of the service charges.
         A Content Fabric network may operate as a single, global Content Space or support multiple Content Spaces.
         <br><br>
@@ -557,7 +557,7 @@ blockchain:
         <br> <br>
         ****Fractional ownership of content and distributed disbursement via fractional fungible tokens;****
         <br> <br>
-        ****On chain micro payments models for media consumption enforcement of new re-trading and derivative works rights
+        ****On chain micro payments models for media consumption and enforcement of new re-trading and derivative work rights
         where the token owner has the permission to create and publish new work from the same content;****
         <br> <br>
         ****Fractional payments from content sales, e.g. to promotors, sponsors, and multiple creators.****
@@ -671,7 +671,7 @@ blockchain:
         <br><br>
         The Space contract charges a Tenant (Content Owner) contract in ELV, and credits the Node contracts.
         <br><br>
-        The Validator Nodes continuously validate the transactions allowing the network cycle progress, and accumulate transaction fees on each validation.
+        The Validator Nodes continuously validate the transactions allowing the network cycle to progress, and accumulate transaction fees on each validation.
         <br><br>
         As Nodes earn more, their ELV stake in the network increases, and they may extract value via the ELV-USD exchange.
 
@@ -727,7 +727,7 @@ blockchain:
         <br><br>
         **Dynamic Gamification and Generative Pipelines**: Functions such as spawning, burning, trait mixing, branching stories,
         and permissioned offerings are natively supported by the Fabric’s dynamic content serving and blockchain policy
-        permissions, and generative NFTs can be created and served from single content objects with ease and low cost;
+        permissions, and generative NFTs can be created and served from single content objects with ease and low cost.
         <br><br>
         **Enables Low Cost Minting and Extreme Efficiency:** The Fabric content and blockchain efficiencies enable applications
         to mint on demand, at high speed, with low cost. Applications can offer their users low cost, gas-free minting at scale,
@@ -744,7 +744,7 @@ news:
 partners:
   title: Our Partners
   text: |
-    Eluvio partnerships are built on the principals of bringing outstanding content and experiences to their audience in a fundamentally groundbreaking way. Our content partners bring new and innovative ways of experiencing content through visual, interactive and gamified engagement. Our technology partners are innovating on our platform to deliver the new wave of content supply chain to the market, with levels of security, efficiency and sustainability never before possible. Together we are changing the way the creators and consumers are brought closer together.
+    Eluvio partners bring blockchain and Fabric infrastructure, outstanding decentralized applications, and innovative creative experiences to the their users and the technology community. Their innovation spans visual, interactive and game-ified experiences, and represents the best of marquee media brands to rising independents. Our technology partners are building the new wave of decentralized entertainment and content supply chains to the market, with levels of security, efficiency and sustainability never before possible. Together we are changing the way creators, users, and brands are coming together around creative IP.
   providers_validators: Node Providers & Validators
   node_provider: Node Provider
   governance_validator: Governance Validator
@@ -931,8 +931,6 @@ footer:
     icon: "link"
     links:
       - text: "Join our Community"
-        link: "https://live.eluv.io/community"
-      - text: "Community Site"
         link: "https://live.eluv.io/community"
       - text: "Community NFT Store"
         link: "https://wallet.contentfabric.io/#/marketplace/iq__2PHzgKZRmMVnrPFCmbg1wQ2KJEug/store"
