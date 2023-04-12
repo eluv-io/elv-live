@@ -2,10 +2,11 @@ import React, {useEffect} from "react";
 import "./static/stylesheets/app.scss";
 
 import {createRoot} from "react-dom/client";
-import {Provider} from "mobx-react";
+import {observer, Provider} from "mobx-react";
 import * as Stores from "./stores/Main.js";
 import {Navigate, Routes, useLocation} from "react-router";
 import {BrowserRouter, Route} from "react-router-dom";
+import {mainStore} from "./stores/Main.js";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -27,12 +28,25 @@ import FAQs from "./pages/features/FAQs";
 import Creators from "./pages/main/Creators";
 import Wallet from "./pages/wallet/Wallet";
 
-export const PageContainer = ({children, before, after, padded=false, dark=false, unbound=false, noFooter=false}) => {
+const expectedDomains = [
+  "live.demov3.contentfabric.io",
+  "live-stg.demov3.contentfabric.io",
+  "live-stg-eluv-io.web.app",
+  "live.eluv.io",
+  //"elv-test.io"
+];
+
+export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false, noFooter=false}) => {
   const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  // If unexpected domain, may be a domain redirect. Wait until metadata has been loaded before showing content
+  if(!mainStore.mainSite && !expectedDomains.includes(window.location.hostname)) {
+    return null;
+  }
 
   return (
     <div className={`main ${dark ? "dark" : "light"}`}>
@@ -54,7 +68,7 @@ export const PageContainer = ({children, before, after, padded=false, dark=false
       }
     </div>
   );
-};
+});
 
 const MainApp = () => {
   return (

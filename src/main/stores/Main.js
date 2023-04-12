@@ -91,10 +91,30 @@ class MainStore {
 
     metadataUrl.searchParams.append("remove", "news");
 
-    this.mainSite = ProduceMetadataLinks({
+    const mainSiteMetadata = ProduceMetadataLinks({
       path: "/public/asset_metadata/info",
       metadata: yield (yield fetch(metadataUrl)).json()
     });
+
+    mainSiteMetadata.domain_map.push({domain: "elv-test.io", event_slug: "masked-singer-drop-event"});
+
+    // Handle domain redirect
+    const domainRedirect = mainSiteMetadata.domain_map.find(({domain}) =>
+      window.location.hostname === domain
+    );
+
+    if(domainRedirect) {
+      const redirect = new URL(window.location.href);
+      redirect.pathname = UrlJoin(domainRedirect.tenant_slug || "", domainRedirect.event_slug);
+
+      // eslint-disable-next-line no-console
+      console.log("Redirecting to", redirect.toString());
+      window.location = redirect;
+
+      return;
+    }
+
+    this.mainSite = mainSiteMetadata;
   });
 
   InitializeWalletClient = flow(function * () {
