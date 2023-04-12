@@ -771,7 +771,7 @@ faq:
   questions:
     - question: What is the Blockchain Content Fabric?
       answer: |
-        The Content Fabric is an open utility blockchain network that provides decentralized streaming, distribution, and storage for any digital content.  Its supports just-in-time video streaming, low latency serving, and efficient personalization for any content while dramatically reducing the network bandwidth, storage, and compute requirements as compared to traditional streaming and content distribution systems. The nodes in the network all run its novel compositional and just-in-time protocol, the Content Fabric Protocol.
+        The Content Fabric is an open utility blockchain network that provides decentralized streaming, distribution, and storage for any digital content.  It supports just-in-time video streaming, low latency serving, and efficient personalization for any content while dramatically reducing the network bandwidth, storage, and compute requirements as compared to traditional streaming and content distribution systems. The nodes in the network all run its novel compositional and just-in-time protocol, the Content Fabric Protocol.
     - question: What is the Blockchain within the Content Fabric?
       answer: |
         The current production network (main.net955305.contentfabric.io) has been built using a standard open source fork of the Ethereum network and has utilized Ethereum standard addressing, cryptographic signatures and keys, and smart contracts and runs a PoA consensus with a mixture of 3rd Party and Eluvio, Inc. validators.  You can access the RPC interface at https://main.net955305.contentfabric.io/config
