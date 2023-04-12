@@ -96,7 +96,7 @@ class MainStore {
       metadata: yield (yield fetch(metadataUrl)).json()
     });
 
-    mainSiteMetadata.domain_map.push({domain: "elv-test.io", event_slug: "masked-singer-drop-event"});
+    //mainSiteMetadata.domain_map.push({domain: "elv-test.io", event_slug: "masked-singer-drop-event"});
 
     // Handle domain redirect
     const domainRedirect = mainSiteMetadata.domain_map.find(({domain}) =>
