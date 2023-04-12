@@ -401,8 +401,8 @@ contentDistribution:
               unit: ""
               perSec: ""
               perHour: ""
-              multiplier: "5"
-              itemDescription: "5 * Volume Adjusted Playout Rate at the Mezzanine Resolution * Mezzanine Duration (Source Material Length)"
+              multiplier: "4"
+              itemDescription: "4 * Volume Adjusted Playout Rate at the Mezzanine Resolution * Mezzanine Duration (Source Material Length)"
         - title: "Streaming video - H.264/AVC"
           description: "Streaming video encoded with H.264/AVC, Live and VoD DASH or HLS CMAF-packaged, 2-second fragmented MP4 segments, HTTP Adaptive Bit Rate Distribution"
           subSections:
