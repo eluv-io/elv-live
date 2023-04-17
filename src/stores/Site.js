@@ -270,6 +270,8 @@ class SiteStore {
     if(save) {
       localStorage.setItem("lang", language);
     }
+
+    this.rootStore.frameClient.SetLanguage({languageCode: language});
   });
 
   SetCurrentDropEvent(dropId) {
