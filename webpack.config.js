@@ -78,6 +78,16 @@ module.exports = {
       filename: "index.html",
       favicon: "./src/assets/icons/favicon.png"
     }),
+    new CopyWebpackPlugin([
+      {
+        from: Path.join(__dirname, "src/main/static/images/logos/eluvio-logo.svg"),
+        to: Path.join(__dirname, "dist", "logo.svg")
+      },
+      {
+        from: Path.join(__dirname, "src/main/static/images/logos/eluvio-logo-color.png"),
+        to: Path.join(__dirname, "dist", "logo-color.png")
+      },
+    ]),
     process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
   ].filter(item => item),
   module: {
