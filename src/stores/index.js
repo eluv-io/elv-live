@@ -1,11 +1,9 @@
-import {configure, observable, action, flow, runInAction, toJS} from "mobx";
+import {configure, flow, runInAction, toJS, makeAutoObservable} from "mobx";
 import { ElvWalletClient } from "@eluvio/elv-client-js/src/walletClient";
 import { ElvWalletFrameClient } from "@eluvio/elv-wallet-frame-client";
 import UrlJoin from "url-join";
 import SiteStore from "Stores/Site";
 import CartStore from "Stores/Cart";
-import MainStore from "Stores/Main";
-import CollectionStore from "Stores/Collection";
 
 import EluvioConfiguration from "EluvioConfiguration";
 import {ElvClient} from "@eluvio/elv-client-js";
@@ -31,27 +29,27 @@ if(window.location.hostname.startsWith("192.") || window.location.hostname.start
 }
 
 class RootStore {
-  @observable app = "main";
+  app = "main";
 
-  @observable pageWidth = window.innerWidth;
+  pageWidth = window.innerWidth;
 
-  @observable baseKey = 1;
-  @observable walletKey = 1;
-  @observable client;
-  @observable redeemedTicket;
-  @observable error = "";
+  baseKey = 1;
+  walletKey = 1;
+  client;
+  redeemedTicket;
+  error = "";
 
-  @observable basePublicUrl;
+  basePublicUrl;
 
-  @observable walletClient;
-  @observable frameClient;
+  walletClient;
+  frameClient;
 
-  @observable walletTarget;
-  @observable walletLoaded = false;
-  @observable walletLoggedIn = false;
-  @observable walletVisibility = "hidden";
+  walletTarget;
+  walletLoaded = false;
+  walletLoggedIn = false;
+  walletVisibility = "hidden";
 
-  @observable currentWalletState = {
+  currentWalletState = {
     route: "",
     visibility: "hidden",
     location: {
@@ -59,19 +57,19 @@ class RootStore {
     }
   };
 
-  @observable defaultWalletState = {
+  defaultWalletState = {
     visibility: "hidden"
   };
 
-  @observable savedTickets = {};
+  savedTickets = {};
 
-  @observable marketplaceParams;
+  marketplaceParams;
 
   constructor() {
+    makeAutoObservable(this);
+
     this.siteStore = new SiteStore(this);
     this.cartStore = new CartStore(this);
-    this.mainStore = new MainStore(this);
-    this.collectionStore = new CollectionStore(this);
 
     this.LoadRedeemedTickets();
 
@@ -91,7 +89,6 @@ class RootStore {
     logMethod(message);
   }
 
-  @action.bound
   SetApp(app="main") {
     this.app = app;
   }
@@ -107,7 +104,6 @@ class RootStore {
     return url.toString();
   }
 
-  @action.bound
   LoadRedeemedTickets() {
     let savedTickets = localStorage.getItem("redeemed-tickets");
     if(savedTickets) {
@@ -136,7 +132,6 @@ class RootStore {
     }
   }
 
-  @action.bound
   InitializeClient = flow(function * () {
     if(this.client) { return; }
 
@@ -164,7 +159,6 @@ class RootStore {
     this.client = this.walletClient.client;
   });
 
-  @action.bound
   RedeemOffer = flow(function * ({tenantId, ntpId, code}) {
     return yield this.client.RedeemCode({
       tenantId,
@@ -174,7 +168,6 @@ class RootStore {
     });
   });
 
-  @action.bound
   RedeemCode = flow(function * (code) {
     try {
       const client = yield ElvClient.FromNetworkName({
@@ -205,7 +198,6 @@ class RootStore {
     }
   });
 
-  @action.bound
   RedeemCouponCode = flow(function * (code, email, receiveEmails) {
     try {
       const objectId = yield this.RedeemCode(code);
@@ -364,7 +356,6 @@ class RootStore {
     setTimeout(() => runInAction(() => this.walletLoaded = true), 10000);
   });
 
-  @action.bound
   DestroyFrameClient() {
     if(this.frameClient) {
       this.frameClient.Destroy();
@@ -372,7 +363,6 @@ class RootStore {
     }
   }
 
-  @action.bound
   ReloadWallet() {
     this.DestroyFrameClient();
     this.walletKey += 1;
@@ -383,7 +373,6 @@ class RootStore {
   }
 
   // Set default state for wallet
-  @action.bound
   SetDefaultWalletState({visibility, location, video}) {
     this.defaultWalletState = {
       visibility,
@@ -392,14 +381,12 @@ class RootStore {
     };
   }
 
-  @action.bound
   ResetDefaultWalletState() {
     this.defaultWalletState = {
       visibility: "hidden"
     };
   }
 
-  @action.bound
   CloseWalletModal() {
     // Note: Clicking inside the wallet frame does not trigger a click event, so any triggered click will be outside the wallet
     this.SetWalletPanelVisibility(this.defaultWalletState);
@@ -410,7 +397,6 @@ class RootStore {
     this.frameClient.RemoveEventListener(ElvWalletFrameClient.EVENTS.LOG_IN, this.CloseWalletModal);
   }
 
-  @action.bound
   SetWalletPanelVisibility = flow(function * ({visibility, location, route, video, hideNavigation=false, delay=0}) {
     try {
       if(this.siteStore.marketplaceOnly) {
@@ -524,9 +510,9 @@ class RootStore {
     });
   });
 
-  @action.bound
   LogIn(path) {
     let callbackUrl = new URL(window.location.href);
+
     if(path) {
       callbackUrl.pathname = path;
     }
@@ -539,7 +525,6 @@ class RootStore {
     });
   }
 
-  @action.bound
   SetError(error) {
     this.error = error;
 
@@ -551,12 +536,10 @@ class RootStore {
   }
 
   // Force reload of App.js (e.g. to switch main site to event site
-  @action.bound
   UpdateBaseKey() {
     this.baseKey += 1;
   }
 
-  @action.bound
   HandleResize() {
     clearTimeout(this.resizeTimeout);
 
@@ -573,5 +556,3 @@ const root = new RootStore();
 export const rootStore = root;
 export const siteStore = root.siteStore;
 export const cartStore = root.cartStore;
-export const mainStore = root.mainStore;
-export const collectionStore = root.collectionStore;

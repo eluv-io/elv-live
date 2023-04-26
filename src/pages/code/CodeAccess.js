@@ -1,11 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {Redirect} from "react-router";
 import {onEnterPressed, ValidEmail} from "Utils/Misc";
+import {Navigate} from "react-router";
 
-@inject("siteStore")
-@inject("rootStore")
-@observer
 class CodeAccess extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +13,7 @@ class CodeAccess extends React.Component {
       email: "",
       receiveEmails: false,
       loading: false,
-      couponMode: props.location.pathname.endsWith("coupon-code")
+      couponMode: window.location.pathname.endsWith("coupon-code")
     };
 
     this.handleRedeemCode = this.handleRedeemCode.bind(this);
@@ -94,13 +91,13 @@ class CodeAccess extends React.Component {
           .slice(-1)[0];
 
       if(dropEvent) {
-        return <Redirect to={this.props.siteStore.SitePath("drop", dropEvent.uuid)} />;
+        return <Navigate replace to={this.props.siteStore.SitePath("drop", dropEvent.uuid)} />;
       }
 
       if(this.state.couponMode) {
-        return <Redirect to={this.props.siteStore.SitePath("coupon-redeemed")}/>;
+        return <Navigate replace to={this.props.siteStore.SitePath("coupon-redeemed")}/>;
       } else {
-        return <Redirect to={this.props.siteStore.SitePath("event")}/>;
+        return <Navigate replace to={this.props.siteStore.SitePath("event")}/>;
       }
     }
 
@@ -202,4 +199,4 @@ class CodeAccess extends React.Component {
   }
 }
 
-export default CodeAccess;
+export default inject("siteStore")(inject("rootStore")(observer(CodeAccess)));

@@ -1,0 +1,135 @@
+.partners {
+  &__list {
+    &--grid {
+      justify-content: center;
+    }
+  }
+
+  &__ecosystem {
+    gap: 50px;
+    justify-content: center;
+  }
+
+  &__ecosystem-icon {
+    height: 75px;
+    width: auto;
+  }
+
+  @media screen and (max-width: $width-mobile) {
+    &__ecosystem {
+      gap: 25px;
+    }
+
+    &__ecosystem-icon {
+      height: 50px;
+    }
+  }
+}
+
+.partner {
+  &__tag {
+    border-radius: 3px;
+    color: var(--color-text-dark-1);
+    font-size: var(--font-size-body-5);
+    font-weight: 600;
+    height: max-content;
+    padding: 8px 15px;
+    text-transform: uppercase;
+    width: max-content;
+
+    &--validator {
+      background: var(--color-icon-light-2);
+    }
+
+    &--provider {
+      background: var(--color-icon-light-1);
+    }
+  }
+}
+
+.partner-icon {
+  aspect-ratio: 4/3;
+  background: var(--background-light-2);
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  position: relative;
+  width: 325px;
+
+  .partner__tags {
+    align-content: center;
+    display: grid;
+    gap: 5px;
+    min-height: 70px;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+  }
+
+  .partner__tag {
+    margin: 0 auto;
+    padding: 5px 10px;
+  }
+
+  &__logo {
+    margin: 0 auto;
+    max-height: 100px;
+    object-fit: contain;
+    padding: 0 30px 30px;
+    width: 100%;
+
+    &--tags {
+      padding-bottom: 0;
+      padding-top: 20px;
+    }
+  }
+
+  &__action {
+    bottom: 30px;
+    color: var(--color-highlight-2);
+    font-weight: 700;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+
+  @media screen and (max-width: $width-mobile) {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+
+    &__logo {
+      margin: 10px 0;
+      max-height: 125px;
+    }
+  }
+}
+
+.partner-info {
+  align-content: start;
+  display: grid;
+  gap: 20px;
+  grid-template-rows: max-content;
+
+  .partner__tags {
+    align-items: center;
+    display: flex;
+    gap: 15px;
+  }
+
+  &__logo {
+    height: 100px;
+    width: auto;
+  }
+
+  &__content {
+    color: var(--color-text-light-2);
+    margin-top: 20px;
+
+    p {
+      font-size: var(--font-size-body-2);
+    }
+  }
+}

@@ -3,21 +3,21 @@ import {observer} from "mobx-react";
 import {onEnterPressed} from "Utils/Misc";
 import {useState} from "react";
 import {RichText} from "Common/Components";
-import {useHistory, useRouteMatch} from "react-router";
 import {rootStore, siteStore} from "Stores";
 import {PageLoader} from "Common/Loaders";
+import {useNavigate, useParams} from "react-router";
 
 const initialCode = (new URLSearchParams(window.location.search)).get("code");
 
 const OfferPage = observer(() => {
-  const match = useRouteMatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const params = useParams();
   const [code, setCode] = useState(initialCode || "");
   const [error, setError] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
-  const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === match.params.offerId) || {};
-  const previouslyRedeemed = localStorage.getItem(`${match.params.offerId}-code`);
+  const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === params.offerId) || {};
+  const previouslyRedeemed = localStorage.getItem(`${params.offerId}-code`);
 
   const RedeemOffer = async () => {
     try {
@@ -31,7 +31,7 @@ const OfferPage = observer(() => {
           code
         });
 
-        localStorage.setItem(`${match.params.offerId}-code`, code);
+        localStorage.setItem(`${params.offerId}-code`, code);
       }
 
       rootStore.SetWalletPanelVisibility({
@@ -47,7 +47,7 @@ const OfferPage = observer(() => {
       });
 
       await new Promise(resolve => setTimeout(resolve, 3000));
-      history.push(siteStore.SitePath(""));
+      navigate(siteStore.SitePath(""));
     } catch(error) {
       // eslint-disable-next-line no-console
       console.error(error);

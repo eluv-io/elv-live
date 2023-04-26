@@ -6,8 +6,6 @@ import {ToggleZendesk} from "Utils/Misc";
 import {createPortal} from "react-dom";
 import {rootStore} from "Stores";
 
-@observer
-@inject("siteStore")
 class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -61,13 +59,13 @@ class Modal extends React.Component {
   }
 }
 
-const ModalPortal = (args) => {
+const ModalPortal = inject("rootStore")(inject("siteStore")(observer((args) => {
   return (
     createPortal(
       <Modal {...args} />,
       document.getElementById("app")
     )
   );
-};
+})));
 
 export default ModalPortal;

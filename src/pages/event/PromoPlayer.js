@@ -4,8 +4,6 @@ import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import {ErrorWrapper} from "Common/ErrorBoundary";
 import Player from "Common/Player";
 
-@inject("siteStore")
-@observer
 class PromoPlayer extends React.Component {
   constructor(props) {
     super(props);
@@ -94,4 +92,4 @@ class PromoPlayer extends React.Component {
   }
 }
 
-export default ErrorWrapper(PromoPlayer);
+export default ErrorWrapper(inject("siteStore")(observer(PromoPlayer)));
