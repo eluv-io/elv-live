@@ -1,0 +1,333 @@
+.button {
+  align-items: center;
+  border-radius: 8px;
+  display: inline-flex;
+  font-size: var(--font-size-body-3);
+  font-weight: 600;
+  gap: 15px;
+  height: 60px;
+  justify-content: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+  user-select: none;
+  width: max-content;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.75;
+  }
+
+  .action__icon {
+    height: 30px;
+    max-width: 30px;
+    width: auto;
+  }
+
+  &.small {
+    border-radius: 5px;
+    font-size: var(--font-size-body-4);
+    gap: 10px;
+    height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .action__icon {
+      height: 20px;
+    }
+  }
+
+  &.extra-small {
+    border-radius: 5px;
+    font-size: var(--font-size-body-4);
+    font-weight: 400;
+    gap: 7px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .action__icon {
+      height: 15px;
+    }
+  }
+
+  &.ghost {
+    border: 2px solid transparent;
+  }
+
+  &.light {
+    &.primary {
+      background: var(--color-highlight-2);
+      border: 2px solid transparent;
+      color: var(--color-text-dark-1);
+
+      &:hover,
+      &:focus-visible {
+        &:not(&:active) {
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+        }
+      }
+
+      .action__icon {
+        color: var(--color-text-dark-1);
+      }
+
+      .loader {
+        --loader-color: var(--color-text-dark-1);
+      }
+    }
+
+    &.secondary {
+      background: var(--background-light-2);
+      border: 2px solid var(--color-highlight-3);
+      color: var(--color-text-light-2);
+
+      &:hover,
+      &:focus-visible {
+        &:not(&:active) {
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+        }
+      }
+
+      .action__icon {
+        color: var(--color-icon-light-1);
+      }
+
+      .loader {
+        --loader-color: var(--color-text-light-2);
+      }
+    }
+  }
+
+  &.dark {
+    &.primary {
+      background: var(--background-dark-4);
+      border: 2px solid transparent;
+      color: var(--color-text-dark-4);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--color-highlight-1);
+        color: var(--color-text-dark-1);
+
+        &:not(&:active) {
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+        }
+
+        .loader {
+          --loader-color: var(--color-text-dark-1);
+        }
+      }
+
+      .loader {
+        --loader-color: var(--color-text-dark-4);
+      }
+    }
+
+    &.secondary {
+      background: transparent;
+      border: 2px solid var(--color-text-dark-1);
+      color: var(--color-text-dark-1);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--background-dark-2);
+        border: 2px solid var(--color-highlight-1);
+        color: var(--color-highlight-1);
+
+        &:not(&:active) {
+          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+        }
+
+        .loader {
+          --loader-color: var(--color-highlight-1);
+        }
+      }
+
+      .loader {
+        --loader-color: var(--color-text-dark-1);
+      }
+    }
+  }
+}
+
+.loader-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  > * {
+    transition: opacity 0.15s ease !important;
+  }
+
+  &__indicator {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .loader {
+    height: 40px;
+    opacity: 0.75;
+    width: 40px;
+  }
+
+  &.small {
+    .loader {
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  &.extra-small {
+    .loader {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &.normal {
+    > :not(.loader-button__indicator) {
+      opacity: 1;
+    }
+
+    .loader-button__indicator {
+      opacity: 0;
+    }
+  }
+
+  &.loading {
+    > :not(.loader-button__indicator) {
+      opacity: 0;
+    }
+
+    .loader-button__indicator {
+      opacity: 1;
+    }
+  }
+}
+
+.action {
+  align-items: center;
+  display: inline-flex;
+  transition: color 0.15s ease, border 0.15s ease, background-color 0.15s ease, background 0.15s ease, filter 0.15s ease;
+  width: max-content;
+
+  .action__icon {
+    height: 20px;
+    max-width: 20px;
+    min-width: 20px;
+    width: auto;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &.large {
+    font-size: var(--font-size-body-2);
+  }
+
+  &.small {
+    font-size: var(--font-size-body-4);
+  }
+
+  &.extra-small {
+    font-size: var(--font-size-body-5);
+  }
+
+  &.inactive--underline {
+    border-bottom: 3px solid transparent;
+  }
+
+  &.light {
+    color: var(--color-text-light-1);
+
+    &.inactive {
+      color: var(--color-text-light-5);
+    }
+
+    &.active {
+      color: var(--color-text-light-2);
+    }
+
+    &.active--underline {
+      border-bottom: 3px solid var(--color-text-light-2);
+    }
+
+    &.highlight,
+    &:hover,
+    &:focus-visible {
+      color: var(--color-highlight-3);
+    }
+  }
+
+  &.dark {
+    color: var(--color-text-dark-1);
+
+    &.highlight,
+    &:hover,
+    &:focus-visible,
+    &.active {
+      color: var(--color-highlight-1);
+    }
+
+    &.active--underline {
+      border-bottom: 3px solid var(--color-highlight-1);
+    }
+  }
+}
+
+.menu-button {
+  display: inline-block;
+  height: 100%;
+  position: relative;
+
+  &__options {
+    border-radius: 0 0 5px 5px;
+    left: 0;
+    padding: 10px 25px;
+    position: absolute;
+    right: auto;
+    top: 100%;
+    width: max-content;
+    z-index: 999;
+  }
+
+  &__item {
+    font-size: var(--font-size-body-3);
+    line-height: 2;
+    white-space: nowrap;
+    width: 100%;
+
+    .action {
+      padding: 8px 0;
+      width: 100%;
+    }
+  }
+
+  &.dark {
+    .menu-button__options {
+      background: var(--background-dark-2);
+      color: var(--color-text-dark-1);
+    }
+  }
+
+  &.light {
+    .menu-button__options {
+      background: var(--background-light-2);
+      color: var(--color-text-light-1);
+    }
+  }
+
+  @media screen and (max-width: $width-laptop) {
+    &__item {
+      font-size: var(--font-size-body-4);
+    }
+  }
+}

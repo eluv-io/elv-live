@@ -1,22 +1,17 @@
 import React from "react";
-import {render} from "react-dom";
 import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
+import DOMPurify from "dompurify";
+import rehypeRaw from "rehype-raw";
 
-export const RichText = ({richText, className=""}) => {
+export const RichText = ({richText, children, className=""}) => {
   return (
-    <div
-      className={`rich-text ${className}`}
-      ref={element => {
-        if(!element) { return; }
-
-        render(
-          <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-            { SanitizeHTML(richText) }
-          </ReactMarkdown>,
-          element
-        );
-      }}
-    />
+    <div className={`rich-text ${className}`}>
+      { children }
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw]}
+      >
+        { DOMPurify.sanitize(richText) }
+      </ReactMarkdown>
+    </div>
   );
 };

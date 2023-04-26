@@ -78,6 +78,16 @@ module.exports = {
       filename: "index.html",
       favicon: "./src/assets/icons/favicon.png"
     }),
+    new CopyWebpackPlugin([
+      {
+        from: Path.join(__dirname, "src/main/static/images/logos/eluvio-logo.svg"),
+        to: Path.join(__dirname, "dist", "logo.svg")
+      },
+      {
+        from: Path.join(__dirname, "src/main/static/images/logos/eluvio-logo-color.png"),
+        to: Path.join(__dirname, "dist", "logo-color.png")
+      },
+    ]),
     process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
   ].filter(item => item),
   module: {
@@ -114,9 +124,8 @@ module.exports = {
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react", "babel-preset-mobx"],
           plugins: [
-            require("@babel/plugin-proposal-object-rest-spread"),
-            require("@babel/plugin-transform-regenerator"),
-            require("@babel/plugin-transform-runtime")
+            ["@babel/plugin-proposal-private-methods", { loose: true }],
+            ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
           ]
         }
       },
@@ -129,7 +138,7 @@ module.exports = {
         loader: "file-loader",
       },
       {
-        test: /\.(pdf)$/i,
+        test: /\.(pdf|mp4)$/i,
         loader: "file-loader",
         options: {
           name(resourcePath) {

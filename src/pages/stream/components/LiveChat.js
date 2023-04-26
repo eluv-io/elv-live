@@ -19,9 +19,6 @@ import ImageIcon from "Common/ImageIcon";
 import PopoutIcon from "Icons/external-link-arrow";
 import HypeIcon from "Icons/heart.svg";
 
-@inject("siteStore")
-@inject("rootStore")
-@observer
 class LiveChat extends React.Component {
   constructor(props) {
     super(props);
@@ -416,4 +413,4 @@ class LiveChat extends React.Component {
   }
 }
 
-export default LiveChat;
+export default inject("siteStore")(inject("rootStore")(observer(LiveChat)));

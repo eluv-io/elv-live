@@ -2,9 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import MerchandiseItem from "Event/checkout/MerchandiseItem";
 
-@inject("siteStore")
-@inject("cartStore")
-@observer
 class Merch extends React.Component {
   render() {
     return (
@@ -30,4 +27,4 @@ class Merch extends React.Component {
   }
 }
 
-export default Merch;
+export default inject("siteStore")(inject("cartStore")(observer(Merch)));
