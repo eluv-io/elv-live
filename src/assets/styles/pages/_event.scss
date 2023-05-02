@@ -46,6 +46,11 @@
     display: flex;
     justify-content: center;
 
+    &__image {
+      width: 100%;
+      max-width: 100%;
+    }
+
     &--hidden {
       opacity: 0;
       pointer-events: none;
