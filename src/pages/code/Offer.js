@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {observer} from "mobx-react";
-import {onEnterPressed} from "Utils/Misc";
+import {LocalizeString, onEnterPressed} from "Utils/Misc";
 import {useState} from "react";
 import {RichText} from "Common/Components";
 import {rootStore, siteStore} from "Stores";
@@ -51,6 +51,21 @@ const OfferPage = observer(() => {
     } catch(error) {
       // eslint-disable-next-line no-console
       console.error(error);
+
+      try {
+        if(error.body && error.body.includes("not yet valid")) {
+          const releaseDate = new Date(parseInt(error.body.match(/.+VAT: (\d+)/)[1]));
+          setError(
+            LocalizeString(
+              siteStore.l10n.codes.errors.not_yet_valid,
+              { date: releaseDate.toLocaleDateString(navigator.languages, {year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric"}) }
+            )
+          );
+          return;
+        }
+        // eslint-disable-next-line no-empty
+      } catch(error) {}
+
       setError(siteStore.l10n.codes.errors.failed);
     } finally {
       setLoading(false);
