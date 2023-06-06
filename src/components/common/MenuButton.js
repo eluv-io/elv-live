@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 
-export const MenuButton = ({children, items, className="", optionClassName=""}) => {
+export const MenuButton = ({children, items, menuMaxWidth=250, className="", optionClassName=""}) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const containerRef = useRef(null);
@@ -27,6 +27,19 @@ export const MenuButton = ({children, items, className="", optionClassName=""}) 
     });
   }, []);
 
+  const availableWidth = containerRef?.current ?
+    document.body.getBoundingClientRect().width - containerRef.current.getBoundingClientRect().left - 20 :
+    menuMaxWidth;
+
+  let style = {
+    maxWidth: menuMaxWidth,
+    left: 0
+  };
+
+  if(availableWidth < menuMaxWidth) {
+    style.left = -(menuMaxWidth - availableWidth);
+  }
+
   return (
     <div
       tabIndex={0}
@@ -42,7 +55,10 @@ export const MenuButton = ({children, items, className="", optionClassName=""}) 
       { children }
       {
         menuOpen &&
-        <ul className="menu-button__options">
+        <ul
+          className="menu-button__options"
+          style={style}
+        >
           {(items || []).map((item, index) => (
             <li key={`menu-button-${index}`} className="menu-button__option">
               <button
