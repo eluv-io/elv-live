@@ -1589,3 +1589,41 @@ advancedContentServices:
               perHour: ""
               multiplier: ""
               itemDescription: "Automatic workflow execution for scalable batch transcoding, etc."
+
+contentExperiencesStorefronts:
+  icon: "supportIcon"
+  header: "“Powered by Eluvio” Turnkey Web3 Content Experiences & Storefronts"
+  headerItems:
+    - ""
+    - "unit"
+    - "$/month"
+    - ""
+  rowClassName: "features-grid__row--4col-a"
+  items:
+    - title: "Pay As You Go"
+      subtitle: "Level 1"
+      items:
+        - detail: "Digital Property"
+          description: "Each property includes 1 Site, Event, and Marketplace Object with Turnkey UI/API"
+          unit: "Per property"
+          basePrice: "$1,500"
+    - title: "Professional Creator"
+      subtitle: "Level 2"
+      items:
+        - detail: "Digital Property"
+          description: "Each property includes 1 Site, Event, and Marketplace Object with Turnkey UI/API"
+          unit: |
+            2 properties
+
+            Additional property
+          basePrice: |
+            included
+
+            $1,500
+    - title: "Professional Creator"
+      subtitle: "Level 2"
+      items:
+        - detail: "Digital Property"
+          description: "Each property includes 1 Site, Event, and Marketplace Object with Turnkey UI/API"
+          unit: "Unlimited properties"
+          basePrice: "included"

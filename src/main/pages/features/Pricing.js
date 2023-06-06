@@ -331,6 +331,54 @@ const AdvancedContentServices = observer(() => {
   );
 });
 
+const ExperiencesStorefront = () => {
+  const {header, items, rowClassName, icon, headerItems} = mainStore.l10n.features.pricing.contentExperiencesStorefronts;
+  const mobile = uiStore.pageWidth < 1000;
+
+  return (
+    <SectionWrapper header={header} icon={iconMap[icon]}>
+      {
+        items.map((itemData, index) => (
+          <Accordion
+            key={`accordion-${itemData.title}`}
+            title={itemData.title}
+            subtitle={itemData.subtitle}
+            description={itemData.description}
+            className="features__accordion features__blockchain-accordion"
+          >
+            <FeaturesGrid
+              headerRows={[
+                {
+                  id: `experiences-storefront-header-${itemData.title}-${index}`,
+                  className: `${rowClassName} features-grid__helper-header`,
+                  cells: headerItems.map(headerItem => ({label: headerItem}))
+                }
+              ]}
+              bodyRows={
+                itemData.items.map(rowItem => (
+                  {
+                    id: `experiences-storefront-body-${itemData.title}-${rowItem.detail}`,
+                    className: rowClassName,
+                    cells: [
+                      {label: rowItem.detail},
+                      {label: rowItem.unit},
+                      {label: rowItem.basePrice},
+                      {
+                        label: mobile ? undefined : rowItem.description,
+                        tooltipText: mobile ? rowItem.description : undefined
+                      }
+                    ]
+                  }
+                ))
+              }
+            />
+          </Accordion>
+        ))
+      }
+    </SectionWrapper>
+  );
+};
+
 const Pricing = () => {
   return (
     <div className="page">
@@ -343,6 +391,7 @@ const Pricing = () => {
         <AdvancedContentServices />
         <BlockchainTransactions />
         <PlatformServiceFee />
+        <ExperiencesStorefront />
       </div>
     </div>
   );
