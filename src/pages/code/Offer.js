@@ -6,6 +6,7 @@ import {RichText} from "Common/Components";
 import {rootStore, siteStore} from "Stores";
 import {PageLoader} from "Common/Loaders";
 import {useNavigate, useParams} from "react-router";
+import UrlJoin from "url-join";
 
 const initialCode = (new URLSearchParams(window.location.search)).get("code");
 
@@ -34,15 +35,21 @@ const OfferPage = observer(() => {
         localStorage.setItem(`${params.offerId}-code`, code);
       }
 
+      const marketplace = offer.marketplace &&
+        siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === offer.marketplace) ||
+        siteStore.marketplaceInfo;
+      const redirectToOwned = offer.sku && siteStore.currentSiteInfo?.event_button_marketplace_redirect_to_owned_item;
+
       rootStore.SetWalletPanelVisibility({
         visibility: "full",
         location: {
-          page: "marketplaceItem",
-          params: {
-            sku: offer.sku,
-            tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-            marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
-          }
+          path : UrlJoin(
+            "/marketplace",
+            marketplace.marketplaceId,
+            "store",
+            offer.sku || "",
+            redirectToOwned ? "?redirect=owned" : ""
+          )
         }
       });
 
@@ -99,7 +106,7 @@ const OfferPage = observer(() => {
             setError(undefined);
             setCode(event.target.value);
           }}
-          onKeyPress={onEnterPressed(RedeemOffer)}
+          onKeyDown={onEnterPressed(RedeemOffer)}
         />
 
         <button
