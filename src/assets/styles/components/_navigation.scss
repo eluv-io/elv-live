@@ -510,6 +510,10 @@
     }
   }
 
+  .menu-button__button {
+    text-align: center;
+  }
+
   .menu-button--active {
     background-color: rgba($black, 0.7);
   }
