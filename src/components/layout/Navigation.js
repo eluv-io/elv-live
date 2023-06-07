@@ -17,7 +17,7 @@ import EventIcon from "Assets/icons/Event icon.svg";
 import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
 const StoreDropdown = observer(({walletOpen, currentPage}) => {
-  const marketplaces = [siteStore.marketplaceInfo, ...siteStore.additionalMarketplaces];
+  const marketplaces = [siteStore.marketplaceInfo, ...siteStore.additionalMarketplaces.filter(marketplace => !marketplace.hidden)];
 
   const ShowMarketplace = ({tenant_slug, marketplace_slug, default_store_page}) => {
     rootStore.SetWalletPanelVisibility({

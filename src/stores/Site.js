@@ -630,7 +630,7 @@ class SiteStore {
         ];
 
         const marketplaceData = yield Promise.all(
-          marketplaces.map(async ({tenant_slug, marketplace_slug}) => {
+          marketplaces.map(async ({tenant_slug, marketplace_slug, hidden}) => {
             let marketplace = (await this.client.ContentObjectMetadata({
               ...this.siteParams,
               metadataSubtree: UrlJoin("public", "asset_metadata", "tenants", tenant_slug, "marketplaces", marketplace_slug, "info", "branding"),
@@ -646,6 +646,7 @@ class SiteStore {
             marketplace.marketplace_slug = marketplace_slug;
             marketplace.marketplaceHash = marketplace["."]?.source;
             marketplace.marketplaceId = marketplace.marketplaceHash && this.rootStore.client.utils.DecodeVersionHash(marketplace.marketplaceHash).objectId;
+            marketplace.hidden = !!hidden;
 
             return marketplace;
           })
