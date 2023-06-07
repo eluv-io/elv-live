@@ -70,6 +70,7 @@ const SiteApp = inject("rootStore")(
             <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" element={<SitePage Component={CodeAccess} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" element={<SitePage Component={Landing} darkHeader hideCheckout hideRedeem />} />
             <Route exact path="/:tenantSlug?/:siteSlug/support" element={<SitePage Component={Support} />} />
+            <Route exact path="/:tenantSlug?/:siteSlug/faq" element={<SitePage Component={Support} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/privacy" element={<SitePage Component={Privacy} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/terms" element={<SitePage Component={Terms} />} />
             <Route path="/:tenantSlug?/:siteSlug/marketplace/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
