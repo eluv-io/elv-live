@@ -139,12 +139,6 @@ creators:
 
 # Other pages
 
-documents:
-  privacy:
-    header: Eluvio Privacy Policy
-  terms:
-    header: Eluvio Terms and Conditions
-
 content_fabric:
   title: The Content Fabric Protocol
   header: Utility Blockchain Network for Content

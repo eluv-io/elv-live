@@ -37,18 +37,18 @@
   }
 
   &__hero-banner {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
     position: fixed;
     top: $normal-header-height;
     transition: opacity 0.35s linear;
-    z-index: 100;
     width: 100%;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
+    z-index: 100;
 
     &__image {
-      width: 100%;
       max-width: 100%;
+      width: 100%;
     }
 
     &--hidden {
