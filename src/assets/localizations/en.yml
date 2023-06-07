@@ -12,7 +12,8 @@ codes:
   errors:
     failed: Failed to Redeem Code
     not_yet_valid: This code is not available until {date}
-
+faq:
+  title: FAQ
 footer:
   powered_by: Powered by
   support_faq: Support FAQ
