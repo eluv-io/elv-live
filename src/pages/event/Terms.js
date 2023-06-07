@@ -1,6 +1,6 @@
 import React from "react";
 
-import TermsDocument from "Assets/documents/Terms.html";
+import TermsDocument from "../../main/static/documents/Terms.html";
 
 class Privacy extends React.Component {
   constructor(props) {

@@ -27,6 +27,8 @@ import {FeaturesSupport} from "./pages/features/Support";
 import FAQs from "./pages/features/FAQs";
 import Creators from "./pages/main/Creators";
 import Wallet from "./pages/wallet/Wallet";
+import Privacy from "./pages/terms/Privacy";
+import Terms from "./pages/terms/Terms";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -96,6 +98,9 @@ const MainApp = () => {
           <Route path="/features/details" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           {/* Wallet */}
           <Route path="/wallet/*" element={<PageContainer unbound noFooter><Wallet /></PageContainer>} />
+          {/* Documents */}
+          <Route path="/privacy" element={<PageContainer padded dark><Privacy /></PageContainer>} />
+          <Route path="/terms" element={<PageContainer padded dark><Terms /></PageContainer>} />
           {/* Defaults */}
           <Route path="/" element={<PageContainer unbound dark><MainPage /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
