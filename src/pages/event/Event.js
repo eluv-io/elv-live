@@ -1,5 +1,4 @@
 import React, {useEffect, lazy, Suspense, useState} from "react";
-import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
 import EventTabs from "Event/tabs/EventTabs";
@@ -10,11 +9,12 @@ import UpcomingEvents from "Common/UpcomingEvents";
 import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import ImageIcon from "Common/ImageIcon";
 import UrlJoin from "url-join";
-import ReactMarkdown from "react-markdown";
-import SanitizeHTML from "sanitize-html";
 import {Link} from "react-router-dom";
 import Countdown from "Common/Countdown";
 import SocialMediaBar from "Event/tabs/SocialMediaBar";
+import {rootStore, siteStore} from "Stores";
+import Player from "Common/Player";
+import {RichText} from "Common/Components";
 
 const PromoPlayer = lazy(() => import("Event/PromoPlayer"));
 
@@ -45,22 +45,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
     >
       <div className="event-message">
         <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
-          {
-            messageInfo.message ?
-              <div
-                className="event-message__content__message"
-                ref={element => {
-                  if(!element) { return; }
-
-                  render(
-                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                      {SanitizeHTML(messageInfo.message)}
-                    </ReactMarkdown>,
-                    element
-                  );
-                }}
-              /> : null
-          }
+          { messageInfo.message ? <RichText richText={messageInfo.message} className="event-message__content__message" /> : null }
           {
             !messageInfo.image ? null :
               <ImageIcon
@@ -131,18 +116,9 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
         <div className={`event-message__content ${!messageInfo.message ? "no-padding" : ""}`}>
           {
             messageInfo.message ?
-              <div
+              <RichText
+                richText={messageInfo.message}
                 className="event-message__content__message"
-                ref={element => {
-                  if(!element) { return; }
-
-                  render(
-                    <ReactMarkdown linkTarget="_blank" allowDangerousHtml>
-                      {SanitizeHTML(messageInfo.message)}
-                    </ReactMarkdown>,
-                    element
-                  );
-                }}
               /> : null
           }
           {
@@ -224,10 +200,123 @@ const HeroBanner = ({link, imageUrl}) => {
   );
 };
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@observer
+const Banner = observer(({bannerInfo, mobile, className="event-page__banner", imageClassName="event-page__banner__image"}) => {
+  const [showVideo, setShowVideo] = useState(false);
+
+  const bannerImage = (
+    <ImageIcon
+      className={imageClassName}
+      icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
+      label="Banner"
+    />
+  );
+
+  if(bannerInfo.type === "video" && bannerInfo.video && bannerInfo.video["."]) {
+    return (
+      <div className={className}>
+        <button className="event-page__banner__image-container" onClick={() => setShowVideo(true)}>
+          { bannerImage }
+        </button>
+        {
+          !showVideo ? null :
+            <Player
+              className="event-page__banner__video"
+              params={
+                {
+                  clientOptions: {
+                    client: rootStore.client
+                  },
+                  sourceOptions: {
+                    playoutParameters: {
+                      versionHash: bannerInfo.video["."].source
+                    }
+                  },
+                  playerOptions: {
+                    watermark: EluvioPlayerParameters.watermark.OFF,
+                    muted: EluvioPlayerParameters.muted.OFF,
+                    autoplay: EluvioPlayerParameters.autoplay.ON,
+                    controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+                    playerCallback: ({videoElement}) => {
+                      videoElement.addEventListener("ended", () => setShowVideo(false));
+                    }
+                  }
+                }
+              }
+            />
+        }
+      </div>
+    );
+  }
+
+  if(bannerInfo.type === "marketplace") {
+    const marketplace = bannerInfo.marketplace ?
+      siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === bannerInfo.marketplace) :
+      siteStore.marketplaceInfo;
+
+    return (
+      <div className={className}>
+        <button
+          className="event-page__banner__image-container"
+          onClick={() => {
+            rootStore.SetWalletPanelVisibility(
+              {
+                visibility: "full",
+                location: {
+                  page: bannerInfo.sku ? "marketplaceItem" : "marketplace",
+                  params: {
+                    page: "marketplaceItem",
+                    tenantSlug: marketplace.tenant_slug,
+                    marketplaceSlug: marketplace.marketplace_slug,
+                    sku: bannerInfo.sku
+                  }
+                }
+              }
+            );
+            rootStore.SetMarketplaceFilters({filters: bannerInfo.marketplace_filters});
+          }}
+        >
+          { bannerImage }
+        </button>
+      </div>
+    );
+  }
+
+  if(bannerInfo.type === "drop") {
+    const dropId = bannerInfo.drop_uuid || (siteStore.nextDrop || {}).uuid;
+
+    if(!dropId) { return null; }
+
+    return (
+      <div className={className}>
+        <Link className="event-page__banner__image-container" to={siteStore.SitePath(UrlJoin("drop", dropId))}>
+          { bannerImage }
+        </Link>
+      </div>
+    );
+  }
+
+  if(bannerInfo.type === "link") {
+    return (
+      <div className={className}>
+        <a
+          className="event-page__banner__image-container"
+          href={bannerInfo.link || undefined}
+          rel="noopener"
+          target={bannerInfo.link ? "_blank" : ""}
+        >
+          {bannerImage}
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div className={className}>
+      { bannerImage }
+    </div>
+  );
+});
+
 class Event extends React.Component {
   constructor(props) {
     super(props);
@@ -300,52 +389,128 @@ class Event extends React.Component {
   Actions() {
     const branding = this.Branding();
     const hasLoggedIn = this.props.rootStore.walletLoggedIn;
-    const hasDrops =
-      (this.props.siteStore.currentSiteInfo.drops || []).length > 0 ||
-      (this.props.siteStore.currentSiteInfo.marketplace_drops || []).length > 0;
+    const eventInfo = this.props.siteStore.currentSiteInfo.event_info || {};
+    const marketplaceDisabled = this.props.siteStore.marketplaceInfo?.disable_marketplace;
 
-    const GetStartedButton = () => (
-      <button
-        style={(branding.get_started || {}).styles}
-        className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
-        onClick={() => this.setState({showGetStartedModal: true})}
-      >
-        { ButtonContent(branding.get_started, "Get Started") }
-      </button>
-    );
+    const action = (hasLoggedIn && eventInfo.event_button_action_post_login) || eventInfo.event_button_action;
 
-    const JoinDropButton = () => (
-      this.props.siteStore.nextDrop && this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
+    let eventButton;
+    if(action === "sign_in" && !rootStore.walletLoggedIn) {
+      eventButton = (
         <button
-          style={(branding.join_drop || {}).styles}
-          className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
-          onClick={async () => {
-            await this.props.rootStore.SetWalletPanelVisibility(
+          style={(branding.get_started || {}).styles}
+          className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+          onClick={() => {
+            const postLogin = eventInfo.post_login || {};
+
+            let path;
+            if(postLogin.action === "marketplace") {
+              path = UrlJoin("/", this.props.siteStore.tenantSlug || "", this.props.siteStore.siteSlug, "marketplace");
+
+              if(postLogin.sku) {
+                path = UrlJoin(path, "store", postLogin.sku);
+                if(postLogin.sku && postLogin.redirect_to_owned_item) {
+                  path = path + "?redirect=owned";
+                }
+              }
+            }
+
+            this.props.rootStore.LogIn(path);
+          }}
+        >
+          {ButtonContent(branding.get_started, "Get Started")}
+        </button>
+      );
+    } else if(action === "marketplace" || (!eventInfo.event_button_action && eventInfo.event_button_opens_marketplace)) {
+      const marketplace = eventInfo.event_button_marketplace ?
+        siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === eventInfo.event_button_marketplace) :
+        siteStore.marketplaceInfo;
+      const sku = eventInfo.event_button_marketplace_sku;
+      const redirectToOwned = sku && eventInfo.event_button_marketplace_redirect_to_owned_item;
+
+      eventButton = (
+        <button
+          style={(branding.get_started || {}).styles}
+          className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+          onClick={() => {
+            this.props.rootStore.SetWalletPanelVisibility(
               {
                 visibility: "full",
+                delay: redirectToOwned ? 1000 : 0,
                 location: {
-                  page: this.props.siteStore.nextDrop.store_page === "Listings" ? "marketplaceListings" : "marketplace",
-                  params: {
-                    tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                    marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
-                  }
+                  path : UrlJoin(
+                    "/marketplace",
+                    marketplace.marketplaceId,
+                    "store",
+                    sku || "",
+                    redirectToOwned ? "?redirect=owned" : ""
+                  )
                 }
               }
             );
-
-            await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop.marketplace_filters});
           }}
         >
-          { ButtonContent(branding.join_drop, "Join the Drop") }
-        </button> :
-        <Link
-          style={(branding.join_drop || {}).styles}
-          to={this.props.siteStore.nextDrop.link}
-          className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
+          {ButtonContent(branding.get_started, "Get Started")}
+        </button>
+      );
+    } else if(action === "link") {
+      eventButton = (
+        <a
+          href={eventInfo.event_button_link}
+          rel="noopener"
+          target="_blank"
+          style={(branding.get_started || {}).styles}
+          className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
         >
-          { ButtonContent(branding.join_drop, "Join the Drop") }
-        </Link>
-    );
+          {ButtonContent(branding.get_started, "Get Started")}
+        </a>
+      );
+    } else if(!marketplaceDisabled && (typeof action === "undefined" || action === "modal")) {
+      if(hasLoggedIn && this.props.siteStore.nextDrop) {
+        eventButton = (
+          this.props.siteStore.nextDrop.ongoing && this.props.siteStore.nextDrop.type === "marketplace_drop" ?
+            <button
+              style={(branding.join_drop || {}).styles}
+              className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
+              onClick={async () => {
+                await this.props.rootStore.SetWalletPanelVisibility(
+                  {
+                    visibility: "full",
+                    location: {
+                      page: this.props.siteStore.nextDrop?.store_page === "Listings" ? "marketplaceListings" : "marketplace",
+                      params: {
+                        tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
+                        marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
+                      }
+                    }
+                  }
+                );
+
+                // await this.props.rootStore.SetMarketplaceFilters({filters: this.props.siteStore.nextDrop?.marketplace_filters});
+              }}
+            >
+              { ButtonContent(branding.join_drop, "Join the Drop") }
+            </button> :
+            <Link
+              style={(branding.join_drop || {}).styles}
+              to={this.props.siteStore.nextDrop.link}
+              className={`btn ${branding.join_drop?.button_image ? "btn--image" : ""}`}
+            >
+              { ButtonContent(branding.join_drop, "Join the Drop") }
+            </Link>
+        );
+      } else if(!hasLoggedIn) {
+        eventButton = (
+          <button
+            style={(branding.get_started || {}).styles}
+            className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
+            onClick={() => this.setState({showGetStartedModal: true})}
+          >
+            { ButtonContent(branding.get_started, "Get Started") }
+          </button>
+        );
+      }
+    }
 
     const WatchPromoButton = () => (
       <button
@@ -369,8 +534,7 @@ class Event extends React.Component {
 
     return (
       <div className="event-page__buttons">
-        { this.props.rootStore.walletLoaded && hasDrops && !hasLoggedIn ? <GetStartedButton /> : null }
-        { this.props.rootStore.walletLoaded && hasDrops && hasLoggedIn && this.props.siteStore.nextDrop ? <JoinDropButton /> : null }
+        { eventButton }
         {
           // Ended
           ["Ended", "Live Ended"].includes(this.props.siteStore.currentSiteInfo.state) ||
@@ -429,65 +593,34 @@ class Event extends React.Component {
     );
   }
 
-  Banner(bannerInfo, index, mobile) {
-    const bannerImage = (
-      <ImageIcon
-        key={`banner-${index}`}
-        className="event-page__banner__image"
-        icon={(((mobile && bannerInfo.image_mobile || bannerInfo.image) || bannerInfo.image) || {}).url}
-        label="Banner"
-      />
-    );
+  BottomBannerCards(mobile) {
+    let { header, background_image, background_image_mobile, cards } = this.props.siteStore.currentSiteInfo.main_page_banner_cards || {};
 
-    if(bannerInfo.type === "marketplace") {
-      return (
-        <div className="event-page__banner" key={`banner-${index}`}>
-          <button
-            onClick={() => {
-              this.props.rootStore.SetWalletPanelVisibility(
-                {
-                  visibility: "full",
-                  location: {
-                    page: "marketplace",
-                    params: {
-                      tenantSlug: this.props.siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-                      marketplaceSlug: this.props.siteStore.currentSiteInfo.marketplace_info.marketplace_slug
-                    }
-                  }
-                }
-              );
-              this.props.rootStore.SetMarketplaceFilters({filters: bannerInfo.marketplace_filters});
-            }}
-          >
-            { bannerImage }
-          </button>
-        </div>
-      );
-    }
-
-    if(bannerInfo.type === "drop") {
-      const dropId = bannerInfo.drop_uuid || (this.props.siteStore.nextDrop || {}).uuid;
-
-      if(!dropId) { return null; }
-
-      return (
-        <div className="event-page__banner" key={`banner-${index}`}>
-          <Link to={this.props.siteStore.SitePath(UrlJoin("drop", dropId))}>
-            { bannerImage }
-          </Link>
-        </div>
-      );
+    if((cards || []).length === 0) {
+      return null;
     }
 
     return (
-      <div className="event-page__banner" key={`banner-${index}`}>
-        <a
-          href={bannerInfo.link || undefined}
-          rel="noopener"
-          target={bannerInfo.link ? "_blank" : ""}
-        >
-          { bannerImage }
-        </a>
+      <div className="event-page__banner-cards">
+        {
+          background_image ?
+            <ImageIcon
+              className="event-page__banner-cards__background"
+              icon={(((mobile && background_image_mobile) || background_image) || {}).url}
+              label="Banner"
+            /> : null
+        }
+        { header ? <h3 className="event-page__banner-cards__header">{header}</h3> : null }
+        <div className="event-page__banner-cards__cards">
+          {cards.map((bannerInfo, index) =>
+            <Banner
+              key={`banner-card-${index}`}
+              bannerInfo={bannerInfo}
+              className="event-page__banner event-page__banner-card"
+              imageClassName="event-page__banner-card__image"
+            />
+          )}
+        </div>
       </div>
     );
   }
@@ -505,7 +638,9 @@ class Event extends React.Component {
       }
     }
 
-    return banners.map((bannerInfo, index) => this.Banner(bannerInfo, index, mobile));
+    return banners.map((bannerInfo, index) =>
+      <Banner key={`banner-${index}`} bannerInfo={bannerInfo} index={index} mobile={mobile} />
+    );
   }
 
   Hero() {
@@ -580,6 +715,7 @@ class Event extends React.Component {
             <UpcomingEvents events={this.props.siteStore.dropEvents}/>
         }
 
+        { this.BottomBannerCards(mobile) }
         { this.BottomBanners(mobile) }
 
         { this.state.showPromo ? this.Promos() : null}
@@ -591,4 +727,4 @@ class Event extends React.Component {
   }
 }
 
-export default Event;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Event))));

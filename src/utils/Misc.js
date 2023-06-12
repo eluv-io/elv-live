@@ -7,6 +7,24 @@ DayJS.extend(DayJSAdvancedFormatting);
 import moment from "moment-timezone";
 import React, {useEffect, useState} from "react";
 
+export const LocalizeString = (text="", variables={}, options={stringOnly: false}) => {
+  let result = text
+    .split(/{(\w+)}/)
+    .filter(s => s)
+    .map(token => typeof variables[token] !== "undefined" ? variables[token] : token);
+
+  if(options.stringOnly) {
+    return result.join("");
+  }
+
+  return (
+    <>
+      {result}
+    </>
+  );
+};
+
+
 const ParseDate = date => {
   try {
     return new Date(date);

@@ -27,3 +27,34 @@
     }
   }
 }
+
+.menu-button {
+  display: inline-block;
+  height: 100%;
+  position: relative;
+
+  &__options {
+    border-radius: 0 0 5px 5px;
+    left: 0;
+    padding: 10px 25px;
+    position: absolute;
+    top: 100%;
+    width: max-content;
+    z-index: 999;
+  }
+
+  &__option {
+    width: 100%;
+  }
+
+  &__button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 100%;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+  }
+}
+

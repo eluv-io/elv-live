@@ -1,9 +1,12 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import CartOverlay from "Event/checkout/CartOverlay";
 import Checkout from "Event/checkout/Checkout";
+import MenuButton from "Common/MenuButton";
+import {rootStore, siteStore} from "Stores";
+import UrlJoin from "url-join";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
@@ -13,11 +16,52 @@ import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
 import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
-@inject("rootStore")
-@inject("siteStore")
-@inject("cartStore")
-@withRouter
-@observer
+const StoreDropdown = observer(({walletOpen, currentPage}) => {
+  const marketplaces = [siteStore.marketplaceInfo, ...siteStore.additionalMarketplaces.filter(marketplace => !marketplace.hidden)];
+
+  const ShowMarketplace = ({tenant_slug, marketplace_slug, default_store_page}) => {
+    rootStore.SetWalletPanelVisibility({
+      visibility: "full",
+      location: {
+        page: default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
+        params: {
+          tenantSlug: tenant_slug,
+          marketplaceSlug: marketplace_slug
+        }
+      }
+    });
+  };
+
+  if(marketplaces.length === 1) {
+    return (
+      <button
+        onClick={() => ShowMarketplace({...marketplaces[0]})}
+        className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
+      >
+        <div className="header__link__icon">
+          <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
+        </div>
+        { siteStore.l10n.header.store }
+      </button>
+    );
+  }
+
+  return (
+    <MenuButton
+      items={marketplaces.map(marketplaceInfo => ({
+        onClick: () => ShowMarketplace({...marketplaceInfo}),
+        label: marketplaceInfo.name
+      }))}
+      className={`header__link header__dropdown ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
+    >
+      <div className="header__link__icon">
+        <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
+      </div>
+      { siteStore.l10n.header.stores }
+    </MenuButton>
+  );
+});
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +90,7 @@ class Header extends React.Component {
 
   MarketplaceLinks() {
     let marketplaceInfo = this.props.siteStore.marketplaceInfo || {};
-    if(!marketplaceInfo.marketplace_slug) {
+    if(!marketplaceInfo.marketplace_slug || marketplaceInfo.disable_marketplace) {
       return null;
     }
 
@@ -54,6 +98,7 @@ class Header extends React.Component {
     const currentPage = (walletState.location || {}).page;
     const walletOpen = walletState.visibility === "full";
     const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
+    const l10n = this.props.siteStore.l10n;
 
     let loginButton, walletButton;
     if(this.props.rootStore.walletLoggedIn) {
@@ -76,19 +121,38 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
           </div>
-          My Wallet
+          { l10n.header.my_wallet }
         </button>
       );
     } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
       loginButton = (
         <button
-          onClick={() => this.props.rootStore.LogIn()}
+          onClick={() => {
+            const postLogin = this.props.siteStore.currentSiteInfo.event_info?.post_login || {};
+            let path;
+            if(postLogin.action === "marketplace") {
+              path = UrlJoin("/", this.props.siteStore.tenantSlug || "", this.props.siteStore.siteSlug, "marketplace");
+
+              if(postLogin.sku) {
+                path = UrlJoin(path, "store", postLogin.sku);
+
+                if(postLogin.sku) {
+                  path = UrlJoin(path, "store", postLogin.sku);
+                  if(postLogin.sku && postLogin.redirect_to_owned_item) {
+                    path = path + "?redirect=owned";
+                  }
+                }
+              }
+            }
+
+            this.props.rootStore.LogIn(path);
+          }}
           className="header__link"
         >
           <div className="header__link__icon">
             <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
           </div>
-          Sign In
+          { l10n.header.sign_in }
         </button>
       );
     }
@@ -104,33 +168,12 @@ class Header extends React.Component {
           <div className="header__link__icon">
             <ImageIcon icon={EventIcon} title="Event" className="header__link__image"/>
           </div>
-          Event
+          { l10n.header.event }
         </NavLink>
       );
     }
 
-    const storeButton = (
-      <button
-        onClick={() => {
-          this.props.rootStore.SetWalletPanelVisibility({
-            visibility: "full",
-            location: {
-              page: marketplaceInfo.default_store_page === "Listings" ? "marketplaceListings" : "marketplace",
-              params: {
-                tenantSlug: marketplaceInfo.tenant_slug,
-                marketplaceSlug: marketplaceInfo.marketplace_slug
-              }
-            }
-          });
-        }}
-        className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
-      >
-        <div className="header__link__icon">
-          <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
-        </div>
-        Store
-      </button>
-    );
+    const storeButton = <StoreDropdown walletOpen currentPage />;
 
     let marketplacesButton;
     if(!hideGlobalNavigation) {
@@ -149,7 +192,7 @@ class Header extends React.Component {
           <div className="header__link__icon header__link__icon-marketplace">
             <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
           </div>
-          Discover Projects
+          { l10n.header.discover_projects }
         </button>
       );
     }
@@ -188,8 +231,7 @@ class Header extends React.Component {
             <NavLink
               to={this.props.siteStore.SitePath("coupon-code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-              className="header__link header__link--no-wallet"
-              activeClassName="header__link-active"
+              className={({isActive}) => `header__link header__link--no-wallet ${isActive ? "header__link-active" : ""}`}
             >
               Redeem Coupon
             </NavLink> : null
@@ -199,10 +241,9 @@ class Header extends React.Component {
             <NavLink
               to={this.props.siteStore.SitePath("code")}
               onClick={() => this.props.rootStore.SetWalletPanelVisibility(this.props.rootStore.defaultWalletState)}
-              className="header__link header__link--no-wallet"
-              activeClassName="header__link-active"
+              className={({isActive}) => `header__link header__link--no-wallet ${isActive ? "header__link-active" : ""}`}
             >
-              Redeem Code
+              { this.props.siteStore.l10n.header.redeem_code }
             </NavLink> : null
         }
         {
@@ -286,4 +327,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default inject("rootStore")(inject("siteStore")(inject("cartStore")(observer(Header))));

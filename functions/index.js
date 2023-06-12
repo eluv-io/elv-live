@@ -163,7 +163,7 @@ const loadElvLiveAsync = async (req) => {
   const tenantsUrl = networkPrefix + "/meta/public/asset_metadata/tenants";
   functions.logger.info("using tenants url", tenantsUrl);
 
-  const resp = await axios.get(tenantsUrl + "/?link_depth=2");
+  const resp = await axios.get(tenantsUrl + "/?link_depth=2&resolve_ignore_errors=true");
   const tenantData = resp.data;
 
   let tenantsAndSite = {};

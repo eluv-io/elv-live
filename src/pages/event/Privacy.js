@@ -1,6 +1,6 @@
 import React from "react";
 
-import PrivacyPolicyDocument from "Assets/documents/PrivacyPolicy.html";
+import PrivacyPolicyDocument from "../../main/static/documents/PrivacyPolicy.html";
 
 class Privacy extends React.Component {
   constructor(props) {

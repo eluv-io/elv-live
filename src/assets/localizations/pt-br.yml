@@ -1,0 +1,17 @@
+header:
+  discover_projects: Explore projetos
+  event: Evento
+  my_wallet: Minha carteira
+  redeem_code: Resgate um código
+  sign_in: Entrar
+  store: Lojas
+codes:
+  redemption_code: Código de Resgate
+  redeem_offer: Resgate seu brinde
+  errors:
+    failed: Falha para resgatar o código
+footer:
+  powered_by: Powered by
+  support_faq: FAQ de suporte
+  privacy_policy: Política de privacidade
+  terms: Termos de uso

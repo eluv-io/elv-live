@@ -1,0 +1,21 @@
+header:
+  discover_projects: Discover Projects
+  event: Event
+  my_wallet: My Wallet
+  redeem_code: Redeem Code
+  sign_in: Sign In
+  store: Store
+  stores: Stores
+codes:
+  redemption_code: Redemption Code
+  redeem_offer: Redeem Offer
+  errors:
+    failed: Failed to Redeem Code
+    not_yet_valid: This code is not available until {date}
+faq:
+  title: FAQ
+footer:
+  powered_by: Powered by
+  support_faq: Support FAQ
+  privacy_policy: Privacy Policy
+  terms: Terms

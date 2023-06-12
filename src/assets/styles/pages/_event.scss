@@ -37,10 +37,19 @@
   }
 
   &__hero-banner {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
     position: fixed;
     top: $normal-header-height;
     transition: opacity 0.35s linear;
+    width: 100%;
     z-index: 100;
+
+    &__image {
+      max-width: 100%;
+      width: 100%;
+    }
 
     &--hidden {
       opacity: 0;
@@ -182,16 +191,25 @@
     }
   }
 
+  .upcoming-events {
+    width: 100%;
+
+    .carousel {
+      margin: 0 auto;
+      max-width: 1600px;
+    }
+  }
+
   &__banner {
     align-items: center;
     display: flex;
     justify-content: center;
     margin: 0 auto;
     padding: 50px;
+    position: relative;
     width: 100%;
 
-    button,
-    a {
+    &__image-container {
       background: transparent;
       border: 0;
       cursor: pointer;
@@ -202,6 +220,57 @@
     img {
       border-radius: 15px;
     }
+
+    &__video {
+      &.eluvio-player {
+        background: $black;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+
+  &__banner-cards {
+    margin: 20px 0;
+    padding: 50px 50px 100px;
+    position: relative;
+
+    &__header {
+      display: block;
+      font-size: 32px;
+      margin-bottom: 50px;
+      position: relative;
+      text-align: center;
+      width: 100%;
+    }
+
+    &__background {
+      display: block;
+      height: 100%;
+      left: 0;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &__cards {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      position: relative;
+    }
+  }
+
+  &__banner-card {
+    flex: 1 1 100%;
+    margin: 0;
+    max-width: 400px;
+    padding: 0;
+    width: auto;
   }
 
   @media only screen and (max-width: 1300px) and (min-width: 700px) {
@@ -317,6 +386,15 @@
     .upcoming-events,
     &__banner {
       padding: 35px;
+    }
+
+    &__banner-cards {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    &__banner-card {
+      padding: 0;
     }
   }
 }

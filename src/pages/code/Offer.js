@@ -1,54 +1,90 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {observer} from "mobx-react";
-import {onEnterPressed} from "Utils/Misc";
+import {LocalizeString, onEnterPressed} from "Utils/Misc";
 import {useState} from "react";
 import {RichText} from "Common/Components";
-import {useHistory, useRouteMatch} from "react-router";
 import {rootStore, siteStore} from "Stores";
 import {PageLoader} from "Common/Loaders";
+import {useNavigate, useParams} from "react-router";
+import UrlJoin from "url-join";
 
 const initialCode = (new URLSearchParams(window.location.search)).get("code");
 
 const OfferPage = observer(() => {
-  const match = useRouteMatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const params = useParams();
   const [code, setCode] = useState(initialCode || "");
   const [error, setError] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
-  const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === match.params.offerId) || {};
+  const offer = siteStore.currentSiteInfo.offers?.find(offer => offer.id === params.offerId) || {};
+  const previouslyRedeemed = localStorage.getItem(`${params.offerId}-code`);
 
   const RedeemOffer = async () => {
     try {
       setError(undefined);
       setLoading(true);
 
-      await rootStore.RedeemOffer({
-        tenantId: offer.tenant_id || this.siteStore.currentSiteInfo.tenant_id,
-        ntpId: offer.ntp_id,
-        code
-      });
+      if(!previouslyRedeemed) {
+        await rootStore.RedeemOffer({
+          tenantId: offer.tenant_id || siteStore.currentSiteInfo.tenant_id,
+          ntpId: offer.ntp_id,
+          code
+        });
+
+        localStorage.setItem(`${params.offerId}-code`, code);
+      }
+
+      const marketplace = offer.marketplace &&
+        siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === offer.marketplace) ||
+        siteStore.marketplaceInfo;
+      const redirectToOwned = offer.sku && siteStore.currentSiteInfo?.event_button_marketplace_redirect_to_owned_item;
 
       rootStore.SetWalletPanelVisibility({
         visibility: "full",
         location: {
-          page: "marketplaceItem",
-          params: {
-            sku: offer.sku,
-            tenantSlug: siteStore.currentSiteInfo.marketplace_info.tenant_slug,
-            marketplaceSlug: siteStore.currentSiteInfo.marketplace_info.marketplace_slug
-          }
+          path : UrlJoin(
+            "/marketplace",
+            marketplace.marketplaceId,
+            "store",
+            offer.sku || "",
+            redirectToOwned ? "?redirect=owned" : ""
+          )
         }
       });
 
       await new Promise(resolve => setTimeout(resolve, 3000));
-      history.push(siteStore.SitePath(""));
+      navigate(siteStore.SitePath(""));
     } catch(error) {
-      setError("Failed to redeem code");
+      // eslint-disable-next-line no-console
+      console.error(error);
+
+      try {
+        if(error.body && error.body.includes("not yet valid")) {
+          const releaseDate = new Date(parseInt(error.body.match(/.+VAT: (\d+)/)[1]));
+          setError(
+            LocalizeString(
+              siteStore.l10n.codes.errors.not_yet_valid,
+              { date: releaseDate.toLocaleDateString(navigator.languages, {year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric"}) }
+            )
+          );
+          return;
+        }
+        // eslint-disable-next-line no-empty
+      } catch(error) {}
+
+      setError(siteStore.l10n.codes.errors.failed);
     } finally {
       setLoading(false);
     }
   };
+
+  // Automatically redeem if code specified
+  useEffect(() => {
+    if(code || previouslyRedeemed) {
+      RedeemOffer();
+    }
+  }, []);
 
   if(!rootStore.walletLoaded) {
     return <PageLoader />;
@@ -57,26 +93,26 @@ const OfferPage = observer(() => {
   return (
     <div className="page-container code-entry-page-container">
       <div className="main-content-container offer-page">
-        <h2 className="offer-page__title">{ offer?.title || "Redeem Offer"}</h2>
-        <RichText richText={offer.description || "Description"} className="markdown-document offer-page__description" />
+        <h2 className="offer-page__title">{ offer?.title || siteStore.l10n.codes.redeem_offer }</h2>
+        { offer.description ? <RichText richText={offer.description} className="markdown-document offer-page__description" /> : null }
 
         { error ? <div className="error-message offer-page__error"> {error} </div> : null }
 
         <input
           className="offer-page__input"
-          placeholder="Redemption Code"
+          placeholder={siteStore.l10n.codes.redemption_code}
           value={code}
           onChange={event => {
             setError(undefined);
             setCode(event.target.value);
           }}
-          onKeyPress={onEnterPressed(RedeemOffer)}
+          onKeyDown={onEnterPressed(RedeemOffer)}
         />
 
         <button
-          disabled={!code || error}
+          disabled={!code}
           onClick={RedeemOffer}
-          title="Submit"
+          title={siteStore.l10n.codes.redeem_offer}
           className="btn offer-page__button"
         >
           {loading ?
@@ -85,7 +121,7 @@ const OfferPage = observer(() => {
                 <div></div>
               </div>
             </div> :
-            "Redeem Offer"
+            siteStore.l10n.codes.redeem_offer
           }
         </button>
       </div>

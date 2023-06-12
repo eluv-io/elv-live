@@ -1,11 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import AddToCalendar from "react-add-to-calendar";
+//import AddToCalendar from "react-add-to-calendar";
 
-@inject("rootStore")
-@inject("cartStore")
-@inject("siteStore")
-@observer
 class Success extends React.Component {
   componentDidMount() {
     this.props.cartStore.OrderComplete(this.props.match.params.id);
@@ -51,6 +47,7 @@ class Success extends React.Component {
           </div>
 
           {
+            /*
             calendarEvent ?
               <AddToCalendar
                 event={calendarEvent}
@@ -60,6 +57,8 @@ class Success extends React.Component {
                 buttonClassOpen="open"
                 dropdownClass="calendar-button-dropdown"
               /> : null
+
+             */
           }
         </div>
       </div>
@@ -68,4 +67,4 @@ class Success extends React.Component {
 }
 
 
-export default Success;
+export default inject("rootStore")(inject("cartStore")(inject("siteStore")(observer(Success))));

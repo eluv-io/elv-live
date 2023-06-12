@@ -9,7 +9,7 @@
   top: 0;
   user-select: none;
   width: 100%;
-  z-index: 1000;
+  z-index: 10000;
 
   & > * {
     flex: 1 1 auto;
@@ -79,11 +79,8 @@
     display: flex;
     font-size: 16px;
     outline: 0;
+    padding: 0 20px;
     width: max-content;
-
-    & + .header__link {
-      margin-left: 20px;
-    }
 
     &-active {
       text-shadow: 0 0 1px $black;
@@ -151,6 +148,11 @@
       max-width: 115px;
     }
 
+    .menu-button__options {
+      left: unset;
+      right: 0;
+    }
+
     &__link {
       font-size: 12px;
       margin: 0;
@@ -163,10 +165,6 @@
 
       &--no-mobile {
         display: none;
-      }
-
-      & + .header__link {
-        margin-left: 0;
       }
     }
 
@@ -249,6 +247,10 @@
     margin: auto;
     padding: 2px 0 30px;
     width: 75vw;
+
+    &.rich-text {
+      flex-direction: column;
+    }
   }
 
   &__item {
@@ -387,15 +389,21 @@
 
 
   @media only screen and (max-width: 900px) {
-    padding: 25px 25px 70px;
+    padding: 100px 25px 70px;
 
     &__block {
-      flex-wrap: wrap;
-      justify-content: space-around;
+      flex-direction: column;
+      gap: 10px;
     }
 
     &__item {
-      margin-bottom: 15px;
+      align-items: center;
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      margin: 0;
+      text-align: center;
+      width: 100%;
 
       &:not(select) {
         padding: 0;
@@ -460,6 +468,8 @@
   }
 
   &__links {
+    height: 100%;
+
     * {
       color: $black;
     }
@@ -474,6 +484,38 @@
         stroke: $black;
       }
     }
+  }
+
+  .menu-button {
+    transition: background-color 0s ease;
+  }
+
+  .menu-button__button {
+    padding: 15px 20px;
+  }
+
+  .menu-button__options {
+    background-color: rgba($black, 0.7);
+    border-radius: 0 3px 3px;
+    padding: 10px 0;
+  }
+
+  .menu-button__option {
+    opacity: 0.75;
+
+    &:hover,
+    &:active,
+    &:focus-visible {
+      opacity: 1;
+    }
+  }
+
+  .menu-button__button {
+    text-align: center;
+  }
+
+  .menu-button--active {
+    background-color: rgba($black, 0.7);
   }
 
   &.header-scrolled {
@@ -526,6 +568,10 @@
         color: $mediumgray;
         text-shadow: none;
       }
+    }
+
+    .menu-button__options {
+      background: $black;
     }
   }
 
@@ -625,6 +671,10 @@
 
       @media screen and (max-width: 1400px) {
         background: $black;
+
+        .menu-button__options {
+          background: $black;
+        }
       }
     }
   }

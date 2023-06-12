@@ -1,14 +1,12 @@
 import React from "react";
-import {render} from "react-dom";
 import {inject, observer} from "mobx-react";
 
 import ImageIcon from "Common/ImageIcon";
 import Modal from "Common/Modal";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
 import UrlJoin from "url-join";
-import ReactMarkdown from "react-markdown";
 import Player from "Common/Player";
-import SanitizeHTML from "sanitize-html";
+import {RichText} from "Common/Components";
 
 const LeftArrow = ({color}) => (
   <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88.96 159.09">
@@ -33,9 +31,7 @@ const ButtonContent = (info={}, defaultText) =>
     <img className="btn__image" src={info.button_image.url} alt={info.button_text || info.text || defaultText} /> :
     info.button_text || info.text || defaultText;
 
-@inject("siteStore")
-@observer
-class EventInfoModal extends React.Component {
+class EventInfoModalClass extends React.Component {
   constructor(props) {
     super(props);
 
@@ -198,20 +194,10 @@ class EventInfoModal extends React.Component {
           </div>
           { this.PageControls() }
           <div className="event-info-modal__text-container" style={{backgroundColor, color: textColor}}>
-            <div
+            <RichText
+              richText={text}
               className="event-info-modal__markdown markdown-document"
-              ref={element => {
-                if(!element) { return; }
-
-                render(
-                  <ReactMarkdown linkTarget="_blank" allowDangerousHtml >
-                    { SanitizeHTML(text) }
-                  </ReactMarkdown>,
-                  element
-                );
-              }}
-            >
-            </div>
+            />
           </div>
         </div>
       </Modal>
@@ -219,8 +205,8 @@ class EventInfoModal extends React.Component {
   }
 }
 
-@inject("siteStore")
-@observer
+const EventInfoModal = inject("siteStore")(observer(EventInfoModalClass));
+
 class EventInfoButtons extends React.Component {
   constructor(props) {
     super(props);
@@ -269,4 +255,4 @@ class EventInfoButtons extends React.Component {
   }
 }
 
-export default EventInfoButtons;
+export default inject("siteStore")(observer(EventInfoButtons));
