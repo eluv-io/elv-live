@@ -64,8 +64,9 @@
     font-size: var(--font-size-header-1);
     font-weight: 600;
     letter-spacing: 0.015em;
-    max-width: 450px;
+    max-width: 550px;
     position: relative;
+    width: 100%;
 
     &--feature {
       font-size: var(--font-size-feature-header);
@@ -74,6 +75,21 @@
     &--faded {
       color: var(--color-text-dark-2);
       font-size: var(--font-size-header-3);
+    }
+
+    &--text {
+      font-size: var(--font-size-header-4);
+      font-weight: normal;
+    }
+
+    &--tagline {
+      font-size: var(--font-size-header-5);
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+
+    &--shadow {
+      text-shadow: var(--text-shadow-dark);
     }
   }
 
@@ -107,7 +123,9 @@
     }
 
     &__copy {
-      font-size: var(--font-size-header-2);
+      &--tagline {
+        font-size: var(--font-size-body-2);
+      }
     }
 
     &__logo-container {
@@ -414,6 +432,16 @@
       align-self: flex-start;
       min-height: 30px;
       min-width: 30px;
+    }
+  }
+
+  &__text {
+    font-size: var(--font-size-body-2);
+    font-weight: 500;
+    padding-bottom: 50px;
+
+    &--shadow {
+      text-shadow: var(--text-shadow-dark);
     }
   }
 

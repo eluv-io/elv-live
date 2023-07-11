@@ -19,7 +19,7 @@ import {
   DollarIcon
 } from "../../static/icons/Icons";
 
-const Header = observer(({mobile}) => {
+const HeaderBlock = observer(({mobile}) => {
   const { header, subheader } = mainStore.l10n.creators.heading;
 
   if(mobile) {
@@ -132,7 +132,7 @@ const GetStartedBlock = observer(() => {
 const CreatorsMobile = () => {
   return (
     <div className="page dark no-padding">
-      <Header mobile />
+      <HeaderBlock mobile />
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock />
@@ -156,7 +156,7 @@ const CreatorsMobile = () => {
 const CreatorsDesktop = () => {
   return (
     <div className="page dark no-padding">
-      <Header />
+      <HeaderBlock />
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock />

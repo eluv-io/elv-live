@@ -14,7 +14,7 @@ import ExperiencesImage2 from "../../static/images/main/developers-and-node-prov
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
 
-const Header = observer(() => {
+const HeaderBlock = observer(() => {
   return (
     <MainHeader>
       <h1 className="main-page-header__logo-container">
@@ -206,7 +206,7 @@ const BrowseProjectsBlock = observer(({mobile}) => {
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
-      <Header />
+      <HeaderBlock />
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock mobile />
@@ -229,7 +229,7 @@ const MainPageMobile = () => {
 const MainPageDesktop = () => {
   return (
     <div className="page dark no-padding">
-      <Header />
+      <HeaderBlock />
       <FeatureBanner />
       <div className="main-page__blocks">
         <div className="padded-block">
