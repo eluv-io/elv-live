@@ -74,7 +74,7 @@ const TextBoxesBlock = observer(() => {
   return (
     <div className="main-page-block__text-boxes">
       {(mainStore.l10n.creators.video_block.text_boxes || []).map((item, index) => (
-        <div key={item} className="main-page-block__text-box">
+        <div key={item} className="main-page-block__text-box main-page-block__text-box--centered">
           <div className="main-page-block__text-box-content">
             <ImageIcon icon={icons[index]} className="main-page-block__text-box-content__icon" />
             <div className="main-page-block__text-box-content__text">

@@ -1,3 +1,4 @@
+import AppleIcon from "./apple.svg";
 import BlockchainIcon from "./blockchain.svg";
 import DiscoverIcon from "./discover.svg";
 import DocumentIcon from "./view-document.svg";
@@ -59,6 +60,7 @@ const SocialIcons = {
 
 export {
   AppIcon,
+  AppleIcon,
   BarsIcon,
   CheckSquareIcon,
   CheckmarkIcon,

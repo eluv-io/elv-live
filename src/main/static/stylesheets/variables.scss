@@ -75,7 +75,8 @@ $width-mobile: 600px;
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
   --background-gradient-features-banner: linear-gradient(180deg, #471671 0%, #371870 100%);
 
-  --text-shadow-dark: 3px 3px 20px rgba(0, 0, 0, 0.25);
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --text-shadow-dark: 3px 3px 20px var(--shadow-color);
 
   /* Swiper */
   --swiper-pagination-color: var(--color-highlight-2);

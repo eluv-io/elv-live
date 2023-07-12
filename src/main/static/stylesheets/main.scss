@@ -64,12 +64,13 @@
     font-size: var(--font-size-header-1);
     font-weight: 600;
     letter-spacing: 0.015em;
-    max-width: 550px;
+    max-width: 600px;
     position: relative;
     width: 100%;
 
     &--feature {
       font-size: var(--font-size-feature-header);
+      line-height: 1.3;
     }
 
     &--faded {
@@ -90,6 +91,30 @@
 
     &--shadow {
       text-shadow: var(--text-shadow-dark);
+    }
+  }
+
+  &__button {
+    background: var(--background-light-2);
+    box-shadow: 0 0 10px 0 var(--shadow-color);
+    color: var(--color-text-light-1);
+    font-size: var(--font-size-body-2);
+    font-weight: 500;
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  &__apple-tv-button {
+    display: flex;
+    height: 60px;
+    margin-top: 20px;
+    max-height: 60px;
+    width: max-content;
+
+    img {
+      box-shadow: 0 0 10px 0 var(--shadow-color);
+      height: 100%;
+      width: auto;
     }
   }
 
@@ -417,10 +442,17 @@
   &__text-box {
     background: linear-gradient(180deg, #161616 0%, #202020 100%);
     border-radius: 1rem;
-    display: flex;
     height: 100%;
-    justify-content: center;
     padding: 3rem 30px;
+
+    &--centered {
+      display: flex;
+      justify-content: center;
+    }
+
+    &--translucent {
+      background: linear-gradient(180deg, rgba(#161616, 0.5) 0%, rgba(#202020, 0.75) 100%);
+    }
   }
 
   &__text-box-content {
@@ -715,6 +747,11 @@
   }
 }
 
+.media-wallet-feature-carousel {
+  &__slide {
+    padding: 10px;
+  }
+}
 
 .site-carousel {
   align-items: center;
