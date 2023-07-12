@@ -94,6 +94,11 @@
     }
   }
 
+  &__actions {
+    display: flex;
+    width: 100%;
+  }
+
   &__button {
     background: var(--background-light-2);
     box-shadow: 0 0 10px 0 var(--shadow-color);
@@ -151,6 +156,10 @@
       &--tagline {
         font-size: var(--font-size-body-2);
       }
+    }
+
+    &__actions {
+      justify-content: center;
     }
 
     &__logo-container {
@@ -550,6 +559,10 @@
     &__icon {
       min-height: 26px;
       min-width: 26px;
+    }
+
+    &__text {
+      text-align: center;
     }
 
     &--browse {

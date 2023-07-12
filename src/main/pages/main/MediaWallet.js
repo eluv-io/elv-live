@@ -1,6 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {mainStore} from "../../stores/Main";
+import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -33,7 +33,7 @@ const FeatureBlock1 = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
-          <div className="main-page-header__copy">
+          <div className="main-page-header__actions">
             <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
               <ImageIcon icon={AppleTVButton} label={button_text} />
             </a>
@@ -60,7 +60,7 @@ const FeatureBlock2 = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
-          <div className="main-page-header__copy">
+          <div className="main-page-header__actions">
             <Button to="/wallet#/wallet/users/me" className="main-page-header__button">
               {button_text}
             </Button>
@@ -72,14 +72,14 @@ const FeatureBlock2 = observer(() => {
   );
 });
 
-const FeatureCarousel = observer(() => {
+const FeatureCarousel = observer(({mobile}) => {
   const images = [CarouselImage1, CarouselImage2, CarouselImage3, CarouselImage4];
 
   return (
     <Swiper
       className="media-wallet-feature-carousel"
       spaceBetween={0}
-      slidesPerView={3.5}
+      slidesPerView={mobile ? 1.5 : 3.5}
     >
       {images.map((image, index) =>
         <SwiperSlide key={`image-${index}`} className="media-wallet-feature-carousel__slide">
@@ -111,11 +111,13 @@ const TextBoxesBlock = observer(() => {
 });
 
 
-const MediaWallet = () => {
+const MediaWallet = observer(() => {
+  const mobile = uiStore.pageWidth < 1000;
+
   return (
     <div className="page dark no-padding page--image-background" style={{backgroundImage: `url('${BackgroundImage}')`}}>
       <FeatureBlock1 />
-      <FeatureCarousel />
+      <FeatureCarousel mobile={mobile} />
       <FeatureBlock2 />
       <div className="main-page__blocks">
         <div className="padded-block">
@@ -129,6 +131,6 @@ const MediaWallet = () => {
       </div>
     </div>
   );
-};
+});
 
 export default MediaWallet;
