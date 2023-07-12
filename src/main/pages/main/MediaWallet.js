@@ -10,10 +10,13 @@ import FeatureImage1 from "../../static/images/main/media_wallet/01_device_macku
 import FeatureImage2 from "../../static/images/main/media_wallet/07_device_mackup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
 import AppleTVButton from "../../static/images/main/media_wallet/02_download_on_AppleTV_badge_v2.png";
-import CarouselImage1 from "../../static/images/main/media_wallet/03_media_wallet.png";
-import CarouselImage2 from "../../static/images/main/media_wallet/04_media_wallet_sign_in.png";
-import CarouselImage3 from "../../static/images/main/media_wallet/05_my_items.png";
-import CarouselImage4 from "../../static/images/main/media_wallet/06_my_media.png";
+
+import CarouselImage1 from "../../static/images/main/media_wallet/carousel/01_media_wallet.png";
+import CarouselImage2 from "../../static/images/main/media_wallet/carousel/02_media_wallet_sign_in.png";
+import CarouselImage3 from "../../static/images/main/media_wallet/carousel/03_my_items.png";
+import CarouselImage4 from "../../static/images/main/media_wallet/carousel/04_my_media.png";
+import CarouselImage5 from "../../static/images/main/media_wallet/carousel/05_property_page.png";
+import CarouselImage6 from "../../static/images/main/media_wallet/carousel/06_LOTR _drill_down.png";
 
 
 const FeatureBlock1 = observer(() => {
@@ -73,7 +76,7 @@ const FeatureBlock2 = observer(() => {
 });
 
 const FeatureCarousel = observer(({mobile}) => {
-  const images = [CarouselImage1, CarouselImage2, CarouselImage3, CarouselImage4];
+  const images = [CarouselImage1, CarouselImage2, CarouselImage3, CarouselImage4, CarouselImage5, CarouselImage6];
 
   return (
     <Swiper
