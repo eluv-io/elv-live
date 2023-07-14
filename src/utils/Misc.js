@@ -1,10 +1,3 @@
-import DayJS from "dayjs";
-import DayJSAdvancedFormatting from "dayjs/plugin/advancedFormat";
-import DayJSTimezone from "dayjs/plugin/timezone";
-DayJS.extend(DayJSTimezone);
-DayJS.extend(DayJSAdvancedFormatting);
-
-import moment from "moment-timezone";
 import React, {useEffect, useState} from "react";
 
 export const LocalizeString = (text="", variables={}, options={stringOnly: false}) => {
@@ -56,17 +49,25 @@ export const DateStatus = (start_date, end_date) => {
 export const FormatDateString = (date, dateOnly=false, timeOnly=false, shortDate=false) => {
   if(!date) { return ""; }
 
-  const zoneAbbreviation = moment(date).tz(moment.tz.guess()).format("z");
+  const day = new Date(date).toLocaleDateString(navigator.languages, {year: "numeric", "month": "long", day: "numeric"});
+  const shortDay = new Date(date).toLocaleDateString(navigator.languages, {year: "numeric", "month": "numeric", day: "numeric"});
+  const time = new Date(date).toLocaleTimeString(navigator.languages, {hour: "numeric", minute: "numeric"});
+
+  let zone = "";
+  try {
+    zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  // eslint-disable-next-line no-empty
+  } catch(error) {}
 
   try {
     if(dateOnly) {
-      return DayJS(date).format("MMMM D, YYYY");
+      return day;
     } else if(timeOnly) {
-      return `${DayJS(date).format("h:mm A")} ${zoneAbbreviation}`;
+      return `${time} ${zone}`;
     } else if(shortDate) {
-      return DayJS(date).format("M/D");
+      return shortDay;
     } else {
-      return `${DayJS(date).format("MMMM D, YYYY · h:mm A")} ${zoneAbbreviation}`;
+      return `${day} · ${time} ${zone}`;
     }
   } catch(error) {
     // eslint-disable-next-line no-console
