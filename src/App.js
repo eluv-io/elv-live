@@ -23,6 +23,7 @@ const MAIN_SITE_PATHS = [
   "/features",
   "/about",
   "/creators-and-publishers",
+  "/media-wallet",
   "/privacy",
   "/terms"
 ];

@@ -83,6 +83,9 @@ const MobileNav = observer(({visible, Close}) => {
           <Action useNavLink exact to="/features/details">
             { mainStore.l10n.header.features }
           </Action>
+          <Action useNavLink exact to="/media-wallet">
+            { mainStore.l10n.header.media_wallet }
+          </Action>
         </div>
         <hr className="mobile-nav__menu-section-line" />
 

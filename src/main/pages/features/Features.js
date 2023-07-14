@@ -5,9 +5,8 @@ import ImageIcon from "../../components/ImageIcon";
 import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 
-import {BlockchainIcon, NodeGroupIcon, PlayCircleIcon, Web3Icon} from "../../static/icons/Icons";
+import {NodeGroupIcon, PlayCircleIcon, Web3Icon} from "../../static/icons/Icons";
 import SupportGrid from "./SupportGrid";
-import {CustomerServiceSection} from "./Support";
 
 const ItemCard = (data, dark=false) => {
   const {contentTitle, description, link} = data;

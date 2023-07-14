@@ -101,6 +101,8 @@
   }
 
   @media screen and (max-width: $width-laptop) {
+    padding: 0 25px;
+
     &__nav-link {
       font-size: var(--font-size-body-4);
 
@@ -119,7 +121,6 @@
 
   @media screen and (max-width: $width-tablet) {
     gap: 30px;
-    padding: 0 25px;
 
     &--compact {
       .header__nav-link {
