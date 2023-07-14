@@ -67,6 +67,7 @@
     .eluvio-player,
     .eluvio-player__video {
       background: transparent !important;
+      height: 100%;
 
       img {
         object-fit: cover;
