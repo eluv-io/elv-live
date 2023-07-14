@@ -174,7 +174,7 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
   );
 })));
 
-const HeroBanner = ({link, imageUrl}) => {
+const HeroBanner = ({link, imageUrl, alt}) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -188,14 +188,14 @@ const HeroBanner = ({link, imageUrl}) => {
   if(link) {
     return (
       <a href={link} rel="noopener" target="_blank" className={`event-page__hero-banner ${scrolled ? "event-page__hero-banner--hidden" : ""}`}>
-        <img className="event-page__hero-banner__image" src={imageUrl} alt="Banner" />
+        <img className="event-page__hero-banner__image" src={imageUrl} alt={alt || "Banner"} />
       </a>
     );
   }
 
   return (
     <div className={`event-page__hero-banner ${scrolled ? "event-page__hero-banner--hidden" : ""}`}>
-      <img className="event-page__hero-banner__image" src={imageUrl} alt="Banner" />
+      <img className="event-page__hero-banner__image" src={imageUrl} alt={alt || "Banner"} />
     </div>
   );
 };
@@ -556,36 +556,26 @@ class Event extends React.Component {
     return (
       (
         <div className="event-page__hero-video-container">
-          <div
+          <Player
             className="event-page__hero-video"
-            ref={element => {
-              if(!element || this.state.player) { return; }
-
-              this.setState({
-                player: (
-                  new EluvioPlayer(
-                    element,
-                    {
-                      clientOptions: {
-                        client: this.props.rootStore.client
-                      },
-                      sourceOptions: {
-                        playoutParameters: {
-                          versionHash: mobile && heroVideoMobile ? heroVideoMobile["."].source || heroVideo["."].source : heroVideo["."].source
-                        }
-                      },
-                      playerOptions: {
-                        watermark: EluvioPlayerParameters.watermark.OFF,
-                        muted: EluvioPlayerParameters.muted.ON,
-                        autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
-                        controls: EluvioPlayerParameters.controls.OFF,
-                        loop: EluvioPlayerParameters.loop.ON,
-                        playerCallback: ({videoElement}) => this.setState({video: videoElement})
-                      }
-                    }
-                  )
-                )
-              });
+            key={`event-hero-video-${mobile}`}
+            params={{
+              clientOptions: {
+                client: this.props.rootStore.client
+              },
+              sourceOptions: {
+                playoutParameters: {
+                  versionHash: mobile && heroVideoMobile ? heroVideoMobile["."].source || heroVideo["."].source : heroVideo["."].source
+                }
+              },
+              playerOptions: {
+                watermark: EluvioPlayerParameters.watermark.OFF,
+                muted: EluvioPlayerParameters.muted.ON,
+                autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,
+                controls: EluvioPlayerParameters.controls.OFF,
+                loop: EluvioPlayerParameters.loop.ON,
+                playerCallback: ({videoElement}) => this.setState({video: videoElement})
+              }
             }}
           />
         </div>
@@ -655,15 +645,26 @@ class Event extends React.Component {
 
     return (
       <>
-        { heroBannerKey ? <HeroBanner link={this.props.siteStore.currentSiteInfo?.event_images?.hero_banner_link} imageUrl={this.props.siteStore.SiteImageUrl(heroBannerKey)} /> : null }
+        {
+          heroBannerKey ?
+            <HeroBanner
+              link={this.props.siteStore.currentSiteInfo?.event_images?.hero_banner_link}
+              imageUrl={this.props.siteStore.SiteImageUrl(heroBannerKey)}
+              alt={this.props.siteStore.currentSiteInfo.event_images.hero_banner_alt_text}
+            /> : null
+        }
         <div className="event-page__hero-container">
-          <div className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          <div role="img" alt={this.props.siteStore.currentSiteInfo.event_images.hero_alt_text} className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
           { this.HeroVideo(mobile) }
           <div className="event-page__heading">
             {
               hasHeaderImage ?
                 <div className="event-page__header-logo">
-                  <img className="event-page_header-logo-image" src={this.props.siteStore.SiteImageUrl(headerKey)} alt={this.props.siteStore.eventInfo.event_header} />
+                  <img
+                    className="event-page_header-logo-image"
+                    src={this.props.siteStore.SiteImageUrl(headerKey)}
+                    alt={this.props.siteStore.eventInfo.event_header}
+                  />
                 </div>
                 : null
             }
