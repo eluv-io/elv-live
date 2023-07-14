@@ -22,7 +22,6 @@ const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 //const Chat = MinLoadDelay(import("Stream/components/LiveChat"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
-const Success = MinLoadDelay(import("Confirmation/Success"));
 const Privacy = MinLoadDelay(import("Event/Privacy"));
 const Terms = MinLoadDelay(import("Event/Terms"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
@@ -64,7 +63,6 @@ const SiteApp = inject("rootStore")(
             <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId/event" element={<SitePage Component={Drop} darkHeader hideZendesk hideCheckout hideRedeem />} />
             <Route exact path="/:tenantSlug?/:siteSlug/drop/:dropId" element={<SitePage Component={DropLanding} darkHeader hideCheckout hideRedeem transparent />} />
             { /* <Route exact path="/:tenantSlug?/:siteSlug/chat" element={<SitePage Component=hat} {showHeader={false} hideZendesk})} /> */ }
-            <Route exact path="/:tenantSlug?/:siteSlug/success/:id" element={<SitePage Component={Success} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/offer/:offerId" element={<SitePage Component={Offer} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/code" element={<SitePage Component={CodeAccess} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/coupon-code" element={<SitePage Component={CodeAccess} />} />
