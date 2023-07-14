@@ -29,6 +29,7 @@ import Creators from "./pages/main/Creators";
 import Wallet from "./pages/wallet/Wallet";
 import Privacy from "./pages/terms/Privacy";
 import Terms from "./pages/terms/Terms";
+import MediaWallet from "./pages/main/MediaWallet";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -84,6 +85,8 @@ const MainApp = () => {
           <Route path="/about/news/:slug" element={<PageContainer padded><NewsItem /></PageContainer>} />
           {/* Creators & Publishers Routes */}
           <Route path="/creators-and-publishers" element={<PageContainer unbound dark><Creators /></PageContainer>} />
+          {/* Media Wallet Routes */}
+          <Route path="/media-wallet" element={<PageContainer unbound dark><MediaWallet /></PageContainer>} />
           {/* Content Fabric Routes*/}
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />

@@ -98,13 +98,18 @@ h4 {
   animation: fadein 0.75s ease;
 }
 
+
+.block,
 .padded-block {
   margin: 0 auto;
   max-width: MIN(100vw, $width-max);
   overflow: hidden;
+  width: 100%;
+}
+
+.padded-block {
   padding-left: var(--horizontal-content-padding);
   padding-right: var(--horizontal-content-padding);
-  width: 100%;
 }
 
 .page-container {
@@ -125,6 +130,13 @@ h4 {
     .page__copy {
       color: var(--color-text-light-3);
     }
+  }
+
+  &--image-background {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100px;
   }
 
   &__header-container {

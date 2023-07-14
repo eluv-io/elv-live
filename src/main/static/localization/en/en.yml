@@ -9,6 +9,7 @@ header:
   eluvio_technology: Content Fabric Technology
   eluvio_blockchain: Content Fabric Blockchain
   features: Features
+  media_wallet: Media Wallet
   tenancy_levels: Tenancy Levels
   pricing: Pricing
   support: Support
@@ -134,7 +135,26 @@ creators:
           - Wallets to Publishers and Brands
           - User Controlled, No Middle Parties
 
+# Media Wallet Page
 
+media_wallet:
+  feature_1:
+    tagline: Meet us on Apple TV
+    header: Eluvio Media Wallet
+    subheader: Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric
+    button_text: Apple TV
+    button_subtext: Enjoy On
+    apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
+  feature_2:
+    tagline: Enjoy on any browser
+    header: Leverage the Power of the Eluvio Media Wallet
+    subheader: Watch, gift, manage, trade and enjoy your media from anywhere
+    button_text: Sign Up
+  blurb: The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium Web3 media distributed directly by its creators and publishers.
+  text_boxes:
+    - Access your media assets anytime with high performance 4K streaming, with the assurance of tamper proof content storage, and state-of-the-art blockchain security.
+    - Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric including Web3 movies, live channels, interactive apps, books and more.
+    - A full 'EVM' crypto wallet, sign on to your Eluvio Content Fabric address with your own private keys via Metamask or via email, Google or Apple ID. Manage all of your assets, NFTs and tokens that prove your media ownership and your rewards.
 
 
 # Other pages

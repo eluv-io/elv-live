@@ -91,6 +91,9 @@ const Header = observer(() => {
           >
             { mainStore.l10n.header.features }
           </MenuButton>
+          <Action to="/media-wallet" useNavLink underline className="dark header__nav-link">
+            { mainStore.l10n.header.media_wallet }
+          </Action>
         </nav>
         <nav className="header__nav header__nav--icons desktop">
           <Action icon={DiscoverIcon} to={"/wallet#/"} alt={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
