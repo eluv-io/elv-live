@@ -10,9 +10,11 @@ header:
   eluvio_blockchain: Content Fabric Blockchain
   features: Features
   media_wallet: Media Wallet
+  docs: Docs
   tenancy_levels: Tenancy Levels
   pricing: Pricing
   support: Support
+  twitter: Twitter
   wallet: Wallet
   profile: Profile
   discover_projects: Discover Projects
@@ -21,16 +23,15 @@ header:
 # Main Page
 main:
   heading:
-    header: Own Your Destiny
-    subheader: The Content Blockchain
-    tagline: Unlocking the value of creative IP with direct distribution and individual ownership
-  feature_banner:
-    - Beautiful, fast streaming
-    - Content owners control their assets and profitability
-    - Users control their data
-    - Brands and users engage without middle parties
-    - Royalties scale without limit
-    - Creative IP achieves maximum value
+    header: Unlock the Value of Your Content
+    subheader: The Content Fabric is a programmable streaming, content distribution, and storage network built for the Third Generation Internet
+    tagline: Bringing Publishers, Brands, and Users New Possibilities
+  features_carousel:
+    - High Performance 4K and Interactive Streaming
+    - State-of-the-Art Blockchain Security and Payments
+    - 20X Less Expensive and Carbon Efficient
+    - Radically Simpler Than Traditional CDNs and Cloud
+    - Transparent and Tamper-Free
   video_block:
     subheader: Enabled by
     header: The Content Fabric Technology
@@ -42,7 +43,7 @@ main:
       - Tamper-free On Chain Ownership, Versioning, Access Control
   features_block:
     subheader: Resulting in
-    header: Advanced Full-Feature Platform For All Web3 Media
+    header: Advanced Full-Feature Platform For All Media
     text: |
       All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content with one Fabric protocol.
 
@@ -50,7 +51,31 @@ main:
 
       [See Feature Details](/features/details)
   experiences_block:
-    header: Create, Distribute & Own Stunning Web3 Experiences
+    header: Built for the Creator Economy
+    subheader: Distribute & Monetize Stunning Content Experiences
+    cards:
+      -
+        header: Creators & Content Businesses
+        description:
+          - Deliver your content with beautiful, fast streaming and complete security
+          - Control your assets and maximize profitability
+          - Engage directly with your users and sponsors
+        link: /creators-and-publishers
+      -
+        header: Developers and Node Providers
+        description:
+          - Earn utility fees for contributing Fabric nodes
+          - Develop any media application with personalization and interactivity
+          - Unlock the creative potential of your project
+        link: /content-fabric
+      -
+        header: Consumers & Users
+        description:
+          - Leverage the power of your Media Wallet
+          - All of your assets stored and streamed from the Content Fabric
+          - Sign on with your own private keys or secure email and control your data
+          - Enjoy on any connected TV or browser
+        link: /media-wallet
     creators: Creators & Content Businesses
     developers: Developers & Node Providers
   projects_block:

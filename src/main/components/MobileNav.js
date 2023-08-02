@@ -57,13 +57,13 @@ const MobileNav = observer(({visible, Close}) => {
       <Action icon={XIcon} className="dark mobile-nav__close-button mobile" onClick={Close} />
       <div className="mobile-nav__menu-content">
         <div className="mobile-nav__menu-header mobile-nav__menu-section">
-          <Action className="mobile-nav__menu-header-item" icon={DiscoverIcon} alt="Projects" onClick={Close} to="/wallet#/">
+          <Action className="mobile-nav__menu-header-item" icon={DiscoverIcon} label="Projects" onClick={Close} to="/wallet#/">
             { mainStore.l10n.header.projects}
           </Action>
-          <Action className="mobile-nav__menu-header-item" icon={ProfileIcon} alt="Profile" onClick={Close} to="/wallet#/wallet/users/me">
+          <Action className="mobile-nav__menu-header-item" icon={ProfileIcon} label="Profile" onClick={Close} to="/wallet#/wallet/users/me">
             { mainStore.l10n.header.profile}
           </Action>
-          <Action className="mobile-nav__menu-header-item" icon={WalletIcon} alt="Wallet" onClick={Close} to="/wallet#/wallet/profile">
+          <Action className="mobile-nav__menu-header-item" icon={WalletIcon} label="Wallet" onClick={Close} to="/wallet#/wallet/profile">
             { mainStore.l10n.header.wallet}
           </Action>
         </div>
@@ -85,6 +85,9 @@ const MobileNav = observer(({visible, Close}) => {
           </Action>
           <Action useNavLink exact to="/media-wallet">
             { mainStore.l10n.header.media_wallet }
+          </Action>
+          <Action useNavLink exact to="https://hub.doc.eluv.io">
+            { mainStore.l10n.header.docs }
           </Action>
         </div>
         <hr className="mobile-nav__menu-section-line" />
@@ -109,10 +112,10 @@ const MobileNav = observer(({visible, Close}) => {
             { mainStore.l10n.header.contact }
           </Action>
           <div className="mobile-nav__menu-social-links">
-            <Action useNavLink className="dark" exact to="https://www.instagram.com/eluvioinc" icon={SocialIcons.InstagramIcon} alt="Instagram" />
-            <Action useNavLink className="dark" exact to="https://twitter.com/eluvioinc" icon={SocialIcons.TwitterIcon} alt="Twitter" />
-            <Action useNavLink className="dark" exact to="https://www.facebook.com/EluvioInc" icon={SocialIcons.FacebookIcon} alt="Facebook" />
-            <Action useNavLink className="dark" exact to="https://www.linkedin.com/company/eluv-io" icon={SocialIcons.LinkedInIcon} alt="LinkedIn" />
+            <Action useNavLink className="dark" exact to="https://www.instagram.com/eluvioinc" icon={SocialIcons.InstagramIcon} label="Instagram" />
+            <Action useNavLink className="dark" exact to="https://twitter.com/eluvioinc" icon={SocialIcons.TwitterIcon} label="Twitter" />
+            <Action useNavLink className="dark" exact to="https://www.facebook.com/EluvioInc" icon={SocialIcons.FacebookIcon} label="Facebook" />
+            <Action useNavLink className="dark" exact to="https://www.linkedin.com/company/eluv-io" icon={SocialIcons.LinkedInIcon} label="LinkedIn" />
           </div>
         </div>
       </div>

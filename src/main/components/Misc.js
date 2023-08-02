@@ -217,7 +217,7 @@ export const TabbedInfoBox = ({tabs, dark=false, noBackgroundStyling=false, clas
 };
 
 
-export const Carousel = ({children, slidesPerView="auto", className=""}) => {
+export const Carousel = ({children, slidesPerView="auto", pagination=true, lazy=true, className=""}) => {
   if(!Array.isArray(children)) {
     children = children.props.children;
   }
@@ -227,14 +227,14 @@ export const Carousel = ({children, slidesPerView="auto", className=""}) => {
       <Swiper
         className="carousel__swiper"
         slidesPerView={slidesPerView}
-        lazy={{
-          enabled: true,
-          loadPrevNext: true,
-          loadOnTransitionStart: true
-        }}
-        pagination={{
-          clickable: true
-        }}
+        lazy={!lazy ? undefined :
+          {
+            enabled: true,
+            loadPrevNext: true,
+            loadOnTransitionStart: true
+          }
+        }
+        pagination={pagination ? { clickable: true } : undefined}
         updateOnWindowResize
       >
         { children.map((element, index) =>

@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {DiscoverIcon, MenuIcon, ProfileIcon, WalletIcon, XIcon} from "../static/icons/Icons";
+import {DiscoverIcon, MenuIcon, ProfileIcon, SocialIcons, WalletIcon, XIcon} from "../static/icons/Icons";
 
 
 const NotificationBanner = observer(({className=""}) => {
@@ -94,11 +94,15 @@ const Header = observer(() => {
           <Action to="/media-wallet" useNavLink underline className="dark header__nav-link">
             { mainStore.l10n.header.media_wallet }
           </Action>
+          <Action to="https://hub.doc.eluv.io" underline className="dark header__nav-link">
+            { mainStore.l10n.header.docs }
+          </Action>
         </nav>
         <nav className="header__nav header__nav--icons desktop">
-          <Action icon={DiscoverIcon} to={"/wallet#/"} alt={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
-          <Action icon={ProfileIcon} to={"/wallet#/wallet/users/me"} alt={mainStore.l10n.header.profile} className="dark header__nav-link" />
-          <Action icon={WalletIcon} to={"/wallet#/wallet/profile"} alt={mainStore.l10n.header.wallet} className="dark header__nav-link" />
+          <Action icon={SocialIcons.TwitterIcon} to="https://twitter.com/eluvioinc" label={mainStore.l10n.header.twitter} className="dark header__nav-link" />
+          <Action icon={DiscoverIcon} to={"/wallet#/"} label={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
+          <Action icon={ProfileIcon} to={"/wallet#/wallet/users/me"} label={mainStore.l10n.header.profile} className="dark header__nav-link" />
+          <Action icon={WalletIcon} to={"/wallet#/wallet/profile"} label={mainStore.l10n.header.wallet} className="dark header__nav-link" />
         </nav>
 
         { /* Mobile */ }
