@@ -11,8 +11,8 @@ $width-mobile: 600px;
 
   --font-family-alternate-1: 'Montserrat', sans-serif;
 
-  --font-size-feature-header: 50px;
-  --font-size-feature-subheader: 30px;
+  --font-size-feature-header: 60px;
+  --font-size-feature-subheader: 28px;
 
   --font-size-header-1: 40px;
   --font-size-header-2: 40px;
@@ -33,6 +33,7 @@ $width-mobile: 600px;
   --color-highlight-1: #c07cff;
   --color-highlight-2: #9b51e0;
   --color-highlight-3: #791cd0;
+  --color-highlight-4: #bb6bd9;
 
   --color-icon-light-1: #56ccf2;
   --color-icon-light-2: #2d9cdb;
@@ -45,7 +46,7 @@ $width-mobile: 600px;
   --color-text-light-3: #465465;
   --color-text-light-4: #434343;
   --color-text-light-5: #aaadb3;
-  --color-text-light-6: #aaa9a9;
+  --color-text-light-6: #a9a9a9;
   --color-text-light-7: #36c;
   --color-text-light-8: #505050;
   --color-text-light-highlight: var(--color-highlight-2);
@@ -63,6 +64,7 @@ $width-mobile: 600px;
   --background-dark-4: #fff;
   --background-dark-5: #262240;
   --background-dark-6: #000;
+  --background-dark-7: #1c1d22;
 
   --background-light-1: #f7f9fc;
   --background-light-2: #fff;
@@ -73,7 +75,6 @@ $width-mobile: 600px;
 
   --background-gradient-footer-light: linear-gradient(180deg, rgba(155, 81, 224, 0) 0%, rgba(155, 81, 224, 0.1) 100%);
   --background-gradient-footer-dark: linear-gradient(180deg, rgba(41, 17, 64, 0) 0%, rgba(41, 17, 64, 0.5) 100%);
-  --background-gradient-features-banner: linear-gradient(180deg, #471671 0%, #371870 100%);
 
   --shadow-color: rgba(0, 0, 0, 0.25);
   --text-shadow-dark: 3px 3px 20px var(--shadow-color);
@@ -87,7 +88,7 @@ $width-mobile: 600px;
     --header-height: 50px;
 
     //--font-size-feature-header: var(--font-size-header-1);
-    --font-size-feature-header: 38px;
+    --font-size-feature-header: 44px;
     --font-size-feature-subheader: var(--font-size-header-4);
 
     --font-size-header-1: 36px;

@@ -3,43 +3,55 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {RichText, Video} from "../../components/Misc";
+import {Carousel, RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
-import EluvioLogo from "../../static/images/logos/eluvio-logo-with-taglines.png";
-import FeaturesImage from "../../static/images/main/Homepage-MS-PS-WB.png";
+import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v3.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
+import ExperiencesImage3 from "../../static/images/main/Consumers and Users.jpg";
+
+const experienceImages = [
+  ExperiencesImage1,
+  ExperiencesImage2,
+  ExperiencesImage3
+];
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
+
+const FeaturesCarousel = observer(() => {
+  return (
+    <Carousel pagination={false} lazy={false} className="main-page-header__features-carousel">
+      {
+        mainStore.l10n.main.features_carousel.map((content, index) =>
+          <div className="main-page-header__features-carousel__card" key={`card-${index}`}>
+            { content }
+          </div>
+        )
+      }
+    </Carousel>
+  );
+});
 
 const HeaderBlock = observer(() => {
   return (
     <MainHeader>
-      <h1 className="main-page-header__logo-container">
-        <ImageIcon icon={EluvioLogo} label="Eluvio" className="main-page-header__logo" />
-      </h1>
-      <div className="main-page-header__copy-container">
-        <h2 className="main-page-header__copy">
-          { mainStore.l10n.main.heading.tagline }
-        </h2>
+      <div className="main-page-header__main-header">
+        <div className="main-page-header__main-header__headers">
+          <h1 className="main-page-header__main-header__header">
+            { mainStore.l10n.main.heading.header }
+          </h1>
+          <h3 className="main-page-header__main-header__subheader">
+            { mainStore.l10n.main.heading.subheader }
+          </h3>
+        </div>
+        <div className="main-page-header__tagline">
+          <h3 className="main-page-header__main-header__tagline">{ mainStore.l10n.main.heading.tagline }</h3>
+        </div>
+        <FeaturesCarousel />
       </div>
     </MainHeader>
-  );
-});
-
-const FeatureBanner = observer(() => {
-  return (
-    <div className="main-page-feature-banner">
-      <div className="main-page-feature-banner__items">
-        {mainStore.l10n.main.feature_banner.map(feature =>
-          <div key={feature} className="main-page-feature-banner__item">
-            {feature}
-          </div>
-        )}
-      </div>
-    </div>
   );
 });
 
@@ -80,6 +92,7 @@ const VideoBlock = observer(({mobile}) => {
               <p>{feature}</p>
             </div>
           ))}
+          <Action to="/content-fabric">{ mainStore.l10n.actions.learn_more }</Action>
         </div>
       </div>
     </div>
@@ -127,23 +140,32 @@ const FeaturesBlock = observer(({mobile}) => {
 const ExperiencesBlock = observer(({mobile}) => {
   return (
     <div className="main-page-block main-page-block--experiences">
-      <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`}>
-        { mainStore.l10n.main.experiences_block.header }
-      </h3>
+      <div>
+        <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`} style={{marginBottom: "10px"}}>
+          { mainStore.l10n.main.experiences_block.header }
+        </h3>
+        <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`}>
+          { mainStore.l10n.main.experiences_block.subheader }
+        </h3>
+      </div>
       <div className="main-page-block__separator" />
-      <div className="main-page-block__experience-images">
-        <Action to="/creators-and-publishers" className="main-page-block__experience-image">
-          <ImageIcon icon={ExperiencesImage1} className="main-page-block__experience-image__image" />
-          <h4 className="main-page-block__experience-image__text">
-            { mainStore.l10n.main.experiences_block.creators }
-          </h4>
-        </Action>
-        <Action to="/content-fabric" className="main-page-block__experience-image">
-          <ImageIcon icon={ExperiencesImage2} className="main-page-block__experience-image__image" />
-          <h4 className="main-page-block__experience-image__text">
-            { mainStore.l10n.main.experiences_block.developers }
-          </h4>
-        </Action>
+      <div className="main-page-block__experience-cards">
+        {
+          mainStore.l10n.main.experiences_block.cards.map(({header, description, link}, index) =>
+            <Action to={link} className="main-page-block__experience-card" key={`experience-card-${index}`}>
+              <ImageIcon icon={experienceImages[index]} className="main-page-block__experience-card__image" />
+              <h4 className="main-page-block__experience-card__header">
+                { header }
+              </h4>
+              <div className="main-page-block__experience-card__description">
+                { description.map(text => <div key={text}>{text}</div>) }
+              </div>
+              <div className="main-page-block__experience-card__actions">
+                <Button includeArrow className="dark secondary main-page-block__experience-card__action">{ mainStore.l10n.actions.read_more }</Button>
+              </div>
+            </Action>
+          )
+        }
       </div>
     </div>
   );
@@ -230,7 +252,6 @@ const MainPageDesktop = () => {
   return (
     <div className="page dark no-padding">
       <HeaderBlock />
-      <FeatureBanner />
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock />
