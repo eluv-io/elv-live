@@ -94,7 +94,7 @@ const Header = observer(() => {
           <Action to="/media-wallet" useNavLink underline className="dark header__nav-link">
             { mainStore.l10n.header.media_wallet }
           </Action>
-          <Action to="https://hub.doc.eluv.io" underline className="dark header__nav-link">
+          <Action to="https://hub.doc.eluv.io" useNavLink underline className="dark header__nav-link">
             { mainStore.l10n.header.docs }
           </Action>
         </nav>

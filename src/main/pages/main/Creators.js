@@ -9,7 +9,7 @@ import KeyFeatures from "./KeyFeatures";
 import FAQs from "../features/FAQs";
 import Marketplaces from "./Marketplaces";
 
-import HeaderImage from "../../static/images/main/2_built-for-new-creator-economy-(no-gradient).png";
+import HeaderImage from "../../static/images/main/built_for_new_creator_economy(no_gradient)_v2.png";
 import {
   MoneyIcon,
   TrendingUpIcon,
