@@ -441,6 +441,7 @@
     flex-direction: column;
     height: 100%;
     min-width: 300px;
+    overflow: hidden;
     width: auto;
 
     &__header,
@@ -461,7 +462,7 @@
     &__description {
       color: var(--color-text-dark-3);
       display: grid;
-      font-size: var(--font-size-body-4);
+      font-size: var(--font-size-body-3);
       font-weight: 300;
       gap: 10px;
       height: 100%;
@@ -472,6 +473,11 @@
       padding-bottom: 20px;
       padding-top: 30px;
       width: 100%;
+    }
+
+    &__action {
+      color: var(--color-highlight-1);
+      font-size: var(--font-size-body-2);
     }
 
     &__image {
