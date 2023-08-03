@@ -161,7 +161,7 @@ const ExperiencesBlock = observer(({mobile}) => {
                 { description.map(text => <div key={text}>{text}</div>) }
               </div>
               <div className="main-page-block__experience-card__actions">
-                <Button includeArrow className="dark secondary main-page-block__experience-card__action">{ mainStore.l10n.actions.read_more }</Button>
+                <Action className="main-page-block__experience-card__action">{ mainStore.l10n.actions.learn_more }</Action>
               </div>
             </Action>
           )
