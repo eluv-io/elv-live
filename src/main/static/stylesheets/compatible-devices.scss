@@ -108,7 +108,36 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    display: block;
+    height: 395px;
     margin-bottom: 1rem;
     width: 100%;
+
+    &--hidden {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $width-tablet) {
+  .compatible-devices__item {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: $width-mobile) {
+  .compatible-devices {
+    &__item {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &__autocomplete-result-item {
+      font-size: var(--font-size-body-3);
+    }
+
+    &__graphic {
+      height: 200px;
+    }
   }
 }

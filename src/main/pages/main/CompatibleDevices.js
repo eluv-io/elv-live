@@ -135,7 +135,7 @@ const AutocompleteSearch = ({
 
 const FullWidthElements = ({showImage=true}) => {
   return (
-    <div className="compatible-devices__graphic" style={{backgroundImage: showImage ? `url(${DevicesGraphic})` : "", height: showImage ? "395px" : "0"}} />
+    <div className={`compatible-devices__graphic ${showImage ? "" : "compatible-devices__graphic--hidden"}`} style={{backgroundImage: showImage ? `url(${DevicesGraphic})` : ""}} />
   );
 };
 

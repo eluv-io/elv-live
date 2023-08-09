@@ -21,7 +21,7 @@ import CarouselImage5 from "../../static/images/main/media_wallet/carousel/05_pr
 import CarouselImage6 from "../../static/images/main/media_wallet/carousel/06_LOTR _drill_down.png";
 
 
-const FeatureBlock1 = observer(() => {
+const FeatureBlock1 = observer(({mobile}) => {
   const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, youtube_intro_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
 
   return (
@@ -38,10 +38,18 @@ const FeatureBlock1 = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
-          <a className="main-page-header__get-started-link" href={youtube_intro_url} target="_blank">
-            <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
-            {subheader_2}
-          </a>
+          <div className="main-page-header__info-links">
+            <a className="main-page-header__get-started-link" href={youtube_intro_url} target="_blank">
+              <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
+              {subheader_2}
+            </a>
+            {
+              mobile &&
+              <Button href="compatible-devices" className="main-page-header__device-list-mobile" icon={FullDeviceListIcon} to="compatible-devices">
+                {feature_image_subheader}
+              </Button>
+            }
+          </div>
           <div className="main-page-header__actions">
             <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
               <ImageIcon icon={AppleTVButton} label={apple_button_text} />
@@ -55,11 +63,14 @@ const FeatureBlock1 = observer(() => {
           </div>
         </div>
       </div>
-      <div className="main-page-header__device-list">
-        <Button icon={FullDeviceListIcon} to="compatible-devices">
-          {feature_image_subheader}
-        </Button>
-      </div>
+      {
+        !mobile &&
+        <div className="main-page-header__device-list">
+          <Button icon={FullDeviceListIcon} to="compatible-devices">
+            {feature_image_subheader}
+          </Button>
+        </div>
+      }
     </div>
   );
 });
@@ -136,7 +147,7 @@ const MediaWallet = observer(() => {
 
   return (
     <div className="page dark no-padding page--image-background" style={{backgroundImage: `url('${BackgroundImage}')`}}>
-      <FeatureBlock1 />
+      <FeatureBlock1 mobile={mobile} />
       <FeatureCarousel mobile={mobile} />
       <FeatureBlock2 />
       <div className="main-page__blocks">

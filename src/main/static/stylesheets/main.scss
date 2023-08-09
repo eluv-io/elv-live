@@ -177,6 +177,12 @@
     z-index: 1;
   }
 
+  &__info-links {
+    align-items: flex-start;
+    display: flex;
+    width: 100%;
+  }
+
   &__get-started-link {
     align-items: center;
     display: flex;
@@ -198,10 +204,11 @@
     width: 50%;
     z-index: 3;
 
-    .action__icon {
-      height: 20px;
-      width: 20px;
-    }
+  }
+
+  .action__icon {
+    height: 20px;
+    width: 20px;
   }
 
   @media screen and (max-width: $width-laptop) {
@@ -251,6 +258,22 @@
     &__actions {
       justify-content: center;
     }
+
+    &__info-links {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      a {
+        justify-content: center;
+      }
+    }
+
+    &__device-list-mobile {
+      font-size: 18px;
+      font-weight: 400;
+      padding: 0;
+    }
   }
 
   @media screen and (max-width: $width-mobile) {
@@ -270,6 +293,13 @@
         min-width: unset;
         text-align: center;
       }
+    }
+
+    &__apple-tv-button,
+    &__google-play-button,
+    &__amazon-appstore-button {
+      height: 40px;
+      width: auto;
     }
   }
 }
