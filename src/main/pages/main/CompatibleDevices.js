@@ -18,21 +18,18 @@ const AutocompleteResults = ({
 }) => {
   if(!searchTerm) { return null; }
 
-  const ResultsHeader = () => {
-    if(!results.length) {
-      return "Sorry, this platform isn't supported yet.";
-    } else if(hasMatch) {
-      return `${results[0]} is supported.`;
-    }
-  };
-
   return (
     <div className="compatible-devices__autocomplete-results">
       {
         (!results.length || hasMatch) ?
           <div className="compatible-devices__autocomplete-results">
             <h3 className="compatible-devices__autocomplete-results-header">
-              {ResultsHeader()}
+              {
+                !results.length ?
+                  "Sorry, this platform isn't supported yet."
+                  : hasMatch ?
+                    `${results[0]} is supported.` : null
+              }
             </h3>
             <div className="compatible-devices__autocomplete-results-subheader">
               <span>Download our <a href={DeviceCSV} className="compatible-devices__link">Full Device Matrix</a> for more information.</span>
