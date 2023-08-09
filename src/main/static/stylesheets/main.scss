@@ -135,7 +135,9 @@
   }
 
   &__actions {
+    align-items: center;
     display: flex;
+    gap: 13px;
     width: 100%;
   }
 
@@ -149,7 +151,9 @@
     text-align: left;
   }
 
-  &__apple-tv-button {
+  &__apple-tv-button,
+  &__google-play-button,
+  &__amazon-appstore-button {
     display: flex;
     height: 60px;
     margin-top: 20px;
@@ -171,6 +175,33 @@
     position: absolute;
     width: 100%;
     z-index: 1;
+  }
+
+  &__get-started-link {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__get-started-icon {
+    height: 15px;
+    width: 18px;
+  }
+
+  &__device-list {
+    bottom: 40px;
+    display: flex;
+    justify-content: center;
+    padding-left: 150px;
+    position: absolute;
+    width: 50%;
+    z-index: 3;
+
+    .action__icon {
+      height: 20px;
+      width: 20px;
+    }
   }
 
   @media screen and (max-width: $width-laptop) {

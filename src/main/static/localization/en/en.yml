@@ -164,12 +164,19 @@ creators:
 
 media_wallet:
   feature_1:
-    tagline: Meet us on Apple TV
+    tagline: Meet us on your TV
     header: Eluvio Media Wallet
     subheader: Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric
-    button_text: Apple TV
+    subheader_2: Getting Started Video
+    apple_button_text: Apple TV
+    google_button_text: Google Play
+    amazon_button_text: Amazon Appstore
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
+    youtube_intro_url: "https://www.youtube.com/watch?v=ez4JSd6as48"
+    google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
+    amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
+    feature_image_subheader: See full list of devices
   feature_2:
     tagline: Enjoy on any browser
     header: Leverage the Power of the Eluvio Media Wallet
@@ -181,6 +188,26 @@ media_wallet:
     - Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric including Web3 movies, live channels, interactive apps, books and more.
     - A full 'EVM' crypto wallet, sign on to your Eluvio Content Fabric address with your own private keys via Metamask or via email, Google or Apple ID. Manage all of your assets, NFTs and tokens that prove your media ownership and your rewards.
 
+# Compatible Devices
+
+compatible_devices:
+  heading:
+    header: Which Connected TVs Work With Eluvio Wallet?
+    subheader: Full List of Compatible Devices
+  devices:
+    -
+      title: Apple TV
+      description: Apple TV 4K or Apple TV HD with tvOS 14 or later
+    -
+      title: Android TV
+      description: Android TV devices with Android TV OS 5.1 or later. This includes Smart TVs with Android TV built-in (e.g. most Sony Android TVs, 2015 models and later), Chromecast with Google TV, and the DIRECTV STREAM box.
+    -
+      title: Amazon Fire TV
+      description: Amazon Fire TV devices with Fire OS 5 or laterThis includes the Amazon Fire TV Stick, Echo Show 15, and Smart TVs with Fire TV built in.
+  more_info:
+    title: Don’t see your device above?
+    description: Eluvio Media Wallet for Connected TV is supported on over 1,600 devices. Search for your the name of your device  below.
+    link_text: Download Full Device Matrix
 
 # Other pages
 
