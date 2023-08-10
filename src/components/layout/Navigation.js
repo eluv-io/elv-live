@@ -10,7 +10,7 @@ import UrlJoin from "url-join";
 
 import DefaultLogo from "Images/logo/fixed-eluvio-live-logo-light.svg";
 
-import MarketplacesIcon from "Icons/projects.svg";
+import DiscoverIcon from "Icons/discover.svg";
 import WalletIcon from "Icons/Wallet Icon.svg";
 import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
@@ -190,7 +190,7 @@ class Header extends React.Component {
           className={`header__link header__link--no-mobile ${walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
         >
           <div className="header__link__icon header__link__icon-marketplace">
-            <ImageIcon icon={MarketplacesIcon} title="Marketplaces" className="header__link__image"/>
+            <ImageIcon icon={DiscoverIcon} title="Marketplaces" className="header__link__image"/>
           </div>
           { l10n.header.discover_projects }
         </button>
@@ -198,9 +198,9 @@ class Header extends React.Component {
     }
 
 
-    if(!this.props.rootStore.frameClient || !this.props.rootStore.walletLoaded) {
-      return null;
-    }
+    // if(!this.props.rootStore.frameClient || !this.props.rootStore.walletLoaded) {
+    //   return null;
+    // }
 
     return (
       <>
