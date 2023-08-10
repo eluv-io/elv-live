@@ -173,7 +173,7 @@ media_wallet:
     amazon_button_text: Amazon Appstore
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
-    youtube_intro_url: "https://www.youtube.com/watch?v=ez4JSd6as48"
+    getting_started_url: "https://embed.v3.contentfabric.io/?net=main&p&ct=h&vid=hq__BW2PAGF8xwuk13FFkKSsBReqDQMJnQGNG5PXDp8GY9RQZinXVF4j25hk1Z5SHoJJLXyRtdFNLX&mt=v&ap"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
     feature_image_subheader: See full list of devices
@@ -200,10 +200,10 @@ compatible_devices:
       description: Apple TV 4K or Apple TV HD with tvOS 14 or later
     -
       title: Android TV
-      description: Android TV devices with Android TV OS 5.1 or later. This includes Smart TVs with Android TV built-in (e.g. most Sony Android TVs, 2015 models and later), Chromecast with Google TV, and the DIRECTV STREAM box.
+      description: Android TV devices with Android TV 6.0 or later. This includes Smart TVs with Android TV built-in (e.g. most Sony Android TVs, 2015 models and later), Chromecast with Google TV, and the DIRECTV STREAM box.
     -
       title: Amazon Fire TV
-      description: Amazon Fire TV devices with Fire OS 5 or laterThis includes the Amazon Fire TV Stick, Echo Show 15, and Smart TVs with Fire TV built in.
+      description: Amazon Fire TV devices with Fire OS 6 or laterThis includes the Amazon Fire TV Stick, Echo Show 15, and Smart TVs with Fire TV built in.
   more_info:
     title: Don’t see your device above?
     description: Eluvio Media Wallet for Connected TV is supported on over 1,600 devices. Search for your the name of your device  below.
