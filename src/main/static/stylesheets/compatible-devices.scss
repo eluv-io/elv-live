@@ -44,12 +44,12 @@
   }
 
   &__autocomplete-icon {
-    height: 2rem;
+    height: 3.125rem;
     left: 0;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 2rem;
+    width: 3.125rem;
     z-index: 2;
   }
 
@@ -58,9 +58,9 @@
     border: 1px solid transparent;
     border-bottom: 1px solid var(--color-text-dark-highlight);
     color: var(--color-text-light-1);
-    font-size: var(--font-size-body-3);
-    height: 3rem;
-    padding-left: 2.5rem;
+    font-size: 1.5rem;
+    height: 4rem;
+    padding-left: 4rem;
     transition: box-shadow 0.15s ease;
     width: 100%;
 
@@ -77,7 +77,8 @@
   &__autocomplete-result-item {
     cursor: pointer;
 
-    &--selected {
+    &--selected,
+    &:hover {
       font-weight: 700;
     }
   }
@@ -120,8 +121,21 @@
 }
 
 @media screen and (max-width: $width-tablet) {
-  .compatible-devices__item {
-    gap: 1rem;
+  .compatible-devices {
+    &__item {
+      gap: 1rem;
+    }
+
+    &__autocomplete-input {
+      font-size: 1rem;
+      height: 3rem;
+      padding-left: 2.5rem;
+    }
+
+    &__autocomplete-icon {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 }
 

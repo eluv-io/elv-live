@@ -27,7 +27,14 @@ const FeatureBlock1 = observer(({mobile}) => {
   return (
     <div className="main-page-header">
       <div className="main-page-header__content">
-        <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__image"/>
+        <div className="main-page-header__image-container">
+          <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__top-image"/>
+          <div className="main-page-header__device-list">
+            <Button icon={FullDeviceListIcon} to="compatible-devices">
+              {feature_image_subheader}
+            </Button>
+          </div>
+        </div>
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
             {tagline}
@@ -43,12 +50,6 @@ const FeatureBlock1 = observer(({mobile}) => {
               <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
               {subheader_2}
             </a>
-            {
-              mobile &&
-              <Button href="compatible-devices" className="main-page-header__device-list-mobile" icon={FullDeviceListIcon} to="compatible-devices">
-                {feature_image_subheader}
-              </Button>
-            }
           </div>
           <div className="main-page-header__actions">
             <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
@@ -63,14 +64,6 @@ const FeatureBlock1 = observer(({mobile}) => {
           </div>
         </div>
       </div>
-      {
-        !mobile &&
-        <div className="main-page-header__device-list">
-          <Button icon={FullDeviceListIcon} to="compatible-devices">
-            {feature_image_subheader}
-          </Button>
-        </div>
-      }
     </div>
   );
 });
