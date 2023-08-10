@@ -2,7 +2,9 @@ import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import Papa from "papaparse";
 import {mainStore} from "../../stores/Main";
-import DeviceCSV from "../../static/documents/devices.csv";
+import AndroidDeviceCSV from "../../static/documents/Device Matrix - Android.csv";
+import FireDeviceCSV from "../../static/documents/Device Matrix - FireTV.csv";
+import AppleDeviceCSV from "../../static/documents/Device Matrix - tvOS.csv";
 import {SearchIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
 import DevicesGraphic from "../../static/images/main/media_wallet/devices-graphic.png";
@@ -32,7 +34,14 @@ const AutocompleteResults = ({
               }
             </h3>
             <div className="compatible-devices__autocomplete-results-subheader">
-              <span>Download our <a href={DeviceCSV} className="compatible-devices__link">Full Device Matrix</a> for more information.</span>
+              <span>Download our <span className="compatible-devices__download-text">Full Device Matrix</span> for more information.</span>
+              <div className="compatible-devices__item-links">
+                <a href={AppleDeviceCSV}>Apple TV</a>
+                <span className="compatible-devices__item-links-separator">|</span>
+                <a href={AndroidDeviceCSV}>Android TV</a>
+                <span className="compatible-devices__item-links-separator">|</span>
+                <a href={FireDeviceCSV}>Amazon Fire TV</a>
+              </div>
             </div>
           </div> :
           <ul>
@@ -145,14 +154,24 @@ const CompatibleDevices = observer(() => {
   const {heading, devices, more_info} = mainStore.l10n.compatible_devices;
 
   useEffect(() => {
+    const rows = ["Apple TV HD", "Apple TV 4K", "Apple TV 4K (2nd generation)"];
+
     const getData = async() => {
-      const response = await fetch(DeviceCSV);
-      const reader = response.body.getReader();
-      const result = await reader.read();
-      const decoder = new TextDecoder("utf-8");
-      const csv = decoder.decode(result.value);
-      const results = Papa.parse(csv, { header: true });
-      const rows = results.data.map(row => `${row["Brand"]} ${row["Device"]}`);
+      const androidResponse = await fetch(AndroidDeviceCSV);
+      const fireResponse = await fetch(FireDeviceCSV);
+
+      for(const response of [androidResponse, fireResponse]) {
+        const reader = response.body.getReader();
+        const result = await reader.read();
+        const decoder = new TextDecoder("utf-8");
+        const csv = decoder.decode(result.value);
+        const results = Papa.parse(csv, { header: true });
+        results.data.forEach(row => {
+          rows.push(`${row["Brand"]} ${row["Device"] || ""}`);
+        });
+      }
+
+      rows.sort();
       setDeviceList(rows);
     };
 
@@ -179,7 +198,14 @@ const CompatibleDevices = observer(() => {
             <h3 className="compatible-devices__item-title">{more_info.title}</h3>
             <div className="compatible-devices__item-description">
               {more_info.description}
-              <a href={DeviceCSV} className="compatible-devices__item-description-link">{more_info.link_text}</a>
+              <div className="compatible-devices__item-description-download-text">{more_info.download_text}</div>
+              <div className="compatible-devices__item-links">
+                <a href={AppleDeviceCSV}>Apple TV</a>
+                <span className="compatible-devices__item-links-separator">|</span>
+                <a href={AndroidDeviceCSV}>Android TV</a>
+                <span className="compatible-devices__item-links-separator">|</span>
+                <a href={FireDeviceCSV}>Amazon Fire TV</a>
+              </div>
             </div>
           </div>
           <AutocompleteSearch setShowImage={setShowImage} deviceList={deviceList} />

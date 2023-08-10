@@ -30,10 +30,32 @@
     }
   }
 
-  &__item-description-link {
-    color: var(--color-highlight-3);
+  &__download-text,
+  &__item-description-download-text {
+    color: var(--color-text-light-5);
+  }
+
+  &__item-description-download-text {
     display: block;
     font-weight: 500;
+    margin-top: 1.5rem;
+  }
+
+  &__item-links {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+
+    a {
+      color: var(--color-highlight-3);
+      font-weight: 600;
+    }
+  }
+
+  &__item-links-separator {
+    color: var(--color-text-light-5);
+    font-weight: 600;
+    padding: 0 12px;
   }
 
   &__autocomplete-search {
@@ -97,6 +119,7 @@
 
   &__autocomplete-results-subheader {
     border-bottom: 1px solid var(--color-text-light-1);
+    line-height: 2;
     padding-bottom: 1rem;
     padding-left: 1.25rem;
     position: relative;
@@ -109,7 +132,7 @@
   }
 
   &__graphic {
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
     display: block;

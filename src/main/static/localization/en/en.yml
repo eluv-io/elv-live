@@ -197,7 +197,7 @@ compatible_devices:
   devices:
     -
       title: Apple TV
-      description: Apple TV 4K or Apple TV HD with tvOS 14 or later
+      description: Apple TV 4K or Apple TV HD with tvOS 16 or later
     -
       title: Android TV
       description: Android TV devices with Android TV 6.0 or later. This includes Smart TVs with Android TV built-in (e.g. most Sony Android TVs, 2015 models and later) and Chromecast with Google TV.
@@ -207,7 +207,7 @@ compatible_devices:
   more_info:
     title: Don’t see your device above?
     description: Eluvio Media Wallet for Connected TV is supported on over 1,600 devices. Search for the name of your device below.
-    link_text: Download Full Device Matrix
+    download_text: Download Full Device Matrix
 
 # Other pages
 
