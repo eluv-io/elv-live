@@ -173,7 +173,7 @@ media_wallet:
     amazon_button_text: Amazon Appstore
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
-    getting_started_url: "https://embed.v3.contentfabric.io/?net=main&p&ct=h&vid=hq__BW2PAGF8xwuk13FFkKSsBReqDQMJnQGNG5PXDp8GY9RQZinXVF4j25hk1Z5SHoJJLXyRtdFNLX&mt=v&ap"
+    getting_started_url: "https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__2DLWmvrYhrnzx48YqYCf7BqWkN4d&mt=v&ap"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
     feature_image_subheader: See full list of devices
