@@ -2,14 +2,16 @@ import React from "react";
 import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
-import {Button} from "../../components/Actions";
+import {Action, Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 
-import {BlockchainIcon, PlayCircleIcon, WalletIcon} from "../../static/icons/Icons";
-import FeatureImage1 from "../../static/images/main/media_wallet/01_device_mackup_tv.png";
+import {BlockchainIcon, PlayCircleIcon, PlaySimpleIcon, WalletIcon, FullDeviceListIcon} from "../../static/icons/Icons";
+import FeatureImage1 from "../../static/images/main/media_wallet/device_mockup_tv.png";
 import FeatureImage2 from "../../static/images/main/media_wallet/07_device_mackup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
-import AppleTVButton from "../../static/images/main/media_wallet/02_download_on_AppleTV_badge_v2.png";
+import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
+import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_appstore.png";
+import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
 
 import CarouselImage1 from "../../static/images/main/media_wallet/carousel/01_media_wallet.png";
 import CarouselImage2 from "../../static/images/main/media_wallet/carousel/02_media_wallet_sign_in.png";
@@ -18,14 +20,12 @@ import CarouselImage4 from "../../static/images/main/media_wallet/carousel/04_my
 import CarouselImage5 from "../../static/images/main/media_wallet/carousel/05_property_page.png";
 import CarouselImage6 from "../../static/images/main/media_wallet/carousel/06_LOTR _drill_down.png";
 
-
-const FeatureBlock1 = observer(() => {
-  const {header, subheader, tagline, button_text, apple_tv_url} = mainStore.l10n.media_wallet.feature_1;
+const FeatureBlock1Mobile = observer(() => {
+  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header">
+    <div className="main-page-header main-page-header__media-wallet">
       <div className="main-page-header__content">
-        <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__image"/>
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
             {tagline}
@@ -36,9 +36,72 @@ const FeatureBlock1 = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
+          <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank">
+            <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
+            {subheader_2}
+          </a>
+          <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__image-mobile"/>
+          <Action to="compatible-devices" className="main-page-header__device-list">
+            <ImageIcon icon={FullDeviceListIcon} />
+            {feature_image_subheader}
+          </Action>
+          <div className="main-page-header__info-links">
+          </div>
           <div className="main-page-header__actions">
             <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
-              <ImageIcon icon={AppleTVButton} label={button_text} />
+              <ImageIcon icon={AppleTVButton} label={apple_button_text} />
+            </a>
+            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button">
+              <ImageIcon icon={GooglePlayButton} label={google_button_text} />
+            </a>
+            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button">
+              <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+const FeatureBlock1 = observer(() => {
+  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
+
+  return (
+    <div className="main-page-header">
+      <div className="main-page-header__content">
+        <div className="main-page-header__image-container">
+          <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__top-image"/>
+          <Action to="compatible-devices" className="main-page-header__device-list">
+            <ImageIcon icon={FullDeviceListIcon} />
+            {feature_image_subheader}
+          </Action>
+        </div>
+        <div className="main-page-header__copy-container">
+          <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
+            {tagline}
+          </h4>
+          <h1 className="main-page-header__copy main-page-header__copy--feature main-page-header__copy--shadow">
+            {header}
+          </h1>
+          <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
+            {subheader}
+          </h2>
+          <div className="main-page-header__info-links">
+            <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank">
+              <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
+              {subheader_2}
+            </a>
+          </div>
+          <div className="main-page-header__actions">
+            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
+              <ImageIcon icon={AppleTVButton} label={apple_button_text} />
+            </a>
+            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button">
+              <ImageIcon icon={GooglePlayButton} label={google_button_text} />
+            </a>
+            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button">
+              <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
             </a>
           </div>
         </div>
@@ -51,7 +114,7 @@ const FeatureBlock2 = observer(() => {
   const {header, subheader, tagline, button_text} = mainStore.l10n.media_wallet.feature_2;
 
   return (
-    <div className="main-page-header">
+    <div className="main-page-header main-page-header__media-wallet">
       <div className="main-page-header__content">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
@@ -119,7 +182,11 @@ const MediaWallet = observer(() => {
 
   return (
     <div className="page dark no-padding page--image-background" style={{backgroundImage: `url('${BackgroundImage}')`}}>
-      <FeatureBlock1 />
+      {
+        mobile ?
+          <FeatureBlock1Mobile /> :
+          <FeatureBlock1 />
+      }
       <FeatureCarousel mobile={mobile} />
       <FeatureBlock2 />
       <div className="main-page__blocks">
