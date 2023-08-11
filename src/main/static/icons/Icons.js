@@ -15,6 +15,7 @@ import SendIcon from "./send.svg";
 import XIcon from "./x.svg";
 import CheckmarkIcon from "./checkmark.svg";
 import PlayCircleIcon from "./play-circle.svg";
+import PlaySimpleIcon from "./play.svg";
 import PlusIcon from "./plus.svg";
 import SupportIcon from "./support.svg";
 import CheckSquareIcon from "./check-square.svg";
@@ -37,6 +38,8 @@ import NodeGroupIcon from "./node-group.svg";
 import Web3Icon from "./web-3.svg";
 import PlayScreenIcon from "./play-screen.svg";
 import WrenchIcon from "./wrench.svg";
+import FullDeviceListIcon from "./full-device-list.svg";
+import SearchIcon from "./search.svg";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -71,6 +74,7 @@ export {
   FlagIcon,
   BlockchainIcon,
   FilmIcon,
+  FullDeviceListIcon,
   InfoIcon,
   LinkIcon,
   MailIcon,
@@ -86,8 +90,10 @@ export {
   PlayCircleIcon,
   PlayIcon,
   PlayScreenIcon,
+  PlaySimpleIcon,
   PowerIcon,
   PulseIcon,
+  SearchIcon,
   SendIcon,
   SmileIcon,
   SpreadMapIcon,

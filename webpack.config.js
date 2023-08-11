@@ -138,7 +138,7 @@ module.exports = {
         loader: "file-loader",
       },
       {
-        test: /\.(pdf|mp4)$/i,
+        test: /\.(pdf|mp4|csv)$/i,
         loader: "file-loader",
         options: {
           name(resourcePath) {
