@@ -15,6 +15,13 @@ const axios = require("axios");
 // Firebase cloud function definitions for elv-live rewrite support
 //
 
+const WALLET_DEFAULTS = {
+  "og:title": "Eluvio Media Wallet",
+  "og:description": "The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium Web3 media distributed directly by its creators and publishers.",
+  "og:image": "https://wallet.preview.contentfabric.io/public/Logo.png",
+  "og:image:alt": "Eluvio"
+};
+
 const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
 let elvLiveDataCache = {};
 const FabricConfiguration = {
@@ -228,25 +235,37 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
   if(ogParam) {
     try {
       const tags = JSON.parse(atob(ogParam));
-      functions.logger.info("tags", tags);
+
+      if(tags["og:image"]) {
+        // Resolve static image URL to resolved node URL
+        try {
+          const imageUrl = new URL(tags["og:image"]);
+
+          // Resolve with client IP address for more appropriate node selection
+          const userIp = req.headers["x-appengine-user-ip"] || req.headers["x-forwarded-for"] || req.ip || req.socket?.remoteAddress || req.connection?.remoteAddress;
+
+          if(userIp) {
+            imageUrl.searchParams.set("client_ip", userIp);
+          }
+
+          // Remove client IP address from resolved URL for privacy
+          const resolvedImage = new URL((await axios.get(imageUrl.toString())).request.res.responseUrl);
+          resolvedImage.searchParams.delete("client_ip");
+
+          tags["og:image"] = resolvedImage.toString();
+        } catch(error) {
+          functions.logger.warn("Failed to resolve static image URL:");
+          functions.logger.warn(error);
+        }
+      }
 
       Object.keys(tags).forEach((key) => {
-        meta += `\n<meta property="${key}" content="${tags[key]}" />`;
-
-        // Copy certain fields into corresponding twitter fields
-        switch(key) {
-          case "og:title":
-            meta += `\n<meta property="twitter:title" content="${tags[key]}" />`;
-            break;
-          case "og:description":
-            meta += `\n<meta property="twitter:description" content="${tags[key]}" />`;
-            break;
-          case "og:image":
-            meta += `\n<meta property="twitter:image" content="${tags[key]}" />`;
-            break;
-          case "og:image:alt":
-            meta += `\n<meta property="twitter:image:alt" content="${tags[key]}" />`;
-            break;
+        if(WALLET_DEFAULTS[key]) {
+          // Known field - Replace variable
+          html = html.replaceAll(`@@${key}@@`, tags[key]);
+        } else {
+          // Other field - Append to metadata
+          meta += `\n<meta property="${key}" content="${tags[key]}" />`;
         }
       });
     } catch(error) {
@@ -254,6 +273,11 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
       functions.logger.error(error);
     }
   }
+
+  // Fill any defaults unset
+  Object.keys(WALLET_DEFAULTS).forEach(key => {
+    html = html.replaceAll(`@@${key}@@`, WALLET_DEFAULTS[key]);
+  });
 
   // Inject metadata
   html = html.replace(/@@META@@/g, meta);
