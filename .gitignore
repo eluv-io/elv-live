@@ -13,3 +13,7 @@ scratch/
 !.keep
 
 .docz/
+
+firebase-debug*
+firestore-debug*
+ui-debug*

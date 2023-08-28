@@ -5,10 +5,22 @@ const Path = require("path");
 const axios = require("axios");
 
 //
-// Firebase cloud function definitions for elv-live rewrite support
+// Firebase cloud functions
 // docs: https://firebase.google.com/docs/functions/
 // logs: https://console.cloud.google.com/logs/query
 //
+
+
+//
+// Firebase cloud function definitions for elv-live rewrite support
+//
+
+const WALLET_DEFAULTS = {
+  "og:title": "Eluvio Media Wallet",
+  "og:description": "The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium Web3 media distributed directly by its creators and publishers.",
+  "og:image": "https://wallet.preview.contentfabric.io/public/Logo.png",
+  "og:image:alt": "Eluvio"
+};
 
 const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
 let elvLiveDataCache = {};
@@ -65,79 +77,6 @@ const getFabricApi = async (network) => {
 
   return resp.data["network"]["seed_nodes"]["fabric_api"][0];
 };
-
-
-// health check and header dump utility
-exports.ping = functions.https.onRequest((req, res) => {
-  functions.logger.info("headers dumper", {host: req.hostname});
-  let meta = "";
-  let body = "";
-  for(const [key, value] of Object.entries(req.headers)) {
-    meta = meta + "\t<meta property=\"og:" + key + "\" content=\"" + value + "\" />\n";
-    body = body + "\tmeta property=\"og:" + key + "\" content=\"" + value + "\"<br/>\n";
-  }
-
-  res.status(200).send(`<!DOCTYPE html>
-    <html> <head> <title>cloud functions headers test</title> ${meta} </head>
-    <body> ${req.hostname} / ${req.url} / ${req.href} / ${req.referrer} / ${req.originalUrl} / ${req.path}<br/>
-      ${body} </body> </html>`);
-});
-
-// load and return elv-live data for this network/mode
-exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
-  try {
-    let sites = await loadElvLiveAsync(req);
-    functions.logger.info("loaded elv-live sites", {sites: sites});
-    res.status(200).send(sites);
-  } catch(error) {
-    functions.logger.info(error);
-    res.status(500).send("something went wrong.");
-  }
-});
-
-// create index.html with metadata based on url path
-exports.create_index_html = functions.https.onRequest(async (req, res) => {
-  let html = fs.readFileSync(Path.resolve(__dirname, "./index-template.html")).toString();
-
-  let sites = {};
-  try {
-    sites = await loadElvLiveAsync(req);
-  } catch(e) {
-    functions.logger.error("cannot loadElvLiveAsync", e);
-  }
-
-  const originalHost = req.headers["x-forwarded-host"] || req.hostname;
-  const originalUrl = req.headers["x-forwarded-url"] || req.url;
-  const fullPath = originalHost + originalUrl;
-
-  let title = "Eluvio: The Content Blockchain";
-  let description = "Web3 native content storage, streaming, distribution, and tokenization";
-  let image = "https://live.eluv.io/7e927f3fc81c2e11f1ac317087288944.png";
-  let favicon = "/favicon.png";
-
-  // Inject metadata
-  functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
-  functions.logger.info("checking sites", Object.keys(sites));
-  for(const [site, site_metadata] of Object.entries(sites)) {
-    // match dns hostname, or match a path
-    if(originalHost == site || originalUrl == ("/" + site)) {
-      functions.logger.info("match", site, site_metadata);
-      title = site_metadata.title;
-      description = site_metadata.description;
-      image = site_metadata.image;
-      favicon = site_metadata.favicon;
-      break;
-    }
-  }
-
-  html = html.replace(/@@TITLE@@/g, title);
-  html = html.replace(/@@DESCRIPTION@@/g, description);
-  html = html.replace(/@@IMAGE@@/g, image);
-  html = html.replace(/@@FAVICON@@/g, favicon);
-  html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
-
-  res.status(200).send(html);
-});
 
 
 // load elv-live data from network or cache
@@ -257,3 +196,147 @@ const loadElvLiveAsync = async (req) => {
   elvLiveDataCache[networkId] = elvLiveData;
   return ret;
 };
+
+
+// Firebase Function Definitions
+
+// health check
+exports.ping = functions.https.onRequest((req, res) => {
+  functions.logger.info("headers dumper", {host: req.hostname});
+  let body = "";
+  for(const [key, value] of Object.entries(req.headers)) {
+    body = body + "\t header=\"" + key + "\" val=\"" + value + "\"<br/>\n";
+  }
+
+  res.status(200).send(`<!DOCTYPE html>
+    <html> <head> <title>cloud functions headers test</title> </head>
+    <body> hostname ${req.hostname} /
+           url ${req.url} /
+           href ${req.href} /
+           referrer ${req.referrer} /
+           originalUrl ${req.originalUrl} /
+           path ${req.path}<br/>
+      ${body} </body> </html>`);
+});
+
+//
+// Firebase cloud function definitions for Previewable Share URLs
+// https://github.com/qluvio/elv-apps-projects/issues/210
+//
+
+// Read `og` parameter if present, and inject corresponding meta tags into html
+exports.create_previewable_link = functions.https.onRequest(async (req, res) => {
+  let meta = "";
+
+  let html = fs.readFileSync(Path.resolve(__dirname, "./index-wallet-template.html")).toString();
+
+  let ogParam = req.query.og;
+
+  if(ogParam) {
+    try {
+      const tags = JSON.parse(atob(ogParam));
+
+      if(tags["og:image"]) {
+        // Resolve static image URL to resolved node URL
+        try {
+          const imageUrl = new URL(tags["og:image"]);
+
+          // Resolve with client IP address for more appropriate node selection
+          const userIp = req.headers["x-appengine-user-ip"] || req.headers["x-forwarded-for"] || req.ip || req.socket?.remoteAddress || req.connection?.remoteAddress;
+
+          if(userIp) {
+            imageUrl.searchParams.set("client_ip", userIp);
+          }
+
+          // Remove client IP address from resolved URL for privacy
+          const resolvedImage = new URL((await axios.get(imageUrl.toString())).request.res.responseUrl);
+          resolvedImage.searchParams.delete("client_ip");
+
+          tags["og:image"] = resolvedImage.toString();
+        } catch(error) {
+          functions.logger.warn("Failed to resolve static image URL:");
+          functions.logger.warn(error);
+        }
+      }
+
+      Object.keys(tags).forEach((key) => {
+        if(WALLET_DEFAULTS[key]) {
+          // Known field - Replace variable
+          html = html.replaceAll(`@@${key}@@`, tags[key]);
+        } else {
+          // Other field - Append to metadata
+          meta += `\n<meta property="${key}" content="${tags[key]}" />`;
+        }
+      });
+    } catch(error) {
+      functions.logger.error("Error parsing OG tags:");
+      functions.logger.error(error);
+    }
+  }
+
+  // Fill any defaults unset
+  Object.keys(WALLET_DEFAULTS).forEach(key => {
+    html = html.replaceAll(`@@${key}@@`, WALLET_DEFAULTS[key]);
+  });
+
+  // Inject metadata
+  html = html.replace(/@@META@@/g, meta);
+  res.status(200).send(html);
+});
+
+// load and return elv-live data for this network/mode
+exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
+  try {
+    let sites = await loadElvLiveAsync(req);
+    functions.logger.info("loaded elv-live sites", {sites: sites});
+    res.status(200).send(sites);
+  } catch(error) {
+    functions.logger.info(error);
+    res.status(500).send("something went wrong.");
+  }
+});
+
+// create index.html with metadata based on url path
+exports.create_index_html = functions.https.onRequest(async (req, res) => {
+  let html = fs.readFileSync(Path.resolve(__dirname, "./index-live-template.html")).toString();
+
+  let sites = {};
+  try {
+    sites = await loadElvLiveAsync(req);
+  } catch(e) {
+    functions.logger.error("cannot loadElvLiveAsync", e);
+  }
+
+  const originalHost = req.headers["x-forwarded-host"] || req.hostname;
+  const originalUrl = req.headers["x-forwarded-url"] || req.url;
+  const fullPath = originalHost + originalUrl;
+
+  let title = "Eluvio: The Content Blockchain";
+  let description = "Web3 native content storage, streaming, distribution, and tokenization";
+  let image = "https://live.eluv.io/logo-color.png";
+  let favicon = "/favicon.png";
+
+  // Inject metadata
+  functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
+  functions.logger.info("checking sites", Object.keys(sites));
+  for(const [site, site_metadata] of Object.entries(sites)) {
+    // match dns hostname, or match a path
+    if(originalHost == site || originalUrl == ("/" + site)) {
+      functions.logger.info("match", site, site_metadata);
+      title = site_metadata.title;
+      description = site_metadata.description;
+      image = site_metadata.image;
+      favicon = site_metadata.favicon;
+      break;
+    }
+  }
+
+  html = html.replace(/@@TITLE@@/g, title);
+  html = html.replace(/@@DESCRIPTION@@/g, description);
+  html = html.replace(/@@IMAGE@@/g, image);
+  html = html.replace(/@@FAVICON@@/g, favicon);
+  html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
+
+  res.status(200).send(html);
+});
+
