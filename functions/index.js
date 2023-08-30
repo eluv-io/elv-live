@@ -268,7 +268,7 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
           meta += `\n<meta property="${key}" content="${tags[key]}" />`;
         }
       });
-      html = html.replace(/@@URL@@/g, req.hostname + "/" + req.url);
+      html = html.replace(/@@URL@@/g, req.hostname + req.url);
     } catch(error) {
       functions.logger.error("Error parsing OG tags:");
       functions.logger.error(error);
@@ -337,7 +337,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   html = html.replace(/@@IMAGE@@/g, image);
   html = html.replace(/@@FAVICON@@/g, favicon);
   html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
-  html = html.replace(/@@URL@@/g, req.hostname + "/" + req.url);
+  html = html.replace(/@@URL@@/g, req.hostname + req.url);
 
   res.status(200).send(html);
 });
