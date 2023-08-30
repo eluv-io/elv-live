@@ -229,6 +229,7 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
   let meta = "";
 
   let html = fs.readFileSync(Path.resolve(__dirname, "./index-wallet-template.html")).toString();
+  html = html.replace(/@@URL@@/g, "https://" + req.hostname + req.url);
 
   let ogParam = req.query.og;
 
@@ -268,7 +269,6 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
           meta += `\n<meta property="${key}" content="${tags[key]}" />`;
         }
       });
-      html = html.replace(/@@URL@@/g, "https://" + req.hostname + req.url);
     } catch(error) {
       functions.logger.error("Error parsing OG tags:");
       functions.logger.error(error);
