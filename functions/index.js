@@ -323,10 +323,10 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
     // match dns hostname, or match a path
     if(originalHost == site || originalUrl == ("/" + site)) {
       functions.logger.info("match", site, site_metadata);
-      title = site_metadata.title;
-      description = site_metadata.description;
-      image = site_metadata.image;
-      favicon = site_metadata.favicon;
+      title = site_metadata.title || title;
+      description = site_metadata.description || description;
+      image = site_metadata.image || image;
+      favicon = site_metadata.favicon || favicon;
       break;
     }
   }
