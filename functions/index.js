@@ -332,6 +332,25 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
     }
   }
 
+  try {
+    const imageUrl = new URL(image);
+
+    // Resolve with client IP address for more appropriate node selection
+    const userIp = req.headers["x-appengine-user-ip"] || req.headers["x-forwarded-for"] || req.ip || req.socket?.remoteAddress || req.connection?.remoteAddress;
+    if(userIp) {
+      imageUrl.searchParams.set("client_ip", userIp);
+    }
+
+    // Remove client IP address from resolved URL for privacy
+    const resolvedImage = new URL((await axios.get(imageUrl.toString())).request.res.responseUrl);
+    resolvedImage.searchParams.delete("client_ip");
+
+    image = resolvedImage.toString();
+  } catch(error) {
+    functions.logger.warn("Failed to resolve static image URL:");
+    functions.logger.warn(error);
+  }
+
   html = html.replace(/@@TITLE@@/g, title);
   html = html.replace(/@@DESCRIPTION@@/g, description);
   html = html.replace(/@@IMAGE@@/g, image);
