@@ -18,7 +18,7 @@ const axios = require("axios");
 const WALLET_DEFAULTS = {
   "og:title": "Eluvio Media Wallet",
   "og:description": "The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium Web3 media distributed directly by its creators and publishers.",
-  "og:image": "https://wallet.preview.contentfabric.io/public/Logo.png",
+  "og:image": "https://wallet.contentfabric.io/public/Logo.png",
   "og:image:alt": "Eluvio"
 };
 
@@ -298,6 +298,11 @@ exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
 
 // create index.html with metadata based on url path
 exports.create_index_html = functions.https.onRequest(async (req, res) => {
+  if(req.url.endsWith("robots.txt")) {
+    res.status(200).send("User-agent: *\nDisallow: \nAllow: /\n");
+    return;
+  }
+
   let html = fs.readFileSync(Path.resolve(__dirname, "./index-live-template.html")).toString();
 
   let sites = {};
@@ -308,12 +313,18 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   }
 
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
-  const originalUrl = req.headers["x-forwarded-url"] || req.url;
+  let originalUrl = req.headers["x-forwarded-url"] || req.url;
   const fullPath = originalHost + originalUrl;
+  if(originalUrl.indexOf("?") > 0) {
+    originalUrl = originalUrl.slice(0, originalUrl.indexOf("?"));
+  }
+  if(originalUrl.endsWith("/")) {
+    originalUrl = originalUrl.slice(0, -1);
+  }
 
   let title = "Eluvio: The Content Blockchain";
   let description = "Web3 native content storage, streaming, distribution, and tokenization";
-  let image = "https://live.eluv.io/logo-color.png";
+  let image = "https://wallet.contentfabric.io/public/Logo.png";
   let favicon = "/favicon.png";
 
   // Inject metadata
@@ -336,6 +347,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
   html = html.replace(/@@IMAGE@@/g, image);
   html = html.replace(/@@FAVICON@@/g, favicon);
   html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
+  html = html.replace(/@@URL@@/g, "https://" + fullPath);
 
   res.status(200).send(html);
 });
