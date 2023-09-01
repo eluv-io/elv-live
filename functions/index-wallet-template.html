@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
@@ -29,33 +28,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <style id="_fonts"></style>
+  <style id="_theme"></style>
+  <style id="_custom-css"></style>
 </head>
 
 <body>
-<div id="app" class="app"></div>
-<div id="app-background" class="app-background"></div>
+  <div id="app" class="app"></div>
+  <div id="app-background" class="app-background"></div>
 
-<style id="_fonts"></style>
-<style id="_theme"></style>
-<style id="_custom-css"></style>
+  <script type="text/javascript">
+    try {
+      const backgroundImage = sessionStorage.getItem("current-background");
 
-<script type="text/javascript">
-  try {
-    const backgroundImage = sessionStorage.getItem("current-background");
+      if(backgroundImage) {
+        document.querySelector("#app-background").style.background = "no-repeat top center / cover url(\"" + backgroundImage + "\")";
+      }
 
-    if(backgroundImage) {
-      document.querySelector("#app-background").style.background = "no-repeat top center / cover url(\"" + backgroundImage + "\")";
+      if(sessionStorage.getItem("custom-css")) {
+        document.querySelector("#_custom-css").innerHTML = atob(sessionStorage.getItem("custom-css"));
+      }
+    } catch(error) {
+      console.error(error);
     }
+  </script>
 
-    if(sessionStorage.getItem("custom-css")) {
-      document.querySelector("#_custom-css").innerHTML = atob(sessionStorage.getItem("custom-css"));
-    }
-  } catch(error) {
-    console.error(error);
-  }
-</script>
-
-<script defer="defer" src="main.js"></script>
-
+  <script defer="defer" src="main.js"></script>
 </body>
 </html>
