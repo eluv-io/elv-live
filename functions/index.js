@@ -263,12 +263,13 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
       }
 
       Object.keys(tags).forEach((key) => {
+        const val = tags[key].replaceAll("\"", "&quot;");
         if(WALLET_DEFAULTS[key]) {
           // Known field - Replace variable
-          html = html.replaceAll(`@@${key}@@`, tags[key]);
+          html = html.replaceAll(`@@${key}@@`, val);
         } else {
           // Other field - Append to metadata
-          meta += `\n<meta property="${key}" content="${tags[key]}" />`;
+          meta += `\n<meta property="${key}" content="${val}" />`;
         }
       });
     } catch(error) {
