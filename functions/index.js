@@ -45,6 +45,9 @@ const FabricConfiguration = {
   }
 };
 
+const B64 = str => Buffer.from(str, "utf-8").toString("base64");
+const FromB64 = str => Buffer.from(str, "base64").toString("utf-8");
+
 const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
@@ -234,7 +237,7 @@ exports.create_previewable_link = functions.https.onRequest(async (req, res) => 
 
   if(ogParam) {
     try {
-      const tags = JSON.parse(atob(ogParam));
+      const tags = JSON.parse(FromB64(ogParam));
 
       if(tags["og:image"]) {
         // Resolve static image URL to resolved node URL
