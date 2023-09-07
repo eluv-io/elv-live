@@ -1,3 +1,6 @@
+import "globalthis-polyfill";
+import "array-flat-polyfill";
+
 // Set actual device height in viewport meta tag
 const SetHeight = () => {
   const content = document.querySelector("meta[name=viewport]").content || "";
