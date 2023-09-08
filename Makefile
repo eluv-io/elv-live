@@ -3,7 +3,7 @@
 #
 
 build:
-	npm run build
+	npm run build 2>/dev/null
 
 run:
 	npm run serve
@@ -19,9 +19,20 @@ open:
 	open http://localhost:8086
 
 deploy:
+	@echo "********** use deploy_all for functions"
+	firebase use elv-rewriter
+	npm run build 2>/dev/null
+	firebase deploy --only hosting:elv-rewriter 2>/dev/null
+
+deploy_all:
 	firebase use elv-rewriter
 	#npm run build && firebase deploy --only functions,hosting:elv-rewriter
-	firebase deploy --only functions,hosting:elv-rewriter
+	firebase deploy --only functions,hosting:elv-rewriter 2>/dev/null
+
+deploy_functions:
+	firebase use elv-rewriter
+	#npm run build && firebase deploy --only functions,hosting:elv-rewriter
+	firebase deploy --only functions:elv-rewriter 2>/dev/null
 
 diff:
 	diff --color ../elv-live/functions/index.js functions/index.js || true
@@ -29,7 +40,8 @@ diff:
 
 copy:
 	cp ../elv-live/functions/index.js functions/index.js
-	cp ../elv-live/functions/index-template.html functions/index-template.html
+	cp ../elv-live/functions/index-template*.html functions/
+	cp ../elv-live/src/stores/index.js src/stores/index.js
 
 toplevel-test:
 	echo "main"
