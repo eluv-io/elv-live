@@ -1,12 +1,14 @@
 import React, {useEffect} from "react";
-import {Accordion} from "../../components/Misc";
+import {Accordion, InfoBox} from "../../components/Misc";
 import {Action} from "../../components/Actions";
 import ImageIcon from "../../components/ImageIcon";
 import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 
-import {NodeGroupIcon, PlayCircleIcon, Web3Icon} from "../../static/icons/Icons";
+import {DocumentIcon, NodeGroupIcon, PlayCircleIcon, TechnologyIcons, Web3Icon} from "../../static/icons/Icons";
 import SupportGrid from "./SupportGrid";
+
+import StreamingAndReportingDoc from "../technology/documents/StreamingAndReporting-2023-09.pdf";
 
 const ItemCard = (data, dark=false) => {
   const {contentTitle, description, link} = data;
@@ -54,33 +56,37 @@ const DetailSection = observer(() => {
     "nodeGroupIcon": NodeGroupIcon
   };
 
+  // NOTE: Application section is injected here before the 'web-3' section
   return (
     data.map(({header, sectionHeader, id, items, icon}) => (
-      <div className="features__section" key={`features-section-${id}`} id={id}>
-        {
-          sectionHeader &&
-          <div className="features__section-header">{ sectionHeader }</div>
-        }
-        <div className="features__info-box curved-box info-box light">
-          <div className="info-box__content">
-            <div className="info-box__icon-container">
-              <ImageIcon icon={iconMap[icon]} className="info-box__icon" title="Media Application Platform" />
-            </div>
-            <div className="info-box__text">
-              <h3 className="info-box__header">{ header }</h3>
-            </div>
-          </div>
+      <>
+        { id === "web-3" ? <ApplicationSection /> : null }
+        <div className="features__section" key={`features-section-${id}`} id={id}>
           {
-            (items || []).map(itemData => (
-              <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features__accordion">
-                {
-                  (itemData.items || []).map(itemData => ItemCard(itemData))
-                }
-              </Accordion>
-            ))
+            sectionHeader &&
+            <div className="features__section-header">{ sectionHeader }</div>
           }
+          <div className="features__info-box curved-box info-box light">
+            <div className="info-box__content">
+              <div className="info-box__icon-container">
+                <ImageIcon icon={iconMap[icon]} className="info-box__icon" title="Media Application Platform" />
+              </div>
+              <div className="info-box__text">
+                <h3 className="info-box__header">{ header }</h3>
+              </div>
+            </div>
+            {
+              (items || []).map(itemData => (
+                <Accordion key={`accordion-${itemData.title}`} title={itemData.title} className="features__accordion">
+                  {
+                    (itemData.items || []).map(itemData => ItemCard(itemData))
+                  }
+                </Accordion>
+              ))
+            }
+          </div>
         </div>
-      </div>
+      </>
     ))
   );
 });
@@ -98,13 +104,28 @@ const Features = () => {
     }
   }, []);
 
+  const copy = mainStore.l10n.content_fabric;
   return (
     <div className="page">
       <div className="page__header-container">
         <h1 className="features--purple-header">Platform Features</h1>
       </div>
+
       <div className="page__content-block">
-        <ApplicationSection />
+        <InfoBox
+          icon={TechnologyIcons.LearnMoreTechnologyIcon}
+          header={copy.streaming_and_reporting.header}
+          content={copy.streaming_and_reporting.text}
+          links={[
+            {
+              to: StreamingAndReportingDoc,
+              text: copy.streaming_and_reporting.links[0].text,
+              icon: DocumentIcon
+            }
+          ]}
+        />
+      </div>
+      <div className="page__content-block">
         <DetailSection />
       </div>
     </div>

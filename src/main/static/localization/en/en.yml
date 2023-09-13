@@ -309,6 +309,11 @@ content_fabric:
     links:
       - text: "Community Site"
         to: https://eluv.io/community
+  streaming_and_reporting:
+    header: Review the Core Audio/Video Streaming and Reporting Features
+    text: Download this detailed product pdf covering the streaming and reporting features of the platform
+    links:
+      - text: "Download"
 
 technology:
   title: Content Fabric Technology
