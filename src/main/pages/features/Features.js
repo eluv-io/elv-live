@@ -29,9 +29,14 @@ const ApplicationSection = observer(() => {
     <div className="features__section">
       <div className="tenancies-comparison features__info-box curved-box info-box light">
         <div className="tenancies-comparison__table-container">
-          <div className="info-box__content center">
-            <div className="info-box__text">
-              <h3 className="features__section-header">Blockchain Content Applications</h3>
+          <div className="info-box__content">
+            <div className="info-box__content">
+              <div className="info-box__icon-container">
+                <ImageIcon icon={TechnologyIcons.APIDevsIcon} className="info-box__icon" title="Media Application Platform" />
+              </div>
+              <div className="info-box__text">
+                <h3 className="info-box__header">{ mainStore.l10n.features.tenancies.applications }</h3>
+              </div>
             </div>
           </div>
 
