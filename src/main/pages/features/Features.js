@@ -119,6 +119,7 @@ const Features = () => {
           links={[
             {
               to: StreamingAndReportingDoc,
+              target: "_blank",
               text: copy.streaming_and_reporting.links[0].text,
               icon: DocumentIcon
             }
