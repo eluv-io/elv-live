@@ -190,30 +190,52 @@
 }
 
 .notification-banner {
-  align-items: center;
-  background: var(--color-highlight-2);
+  background: var(--background-dark-3);
   color: var(--color-text-dark-1);
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  font-size: var(--font-size-body-4);
-  gap: 20px;
-  padding: 10px 110px 15px 75px;
+  font-size: var(--font-size-body-5);
+  gap: 5px;
+  justify-content: center;
+  padding: 20px var(--horizontal-content-padding) 20px;
   position: relative;
 
-  h2 {
-    font-size: var(--font-size-header-4);
+  h3 {
+    font-size: var(--font-size-body-3);
     max-width: 100%;
   }
 
   &__text {
+    font-size: var(--font-size-body-4);
     max-width: 100%;
 
     * {
       max-width: 100%;
     }
 
+    h1 {
+      font-size: var(--font-size-body-1);
+    }
+
+    h2 {
+      font-size: var(--font-size-body-2);
+    }
+
+    h3 {
+      font-size: var(--font-size-body-3);
+    }
+
+    h4 {
+      font-size: var(--font-size-body-4);
+    }
+
+    h5 {
+      font-size: var(--font-size-body-5);
+    }
+
     a {
-      color: var(--color-text-dark-highlight);
+      color: var(--color-highlight-5);
     }
   }
 
@@ -224,13 +246,12 @@
     padding: 5px;
     position: absolute;
     right: 75px;
-    top: 10px;
   }
 
   &__close-icon {
-    height: 20px;
+    height: 25px;
     stroke-width: 3px;
-    width: 20px;
+    width: 25px;
   }
 
   @media screen and (max-width: $width-tablet) {
