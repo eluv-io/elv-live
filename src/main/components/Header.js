@@ -18,7 +18,7 @@ const NotificationBanner = observer(({className=""}) => {
 
   return (
     <div className={`notification-banner ${className}`}>
-      <h2>{ mainStore.notification.header }</h2>
+      <h3>{ mainStore.notification.header }</h3>
       <RichText richText={mainStore.notification.text} className="notification-banner__text" />
       <button
         onClick={() => mainStore.DismissNotification()}
