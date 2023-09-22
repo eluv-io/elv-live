@@ -11,6 +11,7 @@ header:
   features: Features
   media_wallet: Media Wallet
   docs: Docs
+  register: Try The Fabric
   tenancy_levels: Tenancy Levels
   pricing: Pricing
   support: Support
@@ -970,6 +971,38 @@ features_support:
         icon: minimizeIcon
       - label: Priority early access to new capabilities and roadmap review
         icon: mapIcon
+
+register:
+  content_fabric: The Content Fabric
+  copy:
+    - High Performance 4K Live, PVOD, FAST and Interactive Streaming
+    - State-of-the-Art Blockchain Security, DRM, Authorization and Payments
+    - ">10X Cost Savings & Carbon Efficiency at Scale"
+    - Simplicity - All Functions in One Dynamic Protocol
+    - Transparent, Tamper-Free, and Web3 Native
+  form:
+    header: Register to Evaluate
+    first_name:
+      label: First Name
+      placeholder: John
+    last_name:
+      label: Last Name
+      placeholder: Doe
+    company:
+      label: Company
+      placeholder: Enter your company
+    role:
+      label: Role
+      placeholder: Enter your role
+    email:
+      label: Email
+      placeholder: abc@gmail.com
+    consent: I’d like to receive product updates, industry news, and event invites from Eluvio (optional)
+    policy: By registering you acknowledge our <a href="/privacy" target="_blank">Privacy Policy</a>
+    submit: Register to Try the Fabric
+    features: Review the Features
+    complete: Thank you for registering! One of our team members will be in touch usually within one business day to get your evaluation underway.
+
 
 actions:
   read_more: Read More

@@ -5,6 +5,9 @@ import {mainStore} from "../stores/Main";
 
 import {SendIcon} from "../static/icons/Icons";
 
+const HUBSPOT_PORTAL_ID = "6230377";
+const HUBSPOT_FORM_ID = "bcd1218a-6090-4301-a251-3500f3b8b5d5";
+
 export const ValidEmail = email => {
   return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     .test(email);
@@ -75,7 +78,17 @@ const ContactForm = observer(({dark=false}) => {
 
               if(!valid) { return; }
 
+              await mainStore.SubmitHubspotForm({
+                portalId: HUBSPOT_PORTAL_ID,
+                formId: HUBSPOT_FORM_ID,
+                data: {
+                  email,
+                  message
+                }
+              });
+
               await new Promise(resolve => setTimeout(resolve, 2000));
+
               setSubmitted(true);
             }}
             className="light primary extra-small contact-form__submit"

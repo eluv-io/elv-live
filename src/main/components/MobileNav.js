@@ -89,6 +89,9 @@ const MobileNav = observer(({visible, Close}) => {
           <Action useNavLink exact to="https://hub.doc.eluv.io">
             { mainStore.l10n.header.docs }
           </Action>
+          <Action useNavLink exact to="/register">
+            { mainStore.l10n.header.register }
+          </Action>
         </div>
         <hr className="mobile-nav__menu-section-line" />
 

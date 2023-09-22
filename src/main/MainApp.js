@@ -31,6 +31,7 @@ import Privacy from "./pages/terms/Privacy";
 import Terms from "./pages/terms/Terms";
 import MediaWallet from "./pages/main/MediaWallet";
 import CompatibleDevices from "./pages/main/CompatibleDevices";
+import Register from "./pages/register/Register";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -40,7 +41,7 @@ const expectedDomains = [
   //"elv-test.io"
 ];
 
-export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false, noFooter=false}) => {
+export const PageContainer = observer(({children, before, after, padded=false, dark=false, unbound=false, noFooter=false, noContactForm=false}) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -66,7 +67,7 @@ export const PageContainer = observer(({children, before, after, padded=false, d
       {
         noFooter ? null :
           <>
-            <ContactForm dark={dark}/>
+            { noContactForm ? null : <ContactForm dark={dark}/> }
             <Footer dark={dark}/>
           </>
       }
@@ -106,6 +107,8 @@ const MainApp = () => {
           {/* Documents */}
           <Route path="/privacy" element={<PageContainer padded dark><Privacy /></PageContainer>} />
           <Route path="/terms" element={<PageContainer padded dark><Terms /></PageContainer>} />
+          {/* Register */}
+          <Route path="/register" element={<PageContainer unbound dark noContactForm><Register /></PageContainer>} />
           {/* Defaults */}
           <Route path="/" element={<PageContainer unbound dark><MainPage /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />

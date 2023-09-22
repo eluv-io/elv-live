@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
-import {Action, MenuButton} from "./Actions";
+import {Action, Button, MenuButton} from "./Actions";
 import {uiStore, mainStore} from "../stores/Main";
 import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
@@ -97,6 +97,9 @@ const Header = observer(() => {
           <Action to="https://hub.doc.eluv.io" useNavLink underline className="dark header__nav-link">
             { mainStore.l10n.header.docs }
           </Action>
+          <Button to="/register" className="light primary small header__register-button">
+            { mainStore.l10n.header.register }
+          </Button>
         </nav>
         <nav className="header__nav header__nav--icons desktop">
           <Action icon={SocialIcons.TwitterIcon} to="https://twitter.com/eluvioinc" label={mainStore.l10n.header.twitter} className="dark header__nav-link" />
