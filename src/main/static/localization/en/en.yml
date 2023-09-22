@@ -973,7 +973,7 @@ features_support:
         icon: mapIcon
 
 register:
-  content_fabric: The Content Fabric
+  content_fabric: Content Fabric
   copy:
     - High Performance 4K Live, PVOD, FAST and Interactive Streaming
     - State-of-the-Art Blockchain Security, DRM, Authorization and Payments

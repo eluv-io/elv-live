@@ -146,8 +146,10 @@ const Register = observer(() => {
     <div className="register">
       <div className="register__copy-container" style={{backgroundImage: `url(${Background})`}}>
         <div className="register__copy">
-          <img alt="Eluvio" src={Logo} className="register__copy__logo" />
-          <h1 className="register__copy__header">{ content_fabric }</h1>
+          <div className="register__copy__header-container">
+            <img alt="Eluvio" src={Logo} className="register__copy__logo" />
+            <h3 className="register__copy__header">{ content_fabric }</h3>
+          </div>
           {
             copy.map((text, i) =>
               <p className="register__copy__copy" key={`copy-${i}`}>{text}</p>
