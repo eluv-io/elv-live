@@ -196,6 +196,14 @@
       &__header {
         text-align: center;
       }
+
+      &__privacy-policy {
+        font-size: var(--font-size-body-4);
+      }
+
+      &__submit {
+        font-size: var(--font-size-body-3);
+      }
     }
 
     .register__copy__logo {
@@ -211,6 +219,24 @@
       font-size: var(--font-size-body-3);
       margin: 0 auto;
       max-width: 600px;
+    }
+
+    .register__input {
+      label {
+        font-size: var(--font-size-body-4);
+      }
+
+      input {
+        font-size: var(--font-size-body-3);
+
+        &::placeholder {
+          font-size: var(--font-size-body-3);
+        }
+      }
+    }
+
+    .register__checkbox {
+      font-size: var(--font-size-body-4);
     }
   }
 }
