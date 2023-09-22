@@ -20,20 +20,28 @@
     margin-left: auto;
     margin-right: 90px;
     max-width: 600px;
+    padding-bottom: 30px;
     padding-left: 30px;
     width: 100%;
 
     &__logo {
-      width: 230px;
+      width: 200px;
+    }
+
+    &__header-container {
+      align-items: center;
+      display: flex;
+      gap: 30px;
     }
 
     &__header {
-      font-size: var(--font-size-header-1);
+      font-weight: 600;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
     }
 
     &__copy {
-      font-size: var(--font-size-body-2);
+      font-size: var(--font-size-header-5);
       padding-top: 40px;
     }
   }
