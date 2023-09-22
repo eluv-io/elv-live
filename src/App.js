@@ -25,7 +25,8 @@ const MAIN_SITE_PATHS = [
   "/creators-and-publishers",
   "/media-wallet",
   "/privacy",
-  "/terms"
+  "/terms",
+  "/register"
 ];
 
 const Load = async () => {

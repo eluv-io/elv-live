@@ -242,6 +242,55 @@ class MainStore {
     });
   });
 
+  async SubmitHubspotForm({portalId, formId, data, consent}) {
+    const hubspotUrl = new URL(UrlJoin("https://api.hsforms.com/submissions/v3/integration/submit", portalId, formId));
+
+    const spec = {
+      submittedAt: Date.now(),
+      context: {
+        pageUri: window.location.href,
+        pageName: "Eluvio Live"
+      },
+      fields: Object.keys(data).map(fieldName => ({
+        objectTypeId: "0-1",
+        name: fieldName,
+        value: data[fieldName]
+      }))
+    };
+
+    if(typeof consent !== "undefined") {
+      spec.legalConsentOptions = {
+        consent: {
+          consentToProcess: true,
+          text: "Registration form submission",
+          communications: [
+            {
+              value: consent,
+              subscriptionTypeId: 7147421,
+              text: "Marketing offers and updates"
+            }
+          ]
+        }
+      };
+    }
+
+    const response = await fetch(
+      hubspotUrl.toString(),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${EluvioConfiguration["hubspot-token"]}`
+        },
+        body: JSON.stringify(spec)
+      }
+    );
+
+    if(!response.ok) {
+      throw response;
+    }
+  }
+
   TestLocalization = flow(function * () {
     this.l10n = {
       ...this.l10n,

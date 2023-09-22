@@ -29,7 +29,7 @@ class UIStore {
         this.pageWidth = Math.floor(width);
         this.pageHeight = Math.floor(height);
       });
-    }, 250);
+    }, 100);
   }
 }
 

@@ -1,0 +1,216 @@
+.register {
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+
+  &__copy-container {
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 50%;
+  }
+
+  &__copy {
+    margin-left: auto;
+    margin-right: 90px;
+    max-width: 600px;
+    padding-left: 30px;
+    width: 100%;
+
+    &__logo {
+      width: 230px;
+    }
+
+    &__header {
+      font-size: var(--font-size-header-1);
+      text-transform: uppercase;
+    }
+
+    &__copy {
+      font-size: var(--font-size-body-2);
+      padding-top: 40px;
+    }
+  }
+
+  .register__mobile-header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 45px 0 30px;
+  }
+
+  .register__mobile-footer {
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px 30px 50px;
+  }
+
+
+  &__form-container {
+    align-items: center;
+    background: var(--background-light-2);
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+  }
+
+  &__form {
+    background: var(--background-light-2);
+    color: var(--color-text-light-1);
+    margin-right: auto;
+    max-width: 550px;
+    padding-left: 90px;
+    width: 100%;
+
+    &--submitted {
+      align-items: center;
+      display: flex;
+      max-width: 800px;
+      min-height: 50vh;
+      padding-right: 30px;
+      text-align: center;
+    }
+
+    &__group {
+      align-items: center;
+      display: flex;
+      gap: 15px;
+      width: 100%;
+    }
+
+    &__header {
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    a {
+      color: var(--color-highlight-3);
+      text-decoration: underline;
+    }
+
+    &__privacy-policy {
+      color: var(--color-text-light-6);
+      font-size: var(--font-size-body-5);
+      font-weight: 300;
+      margin: 10px 0 30px;
+    }
+
+    &__features {
+      display: flex;
+      font-size: var(--font-size-body-4);
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    &__submit {
+      font-size: var(--font-size-body-4);
+      height: 40px;
+      width: 100%;
+
+      &.button {
+        &:disabled {
+          background: var(--color-text-light-6);
+        }
+      }
+    }
+  }
+
+  &__input {
+    margin-bottom: 15px;
+    position: relative;
+    width: 100%;
+
+    label {
+      color: var(--color-text-light-6);
+      font-size: var(--font-size-body-5);
+      font-weight: 300;
+      left: 15px;
+      position: absolute;
+      top: 4px;
+    }
+
+    input {
+      border: 1px solid var(--color-text-light-6);
+      border-radius: 7px;
+      font-size: var(--font-size-body-4);
+      height: 50px;
+      padding: 15px 15px 0;
+      width: 100%;
+
+      &::placeholder {
+        color: var(--color-text-light-6);
+        font-size: var(--font-size-body-4);
+        font-weight: 300;
+      }
+
+      &:focus-visible {
+        border: 1px solid var(--color-highlight-2);
+        box-shadow: 0 0 3px rgba(155, 81, 224, 0.5);
+        outline: 0;
+      }
+    }
+  }
+
+  &__checkbox {
+    align-items: center;
+    color: var(--color-text-light-6);
+    display: flex;
+    font-size: var(--font-size-body-5);
+    max-width: 400px;
+    text-align: left;
+
+    input {
+      display: block;
+      margin-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: $width-laptop) {
+    &__copy {
+      margin-right: 30px;
+    }
+
+    &__form {
+      padding-left: 30px;
+    }
+  }
+
+  &--mobile {
+    .register__form {
+      margin: 0;
+      max-width: unset;
+      padding: 50px 30px;
+
+      &__header {
+        text-align: center;
+      }
+    }
+
+    .register__copy__logo {
+      width: 125px;
+    }
+
+    .register__copy__header {
+      font-size: var(--font-size-body-1);
+      margin-top: 5px;
+    }
+
+    .register__copy__copy {
+      font-size: var(--font-size-body-3);
+      margin: 0 auto;
+      max-width: 600px;
+    }
+  }
+}
