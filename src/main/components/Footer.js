@@ -15,7 +15,7 @@ const SocialLinks = ({dark=false}) => {
     { name: "Facebook", link: "https://www.facebook.com/EluvioInc/", icon: SocialIcons.FacebookIcon },
     { name: "LinkedIn", link: "https://www.linkedin.com/company/eluv-io", icon: SocialIcons.LinkedInIcon },
     { name: "Github", link: "https://github.com/eluv-io", icon: SocialIcons.GithubIcon },
-    { name: "Discord", link: "https://discord.gg/dZ98vGgq", icon: SocialIcons.DiscordIcon }
+    { name: "Discord", link: "https://discord.gg/Mu9GzdutwF", icon: SocialIcons.DiscordIcon }
   ];
 
   return (
