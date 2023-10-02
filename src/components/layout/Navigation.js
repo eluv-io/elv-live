@@ -136,11 +136,8 @@ class Header extends React.Component {
               if(postLogin.sku) {
                 path = UrlJoin(path, "store", postLogin.sku);
 
-                if(postLogin.sku) {
-                  path = UrlJoin(path, "store", postLogin.sku);
-                  if(postLogin.sku && postLogin.redirect_to_owned_item) {
-                    path = path + "?redirect=owned";
-                  }
+                if(postLogin.redirect_to_owned_item) {
+                  path = path + "?redirect=owned";
                 }
               }
             }
