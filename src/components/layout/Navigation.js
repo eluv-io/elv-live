@@ -32,6 +32,7 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
     });
   };
 
+  const linkLabel = siteStore.currentSiteInfo.marketplace_info?.link_text;
   if(marketplaces.length === 1) {
     return (
       <button
@@ -41,7 +42,7 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
         <div className="header__link__icon">
           <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
         </div>
-        { siteStore.l10n.header.store }
+        { linkLabel || siteStore.l10n.header.store }
       </button>
     );
   }
@@ -57,7 +58,7 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
       <div className="header__link__icon">
         <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
       </div>
-      { siteStore.l10n.header.stores }
+      { linkLabel || siteStore.l10n.header.stores }
     </MenuButton>
   );
 });
