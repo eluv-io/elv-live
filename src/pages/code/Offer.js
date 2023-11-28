@@ -39,6 +39,14 @@ const OfferPage = observer(() => {
         siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === offer.marketplace) ||
         siteStore.marketplaceInfo;
       const redirectToOwned = offer.sku && siteStore.currentSiteInfo?.event_button_marketplace_redirect_to_owned_item;
+      let params = "";
+      if(redirectToOwned) {
+        if(siteStore.currentSiteInfo.event_button_marketplace_redirect_page === "media") {
+          params = "?redirect=owned-media";
+        } else {
+          params = "?redirect=owned";
+        }
+      }
 
       rootStore.SetWalletPanelVisibility({
         visibility: "full",
@@ -48,7 +56,7 @@ const OfferPage = observer(() => {
             marketplace.marketplaceId,
             "store",
             offer.sku || "",
-            redirectToOwned ? "?redirect=owned" : ""
+            params
           )
         }
       });
