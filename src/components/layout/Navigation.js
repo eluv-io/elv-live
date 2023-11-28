@@ -16,6 +16,21 @@ import CartIcon from "Assets/icons/cart.svg";
 import EventIcon from "Assets/icons/Event icon.svg";
 import CloseIcon from "Assets/icons/arrow-left-circle.svg";
 
+const HeaderLinkContent = observer(({linkConfig={}, defaultText, defaultIcon}) => {
+  const linkText = linkConfig.link_text || defaultText;
+  return (
+    <>
+      {
+        linkConfig.hide_icon ? null :
+          <div className="header__link__icon">
+            <ImageIcon icon={linkConfig.icon ? linkConfig.icon.url : defaultIcon} label={linkText} className="header__link__image"/>
+          </div>
+      }
+      { linkText }
+    </>
+  );
+});
+
 const StoreDropdown = observer(({walletOpen, currentPage}) => {
   const marketplaces = [siteStore.marketplaceInfo, ...siteStore.additionalMarketplaces.filter(marketplace => !marketplace.hidden)];
 
@@ -32,17 +47,17 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
     });
   };
 
-  const linkLabel = siteStore.currentSiteInfo.marketplace_info?.link_text;
   if(marketplaces.length === 1) {
     return (
       <button
         onClick={() => ShowMarketplace({...marketplaces[0]})}
         className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
       >
-        <div className="header__link__icon">
-          <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
-        </div>
-        { linkLabel || siteStore.l10n.header.store }
+        <HeaderLinkContent
+          linkConfig={siteStore.currentSiteInfo.header_links?.store}
+          defaultIcon={CartIcon}
+          defaultText={siteStore.l10n.header.store}
+        />
       </button>
     );
   }
@@ -55,10 +70,11 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
       }))}
       className={`header__link header__dropdown ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
     >
-      <div className="header__link__icon">
-        <ImageIcon icon={CartIcon} title="Store" className="header__link__image"/>
-      </div>
-      { linkLabel || siteStore.l10n.header.stores }
+      <HeaderLinkContent
+        linkConfig={siteStore.currentSiteInfo.header_links?.store}
+        defaultIcon={CartIcon}
+        defaultText={siteStore.l10n.header.stores}
+      />
     </MenuButton>
   );
 });
@@ -119,10 +135,11 @@ class Header extends React.Component {
           }}
           className={`header__link header__link-wallet ${walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
         >
-          <div className="header__link__icon">
-            <ImageIcon icon={WalletIcon} title="My Wallet" className="header__link__image"/>
-          </div>
-          { l10n.header.my_wallet }
+          <HeaderLinkContent
+            linkConfig={siteStore.currentSiteInfo.header_links?.wallet}
+            defaultIcon={WalletIcon}
+            defaultText={l10n.header.my_wallet}
+          />
         </button>
       );
     } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
@@ -138,7 +155,11 @@ class Header extends React.Component {
                 path = UrlJoin(path, "store", postLogin.sku);
 
                 if(postLogin.redirect_to_owned_item) {
-                  path = path + "?redirect=owned";
+                  if(postLogin.redirect_page === "media") {
+                    path = path + "?redirect=owned-media";
+                  } else {
+                    path = path + "?redirect=owned";
+                  }
                 }
               }
             }
@@ -147,10 +168,11 @@ class Header extends React.Component {
           }}
           className="header__link"
         >
-          <div className="header__link__icon">
-            <ImageIcon icon={WalletIcon} title="Wallet" className="header__link__image"/>
-          </div>
-          { l10n.header.sign_in }
+          <HeaderLinkContent
+            linkConfig={siteStore.currentSiteInfo.header_links?.sign_in}
+            defaultIcon={WalletIcon}
+            defaultText={l10n.header.sign_in}
+          />
         </button>
       );
     }
@@ -187,10 +209,11 @@ class Header extends React.Component {
           }}
           className={`header__link header__link--no-mobile ${walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
         >
-          <div className="header__link__icon header__link__icon-marketplace">
-            <ImageIcon icon={DiscoverIcon} title="Marketplaces" className="header__link__image"/>
-          </div>
-          { l10n.header.discover_projects }
+          <HeaderLinkContent
+            linkConfig={siteStore.currentSiteInfo.header_links?.discover_projects}
+            defaultIcon={DiscoverIcon}
+            defaultText={l10n.header.discover_projects}
+          />
         </button>
       );
     }

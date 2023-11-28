@@ -410,7 +410,11 @@ class Event extends React.Component {
               if(postLogin.sku) {
                 path = UrlJoin(path, "store", postLogin.sku);
                 if(postLogin.sku && postLogin.redirect_to_owned_item) {
-                  path = path + "?redirect=owned";
+                  if(postLogin.redirect_page === "media") {
+                    path = path + "?redirect=owned-media";
+                  } else {
+                    path = path + "?redirect=owned";
+                  }
                 }
               }
             }
@@ -428,6 +432,15 @@ class Event extends React.Component {
       const sku = eventInfo.event_button_marketplace_sku;
       const redirectToOwned = sku && eventInfo.event_button_marketplace_redirect_to_owned_item;
 
+      let params = "";
+      if(redirectToOwned) {
+        if(eventInfo.event_button_marketplace_redirect_page === "media") {
+          params = "?redirect=owned-media";
+        } else {
+          params = "?redirect=owned";
+        }
+      }
+
       eventButton = (
         <button
           style={(branding.get_started || {}).styles}
@@ -443,7 +456,7 @@ class Event extends React.Component {
                     marketplace.marketplaceId,
                     "store",
                     sku || "",
-                    redirectToOwned ? "?redirect=owned" : ""
+                    params
                   )
                 }
               }
