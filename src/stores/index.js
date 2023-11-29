@@ -15,7 +15,7 @@ configure({
 });
 
 let walletAppUrl;
-if(window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
+if(window.location.hostname === "localhost" || window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
   walletAppUrl = `https://${window.location.hostname}:8090`;
 } else if(window.location.hostname.startsWith("live-stg")) {
   walletAppUrl = EluvioConfiguration.network === "main" ?
