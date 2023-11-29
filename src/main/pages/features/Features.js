@@ -8,7 +8,7 @@ import {observer} from "mobx-react";
 import {DocumentIcon, NodeGroupIcon, PlayCircleIcon, TechnologyIcons, Web3Icon} from "../../static/icons/Icons";
 import SupportGrid from "./SupportGrid";
 
-import StreamingAndReportingDoc from "../technology/documents/StreamingAndReporting-2023-09.pdf";
+import StreamingAndReportingDoc from "../technology/documents/StreamingAndReporting-2023-11.pdf";
 
 const ItemCard = (data, dark=false) => {
   const {contentTitle, description, link} = data;
