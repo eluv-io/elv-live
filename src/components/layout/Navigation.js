@@ -32,6 +32,10 @@ const HeaderLinkContent = observer(({linkConfig={}, defaultText, defaultIcon}) =
 });
 
 const StoreDropdown = observer(({walletOpen, currentPage}) => {
+  const linkConfig = siteStore.currentSiteInfo.header_links?.store || {};
+
+  if(linkConfig?.hide) { return; }
+
   const marketplaces = [siteStore.marketplaceInfo, ...siteStore.additionalMarketplaces.filter(marketplace => !marketplace.hidden)];
 
   const ShowMarketplace = ({tenant_slug, marketplace_slug, default_store_page}) => {
@@ -54,7 +58,7 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
         className={`header__link ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
       >
         <HeaderLinkContent
-          linkConfig={siteStore.currentSiteInfo.header_links?.store}
+          linkConfig={linkConfig}
           defaultIcon={CartIcon}
           defaultText={siteStore.l10n.header.store}
         />
@@ -71,7 +75,7 @@ const StoreDropdown = observer(({walletOpen, currentPage}) => {
       className={`header__link header__dropdown ${walletOpen && ["marketplace", "marketplaceListings"].includes(currentPage) ? "header__link-active" : ""}`}
     >
       <HeaderLinkContent
-        linkConfig={siteStore.currentSiteInfo.header_links?.store}
+        linkConfig={linkConfig}
         defaultIcon={CartIcon}
         defaultText={siteStore.l10n.header.stores}
       />
@@ -116,64 +120,67 @@ class Header extends React.Component {
     const walletOpen = walletState.visibility === "full";
     const hideGlobalNavigation = marketplaceInfo.hide_global_navigation;
     const l10n = this.props.siteStore.l10n;
+    const linkConfigs = siteStore.currentSiteInfo.header_links || {};
 
     let loginButton, walletButton;
     if(this.props.rootStore.walletLoggedIn) {
       walletButton = (
-        <button
-          onClick={() => {
-            this.props.rootStore.SetWalletPanelVisibility({
-              visibility: "full",
-              location: {
-                page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
-                params: {
-                  tenantSlug: marketplaceInfo.tenant_slug,
-                  marketplaceSlug: marketplaceInfo.marketplace_slug
+        linkConfigs?.wallet?.hide ? null :
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility({
+                visibility: "full",
+                location: {
+                  page: hideGlobalNavigation ? "marketplaceWallet" : "wallet",
+                  params: {
+                    tenantSlug: marketplaceInfo.tenant_slug,
+                    marketplaceSlug: marketplaceInfo.marketplace_slug
+                  }
                 }
-              }
-            });
-          }}
-          className={`header__link header__link-wallet ${walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
-        >
-          <HeaderLinkContent
-            linkConfig={siteStore.currentSiteInfo.header_links?.wallet}
-            defaultIcon={WalletIcon}
-            defaultText={l10n.header.my_wallet}
-          />
-        </button>
+              });
+            }}
+            className={`header__link header__link-wallet ${walletOpen && ["wallet", "marketplaceWallet"].includes(currentPage) ? "header__link-active" : ""}`}
+          >
+            <HeaderLinkContent
+              linkConfig={linkConfigs?.wallet}
+              defaultIcon={WalletIcon}
+              defaultText={l10n.header.my_wallet}
+            />
+          </button>
       );
     } else if(this.props.rootStore.currentWalletState.visibility === "hidden") {
       loginButton = (
-        <button
-          onClick={() => {
-            const postLogin = this.props.siteStore.currentSiteInfo.event_info?.post_login || {};
-            let path;
-            if(postLogin.action === "marketplace") {
-              path = UrlJoin("/", this.props.siteStore.tenantSlug || "", this.props.siteStore.siteSlug, "marketplace");
+        linkConfigs?.sign_in?.hide ? null :
+          <button
+            onClick={() => {
+              const postLogin = this.props.siteStore.currentSiteInfo.event_info?.post_login || {};
+              let path;
+              if(postLogin.action === "marketplace") {
+                path = UrlJoin("/", this.props.siteStore.tenantSlug || "", this.props.siteStore.siteSlug, "marketplace");
 
-              if(postLogin.sku) {
-                path = UrlJoin(path, "store", postLogin.sku);
+                if(postLogin.sku) {
+                  path = UrlJoin(path, "store", postLogin.sku);
 
-                if(postLogin.redirect_to_owned_item) {
-                  if(postLogin.redirect_page === "media") {
-                    path = path + "?redirect=owned-media";
-                  } else {
-                    path = path + "?redirect=owned";
+                  if(postLogin.redirect_to_owned_item) {
+                    if(postLogin.redirect_page === "media") {
+                      path = path + "?redirect=owned-media";
+                    } else {
+                      path = path + "?redirect=owned";
+                    }
                   }
                 }
               }
-            }
 
-            this.props.rootStore.LogIn(path);
-          }}
-          className="header__link"
-        >
-          <HeaderLinkContent
-            linkConfig={siteStore.currentSiteInfo.header_links?.sign_in}
-            defaultIcon={WalletIcon}
-            defaultText={l10n.header.sign_in}
-          />
-        </button>
+              this.props.rootStore.LogIn(path);
+            }}
+            className="header__link"
+          >
+            <HeaderLinkContent
+              linkConfig={linkConfigs?.sign_in}
+              defaultIcon={WalletIcon}
+              defaultText={l10n.header.sign_in}
+            />
+          </button>
       );
     }
 
@@ -198,23 +205,24 @@ class Header extends React.Component {
     let marketplacesButton;
     if(!hideGlobalNavigation) {
       marketplacesButton = (
-        <button
-          onClick={() => {
-            this.props.rootStore.SetWalletPanelVisibility({
-              visibility: "full",
-              location: {
-                page: "marketplaces"
-              }
-            });
-          }}
-          className={`header__link header__link--no-mobile ${walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
-        >
-          <HeaderLinkContent
-            linkConfig={siteStore.currentSiteInfo.header_links?.discover_projects}
-            defaultIcon={DiscoverIcon}
-            defaultText={l10n.header.discover_projects}
-          />
-        </button>
+        linkConfigs?.discover_projects?.hide ? null :
+          <button
+            onClick={() => {
+              this.props.rootStore.SetWalletPanelVisibility({
+                visibility: "full",
+                location: {
+                  page: "marketplaces"
+                }
+              });
+            }}
+            className={`header__link header__link--no-mobile ${walletOpen && currentPage === "marketplaces" ? "header__link-active" : ""}`}
+          >
+            <HeaderLinkContent
+              linkConfig={linkConfigs?.discover_projects}
+              defaultIcon={DiscoverIcon}
+              defaultText={l10n.header.discover_projects}
+            />
+          </button>
       );
     }
 

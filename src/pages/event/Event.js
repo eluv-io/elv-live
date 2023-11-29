@@ -253,6 +253,15 @@ const Banner = observer(({bannerInfo, mobile, className="event-page__banner", im
       siteStore.additionalMarketplaces.find(({marketplace_slug}) => marketplace_slug === bannerInfo.marketplace) :
       siteStore.marketplaceInfo;
 
+    let redirect;
+    if(bannerInfo.redirect_to_owned_item) {
+      if(bannerInfo.redirect_page === "media") {
+        redirect = "owned-media";
+      } else {
+        redirect = "owned";
+      }
+    }
+
     return (
       <div className={className}>
         <button
@@ -261,13 +270,15 @@ const Banner = observer(({bannerInfo, mobile, className="event-page__banner", im
             rootStore.SetWalletPanelVisibility(
               {
                 visibility: "full",
+                delay: redirect ? 500 : 0,
                 location: {
                   page: bannerInfo.sku ? "marketplaceItem" : "marketplace",
                   params: {
                     page: "marketplaceItem",
                     tenantSlug: marketplace.tenant_slug,
                     marketplaceSlug: marketplace.marketplace_slug,
-                    sku: bannerInfo.sku
+                    sku: bannerInfo.sku,
+                    searchParams: redirect ? { redirect } : undefined
                   }
                 }
               }
