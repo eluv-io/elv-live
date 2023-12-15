@@ -10,9 +10,18 @@ const WalletFrame = observer(() => {
   const [frameLoaded, setFrameLoaded] = useState(false);
   const [storefrontAnalyticsFired, setStorefrontAnalyticsFired] = useState(false);
   const marketplaceRoute = window.location.pathname.includes("/marketplace");
+  const walletRoute = window.location.pathname.includes("/wallet");
   const alwaysVisible = siteStore.marketplaceOnly;
   const visibility = alwaysVisible ? "exclusive" : rootStore.currentWalletState.visibility;
   const loaded = rootStore.app === "main" ? siteStore.siteLoaded : siteStore.currentSite;
+
+  useEffect(() => {
+    if(!loaded || !walletRoute) { return; }
+
+    if(!rootStore.walletLoggedIn) {
+      rootStore.LogIn();
+    }
+  }, [walletRoute, loaded]);
 
   useEffect(() => {
     if(
@@ -35,7 +44,7 @@ const WalletFrame = observer(() => {
   return (
     <div className={`wallet-panel wallet-panel-${visibility}`} id="wallet-panel" key="wallet-panel">
       {
-        alwaysVisible || (marketplaceRoute && !frameLoaded) ?
+        alwaysVisible || ((marketplaceRoute || walletRoute) && !frameLoaded) ?
           <PageLoader className={`wallet-loader ${siteStore.marketplaceNavigated ? "" : "wallet-loader--visible"}`} /> :
           null
       }
@@ -87,6 +96,14 @@ const WalletFrame = observer(() => {
             }
 
             window.history.replaceState(undefined, undefined, window.location.href.replace(/\/marketplace\/.+/, ""));
+          } else if(walletRoute && rootStore.walletLoggedIn) {
+            const path = window.location.pathname.split("/wallet")[1] + window.location.search;
+
+            if(path) {
+              rootStore.frameClient.Navigate({path});
+            }
+
+            window.history.replaceState(undefined, undefined, window.location.href.replace(/\/wallet\/.+/, ""));
           }
 
           setFrameLoaded(true);

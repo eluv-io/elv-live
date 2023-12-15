@@ -72,6 +72,7 @@ const SiteApp = inject("rootStore")(
             <Route exact path="/:tenantSlug?/:siteSlug/privacy" element={<SitePage Component={Privacy} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/terms" element={<SitePage Component={Terms} />} />
             <Route path="/:tenantSlug?/:siteSlug/marketplace/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
+            <Route path="/:tenantSlug?/:siteSlug/wallet/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
 
             <Route exact path="/:tenantSlug?/:siteSlug" element={<SitePage Component={Event} mainPage transparent />} />
 

@@ -267,7 +267,8 @@ class RootStore {
       tenantSlug,
       marketplaceSlug,
       captureLogin: true,
-      darkMode
+      darkMode,
+      liveUrl: UrlJoin(window.location.origin, this.siteStore.tenantSlug || "", this.siteStore.siteSlug || "")
     });
 
     if(marketplaceSlug) {
@@ -517,10 +518,25 @@ class RootStore {
       callbackUrl.pathname = path;
     }
 
+    let marketplaceParams = this.marketplaceParams
+    if(!marketplaceParams) {
+      const marketplaceInfo = siteStore.currentSiteInfo.marketplace_info;
+
+      if(marketplaceInfo) {
+        marketplaceParams = {
+          tenantSlug: marketplaceInfo.tenant_slug,
+          marketplaceSlug: marketplaceInfo.marketplace_slug
+        };
+      } else {
+        marketplaceParams.marketplacehash = siteStore.marketplaceHash || siteStore.currentSiteInfo.marketplaceHash;
+      }
+    }
+
+
     this.walletClient.LogIn({
       method: "redirect",
       callbackUrl: callbackUrl.toString(),
-      marketplaceParams: this.marketplaceParams,
+      marketplaceParams,
       clearLogin: true
     });
   }
