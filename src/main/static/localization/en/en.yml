@@ -172,11 +172,13 @@ media_wallet:
     apple_button_text: Apple TV
     google_button_text: Google Play
     amazon_button_text: Amazon Appstore
+    xbox_button_text: Microsoft Store
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
     getting_started_url: "https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__2DLWmvrYhrnzx48YqYCf7BqWkN4d&mt=v&ap"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
+    xbox_store_url: "https://www.microsoft.com/en-us/p/eluvio-media-wallet/9n18nrkswzcz"
     feature_image_subheader: See full list of devices
   feature_2:
     tagline: Enjoy on any browser
@@ -205,6 +207,9 @@ compatible_devices:
     -
       title: Amazon Fire TV
       description: Amazon Fire TV devices with Fire OS 6 or later. This includes the Amazon Fire TV Stick and Smart TVs with Fire TV built-in.
+    -
+      title: XBOX
+      description: Xbox Series S|X, Xbox One
   more_info:
     title: Don’t see your device above?
     description: Eluvio Media Wallet for Connected TV is supported on over 1,600 devices. Search for the name of your device below.

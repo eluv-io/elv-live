@@ -5,6 +5,7 @@ import {mainStore} from "../../stores/Main";
 import AndroidDeviceCSV from "../../static/documents/device-matrix-android.csv";
 import FireDeviceCSV from "../../static/documents/device-matrix-fire-tv.csv";
 import AppleDeviceCSV from "../../static/documents/device-matrix-tvOS.csv";
+import XBOXDeviceCSV from "../../static/documents/device-matrix-xbox.csv";
 import {SearchIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
 import DevicesGraphic from "../../static/images/main/media_wallet/devices-graphic.png";
@@ -41,6 +42,8 @@ const AutocompleteResults = ({
                 <a href={AndroidDeviceCSV}>Android TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
                 <a href={FireDeviceCSV}>Amazon Fire TV</a>
+                <span className="compatible-devices__item-links-separator">|</span>
+                <a href={XBOXDeviceCSV}>XBOX</a>
               </div>
             </div>
           </div> :
@@ -159,15 +162,16 @@ const CompatibleDevices = observer(() => {
     const getData = async() => {
       const androidResponse = await fetch(AndroidDeviceCSV);
       const fireResponse = await fetch(FireDeviceCSV);
+      const xboxResponse = await fetch(XBOXDeviceCSV);
 
-      for(const response of [androidResponse, fireResponse]) {
+      for(const response of [androidResponse, fireResponse, xboxResponse]) {
         const reader = response.body.getReader();
         const result = await reader.read();
         const decoder = new TextDecoder("utf-8");
         const csv = decoder.decode(result.value);
         const results = Papa.parse(csv, { header: true });
         results.data.forEach(row => {
-          rows.push(`${row["Brand"]} ${row["Device"] || ""}`);
+          rows.push(`${row["Brand"] || row["Version"]} ${row["Device"] || ""}`);
         });
       }
 
@@ -205,6 +209,8 @@ const CompatibleDevices = observer(() => {
                 <a href={AndroidDeviceCSV}>Android TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
                 <a href={FireDeviceCSV}>Amazon Fire TV</a>
+                <span className="compatible-devices__item-links-separator">|</span>
+                <a href={XBOXDeviceCSV}>XBOX</a>
               </div>
             </div>
           </div>
