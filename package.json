@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@eluvio/elv-client-js": "^4.0.10",
-    "@eluvio/elv-player-js": "^1.0.101",
+    "@eluvio/elv-player-js": "1.0.101",
     "@eluvio/elv-wallet-frame-client": "^2.1.4",
     "@paypal/react-paypal-js": "^4.0.2",
     "@react-hook/resize-observer": "^1.2.2",
