@@ -43,7 +43,7 @@ const AutocompleteResults = ({
                 <span className="compatible-devices__item-links-separator">|</span>
                 <a href={FireDeviceCSV}>Amazon Fire TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={XBOXDeviceCSV}>XBOX</a>
+                <a href={XBOXDeviceCSV}>Microsoft XBOX</a>
               </div>
             </div>
           </div> :
@@ -210,7 +210,7 @@ const CompatibleDevices = observer(() => {
                 <span className="compatible-devices__item-links-separator">|</span>
                 <a href={FireDeviceCSV}>Amazon Fire TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={XBOXDeviceCSV}>XBOX</a>
+                <a href={XBOXDeviceCSV}>Microsoft XBOX</a>
               </div>
             </div>
           </div>
