@@ -110,10 +110,10 @@
   }
 
   &__copy-container {
-    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: flex-start;
     min-width: 300px;
   }
 
@@ -171,10 +171,11 @@
 
   &__apple-tv-button,
   &__google-play-button,
-  &__amazon-appstore-button {
+  &__amazon-appstore-button,
+  &__xbox-button {
     align-items: center;
     display: flex;
-    height: 50px;
+    height: 45px;
     justify-content: center;
 
     img {
@@ -334,7 +335,8 @@
 
     &__apple-tv-button,
     &__google-play-button,
-    &__amazon-appstore-button {
+    &__amazon-appstore-button,
+    &__xbox-button {
       height: 35px;
     }
 

@@ -118,7 +118,7 @@ module.exports = {
         loader: "raw-loader"
       },
       {
-        test: /\.(js|mjs)$/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
         exclude: /node_modules\/(?!elv-components-js)/,
         loader: "babel-loader",
         options: {

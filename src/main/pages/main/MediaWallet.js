@@ -12,6 +12,7 @@ import BackgroundImage from "../../static/images/main/media_wallet/08_background
 import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
 import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_appstore.png";
 import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
+import XboxButton from "../../static/images/main/media_wallet/xbox.png";
 
 import CarouselImage1 from "../../static/images/main/media_wallet/carousel/01_media_wallet.png";
 import CarouselImage2 from "../../static/images/main/media_wallet/carousel/02_media_wallet_sign_in.png";
@@ -21,7 +22,7 @@ import CarouselImage5 from "../../static/images/main/media_wallet/carousel/05_pr
 import CarouselImage6 from "../../static/images/main/media_wallet/carousel/06_LOTR _drill_down.png";
 
 const FeatureBlock1Mobile = observer(() => {
-  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
+  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader, xbox_store_url, xbox_button_text} = mainStore.l10n.media_wallet.feature_1;
 
   return (
     <div className="main-page-header main-page-header__media-wallet">
@@ -49,13 +50,16 @@ const FeatureBlock1Mobile = observer(() => {
           </div>
           <div className="main-page-header__actions">
             <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
-              <ImageIcon icon={AppleTVButton} label={apple_button_text} />
+              <ImageIcon icon={AppleTVButton} label={apple_button_text}/>
             </a>
             <a href={google_play_url} target="_blank" className="main-page-header__google-play-button">
-              <ImageIcon icon={GooglePlayButton} label={google_button_text} />
+              <ImageIcon icon={GooglePlayButton} label={google_button_text}/>
             </a>
             <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button">
-              <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
+              <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text}/>
+            </a>
+            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button">
+              <ImageIcon icon={XboxButton} label={xbox_button_text}/>
             </a>
           </div>
         </div>
@@ -65,7 +69,13 @@ const FeatureBlock1Mobile = observer(() => {
 });
 
 const FeatureBlock1 = observer(() => {
-  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
+  const {
+    header,
+    subheader,
+    subheader_2,
+    tagline,
+    apple_button_text,
+    google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader, xbox_button_text, xbox_store_url} = mainStore.l10n.media_wallet.feature_1;
 
   return (
     <div className="main-page-header">
@@ -102,6 +112,9 @@ const FeatureBlock1 = observer(() => {
             </a>
             <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button">
               <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
+            </a>
+            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button">
+              <ImageIcon icon={XboxButton} label={xbox_button_text} />
             </a>
           </div>
         </div>
