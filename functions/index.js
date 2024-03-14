@@ -17,7 +17,7 @@ const axios = require("axios");
 
 const WALLET_DEFAULTS = {
   "og:title": "Eluvio Media Wallet",
-  "og:description": "The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium Web3 media distributed directly by its creators and publishers.",
+  "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
   "og:image": "https://wallet.contentfabric.io/public/Logo.png",
   "og:image:alt": "Eluvio"
 };
@@ -326,8 +326,8 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
     originalUrl = originalUrl.slice(0, -1);
   }
 
-  let title = "Eluvio: The Content Blockchain";
-  let description = "Web3 native content storage, streaming, distribution, and tokenization";
+  let title = "Eluvio: Creator of the Content Fabric";
+  let description = "Multimedia content storage, streaming, distribution, and tokenization";
   let image = "https://wallet.contentfabric.io/public/Logo.png";
   let favicon = "/favicon.png";
 
