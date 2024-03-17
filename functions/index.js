@@ -326,8 +326,8 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
     originalUrl = originalUrl.slice(0, -1);
   }
 
-  let title = "Eluvio: Creator of the Content Fabric";
-  let description = "Multimedia content storage, streaming, distribution, and tokenization";
+  let title = "Eluvio: Creators of The Content Fabric";
+  let description = "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.";
   let image = "https://wallet.contentfabric.io/public/Logo.png";
   let favicon = "/favicon.png";
 
