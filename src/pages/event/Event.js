@@ -664,8 +664,32 @@ class Event extends React.Component {
       "hero_banner_mobile" :
       this.props.siteStore.SiteHasImage("hero_banner") ?
         "hero_banner" : "";
+    const heroLink = this.props.siteStore.currentSiteInfo.event_images?.hero_background_link;
     const headerKey = this.props.siteStore.darkMode ? "header_light" : "header_dark";
     const hasHeaderImage = this.props.siteStore.SiteHasImage(headerKey);
+
+    let heroBackground = (
+      <div
+        role="img"
+        alt={this.props.siteStore.currentSiteInfo.event_images.hero_alt_text}
+        className="event-page__hero"
+        style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}}
+      />
+    );
+
+    if(heroLink) {
+      heroBackground = (
+        <a
+          href={heroLink}
+          target="_blank"
+          rel="noopener"
+          role="img"
+          alt={this.props.siteStore.currentSiteInfo.event_images.hero_alt_text}
+          className="event-page__hero"
+          style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}}
+        />
+      );
+    }
 
     return (
       <>
@@ -678,7 +702,7 @@ class Event extends React.Component {
             /> : null
         }
         <div className="event-page__hero-container">
-          <div role="img" alt={this.props.siteStore.currentSiteInfo.event_images.hero_alt_text} className="event-page__hero" style={{backgroundImage: `url(${this.props.siteStore.SiteImageUrl(heroKey)})`}} />
+          { heroBackground }
           { this.HeroVideo(mobile) }
           <div className="event-page__heading">
             {
