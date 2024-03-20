@@ -1,5 +1,7 @@
 .idea/
 
+configuration.js
+
 **.DS_STORE
 
 node_modules/
