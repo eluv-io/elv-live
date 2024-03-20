@@ -87,6 +87,14 @@ module.exports = {
         from: Path.join(__dirname, "src/main/static/images/logos/eluvio-logo-color.png"),
         to: Path.join(__dirname, "dist", "logo-color.png")
       },
+      {
+        from: Path.join(__dirname, "src/main/static/documents/PrivacyPolicy.html"),
+        to: Path.join(__dirname, "dist", "EluvioPrivacyPolicy")
+      },
+      {
+        from: Path.join(__dirname, "src/main/static/documents/Terms.html"),
+        to: Path.join(__dirname, "dist", "EluvioTerms")
+      }
     ]),
     process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
   ].filter(item => item),
