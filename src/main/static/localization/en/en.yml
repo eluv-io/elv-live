@@ -825,7 +825,149 @@ blockchain:
         protocol is dramatically more resource efficient (>50X) than traditional content storage and distribution networks and
         along with its PoA/PoS blockchain, is a very efficient and low cost solution for the Creator Economy.
 
+casablanca:
+  title: Eluvio Content Fabric
+  header: Casablanca Release - Summer 2024
+  application_suite:
+    - title: Creator Studio
+      icon:
+    - title: Content Analytics & Reporting
+      icon:
+    - title: AI Clip Search
+      icon:
+    - title: Video Editor
+      icon:
+    - title: Media Wallet
+      icon:
+    - title: Embeddable Player
+      icon:
+  pages:
+    fabric_core:
+      sections:
+        - title: Summary
+          description: |
+            The <span style="color: var(--color-highlight-3)">**Eluvio Content Fabric Protocol**</span> is a next-generation content distribution and storage system that provides fast, efficient, tamper-proof streaming, download and monetization of any digital media content at scale.
+            
+            It solves the biggest distribution problems facing media companies by dramatically reducing investments in media clouds and CDNs and by opening new engagement and revenue opportunities via its innovation.
 
+            The software protocol runs decentralized over TCP/IP on an open global network of nodes; no third-party CDN or media cloud is needed. From May-July 2024, Eluvio will be releasing to the production Content Fabric network the latest version, Casablanca, and new applications on the mainnet contentfabric.io. Read on to learn more about these exciting steps.
+        - title: Fabric Core
+          description: |
+            The Casablanca release version extends the Content Fabric with provable mass scale performance and deterministic low-latency live & VoD adaptive bitrate streaming (<1 second segment delivery times for 99% of clients and segments); expands the end-to-end per-session content security with additional DRM formats and forensic watermarking for live; adds automatic and instant live-to-vod (DVR) with no file copies; provides automatic configuration for MPEG-TS/SRT/RTMP live stream sources; and adds many advanced features for premium, broadcast grade audio/video streaming. The new features cross live, VoD, and interactive streaming; provide frame-accurate content composition; enable scalable server-side personalization; and allow in-stream HTML-5 graphic enrichment.
+
+            The Universal AI Content Tagging and Search service now includes significant enhancements – generative AI tagging of video and images in-Fabric, six other tagging models, and rapid semantic search. Tags are recorded in the metadata of Content Objects (in place), and automatically searchable and actionable. Unlike other AI content tagging workflows, no content or metadata has to move – the AI metadata is directly and dynamically addressable, across recorded live streams or deep video archives used for streaming/download monetization.
+
+            Building on the Fabric’s existing tamper-proof, owner-controlled content model, the latest release includes a new content verification and proof API. This allows users to verify the version hash of any content object or offering, guaranteeing the authenticity and provenance of any streaming output. A new C2PA Claims Manager app publishes and verifies claims in content objects and supports licensing and authorization for AI.
+        - title: Content Fabric Application Suite
+          description: |
+            The Casablanca release extends the application suite with both practical and breakout features. These include:
+
+            <span style="color: var(--color-highlight-3)">**New Creator Studio:**</span> Easily manage, distribute, and sell media assets in the Fabric to consumers or business partners via automatic streaming properties. 
+
+            <span style="color: var(--color-highlight-3)">**New Content Analytics & Reporting:**</span> View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
+
+            <span style="color: var(--color-highlight-3)">**AI Clip Search v2:**</span> Search across content libraries to retrieve relevant clips based on in-Fabric generative AI/ML tagging, speech-to-text transcription, and content metadata. 
+
+            <span style="color: var(--color-highlight-3)">**Video Editor v2:**</span> View and scrub frame-by-frame through playable content objects and their AI/ML metadata tags. Create and download clips dynamically generated from the source object. 
+
+            <span style="color: var(--color-highlight-3)">**Media Wallet v2:**</span> Universal personal media vault and player experience for TV and browser providing direct distribution of any premium video and bundled media from publisher to user.
+
+            <span style="color: var(--color-highlight-3)">**Embeddable Player v2:**</span> Universal embeddable browser player for automatic authorization and streaming of any playable content type from a global URL on the Content Fabric.
+        - title: Fabric Core Tools
+          description: |
+            <span style="color: var(--color-highlight-3)">**Live Stream Manager**</span> provides easy automatic configuration, management and monitoring for live streams.
+
+            <span style="color: var(--color-highlight-3)">**Media Ingest**</span> provides simple drag and drop ingest of video files to Fabric libraries.
+
+            <span style="color: var(--color-highlight-3)">**Fabric Browser**</span> provides comprehensive low level browsing, version management, metadata management and access control configuration for all content objects.
+      accordion_sections:
+        - header: Streaming and Distribution
+          items:
+            - title: Performance and Scale
+              description: |
+                Ultra-low latency HTTP live streaming with standard HLS/DASH ABR
+
+                - <=1 second segment delivery times for 99% of clients and segments
+                - Deterministic 3-4 seconds end-to-end ultra low latency LIVE streaming latency standard CMAF DASH/HLS
+                - No custom player needed
+                - Holds at scale
+                - Independent of client location
+
+                Using the new Performance Testbed for Scale Evaluation:
+
+                150,000 clients in North America LIVE streaming 2 second fragmented mp4 video segments over standard HLS from Fabric in Europe:
+
+                - Average segment serving latency: 300 milliseconds
+                - 99th percentile segment serving latency: 1 second
+                - Clients need not be geographically “close” to Fabric. 50-80ms from Fabric
+            - title: AV Features
+              description: |
+                Live ingest with SRT, in addition to MPEG-TS/UDP, and RTMP
+                Automatic Digital Video Recording (DVR) of live streams, Zero overhead
+                - Instant conversion of live streams to VoD
+                - Configurable by time code or SCTE signal
+                - Uses published live parts (no file copies)
+                
+                Multi-stream audio support in Live streaming in addition to VoD streaming
+                - Supports multiple languages, dubs, and audio stream variants in one live stream playout; already supported in VoD.
+                
+                Fast startup for Giant VoD Objects
+                - New optimizations in Fabric metadata allow PVOD objects with many variants (e.g. 100 audio languages) to start streaming instantly
+            - title: Security
+              description: |
+                Forensic Watermarking in Live streaming (in addition to VoD)
+                - Per-session Forensic Watermarking integration using Nagra NexGuard A-B sequences with Fabric Just-in-Time transcoding and playout.
+                Forensic Watermarking in clips and short duration streaming
+                Microsoft PlayReady DRM in addition to Google Widevine and Apple Fairplay
+            - title: Content/Ad Insertion, Personalization, Graphics Enrichment
+              description: |
+                Frame Accurate Dynamic Content Insertion in Live and VoD Streams (FAST)
+                  - Fast - Just-in-time transcoding of ads and content in live and VoD streams
+                  - Flexible - New Dynamic Content Selector API allows for executing custom bitcode (business logic) to insert content in-Fabric or call 3rd Party ad services or proxies
+                  - Scalable - Server-side but fine grained and personalized insertion with no pre-transcoding or additional latency
+                  - New Controller API signals ad insertion from SCTE markers or on cue
+                
+                Dynamic Graphic Enrichment - now inline the Fabric JIT video pipeline, a new dynamic representation (in WASM bitcode) that generates image, text and other inline graphics and visible watermarks from HTML.
+                  - Can be parameterized by user and by content or offering for personalized and dynamic watermarks, graphic enhancements, or shoppable layers.
+            - title: Management, QoS and End-to-End Monitoring
+              description: |
+                Enhanced Live Stream Manager supports automatic and easy configuration
+                - Auto-probes the input source, configures streaming parameters
+                - Reconfigures live stream playout parameters and watermarks with soft reset
+                
+                Provides a “single pane of glass” for operational view of all streams and streaming performance (latency, QoS)
+                - All streams are visible in one dashboard. Individual stream drill-down displays segment delivery times, playout buffer levels and live view
+                - New per stream status monitoring reports configuration errors, monitors stream source health, and verifies stream availability.
+                
+                New Fabric Segment Delivery Metrics
+                - New Content Analytics and Reporting App provides real-time and historical statistics for streaming segment delivery times from Fabric. 99th percentile, average, max/min times for individual live stream objects and in aggregate.
+            - title: Content Authenticity, Provenance and Authorization
+              description: |
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet vulputate arcu, vitae imperdiet sapien iaculis ac. Phasellus ullamcorper diam felis, eget vestibulum tellus mattis quis. Etiam finibus ex elementum, placerat neque et, rutrum mi. Suspendisse scelerisque volutpat malesuada. Sed arcu dui, finibus eget suscipit eu, tincidunt ac nibh. Donec porta dapibus purus, at aliquam lacus aliquam in. Mauris nec libero dapibus, aliquet elit in, hendrerit dui. Proin vel neque libero.
+            - title: Tools
+              description: |
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet vulputate arcu, vitae imperdiet sapien iaculis ac. Phasellus ullamcorper diam felis, eget vestibulum tellus mattis quis. Etiam finibus ex elementum, placerat neque et, rutrum mi. Suspendisse scelerisque volutpat malesuada. Sed arcu dui, finibus eget suscipit eu, tincidunt ac nibh. Donec porta dapibus purus, at aliquam lacus aliquam in. Mauris nec libero dapibus, aliquet elit in, hendrerit dui. Proin vel neque libero.
+        - header: Universal AI Content Tagging and Search
+          header_as_title: true
+          description: |
+              High accuracy labeling, description, transcription of content in Fabric using multiple AI/ML models executing in place, as a service
+              - AI/ML tags are saved directly to content object metadata “in place” avoiding expensive ingress/egress
+              - Generative AI models for describing content per-frame in addition to existing face/celebrity detection, logo recognition, activity detection and OCR
+              - New multi-language support for automatic speech-to-text transcription
+              - Proven easy extension of the face and logo pools without retraining for customization for sports teams, target celebrities and brands
+              
+              Fabric Search v2 provides fast search and discovery for content in the Fabric
+              - New fast engine re-crawls content object metadata in seconds
+              - Users can configure content to be crawled (or not)
+              - Text based search and new state-of-the-art vector based search provide accurate text and semantic queries of content
+              - Clip-Search API v2 incorporates automatically returns matching content segments from full length content with no human intervention
+              - An excellent monetization for deep video archives and recorded live streams
+    creator_studio:
+    analytics:
+    ai_clip_search:
+    video_editor:
+    media_wallet:
+    embeddable_player:
 
 news:
   title: News
