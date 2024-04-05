@@ -32,6 +32,13 @@ import Terms from "./pages/terms/Terms";
 import MediaWallet from "./pages/main/MediaWallet";
 import CompatibleDevices from "./pages/main/CompatibleDevices";
 import Register from "./pages/register/Register";
+import FabricCore from "./pages/technology/FabricCore";
+import CreatorStudio from "./pages/technology/CreatorStudio";
+import Analytics from "./pages/technology/Analytics";
+import AiClipSearch from "./pages/technology/AiClipSearch";
+import VideoEditor from "./pages/technology/VideoEditor";
+import MediaWalletApp from "./pages/technology/MediaWalletApp";
+import EmbeddablePlayer from "./pages/technology/EmbeddablePlayer";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -94,6 +101,13 @@ const MainApp = () => {
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
+          <Route path="/content-fabric/fabric-core" element={<PageContainer><FabricCore /></PageContainer>} />
+          <Route path="/content-fabric/creator-studio" element={<PageContainer><CreatorStudio /></PageContainer>} />
+          <Route path="/content-fabric/analytics" element={<PageContainer><Analytics /></PageContainer>} />
+          <Route path="/content-fabric/ai-clip-search" element={<PageContainer><AiClipSearch /></PageContainer>} />
+          <Route path="/content-fabric/video-editor" element={<PageContainer><VideoEditor /></PageContainer>} />
+          <Route path="/content-fabric/media-wallet" element={<PageContainer><MediaWalletApp /></PageContainer>} />
+          <Route path="/content-fabric/embeddable-player" element={<PageContainer><EmbeddablePlayer /></PageContainer>} />
           {/* Community Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
           {/* Features Routes */}

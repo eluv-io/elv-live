@@ -8,6 +8,13 @@ header:
   content_fabric_protocol: The Content Fabric Protocol
   eluvio_technology: Content Fabric Technology
   eluvio_blockchain: Content Fabric Blockchain
+  fabric_core: Fabric Core
+  creator_studio: Creator Studio
+  analytics: Analytics
+  ai_clip_search: AI Clip Search
+  video_editor: Video Editor
+  elv_media_wallet: Media Wallet
+  embeddable_player: Embeddable Player
   features: Features
   media_wallet: Media Wallet
   docs: Docs
