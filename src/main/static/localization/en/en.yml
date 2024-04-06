@@ -832,35 +832,34 @@ casablanca:
   application_suite:
     - title: Creator Studio
       to: "/content-fabric/creator-studio"
-      icon: "creator_studio"
-      tag: "tag_new"
+      icon: creator_studio
+      tag: tag_new
     - title: Content Analytics & Reporting
       to: "/content-fabric/analytics"
-      icon: "analytics"
-      tag: "tag_new"
+      icon: analytics
+      tag: tag_new
     - title: AI Clip Search
       to: "/content-fabric/ai-clip-search"
-      icon: "clip_search"
-      tag: "tag_v2"
+      icon: clip_search
+      tag: tag_v2
     - title: Video Editor
       to: "/content-fabric/video-editor"
-      icon: "video_editor"
-      tag: "tag_v2"
+      icon: video_editor
+      tag: tag_v2
     - title: Media Wallet
       to: "/content-fabric/media-wallet"
-      icon: "media_wallet"
-      tag: "tag_v2"
+      icon: media_wallet
+      tag: tag_v2
     - title: Embeddable Player
       to: "/content-fabric/embeddable-player"
-      icon: "embeddable_player"
-      tag: "tag_v2"
+      icon: embeddable_player
+      tag: tag_v2
   pages:
     fabric_core:
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
         description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
         link_text: Master PDF
-        link_to: "/content-fabric"
       sections:
         - title: Summary
           description: |
@@ -981,6 +980,47 @@ casablanca:
               - Clip-Search API v2 incorporates automatically returns matching content segments from full length content with no human intervention
               - An excellent monetization for deep video archives and recorded live streams
     creator_studio:
+      header: Content Fabric Application Suite
+      title: Creator Studio
+      tag: tag_new
+      icon: studio
+      header_description: Easily manage, distribute, and sell media assets in the Fabric to consumers or business partners via automatic streaming properties.
+      full_description: |
+        With the new <span style="color: var(--color-highlight-3)">**Creator Studio app**</span>, publishers and brands can easily manage, distribute, authorize and sell media in the Content Fabric, to consumers or business partners, for streaming, download, and/or discovery.  The app combines simple, fast management of Fabric-hosted content; easy creation of branded media property sites via automatic web UIs with rich and modern UX; and built-in media selling including subscription, per event/pay per view, and enterprise access control options. Properties for live sports streaming, premium VoD movies and TV, and video archive services can be stood up quickly and configured with ease.
+
+        The app takes advantage of the Content Fabric’s efficient architecture where one source content object renders all versions and variants, and uses its data-driven just-in-time authorization and serving. Media items (i.e. live video, on demand video, HTML apps, images, galleries, etc.) and collections can be independently presented and recombined in any number of Property sites. Tags and attributes can be assigned for dynamic loading of authorized/filtered media views in Property pages without writing code.  The app automatically loads media from the Fabric and includes a visual builder for configuring Property pages. Properties integrate the Eluvio Embeddable Player and  Eluvio Media Wallet out of the box providing a “no code needed” UI.  As content objects, Properties can also serve as backends for 3rd party media distribution apps via Content Fabric APIs.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Manage Content
+              description: |
+                - Manage any media item in the Fabric (live video, on demand video, HTML apps, images, galleries, albums, ebooks, etc.) in an intuitive and visual UI
+                - Configure thumbnails, metadata, and associated assets per item
+                - Configure media lists, collections, and media catalogs for grouping in Property pages
+                - Assign tags and attributes for dynamic loading, search and filter in Property pages
+            - title: Create and Publish No Code Media Properties
+              description: |
+                - Build Media Property sites comprised of any media content using section, page, and subproperty visual builder
+                - Re-use media items, lists and collections across any number of properties
+                - Configure Property branding and metadata including headers, logos, and sectional and item metadata with static and automatic options
+                - Configure live matches and events including pre and post-event slates and countdowns.
+                - Configure tags and attributes for group, filter, and advanced search views
+                - Configure integrated Media Wallet with custom CSS and branding
+                - Assign a custom vanity URL or use built in URLs for Property hosting
+            - title: Sell and Authorize Content
+              description: |
+                - For Enterprise / BtoB Properties, configure item SKUs for proof of authorization with on chain minting
+            - title: Preview, Stream, Download, Discovery
+              description: |
+                - For Consumer Properties, configure item SKUs for media sell through: per-transaction, subscription, and free claim with on chain minting and proof-of-purchase/ownership
+                - Configure prices, currencies, and method of payment for integrated checkout and sales
+                - Configure Property item authorization policies for open (public) access, soft paywalls, and proof-of-ownership access
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        links:
+          - text: Creator Studio PDF
+          - text: Master PDF
     analytics:
     ai_clip_search:
     video_editor:
