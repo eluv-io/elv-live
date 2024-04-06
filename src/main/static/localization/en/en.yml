@@ -843,6 +843,11 @@ casablanca:
       icon:
   pages:
     fabric_core:
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        link_text: Master PDF
+        link_to: "/content-fabric"
       sections:
         - title: Summary
           description: |
