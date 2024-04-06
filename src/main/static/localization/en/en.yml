@@ -860,6 +860,7 @@ casablanca:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
         description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
         link_text: Master PDF
+        link: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
       sections:
         - title: Summary
           description: |
@@ -982,9 +983,7 @@ casablanca:
     creator_studio:
       header: Content Fabric Application Suite
       title: Creator Studio
-      tag: tag_new
-      icon: studio
-      header_description: Easily manage, distribute, and sell media assets in the Fabric to consumers or business partners via automatic streaming properties.
+      short_description: Easily manage, distribute, and sell media assets in the Fabric to consumers or business partners via automatic streaming properties.
       full_description: |
         With the new <span style="color: var(--color-highlight-3)">**Creator Studio app**</span>, publishers and brands can easily manage, distribute, authorize and sell media in the Content Fabric, to consumers or business partners, for streaming, download, and/or discovery.  The app combines simple, fast management of Fabric-hosted content; easy creation of branded media property sites via automatic web UIs with rich and modern UX; and built-in media selling including subscription, per event/pay per view, and enterprise access control options. Properties for live sports streaming, premium VoD movies and TV, and video archive services can be stood up quickly and configured with ease.
 
@@ -1021,11 +1020,233 @@ casablanca:
         links:
           - text: Creator Studio PDF
           - text: Master PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     analytics:
+      header: Content Fabric Application Suite
+      title: Content Analytics & Reporting
+      short_description: View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
+      full_description: |
+        With the new <span style="color: var(--color-highlight-3)">**Content Analytics & Reporting**</span> app, Content Fabric users can review comprehensive viewing metrics/statistics for streaming and delivery quality of service (QoS).  The analytics data is collected throughout the Fabric continuously, and aggregated within the app via graphs, tables and other visualizations to provide comprehensive and easy viewing of real-time and past history for all content served.  Users can monitor in real time the number of viewers and Fabric performance per streaming event or Title, and run fine-grained multi-dimensional filter queries for metrics on past streaming and viewing sessions such as views by title, client geography, device, browser, and OS.   Users can also track the health of streaming by title or event including viewing in real time the Fabric metrics for streaming segment delivery times (average, 99th percentile, max, min), and the breakdown of views by adaptive bitrate segment resolution.  Finally, the entire history of all viewing sessions is viewable and filterable by date range including the content, timestamp, client authorization address, geo location, user agent details, viewing resolution, and viewing duration.
+
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Overview
+              subtitle: Dashboard for Viewership and QoS Stats by Top Titles and Live Streams
+              description: |
+                - Viewership history graph for all streamed content in user’s tenancy
+                - Session counts, unique viewer counts, total playout time
+                - Continuous time series graph for analysis over duration
+                - Filterable by past hour, 24 hours, 7 days, 30 days, past year
+                - Breakdown by streaming segment resolution
+                - See Top Content viewership stats
+                - Including sessions, unique viewers, total playout time
+                - Filter viewership history by title/live stream
+                - View Segment Delivery Metrics for selected sessions
+                - 99th percentile, average, max/min times for individual streams and in aggregate.
+            - title: Metrics View
+              description: |
+                - View and Filter metrics for all streaming sessions by the following categories:
+                - Stream Metadata: Content Object ID, Content Object Version Hash, Title, Program Duration, DRM Type, Playout Resolution
+                - Viewer Geo: Client Country, Client City
+                - Viewer Session: User Authorization Address, Wallet Address or Ticket ID, Session ID
+                - Fabric Serving Node
+                - Browser and Device: Browser & Version, OS & Version, Device Name & Model
+                - Configure multi-category inclusion filters fast and easily
+                - View Segment Delivery Metrics for selected sessions
+                - 99th percentile, average, max/min times for individual streams and in aggregate.
+                - Export any view as CSV
+            - title: All Sessions View
+              description: |
+                - View all sessions over time filterable by date range
+                - Includes Title, Timestamp, OS, Browser, Duration, Session ID, and Client Authorization Address
+                - Individual session drill down with detailed content metadata, client geo info, authorization id, fabric node, user agent and device details
+                - View per session status, playout duration, bit rate distribution and errors
+            - title: Tenant Secured and Private
+              description: |
+                - All Fabric reporting data is encrypted for the tenant using tenant keys and authorized for viewing with valid tenant credentials only
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        links:
+          - text: Analytics PDF
+          - text: Master PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     ai_clip_search:
+      header: Content Fabric Application Suite
+      title: AI Clip Search
+      short_description: Retrieve relevant clips by AI/ML tagging, speech-to-text transcription, and content metadata.
+      full_description: |
+        With the <span style="color: var(--color-highlight-3)">**AI Clip Search v2**</span> and <span style="color: var(--color-highlight-3)">**Video Editor v2**</span> apps, Content Fabric users can take advantage of the comprehensive AI Content Understanding features built into the fabric. The <span style="color: var(--color-highlight-3)">**Fabric AI Content Tagging service**</span> provides one shot or continuous frame and segment level tagging of Fabric content, and now includes new generative AI models, as well as six other models - celebrity/face detection, automatic speech to text, logo recognition, OCR, activity detection and shot boundary detection. Tags are recorded in the metadata of Content Objects (in place), aggregated by shot, indexed by Fabric Search and are directly usable in the Fabric’s dynamic streaming pipeline - to create clips, insert content/ads, create highlights etc.
+
+        Unlike other AI content tagging workflows, no content or metadata ever has to move avoiding egress charges and forklift content transfers, and the AI metadata is directly and dynamically actionable. The ground truth for the logo and celebrity models can be continuously extended for custom identification of players, actors, brands, etc. without retraining.
+
+        The latest <span style="color: var(--color-highlight-3)">**Fabric Search service**</span> provides fast re-crawl across content object metadata, including frame and video level tags (both AI and 3rd party provided), and includes enhanced text-based and semantic search capabilities.
+
+        AI Tagging and Search together create a powerful pipeline that enables this second generation <span style="color: var(--color-highlight-3)">**AI Clip Search app**</span>. Users can search across their Content libraries to retrieve relevant clips matching semantic, text, and category based queries. The Fabric returns relevant clips automatically that are built dynamically and just-in-time in playout. This pipeline avoids the time and cost of manually identifying, cutting and storing clips or highlights. The latest release includes shareable links for copy-paste streaming or download of the clip, and side panels for viewing the relevant tags and semantic descriptions of each content and is fully embeddable in any applications via its APIs.
+
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Fabric AI Content Tagging Service v2
+              description: |
+                - New Generative Image Transform (GIT) model for semantic tagging of individual frames
+                - Fully integrated in Tagger service for one time and continuous tagging of video frames and segments and audio transcription
+                - Adds to celebrity/face recognition, automatic speech to text, logo recognition, OCR, activity detection and shot boundary detection
+                - Speech to Text now supports all major EU languages
+            - title: AI/ML Tags in Content Objects
+              description: |
+                - All tags are frame accurate and time coded, and stored in the corresponding content object as JSON metadata
+                - Tags are metadata to drive any dynamic representation from the Fabric - clips, content/ad insertions, highlights
+                - Tags are viewable and downloadable on demand
+                - Tags are automatically aggregated by shot for further indexing
+                - All in place - no media or metadata has to move
+            - title: Fabric Search Service v2
+              description: |
+                - Provides fast re-crawl and instant update across content object metadata (<3 seconds for typical indices)
+                - Accurate text based search (BM25 algorithm)
+                - New Embedding algorithm supports semantic queries
+                - Enhanced ranking and retrieval yields best matches in top 5 results
+                - Indexes any content object metadata such as 3rd party provided data feeds and AI tags published to the object
+                - API for searching across all or subset of tags by model
+                - Fabric fine-grained permissions restricts search results to authorized entities
+            - title: Clip Search v2
+              description: |
+                - Search across content libraries to retrieve relevant clips and images matching semantic, text, and category based queries.
+                - Playable/downloadable links are built dynamically and just-in-time from the full length source for extreme savings $$.
+                - Eliminate manually identifying, cutting and storing clips or highlights.
+                - New shareable links for copy-paste streaming or download of the clip
+                - New side panels display relevant tags and semantic descriptions
+                - Embeddable APIs for integration in any app
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        links:
+          - text: AI Clip Search PDF
+          - text: Master PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     video_editor:
+      header: Content Fabric Application Suite
+      title: Video Editor
+      short_description: Retrieve relevant clips by AI/ML tagging, speech-to-text transcription, and content metadata.
+      full_description: |
+        The <span style="color: var(--color-highlight-3)">**Video Editor**</span> app provides frame-accurate timeline viewing/scrubbing for any playable content in the Fabric and its metadata, in the browser. The <span style="color: var(--color-highlight-3)">**Video Editor v2**</span> also acts as a lightweight clip generator, supporting saving of key frames, and mark-in/mark-out selection, and dynamic generation and download of subsections or clips. Any timecode metadata in the object is displayed on timecode synchronized tracks. Users can view the AI tags applied by the ML Tagging service, one track per model. 3rd party metadata such as play-by-play data feeds, AI metadata, and human curated descriptions can also be posted to content objects and will automatically present in the Video Editor for easy review and clipping.
+
+        The Fabric’s unique and efficient content native model (component based media & object metadata with just-in-time processing) all come together, making possible new, radically efficient and simpler pipelines. Examples include recording live streams during playout, converting to VoD within seconds, ML tagging and generating clips, and searching content, without ever moving files or metadata or duplicating content – all operations occur directly upon the source content object in the Fabric.
+
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Timeline Scrubbing for Content and Time Coded Metadata Tags
+              description: |
+                - Per frame scrubbing and playout for any content object in browser
+                - Displays timecoded tags such as Fabric-generated AI/ML tags on separate timeline tracks synchronized with playout track
+                - Displays timecoded 3rd party tags added to the content object
+                - Step through tags with instant seek and play
+                Edit tag values and save back to Content Fabric
+            - title: Clip and Key Frame Generation
+              description: |
+                - Set mark-in, mark-out points
+                Download dynamically generated playable clips
+                - Select the video and audio resolution of the downloadable clip
+                - Save key frames
+            - title: Images
+              description: |
+                - Support viewing AI/ML tags per image
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        links:
+          - text: Video Editor PDF
+          - text: Master PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     media_wallet:
+      header: Content Fabric Application Suite
+      title: Eluvio Media Wallet
+      short_description: Universal personal media vault and player experience for TV and browser providing direct distribution of any premium video and bundled media from publisher to user.
+
+      full_description: |
+        The <span style="color: var(--color-highlight-3)">**Eluvio Media Wallet**</span> introduced in summer 2023 is a universal personal media vault and player experience for all major Connected TV platforms and browsers, and allows publishers to directly peer with audiences at scale to distribute premium content for all sell-through models - transactional ownership, subscription, and free/sponsored/ad-supported. Via the Media Wallet, audiences can discover, own, play and, if authorized, retrade in these experiences via seamless web3-style ownership, authorization and windowing. In addition to premium video, content can include bundled redeemable offers for merchandise and tickets, AR, 3D collectibles, exclusive artwork, bonus footage, soundtracks, images galleries, and more.
+
+        The Media Wallet v2 expands upon the initial success of Media Wallet v1 by adding a new deep link API for embedding the wallet directly in browser and TV-based retailer properties, new features for embedding ebooks, documents, and multi-mode interactive experiences, and new platform versions including releases for Microsoft Xbox in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV.
+
+        The browser-based version includes a new generation UX that is fully integrated with the Creator Studio media and property management features. All versions are integrated with the Eluvio Authority Service APIs, which provide e-commerce checkout flows (credit card and web3 payments), and now support gifting of media in addition to purchase and free claim of media bundles. Media Wallet v2 APIs also integrate with 3rd party providers for seamless sign on to the wallet from 3rd party apps.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Universal Personal Media Vault and Player Experience for Connected TV and Browser
+              description: |
+                - Publishers directly distribute to users any content - premium video, live streams, redeemable offers and tickets, AR/3D collectibles, digital artwork, bonus video, images, and new interactive apps/ebooks/docs
+                - Users discover, own, stream and trade in these experiences
+                - High performance 4K streaming, tamper proof content storage, and blockchain backed ownership
+                - Fabric policies validate ownership and enforce availability windows, geo restrictions, and other owner requirements
+                - Now available for Microsoft Xbox in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV (1600 devices supported)
+            - title: New Browser UX for Creator Studio Properties
+              description: |
+                - New Browser UX fully integrated with Creator Studio properties.
+                - Users can Discover, View, Purchase and Stream content from Properties directly within Media Wallet.
+                - Includes the new Embeddable Player v2 with enhanced UX
+            - title: Built-in Ecommerce Checkout and Payment
+              description: |
+                - Fully integrated with the Eluvio Authority Service APIs for ecommerce checkout flows (Stripe, PayPal, EBANX, and web3 payments)
+                - New gifting in addition to purchase and free claim options
+            - title: APIs for Retailer Integration
+              description: |
+                - New Deep Link API for embedding in TV/browser media retail apps
+                - New APIs for purchase, entitlement and seamless sign on to the wallet from 3rd party apps
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        links:
+          - text: Media Wallet PDF
+          - text: Master PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     embeddable_player:
+      header: Content Fabric Application Suite
+      title: Embeddable Player
+      short_description: Universal embeddable browser player for automatic authorization and streaming of any playable content type from a global URL on the Content Fabric.
+      full_description: |
+        The <span style="color: var(--color-highlight-3)">**Eluvio Embeddable Player**</span> is an open source embeddable player for automatic authorization and streaming of any playable or renderable content type (video, images, galleries, albums, etc). The player supports streaming playout from a universal URL on the Content Fabric and can be embedded as a standalone URL or iFrame on all major desktop and mobile browsers, or web-based Connected TV platforms. It supports live, catch-up live, on-demand streaming, multi-item playlists, subtitles, captions, and multi-audio switching.
+
+        The player provides seamless support for all Fabric content security features: all authorization modes including OAuth, custom, or wallet authorization and ticket codes; secure per-session trustless encryption and DRM; and configurable fine-grained enforcement and revocation of authorization tokens via Fabric policy per source object/offering. The latest v2 version includes support for an ultra-low latency profile providing 3-4 second end-to-end playout latencies with standard HLS. It also has a new expanded UI with built-in indicators for live, on screen titles plus metadata, and configurable multi-view switching.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Universal Embeddable Player
+              description: |
+                - URL/iFrame embeddable player for streaming playout from a global
+                - URL on the Content Fabric
+                - Live, catch-up live, on-demand streaming
+                - Start, pause, seek and rewind
+                - Multi-item playlists
+                - Multiple audio tracks, subtitles, and captions with dynamic selection
+                - Automatically switches between portrait and landscape modes
+                - New Ultra-low latency, low latency and standard profiles
+                - New Configurable multi-view switching
+                - New on screen and below player titles and expandable metadata
+                - Also renders images, galleries and album types
+            - title: Complete Fabric Security
+              description: |
+                - Authorization via OAuth, custom, wallet, and ticket codes
+                - Secure per-session trustless encryption and DRM
+                - Enforcement and revocation of authorization tokens via Fabric policy
+            - title: All Major Browsers
+              description: |
+                - Chrome 39+ for Android
+                - Chrome 39+ for Desktop
+                - Firefox 41+ for Android
+                - Firefox 42+ for Desktop
+                - Edge for Windows 10+
+                - Safari 9+ for macOS 10.11+
+                - Safari for iPadOS 13+
+                - Safari for iOS 17.1+
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        links:
+          - text: Embeddable Player PDF
+          - text: Master PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
 
 news:
   title: News

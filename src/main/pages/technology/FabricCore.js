@@ -6,17 +6,17 @@ import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 
 const FabricCore = observer(() => {
-  const copy = mainStore.l10n.casablanca;
+  const copy = mainStore.l10n.casablanca.pages.fabric_core;
 
   return (
     <div className="page light">
       <div className="page__header-container">
-        <h1>{copy.title}</h1>
-        <h3>{copy.header}</h3>
+        <h1>{mainStore.l10n.casablanca.title}</h1>
+        <h3>{mainStore.l10n.casablanca.header}</h3>
       </div>
       <div className="page__content-block">
         {
-          copy.pages.fabric_core.sections.map(item => (
+          copy.sections.map(item => (
             <div key={`fabric-core-section-${item.title}`}>
               <h3 className="page__content-block__header light">{item.title}</h3>
               <RichText richText={item.description} className="page__copy fade-in--slow"/>
@@ -26,7 +26,7 @@ const FabricCore = observer(() => {
       </div>
       <AppSuiteControlPanel />
       {
-        copy.pages.fabric_core.accordion_sections.map(section => (
+        copy.accordion_sections.map(section => (
           <div className="page__content-block" key={`fabric-core-section-${section.header}`}>
             <AccordionGroup
               key={`fabric-core-accordion-section-${section.header}`}
@@ -50,12 +50,12 @@ const FabricCore = observer(() => {
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}
-          header={copy.pages.fabric_core.info_link.title}
-          content={copy.pages.fabric_core.info_link.description}
+          header={copy.info_link.title}
+          content={copy.info_link.description}
           links={[
             {
-              // href: //,
-              text: copy.pages.fabric_core.info_link.link_text,
+              to: copy.info_link.link,
+              text: copy.info_link.link_text,
               icon: DocumentIcon,
               target: "_blank"
             }

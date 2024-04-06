@@ -23,11 +23,11 @@ const CreatorStudio = observer(() => {
             <div className="application-info__header-text light">{copy.title}</div>
             <ImageIcon icon={ApplicationIcons.NewTagIcon} className="application-info__tag-icon"/>
           </div>
-          <RichText richText={copy.header_description} className="application-info__short-description page__copy fade-in--slow"/>
+          <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
           <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
         </div>
       </div>
-      <AppSuiteControlPanel/>
+      <AppSuiteControlPanel />
       {
         copy.accordion_sections.map(section => (
           <div className="page__content-block" key={`creator-studio-section-${section.header}`}>
@@ -63,7 +63,7 @@ const CreatorStudio = observer(() => {
               target: "_blank"
             },
             {
-              // href: ,
+              to: copy.info_link.links[1].to,
               text: copy.info_link.links[1].text,
               icon: DocumentIcon,
               target: "_blank"
