@@ -828,19 +828,32 @@ blockchain:
 casablanca:
   title: Eluvio Content Fabric
   header: Casablanca Release - Summer 2024
+  app_suite_title: Content Fabric Application Suite
   application_suite:
     - title: Creator Studio
-      icon:
+      to: "/content-fabric/creator-studio"
+      icon: "creator_studio"
+      tag: "tag_new"
     - title: Content Analytics & Reporting
-      icon:
+      to: "/content-fabric/analytics"
+      icon: "analytics"
+      tag: "tag_new"
     - title: AI Clip Search
-      icon:
+      to: "/content-fabric/ai-clip-search"
+      icon: "clip_search"
+      tag: "tag_v2"
     - title: Video Editor
-      icon:
+      to: "/content-fabric/video-editor"
+      icon: "video_editor"
+      tag: "tag_v2"
     - title: Media Wallet
-      icon:
+      to: "/content-fabric/media-wallet"
+      icon: "media_wallet"
+      tag: "tag_v2"
     - title: Embeddable Player
-      icon:
+      to: "/content-fabric/embeddable-player"
+      icon: "embeddable_player"
+      tag: "tag_v2"
   pages:
     fabric_core:
       info_link:
