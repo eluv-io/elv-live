@@ -58,6 +58,11 @@
     display: flex;
     gap: 100px;
     justify-content: center;
+
+    .action {
+      width: unset;
+      flex-basis: 120px;
+    }
   }
 
   &__icon {
@@ -67,12 +72,11 @@
     justify-content: center;
 
     &__icon {
-      height: 120px;
       margin-bottom: 20px;
-      width: 120px;
     }
 
     &__text {
+      text-align: center;
       font-weight: 500;
     }
   }
@@ -89,6 +93,8 @@
       background: var(--background-light-1);
       border-radius: 100%;
       padding: 20px;
+      height: 120px;
+      width: 120px;
     }
   }
 }
@@ -143,6 +149,35 @@
   &__full-description {
     margin-top: 38px;
   }
+
+  &__image-gallery {
+    .swiper {
+      box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+@media screen and (max-width: $width-laptop) {
+  .application-suite-info {
+    &__icons {
+      gap: 50px;
+    }
+
+    &__icon {
+      &__icon {
+        width: 120px;
+        height: 120px;
+      }
+
+      &__tag {
+        height: 20px;
+      }
+
+      &__text {
+        font-size: 16px;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $width-tablet) {
@@ -150,13 +185,18 @@
     gap: 20px;
   }
 
-  .mainnet-info {
+  .mainnet-info,
+  .application-suite-info {
     padding: 30px 30px 40px;
 
     &__icons {
       flex-direction: column;
       gap: 30px;
     }
+  }
+
+  .application-info__short-description {
+    max-width: 100%;
   }
 }
 

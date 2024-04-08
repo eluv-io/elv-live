@@ -5,6 +5,8 @@ import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import * as videoEditorImages from "../../static/images/apps/video-editor";
+import AppImageGallery from "./AppImageGallery";
 
 const VideoEditor = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.video_editor;
@@ -50,6 +52,7 @@ const VideoEditor = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(videoEditorImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

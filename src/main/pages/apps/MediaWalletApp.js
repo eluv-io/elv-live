@@ -5,6 +5,8 @@ import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import * as mediaWalletImages from "../../static/images/apps/media-wallet";
+import AppImageGallery from "./AppImageGallery";
 
 const MediaWalletApp = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.media_wallet;
@@ -50,6 +52,7 @@ const MediaWalletApp = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(mediaWalletImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

@@ -5,6 +5,8 @@ import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
+import * as embeddablePlayerImages from "../../static/images/apps/embeddable-player";
+import AppImageGallery from "./AppImageGallery";
 
 const EmbeddablePlayer = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.embeddable_player;
@@ -50,6 +52,7 @@ const EmbeddablePlayer = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(embeddablePlayerImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

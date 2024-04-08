@@ -5,6 +5,8 @@ import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
+import AppImageGallery from "./AppImageGallery";
+import * as clipSearchImages from "../../static/images/apps/clip-search";
 
 const AiClipSearch = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.ai_clip_search;
@@ -50,6 +52,7 @@ const AiClipSearch = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(clipSearchImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

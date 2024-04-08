@@ -5,6 +5,8 @@ import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
+import * as analyticsImages from "../../static/images/apps/analytics";
+import AppImageGallery from "./AppImageGallery";
 
 const Analytics = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.analytics;
@@ -50,6 +52,7 @@ const Analytics = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(analyticsImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

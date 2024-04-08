@@ -6,6 +6,9 @@ import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 
+import * as creatorStudioImages from "../../static/images/apps/creator-studio";
+import AppImageGallery from "./AppImageGallery";
+
 const CreatorStudio = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.creator_studio;
 
@@ -50,6 +53,7 @@ const CreatorStudio = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(creatorStudioImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

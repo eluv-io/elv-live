@@ -20,6 +20,7 @@ const MAIN_SITE_PATHS = [
   //"/",
   "/wallet",
   "/content-fabric",
+  "/apps",
   "/features",
   "/about",
   "/creators-and-publishers",
