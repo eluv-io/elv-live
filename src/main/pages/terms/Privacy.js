@@ -5,11 +5,12 @@ const Privacy = () => {
   const documentUrl = window.URL.createObjectURL(new Blob([PrivacyDocument], {type: "text/html"}));
 
   return (
-    <div className="page light">
-      <div className="terms">
-        <iframe src={documentUrl} className="terms__frame" />
-      </div>
-    </div>
+    <PrivacyDocument />
+    // <div className="page light">
+    //   <div className="terms">
+    //     <iframe src={documentUrl} className="terms__frame" />
+    //   </div>
+    // </div>
   );
 };
 
