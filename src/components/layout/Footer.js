@@ -18,6 +18,7 @@ class Footer extends React.Component {
     };
   }
 
+
   Sponsors() {
     return (
       this.props.siteStore.sponsors.map((sponsor, index) =>
@@ -84,12 +85,12 @@ class Footer extends React.Component {
           links && links.length > 0 ?
             links :
             <>
-              <Link to={this.props.siteStore.SitePath("privacy")} className="footer__item">
+              <a href="https://eluv.io/EluvioPrivacyPolicy.html" className="footer__item" rel="noopener" target="_blank">
                 { this.props.siteStore.l10n.footer.privacy_policy }
-              </Link>
-              <Link to={this.props.siteStore.SitePath("terms")} className="footer__item">
+              </a>
+              <a href="https://eluv.io/EluvioTerms.html" className="footer__item" rel="noopener" target="_blank">
                 { this.props.siteStore.l10n.footer.terms }
-              </Link>
+              </a>
             </>
         }
       </>
