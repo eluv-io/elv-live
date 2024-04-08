@@ -168,6 +168,22 @@
       box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
     }
   }
+
+  &__image-gallery-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+
+    &__text {
+      font-weight: 600;
+    }
+  }
+
+  &__nav-button {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: $width-max) {
