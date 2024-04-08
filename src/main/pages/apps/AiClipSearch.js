@@ -7,6 +7,7 @@ import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Mis
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import AppImageGallery from "./AppImageGallery";
 import * as clipSearchImages from "../../static/images/apps/clip-search";
+import ClipSearchPdf from "./documents/Eluvio Content Fabric - Casablanca Release PDF - Clip Search & Video Editor.pdf";
 
 const AiClipSearch = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.ai_clip_search;
@@ -60,7 +61,7 @@ const AiClipSearch = observer(() => {
           content={copy.info_link.description}
           links={[
             {
-              // href: ,
+              href: ClipSearchPdf,
               text: copy.info_link.links[0].text,
               icon: DocumentIcon,
               target: "_blank"

@@ -1038,6 +1038,7 @@ casablanca:
         description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
         links:
           - text: Creator Studio PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__JNkZg9FxrzgWdPYsbBpFzn4vT9UTRzJScYpAiyeTW68FoPvTszDESMhzXBHkLb9xmR2ct1G8fX/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20PDF%20-%20Creator%20Studio%20&%20Content%20Analytics.pdf
           - text: Master PDF
             to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     analytics:
@@ -1089,6 +1090,7 @@ casablanca:
         description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
         links:
           - text: Analytics PDF
+            to: https://main.net955305.contentfabric.io/s/main/q/hq__JNkZg9FxrzgWdPYsbBpFzn4vT9UTRzJScYpAiyeTW68FoPvTszDESMhzXBHkLb9xmR2ct1G8fX/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20PDF%20-%20Creator%20Studio%20&%20Content%20Analytics.pdf
           - text: Master PDF
             to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     ai_clip_search:
@@ -1218,6 +1220,7 @@ casablanca:
         description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
         links:
           - text: Media Wallet PDF
+            to: https://host-76-74-28-231.contentfabric.io/s/main/q/hq__2H13whVoUWbkhhm4cjHC75VZncDiKzVqwkPm8QB6bmZR9vmZp4bFJZCjxEN1hUfToLtu63XcX7/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20PDF%20-%20Eluvio%20Media%20Wallet.pdf
           - text: Master PDF
             to: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
     embeddable_player:

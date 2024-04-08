@@ -60,7 +60,7 @@ const Analytics = observer(() => {
           content={copy.info_link.description}
           links={[
             {
-              // href: ,
+              to: copy.info_link.links[0].to,
               text: copy.info_link.links[0].text,
               icon: DocumentIcon,
               target: "_blank"
