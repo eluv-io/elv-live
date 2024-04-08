@@ -19,6 +19,7 @@ const experienceImages = [
 ];
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
+import {Link} from "react-router-dom";
 
 const FeaturesCarousel = observer(() => {
   return (
@@ -42,9 +43,14 @@ const HeaderBlock = observer(() => {
           <h1 className="main-page-header__main-header__header">
             { mainStore.l10n.main.heading.header }
           </h1>
-          <h3 className="main-page-header__main-header__subheader">
-            { mainStore.l10n.main.heading.subheader }
-          </h3>
+          <div className="main-page-header__main-header__subheader-container">
+            <h3 className="main-page-header__main-header__subheader">
+              { mainStore.l10n.main.heading.subheader }
+            </h3>
+            <Link className="main-page-header__main-header__featured-link" to={mainStore.l10n.main.heading.featured_link}>
+              <h5>{ mainStore.l10n.main.heading.featured_link_text }</h5>
+            </Link>
+          </div>
         </div>
         <div className="main-page-header__tagline">
           <h3 className="main-page-header__main-header__tagline">{ mainStore.l10n.main.heading.tagline }</h3>

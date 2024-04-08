@@ -35,6 +35,8 @@ main:
     header: Unlock the Value of Your Content
     subheader: The Content Fabric is a programmable streaming, content distribution, and storage network built for the Third Generation Internet
     tagline: Bringing Publishers, Brands, and Users New Possibilities
+    featured_link_text: Check out the Casablanca Release - Coming Summer 2024
+    featured_link: "/content-fabric/fabric-core"
   features_carousel:
     - High Performance 4K and Interactive Streaming
     - State-of-the-Art Blockchain Security and Payments
