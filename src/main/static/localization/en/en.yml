@@ -43,13 +43,14 @@ main:
     - Transparent and Tamper-Free
   video_block:
     subheader: Discover
-    header: The Content Fabric Technology
+    header: The Content Fabric
     features:
-      - A novel utility blockchain network for any content
-      - Decentralized Streaming, Distribution, Storage
-      - Just-in-Time, Programmable, Hyper Efficient, and Sustainable
+      - A novel protocol and utility network for any content
+      - Decentralized, Streaming, Distribution, and Storage at Scale
+      - Ultra-fast, Ultra-Efficient, and Tamper Proof
       - 50X more efficient and up to 80% less costly than clouds and CDNs
-      - Tamper-free On Chain Ownership, Versioning, Access Control
+      - Data-driven, AI Native, Just-in-Time Output
+      - Tamper-free Ownership, Versioning, and Access Control
   features_block:
     subheader: Resulting in
     header: Advanced Full-Feature Platform For All Media
@@ -124,13 +125,15 @@ creators:
     cards:
       -
         icon: play
-        front: Low Latency 4k Live and On Demand Streaming
+        front: |
+          Low Latency 4k Streaming and CDN
+          LIVE, PVOD, and FAST
         back: Low Latency 4K + Video Streaming - Live, On Demand, 360
       -
         icon: smile
         front: Customizable Events, Drops, & Marketplaces
         back:
-          - Turnkey Web3 Content Experience/Storefronts,
+          - Turnkey Next Gen Content Experience/Storefronts,
           - Turnkey platform for rich media digital properties & websites
           - Configurable Media Galleries & Brandable Property
       -
@@ -141,7 +144,7 @@ creators:
           - Native Web3 Media Wallet & On-chain/Cross Chain Token Gated Content
       -
         icon: wrench
-        front: Large Library Servicing & Decentralized CDN
+        front: Video Archive Monetization and Large Library Servicing
         back:
           - Watch and Access from Anywhere
           - Multiple apps on Single Content Fabric Substrate
@@ -155,8 +158,8 @@ creators:
           - ML Content Tagging, Automated ML Clip Search & Generation
       -
         icon: app
-        front: Market Making Curation & Matching
-        back: Just-in-time "smart stage" streaming & retail monetization
+        front: Personalization and Market Making at Scale
+        back: Just-in-time frame accurate content insertion in streaming, data driven and user personalized
       -
         icon: discover
         front: WebXR and Immersive Content Serving

@@ -63,7 +63,8 @@ const VideoBlock = observer(({mobile}) => {
     PlayIcon,
     MoneyIcon,
     PowerIcon,
-    FilmIcon
+    FilmIcon,
+    BlockchainIcon
   ];
 
   return (
