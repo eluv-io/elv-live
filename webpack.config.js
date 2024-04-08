@@ -89,11 +89,11 @@ module.exports = {
       },
       {
         from: Path.join(__dirname, "src/main/static/documents/PrivacyPolicy.html"),
-        to: Path.join(__dirname, "dist", "EluvioPrivacyPolicy")
+        to: Path.join(__dirname, "dist", "EluvioPrivacyPolicy.html")
       },
       {
         from: Path.join(__dirname, "src/main/static/documents/Terms.html"),
-        to: Path.join(__dirname, "dist", "EluvioTerms")
+        to: Path.join(__dirname, "dist", "EluvioTerms.html")
       }
     ]),
     process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
