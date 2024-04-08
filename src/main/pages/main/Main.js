@@ -7,7 +7,7 @@ import {Carousel, RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
-import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v3.png";
+import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v4.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_and_users_v2.png";
