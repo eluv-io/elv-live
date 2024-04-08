@@ -962,10 +962,28 @@ casablanca:
                 - New Content Analytics and Reporting App provides real-time and historical statistics for streaming segment delivery times from Fabric. 99th percentile, average, max/min times for individual live stream objects and in aggregate.
             - title: Content Authenticity, Provenance and Authorization
               description: |
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet vulputate arcu, vitae imperdiet sapien iaculis ac. Phasellus ullamcorper diam felis, eget vestibulum tellus mattis quis. Etiam finibus ex elementum, placerat neque et, rutrum mi. Suspendisse scelerisque volutpat malesuada. Sed arcu dui, finibus eget suscipit eu, tincidunt ac nibh. Donec porta dapibus purus, at aliquam lacus aliquam in. Mauris nec libero dapibus, aliquet elit in, hendrerit dui. Proin vel neque libero.
+                New Content Verification Proof API
+                - Allows Fabric apps to automatically verify the version hash of any content object or offering. In combination with the on chain version history, provides proof of authenticity.
+                - New C2PA Claims Manager publishes and verifies C2PA claims in Fabric. Supports authorizing and licensing use by generative AI.
+
             - title: Tools
               description: |
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet vulputate arcu, vitae imperdiet sapien iaculis ac. Phasellus ullamcorper diam felis, eget vestibulum tellus mattis quis. Etiam finibus ex elementum, placerat neque et, rutrum mi. Suspendisse scelerisque volutpat malesuada. Sed arcu dui, finibus eget suscipit eu, tincidunt ac nibh. Donec porta dapibus purus, at aliquam lacus aliquam in. Mauris nec libero dapibus, aliquet elit in, hendrerit dui. Proin vel neque libero.
+                Live Stream Manager provides easy automatic configuration, management and monitoring for live streams.
+                - Auto-probes the input source, configures streaming parameters
+                - Reconfigures live stream playout parameters and watermarks with soft reset
+                - Stream Preview graphs real-time segment arrival time, player buffer levels
+                - Advanced panel configures Fabric node selection, DRM options, and player profile configuration for rapid troubleshooting
+                
+                Media Ingest provides simple drag and drop ingest of video files to Fabric libraries.
+                - Provides one shot ingest including upload, ingest transcoding and version finalization.
+                - Allows for targeting library, access control and configuration
+                
+                Fabric Browser provides comprehensive low level browsing, version management, metadata management and access control configuration for all content objects.
+                - Displays per object version and change history, contract information, access control settings, ownership, metadata, and linked assets
+                - Supports configuration of content types and dynamic offerings
+                - Provides search/filtering across all libraries by object id, version hash, title
+                - Stream Preview in all playable objects includes copy paste embed URL and advanced performance monitoring and configuration
+
         - header: Universal AI Content Tagging and Search
           header_as_title: true
           description: |

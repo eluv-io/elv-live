@@ -4,6 +4,8 @@ import {observer} from "mobx-react";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import AppSuiteControlPanel from "../apps/AppSuiteControlPanel";
+import * as fabricCoreImages from "../../static/images/technology/fabric-core";
+import AppImageGallery from "../apps/AppImageGallery";
 
 const FabricCore = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.fabric_core;
@@ -47,6 +49,7 @@ const FabricCore = observer(() => {
           </div>
         ))
       }
+      <AppImageGallery items={Object.values(fabricCoreImages || {})} />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}
