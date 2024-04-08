@@ -1,13 +1,13 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
-import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import AppSuiteControlPanel from "./AppSuiteControlPanel";
 
-const VideoEditor = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.video_editor;
+const EmbeddablePlayer = observer(() => {
+  const copy = mainStore.l10n.casablanca.pages.embeddable_player;
 
   return (
     <div className="page light">
@@ -19,7 +19,7 @@ const VideoEditor = observer(() => {
         <div className="application-info__header">
           <div className="application-info__header-title">{copy.header}</div>
           <div className="application-info__title-group">
-            <ImageIcon icon={ApplicationIcons.VideoEditorIcon} className="application-info__icon"/>
+            <ImageIcon icon={ApplicationIcons.EmbeddablePlayerIcon} className="application-info__icon"/>
             <div className="application-info__header-text light">{copy.title}</div>
             <ImageIcon icon={ApplicationIcons.V2TagIcon} className="application-info__tag-icon"/>
           </div>
@@ -30,19 +30,19 @@ const VideoEditor = observer(() => {
       <AppSuiteControlPanel />
       {
         copy.accordion_sections.map(section => (
-          <div className="page__content-block" key={`video-editor-section-${section.header}`}>
+          <div className="page__content-block" key={`embeddable-player-section-${section.header}`}>
             <AccordionGroup
-              key={`video-editor-accordion-section-${section.header}`}
+              key={`embeddable-player-accordion-section-${section.header}`}
               header={section.items ? section.header : ""}
             >
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} key={`video-editor-accordion-item-${item.title}`}>
+                    <Accordion title={item.title} key={`embeddable-player-accordion-item-${item.title}`} defaultOpen>
                       <RichText className="accordion__description-card" richText={item.description}/>
                     </Accordion>
                   )) :
-                  <Accordion title={section.header} hasHeader={false}>
+                  <Accordion title={section.header} hasHeader={false} defaultOpen>
                     <RichText className="accordion__description-card" richText={section.description}/>
                   </Accordion>
               }
@@ -75,5 +75,5 @@ const VideoEditor = observer(() => {
   );
 });
 
-export default VideoEditor;
+export default EmbeddablePlayer;
 

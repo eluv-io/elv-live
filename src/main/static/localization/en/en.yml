@@ -8,7 +8,7 @@ header:
   content_fabric_protocol: The Content Fabric Protocol
   eluvio_technology: Content Fabric Technology
   eluvio_blockchain: Content Fabric Blockchain
-  fabric_core: Fabric Core
+  fabric_core: Casablanca Release - Fabric Core
   creator_studio: Creator Studio
   analytics: Analytics
   ai_clip_search: AI Clip Search
@@ -27,6 +27,7 @@ header:
   profile: Profile
   discover_projects: Discover Projects
   projects: Projects
+  apps: Apps
 
 # Main Page
 main:
@@ -831,27 +832,27 @@ casablanca:
   app_suite_title: Content Fabric Application Suite
   application_suite:
     - title: Creator Studio
-      to: "/content-fabric/creator-studio"
+      to: "/apps/creator-studio"
       icon: creator_studio
       tag: tag_new
     - title: Content Analytics & Reporting
-      to: "/content-fabric/analytics"
+      to: "/apps/analytics"
       icon: analytics
       tag: tag_new
     - title: AI Clip Search
-      to: "/content-fabric/ai-clip-search"
+      to: "/apps/ai-clip-search"
       icon: clip_search
       tag: tag_v2
     - title: Video Editor
-      to: "/content-fabric/video-editor"
+      to: "/apps/video-editor"
       icon: video_editor
       tag: tag_v2
     - title: Media Wallet
-      to: "/content-fabric/media-wallet"
+      to: "/apps/media-wallet"
       icon: media_wallet
       tag: tag_v2
     - title: Embeddable Player
-      to: "/content-fabric/embeddable-player"
+      to: "/apps/embeddable-player"
       icon: embeddable_player
       tag: tag_v2
   pages:

@@ -38,11 +38,11 @@ const Analytics = observer(() => {
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} key={`analytics-accordion-item-${item.title}`}>
+                    <Accordion title={item.title} key={`analytics-accordion-item-${item.title}`} defaultOpen>
                       <RichText className="accordion__description-card" richText={item.description}/>
                     </Accordion>
                   )) :
-                  <Accordion title={section.header} hasHeader={false}>
+                  <Accordion title={section.header} hasHeader={false} defaultOpen>
                     <RichText className="accordion__description-card" richText={section.description}/>
                   </Accordion>
               }

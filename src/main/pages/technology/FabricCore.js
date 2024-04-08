@@ -3,7 +3,7 @@ import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
-import AppSuiteControlPanel from "./AppSuiteControlPanel";
+import AppSuiteControlPanel from "../apps/AppSuiteControlPanel";
 
 const FabricCore = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.fabric_core;
@@ -35,11 +35,11 @@ const FabricCore = observer(() => {
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} key={`fabric-core-accordion-item-${item.title}`}>
+                    <Accordion title={item.title} defaultOpen key={`fabric-core-accordion-item-${item.title}`}>
                       <RichText className="accordion__description-card" richText={item.description}/>
                     </Accordion>
                   )) :
-                  <Accordion title={section.header} hasHeader={false}>
+                  <Accordion title={section.header} hasHeader={false} defaultOpen>
                     <RichText className="accordion__description-card" richText={section.description}/>
                   </Accordion>
               }

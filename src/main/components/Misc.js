@@ -288,11 +288,12 @@ export const Accordion = ({
   className = "",
   openIcon = PlusIcon,
   closeIcon = MinusIcon,
+  defaultOpen=false,
   children,
   triggerText,
   hasHeader=true
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div className={`accordion ${className}`}>
