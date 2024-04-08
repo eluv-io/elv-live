@@ -11,6 +11,7 @@ import FeaturesImage from "../../static/images/main/advance_full_feature_platfor
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_and_users_v2.png";
+import SpeakerphoneIcon from "../../static/icons/speakerphone-outline.svg";
 
 const experienceImages = [
   ExperiencesImage1,
@@ -48,7 +49,8 @@ const HeaderBlock = observer(() => {
               { mainStore.l10n.main.heading.subheader }
             </h3>
             <Link className="main-page-header__main-header__featured-link" to={mainStore.l10n.main.heading.featured_link}>
-              <h5>{ mainStore.l10n.main.heading.featured_link_text }</h5>
+              <ImageIcon icon={SpeakerphoneIcon} className="main-page-header__main-header__featured-link-icon" />
+              <div>{ mainStore.l10n.main.heading.featured_link_text }</div>
             </Link>
           </div>
         </div>

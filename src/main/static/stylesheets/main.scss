@@ -68,8 +68,19 @@
     }
 
     &__featured-link {
-      color: var(--color-highlight-4);
+      color: var(--color-highlight-6);
       font-weight: 500;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-items: center;
+      font-size: 24px;
+    }
+
+    &__featured-link-icon {
+      color: var(--color-highlight-6);
+      height: 25px;
+      width: 25px;
     }
   }
 
