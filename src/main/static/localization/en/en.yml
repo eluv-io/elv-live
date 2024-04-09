@@ -330,9 +330,15 @@ content_fabric:
         to: https://eluv.io/community
   streaming_and_reporting:
     header: Review the Core Audio/Video Streaming and Reporting Features
-    text: Download this detailed product pdf covering the streaming and reporting features of the platform
+    text: Download this detailed product pdf covering the streaming and reporting features of the platform.
     links:
       - text: "Download"
+  casablanca:
+    header: Eluvio Content Fabric Casablanca Release - Summer 2024
+    text: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
+    links:
+      - text: Master PDF
+        link: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
 
 technology:
   title: Content Fabric Technology
@@ -864,7 +870,7 @@ casablanca:
     fabric_core:
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         link_text: Master PDF
         link: https://main.net955305.contentfabric.io/s/main/q/hq__vboVr9RJNxYLik4hadtyfmrL2WihaWbqJKUHeVBUBEjZVPEzmqzhTs1QYw4kNW5ktCHwHWiow/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20-%20Master%20PDF.pdf
       sections:
@@ -1040,7 +1046,7 @@ casablanca:
                 - Configure Property item authorization policies for open (public) access, soft paywalls, and proof-of-ownership access
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         links:
           - text: Creator Studio PDF
             to: https://main.net955305.contentfabric.io/s/main/q/hq__JNkZg9FxrzgWdPYsbBpFzn4vT9UTRzJScYpAiyeTW68FoPvTszDESMhzXBHkLb9xmR2ct1G8fX/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20PDF%20-%20Creator%20Studio%20&%20Content%20Analytics.pdf
@@ -1092,7 +1098,7 @@ casablanca:
                 - All Fabric reporting data is encrypted for the tenant using tenant keys and authorized for viewing with valid tenant credentials only
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         links:
           - text: Analytics PDF
             to: https://main.net955305.contentfabric.io/s/main/q/hq__JNkZg9FxrzgWdPYsbBpFzn4vT9UTRzJScYpAiyeTW68FoPvTszDESMhzXBHkLb9xmR2ct1G8fX/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20PDF%20-%20Creator%20Studio%20&%20Content%20Analytics.pdf
@@ -1146,7 +1152,7 @@ casablanca:
                 - Embeddable APIs for integration in any app
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         links:
           - text: AI Clip Search PDF
           - text: Master PDF
@@ -1181,7 +1187,7 @@ casablanca:
                 - Support viewing AI/ML tags per image
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         links:
           - text: Video Editor PDF
           - text: Master PDF
@@ -1222,7 +1228,7 @@ casablanca:
                 - New APIs for purchase, entitlement and seamless sign on to the wallet from 3rd party apps
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         links:
           - text: Media Wallet PDF
             to: https://host-76-74-28-231.contentfabric.io/s/main/q/hq__2H13whVoUWbkhhm4cjHC75VZncDiKzVqwkPm8QB6bmZR9vmZp4bFJZCjxEN1hUfToLtu63XcX7/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Casablanca%20Release%20PDF%20-%20Eluvio%20Media%20Wallet.pdf
@@ -1269,7 +1275,7 @@ casablanca:
                 - Safari for iOS 17.1+
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
-        description: Get the latest updates consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
         links:
           - text: Embeddable Player PDF
           - text: Master PDF
