@@ -199,14 +199,18 @@
     padding: 30px 40px 40px;
 
     &__icons {
-      justify-content: space-between;
+      justify-content: center;
       gap: 10px;
+
+      .action {
+        justify-content: center;
+      }
     }
 
     &__icon {
       &__icon {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
       }
 
       &__tag {
@@ -238,16 +242,25 @@
     padding: 30px 30px 40px;
 
     &__icons {
-      flex-direction: column;
-      gap: 40px;
-      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .action {
+        flex-basis: 10%;
+      }
     }
 
     &__icon {
       &__icon {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
       }
+    }
+
+    &__header {
+      text-align: center;
     }
   }
 
@@ -265,5 +278,16 @@
   .icon-box {
     height: 225px;
     width: 225px;
+  }
+
+  .application-suite-info {
+    &__icons {
+      flex-wrap: wrap;
+      gap: 40px;
+
+      .action {
+        flex: 0 0 40%;
+      }
+    }
   }
 }

@@ -9,6 +9,7 @@ export const FabricCore8 = require("./08.jpg");
 export const FabricCore9 = require("./09.jpg");
 export const FabricCore10 = require("./10.jpg");
 export const FabricCore11 = require("./11.jpg");
+export const FabricCore11b = require("./11b.jpg");
 export const FabricCore12 = require("./12.jpg");
 export const FabricCore13 = require("./13.jpg");
 export const FabricCore14 = require("./14.jpg");

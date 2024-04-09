@@ -16,6 +16,8 @@
   }
 
   .action {
+    width: 100%;
+
     &.active {
       text-decoration: underline;
     }

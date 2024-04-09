@@ -349,6 +349,13 @@
         min-width: unset;
         text-align: center;
       }
+
+      &__featured-link {
+        font-size: var(--font-size-feature-subheader);
+        align-items: flex-start;
+        text-align: center;
+        gap: 0;
+      }
     }
 
     &__actions {
