@@ -49,9 +49,9 @@ main:
     features:
       - A novel protocol and utility network for any content
       - Decentralized, Streaming, Distribution, and Storage at Scale
-      - Ultra-fast, Ultra-Efficient, and Tamper Proof
+      - Ultra-fast and Ultra-efficient
       - 50X more efficient and up to 80% less costly than clouds and CDNs
-      - Data-driven, AI Native, Just-in-Time Output
+      - Data-driven, AI Native, Just-in-Time
       - Tamper-free Ownership, Versioning, and Access Control
   features_block:
     subheader: Resulting in
