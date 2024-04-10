@@ -18,7 +18,7 @@ const axios = require("axios");
 const WALLET_DEFAULTS = {
   "og:title": "Eluvio Media Wallet",
   "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
-  "og:image": "https://wallet.contentfabric.io/public/Logo.png",
+  "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__2MQf6oJwqXdyrNDu3WaA19CiFoeK6W2RhiPZnPEmKLJ3CUoTFuTB25YuzFxsSQfomnPEMKpSVT/files/eluv.io/Eluvio-Share-Image.jpg",
   "og:image:alt": "Eluvio"
 };
 
