@@ -3,6 +3,7 @@ require("date");
 const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
+const ShareImage = require("../src/assets/images/Eluvio-Share-Image.jpg");
 
 //
 // Firebase cloud functions
@@ -328,7 +329,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
   let title = "Eluvio: Creators of The Content Fabric";
   let description = "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.";
-  let image = "https://wallet.contentfabric.io/public/Logo.png";
+  let image = ShareImage;
   let favicon = "/favicon.png";
 
   // Inject metadata
@@ -341,6 +342,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
       title = site_metadata.title?.replaceAll("\"", "&quot;") || title;
       description = site_metadata.description?.replaceAll("\"", "&quot;");
       image = site_metadata.image || image;
+      console.log("image", image)
       favicon = site_metadata.favicon || favicon;
       break;
     }
