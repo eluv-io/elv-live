@@ -18,7 +18,7 @@ const axios = require("axios");
 const WALLET_DEFAULTS = {
   "og:title": "Eluvio Media Wallet",
   "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
-  "og:image": "https://wallet.contentfabric.io/public/Logo.png",
+  "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__2MQf6oJwqXdyrNDu3WaA19CiFoeK6W2RhiPZnPEmKLJ3CUoTFuTB25YuzFxsSQfomnPEMKpSVT/files/eluv.io/Eluvio-Share-Image.jpg",
   "og:image:alt": "Eluvio"
 };
 
@@ -328,7 +328,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
   let title = "Eluvio: Creators of The Content Fabric";
   let description = "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.";
-  let image = "https://wallet.contentfabric.io/public/Logo.png";
+  let image = "https://main.net955305.contentfabric.io/s/main/q/hq__2MQf6oJwqXdyrNDu3WaA19CiFoeK6W2RhiPZnPEmKLJ3CUoTFuTB25YuzFxsSQfomnPEMKpSVT/files/eluv.io/Eluvio-Share-Image.jpg";
   let favicon = "/favicon.png";
 
   // Inject metadata
@@ -341,6 +341,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
       title = site_metadata.title?.replaceAll("\"", "&quot;") || title;
       description = site_metadata.description?.replaceAll("\"", "&quot;");
       image = site_metadata.image || image;
+      console.log("image", image)
       favicon = site_metadata.favicon || favicon;
       break;
     }

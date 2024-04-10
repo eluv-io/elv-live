@@ -163,10 +163,11 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false, cl
         {
           !links || links.length === 0 ? null :
             <div className="info-box__links">
-              {links.map(({text, to, icon, includeArrow=true, target}, index) =>
+              {links.map(({text, to, href, icon, includeArrow=true, target}, index) =>
                 <Button
                   icon={icon}
                   to={to}
+                  href={href}
                   target={target}
                   includeArrow={includeArrow}
                   className={`${dark ? "dark" : "light"} secondary info-box__link`}
@@ -264,18 +265,45 @@ export const GridCarousel = observer(({children, cutOff=600, className="", class
   );
 });
 
-export const Accordion = ({title, subtitle="", description, className="", openIcon=PlusIcon, closeIcon=MinusIcon, children, triggerText}) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const AccordionGroup = ({header, children}) => {
+  return (
+    <div className="accordion-group curved-box info-box light">
+      {
+        header &&
+        <div className="info-box__content">
+          <div className="info-box__text">
+            <h3 className="info-box__header">{ header }</h3>
+          </div>
+        </div>
+      }
+      { children }
+    </div>
+  );
+};
+
+export const Accordion = ({
+  title,
+  subtitle = "",
+  description,
+  className = "",
+  openIcon = PlusIcon,
+  closeIcon = MinusIcon,
+  defaultOpen=false,
+  children,
+  triggerText,
+  hasHeader=true
+}) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div className={`accordion ${className}`}>
-      <Action className="accordion__header left-align" onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
+      <Action className={`accordion__header left-align ${hasHeader ? "" : "accordion__header--no-header-title"}`} onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
         <div className="accordion__header-container">
-          <div className="accordion__header-subtitle">{ subtitle }</div>
-          <div className="accordion__header__title">{ title }</div>
+          <div className="accordion__header-subtitle">{subtitle}</div>
+          <div className={`accordion__header__title ${hasHeader ? "accordion__header__title--purple" : ""}`}>{title}</div>
         </div>
 
-        { triggerText && <div className="accordion__trigger-text">{triggerText}</div> }
+        {triggerText && <div className="accordion__trigger-text">{triggerText}</div> }
         {
           !triggerText &&
           <ImageIcon icon={isOpen ? closeIcon : openIcon} className="accordion__header__icon"/>

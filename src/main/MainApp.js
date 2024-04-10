@@ -32,6 +32,13 @@ import Terms from "./pages/terms/Terms";
 import MediaWallet from "./pages/main/MediaWallet";
 import CompatibleDevices from "./pages/main/CompatibleDevices";
 import Register from "./pages/register/Register";
+import FabricCore from "./pages/technology/FabricCore";
+import CreatorStudio from "./pages/apps/CreatorStudio";
+import Analytics from "./pages/apps/Analytics";
+import AiClipSearch from "./pages/apps/AiClipSearch";
+import VideoEditor from "./pages/apps/VideoEditor";
+import MediaWalletApp from "./pages/apps/MediaWalletApp";
+import EmbeddablePlayer from "./pages/apps/EmbeddablePlayer";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -94,6 +101,14 @@ const MainApp = () => {
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
+          <Route path="/content-fabric/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
+          {/* Apps Routes */}
+          <Route path="/apps/creator-studio" element={<PageContainer padded><CreatorStudio /></PageContainer>} />
+          <Route path="/apps/analytics" element={<PageContainer padded><Analytics /></PageContainer>} />
+          <Route path="/apps/ai-clip-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
+          <Route path="/apps/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
+          <Route path="/apps/media-wallet" element={<PageContainer padded><MediaWalletApp /></PageContainer>} />
+          <Route path="/apps/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
           {/* Community Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
           {/* Features Routes */}

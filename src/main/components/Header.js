@@ -72,9 +72,27 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.fabric_core, to: "/content-fabric/fabric-core", props: {useNavLink: true, exact: true}}
             ]}
           >
             { mainStore.l10n.header.content_fabric }
+          </MenuButton>
+          <MenuButton
+            basePath="/apps"
+            className="dark header__nav-link"
+            optionClassName="dark"
+            useNavLink
+            underline
+            items={[
+              {label: mainStore.l10n.header.creator_studio, to: "/apps/creator-studio", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.analytics, to: "/apps/analytics", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.ai_clip_search, to: "/apps/ai-clip-search", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.video_editor, to: "/apps/video-editor", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.elv_media_wallet, to: "/apps/media-wallet", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.embeddable_player, to: "/apps/embeddable-player", props: {useNavLink: true, exact: true}}
+            ]}
+          >
+            { mainStore.l10n.header.apps }
           </MenuButton>
           <MenuButton
             basePath="/features"

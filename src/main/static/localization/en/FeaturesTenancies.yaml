@@ -19,7 +19,7 @@ levels:
     added_benefit_percentage: 50+%
     features:
       - Open Source Content Fabric Application Suite
-      - Turnkey Web3 Content Experience and Storefronts
+      - Turnkey Next Gen Content Experience and Storefronts
       - 1 Brandable Property
       - $0.5 Minting (NFT, ERC-20)
       - Priority Technical Support
@@ -33,7 +33,7 @@ levels:
     added_benefit_percentage: 90+%
     features:
       - Open Source Content Fabric Application Suite
-      - Turnkey Web3 Content Experience and Storefronts
+      - Turnkey Next Gen Content Experience and Storefronts
       - Unlimited Brandable Properties
       - $0.10 Minting (NFT, ERC-20)
       - 24x7 Premium Technical Support, Valet Content Ops & Dedicated API Support
@@ -72,7 +72,7 @@ comparison_table:
         level_1: true
         level_2: true
         level_3: true
-  - header: '"Powered by Eluvio" Web3 Content Experiences and Stores'
+  - header: '"Powered by Eluvio" Next Gen Content Experiences and Stores'
     items:
       - label: Token Authorized Content (Suscription and Single Purchase)
         level_1: true
@@ -122,7 +122,7 @@ comparison_table:
         level_1_text: ""
         level_2_text: 1
         level_3_text: Unlimited
-      - label: '"Powered by Eluvio" Web3 Content Experiences and Stores'
+      - label: '"Powered by Eluvio" Next Gen Content Experiences and Stores'
         level_1_text: |
           $1,500.00
           per month

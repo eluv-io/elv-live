@@ -25,6 +25,27 @@
   }
 }
 
+.application-suite-info {
+  &__icons {
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__icon {
+    &__tag {
+      height: 25px;
+      margin-top: 8px;
+    }
+
+    &__icon {
+      height: 100px;
+      width: 100px;
+    }
+  }
+}
+
+.application-suite-info,
 .mainnet-info {
   display: grid;
   gap: 40px;
@@ -39,20 +60,16 @@
     width: 100%;
   }
 
-  &__header-icon {
-    height: 45px;
-    width: 45px;
-  }
-
   &__text {
     color: var(--color-text-light-3);
   }
 
   &__icons {
-    align-items: center;
     display: flex;
-    gap: 100px;
-    justify-content: center;
+
+    .action {
+      flex: 1;
+    }
   }
 
   &__icon {
@@ -62,16 +79,147 @@
     justify-content: center;
 
     &__icon {
-      background: var(--background-light-1);
-      border-radius: 100%;
-      height: 120px;
       margin-bottom: 20px;
-      padding: 20px;
-      width: 120px;
     }
 
     &__text {
+      text-align: center;
       font-weight: 500;
+    }
+  }
+}
+
+.mainnet-info {
+  &__header-icon {
+    height: 45px;
+    width: 45px;
+  }
+
+  &__icons {
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+  }
+
+  &__icon {
+    &__icon {
+      background: var(--background-light-1);
+      border-radius: 100%;
+      padding: 20px;
+      height: 120px;
+      width: 120px;
+    }
+  }
+}
+
+.application-info {
+  &__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header-title {
+    font-size: var(--font-size-body-4);
+    text-transform: uppercase;
+    color: var(--color-text-light-9);
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 11px;
+  }
+
+  &__header-text {
+    font-size: var(--font-size-header-1);
+    color: var(--color-highlight-3);
+    font-weight: 600;
+  }
+
+  &__icon {
+    height: 70px;
+    width: 70px;
+  }
+
+  &__tag-icon {
+    height: 25px;
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 15px;
+  }
+
+  &__short-description {
+    max-width: 50%;
+    border-bottom: 1px solid gray;
+
+    p {
+      margin-bottom: 29px;
+    }
+  }
+
+  &__full-description {
+    margin-top: 38px;
+  }
+
+  &__image-gallery {
+    .swiper {
+      box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &__image-gallery-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+
+    &__text {
+      font-weight: 600;
+    }
+  }
+
+  &__nav-button {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: $width-max) {
+  .application-suite-info {
+    &__icon__text {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: $width-laptop) {
+  .application-suite-info {
+    padding: 30px 40px 40px;
+
+    &__icons {
+      justify-content: center;
+      gap: 10px;
+
+      .action {
+        justify-content: center;
+      }
+    }
+
+    &__icon {
+      &__icon {
+        width: 80px;
+        height: 80px;
+      }
+
+      &__tag {
+        height: 20px;
+      }
+
+      &__text {
+        font-size: 14px;
+      }
     }
   }
 }
@@ -89,6 +237,36 @@
       gap: 30px;
     }
   }
+
+  .application-suite-info {
+    padding: 30px 30px 40px;
+
+    &__icons {
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .action {
+        flex-basis: 10%;
+      }
+    }
+
+    &__icon {
+      &__icon {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    &__header {
+      text-align: center;
+    }
+  }
+
+  .application-info__short-description {
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: $width-mobile) {
@@ -100,5 +278,16 @@
   .icon-box {
     height: 225px;
     width: 225px;
+  }
+
+  .application-suite-info {
+    &__icons {
+      flex-wrap: wrap;
+      gap: 40px;
+
+      .action {
+        flex: 0 0 40%;
+      }
+    }
   }
 }

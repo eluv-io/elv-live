@@ -7,10 +7,11 @@ import {Carousel, RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
-import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v3.png";
+import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v4.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_and_users_v2.png";
+import SpeakerphoneIcon from "../../static/icons/speakerphone-outline.svg";
 
 const experienceImages = [
   ExperiencesImage1,
@@ -19,6 +20,7 @@ const experienceImages = [
 ];
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
+import {Link} from "react-router-dom";
 
 const FeaturesCarousel = observer(() => {
   return (
@@ -42,9 +44,15 @@ const HeaderBlock = observer(() => {
           <h1 className="main-page-header__main-header__header">
             { mainStore.l10n.main.heading.header }
           </h1>
-          <h3 className="main-page-header__main-header__subheader">
-            { mainStore.l10n.main.heading.subheader }
-          </h3>
+          <div className="main-page-header__main-header__subheader-container">
+            <h3 className="main-page-header__main-header__subheader">
+              { mainStore.l10n.main.heading.subheader }
+            </h3>
+            <Link className="main-page-header__main-header__featured-link" to={mainStore.l10n.main.heading.featured_link}>
+              <ImageIcon icon={SpeakerphoneIcon} className="main-page-header__main-header__featured-link-icon" />
+              <div>{ mainStore.l10n.main.heading.featured_link_text }</div>
+            </Link>
+          </div>
         </div>
         <div className="main-page-header__tagline">
           <h3 className="main-page-header__main-header__tagline">{ mainStore.l10n.main.heading.tagline }</h3>
@@ -63,7 +71,8 @@ const VideoBlock = observer(({mobile}) => {
     PlayIcon,
     MoneyIcon,
     PowerIcon,
-    FilmIcon
+    FilmIcon,
+    BlockchainIcon
   ];
 
   return (

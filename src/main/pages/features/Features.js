@@ -115,6 +115,21 @@ const Features = () => {
       <div className="page__header-container">
         <h1 className="features--purple-header">Platform Features</h1>
       </div>
+      <div className="page__content-block">
+        <InfoBox
+          icon={TechnologyIcons.LearnMoreTechnologyIcon}
+          header={copy.casablanca.header}
+          content={copy.casablanca.text}
+          links={[
+            {
+              to: copy.casablanca.links[0].link,
+              target: "_blank",
+              text: copy.casablanca.links[0].text,
+              icon: DocumentIcon
+            }
+          ]}
+        />
+      </div>
 
       <div className="page__content-block">
         <InfoBox

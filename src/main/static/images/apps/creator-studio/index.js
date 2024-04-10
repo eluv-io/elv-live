@@ -1,0 +1,11 @@
+export const CreaterStudio1 = require("./01.jpg");
+export const CreaterStudio2 = require("./02.jpg");
+export const CreaterStudio3 = require("./03.jpg");
+export const CreaterStudio4 = require("./04.jpg");
+export const CreaterStudio5 = require("./05.jpg");
+export const CreaterStudio6 = require("./06.jpg");
+export const CreaterStudio7 = require("./07.jpg");
+export const CreaterStudio8 = require("./08.jpg");
+export const CreaterStudio9 = require("./09.jpg");
+export const CreaterStudio10 = require("./10.jpg");
+export const CreaterStudio11 = require("./11.jpg");

@@ -518,7 +518,7 @@ class RootStore {
       callbackUrl.pathname = path;
     }
 
-    let marketplaceParams = this.marketplaceParams
+    let marketplaceParams = this.marketplaceParams;
     if(!marketplaceParams) {
       const marketplaceInfo = siteStore.currentSiteInfo.marketplace_info;
 
