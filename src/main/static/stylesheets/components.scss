@@ -26,6 +26,13 @@
   }
 }
 
+.rich-text {
+  .action {
+    width: unset;
+    max-width: fit-content;
+  }
+}
+
 .captioned-image {
   display: flex;
   flex-direction: column;

@@ -18,7 +18,7 @@ const axios = require("axios");
 const WALLET_DEFAULTS = {
   "og:title": "Eluvio Media Wallet",
   "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
-  "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__2CcCkXgaTpz9ku9TQ7nhhdncsVPXVMN6yG7YtQ36f6tLyR4Lj9VgA2gm88Gpba8ZuLLgnvGDZw/files/eluv.io/Eluvio-Share-Image-V2.jpg",
+  "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
   "og:image:alt": "Eluvio"
 };
 
@@ -328,7 +328,7 @@ exports.create_index_html = functions.https.onRequest(async (req, res) => {
 
   let title = "Eluvio: Creators of The Content Fabric";
   let description = "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.";
-  let image = "https://main.net955305.contentfabric.io/s/main/q/hq__2CcCkXgaTpz9ku9TQ7nhhdncsVPXVMN6yG7YtQ36f6tLyR4Lj9VgA2gm88Gpba8ZuLLgnvGDZw/files/eluv.io/Eluvio-Share-Image-V2.jpg";
+  let image = "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg";
   let favicon = "/favicon.png";
 
   // Inject metadata
