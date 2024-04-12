@@ -67,10 +67,10 @@ const VideoEditor = observer(() => {
               target: "_blank"
             },
             {
-              to: copy.info_link.links[1].to,
-              text: copy.info_link.links[1].text,
-              icon: DocumentIcon,
-              target: "_blank"
+              to: mainStore.l10n.content_fabric.casablanca.links[0].link,
+              target: "_blank",
+              text: mainStore.l10n.content_fabric.casablanca.links[0].text,
+              icon: DocumentIcon
             }
           ]}
         />

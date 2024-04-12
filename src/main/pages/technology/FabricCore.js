@@ -57,10 +57,10 @@ const FabricCore = observer(() => {
           content={copy.info_link.description}
           links={[
             {
-              to: copy.info_link.link,
-              text: copy.info_link.link_text,
-              icon: DocumentIcon,
-              target: "_blank"
+              to: mainStore.l10n.content_fabric.casablanca.links[0].link,
+              target: "_blank",
+              text: mainStore.l10n.content_fabric.casablanca.links[0].text,
+              icon: DocumentIcon
             }
           ]}
         />
