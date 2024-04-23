@@ -13,6 +13,8 @@ import ExperiencesImage2 from "../../static/images/main/developers-and-node-prov
 import ExperiencesImage3 from "../../static/images/main/consumers_and_users_v2.png";
 import SpeakerphoneIcon from "../../static/icons/speakerphone-outline.svg";
 import ProductOfYear from "../../static/images/main/product-of-the-year.jpg";
+import DesktopBanner from "../../static/images/main/desktop-banner-min.png";
+import MobileBanner from "../../static/images/main/mobile-banner-min";
 
 const experienceImages = [
   ExperiencesImage1,
@@ -37,21 +39,25 @@ const FeaturesCarousel = observer(() => {
   );
 });
 
-const HeaderBlock = observer(() => {
+const HeaderBlock = observer(({mobile=false}) => {
   return (
     <MainHeader>
       <div className="main-page-header__main-header">
         <div className="main-page-header__main-header__headers">
-          <div className="main-page-header__main-header__header-image-container">
-            <h1 className="main-page-header__main-header__header">
-              { mainStore.l10n.main.heading.header }
-            </h1>
-            <ImageIcon icon={ProductOfYear} className="main-page-header__main-header__header-image" />
-          </div>
+          {
+            mobile ?
+              <div className="main-page-header__main-header__header-mobile-image-container">
+                <ImageIcon icon={MobileBanner} />
+              </div> :
+              <div className="main-page-header__main-header__header-image-container">
+                <ImageIcon icon={DesktopBanner} />
+              </div>
+          }
           <div className="main-page-header__main-header__subheader-container">
             <div className="main-page-header__main-header__subheader-container-text">
               <span>
-                <span style={{color: "var(--color-text-dark-1)", fontWeight: 700}} className="main-page-header__main-header__subheader">The Content Fabric </span>
+                <span className="main-page-header__main-header__subheader">The </span>
+                <span style={{color: "var(--color-text-dark-1)", fontWeight: 700}} className="main-page-header__main-header__subheader"> Content Fabric </span>
                 <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
               </span>
               <Link className="main-page-header__main-header__featured-link" to={mainStore.l10n.main.heading.featured_link}>
@@ -241,7 +247,7 @@ const BrowseProjectsBlock = observer(({mobile}) => {
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
-      <HeaderBlock />
+      <HeaderBlock mobile />
       <div className="main-page__blocks">
         <div className="padded-block">
           <VideoBlock mobile />
