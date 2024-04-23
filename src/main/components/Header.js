@@ -7,7 +7,7 @@ import {uiStore, mainStore} from "../stores/Main";
 import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
 
-import EluvioLogo from "../static/images/logos/eluvio-logo-color.png";
+import EluvioLogo from "../static/images/logos/eluvio-logo-white.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
 import {DiscoverIcon, MenuIcon, ProfileIcon, SocialIcons, WalletIcon, XIcon} from "../static/icons/Icons";

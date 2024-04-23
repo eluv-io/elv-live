@@ -32,10 +32,10 @@ header:
 # Main Page
 main:
   heading:
-    header: Unlock the Value of Your Content
-    subheader: The Content Fabric is a programmable streaming, content distribution, and storage network built for the Third Generation Internet
-    tagline: Bringing Publishers, Brands, and Users New Possibilities
-    featured_link_text: Check out the Casablanca Release - Coming Summer 2024
+    header: Your Next Gen Content Distribution Solution
+    subheader: |
+      is a programmable streaming, content distribution, and storage network built for the Third Generation Internet.
+    featured_link_text: Check out the Casablanca Release
     featured_link: "/content-fabric/fabric-core"
   features_carousel:
     - High Performance 4K and Interactive Streaming
@@ -868,6 +868,8 @@ casablanca:
       tag: tag_v2
   pages:
     fabric_core:
+      casablanca_video: hq__41J6Bg96443SHvPFNPmXXi2Lc6hRyeixFe17GC84xbAPrQgoG5bxLMTHhq5ss9VYdT4wHquDot
+
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
         description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
