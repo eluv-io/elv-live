@@ -34,7 +34,7 @@ main:
   heading:
     header: Your Next Gen Content Distribution Solution
     subheader: |
-      is a programmable streaming, content distribution, and storage network built for the Third Generation Internet
+      is a programmable streaming, content distribution, and storage network built for the Third Generation Internet.
     featured_link_text: Check out the Casablanca Release
     featured_link: "/content-fabric/fabric-core"
   features_carousel:
@@ -868,6 +868,8 @@ casablanca:
       tag: tag_v2
   pages:
     fabric_core:
+      casablanca_video: hq__GorysGTfJWrr3LdYSWZyjb7vnvmhS3fh9kGe8tpg3T8seFEBEGmhbPb3dEuDvGojmWUvKkqSjx
+
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
         description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.

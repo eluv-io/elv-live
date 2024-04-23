@@ -1,7 +1,7 @@
 import React from "react";
 import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
-import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import {Accordion, AccordionGroup, InfoBox, RichText, Video} from "../../components/Misc";
 import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import AppSuiteControlPanel from "../apps/AppSuiteControlPanel";
 import * as fabricCoreImages from "../../static/images/technology/fabric-core";
@@ -16,6 +16,7 @@ const FabricCore = observer(() => {
         <h1>{mainStore.l10n.casablanca.title}</h1>
         <h3>{mainStore.l10n.casablanca.header}</h3>
       </div>
+      <Video versionHash={copy.casablanca_video} className="main-page-block__video main-page-block__core-video" />
       <div className="page__content-block">
         {
           copy.sections.map(item => (

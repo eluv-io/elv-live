@@ -38,12 +38,16 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 50px;
+      // Match swiper carousel left padding
+      padding-left: 10px;
     }
 
     &__header-image-container {
       display: grid;
       grid-template-columns: 58% 42%;
       align-items: center;
+      // Left and right align with swiper carousel
+      max-width: calc(250px * 5 + 90px);
     }
 
     &__header {
@@ -59,7 +63,7 @@
     }
 
     &__subheader-container {
-      margin-top: 10px;
+      margin-top: 24px;
       max-width: 90%;
     }
 
@@ -71,6 +75,7 @@
       gap: 10px;
       align-items: center;
       font-size: var(--font-size-header-4);
+      margin-left: 8px;
     }
 
     &__featured-link-icon {
@@ -249,7 +254,7 @@
   @media screen and (max-width: $width-laptop) {
     &__main-header {
       &__header {
-        min-width: 400px;
+        font-size: var(--font-size-header-3);
       }
     }
   }
@@ -259,12 +264,13 @@
       flex-direction: column;
       gap: 50px;
       padding: 20px;
+      justify-content: space-between;
     }
 
     &__main-header {
       &__header {
-        min-width: 320px;
-        text-align: right;
+        font-size: 24px;
+        margin-right: 20px;
       }
     }
 
@@ -346,12 +352,30 @@
         margin-bottom: 14px;
       }
 
+      &__header {
+        font-size: var(--font-size-header-3);
+      }
+
       &__header,
       &__subheader {
         margin: 0;
         max-width: 100%;
         min-width: unset;
         text-align: center;
+      }
+
+      &__subheader-container {
+        margin-top: 0;
+      }
+
+      &__subheader-container-text {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      &__featured-link {
+        margin-left: 0;
       }
     }
 
@@ -409,6 +433,17 @@
   display: grid;
   gap: 75px;
   width: 100%;
+
+  &__core-video {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .player-container__player {
+      max-width: 80%;
+    }
+  }
 
   &--video {
     grid-template-columns: 3fr 2fr;
