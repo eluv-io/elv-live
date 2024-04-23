@@ -444,7 +444,7 @@
     max-width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 
     .player-container__player {
       max-width: 80%;
@@ -864,6 +864,12 @@
       &__description,
       &__actions {
         display: none;
+      }
+    }
+
+    &__core-video {
+      .player-container__player {
+        max-width: 100%;
       }
     }
   }
