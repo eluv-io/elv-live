@@ -62,6 +62,17 @@
     }
   }
 
+  &__terms-links {
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    gap: 75px;
+    justify-content: center;
+    margin-top: 100px;
+    opacity: 0.5;
+    width: 100%;
+  }
+
   &.light {
     color: var(--color-text-light-1);
 
@@ -131,6 +142,10 @@
       }
     }
 
+    &__terms-links {
+      gap: 30px;
+    }
+
     &.light {
       .footer__links {
         background: var(--background-light-3);
@@ -155,6 +170,11 @@
   @media screen and (max-width: $width-mobile) {
     &__social-links {
       padding-right: 25px;
+    }
+
+    &__terms-links {
+      flex-direction: column;
+      gap: 10px;
     }
 
     &__link-section__header,

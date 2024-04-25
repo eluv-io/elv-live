@@ -1,4 +1,3 @@
-// Set actual device height in viewport meta tag
 const SetHeight = () => {
   const content = document.querySelector("meta[name=viewport]").content || "";
   let attributes = {};
@@ -25,10 +24,15 @@ const MAIN_SITE_PATHS = [
   "/about",
   "/creators-and-publishers",
   "/media-wallet",
-  "/privacy",
-  "/terms",
   "/register"
 ];
+
+const Document = async (filename) => {
+  const doc = await import("./main/static/documents/" + filename);
+  const documentUrl = window.URL.createObjectURL(new Blob([doc.default], {type: "text/html"}));
+  document.body.innerHTML = `<iframe src="${documentUrl}" style="width: 100%;height: 100vh;border: 0;overflow:auto" class="document"/>`;
+  document.body.style.margin = "0";
+};
 
 const Load = async () => {
   const path = window.location.pathname;
@@ -42,7 +46,13 @@ const Load = async () => {
     return;
   }
 
-  if(path === "/" || MAIN_SITE_PATHS.find(mainPath => path.startsWith(mainPath))) {
+  if(path === "/privacy") {
+    Document("PrivacyPolicy.html");
+  } else if(path === "/terms") {
+    Document("Terms.html");
+  } else if(path === "/platform-terms") {
+    Document("PlatformServicesAgreement.html");
+  } else if(path === "/" || MAIN_SITE_PATHS.find(mainPath => path.startsWith(mainPath))) {
     await import("./main/MainApp");
   } else {
     await import("./SiteApp");

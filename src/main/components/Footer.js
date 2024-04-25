@@ -85,6 +85,34 @@ const Links = observer(({dark=false}) => {
   );
 });
 
+const TermsLinks = ({dark=false}) => {
+  return (
+    <div className="footer__terms-links">
+      <Action
+        href="/terms"
+        target="_blank"
+        className={`footer__link footer__terms-link ${dark ? "dark" : "light"}`}
+      >
+        End User Agreement
+      </Action>
+      <Action
+        href="/privacy"
+        target="_blank"
+        className={`footer__link footer__terms-link ${dark ? "dark" : "light"}`}
+      >
+        Privacy Policy
+      </Action>
+      <Action
+        href="/platform-terms"
+        target="_blank"
+        className={`footer__link footer__terms-link ${dark ? "dark" : "light"}`}
+      >
+        Tenant Platform Services Agreement
+      </Action>
+    </div>
+  );
+};
+
 const Footer = ({dark=false, className=""}) => {
   return (
     <footer className={`footer padded-block ${dark ? "dark" : "light"} ${className}`}>
@@ -93,6 +121,7 @@ const Footer = ({dark=false, className=""}) => {
         <SocialLinks dark={dark} />
       </div>
       <Links dark={dark} />
+      <TermsLinks dark={dark} />
     </footer>
   );
 };

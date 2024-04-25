@@ -22,8 +22,6 @@ const Event = MinLoadDelay(import("Event/Event"));
 const Stream = MinLoadDelay(import("Stream/Stream"));
 //const Chat = MinLoadDelay(import("Stream/components/LiveChat"));
 const Landing = MinLoadDelay(import("Stream/Landing"));
-const Privacy = MinLoadDelay(import("Event/Privacy"));
-const Terms = MinLoadDelay(import("Event/Terms"));
 const Drop = MinLoadDelay(import("Pages/drop/Drop"));
 const DropLanding = MinLoadDelay(import("Pages/drop/Landing"));
 
@@ -69,8 +67,6 @@ const SiteApp = inject("rootStore")(
             <Route exact path="/:tenantSlug?/:siteSlug/coupon-redeemed" element={<SitePage Component={Landing} darkHeader hideCheckout hideRedeem />} />
             <Route exact path="/:tenantSlug?/:siteSlug/support" element={<SitePage Component={Support} />} />
             <Route exact path="/:tenantSlug?/:siteSlug/faq" element={<SitePage Component={Support} />} />
-            <Route exact path="/:tenantSlug?/:siteSlug/privacy" element={<SitePage Component={Privacy} />} />
-            <Route exact path="/:tenantSlug?/:siteSlug/terms" element={<SitePage Component={Terms} />} />
             <Route path="/:tenantSlug?/:siteSlug/marketplace/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
             <Route path="/:tenantSlug?/:siteSlug/wallet/*" element={<SitePage Component={Event} mainPage transparent showMarketplace />} />
 

@@ -85,10 +85,10 @@ class Footer extends React.Component {
           links && links.length > 0 ?
             links :
             <>
-              <a href="https://eluv.io/EluvioPrivacyPolicy.html" className="footer__item" rel="noopener" target="_blank">
+              <a href="/privacy" className="footer__item" rel="noopener" target="_blank">
                 { this.props.siteStore.l10n.footer.privacy_policy }
               </a>
-              <a href="https://eluv.io/EluvioTerms.html" className="footer__item" rel="noopener" target="_blank">
+              <a href="/terms" className="footer__item" rel="noopener" target="_blank">
                 { this.props.siteStore.l10n.footer.terms }
               </a>
             </>

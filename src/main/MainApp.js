@@ -27,8 +27,6 @@ import {FeaturesSupport} from "./pages/features/Support";
 import FAQs from "./pages/features/FAQs";
 import Creators from "./pages/main/Creators";
 import Wallet from "./pages/wallet/Wallet";
-import Privacy from "./pages/terms/Privacy";
-import Terms from "./pages/terms/Terms";
 import MediaWallet from "./pages/main/MediaWallet";
 import CompatibleDevices from "./pages/main/CompatibleDevices";
 import Register from "./pages/register/Register";
@@ -119,9 +117,6 @@ const MainApp = () => {
           <Route path="/features/details" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           {/* Wallet */}
           <Route path="/wallet/*" element={<PageContainer unbound noFooter><Wallet /></PageContainer>} />
-          {/* Documents */}
-          <Route path="/privacy" element={<PageContainer padded dark><Privacy /></PageContainer>} />
-          <Route path="/terms" element={<PageContainer padded dark><Terms /></PageContainer>} />
           {/* Register */}
           <Route path="/register" element={<PageContainer unbound dark noContactForm><Register /></PageContainer>} />
           {/* Defaults */}
