@@ -1,4 +1,5 @@
 header:
+
   about: About
   news: News
   partners: Partners
@@ -280,27 +281,27 @@ content_fabric:
       As a Content Fabric tenant you can ingest and organize your media content and provide full streaming and content distribution services to your applications.
     links:
       - text: "Tenancy Setup"
-        to: https://hub.doc.eluv.io/setup/tenant/
+        to: https://docs.eluv.io/docs/getting-started/tenancy-access/
       - text: "Content Fabric Docs"
-        to: https://hub.doc.eluv.io
+        to: https://docs.eluv.io/
   nodes:
     header: Node & Validator Providers
     text:  |
       The Content Fabric is a network comprised of Content Fabric Nodes and Validators.  Learn how to become a node provider, set up Content Fabric Nodes and Validators and join your infrastructure to the Content Fabric. As a tenant you also have the ability to join your public or private nodes to the Content Fabric to offset utility fees.
     links:
       - text: "Maintainer Docs"
-        to: https://maintainer.doc.eluv.io
+        to: https://docs.eluv.io/providers/
       - text: "Validator Setup"
-        to: https://maintainer.doc.eluv.io/setup/validator_setup/
+        to: https://docs.eluv.io/providers/validator-setup/
       - text: "Fabric Node Setup"
-        to: https://maintainer.doc.eluv.io/setup/fabric_node_setup/
+        to: https://docs.eluv.io/providers/fabric-setup/
   api:
     header: Application Developers
     text: |
       Use the Content Fabric API to ingest video, set up media assets of all kinds, organize and manage content and build media-rich applications.
     links:
       - text: "Content Fabric Docs"
-        to: https://hub.doc.eluv.io
+        to: https://docs.eluv.io/
       - text: "REST/HTTP API"
         to: https://main.net955305.contentfabric.io/doc
       - text: "JavaScript SDK"
@@ -1325,7 +1326,7 @@ faq:
         Yes, your Eluvio wallet allows you to sign transactions on the mainnet955305 network  using your private keys and is fully compatible with Metamask and other Ethereum standard wallets.  It also has an option for email/Open ID sign in that allows you to access a Fabric-provided signing API.  All NFTS and ERC20 tokens minted on the Content Fabric blockchain are standards compliant. Contracts are open source and published at <a href="https://github.com/eluv-io" target="_blank">https://github.com/eluv-io</a>
     - question: I am interested in becoming a Node Provider in the network. How do I find out more?
       answer: |
-        Eluvio node providers can join the network as validators or full Fabric Nodes that host and serve content on the Content Fabric.  Information about how to install and set up either type of node can be found on the <a href="https://maintainer.doc.eluv.io/setup/" target="_blank">Maintainers Documentation</a> site.  There is also a dedicated Slack for node operators.  To get access to the Eluvio Community Slack, you can use this <a href="https://share.hsforms.com/1XJ1v8Jr-S6aWgavyqhVoOw3pje1" target="_blank">form</a> to express your interest and get in contact with someone at Eluvio who can answer questions and guide you to the right area of documentation.
+        Eluvio node providers can join the network as validators or full Fabric Nodes that host and serve content on the Content Fabric.  Information about how to install and set up either type of node can be found on the <a href="https://docs.eluv.io/providers/set-up/" target="_blank">Maintainers Documentation</a> site.  There is also a dedicated Slack for node operators.  To get access to the Eluvio Community Slack, you can use this <a href="https://share.hsforms.com/1XJ1v8Jr-S6aWgavyqhVoOw3pje1" target="_blank">form</a> to express your interest and get in contact with someone at Eluvio who can answer questions and guide you to the right area of documentation.
 
 features_banner:
   - title: Advanced Media Features
@@ -1475,7 +1476,7 @@ footer:
       - text: "Content Fabric Technology"
         link: "/content-fabric/technology"
       - text: "Become a Node Operator"
-        link: "https://maintainer.doc.eluv.io/overview/"
+        link: "https://docs.eluv.io/providers/"
       - text: "Features & Functionality"
         link: "/features/details"
       - text: "Careers"
@@ -1502,6 +1503,6 @@ footer:
       - text: "Whitepaper"
         link: "https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf"
       - text: "Node & Validator Providers"
-        link: "https://maintainer.doc.eluv.io/overview/"
+        link: "https://docs.eluv.io/providers/"
       - text: "API Developers"
-        link: "https://hub.doc.eluv.io/content/"
+        link: "https://docs.eluv.io/docs/"

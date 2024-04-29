@@ -89,7 +89,7 @@ const MobileNav = observer(({visible, Close}) => {
           <Action useNavLink exact to="/media-wallet">
             { mainStore.l10n.header.media_wallet }
           </Action>
-          <Action useNavLink exact to="https://hub.doc.eluv.io">
+          <Action useNavLink exact to="https://docs.eluv.io/">
             { mainStore.l10n.header.docs }
           </Action>
           <Action useNavLink exact to="/register">
