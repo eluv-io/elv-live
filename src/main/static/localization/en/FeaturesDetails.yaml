@@ -2,63 +2,64 @@
   sectionHeader: "Content Fabric Core Utilities"
   icon: "playIcon"
   id: "media-application"
+
   items:
     - title: "Direct Ingest of Any Master Video/Audio/File Format or Live Stream"
       items:
         - contentTitle: "By Reference and By Copy"
           description: "Automatic ingest of professional master video and mp4 files from cloud storage (secure signed URLs) and local file storage with options to refer to master content externally or copy to Fabric."
-          link: "https://hub.doc.eluv.io/content/ingest/"
+          link: "https://docs.eluv.io/docs/content/basic-ingest/"
         - contentTitle: "From S3 and Glacier, via Direct Connect"
           description: "Automation supports retrieval from Glacier as well as from Amazon S3 compatible storage systems."
-          link: "https://hub.doc.eluv.io/content/ingest/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/#create-a-master-from-s3-link-files"
         - contentTitle: "Any Master Video/Audio Format"
           description: "Ingest supports Apple ProRes, Avid DNxHD, IMF, JPEG-2000 Master video files and can be extended for custom codecs."
-          link: "https://hub.doc.eluv.io/content/ingest/"
+          link: "https://docs.eluv.io/docs/content/basic-ingest/"
         - contentTitle: "Automatic Creation of Serviceable Master and Mezzanine Objects"
           description: "Ingest process automatically creates a playable and serviceable mezzanine content object and master content object storing references to the source."
-          link: "https://hub.doc.eluv.io/content/ingest/"
+          link: "https://docs.eluv.io/docs/content/basic-ingest/"
         - contentTitle: "Comprehensive Publishing APIs and CLI (github)"
           description: "APIs and CLI support the ingest of video/audio files and masters to just-in-time streamable (H.264/AVC & H.265/HEVC) types with configurable adaptive bit rate ladder) at SD-4K/8K Resolution, DASH/HLS packaging, encryption, DRM, and advanced options such as subtitles, captions, alternate audio, descriptive metadata, and watermarking."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/getting-started/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/get-started/"
         - contentTitle: "Live Streaming Ingest"
           description: "Supports automatic ingest of H.264/AVC, H.265/HEVC live streaming content packaged as MPEG-TS/UDP or RTMP/TCP, 30-50fps+, SD-4K UHD High Bandwidth"
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/"
 
     - title: "Automatic Versioning of Content with Metadata"
       items:
         - contentTitle: "All Content (Master and Mezzanine) Versions Recorded On Chain"
           description: "New content objects and updates to existing objects are committed with unique cryptographic version hashes committed on the Fabric blockchain"
-          link: "https://hub.doc.eluv.io/overview/concepts/"
+          link: "https://docs.eluv.io/docs/getting-started/concepts/"
         - contentTitle: "All Version Updates (Tracks, Metadata, etc.) Supported by Reference in New Versions (No Unnecessary Copies)"
           description: "New content object versions are automatically constructed by reference and constituent content parts are copied only when new/updated."
-          link: "https://hub.doc.eluv.io/overview/concepts/"
+          link: "https://docs.eluv.io/docs/getting-started/concepts/"
         - contentTitle: "Native IMF Ingest"
           description: "Supports ingest of MXF files from IMF packages with playout variants represented in the content object."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/advanced/#hdr-info-from-sidecar-files"
 
     - title: "Metadata and Advanced Video Variants"
       items:
         - contentTitle: "Automatic Streaming Distribution of Unlimited Unique Variants (Localizations/Dubs/Device-specific) from Source Object."
           description: "Supports just-in-time composition/distribution/streaming of unlimited unique source variants, i.e. combinations of video, audio, subtitle and metadata tracks from the same source master content object."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/overview-basic-concepts/variants/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/basic-concepts/#variants"
         - contentTitle: "Automatic Streaming Distribution of Unlimited Unique Offerings from Source Object."
           description: "Supports just-in-time composition/distribution/streaming of unlimited unique streaming offerings, i.e. bit rate/resolution ladders, DRM/encryption, multi-views, sequences, watermarking, or personalization combinations from the same source mezzanine content object."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/overview-basic-concepts/offerings-and-abr-profiles/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/basic-concepts/#offerings-and-abr-profiles"
         - contentTitle: "Frame Accurate Video Editor with Metadata Curation, Clipping, Editing"
           description: "Supports browser-based frame-accurate viewing, frame-by-frame playback, per frame/segment metadata curation, and automatic clip and single frame downloads from Fabric Mezzanine objects."
           link: "https://core.v3.contentfabric.io/#/apps/Video%20Editor"
         - contentTitle: "Automatic up-resolution of SD / lower quality content"
           description: "Custom workflow options to automatically upres SD or lower quality content using ML/video processing."
-          link: "https://hub.doc.eluv.io/content/tools/"
+          link: "https://docs.eluv.io/docs/advanced/ingest/"
 
     - title: "Site API & Static Content Delivery"
       items:
         - contentTitle: "Reusable \"site\" API for Dynamic and Static Content in Front End (Websites, SmartTV/Mobile Apps)"
           description: "Provides easy-to-traverse hierarchical representations of playable content objects (titles, channels, playlists, episodes, seasons, etc.), metadata, and artwork with static slug names. Supports unlimited content objects including automatic resolution of inter-object links."
-          link: "https://hub.doc.eluv.io/content/organize/"
+          link: "https://docs.eluv.io/docs/content/organize/"
         - contentTitle: "Static & Dynamic URL-based Content Delivery for Video, Audio, Files, Images, Metadata"
           description: "Provides any client app static slug-based URLs that automatically resolve to available/local Fabric nodes and serve a just-in-time representation of playable/transformed video, audio, file content, or static metadata."
-          link: "https://hub.doc.eluv.io/content/organize/"
+          link: "https://docs.eluv.io/docs/content/organize/"
         - contentTitle: "Customizable and Comprehensive Content Management Apps (Replaces CMS)"
           description: "Built in and extensible content management applications allow for creating any collection of static and playable content such as playlists, channels, seasons, series, episodes, galleries, and applications"
           link: "https://github.com/eluv-io/elv-asset-manager"
@@ -97,13 +98,13 @@
           link: "https://github.com/eluv-io/elv-wasm/"
         - contentTitle: "Multi-view Live and On-Demand Channels"
           description: "Up to 8 unique dynamic views/live streams with dynamic multiplexing to any HLS/DASH ABR player. Fabric synthesizes the selected view on-demand and advertises in the manifest. Client loads only one stream for lightweight processing and fast switching."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/"
         - contentTitle: "Dynamic Ad Insertion and FAST"
           description: "Automatic and dynamic video sequences with next-sequenced content selection based on customizable bitcode and metadata."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/"
         - contentTitle: "Embeddable Hot Spots in Immersive Content"
           description: "Automatic loading of video, audio, imagery, XR objects from interactive hotspots, either statically bound or via bitcode evaluated for dynamic selection/personalization."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/"
 
 
 
@@ -116,40 +117,40 @@
       items:
         - contentTitle: "Web, Mobile, Connected TV and Any Player"
           description: "Supports low latency live and on-demand streaming (SD - 4K UHD+) globally to any standard Adaptive Bit Rate HTTP HLS/DASH player with CMAF-packaging, 2-second fragmented MP4 segments, including all compliant browser, mobile and connected TV platforms"
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
         - contentTitle: "Low Latency Live and On Demand H264/AVC and H265/HEVC DASH/HLS Streaming"
           description: "Supports H264/AVC and H265/HEVC DASH/HLS Adaptive Bit Rate Live and On Demand Streaming from SD-4K UHD+ High Bandwidth 30-50+fps with predictable low latency globally (<=5 seconds end-to-end for Live and <=500 ms globally for On Demand)"
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
         - contentTitle: "HDR"
           description: "Supports HDR10 metadata and streaming distribution with HEVC encoding for live and on-demand"
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
         - contentTitle: "DRM Apple FairPlay, Google Widevine, HLS-AES, and Sample AES"
           description: "Supports automatic and configurable DRM of live and on-demand streaming for Apple Fairplay, Google Widevine, HLS-AES and Sample AES through the Fabric trustless end-to-end encryption and proxy re-encryption."
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
         - contentTitle: "No 3rd Party CDN, Cloud Transcoding, or Storage"
           description: "All streaming distribution is provided from source object to streaming client by the Fabric with no 3rd party CDN, transcoding or storage solution."
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
         - contentTitle: "Globally Replicated, No Single Points or Geo of Failure"
           description: "The Fabric fully decentralized design and content protocol ensures that a client's request to any available node can serve a stream will full availability and that source parts can be retrieved irrespective of other node failures. This contrasts with public cloud architectures that have regional partitions and single points of failure."
           link: "https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf"
         - contentTitle: "Trustless security model"
           description: "All content distribution is secured and authorized with the Fabric's unique trustless end-to-end encryption including content-owner controlled encryption, re-encryption to an authorized user including with DRM, and trustless processing within the infrastructure. This helps to self-protect the content and safeguard it from middle parties."
-          link: "https://hub.doc.eluv.io/accesscontrol/img/EluvioContentSecurityWhitepaper.pdf"
+          link: "https://docs.eluv.io/img/EluvioContentSecurityWhitepaper.pdf"
         - contentTitle: "Any standards-compliant player and Streaming APIs"
           description: "All live and on-demand streaming APIs are standards compliant for DASH and HLS streaming and thus can be consumed by any standard player or platform."
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
 
     - title: "File Download API"
       items:
         - contentTitle: "File and directory download of assets"
           description: "Supports automatic download of individual files or tar based archive of images, file directories, or other statically service assets through files representation API."
-          link: "https://hub.doc.eluv.io/basics/files/"
+          link: "https://docs.eluv.io/docs/getting-started/concepts/#files"
 
     - title: "Built-in Rights/Availability Management On Chain via Authorization Policy"
       items:
         - contentTitle: "Time, Viewer Geo, by User, by Group, by Offering"
           description: "Supports fine-grained, flexible, and customizable authorization policies per content object offering or asset based on any criteria: user data such as geo, global context such as time windows, authorization data such as identity or token ownership. The policy is stored on chain for non-repudiation and validity, and is evaluated by the Fabric key management and dynamic serving bitcode, allowing for on-chain control of content access."
-          link: "https://hub.doc.eluv.io/accesscontrol/advanced/"
+          link: "https://docs.eluv.io/docs/access-control/advanced/"
 
     - title: "Permission and Avails Management by Tickets, Groups, NFTs"
       items:
@@ -161,16 +162,16 @@
       items:
         - contentTitle: "On Chain Token-Gating, Tickets, Cross-Chain Token Gating, Redeemable Coupons"
           description: "Policy based authorization supports on-chain blockchain tickets, on-chain token gating, external and cross-chain token gating of content, and redeemable coupons."
-          link: "https://hub.doc.eluv.io/accesscontrol/tokens/"
+          link: "https://docs.eluv.io/docs/access-control/tokens/"
 
     - title: "Watermarking"
       items:
         - contentTitle: "Just-in-time text or image watermarking in single offering"
           description: "Supports just-in-time watermarking on streamed video as configured on mezzanine content object metadata."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/add-a-text-watermark-to-an-offering/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/#add-a-text-watermark-to-an-offering"
         - contentTitle: "Per user visible watermarking with user id"
           description: "Supports a user-personalized watermark on streamed video with the user's session id such as email address or wallet address."
-          link: "https://hub.doc.eluv.io/guides/ingestingmedia/workflow-examples/add-an-image-watermark-to-an-offering/"
+          link: "https://docs.eluv.io/docs/guides/media-ingest/workflow-examples/#add-an-image-watermark-to-an-offering"
         - contentTitle: "Forensic watermarking (Nagra)"
           description: "Supports Nagra-based watermarking with unique binary pattern per user stream, uniquely generated per user wallet address (Coming Q2 2023)."
           link: ""
@@ -179,14 +180,14 @@
       items:
         - contentTitle: "Using time code or metadata tags"
           description: "Supports just-in-time automatic generation of a playable clip from a given mezzanine content object between a start and end offset timecode."
-          link: "https://hub.doc.eluv.io/content/playout/"
+          link: "https://docs.eluv.io/docs/advanced/playout/"
 
 
     - title: "Dynamic Packaging and Download of Mezzanine & Asset Deliverables (BtoB)"
       items:
         - contentTitle: "Dynamic packaging and asset download API"
           description: "Supports just-in-time generation of a playable video file, file asset, or tar archive generated just-in-time and downloaded from the Fabric mezzanine content object."
-          link: "https://hub.doc.eluv.io/content/rep/files_download/"
+          link: "https://docs.eluv.io/docs/content/search/files-download/"
         - contentTitle: "Permission and Avails Management by Tickets, Groups, NFTs"
           description: "Supports fine-grained permission configuration per asset, file or other downloadable offering that may be different from the policy of the main mezzanine object using signed/delegated links."
           link: "https://github.com/eluv-io/elv-avails-manager"
@@ -216,7 +217,7 @@
       items:
         - contentTitle: "Seamless Wallet Sign on and Fabric Access Control with 3rd Party OAuth/OIDC Providers"
           description: "Supports integration with any standards-based Enterprise OAuth/OIDC sign on. Media Wallet email-based sign on supports 3rd party OAuth/OIDC providers and Fabric native access control supports OAuth/OIDC users/groups."
-          link: "https://hub.doc.eluv.io/mediawallet/developer/"
+          link: "https://docs.eluv.io/docs/media-wallet/intro/"
 
     - title: "Universal Media Wallet and Flexible Web2/Web3 Sign On Compatible with all EVM Wallets"
       items:
@@ -228,7 +229,7 @@
       items:
         - contentTitle: "Turnkey Marketplaces and APIs for Content Sales and Minting"
           description: "Supports brand-able and customizable primary (publisher-to-user) and secondary (user-to-user) marketplaces for listing content object offerings or collections for sale as one-time or subscription-based offerings. The offerings may include any combination of media in a gallery or as single items.  APIs support fully custom/white label embed or turnkey hosted storefronts"
-          link: "https://hub.doc.eluv.io/eluviolive/marketplace_setup/"
+          link: "https://docs.eluv.io/docs/eluvio-live/marketplace-configuration/"
 
     - title: "Flexible Payments Gateway"
       items:
@@ -258,7 +259,7 @@
       items:
         - contentTitle: "Universal token gating/authorization of single media content or collections/galleries of content."
           description: "Supports access to any Fabric media offering based on single or multiple NFT ownership. Supports NFTs and any blockchain token standard minted on the Fabric EVM blockchain or on any external blockchain. Reference implementations available for Ethereum Mainnet, Polygon, Solana, and Flow."
-          link: "https://hub.doc.eluv.io/accesscontrol/tokens/"
+          link: "https://docs.eluv.io/docs/access-control/tokens/"
 
     - title: "Extensible Smart Contracts"
       items:
@@ -270,7 +271,7 @@
       items:
         - contentTitle: "Blockchain Ticketing & Unique Authorization Codes"
           description: "Supports unique one-time tickets and redeemable coupons with finite redemption policy validated on-chain."
-          link: "https://hub.doc.eluv.io/accesscontrol/tokens/"
+          link: "https://docs.eluv.io/docs/access-control/tokens/"
 
     - title: "On Chain Redeemable Offers"
       items:
