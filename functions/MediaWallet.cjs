@@ -12,6 +12,7 @@ const B64 = str => Buffer.from(str, "utf-8").toString("base64");
 const FromB64 = str => Buffer.from(str, "base64").toString("utf-8");
 
 const WALLET_DEFAULTS = {
+  "og:site_name": "Eluvio Media Wallet",
   "og:title": "Eluvio Media Wallet",
   "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
   "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
@@ -20,7 +21,6 @@ const WALLET_DEFAULTS = {
 
 const FabricConfiguration = {
   demov3: {
-    configUrl: "https://demov3.net955210.contentfabric.io/config",
     staticUrl: "https://demov3.net955210.contentfabric.io/s/demov3",
     staging: {
       siteId: "iq__2gkNh8CCZqFFnoRpEUmz7P3PaBQG",
@@ -28,8 +28,7 @@ const FabricConfiguration = {
     }
   },
   main: {
-    configUrl: "https://main.net955305.contentfabric.io/config",
-    staticUrl: "https://main.net955210.contentfabric.io/s/main",
+    staticUrl: "https://main.net955305.contentfabric.io/s/main",
     staging: {
       siteId: "iq__inauxD1KLyKWPHargCWjdCh2ayr",
       libraryId: "ilib2GdaYEFxB7HyLPhSDPKMyPLhV8x9",
@@ -41,8 +40,7 @@ const FabricConfiguration = {
   }
 };
 
-async function RetrieveMetadata({network, mode, versionHash, path}) {
-  console.log(network, mode, path);
+async function RetrieveMetadata({network, mode, versionHash, path, select}) {
   try {
     const UrlJoin = (await import("url-join")).default;
     let url = new URL(FabricConfiguration[network].staticUrl);
@@ -56,6 +54,10 @@ async function RetrieveMetadata({network, mode, versionHash, path}) {
 
     url.searchParams.set("resolve", "false");
     url.searchParams.set("resolve_include_source", "true");
+
+    if(select) {
+      select.forEach(key => url.searchParams.append("select", key));
+    }
 
     return (await axios.get(url.toString())).data;
   } catch(error) {
@@ -134,41 +136,45 @@ async function FromOGParam(req, res) {
   res.status(200).send(html);
 }
 
-async function FindProperty({path, network, mode}) {
+async function FindProperty({host, path, network, mode}) {
   const collection = `${network}-${mode}`;
   const propertiesDocument = db.doc(`${collection}/mediaProperties`);
   const propertiesData = await (propertiesDocument).get()
 
-  let requiresUpdate = !propertiesData.exists;
-  if(!requiresUpdate) {
-    try {
-      requiresUpdate = new Date(propertiesData.data().updatedAt).getTime() < Date.now() - 60000
-    } catch(error) {
-      functions.logger.error("Error retrieving properties map from firebase");
-      functions.logger.error(error);
-    }
-  }
+  const propertyData = await (propertiesDocument).get()
 
-  let propertiesMap;
-  if(!requiresUpdate) {
+  let propertiesMap, domainMap;
+  if(propertiesData.exists && new Date(propertiesData.data().updatedAt).getTime() > Date.now() - 60000) {
     try {
-      propertiesMap = JSON.parse(propertiesData.data().map);
+      propertiesMap = JSON.parse(propertyData.data().propertiesMap);
+      domainMap = JSON.parse(propertyData.data().domainMap);
     } catch(error) {
-      console.log("PARSE")
       functions.logger.error("Error parsing properties map from firebase");
       functions.logger.error(error);
     }
   }
 
-  if(!propertiesMap) {
+  if(!propertiesMap || !domainMap) {
     // Update from fabric metadata
     functions.logger.info("Updating media properties");
 
-    propertiesMap = await RetrieveMetadata({network, mode, path: "/public/asset_metadata/media_properties"});
+    const metadata = await RetrieveMetadata({
+      network,
+      mode,
+      path: "/public/asset_metadata",
+      select: [
+        "media_properties",
+        "info/domain_map"
+      ]
+    });
 
-    if(propertiesMap) {
+    if(metadata) {
+      propertiesMap = metadata.media_properties;
+      domainMap = metadata.info?.domain_map || [];
+
       await propertiesDocument.set({
-        map: JSON.stringify(propertiesMap),
+        propertiesMap: JSON.stringify(propertiesMap),
+        domainMap: JSON.stringify(domainMap),
         updatedAt: new Date().toISOString()
       });
     }
@@ -179,13 +185,14 @@ async function FindProperty({path, network, mode}) {
   let propertySlugOrId;
   try {
     propertySlugOrId =
+      domainMap.find(mapping => mapping.domain?.includes(host))?.property_slug ||
       // Thing directly after last /p in path
       [...path.matchAll(/\/p\/([^/]+)/g)]?.slice(-1)?.[0]?.[1] ||
       // Or first item in path
       path.replace(/^\//, "").split("/")[0]
   } catch(error) {
-    console.log("ERROR");
-    console.log(error);
+    functions.logger.error("Error parsing properties slug or ID from path " + path);
+    functions.logger.error(error);
   }
 
   return propertySlugOrId && propertiesMap[propertySlugOrId];
@@ -230,10 +237,10 @@ async function PropertyMetadata(req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   const host = req.headers["x-forwarded-host"] || req.hostname;
   const path = req.headers["x-forwarded-url"] || req.originalUrl;
-  const network = ["demov3", "localhost", "127.0.0.1"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
+  const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
   const mode = network === "demov3" || host.includes("preview") ? "staging" : "production";
 
-  const propertyInfo = await FindProperty({path, network, mode});
+  const propertyInfo = await FindProperty({host, path, network, mode});
 
   if(!propertyInfo) {
     return;
