@@ -52,7 +52,23 @@ comparison_table:
         level_1: true
         level_2: true
         level_3: true
-      - label: Asset Manager CMS
+      - label: Media Ingest
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Livestream Manager
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Creator Studio CMS
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: Analytics and Reporting
+        level_1: true
+        level_2: true
+        level_3: true
+      - label: AI Clip Search
         level_1: true
         level_2: true
         level_3: true
@@ -60,15 +76,7 @@ comparison_table:
         level_1: true
         level_2: true
         level_3: true
-      - label: Media Ingest UI
-        level_1: true
-        level_2: true
-        level_3: true
-      - label: Site Sample
-        level_1: true
-        level_2: true
-        level_3: true
-      - label: Clipping Console
+      - label: Stream and Site Samples
         level_1: true
         level_2: true
         level_3: true
