@@ -23,7 +23,7 @@ header:
   tenancy_levels: Tenancy Levels
   pricing: Pricing
   support: Support
-  twitter: Twitter
+  x_social: X
   wallet: Wallet
   profile: Profile
   discover_projects: Discover Projects
@@ -1475,8 +1475,6 @@ footer:
     links:
       - text: "Content Fabric Technology"
         link: "/content-fabric/technology"
-      - text: "Become a Node Operator"
-        link: "https://docs.eluv.io/providers/"
       - text: "Features & Functionality"
         link: "/features/details"
       - text: "Careers"
@@ -1484,7 +1482,7 @@ footer:
   - title: "Discover"
     icon: "discover"
     links:
-      - text: "Discover Marketplaces"
+      - text: "Projects"
         link: "/wallet#/marketplaces"
       - text: "Get Started"
         link: "/about/contact"
@@ -1493,10 +1491,10 @@ footer:
   - title: "Community"
     icon: "link"
     links:
+      - text: "See Us in the News"
+        link: "/about/news"
       - text: "Join our Community"
         link: "https://live.eluv.io/community"
-      - text: "Community NFT Store"
-        link: "https://wallet.contentfabric.io/#/marketplace/iq__2PHzgKZRmMVnrPFCmbg1wQ2KJEug/store"
   - title: "Resources"
     icon: "document"
     links:

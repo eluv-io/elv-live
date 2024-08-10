@@ -11,7 +11,7 @@ import {observer} from "mobx-react";
 const SocialLinks = ({dark=false}) => {
   const links = [
     { name: "Instagram", link: "https://www.instagram.com/eluvioinc", icon: SocialIcons.InstagramIcon },
-    { name: "Twitter", link: "https://twitter.com/eluvioinc", icon: SocialIcons.TwitterIcon },
+    { name: "X", link: "https://x.com/eluvioinc", icon: SocialIcons.XLogoIcon },
     { name: "Facebook", link: "https://www.facebook.com/EluvioInc/", icon: SocialIcons.FacebookIcon },
     { name: "LinkedIn", link: "https://www.linkedin.com/company/eluv-io", icon: SocialIcons.LinkedInIcon },
     { name: "Github", link: "https://github.com/eluv-io", icon: SocialIcons.GithubIcon },

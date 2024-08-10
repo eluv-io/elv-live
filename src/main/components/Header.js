@@ -120,7 +120,7 @@ const Header = observer(() => {
           </Button>
         </nav>
         <nav className="header__nav header__nav--icons desktop">
-          <Action icon={SocialIcons.TwitterIcon} to="https://twitter.com/eluvioinc" label={mainStore.l10n.header.twitter} className="dark header__nav-link" />
+          <Action icon={SocialIcons.XLogoIcon} to="https://x.com/eluvioinc" label={mainStore.l10n.header.x_social} className="dark header__nav-link" style={{width: "18px", height: "18px"}} />
           <Action icon={DiscoverIcon} to={"/wallet#/"} label={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
           <Action icon={ProfileIcon} to={"/wallet#/wallet/users/me"} label={mainStore.l10n.header.profile} className="dark header__nav-link" />
           <Action icon={WalletIcon} to={"/wallet#/wallet/profile"} label={mainStore.l10n.header.wallet} className="dark header__nav-link" />

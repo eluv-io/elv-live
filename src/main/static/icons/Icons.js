@@ -48,6 +48,7 @@ import LinkedInIcon from "./social/linkedin.svg";
 import GithubIcon from "./social/github.svg";
 import DiscordIcon from "./social/discord.svg";
 import SlackIcon from "./social/slack.svg";
+import XLogoIcon from "./social/x-logo.svg";
 
 import TechnologyIcons from "./technology/TechnologyIcons";
 import ApplicationIcons from "./apps/ApplicationIcons";
@@ -59,7 +60,8 @@ const SocialIcons = {
   LinkedInIcon,
   GithubIcon,
   DiscordIcon,
-  SlackIcon
+  SlackIcon,
+  XLogoIcon
 };
 
 export {

@@ -119,7 +119,7 @@ const MobileNav = observer(({visible, Close}) => {
           </Action>
           <div className="mobile-nav__menu-social-links">
             <Action useNavLink className="dark" exact to="https://www.instagram.com/eluvioinc" icon={SocialIcons.InstagramIcon} label="Instagram" />
-            <Action useNavLink className="dark" exact to="https://twitter.com/eluvioinc" icon={SocialIcons.TwitterIcon} label="Twitter" />
+            <Action useNavLink className="dark" exact to="https://x.com/eluvioinc" icon={SocialIcons.XLogoIcon} label="X" />
             <Action useNavLink className="dark" exact to="https://www.facebook.com/EluvioInc" icon={SocialIcons.FacebookIcon} label="Facebook" />
             <Action useNavLink className="dark" exact to="https://www.linkedin.com/company/eluv-io" icon={SocialIcons.LinkedInIcon} label="LinkedIn" />
           </div>

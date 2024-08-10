@@ -34,7 +34,7 @@ const Contact = observer(() => {
 
           <div className="contact__link-container">
             <Action className="light contact__link" to="https://www.instagram.com/eluvioinc" icon={SocialIcons.InstagramIcon}>Instagram</Action>
-            <Action className="light contact__link" to="https://twitter.com/eluvioinc" icon={SocialIcons.TwitterIcon}>Twitter</Action>
+            <Action className="light contact__link" to="https://x.com/eluvioinc" icon={SocialIcons.XLogoIcon}>Twitter</Action>
             <Action className="light contact__link" to="https://www.facebook.com/EluvioInc" icon={SocialIcons.FacebookIcon}>Facebook</Action>
             <Action className="light contact__link" to="https://www.linkedin.com/company/eluv-io" icon={SocialIcons.LinkedInIcon}>LinkedIn</Action>
           </div>
