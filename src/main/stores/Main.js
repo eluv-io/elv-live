@@ -2,7 +2,7 @@ import {configure, flow, makeAutoObservable, runInAction} from "mobx";
 import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
-import {ElvWalletClient} from "@eluvio/elv-client-js";
+import {Utils, ElvWalletClient} from "@eluvio/elv-client-js";
 import SiteConfiguration from "@eluvio/elv-client-js/src/walletClient/Configuration";
 
 import LocalizationEN from "../static/localization/en/en.yml";
@@ -68,7 +68,7 @@ class MainStore {
   walletClient;
 
   mainSite;
-  featuredSites;
+  featuredProperties;
   marketplaces;
   newsItems;
 
@@ -129,47 +129,63 @@ class MainStore {
     this.client = this.walletClient.client;
   });
 
-  LoadFeaturedSites = flow(function * () {
-    if(this.featuredSites) { return; }
+  LoadFeaturedProperties = flow(function * () {
+    if(this.featuredProperties) { return; }
 
     const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
     metadataUrl.searchParams.set("resolve", "true");
-    metadataUrl.searchParams.set("link_depth", "1");
+    metadataUrl.searchParams.set("link_depth", "2");
     metadataUrl.searchParams.set("resolve_ignore_errors", "true");
     metadataUrl.searchParams.set("resolve_include_source", "true");
 
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video_mobile"));
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
+    [
+      "info/media_property_order",
+      "tenants/*/media_properties/*/.",
+      "tenants/*/media_properties/*/title",
+      "tenants/*/media_properties/*/slug",
+      "tenants/*/media_properties/*/image",
+      "tenants/*/media_properties/*/video",
+      "tenants/*/media_properties/*/show_on_main_page",
+      "tenants/*/media_properties/*/main_page_url",
+      "tenants/*/media_properties/*/parent_property"
+    ].forEach(path => metadataUrl.searchParams.append("select", path));
 
     const metadata = yield (yield fetch(metadataUrl)).json();
 
-    const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "featured_events");
+    const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "tenants");
+    const propertyOrder = metadata?.info?.media_property_order || [];
+    this.featuredProperties = Object.keys(metadata?.tenants || {}).map(tenantSlug => {
+      return Object.keys(metadata.tenants[tenantSlug]?.media_properties || {}).map(propertySlug => {
+        try {
+          const property = metadata.tenants[tenantSlug].media_properties[propertySlug];
 
-    let featuredSites = [];
-    Object.keys(metadata.featured_events).forEach(index =>
-      Object.keys(metadata.featured_events[index]).forEach(slug => {
-        const site = metadata.featured_events[index][slug];
-        const {event_images} = site.info || {};
-        const siteUrl = new URL(UrlJoin(window.location.origin, slug));
-
-        featuredSites.push({
-          name: site.display_title,
-          hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", "hero_background"))).toString(),
-          hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
-          hero_video: event_images.hero_video,
-          hero_video_mobile: event_images.hero_video_mobile,
-          index,
-          slug,
-          siteUrl
-        });
+          return {
+            ...property,
+            propertyHash: property["."].source,
+            propertyId: Utils.DecodeVersionHash(property["."].source).objectId,
+            title: property.name,
+            image: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "media_properties", propertySlug, "image?width=1000"))).toString(),
+          };
+        } catch(error) {
+          this.rootStore.Log(`Failed to load property ${tenantSlug}/${propertySlug}`, true);
+          this.rootStore.Log(error, true);
+        }
       })
-    );
+        .filter(property => property);
+    })
+      .flat()
+      .filter(property =>
+        property.show_on_main_page
+        && (propertyOrder.includes(property.slug) || propertyOrder.includes(property.propertyId))
+      )
+      .sort((a, b) => {
+        const indexA = propertyOrder.findIndex(propertySlugOrId => a.slug === propertySlugOrId || a.propertyId === propertySlugOrId);
+        const indexB = propertyOrder.findIndex(propertySlugOrId => b.slug === propertySlugOrId || b.propertyId === propertySlugOrId);
 
-    this.featuredSites = featuredSites;
+        return indexA < 0 ?
+          (indexB < 0 ? 0 : 1) :
+          (indexA < indexB ? -1 : 1);
+      });
   });
 
   LoadMarketplaces = flow(function * () {
@@ -329,6 +345,8 @@ class MainStore {
 }
 
 const store = new MainStore();
+
+window.mainStore = store;
 
 export const mainStore = store;
 export const uiStore = store.uiStore;

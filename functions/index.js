@@ -4,6 +4,12 @@ const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 
+// Media wallet meta tag handling
+const GenerateMediaWalletIndex = require("./MediaWallet.cjs");
+exports.create_previewable_link = functions.https.onRequest(async (req, res) => {
+  await GenerateMediaWalletIndex(req, res);
+});
+
 //
 // Firebase cloud functions
 // docs: https://firebase.google.com/docs/functions/
@@ -14,13 +20,6 @@ const axios = require("axios");
 //
 // Firebase cloud function definitions for elv-live rewrite support
 //
-
-const WALLET_DEFAULTS = {
-  "og:title": "Eluvio Media Wallet",
-  "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
-  "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
-  "og:image:alt": "Eluvio"
-};
 
 const MaxCacheAge = 1000 * 60 * 5; // 5 min in millis
 let elvLiveDataCache = {};
@@ -45,13 +44,10 @@ const FabricConfiguration = {
   }
 };
 
-const B64 = str => Buffer.from(str, "utf-8").toString("base64");
-const FromB64 = str => Buffer.from(str, "base64").toString("utf-8");
-
 const getNetworkAndMode = (req) => {
   const originalHost = req.headers["x-forwarded-host"] || req.hostname;
   const network = originalHost.indexOf("demov3") > -1 ? "demov3" : "main";
-  const mode = originalHost.indexOf("stg") > -1 || network == "demov3" ? "staging" : "production";
+  const mode = originalHost.indexOf("stg") > -1 || network === "demov3" ? "staging" : "production";
 
   // allow testing instance to hit both configs
   if(originalHost == "elv-rewriter.web.app") { return ["main", "staging"]; }
@@ -220,72 +216,6 @@ exports.ping = functions.https.onRequest((req, res) => {
            originalUrl ${req.originalUrl} /
            path ${req.path}<br/>
       ${body} </body> </html>`);
-});
-
-//
-// Firebase cloud function definitions for Previewable Share URLs
-// https://github.com/qluvio/elv-apps-projects/issues/210
-//
-
-// Read `og` parameter if present, and inject corresponding meta tags into html
-exports.create_previewable_link = functions.https.onRequest(async (req, res) => {
-  let meta = "";
-
-  let html = fs.readFileSync(Path.resolve(__dirname, "./index-wallet-template.html")).toString();
-
-  let ogParam = req.query.og;
-
-  if(ogParam) {
-    try {
-      const tags = JSON.parse(FromB64(ogParam));
-
-      if(tags["og:image"]) {
-        // Resolve static image URL to resolved node URL
-        try {
-          const imageUrl = new URL(tags["og:image"]);
-
-          // Resolve with client IP address for more appropriate node selection
-          const userIp = req.headers["x-appengine-user-ip"] || req.headers["x-forwarded-for"] || req.ip || req.socket?.remoteAddress || req.connection?.remoteAddress;
-
-          if(userIp) {
-            imageUrl.searchParams.set("client_ip", userIp);
-          }
-
-          // Remove client IP address from resolved URL for privacy
-          const resolvedImage = new URL((await axios.get(imageUrl.toString())).request.res.responseUrl);
-          resolvedImage.searchParams.delete("client_ip");
-
-          tags["og:image"] = resolvedImage.toString();
-        } catch(error) {
-          functions.logger.warn("Failed to resolve static image URL:");
-          functions.logger.warn(error);
-        }
-      }
-
-      Object.keys(tags).forEach((key) => {
-        const val = tags[key].replaceAll("\"", "&quot;");
-        if(WALLET_DEFAULTS[key]) {
-          // Known field - Replace variable
-          html = html.replaceAll(`@@${key}@@`, val);
-        } else {
-          // Other field - Append to metadata
-          meta += `\n<meta property="${key}" content="${val}" />`;
-        }
-      });
-    } catch(error) {
-      functions.logger.error("Error parsing OG tags:");
-      functions.logger.error(error);
-    }
-  }
-
-  // Fill any defaults unset
-  Object.keys(WALLET_DEFAULTS).forEach(key => {
-    html = html.replaceAll(`@@${key}@@`, WALLET_DEFAULTS[key]);
-  });
-
-  // Inject metadata
-  html = html.replace(/@@META@@/g, meta);
-  res.status(200).send(html);
 });
 
 // load and return elv-live data for this network/mode

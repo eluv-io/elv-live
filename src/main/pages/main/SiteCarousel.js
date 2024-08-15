@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Pagination} from "swiper";
+import {Pagination, Navigation} from "swiper";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
@@ -8,8 +8,9 @@ import {Action} from "../../components/Actions";
 import {runInAction} from "mobx";
 import {Video} from "../../components/Misc";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import UrlJoin from "url-join";
 
-const SiteCard = ({name, hero, hero_mobile, hero_video, hero_video_mobile, siteUrl, active, index}) => {
+const SiteCard = ({mediaProperty, active, index}) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -18,10 +19,20 @@ const SiteCard = ({name, hero, hero_mobile, hero_video, hero_video_mobile, siteU
     setLoaded(true);
   }, [active, index]);
 
-  const video = hero_video_mobile || hero_video;
+  let url = new URL("https://wallet.dev.contentfabric.io");
+
+  if(mediaProperty.main_page_url){
+    url = mediaProperty.main_page_url;
+  } else {
+    url.pathname = mediaProperty.parent_property ?
+      UrlJoin("/", mediaProperty.parent_property, "/p", mediaProperty.propertyId) :
+      UrlJoin("/", mediaProperty.propertyId);
+  }
+
+  const video = mediaProperty.video;
 
   return (
-    <Action href={siteUrl} className="site-carousel__site">
+    <Action href={url} className="site-carousel__site">
       <div className="site-carousel__placeholder" />
       {
         !loaded ? null :
@@ -44,7 +55,7 @@ const SiteCard = ({name, hero, hero_mobile, hero_video, hero_video_mobile, siteU
             </div>:
             <ImageIcon
               loading="lazy"
-              icon={hero_mobile || hero}
+              icon={mediaProperty.image}
               label={name}
               className="site-carousel__site-image"
             />
@@ -67,12 +78,12 @@ const IsActive = ({index, activeIndex, length}) => {
 
 const SiteCarousel = observer(({mobile}) => {
   useEffect(() => {
-    runInAction(() => mainStore.LoadFeaturedSites());
+    runInAction(() => mainStore.LoadFeaturedProperties());
   }, []);
 
   const [activeSlide, setActiveSlide] = useState(0);
 
-  if(!mainStore.featuredSites) { return null; }
+  if(!mainStore.featuredProperties) { return null; }
 
   return (
     <Swiper
@@ -81,20 +92,25 @@ const SiteCarousel = observer(({mobile}) => {
       slidesPerView={mobile ? 2 : 3.5}
       centeredSlides
       loop
+      navigation
       pagination={{
         enabled: true,
         clickable: true
       }}
-      modules={[Pagination]}
+      style={{
+        "--swiper-pagination-color": "#fff",
+        "--swiper-navigation-color": "#fff",
+      }}
+      modules={[Pagination, Navigation]}
       onSwiper={swiper => window.swiper = swiper}
       onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
     >
-      {mainStore.featuredSites.map((site, index) =>
-        <SwiperSlide key={`site-${site.slug}`} className={`site-carousel__slide ${activeSlide === index ? "site-carousel__slide--active" : ""}`}>
+      {mainStore.featuredProperties.map((mediaProperty, index) =>
+        <SwiperSlide key={`site-${mediaProperty.propertyId}`} className={`site-carousel__slide ${activeSlide === index ? "site-carousel__slide--active" : ""}`}>
           <SiteCard
-            {...site}
-            mobile={mobile}
-            active={IsActive({index, activeIndex: activeSlide, length: mainStore.featuredSites.length})}
+            mediaProperty={mediaProperty}
+            index={index}
+            active={IsActive({index, activeIndex: activeSlide, length: mainStore.featuredProperties.length})}
           />
         </SwiperSlide>
       )}
