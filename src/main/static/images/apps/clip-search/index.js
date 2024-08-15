@@ -1,3 +1,6 @@
+export const ClipSearch00a = require("./00a.jpg");
+export const ClipSearch00b = require("./00b.jpg");
+export const ClipSearch00c = require("./00c.jpg");
 export const ClipSearch1 = require("./01.jpg");
 export const ClipSearch2 = require("./02.jpg");
 export const ClipSearch3 = require("./03.jpg");

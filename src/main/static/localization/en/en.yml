@@ -339,7 +339,7 @@ content_fabric:
     text: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
     links:
       - text: Master PDF
-        link: https://main.net955305.contentfabric.io/s/main/q/hq__KKe1KdfPnj6qKG7uzebXzoaf3scxpbujskhw5GnMyXgvbo97rAejsVMZFN9n7zY2Rywvtp6LS1/files/eluv.io/Eluvio%20Content%20Fabric%20Casablanca%20Release%20-%20Master%20PDF.pdf
+        link: https://main.net955305.contentfabric.io/s/main/q/hq__2u3QBsnT4wvxisxmhLACPtzYLJ4R7Jw7D4KzY9KUXavBf7vtokcMiiyeH78wEbVsnVYNjjTcjF/files/eluv.io/Eluvio%20Content%20Fabric%20Casablanca%20Release%20-%20Master%20PDF.pdf
 
 technology:
   title: Content Fabric Technology
@@ -1000,18 +1000,20 @@ casablanca:
         - header: Universal AI Content Tagging and Search
           header_as_title: true
           description: |
-              High accuracy labeling, description, transcription of content in Fabric using multiple AI/ML models executing in place, as a service
+            High accuracy labeling, description, transcription of content in Fabric using multiple AI/ML models executing in place, as a service
               - AI/ML tags are saved directly to content object metadata “in place” avoiding expensive ingress/egress
-              - Generative AI models for describing content per-frame in addition to existing face/celebrity detection, logo recognition, activity detection and OCR
+              - New Generative AI models for semantic summaries of shots, and frames
+              - Adds to existing face/celebrity recognition, logo recognition, activity detection and OCR
               - New multi-language support for automatic speech-to-text transcription
               - Proven easy extension of the face and logo pools without retraining for customization for sports teams, target celebrities and brands
               
               Fabric Search v2 provides fast search and discovery for content in the Fabric
               - New fast engine re-crawls content object metadata in seconds
               - Users can configure content to be crawled (or not)
-              - Text based search and new state-of-the-art vector based search provide accurate text and semantic queries of content
-              - Clip-Search API v2 incorporates automatically returns matching content segments from full length content with no human intervention
-              - An excellent monetization for deep video archives and recorded live streams
+              - State-of-the-art vector search algorithm provides accurate keyword and semantic queries of content with configurable confidence limits
+              - The vector representation includes all AI tags, semantic descriptions, and 3rd party tags for maximum accuracy
+              - Clip-Search API automatically returns matching content segments from full length content with no human intervention
+              - Excellent monetization for deep video archives and recorded live streams
     creator_studio:
       header: Content Fabric Application Suite
       title: Creator Studio
@@ -1113,7 +1115,7 @@ casablanca:
 
         The latest <span style="color: var(--color-highlight-3)">**Fabric Search service**</span> provides fast re-crawl across content object metadata, including frame and video level tags (both AI and 3rd party provided), and includes enhanced text-based and semantic search capabilities.
 
-        AI Tagging and Search together create a powerful pipeline that enables this second generation <span style="color: var(--color-highlight-3)">**AI Clip Search app**</span>. Users can search across their Content libraries to retrieve relevant clips matching semantic, text, and category based queries. The Fabric returns relevant clips automatically that are built dynamically and just-in-time in playout. This pipeline avoids the time and cost of manually identifying, cutting and storing clips or highlights. The latest release includes shareable links for copy-paste streaming or download of the clip, and side panels for viewing the relevant tags and semantic descriptions of each content and is fully embeddable in any applications via its APIs.
+        AI Tagging and Search together create a powerful pipeline that enables this second generation <span style="color: var(--color-highlight-3)">**AI Clip Search app**</span>. Users can search across their Content libraries to retrieve relevant clips matching semantic, text, and category based queries. The Fabric returns relevant clips automatically that are built dynamically and just-in-time in playout. This pipeline avoids the time and cost of manually identifying, cutting, and storing clips or highlights. The new UX includes shareable links for copy-paste streaming or download of the clip, and side panels for viewing the relevant tags and semantic descriptions of each content and is fully embeddable in any applications via its APIs.
 
       accordion_sections:
         - header: Key Features
@@ -1121,6 +1123,8 @@ casablanca:
             - title: Fabric AI Content Tagging Service v2
               description: |
                 - New Generative Image Transform (GIT) model for semantic tagging of individual frames
+                
+                - New Large Multimodal model for semantic summarization by shot, clip, and whole video
                 - Fully integrated in Tagger service for one time and continuous tagging of video frames and segments and audio transcription
                 - Adds to celebrity/face recognition, automatic speech to text, logo recognition, OCR, activity detection and shot boundary detection
                 - Speech to Text now supports all major EU languages
@@ -1134,19 +1138,21 @@ casablanca:
             - title: Fabric Search Service v2
               description: |
                 - Provides fast re-crawl and instant update across content object metadata (<3 seconds for typical indices)
-                - Accurate text based search (BM25 algorithm)
-                - New Embedding algorithm supports semantic queries
-                - Enhanced ranking and retrieval yields best matches in top 5 results
+                - New state-of-the-art vector embedding algorithm supports high accuracy semantic and keyword queries
+                - New enhanced ranking and retrieval yields best matches in top 5 results
                 - Indexes any content object metadata such as 3rd party provided data feeds and AI tags published to the object
                 - API for searching across all or subset of tags by model
                 - Fabric fine-grained permissions restricts search results to authorized entities
             - title: Clip Search v2
               description: |
-                - Search across content libraries to retrieve relevant clips and images matching semantic, text, and category based queries.
-                - Playable/downloadable links are built dynamically and just-in-time from the full length source for extreme savings $$.
-                - Eliminate manually identifying, cutting and storing clips or highlights.
-                - New shareable links for copy-paste streaming or download of the clip
-                - New side panels display relevant tags and semantic descriptions
+                - New UX for internal curators, partners and end users to search across content libraries and retrieve relevant clips and images matching semantic, text, and category based queries
+                - Now generates Summaries, Topics, Key Frames using Large Multi-Modal AI models in Fabric
+                - New multi modal search by Keyword, Prompt, or Image
+                - Playable/downloadable links are built dynamically and just-in-time from the full length source for extreme savings $$
+                - Eliminates manually identifying, cutting and storing clips or highlights
+                - New shareable links for copy-paste streaming or download
+                - New side panels display relevant tags, semantic descriptions
+                - Fully integrates with Video Editor to open and edit clip start/end points on demand (if permissioned) - Q4 2024
                 - Embeddable APIs for integration in any app
       info_link:
         title: Eluvio Content Fabric Casablanca Release - Summer 2024
