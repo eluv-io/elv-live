@@ -29,7 +29,6 @@
     "@paypal/react-paypal-js": "^4.0.2",
     "@react-hook/resize-observer": "^1.2.2",
     "@stripe/stripe-js": "^1.19.0",
-    "babel-eslint": "^10.1.0",
     "country-codes-list": "^1.6.8",
     "dateformat": "^3.0.3",
     "dompurify": "^2.4.3",

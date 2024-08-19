@@ -12,6 +12,7 @@ import {observer} from "mobx-react";
 import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
 import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
+import UrlJoin from "url-join";
 
 SwiperCore.use([Lazy, Pagination]);
 
@@ -92,6 +93,9 @@ export const Video = observer(({
                 playoutParameters: {
                   versionHash,
                   ...playoutParameters
+                },
+                contentInfo: {
+                  posterImage: UrlJoin(mainStore.staticUrl, "q", versionHash, "meta", "public", "display_image")
                 }
               },
               playerOptions: {

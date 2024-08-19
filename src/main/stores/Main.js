@@ -64,6 +64,9 @@ class MainStore {
     }
   };
 
+  staticUrl = staticUrl;
+  staticSiteUrl = staticSiteUrl;
+
   client;
   walletClient;
 
@@ -243,7 +246,7 @@ class MainStore {
           return a.name > b.name ? 1 : -1;
         }
       });
-  })
+  });
 
   LoadNews = flow(function * () {
     if(this.newsItems) { return; }
