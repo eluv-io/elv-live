@@ -10,11 +10,11 @@ module.exports = (env) => {
 
   let plugins = [
     new HtmlWebpackPlugin({
-      title: "Eluvio Stream Sample",
+      title: "Eluvio: Creators of the Content Fabric",
       template: Path.join(__dirname, "src", "index.html"),
-      cache: false,
       filename: "index.html",
-      favicon: "./src/assets/icons/favicon.png"
+      favicon: Path.join(__dirname, "src", "assets", "icons", "favicon.png"),
+      inject: "body"
     }),
     new CopyWebpackPlugin([
       {
@@ -51,6 +51,7 @@ module.exports = (env) => {
       path: Path.resolve(__dirname, "dist"),
       clean: true,
       filename: "App.js",
+      publicPath: "/",
       chunkFilename: "bundle.[id].[chunkhash].js"
     },
     snapshot: {
@@ -166,17 +167,17 @@ module.exports = (env) => {
           }
         },
         {
-          test: /\.(gif|png|jpe?g|otf|woff2?|ttf)$/i,
+          test: /\.(gif|png|jpe?g|otf|woff2?|ttf|pdf|mp4)$/i,
           type: "asset/resource",
         },
         {
-          test: /\.(txt|bin|abi|csv|mp4|pdf)$/i,
+          test: /\.(txt|bin|abi|csv)$/i,
           type: "asset/source"
         },
         {
           test: /\.html$/,
           exclude: /index\.html/,
-          type: 'asset/source'
+          type: "asset/source"
         },
         {
           test: /\.ya?ml$/,
