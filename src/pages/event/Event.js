@@ -6,7 +6,7 @@ import Footer from "Layout/Footer";
 
 import Modal from "Common/Modal";
 import UpcomingEvents from "Common/UpcomingEvents";
-import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import ImageIcon from "Common/ImageIcon";
 import UrlJoin from "url-join";
 import {Link} from "react-router-dom";

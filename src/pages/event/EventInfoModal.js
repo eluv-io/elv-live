@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 
 import ImageIcon from "Common/ImageIcon";
 import Modal from "Common/Modal";
-import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import UrlJoin from "url-join";
 import Player from "Common/Player";
 import {RichText} from "Common/Components";

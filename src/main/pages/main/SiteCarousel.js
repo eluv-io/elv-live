@@ -7,7 +7,7 @@ import ImageIcon from "../../components/ImageIcon";
 import {Action} from "../../components/Actions";
 import {runInAction} from "mobx";
 import {Video} from "../../components/Misc";
-import {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import UrlJoin from "url-join";
 
 const SiteCard = ({mediaProperty, active, index}) => {

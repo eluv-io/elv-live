@@ -9,7 +9,7 @@ import SwiperCore, {Lazy, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
-import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
 import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
 
@@ -38,9 +38,11 @@ export const Video = observer(({
   sourceOptions={},
   playoutParameters={},
   playerOptions={},
+  autoAspectRatio=true,
   className=""
 }) => {
   const [player, setPlayer] = useState(undefined);
+  const [videoDimensions, setVideoDimensions] = useState(undefined);
   const client = mainStore.client;
 
   useEffect(() => {
@@ -69,37 +71,44 @@ export const Video = observer(({
     <div className={`player-container ${player ? "player-container--loaded" : "player-container--loading"} ${className}`}>
       <div
         className="player-container__player"
+        style={
+          !autoAspectRatio ? {} :
+            {aspectRatio: `${videoDimensions?.width || 16} / ${videoDimensions?.height || 9}`}
+        }
         ref={element => {
           if(!element || player) { return; }
 
-          setPlayer(
-            new EluvioPlayer(
-              element,
-              {
-                clientOptions: {
-                  client,
-                  network: EluvioPlayerParameters.networks[EluvioConfiguration.network === "main" ? "MAIN" : "DEMO"],
-                  ...clientOptions
-                },
-                sourceOptions: {
-                  protocols: [EluvioPlayerParameters.protocols.HLS],
-                  ...sourceOptions,
-                  playoutParameters: {
-                    versionHash,
-                    ...playoutParameters
-                  }
-                },
-                playerOptions: {
-                  watermark: EluvioPlayerParameters.watermark.OFF,
-                  muted: EluvioPlayerParameters.muted.OFF,
-                  autoplay: EluvioPlayerParameters.autoplay.OFF,
-                  controls: EluvioPlayerParameters.controls.AUTO_HIDE,
-                  loop: EluvioPlayerParameters.loop.OFF,
-                  ...playerOptions
+          InitializeEluvioPlayer(
+            element,
+            {
+              clientOptions: {
+                client,
+                network: EluvioPlayerParameters.networks[EluvioConfiguration.network === "main" ? "MAIN" : "DEMO"],
+                ...clientOptions
+              },
+              sourceOptions: {
+                protocols: [EluvioPlayerParameters.protocols.HLS],
+                ...sourceOptions,
+                playoutParameters: {
+                  versionHash,
+                  ...playoutParameters
                 }
+              },
+              playerOptions: {
+                watermark: EluvioPlayerParameters.watermark.OFF,
+                muted: EluvioPlayerParameters.muted.OFF,
+                autoplay: EluvioPlayerParameters.autoplay.OFF,
+                controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+                loop: EluvioPlayerParameters.loop.OFF,
+                ...playerOptions
               }
-            )
-          );
+            }
+          ).then(player => {
+            setPlayer(player)
+            player.controls.RegisterVideoEventListener("canplay", event => {
+              setVideoDimensions({width: event.target.videoWidth, height: event.target.videoHeight});
+            });
+          });
         }}
       />
     </div>

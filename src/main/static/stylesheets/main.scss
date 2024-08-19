@@ -513,7 +513,10 @@
 
   .player-container {
     height: auto;
-    margin-top: 10px;
+
+    &__player {
+      background: black;
+    }
   }
 
   &__copy-container {
@@ -864,12 +867,6 @@
       &__description,
       &__actions {
         display: none;
-      }
-    }
-
-    &__core-video {
-      .player-container__player {
-        max-width: 100%;
       }
     }
   }

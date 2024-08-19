@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "Selawik var";
+  font-family: 'Selawik var';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("files/Selawik-variable.ttf") format("ttf");
-  font-named-instance: "Regular";
+  src: url('files/Selawik-variable.ttf') format('ttf');
+  font-named-instance: 'Regular';
 }
 
 :root { font-family: 'Selawik', sans-serif; }

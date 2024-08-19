@@ -1,18 +1,18 @@
 html {
   /* General */
-  --color-background-highlight: #1E1EED;
+  --color-background-highlight: #1e1eed;
   --color-background-highlight-rgb: 30, 94, 237;
-  --color-text-highlight: #2D61E4;
+  --color-text-highlight: #2d61e4;
   --color-text-highlight-rgb: 30, 94, 237;
 
   /* Fonts - Primary is for used headers, tertiary for buttons, prices and other details, secondary for all other text */
-  --font-family-primary: "Montserrat", "Helvetica Neue", Helvetica, sans-serif; /* Primary font should be accompanied with 'text-transform: uppercase' */
-  --font-family-secondary: "DM Sans", "Helvetica Neue", Helvetica, sans-serif;
-  --font-family-tertiary: "Inter", Helvetica, sans-serif;
+  --font-family-primary: 'Montserrat', 'Helvetica Neue', Helvetica, sans-serif; /* Primary font should be accompanied with 'text-transform: uppercase' */
+  --font-family-secondary: 'DM Sans', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-family-tertiary: 'Inter', Helvetica, sans-serif;
   --font-default: normal normal normal 16px var(--font-family-secondary);
 
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #EDEDED;
+  --color-bg-primary: #fff;
+  --color-bg-secondary: #ededed;
 
   --color-text-primary: #000;
   --color-text-secondary: #777;
@@ -26,7 +26,7 @@ html {
   --border-color: #ccc;
   --border: 1px solid var(--border-color);
 
-  --border-color-faint: #D2D2D2;
+  --border-color-faint: #d2d2d2;
   --border-faint: 1px solid var(--border-color-faint);
 
   --border-color-highlight: var(--color-background-highlight);
@@ -34,7 +34,7 @@ html {
 
   --border-radius: 4px;
 
-  --box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  --box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 
   /* Page */
   --color-page-bg: #f6f6f6;

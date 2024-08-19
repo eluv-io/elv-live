@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import EluvioPlayer from "@eluvio/elv-player-js";
+import {InitializeEluvioPlayer} from "@eluvio/elv-player-js/lib/index";
 
 const Player = ({params, className=""}) => {
   const [player, setPlayer] = useState(undefined);
@@ -18,9 +18,8 @@ const Player = ({params, className=""}) => {
       ref={element => {
         if(!element || player) { return; }
 
-        setPlayer(
-          new EluvioPlayer(element, params)
-        );
+        InitializeEluvioPlayer(element, params)
+          .then(player => setPlayer(player));
       }}
     />
   );
