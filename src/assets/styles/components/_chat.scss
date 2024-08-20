@@ -3,7 +3,7 @@
 
   .chat-container__username-form-container {
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgb(0 0 0 / 60%);
     display: flex;
     height: 100%;
     justify-content: center;
@@ -55,7 +55,7 @@
     }
 
     & > input {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgb(255 255 255 / 5%);
       border: 1px solid #5ca7ff;
       border-radius: 3px;
       color: $white;
@@ -115,7 +115,7 @@
     }
 
     &__background {
-      mask-image: linear-gradient(rgba(black, 1) 0%, rgba(black, 0.5) 40%, rgba(black, 0) 100%);
+      mask-image: linear-gradient(rgb(black 1) 0%, rgb(black 0.5) 40%, rgb(black 0) 100%);
       max-height: 100%;
       max-width: 100%;
       min-height: 100%;
@@ -126,7 +126,7 @@
       width: 100%;
 
       &__gradient {
-        background: linear-gradient(rgba(black, 0.9) 0.1%, rgba(black, 0.9) 10%, rgba(black, 1) 90%);
+        background: linear-gradient(rgb(black 0.9) 0.1%, rgb(black 0.9) 10%, rgb(black 1) 90%);
         left: 0;
         max-height: 100%;
         max-width: 100%;
@@ -182,7 +182,6 @@
       color: $white;
       font-size: 14px;
       font-weight: 200;
-
       letter-spacing: 0.07em;
       line-height: 18px;
     }
@@ -242,7 +241,7 @@
       width: 100%;
 
       .str-chat__textarea > textarea {
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgb(255 255 255 / 5%);
         border: 1px solid #5ca7ff;
         border-radius: 3px;
         color: $white;
@@ -291,7 +290,7 @@
       }
     }
 
-    @media only screen and (max-width: 770px) {
+    @media only screen and (width <= 770px) {
       &__emojiselect-wrapper {
         display: none;
       }

@@ -64,7 +64,7 @@
       &:hover,
       &:focus-visible {
         &:not(&:active) {
-          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgb(155 81 224 / 50%));
         }
       }
 
@@ -85,7 +85,7 @@
       &:hover,
       &:focus-visible {
         &:not(&:active) {
-          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgb(155 81 224 / 50%));
         }
       }
 
@@ -111,7 +111,7 @@
         color: var(--color-text-dark-1);
 
         &:not(&:active) {
-          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgb(155 81 224 / 50%));
         }
 
         .loader {
@@ -136,7 +136,7 @@
         color: var(--color-highlight-1);
 
         &:not(&:active) {
-          filter: drop-shadow(0 0 3px rgba(155, 81, 224, 0.5));
+          filter: drop-shadow(0 0 3px rgb(155 81 224 / 50%));
         }
 
         .loader {

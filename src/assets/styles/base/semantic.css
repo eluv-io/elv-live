@@ -2,19 +2,16 @@
 ::after,
 ::before {
   box-sizing: inherit;
-  box-sizing: inherit;
 }
 
 html {
   box-sizing: border-box;
-  box-sizing: border-box;
 }
 
-input[type=email],
-input[type=password],
-input[type=search],
-input[type=text] {
-  appearance: none;
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="text"] {
   appearance: none;
 }
 
@@ -23,7 +20,6 @@ input[type=text] {
 
 html {
   line-height: 1.15;
-  text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
@@ -56,7 +52,6 @@ figure {
 }
 
 hr {
-  box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
   overflow: visible;
@@ -163,24 +158,24 @@ select {
   text-transform: none;
 }
 
-[type=reset],
-[type=submit],
+[type="reset"],
+[type="submit"],
 button,
-html [type=button] {
+html [type="button"] {
   appearance: button;
 }
 
-[type=button]::-moz-focus-inner,
-[type=reset]::-moz-focus-inner,
-[type=submit]::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner,
 button::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
 
-[type=button]:-moz-focusring,
-[type=reset]:-moz-focusring,
-[type=submit]:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring,
 button:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
@@ -190,7 +185,6 @@ fieldset {
 }
 
 legend {
-  box-sizing: border-box;
   box-sizing: border-box;
   color: inherit;
   display: table;
@@ -208,25 +202,24 @@ textarea {
   overflow: auto;
 }
 
-[type=checkbox],
-[type=radio] {
-  box-sizing: border-box;
+[type="checkbox"],
+[type="radio"] {
   box-sizing: border-box;
   padding: 0;
 }
 
-[type=number]::-webkit-inner-spin-button,
-[type=number]::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
-[type=search] {
+[type="search"] {
   appearance: textfield;
   outline-offset: -2px;
 }
 
-[type=search]::-webkit-search-cancel-button,
-[type=search]::-webkit-search-decoration {
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
   appearance: none;
 }
 
@@ -277,15 +270,15 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  min-width: 320px;
   background: #fff;
+  color: rgb(0 0 0 / 87%);
   font-size: 14px;
-  line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
   font-smoothing: antialiased;
+  line-height: 1.4285em;
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  padding: 0;
 }
 
 h1,
@@ -293,15 +286,15 @@ h2,
 h3,
 h4,
 h5 {
+  font-weight: 700;
   line-height: 1.28571429em;
   margin: calc(2rem - 0.14285714em) 0 1rem;
-  font-weight: 700;
   padding: 0;
 }
 
 h1 {
-  min-height: 1rem;
   font-size: 2rem;
+  min-height: 1rem;
 }
 
 h2 {
@@ -337,8 +330,8 @@ h5:last-child {
 }
 
 p {
-  margin: 0 0 1em;
   line-height: 1.4285em;
+  margin: 0 0 1em;
 }
 
 p:first-child {
@@ -361,60 +354,59 @@ a:hover {
 
 ::-webkit-selection {
   background-color: #cce2ff;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgb(0 0 0 / 87%);
 }
 
 ::selection {
   background-color: #cce2ff;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgb(0 0 0 / 87%);
 }
 
 ::selection {
   background-color: #cce2ff;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgb(0 0 0 / 87%);
 }
 
 input::-webkit-selection,
 textarea::-webkit-selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(100 100 100 / 40%);
+  color: rgb(0 0 0 / 87%);
 }
 
 input::selection,
 textarea::selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(100 100 100 / 40%);
+  color: rgb(0 0 0 / 87%);
 }
 
 input::selection,
 textarea::selection {
-  background-color: rgba(100, 100, 100, 0.4);
-  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(100 100 100 / 40%);
+  color: rgb(0 0 0 / 87%);
 }
 
 body ::-webkit-scrollbar {
   appearance: none;
-  width: 10px;
   height: 10px;
+  width: 10px;
 }
 
 body ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgb(0 0 0 / 10%);
   border-radius: 0;
 }
 
 body ::-webkit-scrollbar-thumb {
-  cursor: pointer;
+  background: rgb(0 0 0 / 25%);
   border-radius: 5px;
-  background: rgba(0, 0, 0, 0.25);
-  transition: color 0.2s ease;
+  cursor: pointer;
   transition: color 0.2s ease;
 }
 
 body ::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgb(0 0 0 / 15%);
 }
 
 body ::-webkit-scrollbar-thumb:hover {
-  background: rgba(128, 135, 139, 0.8);
+  background: rgb(128 135 139 / 80%);
 }

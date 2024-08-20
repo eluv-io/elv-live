@@ -5,7 +5,7 @@
     overflow-y: auto;
   }
 
-  @media only screen and (max-width: 1250px) {
+  @media only screen and (width <= 1250px) {
     .modal__content {
       height: 100vh;
       min-height: 100vh;
@@ -71,7 +71,7 @@
 
   &__image-controls {
     align-items: center;
-    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 7px 7px rgb(0 0 0 / 15%);
     display: flex;
     height: 55px;
     justify-content: center;
@@ -165,11 +165,11 @@
     }
   }
 
-  @media screen and (max-width: 1250px) {
+  @media screen and (width <= 1250px) {
     border: 0;
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     border: 0;
 
     &__text-container {

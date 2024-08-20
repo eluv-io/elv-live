@@ -9,6 +9,7 @@
 
 
 :root { font-family: 'Albertus MT Std', sans-serif; }
+
 @supports (font-variation-settings: normal) {
   :root { font-family: 'Albertus MT Std', sans-serif; }
 }

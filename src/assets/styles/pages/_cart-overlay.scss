@@ -1,5 +1,5 @@
 .cart-overlay-scroll-container {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
   max-height: 50vh;
   overflow-y: auto;
   position: absolute;
@@ -118,7 +118,7 @@
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (width <= 900px) {
   .cart-overlay-scroll-container {
     max-height: 70vh;
     right: 5vw;

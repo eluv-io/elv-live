@@ -1,4 +1,4 @@
-$focus-color: rgba(225, 225, 255, 0.7);
+$focus-color: rgb(225 225 255 / 70%);
 $border-color: #252525;
 
 .collection {
@@ -37,7 +37,7 @@ $border-color: #252525;
 
   &__redeem {
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0 0 0 / 50%);
     display: flex;
     height: 100%;
     justify-content: center;
@@ -328,7 +328,7 @@ $border-color: #252525;
   &__transfer-form {
     background: #e9e6e4;
     border-radius: 3px;
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 50px rgb(0 0 0 / 12%);
     max-height: 100vh;
     max-width: 600px;
     overflow-y: auto;
@@ -427,7 +427,7 @@ $border-color: #252525;
     &__confirmation {
       background: white;
       border-radius: 11px;
-      box-shadow: 0 4px 80px rgba(0, 0, 0, 0.07);
+      box-shadow: 0 4px 80px rgb(0 0 0 / 7%);
       font-size: 20px;
       margin: 15px auto 0;
       padding: 15px 50px;
@@ -454,7 +454,7 @@ $border-color: #252525;
     }
   }
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (width <= 1000px) {
     padding: 40px 0;
 
     &__redeem {

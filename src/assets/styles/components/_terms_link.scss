@@ -31,7 +31,7 @@
     }
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (width <= 900px) {
     &__modal {
       max-width: 100vw;
 

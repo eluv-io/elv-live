@@ -15,11 +15,11 @@
   width: 65%;
   z-index: 1;
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (width <= 700px) {
     width: 90%;
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     margin-top: 100px;
     padding: 30px 20px;
     width: 90%;
@@ -41,7 +41,7 @@
     margin: 0;
     text-align: center;
 
-    @media only screen and (max-width: 700px) {
+    @media only screen and (width <= 700px) {
       font-size: 28px;
       text-align: left;
     }
@@ -49,7 +49,7 @@
 }
 
 .support-body {
-  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgb(0 0 0 / 50%);
   display: block;
   margin: 0 auto;
   max-width: 860px;
@@ -76,7 +76,7 @@
     color: black;
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     padding: 30px 0;
 
     &__header {
@@ -85,15 +85,13 @@
   }
 }
 
-$yellow: rgb(248, 159, 0);
-$cyan: rgb(0, 172, 157);
-$grey: rgb(51, 51, 51);
-$black: rgb(0, 0, 0);
-$base: rgb(255, 255, 255);
-$lightGrey: rgb(235, 235, 235);
-
+$yellow: rgb(248 159 0);
+$cyan: rgb(0 172 157);
+$grey: rgb(51 51 51);
+$black: rgb(0 0 0);
+$base: rgb(255 255 255);
+$lightGrey: rgb(235 235 235);
 $BASE_FONT_SIZE: 16px;
-
 $breakpointMega: 1600px;
 $breakpointLarge: 990px;
 $breakpointMed: 767px;
@@ -102,11 +100,12 @@ $breakpointMed: 767px;
 .Collapsible {
   border-radius: 12px;
   margin-bottom: 5px;
+
   // transition: background .2s ease-out;
 }
 
 .Collapsible__contentOuter {
-  background: rgba(0, 0, 0, 0.03);
+  background: rgb(0 0 0 / 3%);
 }
 
 //The content within the collaspable area
@@ -120,7 +119,7 @@ $breakpointMed: 767px;
 
   p {
     box-sizing: border-box;
-    color: rgb(0, 0, 0);
+    color: rgb(0 0 0);
     direction: ltr;
     display: block;
     font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',  sans-serif;
@@ -131,9 +130,9 @@ $breakpointMed: 767px;
     letter-spacing: -0.374px;
     line-height: 25px;
     margin-bottom: 10px;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
     text-align: left;
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizelegibility;
     text-size-adjust: 100%;
 
     &:last-child {
@@ -141,7 +140,7 @@ $breakpointMed: 767px;
     }
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     padding: 30px;
     padding-top: 0;
 
@@ -172,14 +171,15 @@ $breakpointMed: 767px;
 }
 
 @function rem($sizeValue: 1.6) {
-
   $value: strip-unit($sizeValue / $BASE_FONT_SIZE);
 
   @return $value + rem;
 }
+
 //The link which when clicked opens the collapsable area
 .Collapsible__trigger {
   border-radius: 12px;
+
   // border: 1px solid $white;
   color: #000;
   cursor: pointer;
@@ -195,12 +195,12 @@ $breakpointMed: 767px;
   padding: 20px 60px 20px 30px;
   position: relative;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     font-size: 14px;
   }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgb(0 0 0 / 3%);
   }
 
   &::after {
@@ -217,7 +217,7 @@ $breakpointMed: 767px;
   }
 
   &.is-open {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgb(0 0 0 / 3%);
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 

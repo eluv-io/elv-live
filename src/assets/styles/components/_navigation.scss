@@ -113,11 +113,11 @@
     letter-spacing: 0.07em;
   }
 
-  @media screen and (max-width: 1250px) {
+  @media screen and (width <= 1250px) {
     padding: 0 25px;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (width <= 900px) {
     padding: 0 25px 0 15px;
 
     &__logo-container {
@@ -141,7 +141,7 @@
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     padding: 0 10px;
 
     &__logo-container {
@@ -173,7 +173,7 @@
     }
   }
 
-  @media screen and (max-width: 350px) {
+  @media screen and (width <= 350px) {
     &__logo-container {
       max-width: 80px;
     }
@@ -211,7 +211,7 @@
     width: 15px;
   }
 
-  @media only screen and (max-width: 1450px) {
+  @media only screen and (width <= 1450px) {
     right: 20px;
   }
 }
@@ -223,18 +223,17 @@
     stroke-width: 2px;
   }
 
-  @media only screen and (max-width: 1450px) {
+  @media only screen and (width <= 1450px) {
     right: 60px;
   }
 }
 
 .footer {
-  align-content: center;
+  place-content: center center;
   align-items: center;
   display: flex;
   flex-direction: column;
   height: auto;
-  justify-content: center;
   margin: auto;
   overflow: hidden;
   padding: 50px;
@@ -256,7 +255,7 @@
   &__item {
     background: transparent;
     border: 0;
-    color: rgba(0, 0, 0, 0.783);
+    color: rgb(0 0 0 / 78.3%);
     cursor: pointer;
     font-size: 14px;
     font-style: normal;
@@ -305,7 +304,7 @@
       justify-content: center;
 
       &:hover {
-        color: rgba(0, 0, 0, 0.783);
+        color: rgb(0 0 0 / 78.3%);
       }
     }
 
@@ -329,7 +328,7 @@
   }
 
   &__sponsors__tagline {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgb(0 0 0 / 50%);
     font-size: 14px;
     letter-spacing: 0.07em;
     margin-bottom: 10px;
@@ -350,7 +349,7 @@
     line-height: 1.47059;
     margin: auto 0;
     overflow: hidden;
-    text-rendering: optimizeLegibility;
+    text-rendering: optimizelegibility;
     user-select: none;
     width: 100%;
   }
@@ -388,7 +387,7 @@
   }
 
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     padding: 100px 25px 70px;
 
     &__block {
@@ -651,7 +650,7 @@
 
   &.header-transparent {
     &:not(.header-wallet) {
-      @media screen and (min-width: 1400px) {
+      @media screen and (width >= 1400px) {
         &:not(.header-scrolled) {
           .header__logo-default {
             filter: drop-shadow(1px 1px 0.5px $gray);
@@ -669,7 +668,7 @@
         }
       }
 
-      @media screen and (max-width: 1400px) {
+      @media screen and (width <= 1400px) {
         background: $black;
 
         .menu-button__options {

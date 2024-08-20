@@ -75,7 +75,7 @@
       }
 
       .captioned-image__caption {
-        background: rgba(0, 0, 0, 0.5);
+        background: rgb(0 0 0 / 50%);
         border-radius: 8px;
         bottom: 20px;
         color: var(--color-text-dark-1);
@@ -231,7 +231,7 @@
   }
 
   &__content--shadow {
-    box-shadow: 0 0 11px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 11px rgb(0 0 0 / 25%);
   }
 
   @media screen and (max-width: $width-laptop) {

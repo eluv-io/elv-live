@@ -42,7 +42,7 @@
     }
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (width <= 700px) {
     flex-direction: column;
 
     &__message {
@@ -121,7 +121,7 @@
     padding: 5px 30px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     min-width: unset;
     width: 100%;
   }

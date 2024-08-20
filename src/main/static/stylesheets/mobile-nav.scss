@@ -121,7 +121,7 @@
     }
   }
 
-  @media screen and (min-width: CALC(#{$width-tablet} + 1px)) {
+  @media screen and (width >= CALC(#{$width-tablet} + 1px)) {
     &__menu {
       display: none;
     }

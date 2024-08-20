@@ -1,17 +1,16 @@
 .ticket-group {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   height: auto;
   padding-bottom: 10px;
   user-select: none;
   width: 100%;
 
-  @media only screen and (max-width: 1680px) {
+  @media only screen and (width <= 1680px) {
     flex-direction: column;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     padding-bottom: 0;
   }
 }
@@ -31,14 +30,14 @@
   user-select: none;
   width: 100%;
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (width <= 1200px) {
     height: auto;
     max-width: 1350px;
     min-width: auto;
     padding: 25px 30px;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     height: auto;
     max-width: 1350px;
     min-width: auto;
@@ -55,7 +54,7 @@
   user-select: none;
   width: 200px;
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (width <= 1400px) {
     display: none;
   }
 }
@@ -67,7 +66,6 @@
   margin: auto;
   object-fit: cover;
   object-fit: contain;
-  position: relative;
   position: relative;
   user-select: none;
   width: auto;
@@ -102,7 +100,7 @@
   margin-bottom: 5px;
   user-select: none;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -118,7 +116,7 @@
   line-height: 156.5%;
   text-transform: uppercase;
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (width <= 1200px) {
     display: flex;
     font-size: 18px;
     font-weight: normal;
@@ -142,7 +140,7 @@
   padding-right: 30px;
   position: relative;
 
-  @media only screen and (max-width: 750px) {
+  @media only screen and (width <= 750px) {
     font-size: 14px;
     min-height: 0;
     padding-right: 0;
@@ -150,10 +148,9 @@
 }
 
 .ticket-bottom {
-  align-content: center;
+  place-content: center space-between;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   margin-top: 10px;
   user-select: none;
   width: auto;
@@ -181,11 +178,11 @@
     }
   }
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (width <= 1200px) {
     padding: 20px 0 0;
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     flex-direction: column;
     height: auto;
     min-height: 120px;
@@ -207,13 +204,12 @@
   font-style: normal;
   font-weight: normal;
   height: 44px;
+
   //max-width: 700px;
   width: 100%;
 
   .ticket-selection {
     max-width: 700px;
-    max-width: 700px;
-    width: 70%;
     width: 100%;
   }
 
@@ -221,7 +217,7 @@
     height: 44px !important;
   }
 
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (width <= 1500px) {
     max-width: none;
     width: 100%;
 
@@ -230,7 +226,7 @@
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     margin-bottom: 10px;
 
     .react-select__control {
@@ -284,14 +280,14 @@
     overflow: hidden;
   }
 
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (width <= 1500px) {
     & > * {
       font-size: 12px;
       letter-spacing: -0.6px;
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     grid-template-columns: 1fr !important;
 
     & > * {
@@ -300,7 +296,7 @@
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     padding: 0;
 
     & > * {
@@ -311,7 +307,7 @@
     }
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     align-items: flex-start;
     align-self: flex-start;
     padding-left: 0;
@@ -353,18 +349,18 @@
     opacity: 0.5;
   }
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (width <= 1400px) {
     font-size: 12px;
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     height: 44px;
     margin: auto !important;
     margin-top: 20px !important;
     width: 100%;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (width <= 600px) {
     margin: auto !important;
     margin-top: 20px !important;
   }

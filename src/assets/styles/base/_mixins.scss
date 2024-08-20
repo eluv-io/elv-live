@@ -10,33 +10,23 @@
     @media (max-width: $screen-xs-max) {
       @content;
     }
-  }
-
-  @else if $range == phone-lg {
+  } @else if $range == phone-lg {
     @media (max-width: $screen-sm-max) {
       @content;
     }
-  }
-
-  @else if $range == tablet-sm {
+  } @else if $range == tablet-sm {
     @media (max-width: $screen-md-max) {
       @content;
     }
-  }
-
-  @else if $range == tablet-lg {
+  } @else if $range == tablet-lg {
     @media (max-width: $screen-lg-max) {
       @content;
     }
-  }
-
-  @else if $range == desktop-sm {
+  } @else if $range == desktop-sm {
     @media (max-width: $screen-xl-max) {
       @content;
     }
-  }
-
-  @else if $range == desktop-lg {
+  } @else if $range == desktop-lg {
     @media (max-width: $screen-xxl-max) {
       @content;
     }
@@ -54,7 +44,7 @@
 @mixin item-block {
   background: $white;
   border-radius: 10px;
-  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 50px rgb(0 0 0 / 12%);
   padding: 15px 25px 25px;
 
   h2 {
@@ -77,7 +67,7 @@
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     h2 {
       font-size: 17px;
       padding: 0 60px 0 0;

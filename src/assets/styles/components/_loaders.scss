@@ -18,7 +18,7 @@
 
   .lds-default div {
     animation: lds-default 1.2s linear infinite;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(0 0 0 / 50%);
     border-radius: 50%;
     height: 6px;
     position: absolute;
@@ -96,6 +96,7 @@
     left: 62px;
     top: 52px;
   }
+
   @keyframes lds-default {
     0%,
     20%,

@@ -10,6 +10,7 @@
 
 
 :root { font-family: 'Compacta Black BT', sans-serif; }
+
 @supports (font-variation-settings: normal) {
   :root { font-family: 'Compacta Black BT', sans-serif; }
 }
