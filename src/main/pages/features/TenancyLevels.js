@@ -133,7 +133,7 @@ const TenancyLevels = () => {
     <PageContainer after={<FullWidthElements />} padded>
       <div className="page tenancy-levels">
         <div className="page__header-container">
-          <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
+          <h1 className="features-details-header">Eluvio Tenancies: Your Space on the Content Fabric</h1>
           <h3>What works best for your creative brand?</h3>
         </div>
         <div className="page__content-block">
