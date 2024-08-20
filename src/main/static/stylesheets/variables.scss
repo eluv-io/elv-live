@@ -77,8 +77,6 @@ $width-mobile: 600px;
   @media screen and (max-width: $width-laptop) {
     --horizontal-content-padding: 75px;
     --header-height: 50px;
-
-    //--font-size-feature-header: var(--font-size-header-1);
     --font-size-feature-header: 44px;
     --font-size-feature-subheader: var(--font-size-header-4);
     --font-size-header-1: 36px;

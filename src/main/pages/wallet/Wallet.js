@@ -6,7 +6,7 @@ import UrlJoin from "url-join";
 const Wallet = observer(() => {
   const hashPath = window.location.hash.replace("#/", "/");
   useEffect(() => {
-    window.location.href = UrlJoin(mainStore.walletAppUrl, hashPath || "")
+    window.location.href = UrlJoin(mainStore.walletAppUrl, hashPath || "");
   }, []);
 
   return null;

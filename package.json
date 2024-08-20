@@ -13,10 +13,16 @@
     "build-analyze": "ANALYZE_BUNDLE=true npm run build",
     "add-build": "git add dist",
     "lint": "npm-run-all -s -c lint-js-fix lint-scss-fix",
-    "lint-js": "eslint ./src ./client/src --ext js,jsx --report-unused-disable-directives",
-    "lint-js-fix": "eslint ./src ./client/src --fix --ext js,jsx --report-unused-disable-directives",
+    "lint-js": "eslint ./src --ext js,jsx --report-unused-disable-directives",
+    "lint-js-fix": "eslint ./src --fix --ext js,jsx --report-unused-disable-directives",
     "lint-scss": "npx stylelint \"src/**/*.{css,scss}\"",
-    "lint-scss-fix": "npx stylelint \"src/**/*.{css,scss}\" --fix"
+    "lint-scss-fix": "npx stylelint \"src/**/*.{css,scss}\" --fix",
+
+    "lint-main": "npm-run-all -s -c lint-js-fix-main lint-scss-fix-main",
+    "lint-js-main": "eslint ./src/main --ext js,jsx --report-unused-disable-directives",
+    "lint-js-fix-main": "eslint ./src/main --fix --ext js,jsx --report-unused-disable-directives",
+    "lint-scss-main": "npx stylelint \"src/main/**/*.{css,scss}\"",
+    "lint-scss-fix-main": "npx stylelint \"src/main/**/*.{css,scss}\" --fix"
   },
   "browser": {
     "crypto": false,
