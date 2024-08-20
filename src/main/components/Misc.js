@@ -108,7 +108,7 @@ export const Video = observer(({
               }
             }
           ).then(player => {
-            setPlayer(player)
+            setPlayer(player);
             player.controls.RegisterVideoEventListener("canplay", event => {
               setVideoDimensions({width: event.target.videoWidth, height: event.target.videoHeight});
             });

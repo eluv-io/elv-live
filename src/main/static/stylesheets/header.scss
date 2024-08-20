@@ -7,6 +7,8 @@
   height: var(--header-height);
   overflow: visible;
   padding: 0 var(--horizontal-content-padding);
+  position: relative;
+  z-index: 10;
 
   &,
   * {
@@ -116,6 +118,10 @@
 
     &__nav {
       gap: 10px;
+    }
+
+    &__nav--icons {
+      gap: 20px;
     }
 
     &__nav-link {

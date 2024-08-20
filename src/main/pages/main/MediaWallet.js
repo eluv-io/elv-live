@@ -140,7 +140,7 @@ const FeatureBlock2 = observer(() => {
             {subheader}
           </h2>
           <div className="main-page-header__actions">
-            <Button to="/wallet#/wallet/users/me" className="main-page-header__button">
+            <Button href={mainStore.walletAppUrl} target="_blank" className="main-page-header__button">
               {button_text}
             </Button>
           </div>

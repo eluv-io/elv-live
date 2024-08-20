@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import EluvioLogo from "../static/images/logos/eluvio-logo-white.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {DiscoverIcon, MenuIcon, ProfileIcon, SocialIcons, WalletIcon, XIcon} from "../static/icons/Icons";
+import {MenuIcon, SocialIcons, WalletIcon, XIcon} from "../static/icons/Icons";
 
 
 const NotificationBanner = observer(({className=""}) => {
@@ -121,14 +121,12 @@ const Header = observer(() => {
         </nav>
         <nav className="header__nav header__nav--icons desktop">
           <Action icon={SocialIcons.XLogoIcon} to="https://x.com/eluvioinc" label={mainStore.l10n.header.x_social} className="dark header__nav-link" style={{width: "18px", height: "18px"}} />
-          <Action icon={DiscoverIcon} to={"/wallet#/"} label={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
-          <Action icon={ProfileIcon} to={"/wallet#/wallet/users/me"} label={mainStore.l10n.header.profile} className="dark header__nav-link" />
-          <Action icon={WalletIcon} to={"/wallet#/wallet/profile"} label={mainStore.l10n.header.wallet} className="dark header__nav-link" />
+          <Action icon={WalletIcon} href={mainStore.walletAppUrl} target="_blank" label={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
         </nav>
 
         { /* Mobile */ }
         <nav className="header__nav header__nav--links mobile">
-          <Action to="/wallet" useNavLink underline className="dark header__nav-link">
+          <Action to={mainStore.walletAppUrl} target="_blank" underline className="dark header__nav-link">
             { mainStore.l10n.header.discover_projects }
           </Action>
         </nav>

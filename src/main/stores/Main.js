@@ -19,6 +19,20 @@ configure({
   disableErrorBoundaries: true
 });
 
+let walletAppUrl;
+if(window.location.hostname === "localhost" || window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
+  walletAppUrl = `https://${window.location.hostname}:8090`;
+} else if(window.location.hostname.startsWith("live-stg")) {
+  walletAppUrl = EluvioConfiguration.network === "main" ?
+    "https://wallet.preview.contentfabric.io" :
+    "https://wallet.demov3.contentfabric.io";
+} else {
+  // Prod
+  walletAppUrl = EluvioConfiguration.network === "main" ?
+    "https://wallet.contentfabric.io" :
+    "https://wallet.demov3.contentfabric.io";
+}
+
 const mainSiteConfig = SiteConfiguration[EluvioConfiguration.network][EluvioConfiguration.mode];
 
 const staticUrl = EluvioConfiguration.network === "main" ?
@@ -69,6 +83,7 @@ class MainStore {
 
   client;
   walletClient;
+  walletAppUrl = walletAppUrl;
 
   mainSite;
   featuredProperties;
@@ -120,18 +135,6 @@ class MainStore {
     this.mainSite = mainSiteMetadata;
   });
 
-  InitializeWalletClient = flow(function * () {
-    if(this.walletClient) { return; }
-
-    this.walletClient = yield ElvWalletClient.Initialize({
-      appId: "eluvio-live",
-      network: EluvioConfiguration.network,
-      mode: EluvioConfiguration.mode
-    });
-
-    this.client = this.walletClient.client;
-  });
-
   LoadFeaturedProperties = flow(function * () {
     if(this.featuredProperties) { return; }
 
@@ -157,7 +160,7 @@ class MainStore {
 
     const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "tenants");
     const propertyOrder = metadata?.info?.media_property_order || [];
-    this.featuredProperties = Object.keys(metadata?.tenants || {}).map(tenantSlug => {
+    const properties = Object.keys(metadata?.tenants || {}).map(tenantSlug => {
       return Object.keys(metadata.tenants[tenantSlug]?.media_properties || {}).map(propertySlug => {
         try {
           const property = metadata.tenants[tenantSlug].media_properties[propertySlug];
@@ -170,8 +173,10 @@ class MainStore {
             image: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "media_properties", propertySlug, "image?width=1000"))).toString(),
           };
         } catch(error) {
-          this.rootStore.Log(`Failed to load property ${tenantSlug}/${propertySlug}`, true);
-          this.rootStore.Log(error, true);
+          // eslint-disable-next-line no-console
+          console.error(`Failed to load property ${tenantSlug}/${propertySlug}`);
+          // eslint-disable-next-line no-console
+          console.error(error);
         }
       })
         .filter(property => property);
@@ -189,63 +194,23 @@ class MainStore {
           (indexB < 0 ? 0 : 1) :
           (indexA < indexB ? -1 : 1);
       });
-  });
 
-  LoadMarketplaces = flow(function * () {
-    if(this.marketplaces) { return; }
+    this.featuredProperties = properties.map(property => {
+      let url = new URL(this.walletAppUrl);
+      if(property.main_page_url){
+        url = property.main_page_url;
+      } else if(property.parent_property) {
+        const parentSlug = properties.find(otherProperty => otherProperty.propertyId === property.parent_property)?.slug || property.parent_property;
+        url.pathname = UrlJoin("/", parentSlug, "/p", property.slug || property.propertyId);
+      } else {
+        url.pathname = UrlJoin("/", property.slug || property.propertyId);
+      }
 
-    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
-    metadataUrl.searchParams.set("resolve", "true");
-    metadataUrl.searchParams.set("link_depth", "2");
-    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
-    metadataUrl.searchParams.set("resolve_include_source", "true");
-
-    metadataUrl.searchParams.append("select", "info/marketplace_order");
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "display_title"));
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "show"));
-
-    const metadata = yield (yield fetch(metadataUrl)).json();
-
-    const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "tenants");
-
-    let marketplaces = [];
-    Object.keys(metadata.tenants).forEach(tenantSlug =>
-      Object.keys(metadata.tenants[tenantSlug].marketplaces).forEach(marketplaceSlug => {
-        const marketplace = metadata.tenants[tenantSlug].marketplaces[marketplaceSlug] || {};
-
-        if(!marketplace?.info?.branding?.show) {
-          return;
-        }
-
-        marketplaces.push({
-          tenantSlug,
-          marketplaceSlug,
-          name: marketplace?.info?.branding?.name || marketplace?.display_title,
-          card_front: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "marketplaces", marketplaceSlug, "info", "branding", "card_banner_front"))).toString(),
-          card_back: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "marketplaces", marketplaceSlug, "info", "branding", "card_banner_back"))).toString()
-        });
-      })
-    );
-
-    const order = metadata.info?.marketplace_order || [];
-    this.marketplaces = marketplaces
-      .sort((a, b) => {
-        const aSlugIndex = order.findIndex(slug => slug === a.marketplaceSlug);
-        const bSlugIndex = order.findIndex(slug => slug === b.marketplaceSlug);
-
-        if(aSlugIndex >= 0) {
-          if(bSlugIndex >= 0) {
-            return aSlugIndex < bSlugIndex ? -1 : 1;
-          }
-
-          return -1;
-        } else if(bSlugIndex >= 0) {
-          return 1;
-        } else {
-          return a.name > b.name ? 1 : -1;
-        }
-      });
+      return {
+        ...property,
+        url
+      };
+    });
   });
 
   LoadNews = flow(function * () {

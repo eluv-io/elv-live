@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Action} from "./Actions";
-import {DiscoverIcon, ProfileIcon, SocialIcons, WalletIcon, XIcon} from "../static/icons/Icons";
+import {SocialIcons, XIcon} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../stores/Main";
 import {useLocation} from "react-router-dom";
@@ -56,17 +56,6 @@ const MobileNav = observer(({visible, Close}) => {
     <div className={`mobile-nav ${visible ? "" : "mobile-nav--hidden"}`}>
       <Action icon={XIcon} className="dark mobile-nav__close-button mobile" onClick={Close} />
       <div className="mobile-nav__menu-content">
-        <div className="mobile-nav__menu-header mobile-nav__menu-section">
-          <Action className="mobile-nav__menu-header-item" icon={DiscoverIcon} label="Projects" onClick={Close} to="/wallet#/">
-            { mainStore.l10n.header.projects}
-          </Action>
-          <Action className="mobile-nav__menu-header-item" icon={ProfileIcon} label="Profile" onClick={Close} to="/wallet#/wallet/users/me">
-            { mainStore.l10n.header.profile}
-          </Action>
-          <Action className="mobile-nav__menu-header-item" icon={WalletIcon} label="Wallet" onClick={Close} to="/wallet#/wallet/profile">
-            { mainStore.l10n.header.wallet}
-          </Action>
-        </div>
         <div className="mobile-nav__menu-links mobile-nav__menu-section mobile-nav__menu-primary-links">
           <Action useNavLink exact to="/creators-and-publishers">
             { mainStore.l10n.header.creators_and_publishers }

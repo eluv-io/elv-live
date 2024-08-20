@@ -8,9 +8,8 @@ import {Action} from "../../components/Actions";
 import {runInAction} from "mobx";
 import {Video} from "../../components/Misc";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
-import UrlJoin from "url-join";
 
-const SiteCard = ({mediaProperty, active, index}) => {
+const SiteCard = observer(({mediaProperty, active, index}) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -19,20 +18,10 @@ const SiteCard = ({mediaProperty, active, index}) => {
     setLoaded(true);
   }, [active, index]);
 
-  let url = new URL("https://wallet.dev.contentfabric.io");
-
-  if(mediaProperty.main_page_url){
-    url = mediaProperty.main_page_url;
-  } else {
-    url.pathname = mediaProperty.parent_property ?
-      UrlJoin("/", mediaProperty.parent_property, "/p", mediaProperty.propertyId) :
-      UrlJoin("/", mediaProperty.propertyId);
-  }
-
   const video = mediaProperty.video;
 
   return (
-    <Action href={url} className="site-carousel__site">
+    <Action href={mediaProperty.url} target="_blank" className="site-carousel__site">
       <div className="site-carousel__placeholder" />
       {
         !loaded ? null :
@@ -49,20 +38,21 @@ const SiteCard = ({mediaProperty, active, index}) => {
                   controls: EluvioPlayerParameters.controls.OFF,
                   loop: EluvioPlayerParameters.loop.ON,
                   watermark: EluvioPlayerParameters.watermark.OFF,
-                  capLevelToPlayerSize: EluvioPlayerParameters.capLevelToPlayerSize.ON
+                  capLevelToPlayerSize: EluvioPlayerParameters.capLevelToPlayerSize.ON,
+                  showLoader: EluvioPlayerParameters.showLoader.OFF
                 }}
               />
             </div>:
             <ImageIcon
               loading="lazy"
               icon={mediaProperty.image}
-              label={name}
+              label={mediaProperty.title || mediaProperty.name}
               className="site-carousel__site-image"
             />
       }
     </Action>
   );
-};
+});
 
 // Lazy load all but 5 items around current
 const IsActive = ({index, activeIndex, length}) => {
@@ -70,9 +60,11 @@ const IsActive = ({index, activeIndex, length}) => {
     activeIndex === index ||
     activeIndex === index - 1 ||
     activeIndex === index - 2 ||
+    activeIndex === index - 3 ||
     activeIndex === (index + 1) % length ||
     activeIndex === (index + 2) % length ||
-    index <= 1 && activeIndex >= length - 2
+    activeIndex === (index + 3) % length ||
+    index <= 1 && activeIndex >= length - 3
   );
 };
 
