@@ -148,10 +148,10 @@
 }
 
 .ticket-bottom {
-  place-content: center space-between;
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+  place-content: center space-between;
   user-select: none;
   width: auto;
 

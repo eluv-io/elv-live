@@ -229,7 +229,6 @@
 }
 
 .footer {
-  place-content: center center;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -237,6 +236,7 @@
   margin: auto;
   overflow: hidden;
   padding: 50px;
+  place-content: center center;
   width: 100%;
 
   &__block {

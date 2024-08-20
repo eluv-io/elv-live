@@ -3187,8 +3187,8 @@
   width: 100%; }
 
 .str-chat__message-attachment-file--item a::after {
-  inset: 0;
   content: '';
+  inset: 0;
   position: absolute; }
 
 .str-chat__message-attachment-file--item span {
@@ -3441,8 +3441,8 @@
   text-transform: uppercase; }
 
 .str-chat__message-attachment-card--url::after {
-  inset: 0;
   content: '';
+  inset: 0;
   position: absolute; }
 
 .str-chat__message-attachment-card--giphy .str-chat__message-attachment-card--header {
@@ -6331,8 +6331,8 @@
 
 .str-chat__list {
   flex: 1;
-  -webkit-overflow-scrolling: touch;
   overflow: hidden auto;
+  -webkit-overflow-scrolling: touch;
 
   /* enable smooth scrolling on ios */
   padding: 0; }
@@ -6443,8 +6443,8 @@
   flex: 1;
   height: 100%;
   margin: 0;
-  -webkit-overflow-scrolling: touch;
   overflow: hidden auto;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   width: 100%; }
 

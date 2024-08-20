@@ -48,8 +48,8 @@
 @media only screen and (width <= 1250px) {
   .modal {
     height: 100%;
-    -webkit-overflow-scrolling: touch;
     overflow: hidden scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   .modal__content {

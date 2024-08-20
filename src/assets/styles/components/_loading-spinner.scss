@@ -134,10 +134,10 @@
 }
 
 .spin-container {
-  place-content: center center;
-  place-items: center center;
   background-color: transparent;
   display: flex;
   height: 100%;
+  place-content: center center;
+  place-items: center center;
   width: 100%;
 }

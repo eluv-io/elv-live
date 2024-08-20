@@ -13,11 +13,11 @@
 }
 
 .overview-social-box {
-  place-content: center space-evenly;
   align-items: center;
   display: flex;
   flex-direction: row;
   margin: 40px auto;
+  place-content: center space-evenly;
   width: 50%;
 
   .info-social-link {
