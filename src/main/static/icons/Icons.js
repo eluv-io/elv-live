@@ -52,6 +52,8 @@ import XLogoIcon from "./social/x-logo.svg";
 
 import TechnologyIcons from "./technology/TechnologyIcons";
 import ApplicationIcons from "./apps/ApplicationIcons";
+import EluvioEIcon from "./E_Logo_White.png";
+import EluvioEIconColor from "./E_Logo_Light_Gradient.png";
 
 const SocialIcons = {
   InstagramIcon,
@@ -77,6 +79,8 @@ export {
   DocumentIcon,
   FlagIcon,
   BlockchainIcon,
+  EluvioEIcon,
+  EluvioEIconColor,
   FilmIcon,
   FullDeviceListIcon,
   InfoIcon,

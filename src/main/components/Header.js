@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import EluvioLogo from "../static/images/logos/eluvio-logo-white.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {MenuIcon, SocialIcons, WalletIcon, XIcon} from "../static/icons/Icons";
+import {MenuIcon, XIcon, EluvioEIcon, EluvioEIconColor} from "../static/icons/Icons";
 
 
 const NotificationBanner = observer(({className=""}) => {
@@ -115,19 +115,20 @@ const Header = observer(() => {
           <Action to="https://docs.eluv.io/" useNavLink underline className="dark header__nav-link">
             { mainStore.l10n.header.docs }
           </Action>
-          <Button to="/register" className="light primary small header__register-button">
-            { mainStore.l10n.header.register }
-          </Button>
-        </nav>
-        <nav className="header__nav header__nav--icons desktop">
-          <Action icon={SocialIcons.XLogoIcon} to="https://x.com/eluvioinc" label={mainStore.l10n.header.x_social} className="dark header__nav-link" style={{width: "18px", height: "18px"}} />
-          <Action icon={WalletIcon} href={mainStore.walletAppUrl} target="_blank" label={mainStore.l10n.header.discover_projects} className="dark header__nav-link" />
+          <div className="header__buttons">
+            <Button to="/register" className="light header__button header__button--fabric">
+              { mainStore.l10n.header.register }
+            </Button>
+            <Button href={mainStore.walletAppUrl} target="_blank" icon={EluvioEIconColor} className="light header__button header__button--discover">
+              { mainStore.l10n.header.discover }
+            </Button>
+          </div>
         </nav>
 
         { /* Mobile */ }
         <nav className="header__nav header__nav--links mobile">
-          <Action to={mainStore.walletAppUrl} target="_blank" underline className="dark header__nav-link">
-            { mainStore.l10n.header.discover_projects }
+          <Action href={mainStore.walletAppUrl} target="_blank" underline className="dark header__nav-link">
+            { mainStore.l10n.header.discover }
           </Action>
         </nav>
         <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
