@@ -17,14 +17,9 @@ configure({
 let walletAppUrl;
 if(window.location.hostname === "localhost" || window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
   walletAppUrl = `https://${window.location.hostname}:8090`;
-} else if(window.location.hostname.startsWith("live-stg")) {
-  walletAppUrl = EluvioConfiguration.network === "main" ?
-    "https://wallet.preview.contentfabric.io" :
-    "https://wallet.demov3.contentfabric.io";
 } else {
-  // Prod
   walletAppUrl = EluvioConfiguration.network === "main" ?
-    "https://wallet.contentfabric.io" :
+    "https://eluvio-wallet-v3-legacy.web.app" :
     "https://wallet.demov3.contentfabric.io";
 }
 

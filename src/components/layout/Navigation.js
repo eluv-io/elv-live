@@ -347,8 +347,6 @@ class Header extends React.Component {
           { this.MarketplaceLinks() }
           { hasTickets ? this.Links() : null }
         </div>
-        <CartOverlay />
-        <Checkout />
       </header>
     );
   }
