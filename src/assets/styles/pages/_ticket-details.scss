@@ -63,6 +63,7 @@
 
   &__ticket-info {
     @include item-block;
+
     padding: 25px 25px 25px 53px;
 
     .ticket-details__header {
@@ -128,12 +129,11 @@
 
   &__sponsor-image-container {
     flex: 1 1 auto;
-
     max-width: 200px;
     padding: 5px;
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     display: block;
     padding: 25px;
 

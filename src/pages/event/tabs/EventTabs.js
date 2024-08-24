@@ -1,6 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import Merch from "Event/tabs/Merch";
 import EventDescriptions from "Event/descriptions/EventDescriptions";
 import {ErrorBoundary} from "Common/ErrorBoundary";
 import Ticket from "Event/tickets/Ticket";
@@ -46,8 +45,6 @@ class EventTabs extends React.Component {
             </div>
           </div>
         );
-      case "merch":
-        return <Merch />;
       default:
         return null;
     }

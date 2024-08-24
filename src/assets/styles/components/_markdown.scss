@@ -86,7 +86,7 @@
     margin-left: 1em;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (width <= 900px) {
     & > * {
       font-size: 14px;
     }

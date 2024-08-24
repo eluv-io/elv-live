@@ -1,8 +1,7 @@
 .tenancies-list {
   align-items: center;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: space-between;
 }
 
@@ -135,8 +134,7 @@
   &__list {
     align-items: center;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     gap: 70px;
     justify-content: center;
 

@@ -1,5 +1,4 @@
 header:
-
   about: About
   news: News
   partners: Partners
@@ -20,10 +19,12 @@ header:
   media_wallet: Media Wallet
   docs: Docs
   register: Try The Fabric
+  discover: Discover
   tenancy_levels: Tenancy Levels
   pricing: Pricing
   support: Support
   x_social: X
+  linked_in: LinkedIn
   wallet: Wallet
   profile: Profile
   discover_projects: Discover Projects
@@ -41,9 +42,9 @@ main:
   features_carousel:
     - High Performance 4K and Interactive Streaming
     - State-of-the-Art Blockchain Security and Payments
-    - 20X Less Expensive at Scale and Carbon Efficient
+    - 10X Less Expensive at Scale and Carbon Efficient
     - Radically Simpler Than Traditional CDNs and Cloud
-    - Transparent and Tamper-Free
+    - Transparent, Tamper‑free, and AI Native
   video_block:
     subheader: Discover
     header: The Content Fabric
@@ -53,7 +54,7 @@ main:
       - Ultra-fast and Ultra-efficient
       - 50X more efficient and up to 80% less costly than clouds and CDNs
       - Data-driven, AI Native, Just-in-Time
-      - Tamper-free Ownership, Versioning, and Access Control
+      - Tamper‑free Ownership, Versioning, and Access Control
   features_block:
     subheader: Resulting in
     header: Advanced Full-Feature Platform For All Media
@@ -114,7 +115,7 @@ creators:
       - Media Wallet for web2-web3 easy sign on, cryptographic signing, token management, and lean-back viewing with global content streaming and distribution from the Content Fabric.
   customize: Customize Your Experience & Build your Community
   monetize: Monetize as your Brand Grows & Keep Your Revenue
-  marketplaces:
+  properties:
     header: Release singles, albums, videos, apps, books & media packages, all on the Content Blockchain
   get_started_block:
     header: Maximize Your Content's Value
@@ -1441,7 +1442,7 @@ register:
     - State-of-the-Art Blockchain Security, DRM, Authorization and Payments
     - ">10X Cost Savings & Carbon Efficiency at Scale"
     - Simplicity - All Functions in One Dynamic Protocol
-    - Transparent, Tamper-Free, and Web3 Native
+    - Transparent, Tamper‑free, and AI Native
   form:
     header: Register to Evaluate
     first_name:

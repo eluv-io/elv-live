@@ -2,7 +2,7 @@ import {configure, flow, makeAutoObservable, runInAction} from "mobx";
 import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
-import {ElvWalletClient} from "@eluvio/elv-client-js";
+import {Utils, ElvWalletClient} from "@eluvio/elv-client-js";
 import SiteConfiguration from "@eluvio/elv-client-js/src/walletClient/Configuration";
 
 import LocalizationEN from "../static/localization/en/en.yml";
@@ -18,6 +18,20 @@ configure({
   // May help debugging
   disableErrorBoundaries: true
 });
+
+let walletAppUrl;
+if(window.location.hostname === "localhost" || window.location.hostname.startsWith("192.") || window.location.hostname.startsWith("elv-test.io")) {
+  walletAppUrl = `https://${window.location.hostname}:8090`;
+} else if(window.location.hostname.startsWith("live-stg")) {
+  walletAppUrl = EluvioConfiguration.network === "main" ?
+    "https://wallet.preview.contentfabric.io" :
+    "https://wallet.demov3.contentfabric.io";
+} else {
+  // Prod
+  walletAppUrl = EluvioConfiguration.network === "main" ?
+    "https://wallet.contentfabric.io" :
+    "https://wallet.demov3.contentfabric.io";
+}
 
 const mainSiteConfig = SiteConfiguration[EluvioConfiguration.network][EluvioConfiguration.mode];
 
@@ -64,11 +78,15 @@ class MainStore {
     }
   };
 
+  staticUrl = staticUrl;
+  staticSiteUrl = staticSiteUrl;
+
   client;
   walletClient;
+  walletAppUrl = walletAppUrl;
 
   mainSite;
-  featuredSites;
+  featuredProperties;
   marketplaces;
   newsItems;
 
@@ -117,63 +135,8 @@ class MainStore {
     this.mainSite = mainSiteMetadata;
   });
 
-  InitializeWalletClient = flow(function * () {
-    if(this.walletClient) { return; }
-
-    this.walletClient = yield ElvWalletClient.Initialize({
-      appId: "eluvio-live",
-      network: EluvioConfiguration.network,
-      mode: EluvioConfiguration.mode
-    });
-
-    this.client = this.walletClient.client;
-  });
-
-  LoadFeaturedSites = flow(function * () {
-    if(this.featuredSites) { return; }
-
-    const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
-    metadataUrl.searchParams.set("resolve", "true");
-    metadataUrl.searchParams.set("link_depth", "1");
-    metadataUrl.searchParams.set("resolve_ignore_errors", "true");
-    metadataUrl.searchParams.set("resolve_include_source", "true");
-
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "display_title"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_background_mobile"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video"));
-    metadataUrl.searchParams.append("select", UrlJoin("featured_events", "*", "*", "info", "event_images", "hero_video_mobile"));
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
-
-    const metadata = yield (yield fetch(metadataUrl)).json();
-
-    const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "featured_events");
-
-    let featuredSites = [];
-    Object.keys(metadata.featured_events).forEach(index =>
-      Object.keys(metadata.featured_events[index]).forEach(slug => {
-        const site = metadata.featured_events[index][slug];
-        const {event_images} = site.info || {};
-        const siteUrl = new URL(UrlJoin(window.location.origin, slug));
-
-        featuredSites.push({
-          name: site.display_title,
-          hero: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", "hero_background"))).toString(),
-          hero_mobile: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, index, slug, "info", "event_images", event_images.hero_background_mobile ? "hero_background_mobile" : "hero_background"))).toString(),
-          hero_video: event_images.hero_video,
-          hero_video_mobile: event_images.hero_video_mobile,
-          index,
-          slug,
-          siteUrl
-        });
-      })
-    );
-
-    this.featuredSites = featuredSites;
-  });
-
-  LoadMarketplaces = flow(function * () {
-    if(this.marketplaces) { return; }
+  LoadFeaturedProperties = flow(function * () {
+    if(this.featuredProperties) { return; }
 
     const metadataUrl = new URL(UrlJoin(staticSiteUrl, "/meta/public/asset_metadata"));
     metadataUrl.searchParams.set("resolve", "true");
@@ -181,53 +144,74 @@ class MainStore {
     metadataUrl.searchParams.set("resolve_ignore_errors", "true");
     metadataUrl.searchParams.set("resolve_include_source", "true");
 
-    metadataUrl.searchParams.append("select", "info/marketplace_order");
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "display_title"));
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "name"));
-    metadataUrl.searchParams.append("select", UrlJoin("tenants", "*", "marketplaces", "*", "info", "branding", "show"));
+    [
+      "info/media_property_order",
+      "tenants/*/media_properties/*/.",
+      "tenants/*/media_properties/*/title",
+      "tenants/*/media_properties/*/slug",
+      "tenants/*/media_properties/*/image",
+      "tenants/*/media_properties/*/video",
+      "tenants/*/media_properties/*/show_on_main_page",
+      "tenants/*/media_properties/*/main_page_url",
+      "tenants/*/media_properties/*/parent_property"
+    ].forEach(path => metadataUrl.searchParams.append("select", path));
 
     const metadata = yield (yield fetch(metadataUrl)).json();
 
     const baseSitePath = UrlJoin("meta", "public", "asset_metadata", "tenants");
+    const propertyOrder = metadata?.info?.media_property_order || [];
+    const properties = Object.keys(metadata?.tenants || {}).map(tenantSlug => {
+      return Object.keys(metadata.tenants[tenantSlug]?.media_properties || {}).map(propertySlug => {
+        try {
+          const property = metadata.tenants[tenantSlug].media_properties[propertySlug];
 
-    let marketplaces = [];
-    Object.keys(metadata.tenants).forEach(tenantSlug =>
-      Object.keys(metadata.tenants[tenantSlug].marketplaces).forEach(marketplaceSlug => {
-        const marketplace = metadata.tenants[tenantSlug].marketplaces[marketplaceSlug] || {};
-
-        if(!marketplace?.info?.branding?.show) {
-          return;
+          return {
+            ...property,
+            propertyHash: property["."].source,
+            propertyId: Utils.DecodeVersionHash(property["."].source).objectId,
+            title: property.name,
+            image: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "media_properties", propertySlug, "image?width=1000"))).toString(),
+          };
+        } catch(error) {
+          // eslint-disable-next-line no-console
+          console.error(`Failed to load property ${tenantSlug}/${propertySlug}`);
+          // eslint-disable-next-line no-console
+          console.error(error);
         }
-
-        marketplaces.push({
-          tenantSlug,
-          marketplaceSlug,
-          name: marketplace?.info?.branding?.name || marketplace?.display_title,
-          card_front: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "marketplaces", marketplaceSlug, "info", "branding", "card_banner_front"))).toString(),
-          card_back: new URL(UrlJoin(staticSiteUrl, UrlJoin(baseSitePath, tenantSlug, "marketplaces", marketplaceSlug, "info", "branding", "card_banner_back"))).toString()
-        });
       })
-    );
-
-    const order = metadata.info?.marketplace_order || [];
-    this.marketplaces = marketplaces
+        .filter(property => property);
+    })
+      .flat()
+      .filter(property =>
+        property.show_on_main_page
+        && (propertyOrder.includes(property.slug) || propertyOrder.includes(property.propertyId))
+      )
       .sort((a, b) => {
-        const aSlugIndex = order.findIndex(slug => slug === a.marketplaceSlug);
-        const bSlugIndex = order.findIndex(slug => slug === b.marketplaceSlug);
+        const indexA = propertyOrder.findIndex(propertySlugOrId => a.slug === propertySlugOrId || a.propertyId === propertySlugOrId);
+        const indexB = propertyOrder.findIndex(propertySlugOrId => b.slug === propertySlugOrId || b.propertyId === propertySlugOrId);
 
-        if(aSlugIndex >= 0) {
-          if(bSlugIndex >= 0) {
-            return aSlugIndex < bSlugIndex ? -1 : 1;
-          }
-
-          return -1;
-        } else if(bSlugIndex >= 0) {
-          return 1;
-        } else {
-          return a.name > b.name ? 1 : -1;
-        }
+        return indexA < 0 ?
+          (indexB < 0 ? 0 : 1) :
+          (indexA < indexB ? -1 : 1);
       });
-  })
+
+    this.featuredProperties = properties.map(property => {
+      let url = new URL(this.walletAppUrl);
+      if(property.main_page_url){
+        url = property.main_page_url;
+      } else if(property.parent_property) {
+        const parentSlug = properties.find(otherProperty => otherProperty.propertyId === property.parent_property)?.slug || property.parent_property;
+        url.pathname = UrlJoin("/", parentSlug, "/p", property.slug || property.propertyId);
+      } else {
+        url.pathname = UrlJoin("/", property.slug || property.propertyId);
+      }
+
+      return {
+        ...property,
+        url
+      };
+    });
+  });
 
   LoadNews = flow(function * () {
     if(this.newsItems) { return; }
@@ -329,6 +313,8 @@ class MainStore {
 }
 
 const store = new MainStore();
+
+window.mainStore = store;
 
 export const mainStore = store;
 export const uiStore = store.uiStore;

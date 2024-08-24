@@ -165,7 +165,7 @@
 
       &:focus-visible {
         border: 1px solid var(--color-highlight-2);
-        box-shadow: 0 0 3px rgba(155, 81, 224, 0.5);
+        box-shadow: 0 0 3px rgb(155 81 224 / 50%);
         outline: 0;
       }
     }

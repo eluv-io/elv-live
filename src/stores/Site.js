@@ -5,7 +5,7 @@ import LocalizationEN from "Assets/localizations/en.yml";
 
 const CHAT_ROOM_SIZE = 5000;
 
-import mergeWith from "lodash/mergeWith";
+import mergeWith from "lodash";
 import {DateStatus} from "Utils/Misc";
 
 class SiteStore {

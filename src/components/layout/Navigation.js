@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
-import CartOverlay from "Event/checkout/CartOverlay";
-import Checkout from "Event/checkout/Checkout";
 import MenuButton from "Common/MenuButton";
 import {rootStore, siteStore} from "Stores";
 import UrlJoin from "url-join";

@@ -9,7 +9,7 @@
   }
 
   &__text-container {
-    box-shadow: 8px 0 50px rgba(0, 0, 0, 0.25);
+    box-shadow: 8px 0 50px rgb(0 0 0 / 25%);
     position: relative;
     z-index: 2;
   }
@@ -61,7 +61,7 @@
 
       svg {
         * {
-          stroke: rgba(0, 0, 0, 0.5) !important;
+          stroke: rgb(0 0 0 / 50%) !important;
         }
       }
     }
@@ -161,7 +161,7 @@
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     //grid-template-rows: vh 1fr;
 
     &__image-controls {

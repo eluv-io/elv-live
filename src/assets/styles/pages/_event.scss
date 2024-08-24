@@ -29,11 +29,8 @@
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     position: absolute;
-    right: 0;
-    top: 0;
   }
 
   &__hero-banner {
@@ -274,10 +271,10 @@
     width: auto;
   }
 
-  @media only screen and (max-width: 1300px) and (min-width: 700px) {
+  @media only screen and (width <= 1300px) and (width >= 700px) {
     &-no-header-info {
       .event-page__hero-container {
-        height: MIN(calc(100vh - 60px), calc(100vw * 9 / 16 + 60px));
+        height: min(calc(100vh - 60px), calc(100vw * 9 / 16 + 60px));
       }
 
       .event-page__hero {
@@ -313,7 +310,7 @@
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     &-no-header-info {
       .event-page__hero-container {
         height: calc(100vh - 60px);

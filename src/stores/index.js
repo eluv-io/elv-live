@@ -48,6 +48,7 @@ class RootStore {
   walletLoaded = false;
   walletLoggedIn = false;
   walletVisibility = "hidden";
+  walletAppUrl = walletAppUrl;
 
   currentWalletState = {
     route: "",

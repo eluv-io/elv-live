@@ -1,16 +1,11 @@
 $background-color: black;
-$border-color: rgba(255, 255, 255, 0.5);
-
+$border-color: rgb(255 255 255 / 50%);
 $chat-panel-min-width: 400px;
-
 $header-height: 70px;
 $footer-height: 80px;
-
 $offset: $header-height + $footer-height;
-
 $mobile-header-height: 40px;
 $mobile-footer-height: 100px;
-
 $mobile-offset: $mobile-header-height + $mobile-footer-height;
 
 body {
@@ -232,7 +227,7 @@ body {
 
       svg {
         fill: #ff00fd;
-        filter: drop-shadow(0 0 0 rgba(255, 0, 0, 0));
+        filter: drop-shadow(0 0 0 rgb(255 0 0 / 0%));
         stroke: #e100df;
         transition: 0.3s;
       }
@@ -240,7 +235,7 @@ body {
       &:hover {
         svg {
           fill: #ff00fd;
-          filter: drop-shadow(0 0 10px rgba(255, 0, 200, 1));
+          filter: drop-shadow(0 0 10px rgb(255 0 200 / 100%));
           stroke: #ff00fd;
         }
       }
@@ -329,7 +324,7 @@ body {
   }
 
   // Portrait
-  @media only screen and (max-width: 900px) and (max-aspect-ratio: 12/9) {
+  @media only screen and (width <= 900px) and (aspect-ratio <= 12/9) {
     &-chat-hidden {
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
@@ -391,7 +386,7 @@ body {
   }
 
   // Sideways phone
-  @media only screen and (max-width: 900px) and (min-aspect-ratio: 12/9) {
+  @media only screen and (width <= 900px) and (aspect-ratio >= 12/9) {
     max-height: unset;
     overflow: visible;
     overflow-x: hidden;
@@ -417,7 +412,7 @@ body {
   }
 
   // Portrait oriented phone with software keyboard messing with the layout
-  @media only screen and (max-width: 600px) and (max-height: 500px) {
+  @media only screen and (width <= 600px) and (height <= 500px) {
     overflow-y: scroll;
 
     &-chat-visible {
@@ -429,7 +424,7 @@ body {
 
 
   // General mobile
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     &__header {
       height: $mobile-header-height;
       padding: 12px 10px;

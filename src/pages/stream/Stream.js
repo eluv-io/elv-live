@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import ImageIcon from "Common/ImageIcon";
 import {NavLink} from "react-router-dom";
-import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 //import LiveChat from "Stream/components/LiveChat";
 import {ToggleZendesk} from "Utils/Misc";
 import EluvioConfiguration from "../../../configuration";
@@ -46,7 +46,7 @@ class Stream extends React.Component {
 
       this.setState({versionHash, streamURI});
 
-      const player = new EluvioPlayer(
+      InitializeEluvioPlayer(
         element,
         {
           clientOptions: {
@@ -92,10 +92,8 @@ class Stream extends React.Component {
             }
           }
         }
-      );
-
-      this.setState({player});
-      window.player = player;
+      )
+        .then(player => this.setState({player}));
     } catch(error) {
       // eslint-disable-next-line no-console
       console.error(error);

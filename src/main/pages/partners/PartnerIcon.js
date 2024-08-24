@@ -50,7 +50,7 @@ const PartnerIcon = observer(({name, logo, link, modalContent, isProvider, isVal
 
   let card;
   if(link) {
-    card = <a href={link} target="_blank" className="partner-icon">{ content }</a>;
+    card = <a href={link} target="_blank" className="partner-icon" rel="noreferrer">{ content }</a>;
   } else {
     card = <button onClick={() => setShowModal(true)} className="partner-icon">{ content }</button>;
   }

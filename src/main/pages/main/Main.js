@@ -203,7 +203,8 @@ const BrowseProjectsBlock = observer(({mobile}) => {
           <Button
             icon={DiscoverIcon}
             includeArrow
-            to="/wallet"
+            href={mainStore.walletAppUrl}
+            target="_blank"
             className="dark secondary main-page-block__browse__action"
           >
             { mainStore.l10n.actions.browse_all_projects }
@@ -234,7 +235,8 @@ const BrowseProjectsBlock = observer(({mobile}) => {
         <Button
           icon={DiscoverIcon}
           includeArrow
-          to="/wallet"
+          href={mainStore.walletAppUrl}
+          target="_blank"
           className="dark secondary main-page-block__browse__action"
         >
           { mainStore.l10n.actions.browse_all_projects }

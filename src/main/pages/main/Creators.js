@@ -7,7 +7,7 @@ import {RichText, Video} from "../../components/Misc";
 import {Button} from "../../components/Actions";
 import KeyFeatures from "./KeyFeatures";
 import FAQs from "../features/FAQs";
-import Marketplaces from "./Marketplaces";
+import Properties from "./Properties";
 
 import HeaderImage from "../../static/images/main/built_for_new_creator_economy(no_gradient)_v2.png";
 import {
@@ -138,8 +138,8 @@ const CreatorsMobile = () => {
           <VideoBlock />
           <TextBoxesBlock />
         </div>
-        <div className="main-page-block--marketplace">
-          <Marketplaces mobile />
+        <div className="main-page-block--properties">
+          <Properties mobile />
         </div>
         <div className="padded-block">
           <GetStartedBlock />
@@ -164,7 +164,7 @@ const CreatorsDesktop = () => {
           <CustomizeBlock />
         </div>
         <div className="main-page-block--marketplace">
-          <Marketplaces />
+          <Properties />
         </div>
         <div className="padded-block">
           <GetStartedBlock />

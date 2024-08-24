@@ -50,7 +50,7 @@ const Partners = observer(() => {
         <div className="grid partners__ecosystem">
           { ecosystem.map(({name, logo, link}, index) =>
             link ?
-              <a href={link} target="_blank">
+              <a href={link} target="_blank" rel="noreferrer">
                 <ImageIcon title={name} icon={logo?.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />
               </a> :
               <ImageIcon title={name} icon={logo?.url} className="partners__ecosystem-icon" key={`ecosystem-${index}`} />

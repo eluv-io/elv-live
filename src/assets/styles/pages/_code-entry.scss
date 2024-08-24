@@ -1,8 +1,8 @@
 .code-entry {
   align-items: center;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgb(255 255 255 / 60%);
   border-radius: 7px;
-  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 50px rgb(0 0 0 / 15%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@
     width: calc(min(550px, 90vw));
   }
 
-  @media only screen and (max-height: 500px) {
+  @media only screen and (height <= 500px) {
     height: 240px;
   }
 
@@ -30,13 +30,13 @@
     text-align: center;
     width: calc(100% - 80px);
 
-    @media only screen and (max-width: 415px) {
+    @media only screen and (width <= 415px) {
       font-size: 2rem;
       width: 280px;
     }
 
     &::placeholder {
-      color: rgba(0, 0, 0, 0.4);
+      color: rgb(0 0 0 / 40%);
     }
 
     &:focus {
@@ -71,7 +71,7 @@
     text-transform: uppercase;
     width: 255px;
 
-    @media only screen and (max-width: 415px) {
+    @media only screen and (width <= 415px) {
       width: 280px;
     }
   }
@@ -135,7 +135,7 @@
     }
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (width <= 900px) {
     margin: 100px auto;
 
     input {
@@ -166,7 +166,7 @@
 input,
 textarea,
 pre {
-  border: 1px solid rgb(204, 204, 204);
+  border: 1px solid rgb(204 204 204);
   padding: 0 0.25rem;
 }
 
@@ -175,11 +175,11 @@ pre {
   margin-bottom: 18px;
   text-align: center;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (width <= 500px) {
     margin-bottom: 10px;
   }
 
-  @media only screen and (max-height: 500px) {
+  @media only screen and (height <= 500px) {
     margin-bottom: 5px;
   }
 }
@@ -194,7 +194,7 @@ pre {
   margin-bottom: 15px;
   text-align: center;
 
-  @media only screen and (max-height: 500px) {
+  @media only screen and (height <= 500px) {
     font-size: 32px;
   }
 }
@@ -208,11 +208,11 @@ pre {
   width: 100%;
 
   &:hover {
-    color: rgba(0, 0, 0, 0.8);
+    color: rgb(0 0 0 / 80%);
     text-decoration: none;
   }
 
-  @media only screen and (max-height: 500px) {
+  @media only screen and (height <= 500px) {
     font-size: 14px;
     margin-bottom: 5px;
     padding: 0 20px;
@@ -223,19 +223,17 @@ pre {
   font-weight: bold !important;
 
   &:hover {
-    color: rgba(0, 0, 0, 1);
+    color: rgb(0 0 0 / 100%);
     text-decoration: none;
   }
 }
 
 .code-entry-spin-container {
-  align-content: center;
-  align-items: center;
   background-color: transparent;
   display: flex;
   height: 100%;
-  justify-content: center;
-  justify-items: center;
+  place-content: center center;
+  place-items: center center;
   width: 100%;
 }
 

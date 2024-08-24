@@ -7,18 +7,17 @@
   overflow: visible;
   width: 100%;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (width <= 800px) {
     margin-top: 35px;
   }
 }
 
 .overview-social-box {
-  align-content: center;
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   margin: 40px auto;
+  place-content: center space-evenly;
   width: 50%;
 
   .info-social-link {
@@ -49,7 +48,7 @@
 
   .apple_music {
     &:hover {
-      fill: rgb(112, 112, 112);
+      fill: rgb(112 112 112);
     }
   }
 
@@ -79,12 +78,12 @@
 
   .website {
     &:hover {
-      fill: rgb(112, 112, 112);
+      fill: rgb(112 112 112);
     }
   }
 
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     width: 100%;
   }
 }

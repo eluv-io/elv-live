@@ -1,5 +1,6 @@
 .landing-page {
   @include page-fade-in;
+
   background: $black !important;
   color: $white;
   display: flex;
@@ -14,7 +15,7 @@
     .landing-page__text-container {
       background-color: rgba($white, 0.9);
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
       color: $black;
       padding: 30px;
     }
@@ -151,9 +152,10 @@
   &__enter-marketplace,
   &__enter-event {
     @include page-fade-in;
+
     align-items: center;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid rgb(255 255 255 / 60%);
     border-radius: 3px;
     color: $white;
     cursor: pointer;
@@ -260,7 +262,7 @@
     ul {
       background-color: $white;
       border-radius: 10px;
-      box-shadow: 0 4px 50px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 50px rgb(0 0 0 / 15%);
       color: $black;
       list-style: none;
       margin: 0;
@@ -294,7 +296,7 @@
     }
   }
 
-  @media only screen and (max-width: 900px) {
+  @media only screen and (width <= 900px) {
     &__enter-marketplace,
     &__enter-event {
       font-size: 14px;

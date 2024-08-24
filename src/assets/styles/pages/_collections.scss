@@ -41,7 +41,7 @@
     &__collection {
       background: $white;
       border-radius: 8px;
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 
       &__details {
         padding: 15px 25px 40px;
@@ -84,7 +84,7 @@
     }
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (width <= 900px) {
     padding: 35px 15px 50px;
 
     &__top {

@@ -37,7 +37,7 @@ const FeatureBlock1Mobile = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
-          <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank">
+          <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank" rel="noreferrer">
             <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
             {subheader_2}
           </a>
@@ -49,16 +49,16 @@ const FeatureBlock1Mobile = observer(() => {
           <div className="main-page-header__info-links">
           </div>
           <div className="main-page-header__actions">
-            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
+            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button" rel="noreferrer">
               <ImageIcon icon={AppleTVButton} label={apple_button_text}/>
             </a>
-            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button">
+            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button" rel="noreferrer">
               <ImageIcon icon={GooglePlayButton} label={google_button_text}/>
             </a>
-            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button">
+            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button" rel="noreferrer">
               <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text}/>
             </a>
-            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button">
+            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button" rel="noreferrer">
               <ImageIcon icon={XboxButton} label={xbox_button_text}/>
             </a>
           </div>
@@ -98,22 +98,22 @@ const FeatureBlock1 = observer(() => {
             {subheader}
           </h2>
           <div className="main-page-header__info-links">
-            <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank">
+            <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank" rel="noreferrer">
               <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
               {subheader_2}
             </a>
           </div>
           <div className="main-page-header__actions">
-            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button">
+            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button" rel="noreferrer">
               <ImageIcon icon={AppleTVButton} label={apple_button_text} />
             </a>
-            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button">
+            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button" rel="noreferrer">
               <ImageIcon icon={GooglePlayButton} label={google_button_text} />
             </a>
-            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button">
+            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button" rel="noreferrer">
               <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
             </a>
-            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button">
+            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button" rel="noreferrer">
               <ImageIcon icon={XboxButton} label={xbox_button_text} />
             </a>
           </div>
@@ -140,7 +140,7 @@ const FeatureBlock2 = observer(() => {
             {subheader}
           </h2>
           <div className="main-page-header__actions">
-            <Button to="/wallet#/wallet/users/me" className="main-page-header__button">
+            <Button href={mainStore.walletAppUrl} target="_blank" className="main-page-header__button">
               {button_text}
             </Button>
           </div>

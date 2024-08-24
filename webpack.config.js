@@ -1,82 +1,20 @@
-const webpack = require("webpack");
 const Path = require("path");
-const autoprefixer = require("autoprefixer");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-//const TerserPlugin = require("terser-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const fs = require("fs");
-// entry: "./src/components/original/index.js",
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-module.exports = {
-  entry: "./src/App.js",
-  target: "web",
-  output: {
-    path: Path.resolve(__dirname, "dist"),
-    filename: "App.js",
-    chunkFilename: "[name].bundle.js",
-    publicPath: "/"
-  },
-  devServer: {
-    public: "elv-test.io",
-    https: {
-      key: fs.readFileSync("./https/private.key"),
-      cert: fs.readFileSync("./https/dev.local.crt"),
-      ca: fs.readFileSync("./https/private.pem")
-    },
-    disableHostCheck: true,
-    inline: true,
-    port: 8086,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Accept",
-      "Access-Control-Allow-Methods": "POST"
-    },
-    historyApiFallback: true
-  },
-  resolve: {
-    alias: {
-      Assets: Path.resolve(__dirname, "src/assets"),
-      Data: Path.resolve(__dirname, "src/assets/data"),
-      Icons: Path.resolve(__dirname, "src/assets/icons"),
-      Styles: Path.resolve(__dirname, "src/assets/styles"),
-      Images: Path.resolve(__dirname, "src/assets/images"),
-      Components: Path.resolve(__dirname, "src/components"),
-      Layout: Path.resolve(__dirname, "src/components/layout"),
-      Common: Path.resolve(__dirname, "src/components/common"),
-      Pages: Path.resolve(__dirname, "src/pages"),
-      Code: Path.resolve(__dirname, "src/pages/code"),
-      Confirmation: Path.resolve(__dirname, "src/pages/confirmation"),
-      Event: Path.resolve(__dirname, "src/pages/event"),
-      Stream: Path.resolve(__dirname, "src/pages/stream"),
-      Support: Path.resolve(__dirname, "src/pages/support"),
-      Stores: Path.resolve(__dirname, "src/stores"),
-      Utils: Path.resolve(__dirname, "src/utils"),
-      EluvioConfiguration: Path.resolve(__dirname, "configuration.js"),
-    },
-    extensions: [".js", ".jsx", ".scss", ".png", ".svg"]
-  },
-  optimization: {
-    providedExports: true,
-    usedExports: true,
-    splitChunks: {
-      chunks: "all"
-    }
-  },
-  node: {
-    fs: "empty",
-    net: "empty",
-    tls: "empty"
-  },
-  mode: "development",
-  devtool: "eval-source-map",
-  plugins: [
+module.exports = (env) => {
+  const isDevelopment = !!env.WEBPACK_SERVE;
+
+  let plugins = [
     new HtmlWebpackPlugin({
-      title: "Eluvio Stream Sample",
+      title: "Eluvio: Creators of the Content Fabric",
       template: Path.join(__dirname, "src", "index.html"),
-      cache: false,
       filename: "index.html",
-      favicon: "./src/assets/icons/favicon.png"
+      favicon: Path.join(__dirname, "src", "assets", "icons", "favicon.png"),
+      inject: "body"
     }),
     new CopyWebpackPlugin([
       {
@@ -96,84 +34,157 @@ module.exports = {
         to: Path.join(__dirname, "dist", "EluvioTerms.html")
       }
     ]),
-    process.env.ANALYZE_BUNDLE ? new BundleAnalyzerPlugin() : undefined
-  ].filter(item => item),
-  module: {
-    rules: [
-      {
-        test: /\.(css|scss)$/,
-        exclude: /\.(theme|font)\.(css|scss)$/i,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2
-            }
-          },
-          {
-            loader: "postcss-loader",
-            options: {
-              plugins: () => [autoprefixer({})]
-            }
-          },
-          "sass-loader"
-        ],
+  ];
 
-      },
-      {
-        test: /\.(theme|font)\.(css|scss)$/i,
-        loader: "raw-loader"
-      },
-      {
-        test: /\.(js|mjs|jsx|ts|tsx)$/,
-        exclude: /node_modules\/(?!elv-components-js)/,
-        loader: "babel-loader",
-        options: {
-          presets: ["@babel/preset-env", "@babel/preset-react", "babel-preset-mobx"],
-          plugins: [
-            ["@babel/plugin-proposal-private-methods", { loose: true }],
-            ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
-          ]
-        }
-      },
-      {
-        test: /\.svg$/,
-        loader: "svg-inline-loader"
-      },
-      {
-        test: /\.(otf|woff2?|ttf)$/i,
-        loader: "file-loader",
-      },
-      {
-        test: /\.(pdf|mp4|csv)$/i,
-        loader: "file-loader",
-        options: {
-          name(resourcePath) {
-            // Retain filename for PDF links
-            return resourcePath.split("/").slice(-1)[0];
-          },
-        }
-      },
-      {
-        test: /\.(gif|png|jpe?g)$/i,
-        use: [
-          "file-loader",
-          {
-            loader: "image-webpack-loader"
-          },
-        ],
-      },
-      {
-        test: /\.(html|txt|bin|abi|md)$/i,
-        loader: "raw-loader"
-      },
-      {
-        test: /\.ya?ml$/,
-        type: "json", // Required by Webpack v4
-        use: "yaml-loader"
-      }
-    ]
+  if(isDevelopment) {
+    plugins.push(new ReactRefreshWebpackPlugin({overlay: false}));
   }
+
+  if(process.env.ANALYZE_BUNDLE) {
+    plugins.push(new BundleAnalyzerPlugin());
+  }
+
+  return {
+    entry: "./src/App.js",
+    target: "web",
+    output: {
+      path: Path.resolve(__dirname, "dist"),
+      clean: true,
+      filename: "App.js",
+      publicPath: "/",
+      chunkFilename: "bundle.[id].[chunkhash].js"
+    },
+    snapshot: {
+      managedPaths: [],
+    },
+    watchOptions: {
+      followSymlinks: true,
+    },
+    devServer: {
+      hot: true,
+      client: {
+        //webSocketURL: "auto://elv-test.io/ws",
+        overlay: false
+      },
+      https: {
+        key: fs.readFileSync("./https/private.key"),
+        cert: fs.readFileSync("./https/dev.local.crt"),
+        ca: fs.readFileSync("./https/private.pem")
+      },
+      historyApiFallback: true,
+      allowedHosts: "all",
+      port: 8086,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Accept",
+        "Access-Control-Allow-Methods": "POST"
+      },
+      // This is to allow configuration.js to be accessed
+      static: {
+        directory: Path.resolve(__dirname, "./config"),
+        publicPath: "/"
+      }
+    },
+    resolve: {
+      alias: {
+        Assets: Path.resolve(__dirname, "src/assets"),
+        Data: Path.resolve(__dirname, "src/assets/data"),
+        Icons: Path.resolve(__dirname, "src/assets/icons"),
+        Styles: Path.resolve(__dirname, "src/assets/styles"),
+        Images: Path.resolve(__dirname, "src/assets/images"),
+        Components: Path.resolve(__dirname, "src/components"),
+        Layout: Path.resolve(__dirname, "src/components/layout"),
+        Common: Path.resolve(__dirname, "src/components/common"),
+        Pages: Path.resolve(__dirname, "src/pages"),
+        Code: Path.resolve(__dirname, "src/pages/code"),
+        Confirmation: Path.resolve(__dirname, "src/pages/confirmation"),
+        Event: Path.resolve(__dirname, "src/pages/event"),
+        Stream: Path.resolve(__dirname, "src/pages/stream"),
+        Support: Path.resolve(__dirname, "src/pages/support"),
+        Stores: Path.resolve(__dirname, "src/stores"),
+        Utils: Path.resolve(__dirname, "src/utils"),
+        EluvioConfiguration: Path.resolve(__dirname, "configuration.js"),
+      },
+      fallback: {
+        stream: require.resolve("stream-browserify"),
+        url: require.resolve("url")
+      },
+      extensions: [".js", ".jsx", ".mjs", ".scss", ".png", ".svg"],
+    },
+    mode: "development",
+    devtool: "eval-source-map",
+    plugins,
+    externals: {
+      crypto: "crypto"
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(theme|font)\.(css|scss)$/i,
+          type: "asset/source"
+        },
+        {
+          test: /\.(css|scss)$/,
+          exclude: /\.(theme|font)\.(css|scss)$/i,
+          use: [
+            "style-loader",
+            {
+              loader: "css-loader",
+              options: {
+                importLoaders: 2,
+                modules: {
+                  mode: "local",
+                  auto: true,
+                  localIdentName: isDevelopment ?  "[local]--[hash:base64:5]" : "[hash:base64:5]"
+                }
+              }
+            },
+            "postcss-loader",
+            "sass-loader"
+          ]
+        },
+        {
+          test: /\.(js|mjs|jsx)$/,
+          loader: "babel-loader",
+          options: {
+            plugins: [isDevelopment && require.resolve("react-refresh/babel")].filter(Boolean),
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-react",
+            ]
+          }
+        },
+        {
+          test: /\.svg$/,
+          loader: "svg-inline-loader"
+        },
+        {
+          test: /\.(gif|png|jpe?g|otf|woff2?|ttf)$/i,
+          include: [Path.resolve(__dirname, "src/static/public")],
+          type: "asset/inline",
+          generator: {
+            filename: "public/[name][ext]"
+          }
+        },
+        {
+          test: /\.(gif|png|jpe?g|otf|woff2?|ttf|pdf|mp4)$/i,
+          type: "asset/resource",
+        },
+        {
+          test: /\.(txt|bin|abi|csv)$/i,
+          type: "asset/source"
+        },
+        {
+          test: /\.html$/,
+          exclude: /index\.html/,
+          type: "asset/source"
+        },
+        {
+          test: /\.ya?ml$/,
+          use: "yaml-loader"
+        }
+      ]
+    }
+  };
 };
 

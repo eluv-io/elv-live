@@ -220,7 +220,7 @@
   }
 
   .email-entry {
-    box-shadow: 0 4px 50px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 50px rgb(0 0 0 / 12%);
     margin-top: 27px;
   }
 
@@ -232,6 +232,7 @@
 
   .featured-ticket {
     @include item-block;
+
     display: flex;
     flex-direction: column;
     max-width: 500px;
@@ -353,7 +354,7 @@
   }
 
   .sponsors-message {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgb(0 0 0 / 50%);
     font-size: 14px;
     letter-spacing: 0.07em;
     margin-bottom: 10px;
@@ -398,7 +399,7 @@
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (width <= 900px) {
   .checkout {
     min-height: 100vh;
     padding: 0 0 150px;
@@ -449,6 +450,7 @@
 
     .ticket-item-mobile {
       @include item-block;
+
       display: block;
       width: 100%;
 
@@ -542,7 +544,7 @@
 }
 
 // Paypal button max width is 750px, so don't adjust order summary section until we can 100% it
-@media only screen and (max-width: 750px) {
+@media only screen and (width <= 750px) {
   .checkout {
     .email-entry {
       width: 100%;
@@ -569,7 +571,7 @@
   }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (width <= 400px) {
   .checkout {
     .ticket-item-mobile {
       .subheader {

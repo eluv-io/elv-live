@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import EluvioPlayer, {EluvioPlayerParameters} from "@eluvio/elv-player-js";
+import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "../../../configuration";
 import Countdown from "Common/Countdown";
 import Modal from "Common/Modal";
@@ -34,42 +34,40 @@ const EventPlayer = inject("rootStore")(inject("siteStore")(observer(({
         requiresTicket
       }).then(playoutParameters => {
         let restarts = 0;
-        setPlayer(
-          new EluvioPlayer(
-            videoElement,
-            {
-              clientOptions: {
-                network: EluvioConfiguration.network === "demo" ?
-                  EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN,
-                client: rootStore.client
+        InitializeEluvioPlayer(
+          videoElement,
+          {
+            clientOptions: {
+              network: EluvioConfiguration.network === "demo" ?
+                EluvioPlayerParameters.networks.DEMO : EluvioPlayerParameters.networks.MAIN,
+              client: rootStore.client
+            },
+            sourceOptions: {
+              playoutParameters
+            },
+            playerOptions: {
+              loop: streamOptions.loop,
+              muted: EluvioPlayerParameters.muted.OFF,
+              autoplay: EluvioPlayerParameters.autoplay.ON,
+              controls: EluvioPlayerParameters.controls.AUTO_HIDE,
+              watermark: EluvioPlayerParameters.watermark.OFF,
+              playerCallback: () => {
+                if(OnLoad) { OnLoad(videoElement); }
               },
-              sourceOptions: {
-                playoutParameters
-              },
-              playerOptions: {
-                loop: streamOptions.loop,
-                muted: EluvioPlayerParameters.muted.OFF,
-                autoplay: EluvioPlayerParameters.autoplay.ON,
-                controls: EluvioPlayerParameters.controls.AUTO_HIDE,
-                watermark: EluvioPlayerParameters.watermark.OFF,
-                playerCallback: () => {
-                  if(OnLoad) { OnLoad(videoElement); }
-                },
-                restartCallback: error => {
-                  // eslint-disable-next-line no-console
-                  console.error(error);
+              restartCallback: error => {
+                // eslint-disable-next-line no-console
+                console.error(error);
 
-                  restarts += 1;
-                  if(restarts > 2) {
-                    player && player.Destroy();
+                restarts += 1;
+                if(restarts > 2) {
+                  player && player.Destroy();
 
-                    setTimeout(() => Reload(), 5000);
-                  }
+                  setTimeout(() => Reload(), 5000);
                 }
               }
             }
-          )
-        );
+          }
+        ).then(player => setPlayer(player));
       });
 
       window.player = player;

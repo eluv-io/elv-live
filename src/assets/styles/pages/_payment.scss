@@ -60,7 +60,7 @@
   color: #fff;
   width: 400px;
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (width <= 700px) {
     margin-left: 0;
     width: 100%;
   }
@@ -73,7 +73,7 @@
 .paypal-button {
   width: 400px;
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (width <= 700px) {
     margin-left: 0;
     width: 100%;
   }

@@ -2,39 +2,28 @@
   /* General */
   --color-bg-primary: #090909;
   --color-bg-secondary: #242424;
-
-  --color-page-bg: #000000;
-
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #E8E8E8;
-
-  --color-text-highlight: #9AC0F3;
+  --color-page-bg: #000;
+  --color-text-primary: #fff;
+  --color-text-secondary: #e8e8e8;
+  --color-text-highlight: #9ac0f3;
   --color-text-highlight-rgb: 154, 192, 243;
-
-  --color-loader: rgba(255, 255, 255, 0.5);
-
-  --border: 1px solid #444444;
-  --border-faint: 1px solid #333333;
-
-
-  --border-color: #444444;
-  --border-color-faint: #333333;
-
+  --color-loader: rgb(255 255 255 / 50%);
+  --border: 1px solid #444;
+  --border-faint: 1px solid #333;
+  --border-color: #444;
+  --border-color-faint: #333;
   --box-shadow: none;
 
 
 
   /* Header */
   --background-page-header: var(--color-bg-primary);
-
   --background-input: var(--color-bg-primary);
   --color-input-bg-solid: var(--color-bg-primary);
-
-  --background-button-secondary: #000000;
+  --background-button-secondary: #000;
 
   /* Cards */
   --background-card: var(--color-bg-primary);
-
   --background-component-primary: var(--color-bg-primary);
   --background-table: var(--color-bg-primary);
   --background-table-header-row: var(--color-bg-secondary);

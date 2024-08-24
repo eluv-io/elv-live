@@ -111,13 +111,17 @@
     top: calc(var(--header-height) + 20px);
     width: 25px;
 
+    &.action {
+      width: 25px;
+    }
+
     .action__icon {
       height: 100%;
       width: 100%;
     }
   }
 
-  @media screen and (min-width: CALC(#{$width-tablet} + 1px)) {
+  @media screen and (width >= CALC(#{$width-tablet} + 1px)) {
     &__menu {
       display: none;
     }

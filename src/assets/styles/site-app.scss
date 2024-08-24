@@ -1,7 +1,6 @@
 // Base
 @import 'themes/default.css';
 @import 'base/actions';
-
 @import 'base/semantic.css';
 @import 'base/variables';
 @import 'base/reset';
@@ -22,7 +21,6 @@
 @import 'components/button';
 @import 'components/ticket';
 @import 'components/tabs';
-@import 'components/chat';
 @import 'components/navigation';
 @import 'components/loading-spinner';
 @import 'components/loaders';
@@ -33,14 +31,12 @@
 @import 'components/terms_link';
 @import 'components/carousel';
 @import 'components/upcoming-events';
-
 @import 'components/stream_chat/dist/css/index';
 
 //PAGES
 @import 'pages/stream';
 @import 'pages/event';
 @import 'pages/success';
-@import 'pages/merch';
 @import 'pages/artist-profile';
 @import 'pages/overview';
 @import 'pages/code-entry';

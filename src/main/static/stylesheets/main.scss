@@ -71,6 +71,7 @@
     &__subheader-container {
       margin-top: 24px;
       max-width: 90%;
+
       // Match swiper carousel left padding
       padding-left: 10px;
     }
@@ -422,7 +423,7 @@
     }
 
     &--experiences {
-      background: linear-gradient(180deg, var(--background-dark-1) 65%, rgba(32, 29, 44, 0.6) 100%);
+      background: linear-gradient(180deg, var(--background-dark-1) 65%, rgb(32 29 44 / 60%) 100%);
     }
   }
 
@@ -507,13 +508,16 @@
     gap: 40px;
   }
 
-  &--marketplaces {
+  &--properties {
     padding: 50px 0;
   }
 
   .player-container {
     height: auto;
-    margin-top: 10px;
+
+    &__player {
+      background: black;
+    }
   }
 
   &__copy-container {
@@ -590,7 +594,7 @@
     background-color: var(--background-dark-4);
     height: 1px;
     margin: 0 auto;
-    width: MIN(500px, 100%);
+    width: min(500px, 100%);
   }
 
   &__experience-cards {
@@ -852,7 +856,7 @@
 
     &__experience-card {
       border-radius: 12px;
-      box-shadow: 0 0 28px 0 rgba(68, 0, 249, 0.28);
+      box-shadow: 0 0 28px 0 rgb(68 0 249 / 28%);
       overflow: hidden;
 
       &__header {
@@ -864,12 +868,6 @@
       &__description,
       &__actions {
         display: none;
-      }
-    }
-
-    &__core-video {
-      .player-container__player {
-        max-width: 100%;
       }
     }
   }
@@ -943,15 +941,12 @@
 
   &__content {
     align-items: center;
-    bottom: 0;
     display: flex;
     flex-direction: column;
     gap: 25px;
+    inset: 0;
     justify-content: center;
-    left: 0;
     position: absolute;
-    right: 0;
-    top: 0;
 
     &--front {
       padding: 0 20px 50px;
@@ -994,7 +989,7 @@
   }
 
   // Switch to no-flip fade on mobile and all safari (bug in safari re. backface-visibility
-  @media screen and (max-width: $width-tablet), not all and (min-resolution: 0.001dpcm) {
+  @media screen and (max-width: $width-tablet), not all and (resolution >= 0.001dpcm) {
     height: 100%;
 
     &__content {
@@ -1079,7 +1074,7 @@
   .eluvio-player,
   .player-container,
   video {
-    aspect-ratio: 3/5;
+    aspect-ratio: 2/3;
     height: 100%;
     object-fit: cover;
     object-position: top;
@@ -1095,7 +1090,7 @@
   }
 }
 
-.marketplace {
+.property {
   height: max-content;
   max-width: 100vw;
   overflow: hidden;
@@ -1122,8 +1117,8 @@
     overflow: hidden;
     width: 100%;
 
-    .marketplace__card,
-    .marketplace__card-image {
+    .property__card,
+    .property__card-image {
       height: auto;
       max-width: 450px;
       width: 100%;
@@ -1167,14 +1162,29 @@
 
   &__card,
   &__card-image {
-    border-radius: 24px;
     height: auto;
     overflow: hidden;
+    position: relative;
     width: auto;
   }
 
+  &__card-image {
+    border-radius: 24px;
+  }
+
+  &__card-video {
+    border-radius: 22px;
+    inset: 0;
+    overflow: hidden;
+    position: absolute;
+
+    video {
+      object-fit: cover;
+    }
+  }
+
   @media screen and (max-width: $width-tablet) {
-    background: linear-gradient(180deg, var(--background-dark-1) 0%, rgba(20, 58, 46, 0.4) 100%);
+    background: linear-gradient(180deg, var(--background-dark-1) 0%, rgb(20 58 46 / 40%) 100%);
     padding: 0 0 50px;
 
     &__info {
