@@ -26,6 +26,7 @@ class PromoPlayer extends React.Component {
   Video(linkPath) {
     return (
       <Player
+        className="promo-player-video"
         params={
           {
             clientOptions: {
