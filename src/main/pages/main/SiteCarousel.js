@@ -84,6 +84,7 @@ const SiteCarousel = observer(({mobile}) => {
       slidesPerView={mobile ? 2 : 3.5}
       centeredSlides
       loop
+      initialSlide={2}
       navigation
       pagination={{
         enabled: true,
