@@ -12,7 +12,6 @@ import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Busin
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_and_users_v2.png";
 import SpeakerphoneIcon from "../../static/icons/speakerphone-outline.svg";
-import ProductOfYear from "../../static/images/main/product-of-the-year.jpg";
 import DesktopBanner from "../../static/images/main/desktop-banner-min.png";
 import MobileBanner from "../../static/images/main/mobile-banner-min";
 
