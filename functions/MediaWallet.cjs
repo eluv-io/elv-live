@@ -61,8 +61,12 @@ async function RetrieveMetadata({network, mode, versionHash, path, select}) {
 
     return (await axios.get(url.toString())).data;
   } catch(error) {
+    if(error.response && error.response.status === 404) {
+      return;
+    }
+
     functions.logger.error("Error retrieving properties map from fabric");
-    functions.logger.error(error);
+    functions.logger.error(JSON.stringify(error, null, 2));
   }
 }
 
@@ -136,101 +140,132 @@ async function FromOGParam(req, res) {
   res.status(200).send(html);
 }
 
-async function FindProperty({host, path, network, mode}) {
+// Load latest property and domain mapping info
+async function UpdateProperties({network, mode}) {
+  functions.logger.info(`${network}/${mode}: Updating properties and domain map`);
+
   const collection = `${network}-${mode}`;
-  const propertiesDocument = db.doc(`${collection}/mediaProperties`);
-  const propertiesData = await (propertiesDocument).get()
+  const metadata = await RetrieveMetadata({
+    network,
+    mode,
+    path: "/public/asset_metadata",
+    select: [
+      "media_properties",
+      "info/domain_map"
+    ]
+  });
 
-  const propertyData = await (propertiesDocument).get()
+  if(metadata) {
+    let batch = db.batch();
+    Object.keys(metadata.media_properties || {}).forEach(propertySlug => {
+      try {
+        const propertyData = {
+          ...metadata.media_properties[propertySlug],
+          property_slug: propertySlug,
+          updatedAt: new Date().toISOString()
+        };
 
-  let propertiesMap, domainMap;
-  if(propertiesData.exists && new Date(propertiesData.data().updatedAt).getTime() > Date.now() - 60000) {
-    try {
-      propertiesMap = JSON.parse(propertyData.data().propertiesMap);
-      domainMap = JSON.parse(propertyData.data().domainMap);
-    } catch(error) {
-      functions.logger.error("Error parsing properties map from firebase");
-      functions.logger.error(error);
-    }
-  }
+        if(!propertyData["/"]) { return; }
 
-  if(!propertiesMap || !domainMap) {
-    // Update from fabric metadata
-    functions.logger.info("Updating media properties");
+        propertyData.property_hash = propertyData["/"].split("/").find(segment => segment.startsWith("hq__"));
+        delete propertyData["."];
+        delete propertyData["/"];
 
-    const metadata = await RetrieveMetadata({
-      network,
-      mode,
-      path: "/public/asset_metadata",
-      select: [
-        "media_properties",
-        "info/domain_map"
-      ]
+        batch.set(db.doc(`${collection}-properties/${propertySlug}`), propertyData, {merge: true});
+        batch.set(db.doc(`${collection}-properties/${metadata.media_properties[propertySlug].property_id}`), propertyData, {merge: true});
+      } catch(error) {
+        functions.logger.error(`${network}/${mode}: Error updating media property ${propertySlug}`);
+        functions.logger.error(error);
+      }
     });
 
-    if(metadata) {
-      propertiesMap = metadata.media_properties;
-      domainMap = metadata.info?.domain_map || [];
+    await batch.commit();
 
-      await propertiesDocument.set({
-        propertiesMap: JSON.stringify(propertiesMap),
-        domainMap: JSON.stringify(domainMap),
-        updatedAt: new Date().toISOString()
-      });
+    batch = db.batch();
+    (metadata.info?.domain_map || []).forEach(mapping => {
+      if(!mapping.domain) {
+        return;
+      }
+
+      batch.set(db.doc(`${collection}-domains/${mapping.domain}`), {...mapping});
+    });
+
+    await batch.commit();
+  }
+}
+
+// Retrieve meta tags for property, updating only if hash has been updated
+async function GetPropertyMetaTags({network, mode, propertySlugOrId}) {
+  const collection = `${network}-${mode}`;
+  let propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
+
+  if(!propertyData || new Date(propertyData.updatedAt).getTime() < Date.now() - 60000) {
+    await UpdateProperties({network, mode});
+  }
+
+  propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
+
+  let metaTags;
+  if(propertyData) {
+    try {
+      metaTags = JSON.parse(propertyData.meta_tags)
+
+      // Meta tags from different property version
+      if(metaTags?.property_hash !== propertyData.property_hash) {
+        metaTags = undefined;
+      }
+    } catch(error) {}
+  }
+
+  if(!metaTags) {
+    functions.logger.info(`${network}/${mode}: Updating media property meta tags ${propertySlugOrId}`);
+    // Update property data
+    metaTags = (await RetrieveMetadata({
+      network,
+      mode,
+      versionHash: propertyData.property_hash,
+      path: "/public/asset_metadata/info/meta_tags"
+    })) || {};
+
+    metaTags.property_hash = propertyData.property_hash;
+
+    await db.doc(`${collection}-properties/${propertyData.property_id}`)
+      .set({meta_tags: JSON.stringify(metaTags)}, {merge: true});
+    if(propertyData.property_slug) {
+      await db.doc(`${collection}-properties/${propertyData.property_slug}`)
+        .set({meta_tags: JSON.stringify(metaTags)}, {merge: true});
     }
   }
 
-  if(!propertiesMap) { return; }
+  return metaTags;
+}
+
+async function FindPropertySlugOrId({host, path, network, mode}) {
+  const collection = `${network}-${mode}`;
+
+  path = path.split("?")[0].replace(/\/$/, "");
 
   let propertySlugOrId;
   try {
     propertySlugOrId =
-      domainMap.find(mapping => mapping.domain?.includes(host))?.property_slug ||
       // Thing directly after last /p in path
       [...path.matchAll(/\/p\/([^/]+)/g)]?.slice(-1)?.[0]?.[1] ||
       // Or first item in path
-      path.replace(/^\//, "").split("/")[0]
+      path.replace(/^\//, "").split("/")[0];
+
+    if(!propertySlugOrId) {
+      const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
+
+      if(domainMap) {
+        propertySlugOrId = domainMap.property_slug;
+      }
+    }
   } catch(error) {
     functions.logger.error("Error parsing properties slug or ID from path " + path);
     functions.logger.error(error);
   }
 
-  return propertySlugOrId && propertiesMap[propertySlugOrId];
-}
-
-async function GetPropertyMetaTags({network, mode, propertyInfo}) {
-  const collection = `${network}-${mode}`;
-  const versionHash = propertyInfo["/"].split("/").find(segment => segment.startsWith("hq__"));
-  const propertyDocument = db.doc(`${collection}/${propertyInfo.property_id}`);
-  const propertyData = await (propertyDocument).get()
-
-  let info;
-  if(propertyData.exists && propertyData.data().versionHash === versionHash) {
-    try {
-      info = JSON.parse(propertyData.data().info);
-    } catch(error) {
-      functions.logger.error("Error parsing properties map from firebase");
-      functions.logger.error(error);
-    }
-  }
-
-  if(!info) {
-    functions.logger.info("Updating media property " + propertyInfo.property_id);
-    // Update property data
-    info = await RetrieveMetadata({
-      network,
-      mode,
-      versionHash,
-      path: "/public/asset_metadata/info/meta_tags"
-    });
-    await propertyDocument.set({
-      info: JSON.stringify(info),
-      versionHash,
-      updatedAt: new Date().toISOString()
-    });
-  }
-
-  return info;
+  return propertySlugOrId;
 }
 
 async function PropertyMetadata(req, res) {
@@ -238,15 +273,16 @@ async function PropertyMetadata(req, res) {
   const host = req.headers["x-forwarded-host"] || req.hostname;
   const path = req.headers["x-forwarded-url"] || req.originalUrl;
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
-  const mode = network === "demov3" || host.includes("preview") ? "staging" : "production";
+  const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") ? "staging" : "production";
 
-  const propertyInfo = await FindProperty({host, path, network, mode});
+  const propertySlugOrId = await FindPropertySlugOrId({host, path, network, mode});
+  console.log(propertySlugOrId);
 
-  if(!propertyInfo) {
+  if(!propertySlugOrId) {
     return;
   }
 
-  const metaTags = await GetPropertyMetaTags({network, mode, propertyInfo});
+  const metaTags = await GetPropertyMetaTags({network, mode, propertySlugOrId});
 
   if(!metaTags) {
     return;
