@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {InitializeEluvioPlayer} from "@eluvio/elv-player-js/lib/index";
 import {observer} from "mobx-react";
-import {mainStore} from "../../main/stores/Main";
+import {rootStore} from "Stores";
 
 export const Player = observer(({
   params,
@@ -12,7 +12,7 @@ export const Player = observer(({
 
   useEffect(() => {
     return () => player?.Destroy();
-  }, [mainStore.client, player]);
+  }, [rootStore.client, player]);
 
   return (
     <div className={`player-container ${player ? "player-container--loaded" : "player-container--loading"} ${className}`}>

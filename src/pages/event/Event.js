@@ -593,6 +593,8 @@ class Event extends React.Component {
                 }
               },
               playerOptions: {
+                keyboardControls: EluvioPlayerParameters.keyboardControls.OFF,
+                showLoader: EluvioPlayerParameters.showLoader.OFF,
                 watermark: EluvioPlayerParameters.watermark.OFF,
                 muted: EluvioPlayerParameters.muted.ON,
                 autoplay: EluvioPlayerParameters.autoplay.WHEN_VISIBLE,

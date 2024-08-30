@@ -76,6 +76,8 @@
     }
 
     .event-page__hero-video {
+      user-select: none;
+      pointer-events: none;
       /*
       margin: 90px auto 0;
       max-height: MIN(90vw * 9 / 16, calc(100vh - 400px));

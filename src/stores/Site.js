@@ -366,28 +366,6 @@ class SiteStore {
         resolveLinks: false
       })) || {};
 
-      // Look for domain redirects
-      if(window.location.pathname === "/") {
-        for(const domainMap of (mainSiteInfo.info.domain_map || [])) {
-          let { domain, tenant_slug, event_slug } = domainMap || {};
-          domain = domain.startsWith("https://") ? domain : `https://${domain}`;
-
-          if(new URL(domain).host === window.location.host) {
-            window.history.replaceState(
-              {},
-              "",
-              UrlJoin(
-                tenant_slug || "",
-                event_slug || ""
-              )
-            );
-
-            this.rootStore.UpdateBaseKey();
-            return;
-          }
-        }
-      }
-
       this.mainSiteInfo = mainSiteInfo;
     } catch(error) {
       // eslint-disable-next-line no-console
