@@ -3,20 +3,13 @@ const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 
-const { initializeApp } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
-initializeApp();
-const db = getFirestore();
-
-const B64 = str => Buffer.from(str, "utf-8").toString("base64");
-const FromB64 = str => Buffer.from(str, "base64").toString("utf-8");
-
 const WALLET_DEFAULTS = {
-  "og:site_name": "Eluvio Media Wallet",
-  "og:title": "Eluvio Media Wallet",
-  "og:description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
-  "og:image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
-  "og:image:alt": "Eluvio"
+  "favicon": "/favicon.png",
+  "site_name": "Eluvio Media Wallet",
+  "title": "Eluvio Media Wallet",
+  "description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
+  "image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
+  "image_alt": "Eluvio"
 };
 
 const FabricConfiguration = {
@@ -70,78 +63,8 @@ async function RetrieveMetadata({network, mode, versionHash, path, select}) {
   }
 }
 
-async function FromOGParam(req, res) {
-  let meta = "";
-
-  let html = fs.readFileSync(Path.resolve(__dirname, "./index-wallet-template.html")).toString();
-
-  let ogParam = req.query.og;
-
-  if(ogParam) {
-    try {
-      const tags = JSON.parse(FromB64(ogParam));
-
-      if(tags["og:image"]) {
-        // Resolve static image URL to resolved node URL
-        try {
-          const imageUrl = new URL(tags["og:image"]);
-
-          // Resolve with client IP address for more appropriate node selection
-          const userIp = req.headers["x-appengine-user-ip"] || req.headers["x-forwarded-for"] || req.ip || req.socket?.remoteAddress || req.connection?.remoteAddress;
-
-          if(userIp) {
-            imageUrl.searchParams.set("client_ip", userIp);
-          }
-
-          // Remove client IP address from resolved URL for privacy
-          const resolvedImage = new URL((await axios.get(imageUrl.toString())).request.res.responseUrl);
-          resolvedImage.searchParams.delete("client_ip");
-
-          tags["og:image"] = resolvedImage.toString();
-        } catch(error) {
-          functions.logger.warn("Failed to resolve static image URL:");
-          functions.logger.warn(error);
-        }
-      }
-
-      Object.keys(tags).forEach((key) => {
-        const val = tags[key].replaceAll("\"", "&quot;");
-        if(WALLET_DEFAULTS[key]) {
-          // Known field - Replace variable
-          html = html.replaceAll(`@@${key}@@`, val);
-        } else {
-          // Other field - Append to metadata
-          meta += `\n<meta property="${key}" content="${val}" />`;
-        }
-      });
-    } catch(error) {
-      functions.logger.error("Error parsing OG tags:");
-      functions.logger.error(error);
-    }
-  }
-
-  // Fill any defaults unset
-  Object.keys(WALLET_DEFAULTS).forEach(key => {
-    html = html.replaceAll(`@@${key}@@`, WALLET_DEFAULTS[key]);
-  });
-
-  const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
-  const host = req.headers["x-forwarded-host"] || req.hostname;
-  const path = req.headers["x-forwarded-url"] || req.originalUrl;
-
-  const url = new URL(protocol + "://" + host);
-  url.pathname = path;
-
-  html = html.replaceAll("@@og:url@@", url.toString());
-  html = html.replaceAll("@@FAVICON@@", "/favicon.png");
-
-  // Inject metadata
-  html = html.replace(/@@META@@/g, meta);
-  res.status(200).send(html);
-}
-
 // Load latest property and domain mapping info
-async function UpdateProperties({network, mode}) {
+async function UpdateProperties({db, network, mode}) {
   functions.logger.info(`${network}/${mode}: Updating properties and domain map`);
 
   const collection = `${network}-${mode}`;
@@ -195,18 +118,19 @@ async function UpdateProperties({network, mode}) {
 }
 
 // Retrieve meta tags for property, updating only if hash has been updated
-async function GetPropertyMetaTags({network, mode, propertySlugOrId}) {
-  const collection = `${network}-${mode}`;
-  let propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
+async function GetPropertyMetaTags({db, network, mode, propertySlugOrId}) {
+  try {
+    const collection = `${network}-${mode}`;
+    let propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
 
-  if(!propertyData || new Date(propertyData.updatedAt).getTime() < Date.now() - 60000) {
-    await UpdateProperties({network, mode});
-  }
+    if(!propertyData || new Date(propertyData.updatedAt).getTime() < Date.now() - 60000) {
+      await UpdateProperties({db, network, mode});
+      propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
+    }
 
-  propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
+    if(!propertyData) { return; }
 
-  let metaTags;
-  if(propertyData) {
+    let metaTags;
     try {
       metaTags = JSON.parse(propertyData.meta_tags)
 
@@ -215,32 +139,35 @@ async function GetPropertyMetaTags({network, mode, propertySlugOrId}) {
         metaTags = undefined;
       }
     } catch(error) {}
-  }
 
-  if(!metaTags) {
-    functions.logger.info(`${network}/${mode}: Updating media property meta tags ${propertySlugOrId}`);
-    // Update property data
-    metaTags = (await RetrieveMetadata({
-      network,
-      mode,
-      versionHash: propertyData.property_hash,
-      path: "/public/asset_metadata/info/meta_tags"
-    })) || {};
+    if(!metaTags) {
+      functions.logger.info(`${network}/${mode}: Updating media property meta tags ${propertySlugOrId}`);
+      // Update property data
+      metaTags = (await RetrieveMetadata({
+        network,
+        mode,
+        versionHash: propertyData.property_hash,
+        path: "/public/asset_metadata/info/meta_tags"
+      })) || {};
 
-    metaTags.property_hash = propertyData.property_hash;
+      metaTags.property_hash = propertyData.property_hash;
 
-    await db.doc(`${collection}-properties/${propertyData.property_id}`)
-      .set({meta_tags: JSON.stringify(metaTags)}, {merge: true});
-    if(propertyData.property_slug) {
-      await db.doc(`${collection}-properties/${propertyData.property_slug}`)
+      await db.doc(`${collection}-properties/${propertyData.property_id}`)
         .set({meta_tags: JSON.stringify(metaTags)}, {merge: true});
+      if(propertyData.property_slug) {
+        await db.doc(`${collection}-properties/${propertyData.property_slug}`)
+          .set({meta_tags: JSON.stringify(metaTags)}, {merge: true});
+      }
     }
-  }
 
-  return metaTags;
+    return metaTags;
+  } catch(error) {
+    functions.logger.error(`${network}/${mode}: Error retrieving property meta tags for ${propertySlugOrId}`);
+    functions.logger.error(error);
+  }
 }
 
-async function FindPropertySlugOrId({host, path, network, mode}) {
+async function FindPropertySlugOrId({db, host, path, network, mode}) {
   const collection = `${network}-${mode}`;
 
   path = path.split("?")[0].replace(/\/$/, "");
@@ -256,68 +183,62 @@ async function FindPropertySlugOrId({host, path, network, mode}) {
     if(!propertySlugOrId) {
       const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
 
+      console.log(domainMap)
       if(domainMap) {
         propertySlugOrId = domainMap.property_slug;
       }
+
+      console.log(propertySlugOrId);
     }
   } catch(error) {
-    functions.logger.error("Error parsing properties slug or ID from path " + path);
+    functions.logger.error(`${network}/${mode}: Error parsing properties slug from path ${path}`);
     functions.logger.error(error);
   }
 
   return propertySlugOrId;
 }
 
-async function PropertyMetadata(req, res) {
+async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   const host = req.headers["x-forwarded-host"] || req.hostname;
   const path = req.headers["x-forwarded-url"] || req.originalUrl;
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
   const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") ? "staging" : "production";
 
-  const propertySlugOrId = await FindPropertySlugOrId({host, path, network, mode});
-  console.log(propertySlugOrId);
+  const propertySlugOrId = await FindPropertySlugOrId({db, host, path, network, mode});
 
-  if(!propertySlugOrId) {
-    return;
+  let metaTags;
+  if(propertySlugOrId) {
+    metaTags = await GetPropertyMetaTags({db, network, mode, propertySlugOrId});
   }
 
-  const metaTags = await GetPropertyMetaTags({network, mode, propertySlugOrId});
-
-  if(!metaTags) {
-    return;
-  }
+  metaTags = metaTags || WALLET_DEFAULTS;
 
   const url = new URL(protocol + "://" + host);
   url.pathname = path;
 
   let html = fs.readFileSync(Path.resolve(__dirname, "./index-wallet-template.html")).toString();
-  html = html.replaceAll("@@FAVICON@@", metaTags.favicon || "/favicon.png");
-  html = html.replaceAll("@@og:site_name@@", metaTags.site_name || "Eluvio Media Wallet");
-  html = html.replaceAll("@@og:title@@", metaTags.title || "Eluvio Media Wallet");
+  html = html.replaceAll("@@FAVICON@@", metaTags.favicon || WALLET_DEFAULTS.favicon);
+  html = html.replaceAll("@@og:site_name@@", metaTags.site_name || WALLET_DEFAULTS.site_name);
+  html = html.replaceAll("@@og:title@@", metaTags.title || WALLET_DEFAULTS.title);
   html = html.replaceAll("@@og:description@@", metaTags.description || "");
-  html = html.replaceAll("@@og:image@@", metaTags.image || "");
-  html = html.replaceAll("@@og:image:alt@@", metaTags.image_alt || "");
+  html = html.replaceAll("@@og:image@@", metaTags.image || WALLET_DEFAULTS.image);
+  html = html.replaceAll("@@og:image:alt@@", metaTags.image_alt || WALLET_DEFAULTS.image_alt);
   html = html.replaceAll("@@og:url@@", url.toString());
 
   // Inject metadata
-  html = html.replace(/@@META@@/g, "");
   res.status(200).send(html);
 
   return true;
 }
 
-async function GenerateMediaWalletIndex(req, res) {
+async function GenerateMediaWalletIndex(db, req, res) {
   try {
-    if(await PropertyMetadata(req, res)) {
-      return;
-    }
+    return await PropertyMetadata(db, req, res);
   } catch(error) {
     functions.logger.error("Error updating property metadata:");
     functions.logger.error(error);
   }
-
-  await FromOGParam(req, res);
 }
 
 module.exports = GenerateMediaWalletIndex;

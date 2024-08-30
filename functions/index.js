@@ -1,14 +1,8 @@
-const functions = require("firebase-functions");
+const functions = require("firebase-functions/v2");
 require("date");
 const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
-
-// Media wallet meta tag handling
-const GenerateMediaWalletIndex = require("./MediaWallet.cjs");
-exports.create_previewable_link = functions.https.onRequest(async (req, res) => {
-  await GenerateMediaWalletIndex(req, res);
-});
 
 //
 // Firebase cloud functions
@@ -199,91 +193,133 @@ const loadElvLiveAsync = async (req) => {
 
 // Firebase Function Definitions
 
-// health check
-exports.ping = functions.https.onRequest((req, res) => {
-  functions.logger.info("headers dumper", {host: req.hostname});
-  let body = "";
-  for(const [key, value] of Object.entries(req.headers)) {
-    body = body + "\t header=\"" + key + "\" val=\"" + value + "\"<br/>\n";
-  }
+const regions = [
+  "us-west1",
+  //"us-central1",
+  "us-east4",
+  //"europe-west1",
+  //"asia-northeast1",
+];
 
-  res.status(200).send(`<!DOCTYPE html>
-    <html> <head> <title>cloud functions headers test</title> </head>
-    <body> hostname ${req.hostname} /
-           url ${req.url} /
-           href ${req.href} /
-           referrer ${req.referrer} /
-           originalUrl ${req.originalUrl} /
-           path ${req.path}<br/>
-      ${body} </body> </html>`);
+
+//functions.setGlobalOptions({region: regions});
+
+
+// health check
+const ping_v2 = functions
+  .https
+  .onRequest((req, res) => {
+    functions.logger.info("headers dumper", {host: req.hostname});
+    let body = "";
+    for(const [key, value] of Object.entries(req.headers)) {
+      body = body + "\t header=\"" + key + "\" val=\"" + value + "\"<br/>\n";
+    }
+
+    res.status(200).send(`<!DOCTYPE html>
+      <html> <head> <title>cloud functions headers test</title> </head>
+      <body> hostname ${req.hostname} /
+             url ${req.url} /
+             href ${req.href} /
+             referrer ${req.referrer} /
+             originalUrl ${req.originalUrl} /
+             path ${req.path}<br/>
+        ${body} </body> </html>`);
 });
 
 // load and return elv-live data for this network/mode
-exports.load_elv_live_data = functions.https.onRequest(async (req, res) => {
-  try {
-    let sites = await loadElvLiveAsync(req);
-    functions.logger.info("loaded elv-live sites", {sites: sites});
-    res.status(200).send(sites);
-  } catch(error) {
-    functions.logger.info(error);
-    res.status(500).send("something went wrong.");
-  }
+const load_elv_live_data_v2 = functions
+  .https
+  .onRequest(async (req, res) => {
+    try {
+      let sites = await loadElvLiveAsync(req);
+      functions.logger.info("loaded elv-live sites", {sites: sites});
+      res.status(200).send(sites);
+    } catch(error) {
+      functions.logger.info(error);
+      res.status(500).send("something went wrong.");
+    }
 });
 
 // create index.html with metadata based on url path
-exports.create_index_html = functions.https.onRequest(async (req, res) => {
-  if(req.url.endsWith("robots.txt")) {
-    res.status(200).send("User-agent: *\nDisallow: \nAllow: /\n");
-    return;
-  }
-
-  let html = fs.readFileSync(Path.resolve(__dirname, "./index-live-template.html")).toString();
-
-  let sites = {};
-  try {
-    sites = await loadElvLiveAsync(req);
-  } catch(e) {
-    functions.logger.error("cannot loadElvLiveAsync", e);
-  }
-
-  const originalHost = req.headers["x-forwarded-host"] || req.hostname;
-  let originalUrl = req.headers["x-forwarded-url"] || req.url;
-  const fullPath = originalHost + originalUrl;
-  if(originalUrl.indexOf("?") > 0) {
-    originalUrl = originalUrl.slice(0, originalUrl.indexOf("?"));
-  }
-  if(originalUrl.endsWith("/")) {
-    originalUrl = originalUrl.slice(0, -1);
-  }
-
-  let title = "Eluvio: Creators of The Content Fabric";
-  let description = "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.";
-  let image = "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg";
-  let favicon = "/favicon.png";
-
-  // Inject metadata
-  functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
-  functions.logger.info("checking sites", Object.keys(sites));
-  for(const [site, site_metadata] of Object.entries(sites)) {
-    // match dns hostname, or match a path
-    if(originalHost == site || originalUrl == ("/" + site)) {
-      functions.logger.info("match", site, site_metadata);
-      title = site_metadata.title?.replaceAll("\"", "&quot;") || title;
-      description = site_metadata.description?.replaceAll("\"", "&quot;");
-      image = site_metadata.image || image;
-      console.log("image", image)
-      favicon = site_metadata.favicon || favicon;
-      break;
+const create_index_html = functions
+  .https
+  .onRequest(async (req, res) => {
+    if(req.url.endsWith("robots.txt")) {
+      res.status(200).send("User-agent: *\nDisallow: \nAllow: /\n");
+      return;
     }
-  }
 
-  html = html.replace(/@@TITLE@@/g, title);
-  html = html.replace(/@@DESCRIPTION@@/g, description);
-  html = html.replace(/@@IMAGE@@/g, image);
-  html = html.replace(/@@FAVICON@@/g, favicon);
-  html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
-  html = html.replace(/@@URL@@/g, "https://" + fullPath);
+    let html = fs.readFileSync(Path.resolve(__dirname, "./index-live-template.html")).toString();
 
-  res.status(200).send(html);
+    let sites = {};
+    try {
+      sites = await loadElvLiveAsync(req);
+    } catch(e) {
+      functions.logger.error("cannot loadElvLiveAsync", e);
+    }
+
+    const originalHost = req.headers["x-forwarded-host"] || req.hostname;
+    let originalUrl = req.headers["x-forwarded-url"] || req.url;
+    const fullPath = originalHost + originalUrl;
+    if(originalUrl.indexOf("?") > 0) {
+      originalUrl = originalUrl.slice(0, originalUrl.indexOf("?"));
+    }
+    if(originalUrl.endsWith("/")) {
+      originalUrl = originalUrl.slice(0, -1);
+    }
+
+    let title = "Eluvio: Creators of The Content Fabric";
+    let description = "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.";
+    let image = "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg";
+    let favicon = "/favicon.png";
+
+    // Inject metadata
+    functions.logger.info("compare against incoming host", originalHost, "and url", originalUrl);
+    functions.logger.info("checking sites", Object.keys(sites));
+    for(const [site, site_metadata] of Object.entries(sites)) {
+      // match dns hostname, or match a path
+      if(originalHost == site || originalUrl == ("/" + site)) {
+        functions.logger.info("match", site, site_metadata);
+        title = site_metadata.title?.replaceAll("\"", "&quot;") || title;
+        description = site_metadata.description?.replaceAll("\"", "&quot;");
+        image = site_metadata.image || image;
+        favicon = site_metadata.favicon || favicon;
+        break;
+      }
+    }
+
+    html = html.replace(/@@TITLE@@/g, title);
+    html = html.replace(/@@DESCRIPTION@@/g, description);
+    html = html.replace(/@@IMAGE@@/g, image);
+    html = html.replace(/@@FAVICON@@/g, favicon);
+    html = html.replace(/@@REWRITTEN_FROM@@/g, fullPath);
+    html = html.replace(/@@URL@@/g, "https://" + fullPath);
+
+    res.status(200).send(html);
 });
+
+
+const { initializeApp } = require("firebase-admin/app");
+const { getFirestore } = require("firebase-admin/firestore");
+initializeApp();
+const db = getFirestore();
+
+// Media wallet meta tag handling
+const GenerateMediaWalletIndex = require("./MediaWallet.cjs");
+const create_previewable_link_v2 = functions
+  .https
+  .onRequest(async (req, res) => {
+    await GenerateMediaWalletIndex(db, req, res);
+  });
+
+// Eluv.io meta tag handling
+const GenerateEluvioIndex = require("./EluvioSite.cjs");
+const create_index_html_v2 = functions
+  .https
+  .onRequest(async (req, res) => {
+    await GenerateEluvioIndex(db, req, res);
+  });
+
+exports.create_previewable_link_v2 = create_previewable_link_v2;
+exports.create_index_html_v2 = create_index_html_v2;
 
