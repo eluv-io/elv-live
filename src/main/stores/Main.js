@@ -121,7 +121,7 @@ class MainStore {
       window.location.hostname === domain
     );
 
-    if(domainRedirect) {
+    if(domainRedirect && domainRedirect.event_slug) {
       const redirect = new URL(window.location.href);
       redirect.pathname = UrlJoin(domainRedirect.tenant_slug || "", domainRedirect.event_slug);
 
