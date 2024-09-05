@@ -527,7 +527,7 @@ blockchain:
         new on-chain and cross-chain paradigm for attestation of ownership and authorization in decentralized content distribution
         using digital tokens.
          <br> <br>
-        Please refer to our detailed <a href="https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf">whitepaper</a> for an overview of each of these innovations.
+        Please refer to our detailed <a href="https://docs.eluv.io/img/EluvioContentSecurityWhitepaper.pdf">whitepaper</a> for an overview of each of these innovations.
 
       key_innovations: ContentFabricPipelineImage
 
@@ -1507,7 +1507,7 @@ footer:
     icon: "document"
     links:
       - text: "Whitepaper"
-        link: "https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf"
+        link: "https://docs.eluv.io/img/EluvioContentSecurityWhitepaper.pdf"
       - text: "Node & Validator Providers"
         link: "https://docs.eluv.io/providers/"
       - text: "API Developers"
