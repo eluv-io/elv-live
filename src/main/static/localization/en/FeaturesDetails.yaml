@@ -132,7 +132,7 @@
           link: "https://docs.eluv.io/docs/advanced/playout/"
         - contentTitle: "Globally Replicated, No Single Points or Geo of Failure"
           description: "The Fabric fully decentralized design and content protocol ensures that a client's request to any available node can serve a stream will full availability and that source parts can be retrieved irrespective of other node failures. This contrasts with public cloud architectures that have regional partitions and single points of failure."
-          link: "https://live.eluv.io/EluvioContentFabricProtocolWhitepaper.pdf"
+          link: "https://docs.eluv.io/img/EluvioContentSecurityWhitepaper.pdf"
         - contentTitle: "Trustless security model"
           description: "All content distribution is secured and authorized with the Fabric's unique trustless end-to-end encryption including content-owner controlled encryption, re-encryption to an authorized user including with DRM, and trustless processing within the infrastructure. This helps to self-protect the content and safeguard it from middle parties."
           link: "https://docs.eluv.io/img/EluvioContentSecurityWhitepaper.pdf"
