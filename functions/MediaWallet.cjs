@@ -65,6 +65,7 @@ async function RetrieveMetadata({network, mode, versionHash, path, select}) {
 
 // Load latest property and domain mapping info
 async function UpdateProperties({db, network, mode}) {
+  console.time(`${network}/${mode}: Updating properties and domain map`);
   functions.logger.info(`${network}/${mode}: Updating properties and domain map`);
 
   const collection = `${network}-${mode}`;
@@ -115,6 +116,8 @@ async function UpdateProperties({db, network, mode}) {
 
     await batch.commit();
   }
+
+  console.timeEnd(`${network}/${mode}: Updating properties and domain map`);
 }
 
 // Retrieve meta tags for property, updating only if hash has been updated
@@ -141,6 +144,7 @@ async function GetPropertyMetaTags({db, network, mode, propertySlugOrId}) {
     } catch(error) {}
 
     if(!metaTags) {
+      console.time(`${network}/${mode}: Updating media property meta tags ${propertySlugOrId}`);
       functions.logger.info(`${network}/${mode}: Updating media property meta tags ${propertySlugOrId}`);
       // Update property data
       metaTags = (await RetrieveMetadata({
@@ -158,6 +162,8 @@ async function GetPropertyMetaTags({db, network, mode, propertySlugOrId}) {
         await db.doc(`${collection}-properties/${propertyData.property_slug}`)
           .set({meta_tags: JSON.stringify(metaTags)}, {merge: true});
       }
+
+      console.timeEnd(`${network}/${mode}: Updating media property meta tags ${propertySlugOrId}`);
     }
 
     return metaTags;
@@ -183,12 +189,9 @@ async function FindPropertySlugOrId({db, host, path, network, mode}) {
     if(!propertySlugOrId) {
       const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
 
-      console.log(domainMap)
       if(domainMap) {
         propertySlugOrId = domainMap.property_slug;
       }
-
-      console.log(propertySlugOrId);
     }
   } catch(error) {
     functions.logger.error(`${network}/${mode}: Error parsing properties slug from path ${path}`);
