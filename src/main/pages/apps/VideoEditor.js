@@ -7,7 +7,7 @@ import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icon
 import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import * as videoEditorImages from "../../static/images/apps/video-editor";
 import AppImageGallery from "./AppImageGallery";
-import VideoEditorPdf from "./documents/Eluvio Content Fabric - Casablanca Release PDF - Clip Search & Video Editor.pdf";
+import VideoEditorPdf from "./documents/AI Clip Search & Video Editor.pdf";
 
 const VideoEditor = observer(() => {
   const copy = mainStore.l10n.casablanca.pages.video_editor;

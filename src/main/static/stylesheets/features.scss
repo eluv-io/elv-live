@@ -1,5 +1,5 @@
 .tenancies-list {
-  align-items: center;
+  align-items: stretch;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -206,7 +206,7 @@
   &__features {
     align-items: center;
     display: flex;
-    min-height: 215px;
+    min-height: 355px;
 
   }
 
@@ -690,7 +690,7 @@
 
   .tenancy-info {
     max-width: 340px;
-    min-height: 430px;
+    min-height: 585px;
     padding: 30px;
 
     &__features {
@@ -979,7 +979,7 @@
   }
 
   .tenancy-info {
-    min-height: 290px;
+    min-height: 460px;
     padding: 20px;
 
     &__features {

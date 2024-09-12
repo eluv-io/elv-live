@@ -33,13 +33,16 @@ const TenancyInfo = observer(({
           </ul>
         </div>
       </div>
-      <hr />
 
-      <div className="tenancy-info__pricing">
-        <div className="tenancy-info__pricing-amount">{ monthlyPrice || "" }</div>
-        <div className={`tenancy-info__pricing-rate tenancy-info__pricing-rate--${additionalCostText.length < 15 ? "column" : "row"}`}>
-          <span>per month</span>
-          <span>{ additionalCostText }</span>
+      <div className="tenancy-info__pricing-container">
+        <hr />
+
+        <div className="tenancy-info__pricing">
+          <div className="tenancy-info__pricing-amount">{ monthlyPrice || "" }</div>
+          <div className={`tenancy-info__pricing-rate tenancy-info__pricing-rate--${additionalCostText.length < 15 ? "column" : "row"}`}>
+            <span>per month</span>
+            <span>{ additionalCostText }</span>
+          </div>
         </div>
       </div>
     </div>

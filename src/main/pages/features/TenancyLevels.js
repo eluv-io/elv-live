@@ -63,13 +63,13 @@ const TenanciesList = observer(({monthly=false}) => {
   const tablet = mobile && uiStore.pageWidth > 700;
 
   const tenancyCards = (
-    mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features}) => (
+    mainStore.l10n.features.tenancies.levels.map(({header, sub_header, monthly_price, annual_price, added_benefit_text, added_benefit_percentage, features, additional_cost_text}) => (
       <TenancyInfo
         key={header}
         header={header}
         subHeader={sub_header}
         monthlyPrice={monthly ? monthly_price : annual_price}
-        additionalCostText="+ utility fees"
+        additionalCostText={additional_cost_text || "+ utility fees"}
         addedBenefitPercentage={added_benefit_percentage}
         addedBenefitText={added_benefit_text}
         features={features}
@@ -133,8 +133,8 @@ const TenancyLevels = () => {
     <PageContainer after={<FullWidthElements />} padded>
       <div className="page tenancy-levels">
         <div className="page__header-container">
-          <h1 className="features-details-header">Eluvio Tenancies: Your Secure, Private Web3 Space</h1>
-          <h3>What works best for your creative brand?</h3>
+          <h1 className="features-details-header">Eluvio Tenancies: Your Content Fabric Space</h1>
+          <h3>Content Hosting, Distribution and Monetization</h3>
         </div>
         <div className="page__content-block">
           <TabbedInfoBox
