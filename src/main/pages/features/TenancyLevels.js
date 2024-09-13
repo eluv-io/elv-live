@@ -69,7 +69,7 @@ const TenanciesList = observer(({monthly=false}) => {
         header={header}
         subHeader={sub_header}
         monthlyPrice={monthly ? monthly_price : annual_price}
-        additionalCostText={"+ utility fees"}
+        additionalCostText={" + utility fees"}
         additionalCostDiscountText={monthly ? undefined : additional_cost_discount_text}
         addedBenefitPercentage={added_benefit_percentage}
         addedBenefitText={added_benefit_text}

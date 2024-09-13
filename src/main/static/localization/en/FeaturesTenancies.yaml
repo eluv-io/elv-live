@@ -17,7 +17,7 @@ levels:
       Off selected
       Content Fabric utilities
     added_benefit_percentage: 50+%
-    additional_cost_discount_text: " in annual - 15% discount"
+    additional_cost_discount_text: "- 15% discount"
     features:
       - Open Source Content Fabric Application Suite
       - Volume Discounted Fabric Utilities
@@ -36,7 +36,7 @@ levels:
       Off selected
       Content Fabric utilities
     added_benefit_percentage: 90+%
-    additional_cost_discount_text: " in annual - 15% discount"
+    additional_cost_discount_text: "- 15% discount"
     features:
       - Open Source Content Fabric Application Suite
       - Volume Discounted Fabric Utilities

@@ -206,7 +206,7 @@
   &__features {
     align-items: center;
     display: flex;
-    min-height: 355px;
+    min-height: 370px;
 
   }
 
@@ -279,13 +279,14 @@
       }
     }
 
+    .gray {
+      color: var(--color-text-light-6);
+    }
+
     span {
       font-size: var(--font-size-body-5);
       font-weight: 500;
 
-      &:first-child {
-        color: var(--color-text-light-6);
-      }
     }
   }
 }
