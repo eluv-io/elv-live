@@ -260,6 +260,10 @@
     margin-right: 0.5rem;
   }
 
+  &__pricing-discount-text {
+    color: var(--color-highlight-2) !important;
+  }
+
   &__pricing-rate {
     line-height: 1;
 

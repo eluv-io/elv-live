@@ -8,7 +8,8 @@ const TenancyInfo = observer(({
   addedBenefitPercentage="",
   addedBenefitText="",
   monthlyPrice,
-  additionalCostText
+  additionalCostText,
+  additionalCostDiscountText
 }) => {
   return (
     <div className="tenancy-info">
@@ -41,7 +42,10 @@ const TenancyInfo = observer(({
           <div className="tenancy-info__pricing-amount">{ monthlyPrice || "" }</div>
           <div className={`tenancy-info__pricing-rate tenancy-info__pricing-rate--${additionalCostText.length < 15 ? "column" : "row"}`}>
             <span>per month</span>
-            <span>{ additionalCostText }</span>
+            <span>
+              { additionalCostText }
+              <span className="tenancy-info__pricing-discount-text">{ additionalCostDiscountText }</span>
+            </span>
           </div>
         </div>
       </div>
