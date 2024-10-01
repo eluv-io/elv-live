@@ -38,6 +38,7 @@ const Links = observer(({dark=false}) => {
     link: LinkIcon,
   };
   const roadmapDoc = require("../pages/technology/documents/Technology-Roadmap-Full.pdf");
+  const whitepaperDoc = require("../pages/technology/documents/EluvioContentFabricWhitepaper.pdf");
 
   return (
     <div className="footer__links">
@@ -48,6 +49,17 @@ const Links = observer(({dark=false}) => {
               <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
               { title }
             </h5>
+            {
+              title === "Resources" &&
+              <Action
+                href={whitepaperDoc}
+                rel="noopener"
+                target="_blank"
+                className={`footer__link ${dark ? "dark" : "light"}`}
+              >
+                Whitepaper
+              </Action>
+            }
             {
               links.map(({text, link}) => {
                 const to = link.startsWith("https://") ? undefined : link;
@@ -62,7 +74,7 @@ const Links = observer(({dark=false}) => {
                     key={`footer-link-${title}-${text}`}
                     className={`footer__link ${dark ? "dark" : "light"}`}
                   >
-                    { text}
+                    { text }
                   </Action>
                 );
               })

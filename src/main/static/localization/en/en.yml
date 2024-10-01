@@ -1506,8 +1506,6 @@ footer:
   - title: "Resources"
     icon: "document"
     links:
-      - text: "Whitepaper"
-        link: "https://docs.eluv.io/img/EluvioContentSecurityWhitepaper.pdf"
       - text: "Node & Validator Providers"
         link: "https://docs.eluv.io/providers/"
       - text: "API Developers"
