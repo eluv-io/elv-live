@@ -5,7 +5,7 @@ import {InfoBox} from "../../components/Misc";
 
 import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
 
-import Whitepaper from "./documents/EluvioContentFabricProtocolWhitepaper.pdf";
+import Whitepaper from "./documents/EluvioContentFabricWhitepaper.pdf";
 
 const LearnMore = observer(({contentFabric=false}) => {
   const contentFabricLink = [{
