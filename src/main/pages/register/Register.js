@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import {uiStore, mainStore} from "../../stores/Main";
 import {ButtonWithLoader} from "../../components/Actions";
@@ -42,6 +42,29 @@ const RegisterForm = observer(() => {
   const [consent, setConsent] = useState(true);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "//js.hsforms.net/forms/embed/v2.js";
+    script.type = "text/javascript";
+    script.charset = "utf-8";
+    script.onload = () => {
+      if (window.hbspt) {
+        window.hbspt.forms.create({
+          region: "na1",
+          portalId: HUBSPOT_PORTAL_ID,
+          formId: HUBSPOT_FORM_ID,
+          target: "#registerHubspotForm"
+        });
+      }
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const valid =
     formState.firstname &&
     formState.lastname &&
@@ -62,7 +85,7 @@ const RegisterForm = observer(() => {
     );
   }
   return (
-    <form className="register__form">
+    <form className="register__form" id="registerHubspotForm">
       <h1 className="register__form__header">
         { l10n.header }
       </h1>
