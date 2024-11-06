@@ -6,23 +6,17 @@ import {Action, Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import {BlockchainIcon, PlayCircleIcon, PlaySimpleIcon, WalletIcon, FullDeviceListIcon} from "../../static/icons/Icons";
-import FeatureImage1 from "../../static/images/main/media_wallet/device_mockup_tv.png";
-import FeatureImage2 from "../../static/images/main/media_wallet/07_device_mackup_pc_mobile.png";
+import FeatureImage1 from "../../static/images/main/media_wallet/1_header_image";
+import FeatureImage2 from "../../static/images/main/media_wallet/device_mockup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
 import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
 import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_appstore.png";
 import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
-import XboxButton from "../../static/images/main/media_wallet/xbox.png";
 
-import CarouselImage1 from "../../static/images/main/media_wallet/carousel/01_media_wallet.png";
-import CarouselImage2 from "../../static/images/main/media_wallet/carousel/02_media_wallet_sign_in.png";
-import CarouselImage3 from "../../static/images/main/media_wallet/carousel/03_my_items.png";
-import CarouselImage4 from "../../static/images/main/media_wallet/carousel/04_my_media.png";
-import CarouselImage5 from "../../static/images/main/media_wallet/carousel/05_property_page.png";
-import CarouselImage6 from "../../static/images/main/media_wallet/carousel/06_LOTR _drill_down.png";
+import CarouselImages from "../../static/images/main/media_wallet/carousel";
 
 const FeatureBlock1Mobile = observer(() => {
-  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader, xbox_store_url, xbox_button_text} = mainStore.l10n.media_wallet.feature_1;
+  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader } = mainStore.l10n.media_wallet.feature_1;
 
   return (
     <div className="main-page-header main-page-header__media-wallet">
@@ -58,9 +52,6 @@ const FeatureBlock1Mobile = observer(() => {
             <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button" rel="noreferrer">
               <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text}/>
             </a>
-            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button" rel="noreferrer">
-              <ImageIcon icon={XboxButton} label={xbox_button_text}/>
-            </a>
           </div>
         </div>
       </div>
@@ -75,7 +66,7 @@ const FeatureBlock1 = observer(() => {
     subheader_2,
     tagline,
     apple_button_text,
-    google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader, xbox_button_text, xbox_store_url} = mainStore.l10n.media_wallet.feature_1;
+    google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
 
   return (
     <div className="main-page-header">
@@ -113,9 +104,6 @@ const FeatureBlock1 = observer(() => {
             <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button" rel="noreferrer">
               <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
             </a>
-            <a href={xbox_store_url} target="_blank" className="main-page-header__xbox-button" rel="noreferrer">
-              <ImageIcon icon={XboxButton} label={xbox_button_text} />
-            </a>
           </div>
         </div>
       </div>
@@ -152,7 +140,7 @@ const FeatureBlock2 = observer(() => {
 });
 
 const FeatureCarousel = observer(({mobile}) => {
-  const images = [CarouselImage1, CarouselImage2, CarouselImage3, CarouselImage4, CarouselImage5, CarouselImage6];
+  const images = CarouselImages;
 
   return (
     <Swiper

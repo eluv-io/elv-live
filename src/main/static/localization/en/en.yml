@@ -190,7 +190,7 @@ media_wallet:
     xbox_button_text: Microsoft Store
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
-    getting_started_url: "https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__2DLWmvrYhrnzx48YqYCf7BqWkN4d&mt=v&ap"
+    getting_started_url: "https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__3HiPeTzqThwJb5jmXEq3SwGxK9x8&mt=v&ct=h"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
     xbox_store_url: "https://www.microsoft.com/en-us/p/eluvio-media-wallet/9n18nrkswzcz"
