@@ -81,15 +81,28 @@ async function UpdateProperties({db, network, mode}) {
 
   if(metadata) {
     let batch = db.batch();
+
+    /*
+    console.log("\n\n")
+    console.log(JSON.stringify(metadata, null, 2))
+    console.log("\n\n")
+
+     */
     Object.keys(metadata.media_properties || {}).forEach(propertySlug => {
+      if(!propertySlug) { return; }
+
       try {
+        propertySlug = propertySlug.trim();
         const propertyData = {
           ...metadata.media_properties[propertySlug],
           property_slug: propertySlug,
           updatedAt: new Date().toISOString()
         };
 
-        if(!propertyData["/"]) { return; }
+        if(
+          !propertyData["/"] ||
+          !metadata.media_properties[propertySlug].property_id
+        ) { return; }
 
         propertyData.property_hash = propertyData["/"].split("/").find(segment => segment.startsWith("hq__"));
         delete propertyData["."];
@@ -179,36 +192,60 @@ async function FindPropertySlugOrId({db, host, path, network, mode}) {
   path = path.split("?")[0].replace(/\/$/, "");
 
   let propertySlugOrId;
+  let redirect = false;
   try {
-    propertySlugOrId =
-      // Thing directly after last /p in path
-      [...path.matchAll(/\/p\/([^/]+)/g)]?.slice(-1)?.[0]?.[1] ||
-      // Or first item in path
-      path.replace(/^\//, "").split("/")[0];
+    const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
 
-    if(!propertySlugOrId) {
-      const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
+    if(domainMap) {
+      propertySlugOrId = domainMap.property_slug;
 
-      if(domainMap) {
-        propertySlugOrId = domainMap.property_slug;
-      }
+      const propertiesInUrl = path
+        .replace(/^\//, "")
+        .split("/p/")
+        .filter(segment => segment)
+        .map(path => path.split("/")[0])
+        .filter(segment=>segment);
+
+      redirect = propertiesInUrl.length > 0 && !propertiesInUrl.includes(propertySlugOrId);
+    } else {
+      propertySlugOrId =
+        // Thing directly after last /p in path
+        [...path.matchAll(/\/p\/([^/]+)/g)]?.slice(-1)?.[0]?.[1] ||
+        // Or first item in path
+        path.replace(/^\//, "").split("/")[0];
     }
   } catch(error) {
     functions.logger.error(`${network}/${mode}: Error parsing properties slug from path ${path}`);
     functions.logger.error(error);
   }
 
-  return propertySlugOrId;
+  return { propertySlugOrId, redirect };
 }
 
 async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
-  const host = req.headers["x-forwarded-host"] || req.hostname;
-  const path = req.headers["x-forwarded-url"] || req.originalUrl;
+  let host = req.headers["x-forwarded-host"] || req.hostname;
+  let path = req.headers["x-forwarded-url"] || req.originalUrl;
+
+  //host = "epcrugby.tv";
+
+  if(path.includes("index.html")) {
+    path = path.replace("index.html", "");
+  }
+
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
   const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") ? "staging" : "production";
+  //const network = "main";
+  //const mode = "production";
 
-  const propertySlugOrId = await FindPropertySlugOrId({db, host, path, network, mode});
+  const { propertySlugOrId, redirect } = await FindPropertySlugOrId({db, host, path, network, mode});
+
+  if(redirect) {
+    const url = new URL(protocol + "://" + host);
+    url.pathname = propertySlugOrId;
+    res.redirect(302, url.toString());
+    return;
+  }
 
   let metaTags;
   if(propertySlugOrId) {
