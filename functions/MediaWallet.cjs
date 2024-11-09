@@ -148,7 +148,7 @@ async function GetPropertyMetaTags({db, network, mode, propertySlugOrId}) {
 
     let metaTags;
     try {
-      metaTags = JSON.parse(propertyData.meta_tags)
+      metaTags = JSON.parse(propertyData.meta_tags);
 
       // Meta tags from different property version
       if(metaTags?.property_hash !== propertyData.property_hash) {
@@ -191,13 +191,15 @@ async function FindPropertySlugOrId({db, host, path, network, mode}) {
 
   path = path.split("?")[0].replace(/\/$/, "");
 
-  let propertySlugOrId;
+  let propertySlugOrId, googleVerificationId, isCustomDomain;
   let redirect = false;
   try {
     const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
 
     if(domainMap) {
+      isCustomDomain = true;
       propertySlugOrId = domainMap.property_slug;
+      googleVerificationId = domainMap.google_site_verification_id;
 
       const propertiesInUrl = path
         .replace(/^\//, "")
@@ -206,7 +208,7 @@ async function FindPropertySlugOrId({db, host, path, network, mode}) {
         .map(path => path.split("/")[0])
         .filter(segment=>segment);
 
-      redirect = propertiesInUrl.length > 0 && !propertiesInUrl.includes(propertySlugOrId);
+      redirect = path !== "/sitemap.xml" && propertiesInUrl.length > 0 && !propertiesInUrl.includes(propertySlugOrId);
     } else {
       propertySlugOrId =
         // Thing directly after last /p in path
@@ -219,15 +221,33 @@ async function FindPropertySlugOrId({db, host, path, network, mode}) {
     functions.logger.error(error);
   }
 
-  return { propertySlugOrId, redirect };
+  return { isCustomDomain, propertySlugOrId, redirect, googleVerificationId };
 }
+
+const Sitemap = ({protocol, host, propertySlugOrId, metaTags}) => {
+  const url = new URL(protocol + "://" + host);
+
+  let content = [];
+  content.push("<url>");
+  content.push(`<loc>${url.toString()}</loc>`);
+  metaTags.updated_at && content.push(`<lastmod>${metaTags.updated_at}</lastmod>`);
+  content.push("</url>");
+
+  if(propertySlugOrId) {
+    url.pathname = propertySlugOrId;
+    content.push("<url>");
+    content.push(`<loc>${url.toString()}</loc>`);
+    metaTags.updated_at && content.push(`<lastmod>${metaTags.updated_at}</lastmod>`);
+    content.push("</url>");
+  }
+
+  return (`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${content.join("\n")}\n</urlset>`);
+};
 
 async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   let host = req.headers["x-forwarded-host"] || req.hostname;
   let path = req.headers["x-forwarded-url"] || req.originalUrl;
-
-  //host = "epcrugby.tv";
 
   if(path.includes("index.html")) {
     path = path.replace("index.html", "");
@@ -235,10 +255,10 @@ async function PropertyMetadata(db, req, res) {
 
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
   const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") ? "staging" : "production";
-  //const network = "main";
-  //const mode = "production";
+  //const network = "demov3";
+  //const mode = "main";
 
-  const { propertySlugOrId, redirect } = await FindPropertySlugOrId({db, host, path, network, mode});
+  const { isCustomDomain, propertySlugOrId, redirect, googleVerificationId } = await FindPropertySlugOrId({db, host, path, network, mode});
 
   if(redirect) {
     const url = new URL(protocol + "://" + host);
@@ -254,6 +274,12 @@ async function PropertyMetadata(db, req, res) {
 
   metaTags = metaTags || WALLET_DEFAULTS;
 
+  if(path === "/sitemap.xml") {
+    res.setHeader("content-type", "application/xml");
+    res.status(200).send(Sitemap({protocol, host, propertySlugOrId, metaTags}));
+    return;
+  }
+
   const url = new URL(protocol + "://" + host);
   url.pathname = path;
 
@@ -265,6 +291,17 @@ async function PropertyMetadata(db, req, res) {
   html = html.replaceAll("@@og:image@@", metaTags.image || WALLET_DEFAULTS.image);
   html = html.replaceAll("@@og:image:alt@@", metaTags.image_alt || WALLET_DEFAULTS.image_alt);
   html = html.replaceAll("@@og:url@@", url.toString());
+
+  let additionalContent = "";
+  if(googleVerificationId) {
+    additionalContent += `\n<meta name="google-site-verification" content="${googleVerificationId}" />\n`;
+  }
+
+  if(isCustomDomain) {
+    additionalContent += "\n<link rel=\"sitemap\" type=\"application/xml\" title=\"Sitemap\" href=\"/sitemap.xml\">\n";
+  }
+
+  html = html.replaceAll("@@additionalContent@@", additionalContent);
 
   // Inject metadata
   res.status(200).send(html);
