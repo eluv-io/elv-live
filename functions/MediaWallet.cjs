@@ -81,15 +81,28 @@ async function UpdateProperties({db, network, mode}) {
 
   if(metadata) {
     let batch = db.batch();
+
+    /*
+    console.log("\n\n")
+    console.log(JSON.stringify(metadata, null, 2))
+    console.log("\n\n")
+
+     */
     Object.keys(metadata.media_properties || {}).forEach(propertySlug => {
+      if(!propertySlug) { return; }
+
       try {
+        propertySlug = propertySlug.trim();
         const propertyData = {
           ...metadata.media_properties[propertySlug],
           property_slug: propertySlug,
           updatedAt: new Date().toISOString()
         };
 
-        if(!propertyData["/"]) { return; }
+        if(
+          !propertyData["/"] ||
+          !metadata.media_properties[propertySlug].property_id
+        ) { return; }
 
         propertyData.property_hash = propertyData["/"].split("/").find(segment => segment.startsWith("hq__"));
         delete propertyData["."];
@@ -135,7 +148,7 @@ async function GetPropertyMetaTags({db, network, mode, propertySlugOrId}) {
 
     let metaTags;
     try {
-      metaTags = JSON.parse(propertyData.meta_tags)
+      metaTags = JSON.parse(propertyData.meta_tags);
 
       // Meta tags from different property version
       if(metaTags?.property_hash !== propertyData.property_hash) {
@@ -178,37 +191,81 @@ async function FindPropertySlugOrId({db, host, path, network, mode}) {
 
   path = path.split("?")[0].replace(/\/$/, "");
 
-  let propertySlugOrId;
+  let propertySlugOrId, googleVerificationId, isCustomDomain;
+  let redirect = false;
   try {
-    propertySlugOrId =
-      // Thing directly after last /p in path
-      [...path.matchAll(/\/p\/([^/]+)/g)]?.slice(-1)?.[0]?.[1] ||
-      // Or first item in path
-      path.replace(/^\//, "").split("/")[0];
+    const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
 
-    if(!propertySlugOrId) {
-      const domainMap = (await db.doc(`${collection}-domains/${host}`).get())?.data();
+    if(domainMap) {
+      isCustomDomain = true;
+      propertySlugOrId = domainMap.property_slug;
+      googleVerificationId = domainMap.google_site_verification_id;
 
-      if(domainMap) {
-        propertySlugOrId = domainMap.property_slug;
-      }
+      const propertiesInUrl = path
+        .replace(/^\//, "")
+        .split("/p/")
+        .filter(segment => segment)
+        .map(path => path.split("/")[0])
+        .filter(segment=>segment);
+
+      redirect = path !== "/sitemap.xml" && propertiesInUrl.length > 0 && !propertiesInUrl.includes(propertySlugOrId);
+    } else {
+      propertySlugOrId =
+        // Thing directly after last /p in path
+        [...path.matchAll(/\/p\/([^/]+)/g)]?.slice(-1)?.[0]?.[1] ||
+        // Or first item in path
+        path.replace(/^\//, "").split("/")[0];
     }
   } catch(error) {
     functions.logger.error(`${network}/${mode}: Error parsing properties slug from path ${path}`);
     functions.logger.error(error);
   }
 
-  return propertySlugOrId;
+  return { isCustomDomain, propertySlugOrId, redirect, googleVerificationId };
 }
+
+const Sitemap = ({protocol, host, propertySlugOrId, metaTags}) => {
+  const url = new URL(protocol + "://" + host);
+
+  let content = [];
+  content.push("<url>");
+  content.push(`<loc>${url.toString()}</loc>`);
+  metaTags.updated_at && content.push(`<lastmod>${metaTags.updated_at}</lastmod>`);
+  content.push("</url>");
+
+  if(propertySlugOrId) {
+    url.pathname = propertySlugOrId;
+    content.push("<url>");
+    content.push(`<loc>${url.toString()}</loc>`);
+    metaTags.updated_at && content.push(`<lastmod>${metaTags.updated_at}</lastmod>`);
+    content.push("</url>");
+  }
+
+  return (`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${content.join("\n")}\n</urlset>`);
+};
 
 async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
-  const host = req.headers["x-forwarded-host"] || req.hostname;
-  const path = req.headers["x-forwarded-url"] || req.originalUrl;
+  let host = req.headers["x-forwarded-host"] || req.hostname;
+  let path = req.headers["x-forwarded-url"] || req.originalUrl;
+
+  if(path.includes("index.html")) {
+    path = path.replace("index.html", "");
+  }
+
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
   const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") ? "staging" : "production";
+  //const network = "demov3";
+  //const mode = "main";
 
-  const propertySlugOrId = await FindPropertySlugOrId({db, host, path, network, mode});
+  const { isCustomDomain, propertySlugOrId, redirect, googleVerificationId } = await FindPropertySlugOrId({db, host, path, network, mode});
+
+  if(redirect) {
+    const url = new URL(protocol + "://" + host);
+    url.pathname = propertySlugOrId;
+    res.redirect(302, url.toString());
+    return;
+  }
 
   let metaTags;
   if(propertySlugOrId) {
@@ -216,6 +273,12 @@ async function PropertyMetadata(db, req, res) {
   }
 
   metaTags = metaTags || WALLET_DEFAULTS;
+
+  if(path === "/sitemap.xml") {
+    res.setHeader("content-type", "application/xml");
+    res.status(200).send(Sitemap({protocol, host, propertySlugOrId, metaTags}));
+    return;
+  }
 
   const url = new URL(protocol + "://" + host);
   url.pathname = path;
@@ -228,6 +291,17 @@ async function PropertyMetadata(db, req, res) {
   html = html.replaceAll("@@og:image@@", metaTags.image || WALLET_DEFAULTS.image);
   html = html.replaceAll("@@og:image:alt@@", metaTags.image_alt || WALLET_DEFAULTS.image_alt);
   html = html.replaceAll("@@og:url@@", url.toString());
+
+  let additionalContent = "";
+  if(googleVerificationId) {
+    additionalContent += `\n<meta name="google-site-verification" content="${googleVerificationId}" />\n`;
+  }
+
+  if(isCustomDomain) {
+    additionalContent += "\n<link rel=\"sitemap\" type=\"application/xml\" title=\"Sitemap\" href=\"/sitemap.xml\">\n";
+  }
+
+  html = html.replaceAll("@@additionalContent@@", additionalContent);
 
   // Inject metadata
   res.status(200).send(html);
