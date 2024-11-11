@@ -9,7 +9,8 @@ const WALLET_DEFAULTS = {
   "title": "Eluvio Media Wallet",
   "description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
   "image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
-  "image_alt": "Eluvio"
+  "image_alt": "Eluvio",
+  "google_verification_id": "O0F7q8cj9n-Sh5tKTJTwJ1iPPz0N01zsgB0rCSaAs74"
 };
 
 const FabricConfiguration = {
@@ -244,6 +245,9 @@ const Sitemap = ({protocol, host, propertySlugOrId, metaTags}) => {
   return (`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${content.join("\n")}\n</urlset>`);
 };
 
+// Note: Cannot write dynamic robots.txt with firebase functions
+// https://github.com/firebase/firebase-tools/issues/3734
+
 async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   let host = req.headers["x-forwarded-host"] || req.hostname;
@@ -293,9 +297,7 @@ async function PropertyMetadata(db, req, res) {
   html = html.replaceAll("@@og:url@@", url.toString());
 
   let additionalContent = "";
-  if(googleVerificationId) {
-    additionalContent += `\n<meta name="google-site-verification" content="${googleVerificationId}" />\n`;
-  }
+  additionalContent += `\n<meta name="google-site-verification" content="${googleVerificationId || WALLET_DEFAULTS.google_verification_id}" />\n`;
 
   if(isCustomDomain) {
     additionalContent += "\n<link rel=\"sitemap\" type=\"application/xml\" title=\"Sitemap\" href=\"/sitemap.xml\">\n";
