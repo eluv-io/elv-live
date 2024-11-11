@@ -248,13 +248,22 @@ const Sitemap = ({protocol, host, propertySlugOrId, metaTags}) => {
 // Note: Cannot write dynamic robots.txt with firebase functions
 // https://github.com/firebase/firebase-tools/issues/3734
 
+// Special root routes that should not be rewritten
+const protectedRoutes = [
+  "/action",
+  "/flow",
+  "/login",
+  "/register"
+];
+
 async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   let host = req.headers["x-forwarded-host"] || req.hostname;
   let path = req.headers["x-forwarded-url"] || req.originalUrl;
 
-  if(path.includes("index.html")) {
-    path = path.replace("index.html", "");
+  const protectedPath = protectedRoutes.find(route => path.startsWith(route));
+  if(protectedPath || path.includes("/index.html")) {
+    path = "/";
   }
 
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
