@@ -190,7 +190,7 @@ media_wallet:
     xbox_button_text: Microsoft Store
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
-    getting_started_url: "https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__3HiPeTzqThwJb5jmXEq3SwGxK9x8&mt=v&ct=h"
+    getting_started_url: "https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__4Rf9pwYJ4Y4fWoH8deogFTQw1wYW&mt=v&ct=h"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
     xbox_store_url: "https://www.microsoft.com/en-us/p/eluvio-media-wallet/9n18nrkswzcz"
@@ -200,11 +200,11 @@ media_wallet:
     header: Leverage the Power of the Eluvio Media Wallet
     subheader: Watch, gift, manage, trade and enjoy your media from anywhere
     button_text: Sign Up
-  blurb: The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium Web3 media distributed directly by its creators and publishers.
+  blurb: The Eluvio Media Wallet is your personal media vault for all of your media collectibles and your gateway to browse the best in premium media distributed directly by its creators and publishers.
   text_boxes:
     - Access your media assets anytime with high performance 4K streaming, with the assurance of tamper proof content storage, and state-of-the-art blockchain security.
-    - Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric including Web3 movies, live channels, interactive apps, books and more.
-    - A full 'EVM' crypto wallet, sign on to your Eluvio Content Fabric address with your own private keys via Metamask or via email, Google or Apple ID. Manage all of your assets, NFTs and tokens that prove your media ownership and your rewards.
+    - Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric including movies, live channels, interactive apps, books and more.
+    - A full 'EVM' crypto wallet, sign on to your Eluvio Content Fabric address with your own private keys via Metamask or via email, Google or Apple ID. Manage all of your assets, tokens, and passes that prove your media ownership and your rewards.
 
 # Compatible Devices
 
@@ -1471,7 +1471,7 @@ actions:
   read_more: Read More
   learn_more: Learn More
   view_document: View Document
-  browse_all_projects: Browse All Projects
+  browse_all_projects: Discover
   see_feature_details: See Feature Details
   technology_section: Technology Section
   content_fabric_section: Content Fabric
