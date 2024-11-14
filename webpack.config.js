@@ -182,6 +182,10 @@ module.exports = (env) => {
         {
           test: /\.ya?ml$/,
           use: "yaml-loader"
+        },
+        {
+          test: /\.csv$/,
+          type: "asset/resource"
         }
       ]
     }
