@@ -37,13 +37,13 @@ const AutocompleteResults = ({
             <div className="compatible-devices__autocomplete-results-subheader">
               <span>Download our <span className="compatible-devices__download-text">Full Device Matrix</span> for more information.</span>
               <div className="compatible-devices__item-links">
-                <a href={AppleDeviceCSV}>Apple TV</a>
+                <a href={AppleDeviceCSV} download="Device Matrix - Apple TV.csv">Apple TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={AndroidDeviceCSV}>Android TV</a>
+                <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={FireDeviceCSV}>Amazon Fire TV</a>
+                <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={XBOXDeviceCSV}>XBOX</a>
+                <a href={XBOXDeviceCSV} download="Device Matrix - Microsoft XBOX.csv">XBOX</a>
               </div>
             </div>
           </div> :
@@ -204,13 +204,13 @@ const CompatibleDevices = observer(() => {
               {more_info.description}
               <div className="compatible-devices__item-description-download-text">{more_info.download_text}</div>
               <div className="compatible-devices__item-links">
-                <a href={AppleDeviceCSV}>Apple TV</a>
+                <a href={AppleDeviceCSV} download="Device Matrix - Apple TV.csv">Apple TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={AndroidDeviceCSV}>Android TV</a>
+                <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={FireDeviceCSV}>Amazon Fire TV</a>
+                <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
-                <a href={XBOXDeviceCSV}>XBOX</a>
+                <a href={XBOXDeviceCSV} download="Device Matrix - Microsoft XBOX.csv">XBOX</a>
               </div>
             </div>
           </div>
