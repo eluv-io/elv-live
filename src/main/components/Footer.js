@@ -7,7 +7,6 @@ import EluvioLogo from "../static/images/logos/eluvio-logo.svg";
 import {LinkIcon, DiscoverIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 
-
 const SocialLinks = ({dark=false}) => {
   const links = [
     { name: "Instagram", link: "https://www.instagram.com/eluvioinc", icon: SocialIcons.InstagramIcon },
@@ -39,6 +38,7 @@ const Links = observer(({dark=false}) => {
   };
   const roadmapDoc = require("../pages/technology/documents/Technology-Roadmap-Full.pdf");
   const whitepaperDoc = require("../pages/technology/documents/EluvioContentFabricWhitepaper.pdf");
+  const nextGenWhitepaperDoc = require("../pages/technology/documents/Eluvio Content Fabric - Next Generation CDN and Media Cloud.pdf");
 
   return (
     <div className="footer__links">
@@ -51,14 +51,26 @@ const Links = observer(({dark=false}) => {
             </h5>
             {
               title === "Resources" &&
-              <Action
-                href={whitepaperDoc}
-                rel="noopener"
-                target="_blank"
-                className={`footer__link ${dark ? "dark" : "light"}`}
-              >
-                Whitepaper
-              </Action>
+              (
+                <>
+                  <Action
+                    href={whitepaperDoc}
+                    rel="noopener"
+                    target="_blank"
+                    className={`footer__link ${dark ? "dark" : "light"}`}
+                  >
+                    Protocol Whitepaper
+                  </Action>
+                  <Action
+                    href={nextGenWhitepaperDoc}
+                    rel="noopener"
+                    target="_blank"
+                    className={`footer__link ${dark ? "dark" : "light"}`}
+                  >
+                    Next Gen CDN Whitepaper
+                  </Action>
+                </>
+              )
             }
             {
               links.map(({text, link}) => {
