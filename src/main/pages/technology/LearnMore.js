@@ -6,6 +6,7 @@ import {InfoBox} from "../../components/Misc";
 import {DocumentIcon, LinkIcon, TechnologyIcons} from "../../static/icons/Icons";
 
 import Whitepaper from "./documents/EluvioContentFabricWhitepaper.pdf";
+import NextGenWhitepaper from "./documents/Eluvio Content Fabric - Next Generation CDN and Media Cloud.pdf";
 
 const LearnMore = observer(({contentFabric=false}) => {
   const contentFabricLink = [{
@@ -29,9 +30,17 @@ const LearnMore = observer(({contentFabric=false}) => {
     icon: DocumentIcon
   }];
 
+  const nextGenWhitepaperLink = [{
+    to: NextGenWhitepaper,
+    target: "_blank",
+    text: mainStore.l10n.actions.next_gen_whitepaper,
+    icon: DocumentIcon
+  }];
+
   const links = [
     ...(contentFabric ? contentFabricLink : technologyLink),
-    ...whitepaperLink
+    ...whitepaperLink,
+    ...nextGenWhitepaperLink
   ];
 
   return (

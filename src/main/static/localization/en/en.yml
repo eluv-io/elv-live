@@ -1475,7 +1475,8 @@ actions:
   see_feature_details: See Feature Details
   technology_section: Technology Section
   content_fabric_section: Content Fabric
-  whitepaper: Whitepaper
+  whitepaper: Protocol Whitepaper
+  next_gen_whitepaper: Next Gen CDN Whitepaper
 
 footer:
   - title: "Technology"
