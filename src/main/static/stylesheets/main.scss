@@ -203,8 +203,7 @@
 
   &__apple-tv-button,
   &__google-play-button,
-  &__amazon-appstore-button,
-  &__xbox-button {
+  &__amazon-appstore-button {
     align-items: center;
     display: flex;
     height: 45px;
@@ -392,8 +391,7 @@
 
     &__apple-tv-button,
     &__google-play-button,
-    &__amazon-appstore-button,
-    &__xbox-button {
+    &__amazon-appstore-button {
       height: 35px;
     }
 

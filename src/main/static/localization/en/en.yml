@@ -187,13 +187,11 @@ media_wallet:
     apple_button_text: Apple TV
     google_button_text: Google Play
     amazon_button_text: Amazon Appstore
-    xbox_button_text: Microsoft Store
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
     getting_started_url: "https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__4Rf9pwYJ4Y4fWoH8deogFTQw1wYW&mt=v&ct=h"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
-    xbox_store_url: "https://www.microsoft.com/en-us/p/eluvio-media-wallet/9n18nrkswzcz"
     feature_image_subheader: See full list of devices
   feature_2:
     tagline: Enjoy on any browser
@@ -222,9 +220,6 @@ compatible_devices:
     -
       title: Amazon Fire TV
       description: Amazon Fire TV devices with Fire OS 6 or later. This includes the Amazon Fire TV Stick and Smart TVs with Fire TV built-in.
-    -
-      title: XBOX
-      description: Xbox Series S|X, Xbox One
   more_info:
     title: Don’t see your device above?
     description: Eluvio Media Wallet for Connected TV is supported on over 1,600 devices. Search for the name of your device below.
@@ -1201,7 +1196,7 @@ casablanca:
       full_description: |
         The <span style="color: var(--color-highlight-3)">**Eluvio Media Wallet**</span> introduced in summer 2023 is a universal personal media vault and player experience for all major Connected TV platforms and browsers, and allows publishers to directly peer with audiences at scale to distribute premium content for all sell-through models - transactional ownership, subscription, and free/sponsored/ad-supported. Via the Media Wallet, audiences can discover, own, play and, if authorized, retrade in these experiences via seamless web3-style ownership, authorization and windowing. In addition to premium video, content can include bundled redeemable offers for merchandise and tickets, AR, 3D collectibles, exclusive artwork, bonus footage, soundtracks, images galleries, and more.
 
-        The Media Wallet v2 expands upon the initial success of Media Wallet v1 by adding a new deep link API for embedding the wallet directly in browser and TV-based retailer properties, new features for embedding ebooks, documents, and multi-mode interactive experiences, and new platform versions including releases for Microsoft Xbox in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV.
+        The Media Wallet v2 expands upon the initial success of Media Wallet v1 by adding a new deep link API for embedding the wallet directly in browser and TV-based retailer properties, new features for embedding ebooks, documents, and multi-mode interactive experiences, and new platform versions including releases for Apple tvOS, Android/Google TV, and Amazon Fire TV.
 
         The browser-based version includes a new generation UX that is fully integrated with the Creator Studio media and property management features. All versions are integrated with the Eluvio Authority Service APIs, which provide e-commerce checkout flows (credit card and web3 payments), and now support gifting of media in addition to purchase and free claim of media bundles. Media Wallet v2 APIs also integrate with 3rd party providers for seamless sign on to the wallet from 3rd party apps.
       accordion_sections:
@@ -1213,7 +1208,7 @@ casablanca:
                 - Users discover, own, stream and trade in these experiences
                 - High performance 4K streaming, tamper proof content storage, and blockchain backed ownership
                 - Fabric policies validate ownership and enforce availability windows, geo restrictions, and other owner requirements
-                - Now available for Microsoft Xbox in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV (1600 devices supported)
+                - Now available for Apple tvOS, Android/Google TV, and Amazon Fire TV (1600 devices supported)
             - title: New Browser UX for Creator Studio Properties
               description: |
                 - New Browser UX fully integrated with Creator Studio properties.
