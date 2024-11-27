@@ -41,7 +41,6 @@ const AutocompleteResults = ({
                 <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
                 <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
-                <span className="compatible-devices__item-links-separator">|</span>
               </div>
             </div>
           </div> :
@@ -206,7 +205,6 @@ const CompatibleDevices = observer(() => {
                 <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
                 <span className="compatible-devices__item-links-separator">|</span>
                 <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
-                <span className="compatible-devices__item-links-separator">|</span>
               </div>
             </div>
           </div>
