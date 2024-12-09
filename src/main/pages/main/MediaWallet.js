@@ -6,7 +6,7 @@ import {Action, Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import {BlockchainIcon, PlayCircleIcon, PlaySimpleIcon, WalletIcon, FullDeviceListIcon} from "../../static/icons/Icons";
-import FeatureImage1 from "../../static/images/main/media_wallet/1_header_image";
+import FeatureImage1 from "../../static/images/main/media_wallet/header_image_v2.png";
 import FeatureImage2 from "../../static/images/main/media_wallet/device_mockup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
 import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
