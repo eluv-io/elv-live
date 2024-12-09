@@ -10,7 +10,7 @@ import SiteCarousel from "./SiteCarousel";
 import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v1.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
-import ExperiencesImage3 from "../../static/images/main/consumers_&_users_card_v1.jpg";
+import ExperiencesImage3 from "../../static/images/main/consumers_&_users_card_v2.jpg";
 import SpeakerphoneIcon from "../../static/icons/speakerphone-outline.svg";
 import DesktopBanner from "../../static/images/main/desktop-banner-min.png";
 import MobileBanner from "../../static/images/main/mobile-banner-min";
