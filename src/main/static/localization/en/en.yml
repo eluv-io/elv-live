@@ -30,6 +30,7 @@ header:
   discover_projects: Discover Projects
   projects: Projects
   apps: Apps
+  sign_in: Sign In
 
 # Main Page
 main:
@@ -1492,6 +1493,8 @@ footer:
         link: "/about/contact"
       - text: "Github"
         link: "https://github.com/eluv-io"
+      - text: "Sign In"
+        link: "https://contentfabric.io/"
   - title: "Community"
     icon: "link"
     links:

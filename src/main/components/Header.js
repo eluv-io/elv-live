@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import EluvioLogo from "../static/images/logos/eluvio-logo-white.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {MenuIcon, XIcon, EluvioEIcon, EluvioEIconColor} from "../static/icons/Icons";
+import {MenuIcon, XIcon, EluvioEIconColor} from "../static/icons/Icons";
 
 
 const NotificationBanner = observer(({className=""}) => {
@@ -121,6 +121,9 @@ const Header = observer(() => {
             </Button>
             <Button href={mainStore.walletAppUrl} target="_blank" icon={EluvioEIconColor} className="light header__button header__button--discover">
               { mainStore.l10n.header.discover }
+            </Button>
+            <Button to="https://contentfabric.io/" target="_blank" className="light header__button header__button--fabric">
+              { mainStore.l10n.header.sign_in }
             </Button>
           </div>
         </nav>
