@@ -84,6 +84,9 @@ const MobileNav = observer(({visible, Close}) => {
           <Action useNavLink exact to="/register">
             { mainStore.l10n.header.register }
           </Action>
+          <Action useNavLink exact to="https://contentfabric.io/">
+            { mainStore.l10n.header.sign_in }
+          </Action>
         </div>
         <hr className="mobile-nav__menu-section-line" />
 

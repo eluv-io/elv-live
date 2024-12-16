@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import EluvioLogo from "../static/images/logos/eluvio-logo-white.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {MenuIcon, XIcon, EluvioEIcon, EluvioEIconColor} from "../static/icons/Icons";
+import {MenuIcon, XIcon, EluvioEIconColor} from "../static/icons/Icons";
 
 
 const NotificationBanner = observer(({className=""}) => {
@@ -115,12 +115,15 @@ const Header = observer(() => {
           <Action to="https://docs.eluv.io/" useNavLink underline className="dark header__nav-link">
             { mainStore.l10n.header.docs }
           </Action>
+          <Action to="/register" useNavLink underline className="dark header__nav-link">
+            { mainStore.l10n.header.register }
+          </Action>
           <div className="header__buttons">
-            <Button to="/register" className="light header__button header__button--fabric">
-              { mainStore.l10n.header.register }
-            </Button>
             <Button href={mainStore.walletAppUrl} target="_blank" icon={EluvioEIconColor} className="light header__button header__button--discover">
               { mainStore.l10n.header.discover }
+            </Button>
+            <Button to="https://contentfabric.io/" target="_blank" className="light header__button header__button--fabric">
+              { mainStore.l10n.header.sign_in }
             </Button>
           </div>
         </nav>

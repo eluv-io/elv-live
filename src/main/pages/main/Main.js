@@ -56,7 +56,9 @@ const HeaderBlock = observer(({mobile=false}) => {
             <div className="main-page-header__main-header__subheader-container-text">
               <span>
                 <span className="main-page-header__main-header__subheader">The </span>
-                <span style={{color: "var(--color-text-dark-1)", fontWeight: 700}} className="main-page-header__main-header__subheader"> Content Fabric </span>
+                <Link to="https://contentfabric.io/" target="_blank">
+                  <span style={{color: "var(--color-text-dark-1)", fontWeight: 700}} className="main-page-header__main-header__subheader"> Content Fabric </span>
+                </Link>
                 <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
               </span>
               <Link className="main-page-header__main-header__featured-link" to={mainStore.l10n.main.heading.featured_link}>
