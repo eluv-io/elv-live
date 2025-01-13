@@ -1159,7 +1159,7 @@ casablanca:
     video_editor:
       header: Content Fabric Application Suite
       title: Video Editor
-      short_description: Retrieve relevant clips by AI/ML tagging, speech-to-text transcription, and content metadata.
+      short_description: View and scrub frame-by-frame through playable content objects and their AI/ML metadata tags. Create and download clips dynamically generated from the source object.
       full_description: |
         The <span style="color: var(--color-highlight-3)">**Video Editor**</span> app provides frame-accurate timeline viewing/scrubbing for any playable content in the Fabric and its metadata, in the browser. The <span style="color: var(--color-highlight-3)">**Video Editor v2**</span> also acts as a lightweight clip generator, supporting saving of key frames, and mark-in/mark-out selection, and dynamic generation and download of subsections or clips. Any timecode metadata in the object is displayed on timecode synchronized tracks. Users can view the AI tags applied by the ML Tagging service, one track per model. 3rd party metadata such as play-by-play data feeds, AI metadata, and human curated descriptions can also be posted to content objects and will automatically present in the Video Editor for easy review and clipping.
 
