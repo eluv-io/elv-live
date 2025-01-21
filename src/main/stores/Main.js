@@ -122,6 +122,14 @@ class MainStore {
       window.location.hostname === domain
     );
 
+    if(domainRedirect && domainRedirect.property_slug) {
+      const url = new URL("https://wallet.contentfabric.io");
+      url.pathname = domainRedirect.property_slug;
+
+      window.location.href = url.toString();
+      return;
+    }
+
     if(domainRedirect && domainRedirect.event_slug) {
       const redirect = new URL(window.location.href);
       redirect.pathname = UrlJoin(domainRedirect.tenant_slug || "", domainRedirect.event_slug);

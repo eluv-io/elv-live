@@ -253,7 +253,8 @@ const protectedRoutes = [
   "/action",
   "/flow",
   "/login",
-  "/register"
+  "/register",
+  "/oidc"
 ];
 
 async function PropertyMetadata(db, req, res) {
