@@ -46,7 +46,7 @@ const Load = async () => {
     window.location.href = "https://eluvio.workable.com/";
     return;
   }
-  
+
   if(path === "/community") {
     window.location.href = "https://wallet.contentfabric.io/ibc";
   } else if(path === "/privacy") {
@@ -55,10 +55,8 @@ const Load = async () => {
     Document("Terms.html");
   } else if(path === "/platform-terms") {
     Document("PlatformServicesAgreement.html");
-  } else if(path === "/" || MAIN_SITE_PATHS.find(mainPath => path.startsWith(mainPath))) {
-    await import("./main/MainApp");
   } else {
-    await import("./SiteApp");
+    await import("./main/MainApp");
   }
 };
 
