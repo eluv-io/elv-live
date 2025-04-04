@@ -4,7 +4,7 @@ import {mainStore} from "../../stores/Main";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
-import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import {Accordion, AccordionGroup, InfoBox, RichText, Video} from "../../components/Misc";
 import * as videoEditorImages from "../../static/images/apps/video-editor";
 import AppImageGallery from "./AppImageGallery";
 import VideoEditorPdf from "./documents/Eluvio Content Fabric - Casablanca Release PDF - Clip Search & Video Editor.pdf";
@@ -15,8 +15,8 @@ const VideoEditor = observer(() => {
   return (
     <div className="page light">
       <div className="page__header-container">
-        <h1>{mainStore.l10n.casablanca.title}</h1>
-        <h3>{mainStore.l10n.casablanca.header}</h3>
+        <h1>{mainStore.l10n.bangkok.title}</h1>
+        <h3>{mainStore.l10n.bangkok.header}</h3>
       </div>
       <div className="page__content-block">
         <div className="application-info__header">
@@ -24,9 +24,13 @@ const VideoEditor = observer(() => {
           <div className="application-info__title-group">
             <ImageIcon icon={ApplicationIcons.VideoEditorIcon} className="application-info__icon"/>
             <div className="application-info__header-text light">{copy.title}</div>
-            <ImageIcon icon={ApplicationIcons.V2TagIcon} className="application-info__tag-icon"/>
           </div>
           <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
+
+          <Video versionHash={copy.walkthrough_video} className="application-info__header-video " />
+
+          {/*<Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />*/}
+
           <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
         </div>
       </div>
@@ -57,8 +61,8 @@ const VideoEditor = observer(() => {
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}
-          header={copy.info_link.title}
-          content={copy.info_link.description}
+          header={mainStore.l10n.content_fabric.bangkok.header}
+          content={mainStore.l10n.content_fabric.bangkok.text}
           links={[
             {
               href: VideoEditorPdf,
@@ -67,9 +71,9 @@ const VideoEditor = observer(() => {
               target: "_blank"
             },
             {
-              to: mainStore.l10n.content_fabric.casablanca.links[0].link,
+              to: mainStore.l10n.content_fabric.bangkok.links[0].link,
               target: "_blank",
-              text: mainStore.l10n.content_fabric.casablanca.links[0].text,
+              text: mainStore.l10n.content_fabric.bangkok.links[0].text,
               icon: DocumentIcon
             }
           ]}
