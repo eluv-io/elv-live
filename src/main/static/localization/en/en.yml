@@ -188,11 +188,13 @@ media_wallet:
     apple_button_text: Apple TV
     google_button_text: Google Play
     amazon_button_text: Amazon Appstore
+    roku_button_text: Roku
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
     getting_started_url: "https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__4Rf9pwYJ4Y4fWoH8deogFTQw1wYW&mt=v&ct=h"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
+    roku_channelstore_url: "https://channelstore.roku.com/en-gb/details/6fdb7c67cc944e0db2bad6c3f472beaf:406eb61dd4c5ea8334e27098831e89dc/eluvio-media-wallet"
     feature_image_subheader: See full list of devices
   feature_2:
     tagline: Enjoy on any browser
@@ -221,6 +223,9 @@ compatible_devices:
     -
       title: Amazon Fire TV
       description: Amazon Fire TV devices with Fire OS 6 or later. This includes the Amazon Fire TV Stick and Smart TVs with Fire TV built-in.
+    -
+      title: Roku
+      description: Roku devices with Roku OS v14.0 or later.
   more_info:
     title: Don’t see your device above?
     description: Eluvio Media Wallet for Connected TV is supported on over 1,600 devices. Search for the name of your device below.
@@ -1209,7 +1214,7 @@ casablanca:
                 - Users discover, own, stream and trade in these experiences
                 - High performance 4K streaming, tamper proof content storage, and blockchain backed ownership
                 - Fabric policies validate ownership and enforce availability windows, geo restrictions, and other owner requirements
-                - Now available for Apple tvOS, Android/Google TV, and Amazon Fire TV (1600 devices supported)
+                - Now available for Apple tvOS, Android/Google TV, Amazon Fire TV and Roku (over 1600 devices supported)
             - title: New Browser UX for Creator Studio Properties
               description: |
                 - New Browser UX fully integrated with Creator Studio properties.

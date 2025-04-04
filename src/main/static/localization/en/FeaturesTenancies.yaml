@@ -6,6 +6,8 @@ levels:
     sub_header: Level 1
     monthly_price: $0
     annual_price: $0
+    additional_cost_text: |
+      + utility fees (min. $499)
     features:
       - Open Source Content Fabric Application Suite
       - Email Support

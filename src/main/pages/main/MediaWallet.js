@@ -6,17 +6,57 @@ import {Action, Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import {BlockchainIcon, PlayCircleIcon, PlaySimpleIcon, WalletIcon, FullDeviceListIcon} from "../../static/icons/Icons";
-import FeatureImage1 from "../../static/images/main/media_wallet/header_image_v2.png";
+import FeatureImage1 from "../../static/images/main/media_wallet/wallet-devices.png";
 import FeatureImage2 from "../../static/images/main/media_wallet/device_mockup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
 import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
 import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_appstore.png";
 import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
+import RokuButton from "../../static/images/main/media_wallet/Roku";
 
 import CarouselImages from "../../static/images/main/media_wallet/carousel";
 
+const FeatureBlockActions = observer(() => {
+  const {
+    apple_button_text,
+    google_button_text,
+    amazon_button_text,
+    roku_button_text,
+    apple_tv_url,
+    amazon_appstore_url,
+    google_play_url,
+    roku_channelstore_url
+  } = mainStore.l10n.media_wallet.feature_1;
+
+  return (
+    <div className="main-page-header__actions">
+      <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button" rel="noreferrer">
+        <ImageIcon icon={AppleTVButton} label={apple_button_text}/>
+      </a>
+      <a href={google_play_url} target="_blank" className="main-page-header__google-play-button" rel="noreferrer">
+        <ImageIcon icon={GooglePlayButton} label={google_button_text}/>
+      </a>
+      <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button"
+         rel="noreferrer">
+        <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text}/>
+      </a>
+      <a href={roku_channelstore_url} target="_blank" className="main-page-header__amazon-appstore-button"
+         rel="noreferrer">
+        <ImageIcon icon={RokuButton} label={roku_button_text}/>
+      </a>
+    </div>
+  );
+});
+
 const FeatureBlock1Mobile = observer(() => {
-  const {header, subheader, subheader_2, tagline, apple_button_text, google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader } = mainStore.l10n.media_wallet.feature_1;
+  const {
+    header,
+    subheader,
+    subheader_2,
+    tagline,
+    getting_started_url,
+    feature_image_subheader
+  } = mainStore.l10n.media_wallet.feature_1;
 
   return (
     <div className="main-page-header main-page-header__media-wallet">
@@ -42,17 +82,7 @@ const FeatureBlock1Mobile = observer(() => {
           </Action>
           <div className="main-page-header__info-links">
           </div>
-          <div className="main-page-header__actions">
-            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button" rel="noreferrer">
-              <ImageIcon icon={AppleTVButton} label={apple_button_text}/>
-            </a>
-            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button" rel="noreferrer">
-              <ImageIcon icon={GooglePlayButton} label={google_button_text}/>
-            </a>
-            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button" rel="noreferrer">
-              <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text}/>
-            </a>
-          </div>
+          <FeatureBlockActions />
         </div>
       </div>
     </div>
@@ -65,8 +95,9 @@ const FeatureBlock1 = observer(() => {
     subheader,
     subheader_2,
     tagline,
-    apple_button_text,
-    google_button_text, amazon_button_text, apple_tv_url, getting_started_url, amazon_appstore_url, google_play_url, feature_image_subheader} = mainStore.l10n.media_wallet.feature_1;
+    getting_started_url,
+    feature_image_subheader
+  } = mainStore.l10n.media_wallet.feature_1;
 
   return (
     <div className="main-page-header">
@@ -94,17 +125,7 @@ const FeatureBlock1 = observer(() => {
               {subheader_2}
             </a>
           </div>
-          <div className="main-page-header__actions">
-            <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button" rel="noreferrer">
-              <ImageIcon icon={AppleTVButton} label={apple_button_text} />
-            </a>
-            <a href={google_play_url} target="_blank" className="main-page-header__google-play-button" rel="noreferrer">
-              <ImageIcon icon={GooglePlayButton} label={google_button_text} />
-            </a>
-            <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button" rel="noreferrer">
-              <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text} />
-            </a>
-          </div>
+          <FeatureBlockActions />
         </div>
       </div>
     </div>

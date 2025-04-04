@@ -5,10 +5,25 @@ import {mainStore} from "../../stores/Main";
 import AndroidDeviceCSV from "../../static/documents/device-matrix-android.csv";
 import FireDeviceCSV from "../../static/documents/device-matrix-fire-tv.csv";
 import AppleDeviceCSV from "../../static/documents/device-matrix-tvOS.csv";
+import RokuDeviceCSV from "../../static/documents/device-matrix-roku.csv";
 import {SearchIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
 import DevicesGraphic from "../../static/images/main/media_wallet/devices-graphic.png";
 import {PageContainer} from "../../MainApp";
+
+const DevicesList = () => {
+  return (
+    <div className="compatible-devices__item-links">
+      <a href={AppleDeviceCSV} download="Device Matrix - Apple TV.csv">Apple TV</a>
+      <span className="compatible-devices__item-links-separator">|</span>
+      <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
+      <span className="compatible-devices__item-links-separator">|</span>
+      <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
+      <span className="compatible-devices__item-links-separator">|</span>
+      <a href={RokuDeviceCSV} download="Device Matrix - Roku.csv">Roku</a>
+    </div>
+  );
+};
 
 const AutocompleteResults = ({
   searchTerm,
@@ -35,13 +50,7 @@ const AutocompleteResults = ({
             </h3>
             <div className="compatible-devices__autocomplete-results-subheader">
               <span>Download our <span className="compatible-devices__download-text">Full Device Matrix</span> for more information.</span>
-              <div className="compatible-devices__item-links">
-                <a href={AppleDeviceCSV} download="Device Matrix - Apple TV.csv">Apple TV</a>
-                <span className="compatible-devices__item-links-separator">|</span>
-                <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
-                <span className="compatible-devices__item-links-separator">|</span>
-                <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
-              </div>
+              <DevicesList />
             </div>
           </div> :
           <ul>
@@ -159,20 +168,22 @@ const CompatibleDevices = observer(() => {
     const getData = async() => {
       const androidResponse = await fetch(AndroidDeviceCSV);
       const fireResponse = await fetch(FireDeviceCSV);
+      const rokuResponse = await fetch(RokuDeviceCSV);
 
-      for(const response of [androidResponse, fireResponse]) {
+      for(const response of [androidResponse, fireResponse, rokuResponse]) {
         const reader = response.body.getReader();
         const result = await reader.read();
         const decoder = new TextDecoder("utf-8");
         const csv = decoder.decode(result.value);
         const results = Papa.parse(csv, { header: true });
         results.data.forEach(row => {
-          rows.push(`${row["Brand"] || row["Version"]} ${row["Device"] || ""}`);
+          rows.push(`${row["Brand"] || row["Version"] || row["Current Roku models"]} ${row["Device"] || ""}`);
         });
       }
 
       rows.sort();
-      setDeviceList(rows);
+      const uniqueRows = [...new Set(rows)];
+      setDeviceList(uniqueRows);
     };
 
     getData();
@@ -199,13 +210,7 @@ const CompatibleDevices = observer(() => {
             <div className="compatible-devices__item-description">
               {more_info.description}
               <div className="compatible-devices__item-description-download-text">{more_info.download_text}</div>
-              <div className="compatible-devices__item-links">
-                <a href={AppleDeviceCSV} download="Device Matrix - Apple TV.csv">Apple TV</a>
-                <span className="compatible-devices__item-links-separator">|</span>
-                <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
-                <span className="compatible-devices__item-links-separator">|</span>
-                <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
-              </div>
+              <DevicesList />
             </div>
           </div>
           <AutocompleteSearch setShowImage={setShowImage} deviceList={deviceList} />
