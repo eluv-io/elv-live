@@ -152,7 +152,6 @@
 
   &__short-description {
     border-bottom: 1px solid gray;
-    max-width: 50%;
 
     p {
       margin-bottom: 29px;
@@ -183,6 +182,10 @@
 
   &__nav-button {
     display: flex;
+  }
+
+  &__header-video {
+    margin-top: 38px;
   }
 }
 
