@@ -44,7 +44,7 @@ class Ticket extends React.Component {
 
     if(ticketSku.external_url) {
       return released ?
-        <a href={ticketSku.external_url} target="_blank" rel="noopener" className="ticket-bottom-button">Buy</a> :
+        <a href={ticketSku.external_url} target="_blank" rel="noopener noreferrer" className="ticket-bottom-button">Buy</a> :
         <a className="ticket-bottom-button unreleased">Available {FormatDateString(ticketClass.release_date, false, false, true)}</a>;
     }
 

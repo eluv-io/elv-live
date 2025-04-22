@@ -105,7 +105,7 @@ class Stream extends React.Component {
   Sponsors() {
     return (
       this.props.siteStore.sponsors.map((sponsor, index) =>
-        <a href={sponsor.link} target="_blank" rel="noopener" className="stream-page__footer__sponsor-link" key={`sponsor-${index}`} title={sponsor.name}>
+        <a href={sponsor.link} target="_blank" rel="noopener noreferrer" className="stream-page__footer__sponsor-link" key={`sponsor-${index}`} title={sponsor.name}>
           <img src={sponsor.light_image_url || sponsor.image_url} className="stream-page__footer__sponsor-image" alt={sponsor.name} />
         </a>
       )

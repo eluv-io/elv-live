@@ -346,7 +346,7 @@ content_fabric:
     header: Eluvio Content Fabric Bangkok Release - Summer 2025
     text: Learn about the latest Content Fabric release **Bangkok** - a massive step including advanced features for our applications and tools.
     links:
-      - text: Master PDF
+      - text: Download PDF
         link: https://main.net955305.contentfabric.io/s/main/q/hq__GCi7G55EvQ4pwHP1ZH7sjsUvZfMbttyanUccQ6SbTNp76J6GkeSFWRdfhjRdXw9h8ERQDiGi29/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bangkok%20Release%20Whitepaper.pdf
 
 technology:
@@ -846,35 +846,87 @@ blockchain:
         protocol is dramatically more resource efficient (>50X) than traditional content storage and distribution networks and
         along with its PoA/PoS blockchain, is a very efficient and low cost solution for the Creator Economy.
 
-bangkok:
-  title: Eluvio Content Fabric
-  header: Bangkok Release - Summer 2025
-  application_suites:
-    - app_suite_title: Content Fabric Application Suite
-      items:
-        - title: Eluvio Fabric Browser
-          to: ""
-          icon: fabric_browser
-        - title: Media Ingest
-          to: "/apps/creator-studio"
-          icon: creator_studio
-        - title: Content Analytics & Reporting
-          to: "/apps/analytics"
-          icon: analytics
-        - title: AI Clip Search
-          to: "/apps/ai-clip-search"
-          icon: clip_search
-    - app_suite_title: Content Fabric Intelligence Suite
-      items:
-        - title: Eluvio Video Intelligence Editor
-          to: "/apps/video-editor"
-          icon: video_editor
-        - title: Creator Studio
-          to: "/apps/creator-studio"
-          icon: creator_studio
-        - title: Content Analytics & Reporting
-          to: "/apps/analytics"
-          icon: analytics
+core_apps:
+  title: Content Fabric Application Suite
+  header:
+  application_suite:
+    title: Content Fabric Application Suite
+    items:
+      - title: Creator Studio
+        to: "/apps/creator-studio"
+        icon: creator_studio
+      - title: Analytics & Reporting
+        to: "/apps/analytics"
+        icon: analytics
+      - title: AI Clip Search
+        to: "/apps/ai-clip-search"
+        icon: clip_search
+      - title: Video Intelligence Editor
+        to: "/apps/video-editor"
+        icon: video_editor
+      - title: Media Wallet
+        to: "/apps/media-wallet"
+        icon: media_wallet
+      - title: Embeddable Player
+        to: "/apps/embeddable-player"
+        icon: embeddable_player
+  pages:
+    video_editor:
+      header: Content Fabric Intelligence Suite
+      title: Eluvio Video Intelligence Editor
+      walkthrough_video: hq__HYmWJqLhpKqWJwsR9BRX3vSh9qEPSfiukv9sqVK5XZdDKjnosQyqUgJi6CedBnsYhTAzoJ3iQx
+      short_description: Create and share clips from Fabric content with no file copies or re-transcodes. Clip live, set points via AI tags, and share instantly via streaming or download links. Browse AI-generated tags and publish highlights without duplication.
+      full_description: |
+        The <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Editor (EVIE)**</span> app provides frame-accurate timeline viewing and scrubbing for any playable content in the Fabric and its metadata, directly in the browser. <span style="color: var(--color-highlight-3)">**EVIE**</span> enables seamless in-place clip creation—without file copies, re-transcodes, or egress—supporting mark-in/mark-out selection, saving key frames, and dynamically generating and sharing clips. Users can clip from in-progress live streams, set in/out points manually or via AI/ML-generated tags, and share via configurable streaming or download links. AI tags from the Multi-modal AI Tagging and Summarization Service, including celebrity detection, OCR, speech-to-text, and highlights, appear as synchronized tracks. Third-party metadata, such as play-by-play sports data and custom curation, can be posted via API and is automatically integrated for search and clipping.
+
+        The Fabric’s unique content-native model—component-based media, object metadata, and just-in-time processing—enables radically efficient workflows. Users can instantly record live streams, convert them to VoD, apply AI tagging, generate highlights, and search content, all without moving, duplicating, or re-transcoding files. Every operation occurs directly upon the source content object in the Fabric, ensuring seamless, high-performance media processing.
+
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Create and Share Clips from any Fabric Content ‘in place’ - No Intermediary File Copies, Re-transcodes, or Egress
+              description: |
+                - Clip from in-progress live streams
+                - Set clip in/out points manually, by searching through tags or highlight cue points
+                - Share to individual users with integrated email notification and configurable expiration on streaming or download links
+                - Choose the audio and offerings to be shared, e.g. watermarked, specific overlays
+                - Post public clip URLs to social
+            - title: Search and Curate Multi-modal AI Tag Tracks (Eluvio AI and User Added)
+              description: |
+                - Browse, search, and filter frame-level, segment-level, and section-level tags created by the Eluvio Multi-modal AI Tagging and Summarization Service
+                - Our models include vision, text, and large learning: Celebrity Detection, Logo Detection, Landmark Detection, OCR, Speech-to-Text Transcription, Music Detection, Generative Shot Descriptions (LLAVA), Generative Image Descriptions (GIT), and Custom fine-tuned models.
+                - Per section models include Topics, Summaries, Highlights and Captions
+                - View tags aggregated by shot boundary.
+                - POST 3rd party tags such as play-by-play sports data feeds and customer curated metadata to any Fabric playable object via the API. Custom tag tracks are automatically added to the EVIE for browsing, filtering and search.
+                - Add new bounding box and segment level tags and save to private tenant-specific ground truth.
+                - Add custom tagging points for clipping and composition creation
+            - title: Create Personalized Compositions – Highlights, Linear Channels, and Playlists – Using AI Suggestions or From Scratch, Distribute and Share “In Place” - No Intermediary File Copies, Re-transcodes, or Egress
+              description: |
+                - Use the AI-Assisted pathway to automatically generate a Highlight (“Match in 15”) with optional personalization prompts such as for team or player. 
+                - Powered by the Eluvio AI Stack, the pipeline runs inline the Content Fabric to select relevant clips from the source video, and returns the best candidates on an individual timeline track.
+                - How does it work?  The pipeline leverages a fine-tuned inline LLM we have trained on real-world highlights to generate content-specific search queries targeting exciting moments.  We use the Eluvio AI Search to generate candidate clips from these queries.
+                - The LLM acts as a ‘judge’ to select the best clips for the final composition and uses the timestamps to crop out the most relevant sections to achieve the desired length for the final composition.
+                - Edit the suggested clips including adjusting start and endpoints, inserting and removing suggested candidates, and searching for replacements via the integrated multi-modal Eluvio AI Search.
+                - Eluvio AI Search creates a high accuracy, multi-modal vectorized embedding from the AI-generated and user-provided tags describing the content and supports keyword and semantic queries to return relevant clips.
+                - Also create your own Composition from scratch by creating clips within your playable content objects and adding them to the timeline
+                - Or by using the integrated AI Search to select relevant clips from your content
+                - Publish your Compositions to the Fabric for Just-in-Time Streaming Globally
+                - Share your Compositions via the built in Sharing capability for individuals or Post to Social.
+                - Create any new version without ever moving, exporting, or re-transcoding the original video file, or ingesting the new highlight file.
+                - Create any personalized version just-in-time from the source video with no file copies or duplication.
+            - title: Curate Image Assets and Manage Ground Truth with Privacy and Provenance
+              description: |
+                - Search and view any authorized image assets within your tenancy
+                - Review and edit AI generated or manual tags.
+                - Browse, search, and filter frame-level and summarization results:  Celebrity Detection, Logo Detection, Landmark Detection, OCR, Generative Image Descriptions (LLAVA, GIT), and Custom fine-tuned LVLM models such as Custom Caption generation with support for Human-in-the-loop.
+                - Browse images in the Eluvio AI ground truth pools, and add images to your custom ground truth pools
+                - Manage ground truth pools securely and privately within your own tenancy for complete provenance control on your content AI.
+
+      info_link:
+        title: Eluvio Content Fabric Casablanca Release - Summer 2024
+        description: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
+        links:
+          - text: Video Editor PDF
 
 casablanca:
   title: Eluvio Content Fabric

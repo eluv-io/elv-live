@@ -128,7 +128,7 @@ class Landing extends React.Component {
               />
           }
           <div className="landing-page__powered-by">
-            <a href="https://live.eluv.io" target="_blank" className="landing-page__powered-by__tagline">
+            <a href="https://live.eluv.io" target="_blank" className="landing-page__powered-by__tagline" rel="noreferrer">
               Powered by <ImageIcon icon={EluvioLogo} className="landing-page__powered-by__logo" title="Eluv.io" />
             </a>
           </div>

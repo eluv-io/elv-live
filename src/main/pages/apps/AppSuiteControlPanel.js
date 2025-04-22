@@ -6,7 +6,7 @@ import {Action} from "../../components/Actions";
 import ImageIcon from "../../components/ImageIcon";
 
 const AppSuiteControlPanel = observer(() => {
-  const copy = mainStore.l10n.casablanca;
+  const copy = mainStore.l10n.core_apps.application_suite;
 
   const APP_ICON_MAP = {
     "creator_studio": ApplicationIcons.CreatorStudioIcon,
@@ -23,18 +23,17 @@ const AppSuiteControlPanel = observer(() => {
     <div className="page__content-block">
       <div className="curved-box application-suite-info light">
         <h3 className="application-suite-info__header">
-          {copy.app_suite_title}
+          {copy.title}
         </h3>
         <div className="application-suite-info__icons">
           {
-            copy.application_suite.map(app => (
+            copy.items.map(app => (
               <Action to={app.to} target="_blank" key={`app-suite-${app.title}`}>
                 <div className="application-suite-info__icon">
                   <ImageIcon icon={APP_ICON_MAP[app.icon]} className="application-suite-info__icon__icon" />
                   <div className="application-suite-info__icon__text">
                     { app.title }
                   </div>
-                  <ImageIcon icon={APP_ICON_MAP[app.tag]} className="application-suite-info__icon__tag" />
                 </div>
               </Action>
             ))

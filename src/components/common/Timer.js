@@ -10,7 +10,7 @@ class Timer extends Component {
       minutes: 0,
       seconds: 0,
       premiere: false
-    }
+    };
 
     renderClock(days, hours, minutes, seconds) {
       if(days < 10) {

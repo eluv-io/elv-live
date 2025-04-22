@@ -60,7 +60,7 @@ const GetStartedModal = inject("siteStore")(inject("rootStore")(observer(({rootS
               <a
                 href={messageInfo.button_link}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className={`event-message__button ${messageInfo.button_image ? "event-message__button--image" : ""}`}
               >
                 { ButtonContent(messageInfo, "Link") }
@@ -135,7 +135,7 @@ const PostLoginModal = inject("siteStore")(inject("rootStore")(observer(({rootSt
               <a
                 href={messageInfo.button_link}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="event-message__button"
               >
                 { messageInfo.button_text || "Link" }
@@ -187,7 +187,7 @@ const HeroBanner = ({link, imageUrl, alt}) => {
 
   if(link) {
     return (
-      <a href={link} rel="noopener" target="_blank" className={`event-page__hero-banner ${scrolled ? "event-page__hero-banner--hidden" : ""}`}>
+      <a href={link} rel="noopener noreferrer" target="_blank" className={`event-page__hero-banner ${scrolled ? "event-page__hero-banner--hidden" : ""}`}>
         <img className="event-page__hero-banner__image" src={imageUrl} alt={alt || "Banner"} />
       </a>
     );
@@ -312,7 +312,7 @@ const Banner = observer(({bannerInfo, mobile, className="event-page__banner", im
         <a
           className="event-page__banner__image-container"
           href={bannerInfo.link || undefined}
-          rel="noopener"
+          rel="noopener noreferrer"
           target={bannerInfo.link ? "_blank" : ""}
         >
           {bannerImage}
@@ -481,7 +481,7 @@ class Event extends React.Component {
       eventButton = (
         <a
           href={eventInfo.event_button_link}
-          rel="noopener"
+          rel="noopener noreferrer"
           target="_blank"
           style={(branding.get_started || {}).styles}
           className={`btn ${branding.get_started?.button_image ? "btn--image" : ""}`}
@@ -684,7 +684,7 @@ class Event extends React.Component {
         <a
           href={heroLink}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           role="img"
           alt={this.props.siteStore.currentSiteInfo.event_images.hero_alt_text}
           className="event-page__hero"

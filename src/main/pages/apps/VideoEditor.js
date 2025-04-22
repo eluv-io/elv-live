@@ -7,17 +7,12 @@ import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icon
 import {Accordion, AccordionGroup, InfoBox, RichText, Video} from "../../components/Misc";
 import * as videoEditorImages from "../../static/images/apps/video-editor";
 import AppImageGallery from "./AppImageGallery";
-import VideoEditorPdf from "./documents/Eluvio Content Fabric - Casablanca Release PDF - Clip Search & Video Editor.pdf";
 
 const VideoEditor = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.video_editor;
+  const copy = mainStore.l10n.core_apps.pages.video_editor;
 
   return (
     <div className="page light">
-      <div className="page__header-container">
-        <h1>{mainStore.l10n.bangkok.title}</h1>
-        <h3>{mainStore.l10n.bangkok.header}</h3>
-      </div>
       <div className="page__content-block">
         <div className="application-info__header">
           <div className="application-info__header-title">{copy.header}</div>
@@ -28,8 +23,6 @@ const VideoEditor = observer(() => {
           <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
 
           <Video versionHash={copy.walkthrough_video} className="application-info__header-video " />
-
-          {/*<Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />*/}
 
           <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
         </div>
@@ -64,12 +57,6 @@ const VideoEditor = observer(() => {
           header={mainStore.l10n.content_fabric.bangkok.header}
           content={mainStore.l10n.content_fabric.bangkok.text}
           links={[
-            {
-              href: VideoEditorPdf,
-              text: copy.info_link.links[0].text,
-              icon: DocumentIcon,
-              target: "_blank"
-            },
             {
               to: mainStore.l10n.content_fabric.bangkok.links[0].link,
               target: "_blank",
