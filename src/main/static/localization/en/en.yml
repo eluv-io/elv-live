@@ -875,7 +875,12 @@ core_apps:
       header: Content Fabric Intelligence Suite
       title: Eluvio Video Intelligence Editor
       walkthrough_video: hq__HYmWJqLhpKqWJwsR9BRX3vSh9qEPSfiukv9sqVK5XZdDKjnosQyqUgJi6CedBnsYhTAzoJ3iQx
-      short_description: Create and share clips from Fabric content with no file copies or re-transcodes. Clip live, set points via AI tags, and share instantly via streaming or download links. Browse AI-generated tags and publish highlights without duplication.
+      short_description: |
+        Create and share clips from Fabric content with no file copies or re-transcodes.
+        <br>
+        Clip live, set points via AI tags, and share instantly via streaming or download links.
+        <br>
+        Browse AI-generated tags and publish highlights without duplication.
       full_description: |
         The <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Editor (EVIE)**</span> app provides frame-accurate timeline viewing and scrubbing for any playable content in the Fabric and its metadata, directly in the browser. <span style="color: var(--color-highlight-3)">**EVIE**</span> enables seamless in-place clip creation—without file copies, re-transcodes, or egress—supporting mark-in/mark-out selection, saving key frames, and dynamically generating and sharing clips. Users can clip from in-progress live streams, set in/out points manually or via AI/ML-generated tags, and share via configurable streaming or download links. AI tags from the Multi-modal AI Tagging and Summarization Service, including celebrity detection, OCR, speech-to-text, and highlights, appear as synchronized tracks. Third-party metadata, such as play-by-play sports data and custom curation, can be posted via API and is automatically integrated for search and clipping.
 

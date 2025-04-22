@@ -118,6 +118,12 @@
     flex-direction: column;
   }
 
+  &__header-title-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
   &__header-title {
     color: var(--color-text-light-9);
     font-size: var(--font-size-body-4);
@@ -128,8 +134,8 @@
   }
 
   &__header-text {
-    color: var(--color-highlight-3);
-    font-size: var(--font-size-header-1);
+    color: var(--color-text-light-2);
+    font-size: 3.25rem;
     font-weight: 600;
   }
 
@@ -152,6 +158,8 @@
 
   &__short-description {
     border-bottom: 1px solid gray;
+    max-width: 70%;
+    text-align: center;
 
     p {
       margin-bottom: 29px;

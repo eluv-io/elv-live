@@ -15,12 +15,14 @@ const VideoEditor = observer(() => {
     <div className="page light">
       <div className="page__content-block">
         <div className="application-info__header">
-          <div className="application-info__header-title">{copy.header}</div>
-          <div className="application-info__title-group">
-            <ImageIcon icon={ApplicationIcons.VideoEditorIcon} className="application-info__icon"/>
-            <div className="application-info__header-text light">{copy.title}</div>
+          <div className="application-info__header-title-group">
+            <div className="application-info__header-title">{copy.header}</div>
+            <div className="application-info__title-group">
+              <ImageIcon icon={ApplicationIcons.VideoEditorIcon} className="application-info__icon"/>
+              <div className="application-info__header-text light">{copy.title}</div>
+            </div>
+            <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
           </div>
-          <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
 
           <Video versionHash={copy.walkthrough_video} className="application-info__header-video " />
 
