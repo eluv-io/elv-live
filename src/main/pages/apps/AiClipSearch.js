@@ -14,19 +14,16 @@ const AiClipSearch = observer(() => {
 
   return (
     <div className="page light">
-      <div className="page__header-container">
-        <h1>{mainStore.l10n.casablanca.title}</h1>
-        <h3>{mainStore.l10n.casablanca.header}</h3>
-      </div>
       <div className="page__content-block">
         <div className="application-info__header">
-          <div className="application-info__header-title">{copy.header}</div>
-          <div className="application-info__title-group">
-            <ImageIcon icon={ApplicationIcons.AiClipSearchIcon} className="application-info__icon"/>
-            <div className="application-info__header-text light">{copy.title}</div>
-            <ImageIcon icon={ApplicationIcons.V2TagIcon} className="application-info__tag-icon"/>
+          <div className="application-info__header-title-group">
+            <div className="application-info__header-title">{copy.header}</div>
+            <div className="application-info__title-group">
+              <ImageIcon icon={ApplicationIcons.AiClipSearchIcon} className="application-info__icon"/>
+              <div className="application-info__header-text light">{copy.title}</div>
+            </div>
+            <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
           </div>
-          <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
           <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
         </div>
       </div>
