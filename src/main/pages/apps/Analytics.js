@@ -9,7 +9,7 @@ import * as analyticsImages from "../../static/images/apps/analytics";
 import AppImageGallery from "./AppImageGallery";
 
 const Analytics = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.analytics;
+  const copy = mainStore.l10n.core_apps.pages.analytics;
 
   return (
     <div className="page light">
@@ -37,7 +37,7 @@ const Analytics = observer(() => {
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} key={`analytics-accordion-item-${item.title}`} defaultOpen>
+                    <Accordion title={item.title} titleDescription={item.subtitle} key={`analytics-accordion-item-${item.title}`} defaultOpen>
                       <RichText className="accordion__description-card" richText={item.description}/>
                     </Accordion>
                   )) :

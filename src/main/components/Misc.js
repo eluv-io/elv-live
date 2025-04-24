@@ -297,6 +297,7 @@ export const AccordionGroup = ({header, children}) => {
 export const Accordion = ({
   title,
   subtitle = "",
+  titleDescription,
   description,
   className = "",
   openIcon = PlusIcon,
@@ -314,6 +315,7 @@ export const Accordion = ({
         <div className="accordion__header-container">
           <div className="accordion__header-subtitle">{subtitle}</div>
           <div className={`accordion__header__title ${hasHeader ? "accordion__header__title--purple" : ""}`}>{title}</div>
+          <div className="accordion__header-title-description">{titleDescription}</div>
         </div>
 
         {triggerText && <div className="accordion__trigger-text">{triggerText}</div> }

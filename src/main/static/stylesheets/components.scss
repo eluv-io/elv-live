@@ -331,6 +331,11 @@
     }
   }
 
+  &__header-title-description {
+    font-size: var(--font-size-body-5);
+    color: var(--color-text-light-5);
+  }
+
   &__description {
     color: var(--color-text-light-3);
     font-size: var(--font-size-body-3);

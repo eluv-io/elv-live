@@ -7,6 +7,6 @@ export const Analytics6 = require("./06.jpg");
 export const Analytics7 = require("./07.jpg");
 export const Analytics8 = require("./08.jpg");
 export const Analytics9 = require("./09.jpg");
-export const Analytics10 = require("./010.jpg");
+export const Analytics10 = require("./10.jpg");
 export const Analytics11 = require("./11.jpg");
 export const Analytics12 = require("./12.jpg");

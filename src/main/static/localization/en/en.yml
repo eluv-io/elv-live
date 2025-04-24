@@ -974,6 +974,43 @@ core_apps:
         View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
       full_description: |
         With the <span style="color: var(--color-highlight-3)">**Content Analytics & Reporting**</span> app, Content Fabric users can review comprehensive viewing metrics/statistics for streaming and delivery quality of service (QoS).  The analytics data is collected throughout the Fabric continuously, and aggregated within the app via graphs, tables and other visualizations to provide comprehensive and easy viewing of real-time and past history for all content served.  Users can monitor in real time the number of viewers and Fabric performance per streaming event or Title, and run fine-grained multi-dimensional filter queries for metrics on past streaming and viewing sessions such as views by title, client geography, device, browser, and OS.   Users can also track the health of streaming by title or event including viewing in real time the Fabric metrics for streaming segment delivery times (average, 99th percentile, max, min), and the breakdown of views by adaptive bitrate segment resolution.  Finally, the entire history of all viewing sessions is viewable and filterable by date range including the content, timestamp, client authorization address, geo location, user agent details, viewing resolution, and viewing duration.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Overview
+              subtitle: Dashboard for Viewership and QoS Stats by Top Titles and Live Streams
+              description: |
+                - Viewership history graph for all streamed content in user’s tenancy
+                - Session counts, unique viewer counts, total playout time
+                - Continuous time series graph for analysis over duration
+                - Filterable by past hour, 24 hours, 7 days, 30 days, past year
+                - Breakdown by streaming segment resolution
+                - See Top Content viewership stats
+                - Including sessions, unique viewers, total playout time
+                - Filter viewership history by title/live stream
+                - View Segment Delivery Metrics for selected sessions
+                - 99th percentile, average, max/min times for individual streams and in aggregate.
+            - title: Metrics View
+              description: |
+                - View and Filter metrics for all streaming sessions by the following categories:
+                - Stream Metadata: Content Object ID, Content Object Version Hash, Title, Program Duration, DRM Type, Playout Resolution
+                - Viewer Geo: Client Country, Client City
+                - Viewer Session: User Authorization Address, Wallet Address or Ticket ID, Session ID
+                - Fabric Serving Node
+                - Browser and Device: Browser & Version, OS & Version, Device Name & Model
+                - Configure multi-category inclusion filters fast and easily
+                - View Segment Delivery Metrics for selected sessions
+                - 99th percentile, average, max/min times for individual streams and in aggregate.
+                - Export any view as CSV
+            - title: All Sessions View
+              description: |
+                - View all sessions over time filterable by date range
+                - Includes Title, Timestamp, OS, Browser, Duration, Session ID, and Client Authorization Address
+                - Individual session drill down with detailed content metadata, client geo info, authorization id, fabric node, user agent and device details
+                - View per session status, playout duration, bit rate distribution and errors
+            - title: Tenant Secured and Private
+              description: |
+                - All Fabric reporting data is encrypted for the tenant using tenant keys and authorized for viewing with valid tenant credentials only
     ai_search:
       header: Content Fabric Intelligence Suite
       title: AI Content Search & Management
