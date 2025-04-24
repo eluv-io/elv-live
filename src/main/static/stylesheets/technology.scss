@@ -278,6 +278,11 @@
   .application-info__short-description {
     max-width: 100%;
   }
+
+  .application-info__header-text {
+    font-size: 1.75rem;
+    line-height: 1.125;
+  }
 }
 
 @media screen and (max-width: $width-mobile) {
