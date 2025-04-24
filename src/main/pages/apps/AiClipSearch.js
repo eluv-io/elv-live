@@ -7,10 +7,9 @@ import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Mis
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import AppImageGallery from "./AppImageGallery";
 import * as clipSearchImages from "../../static/images/apps/clip-search";
-import ClipSearchPdf from "./documents/Eluvio Content Fabric - Casablanca Release PDF - Clip Search & Video Editor.pdf";
 
 const AiClipSearch = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.ai_clip_search;
+  const copy = mainStore.l10n.core_apps.pages.ai_clip_search;
 
   return (
     <div className="page light">

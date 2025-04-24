@@ -1024,6 +1024,42 @@ core_apps:
         The latest <span style="color: var(--color-highlight-3)">**Fabric search service**</span> provides fast re-crawl across content object metadata, including frame and video level tags (both AI and 3rd party provided), and includes enhanced text-based and semantic search capabilities.
         
         AI Tagging and Search together create a powerful pipeline that enables this second generation <span style="color: var(--color-highlight-3)">**AI Content Search & Management**</span> app. Users can search across their Content libraries to retrieve relevant clips matching semantic, text, and category based queries. The Fabric returns relevant clips automatically that are built dynamically and just-in-time in playout. This pipeline avoids the time and cost of manually identifying, cutting, and storing clips or highlights. The new UX includes shareable links for copy-paste streaming or download of the clip, and side panels for viewing the relevant tags and semantic descriptions of each content and is fully embeddable in any applications via its APIs.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Fabric AI Content Tagging Service v2
+              description: |
+                - New Generative Image Transform (GIT) model for semantic tagging of individual frames
+                - New Large Multimodal model for semantic summarization by shot, clip, and whole video
+                - Fully integrated in Tagger service for one time and continuous tagging of video frames and segments and audio transcription
+                - Adds to celebrity/face recognition, automatic speech to text, logo recognition, OCR, activity detection and shot boundary detection
+                - Speech to Text now supports all major EU languages
+            - title: AI/ML Tags in Content Objects
+              description: |
+                - All tags are frame accurate and time coded, and stored in the corresponding content object as JSON metadata
+                - Tags are metadata to drive any dynamic representation from the Fabric - clips, content/ad insertions, highlights
+                - Tags are viewable and downloadable on demand
+                - Tags are automatically aggregated by shot for further indexing
+                - All in place - no media or metadata has to move
+            - title: Fabric Search Service v2
+              description: |
+                - Provides fast re-crawl and instant update across content object metadata (<3 seconds for typical indices)
+                - New state-of-the-art vector embedding algorithm supports high accuracy semantic and keyword queries
+                - New enhanced ranking and retrieval yields best matches in top 5 results
+                - Indexes any content object metadata such as 3rd party provided data feeds and AI tags published to the object
+                - API for searching across all or subset of tags by model
+                - Fabric fine-grained permissions restricts search results to authorized entities
+            - title: Clip Search v2
+              description: |
+                - New UX for internal curators, partners and end users to search across content libraries and retrieve relevant clips and images matching semantic, text, and category based queries
+                - Now generates Summaries, Topics, Key Frames using Large Multi-Modal AI models in Fabric
+                - New multi modal search by Keyword, Prompt, or Image
+                - Playable/downloadable links are built dynamically and just-in-time from the full length source for extreme savings $$
+                - Eliminates manually identifying, cutting and storing clips or highlights
+                - New shareable links for copy-paste streaming or download
+                - New side panels display relevant tags, semantic descriptions
+                - Fully integrates with Video Editor to open and edit clip start/end points on demand (if permissioned) - Q4 2024
+                - Embeddable APIs for integration in any app
     media_wallet:
       header: Content Fabric Intelligence Suite
       title: Eluvio Media Wallet
@@ -1035,6 +1071,29 @@ core_apps:
         The Media Wallet v2 expands upon the initial success of Media Wallet v1 by adding a new deep link API for embedding the wallet directly in browser and TV-based retailer properties, new features for embedding ebooks, documents, and multi-mode interactive experiences, and new platform versions including releases for Microsoft Xbox in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV.
   
         The browser-based version includes a new generation UX that is fully integrated with the Creator Studio media and property management features. All versions are integrated with the Eluvio Authority Service APIs, which provide e-commerce checkout flows (credit card and web3 payments), and now support gifting of media in addition to purchase and free claim of media bundles. Media Wallet v2 APIs also integrate with 3rd party providers for seamless sign on to the wallet from 3rd party apps.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Universal Personal Media Vault and Player Experience for Connected TV and Browser
+              description: |
+                - Publishers directly distribute to users any content - premium video, live streams, redeemable offers and tickets, AR/3D collectibles, digital artwork, bonus video, images, and new interactive apps/ebooks/docs
+                - Users discover, own, stream and trade in these experiences
+                - High performance 4K streaming, tamper proof content storage, and blockchain backed ownership
+                - Fabric policies validate ownership and enforce availability windows, geo restrictions, and other owner requirements
+                - Now available for Apple tvOS, Android/Google TV, Amazon Fire TV and Roku (over 1600 devices supported)
+            - title: New Browser UX for Creator Studio Properties
+              description: |
+                - New Browser UX fully integrated with Creator Studio properties.
+                - Users can Discover, View, Purchase and Stream content from Properties directly within Media Wallet.
+                - Includes the new Embeddable Player v2 with enhanced UX
+            - title: Built-in Ecommerce Checkout and Payment
+              description: |
+                - Fully integrated with the Eluvio Authority Service APIs for ecommerce checkout flows (Stripe, PayPal, EBANX, and web3 payments)
+                - New gifting in addition to purchase and free claim options
+            - title: APIs for Retailer Integration
+              description: |
+                - New Deep Link API for embedding in TV/browser media retail apps
+                - New APIs for purchase, entitlement and seamless sign on to the wallet from 3rd party apps
     embeddable_player:
       header: Content Fabric Intelligence Suite
       title: Embeddable Player
@@ -1044,6 +1103,37 @@ core_apps:
         The <span style="color: var(--color-highlight-3)">**Eluvio Embeddable Player**</span> is an open source embeddable player for automatic authorization and streaming of any playable or renderablhe content type (video, images, galleries, albums, etc). The player supports streaming playout from a universal URL on the Content Fabric and can be embedded as a standalone URL or iFrame on all major desktop and mobile browsers, or web-based Connected TV platforms. It supports live, catch-up live, on-demand streaming, multi-item playlists, subtitles, captions, and multi-audio switching.
         
         The player provides seamless support for all Fabric content security features: all authorization modes including OAuth, custom, or wallet authorization and ticket codes; secure per-session trustless encryption and DRM; and configurable fine-grained enforcement and revocation of authorization tokens via Fabric policy per source object/offering. The latest v2 version includes support for an ultra-low latency profile providing 3-4 second end-to-end playout latencies with standard HLS. It also has a new expanded UI with built-in indicators for live, on screen titles plus metadata, and configurable multi-view switching.
+      accordion_sections:
+        - header: Key Features
+          items:
+            - title: Universal Embeddable Player
+              description: |
+                - URL/iFrame embeddable player for streaming playout from a global
+                - URL on the Content Fabric
+                - Live, catch-up live, on-demand streaming
+                - Start, pause, seek and rewind
+                - Multi-item playlists
+                - Multiple audio tracks, subtitles, and captions with dynamic selection
+                - Automatically switches between portrait and landscape modes
+                - New Ultra-low latency, low latency and standard profiles
+                - New Configurable multi-view switching
+                - New on screen and below player titles and expandable metadata
+                - Also renders images, galleries and album types
+            - title: Complete Fabric Security
+              description: |
+                - Authorization via OAuth, custom, wallet, and ticket codes
+                - Secure per-session trustless encryption and DRM
+                - Enforcement and revocation of authorization tokens via Fabric policy
+            - title: All Major Browsers
+              description: |
+                - Chrome 39+ for Android
+                - Chrome 39+ for Desktop
+                - Firefox 41+ for Android
+                - Firefox 42+ for Desktop
+                - Edge for Windows 10+
+                - Safari 9+ for macOS 10.11+
+                - Safari for iPadOS 13+
+                - Safari for iOS 17.1+
     fabric_core:
       header_title: Eluvio Core Applications
       header_subtitle: An Overview of Our Application Suite
