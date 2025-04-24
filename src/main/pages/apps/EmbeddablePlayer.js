@@ -7,10 +7,9 @@ import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Mis
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import * as embeddablePlayerImages from "../../static/images/apps/embeddable-player";
 import AppImageGallery from "./AppImageGallery";
-import EmbeddablePlayerPdf from "./documents/Eluvio Content Fabric - Casablanca Release PDF - Embeddable Player.pdf";
 
 const EmbeddablePlayer = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.embeddable_player;
+  const copy = mainStore.l10n.core_apps.pages.embeddable_player;
 
   return (
     <div className="page light">
