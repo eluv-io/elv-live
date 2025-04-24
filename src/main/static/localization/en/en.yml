@@ -11,8 +11,8 @@ header:
   fabric_core: Fabric Core
   creator_studio: Creator Studio
   analytics: Analytics
-  ai_clip_search: AI Clip Search
-  video_editor: Video Editor
+  ai_clip_search: AI Content Search & Management
+  video_editor: Video Intelligence Editor
   elv_media_wallet: Media Wallet
   embeddable_player: Embeddable Player
   features: Features
@@ -858,7 +858,7 @@ core_apps:
       - title: Analytics & Reporting
         to: "/apps/analytics"
         icon: analytics
-      - title: AI Clip Search
+      - title: AI Content Search & Management
         to: "/apps/ai-clip-search"
         icon: clip_search
       - title: Video Intelligence Editor
@@ -1318,7 +1318,7 @@ casablanca:
       to: "/apps/analytics"
       icon: analytics
       tag: tag_new
-    - title: AI Clip Search
+    - title: AI Content Search & Management
       to: "/apps/ai-clip-search"
       icon: clip_search
       tag: tag_v2

@@ -9,7 +9,7 @@ import * as mediaWalletImages from "../../static/images/apps/media-wallet";
 import AppImageGallery from "./AppImageGallery";
 
 const MediaWalletApp = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.media_wallet;
+  const copy = mainStore.l10n.core_apps.pages.media_wallet;
 
   return (
     <div className="page light">
