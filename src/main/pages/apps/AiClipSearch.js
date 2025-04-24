@@ -9,7 +9,7 @@ import AppImageGallery from "./AppImageGallery";
 import * as clipSearchImages from "../../static/images/apps/clip-search";
 
 const AiClipSearch = observer(() => {
-  const copy = mainStore.l10n.core_apps.pages.ai_clip_search;
+  const copy = mainStore.l10n.core_apps.pages.ai_search;
 
   return (
     <div className="page light">
