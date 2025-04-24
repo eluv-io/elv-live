@@ -53,19 +53,13 @@ const Analytics = observer(() => {
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}
-          header={copy.info_link.title}
-          content={copy.info_link.description}
+          header={mainStore.l10n.content_fabric.bangkok.header}
+          content={mainStore.l10n.content_fabric.bangkok.text}
           links={[
             {
-              to: copy.info_link.links[0].to,
-              text: copy.info_link.links[0].text,
-              icon: DocumentIcon,
-              target: "_blank"
-            },
-            {
-              to: mainStore.l10n.content_fabric.casablanca.links[0].link,
+              to: mainStore.l10n.content_fabric.bangkok.links[0].link,
               target: "_blank",
-              text: mainStore.l10n.content_fabric.casablanca.links[0].text,
+              text: mainStore.l10n.content_fabric.bangkok.links[0].text,
               icon: DocumentIcon
             }
           ]}
