@@ -936,7 +936,9 @@ core_apps:
       header: Content Fabric Application Suite
       title: Creator Studio
       short_description: |
-        Easily manage, distribute, and sell media assets in the Fabric to consumers or business partners via automatic streaming properties.
+        Easily manage, distribute, and sell media assets in the Fabric to
+        <br>
+        consumers or business partners via automatic streaming properties.
       full_description: |
         With the <span style="color: var(--color-highlight-3)">**Creator Studio**</span> app, publishers and brands can easily manage, distribute, authorize and sell media in the Content Fabric, to consumers or business partners, for streaming, download, and/or discovery.  The app combines simple, fast management of Fabric-hosted content; easy creation of branded media property sites via automatic web UIs with rich and modern UX; and built-in media selling including subscription, per event/pay per view, and enterprise access control options. Properties for live sports streaming, premium VoD movies and TV, and video archive services can be stood up quickly and configured with ease.
         
@@ -971,7 +973,9 @@ core_apps:
       header: Content Fabric Application Suite
       title: Analytics & Reporting
       short_description: |
-        View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
+        View and track comprehensive metrics for streaming content and
+        <br>
+        delivery quality of service (QoS).
       full_description: |
         With the <span style="color: var(--color-highlight-3)">**Content Analytics & Reporting**</span> app, Content Fabric users can review comprehensive viewing metrics/statistics for streaming and delivery quality of service (QoS).  The analytics data is collected throughout the Fabric continuously, and aggregated within the app via graphs, tables and other visualizations to provide comprehensive and easy viewing of real-time and past history for all content served.  Users can monitor in real time the number of viewers and Fabric performance per streaming event or Title, and run fine-grained multi-dimensional filter queries for metrics on past streaming and viewing sessions such as views by title, client geography, device, browser, and OS.   Users can also track the health of streaming by title or event including viewing in real time the Fabric metrics for streaming segment delivery times (average, 99th percentile, max, min), and the breakdown of views by adaptive bitrate segment resolution.  Finally, the entire history of all viewing sessions is viewable and filterable by date range including the content, timestamp, client authorization address, geo location, user agent details, viewing resolution, and viewing duration.
       accordion_sections:
