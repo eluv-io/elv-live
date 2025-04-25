@@ -199,6 +199,13 @@
 
   &__header-video {
     margin-top: 38px;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+
+    .player-container__player {
+      max-width: 80%;
+    }
   }
 }
 
