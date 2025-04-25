@@ -20,7 +20,7 @@ const FabricCore = observer(() => {
       <div className="page__content-block">
         {
           copy.sections.map(item => (
-            <div key={`fabric-core-section-${item.title}`}>
+            <div key={`fabric-core-section-${item.title}`} className="page__content-block">
               <h3 className="page__content-block__header light">{item.title}</h3>
               <RichText richText={item.description} className="page__copy fade-in--slow"/>
             </div>

@@ -161,7 +161,7 @@ h4 {
   }
 
   &__content-block {
-    margin-bottom: 75px;
+    margin-bottom: 36px;
 
     &__header {
       font-weight: 600;
@@ -194,7 +194,7 @@ h4 {
       }
     }
 
-    p, li:last-child {
+    p:not(:last-child), li:last-child {
       margin-bottom: 50px;
     }
   }

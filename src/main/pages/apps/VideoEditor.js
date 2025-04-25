@@ -26,7 +26,7 @@ const VideoEditor = observer(() => {
 
           <Video versionHash={copy.walkthrough_video} className="application-info__header-video " />
 
-          <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
+          <RichText richText={copy.full_description} className="application-info__full-description page__copy page__copy--no-mb fade-in--slow"/>
         </div>
       </div>
       <AppSuiteControlPanel />
