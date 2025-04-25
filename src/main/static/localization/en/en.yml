@@ -872,7 +872,7 @@ core_apps:
         icon: embeddable_player
   pages:
     video_editor:
-      header: Content Fabric Intelligence Suite
+      header: Content Fabric Application Suite
       title: Eluvio Video Intelligence Editor
       walkthrough_video: hq__HYmWJqLhpKqWJwsR9BRX3vSh9qEPSfiukv9sqVK5XZdDKjnosQyqUgJi6CedBnsYhTAzoJ3iQx
       short_description: |
@@ -933,7 +933,7 @@ core_apps:
         links:
           - text: Video Editor PDF
     creator_studio:
-      header: Content Fabric Intelligence Suite
+      header: Content Fabric Application Suite
       title: Creator Studio
       short_description: |
         Easily manage, distribute, and sell media assets in the Fabric to consumers or business partners via automatic streaming properties.
@@ -968,7 +968,7 @@ core_apps:
                 - Configure prices, currencies, and method of payment for integrated checkout and sales
                 - Configure Property item authorization policies for open (public) access, soft paywalls, and proof-of-ownership access
     analytics:
-      header: Content Fabric Intelligence Suite
+      header: Content Fabric Application Suite
       title: Analytics & Reporting
       short_description: |
         View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
@@ -1012,7 +1012,7 @@ core_apps:
               description: |
                 - All Fabric reporting data is encrypted for the tenant using tenant keys and authorized for viewing with valid tenant credentials only
     ai_search:
-      header: Content Fabric Intelligence Suite
+      header: Content Fabric Application Suite
       title: AI Content Search and Management
       short_description: |
         Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress
@@ -1061,7 +1061,7 @@ core_apps:
                 - Fully integrates with Video Editor to open and edit clip start/end points on demand (if permissioned) - Q4 2024
                 - Embeddable APIs for integration in any app
     media_wallet:
-      header: Content Fabric Intelligence Suite
+      header: Content Fabric Application Suite
       title: Eluvio Media Wallet
       short_description: |
         Universal personal media vault and player experience for TV and browser providing direct distribution of any premium video and bundled media from publisher to user.
@@ -1095,7 +1095,7 @@ core_apps:
                 - New Deep Link API for embedding in TV/browser media retail apps
                 - New APIs for purchase, entitlement and seamless sign on to the wallet from 3rd party apps
     embeddable_player:
-      header: Content Fabric Intelligence Suite
+      header: Content Fabric Application Suite
       title: Embeddable Player
       short_description: |
         Universal embeddable browser player for automatic authorization and streaming of any playable content type from a global URL on the Content Fabric.
