@@ -38,7 +38,7 @@ main:
     header: Your Next Gen Content Distribution Solution
     subheader: |
       is a programmable streaming, content distribution, and storage network built for the Third Generation Internet.
-    featured_link_text: Check out the Casablanca Release
+    featured_link_text: Check out the Bangkok Release
     featured_link: "/content-fabric/fabric-core"
   features_carousel:
     - High Performance 4K and Interactive Streaming
@@ -1070,9 +1070,9 @@ core_apps:
       short_description: |
         Universal personal media vault and player experience for TV and browser providing direct distribution of any premium video and bundled media from publisher to user.
       full_description: |
-        The <span style="color: var(--color-highlight-3)">**Eluvio Media Wallet**</span> introduced in summer 2023 is a universal personal media vault and player experience for all major Connected TV platforms and browsers, and allows publishers to directly peer with audiences at scale to distribute premium content for all sell-through models - transactional ownership, subscription, and free/sponsored/ad-supported. Via the Media Wallet, audiences can discover, own, play and, if authorized, retrade in these experiences via seamless web3-style ownership, authorization and windowing. In addition to premium video, content can include bundled redeemable offers for merchandise and tickets, AR, 3D collectibles, exclusive artwork, bonus footage, soundtracks, images galleries, and more.
+        The <span style="color: var(--color-highlight-3)">**Eluvio Media Wallet**</span> is a universal personal media vault and player experience for all major Connected TV platforms and browsers, and allows publishers to directly peer with audiences at scale to distribute premium content for all sell-through models - transactional ownership, subscription, and free/sponsored/ad-supported. Via the Media Wallet, audiences can discover, own, play and, if authorized, retrade in these experiences via seamless web3-style ownership, authorization and windowing. In addition to premium video, content can include bundled redeemable offers for merchandise and tickets, AR, 3D collectibles, exclusive artwork, bonus footage, soundtracks, images galleries, and more.
   
-        The Media Wallet v2 expands upon the initial success of Media Wallet v1 by adding a new deep link API for embedding the wallet directly in browser and TV-based retailer properties, new features for embedding ebooks, documents, and multi-mode interactive experiences, and new platform versions including releases for Microsoft Xbox in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV.
+        The Media Wallet v2 expands upon the initial success of Media Wallet v1 by adding a new deep link API for embedding the wallet directly in browser and TV-based retailer properties, new features for embedding ebooks, documents, and multi-mode interactive experiences, and new platform versions including releases for Roku in addition to Apple tvOS, Android/Google TV, and Amazon Fire TV.
   
         The browser-based version includes a new generation UX that is fully integrated with the Creator Studio media and property management features. All versions are integrated with the Eluvio Authority Service APIs, which provide e-commerce checkout flows (credit card and web3 payments), and now support gifting of media in addition to purchase and free claim of media bundles. Media Wallet v2 APIs also integrate with 3rd party providers for seamless sign on to the wallet from 3rd party apps.
       accordion_sections:
@@ -1170,7 +1170,7 @@ core_apps:
             
             <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Editor (EVIE)**</span> extends AI-native in-Fabric functions to provide automatic generation of highlights, captions, and summarization of content without creating any file copies, moving media, or egress. Eluvio enables in-Fabric task-specific models for high-accuracy captioning with a native stack of 10 AI models for content description running inline for universal video understanding and search. Bangkok brings this all together into one video pipeline that allows for live streams that become progressive VoD (with no file copies) to enable infinite re-combinations such as personalized highlights and topic-based channels, based on in-place AI assistance and suggestions.
             
-            <span style="color: var(--color-highlight-3)">**The Eluvio Content Fabric Bangkok Release**</span> is designed to provide the most powerful platform for distribution and monetization. It enables media companies to maximize their monetization potential, both on the top line, through expanded global distribution, content sales, and personalization, and on bottom line through the extreme cost efficiency achieved by the Fabric’s novel architecture and advanced video features. For example, European Professional Club Rugby recently launched EPCR TV, achieving almost 80% profit and expanded distribution to their fans to more than 90 countries. Peer United Rugby Championship (URC) is now launching as well. The entire experience including full stack UI is streamed from the Content Fabric. Key benefits include:
+            The Eluvio Content Fabric Bangkok Release is designed to provide the <span style="color: var(--color-highlight-3)">**most powerful platform for distribution and monetization**</span>. It enables media companies to maximize their monetization potential, both on the top line, through expanded global distribution, content sales, and personalization, and on bottom line through the extreme cost efficiency achieved by the Fabric’s novel architecture and advanced video features. For example, European Professional Club Rugby recently launched EPCR TV, achieving over 70% profit and expanded distribution to their fans to more than 90 countries. The entire experience including full stack UI is streamed from the Content Fabric. Key benefits include:
             
             <div><span style="color: var(--color-highlight-3)"><strong>Fast</strong></span></div>
             
@@ -1201,7 +1201,7 @@ core_apps:
             - Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
             - Built-in Subscription, Sell Through and Ad-Supported Monetization
             
-            Eluvio users include <span style="color: var(--color-highlight-3)">**Amazon Studios/MGM**</span>, <span style="color: var(--color-highlight-3)">**European Professional Club Rugby**</span>, <span style="color: var(--color-highlight-3)">**FOX**</span>, <span style="color: var(--color-highlight-3)">**Gladius Sports**</span>, <span style="color: var(--color-highlight-3)">**SONY Pictures**</span>, <span style="color: var(--color-highlight-3)">**Telstra Broadcast Services**</span>, <span style="color: var(--color-highlight-3)">**UEFA**</span>, <span style="color: var(--color-highlight-3)">**Warner Bros.**</span>, <span style="color: var(--color-highlight-3)">**WWE**</span>, and others. The technology has earned 13 issued US patents (two for Bangkok).
+            Eluvio users include companies such as Amazon Studios/MGM, European Professional Club Rugby, Bedrock Streaming, FOX, Gladius Sports, SONY Pictures, Telstra Broadcast Services, UEFA, Warner Bros., WWE, and others. The technology has earned 13 issued US patents (two for Bangkok).
 
       accordion_sections:
         - header: Streaming and Distribution
