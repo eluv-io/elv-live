@@ -52,7 +52,18 @@ const VideoEditor = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(videoEditorImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(videoEditorImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("VideoEditor", ""), 10);
+              const numB = parseInt(b.replace("VideoEditor", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => videoEditorImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

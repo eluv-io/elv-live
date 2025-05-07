@@ -49,7 +49,18 @@ const Analytics = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(analyticsImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(analyticsImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("Analytics", ""), 10);
+              const numB = parseInt(b.replace("Analytics", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => analyticsImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

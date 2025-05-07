@@ -49,7 +49,18 @@ const AiClipSearch = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(clipSearchImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(clipSearchImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("ClipSearch", ""), 10);
+              const numB = parseInt(b.replace("ClipSearch", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => clipSearchImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

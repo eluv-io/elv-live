@@ -49,7 +49,18 @@ const EmbeddablePlayer = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(embeddablePlayerImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(embeddablePlayerImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("EmbeddablePlayer", ""), 10);
+              const numB = parseInt(b.replace("EmbeddablePlayer", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => embeddablePlayerImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

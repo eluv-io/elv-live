@@ -50,7 +50,18 @@ const CreatorStudio = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(creatorStudioImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(creatorStudioImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("CreatorStudio", ""), 10);
+              const numB = parseInt(b.replace("CreatorStudio", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => creatorStudioImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

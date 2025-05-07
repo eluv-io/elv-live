@@ -49,7 +49,18 @@ const MediaWalletApp = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(mediaWalletImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(mediaWalletImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("MediaWallet", ""), 10);
+              const numB = parseInt(b.replace("MediaWallet", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => mediaWalletImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}

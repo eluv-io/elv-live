@@ -50,7 +50,18 @@ const FabricCore = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(fabricCoreImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(fabricCoreImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("FabricCore", ""), 10);
+              const numB = parseInt(b.replace("FabricCore", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => fabricCoreImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}
