@@ -8,19 +8,19 @@ import * as fabricCoreImages from "../../static/images/technology/fabric-core";
 import AppImageGallery from "../apps/AppImageGallery";
 
 const FabricCore = observer(() => {
-  const copy = mainStore.l10n.casablanca.pages.fabric_core;
+  const copy = mainStore.l10n.core_apps.pages.fabric_core;
 
   return (
     <div className="page light">
       <div className="page__header-container">
-        <h1>{mainStore.l10n.casablanca.title}</h1>
-        <h3>{mainStore.l10n.casablanca.header}</h3>
+        <h1>{copy.header_title}</h1>
+        <h3>{copy.header_subtitle}</h3>
       </div>
-      <Video versionHash={copy.casablanca_video} className="main-page-block__video main-page-block__core-video" />
+      <Video versionHash={copy.header_video} className="main-page-block__video main-page-block__core-video" />
       <div className="page__content-block">
         {
           copy.sections.map(item => (
-            <div key={`fabric-core-section-${item.title}`}>
+            <div key={`fabric-core-section-${item.title}`} className="page__content-block">
               <h3 className="page__content-block__header light">{item.title}</h3>
               <RichText richText={item.description} className="page__copy fade-in--slow"/>
             </div>
@@ -50,17 +50,28 @@ const FabricCore = observer(() => {
           </div>
         ))
       }
-      <AppImageGallery items={Object.values(fabricCoreImages || {})} />
+      <AppImageGallery
+        items={
+          Object.keys(fabricCoreImages || {})
+            .sort((a, b) => {
+              const numA = parseInt(a.replace("FabricCore", ""), 10);
+              const numB = parseInt(b.replace("FabricCore", ""), 10);
+
+              return numA - numB;
+            })
+            .map(key => fabricCoreImages[key])
+        }
+      />
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.FabricBrowserIcon}
-          header={copy.info_link.title}
-          content={copy.info_link.description}
+          header={mainStore.l10n.content_fabric.bangkok.header}
+          content={mainStore.l10n.content_fabric.bangkok.text}
           links={[
             {
-              to: mainStore.l10n.content_fabric.casablanca.links[0].link,
+              to: mainStore.l10n.content_fabric.bangkok.links[0].link,
               target: "_blank",
-              text: mainStore.l10n.content_fabric.casablanca.links[0].text,
+              text: mainStore.l10n.content_fabric.bangkok.links[0].text,
               icon: DocumentIcon
             }
           ]}

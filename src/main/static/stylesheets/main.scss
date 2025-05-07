@@ -447,6 +447,10 @@
 
     .player-container__player {
       max-width: 80%;
+      aspect-ratio: 16/9;
+      background-color: var(--background-dark-1);
+      height: 100%;
+      width: 100%;
     }
   }
 

@@ -17,7 +17,7 @@ class SocialMediaBar extends React.Component {
     if(!href) { return null; }
 
     return (
-      <a href={href} target="_blank" rel="noopener" className="info-social-link">
+      <a href={href} target="_blank" rel="noopener noreferrer" className="info-social-link">
         <IconContext.Provider value={{ className: `social-icon ${name}`, color: "black"}}>
           { Icon }
         </IconContext.Provider>

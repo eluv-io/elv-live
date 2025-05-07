@@ -22,7 +22,7 @@ class Footer extends React.Component {
   Sponsors() {
     return (
       this.props.siteStore.sponsors.map((sponsor, index) =>
-        <a href={sponsor.link} target="_blank" rel="noopener" className="footer__sponsors__link" key={`footer-sponsor-${index}`} title={sponsor.name}>
+        <a href={sponsor.link} target="_blank" rel="noopener noreferrer" className="footer__sponsors__link" key={`footer-sponsor-${index}`} title={sponsor.name}>
           <img src={this.props.siteStore.darkMode ? sponsor.light_image_url || sponsor.image_url : sponsor.image_url} className="footer__sponsors__link__image" alt={sponsor.name} />
         </a>
       )
@@ -32,7 +32,7 @@ class Footer extends React.Component {
   FooterLinks() {
     const links = (this.props.siteStore.currentSiteInfo.footer_links || []).map(({text, url, image, image_alt_text, content_rich_text, content_html}, index) => {
       if(url) {
-        return <a target="_blank" key={`footer-link-${index}`} className="footer__item" rel="noopener" href={url}>{ text }</a>;
+        return <a target="_blank" key={`footer-link-${index}`} className="footer__item" rel="noopener noreferrer" href={url}>{ text }</a>;
       } else if(content_rich_text || content_html || image) {
         return (
           <button
@@ -150,7 +150,7 @@ class Footer extends React.Component {
             /> : null
         }
         <div className="footer__block footer__powered-by">
-          <a href="https://live.eluv.io" target="_blank" className="footer__item footer__powered-by__tagline">
+          <a href="https://live.eluv.io" target="_blank" className="footer__item footer__powered-by__tagline" rel="noreferrer">
             { this.props.siteStore.l10n.footer.powered_by }
             <ImageIcon icon={EluvioLogo} className="footer__powered-by__logo" title="Eluv.io" />
           </a>

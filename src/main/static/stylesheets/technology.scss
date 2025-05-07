@@ -27,9 +27,11 @@
 
 .application-suite-info {
   &__icons {
+    width: 100%;
+    display: flex;
     align-items: flex-start;
     gap: 30px;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   &__icon {
@@ -69,6 +71,8 @@
 
     .action {
       flex: 1;
+      flex-basis: 0;
+      justify-content: center;
     }
   }
 
@@ -85,6 +89,7 @@
     &__text {
       font-weight: 500;
       text-align: center;
+      max-width: 125px;
     }
   }
 }
@@ -118,6 +123,12 @@
     flex-direction: column;
   }
 
+  &__header-title-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
   &__header-title {
     color: var(--color-text-light-9);
     font-size: var(--font-size-body-4);
@@ -128,8 +139,8 @@
   }
 
   &__header-text {
-    color: var(--color-highlight-3);
-    font-size: var(--font-size-header-1);
+    color: var(--color-text-light-2);
+    font-size: 3.25rem;
     font-weight: 600;
   }
 
@@ -152,7 +163,8 @@
 
   &__short-description {
     border-bottom: 1px solid gray;
-    max-width: 50%;
+    max-width: 85%;
+    text-align: center;
 
     p {
       margin-bottom: 29px;
@@ -166,6 +178,10 @@
   &__image-gallery {
     .swiper {
       box-shadow: 0 2px 7px 0 rgb(0 0 0 / 25%);
+    }
+
+    .swiper-slide {
+      height: unset;
     }
   }
 
@@ -183,6 +199,21 @@
 
   &__nav-button {
     display: flex;
+  }
+
+  &__header-video {
+    margin-top: 38px;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+
+    .player-container__player {
+      max-width: 80%;
+      aspect-ratio: 16/9;
+      background-color: var(--background-dark-1);
+      height: 100%;
+      width: 100%;
+    }
   }
 }
 
@@ -266,6 +297,11 @@
 
   .application-info__short-description {
     max-width: 100%;
+  }
+
+  .application-info__header-text {
+    font-size: 1.75rem;
+    line-height: 1.125;
   }
 }
 
