@@ -277,6 +277,10 @@ async function PropertyMetadata(db, req, res) {
   if(redirect) {
     const url = new URL(protocol + "://" + host);
     url.pathname = propertySlugOrId;
+    
+    // cache the redirect for 5 minutes
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=300');
+    
     res.redirect(302, url.toString());
     return;
   }
@@ -290,6 +294,10 @@ async function PropertyMetadata(db, req, res) {
 
   if(path === "/sitemap.xml") {
     res.setHeader("content-type", "application/xml");
+
+    // cache the response, at least for a little bit
+      res.set('Cache-Control', 'public, max-age=30, s-maxage=60');
+    
     res.status(200).send(Sitemap({protocol, host, propertySlugOrId, metaTags}));
     return;
   }
@@ -314,6 +322,9 @@ async function PropertyMetadata(db, req, res) {
   }
 
   html = html.replaceAll("@@additionalContent@@", additionalContent);
+
+  // cache the response, at least for a little bit
+  res.set('Cache-Control', 'public, max-age=30, s-maxage=60');
 
   // Inject metadata
   res.status(200).send(html);
