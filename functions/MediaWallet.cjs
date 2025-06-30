@@ -311,11 +311,14 @@ async function PropertyMetadata(db, req, res) {
 
   if(isCustomDomain) {
     additionalContent += "\n<link rel=\"sitemap\" type=\"application/xml\" title=\"Sitemap\" href=\"/sitemap.xml\">\n";
+    html = html.replaceAll("@@domainPropertySlug@@", propertySlugOrId);
+    html = html.replaceAll("@@domainPropertyHash@@", metaTags?.property_hash);
   }
 
   html = html.replaceAll("@@additionalContent@@", additionalContent);
 
   // Inject metadata
+  res.set("Cache-Control", "public, max-age=3600, s-maxage=3600, stale-while-revalidate=1800");
   res.status(200).send(html);
 
   return true;
