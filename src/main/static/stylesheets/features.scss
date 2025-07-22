@@ -462,7 +462,6 @@
 
 .features-details {
   &__item-card {
-    height: 70px;
     padding: 0 20px;
   }
 
@@ -471,6 +470,7 @@
     display: flex;
     gap: 50px;
     height: 100%;
+    padding: 5px 0;
 
     .action {
       color: var(--color-highlight-3);
