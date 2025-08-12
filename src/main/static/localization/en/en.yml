@@ -35,9 +35,10 @@ header:
 # Main Page
 main:
   heading:
-    header: Your Next Gen Content Distribution Solution
+    header: The Most Powerful Platform for Content Distribution & Monetization
     subheader: |
-      is a programmable streaming, content distribution, and storage network built for the Third Generation Internet.
+      The Content Fabric is a revolutionary protocol deployed in a global network, that transforms how content is delivered, monetized, and experienced in the digital world.
+    cta_text: Take Control & Super Charge Your Content
     featured_link_text: Check out the Bangkok Release
     featured_link: "/content-fabric/fabric-core"
   features_carousel:

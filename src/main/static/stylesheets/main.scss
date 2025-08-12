@@ -40,27 +40,11 @@
       margin-bottom: 50px;
     }
 
-    &__header-image-container {
-      align-items: center;
-      margin-left: -35px;
-      margin-right: -45px;
-      max-width: calc(270px * 5 + 70px);
-    }
-
-    &__header-mobile-image-container {
-      margin: -50px -35px;
-      max-width: calc(270px * 5 + 70px);
-
-      .image-icon--image {
-        width: 100%;
-      }
-    }
-
     &__header {
       font-size: var(--font-size-feature-header);
-      font-weight: 700;
+      font-weight: 600;
       margin-right: 50px;
-      text-transform: uppercase;
+      max-width: 60%;
     }
 
     &__subheader {
@@ -70,10 +54,7 @@
 
     &__subheader-container {
       margin-top: 24px;
-      max-width: 90%;
-
-      // Match swiper carousel left padding
-      padding-left: 10px;
+      max-width: 60%;
     }
 
     &__featured-link {

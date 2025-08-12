@@ -147,6 +147,15 @@
 
       }
     }
+
+    &--cta {
+      background: #FFF;
+      border: 0;
+      color: #000;
+      gap: 10px;
+      border-radius: 0 !important;
+      margin-top: 50px;
+    }
   }
 
   @media screen and (max-width: $width-max) {

@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {Carousel, RichText, Video} from "../../components/Misc";
+import {RichText, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
@@ -11,9 +11,6 @@ import FeaturesImage from "../../static/images/main/advance_full_feature_platfor
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_&_users_card_v2.jpg";
-import SpeakerphoneIcon from "../../static/icons/speakerphone-outline.svg";
-import DesktopBanner from "../../static/images/main/desktop-banner-min.png";
-import MobileBanner from "../../static/images/main/mobile-banner-min";
 
 const experienceImages = [
   ExperiencesImage1,
@@ -22,53 +19,30 @@ const experienceImages = [
 ];
 
 import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
-import {Link} from "react-router-dom";
 
-const FeaturesCarousel = observer(() => {
+const AwardsBlock = observer(() => {
   return (
-    <Carousel pagination={false} lazy={false} className="main-page-header__features-carousel">
-      {
-        mainStore.l10n.main.features_carousel.map((content, index) =>
-          <div className="main-page-header__features-carousel__card" key={`card-${index}`}>
-            { content }
-          </div>
-        )
-      }
-    </Carousel>
+    <div>
+      Awards images
+    </div>
   );
 });
 
-const HeaderBlock = observer(({mobile=false}) => {
+const HeaderBlock = observer(() => {
   return (
     <MainHeader>
       <div className="main-page-header__main-header">
         <div className="main-page-header__main-header__headers">
-          {
-            mobile ?
-              <div className="main-page-header__main-header__header-mobile-image-container">
-                <ImageIcon icon={MobileBanner} />
-              </div> :
-              <div className="main-page-header__main-header__header-image-container">
-                <ImageIcon icon={DesktopBanner} />
-              </div>
-          }
+          <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
           <div className="main-page-header__main-header__subheader-container">
             <div className="main-page-header__main-header__subheader-container-text">
               <span>
-                <span className="main-page-header__main-header__subheader">The </span>
-                <Link to="https://contentfabric.io/" target="_blank">
-                  <span style={{color: "var(--color-text-dark-1)", fontWeight: 700}} className="main-page-header__main-header__subheader"> Content Fabric </span>
-                </Link>
                 <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
               </span>
-              <Link className="main-page-header__main-header__featured-link" to={mainStore.l10n.main.heading.featured_link}>
-                <ImageIcon icon={SpeakerphoneIcon} className="main-page-header__main-header__featured-link-icon" />
-                <span>{ mainStore.l10n.main.heading.featured_link_text }</span>
-              </Link>
             </div>
+            <Button className="light header__button header__button--cta">{mainStore.l10n.main.heading.cta_text}</Button>
           </div>
         </div>
-        <FeaturesCarousel />
       </div>
     </MainHeader>
   );
@@ -250,9 +224,10 @@ const BrowseProjectsBlock = observer(({mobile}) => {
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
-      <HeaderBlock mobile />
+      <HeaderBlock />
       <div className="main-page__blocks">
         <div className="padded-block">
+          <AwardsBlock />
           <VideoBlock mobile />
           <FeaturesBlock mobile />
         </div>
@@ -276,6 +251,7 @@ const MainPageDesktop = () => {
       <HeaderBlock />
       <div className="main-page__blocks">
         <div className="padded-block">
+          <AwardsBlock />
           <VideoBlock />
           <FeaturesBlock />
         </div>
