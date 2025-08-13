@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {RichText, Video} from "../../components/Misc";
+import {RichText, Tabs, Video} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
@@ -18,19 +18,41 @@ const experienceImages = [
   ExperiencesImage3
 ];
 
-import {BlockchainIcon, DiscoverIcon, FilmIcon, MoneyIcon, PlayIcon, PowerIcon} from "../../static/icons/Icons";
+import AwardImage1 from "../../static/images/main/awards/NAB 2024 product of the year.webp";
+import AwardImage2 from "../../static/images/main/awards/NAB Product of the Year 2022";
+import AwardImage3 from "../../static/images/main/awards/CSI award 2024";
+import AwardImage4 from "../../static/images/main/awards/seicon DC&CS copy";
+import AwardImage5 from "../../static/images/main/awards/seicon grand prize copy";
+import AwardImage6 from "../../static/images/main/awards/HPA Award 2020";
+
+const awardsImages = [
+  AwardImage1,
+  AwardImage2,
+  AwardImage3,
+  AwardImage4,
+  AwardImage5,
+  AwardImage6
+];
+
+import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
+
+import {DiscoverIcon} from "../../static/icons/Icons";
 
 const AwardsBlock = observer(() => {
   return (
-    <div>
-      Awards images
+    <div style={{display: "flex", flexDirection: "row"}}>
+      {
+        awardsImages.map(image => (
+          <ImageIcon icon={image} key={image} height={250} />
+        ))
+      }
     </div>
   );
 });
 
 const HeaderBlock = observer(() => {
   return (
-    <MainHeader>
+    <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <div className="main-page-header__main-header">
         <div className="main-page-header__main-header__headers">
           <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
@@ -40,53 +62,27 @@ const HeaderBlock = observer(() => {
                 <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
               </span>
             </div>
-            <Button className="light header__button header__button--cta">{mainStore.l10n.main.heading.cta_text}</Button>
           </div>
+          <Button className="light header__button header__button--cta">{mainStore.l10n.main.heading.cta_text}</Button>
         </div>
       </div>
     </MainHeader>
   );
 });
 
-const VideoBlock = observer(({mobile}) => {
-  const { header, subheader, features } = mainStore.l10n.main.video_block;
-
-  const icons = [
-    BlockchainIcon,
-    PlayIcon,
-    MoneyIcon,
-    PowerIcon,
-    FilmIcon,
-    BlockchainIcon
-  ];
+const VideoStack = observer(() => {
+  const { header, features } = mainStore.l10n.main.video_stack;
 
   return (
-    <div className="main-page-block main-page-block--video">
-      <Video videoMetadata={mainStore.mainSite?.videos?.main_page_video} className="main-page-block__video" />
+    <div className="main-page-block main-page-block">
       <div className="main-page-block__copy-container">
-        <h5 className="main-page-block__copy-subheader">
-          { subheader }
-        </h5>
-        {
-          mobile &&
-          <h3 className="main-page-block__copy-header">
-            { header }
-          </h3>
-        }
-        {
-          !mobile &&
-          <h2 className="main-page-block__copy-header">
-            { header }
-          </h2>
-        }
-        <div className="main-page-block__copy">
-          {features.map((feature, index) => (
-            <div key={feature} className="main-page-block__icon-copy">
-              <ImageIcon icon={icons[index]} className="main-page-block__icon" />
-              <p>{feature}</p>
-            </div>
-          ))}
-          <Action to="/content-fabric">{ mainStore.l10n.actions.learn_more }</Action>
+        <div className="main-page-header__main-header__header">
+          { header }
+        </div>
+        <div>
+          <Tabs
+            tabs={features.map(feature => ({title: feature.title, content: feature.description}))}
+          />
         </div>
       </div>
     </div>
@@ -226,9 +222,9 @@ const MainPageMobile = () => {
     <div className="page dark no-padding">
       <HeaderBlock />
       <div className="main-page__blocks">
+        <AwardsBlock />
         <div className="padded-block">
-          <AwardsBlock />
-          <VideoBlock mobile />
+          <VideoStack mobile />
           <FeaturesBlock mobile />
         </div>
         <div className="main-page__block main-page__block--experiences">
@@ -250,9 +246,9 @@ const MainPageDesktop = () => {
     <div className="page dark no-padding">
       <HeaderBlock />
       <div className="main-page__blocks">
+        <AwardsBlock />
         <div className="padded-block">
-          <AwardsBlock />
-          <VideoBlock />
+          <VideoStack />
           <FeaturesBlock />
         </div>
         <div className="main-page__block main-page__block--experiences">

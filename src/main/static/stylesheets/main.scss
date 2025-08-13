@@ -45,16 +45,22 @@
       font-weight: 600;
       margin-right: 50px;
       max-width: 60%;
+
+      &--center {
+        text-align: center;
+      }
     }
 
     &__subheader {
-      color: var(--color-text-light-6);
+      color: var(--color-text-light-10);
       font-size: var(--font-size-feature-subheader);
     }
 
     &__subheader-container {
       margin-top: 24px;
       max-width: 60%;
+      font-weight: 600;
+      text-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.95);
     }
 
     &__featured-link {
@@ -516,6 +522,10 @@
 
     &--feature {
       font-size: var(--font-size-feature-header);
+    }
+
+    &--center {
+      text-align: center;
     }
   }
 

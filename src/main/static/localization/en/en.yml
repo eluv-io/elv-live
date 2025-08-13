@@ -47,16 +47,25 @@ main:
     - 10X Less Expensive at Scale and Carbon Efficient
     - Radically Simpler Than Traditional CDNs and Cloud
     - Transparent, Tamper‑free, and AI Native
-  video_block:
-    subheader: Discover
-    header: The Content Fabric
+  video_stack:
+    header: Next Gen CDN & Full Feature Video Stack
     features:
-      - A novel protocol and utility network for any content
-      - Decentralized, Streaming, Distribution, and Storage at Scale
-      - Ultra-fast and Ultra-efficient
-      - 50X more efficient and up to 80% less costly than clouds and CDNs
-      - Data-driven, AI Native, Just-in-Time
-      - Tamper‑free Ownership, Versioning, and Access Control
+      - title: Hyper Efficient
+        description: |
+          Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less 
+          $$$ at Scale than Legacy CDN and Media Cloud.
+      - title: Fast
+        description: |
+          TODO TEXT
+      - title: Secure & Verifiable
+        description: |
+          TODO TEXT
+      - title: AI Native
+        description: |
+          TODO TEXT
+      - title: Unlimited Monetization
+        description: |
+          TODO TEXT
   features_block:
     subheader: Resulting in
     header: Advanced Full-Feature Platform For All Media

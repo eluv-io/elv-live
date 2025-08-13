@@ -371,6 +371,54 @@
   }
 }
 
+.tabs {
+  &__list {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  &__button {
+    border-radius: 62px;
+    height: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 16px;
+    font-weight: 500;
+
+    &--active {
+      background: #FFF;
+      border: 0;
+      color: #000;
+      gap: 10px;
+
+      &:hover {
+        background: var(--color-highlight-2);
+        color: #FFF;
+      }
+    }
+
+    &--inactive {
+      background: transparent;
+      border: 1px solid #FFF;
+      color: #FFF;
+
+      &:hover {
+        background: #000;
+        border: 1px solid var(--color-highlight-2);
+        color: var(--color-highlight-2);
+      }
+    }
+  }
+
+  &__panel {
+    padding-top: 30px;
+    padding-left: 250px;
+    padding-right: 250px;
+    text-align: center;
+  }
+}
+
 @media screen and (max-width: $width-tablet) {
   .faqs .accordion .accordion__header {
     padding: 15px 5px;

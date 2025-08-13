@@ -11,7 +11,7 @@ import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
-import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
+import {InfoIcon, MinusIcon, PlusIcon, XIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
 
 SwiperCore.use([Lazy, Pagination]);
@@ -366,6 +366,34 @@ export const Tooltip = ({className, content}) => {
           {content}
         </div>
       }
+    </div>
+  );
+};
+
+export const Tabs = ({tabs=[], className}) => {
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+  const isActive = (index) => {
+    if(activeTabIndex === index) { return true; }
+  };
+
+  return (
+    <div className={`tabs ${className}`}>
+      <div className="tabs__list">
+        {
+          tabs.map((tab, i) => (
+            <Button key={tab.title} className={isActive(i) ? "tabs__button tabs__button--active" : "tabs__button tabs__button--inactive"} onClick={() => setActiveTabIndex(i)}>
+              { tab.title }
+              <ImageIcon icon={PlusIcon} height={10} width={10} style={isActive(i) ? {transform: "rotate(45deg)"} : null} />
+            </Button>
+          ))
+        }
+      </div>
+      <div className="tabs__panel">
+        {
+          tabs[activeTabIndex].content
+        }
+      </div>
     </div>
   );
 };
