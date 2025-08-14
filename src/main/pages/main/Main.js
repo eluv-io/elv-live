@@ -36,9 +36,9 @@ const AwardsBlock = observer(() => {
       {
         awardsImages.map(({img, alt}) => (
           <div
-            key={`award-${img} alt=alt`}
+            key={`award-${img}`}
             className="main-page-block main-page-block--award"
-            style={{"--award-image-url": `url(${img} alt=alt)`}}
+            style={{"--award-image-url": `url(${img})`}}
           >
             <ImageIcon icon={img} alt={alt} />
           </div>
