@@ -377,8 +377,10 @@ export const Tabs = ({tabs=[], className}) => {
     if(activeTabIndex === index) { return true; }
   };
 
+  const classNames=["tabs", className].filter(e => !!e).join(", ");
+
   return (
-    <div className={`tabs ${className}`}>
+    <div className={classNames}>
       <div className="tabs__list">
         {
           tabs.map((tab, i) => (

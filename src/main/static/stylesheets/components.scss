@@ -235,6 +235,12 @@
     padding-right: 15px;
   }
 
+  &__panel {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
   &__content--shadow {
     box-shadow: 0 0 11px rgb(0 0 0 / 25%);
   }
@@ -372,10 +378,16 @@
 }
 
 .tabs {
+  max-width: 100%;
+  width: 100%;
+
   &__list {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
+    flex-direction: row;
+    max-width: 100%;
   }
 
   &__button {
@@ -422,6 +434,30 @@
 @media screen and (max-width: $width-tablet) {
   .faqs .accordion .accordion__header {
     padding: 15px 5px;
+  }
+
+  .tabs {
+    display: grid;
+    height: max-content;
+    gap: 30px;
+    width: 100%;
+    max-width: 100%;
+
+    &__list {
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    &__panel {
+      padding: 0;
+    }
   }
 }
 

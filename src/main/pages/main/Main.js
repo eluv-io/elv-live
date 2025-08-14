@@ -8,6 +8,8 @@ import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
 import GlobalStreamingImage from "../../static/images/main/global-streaming-map.png";
+import MultiViewImage from "../../static/images/main/player-multi-view.png";
+
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_&_users_card_v2.jpg";
@@ -85,11 +87,9 @@ const VideoStack = observer(() => {
         <div className="main-page-header__main-header__header">
           { header }
         </div>
-        <div>
-          <Tabs
-            tabs={features.map(feature => ({title: feature.title, content: feature.description}))}
-          />
-        </div>
+        <Tabs
+          tabs={features.map(feature => ({title: feature.title, content: feature.description}))}
+        />
       </div>
     </div>
   );
@@ -99,7 +99,7 @@ const GlobalStreaming = observer(() => {
   const { header } = mainStore.l10n.main.global_streaming;
 
   return (
-    <div className="main-page-block main-page-block">
+    <div className="main-page-block main-page-block--global-streaming">
       <div className="main-page-block__copy-container main-page-block__copy-container--center">
         <h3 className="main-page-block__copy-header center-align">
           { header }
@@ -110,12 +110,27 @@ const GlobalStreaming = observer(() => {
   );
 });
 
+const MultiViewBlock = observer(() => {
+  const { header } = mainStore.l10n.main.multi_view;
+
+  return (
+    <div className="main-page-block main-page-block">
+      <div className="main-page-block__copy-container main-page-block__copy-container--center">
+        <h3 className="main-page-block__copy-header center-align">
+          {header}
+        </h3>
+        <ImageIcon icon={MultiViewImage} width="80%"/>
+      </div>
+    </div>
+  );
+});
+
 const ExperiencesBlock = observer(({mobile}) => {
   return (
     <div className="main-page-block main-page-block--experiences">
       <div>
         <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`} style={{marginBottom: "10px"}}>
-          { mainStore.l10n.main.experiences_block.header }
+          {mainStore.l10n.main.experiences_block.header}
         </h3>
         <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`}>
           { mainStore.l10n.main.experiences_block.subheader }
@@ -209,6 +224,7 @@ const MainPageMobile = () => {
         <div className="padded-block">
           <VideoStack />
           <GlobalStreaming />
+          <MultiViewBlock />
         </div>
         <div className="main-page__block main-page__block--experiences">
           <div className="padded-block">
@@ -233,6 +249,7 @@ const MainPageDesktop = () => {
         <div className="padded-block">
           <VideoStack />
           <GlobalStreaming />
+          <MultiViewBlock />
         </div>
         <div className="main-page__block main-page__block--experiences">
           <div className="padded-block">
