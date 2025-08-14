@@ -4,21 +4,11 @@ import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
 import {Tabs} from "../../components/Misc";
-import {Action, Button} from "../../components/Actions";
+import {Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
 import GlobalStreamingImage from "../../static/images/main/global-streaming-map.png";
 import MultiViewImage from "../../static/images/main/player-multi-view.png";
-
-import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
-import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
-import ExperiencesImage3 from "../../static/images/main/consumers_&_users_card_v2.jpg";
-
-const experienceImages = [
-  ExperiencesImage1,
-  ExperiencesImage2,
-  ExperiencesImage3
-];
 
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
 import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
@@ -65,7 +55,7 @@ const HeaderBlock = observer(() => {
         <div className="main-page-header__main-header__headers">
           <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
           <div className="main-page-header__main-header__subheader-container">
-            <div className="main-page-header__main-header__subheader-container-text">
+            <div className="main-page-header__main-header__subheader-container-text main-page-header__main-header__subheader-container-text--text-overlay">
               <span>
                 <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
               </span>
@@ -120,40 +110,6 @@ const MultiViewBlock = observer(() => {
           {header}
         </h3>
         <ImageIcon icon={MultiViewImage} width="80%"/>
-      </div>
-    </div>
-  );
-});
-
-const ExperiencesBlock = observer(({mobile}) => {
-  return (
-    <div className="main-page-block main-page-block--experiences">
-      <div>
-        <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`} style={{marginBottom: "10px"}}>
-          {mainStore.l10n.main.experiences_block.header}
-        </h3>
-        <h3 className={`main-page-block__copy-header ${mobile ? "" : "center-align"}`}>
-          { mainStore.l10n.main.experiences_block.subheader }
-        </h3>
-      </div>
-      <div className="main-page-block__separator" />
-      <div className="main-page-block__experience-cards">
-        {
-          mainStore.l10n.main.experiences_block.cards.map(({header, description, link}, index) =>
-            <Action to={link} className="main-page-block__experience-card" key={`experience-card-${index}`}>
-              <ImageIcon icon={experienceImages[index]} className="main-page-block__experience-card__image" />
-              <h4 className="main-page-block__experience-card__header">
-                { header }
-              </h4>
-              <div className="main-page-block__experience-card__description">
-                { description.map(text => <div key={text}>{text}</div>) }
-              </div>
-              <div className="main-page-block__experience-card__actions">
-                <Action className="main-page-block__experience-card__action">{ mainStore.l10n.actions.learn_more }</Action>
-              </div>
-            </Action>
-          )
-        }
       </div>
     </div>
   );
@@ -226,11 +182,6 @@ const MainPageMobile = () => {
           <GlobalStreaming />
           <MultiViewBlock />
         </div>
-        <div className="main-page__block main-page__block--experiences">
-          <div className="padded-block">
-            <ExperiencesBlock mobile />
-          </div>
-        </div>
         <div className="padded-block">
           <BrowseProjectsBlock mobile />
         </div>
@@ -250,11 +201,6 @@ const MainPageDesktop = () => {
           <VideoStack />
           <GlobalStreaming />
           <MultiViewBlock />
-        </div>
-        <div className="main-page__block main-page__block--experiences">
-          <div className="padded-block">
-            <ExperiencesBlock />
-          </div>
         </div>
         <div className="padded-block">
           <BrowseProjectsBlock />
