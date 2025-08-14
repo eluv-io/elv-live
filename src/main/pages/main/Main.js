@@ -3,11 +3,11 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {RichText, Tabs} from "../../components/Misc";
+import {Tabs} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
-import FeaturesImage from "../../static/images/main/advance_full_feature_platform_v1.png";
+import GlobalStreamingImage from "../../static/images/main/global-streaming-map.png";
 import ExperiencesImage1 from "../../static/images/main/Creators-&-Content-Businesses.jpg";
 import ExperiencesImage2 from "../../static/images/main/developers-and-node-providers.png";
 import ExperiencesImage3 from "../../static/images/main/consumers_&_users_card_v2.jpg";
@@ -80,8 +80,8 @@ const VideoStack = observer(() => {
   const { header, features } = mainStore.l10n.main.video_stack;
 
   return (
-    <div className="main-page-block main-page-block">
-      <div className="main-page-block__copy-container">
+    <div className="main-page-block main-page-block--video-stack">
+      <div className="main-page-block__copy-container main-page-block__copy-container--center">
         <div className="main-page-header__main-header__header">
           { header }
         </div>
@@ -95,40 +95,17 @@ const VideoStack = observer(() => {
   );
 });
 
-const FeaturesBlock = observer(({mobile}) => {
-  const copy = mainStore.l10n.main.features_block;
-
-  if(mobile) {
-    return (
-      <div className="main-page-block main-page-block--features">
-        <ImageIcon icon={FeaturesImage} label="featured images" className="main-page-block__image" />
-        <div className="main-page-block__copy-container">
-          <h5 className="main-page-block__copy-subheader">
-            { copy.subheader }
-          </h5>
-          <h3 className="main-page-block__copy-header">
-            { copy.header }
-          </h3>
-        </div>
-        <div className="main-page-block__copy-container">
-          <RichText richText={copy.text} className="main-page-block__copy" />
-        </div>
-      </div>
-    );
-  }
+const GlobalStreaming = observer(() => {
+  const { header } = mainStore.l10n.main.global_streaming;
 
   return (
-    <div className="main-page-block main-page-block--features">
-      <div className="main-page-block__copy-container">
-        <h5 className="main-page-block__copy-subheader">
-          { copy.subheader }
-        </h5>
-        <h2 className="main-page-block__copy-header">
-          { copy.header }
-        </h2>
-        <RichText richText={copy.text} className="main-page-block__copy" />
+    <div className="main-page-block main-page-block">
+      <div className="main-page-block__copy-container main-page-block__copy-container--center">
+        <h3 className="main-page-block__copy-header center-align">
+          { header }
+        </h3>
+        <ImageIcon icon={GlobalStreamingImage} width="80%" />
       </div>
-      <ImageIcon icon={FeaturesImage} label="featured images" className="main-page-block__image" />
     </div>
   );
 });
@@ -230,8 +207,8 @@ const MainPageMobile = () => {
       <div className="main-page__blocks">
         <AwardsBlock />
         <div className="padded-block">
-          <VideoStack mobile />
-          <FeaturesBlock mobile />
+          <VideoStack />
+          <GlobalStreaming />
         </div>
         <div className="main-page__block main-page__block--experiences">
           <div className="padded-block">
@@ -255,7 +232,7 @@ const MainPageDesktop = () => {
         <AwardsBlock />
         <div className="padded-block">
           <VideoStack />
-          <FeaturesBlock />
+          <GlobalStreaming />
         </div>
         <div className="main-page__block main-page__block--experiences">
           <div className="padded-block">

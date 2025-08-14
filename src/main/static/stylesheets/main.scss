@@ -441,6 +441,10 @@
     }
   }
 
+  &--video-stack {
+    margin-bottom: 50px;
+  }
+
   &--video {
     grid-template-columns: 3fr 2fr;
     padding: 50px 0 20px;
@@ -456,7 +460,7 @@
     flex-direction: row;
     margin-top: -20px;
     z-index: 5;
-    padding-bottom: 50px;
+    padding-bottom: 35px;
   }
 
   &--award {
@@ -549,6 +553,10 @@
     flex-direction: column;
     gap: 20px;
     position: relative;
+
+    &--center {
+      align-items: center;
+    }
   }
 
   &__copy-header {

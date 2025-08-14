@@ -66,6 +66,8 @@ main:
       - title: Unlimited Monetization
         description: |
           TODO TEXT
+  global_streaming:
+    header: Global streaming like never before.
   features_block:
     subheader: Resulting in
     header: Advanced Full-Feature Platform For All Media
