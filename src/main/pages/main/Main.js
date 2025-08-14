@@ -18,12 +18,12 @@ import AwardImage5 from "../../static/images/main/awards/seicon-grand-prize.webp
 import AwardImage6 from "../../static/images/main/awards/hpa-award-2020.webp";
 
 const awardsImages = [
-  AwardImage1,
-  AwardImage2,
-  AwardImage3,
-  AwardImage4,
-  AwardImage5,
-  AwardImage6
+  {img: AwardImage1, alt: "NAB Product of the Year Award 2024"},
+  {img: AwardImage2, alt: "NAB Product of the Year Award 2022"},
+  {img: AwardImage3, alt: "CSI Awards Winner 2024"},
+  {img: AwardImage4, alt: "SEICon Innovation Hub - Best in Show Award"},
+  {img: AwardImage5, alt: "SEICon Innovation Hub - Best in Show Grand Prize Award"},
+  {img: AwardImage6, alt: "HPA Award 2020"}
 ];
 
 import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
@@ -34,13 +34,13 @@ const AwardsBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--awards">
       {
-        awardsImages.map(image => (
+        awardsImages.map(({img, alt}) => (
           <div
-            key={`award-${image}`}
+            key={`award-${img} alt=alt`}
             className="main-page-block main-page-block--award"
-            style={{"--award-image-url": `url(${image})`}}
+            style={{"--award-image-url": `url(${img} alt=alt)`}}
           >
-            <ImageIcon icon={image} />
+            <ImageIcon icon={img} alt={alt} />
           </div>
         ))
       }
