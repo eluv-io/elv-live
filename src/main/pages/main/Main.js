@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {RichText, Tabs, Video} from "../../components/Misc";
+import {RichText, Tabs} from "../../components/Misc";
 import {Action, Button} from "../../components/Actions";
 import SiteCarousel from "./SiteCarousel";
 
@@ -18,12 +18,12 @@ const experienceImages = [
   ExperiencesImage3
 ];
 
-import AwardImage1 from "../../static/images/main/awards/NAB 2024 product of the year.webp";
-import AwardImage2 from "../../static/images/main/awards/NAB Product of the Year 2022";
-import AwardImage3 from "../../static/images/main/awards/CSI award 2024";
-import AwardImage4 from "../../static/images/main/awards/seicon DC&CS copy";
-import AwardImage5 from "../../static/images/main/awards/seicon grand prize copy";
-import AwardImage6 from "../../static/images/main/awards/HPA Award 2020";
+import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
+import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
+import AwardImage3 from "../../static/images/main/awards/csi-award-2024.webp";
+import AwardImage4 from "../../static/images/main/awards/seicon-dc-cs.webp";
+import AwardImage5 from "../../static/images/main/awards/seicon-grand-prize.webp";
+import AwardImage6 from "../../static/images/main/awards/hpa-award-2020.webp";
 
 const awardsImages = [
   AwardImage1,
@@ -43,7 +43,11 @@ const AwardsBlock = observer(() => {
     <div className="main-page-block main-page-block--awards">
       {
         awardsImages.map(image => (
-          <div key={`award-${image}`} className="main-page-block main-page-block--award">
+          <div
+            key={`award-${image}`}
+            className="main-page-block main-page-block--award"
+            style={{"--award-image-url": `url(${image})`}}
+          >
             <ImageIcon icon={image} />
           </div>
         ))
