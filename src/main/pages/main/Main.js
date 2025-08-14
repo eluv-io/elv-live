@@ -40,10 +40,12 @@ import {DiscoverIcon} from "../../static/icons/Icons";
 
 const AwardsBlock = observer(() => {
   return (
-    <div style={{display: "flex", flexDirection: "row"}}>
+    <div className="main-page-block main-page-block--awards">
       {
         awardsImages.map(image => (
-          <ImageIcon icon={image} key={image} height={250} />
+          <div key={`award-${image}`} className="main-page-block main-page-block--award">
+            <ImageIcon icon={image} />
+          </div>
         ))
       }
     </div>
