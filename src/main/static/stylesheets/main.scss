@@ -432,6 +432,12 @@
   gap: 75px;
   width: 100%;
 
+  &--light {
+    background-color: #fff;
+    color: #000;
+    padding-top: 55px;
+  }
+
   &__core-video {
     display: flex;
     justify-content: center;
@@ -792,6 +798,210 @@
 
     &__text {
       font-weight: 600;
+    }
+  }
+
+  &__app-tabs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__app-tabs-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+
+    .app-list-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      padding: 10px;
+
+      &--active {
+        box-shadow: 0 0 8px rgba(23, 8, 78, 0.3), inset 0 0 0 100px white;
+      }
+
+      .app-list-item-button {
+        width: 60px;
+        height: 60px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+      }
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  &__app-tabs-panel-content {
+    display: flex;
+    flex-direction: row;
+
+    &__text-column {
+      display: flex;
+      flex-direction: column;
+      gap: 27px;
+    }
+
+    .app-panel-title {
+      font-size: var(--font-size-header-3);
+      font-weight: 600;
+    }
+
+    .app-panel-description,
+    .app-panel-link {
+      font-weight: 500;
+      font-size: var(--font-size-body-7);
+    }
+  }
+
+  &__benefit-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    padding-bottom: 100px;
+  }
+
+  &__benefit-card {
+    filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.14));
+    justify-content: center;
+  }
+
+  &__benefit-card-1 {
+    background-color: #1c1c1c;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 75px 135px 75px 65px;
+
+    &__title {
+      font-size: var(--font-size-feature-subheader);
+    }
+
+    &__column-text {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    &__description-text {
+      font-size: var(--font-size-body-7);
+      font-weight: 400;
+    }
+
+    &__row-text {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+    }
+  }
+
+  &__benefit-card-2 {
+    background-color: #fff;
+    padding-left: 65px;
+    padding-right: 65px;
+    height: 100%;
+
+    &__column {
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      height: 100%;
+
+      div:nth-child(1) {
+        font-weight: 400;
+        font-size: var(--font-size-body-7);
+      }
+
+      div:nth-child(2) {
+        font-weight: 400;
+        font-size: var(--font-size-feature-subheader);
+      }
+
+      div:nth-child(3) {
+        font-weight: 500;
+        font-size: var(--font-size-feature-subheader);
+        font-style: italic;
+      }
+    }
+  }
+
+  &__benefit-card-3 {
+    background-color: var(--background-dark-4);
+    padding-left: 65px;
+    padding-right: 45px;
+    height: 100%;
+
+    &__column {
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      height: 100%;
+
+      div:nth-child(1) {
+        font-weight: 400;
+        font-size: var(--font-size-body-7);
+      }
+
+      div:nth-child(2) {
+        font-weight: 600;
+        font-size: var(--font-size-feature-header);
+        letter-spacing: -1px;
+        line-height: 1.25;
+      }
+
+      div:nth-child(3) {
+        font-weight: 500;
+        font-size: var(--font-size-body-7);
+      }
+    }
+  }
+
+  &__benefit-card-4 {
+    background-color: #d4c5ff;
+    font-size: var(--font-size-body-7);
+    height: 100%;
+
+    &__row {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+
+      div:nth-child(1) {
+        flex: 3;
+        padding: 45px 40px;
+      }
+
+      div:nth-child(2) {
+        flex: 2;
+        padding: 30px;
+      }
+    }
+
+    &__button-panel {
+      background-color: var(--background-dark-6);
+      color: #d4c5ff;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .button {
+        border-radius: 62px;
+        border: 1px solid #d4c5ff;
+        height: 40px;
+        padding-left: 16px;
+        padding-right: 16px;
+        font-size: 16px;
+        font-weight: 500;
+      }
     }
   }
 
