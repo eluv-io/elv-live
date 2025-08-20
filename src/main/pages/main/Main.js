@@ -242,6 +242,24 @@ const AppsBlock = () => {
 
   const HandleButtonClick = (index) => {
     setActiveTabIndex(index);
+
+    if(sectionRef.current) {
+      const section = sectionRef.current;
+      const sectionRect = section.getBoundingClientRect();
+      const sectionTop = sectionRect.top + window.scrollY;
+      const sectionHeight = section.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const numberOfTabs = appContent.length;
+      const tabScrollHeight = sectionHeight / numberOfTabs;
+
+      const targetScrollOffset = (index * tabScrollHeight) + (tabScrollHeight / 2);
+      const targetScrollPosition = sectionTop + targetScrollOffset - (windowHeight / 2);
+
+      window.scrollTo({
+        top: targetScrollPosition,
+        behavior: "smooth"
+      });
+    }
   };
 
   return (
