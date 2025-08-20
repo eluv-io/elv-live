@@ -221,12 +221,10 @@ const AppsBlock = () => {
           // Determine the current tab index based on the scroll position
           const newTabIndex = Math.floor((scrollPosition - (windowHeight / 2)) / tabScrollHeight);
 
-          // Index must be within a valid range (within the tab amount)
+          // Index must be within a valid range (within the tab count)
           const clampedIndex = Math.max(0, Math.min(numberOfTabs - 1, newTabIndex));
 
-          // if(clampedIndex !== activeTabIndex) {
-            setActiveTabIndex(clampedIndex);
-          // }
+          setActiveTabIndex(clampedIndex);
         }
       }, 100);
     };
@@ -292,7 +290,7 @@ const AppsBlock = () => {
 
           {/* Panel content */}
           <div className="main-page-block main-page-block__app-tabs-panel">
-            <div className="main-page-block__app-tabs-panel-content" id={`panel-${appContent[activeTabIndex].index}`}>
+            <div className="main-page-block__app-tabs-panel-content">
               <ImageIcon icon={appContent[activeTabIndex].image} />
               <div className="main-page-block__app-tabs-panel-content__text-column">
                 <div className="app-panel-title">{ appContent[activeTabIndex].title }</div>
@@ -323,6 +321,7 @@ const MainPageMobile = () => {
       </div>
       <div className="page light no-padding">
         <BenefitsBlock/>
+        <AppsBlock />
       </div>
     </div>
   );
