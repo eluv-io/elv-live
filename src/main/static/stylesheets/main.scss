@@ -801,6 +801,10 @@
     }
   }
 
+  &__app-tabs-container {
+    min-height: 50vh;
+  }
+
   &__app-tabs {
     display: flex;
     flex-direction: column;
@@ -812,6 +816,9 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+    position: sticky;
+    top: 20px;
+    z-index: 10;
 
     .app-list-item {
       display: flex;
@@ -839,6 +846,11 @@
     }
   }
 
+  &__app-tabs-panel {
+    z-index: 1;
+    pointer-events: none;
+  }
+
   &__app-tabs-panel-content {
     display: flex;
     flex-direction: row;
@@ -847,6 +859,7 @@
       display: flex;
       flex-direction: column;
       gap: 27px;
+      padding-top: 35px;
     }
 
     .app-panel-title {
