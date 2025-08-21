@@ -77,16 +77,26 @@ const HeaderBlock = observer(() => {
 
 const VideoStack = observer(() => {
   const { header, features } = mainStore.l10n.main.video_stack;
-
   return (
-    <div className="main-page-block main-page-block--video-stack">
-      <div className="main-page-block__copy-container main-page-block__copy-container--center">
-        <div className="main-page-header__main-header__header">
-          { header }
+    <div className="main-page-block main-page-block--light main-page-block--video-stack">
+      <div className="main-page-block padded-block">
+        <div className="main-page-block__copy-container main-page-block__copy-container--center">
+          <div className="main-page-header__main-header__header">
+            { header }
+          </div>
+          <Tabs
+            tabs={features.map(feature => (
+              {
+                title: feature.feature_title,
+                content: {
+                  subtitle: feature.subtitle,
+                  title: feature.title,
+                  description: feature.description
+                }
+              }
+            ))}
+          />
         </div>
-        <Tabs
-          tabs={features.map(feature => ({title: feature.title, content: feature.description}))}
-        />
       </div>
     </div>
   );
@@ -313,8 +323,8 @@ const MainPageMobile = () => {
       <HeaderBlock/>
       <div className="main-page__blocks">
         <AwardsBlock/>
+        <VideoStack/>
         <div className="padded-block">
-          <VideoStack/>
           <GlobalStreaming/>
           <MultiViewBlock/>
         </div>
@@ -334,16 +344,16 @@ const MainPageDesktop = () => {
         <HeaderBlock />
         <div className="main-page__blocks">
           <AwardsBlock />
-          <div className="padded-block">
-            <VideoStack />
-            <GlobalStreaming />
-            <MultiViewBlock />
-          </div>
         </div>
       </div>
-      <div className="page light no-padding">
-        <BenefitsBlock />
-        <AppsBlock />
+      <div className="main-page__blocks">
+        <VideoStack />
+        <GlobalStreaming />
+        <MultiViewBlock />
+        <div className="page light no-padding">
+          <BenefitsBlock />
+          <AppsBlock />
+        </div>
       </div>
     </div>
   );

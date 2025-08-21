@@ -50,22 +50,33 @@ main:
   video_stack:
     header: Next Gen CDN & Full Feature Video Stack
     features:
-      - title: Hyper Efficient
+      - feature_title: Max Quality
+        title: Global Streaming Like Never Before
+        subtitle: Just-in-Time, Ultra Low Latency  HTTP ABR /UDP/RTP/SRT/SMPTE 2022/2110
         description: |
-          Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less 
-          $$$ at Scale than Legacy CDN and Media Cloud.
-      - title: Fast
+          Ultra Low Latency Global OTT Streaming (D2C) Live and On Demand. Live Broadcast Feed distribution (B2B) to Millions of Receivers with Sub-second Latency. Optimized Multi-path Routing for Minimum Bandwidth Use, Maximum Cost Efficiency and Inherent Redundancy.
+      - feature_title: Max Cost Savings
+        title: 10X Cost Savings and Low Carbon Footprint
+        subtitle: Novel Content Storage, Routing, and Just-in-Time Composition with Zero File Copies
         description: |
-          TODO TEXT
-      - title: Secure & Verifiable
+          Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less $$$ at Scale than Legacy CDN and Media Cloud.h
+      - feature_title: Secure & Verifiable
+        title: Innovative Content Crypto
+        subtitle: Retain Full Control of your Content
         description: |
-          TODO TEXT
-      - title: AI Native
+          Proves Provenance, Authenticity, and Verifiability
+          Secure & Tamper-Proof with Built-in Rights Management, Geo Windows, DRM, and Watermarking. Inline Verification Proofs for Video, Images and Metadata.
+      - feature_title: AI Native
+        title: Inline Video Intelligence
+        subtitle: Media and Data Combine Inline, Just-in-Time for Unlimited AI-Driven Content
         description: |
-          TODO TEXT
-      - title: Unlimited Monetization
+          Inline SOTA Multi-modal AI Stack provides frame-accurate Tagging, Summarization and Vectorized Search of all video, audio and image content with no file movement.
+          Powers unlimited AI-agentic pipelines for personalized highlights, channels, and compositions.
+      - feature_title: Unlimited Monetization
+        title: Unlimited Monetization
+        subtitle: Built-in Subscription, Sell Through and Ad-Supported
         description: |
-          TODO TEXT
+          Unlimited Variants and Versions created from one object without redistribution. Zero-code OTT Site Creation with Global Reach on Web, Mobile, Connected TV. Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
   global_streaming:
     header: Global streaming like never before.
   multi_view:

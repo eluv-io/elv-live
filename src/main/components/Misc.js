@@ -370,31 +370,59 @@ export const Tooltip = ({className, content}) => {
   );
 };
 
-export const Tabs = ({tabs=[], className}) => {
+export const Tabs = ({tabs=[], className, darkMode=false}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const isActive = (index) => {
     if(activeTabIndex === index) { return true; }
   };
 
-  const classNames=["tabs", className].filter(e => !!e).join(", ");
+  const containerClassNames=["tabs", className].filter(e => !!e).join(" ");
 
   return (
-    <div className={classNames}>
+    <div className={containerClassNames}>
       <div className="tabs__list">
         {
-          tabs.map((tab, i) => (
-            <Button key={tab.title} className={isActive(i) ? "tabs__button tabs__button--active" : "tabs__button tabs__button--inactive"} onClick={() => setActiveTabIndex(i)}>
-              { tab.title }
-              <ImageIcon icon={PlusIcon} height={10} width={10} style={isActive(i) ? {transform: "rotate(45deg)"} : null} />
-            </Button>
-          ))
+          tabs.map((tab, i) => {
+            const buttonClassNames = ["tabs__button", darkMode ? "tabs__button--dark" : "tabs__button--light", isActive(i) ? "active" : "inactive"]
+              .filter(e => !!e).join(" ");
+
+            return (
+              <Button
+                key={tab.title}
+                className={buttonClassNames}
+                onClick={() => setActiveTabIndex(i)}
+              >
+                {tab.title}
+                <ImageIcon icon={PlusIcon} height={10} width={10}
+                           style={isActive(i) ? {transform: "rotate(45deg)"} : null}/>
+              </Button>
+            );
+          })
         }
       </div>
       <div className="tabs__panel">
         {
-          tabs[activeTabIndex].content
+          tabs[activeTabIndex].content?.subtitle &&
+          <div className="tabs__panel__subtitle">
+            {
+              tabs[activeTabIndex].content.subtitle
+            }
+          </div>
         }
+        {
+          tabs[activeTabIndex].content?.title &&
+          <div className="tabs__panel__title">
+            {
+              tabs[activeTabIndex].content.title
+            }
+          </div>
+        }
+        <div className="tabs__panel__description">
+          {
+            tabs[activeTabIndex].content?.description
+          }
+        </div>
       </div>
     </div>
   );
