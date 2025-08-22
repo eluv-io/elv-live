@@ -55,17 +55,23 @@ main:
         subtitle: Just-in-Time, Ultra Low Latency  HTTP ABR /UDP/RTP/SRT/SMPTE 2022/2110
         description: |
           Ultra Low Latency Global OTT Streaming (D2C) Live and On Demand. Live Broadcast Feed distribution (B2B) to Millions of Receivers with Sub-second Latency. Optimized Multi-path Routing for Minimum Bandwidth Use, Maximum Cost Efficiency and Inherent Redundancy.
+        media: quality
+        media_type: image
       - feature_title: Max Cost Savings
         title: 10X Cost Savings and Low Carbon Footprint
         subtitle: Novel Content Storage, Routing, and Just-in-Time Composition with Zero File Copies
         description: |
-          Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less $$$ at Scale than Legacy CDN and Media Cloud.h
+          Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less $$$ at Scale than Legacy CDN and Media Cloud.
+        media: ull
+        media_type: video
       - feature_title: Secure & Verifiable
         title: Innovative Content Crypto
         subtitle: Retain Full Control of your Content
         description: |
           Proves Provenance, Authenticity, and Verifiability
           Secure & Tamper-Proof with Built-in Rights Management, Geo Windows, DRM, and Watermarking. Inline Verification Proofs for Video, Images and Metadata.
+        media: security
+        media_type: image
       - feature_title: AI Native
         title: Inline Video Intelligence
         subtitle: Media and Data Combine Inline, Just-in-Time for Unlimited AI-Driven Content
@@ -77,8 +83,48 @@ main:
         subtitle: Built-in Subscription, Sell Through and Ad-Supported
         description: |
           Unlimited Variants and Versions created from one object without redistribution. Zero-code OTT Site Creation with Global Reach on Web, Mobile, Connected TV. Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
-  global_streaming:
-    header: Global streaming like never before.
+        media: monetization
+        media_type: video
+  streaming_use_cases:
+    features:
+      -
+        title: Full Stack, OTT Streaming & Monetization
+        description: |
+          Zero-code OTT sites creation with global reach across web/mobile/connected TV with advanced viewing features and built-in subscription and ad-supported monetization
+        image: streaming-1
+        use_case: Streaming
+      -
+        title: Live Stream Recording at Scale
+        description: |
+          Direct to Consumer Ultra Low Latency Streaming Globally. Live, VOD, Linear, 2D/3D Streaming to any Standard Player
+          Fully Integrated Encryption and DRM.
+          Dynamic Content Insertion / SCTE 35
+          Rights Management, Geo Fencing, and Entitlement Authorization Built In
+          Subscription, Transaction, Ad Supported, and Novel Selling Models.
+        image: streaming-2
+      -
+        title: Ultra Low Latency Live Feed Distribution for Broadcast
+        description: |
+          Business and affiliate live feed distribution SRT/MPEGTS/RTP with sub-second latency globally and optimized routing for minimum bandwidth use and maximum cost efficiency. Scales to millions of receivers.
+        image: broadcast
+        use_case: Broadcast
+      -
+        title: AI Generated Personalized Highlights, Clips & Compositions
+        description: |
+          Describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in AI models and new domain-specific models for sports play-by-play description and player identification. Create and add fine-tuned and domain specific models in collaboration with the Eluvio AI team.
+        image: video_ai
+        use_case: Video AI
+      -
+        title: Complete APIs for Developing OTT & Media Rich Applications
+        description: |
+          Developer's dream toolkit - clean REST API, WASM programmable content , hash-based content versioning (ala GIT), edge just-in-time rendering including dynamic overlays and personalized renditions.
+        image: publishing-1
+        use_case: Publishing, Archive & Libraries
+      -
+        title: Archive/Library AI Search, Hosting, Monetization
+        description: |
+          Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
+        image: publishing-2
   multi_view:
     header: Stunning, Super Fast Multi-View
   experiences_block:

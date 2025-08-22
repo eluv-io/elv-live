@@ -6,8 +6,9 @@ import {MainHeader} from "./Shared";
 import {Tabs} from "../../components/Misc";
 import {Link} from "react-router-dom";
 import {Button} from "../../components/Actions";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Autoplay, FreeMode} from "swiper";
 
-import GlobalStreamingImage from "../../static/images/main/global-streaming-map.png";
 import MultiViewImage from "../../static/images/main/player-multi-view.png";
 
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
@@ -36,6 +37,11 @@ import AppIcon7 from "../../static/icons/apps_new/7_Analytics";
 
 import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
 import AnalyticsApp from "../../static/images/main/apps/analytics-app";
+
+import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper Efficient.jpg";
+import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
+import VideoStackSecurity from "../../static/images/main/video-stack/03-Secure-and-Verifiable.jpg";
+import VideoStackMonetization from "../../static/images/main/video-stack/05-Monetization.mp4";
 
 const AwardsBlock = observer(() => {
   return (
@@ -77,6 +83,13 @@ const HeaderBlock = observer(() => {
 
 const VideoStack = observer(() => {
   const { header, features } = mainStore.l10n.main.video_stack;
+  const mediaMap = {
+    "quality": VideoStackQuality,
+    "ull": VideoStackULL,
+    "security": VideoStackSecurity,
+    "monetization": VideoStackMonetization
+  };
+
   return (
     <div className="main-page-block main-page-block--light main-page-block--video-stack">
       <div className="main-page-block padded-block">
@@ -91,7 +104,9 @@ const VideoStack = observer(() => {
                 content: {
                   subtitle: feature.subtitle,
                   title: feature.title,
-                  description: feature.description
+                  description: feature.description,
+                  image: (feature.media && feature.media_type === "image") ? mediaMap[feature.media] : null,
+                  video: (feature.media && feature.media_type === "video") ? mediaMap[feature.media] : null
                 }
               }
             ))}
@@ -102,17 +117,79 @@ const VideoStack = observer(() => {
   );
 });
 
-const GlobalStreaming = observer(() => {
-  const { header } = mainStore.l10n.main.global_streaming;
+const StreamingCard = observer(({
+  title,
+  description,
+  image,
+  HandleClick
+}) => {
+  return (
+    <div className="main-page-block__streaming-card">
+      <div className="main-page-block__streaming-card--padded">
+        <div className="main-page-block__streaming-card__title">{ title }</div>
+        <div className="main-page-block__streaming-card__description">{ description}</div>
+      </div>
+      <ImageIcon icon={image} />
+    </div>
+  );
+});
+
+const StreamingUseCases = observer(() => {
+  const [title, setTitle] = useState("Streaming");
+  const { features } = mainStore.l10n.main.streaming_use_cases;
+
+  const imageMap = {
+    "streaming-1": "",
+    "streaming-2": "",
+    "broadcast": "",
+    "video-ai": "",
+    "publishing-1": "",
+    "publishing-2": ""
+  };
+
+  const HandleSlideChange = (swiper) => {
+    const feature = features[swiper.realIndex];
+    if(feature?.use_case) {
+      setTitle(feature.use_case);
+    }
+  }
 
   return (
-    <div className="main-page-block main-page-block--global-streaming">
-      <div className="main-page-block__copy-container main-page-block__copy-container--center">
-        <h3 className="main-page-block__copy-header center-align">
-          { header }
+    <div className="main-page-block main-page-block--light main-page-block--global-streaming">
+      <div className="main-page-block__copy-container">
+        <h3 className="main-page-block__copy-header">
+          <span>Use Cases</span>&nbsp;
+          <span className="main-page-block--highlight-title">{ title }</span>
         </h3>
-        <ImageIcon icon={GlobalStreamingImage} width="80%" />
       </div>
+      <Swiper
+        className="carousel"
+        modules={[Autoplay, FreeMode]}
+        autoplay={{
+          delay: 1,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        }}
+        loop
+        freeMode
+        speed={3000}
+        spaceBetween={12}
+        slidesPerView={3.5}
+        effect="slide"
+        onSlideChange={HandleSlideChange}
+      >
+        {
+          features.map(feature => (
+            <SwiperSlide key={`streaming-card-${feature.title}`}>
+              <StreamingCard
+                title={feature.title}
+                description={feature.description}
+                image={imageMap[feature.image]}
+              />
+            </SwiperSlide>
+          ))
+        }
+      </Swiper>
     </div>
   );
 });
@@ -323,9 +400,9 @@ const MainPageMobile = () => {
       <HeaderBlock/>
       <div className="main-page__blocks">
         <AwardsBlock/>
-        <VideoStack/>
         <div className="padded-block">
-          <GlobalStreaming/>
+          <VideoStack/>
+          <StreamingUseCases/>
           <MultiViewBlock/>
         </div>
       </div>
@@ -346,9 +423,9 @@ const MainPageDesktop = () => {
           <AwardsBlock />
         </div>
       </div>
-      <div className="main-page__blocks">
+      <div className="main-page__blocks--light">
         <VideoStack />
-        <GlobalStreaming />
+        <StreamingUseCases />
         <MultiViewBlock />
         <div className="page light no-padding">
           <BenefitsBlock />

@@ -418,11 +418,29 @@ export const Tabs = ({tabs=[], className, darkMode=false}) => {
             }
           </div>
         }
-        <div className="tabs__panel__description">
-          {
-            tabs[activeTabIndex].content?.description
-          }
-        </div>
+        {
+          tabs[activeTabIndex].content?.description &&
+          <div className="tabs__panel__description">
+            {
+              tabs[activeTabIndex].content?.description
+            }
+          </div>
+        }
+        {
+          tabs[activeTabIndex].content?.image &&
+          <ImageIcon icon={tabs[activeTabIndex].content.image} className="tabs__panel__image" />
+        }
+        {
+          tabs[activeTabIndex].content?.video &&
+          <video
+            className="tabs__panel__video"
+            src={tabs[activeTabIndex].content?.video}
+            loop
+            muted
+            playsInline=""
+            autoPlay
+          />
+        }
       </div>
     </div>
   );

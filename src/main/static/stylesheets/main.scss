@@ -453,9 +453,13 @@
     }
   }
 
-  &--video-stack,
+  &--video-stack {
+    padding-bottom: 150px;
+  }
+
   &--global-streaming {
-    margin-bottom: 50px;
+    padding-bottom: 50px;
+    padding-left: 75px;
   }
 
   &--video {
@@ -1030,6 +1034,26 @@
         font-size: 16px;
         font-weight: 500;
       }
+    }
+  }
+
+  &--highlight-title {
+    color: var(--color-highlight-7);
+  }
+
+  &__streaming-card {
+    //width: 410px;
+    max-width: 410px;
+    //height: 590px;
+
+    &__title {
+      font-size: var(--font-size-feature-subheader);
+      font-weight: 600;
+    }
+
+    &__description {
+      font-size: var(--font-size-body-7);
+      font-weight: 500;
     }
   }
 
