@@ -460,6 +460,7 @@
   &--global-streaming {
     padding-bottom: 50px;
     padding-left: 75px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%);
   }
 
   &--video {
@@ -1041,19 +1042,57 @@
     color: var(--color-highlight-7);
   }
 
+  &--subtle-title {
+    color: var(--color-text-dark-6);
+  }
+
   &__streaming-card {
-    //width: 410px;
-    max-width: 410px;
-    //height: 590px;
+    height: 590px;
+    background-color: var(--background-light-2);
+    border-radius: 14px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
 
     &__title {
       font-size: var(--font-size-feature-subheader);
       font-weight: 600;
+      padding-bottom: 20px;
+
+      &--purple {
+        color: var(--color-highlight-7);
+      }
+
+      &--blue {
+        color: var(--color-highlight-8);
+      }
+
+      &--violet {
+        color: var(--color-highlight-9);
+      }
+
+      &--teal {
+        color: var(--color-highlight-10);
+      }
     }
 
     &__description {
       font-size: var(--font-size-body-7);
+      color: rgba(0, 0, 0, 0.9);
       font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: 0.015rem;
+    }
+
+    &__logos {
+      padding-top: 20px;
+    }
+
+    &__logo {
+      height: 50px;
+      width: auto;
+    }
+
+    &--padded {
+      padding: 30px 35px 20px 35px;
     }
   }
 

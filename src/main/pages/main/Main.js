@@ -43,6 +43,9 @@ import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
 import VideoStackSecurity from "../../static/images/main/video-stack/03-Secure-and-Verifiable.jpg";
 import VideoStackMonetization from "../../static/images/main/video-stack/05-Monetization.mp4";
 
+import UefaLogo1 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-1";
+import UefaLogo2 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-2";
+
 const AwardsBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--awards">
@@ -121,13 +124,25 @@ const StreamingCard = observer(({
   title,
   description,
   image,
+  color,
+  logos=[],
   HandleClick
 }) => {
   return (
     <div className="main-page-block__streaming-card">
       <div className="main-page-block__streaming-card--padded">
-        <div className="main-page-block__streaming-card__title">{ title }</div>
+        <div className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${color}`}>{ title }</div>
         <div className="main-page-block__streaming-card__description">{ description}</div>
+        {
+          logos.length > 0 &&
+          <div className="main-page-block__streaming-card__logos">
+            {
+              logos.map((logo, i) => (
+                <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
+              ))
+            }
+          </div>
+        }
       </div>
       <ImageIcon icon={image} />
     </div>
@@ -136,6 +151,7 @@ const StreamingCard = observer(({
 
 const StreamingUseCases = observer(() => {
   const [title, setTitle] = useState("Streaming");
+  const [titleColor, setTitleColor] = useState("purple");
   const { features } = mainStore.l10n.main.streaming_use_cases;
 
   const imageMap = {
@@ -147,19 +163,25 @@ const StreamingUseCases = observer(() => {
     "publishing-2": ""
   };
 
+  const logoMap = {
+    "uefa-1": UefaLogo1,
+    "uefa-2": UefaLogo2
+  };
+
   const HandleSlideChange = (swiper) => {
     const feature = features[swiper.realIndex];
     if(feature?.use_case) {
       setTitle(feature.use_case);
+      setTitleColor(feature.use_case_color || "purple");
     }
-  }
+  };
 
   return (
     <div className="main-page-block main-page-block--light main-page-block--global-streaming">
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
-          <span>Use Cases</span>&nbsp;
-          <span className="main-page-block--highlight-title">{ title }</span>
+          <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
+          <span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor}`}>{ title }</span>
         </h3>
       </div>
       <Swiper
@@ -172,8 +194,8 @@ const StreamingUseCases = observer(() => {
         }}
         loop
         freeMode
-        speed={3000}
         spaceBetween={12}
+        speed={3000}
         slidesPerView={3.5}
         effect="slide"
         onSlideChange={HandleSlideChange}
@@ -185,6 +207,8 @@ const StreamingUseCases = observer(() => {
                 title={feature.title}
                 description={feature.description}
                 image={imageMap[feature.image]}
+                color={feature.use_case_color}
+                logos={(feature.logos || []).map(logo => logoMap[logo])}
               />
             </SwiperSlide>
           ))

@@ -93,6 +93,7 @@ main:
           Zero-code OTT sites creation with global reach across web/mobile/connected TV with advanced viewing features and built-in subscription and ad-supported monetization
         image: streaming-1
         use_case: Streaming
+        use_case_color: purple
       -
         title: Live Stream Recording at Scale
         description: |
@@ -102,29 +103,37 @@ main:
           Rights Management, Geo Fencing, and Entitlement Authorization Built In
           Subscription, Transaction, Ad Supported, and Novel Selling Models.
         image: streaming-2
+        use_case_color: purple
       -
         title: Ultra Low Latency Live Feed Distribution for Broadcast
         description: |
           Business and affiliate live feed distribution SRT/MPEGTS/RTP with sub-second latency globally and optimized routing for minimum bandwidth use and maximum cost efficiency. Scales to millions of receivers.
         image: broadcast
         use_case: Broadcast
+        use_case_color: blue
+        logos:
+          - uefa-1
+          - uefa-2
       -
         title: AI Generated Personalized Highlights, Clips & Compositions
         description: |
           Describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in AI models and new domain-specific models for sports play-by-play description and player identification. Create and add fine-tuned and domain specific models in collaboration with the Eluvio AI team.
         image: video_ai
         use_case: Video AI
+        use_case_color: violet
       -
         title: Complete APIs for Developing OTT & Media Rich Applications
         description: |
           Developer's dream toolkit - clean REST API, WASM programmable content , hash-based content versioning (ala GIT), edge just-in-time rendering including dynamic overlays and personalized renditions.
         image: publishing-1
         use_case: Publishing, Archive & Libraries
+        use_case_color: teal
       -
         title: Archive/Library AI Search, Hosting, Monetization
         description: |
           Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
         image: publishing-2
+        use_case_color: teal
   multi_view:
     header: Stunning, Super Fast Multi-View
   experiences_block:
