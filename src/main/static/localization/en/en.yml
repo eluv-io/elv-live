@@ -156,6 +156,70 @@ main:
         link: /media-wallet
     creators: Creators & Content Businesses
     developers: Developers & Node Providers
+  benefits_block:
+    cards:
+      no_1:
+        title: |
+          Over 80% of the Internet is video.
+          $500B/yr $1.5T by 2030.
+        text_left: |
+          Yet The Internet is not designed for content.
+        text_right: |
+          Addresses, streams, manages files & bytes ... but not content.
+      no_2:
+        text:
+          -
+            |
+            Media applications are Trapped by Complexity.
+            Multi-tier, Multi-vendor.
+          -
+            |
+            CDNs & Media Clouds are costly, complex, slow and limit capability.
+          -
+            |
+            Especially with regard to multi versioned media & AI data.
+      no_3:
+        text_one: |
+          The Fabric’s Content Native Protocol
+        text_two: |
+          Eliminates complexity, maximizes efficiency, & is AI native.
+        text_three: |
+          Content Fabric Technology Deep Dive →
+      no_4:
+        tabs:
+          -
+            label: AI Native
+            value: |
+              Media, Metadata, and Code Combine JIT for Data-Driven Outputs
+  
+              Built-in Multimodal AI for Search, Summarization, and Personalization
+  
+              AI-Assisted, JIT Personalized Highlights, Channels & Compositions. Comprehensive Open Source API (REST, WASM, Git-style Version Hashing)
+          -
+            label: Just-in-Time
+            value: |
+              TODO TEXT
+          -
+            label: Tamper Proof
+            value: |
+              TODO TEXT
+          -
+            label: Open
+            value: |
+              TODO TEXT
+          -
+            label: Inherently Fast
+            value: |
+              TODO TEXT
+          -
+            label: So Much Simpler
+            value: |
+              TODO TEXT
+          -
+            label: Hyper Efficient
+            value: |
+              TODO TEXT
+
 
 
 

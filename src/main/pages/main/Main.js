@@ -52,6 +52,7 @@ import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-medi
 import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
 import {autorun} from "mobx";
+import {PlusIcon} from "../../static/icons/Icons";
 
 const AwardsBlock = observer(() => {
   return (
@@ -223,6 +224,10 @@ const StreamingUseCases = observer(() => {
             slidesPerView: 2,
             spaceBetween: 7
           },
+          1000: {
+            slidesPerView: 3.5,
+            spaceBetween: 12
+          },
           1500: {
             slidesPerView: 4,
             spaceBetween: 12
@@ -248,48 +253,72 @@ const StreamingUseCases = observer(() => {
 });
 
 const BenefitsBlock = observer(() => {
+  const {cards} = mainStore.l10n.main.benefits_block;
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+  const isActive = (index) => {
+    if(activeTabIndex === index) { return true; }
+  };
+
   return (
-    <div className="main-page-block main-page-block--light padded-block">
-      <div className="main-page-block__copy-container main-page-block__copy-container--center">
-        <h3 className="main-page-block__copy-header center-align">Why now & why us?</h3>
-      </div>
-      <div className="main-page-block__benefit-cards">
-        <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
-          <div className="main-page-block__benefit-card-1__column-text">
-            <div className="main-page-block__benefit-card-1__title">
-              Over 80% of the Internet is video. $500B/yr $1.5T by 2030.
+    <div className="main-page-block main-page-block--light main-page-block--benefits">
+      <div className="main-page-block padded-blockj">
+        <div className="main-page-block__copy-container main-page-block__copy-container--center">
+          <h3 className="main-page-header__main-header__header">Why Now & Why Us?</h3>
+        </div>
+        <div className="main-page-block__benefit-cards">
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
+            <div className="main-page-block__benefit-card-1__column-text">
+              <div className="main-page-block__benefit-card-1__title">
+                { cards.no_1.title }
+              </div>
+              <div className="main-page-block__benefit-card-1__row-text">
+                <div className="main-page-block__benefit-card-1__description-text">
+                  { cards.no_1.text_left }
+                </div>
+                <div className="main-page-block__benefit-card-1__description-text">
+                  { cards.no_1.text_right }
+                </div>
+              </div>
             </div>
-            <div className="main-page-block__benefit-card-1__row-text">
-              <div className="main-page-block__benefit-card-1__description-text">Yet The Internet is not designed for content.</div>
-              <div className="main-page-block__benefit-card-1__description-text">Addresses, streams, manages files & bytes ... but not content.</div>
+          </div>
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
+            <div className="main-page-block__benefit-card-2__column">
+              {
+                cards.no_2.text.map((item, i) => (
+                  <div key={`card-2-item-${i}`}>{ item }</div>
+                ))
+              }
             </div>
           </div>
-        </div>
-        <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
-          <div className="main-page-block__benefit-card-2__column">
-            <div>Media applications are Trapped by Complexity. Multi-tier, Multi-vendor.</div>
-            <div>CDNs & Media Clouds are costly, complex, slow and limit capability.</div>
-            <div>Especially with regard to multi versioned media & AI data.</div>
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
+            <div className="main-page-block__benefit-card-3__column">
+              <div>{ cards.no_3.text_one }</div>
+              <div>{ cards.no_3.text_two }</div>
+              <div>{ cards.no_3.text_three }</div>
+            </div>
           </div>
-        </div>
-        <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
-          <div className="main-page-block__benefit-card-3__column">
-            <div>The Fabric's Content Native Protocol</div>
-            <div>Eliminates complexity, maximizes efficiency, & is AI native.</div>
-            <div>Content Fabric Technology Deep Dive →</div>
-          </div>
-        </div>
-        <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
-          <div className="main-page-block__benefit-card-4__row">
-            <div>An open network of nodes running the Content Fabric protocol.</div>
-            <div className="main-page-block__benefit-card-4__button-panel">
-              <Button className="tabs__button" disabled>Content Native</Button>
-              <Button className="tabs__button" disabled>Just-In-Time</Button>
-              <Button className="tabs__button" disabled>Tamper Proof</Button>
-              <Button className="tabs__button" disabled>Open</Button>
-              <Button className="tabs__button" disabled>Inherently Fast</Button>
-              <Button className="tabs__button" disabled>So Much Simpler</Button>
-              <Button className="tabs__button" disabled>Hyper Efficient</Button>
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
+            <div className="main-page-block__benefit-card-4__row">
+              <div className="main-page-block__benefit-card-4__text-panel">
+                {
+                  cards.no_4.tabs[activeTabIndex].value
+                }
+              </div>
+              <div className="main-page-block__benefit-card-4__button-panel">
+                {
+                  (cards?.no_4?.tabs || []).map((tab, i) => (
+                    <Button
+                      key={tab.label}
+                      className={`"tabs__button tabs__button--dark ${isActive(i) ? "active" : "inactive"}`}
+                      onClick={() => setActiveTabIndex(i)}
+                    >
+                      { tab.label }
+                      <ImageIcon icon={PlusIcon} height={10} width={10} />
+                    </Button>
+                  ))
+                }
+              </div>
             </div>
           </div>
         </div>
