@@ -11,6 +11,7 @@ import {Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, FreeMode} from "swiper";
 import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon, PlaySimpleIcon} from "../../static/icons/Icons";
+import {SocialIcons} from "../../static/icons/Icons";
 
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
 import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
@@ -56,6 +57,7 @@ import UseCaseEpcrImage from "../../static/images/main/use-cases/use-cases-epcr"
 import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-media";
 import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
+import {useNavigate} from "react-router";
 
 const AwardsBlock = observer(() => {
   return (
@@ -275,6 +277,7 @@ const StreamingUseCases = observer(() => {
 const BenefitsBlock = observer(() => {
   const {cards} = mainStore.l10n.main.benefits_block;
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const navigate = useNavigate();
 
   const isActive = (index) => {
     if(activeTabIndex === index) { return true; }
@@ -315,7 +318,7 @@ const BenefitsBlock = observer(() => {
             <div className="main-page-block__benefit-card-3__column">
               <div>{ cards.no_3.text_one }</div>
               <div>{ cards.no_3.text_two }</div>
-              <Link to="/content-fabric/technology">{ cards.no_3.text_three }</Link>
+              <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>{ cards.no_3.text_three }</Button>
             </div>
           </div>
           <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
@@ -348,13 +351,28 @@ const BenefitsBlock = observer(() => {
               </div>
             </div>
           </div>
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
+            <div>{ cards.no_5.text_one }</div>
+            <div>{ cards.no_5.text_two }</div>
+            <a
+              className="main-page-block__benefit-card-5__github-button"
+              href={cards.no_5.github_link}
+              target="_blank"
+              rel="noreferrer"
+              // onClick={() => navigate(cards.no_5.github_link)}
+            >
+              <ImageIcon icon={SocialIcons.GithubIcon} />
+              Eluvio GitHub
+            </a>
+          </div>
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-6"></div>
         </div>
       </div>
     </div>
   );
 });
 
-const AppsBlock = () => {
+const AppsBlock = observer(() => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const sectionRef = useRef(null);
 
@@ -488,7 +506,7 @@ const AppsBlock = () => {
       </div>
     </div>
   );
-};
+});
 
 const MainPageMobile = () => {
   return (

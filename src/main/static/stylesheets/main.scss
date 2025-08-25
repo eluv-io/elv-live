@@ -860,11 +860,6 @@
     }
   }
 
-  &__app-tabs-panel {
-    z-index: 1;
-    pointer-events: none;
-  }
-
   &__app-tabs-panel-content {
     display: flex;
     flex-direction: row;
@@ -918,7 +913,7 @@
   }
 
   &__benefit-card-1 {
-    background-color: #1c1c1c;
+    background-color: var(--color-text-light-11);
     padding: 133px 95px;
 
     &__title {
@@ -1072,6 +1067,42 @@
         height: 37px;
         width: 37px;
       }
+    }
+  }
+
+  &__benefit-card-5 {
+    background-color: var(--color-text-light-11);
+    color: var(--color-text-dark-1);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 117px 90px 125px;
+    justify-content: center;
+
+    div:nth-child(1) {
+      font-weight: 500;
+      font-size: var(--font-size-body-7);
+    }
+
+    div:nth-child(2) {
+      font-weight: 600;
+      font-size: var(--font-size-feature-subheader);
+    }
+
+    &__github-button {
+      background-color: var(--color-highlight-12);
+      padding-left: 16px;
+      padding-right: 16px;
+      border-radius: 62px;
+      color: var(--color-text-light-1);
+      font-size: var(--font-size-body-7);
+      font-weight: 500;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
     }
   }
 

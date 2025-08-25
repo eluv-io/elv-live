@@ -226,6 +226,20 @@ main:
             label: Hyper Efficient
             value: |
               TODO TEXT
+      no_5:
+        text_one: |
+          Led by founders Michelle Munson and Serban Simu who previously created Aspera FASP.
+        text_two: |
+          Open architecture, full-stack Ethereum blockchain, open-source.
+        github_link: https://github.com/eluv-io
+      no_6:
+        text_left: |
+          Over 14 US Patents
+          
+          Adopted by major media companies
+        text_right: |
+          HQ in Berkeley, CA
+          UC Berkeley Xcel
   apps_block:
     apps:
       -
@@ -250,20 +264,20 @@ main:
         title: Creator Studio
         description: |
           Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization
-        link: ''
+        link: apps/creator-studio
         image: creator-studio
       -
         title: Eluvio Video Intelligence Editor
         description: |
           Automatically Generate Personalized Highlights and Compositions with AI
           Search, Summarization, Clipping & Sharing, with No File copies or Egress
-        link: ''
+        link: apps/video-editor
         image: evie
       -
         title: AI Content Search and Management
         description: |
           Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress
-        link: ''
+        link: apps/ai-clip-search
         image: ai-search
       -
         title: Content Analytics & Reporting
