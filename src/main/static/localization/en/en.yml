@@ -118,7 +118,7 @@ main:
         title: AI Generated Personalized Highlights, Clips & Compositions
         description: |
           Describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in AI models and new domain-specific models for sports play-by-play description and player identification. Create and add fine-tuned and domain specific models in collaboration with the Eluvio AI team.
-        image: video_ai
+        image: video-ai
         use_case: Video AI
         use_case_color: violet
       -

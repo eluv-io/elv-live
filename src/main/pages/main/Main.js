@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react";
+import {reaction} from "mobx";
+
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
@@ -45,6 +47,13 @@ import VideoStackMonetization from "../../static/images/main/video-stack/05-Mone
 
 import UefaLogo1 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-1";
 import UefaLogo2 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-2";
+
+import UseCaseDevicesImage from "../../static/images/main/use-cases/use-case-devices";
+import UseCaseAiImage from "../../static/images/main/use-cases/use-cases-ai";
+import UseCaseEpcrImage from "../../static/images/main/use-cases/use-cases-epcr";
+import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-media";
+import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
+import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
 
 const AwardsBlock = observer(() => {
   return (
@@ -120,7 +129,7 @@ const VideoStack = observer(() => {
   );
 });
 
-const StreamingCard = observer(({
+const StreamingCard = ({
   title,
   description,
   image,
@@ -144,23 +153,24 @@ const StreamingCard = observer(({
           </div>
         }
       </div>
-      <ImageIcon icon={image} />
+      <ImageIcon icon={image} className="main-page-block__streaming-card__image" />
     </div>
   );
-});
+};
 
 const StreamingUseCases = observer(() => {
   const [title, setTitle] = useState("Streaming");
   const [titleColor, setTitleColor] = useState("purple");
   const { features } = mainStore.l10n.main.streaming_use_cases;
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const imageMap = {
-    "streaming-1": "",
-    "streaming-2": "",
-    "broadcast": "",
-    "video-ai": "",
-    "publishing-1": "",
-    "publishing-2": ""
+    "streaming-1": UseCaseEpcrImage,
+    "streaming-2": UseCaseNftsImage,
+    "broadcast": UseCaseStreamingImage,
+    "video-ai": UseCaseAiImage,
+    "publishing-1": UseCaseDevicesImage,
+    "publishing-2": UseCaseMediaImage
   };
 
   const logoMap = {
@@ -168,12 +178,21 @@ const StreamingUseCases = observer(() => {
     "uefa-2": UefaLogo2
   };
 
+  useEffect(() => {
+    const disposer = reaction(
+      () => features[currentSlideIndex],
+      (feature) => {
+        if(feature?.use_case) {
+          setTitle(feature.use_case);
+          setTitleColor(feature.use_case_color || "purple");
+        }
+      }
+    );
+    return () => disposer();
+  }, [currentSlideIndex, features]);
+
   const HandleSlideChange = (swiper) => {
-    const feature = features[swiper.realIndex];
-    if(feature?.use_case) {
-      setTitle(feature.use_case);
-      setTitleColor(feature.use_case_color || "purple");
-    }
+    setCurrentSlideIndex(swiper.realIndex);
   };
 
   return (
@@ -199,6 +218,20 @@ const StreamingUseCases = observer(() => {
         slidesPerView={3.5}
         effect="slide"
         onSlideChange={HandleSlideChange}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 5
+          },
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 7
+          },
+          1500: {
+            slidesPerView: 4,
+            spaceBetween: 12
+          }
+        }}
       >
         {
           features.map(feature => (

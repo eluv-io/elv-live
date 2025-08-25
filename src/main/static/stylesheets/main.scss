@@ -1051,6 +1051,11 @@
     background-color: var(--background-light-2);
     border-radius: 14px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 0;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
 
     &__title {
       font-size: var(--font-size-feature-subheader);
@@ -1089,6 +1094,10 @@
     &__logo {
       height: 50px;
       width: auto;
+    }
+
+    &__image {
+      align-items: center;
     }
 
     &--padded {
