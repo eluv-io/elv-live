@@ -51,6 +51,7 @@ import UseCaseEpcrImage from "../../static/images/main/use-cases/use-cases-epcr"
 import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-media";
 import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
+import {autorun} from "mobx";
 
 const AwardsBlock = observer(() => {
   return (
@@ -136,7 +137,7 @@ const StreamingCard = ({
 }) => {
   return (
     <div className="main-page-block__streaming-card">
-      <div className="main-page-block__streaming-card--padded">
+      <div className="main-page-block__streaming-card__content">
         <div className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${color}`}>{ title }</div>
         <div className="main-page-block__streaming-card__description">{ description}</div>
         {
@@ -149,8 +150,8 @@ const StreamingCard = ({
             }
           </div>
         }
+        <ImageIcon icon={image} className="main-page-block__streaming-card__image" />
       </div>
-      <ImageIcon icon={image} className="main-page-block__streaming-card__image" />
     </div>
   );
 };
@@ -176,11 +177,14 @@ const StreamingUseCases = observer(() => {
   };
 
   useEffect(() => {
-    const feature = features[currentSlideIndex];
-    if (feature?.use_case) {
-      setTitle(feature.use_case);
-      setTitleColor(feature.use_case_color || "purple");
-    }
+    const disposer = autorun(() => {
+      const feature = features[currentSlideIndex];
+      if (feature?.use_case) {
+        setTitle(feature.use_case);
+        setTitleColor(feature.use_case_color || "purple");
+      }
+    });
+    return () => disposer();
   }, [currentSlideIndex, features]);
 
   const HandleSlideChange = (swiper) => {
