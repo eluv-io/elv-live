@@ -82,12 +82,13 @@ main:
   streaming_use_cases:
     features:
       -
-        title: Full Stack, OTT Streaming & Monetization
+        title: Full Stack OTT Streaming and Global Monetization
         description: |
           Zero-code OTT sites creation with global reach across web/mobile/connected TV with advanced viewing features and built-in subscription and ad-supported monetization
         image: streaming-1
         use_case: Streaming
         use_case_color: purple
+        action_text: Case Study
       -
         title: Live Stream Recording at Scale
         description: |
@@ -98,6 +99,7 @@ main:
           Subscription, Transaction, Ad Supported, and Novel Selling Models.
         image: streaming-2
         use_case_color: purple
+        action_text: Learn More
       -
         title: Ultra Low Latency Live Feed Distribution for Broadcast
         description: |
@@ -108,6 +110,7 @@ main:
         logos:
           - uefa-1
           - uefa-2
+        action_text: Case Study
       -
         title: AI Generated Personalized Highlights, Clips & Compositions
         description: |
@@ -115,6 +118,7 @@ main:
         image: video-ai
         use_case: Video AI
         use_case_color: violet
+        action_text: Case Study
       -
         title: Complete APIs for Developing OTT & Media Rich Applications
         description: |
@@ -122,12 +126,15 @@ main:
         image: publishing-1
         use_case: Publishing, Archive & Libraries
         use_case_color: teal
+        action_text: Media Wallet
       -
         title: Archive/Library AI Search, Hosting, Monetization
         description: |
           Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
         image: publishing-2
         use_case_color: teal
+        action_text: Watch the Video
+        action_text_icon: play-arrow
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences

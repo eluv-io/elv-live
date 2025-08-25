@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import {Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, FreeMode} from "swiper";
-import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon} from "../../static/icons/Icons";
+import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon, PlaySimpleIcon} from "../../static/icons/Icons";
 
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
 import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
@@ -134,6 +134,8 @@ const StreamingCard = ({
   image,
   color,
   logos=[],
+  buttonText,
+  buttonLeftIcon,
   HandleClick
 }) => {
   return (
@@ -152,6 +154,15 @@ const StreamingCard = ({
           </div>
         }
         <ImageIcon icon={image} className="main-page-block__streaming-card__image" />
+      </div>
+      <div className="main-page-block__streaming-card__button-container">
+        <Button className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color}`} onClick={HandleClick}>
+          {
+            buttonLeftIcon &&
+            <ImageIcon icon={buttonLeftIcon} height={16} width={18} />
+          }
+          { buttonText }
+        </Button>
       </div>
     </div>
   );
@@ -175,6 +186,10 @@ const StreamingUseCases = observer(() => {
   const logoMap = {
     "uefa-1": UefaLogo1,
     "uefa-2": UefaLogo2
+  };
+
+  const iconMap = {
+    "play-arrow": PlaySimpleIcon
   };
 
   useEffect(() => {
@@ -243,6 +258,8 @@ const StreamingUseCases = observer(() => {
                 image={imageMap[feature.image]}
                 color={feature.use_case_color}
                 logos={(feature.logos || []).map(logo => logoMap[logo])}
+                buttonText={feature.action_text || "Case Study"}
+                buttonLeftIcon={feature.action_text_icon ? iconMap[feature.action_text_icon] : null}
               />
             </SwiperSlide>
           ))
