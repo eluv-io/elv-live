@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react";
-import {reaction} from "mobx";
 
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
@@ -179,16 +178,11 @@ const StreamingUseCases = observer(() => {
   };
 
   useEffect(() => {
-    const disposer = reaction(
-      () => features[currentSlideIndex],
-      (feature) => {
-        if(feature?.use_case) {
-          setTitle(feature.use_case);
-          setTitleColor(feature.use_case_color || "purple");
-        }
-      }
-    );
-    return () => disposer();
+    const feature = features[currentSlideIndex];
+    if (feature?.use_case) {
+      setTitle(feature.use_case);
+      setTitleColor(feature.use_case_color || "purple");
+    }
   }, [currentSlideIndex, features]);
 
   const HandleSlideChange = (swiper) => {
