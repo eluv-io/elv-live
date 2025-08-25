@@ -462,6 +462,10 @@
     padding-right: 75px;
   }
 
+  &--apps-block {
+    padding-bottom: 65px;
+  }
+
   &--global-streaming {
     padding-bottom: 50px;
     padding-left: 75px;
@@ -868,7 +872,7 @@
     gap: 10px;
 
     .image-icon {
-      flex: 1 1 auto;
+      flex: 0 0 70%;
     }
 
     img {

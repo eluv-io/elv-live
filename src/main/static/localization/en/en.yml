@@ -76,7 +76,7 @@ main:
         title: Unlimited Monetization
         subtitle: Built-in Subscription, Sell Through and Ad-Supported
         description: |
-          Unlimited Variants and Versions created from one object without redistribution. Zero-code OTT Site Creation with Global Reach on Web, Mobile, Connected TV. Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
+          Unlimited Variants and Versions created from one object without redistribution. Zero-code OTT Site Creation with Global Reach on Web, Mobile, Connected TV. Advanced Viewing Features for DVR, Multi-View, and Progressive VoD.
         media: monetization
         media_type: video
   streaming_use_cases:
@@ -226,6 +226,51 @@ main:
             label: Hyper Efficient
             value: |
               TODO TEXT
+  apps_block:
+    apps:
+      -
+        title: Fabric Browser
+        description: |
+          TODO
+        link: ''
+        image: fabric-browser
+      -
+        title: Media Ingest
+        description: |
+          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
+        link: ''
+        image: media-ingest
+      -
+        title: Live Stream Manager
+        description: |
+          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
+        link: ''
+        image: live-stream
+      -
+        title: Creator Studio
+        description: |
+          Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization
+        link: ''
+        image: creator-studio
+      -
+        title: Eluvio Video Intelligence Editor
+        description: |
+          Automatically Generate Personalized Highlights and Compositions with AI
+          Search, Summarization, Clipping & Sharing, with No File copies or Egress
+        link: ''
+        image: evie
+      -
+        title: AI Content Search and Management
+        description: |
+          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress
+        link: ''
+        image: ai-search
+      -
+        title: Content Analytics & Reporting
+        description: |
+          View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
+        link: /apps/analytics
+        image: analytics
 
 
 

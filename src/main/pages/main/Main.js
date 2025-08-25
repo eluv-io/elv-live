@@ -38,6 +38,9 @@ import AppIcon7 from "../../static/icons/apps_new/7_Analytics";
 
 import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
 import AnalyticsApp from "../../static/images/main/apps/analytics-app";
+import AiSearchApp from "../../static/images/main/apps/ai-search-app";
+import EvieApp from "../../static/images/main/apps/evie-app";
+import CreatorStudioApp from "../../static/images/main/apps/creator-studio-app";
 
 import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper Efficient.jpg";
 import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
@@ -355,6 +358,8 @@ const AppsBlock = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const sectionRef = useRef(null);
 
+  const {apps} = mainStore.l10n.main.apps_block;
+
   const appIcons = [
     {icon: AppIcon1, alt: "Fabric Browser app icon"},
     {icon: AppIcon2, alt: "Media Ingest app icon"},
@@ -365,15 +370,15 @@ const AppsBlock = () => {
     {icon: AppIcon7, alt: "Content Analytics & Reporting app icon"}
   ];
 
-  const appContent = [
-    {image: "", title: "Fabric Browser", description: "", link: ""},
-    {image: "", title: "Media Ingest", description: "", link: ""},
-    {image: "", title: "Livestream Manager", description: "", link: ""},
-    {image: "", title: "Creator Studio", description: "", link: ""},
-    {image: "", title: "Evie", description: "", link: ""},
-    {image: "", title: "AI Content Search", description: "", link: ""},
-    {image: AnalyticsApp, title: "Content Analytics & Reporting", description: "View and track comprehensive metrics for streaming content and delivery quality of service (QoS).", link: "/apps/analytics"}
-  ];
+  const appImageMap = {
+    "creator-studio": CreatorStudioApp,
+    "evie": EvieApp,
+    "ai-search": AiSearchApp,
+    "analytics": AnalyticsApp,
+    "media-ingest": "",
+    "fabric-browser": "",
+    "live-stream": ""
+  };
 
   const scrollTimeoutRef = useRef(null);
 
@@ -387,7 +392,7 @@ const AppsBlock = () => {
         const sectionRect = section.getBoundingClientRect();
         const sectionHeight = section.offsetHeight;
         const windowHeight = window.innerHeight;
-        const numberOfTabs = appContent.length;
+        const numberOfTabs = apps.length;
 
         const scrollPosition = windowHeight - sectionRect.top;
 
@@ -414,7 +419,7 @@ const AppsBlock = () => {
       window.removeEventListener("scroll", HandleScroll);
       clearTimeout(scrollTimeoutRef.current);
     };
-  }, [appContent.length]);
+  }, [apps.length]);
 
   const HandleButtonClick = (index) => {
     setActiveTabIndex(index);
@@ -425,7 +430,7 @@ const AppsBlock = () => {
       const sectionTop = sectionRect.top + window.scrollY;
       const sectionHeight = section.offsetHeight;
       const windowHeight = window.innerHeight;
-      const numberOfTabs = appContent.length;
+      const numberOfTabs = apps.length;
       const tabScrollHeight = sectionHeight / numberOfTabs;
 
       const targetScrollOffset = (index * tabScrollHeight) + (tabScrollHeight / 2);
@@ -439,7 +444,7 @@ const AppsBlock = () => {
   };
 
   return (
-    <div className="main-page-block main-page-block--light padded-block">
+    <div className="main-page-block main-page-block--light padded-block main-page-block--apps-block">
       <div className="main-page-block__copy-container main-page-block__copy-container--center">
         <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
       </div>
@@ -469,11 +474,11 @@ const AppsBlock = () => {
           {/* Panel content */}
           <div className="main-page-block main-page-block__app-tabs-panel">
             <div className="main-page-block__app-tabs-panel-content">
-              <ImageIcon icon={appContent[activeTabIndex].image} />
+              <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
               <div className="main-page-block__app-tabs-panel-content__text-column">
-                <div className="app-panel-title">{ appContent[activeTabIndex].title }</div>
-                <div className="app-panel-description">{ appContent[activeTabIndex].description }</div>
-                <Link to={appContent[activeTabIndex].link} className="app-panel-link">
+                <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
+                <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
+                <Link to={apps[activeTabIndex].link} className="app-panel-link">
                   Learn More →
                 </Link>
               </div>
