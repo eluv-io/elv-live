@@ -10,8 +10,6 @@ import {Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, FreeMode} from "swiper";
 
-import MultiViewImage from "../../static/images/main/player-multi-view.png";
-
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
 import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
 import AwardImage3 from "../../static/images/main/awards/csi-award-2024.webp";
@@ -245,21 +243,6 @@ const StreamingUseCases = observer(() => {
   );
 });
 
-const MultiViewBlock = observer(() => {
-  const { header } = mainStore.l10n.main.multi_view;
-
-  return (
-    <div className="main-page-block main-page-block">
-      <div className="main-page-block__copy-container main-page-block__copy-container--center">
-        <h3 className="main-page-block__copy-header center-align">
-          {header}
-        </h3>
-        <ImageIcon icon={MultiViewImage} width="80%"/>
-      </div>
-    </div>
-  );
-});
-
 const BenefitsBlock = observer(() => {
   return (
     <div className="main-page-block main-page-block--light padded-block">
@@ -454,7 +437,6 @@ const MainPageMobile = () => {
         <div className="padded-block">
           <VideoStack/>
           <StreamingUseCases/>
-          <MultiViewBlock/>
         </div>
       </div>
       <div className="page light no-padding">
@@ -477,7 +459,6 @@ const MainPageDesktop = () => {
       <div className="main-page__blocks--light">
         <VideoStack />
         <StreamingUseCases />
-        <MultiViewBlock />
         <div className="page light no-padding">
           <BenefitsBlock />
           <AppsBlock />

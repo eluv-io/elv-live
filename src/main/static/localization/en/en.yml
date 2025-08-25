@@ -41,12 +41,6 @@ main:
     cta_text: Take Control & Super Charge Your Content
     featured_link_text: Check out the Bangkok Release
     featured_link: "/content-fabric/fabric-core"
-  features_carousel:
-    - High Performance 4K and Interactive Streaming
-    - State-of-the-Art Blockchain Security and Payments
-    - 10X Less Expensive at Scale and Carbon Efficient
-    - Radically Simpler Than Traditional CDNs and Cloud
-    - Transparent, Tamper‑free, and AI Native
   video_stack:
     header: Next Gen CDN & Full Feature Video Stack
     features:
@@ -134,8 +128,6 @@ main:
           Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
         image: publishing-2
         use_case_color: teal
-  multi_view:
-    header: Stunning, Super Fast Multi-View
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences
@@ -164,9 +156,6 @@ main:
         link: /media-wallet
     creators: Creators & Content Businesses
     developers: Developers & Node Providers
-  projects_block:
-    header: Discover Next Gen Media Projects.
-    subheader: All built on the Content Fabric.
 
 
 
