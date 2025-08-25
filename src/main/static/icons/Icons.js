@@ -1,5 +1,10 @@
 import AppleIcon from "./apple.svg";
+import ArrowCubeIcon from "./arrow-cube.svg";
 import BlockchainIcon from "./blockchain.svg";
+import BlockchainMenuIcon from "./blockchain-menu.svg";
+import BoltIcon from "./bolt.svg";
+import CodeSandboxIcon from "./codesandbox.svg";
+import CubeIcon from "./cube.svg";
 import DiscoverIcon from "./discover.svg";
 import DocumentIcon from "./view-document.svg";
 import FilmIcon from "./film.svg";
@@ -70,10 +75,15 @@ export {
   AppIcon,
   AppleIcon,
   ApplicationIcons,
+  ArrowCubeIcon,
   BarsIcon,
+  BlockchainMenuIcon,
+  BoltIcon,
   CheckSquareIcon,
   CheckmarkIcon,
   ClockIcon,
+  CodeSandboxIcon,
+  CubeIcon,
   DollarIcon,
   DiscoverIcon,
   DocumentIcon,

@@ -1029,6 +1029,9 @@
       padding: 45px 40px;
       flex: 3;
       white-space: pre-line;
+      font-weight: 500;
+      line-height: 147%;
+      justify-content: center;
     }
 
     &__button-panel {
@@ -1051,6 +1054,19 @@
         padding-right: 16px;
         font-size: 16px;
         font-weight: 500;
+      }
+    }
+
+    &__icons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      svg {
+        color: var(--color-highlight-11);
+        height: 37px;
+        width: 37px;
       }
     }
   }

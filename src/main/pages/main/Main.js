@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react";
+import {autorun} from "mobx";
 
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
@@ -9,6 +10,7 @@ import {Link} from "react-router-dom";
 import {Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, FreeMode} from "swiper";
+import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon} from "../../static/icons/Icons";
 
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
 import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
@@ -51,8 +53,6 @@ import UseCaseEpcrImage from "../../static/images/main/use-cases/use-cases-epcr"
 import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-media";
 import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
-import {autorun} from "mobx";
-import {PlusIcon} from "../../static/icons/Icons";
 
 const AwardsBlock = observer(() => {
   return (
@@ -295,7 +295,7 @@ const BenefitsBlock = observer(() => {
             <div className="main-page-block__benefit-card-3__column">
               <div>{ cards.no_3.text_one }</div>
               <div>{ cards.no_3.text_two }</div>
-              <div>{ cards.no_3.text_three }</div>
+              <Link to="/content-fabric/technology">{ cards.no_3.text_three }</Link>
             </div>
           </div>
           <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
@@ -304,6 +304,13 @@ const BenefitsBlock = observer(() => {
                 {
                   cards.no_4.tabs[activeTabIndex].value
                 }
+                <div className="main-page-block__benefit-card-4__icons">
+                  {
+                    [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
+                      <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
+                    ))
+                  }
+                </div>
               </div>
               <div className="main-page-block__benefit-card-4__button-panel">
                 {
