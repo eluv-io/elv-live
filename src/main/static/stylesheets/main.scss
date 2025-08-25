@@ -1106,6 +1106,42 @@
     }
   }
 
+  &__benefit-card-6 {
+    background-color: var(--background-dark-4);
+    color: var(--color-text-light-11);
+
+    &__text-content {
+      padding-left: 65px;
+      padding-right: 45px;
+      padding-top: 31px;
+      display: flex;
+      flex-direction: row;
+      gap: 80px;
+    }
+
+    &__left-column {
+      white-space: pre-line;
+    }
+
+    &__right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      white-space: pre-line;
+    }
+
+    &__team-image {
+      background-size: cover;
+      height: 310px;
+      background-repeat: no-repeat;
+      background-position: top;
+      overflow: hidden;
+      width: 100%;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+  }
+
   &--highlight-title {
     color: var(--color-highlight-7);
   }

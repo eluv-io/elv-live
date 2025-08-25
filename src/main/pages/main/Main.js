@@ -6,7 +6,8 @@ import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
 import {Tabs} from "../../components/Misc";
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";import {useNavigate} from "react-router";
+
 import {Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, FreeMode} from "swiper";
@@ -57,7 +58,8 @@ import UseCaseEpcrImage from "../../static/images/main/use-cases/use-cases-epcr"
 import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-media";
 import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
-import {useNavigate} from "react-router";
+
+import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
 
 const AwardsBlock = observer(() => {
   return (
@@ -359,13 +361,21 @@ const BenefitsBlock = observer(() => {
               href={cards.no_5.github_link}
               target="_blank"
               rel="noreferrer"
-              // onClick={() => navigate(cards.no_5.github_link)}
             >
               <ImageIcon icon={SocialIcons.GithubIcon} />
               Eluvio GitHub
             </a>
           </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-6"></div>
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-6">
+            <div className="main-page-block__benefit-card-6__team-image" style={{backgroundImage: `url(${EluvioGroupImage})`}}></div>
+            <div className="main-page-block__benefit-card-6__text-content">
+              <div className="main-page-block__benefit-card-6__left-column">{ cards.no_6.text_left }</div>
+              <div className="main-page-block__benefit-card-6__right-column">
+                { cards.no_6.text_right }
+                <Link to={""}>Meet the Team →</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
