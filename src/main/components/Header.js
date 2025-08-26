@@ -53,15 +53,15 @@ const Header = observer(() => {
             underline
             items={[
               {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.partners, to: "/about/partners", props: {useNavLink: true, exact: true}},
+              // {label: mainStore.l10n.header.partners, to: "/about/partners", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.contact, to: "/about/contact", props: {useNavLink: true, exact: true}},
             ]}
           >
             { mainStore.l10n.header.about }
           </MenuButton>
-          <Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">
-            { mainStore.l10n.header.creators_and_publishers }
-          </Action>
+          {/*<Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">*/}
+          {/*  { mainStore.l10n.header.creators_and_publishers }*/}
+          {/*</Action>*/}
           <MenuButton
             basePath="/content-fabric"
             className="dark header__nav-link"
@@ -71,8 +71,7 @@ const Header = observer(() => {
             items={[
               {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.fabric_core, to: "/content-fabric/fabric-core", props: {useNavLink: true, exact: true}}
+              {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}}
             ]}
           >
             { mainStore.l10n.header.content_fabric }
@@ -84,40 +83,75 @@ const Header = observer(() => {
             useNavLink
             underline
             items={[
-              {label: mainStore.l10n.header.creator_studio, to: "/apps/creator-studio", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.analytics, to: "/apps/analytics", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.ai_clip_search, to: "/apps/ai-clip-search", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.video_editor, to: "/apps/video-editor", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.elv_media_wallet, to: "/apps/media-wallet", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.embeddable_player, to: "/apps/embeddable-player", props: {useNavLink: true, exact: true}}
+              {label: mainStore.l10n.header.fabric_core, to: "/apps/fabric-core", props: {useNavLink: true, exact: true}},
             ]}
           >
             { mainStore.l10n.header.apps }
           </MenuButton>
           <MenuButton
-            basePath="/features"
+            basePath="/monetization"
             className="dark header__nav-link"
             optionClassName="dark"
             useNavLink
             underline
             items={[
-              {label: mainStore.l10n.header.tenancy_levels, to: "/features/tenancy-levels", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.features, to: "/features/details", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.pricing, to: "/features/pricing", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.support, to: "/features/support", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}}
             ]}
           >
-            { mainStore.l10n.header.features }
+            { mainStore.l10n.header.monetization }
           </MenuButton>
-          <Action to="/media-wallet" useNavLink underline className="dark header__nav-link">
-            { mainStore.l10n.header.media_wallet }
-          </Action>
-          <Action to="https://docs.eluv.io/" useNavLink underline className="dark header__nav-link">
-            { mainStore.l10n.header.docs }
-          </Action>
-          <Action to="/register" useNavLink underline className="dark header__nav-link">
-            { mainStore.l10n.header.register }
-          </Action>
+          <MenuButton
+            basePath="/video-intelligence"
+            className="dark header__nav-link"
+            optionClassName="dark"
+            useNavLink
+            underline
+            items={[
+              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}},
+            ]}
+          >
+            { mainStore.l10n.header.video_intelligence }
+          </MenuButton>
+          <MenuButton
+            basePath="/resources"
+            className="dark header__nav-link"
+            optionClassName="dark"
+            useNavLink
+            underline
+            items={[
+              {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}}
+            ]}
+          >
+            { mainStore.l10n.header.resources }
+          </MenuButton>
+          {/*<MenuButton*/}
+          {/*  basePath="/features"*/}
+          {/*  className="dark header__nav-link"*/}
+          {/*  optionClassName="dark"*/}
+          {/*  useNavLink*/}
+          {/*  underline*/}
+          {/*  items={[*/}
+          {/*    {label: mainStore.l10n.header.tenancy_levels, to: "/features/tenancy-levels", props: {useNavLink: true, exact: true}},*/}
+          {/*    {label: mainStore.l10n.header.features, to: "/features/details", props: {useNavLink: true, exact: true}},*/}
+          {/*    {label: mainStore.l10n.header.pricing, to: "/features/pricing", props: {useNavLink: true, exact: true}},*/}
+          {/*    {label: mainStore.l10n.header.support, to: "/features/support", props: {useNavLink: true, exact: true}},*/}
+          {/*  ]}*/}
+          {/*>*/}
+          {/*  { mainStore.l10n.header.features }*/}
+          {/*</MenuButton>*/}
+          {/*<Action to="/media-wallet" useNavLink underline className="dark header__nav-link">*/}
+          {/*  { mainStore.l10n.header.media_wallet }*/}
+          {/*</Action>*/}
+          {/*<Action to="https://docs.eluv.io/" useNavLink underline className="dark header__nav-link">*/}
+          {/*  { mainStore.l10n.header.docs }*/}
+          {/*</Action>*/}
+          {/*<Action to="/register" useNavLink underline className="dark header__nav-link">*/}
+          {/*  { mainStore.l10n.header.register }*/}
+          {/*</Action>*/}
           <div className="header__buttons">
             <Button href={mainStore.walletAppUrl} target="_blank" icon={EluvioEIconColor} className="light header__button header__button--discover">
               { mainStore.l10n.header.discover }

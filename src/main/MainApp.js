@@ -99,14 +99,16 @@ const MainApp = () => {
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
-          <Route path="/content-fabric/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
           {/* Apps Routes */}
-          <Route path="/apps/creator-studio" element={<PageContainer padded><CreatorStudio /></PageContainer>} />
-          <Route path="/apps/analytics" element={<PageContainer padded><Analytics /></PageContainer>} />
-          <Route path="/apps/ai-clip-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
-          <Route path="/apps/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
-          <Route path="/apps/media-wallet" element={<PageContainer padded><MediaWalletApp /></PageContainer>} />
-          <Route path="/apps/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
+          <Route path="/apps/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
+          {/* Monetization Routes */}
+          <Route path="/monetization/creator-studio" element={<PageContainer padded><CreatorStudio /></PageContainer>} />
+          <Route path="/monetization/analytics" element={<PageContainer padded><Analytics /></PageContainer>} />
+          <Route path="/monetization/media-wallet" element={<PageContainer padded><MediaWalletApp /></PageContainer>} />
+          <Route path="/monetization/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
+          {/* Video Intelligence Routes */}
+          <Route path="/video-intelligence/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
+          <Route path="/video-intelligence/ai-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
           {/* Community Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
           {/* Features Routes */}

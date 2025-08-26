@@ -69,7 +69,7 @@ const MobileNav = observer(({visible, Close}) => {
           <Action useNavLink exact to="/content-fabric/blockchain">
             { mainStore.l10n.header.eluvio_blockchain }
           </Action>
-          <Action useNavLink exact to="/content-fabric/fabric-core">
+          <Action useNavLink exact to="/apps/fabric-core">
             { mainStore.l10n.header.fabric_core}
           </Action>
           <Action useNavLink exact to="/features/details">

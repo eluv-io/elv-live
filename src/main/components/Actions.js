@@ -22,6 +22,7 @@ const PrependClassName = (addition, className="") => {
 
 export const ActionComponent = React.forwardRef((props, ref) => {
   props = { ...props };
+  const location = useLocation();
 
   // Handle navlink
   const useNavLink = props.useNavLink;
@@ -35,8 +36,6 @@ export const ActionComponent = React.forwardRef((props, ref) => {
   delete props.basePath;
 
   if(useNavLink) {
-    const location = useLocation();
-
     const to = props.to || basePath || "";
     let routeActive;
     if(exact || location.pathname === "/") {
@@ -197,7 +196,6 @@ export const MenuButton = React.forwardRef((props, ref) => {
       {...props}
       ref={combinedRef}
       onClick={event => {
-        event.preventDefault();
         event.stopPropagation();
         setMenuOpen(!menuOpen);
       }}
