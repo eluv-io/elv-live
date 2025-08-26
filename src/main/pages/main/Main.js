@@ -407,8 +407,6 @@ const BenefitsBlock = observer(() => {
 
 const AppsBlock = observer(() => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const sectionRef = useRef(null);
-
   const {apps} = mainStore.l10n.main.apps_block;
 
   const appIcons = [
@@ -431,67 +429,8 @@ const AppsBlock = observer(() => {
     "live-stream": ""
   };
 
-  const scrollTimeoutRef = useRef(null);
-
-  useEffect(() => {
-    const HandleScroll = () => {
-      clearTimeout(scrollTimeoutRef.current);
-      scrollTimeoutRef.current = setTimeout(() => {
-        if(!sectionRef.current) { return; }
-
-        const section = sectionRef.current;
-        const sectionRect = section.getBoundingClientRect();
-        const sectionHeight = section.offsetHeight;
-        const windowHeight = window.innerHeight;
-        const numberOfTabs = apps.length;
-
-        const scrollPosition = windowHeight - sectionRect.top;
-
-        // Only update if the section is within the viewport
-        if(scrollPosition > 0 && scrollPosition < (windowHeight + sectionHeight)) {
-          // Calculate a scrollable height for the tabs within the section
-          const tabScrollHeight = sectionHeight / numberOfTabs;
-
-          // Determine the current tab index based on the scroll position
-          const newTabIndex = Math.floor((scrollPosition - (windowHeight / 2)) / tabScrollHeight);
-
-          // Index must be within a valid range (within the tab count)
-          const clampedIndex = Math.max(0, Math.min(numberOfTabs - 1, newTabIndex));
-
-          setActiveTabIndex(clampedIndex);
-        }
-      }, 100);
-    };
-
-    window.addEventListener("scroll", HandleScroll);
-    HandleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", HandleScroll);
-      clearTimeout(scrollTimeoutRef.current);
-    };
-  }, [apps.length]);
-
   const HandleButtonClick = (index) => {
     setActiveTabIndex(index);
-
-    if(sectionRef.current) {
-      const section = sectionRef.current;
-      const sectionRect = section.getBoundingClientRect();
-      const sectionTop = sectionRect.top + window.scrollY;
-      const sectionHeight = section.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const numberOfTabs = apps.length;
-      const tabScrollHeight = sectionHeight / numberOfTabs;
-
-      const targetScrollOffset = (index * tabScrollHeight) + (tabScrollHeight / 2);
-      const targetScrollPosition = sectionTop + targetScrollOffset - (windowHeight / 2);
-
-      window.scrollTo({
-        top: targetScrollPosition,
-        behavior: "smooth"
-      });
-    }
   };
 
   return (
@@ -501,7 +440,7 @@ const AppsBlock = observer(() => {
           <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
         </div>
 
-        <div ref={sectionRef} className="main-page-block__app-tabs-container">
+        <div className="main-page-block__app-tabs-container">
           {/* Tab toolbar */}
           <div className="main-page-block main-page-block__app-tabs">
             <div className="main-page-block main-page-block__app-tabs-list">
