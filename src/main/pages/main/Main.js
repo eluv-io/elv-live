@@ -249,14 +249,14 @@ const StreamingUseCases = observer(() => {
         className="carousel"
         modules={[Autoplay, FreeMode]}
         autoplay={{
-          delay: 1,
+          delay: 0,
           disableOnInteraction: false,
           pauseOnMouseEnter: true
         }}
         loop
         freeMode
         spaceBetween={12}
-        speed={3000}
+        speed={6000}
         slidesPerView={3.5}
         effect="slide"
         onSlideChange={HandleSlideChange}
@@ -600,6 +600,7 @@ const MainPageMobile = () => {
       <div className="page light no-padding">
         <BenefitsBlock/>
         <AppsBlock />
+        <PartnersBlock />
       </div>
     </div>
   );
