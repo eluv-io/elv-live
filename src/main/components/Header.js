@@ -123,7 +123,8 @@ const Header = observer(() => {
             useNavLink
             underline
             items={[
-              {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}}
+              {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}},
+              {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}}
             ]}
           >
             { mainStore.l10n.header.resources }
