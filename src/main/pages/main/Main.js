@@ -60,6 +60,29 @@ import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts"
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
 
 import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
+import Carousel from "Common/Carousel";
+
+import CricketImage from "../../static/images/main/partners/cricket";
+import EpcrImage from "../../static/images/main/partners/epcr";
+import EpcrTVImage from "../../static/images/main/partners/epcr-tv";
+import FandangoImage from "../../static/images/main/partners/fandango";
+import FlashImage from "../../static/images/main/partners/flash";
+import SupermanImage from "../../static/images/main/partners/superman.jpg";
+import UefaImage from "../../static/images/main/partners/uefa";
+import Uefa2Image from "../../static/images/main/partners/uefa-2";
+import YellowstoneImage from "../../static/images/main/partners/yellowstone";
+
+const partnerImages = [
+  EpcrImage,
+  UefaImage,
+  CricketImage,
+  EpcrTVImage,
+  Uefa2Image,
+  FandangoImage,
+  YellowstoneImage,
+  FlashImage,
+  SupermanImage
+];
 
 const AwardsBlock = observer(() => {
   return (
@@ -287,7 +310,7 @@ const BenefitsBlock = observer(() => {
 
   return (
     <div className="main-page-block main-page-block--light main-page-block--benefits">
-      <div className="main-page-block padded-blockj">
+      <div className="main-page-block main-page-block--benefits padded">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-header__main-header__header">Why Now & Why Us?</h3>
         </div>
@@ -472,43 +495,45 @@ const AppsBlock = observer(() => {
   };
 
   return (
-    <div className="main-page-block main-page-block--light padded-block main-page-block--apps-block">
-      <div className="main-page-block__copy-container main-page-block__copy-container--center">
-        <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
-      </div>
+    <div className="main-page-block main-page-block--light main-page-block--apps-block">
+      <div className="main-page-block padded-block">
+        <div className="main-page-block__copy-container main-page-block__copy-container--center">
+          <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
+        </div>
 
-      <div ref={sectionRef} className="main-page-block__app-tabs-container">
-        {/* Tab toolbar */}
-        <div className="main-page-block main-page-block__app-tabs">
-          <div className="main-page-block main-page-block__app-tabs-list">
-            {
-              appIcons.map((appData, index) => (
-                <div
-                  key={`button-${index}`}
-                  className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
-                >
-                  <button
-                    type="button"
-                    className="app-list-item-button"
-                    onClick={() => HandleButtonClick(index)}
+        <div ref={sectionRef} className="main-page-block__app-tabs-container">
+          {/* Tab toolbar */}
+          <div className="main-page-block main-page-block__app-tabs">
+            <div className="main-page-block main-page-block__app-tabs-list">
+              {
+                appIcons.map((appData, index) => (
+                  <div
+                    key={`button-${index}`}
+                    className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
                   >
-                    <ImageIcon icon={appData.icon} height="100%" width="100%" />
-                  </button>
-                </div>
-              ))
-            }
-          </div>
+                    <button
+                      type="button"
+                      className="app-list-item-button"
+                      onClick={() => HandleButtonClick(index)}
+                    >
+                      <ImageIcon icon={appData.icon} height="100%" width="100%" />
+                    </button>
+                  </div>
+                ))
+              }
+            </div>
 
-          {/* Panel content */}
-          <div className="main-page-block main-page-block__app-tabs-panel">
-            <div className="main-page-block__app-tabs-panel-content">
-              <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
-              <div className="main-page-block__app-tabs-panel-content__text-column">
-                <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
-                <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
-                <Link to={apps[activeTabIndex].link} className="app-panel-link">
-                  Learn More →
-                </Link>
+            {/* Panel content */}
+            <div className="main-page-block main-page-block__app-tabs-panel">
+              <div className="main-page-block__app-tabs-panel-content">
+                <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
+                <div className="main-page-block__app-tabs-panel-content__text-column">
+                  <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
+                  <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
+                  <Link to={apps[activeTabIndex].link} className="app-panel-link">
+                    Learn More →
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -517,6 +542,49 @@ const AppsBlock = observer(() => {
     </div>
   );
 });
+
+const PartnersBlock = () => {
+  return (
+    <div className="main-page-block main-page-block--light main-page-block--benefits">
+      <div className="main-page-block main-page-block__partners__header">
+        <div className="main-page-block__copy-container">
+          <h3 className="main-page-block__copy-header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
+          <div className="main-page-block__partners__button-container">
+            <Button className="main-page-block__partners__button--explore">Explore Projects</Button>
+            <Button className="main-page-block__partners__button--contact">Get in Touch</Button>
+          </div>
+        </div>
+      </div>
+      <div className="main-page-block">
+        {/*<Swiper*/}
+        {/*  // onSlideChange={swiper => {*/}
+        {/*  //   setActiveSlide(swiper.realIndex + 1);*/}
+        {/*  // }}*/}
+        {/*  // onSwiper={swiper => swiperRef.current = swiper}*/}
+        {/*  spaceBetween={2}*/}
+        {/*  slidesPerView="auto"*/}
+        {/*  // loop*/}
+        {/*>*/}
+        {/*  { partnerImages.map((img, i) =>*/}
+        {/*    <SwiperSlide key={`partner-${i}`}>*/}
+        {/*      <ImageIcon*/}
+        {/*        // className="key-feature-card__banner"*/}
+        {/*        icon={img}*/}
+        {/*        width={169}*/}
+        {/*        style={{aspectRatio: "2/3"}}*/}
+        {/*      />*/}
+        {/*    </SwiperSlide>*/}
+        {/*  )}*/}
+        {/*</Swiper>*/}
+        <Carousel
+          minVisible={3}
+          maxVisible={9}
+          elements={partnerImages.map((img, i) => <ImageIcon key={`partner-${i}`} icon={img} style={{aspectRatio: "2/3"}} width={169} />)}
+        />
+      </div>
+    </div>
+  );
+};
 
 const MainPageMobile = () => {
   return (
@@ -552,6 +620,7 @@ const MainPageDesktop = () => {
         <div className="page light no-padding">
           <BenefitsBlock />
           <AppsBlock />
+          <PartnersBlock />
         </div>
       </div>
     </div>

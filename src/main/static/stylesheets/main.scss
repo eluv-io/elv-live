@@ -458,8 +458,10 @@
   }
 
   &--benefits {
-    padding-left: 75px;
-    padding-right: 75px;
+    &.padded {
+      padding-left: 75px;
+      padding-right: 75px;
+    }
   }
 
   &--apps-block {
@@ -1139,6 +1141,30 @@
       width: 100%;
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
+    }
+  }
+
+  &__partners {
+    &__header {
+      padding-left: 90px;
+    }
+    &__button-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    &__button {
+      &--explore {
+        background-color: var(--background-dark-4);
+        color: var(--color-text-light-1);
+        border: 1px solid var(--background-dark-6);
+      }
+
+      &--contact {
+        background-color: var(--background-dark-6);
+        color: var(--color-text-dark-1);
+      }
     }
   }
 
