@@ -57,9 +57,9 @@ const MobileNav = observer(({visible, Close}) => {
       <Action icon={XIcon} className="dark mobile-nav__close-button mobile" onClick={Close} />
       <div className="mobile-nav__menu-content">
         <div className="mobile-nav__menu-links mobile-nav__menu-section mobile-nav__menu-primary-links">
-          <Action useNavLink exact to="/creators-and-publishers">
-            { mainStore.l10n.header.creators_and_publishers }
-          </Action>
+          {/*<Action useNavLink exact to="/creators-and-publishers">*/}
+          {/*  { mainStore.l10n.header.creators_and_publishers }*/}
+          {/*</Action>*/}
           <Action useNavLink exact to="/content-fabric">
             { mainStore.l10n.header.content_fabric }
           </Action>
@@ -69,21 +69,21 @@ const MobileNav = observer(({visible, Close}) => {
           <Action useNavLink exact to="/content-fabric/blockchain">
             { mainStore.l10n.header.eluvio_blockchain }
           </Action>
-          <Action useNavLink exact to="/apps/fabric-core">
+          <Action useNavLink exact to="/av-core/fabric-core">
             { mainStore.l10n.header.fabric_core}
           </Action>
-          <Action useNavLink exact to="/features/details">
-            { mainStore.l10n.header.features }
+          <Action useNavLink exact to="/av-core/core-utilities">
+            { mainStore.l10n.header.core_utilities }
           </Action>
-          <Action useNavLink exact to="/media-wallet">
-            { mainStore.l10n.header.media_wallet }
-          </Action>
+          {/*<Action useNavLink exact to="/media-wallet">*/}
+          {/*  { mainStore.l10n.header.media_wallet }*/}
+          {/*</Action>*/}
           <Action useNavLink exact to="https://docs.eluv.io/">
             { mainStore.l10n.header.docs }
           </Action>
-          <Action useNavLink exact to="/register">
-            { mainStore.l10n.header.register }
-          </Action>
+          {/*<Action useNavLink exact to="/register">*/}
+          {/*  { mainStore.l10n.header.register }*/}
+          {/*</Action>*/}
           <Action useNavLink exact to="https://contentfabric.io/">
             { mainStore.l10n.header.sign_in }
           </Action>

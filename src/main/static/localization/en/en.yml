@@ -15,7 +15,7 @@ header:
   video_editor: EVIE
   elv_media_wallet: Media Wallet
   embeddable_player: Embeddable Player
-  features: Features
+  core_utilities: Core Utilities
   media_wallet: Media Wallet
   docs: Eluvio Docs
   register: Try The Fabric
@@ -35,6 +35,8 @@ header:
   video_intelligence: Video Intelligence
   resources: Resources
   github: GitHub
+  team: Team
+  ai_labs: Eluvio AI Labs
 
 # Main Page
 main:
@@ -46,7 +48,7 @@ main:
       Radically efficient, fast, and AI native it provides transformational advantages for video over IP in this content-first, AI era, and eliminates decade-level constraints in content distribution.
     cta_text: Take Control & Super Charge Your Content
     featured_link_text: Check out the Bangkok Release
-    featured_link: "/apps/fabric-core"
+    featured_link: "/av-core/fabric-core"
   video_stack:
     header: Next Gen CDN & Full Feature Video Stack
     features:

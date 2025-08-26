@@ -100,7 +100,8 @@ const MainApp = () => {
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
           {/* Apps Routes */}
-          <Route path="/apps/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
+          <Route path="/av-core/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
+          <Route path="/av-core/core-utilities" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           {/* Monetization Routes */}
           <Route path="/monetization/creator-studio" element={<PageContainer padded><CreatorStudio /></PageContainer>} />
           <Route path="/monetization/analytics" element={<PageContainer padded><Analytics /></PageContainer>} />
@@ -116,7 +117,6 @@ const MainApp = () => {
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
           <Route path="/features/pricing" element={<PageContainer padded after={<FAQs />}><Pricing /></PageContainer>} />
           <Route path="/features/support" element={<PageContainer padded after={<FAQs />}><FeaturesSupport /></PageContainer>} />
-          <Route path="/features/details" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           {/* Wallet */}
           <Route path="/wallet/*" element={<PageContainer unbound noFooter><Wallet /></PageContainer>} />
           {/* Register */}

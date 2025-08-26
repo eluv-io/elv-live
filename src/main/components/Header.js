@@ -55,6 +55,7 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}},
               // {label: mainStore.l10n.header.partners, to: "/about/partners", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.contact, to: "/about/contact", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.team, to: "/#eluvio-team", props: {useNavLink: true, exact: true}}
             ]}
           >
             { mainStore.l10n.header.about }
@@ -77,13 +78,14 @@ const Header = observer(() => {
             { mainStore.l10n.header.content_fabric }
           </MenuButton>
           <MenuButton
-            basePath="/apps"
+            basePath="/av-core"
             className="dark header__nav-link"
             optionClassName="dark"
             useNavLink
             underline
             items={[
-              {label: mainStore.l10n.header.fabric_core, to: "/apps/fabric-core", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.core_utilities, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}},
             ]}
           >
             { mainStore.l10n.header.apps }
@@ -112,6 +114,7 @@ const Header = observer(() => {
             items={[
               {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}}
             ]}
           >
             { mainStore.l10n.header.video_intelligence }

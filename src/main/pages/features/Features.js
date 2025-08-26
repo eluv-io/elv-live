@@ -113,7 +113,7 @@ const Features = () => {
   return (
     <div className="page">
       <div className="page__header-container">
-        <h1 className="features--purple-header">Platform Features</h1>
+        <h1 className="features--purple-header">Core Utilities</h1>
       </div>
       <div className="page__content-block">
         <InfoBox

@@ -389,7 +389,7 @@ const BenefitsBlock = observer(() => {
               Eluvio GitHub
             </a>
           </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-6">
+          <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team">
             <div className="main-page-block__benefit-card-6__team-image" style={{backgroundImage: `url(${EluvioGroupImage})`}}></div>
             <div className="main-page-block__benefit-card-6__text-content">
               <div className="main-page-block__benefit-card-6__left-column">{ cards.no_6.text_left }</div>
