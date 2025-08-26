@@ -395,7 +395,7 @@ const BenefitsBlock = observer(() => {
               <div className="main-page-block__benefit-card-6__left-column">{ cards.no_6.text_left }</div>
               <div className="main-page-block__benefit-card-6__right-column">
                 { cards.no_6.text_right }
-                <Link to={""}>Meet the Team →</Link>
+                {/*<Link to={""}>Meet the Team →</Link>*/}
               </div>
             </div>
           </div>
