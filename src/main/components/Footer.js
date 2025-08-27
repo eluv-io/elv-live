@@ -4,7 +4,7 @@ import {Action} from "./Actions";
 import {mainStore} from "../stores/Main";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo.svg";
-import {LinkIcon, DiscoverIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
+import {LinkIcon, CubeIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 
 const SocialLinks = ({dark=false}) => {
@@ -32,7 +32,7 @@ const SocialLinks = ({dark=false}) => {
 
 const Links = observer(({dark=false}) => {
   const icons = {
-    discover: DiscoverIcon,
+    discover: CubeIcon,
     document: DocumentIcon,
     link: LinkIcon,
   };
@@ -40,42 +40,34 @@ const Links = observer(({dark=false}) => {
   const whitepaperDoc = require("../pages/technology/documents/EluvioContentFabricWhitepaper.pdf");
   const nextGenWhitepaperDoc = require("../pages/technology/documents/Eluvio Content Fabric - Next Generation CDN and Media Cloud.pdf");
 
+  const linkDocMap = {
+    "roadmap": roadmapDoc,
+    "whitepaper": whitepaperDoc,
+    "next-gen-whitepaper": nextGenWhitepaperDoc
+  };
+
   return (
     <div className="footer__links">
       {
-        mainStore.l10n.footer.map(({title, icon, links}) =>
+        mainStore.l10n.footer.map(({title, icon, links, icon_position="left"}) =>
           <div key={`footer-section-${title}`} className="footer__link-section">
             <h5 className="footer__link-section__header">
-              <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
+              {
+                icon_position === "left" &&
+                <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
+              }
               { title }
+              {
+                icon_position === "right" &&
+                <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
+              }
             </h5>
             {
-              title === "Resources" &&
-              (
-                <>
-                  <Action
-                    href={whitepaperDoc}
-                    rel="noopener"
-                    target="_blank"
-                    className={`footer__link ${dark ? "dark" : "light"}`}
-                  >
-                    Protocol Whitepaper
-                  </Action>
-                  <Action
-                    href={nextGenWhitepaperDoc}
-                    rel="noopener"
-                    target="_blank"
-                    className={`footer__link ${dark ? "dark" : "light"}`}
-                  >
-                    Next Gen CDN Whitepaper
-                  </Action>
-                </>
-              )
-            }
-            {
-              links.map(({text, link}) => {
-                const to = link.startsWith("https://") ? undefined : link;
+              links.map(({text, link, link_type}) => {
+                const toPath = link.startsWith("https://") ? undefined : link;
                 const href = link.startsWith("https://") ? link : undefined;
+
+                const to = link_type === "doc" ? linkDocMap[link] : toPath;
 
                 return (
                   <Action
@@ -90,17 +82,6 @@ const Links = observer(({dark=false}) => {
                   </Action>
                 );
               })
-            }
-            {
-              title === "Resources" &&
-              <Action
-                href={roadmapDoc}
-                rel="noopener"
-                target="_blank"
-                className={`footer__link ${dark ? "dark" : "light"}`}
-              >
-                Current State & Roadmap
-              </Action>
             }
           </div>
         )
