@@ -47,6 +47,7 @@ import CreatorStudioApp from "../../static/images/main/apps/creator-studio-app";
 import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper Efficient.jpg";
 import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
 import VideoStackSecurity from "../../static/images/main/video-stack/03-Secure-and-Verifiable.jpg";
+import VideoStackAiNative from "../../static/images/main/video-stack/04-AI-Native.jpg";
 import VideoStackMonetization from "../../static/images/main/video-stack/05-Monetization.mp4";
 
 import UefaLogo1 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-1";
@@ -131,6 +132,7 @@ const VideoStack = observer(() => {
     "quality": VideoStackQuality,
     "ull": VideoStackULL,
     "security": VideoStackSecurity,
+    "ai-native": VideoStackAiNative,
     "monetization": VideoStackMonetization
   };
 

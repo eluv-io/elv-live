@@ -80,6 +80,8 @@ main:
         description: |
           Inline SOTA Multi-modal AI Stack provides frame-accurate Tagging, Summarization and Vectorized Search of all video, audio and image content with no file movement.
           Powers unlimited AI-agentic pipelines for personalized highlights, channels, and compositions.
+        media: ai-native
+        media_type: image
       - feature_title: Unlimited Monetization
         title: Unlimited Monetization
         subtitle: Built-in Subscription, Sell Through and Ad-Supported
