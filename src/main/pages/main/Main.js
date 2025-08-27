@@ -129,6 +129,10 @@ const HeaderBlock = observer(() => {
 
 const VideoStack = observer(() => {
   const { header, features } = mainStore.l10n.main.video_stack;
+
+  const blockRef = useRef(null);
+  const {isInStickyZone} = useState(useScrollToElement(blockRef));
+
   const mediaMap = {
     "quality": VideoStackQuality,
     "ull": VideoStackULL,
@@ -138,7 +142,14 @@ const VideoStack = observer(() => {
   };
 
   return (
-    <div className="main-page-block main-page-block--light main-page-block--video-stack">
+    <div
+      ref={blockRef}
+      className={`main-page-block main-page-block--light main-page-block--video-stack ${isInStickyZone ? "main-page-block--sticky-zone" : ""}`}
+      style={{
+        transition: isInStickyZone ? "transform 0.1s ease-out" : "none",
+        scrollSnapAlign: "start"
+      }}
+    >
       <div className="main-page-block padded-block">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <div className="main-page-header__main-header__header">
@@ -447,7 +458,14 @@ const AppsBlock = observer(() => {
   };
 
   return (
-    <div ref={blockRef} className={`main-page-block main-page-block--light main-page-block--apps-block ${isInStickyZone ? "main-page-block--sticky-zone" : ""}`} style={{transition: isInStickyZone ? "transform 0.1s ease-out" : "none", scrollSnapAlign: "start"}}>
+    <div
+      ref={blockRef}
+      className={`main-page-block main-page-block--light main-page-block--apps-block ${isInStickyZone ? "main-page-block--sticky-zone" : ""}`}
+      style={{
+        transition: isInStickyZone ? "transform 0.1s ease-out" : "none",
+        scrollSnapAlign: "start"
+      }}
+    >
       <div className="main-page-block padded-block">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
