@@ -73,7 +73,7 @@ export const PageContainer = observer(({children, before, after, padded=false, d
         noFooter ? null :
           <>
             { noContactForm ? null : <ContactForm /> }
-            <Footer dark={dark}/>
+            <Footer />
           </>
       }
     </div>
