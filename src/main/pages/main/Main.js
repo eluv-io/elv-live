@@ -115,7 +115,10 @@ const HeaderBlock = observer(() => {
               </span>
             </div>
           </div>
-          <Button className="light header__button header__button--cta">{mainStore.l10n.main.heading.cta_text}</Button>
+          <Button className="light header__button header__button--cta" to={mainStore.l10n.main.benefits_block.learn_more_link}>
+            <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+            {mainStore.l10n.main.heading.cta_text}
+          </Button>
         </div>
       </div>
     </MainHeader>
@@ -300,7 +303,7 @@ const StreamingUseCases = observer(() => {
 });
 
 const BenefitsBlock = observer(() => {
-  const {cards} = mainStore.l10n.main.benefits_block;
+  const {cards, learn_more_link} = mainStore.l10n.main.benefits_block;
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -312,7 +315,11 @@ const BenefitsBlock = observer(() => {
     <div className="main-page-block main-page-block--light main-page-block--benefits">
       <div className="main-page-block main-page-block--benefits padded">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
-          <h3 className="main-page-header__main-header__header">Why Now & Why Us?</h3>
+          <h3 className="main-page-header__main-header__header main-page-header__main-header__header--no-margin">Why Now & Why Us?</h3>
+          <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" to={learn_more_link}>
+            <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+            Learn More
+          </Button>
         </div>
         <div className="main-page-block__benefit-cards">
           <div className="main-page-block__benefit-card main-page-block__benefit-card-1">

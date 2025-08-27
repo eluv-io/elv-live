@@ -152,9 +152,11 @@
     &--cta {
       background: #FFF;
       border: 0;
+      border-radius: 5px;
+      padding-left: 28px;
+      padding-right: 28px;
       color: #000;
       gap: 10px;
-      border-radius: 0 !important;
       margin-top: 50px;
     }
   }
