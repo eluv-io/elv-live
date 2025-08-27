@@ -72,6 +72,7 @@ import SupermanImage from "../../static/images/main/partners/superman.jpg";
 import UefaImage from "../../static/images/main/partners/uefa";
 import Uefa2Image from "../../static/images/main/partners/uefa-2";
 import YellowstoneImage from "../../static/images/main/partners/yellowstone";
+import useScrollToElement from "../../../hooks/useScrollToElement";
 
 const partnerImages = [
   EpcrImage,
@@ -416,10 +417,9 @@ const BenefitsBlock = observer(() => {
 
 const AppsBlock = observer(() => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const [isInStickyZone, setIsInStickyZone] = useState(false);
   const blockRef = useRef(null);
-  const lastScrollY = useRef(0);
-  const hasSnapped = useRef(false);
+  const {isInStickyZone} = useState(useScrollToElement(blockRef));
+
   const {apps} = mainStore.l10n.main.apps_block;
 
   const appIcons = [
@@ -441,73 +441,6 @@ const AppsBlock = observer(() => {
     "fabric-browser": "",
     "live-stream": ""
   };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          const currentScrollY = window.scrollY;
-          const isScrollingDown = currentScrollY > lastScrollY.current;
-          const isInView = entry.isIntersecting && entry.intersectionRatio > 0.1;
-
-          setIsInStickyZone(isInView);
-
-          if(
-            entry.isIntersecting &&
-            isScrollingDown
-          ) {
-            const rect = entry.boundingClientRect;
-            const viewportHeight = window.innerHeight;
-            const middle = viewportHeight / 2;
-
-            const topMagnetZone = {
-              start: middle - 100,  // 100px above middle
-              end: middle + 100     // 100px below middle
-            };
-
-            let shouldSnap = false;
-            let scrollTarget = "start";
-
-            // Check if SECTION TOP is in the magnetic zone
-            if (rect.top >= topMagnetZone.start && rect.top <= topMagnetZone.end) {
-              shouldSnap = true;
-              scrollTarget = "start"; // Snap section top to viewport top
-            }
-
-            if(shouldSnap) {
-              hasSnapped.current = true;
-              setTimeout(() => {
-                entry.target.scrollIntoView({
-                  behavior: "smooth",
-                  block: scrollTarget
-                });
-              }, 100);
-            }
-          }
-
-          if(!entry.isIntersecting || entry.intersectionRatio < 0.05) {
-            hasSnapped.current = false;
-          }
-
-          lastScrollY.current = currentScrollY;
-        });
-      },
-      {
-        threshold: [0.05, 0.1, 0.3, 0.7],
-        rootMargin: "0px"
-      }
-    );
-
-    if(blockRef.current) {
-      observer.observe(blockRef.current);
-    }
-
-    return () => {
-      if(blockRef.current) {
-        observer.unobserve(blockRef.current);
-      }
-    };
-  }, []);
 
   const HandleButtonClick = (index) => {
     setActiveTabIndex(index);
