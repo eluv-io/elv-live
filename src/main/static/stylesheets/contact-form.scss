@@ -1,6 +1,26 @@
 .contact-form-container {
+  position: relative;
+
   &.light {
-    background: linear-gradient(180deg, rgb(155 81 224 / 0%) 0%, rgb(155 81 224 / 5%) 100%);
+    background: var(--background-light-2);
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      height: 80%;
+      width: 100%;
+      background: linear-gradient(180deg, rgba(155, 81, 224, 0.00) 0%, rgba(155, 81, 224, 0.10) 100%);
+      z-index: 2;
+    }
+
+    .contact-form__copy {
+      color: var(--color-text-light-1);
+    }
+
+    .contact-form__copy-message {
+      white-space: pre-line;
+    }
 
     .contact-form__form {
       background: var(--background-light-1);

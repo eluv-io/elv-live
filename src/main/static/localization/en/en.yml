@@ -1532,8 +1532,10 @@ contact:
   address: Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710
 
 contact_form:
-  header: Inspired to create with us?
-  text: Send us a message to get started, we're excited to hear from you.
+  header: Inspired in the Fabric?
+  text: |
+    Send us a message to get started,
+    we're excited to hear from you.
   email: Your Email
   message: Message
   send: Send

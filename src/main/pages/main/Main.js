@@ -562,7 +562,7 @@ const AppsBlock = observer(() => {
 
 const PartnersBlock = () => {
   return (
-    <div className="main-page-block main-page-block--light main-page-block--benefits">
+    <div className="main-page-block main-page-block--light main-page-block--partners">
       <div className="main-page-block main-page-block__partners__header">
         <div className="main-page-block__copy-container">
           <h3 className="main-page-block__copy-header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
