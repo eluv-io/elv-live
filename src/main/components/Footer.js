@@ -4,7 +4,7 @@ import {Action} from "./Actions";
 import {mainStore} from "../stores/Main";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo.svg";
-import {LinkIcon, CubeIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
+import {LinkIcon, DocumentIcon, SocialIcons, DiscoverIcon} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 
 const SocialLinks = ({dark=false}) => {
@@ -32,7 +32,7 @@ const SocialLinks = ({dark=false}) => {
 
 const Links = observer(({dark=false}) => {
   const icons = {
-    discover: CubeIcon,
+    discover: DiscoverIcon,
     document: DocumentIcon,
     link: LinkIcon,
   };
@@ -49,18 +49,11 @@ const Links = observer(({dark=false}) => {
   return (
     <div className="footer__links">
       {
-        mainStore.l10n.footer.map(({title, icon, links, icon_position="left"}) =>
+        mainStore.l10n.footer.map(({title, icon, links}) =>
           <div key={`footer-section-${title}`} className="footer__link-section">
             <h5 className="footer__link-section__header">
-              {
-                icon_position === "left" &&
-                <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
-              }
+              <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
               { title }
-              {
-                icon_position === "right" &&
-                <ImageIcon icon={icons[icon] || LinkIcon} className="footer__link-section__header-icon" />
-              }
             </h5>
             {
               links.map(({text, link, link_type}) => {
@@ -120,13 +113,15 @@ const TermsLinks = ({dark=false}) => {
 
 const Footer = ({dark=false, className=""}) => {
   return (
-    <footer className={`footer padded-block ${dark ? "dark" : "light"} ${className}`}>
-      <div className="footer__branding">
-        <ImageIcon icon={EluvioLogo} title="Eluvio" className="footer__logo" />
-        <SocialLinks dark={dark} />
+    <footer className={`footer ${dark ? "dark" : "light"} ${className}`}>
+      <div className="padded-block">
+        <div className="footer__branding">
+          <ImageIcon icon={EluvioLogo} title="Eluvio" className="footer__logo" />
+          <SocialLinks dark={dark} />
+        </div>
+        <Links dark={dark} />
+        <TermsLinks dark={dark} />
       </div>
-      <Links dark={dark} />
-      <TermsLinks dark={dark} />
     </footer>
   );
 };
