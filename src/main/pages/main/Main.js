@@ -519,8 +519,8 @@ const PartnersBlock = () => {
         <div className="main-page-block__copy-container">
           <h3 className="main-page-block__copy-header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
           <div className="main-page-block__partners__button-container">
-            <Button className="main-page-block__partners__button--explore">Explore Projects</Button>
-            <Button className="main-page-block__partners__button--contact">Get in Touch</Button>
+            <Button className="main-page-block__partners__button--explore" to="https://wallet.contentfabric.io/">Explore Projects</Button>
+            <Button className="main-page-block__partners__button--contact" to="/about/contact">Get in Touch</Button>
           </div>
         </div>
       </div>
