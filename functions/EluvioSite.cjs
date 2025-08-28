@@ -8,7 +8,7 @@ const SITE_DEFAULTS = {
   "site_name": "Eluvio: Creators of The Content Fabric",
   "title": "Eluvio: Creators of The Content Fabric",
   "description": "Next Gen Content Distribution: Ultra Fast, Efficient, and Tamper Proof. Open, Decentralized, Scalable and Secure. Built for the Third Generation Internet.",
-  "image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
+  "image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V4.jpg",
   "image_alt": "Eluvio"
 };
 

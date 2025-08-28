@@ -8,7 +8,7 @@ const WALLET_DEFAULTS = {
   "site_name": "Eluvio Media Wallet",
   "title": "Eluvio Media Wallet",
   "description": "The Eluvio Media Wallet is your personal vault for media collectibles, and your gateway to browse the best in premium content distributed directly by its creators and publishers.",
-  "image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V3.jpg",
+  "image": "https://main.net955305.contentfabric.io/s/main/q/hq__c5BiwtZkNjuDz97RwyqmcH9sTovzogczogT1sUshFXowrC8ZZ3i2tBtRBVxNLDKhkgJApuo6d/files/eluv.io/Eluvio-Share-Image-V4.jpg",
   "image_alt": "Eluvio",
   "google_verification_id": "O0F7q8cj9n-Sh5tKTJTwJ1iPPz0N01zsgB0rCSaAs74"
 };
