@@ -109,6 +109,7 @@ main:
           Subscription, Transaction, Ad Supported, and Novel Selling Models.
         image: streaming-2
         use_case_color: purple
+        use_case: Streaming
         action_text: Learn More
       -
         title: Ultra Low Latency Live Feed Distribution for Broadcast
@@ -142,6 +143,7 @@ main:
         description: |
           Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
         image: publishing-2
+        use_case: Publishing, Archive & Libraries
         use_case_color: teal
         action_text: Watch the Video
         action_text_icon: play-arrow

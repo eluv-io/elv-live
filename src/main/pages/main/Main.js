@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {observer} from "mobx-react";
-import {autorun} from "mobx";
 
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
@@ -9,8 +8,6 @@ import {Tabs} from "../../components/Misc";
 import {Link} from "react-router-dom";import {useNavigate} from "react-router";
 
 import {Button} from "../../components/Actions";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {Autoplay, FreeMode} from "swiper";
 import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon, PlaySimpleIcon} from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
@@ -73,6 +70,7 @@ import UefaImage from "../../static/images/main/partners/uefa";
 import Uefa2Image from "../../static/images/main/partners/uefa-2";
 import YellowstoneImage from "../../static/images/main/partners/yellowstone";
 import useScrollToElement from "../../../hooks/useScrollToElement";
+import Marquee from "react-fast-marquee";
 
 const partnerImages = [
   EpcrImage,
@@ -216,10 +214,12 @@ const StreamingCard = ({
 };
 
 const StreamingUseCases = observer(() => {
-  const [title, setTitle] = useState("Streaming");
-  const [titleColor, setTitleColor] = useState("purple");
+  // const [title, setTitle] = useState("Streaming");
+  // const [titleColor, setTitleColor] = useState("purple");
+  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const cardRefs = useRef([]);
+
   const { features } = mainStore.l10n.main.streaming_use_cases;
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const imageMap = {
     "streaming-1": UseCaseEpcrImage,
@@ -239,79 +239,78 @@ const StreamingUseCases = observer(() => {
     "play-arrow": PlaySimpleIcon
   };
 
-  useEffect(() => {
-    const disposer = autorun(() => {
-      const feature = features[currentSlideIndex];
-      if (feature?.use_case) {
-        setTitle(feature.use_case);
-        setTitleColor(feature.use_case_color || "purple");
-      }
-    });
-    return () => disposer();
-  }, [currentSlideIndex, features]);
-
-  const HandleSlideChange = (swiper) => {
-    setCurrentSlideIndex(swiper.realIndex);
-  };
+  // useEffect(() => {
+  //   let observer;
+  //
+  //   const timeoutId = setTimeout(() => {
+  //     observer = new IntersectionObserver(entries => {
+  //       entries.forEach((entry) => {
+  //         if(entry.isIntersecting) {
+  //           console.log('entry', entry.target.dataset)
+  //           // setCurrentSlideIndex(parseInt(entry.target.dataset.index));
+  //           setTitleColor(entry.target.dataset.color);
+  //           setTitle(entry.target.dataset.title);
+  //         }
+  //       });
+  //     }, {
+  //       root: null,
+  //       // rootMargin: "0px",
+  //       threshold: 0.5,
+  //     });
+  //
+  //     cardRefs.current.forEach(ref => {
+  //       if(ref) {
+  //         observer.observe(ref);
+  //       }
+  //     });
+  //   }, 100);
+  //
+  //   return () => {
+  //     clearTimeout(timeoutId);
+  //     if(observer) {
+  //       observer.disconnect();
+  //     }
+  //   };
+  // }, [features]);
 
   return (
     <div className="main-page-block main-page-block--light main-page-block--global-streaming">
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
           <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
-          <span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor}`}>{ title }</span>
+          {/*<span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor}`}>{ title }</span>*/}
         </h3>
       </div>
-      <Swiper
-        className="carousel"
-        modules={[Autoplay, FreeMode]}
-        autoplay={{
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        }}
-        loop
-        freeMode
-        spaceBetween={12}
-        speed={6000}
-        slidesPerView={3.5}
-        effect="slide"
-        onSlideChange={HandleSlideChange}
-        breakpoints={{
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 5
-          },
-          480: {
-            slidesPerView: 2,
-            spaceBetween: 7
-          },
-          1000: {
-            slidesPerView: 3.5,
-            spaceBetween: 12
-          },
-          1500: {
-            slidesPerView: 4,
-            spaceBetween: 12
+      <div className="main-page-block__streaming-cards-container">
+        <Marquee
+          direction="left"
+          speed={65}
+          loop={0}
+          pauseOnHover
+        >
+          {
+            features.map((feature, i) => (
+              <div
+                key={`streaming-card-${i}`}
+                className="main-page-block__streaming-card__wrapper"
+                ref={(el) => (cardRefs.current[i] = el)}
+                data-color={feature.use_case_color}
+                data-title={feature.use_case}
+              >
+                <StreamingCard
+                  title={feature.title}
+                  description={feature.description}
+                  image={imageMap[feature.image]}
+                  color={feature.use_case_color}
+                  logos={(feature.logos || []).map(logo => logoMap[logo])}
+                  buttonText={feature.action_text || "Case Study"}
+                  buttonLeftIcon={feature.action_text_icon ? iconMap[feature.action_text_icon] : null}
+                />
+              </div>
+            ))
           }
-        }}
-      >
-        {
-          features.map(feature => (
-            <SwiperSlide key={`streaming-card-${feature.title}`}>
-              <StreamingCard
-                title={feature.title}
-                description={feature.description}
-                image={imageMap[feature.image]}
-                color={feature.use_case_color}
-                logos={(feature.logos || []).map(logo => logoMap[logo])}
-                buttonText={feature.action_text || "Case Study"}
-                buttonLeftIcon={feature.action_text_icon ? iconMap[feature.action_text_icon] : null}
-              />
-            </SwiperSlide>
-          ))
-        }
-      </Swiper>
+        </Marquee>
+      </div>
     </div>
   );
 });

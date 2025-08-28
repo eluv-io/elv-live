@@ -1190,14 +1190,26 @@
     color: var(--color-text-dark-6);
   }
 
+  &__streaming-cards-container {
+    width: 100vw;
+  }
+
   &__streaming-card {
     height: 590px;
+    width: calc((100vw - 12px) / 3.5);
     background-color: var(--background-light-2);
     border-radius: 14px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 30px 35px 20px 35px;
+    padding: 30px 35px 0 35px;
     position: relative;
+    margin-right: 12px;
+
+    &__title-container {
+      margin-bottom: 32px;
+      position: absolute;
+      top: 0;
+    }
 
     &:hover {
       .main-page-block__streaming-card__button-container {
