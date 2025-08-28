@@ -57,8 +57,8 @@ const Links = observer(({dark=false}) => {
             </h5>
             {
               links.map(({text, link, link_type}) => {
-                const toPath = link.startsWith("https://") ? undefined : link;
-                const href = link.startsWith("https://") ? link : undefined;
+                const toPath = (link.startsWith("https://") || link_type === "doc") ? undefined : link;
+                const href = (link.startsWith("https://") || link_type === "doc") ? link : undefined;
 
                 const to = link_type === "doc" ? linkDocMap[link] : toPath;
 

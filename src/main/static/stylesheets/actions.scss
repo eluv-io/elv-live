@@ -254,7 +254,8 @@
     color: var(--color-text-light-1);
 
     &.inactive {
-      color: var(--color-text-light-5);
+      color: var(--color-text-light-12);
+      font-weight: 600;
     }
 
     &.active {

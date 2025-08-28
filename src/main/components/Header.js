@@ -7,10 +7,10 @@ import {uiStore, mainStore} from "../stores/Main";
 import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
 
-import EluvioLogo from "../static/images/logos/eluvio-logo-white.png";
+import EluvioLogo from "../static/images/logos/eluvio-black-logo.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {MenuIcon, XIcon, EluvioEIconColor} from "../static/icons/Icons";
+import {MenuIcon, XIcon} from "../static/icons/Icons";
 
 
 const NotificationBanner = observer(({className=""}) => {
@@ -47,10 +47,9 @@ const Header = observer(() => {
         <nav className="header__nav header__nav--links desktop">
           <MenuButton
             basePath="/about"
-            className="dark header__nav-link"
-            optionClassName="dark"
+            className="light header__nav-link"
+            optionClassName="light"
             useNavLink
-            underline
             items={[
               {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}},
               // {label: mainStore.l10n.header.partners, to: "/about/partners", props: {useNavLink: true, exact: true}},
@@ -60,15 +59,14 @@ const Header = observer(() => {
           >
             { mainStore.l10n.header.about }
           </MenuButton>
-          {/*<Action to="/creators-and-publishers" useNavLink underline className="dark header__nav-link">*/}
+          {/*<Action to="/creators-and-publishers" useNavLink underline className="light header__nav-link">*/}
           {/*  { mainStore.l10n.header.creators_and_publishers }*/}
           {/*</Action>*/}
           <MenuButton
             basePath="/content-fabric"
-            className="dark header__nav-link"
-            optionClassName="dark"
+            className="light header__nav-link"
+            optionClassName="light"
             useNavLink
-            underline
             items={[
               {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}},
@@ -79,10 +77,9 @@ const Header = observer(() => {
           </MenuButton>
           <MenuButton
             basePath="/av-core"
-            className="dark header__nav-link"
-            optionClassName="dark"
+            className="light header__nav-link"
+            optionClassName="light"
             useNavLink
-            underline
             items={[
               {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.core_utilities, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}},
@@ -92,10 +89,9 @@ const Header = observer(() => {
           </MenuButton>
           <MenuButton
             basePath="/monetization"
-            className="dark header__nav-link"
-            optionClassName="dark"
+            className="light header__nav-link"
+            optionClassName="light"
             useNavLink
-            underline
             items={[
               {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}},
@@ -107,10 +103,9 @@ const Header = observer(() => {
           </MenuButton>
           <MenuButton
             basePath="/video-intelligence"
-            className="dark header__nav-link"
-            optionClassName="dark"
+            className="light header__nav-link"
+            optionClassName="light"
             useNavLink
-            underline
             items={[
               {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}},
               {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}},
@@ -121,10 +116,9 @@ const Header = observer(() => {
           </MenuButton>
           <MenuButton
             basePath="/resources"
-            className="dark header__nav-link"
-            optionClassName="dark"
+            className="light header__nav-link"
+            optionClassName="light"
             useNavLink
-            underline
             items={[
               {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}},
               {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}}
@@ -134,8 +128,8 @@ const Header = observer(() => {
           </MenuButton>
           {/*<MenuButton*/}
           {/*  basePath="/features"*/}
-          {/*  className="dark header__nav-link"*/}
-          {/*  optionClassName="dark"*/}
+          {/*  className="light header__nav-link"*/}
+          {/*  optionClassName="light"*/}
           {/*  useNavLink*/}
           {/*  underline*/}
           {/*  items={[*/}
@@ -147,18 +141,19 @@ const Header = observer(() => {
           {/*>*/}
           {/*  { mainStore.l10n.header.features }*/}
           {/*</MenuButton>*/}
-          {/*<Action to="/media-wallet" useNavLink underline className="dark header__nav-link">*/}
+          {/*<Action to="/media-wallet" useNavLink className="light header__nav-link">*/}
           {/*  { mainStore.l10n.header.media_wallet }*/}
           {/*</Action>*/}
-          {/*<Action to="https://docs.eluv.io/" useNavLink underline className="dark header__nav-link">*/}
+          {/*<Action to="https://docs.eluv.io/" useNavLink className="light header__nav-link">*/}
           {/*  { mainStore.l10n.header.docs }*/}
           {/*</Action>*/}
-          {/*<Action to="/register" useNavLink underline className="dark header__nav-link">*/}
+          {/*<Action to="/register" useNavLink className="light header__nav-link">*/}
           {/*  { mainStore.l10n.header.register }*/}
           {/*</Action>*/}
           <div className="header__buttons">
-            <Button href={mainStore.walletAppUrl} target="_blank" icon={EluvioEIconColor} className="light header__button header__button--discover">
-              { mainStore.l10n.header.discover }
+            <ImageIcon icon={EluvioLogoIcon} title="Eluvio" className="header__eluvio-icon" />
+            <Button href={mainStore.walletAppUrl} target="_blank" className="light header__button header__button--discover">
+              { mainStore.l10n.header.try_the_fabric }
             </Button>
             <Button to="https://contentfabric.io/" target="_blank" className="light header__button header__button--fabric">
               { mainStore.l10n.header.sign_in }
@@ -168,11 +163,11 @@ const Header = observer(() => {
 
         { /* Mobile */ }
         <nav className="header__nav header__nav--links mobile">
-          <Action href={mainStore.walletAppUrl} target="_blank" underline className="dark header__nav-link">
+          <Action href={mainStore.walletAppUrl} target="_blank" className="light header__nav-link">
             { mainStore.l10n.header.discover }
           </Action>
         </nav>
-        <Action icon={MenuIcon} className="dark header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
+        <Action icon={MenuIcon} className="light header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
       </header>
       <MobileNav visible={showMobileMenu} Close={() => setShowMobileMenu(false)} />
 

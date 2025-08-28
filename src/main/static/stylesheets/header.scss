@@ -1,7 +1,7 @@
 .header {
   align-items: center;
-  background: var(--background-dark-2);
-  color: var(--color-text-dark-1);
+  background: var(--background-light-2);
+  color: var(--color-text-light-12);
   display: flex;
   gap: 50px;
   height: var(--header-height);
@@ -55,7 +55,7 @@
   }
 
   &__logo-container {
-    height: 100%;
+    height: 40px;
   }
 
   &__logo {
@@ -63,6 +63,11 @@
     min-width: 80px;
     object-fit: contain;
     padding: 10px 0;
+  }
+
+  &__eluvio-icon {
+    height: 50px;
+    width: 50px;
   }
 
   &__nav {
@@ -82,7 +87,7 @@
       &.active,
       &:active,
       &:focus-visible {
-        color: var(--color-highlight-1);
+        color: var(--color-highlight-7);
       }
     }
   }
@@ -118,29 +123,30 @@
   &__button {
     font-size: 16px;
     height: 50px;
-    padding-inline: 20px;
+    border-radius: 28px;
+    padding: 12px 16px;
 
     &--fabric {
       background: transparent;
-      border: 1px solid #FFF;
-      color: #FFF;
+      border: 1px solid var(--background-light-7);
+      color: var(--color-text-light-11);
 
       &:hover {
-        background: #000;
-        border: 1px solid var(--color-highlight-2);
-        color: var(--color-highlight-2);
+        background: transparent;
+        border: 1px solid var(--color-highlight-7);
+        color: var(--color-highlight-7);
       }
     }
 
     &--discover {
-      background: #FFF;
+      background: var(--color-text-light-11);
+      color: #FFF;
       border: 0;
-      color: #000;
       gap: 10px;
 
       &:hover {
-        background: var(--color-highlight-2);
-        color: #FFF;
+        border: 1px solid var(--color-highlight-7);
+        color: var(--color-highlight-7);
 
         .action__icon {
           filter: grayscale(1) brightness(0%) invert(1);
@@ -185,7 +191,6 @@
     &__button {
       font-size: 14px;
       height: 35px;
-      padding-inline: 10px;
 
       .action__icon {
         height: 20px;
