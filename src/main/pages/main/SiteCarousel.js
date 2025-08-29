@@ -103,7 +103,7 @@ const SiteCarousel = observer(({mobile}) => {
       onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
     >
       {mainStore.featuredProperties.map((mediaProperty, index) =>
-        <SwiperSlide key={`site-${mediaProperty.propertyId}`} className={`site-carousel__slide ${activeSlide === index ? "site-carousel__slide--active" : ""}`}>
+        <SwiperSlide key={`site-${mediaProperty.propertyId}`} className={"site-carousel__slide"}>
           <SiteCard
             mediaProperty={mediaProperty}
             index={index}
