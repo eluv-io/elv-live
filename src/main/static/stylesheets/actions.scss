@@ -323,6 +323,18 @@
     }
   }
 
+  &__item-submenu-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 60px;
+    justify-content: flex-start;
+
+    a {
+      flex-basis: fit-content;
+    }
+  }
+
   &__item-icon {
     padding-right: 6px;
   }

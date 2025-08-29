@@ -79,8 +79,16 @@ const Header = observer(() => {
             useNavLink
             fullScreenMenu
             items={[
-              {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.core_utilities, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.FabricIcon},
+              {label: mainStore.l10n.header.management_tools, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.ManagementToolsIcon},
+              {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
+              {
+                items: [
+                  {label: mainStore.l10n.header.fabric_browser, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.ELightIcon},
+                  {label: mainStore.l10n.header.media_ingest, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.MediaIngestIcon},
+                  {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.LiveStreamManagerIcon},
+                ]
+              }
             ]}
           >
             { mainStore.l10n.header.apps }

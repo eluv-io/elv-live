@@ -191,6 +191,28 @@ export const MenuButton = React.forwardRef((props, ref) => {
   delete props.items;
   delete props.optionClassName;
 
+  const MenuItem = ({item, className}) => {
+    return (
+      <Action to={item.to} onClick={() => setMenuOpen(false)} className={[optionClassName, className].filter(e => !!e).join(" ")} {...item.props}>
+        <div className="menu-button__options--flex">
+          <div className="menu-button__item-title-row">
+            {
+              item.icon &&
+              <ImageIcon icon={item.icon} className="menu-button__item-icon" />
+            }
+            { item.label }
+          </div>
+          {
+            item.subtitle &&
+            <p className={`menu-button__item-subtitle${item.icon ? " indent" : ""}`}>
+              { item.subtitle }
+            </p>
+          }
+        </div>
+      </Action>
+    );
+  };
+
   return (
     <Action
       {...props}
@@ -207,23 +229,19 @@ export const MenuButton = React.forwardRef((props, ref) => {
         <ul className="menu-button__options">
           {(items || []).map((item, index) => (
             <li key={`menu-button-${index}`} className="menu-button__item">
-              <Action to={item.to} onClick={() => setMenuOpen(false)} className={optionClassName} {...item.props}>
-                <div className="menu-button__options--flex">
-                  <div className="menu-button__item-title-row">
-                    {
-                      item.icon &&
-                      <ImageIcon icon={item.icon} className="menu-button__item-icon" />
-                    }
-                    { item.label }
-                  </div>
-                  {
-                    item.subtitle &&
-                    <p className={`menu-button__item-subtitle${item.icon ? " indent" : ""}`}>
-                      { item.subtitle }
-                    </p>
-                  }
-                </div>
-              </Action>
+              {
+                item.items ?
+                  (
+                    <div className="menu-button__item-submenu-container">
+                      {
+                        item.items.map((subItem, subIndex) => (
+                          <MenuItem key={`menu-button-${index}-${subIndex}`} item={subItem} />
+                        ))
+                      }
+                    </div>
+                  )
+                  : <MenuItem item={item} />
+              }
             </li>
           ))}
         </ul>
