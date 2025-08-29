@@ -110,9 +110,9 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}}
+              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text"},
+              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text"},
+              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text"}
             ]}
           >
             { mainStore.l10n.header.video_intelligence }
