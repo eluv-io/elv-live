@@ -1363,8 +1363,8 @@ core_apps:
                 - Safari for iPadOS 13+
                 - Safari for iOS 17.1+
     fabric_core:
-      header_title: Eluvio Core Applications
-      header_subtitle: An Overview of Our Application Suite
+      header_title: Fabric Core and Applications
+      header_subtitle: '"Bangkok Release" Summer/Fall 2025'
       header_video: hq__7GgQ1GY2wRsatqAitEqeBrZY4g3MkPWGzHyyF16xLR4iPbLTzZ2fWAUC4X5MKhUSjpwN4seyh
       sections:
         - title: Summary
