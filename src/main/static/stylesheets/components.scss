@@ -488,8 +488,8 @@
 }
 
 @media screen and (max-width: $width-laptop) {
-  &__image,
-  &__video {
+  .tabs__panel__image,
+  .tabs__panel__video {
     margin-top: -30px;
   }
 }
