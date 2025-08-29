@@ -264,30 +264,6 @@ main:
   apps_block:
     apps:
       -
-        title: Fabric Browser
-        description: |
-          TODO
-        link: ''
-        image: fabric-browser
-      -
-        title: Media Ingest
-        description: |
-          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
-        link: ''
-        image: media-ingest
-      -
-        title: Live Stream Manager
-        description: |
-          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
-        link: ''
-        image: live-stream
-      -
-        title: Creator Studio
-        description: |
-          Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization
-        link: monetization/creator-studio
-        image: creator-studio
-      -
         title: Eluvio Video Intelligence Editor
         description: |
           Automatically Generate Personalized Highlights and Compositions with AI
@@ -306,6 +282,30 @@ main:
           View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
         link: /monetization/analytics
         image: analytics
+      -
+        title: Creator Studio
+        description: |
+          Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization
+        link: monetization/creator-studio
+        image: creator-studio
+      -
+        title: Live Stream Manager
+        description: |
+          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
+        link: ''
+        image: live-stream
+      -
+        title: Media Ingest
+        description: |
+          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
+        link: ''
+        image: media-ingest
+      -
+        title: Fabric Browser
+        description: |
+          TODO
+        link: ''
+        image: fabric-browser
 
 
 

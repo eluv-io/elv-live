@@ -27,19 +27,22 @@ const awardsImages = [
   {img: AwardImage6, alt: "HPA Award 2020"}
 ];
 
-import AppIcon1 from "../../static/icons/apps_new/1_Fabric_Browser";
-import AppIcon2 from "../../static/icons/apps_new/2_Media_Ingest";
-import AppIcon3 from "../../static/icons/apps_new/3_Livestream_Manager";
-import AppIcon4 from "../../static/icons/apps_new/4_Creator_Studio";
-import AppIcon5 from "../../static/icons/apps_new/5_Evie";
-import AppIcon6 from "../../static/icons/apps_new/6_AI_Search";
-import AppIcon7 from "../../static/icons/apps_new/7_Analytics";
+import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
+import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
+import AppIconStream from "../../static/icons/apps_new/3_Livestream_Manager";
+import AppIconCS from "../../static/icons/apps_new/4_Creator_Studio";
+import AppIconEvie from "../../static/icons/apps_new/5_Evie";
+import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
+import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
 
 import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
-import AnalyticsApp from "../../static/images/main/apps/analytics-app";
-import AiSearchApp from "../../static/images/main/apps/ai-search-app";
-import EvieApp from "../../static/images/main/apps/evie-app";
-import CreatorStudioApp from "../../static/images/main/apps/creator-studio-app";
+import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting-min.png";
+import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management-min.png";
+import EvieApp from "../../static/images/main/apps/01-eluvio-video-intelligence-editor-min.png";
+import CreatorStudioApp from "../../static/images/main/apps/04-creator-studio-min.png";
+import LiveStreamManagerApp from "../../static/images/main/apps/05-live-stream-manager-min.png";
+import MediaIngestApp from "../../static/images/main/apps/06-media-ingest-min.png";
+import FabricBrowserApp from "../../static/images/main/apps/07-fabric-browser-min.png";
 
 import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper Efficient.jpg";
 import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
@@ -433,13 +436,13 @@ const AppsBlock = observer(() => {
   const {apps} = mainStore.l10n.main.apps_block;
 
   const appIcons = [
-    {icon: AppIcon1, alt: "Fabric Browser app icon"},
-    {icon: AppIcon2, alt: "Media Ingest app icon"},
-    {icon: AppIcon3, alt: "Livestream Manager app icon"},
-    {icon: AppIcon4, alt: "Creator Studio app icon"},
-    {icon: AppIcon5, alt: "Evie app icon"},
-    {icon: AppIcon6, alt: "AI Content Search app icon"},
-    {icon: AppIcon7, alt: "Content Analytics & Reporting app icon"}
+    {icon: AppIconEvie, alt: "Evie app icon"},
+    {icon: AppIconAI, alt: "AI Content Search app icon"},
+    {icon: AppIconAnalytics, alt: "Content Analytics & Reporting app icon"},
+    {icon: AppIconCS, alt: "Creator Studio app icon"},
+    {icon: AppIconStream, alt: "Livestream Manager app icon"},
+    {icon: AppIconIngest, alt: "Media Ingest app icon"},
+    {icon: AppIconFB, alt: "Fabric Browser app icon"}
   ];
 
   const appImageMap = {
@@ -447,9 +450,9 @@ const AppsBlock = observer(() => {
     "evie": EvieApp,
     "ai-search": AiSearchApp,
     "analytics": AnalyticsApp,
-    "media-ingest": "",
-    "fabric-browser": "",
-    "live-stream": ""
+    "media-ingest": MediaIngestApp,
+    "fabric-browser": FabricBrowserApp,
+    "live-stream": LiveStreamManagerApp
   };
 
   const HandleButtonClick = (index) => {

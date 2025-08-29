@@ -837,6 +837,7 @@
   &__app-tabs {
     display: flex;
     flex-direction: column;
+    gap: 30px;
   }
 
   &__app-tabs-list {
@@ -879,7 +880,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    gap: 10px;
+    gap: 0;
 
     .image-icon {
       flex: 0 0 70%;
