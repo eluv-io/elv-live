@@ -1206,13 +1206,14 @@
   }
 
   &__streaming-card {
-    height: 590px;
-    width: calc((100vw - 12px) / 3.5);
+    aspect-ratio: 0.6977;
+    width: 411px;
     background-color: var(--background-light-2);
     border-radius: 14px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 30px 35px 0 35px;
+    padding-top: 30px;
+    padding-bottom: 0;
     position: relative;
     margin-right: 12px;
 
@@ -1228,12 +1229,18 @@
       }
     }
 
+    &__text-content {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+
     &__content {
       flex-direction: column;
       display: flex;
       gap: 0;
       align-items: center;
       height: 100%;
+      width: 100%;
     }
 
     &__title {
@@ -1456,6 +1463,18 @@
     &__benefit-card {
       padding: 20px 50px;
       width: 100%;
+    }
+
+    &__streaming-card {
+      width: 290px;
+
+      &__title {
+        font-size: 16px;
+      }
+
+      &__description {
+        font-size: 12px;
+      }
     }
   }
 

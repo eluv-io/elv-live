@@ -167,27 +167,29 @@ const StreamingCard = ({
   logos=[],
   buttonText,
   buttonLeftIcon,
-  HandleClick
+  link
 }) => {
   return (
     <div className="main-page-block__streaming-card">
       <div className="main-page-block__streaming-card__content">
-        <div className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${color}`}>{ title }</div>
-        <div className="main-page-block__streaming-card__description">{ description}</div>
-        {
-          logos.length > 0 &&
-          <div className="main-page-block__streaming-card__logos">
-            {
-              logos.map((logo, i) => (
-                <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
-              ))
-            }
-          </div>
-        }
+        <div className="main-page-block__streaming-card__text-content">
+          <div className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${color}`}>{ title }</div>
+          <div className="main-page-block__streaming-card__description">{ description}</div>
+          {
+            logos.length > 0 &&
+            <div className="main-page-block__streaming-card__logos">
+              {
+                logos.map((logo, i) => (
+                  <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
+                ))
+              }
+            </div>
+          }
+        </div>
         <ImageIcon icon={image} className="main-page-block__streaming-card__image" />
       </div>
       <div className="main-page-block__streaming-card__button-container">
-        <Button className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color}`} onClick={HandleClick}>
+        <Button className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color}`} to={link}>
           {
             buttonLeftIcon &&
             <ImageIcon icon={buttonLeftIcon} height={16} width={18} />
@@ -291,6 +293,7 @@ const StreamingUseCases = observer(() => {
                   logos={(feature.logos || []).map(logo => logoMap[logo])}
                   buttonText={feature.action_text || "Case Study"}
                   buttonLeftIcon={feature.action_text_icon ? iconMap[feature.action_text_icon] : null}
+                  link={feature.action_link}
                 />
               </div>
             ))
@@ -504,12 +507,10 @@ const MainPageMobile = () => {
       <HeaderBlock/>
       <div className="main-page__blocks">
         <AwardsBlock/>
-        <div className="padded-block">
-          <VideoStack/>
-          <StreamingUseCases/>
-        </div>
       </div>
       <div className="page light no-padding">
+        <VideoStack/>
+        <StreamingUseCases/>
         <BenefitsBlock/>
         <AppsBlock />
         <SiteCarousel mobile />

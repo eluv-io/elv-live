@@ -105,7 +105,8 @@ main:
         image: streaming-1
         use_case: Streaming
         use_case_color: purple
-        action_text: Case Study
+        action_text: Learn More
+        action_link: "/av-core/fabric-core"
       -
         title: Live Stream Recording at Scale
         description: |
@@ -118,6 +119,7 @@ main:
         use_case_color: purple
         use_case: Streaming
         action_text: Learn More
+        action_link: "/av-core/fabric-core"
       -
         title: Ultra Low Latency Live Feed Distribution for Broadcast
         description: |
@@ -128,7 +130,8 @@ main:
         logos:
           - uefa-1
           - uefa-2
-        action_text: Case Study
+        action_text: Learn More
+        action_link: "/av-core/fabric-core"
       -
         title: AI Generated Personalized Highlights, Clips & Compositions
         description: |
@@ -136,7 +139,8 @@ main:
         image: video-ai
         use_case: Video AI
         use_case_color: violet
-        action_text: Case Study
+        action_text: Learn More
+        action_link: /video-intelligence/video-editor
       -
         title: Complete APIs for Developing OTT & Media Rich Applications
         description: |
@@ -145,6 +149,7 @@ main:
         use_case: Publishing, Archive & Libraries
         use_case_color: teal
         action_text: Media Wallet
+        action_link: /media-wallet
       -
         title: Archive/Library AI Search, Hosting, Monetization
         description: |
@@ -154,6 +159,7 @@ main:
         use_case_color: teal
         action_text: Watch the Video
         action_text_icon: play-arrow
+        action_link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences
