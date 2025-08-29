@@ -17,9 +17,13 @@ import AwardImage3 from "../../static/images/main/awards/csi-award-2024.webp";
 import AwardImage4 from "../../static/images/main/awards/seicon-dc-cs.webp";
 import AwardImage5 from "../../static/images/main/awards/seicon-grand-prize.webp";
 import AwardImage6 from "../../static/images/main/awards/hpa-award-2020.webp";
+import AwardImage7 from "../../static/images/main/awards/nab-product-of-the-year-2023";
+import AwardImage8 from "../../static/images/main/awards/nab-product-of-the-year-2025";
 
 const awardsImages = [
+  {img: AwardImage8, alt: "NAB Product of the Year Award 2025"},
   {img: AwardImage1, alt: "NAB Product of the Year Award 2024"},
+  {img: AwardImage7, alt: "NAB Product of the Year Award 2023"},
   {img: AwardImage2, alt: "NAB Product of the Year Award 2022"},
   {img: AwardImage3, alt: "CSI Awards Winner 2024"},
   {img: AwardImage4, alt: "SEICon Innovation Hub - Best in Show Award"},
