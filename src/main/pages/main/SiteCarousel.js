@@ -61,9 +61,14 @@ const IsActive = ({index, activeIndex, length}) => {
     activeIndex === index - 1 ||
     activeIndex === index - 2 ||
     activeIndex === index - 3 ||
+    activeIndex === index - 4 ||
+    activeIndex === index - 5 ||
+    activeIndex === index - 6 ||
     activeIndex === (index + 1) % length ||
     activeIndex === (index + 2) % length ||
     activeIndex === (index + 3) % length ||
+    activeIndex === (index + 4) % length ||
+    activeIndex === (index + 5) % length ||
     index <= 1 && activeIndex >= length - 3
   );
 };
@@ -81,20 +86,19 @@ const SiteCarousel = observer(({mobile}) => {
     <Swiper
       className="site-carousel"
       spaceBetween={0}
-      slidesPerView={mobile ? 2 : 3.5}
+      slidesPerView={mobile ? 2 : 8.5}
       centeredSlides
       loop
-      initialSlide={2}
+      initialSlide={4}
       navigation
       pagination={{
-        enabled: true,
-        clickable: true
+        enabled: false
       }}
       style={{
         "--swiper-pagination-color": "#fff",
         "--swiper-navigation-color": "#fff",
       }}
-      modules={[Pagination, Navigation]}
+      modules={[Navigation]}
       onSwiper={swiper => window.swiper = swiper}
       onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
     >

@@ -481,10 +481,14 @@
     padding-bottom: 65px;
   }
 
-  &--global-streaming {
+  &--use-cases {
     padding-bottom: 50px;
     padding-left: 75px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%);
+
+    h3 {
+      padding-bottom: 12px;
+    }
   }
 
   &--video {
@@ -1651,11 +1655,12 @@
   max-width: 100%;
   padding-bottom: 50px;
   width: 100%;
+  background-color: var(--background-light-2);
 
   &__slide {
     &:not(&--active) {
       .site-carousel__site-image {
-        padding: 25px;
+        padding: 3.5px;
       }
     }
   }

@@ -5,7 +5,6 @@ import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
 import {Tabs} from "../../components/Misc";
-import {Link} from "react-router-dom";import {useNavigate} from "react-router";
 
 import {Button} from "../../components/Actions";
 import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon, PlaySimpleIcon} from "../../static/icons/Icons";
@@ -48,7 +47,7 @@ import LiveStreamManagerApp from "../../static/images/main/apps/05-live-stream-m
 import MediaIngestApp from "../../static/images/main/apps/06-media-ingest-min.png";
 import FabricBrowserApp from "../../static/images/main/apps/07-fabric-browser-min.png";
 
-import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper Efficient.jpg";
+import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper-Efficient.jpg";
 import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
 import VideoStackSecurity from "../../static/images/main/video-stack/03-Secure-and-Verifiable.jpg";
 import VideoStackAiNative from "../../static/images/main/video-stack/04-AI-Native.jpg";
@@ -65,31 +64,11 @@ import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts"
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
 
 import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
-import Carousel from "Common/Carousel";
 
-import CricketImage from "../../static/images/main/partners/cricket";
-import EpcrImage from "../../static/images/main/partners/epcr";
-import EpcrTVImage from "../../static/images/main/partners/epcr-tv";
-import FandangoImage from "../../static/images/main/partners/fandango";
-import FlashImage from "../../static/images/main/partners/flash";
-import SupermanImage from "../../static/images/main/partners/superman.jpg";
-import UefaImage from "../../static/images/main/partners/uefa";
-import Uefa2Image from "../../static/images/main/partners/uefa-2";
-import YellowstoneImage from "../../static/images/main/partners/yellowstone";
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import Marquee from "react-fast-marquee";
-
-const partnerImages = [
-  EpcrImage,
-  UefaImage,
-  CricketImage,
-  EpcrTVImage,
-  Uefa2Image,
-  FandangoImage,
-  YellowstoneImage,
-  FlashImage,
-  SupermanImage
-];
+import SiteCarousel from "./SiteCarousel";
+import {useNavigate} from "react-router";
 
 const AwardsBlock = observer(() => {
   return (
@@ -281,7 +260,7 @@ const StreamingUseCases = observer(() => {
   // }, [features]);
 
   return (
-    <div className="main-page-block main-page-block--light main-page-block--global-streaming">
+    <div className="main-page-block--light main-page-block--use-cases">
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
           <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
@@ -519,49 +498,6 @@ const AppsBlock = observer(() => {
   );
 });
 
-const PartnersBlock = () => {
-  return (
-    <div className="main-page-block main-page-block--light main-page-block--partners">
-      <div className="main-page-block main-page-block__partners__header">
-        <div className="main-page-block__copy-container">
-          <h3 className="main-page-block__copy-header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
-          <div className="main-page-block__partners__button-container">
-            <Button className="main-page-block__partners__button--explore" to="https://wallet.contentfabric.io/">Explore Projects</Button>
-            <Button className="main-page-block__partners__button--contact" to="/about/contact">Get in Touch</Button>
-          </div>
-        </div>
-      </div>
-      <div className="main-page-block">
-        {/*<Swiper*/}
-        {/*  // onSlideChange={swiper => {*/}
-        {/*  //   setActiveSlide(swiper.realIndex + 1);*/}
-        {/*  // }}*/}
-        {/*  // onSwiper={swiper => swiperRef.current = swiper}*/}
-        {/*  spaceBetween={2}*/}
-        {/*  slidesPerView="auto"*/}
-        {/*  // loop*/}
-        {/*>*/}
-        {/*  { partnerImages.map((img, i) =>*/}
-        {/*    <SwiperSlide key={`partner-${i}`}>*/}
-        {/*      <ImageIcon*/}
-        {/*        // className="key-feature-card__banner"*/}
-        {/*        icon={img}*/}
-        {/*        width={169}*/}
-        {/*        style={{aspectRatio: "2/3"}}*/}
-        {/*      />*/}
-        {/*    </SwiperSlide>*/}
-        {/*  )}*/}
-        {/*</Swiper>*/}
-        <Carousel
-          minVisible={3}
-          maxVisible={9}
-          elements={partnerImages.map((img, i) => <ImageIcon key={`partner-${i}`} icon={img} style={{aspectRatio: "2/3"}} width={169} />)}
-        />
-      </div>
-    </div>
-  );
-};
-
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
@@ -576,7 +512,7 @@ const MainPageMobile = () => {
       <div className="page light no-padding">
         <BenefitsBlock/>
         <AppsBlock />
-        <PartnersBlock />
+        <SiteCarousel mobile />
       </div>
     </div>
   );
@@ -597,7 +533,7 @@ const MainPageDesktop = () => {
         <div className="page light no-padding">
           <BenefitsBlock />
           <AppsBlock />
-          <PartnersBlock />
+          <SiteCarousel />
         </div>
       </div>
     </div>
