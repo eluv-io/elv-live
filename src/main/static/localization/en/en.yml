@@ -59,13 +59,6 @@ main:
   video_stack:
     header: Next Gen CDN & Full Feature Video Stack
     features:
-      - feature_title: Max Quality
-        title: Global Streaming Like Never Before
-        subtitle: Just-in-Time, Ultra Low Latency  HTTP ABR /UDP/RTP/SRT/SMPTE 2022/2110
-        description: |
-          Ultra Low Latency Global OTT Streaming (D2C) Live and On Demand. Live Broadcast Feed distribution (B2B) to Millions of Receivers with Sub-second Latency. Optimized Multi-path Routing for Minimum Bandwidth Use, Maximum Cost Efficiency and Inherent Redundancy.
-        media: quality
-        media_type: image
       - feature_title: Max Cost Savings
         title: 10X Cost Savings and Low Carbon Footprint
         subtitle: Novel Content Storage, Routing, and Just-in-Time Composition with Zero File Copies
@@ -73,6 +66,13 @@ main:
           Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less $$$ at Scale than Legacy CDN and Media Cloud.
         media: ull
         media_type: video
+      - feature_title: Max Quality
+        title: Global Streaming Like Never Before
+        subtitle: Just-in-Time, Ultra Low Latency  HTTP ABR /UDP/RTP/SRT/SMPTE 2022/2110
+        description: |
+          Ultra Low Latency Global OTT Streaming (D2C) Live and On Demand. Live Broadcast Feed distribution (B2B) to Millions of Receivers with Sub-second Latency. Optimized Multi-path Routing for Minimum Bandwidth Use, Maximum Cost Efficiency and Inherent Redundancy.
+        media: quality
+        media_type: image
       - feature_title: Secure & Verifiable
         title: Innovative Content Crypto
         subtitle: Retain Full Control of your Content
