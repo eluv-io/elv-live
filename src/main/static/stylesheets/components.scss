@@ -445,8 +445,8 @@
 
   &__panel {
     padding-top: 20px;
-    padding-left: 250px;
-    padding-right: 250px;
+    padding-left: 200px;
+    padding-right: 200px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -471,16 +471,26 @@
       font-weight: 500;
       color: var(--color-text-light-1);
       font-size: var(--font-size-header-5);
+      z-index: 2;
     }
 
     &__image {
       height: auto;
-      width: 100%
+      width: 100%;
+      margin-top: -45px;
     }
 
     &__video {
       width: 100%;
+      margin-top: -45px;
     }
+  }
+}
+
+@media screen and (max-width: $width-laptop) {
+  &__image,
+  &__video {
+    margin-top: -30px;
   }
 }
 
