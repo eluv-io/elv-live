@@ -434,7 +434,7 @@
 .main-page-block {
   align-items: start;
   display: grid;
-  gap: 75px;
+  gap: 38px;
   width: 100%;
 
   &--light {
@@ -1351,7 +1351,7 @@
   }
 
   @media screen and (max-width: $width-laptop) {
-    gap: 35px;
+    gap: 25px;
 
     &__key-features__list {
       gap: 20px;

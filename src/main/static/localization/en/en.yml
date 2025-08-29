@@ -266,14 +266,13 @@ main:
       -
         title: Eluvio Video Intelligence Editor
         description: |
-          Automatically Generate Personalized Highlights and Compositions with AI
-          Search, Summarization, Clipping & Sharing, with No File copies or Egress
+          Automatically Generate Personalized Highlights and Compositions with Eluvio Video Intelligence Editor, Summarization, Clipping & Sharing, with No File copies or Egress.
         link: video-intelligence/video-editor
         image: evie
       -
         title: AI Content Search and Management
         description: |
-          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress
+          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, with No File copies or Egress.
         link: https://contentfabric.io/apps/AI%20Content%20Search
         image: ai-search
       -
@@ -285,7 +284,7 @@ main:
       -
         title: Creator Studio
         description: |
-          Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization
+          Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization.
         link: monetization/creator-studio
         image: creator-studio
       -
@@ -303,7 +302,7 @@ main:
       -
         title: Fabric Browser
         description: |
-          TODO
+          Fabric Browser provides comprehensive low level browsing, version management, metadata management and access control configuration for all content objects.
         link: https://contentfabric.io/apps/Fabric%20Browser
         image: fabric-browser
 
