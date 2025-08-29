@@ -35,8 +35,7 @@ const Header = observer(() => {
 
   return (
     <>
-      { uiStore.pageWidth <= 1000 ? notificationBanner : null }
-
+      { notificationBanner }
       <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""}`}>
         <Action useNavLink to="/" className="header__logo-container">
           <ImageIcon icon={uiStore.isWalletPage ? EluvioLogoIcon : EluvioLogo} title="Eluvio" className="header__logo" />
@@ -151,8 +150,6 @@ const Header = observer(() => {
         <Action icon={MenuIcon} className="light header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
       </header>
       <MobileNav visible={showMobileMenu} Close={() => setShowMobileMenu(false)} />
-
-      { uiStore.pageWidth > 1000 ? notificationBanner : null }
     </>
   );
 });

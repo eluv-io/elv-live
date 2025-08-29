@@ -292,8 +292,8 @@
 }
 
 .notification-banner {
-  background: var(--background-dark-3);
-  color: var(--color-text-dark-1);
+  background: var(--color-highlight-12);
+  color: var(--color-text-light-11);
   display: flex;
   flex-flow: column wrap;
   font-size: var(--font-size-body-5);
@@ -309,6 +309,7 @@
 
   &__text {
     font-size: var(--font-size-body-4);
+    font-weight: 400;
     max-width: 100%;
 
     * {
@@ -336,7 +337,8 @@
     }
 
     a {
-      color: var(--color-highlight-5);
+      font-weight: 600;
+      color: var(--color-text-light-11);
     }
   }
 
