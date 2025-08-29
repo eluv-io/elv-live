@@ -335,8 +335,16 @@
     }
   }
 
+  &__item-title-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
   &__item-icon {
     padding-right: 6px;
+    height: 12px;
+    width: auto;
   }
 
   &__item-subtitle {

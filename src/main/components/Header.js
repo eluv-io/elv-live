@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import EluvioLogo from "../static/images/logos/eluvio-black-logo.png";
 import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
 
-import {MenuIcon, XIcon, NavIcons} from "../static/icons/Icons";
+import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 
 const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
@@ -100,10 +100,10 @@ const Header = observer(() => {
             useNavLink
             fullScreenMenu
             items={[
-              {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}}
+              {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.MonetizationIcon},
+              {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.EDarkFillIcon},
+              {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.LiveStreamManagerIcon},
+              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.PlayerIcon}
             ]}
           >
             { mainStore.l10n.header.monetization }
@@ -129,8 +129,10 @@ const Header = observer(() => {
             useNavLink
             fullScreenMenu
             items={[
-              {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}},
-              {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}}
+              {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.DocsIcon},
+              {label: mainStore.l10n.header.learning_resources, to: "https://docs.eluv.io/", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.LearningResourcesIcon},
+              {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, subtitle: "Subtitle text", icon: SocialIcons.GithubIcon},
+              {label: mainStore.l10n.header.community, to: "https://github.com/eluv-io", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.EDarkFillIcon}
             ]}
           >
             { mainStore.l10n.header.resources }

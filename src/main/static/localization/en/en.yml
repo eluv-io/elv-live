@@ -43,6 +43,7 @@ header:
   fabric_browser: Fabric Browser
   media_ingest: Media Ingest
   live_stream_manager: Live Stream Manager
+  community: Community
 
 # Main Page
 main:

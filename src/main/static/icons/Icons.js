@@ -59,6 +59,7 @@ import BlockchainNavIcon from "./nav/blockchain";
 import CreatorStudioIcon from "./nav/creator-studio";
 import DocsIcon from "./nav/docs";
 import ELightIcon from "./nav/e-light-bg";
+import EDarkFillIcon from "./nav/e-dark-fill";
 import FabricIcon from "./nav/fabric";
 import FabricProtocolIcon from "./nav/fabric-protocol";
 import FeaturesIcon from "./nav/features";
@@ -89,6 +90,7 @@ const NavIcons = {
   BlockchainNavIcon,
   CreatorStudioIcon,
   DocsIcon,
+  EDarkFillIcon,
   ELightIcon,
   FabricIcon,
   FabricProtocolIcon,

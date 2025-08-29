@@ -123,8 +123,8 @@
       z-index: 10;
       padding: 10px 25px 40px 0;
       display: grid;
-      column-gap: 47px;
-      grid-template-columns: repeat(2, minmax(250px, 1fr));
+      column-gap: 75px;
+      grid-template-columns: minmax(min-content, max-content) 1fr;
     }
 
     .menu-button__item {
