@@ -273,7 +273,7 @@ main:
         title: AI Content Search and Management
         description: |
           Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, with No File copies or Egress.
-        link: https://contentfabric.io/apps/AI%20Content%20Search
+        link: /video-intelligence/ai-search
         image: ai-search
       -
         title: Content Analytics & Reporting
@@ -291,19 +291,19 @@ main:
         title: Live Stream Manager
         description: |
           Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
-        link: https://contentfabric.io/apps/Livestream%20Manager
+        link: /av-core/fabric-core#tools
         image: live-stream
       -
         title: Media Ingest
         description: |
           Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
-        link: https://contentfabric.io/apps/Media%20Ingest
+        link: /av-core/fabric-core#tools
         image: media-ingest
       -
         title: Fabric Browser
         description: |
           Fabric Browser provides comprehensive low level browsing, version management, metadata management and access control configuration for all content objects.
-        link: https://contentfabric.io/apps/Fabric%20Browser
+        link: /av-core/fabric-core#tools
         image: fabric-browser
 
 
@@ -1484,6 +1484,7 @@ core_apps:
                 - End users can view the media’s provenance (ownership) and its Fabric/C2PA version hash and supporting transactions for proof of authenticity and trustworthiness
 
             - title: Tools
+              id: tools
               description: |
                 <strong>Live Stream Manager</strong> provides easy automatic configuration, management and monitoring for live streams.
                 - Auto-probes the input source, configures streaming parameters

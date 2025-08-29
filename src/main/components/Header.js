@@ -81,9 +81,9 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
               {
                 items: [
-                  {label: mainStore.l10n.header.fabric_browser, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.ELightIcon},
-                  {label: mainStore.l10n.header.media_ingest, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.MediaIngestIcon},
-                  {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.LiveStreamManagerIcon},
+                  {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.ELightIcon},
+                  {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.MediaIngestIcon},
+                  {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.LiveStreamManagerIcon},
                 ]
               }
             ]}

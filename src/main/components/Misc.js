@@ -305,14 +305,15 @@ export const Accordion = ({
   defaultOpen=false,
   children,
   triggerText,
-  hasHeader=true
+  hasHeader=true,
+  id
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div className={`accordion ${className}`}>
       <Action className={`accordion__header left-align ${hasHeader ? "" : "accordion__header--no-header-title"}`} onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
-        <div className="accordion__header-container">
+        <div className="accordion__header-container" id={id || ""}>
           <div className="accordion__header-subtitle">{subtitle}</div>
           <div className={`accordion__header__title ${hasHeader ? "accordion__header__title--purple" : ""}`}>{title}</div>
           <div className="accordion__header-title-description">{titleDescription}</div>
