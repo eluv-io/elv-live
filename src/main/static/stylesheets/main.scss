@@ -884,6 +884,7 @@
 
     .image-icon {
       flex: 0 0 70%;
+      margin-right: -20px;
     }
 
     img {
@@ -910,6 +911,10 @@
     .app-panel-link {
       font-weight: 500;
       font-size: var(--font-size-body-7);
+    }
+
+    .app-panel-link {
+      padding-left: 0;
     }
   }
 

@@ -274,7 +274,7 @@ main:
         title: AI Content Search and Management
         description: |
           Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress
-        link: video-intelligence/ai-search
+        link: https://contentfabric.io/apps/AI%20Content%20Search
         image: ai-search
       -
         title: Content Analytics & Reporting
@@ -292,19 +292,19 @@ main:
         title: Live Stream Manager
         description: |
           Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
-        link: ''
+        link: https://contentfabric.io/apps/Livestream%20Manager
         image: live-stream
       -
         title: Media Ingest
         description: |
           Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
-        link: ''
+        link: https://contentfabric.io/apps/Media%20Ingest
         image: media-ingest
       -
         title: Fabric Browser
         description: |
           TODO
-        link: ''
+        link: https://contentfabric.io/apps/Fabric%20Browser
         image: fabric-browser
 
 

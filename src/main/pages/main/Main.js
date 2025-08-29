@@ -502,9 +502,9 @@ const AppsBlock = observer(() => {
                 <div className="main-page-block__app-tabs-panel-content__text-column">
                   <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
                   <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
-                  <Link to={apps[activeTabIndex].link} className="app-panel-link">
+                  <Button to={apps[activeTabIndex].link} className="app-panel-link">
                     Learn More →
-                  </Link>
+                  </Button>
                 </div>
               </div>
             </div>
