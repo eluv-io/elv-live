@@ -176,11 +176,11 @@ export const MenuButton = React.forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", HandleClickOutside);
+    document.addEventListener("mouseup", HandleClickOutside);
     document.addEventListener("keydown", HandleEscapeKey);
 
     return (() => {
-      document.removeEventListener("mousedown", HandleClickOutside);
+      document.removeEventListener("mouseup", HandleClickOutside);
       document.removeEventListener("keydown", HandleEscapeKey);
     });
   }, []);
@@ -207,7 +207,23 @@ export const MenuButton = React.forwardRef((props, ref) => {
         <ul className="menu-button__options">
           {(items || []).map((item, index) => (
             <li key={`menu-button-${index}`} className="menu-button__item">
-              <Action to={item.to} onClick={() => setMenuOpen(false)} className={optionClassName} {...item.props}>{ item.label }</Action>
+              <Action to={item.to} onClick={() => setMenuOpen(false)} className={optionClassName} {...item.props}>
+                <div className="menu-button__options--flex">
+                  <div className="menu-button__item-title-row">
+                    {
+                      item.icon &&
+                      <ImageIcon icon={item.icon} className="menu-button__item-icon" />
+                    }
+                    { item.label }
+                  </div>
+                  {
+                    item.subtitle &&
+                    <p className={`menu-button__item-subtitle${item.icon ? " indent" : ""}`}>
+                      { item.subtitle }
+                    </p>
+                  }
+                </div>
+              </Action>
             </li>
           ))}
         </ul>

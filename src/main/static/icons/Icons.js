@@ -55,6 +55,19 @@ import DiscordIcon from "./social/discord.svg";
 import SlackIcon from "./social/slack.svg";
 import XLogoIcon from "./social/x-logo.svg";
 
+import BlockchainNavIcon from "./nav/blockchain";
+import CreatorStudioIcon from "./nav/creator-studio";
+import DocsIcon from "./nav/docs";
+import FabricIcon from "./nav/fabric";
+import FabricProtocolIcon from "./nav/fabric-protocol";
+import FeaturesIcon from "./nav/features";
+import LearningResourcesIcon from "./nav/learning-resources";
+import LiveStreamManagerIcon from "./nav/live-stream-manager";
+import ManagementToolsIcon from "./nav/management-tools";
+import MediaIngestIcon from "./nav/media-ingest";
+import MonetizationIcon from "./nav/monetization";
+import PlayerIcon from "./nav/player";
+
 import TechnologyIcons from "./technology/TechnologyIcons";
 import ApplicationIcons from "./apps/ApplicationIcons";
 import EluvioEIcon from "./E_Logo_White.png";
@@ -69,6 +82,21 @@ const SocialIcons = {
   DiscordIcon,
   SlackIcon,
   XLogoIcon
+};
+
+const NavIcons = {
+  BlockchainNavIcon,
+  CreatorStudioIcon,
+  DocsIcon,
+  FabricIcon,
+  FabricProtocolIcon,
+  FeaturesIcon,
+  LearningResourcesIcon,
+  LiveStreamManagerIcon,
+  ManagementToolsIcon,
+  MediaIngestIcon,
+  MonetizationIcon,
+  PlayerIcon
 };
 
 export {
@@ -123,5 +151,6 @@ export {
   TrendingUpIcon,
   XIcon,
   SocialIcons,
-  TechnologyIcons
+  TechnologyIcons,
+  NavIcons
 };

@@ -108,8 +108,30 @@
       width: 30px;
     }
 
+    &.menu-button {
+      position: unset;
+    }
+
     .menu-button__options {
-      top: calc(100% + 3px);
+      top: calc(100%);
+      left: 0;
+      right: 0;
+      width: 100vw;
+      margin-left: -50vw;
+      transform: translateX(50%);
+      will-change: transform;
+      z-index: 10;
+      padding: 10px 25px 40px 0;
+      display: grid;
+      column-gap: 47px;
+      grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+
+    .menu-button__item {
+      white-space: wrap;
+      &:nth-child(odd) {
+        margin-left: calc(80px + 50px + 85px + 10px);
+      }
     }
   }
 
