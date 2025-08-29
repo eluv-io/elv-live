@@ -93,7 +93,7 @@ const partnerImages = [
 
 const AwardsBlock = observer(() => {
   return (
-    <div className="main-page-block main-page-block--awards">
+    <div className="main-page-block--awards">
       {
         awardsImages.map(({img, alt}) => (
           <div
