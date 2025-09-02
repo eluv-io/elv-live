@@ -50,7 +50,7 @@ const Header = observer(() => {
             useNavLink
             items={[
               {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Wins 2025 NAB Show Product of the Year Award for the Content Fabric “Bangkok Release\n\nEluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"},
-              {label: mainStore.l10n.header.team, to: "/#eluvio-team", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"}
+              // {label: mainStore.l10n.header.team, to: "/#eluvio-team", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"}
             ]}
           >
             { mainStore.l10n.header.about }
@@ -61,10 +61,10 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricProtocolIcon, subtitle: "Subtitle text"},
-              {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.BlockchainNavIcon, subtitle: "Subtitle text"},
-              {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon, subtitle: "Subtitle text"},
-              {label: mainStore.l10n.header.learning_resources, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.LearningResourcesIcon, subtitle: "Subtitle text"}
+              {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricProtocolIcon},
+              {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.BlockchainNavIcon},
+              {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
+              // {label: mainStore.l10n.header.learning_resources, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.LearningResourcesIcon}
             ]}
           >
             { mainStore.l10n.header.content_fabric }
@@ -75,14 +75,14 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.FabricIcon},
-              {label: mainStore.l10n.header.management_tools, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.ManagementToolsIcon},
+              {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
+              {label: mainStore.l10n.header.management_tools, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.ManagementToolsIcon},
               {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
               {
                 items: [
-                  {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.ELightIcon},
-                  {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.MediaIngestIcon},
-                  {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.LiveStreamManagerIcon},
+                  {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ELightIcon},
+                  {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.MediaIngestIcon},
+                  {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
                 ]
               }
             ]}
@@ -95,10 +95,10 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.MonetizationIcon},
-              {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.EDarkFillIcon},
-              {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.LiveStreamManagerIcon},
-              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text", icon: NavIcons.PlayerIcon}
+              {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
+              {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
+              {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
+              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
             ]}
           >
             { mainStore.l10n.header.monetization }
@@ -109,9 +109,9 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text"},
-              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text"},
-              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, subtitle: "Subtitle text"}
+              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}},
+              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}}
             ]}
           >
             { mainStore.l10n.header.video_intelligence }
