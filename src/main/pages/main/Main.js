@@ -426,88 +426,90 @@ const BenefitsBlock = observer(() => {
             Learn More
           </Button>
         </div>
-        <div className="main-page-block__benefit-cards">
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
-            <div className="main-page-block__benefit-card-1__column-text">
-              <div className="main-page-block__benefit-card-1__title">
-                { cards.no_1.title }
-              </div>
-              <div className="main-page-block__benefit-card-1__row-text">
-                <div className="main-page-block__benefit-card-1__description-text">
-                  { cards.no_1.text_left }
+        <div className="main-page-block__benefit-cards-container">
+          <div className="main-page-block__benefit-cards">
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
+              <div className="main-page-block__benefit-card-1__column-text">
+                <div className="main-page-block__benefit-card-1__title">
+                  { cards.no_1.title }
                 </div>
-                <div className="main-page-block__benefit-card-1__description-text">
-                  { cards.no_1.text_right }
+                <div className="main-page-block__benefit-card-1__row-text">
+                  <div className="main-page-block__benefit-card-1__description-text">
+                    { cards.no_1.text_left }
+                  </div>
+                  <div className="main-page-block__benefit-card-1__description-text">
+                    { cards.no_1.text_right }
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
-            <div className="main-page-block__benefit-card-2__column">
-              {
-                cards.no_2.text.map((item, i) => (
-                  <div key={`card-2-item-${i}`}>{ item }</div>
-                ))
-              }
-            </div>
-          </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
-            <div className="main-page-block__benefit-card-3__column">
-              <div>{ cards.no_3.text_one }</div>
-              <div>{ cards.no_3.text_two }</div>
-              <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>{ cards.no_3.text_three }</Button>
-            </div>
-          </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
-            <div className="main-page-block__benefit-card-4__row">
-              <div className="main-page-block__benefit-card-4__text-panel">
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
+              <div className="main-page-block__benefit-card-2__column">
                 {
-                  cards.no_4.tabs[activeTabIndex].value
-                }
-                <div className="main-page-block__benefit-card-4__icons">
-                  {
-                    [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
-                      <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
-                    ))
-                  }
-                </div>
-              </div>
-              <div className="main-page-block__benefit-card-4__button-panel">
-                {
-                  (cards?.no_4?.tabs || []).map((tab, i) => (
-                    <Button
-                      key={tab.label}
-                      className={`"tabs__button tabs__button--dark ${isActive(i) ? "active" : "inactive"}`}
-                      onClick={() => setActiveTabIndex(i)}
-                    >
-                      { tab.label }
-                      <ImageIcon icon={PlusIcon} height={10} width={10} />
-                    </Button>
+                  cards.no_2.text.map((item, i) => (
+                    <div key={`card-2-item-${i}`}>{ item }</div>
                   ))
                 }
               </div>
             </div>
-          </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
-            <div>{ cards.no_5.text_one }</div>
-            <div>{ cards.no_5.text_two }</div>
-            <a
-              className="main-page-block__benefit-card-5__github-button"
-              href={cards.no_5.github_link}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <ImageIcon icon={SocialIcons.GithubIcon} />
-              Eluvio GitHub
-            </a>
-          </div>
-          <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team">
-            <div className="main-page-block__benefit-card-6__team-image" style={{backgroundImage: `url(${EluvioGroupImage})`}}></div>
-            <div className="main-page-block__benefit-card-6__text-content">
-              <div className="main-page-block__benefit-card-6__left-column">{ cards.no_6.text_left }</div>
-              <div className="main-page-block__benefit-card-6__right-column">
-                { cards.no_6.text_right }
-                {/*<Link to={""}>Meet the Team →</Link>*/}
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
+              <div className="main-page-block__benefit-card-3__column">
+                <div>{ cards.no_3.text_one }</div>
+                <div>{ cards.no_3.text_two }</div>
+                <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>{ cards.no_3.text_three }</Button>
+              </div>
+            </div>
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
+              <div className="main-page-block__benefit-card-4__row">
+                <div className="main-page-block__benefit-card-4__text-panel">
+                  {
+                    cards.no_4.tabs[activeTabIndex].value
+                  }
+                  <div className="main-page-block__benefit-card-4__icons">
+                    {
+                      [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
+                        <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
+                      ))
+                    }
+                  </div>
+                </div>
+                <div className="main-page-block__benefit-card-4__button-panel">
+                  {
+                    (cards?.no_4?.tabs || []).map((tab, i) => (
+                      <Button
+                        key={tab.label}
+                        className={`"tabs__button tabs__button--dark ${isActive(i) ? "active" : "inactive"}`}
+                        onClick={() => setActiveTabIndex(i)}
+                      >
+                        { tab.label }
+                        <ImageIcon icon={PlusIcon} height={10} width={10} />
+                      </Button>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
+              <div>{ cards.no_5.text_one }</div>
+              <div>{ cards.no_5.text_two }</div>
+              <a
+                className="main-page-block__benefit-card-5__github-button"
+                href={cards.no_5.github_link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ImageIcon icon={SocialIcons.GithubIcon} />
+                Eluvio GitHub
+              </a>
+            </div>
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team">
+              <div className="main-page-block__benefit-card-6__team-image" style={{backgroundImage: `url(${EluvioGroupImage})`}}></div>
+              <div className="main-page-block__benefit-card-6__text-content">
+                <div className="main-page-block__benefit-card-6__left-column">{ cards.no_6.text_left }</div>
+                <div className="main-page-block__benefit-card-6__right-column">
+                  { cards.no_6.text_right }
+                  {/*<Link to={""}>Meet the Team →</Link>*/}
+                </div>
               </div>
             </div>
           </div>

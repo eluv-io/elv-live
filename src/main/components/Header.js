@@ -123,7 +123,7 @@ const Header = observer(() => {
             useNavLink
             items={[
               {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.DocsIcon},
-              {label: mainStore.l10n.header.learning_resources, to: "", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.LearningResourcesIcon},
+              // {label: mainStore.l10n.header.learning_resources, to: "", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.LearningResourcesIcon},
               {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, subtitle: "Subtitle text", icon: SocialIcons.GithubIcon},
               {label: mainStore.l10n.header.community, to: "https://live.eluv.io/community", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.EDarkFillIcon}
             ]}

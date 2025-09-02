@@ -12,7 +12,7 @@ header:
   creator_studio: Creator Studio
   analytics: Content Analytics
   ai_clip_search: AI Search
-  video_editor: EVIE
+  video_editor: Eluvio Video Intelligence Editor
   elv_media_wallet: Media Wallet
   embeddable_player: Embeddable Player
   core_utilities: Core Utilities
@@ -1558,7 +1558,7 @@ contact:
   address: Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710
 
 contact_form:
-  header: Inspired in the Fabric?
+  header: Inspired to use the Fabric?
   text: |
     Send us a message to get started,
     we're excited to hear from you.
