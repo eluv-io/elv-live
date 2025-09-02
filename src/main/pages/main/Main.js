@@ -4,7 +4,13 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {Tabs} from "../../components/Misc";
+import {Tabs, Video} from "../../components/Misc";
+
+import useScrollToElement from "../../../hooks/useScrollToElement";
+import Marquee from "react-fast-marquee";
+import SiteCarousel from "./SiteCarousel";
+import {useNavigate} from "react-router";
+import Modal from "../../components/Modal";
 
 import {Button} from "../../components/Actions";
 import {PlusIcon, ArrowCubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, CubeIcon, PlaySimpleIcon} from "../../static/icons/Icons";
@@ -65,11 +71,6 @@ import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-
 
 import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
 
-import useScrollToElement from "../../../hooks/useScrollToElement";
-import Marquee from "react-fast-marquee";
-import SiteCarousel from "./SiteCarousel";
-import {useNavigate} from "react-router";
-
 const AwardsBlock = observer(() => {
   return (
     <div className="main-page-block--awards">
@@ -89,6 +90,8 @@ const AwardsBlock = observer(() => {
 });
 
 const HeaderBlock = observer(() => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <div className="main-page-header__main-header">
@@ -101,7 +104,16 @@ const HeaderBlock = observer(() => {
               </span>
             </div>
           </div>
-          <Button className="light header__button header__button--cta" to={mainStore.l10n.main.benefits_block.learn_more_link}>
+          <Modal
+            active={showModal}
+            className="modal--modal-box header-modal"
+            Close={() => setShowModal(false)}
+          >
+            <div className="main-page-header__modal-video modal-box">
+              <Video versionHash={mainStore.l10n.main.benefits_block.video_version_hash} className="main-page-block__video main-page-block__core-video" />
+            </div>
+          </Modal>
+          <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
             <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
             {mainStore.l10n.main.heading.cta_text}
           </Button>
@@ -307,6 +319,7 @@ const StreamingUseCases = observer(() => {
 const BenefitsBlock = observer(() => {
   const {cards, learn_more_link} = mainStore.l10n.main.benefits_block;
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const isActive = (index) => {
@@ -318,7 +331,16 @@ const BenefitsBlock = observer(() => {
       <div className="main-page-block main-page-block--benefits padded">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-header__main-header__header main-page-header__main-header__header--no-margin">Why Now & Why Us?</h3>
-          <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" to={learn_more_link}>
+          <Modal
+            active={showModal}
+            className="modal--modal-box header-modal"
+            Close={() => setShowModal(false)}
+          >
+            <div className="main-page-header__modal-video modal-box">
+              <Video versionHash={mainStore.l10n.main.benefits_block.video_version_hash} className="main-page-block__video main-page-block__core-video" />
+            </div>
+          </Modal>
+          <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => setShowModal(true)}>
             <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
             Learn More
           </Button>

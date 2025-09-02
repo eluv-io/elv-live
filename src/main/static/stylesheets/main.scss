@@ -39,6 +39,26 @@
     z-index: 0;
   }
 
+  &__modal-video {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+
+    &.modal-box {
+      border-radius: 5px;
+      padding: 50px 75px;
+    }
+
+    .player-container__player {
+      max-width: 80%;
+      min-width: 800px;
+      aspect-ratio: 16/9;
+      background-color: var(--background-dark-1);
+      height: 100%;
+      width: 100%;
+    }
+  }
+
   &__main-header {
     margin: 0 auto;
     max-width: 1400px;
