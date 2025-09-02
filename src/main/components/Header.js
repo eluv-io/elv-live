@@ -8,7 +8,7 @@ import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
 
 import EluvioLogo from "../static/images/logos/eluvio-black-logo.png";
-import EluvioLogoIcon from "../static/images/logos/Eluvio E Icon.png";
+import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 
 import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 
