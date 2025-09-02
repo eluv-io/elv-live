@@ -4,7 +4,7 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {Tabs, Video} from "../../components/Misc";
+import {Tabs, TabsButtons, TabsList, TabsPanel, Video} from "../../components/Misc";
 
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import Marquee from "react-fast-marquee";
@@ -166,11 +166,12 @@ const HeaderBlock = observer(() => {
   );
 });
 
-const VideoStack = observer(() => {
+const VideoStack = observer(({mobile}) => {
   const { header, features } = mainStore.l10n.main.video_stack;
 
   const blockRef = useRef(null);
   const {isInStickyZone} = useState(useScrollToElement(blockRef));
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const mediaMap = {
     "quality": VideoStackQuality,
@@ -179,6 +180,52 @@ const VideoStack = observer(() => {
     "ai-native": VideoStackAiNative,
     "monetization": VideoStackMonetization
   };
+
+  const tabsData = features.map(feature => (
+    {
+      title: feature.feature_title,
+      content: {
+        subtitle: feature.subtitle,
+        title: feature.title,
+        description: feature.description,
+        image: (feature.media && feature.media_type === "image") ? mediaMap[feature.media] : null,
+        video: (feature.media && feature.media_type === "video") ? mediaMap[feature.media] : null
+      }
+    }
+  ));
+
+  let content;
+
+  if(mobile) {
+    content = (
+      <>
+        <TabsPanel
+          tabs={tabsData}
+          activeTabIndex={activeTabIndex}
+          mobile
+        />
+        <TabsList
+          tabs={tabsData}
+          activeTabIndex={activeTabIndex}
+          setActiveTabIndex={setActiveTabIndex}
+        />
+      </>
+    );
+  } else {
+    content = (
+      <>
+        <TabsList
+          tabs={tabsData}
+          activeTabIndex={activeTabIndex}
+          setActiveTabIndex={setActiveTabIndex}
+        />
+        <TabsPanel
+          tabs={tabsData}
+          activeTabIndex={activeTabIndex}
+        />
+      </>
+    );
+  }
 
   return (
     <div
@@ -194,20 +241,7 @@ const VideoStack = observer(() => {
           <div className="main-page-header__main-header__header">
             { header }
           </div>
-          <Tabs
-            tabs={features.map(feature => (
-              {
-                title: feature.feature_title,
-                content: {
-                  subtitle: feature.subtitle,
-                  title: feature.title,
-                  description: feature.description,
-                  image: (feature.media && feature.media_type === "image") ? mediaMap[feature.media] : null,
-                  video: (feature.media && feature.media_type === "video") ? mediaMap[feature.media] : null
-                }
-              }
-            ))}
-          />
+          { content }
         </div>
       </div>
     </div>
@@ -256,7 +290,7 @@ const StreamingCard = ({
   );
 };
 
-const StreamingUseCases = observer(() => {
+const StreamingUseCases = observer(({mobile}) => {
   // const [title, setTitle] = useState("Streaming");
   // const [titleColor, setTitleColor] = useState("purple");
   // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -317,7 +351,7 @@ const StreamingUseCases = observer(() => {
   // }, [features]);
 
   return (
-    <div className="main-page-block--light main-page-block--use-cases">
+    <div className="main-page-block--light main-page-block--use-cases" style={{background: mobile ? "" : "linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%)"}}>
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
           <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
@@ -578,9 +612,9 @@ const MainPageMobile = () => {
         <AwardsBlock mobile />
       </div>
       <div className="page light no-padding">
-        <VideoStack/>
-        <StreamingUseCases/>
-        <BenefitsBlock/>
+        <VideoStack mobile />
+        <StreamingUseCases mobile />
+        <BenefitsBlock />
         <AppsBlock />
         <SiteCarousel mobile />
       </div>

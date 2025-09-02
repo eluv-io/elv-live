@@ -523,26 +523,32 @@
   }
 
   .tabs {
-    display: grid;
-    height: max-content;
-    gap: 30px;
-    width: 100%;
-    max-width: 100%;
+    gap: 12px;
 
     &__list {
-      flex-wrap: wrap;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 100%;
-
-      button {
-        width: 100%;
-      }
+      justify-content: flex-start;
     }
 
     &__panel {
       padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: $width-mobile) {
+  .tabs {
+    &__panel {
+      text-align: left;
+
+      &__title {
+        font-size: var(--font-size-header-3);
+      }
+
+      &__description,
+      &__subtitle {
+        font-weight: 500;
+        font-size: var(--font-size-body-7);
+      }
     }
   }
 }

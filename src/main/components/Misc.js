@@ -371,9 +371,75 @@ export const Tooltip = ({className, content}) => {
   );
 };
 
-export const Tabs = ({tabs=[], className, darkMode=false}) => {
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+export const TabsPanel = ({
+  tabs,
+  activeTabIndex,
+  className,
+  children,
+  mobile
+}) => {
+  const mediaContent = (
+    <>
+      {
+        tabs[activeTabIndex].content?.image &&
+        <div className="tabs__panel__media-container">
+          <ImageIcon icon={tabs[activeTabIndex].content.image} className="tabs__panel__image" />
+        </div>
+      }
+      {
+        tabs[activeTabIndex].content?.video &&
+        <div className="tabs__panel__media-container">
+          <video
+            className="tabs__panel__video"
+            src={tabs[activeTabIndex].content?.video}
+            loop
+            muted
+            playsInline=""
+            autoPlay
+          />
+        </div>
+      }
+    </>
+  );
+  return (
+    <div className={`tabs__panel ${className}`}>
+      { mobile && mediaContent}
+      {
+        tabs[activeTabIndex].content?.subtitle &&
+        <div className="tabs__panel__subtitle">
+          {
+            tabs[activeTabIndex].content.subtitle
+          }
+        </div>
+      }
+      {
+        tabs[activeTabIndex].content?.title &&
+        <div className="tabs__panel__title">
+          {
+            tabs[activeTabIndex].content.title
+          }
+        </div>
+      }
+      {
+        tabs[activeTabIndex].content?.description &&
+        <div className="tabs__panel__description">
+          {
+            tabs[activeTabIndex].content?.description
+          }
+        </div>
+      }
+      { !mobile && mediaContent }
+    </div>
+  );
+};
 
+export const TabsList = ({
+  tabs=[],
+  className,
+  darkMode=false,
+  activeTabIndex,
+  setActiveTabIndex,
+}) => {
   const isActive = (index) => {
     if(activeTabIndex === index) { return true; }
   };
@@ -395,58 +461,57 @@ export const Tabs = ({tabs=[], className, darkMode=false}) => {
                 onClick={() => setActiveTabIndex(i)}
               >
                 {tab.title}
-                <ImageIcon icon={PlusIcon} height={10} width={10}
-                           style={isActive(i) ? {transform: "rotate(45deg)"} : null}/>
+                <ImageIcon icon={PlusIcon} height={10} width={10} style={isActive(i) ? {transform: "rotate(45deg)"} : null}/>
               </Button>
             );
           })
         }
       </div>
-      <div className="tabs__panel">
-        {
-          tabs[activeTabIndex].content?.subtitle &&
-          <div className="tabs__panel__subtitle">
-            {
-              tabs[activeTabIndex].content.subtitle
-            }
-          </div>
-        }
-        {
-          tabs[activeTabIndex].content?.title &&
-          <div className="tabs__panel__title">
-            {
-              tabs[activeTabIndex].content.title
-            }
-          </div>
-        }
-        {
-          tabs[activeTabIndex].content?.description &&
-          <div className="tabs__panel__description">
-            {
-              tabs[activeTabIndex].content?.description
-            }
-          </div>
-        }
-        {
-          tabs[activeTabIndex].content?.image &&
-          <div className="tabs__panel__media-container">
-            <ImageIcon icon={tabs[activeTabIndex].content.image} className="tabs__panel__image" />
-          </div>
-        }
-        {
-          tabs[activeTabIndex].content?.video &&
-          <div className="tabs__panel__media-container">
-            <video
-              className="tabs__panel__video"
-              src={tabs[activeTabIndex].content?.video}
-              loop
-              muted
-              playsInline=""
-              autoPlay
-            />
-          </div>
-        }
-      </div>
+      {/*<div className="tabs__panel">*/}
+      {/*  {*/}
+      {/*    tabs[activeTabIndex].content?.subtitle &&*/}
+      {/*    <div className="tabs__panel__subtitle">*/}
+      {/*      {*/}
+      {/*        tabs[activeTabIndex].content.subtitle*/}
+      {/*      }*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*  {*/}
+      {/*    tabs[activeTabIndex].content?.title &&*/}
+      {/*    <div className="tabs__panel__title">*/}
+      {/*      {*/}
+      {/*        tabs[activeTabIndex].content.title*/}
+      {/*      }*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*  {*/}
+      {/*    tabs[activeTabIndex].content?.description &&*/}
+      {/*    <div className="tabs__panel__description">*/}
+      {/*      {*/}
+      {/*        tabs[activeTabIndex].content?.description*/}
+      {/*      }*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*  {*/}
+      {/*    tabs[activeTabIndex].content?.image &&*/}
+      {/*    <div className="tabs__panel__media-container">*/}
+      {/*      <ImageIcon icon={tabs[activeTabIndex].content.image} className="tabs__panel__image" />*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*  {*/}
+      {/*    tabs[activeTabIndex].content?.video &&*/}
+      {/*    <div className="tabs__panel__media-container">*/}
+      {/*      <video*/}
+      {/*        className="tabs__panel__video"*/}
+      {/*        src={tabs[activeTabIndex].content?.video}*/}
+      {/*        loop*/}
+      {/*        muted*/}
+      {/*        playsInline=""*/}
+      {/*        autoPlay*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*</div>*/}
     </div>
   );
 };
