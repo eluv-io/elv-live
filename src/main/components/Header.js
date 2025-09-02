@@ -76,7 +76,7 @@ const Header = observer(() => {
             useNavLink
             items={[
               {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
-              {label: mainStore.l10n.header.management_tools, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.ManagementToolsIcon},
+              {label: mainStore.l10n.header.management_tools, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ManagementToolsIcon},
               {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
               {
                 items: [
