@@ -79,8 +79,38 @@ import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts"
 import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
 
 import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
+import {Swiper, SwiperSlide} from "swiper/react";
 
-const AwardsBlock = observer(() => {
+const AwardsBlock = observer(({mobile}) => {
+  if(mobile) {
+    return (
+      <div className="main-page-block--awards">
+        <Swiper
+          className="main-page-block--awards__carousel"
+          spaceBetween={0}
+          slidesPerView={3}
+          centeredSlides
+          loop
+          initialSlide={0}
+          pagination={{
+            enabled: false
+          }}
+          onSwiper={swiper => window.swiper = swiper}
+        >
+          {
+            awardsImages.map(({img, alt}) => (
+              <SwiperSlide key={`carousel-${img}`} className="site-carousel__slide">
+                <div className="main-page-block main-page-block--award" style={{"--award-image-url": `url(${img})`}}>
+                  <ImageIcon icon={img} alt={alt} />
+                </div>
+              </SwiperSlide>
+            ))
+          }
+        </Swiper>
+      </div>
+    );
+  }
+
   return (
     <div className="main-page-block--awards">
       {
@@ -545,7 +575,7 @@ const MainPageMobile = () => {
     <div className="page dark no-padding">
       <HeaderBlock/>
       <div className="main-page__blocks">
-        <AwardsBlock/>
+        <AwardsBlock mobile />
       </div>
       <div className="page light no-padding">
         <VideoStack/>
