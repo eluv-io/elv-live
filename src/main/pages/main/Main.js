@@ -520,7 +520,7 @@ const BenefitsBlock = observer(({mobile}) => {
   );
 });
 
-const AppsBlock = observer(() => {
+const AppsBlock = observer(({mobile}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const blockRef = useRef(null);
   const {isInStickyZone} = useState(useScrollToElement(blockRef));
@@ -551,6 +551,88 @@ const AppsBlock = observer(() => {
     setActiveTabIndex(index);
   };
 
+  let content;
+
+  if(mobile) {
+    content = (
+      <>
+        {/* Tab panel */}
+        <div className="main-page-block main-page-block__app-tabs-panel">
+          <div className="main-page-block__app-tabs-panel-content">
+            <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
+            <div className="main-page-block__app-tabs-panel-content__text-column">
+              <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
+              <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
+              <Button to={apps[activeTabIndex].link} className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab toolbar */}
+        <div className="main-page-block main-page-block__app-tabs-list">
+          {
+            appIcons.map((appData, index) => (
+              <div
+                key={`button-${index}`}
+                className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
+              >
+                <button
+                  type="button"
+                  className="app-list-item-button"
+                  onClick={() => HandleButtonClick(index)}
+                >
+                  <ImageIcon icon={appData.icon} height="100%" width="100%" />
+                </button>
+              </div>
+            ))
+          }
+        </div>
+      </>
+    );
+  } else {
+    content = (
+      <div className="main-page-block__app-tabs-container">
+        {/* Tab toolbar */}
+        <div className="main-page-block main-page-block__app-tabs">
+          <div className="main-page-block main-page-block__app-tabs-list">
+            {
+              appIcons.map((appData, index) => (
+                <div
+                  key={`button-${index}`}
+                  className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
+                >
+                  <button
+                    type="button"
+                    className="app-list-item-button"
+                    onClick={() => HandleButtonClick(index)}
+                  >
+                    <ImageIcon icon={appData.icon} height="100%" width="100%" />
+                  </button>
+                </div>
+              ))
+            }
+          </div>
+
+          {/* Panel content */}
+          <div className="main-page-block main-page-block__app-tabs-panel">
+            <div className="main-page-block__app-tabs-panel-content">
+              <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
+              <div className="main-page-block__app-tabs-panel-content__text-column">
+                <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
+                <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
+                <Button to={apps[activeTabIndex].link} className="app-panel-link">
+                  Learn More →
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={blockRef}
@@ -564,44 +646,7 @@ const AppsBlock = observer(() => {
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
         </div>
-
-        <div className="main-page-block__app-tabs-container">
-          {/* Tab toolbar */}
-          <div className="main-page-block main-page-block__app-tabs">
-            <div className="main-page-block main-page-block__app-tabs-list">
-              {
-                appIcons.map((appData, index) => (
-                  <div
-                    key={`button-${index}`}
-                    className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
-                  >
-                    <button
-                      type="button"
-                      className="app-list-item-button"
-                      onClick={() => HandleButtonClick(index)}
-                    >
-                      <ImageIcon icon={appData.icon} height="100%" width="100%" />
-                    </button>
-                  </div>
-                ))
-              }
-            </div>
-
-            {/* Panel content */}
-            <div className="main-page-block main-page-block__app-tabs-panel">
-              <div className="main-page-block__app-tabs-panel-content">
-                <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
-                <div className="main-page-block__app-tabs-panel-content__text-column">
-                  <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
-                  <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
-                  <Button to={apps[activeTabIndex].link} className="app-panel-link">
-                    Learn More →
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        { content }
       </div>
     </div>
   );
@@ -618,7 +663,7 @@ const MainPageMobile = () => {
         <VideoStack mobile />
         <StreamingUseCases mobile />
         <BenefitsBlock mobile />
-        <AppsBlock />
+        <AppsBlock mobile />
         <SiteCarousel mobile />
       </div>
     </div>

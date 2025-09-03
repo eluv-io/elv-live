@@ -1577,13 +1577,26 @@
       }
     }
 
+    &__streaming-cards-container {
+      width: calc(100vw - 30px);
+    }
+
     &__streaming-card {
+      width: 410px;
+
       &__title {
         font-size: var(--font-size-header-3);
       }
 
       &__description {
         font-size: 14px;
+      }
+    }
+
+    &__app-tabs-panel-content {
+      &__text-column {
+        text-align: center;
+        align-items: center;
       }
     }
 
@@ -1603,6 +1616,7 @@
     &__benefit-cards {
       width: 100%;
       grid-template-columns: 1fr;
+      padding-bottom: 0;
     }
 
     &__benefit-card {
