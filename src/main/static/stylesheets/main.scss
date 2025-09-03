@@ -42,6 +42,7 @@
   &__modal-video {
     justify-content: center;
     width: 100%;
+    flex: 0 0 100%;
     display: flex;
 
     &.modal-box {
@@ -52,7 +53,7 @@
     .player-container__player {
       max-width: 80%;
       min-width: 800px;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16 / 9;
       background-color: var(--background-dark-1);
       height: 100%;
       width: 100%;
@@ -415,6 +416,17 @@
         flex-direction: column;
         padding-bottom: 20px;
         gap: 5px;
+      }
+    }
+
+    &__modal-video {
+      &.modal-box {
+        border-radius: 5px;
+        padding: 0;
+      }
+
+      .player-container__player {
+        min-width: 0;
       }
     }
 
@@ -1617,6 +1629,7 @@
       width: 100%;
       grid-template-columns: 1fr;
       padding-bottom: 0;
+      gap: 30px;
     }
 
     &__benefit-card {
@@ -1680,6 +1693,14 @@
 
     &__app-tabs-panel-content {
       flex-direction: column;
+    }
+
+    &__core-video {
+      margin-bottom: 0;
+
+      .player-container__player {
+        max-width: 100%;
+      }
     }
   }
 }
