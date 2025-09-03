@@ -383,11 +383,23 @@
 
   &__list {
     display: flex;
-    flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
     flex-direction: row;
     max-width: 100%;
+
+    &.vertical {
+      flex-direction: column;
+    }
+
+    &.horizontal {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    &.wrap {
+      flex-wrap: wrap;
+    }
   }
 
   &__button {

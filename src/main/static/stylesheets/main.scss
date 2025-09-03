@@ -1104,7 +1104,6 @@
       color: var(--color-text-dark-1);
       height: 100%;
       display: flex;
-      flex-direction: column;
       gap: 12px;
       border-top-right-radius: 12px;
       border-bottom-right-radius: 12px;
@@ -1607,7 +1606,7 @@
     }
 
     &__benefit-card {
-      height: auto;
+      height: 405px;
       width: 100%;
     }
 
@@ -1621,7 +1620,49 @@
       }
     }
 
-    &__benefit-card-3 {}
+    &__benefit-card-4 {
+      padding: 0;
+
+      &__row {
+        flex-direction: column;
+      }
+
+      &__text-panel {
+        padding: 42px 12px 0 36px;
+      }
+
+      &__button-panel {
+        padding: 25px 0 25px 50px;
+        width: 100vw;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-top-right-radius: 0;
+        height: max-content;
+        flex: 0 0 max-content;
+
+        .button {
+          text-wrap: nowrap;
+        }
+
+        .tabs {
+          height: max-content;
+        }
+      }
+    }
+
+    &__benefit-card-6 {
+      padding: 0;
+
+      &__team-image {
+        height: 210px;
+      }
+
+      &__text-content {
+        height: calc(100% - 210px);
+        gap: 20px;
+        padding-left: 44px;
+      }
+    }
 
     &__app-tabs-panel-content {
       flex-direction: column;
