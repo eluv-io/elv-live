@@ -237,7 +237,7 @@ export const MenuButton = React.forwardRef((props, ref) => {
                       <div className="menu-button__item-submenu-container">
                         {
                           item.items.map((subItem, subIndex) => (
-                            <MenuItem key={`menu-button-${index}-${subIndex}`} item={subItem} />
+                            <MenuItem key={`menu-button-${index}-${subIndex}`} item={subItem} className={`${item.subItemProps?.faded ? "subtle" : ""} ${item.subItemProps?.indent ? "indent" : ""}`} />
                           ))
                         }
                       </div>

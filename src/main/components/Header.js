@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
@@ -11,6 +11,8 @@ import EluvioLogo from "../static/images/logos/eluvio-black-logo.png";
 import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 
 import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
+import {runInAction} from "mobx";
+import UrlJoin from "url-join";
 
 const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
@@ -33,10 +35,19 @@ const Header = observer(() => {
   const notificationBanner = <NotificationBanner className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"} />;
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  const newsSubtitle = (mainStore.newsItems || [])
+  useEffect(() => {
+    runInAction(() => mainStore.LoadNews());
+  }, []);
+
+  const newsItems = (mainStore.newsItems || [])
     .slice(0, 2)
-    .map(({title}) => title)
-    .join("\n\n");
+    .map(({title, slug, index}) => ({title, slug, index}));
+
+  const newsLinks = newsItems.map((item) => ({
+    label: item.title,
+    to: UrlJoin("/about/news", item.slug || item.index.toString()),
+    props: {useNavLink: true, exact: true}
+  }));
 
   return (
     <>
@@ -54,7 +65,7 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subtitle: newsSubtitle},
+              {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, items: newsLinks, subItemProps: {indent: false, faded: true}},
               // {label: mainStore.l10n.header.team, to: "/#eluvio-team", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"}
             ]}
           >
@@ -87,11 +98,11 @@ const Header = observer(() => {
                 to: "/av-core/fabric-core#tools",
                 props: {useNavLink: true, exact: true},
                 icon: NavIcons.ManagementToolsIcon,
-                items: [
-                  {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ELightIcon},
-                  {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.MediaIngestIcon},
-                  {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
-                ]
+                // items: [
+                //   {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ELightIcon},
+                //   {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.MediaIngestIcon},
+                //   {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
+                // ]
               },
             ]}
           >
