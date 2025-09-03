@@ -445,6 +445,7 @@ export const TabsList = ({
   const isActive = (index) => {
     if(activeTabIndex === index) { return true; }
   };
+  console.log("active tab index", activeTabIndex)
 
   const containerClassNames=["tabs", className].filter(e => !!e).join(" ");
 

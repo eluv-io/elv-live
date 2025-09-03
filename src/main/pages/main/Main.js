@@ -401,7 +401,6 @@ const BenefitsBlock = observer(({mobile}) => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-
   return (
     <div className="main-page-block main-page-block--light main-page-block--benefits">
       <div className="main-page-block main-page-block--benefits padded">
@@ -482,6 +481,7 @@ const BenefitsBlock = observer(({mobile}) => {
                       tabs={(cards?.no_4?.tabs || []).map(tab => (
                         {title: tab.label}
                       ))}
+                      activeTabIndex={activeTabIndex}
                       setActiveTabIndex={setActiveTabIndex}
                       orientation={mobile ? "horizontal" : "vertical"}
                       darkMode
