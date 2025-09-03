@@ -33,6 +33,11 @@ const Header = observer(() => {
   const notificationBanner = <NotificationBanner className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"} />;
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+  const newsSubtitle = (mainStore.newsItems || [])
+    .slice(0, 2)
+    .map(({title}) => title)
+    .join("\n\n");
+
   return (
     <>
       { notificationBanner }
@@ -49,7 +54,7 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Wins 2025 NAB Show Product of the Year Award for the Content Fabric “Bangkok Release\n\nEluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"},
+              {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subtitle: newsSubtitle},
               // {label: mainStore.l10n.header.team, to: "/#eluvio-team", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"}
             ]}
           >

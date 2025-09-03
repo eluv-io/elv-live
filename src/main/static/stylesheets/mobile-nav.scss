@@ -1,11 +1,11 @@
 .mobile-nav {
-  background: var(--background-dark-6);
-  color: var(--color-text-dark-1);
+  background: var(--background-light-2);
+  color: var(--color-text-light-12);
   display: block;
-  height: calc(100vh - var(--header-height));
+  height: 100vh;
   overflow-y: auto;
   position: fixed;
-  top: var(--header-height);
+  top: 0;
   transition: opacity 0.2s ease;
   width: 100%;
   z-index: 100;
@@ -108,7 +108,7 @@
     padding: 2px;
     position: fixed;
     right: 20px;
-    top: calc(var(--header-height) + 20px);
+    top: 20px;
     width: 25px;
 
     &.action {

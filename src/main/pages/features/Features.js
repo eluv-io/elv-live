@@ -118,6 +118,22 @@ const Features = () => {
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.LearnMoreTechnologyIcon}
+          header={copy.bangkok.header}
+          content={copy.bangkok.text}
+          links={[
+            {
+              to: copy.bangkok.links[0].link,
+              target: "_blank",
+              text: copy.bangkok.links[0].text,
+              icon: DocumentIcon
+            }
+          ]}
+        />
+      </div>
+
+      <div className="page__content-block">
+        <InfoBox
+          icon={TechnologyIcons.LearnMoreTechnologyIcon}
           header={copy.casablanca.header}
           content={copy.casablanca.text}
           links={[

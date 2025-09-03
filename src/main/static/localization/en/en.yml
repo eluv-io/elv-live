@@ -105,10 +105,10 @@ main:
         image: streaming-1
         use_case: Streaming
         use_case_color: purple
-        action_text: Learn More
+        action_text: View the EPCR Case Study
         action_link: "/av-core/fabric-core"
       -
-        title: Live Stream Recording at Scale
+        title: D2C/B2B Live, VoD, FAST/Linear Streaming at Scale
         description: |
           Direct to Consumer Ultra Low Latency Streaming Globally. Live, VOD, Linear, 2D/3D Streaming to any Standard Player
           Fully Integrated Encryption and DRM.
@@ -130,8 +130,16 @@ main:
         logos:
           - uefa-1
           - uefa-2
-        action_text: Learn More
+        action_text: Press Release
         action_link: "/av-core/fabric-core"
+      -
+        title: Live Event Streaming for VIPs, Commentary, and Remote Monitoring
+        description: |
+          Ultra-low latency, secure, efficient, and re-usable streaming video service for licensees, remote commentators and VIPs to globally leverage for live events. Remote users can watch live events with delays under 5 seconds in a feature-rich experience and flexible CMS/APIs to integrate with any booking/scheduling system.
+        use_case: Broadcast
+        use_case_color: blue
+        action_text: Case Study
+        action_link: https://www.telstrainternational.com/en/news-research/case-studies/telstra-eluvio-uefa-euro-2024-radio-international-sound-streaming-service
       -
         title: AI Generated Personalized Highlights, Clips & Compositions
         description: |
@@ -265,7 +273,7 @@ main:
               Componentized multi-versioned output from source ‘Parts’. Infinite re-combination.
       no_5:
         text_one: |
-          Led by founders Michelle Munson and Serban Simu who previously created Aspera FASP.
+          We are a team of technologists specializing in scalable content distribution, real time video, trust-less security, multi-modal AI and blockchain ownership. Led by founders Michelle Munson and Serban Simu who previously created Aspera FASP.
         text_two: |
           Open architecture, full-stack Ethereum blockchain, open-source.
         github_link: https://github.com/eluv-io
@@ -273,8 +281,7 @@ main:
         text_left: |
           Over 14 US Patents
           
-          Adopted by major
-          media companies
+          Used by the most innovative sports, entertainment, and creative content owners, streamers, and creators.
         text_right: |
           HQ in Berkeley, CA
           UC Berkeley Xcel
@@ -283,19 +290,19 @@ main:
       -
         title: Eluvio Video Intelligence Editor
         description: |
-          Automatically Generate Personalized Highlights and Compositions with Eluvio Video Intelligence Editor, Summarization, Clipping & Sharing, with No File copies or Egress.
+          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
         link: video-intelligence/video-editor
         image: evie
       -
         title: AI Content Search and Management
         description: |
-          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, with No File copies or Egress.
+          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
         link: /video-intelligence/ai-search
         image: ai-search
       -
         title: Content Analytics & Reporting
         description: |
-          View and track comprehensive metrics for streaming content and delivery quality of service (QoS).
+          View and track comprehensive metrics for audience statistics, delivery quality of service (QoS), and sales transactions.
         link: /monetization/analytics
         image: analytics
       -
@@ -307,19 +314,19 @@ main:
       -
         title: Live Stream Manager
         description: |
-          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
+          Create, monitor, preview, and manage all live streams in your Content Fabric tenancy. Drill down to view details such as time-to-first-byte, segment arrival time, and player buffer stats, and monitor all streams in a single view. Configure advanced viewing options such as DVR and multi-audio, and manage live stream recording and instant Live-to-VoD.
         link: /av-core/fabric-core#tools
         image: live-stream
       -
         title: Media Ingest
         description: |
-          Ultra Low Latency/Low Latency or all users (3 seconds end-to-end), any location. Linear Scaling with number of nodes. Built in DRM and Per Session Encryption. Visible and Forensic Watermarking also possible.
+          Easily ingest new video content to your Content Fabric tenancy locally from your computer with drag-and-drop upload or from remote cloud buckets. Configure target libraries, encryption and DRM from a simple web UI. The published content is globally streamable upon completion with no further transcoding or processing.
         link: /av-core/fabric-core#tools
         image: media-ingest
       -
         title: Fabric Browser
         description: |
-          Fabric Browser provides comprehensive low level browsing, version management, metadata management and access control configuration for all content objects.
+          Fabric Browser provides comprehensive low-level browsing, version management, metadata management and access control configuration for all content objects.
         link: /av-core/fabric-core#tools
         image: fabric-browser
 
@@ -564,16 +571,16 @@ content_fabric:
     links:
       - text: "Download"
   casablanca:
-    header: Eluvio Content Fabric Casablanca Release - Summer 2024
-    text: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
+    header: Eluvio Content Fabric Casablanca Release
+    text: Learn about the Casablanca generation including advanced features in the core, apps, and tools.
     links:
       - text: Master PDF
         link: https://main.net955305.contentfabric.io/s/main/q/hq__2u3QBsnT4wvxisxmhLACPtzYLJ4R7Jw7D4KzY9KUXavBf7vtokcMiiyeH78wEbVsnVYNjjTcjF/files/eluv.io/Eluvio%20Content%20Fabric%20Casablanca%20Release%20-%20Master%20PDF.pdf
   bangkok:
     header: Eluvio Content Fabric Bangkok Release - Summer 2025
-    text: Learn about the latest Content Fabric release **Bangkok** - a massive step including advanced features for our applications and tools.
+    text: Learn about the latest release Bangkok in this comprehensive white paper covering the advances in full stack streaming, live broadcast distribution, and our inline video intelligence.
     links:
-      - text: Download PDF
+      - text: Master PDF
         link: https://main.net955305.contentfabric.io/s/main/q/hq__GCi7G55EvQ4pwHP1ZH7sjsUvZfMbttyanUccQ6SbTNp76J6GkeSFWRdfhjRdXw9h8ERQDiGi29/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bangkok%20Release%20Whitepaper.pdf
 
 technology:
@@ -599,8 +606,7 @@ technology:
     All participants including end users interact with the Content Fabric with a provable blockchain identity, releasing audience analytics from the hold of middle parties, making all engagement provable, and giving brands direct and measurable interaction with their audiences,
     and users control over their data.
 
-    The Content Fabric development is led by Serban Simu and Michelle Munson, founders of the industry standard Aspera high speed transfer technology, and is currently used by tier one creative enterprises to individual creators. The active mainnet and the testnet are EVM-compliant
-    blockchains, and have full stack implementations built on both Ethereum and Polkadot Substrate forks. The technology was recognized with the 2020 Hollywood Professional Association Engineering Excellence Award, multiple product awards, has 10 issued US patents, and has an active blockchain and creative developer community with multiple third party node providers and stakeholders.
+    The Content Fabric development is led by Serban Simu and Michelle Munson, founders of the industry standard Aspera high speed transfer technology, and is currently hosting hundreds of thousands of hours of video and over 500 live events a year. The active Fabric networks for production and test are EVM-compliant blockchains, and have full stack implementations built on both Ethereum and Polkadot Substrate forks. The technology has been recognized with numerous product awards (NAB Product of the Year 2024, 2025), SEICon Grand Prize, and the HPA Engineering Excellence Award, has 14 issued US patents, and has an active user base of the most innovative sports, entertainment and creative companies and developer community.
   architecture: Architecture
   how_it_works: How it works
   monetization: On-Chain Monetization
