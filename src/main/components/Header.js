@@ -81,15 +81,18 @@ const Header = observer(() => {
             useNavLink
             items={[
               {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
-              {label: mainStore.l10n.header.management_tools, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ManagementToolsIcon},
               {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
               {
+                label: mainStore.l10n.header.management_tools,
+                to: "/av-core/fabric-core#tools",
+                props: {useNavLink: true, exact: true},
+                icon: NavIcons.ManagementToolsIcon,
                 items: [
                   {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ELightIcon},
                   {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.MediaIngestIcon},
                   {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
                 ]
-              }
+              },
             ]}
           >
             { mainStore.l10n.header.apps }
@@ -114,9 +117,9 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}},
-              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}}
+              {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, icon: NavIcons.EvieIcon},
+              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, icon: NavIcons.AiSearchIcon},
+              {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, icon: NavIcons.MIcon}
             ]}
           >
             { mainStore.l10n.header.video_intelligence }

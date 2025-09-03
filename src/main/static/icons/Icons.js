@@ -55,16 +55,19 @@ import DiscordIcon from "./social/discord.svg";
 import SlackIcon from "./social/slack.svg";
 import XLogoIcon from "./social/x-logo.svg";
 
+import AiSearchIcon from "./nav/ai-search";
 import BlockchainNavIcon from "./nav/blockchain";
 import CreatorStudioIcon from "./nav/creator-studio";
 import DocsIcon from "./nav/docs";
 import ELightIcon from "./nav/e-light-bg";
 import EDarkFillIcon from "./nav/e-dark-fill";
+import EvieIcon from "./nav/evie";
 import FabricIcon from "./nav/fabric";
 import FabricProtocolIcon from "./nav/fabric-protocol";
 import FeaturesIcon from "./nav/features";
 import LearningResourcesIcon from "./nav/learning-resources";
 import LiveStreamManagerIcon from "./nav/live-stream-manager";
+import MIcon from "./nav/m-logo";
 import ManagementToolsIcon from "./nav/management-tools";
 import MediaIngestIcon from "./nav/media-ingest";
 import MonetizationIcon from "./nav/monetization";
@@ -87,16 +90,19 @@ const SocialIcons = {
 };
 
 const NavIcons = {
+  AiSearchIcon,
   BlockchainNavIcon,
   CreatorStudioIcon,
   DocsIcon,
   EDarkFillIcon,
   ELightIcon,
+  EvieIcon,
   FabricIcon,
   FabricProtocolIcon,
   FeaturesIcon,
   LearningResourcesIcon,
   LiveStreamManagerIcon,
+  MIcon,
   ManagementToolsIcon,
   MediaIngestIcon,
   MonetizationIcon,

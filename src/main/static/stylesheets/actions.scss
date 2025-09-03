@@ -294,7 +294,7 @@
   height: 100%;
   position: relative;
 
-  &__options {
+  &__options-container {
     border-radius: 0 0 5px 5px;
     left: 0;
     padding: 10px 25px;
@@ -325,10 +325,8 @@
 
   &__item-submenu-container {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 60px;
-    justify-content: flex-start;
+    flex-direction: column;
+    margin-left: 33px;
 
     a {
       flex-basis: fit-content;
@@ -363,14 +361,14 @@
   }
 
   &.dark {
-    .menu-button__options {
+    .menu-button__options-container {
       background: var(--background-dark-2);
       color: var(--color-text-dark-1);
     }
   }
 
   &.light {
-    .menu-button__options {
+    .menu-button__options-container {
       background: var(--background-light-2);
       color: var(--color-text-light-1);
     }

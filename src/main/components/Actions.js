@@ -226,25 +226,28 @@ export const MenuButton = React.forwardRef((props, ref) => {
       { props.children }
       {
         menuOpen &&
-        <ul className="menu-button__options">
-          {(items || []).map((item, index) => (
-            <li key={`menu-button-${index}`} className="menu-button__item">
-              {
-                item.items ?
-                  (
-                    <div className="menu-button__item-submenu-container">
-                      {
-                        item.items.map((subItem, subIndex) => (
-                          <MenuItem key={`menu-button-${index}-${subIndex}`} item={subItem} />
-                        ))
-                      }
-                    </div>
-                  )
-                  : <MenuItem item={item} />
-              }
-            </li>
-          ))}
-        </ul>
+        <div className="menu-button__options-container">
+          <ul className="menu-button__options">
+            {(items || []).map((item, index) => (
+              <li key={`menu-button-${index}`} className="menu-button__item">
+                <MenuItem item={item} />
+                {
+                  item.items &&
+                    (
+                      <div className="menu-button__item-submenu-container">
+                        {
+                          item.items.map((subItem, subIndex) => (
+                            <MenuItem key={`menu-button-${index}-${subIndex}`} item={subItem} />
+                          ))
+                        }
+                      </div>
+                    )
+                    // : <MenuItem item={item} />
+                }
+              </li>
+            ))}
+          </ul>
+        </div>
       }
     </Action>
   );
