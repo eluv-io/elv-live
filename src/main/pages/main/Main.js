@@ -396,14 +396,11 @@ const StreamingUseCases = observer(({mobile}) => {
 });
 
 const BenefitsBlock = observer(({mobile}) => {
-  const {cards, learn_more_link} = mainStore.l10n.main.benefits_block;
+  const {cards} = mainStore.l10n.main.benefits_block;
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const isActive = (index) => {
-    if(activeTabIndex === index) { return true; }
-  };
 
   return (
     <div className="main-page-block main-page-block--light main-page-block--benefits">
@@ -491,20 +488,6 @@ const BenefitsBlock = observer(({mobile}) => {
                       wrap={false}
                     />
                   </div>
-                  {/*<div className="main-page-block__benefit-card-4__button-panel">*/}
-                  {/*  {*/}
-                  {/*    (cards?.no_4?.tabs || []).map((tab, i) => (*/}
-                  {/*      <Button*/}
-                  {/*        key={tab.label}*/}
-                  {/*        className={`"tabs__button tabs__button--dark ${isActive(i) ? "active" : "inactive"}`}*/}
-                  {/*        onClick={() => setActiveTabIndex(i)}*/}
-                  {/*      >*/}
-                  {/*        { tab.label }*/}
-                  {/*        <ImageIcon icon={PlusIcon} height={10} width={10} />*/}
-                  {/*      </Button>*/}
-                  {/*    ))*/}
-                  {/*  }*/}
-                  {/*</div>*/}
                 </div>
               </div>
             <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
