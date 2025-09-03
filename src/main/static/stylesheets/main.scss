@@ -1247,7 +1247,7 @@
   }
 
   &__streaming-cards-container {
-    width: 100vw;
+    width: calc(100vw - 90px);
   }
 
   &__streaming-card {
@@ -1588,7 +1588,7 @@
     }
 
     &--benefits {
-      width: 100vw;
+      width: 100%;
 
       &.padded {
         padding-left: 10px;
@@ -1632,8 +1632,8 @@
       }
 
       &__button-panel {
-        padding: 25px 0 25px 50px;
-        width: 100vw;
+        padding: 25px 0 25px 30px;
+        width: calc(100vw - 20px);
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
         border-top-right-radius: 0;
