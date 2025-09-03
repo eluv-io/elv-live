@@ -1,12 +1,16 @@
 import AppleIcon from "./apple.svg";
 import ArrowCubeIcon from "./arrow-cube.svg";
+import ArrowLeftIcon from "./arrow-left.svg";
+import ArrowRightIcon from "./arrow-right.svg";
 import BlockchainIcon from "./blockchain.svg";
 import BlockchainMenuIcon from "./blockchain-menu.svg";
 import BoltIcon from "./bolt.svg";
+import ChevronLeftIcon from "./chevron-left.svg";
 import CodeSandboxIcon from "./codesandbox.svg";
 import CubeIcon from "./cube.svg";
 import DiscoverIcon from "./discover.svg";
 import DocumentIcon from "./view-document.svg";
+import ExternalLinkIcon from "./external-link-icon.svg";
 import FilmIcon from "./film.svg";
 import LinkIcon from "./link.svg";
 import MailIcon from "./contact-email.svg";
@@ -61,6 +65,7 @@ import CreatorStudioIcon from "./nav/creator-studio";
 import DocsIcon from "./nav/docs";
 import ELightIcon from "./nav/e-light-bg";
 import EDarkFillIcon from "./nav/e-dark-fill";
+import EMobileIcon from "./nav/eluvio-nav-e-logo";
 import EvieIcon from "./nav/evie";
 import FabricIcon from "./nav/fabric";
 import FabricProtocolIcon from "./nav/fabric-protocol";
@@ -96,6 +101,7 @@ const NavIcons = {
   DocsIcon,
   EDarkFillIcon,
   ELightIcon,
+  EMobileIcon,
   EvieIcon,
   FabricIcon,
   FabricProtocolIcon,
@@ -114,17 +120,21 @@ export {
   AppleIcon,
   ApplicationIcons,
   ArrowCubeIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
   BarsIcon,
   BlockchainMenuIcon,
   BoltIcon,
   CheckSquareIcon,
   CheckmarkIcon,
+  ChevronLeftIcon,
   ClockIcon,
   CodeSandboxIcon,
   CubeIcon,
   DollarIcon,
   DiscoverIcon,
   DocumentIcon,
+  ExternalLinkIcon,
   FlagIcon,
   BlockchainIcon,
   EluvioEIcon,
