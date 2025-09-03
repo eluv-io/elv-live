@@ -1180,7 +1180,6 @@
       margin: auto 0;
       padding-left: 65px;
       padding-right: 45px;
-      //padding-top: 31px;
       display: flex;
       flex-direction: row;
       gap: 80px;
@@ -1580,8 +1579,6 @@
     }
 
     &__streaming-card {
-      width: calc(100vw - 40px);
-
       &__title {
         font-size: var(--font-size-header-3);
       }
@@ -1590,6 +1587,41 @@
         font-size: 14px;
       }
     }
+
+    &--benefits {
+      width: 100vw;
+
+      &.padded {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
+    &__benefit-cards-container {
+      width: 100%;
+    }
+
+    &__benefit-cards {
+      width: 100%;
+      grid-template-columns: 1fr;
+    }
+
+    &__benefit-card {
+      height: auto;
+      width: 100%;
+    }
+
+    &__benefit-card-1 {
+      padding: 68px 45px;
+
+      &__row-text {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    &__benefit-card-3 {}
 
     &__app-tabs-panel-content {
       flex-direction: column;

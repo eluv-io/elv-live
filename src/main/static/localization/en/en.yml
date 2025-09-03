@@ -219,6 +219,8 @@ main:
           Eliminates complexity, maximizes efficiency, & is AI native.
         text_three: |
           Content Fabric Technology Deep Dive →
+        text_three_mobile: |
+          Technology Deep Dive →
       no_4:
         tabs:
           -
