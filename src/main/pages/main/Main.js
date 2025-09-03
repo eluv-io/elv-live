@@ -113,17 +113,19 @@ const AwardsBlock = observer(({mobile}) => {
 
   return (
     <div className="main-page-block--awards">
-      {
-        awardsImages.map(({img, alt}) => (
-          <div
-            key={`award-${img}`}
-            className="main-page-block main-page-block--award"
-            style={{"--award-image-url": `url(${img})`}}
-          >
-            <ImageIcon icon={img} alt={alt} />
-          </div>
-        ))
-      }
+      <div className="main-page-block--award-container">
+        {
+          awardsImages.map(({img, alt}) => (
+            <div
+              key={`award-${img}`}
+              className="main-page-block main-page-block--award"
+              style={{"--award-image-url": `url(${img})`}}
+            >
+              <ImageIcon icon={img} alt={alt} />
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 });
