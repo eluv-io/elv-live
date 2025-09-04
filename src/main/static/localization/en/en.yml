@@ -50,9 +50,9 @@ header:
 # Main Page
 main:
   heading:
+    top_header: The Content Fabric
     header: |
-      The Most Powerful Platform for
-      Content Distribution & Monetization
+      The Most Powerful Platform for Content Distribution & Monetization
     subheader: |
       The Content Fabric is a revolutionary protocol deployed in a global network, that transforms how content is delivered, monetized, and experienced in the digital world.
     cta_text: Learn More

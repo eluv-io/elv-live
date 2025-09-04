@@ -4,7 +4,7 @@ import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {MainHeader} from "./Shared";
-import {Tabs, TabsButtons, TabsList, TabsPanel, Video} from "../../components/Misc";
+import {TabsList, TabsPanel, Video} from "../../components/Misc";
 
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import Marquee from "react-fast-marquee";
@@ -14,7 +14,6 @@ import Modal from "../../components/Modal";
 
 import {Button} from "../../components/Actions";
 import {
-  PlusIcon,
   ArrowCubeIcon,
   BlockchainMenuIcon,
   BoltIcon,
@@ -24,6 +23,8 @@ import {
   XIcon
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
+
+import EluvioColorLogo from "../../static/images/logos/eluvio-logo-color";
 
 import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
 import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
@@ -80,6 +81,7 @@ import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-
 
 import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {NotificationBanner} from "../../components/Header";
 
 const AwardsBlock = observer(({mobile}) => {
   if(mobile) {
@@ -136,32 +138,38 @@ const HeaderBlock = observer(() => {
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <div className="main-page-header__main-header">
-        <div className="main-page-header__main-header__headers">
-          <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
-          <div className="main-page-header__main-header__subheader-container">
-            <div className="main-page-header__main-header__subheader-container-text main-page-header__main-header__subheader-container-text--text-overlay">
-              <span>
-                <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
-              </span>
+        <div className="main-page-header__main-header__row-container">
+          <ImageIcon icon={EluvioColorLogo} className="main-page-header__main-header__logo-image" width={350} />
+          <div className="main-page-header__main-header__headers">
+            <div className="main-page-header__main-header__top-header">{mainStore.l10n.main.heading.top_header}</div>
+            {/*<div className="main-page-header__main-header__header-logo-container">*/}
+              <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
+            {/*</div>*/}
+            <div className="main-page-header__main-header__subheader-container">
+              <div className="main-page-header__main-header__subheader-container-text main-page-header__main-header__subheader-container-text--text-overlay">
+                <span>
+                  <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>
+                </span>
+              </div>
             </div>
+            <Modal
+              active={showModal}
+              className="modal--modal-box header-modal"
+              Close={() => setShowModal(false)}
+              hideCloseButton
+            >
+              <div className="main-page-header__modal-video modal-box">
+                <Video versionHash={mainStore.l10n.main.benefits_block.video_version_hash} className="main-page-block__video main-page-block__core-video" />
+                <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
+                  <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
+                </button>
+              </div>
+            </Modal>
+            <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
+              <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+              {mainStore.l10n.main.heading.cta_text}
+            </Button>
           </div>
-          <Modal
-            active={showModal}
-            className="modal--modal-box header-modal"
-            Close={() => setShowModal(false)}
-            hideCloseButton
-          >
-            <div className="main-page-header__modal-video modal-box">
-              <Video versionHash={mainStore.l10n.main.benefits_block.video_version_hash} className="main-page-block__video main-page-block__core-video" />
-              <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
-                <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
-              </button>
-            </div>
-          </Modal>
-          <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
-            <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
-            {mainStore.l10n.main.heading.cta_text}
-          </Button>
         </div>
       </div>
     </MainHeader>
@@ -658,9 +666,10 @@ const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
       <HeaderBlock/>
-      <div className="main-page__blocks">
-        <AwardsBlock mobile />
-      </div>
+      <NotificationBanner className="mobile" />
+      {/*<div className="main-page__blocks">*/}
+      {/*  <AwardsBlock mobile />*/}
+      {/*</div>*/}
       <div className="page light no-padding">
         <VideoStack mobile />
         <StreamingUseCases mobile />
@@ -677,9 +686,10 @@ const MainPageDesktop = () => {
     <div>
       <div className="page dark no-padding">
         <HeaderBlock />
-        <div className="main-page__blocks">
-          <AwardsBlock />
-        </div>
+        <NotificationBanner className="desktop" />
+        {/*<div className="main-page__blocks">*/}
+        {/*  <AwardsBlock />*/}
+        {/*</div>*/}
       </div>
       <div className="main-page__blocks--light">
         <VideoStack />

@@ -14,7 +14,7 @@ import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 import {runInAction} from "mobx";
 import UrlJoin from "url-join";
 
-const NotificationBanner = observer(({className=""}) => {
+export const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
 
   return (
@@ -32,7 +32,6 @@ const NotificationBanner = observer(({className=""}) => {
 });
 
 const Header = observer(() => {
-  const notificationBanner = <NotificationBanner className={uiStore.pageWidth > 1000 ? "desktop" : "mobile"} />;
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
@@ -51,7 +50,7 @@ const Header = observer(() => {
 
   return (
     <>
-      { notificationBanner }
+      {/*{ notificationBanner }*/}
       <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""}`}>
         <Action useNavLink to="/" className="header__logo-container">
           <ImageIcon icon={uiStore.isWalletPage ? EluvioLogoIcon : EluvioLogo} title="Eluvio" className="header__logo" />
