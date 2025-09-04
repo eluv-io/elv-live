@@ -12,78 +12,84 @@ import UrlJoin from "url-join";
 const MobileNav = observer(({visible, Close}) => {
   const location = useLocation();
   const [originalLocation, setOriginalLocation] = useState(location.pathname);
+  const [navLinks, setNavLinks] = useState([]);
 
   useEffect(() => {
-    console.log("LOAD")
-    runInAction(() => mainStore.LoadNews());
+    runInAction(() => {
+      mainStore.LoadNews()
+        .then(() => {
+          const newsItems = (mainStore.newsItems || [])
+            .slice(0, 2)
+            .map(({title, slug, index}) => ({title, slug, index}));
+
+          const newsLinks = newsItems.map((item) => ({
+            label: item.title,
+            to: UrlJoin("/about/news", item.slug || item.index.toString()),
+            props: {useNavLink: true, exact: true}
+          }));
+
+          const links = [
+            {
+              label: mainStore.l10n.header.about,
+              children: [
+                {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subItemProps: {indent: false, faded: true}},
+                ...newsLinks || []
+              ]
+            },
+            {
+              label: mainStore.l10n.header.content_fabric,
+              children: [
+                {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricProtocolIcon},
+                {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.BlockchainNavIcon},
+                {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon}
+              ]
+            },
+            {
+              label: mainStore.l10n.header.apps,
+              children: [
+                {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
+                {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
+                {
+                  label: mainStore.l10n.header.management_tools,
+                  to: "/av-core/fabric-core#tools",
+                  props: {useNavLink: true, exact: true},
+                  icon: NavIcons.ManagementToolsIcon,
+                }
+              ]
+            },
+            {
+              label: mainStore.l10n.header.monetization,
+              children: [
+                {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
+                {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
+                {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
+                {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
+              ]
+            },
+            {
+              label: mainStore.l10n.header.video_intelligence,
+              children: [
+                {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, icon: NavIcons.EvieIcon},
+                {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, icon: NavIcons.AiSearchIcon},
+                {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, icon: NavIcons.MIcon}
+              ]
+            },
+            {
+              label: mainStore.l10n.header.resources,
+              children: [
+                {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, icon: NavIcons.DocsIcon},
+                {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, icon: SocialIcons.GithubIcon},
+                {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/ibc", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
+                {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.ELightIcon}
+              ]
+            }
+          ];
+
+          setNavLinks(links);
+          setMenuHistory([links]);
+        });
+    });
   }, []);
-
-  const newsItems = (mainStore.newsItems || [])
-    .slice(0, 2)
-    .map(({title, slug, index}) => ({title, slug, index}));
-
-  const newsLinks = newsItems.map((item) => ({
-    label: item.title,
-    to: UrlJoin("/about/news", item.slug || item.index.toString()),
-    props: {useNavLink: true, exact: true}
-  }));
-
-  const navLinks = [
-    {
-      label: mainStore.l10n.header.about,
-      children: [
-        {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subItemProps: {indent: false, faded: true}},
-        ...newsLinks || []
-      ]
-    },
-    {
-      label: mainStore.l10n.header.content_fabric,
-      children: [
-        {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricProtocolIcon},
-        {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.BlockchainNavIcon},
-        {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon}
-      ]
-    },
-    {
-      label: mainStore.l10n.header.apps,
-      children: [
-        {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
-        {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
-        {
-          label: mainStore.l10n.header.management_tools,
-          to: "/av-core/fabric-core#tools",
-          props: {useNavLink: true, exact: true},
-          icon: NavIcons.ManagementToolsIcon,
-        }
-      ]
-    },
-    {
-      label: mainStore.l10n.header.monetization,
-      children: [
-        {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
-        {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
-        {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
-        {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
-      ]
-    },
-    {
-      label: mainStore.l10n.header.video_intelligence,
-      children: [
-        {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, icon: NavIcons.EvieIcon},
-        {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, icon: NavIcons.AiSearchIcon},
-        {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, icon: NavIcons.MIcon}
-      ]
-    },
-    {
-      label: mainStore.l10n.header.resources,
-      children: [
-        {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, icon: NavIcons.DocsIcon},
-        {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, icon: SocialIcons.GithubIcon},
-        {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/ibc", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
-        {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.ELightIcon}
-      ]
-    }
-  ];
 
   const [menuHistory, setMenuHistory] = useState([navLinks]);
 
@@ -168,7 +174,7 @@ const MobileNav = observer(({visible, Close}) => {
                   </Action>
                 ) :
                 (
-                  <Action key={index} useNavLink exact to={item.path} onClick={Close}>
+                  <Action key={index} useNavLink exact to={item.to} onClick={Close}>
                     {
                       item.icon &&
                       <ImageIcon icon={item.icon} className="mobile-nav__item-icon" />
