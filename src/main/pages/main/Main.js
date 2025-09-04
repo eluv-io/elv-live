@@ -132,19 +132,26 @@ const AwardsBlock = observer(({mobile}) => {
   );
 });
 
-const HeaderBlock = observer(() => {
+const HeaderBlock = observer(({mobile}) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <div className="main-page-header__main-header">
         <div className="main-page-header__main-header__row-container">
-          <ImageIcon icon={EluvioColorLogo} className="main-page-header__main-header__logo-image" width={350} />
+          <ImageIcon icon={EluvioColorLogo} className="main-page-header__main-header__logo-image" width={mobile ? 275 : 350} />
           <div className="main-page-header__main-header__headers">
             <div className="main-page-header__main-header__top-header">{mainStore.l10n.main.heading.top_header}</div>
-            {/*<div className="main-page-header__main-header__header-logo-container">*/}
-              <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
-            {/*</div>*/}
+            <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
+
+            {
+              mobile &&
+              <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
+                <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+                {mainStore.l10n.main.heading.cta_text}
+              </Button>
+            }
+
             <div className="main-page-header__main-header__subheader-container">
               <div className="main-page-header__main-header__subheader-container-text main-page-header__main-header__subheader-container-text--text-overlay">
                 <span>
@@ -165,10 +172,13 @@ const HeaderBlock = observer(() => {
                 </button>
               </div>
             </Modal>
-            <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
-              <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
-              {mainStore.l10n.main.heading.cta_text}
-            </Button>
+            {
+              !mobile &&
+              <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
+                <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+                {mainStore.l10n.main.heading.cta_text}
+              </Button>
+            }
           </div>
         </div>
       </div>
@@ -665,7 +675,7 @@ const AppsBlock = observer(({mobile}) => {
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
-      <HeaderBlock/>
+      <HeaderBlock mobile/>
       <NotificationBanner className="mobile" />
       {/*<div className="main-page__blocks">*/}
       {/*  <AwardsBlock mobile />*/}

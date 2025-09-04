@@ -361,6 +361,14 @@
 
   @media screen and (max-width: $width-tablet) {
     padding: 10px 60px 15px 20px;
+    height: 70px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    margin-top: -70px;
 
     &__close-button {
       right: 20px;
