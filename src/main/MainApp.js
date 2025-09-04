@@ -37,6 +37,7 @@ import AiClipSearch from "./pages/apps/AiClipSearch";
 import VideoEditor from "./pages/apps/VideoEditor";
 import MediaWalletApp from "./pages/apps/MediaWalletApp";
 import EmbeddablePlayer from "./pages/apps/EmbeddablePlayer";
+import EpcrTvCaseStudy from "./pages/case-studies/EpcrTvCaseStudy";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -121,6 +122,8 @@ const MainApp = () => {
           <Route path="/wallet/*" element={<PageContainer unbound noFooter><Wallet /></PageContainer>} />
           {/* Register */}
           <Route path="/register" element={<PageContainer unbound dark noContactForm><Register /></PageContainer>} />
+          {/* Linked Pages */}
+          <Route path="/case-studies/epcr-tv" element={<PageContainer padded><EpcrTvCaseStudy /></PageContainer>} />
           {/* Defaults */}
           <Route path="/" element={<PageContainer unbound dark><MainPage /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />

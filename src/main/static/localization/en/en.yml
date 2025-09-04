@@ -108,7 +108,7 @@ main:
         use_case: Streaming
         use_case_color: purple
         action_text: View the EPCR Case Study
-        action_link: "/av-core/fabric-core"
+        action_link: "/case-studies/epcr-tv"
       -
         title: D2C/B2B Live, VoD, FAST/Linear Streaming at Scale
         description: |
@@ -1546,6 +1546,15 @@ core_apps:
 news:
   title: News
   back: Back to All News
+
+case_studies:
+  title: Content Fabric Case Study
+  items:
+    epcr_tv:
+      title: EPCR TV Case Study
+      description: |
+        Live Streaming D2C, Feed distribution to business partners,
+        VoD Replay, Archive with Full Stack Monetization
 
 partners:
   title: Our Partners
