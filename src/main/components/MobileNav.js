@@ -147,7 +147,6 @@ const MobileNav = observer(({visible, Close}) => {
     return (() => document.removeEventListener("keydown", HandleEscapeKey));
   }, []);
 
-
   return (
     <div className={`mobile-nav ${visible ? "" : "mobile-nav--hidden"}`}>
       {/* Nav Header Toolbar */}

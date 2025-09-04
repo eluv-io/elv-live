@@ -169,7 +169,10 @@ const Header = observer(() => {
         </nav>
         <Action icon={MenuIcon} className="light header__mobile-nav-button mobile" onClick={() => setShowMobileMenu(prevState => !prevState)} />
       </header>
-      <MobileNav visible={showMobileMenu} Close={() => setShowMobileMenu(false)} />
+      {
+        showMobileMenu &&
+        <MobileNav visible={showMobileMenu} Close={() => setShowMobileMenu(false)} />
+      }
     </>
   );
 });
