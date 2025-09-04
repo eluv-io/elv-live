@@ -590,7 +590,7 @@ const AppsBlock = observer(({mobile}) => {
             appIcons.map((appData, index) => (
               <div
                 key={`button-${index}`}
-                className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
+                className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : " app-list-item--inactive"}`}
               >
                 <button
                   type="button"
@@ -615,7 +615,7 @@ const AppsBlock = observer(({mobile}) => {
               appIcons.map((appData, index) => (
                 <div
                   key={`button-${index}`}
-                  className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : ""}`}
+                  className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : " app-list-item--inactive"}`}
                 >
                   <button
                     type="button"

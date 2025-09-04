@@ -957,6 +957,12 @@
         box-shadow: 0 0 8px rgba(23, 8, 78, 0.3), inset 0 0 0 100px white;
       }
 
+      &--inactive {
+        &:hover {
+          box-shadow: 0 0 8px rgba(23, 8, 78, 0.15), inset 0 0 0 100px white;
+        }
+      }
+
       .app-list-item-button {
         width: 60px;
         height: 60px;
