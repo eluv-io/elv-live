@@ -71,13 +71,15 @@ import VideoStackMonetization from "../../static/images/main/video-stack/05-Mone
 
 import UefaLogo1 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-1";
 import UefaLogo2 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-2";
+import LiveFeedImage from "../../static/images/main/use-cases/live-feed";
 
-import UseCaseDevicesImage from "../../static/images/main/use-cases/use-case-devices";
-import UseCaseAiImage from "../../static/images/main/use-cases/use-cases-ai";
-import UseCaseEpcrImage from "../../static/images/main/use-cases/use-cases-epcr";
-import UseCaseMediaImage from "../../static/images/main/use-cases/use-cases-media";
-import UseCaseNftsImage from "../../static/images/main/use-cases/use-cases-nfts";
-import UseCaseStreamingImage from "../../static/images/main/use-cases/use-cases-streaming";
+import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/ai-generated-personalized-highlights-clips-compositions.webp";
+import UseCaseArchiveLibraryImage from "../../static/images/main/use-cases/archive-library-ai-search-hosting-monetization";
+import UseCaseCompleteAPIsImage from "../../static/images/main/use-cases/complete-apis-developing-ott-media-rich-applications.webp";
+import UseCaseD2CB2BImage from "../../static/images/main/use-cases/d2c-b2b-live-vod-fast-linear-streaming-scale.jpg";
+import UseCaseFullStackOTTImage from "../../static/images/main/use-cases/full-stack-ott-streaming-global-monetization copy.jpg";
+import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/live-event-streaming-vips-commentary-remote-monitoring.webp";
+import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
 
 import EluvioGroupImage from "../../static/images/main/eluvio-group-photo-2025.png";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -282,7 +284,7 @@ const StreamingCard = ({
 }) => {
   return (
     <div className="main-page-block__streaming-card">
-      <div className="main-page-block__streaming-card__content">
+      <div className="main-page-block__streaming-card__content" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
         <div className="main-page-block__streaming-card__text-content">
           <div className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${color}`}>{ title }</div>
           <div className="main-page-block__streaming-card__description">{ description}</div>
@@ -297,7 +299,7 @@ const StreamingCard = ({
             </div>
           }
         </div>
-        <ImageIcon icon={image} className="main-page-block__streaming-card__image" />
+        {/*<ImageIcon icon={image} className="main-page-block__streaming-card__image" />*/}
       </div>
       <div className="main-page-block__streaming-card__button-container">
         <Button className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color}`} to={link}>
@@ -321,17 +323,17 @@ const StreamingUseCases = observer(({mobile}) => {
   const { features } = mainStore.l10n.main.streaming_use_cases;
 
   const imageMap = {
-    "streaming-1": UseCaseEpcrImage,
-    "streaming-2": UseCaseNftsImage,
-    "broadcast": UseCaseStreamingImage,
-    "video-ai": UseCaseAiImage,
-    "publishing-1": UseCaseDevicesImage,
-    "publishing-2": UseCaseMediaImage
+    "streaming-1": UseCaseFullStackOTTImage,
+    "streaming-2": UseCaseD2CB2BImage,
+    "broadcast": UseCaseUltraLowLatencyImage,
+    "live-streaming": UseCaseLiveEventStreamingImage,
+    "video-ai": UseCaseAiGeneratedImage,
+    "publishing-1": UseCaseCompleteAPIsImage,
+    "publishing-2": UseCaseArchiveLibraryImage
   };
 
   const logoMap = {
-    "uefa-1": UefaLogo1,
-    "uefa-2": UefaLogo2
+    "live-feed": LiveFeedImage
   };
 
   const iconMap = {

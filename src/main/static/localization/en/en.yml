@@ -130,14 +130,14 @@ main:
         use_case: Broadcast
         use_case_color: blue
         logos:
-          - uefa-1
-          - uefa-2
+          - live-feed
         action_text: Press Release
         action_link: "/av-core/fabric-core"
       -
         title: Live Event Streaming for VIPs, Commentary, and Remote Monitoring
         description: |
           Ultra-low latency, secure, efficient, and re-usable streaming video service for licensees, remote commentators and VIPs to globally leverage for live events. Remote users can watch live events with delays under 5 seconds in a feature-rich experience and flexible CMS/APIs to integrate with any booking/scheduling system.
+        image: live-streaming
         use_case: Broadcast
         use_case_color: blue
         action_text: Case Study
