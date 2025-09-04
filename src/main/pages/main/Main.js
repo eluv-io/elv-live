@@ -55,13 +55,13 @@ import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
 import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
 
 import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
-import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting-min.png";
-import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management-min.png";
-import EvieApp from "../../static/images/main/apps/01-eluvio-video-intelligence-editor-min.png";
-import CreatorStudioApp from "../../static/images/main/apps/04-creator-studio-min.png";
-import LiveStreamManagerApp from "../../static/images/main/apps/05-live-stream-manager-min.png";
-import MediaIngestApp from "../../static/images/main/apps/06-media-ingest-min.png";
-import FabricBrowserApp from "../../static/images/main/apps/07-fabric-browser-min.png";
+import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting.webp";
+import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management.webp";
+import EvieApp from "../../static/images/main/apps/01-eluvio-video-intelligence-editor.webp";
+import CreatorStudioApp from "../../static/images/main/apps/04-creator-studio.webp";
+import LiveStreamManagerApp from "../../static/images/main/apps/05-live-stream-manager.webp";
+import MediaIngestApp from "../../static/images/main/apps/06-media-ingest.webp";
+import FabricBrowserApp from "../../static/images/main/apps/07-fabric-browser.webp";
 
 import VideoStackQuality from "../../static/images/main/video-stack/01-Hyper-Efficient.jpg";
 import VideoStackULL from "../../static/images/main/video-stack/02-ULL.mp4";
