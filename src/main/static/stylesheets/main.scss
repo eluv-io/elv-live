@@ -1233,8 +1233,11 @@
   }
 
   &__benefit-card-6 {
-    background-color: var(--background-dark-4);
+    background-color: var(--background-light-1);
     color: var(--color-text-light-11);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
 
     &__text-content {
       padding-left: 65px;
