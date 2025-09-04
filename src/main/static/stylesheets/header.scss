@@ -125,9 +125,6 @@
     }
 
     .menu-button__options {
-      //display: grid;
-      //column-gap: 75px;
-      //grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       display: flex;
       flex-direction: row;
       gap: 48px;
@@ -138,10 +135,6 @@
     .menu-button__item {
       white-space: wrap;
       width: max-content;
-
-      //&:nth-child(odd) {
-      //  margin-left: calc(80px + 50px + 85px + 10px);
-      //}
     }
   }
 
@@ -230,10 +223,8 @@
       }
     }
 
-    .menu-button__item {
-      &:nth-child(odd) {
-        margin-left: calc(25px + 85px + 20px + 10px);
-      }
+    .menu-button__options {
+      margin-left: calc(25px + 85px + 20px + 10px);
     }
 
     &__eluvio-icon {

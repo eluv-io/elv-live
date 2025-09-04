@@ -282,11 +282,8 @@ main:
       no_6:
         text_left: |
           Over 14 US Patents
-          
-          Used by the most innovative sports, entertainment, and creative content owners, streamers, and creators.
         text_right: |
-          HQ in Berkeley, CA
-          UC Berkeley Xcel
+          HQ in Berkeley, CA UC Berkeley Xcel
   apps_block:
     apps:
       -

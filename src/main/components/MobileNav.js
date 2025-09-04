@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Action} from "./Actions";
-import {ArrowLeftIcon, ExternalLinkIcon, NavIcons, SocialIcons, XIcon} from "../static/icons/Icons";
+import {ExternalLinkIcon, NavIcons, SocialIcons, XIcon} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../stores/Main";
 import {useLocation} from "react-router-dom";
@@ -14,6 +14,7 @@ const MobileNav = observer(({visible, Close}) => {
   const [originalLocation, setOriginalLocation] = useState(location.pathname);
 
   useEffect(() => {
+    console.log("LOAD")
     runInAction(() => mainStore.LoadNews());
   }, []);
 
@@ -32,7 +33,7 @@ const MobileNav = observer(({visible, Close}) => {
       label: mainStore.l10n.header.about,
       children: [
         {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subItemProps: {indent: false, faded: true}},
-        ...newsLinks
+        ...newsLinks || []
       ]
     },
     {
@@ -77,7 +78,6 @@ const MobileNav = observer(({visible, Close}) => {
       label: mainStore.l10n.header.resources,
       children: [
         {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, icon: NavIcons.DocsIcon},
-        // {label: mainStore.l10n.header.learning_resources, to: "", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.LearningResourcesIcon},
         {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, icon: SocialIcons.GithubIcon},
         {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/ibc", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
         {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.ELightIcon}
