@@ -15,7 +15,6 @@ import {runInAction} from "mobx";
 import UrlJoin from "url-join";
 
 export const NotificationBanner = observer(({className=""}) => {
-  console.log("notif", mainStore.notification)
   if(!mainStore.notification) { return null; }
 
   return (

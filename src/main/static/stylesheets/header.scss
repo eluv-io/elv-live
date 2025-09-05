@@ -331,6 +331,12 @@
     flex-direction: row;
     gap: 6px;
 
+    & > *:not(:last-child) {
+      &::after {
+        content: " |";
+      }
+    }
+
     * {
       font-size: var(--font-size-body-7);
       font-weight: 500;
@@ -340,6 +346,7 @@
     a {
       font-weight: 600;
       color: var(--color-text-dark-1);
+      text-decoration: underline;
     }
   }
 
