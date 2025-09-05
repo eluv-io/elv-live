@@ -68,6 +68,15 @@
   &__eluvio-icon {
     height: 50px;
     width: 50px;
+    color: var(--color-highlight-7);
+
+    &:hover {
+      filter: brightness(80%);
+    }
+
+    &:active {
+      filter: brightness(60%);
+    }
   }
 
   &__nav {

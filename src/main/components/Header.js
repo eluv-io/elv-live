@@ -7,7 +7,7 @@ import {uiStore, mainStore} from "../stores/Main";
 import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
 
-import EluvioLogo from "../static/images/logos/eluvio-black-logo.png";
+import EluvioLogo from "../static/images/logos/eluvio-logo-dot.png";
 import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 
 import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
@@ -150,7 +150,9 @@ const Header = observer(() => {
             { mainStore.l10n.header.resources }
           </MenuButton>
           <div className="header__buttons">
-            <ImageIcon icon={EluvioLogoIcon} title="Eluvio" className="header__eluvio-icon" />
+            <Button to="https://wallet.contentfabric.io/" style={{paddingRight: "0"}} className="header__eluvio-logo-button">
+              <ImageIcon icon={EluvioLogoIcon} title="Eluvio" className="header__eluvio-icon" />
+            </Button>
             <Button href={mainStore.walletAppUrl} target="_blank" className="light header__button header__button--discover">
               { mainStore.l10n.header.try_the_fabric }
             </Button>
