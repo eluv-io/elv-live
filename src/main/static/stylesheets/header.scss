@@ -197,6 +197,14 @@
       padding-right: 28px;
       color: #000;
       gap: 10px;
+
+      &:hover {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%), var(--color-highlight-12);
+      }
+
+      &:active {
+        background: var(--color-highlight-12);
+      }
     }
   }
 

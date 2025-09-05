@@ -636,8 +636,8 @@ const AppsBlock = observer(({mobile}) => {
               <div className="main-page-block__app-tabs-panel-content__text-column">
                 <div className="app-panel-title">{ apps[activeTabIndex].title }</div>
                 <div className="app-panel-description">{ apps[activeTabIndex].description }</div>
-                <Button to={apps[activeTabIndex].link} className="app-panel-link">
-                  Learn More →
+                <Button to={apps[activeTabIndex].link} className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple">
+                  Learn More
                 </Button>
               </div>
             </div>

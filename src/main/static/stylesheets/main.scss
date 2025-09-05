@@ -130,6 +130,12 @@
       text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
+    &__subheader-container-text {
+      &--text-overlay {
+        text-shadow: 0 2px 7px rgba(0, 0, 0, 0.95);;
+      }
+    }
+
     &__featured-link {
       align-items: center;
       color: var(--color-highlight-6);
