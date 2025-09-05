@@ -672,7 +672,7 @@
   }
 
   &__client-section {
-    padding: 0 75px 40px 75px;
+    padding: 80px 75px 40px 75px;
 
     &__row-container {
       width: 100%;
@@ -1828,11 +1828,11 @@
     }
 
     &__client-section {
-      padding-left: 20px;
-      padding-right: 20px;
+      padding: 10px 20px 0;
 
       &__row-container {
         flex-direction: column;
+        gap: 35px;
       }
 
       h3 {
@@ -1844,6 +1844,7 @@
 
     &__site-carousel {
       padding-left: 20px;
+      padding-top: 45px;
     }
   }
 }
