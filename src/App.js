@@ -48,7 +48,7 @@ const Load = async () => {
   }
 
   if(path === "/community") {
-    window.location.href = "https://wallet.contentfabric.io/nab-2025";
+    window.location.href = "https://wallet.contentfabric.io/ibc";
   } else if(path === "/privacy") {
     Document("PrivacyPolicy.html");
   } else if(path === "/terms") {
