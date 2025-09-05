@@ -309,50 +309,30 @@
 }
 
 .notification-banner {
-  background: linear-gradient(to bottom, rgba(4, 3, 7, 0.4) 0%, rgba(4, 3, 7, 1) 100%);
+  background: linear-gradient(180deg, #040307 0%, #040307 100%);
   color: var(--color-text-dark-1);
   display: flex;
   flex-flow: column wrap;
   font-size: var(--font-size-body-5);
   gap: 5px;
   justify-content: center;
-  padding: 20px var(--horizontal-content-padding) 20px;
+  padding: 15px var(--horizontal-content-padding) 15px;
   position: relative;
   margin-top: -50px;
   z-index: 5;
-
-  h3 {
-    font-size: var(--font-size-body-3);
-    max-width: 100%;
-  }
 
   &__text {
     font-size: var(--font-size-body-7);
     font-weight: 400;
     max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
 
     * {
+      font-size: var(--font-size-body-7);
+      font-weight: 500;
       max-width: 100%;
-    }
-
-    h1 {
-      font-size: var(--font-size-body-1);
-    }
-
-    h2 {
-      font-size: var(--font-size-body-2);
-    }
-
-    h3 {
-      font-size: var(--font-size-body-3);
-    }
-
-    h4 {
-      font-size: var(--font-size-body-4);
-    }
-
-    h5 {
-      font-size: var(--font-size-body-5);
     }
 
     a {
