@@ -2,6 +2,7 @@ import React from "react";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import AppImageGallery from "../apps/AppImageGallery";
+import * as epcrTvImages from "../../static/images/main/case-studies/epcr-tv";
 
 const EpcrTvCaseStudy = observer(() => {
   const copy = mainStore.l10n.case_studies;
@@ -16,7 +17,16 @@ const EpcrTvCaseStudy = observer(() => {
         </div>
 
         <AppImageGallery
-          items={[]}
+          items={
+            Object.keys(epcrTvImages || {})
+              .sort((a, b) => {
+                const numA = parseInt(a.replace("ClipSearch", ""), 10);
+                const numB = parseInt(b.replace("ClipSearch", ""), 10);
+
+                return numA - numB;
+              })
+              .map(key => epcrTvImages[key])
+          }
         />
       </div>
     </div>
