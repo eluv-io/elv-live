@@ -8,10 +8,12 @@ import {TabsList, TabsPanel, Video} from "../../components/Misc";
 
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import Marquee from "react-fast-marquee";
-import SiteCarousel from "./SiteCarousel";
 import {useNavigate} from "react-router";
-import Modal from "../../components/Modal";
+import {Swiper, SwiperSlide} from "swiper/react";
 
+import {NotificationBanner} from "../../components/Header";
+import SiteCarousel from "./SiteCarousel";
+import Modal from "../../components/Modal";
 import {Button} from "../../components/Actions";
 import {
   ArrowCubeIcon,
@@ -69,8 +71,6 @@ import VideoStackSecurity from "../../static/images/main/video-stack/03-Secure-a
 import VideoStackAiNative from "../../static/images/main/video-stack/04-AI-Native.jpg";
 import VideoStackMonetization from "../../static/images/main/video-stack/05-Monetization.mp4";
 
-import UefaLogo1 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-1";
-import UefaLogo2 from "../../static/images/main/use-cases/UEFA_Euro_2024_Logo-2";
 import LiveFeedImage from "../../static/images/main/use-cases/live-feed";
 
 import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/ai-generated-personalized-highlights-clips-compositions.webp";
@@ -82,8 +82,8 @@ import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/l
 import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
 
 import EluvioGroupImage from "../../static/images/main/team-card";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {NotificationBanner} from "../../components/Header";
+import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
+import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 
 const AwardsBlock = observer(({mobile}) => {
   if(mobile) {
@@ -666,6 +666,50 @@ const AppsBlock = observer(({mobile}) => {
   );
 });
 
+const SiteCarouselSection = ({mobile}) => {
+  return (
+    <div className="main-page-block main-page-block--light main-page-block__site-carousel">
+      <SiteCarousel mobile={mobile} />
+    </div>
+  );
+};
+
+const ClientBlock = ({mobile}) => {
+  let buttons;
+
+  if(mobile) {
+    buttons = (
+      <>
+        <Button className="main-page-block__client-section__dark-button" to="/about/contact">Contact Us</Button>
+        <Button className="main-page-block__client-section__light-button" to="https://wallet.contentfabric.io/">Projects</Button>
+      </>
+    );
+  } else {
+    buttons = (
+      <>
+        <Button className="main-page-block__client-section__light-button" to="https://wallet.contentfabric.io/">Explore Projects</Button>
+        <Button className="main-page-block__client-section__dark-button" to="/about/contact">Get in Touch</Button>
+      </>
+    );
+  }
+
+  return (
+    <div className="main-page-block main-page-block--light main-page-block__client-section">
+      <div className="main-page-block__copy-container">
+        <h3 className="main-page-block__copy-header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
+      </div>
+      <div className="main-page-block__client-section__row-container">
+        <div className="main-page-block__client-section__buttons-container">
+          { buttons }
+        </div>
+        <div className="main-page-block__client-section__image-container">
+          <ImageIcon icon={mobile ? ClientGroupMobileImage : ClientGroupDesktopImage} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
@@ -679,7 +723,8 @@ const MainPageMobile = () => {
         <StreamingUseCases mobile />
         <BenefitsBlock mobile />
         <AppsBlock mobile />
-        <SiteCarousel mobile />
+        <ClientBlock mobile />
+        <SiteCarouselSection mobile />
       </div>
     </div>
   );
@@ -701,7 +746,8 @@ const MainPageDesktop = () => {
         <div className="page light no-padding">
           <BenefitsBlock />
           <AppsBlock />
-          <SiteCarousel />
+          <ClientBlock />
+          <SiteCarouselSection />
         </div>
       </div>
     </div>

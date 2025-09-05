@@ -90,7 +90,7 @@ const SiteCarousel = observer(({mobile}) => {
       centeredSlides
       loop
       initialSlide={4}
-      navigation
+      navigation={!mobile}
       pagination={{
         enabled: false
       }}
@@ -98,7 +98,7 @@ const SiteCarousel = observer(({mobile}) => {
         "--swiper-pagination-color": "#fff",
         "--swiper-navigation-color": "#fff",
       }}
-      modules={[Navigation]}
+      modules={mobile ? [] : [Navigation]}
       onSwiper={swiper => window.swiper = swiper}
       onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
     >
