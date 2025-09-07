@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {Action} from "../../components/Actions";
-import {runInAction} from "mobx";
+import {runInAction, toJS} from "mobx";
 import {Video} from "../../components/Misc";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 
@@ -18,7 +18,7 @@ const SiteCard = observer(({mediaProperty, active, index}) => {
     setLoaded(true);
   }, [active, index]);
 
-  const video = mediaProperty.video;
+  const video = mediaProperty.video && Object.keys(mediaProperty.video || {}).length > 0;
 
   return (
     <Action href={mediaProperty.url} target="_blank" className="site-carousel__site">
@@ -81,6 +81,7 @@ const SiteCarousel = observer(({mobile}) => {
   const [activeSlide, setActiveSlide] = useState(0);
 
   if(!mainStore.featuredProperties) { return null; }
+    console.log("properties", toJS(mainStore.featuredProperties));
 
   return (
     <Swiper
