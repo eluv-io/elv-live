@@ -1020,63 +1020,6 @@ blockchain:
 
       utility_token_circulation: ContentFabricTokenFlowImage
 
-    unique_benefits for_nft_media:
-      label: Unique Benefits for Content NFTs
-      text: |
-        The Content Fabric is the natural home for creative IP as NFTs, solving all major pain points and truly delivering upon the promised
-        brand loyalty and utility capabilities of Web3.
-
-        Some NFTs for creative IP have been stored, managed, and rendered in separate storage systems such as decentralized storage
-        or centralized cloud storage/Web2 systems. These have revealed shortcomings around
-        security, authenticity, uniqueness, rarity, chain of ownership, user experience, and cost/minting efficiency
-         and the weak link between NFTs as contracts and the media assets to which
-        they refer.
-        <br>
-        While these limitations may not matter as much for early adoption, static/JPEG based NFTs and a limited market, they fundamentally
-        restrict mainstream tokenized ownership, "token gating", and loyalty campaigns around content.
-        <b>The CFP addresses these shortcomings and brings deep and unparalleled benefits to content NFTs.</b>
-        <br><br>
-        **Automatic:** The CFP automatically mints NFTs (ERC 721 and 1155) from any
-          content object as a native function and as a uniquely versioned content object (with its own unique blockchain contract
-          address).
-         <br><br>
-        **Authenticity**: The NFT contract has a direct, inseparable link to the original content object that was used to create it.
-        The CFP hash is a cryptographic fingerprint that proves that the content referred to by the NFT is actually the same
-        as the original content, and can be verified through an open source proof. The original content stored in the Fabric
-        is also encrypted and all authorization to it uses on chain data or a valid transaction, making the original content
-        tamper free and truly unique. Many NFTs refer to storage of the digital content that is unprotected and, sometimes,
-        not verifiable.
-         <br><br>
-        **Uniqueness and Rarity**: Each NFT minted by the CFP is guaranteed unique, as it refers to a unique version of the
-        original content object, minted with a unique issue number among a finite set. Access to each unique NFT and its
-        viewing experience is enforced through a crypto wallet or a digital ticket code that is cryptographically verified against
-        a blockchain contract that backs the NFT batch and that particular issue number. A unique issue number can be
-        dynamically watermarked into the NFT when accessed with a ticket code or crypto wallet to display proof of ownership
-        to others.
-         <br><br>
-        **Any Content**: Unlike traditional NFT platforms that require a third party media storage or distribution system to
-        serve the digital content (static images, small videos), the Fabric can render any digital content—a full length movie,
-        concert, or even a continuous performance—as an NFT. This opens up virtually unlimited possibilities for collectible
-        experiences.
-         <br><br>
-        **Chain of Ownership and Secondary Payments**: Because the Fabric couples the transfer of ownership of NFTs to the
-        content contract, it is possible to have any royalty or other payments to creators part of every NFT transaction and to
-        enforce this in the availability of the content itself.
-        <br><br>
-        **User Experience**: All NFTs are content objects that can be directly authorized and displayed in user wallets as a native
-        media experience (video/audio streaming, resizing, live, continuous, with metadata, etc.) avoiding all separate content
-        storage and streaming systems. Key management can be delegated to the Fabric avoiding the challenges of tedious
-        crypto wallets.
-        <br><br>
-        **Dynamic Gamification and Generative Pipelines**: Functions such as spawning, burning, trait mixing, branching stories,
-        and permissioned offerings are natively supported by the Fabric’s dynamic content serving and blockchain policy
-        permissions, and generative NFTs can be created and served from single content objects with ease and low cost.
-        <br><br>
-        **Enables Low Cost Minting and Extreme Efficiency:** The Fabric content and blockchain efficiencies enable applications
-        to mint on demand, at high speed, with low cost. Applications can offer their users low cost, gas-free minting at scale,
-        and for any content experience the Fabric renders. The CFP’s “zero file copy” and dynamic, componentized distribution
-        protocol is dramatically more resource efficient (>50X) than traditional content storage and distribution networks and
-        along with its PoA/PoS blockchain, is a very efficient and low cost solution for the Creator Economy.
 
 core_apps:
   title: Content Fabric Application Suite
