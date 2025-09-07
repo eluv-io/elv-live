@@ -1547,7 +1547,7 @@ faq:
         You do, as the owner. The Fabric has a trustless security model with a unique end-to-end content encryption system where content is owned by the publishing user and re-encrypted to the recipient user using trustless cryptography.  It also combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and  blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain.
     - question: How do I get support?
       answer: |
-        Please email <a href="mailto:support@eluv.io">support@eluv.io</a> or join our community discord.  We have a 24x7x365 support team covered by our core team staff.
+        Please email <a href="mailto:support@eluv.io">support@eluv.io</a>.  We have a 24x7x365 support team covered by our core team staff.
     - question: Is my Eluvio wallet compatible with Metamask?
       answer: |
         Yes, your Eluvio wallet allows you to sign transactions on the mainnet955305 network  using your private keys and is fully compatible with Metamask and other Ethereum standard wallets.  It also has an option for email/Open ID sign in that allows you to access a Fabric-provided signing API.  All NFTS and ERC20 tokens minted on the Content Fabric blockchain are standards compliant. Contracts are open source and published at <a href="https://github.com/eluv-io" target="_blank">https://github.com/eluv-io</a>
