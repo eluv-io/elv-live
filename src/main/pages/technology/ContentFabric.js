@@ -180,21 +180,21 @@ const ContentFabric = observer(() => {
           ]}
         />
       </div>
-      <div className="page__content-block">
-        <InfoBox
-          icon={TechnologyIcons.CurrentRoadmapIcon}
-          header={copy.roadmap.header}
-          content={copy.roadmap.text}
-          links={[
-            {
-              to: TechnologyRoadmap,
-              target: "_blank",
-              text: copy.roadmap.links[0].text,
-              icon: DocumentIcon
-            }
-          ]}
-        />
-      </div>
+      {/*<div className="page__content-block">*/}
+      {/*  <InfoBox*/}
+      {/*    icon={TechnologyIcons.CurrentRoadmapIcon}*/}
+      {/*    header={copy.roadmap.header}*/}
+      {/*    content={copy.roadmap.text}*/}
+      {/*    links={[*/}
+      {/*      {*/}
+      {/*        to: TechnologyRoadmap,*/}
+      {/*        target: "_blank",*/}
+      {/*        text: copy.roadmap.links[0].text,*/}
+      {/*        icon: DocumentIcon*/}
+      {/*      }*/}
+      {/*    ]}*/}
+      {/*  />*/}
+      {/*</div>*/}
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.BecomeNodeOperatorIcon}

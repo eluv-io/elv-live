@@ -551,12 +551,12 @@ content_fabric:
       - text: "DAPP Sample"
         to: https://dapp-sample.app.eluv.io/
 
-  roadmap:
-    header: Current State & Roadmap
-    text: |
-      The Content Fabric main network has been released for production in 2019 and the Eluvio Media Wallet application suite in 2021.  Learn about the roadmap to creating the next-generation content space and tenancy scale-out layer, the Substrate/Polkadot Content Fabric and the new Eluvio creator stack.
-    links:
-      - text: "Roadmap"
+#  roadmap:
+#    header: Current State & Roadmap
+#    text: |
+#      The Content Fabric main network has been released for production in 2019 and the Eluvio Media Wallet application suite in 2021.  Learn about the roadmap to creating the next-generation content space and tenancy scale-out layer, the Substrate/Polkadot Content Fabric and the new Eluvio creator stack.
+#    links:
+#      - text: "Roadmap"
   community:
     header: Community
     text: |
