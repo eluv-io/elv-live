@@ -221,7 +221,7 @@ const VideoStack = observer(({mobile}) => {
 
   if(mobile) {
     content = (
-      <>
+      <div className="main-page-block--video-stack__tabs-container">
         <TabsPanel
           tabs={tabsData}
           activeTabIndex={activeTabIndex}
@@ -231,9 +231,10 @@ const VideoStack = observer(({mobile}) => {
           tabs={tabsData}
           activeTabIndex={activeTabIndex}
           setActiveTabIndex={setActiveTabIndex}
-          wrap
+          wrap={false}
+          orientation="horizontal"
         />
-      </>
+      </div>
     );
   } else {
     content = (

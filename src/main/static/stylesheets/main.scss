@@ -1823,6 +1823,23 @@
       }
     }
 
+    &--video-stack {
+      &__tabs-container {
+        width: calc(100vw - 20px);
+        flex: 0 0 max-content;
+        height: max-content;
+
+        .button {
+          text-wrap: nowrap;
+        }
+
+        .tabs__list {
+          padding-top: 16px;
+          padding-right: 16px;
+        }
+      }
+    }
+
     &--benefits {
       width: 100%;
 
