@@ -326,7 +326,7 @@
   &__text {
     font-size: var(--font-size-body-7);
     font-weight: 400;
-    max-width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 6px;
@@ -343,7 +343,8 @@
     * {
       font-size: var(--font-size-body-7);
       font-weight: 500;
-      max-width: 100%;
+      display: inline;
+      white-space: nowrap;
     }
 
     a {
@@ -371,12 +372,6 @@
   @media screen and (max-width: $width-tablet) {
     padding: 10px 60px 15px 20px;
     height: 70px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    //display: -webkit-box;
-    //-webkit-line-clamp: 1;
-    //-webkit-box-orient: vertical;
     margin-top: -70px;
 
     &__close-button {

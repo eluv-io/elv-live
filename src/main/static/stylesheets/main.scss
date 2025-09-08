@@ -480,7 +480,7 @@
     }
 
     &__content {
-      height: 85vh;
+      height: calc(85vh - var(--header-height--mobile));
     }
 
     &__media-wallet {
