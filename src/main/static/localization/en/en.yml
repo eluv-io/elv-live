@@ -129,8 +129,6 @@ main:
         image: broadcast
         use_case: Broadcast
         use_case_color: blue
-        logos:
-          - live-feed
         action_text: Press Release
         action_link: "/about/news/eluvio-scores-major-wins-ahead-of-ibc2025"
       -

@@ -76,8 +76,8 @@ import LiveFeedImage from "../../static/images/main/use-cases/live-feed";
 import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/ai-generated-personalized-highlights-clips-compositions.webp";
 import UseCaseArchiveLibraryImage from "../../static/images/main/use-cases/archive-library-ai-search-hosting-monetization";
 import UseCaseCompleteAPIsImage from "../../static/images/main/use-cases/complete-apis-developing-ott-media-rich-applications.webp";
-import UseCaseD2CB2BImage from "../../static/images/main/use-cases/d2c-b2b-live-vod-fast-linear-streaming-scale.jpg";
-import UseCaseFullStackOTTImage from "../../static/images/main/use-cases/full-stack-ott-streaming-global-monetization copy.jpg";
+import UseCaseD2CB2BImage from "../../static/images/main/use-cases/d2c-b2b-live-vod-fast-linear-streaming-scale.webp";
+import UseCaseLinearStreamingAtScaleImage from "../../static/images/main/use-cases/linear-streaming-at-scale.webp";
 import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/live-event-streaming-vips-commentary-remote-monitoring.webp";
 import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
 
@@ -323,8 +323,8 @@ const StreamingUseCases = observer(({mobile}) => {
   const { features } = mainStore.l10n.main.streaming_use_cases;
 
   const imageMap = {
-    "streaming-1": UseCaseFullStackOTTImage,
-    "streaming-2": UseCaseD2CB2BImage,
+    "streaming-1": UseCaseD2CB2BImage,
+    "streaming-2": UseCaseLinearStreamingAtScaleImage,
     "broadcast": UseCaseUltraLowLatencyImage,
     "live-streaming": UseCaseLiveEventStreamingImage,
     "video-ai": UseCaseAiGeneratedImage,
