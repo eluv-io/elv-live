@@ -114,7 +114,7 @@ main:
           -
             label: Learn More
             icon: play-arrow
-            link: ""
+            videoHash: hq__2Rir1mdLsymeGSdvUU9aZGKV28YNFh4bNGWegekwetoq5KXd87baU1Kxe7sq8GXJPEpBVQNWLQZX
             type: outline
       -
         title: D2C/B2B Live, VoD, FAST/Linear Streaming at Scale

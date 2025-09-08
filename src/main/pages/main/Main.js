@@ -281,6 +281,9 @@ const StreamingCard = ({
   logos=[],
   actions=[]
 }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [videoVersionHash, setVideoVersionHash] = useState(null);
+
   const iconMap = {
     "play-arrow": PlaySimpleIcon
   };
@@ -311,6 +314,10 @@ const StreamingCard = ({
                 key={`use-case-button-${action.label}`}
                 className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
                 to={action.link}
+                onClick={action.videoHash ? () => {
+                  setVideoVersionHash(action.videoHash);
+                  setShowModal(true);
+                } : null}
               >
                 {
                   action.icon &&
@@ -322,6 +329,19 @@ const StreamingCard = ({
           }
         </div>
       </div>
+      <Modal
+        active={showModal}
+        className="modal--modal-box header-modal"
+        Close={() => setShowModal(false)}
+        hideCloseButton
+      >
+        <div className="main-page-header__modal-video modal-box">
+          <Video versionHash={videoVersionHash} className="main-page-block__video main-page-block__core-video" />
+          <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
+            <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
