@@ -278,10 +278,12 @@ const StreamingCard = ({
   image,
   color,
   logos=[],
-  buttonText,
-  buttonLeftIcon,
-  link
+  actions=[]
 }) => {
+  const iconMap = {
+    "play-arrow": PlaySimpleIcon
+  };
+
   return (
     <div className="main-page-block__streaming-card">
       <div className="main-page-block__streaming-card__content" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
@@ -299,16 +301,25 @@ const StreamingCard = ({
             </div>
           }
         </div>
-        {/*<ImageIcon icon={image} className="main-page-block__streaming-card__image" />*/}
       </div>
       <div className="main-page-block__streaming-card__button-container">
-        <Button className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color}`} to={link}>
+        <div className="main-page-block__streaming-card__button-flexbox">
           {
-            buttonLeftIcon &&
-            <ImageIcon icon={buttonLeftIcon} height={16} width={18} />
+            actions.map(action => (
+              <Button
+                key={`use-case-button-${action.label}`}
+                className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
+                to={action.link}
+              >
+                {
+                  action.icon &&
+                  <ImageIcon icon={iconMap[action.icon]} height={16} width={18} />
+                }
+                { action.label }
+              </Button>
+            ))
           }
-          { buttonText }
-        </Button>
+        </div>
       </div>
     </div>
   );
@@ -334,10 +345,6 @@ const StreamingUseCases = observer(({mobile}) => {
 
   const logoMap = {
     "live-feed": LiveFeedImage
-  };
-
-  const iconMap = {
-    "play-arrow": PlaySimpleIcon
   };
 
   // useEffect(() => {
@@ -404,9 +411,7 @@ const StreamingUseCases = observer(({mobile}) => {
                   image={imageMap[feature.image]}
                   color={feature.use_case_color}
                   logos={(feature.logos || []).map(logo => logoMap[logo])}
-                  buttonText={feature.action_text || "Case Study"}
-                  buttonLeftIcon={feature.action_text_icon ? iconMap[feature.action_text_icon] : null}
-                  link={feature.action_link}
+                  actions={feature.actions}
                 />
               </div>
             ))

@@ -1481,6 +1481,14 @@
       transition: opacity 0.3s ease-in-out;
     }
 
+    &__button-flexbox {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     &__button {
       border-radius: 62px;
       height: 40px;
@@ -1493,12 +1501,26 @@
         background-color: var(--color-highlight-7);
         color: var(--color-text-dark-1);
 
-        &:hover {
+        &:not(.outline):hover {
           background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), var(--color-highlight-7);
         }
 
-        &:active {
+        &:not(.outline):active {
           background: linear-gradient(0deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%), var(--color-highlight-7);
+        }
+
+        &.outline {
+          border: 1px solid var(--color-highlight-7);
+          color: var(--color-highlight-7);
+          background-color: transparent;
+
+          &:hover {
+            filter: brightness(0.8);
+          }
+
+          &:active {
+            filter: brightness(0.6);
+          }
         }
       }
 

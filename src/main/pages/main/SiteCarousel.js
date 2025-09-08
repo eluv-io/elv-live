@@ -81,7 +81,6 @@ const SiteCarousel = observer(({mobile}) => {
   const [activeSlide, setActiveSlide] = useState(0);
 
   if(!mainStore.featuredProperties) { return null; }
-    console.log("properties", toJS(mainStore.featuredProperties));
 
   return (
     <Swiper

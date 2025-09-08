@@ -107,8 +107,15 @@ main:
         image: streaming-1
         use_case: Streaming
         use_case_color: purple
-        action_text: View the EPCR Case Study
-        action_link: "/case-studies/epcr-tv"
+        actions:
+          -
+            label: Case Study
+            link: "/case-studies/epcr-tv"
+          -
+            label: Learn More
+            icon: play-arrow
+            link: ""
+            type: outline
       -
         title: D2C/B2B Live, VoD, FAST/Linear Streaming at Scale
         description: |
@@ -120,8 +127,10 @@ main:
         image: streaming-2
         use_case_color: purple
         use_case: Streaming
-        action_text: Learn More
-        action_link: "/av-core/fabric-core"
+        actions:
+          -
+            label: Learn More
+            link: "/av-core/fabric-core"
       -
         title: Ultra Low Latency Live Feed Distribution for Broadcast
         description: |
@@ -129,8 +138,10 @@ main:
         image: broadcast
         use_case: Broadcast
         use_case_color: blue
-        action_text: Press Release
-        action_link: "/about/news/eluvio-scores-major-wins-ahead-of-ibc2025"
+        actions:
+          -
+            label: Press Release
+            link: "/about/news/eluvio-scores-major-wins-ahead-of-ibc2025"
       -
         title: Live Event Streaming for VIPs, Commentary, and Remote Monitoring
         description: |
@@ -138,8 +149,10 @@ main:
         image: live-streaming
         use_case: Broadcast
         use_case_color: blue
-        action_text: Case Study
-        action_link: https://www.telstrainternational.com/en/news-research/case-studies/telstra-eluvio-uefa-euro-2024-radio-international-sound-streaming-service
+        actions:
+          -
+            label: Case Study
+            link: https://www.telstrainternational.com/en/news-research/case-studies/telstra-eluvio-uefa-euro-2024-radio-international-sound-streaming-service
       -
         title: AI Generated Personalized Highlights, Clips & Compositions
         description: |
@@ -147,8 +160,10 @@ main:
         image: video-ai
         use_case: Video AI
         use_case_color: violet
-        action_text: Learn More
-        action_link: /video-intelligence/video-editor
+        actions:
+          -
+            label: Learn More
+            link: /video-intelligence/video-editor
       -
         title: Complete APIs for Developing OTT & Media Rich Applications
         description: |
@@ -156,8 +171,10 @@ main:
         image: publishing-1
         use_case: Publishing, Archive & Libraries
         use_case_color: teal
-        action_text: Media Wallet
-        action_link: /media-wallet
+        actions:
+          -
+            label: Media Wallet
+            link: /media-wallet
       -
         title: Archive/Library AI Search, Hosting, Monetization
         description: |
@@ -165,9 +182,11 @@ main:
         image: publishing-2
         use_case: Publishing, Archive & Libraries
         use_case_color: teal
-        action_text: Watch the Video
-        action_text_icon: play-arrow
-        action_link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
+        actions:
+          -
+            label: Watch the Video
+            icon: play-arrow
+            link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences
@@ -197,7 +216,7 @@ main:
     creators: Creators & Content Businesses
     developers: Developers & Node Providers
   benefits_block:
-    video_version_hash: hq__FqpdJU3fAyQH51Nyyg3UydjvVcLbq3gTH1yLHe6cmKaRr6ppsTUp8U8BmDDDCXoZLY4u1N7xoy
+    video_version_hash: hq__HLVD7pSy8j3LswvAtEHX8JBJJfSsjFDNuALCvAiwdskWZjcbz4jYVSPCpGT9bvhoCtwfo6JcJb
     learn_more_link: https://main.net955305.contentfabric.io/s/main/q/hq__nM2RnUe5ejUvnffTzD896R7VBavFq894xTGgfkeE8KK3fVgtY62zucsahTTzAVff21z12eaJh33/files/videos/eluvio-why-how.mp4
     cards:
       no_1:
