@@ -186,7 +186,8 @@ main:
           -
             label: Watch the Video
             icon: play-arrow
-            link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
+            videoHash: hq__4LenESnfuQ5PwC1egvYXNystZRn2cXkLjGRiWxDHMgadDYX7gJZ46UsyJ7TVm3vxyMDNX2cHhc
+#            link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences
