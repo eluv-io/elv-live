@@ -64,7 +64,7 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, items: newsLinks, subItemProps: {indent: false, faded: true}},
+              {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, items: newsLinks, subItemProps: {indent: false, faded: true}, icon: NavIcons.AboutNewsIcon},
               // {label: mainStore.l10n.header.team, to: "/#eluvio-team", props: {useNavLink: true, exact: true}, subtitle: "Eluvio Announces Content Fabric “Bangkok Release” for Next-Gen Video Distribution and Monetization at NAB 2025"}
             ]}
           >
@@ -113,7 +113,7 @@ const Header = observer(() => {
             optionClassName="light"
             useNavLink
             items={[
-              {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
+              {label: mainStore.l10n.header.monetization, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
               {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
               {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
               {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
@@ -144,7 +144,7 @@ const Header = observer(() => {
               // {label: mainStore.l10n.header.learning_resources, to: "", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.LearningResourcesIcon},
               {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, icon: SocialIcons.GithubIcon},
               {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/ibc", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
-              {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.ELightIcon}
+              {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon}
             ]}
           >
             { mainStore.l10n.header.resources }

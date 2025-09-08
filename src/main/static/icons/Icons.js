@@ -59,24 +59,25 @@ import DiscordIcon from "./social/discord.svg";
 import SlackIcon from "./social/slack.svg";
 import XLogoIcon from "./social/x-logo.svg";
 
-import AiSearchIcon from "./nav/ai-search";
-import BlockchainNavIcon from "./nav/blockchain";
-import CreatorStudioIcon from "./nav/creator-studio";
-import DocsIcon from "./nav/docs";
-import ELightIcon from "./nav/e-light-bg";
-import EDarkFillIcon from "./nav/e-dark-fill";
+import AboutNewsIcon from "./nav/about/about-news";
+import AiSearchIcon from "./nav/video-intelligence/ai-search";
+import BlockchainNavIcon from "./nav/technology/blockchain-protocol";
+import CreatorStudioIcon from "./nav/monetization/creator-studio";
+import DocsIcon from "./nav/resources/docs";
+import ELightIcon from "./nav/resources/e-light-bg";
+import EDarkFillIcon from "./nav/resources/e-dark-fill";
 import EMobileIcon from "./nav/eluvio-nav-e-logo";
-import EvieIcon from "./nav/evie";
-import FabricIcon from "./nav/fabric";
-import FabricProtocolIcon from "./nav/fabric-protocol";
-import FeaturesIcon from "./nav/features";
+import EvieIcon from "./nav/video-intelligence/evie";
+import FabricIcon from "./nav/technology/content-technology";
+import FabricProtocolIcon from "./nav/technology/fabric-protocol";
+import FeaturesIcon from "./nav/av-core/features";
 import LearningResourcesIcon from "./nav/learning-resources";
 import LiveStreamManagerIcon from "./nav/live-stream-manager";
-import MIcon from "./nav/m-logo";
-import ManagementToolsIcon from "./nav/management-tools";
+import MIcon from "./nav/video-intelligence/ai-labs-logo";
+import ManagementToolsIcon from "./nav/av-core/management-tools";
 import MediaIngestIcon from "./nav/media-ingest";
-import MonetizationIcon from "./nav/monetization";
-import PlayerIcon from "./nav/player";
+import MonetizationIcon from "./nav/monetization/monetization";
+import PlayerIcon from "./nav/monetization/player";
 
 import TechnologyIcons from "./technology/TechnologyIcons";
 import ApplicationIcons from "./apps/ApplicationIcons";
@@ -95,6 +96,7 @@ const SocialIcons = {
 };
 
 const NavIcons = {
+  AboutNewsIcon,
   AiSearchIcon,
   BlockchainNavIcon,
   CreatorStudioIcon,
