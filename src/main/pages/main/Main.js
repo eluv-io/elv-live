@@ -77,7 +77,7 @@ const HeaderBlock = observer(({mobile}) => {
           <ImageIcon icon={EluvioColorLogo} className="main-page-header__main-header__logo-image" width={mobile ? 275 : 350} />
           <div className="main-page-header__main-header__headers">
             <div className="main-page-header__main-header__top-header">{mainStore.l10n.main.heading.top_header}</div>
-            <div className="main-page-header__main-header__header">{mainStore.l10n.main.heading.header}</div>
+            <div className="main-page-header__main-header__title">{mainStore.l10n.main.heading.header}</div>
 
             {
               mobile &&
@@ -381,7 +381,7 @@ const BenefitsBlock = observer(({mobile}) => {
 
   return (
     <div className="main-page-block main-page-block--light main-page-block--benefits">
-      <div className="main-page-block padded">
+      <div className="padded">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-header__main-header__header main-page-header__main-header__header--no-margin">Why Now & Why Us?</h3>
           <Modal
@@ -406,6 +406,7 @@ const BenefitsBlock = observer(({mobile}) => {
             Learn More
           </Button>
         </div>
+
         <div className="main-page-block__benefit-cards-container">
           <div className="main-page-block__benefit-cards">
             <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
@@ -440,38 +441,38 @@ const BenefitsBlock = observer(({mobile}) => {
               </div>
             </div>
             <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
-                <div className="main-page-block__benefit-card-4__row">
-                  <div className="main-page-block__benefit-card-4__text-panel">
-                    {
-                      cards.no_4.tabs[activeTabIndex].value
-                    }
-                    {
-                      mobile ? null :
-                        (
-                          <div className="main-page-block__benefit-card-4__icons">
-                            {
-                              [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
-                                <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
-                              ))
-                            }
-                          </div>
-                        )
-                    }
-                  </div>
-                  <div className="main-page-block__benefit-card-4__button-panel">
-                    <TabsList
-                      tabs={(cards?.no_4?.tabs || []).map(tab => (
-                        {title: tab.label}
-                      ))}
-                      activeTabIndex={activeTabIndex}
-                      setActiveTabIndex={setActiveTabIndex}
-                      orientation={mobile ? "horizontal" : "vertical"}
-                      darkMode
-                      wrap={false}
-                    />
-                  </div>
+              <div className="main-page-block__benefit-card-4__row">
+                <div className="main-page-block__benefit-card-4__text-panel">
+                  {
+                    cards.no_4.tabs[activeTabIndex].value
+                  }
+                  {
+                    mobile ? null :
+                      (
+                        <div className="main-page-block__benefit-card-4__icons">
+                          {
+                            [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
+                              <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
+                            ))
+                          }
+                        </div>
+                      )
+                  }
+                </div>
+                <div className="main-page-block__benefit-card-4__button-panel">
+                  <TabsList
+                    tabs={(cards?.no_4?.tabs || []).map(tab => (
+                      {title: tab.label}
+                    ))}
+                    activeTabIndex={activeTabIndex}
+                    setActiveTabIndex={setActiveTabIndex}
+                    orientation={mobile ? "horizontal" : "vertical"}
+                    darkMode
+                    wrap={false}
+                  />
                 </div>
               </div>
+            </div>
             <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
               <div>{ cards.no_5.text_one }</div>
               <div>{ cards.no_5.text_two }</div>
@@ -485,8 +486,7 @@ const BenefitsBlock = observer(({mobile}) => {
                 Eluvio GitHub
               </a>
             </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team" style={{backgroundImage: `url(${mobile ? EluvioGroupMobileImage : EluvioGroupDesktopImage})`}}>
-            </div>
+            <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team" style={{backgroundImage: `url(${mobile ? EluvioGroupMobileImage : EluvioGroupDesktopImage})`}} />
           </div>
         </div>
       </div>
