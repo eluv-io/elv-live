@@ -62,7 +62,7 @@ import UseCaseLinearStreamingAtScaleImage from "../../static/images/main/use-cas
 import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/live-event-streaming-vips-commentary-remote-monitoring.webp";
 import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
 
-import EluvioGroupDesktopImage from "../../static/images/main/team-card";
+import EluvioGroupDesktopImage from "../../static/images/main/team-card.jpg";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
