@@ -13,6 +13,7 @@ import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player
 import EluvioConfiguration from "EluvioConfiguration";
 import {InfoIcon, MinusIcon, PlusIcon, XIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
+import HeaderLoop from "../static/videos/header-loop.mp4";
 
 SwiperCore.use([Lazy, Pagination]);
 
@@ -389,14 +390,19 @@ export const TabsPanel = ({
       {
         tabs[activeTabIndex].content?.video &&
         <div className="tabs__panel__media-container">
-          <video
-            className="tabs__panel__video"
-            src={tabs[activeTabIndex].content?.video}
-            loop
-            muted
-            playsInline
-            autoPlay
+          <div
+            className=""
+            // React doesn't handle muted attribute properly, which breaks autoplay
+            dangerouslySetInnerHTML={{__html: `<video src=${tabs[activeTabIndex].content?.video} loop muted playsinline="" autoplay class="tabs__panel__video" />`}}
           />
+          {/*<video*/}
+          {/*  className="tabs__panel__video"*/}
+          {/*  src={tabs[activeTabIndex].content?.video}*/}
+          {/*  loop*/}
+          {/*  muted*/}
+          {/*  playsInline*/}
+          {/*  autoPlay*/}
+          {/*/>*/}
         </div>
       }
     </>
