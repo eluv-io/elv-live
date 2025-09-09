@@ -1892,6 +1892,7 @@
     &__benefit-card {
       height: 405px;
       width: 100%;
+      scroll-snap-align: start;
     }
 
     &__benefit-card-1 {
