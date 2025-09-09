@@ -511,7 +511,7 @@ const BenefitsBlock = observer(({mobile}) => {
 
   return (
     <div className="main-page-block main-page-block--light main-page-block--benefits">
-      <div className="main-page-block main-page-block--benefits padded">
+      <div className="main-page-block padded">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-header__main-header__header main-page-header__main-header__header--no-margin">Why Now & Why Us?</h3>
           <Modal

@@ -620,7 +620,7 @@
   }
 
   &--benefits {
-    &.padded {
+    .padded {
       padding-left: 75px;
       padding-right: 75px;
     }
@@ -1858,10 +1858,23 @@
 
     &--benefits {
       width: 100%;
+      padding-top: 18px;
 
-      &.padded {
+      .padded {
         padding-left: 10px;
         padding-right: 10px;
+      }
+
+      .main-page-block__copy-container {
+        padding-bottom: 16px;
+      }
+
+      .main-page-block {
+        gap: 32px;
+      }
+
+      .main-page-header__main-header__header {
+        padding-bottom: 4px;
       }
     }
 
