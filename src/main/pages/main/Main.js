@@ -10,7 +10,7 @@ import {TabsList, TabsPanel, Video} from "../../components/Misc";
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import {useNavigate} from "react-router";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Navigation, Pagination} from "swiper";
+import {Pagination} from "swiper";
 
 import {NotificationBanner} from "../../components/Header";
 import SiteCarousel from "./SiteCarousel";
@@ -28,26 +28,6 @@ import {
 import {SocialIcons} from "../../static/icons/Icons";
 
 import EluvioColorLogo from "../../static/images/logos/eluvio-logo-hero";
-
-import AwardImage1 from "../../static/images/main/awards/nab-product-of-the-year-2024.webp";
-import AwardImage2 from "../../static/images/main/awards/nab-product-of-the-year-2022.webp";
-import AwardImage3 from "../../static/images/main/awards/csi-award-2024.webp";
-import AwardImage4 from "../../static/images/main/awards/seicon-dc-cs.webp";
-import AwardImage5 from "../../static/images/main/awards/seicon-grand-prize.webp";
-import AwardImage6 from "../../static/images/main/awards/hpa-award-2020.webp";
-import AwardImage7 from "../../static/images/main/awards/nab-product-of-the-year-2023";
-import AwardImage8 from "../../static/images/main/awards/nab-product-of-the-year-2025";
-
-const awardsImages = [
-  {img: AwardImage8, alt: "NAB Product of the Year Award 2025"},
-  {img: AwardImage1, alt: "NAB Product of the Year Award 2024"},
-  {img: AwardImage7, alt: "NAB Product of the Year Award 2023"},
-  {img: AwardImage2, alt: "NAB Product of the Year Award 2022"},
-  {img: AwardImage3, alt: "CSI Awards Winner 2024"},
-  {img: AwardImage4, alt: "SEICon Innovation Hub - Best in Show Award"},
-  {img: AwardImage5, alt: "SEICon Innovation Hub - Best in Show Grand Prize Award"},
-  {img: AwardImage6, alt: "HPA Award 2020"}
-];
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
 import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
@@ -86,55 +66,6 @@ import EluvioGroupDesktopImage from "../../static/images/main/team-card";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
-
-const AwardsBlock = observer(({mobile}) => {
-  if(mobile) {
-    return (
-      <div className="main-page-block--awards">
-        <Swiper
-          className="main-page-block--awards__carousel"
-          spaceBetween={0}
-          slidesPerView={3}
-          centeredSlides
-          loop
-          initialSlide={0}
-          pagination={{
-            enabled: false
-          }}
-          onSwiper={swiper => window.swiper = swiper}
-        >
-          {
-            awardsImages.map(({img, alt}) => (
-              <SwiperSlide key={`carousel-${img}`} className="site-carousel__slide">
-                <div className="main-page-block main-page-block--award" style={{"--award-image-url": `url(${img})`}}>
-                  <ImageIcon icon={img} alt={alt} />
-                </div>
-              </SwiperSlide>
-            ))
-          }
-        </Swiper>
-      </div>
-    );
-  }
-
-  return (
-    <div className="main-page-block--awards">
-      <div className="main-page-block--award-container">
-        {
-          awardsImages.map(({img, alt}) => (
-            <div
-              key={`award-${img}`}
-              className="main-page-block main-page-block--award"
-              style={{"--award-image-url": `url(${img})`}}
-            >
-              <ImageIcon icon={img} alt={alt} />
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  );
-});
 
 const HeaderBlock = observer(({mobile}) => {
   const [showModal, setShowModal] = useState(false);
@@ -748,9 +679,6 @@ const MainPageMobile = () => {
     <div className="page dark no-padding">
       <HeaderBlock mobile/>
       <NotificationBanner className="mobile" />
-      {/*<div className="main-page__blocks">*/}
-      {/*  <AwardsBlock mobile />*/}
-      {/*</div>*/}
       <div className="page light no-padding">
         <VideoStack mobile />
         <StreamingUseCases mobile />
@@ -768,9 +696,6 @@ const MainPageDesktop = () => {
       <div className="page dark no-padding">
         <HeaderBlock />
         <NotificationBanner className="desktop" />
-        {/*<div className="main-page__blocks">*/}
-        {/*  <AwardsBlock />*/}
-        {/*</div>*/}
       </div>
       <div className="main-page__blocks--light">
         <VideoStack />
