@@ -1937,6 +1937,26 @@
         width: 100%;
         text-align: center;
       }
+
+      &__title {
+        font-size: 28px;
+      }
+    }
+
+    &__benefit-card-2 {
+      &__column {
+        div:nth-child(2) {
+          font-size: 28px;
+        }
+      }
+    }
+
+    &__benefit-card-3 {
+      &__column {
+        div:nth-child(2) {
+          font-size: 28px;
+        }
+      }
     }
 
     &__benefit-card-4 {

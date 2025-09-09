@@ -416,10 +416,10 @@ const BenefitsBlock = observer(({mobile}) => {
                 </div>
                 <div className="main-page-block__benefit-card-1__row-text">
                   <div className="main-page-block__benefit-card-1__description-text">
-                    { cards.no_1.text_left }
+                    { mobile ? cards.no_1.text_left_mobile : cards.no_1.text_left }
                   </div>
                   <div className="main-page-block__benefit-card-1__description-text">
-                    { cards.no_1.text_right }
+                    { mobile ? cards.no_1.text_right_mobile : cards.no_1.text_right }
                   </div>
                 </div>
               </div>
@@ -427,7 +427,7 @@ const BenefitsBlock = observer(({mobile}) => {
             <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
               <div className="main-page-block__benefit-card-2__column">
                 {
-                  cards.no_2.text.map((item, i) => (
+                  (mobile ? cards.no_2.text_mobile : cards.no_2.text).map((item, i) => (
                     <div key={`card-2-item-${i}`}>{ item }</div>
                   ))
                 }
@@ -436,7 +436,7 @@ const BenefitsBlock = observer(({mobile}) => {
             <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
               <div className="main-page-block__benefit-card-3__column">
                 <div>{ cards.no_3.text_one }</div>
-                <div>{ cards.no_3.text_two }</div>
+                <div>{ mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }</div>
                 <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>{ mobile ? cards.no_3.text_three_mobile : cards.no_3.text_three }</Button>
               </div>
             </div>

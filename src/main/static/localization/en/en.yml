@@ -227,14 +227,33 @@ main:
           $500B/yr $1.5T by 2030.
         text_left: |
           Yet The Internet is not designed for content.
+        text_left_mobile: |
+          Yet The Internet is
+          not designed for content.
         text_right: |
           Addresses, streams, manages files & bytes ... but not content.
+        text_right_mobile: |
+          Addresses,
+          streams, manages files & bytes ...
+          but not content.
       no_2:
         text:
           -
             |
-            Media applications are Trapped by Complexity.
-            Multi-tier, Multi-vendor.
+            Media Applications are trapped by complexity.
+            Multi-tier, multi-vendor.
+          -
+            |
+            CDNs & Media Clouds are costly, complex, slow and limit capability.
+          -
+            |
+            Especially with regard to multi versioned media & AI data.
+        text_mobile:
+          -
+            |
+            Media Applications are
+            trapped by complexity.
+            Multi-tier, multi-vendor.
           -
             |
             CDNs & Media Clouds are costly, complex, slow and limit capability.
@@ -246,6 +265,10 @@ main:
           The Fabric’s Content Native Protocol
         text_two: |
           Eliminates complexity, maximizes efficiency, & is AI native.
+        text_two_mobile: |
+          Eliminates complexity,
+          maximizes efficiency,
+          & is AI native.
         text_three: |
           Content Fabric Technology Deep Dive →
         text_three_mobile: |
