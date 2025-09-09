@@ -18,14 +18,14 @@ const SiteCard = observer(({mediaProperty, active, index}) => {
     setLoaded(true);
   }, [active, index]);
 
-  const video = mediaProperty.video && Object.keys(mediaProperty.video || {}).length > 0;
+  const video = mediaProperty.video;
 
   return (
     <Action href={mediaProperty.url} target="_blank" className="site-carousel__site">
       <div className="site-carousel__placeholder" />
       {
         !loaded ? null :
-          video ?
+          (video && (Object.keys(video || {}).length > 0)) ?
             <div className="site-carousel__site-image site-carousel__site-video">
               { /* Cover the video element so it doesn't interfere with dragging the carousel */ }
               <div className="site-carousel__site-video-cover" />
