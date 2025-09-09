@@ -780,6 +780,7 @@
       background-color: var(--color-text-light-11);
       color: var(--color-text-dark-1);
       border: 0;
+      font-size: 20px;
 
       &:hover {
         background-color: var(--color-highlight-7);
@@ -794,6 +795,7 @@
       border-radius: 5px;
       background-color: var(--background-light-2);
       border: 1px solid var(--color-text-light-11);
+      font-size: 20px;
 
       &:hover {
         background: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%), var(--color-highlight-12);
