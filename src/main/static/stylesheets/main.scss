@@ -1465,13 +1465,12 @@
 
   &__streaming-card {
     aspect-ratio: 0.6977;
-    //width: 411px;
     height: 590px;
     background-color: var(--background-light-2);
     border-radius: 14px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding-top: 30px;
+    //padding-top: 30px;
     padding-bottom: 0;
     position: relative;
     margin-right: 12px;
@@ -1495,6 +1494,7 @@
     }
 
     &__content {
+      padding-top: 30px;
       flex-direction: column;
       display: flex;
       gap: 0;
