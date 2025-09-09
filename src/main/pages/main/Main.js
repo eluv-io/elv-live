@@ -83,7 +83,7 @@ import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/l
 import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
 
 import EluvioGroupDesktopImage from "../../static/images/main/team-card";
-import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile";
+import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 

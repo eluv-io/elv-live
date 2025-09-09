@@ -1888,9 +1888,9 @@
     }
 
     &__benefit-card {
-      height: 405px;
       width: 100%;
-      scroll-snap-align: start;
+      height: auto;
+      aspect-ratio: 1.02;
     }
 
     &__benefit-card-1 {
@@ -1935,6 +1935,9 @@
 
     &__benefit-card-6 {
       padding: 0;
+      background-position: bottom;
+      background-size: cover;
+      background-repeat: no-repeat;
 
       &__team-image {
         height: 210px;
