@@ -230,7 +230,7 @@ const StreamingCard = observer(({
     <div className="main-page-block__streaming-card">
       <div className="main-page-block__streaming-card__content" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
         <div className="main-page-block__streaming-card__text-content">
-          <div className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${color}`}>{ title }</div>
+          <p className={`main-page-block__streaming-card__title main-page-block__streaming-card__card-title main-page-block__streaming-card__title--${color}`}>{ title }</p>
           <div className="main-page-block__streaming-card__description">{ description}</div>
           {
             logos.length > 0 &&

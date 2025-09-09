@@ -444,6 +444,7 @@
           .header__button--cta {
             padding: 20px 32px;
             height: max-content;
+            font-size: 20px;
           }
         }
 
@@ -1461,6 +1462,7 @@
 
   &--subtle-title {
     color: var(--color-text-dark-6);
+    font-size: 32px;
   }
 
   &__streaming-cards-container {
@@ -1839,6 +1841,16 @@
     &__streaming-card {
       &__title {
         font-size: var(--font-size-header-3);
+        padding-bottom: 0;
+        margin-bottom: 20px;
+      }
+
+      &__card-title {
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
       }
 
       &__description {
@@ -1871,6 +1883,10 @@
 
       .tabs__panel {
         width: calc(100vw - 40px);
+      }
+
+      .main-page-header__main-header__header {
+        padding-right: 10px;
       }
     }
 
