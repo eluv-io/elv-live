@@ -83,11 +83,10 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <Button
                 className="light header__button header__button--cta"
-                onClick={mobile ? undefined : () => setShowModal(true)}
-                to={mobile ? mainStore.l10n.main.benefits_block.learn_more_link : undefined}
+                to="/community"
               >
                 <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
-                {mainStore.l10n.main.heading.cta_text}
+                See you at IBC!
               </Button>
             }
 
@@ -98,24 +97,11 @@ const HeaderBlock = observer(({mobile}) => {
                 </span>
               </div>
             </div>
-            <Modal
-              active={showModal}
-              className="modal--modal-box header-modal"
-              Close={() => setShowModal(false)}
-              hideCloseButton
-            >
-              <div className="main-page-header__modal-video modal-box">
-                <Video versionHash={mainStore.l10n.main.benefits_block.video_version_hash} className="main-page-block__video main-page-block__core-video" />
-                <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
-                  <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
-                </button>
-              </div>
-            </Modal>
             {
               !mobile &&
-              <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
+              <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
                 <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
-                {mainStore.l10n.main.heading.cta_text}
+                See you at IBC!
               </Button>
             }
           </div>
