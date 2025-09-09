@@ -170,7 +170,7 @@ main:
         description: |
           Developer's dream toolkit - clean REST API, WASM programmable content , hash-based content versioning (ala GIT), edge just-in-time rendering including dynamic overlays and personalized renditions.
         image: publishing-1
-        use_case: Publishing, Archive & Libraries
+        use_case: Archive
         use_case_color: teal
         actions:
           -
@@ -181,7 +181,7 @@ main:
         description: |
           Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
         image: publishing-2
-        use_case: Publishing, Archive & Libraries
+        use_case: Archive
         use_case_color: teal
         actions:
           -

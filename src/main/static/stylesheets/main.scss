@@ -1849,13 +1849,13 @@
         margin-bottom: 20px;
       }
 
-      &__card-title {
-        -webkit-line-clamp: 2;
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-      }
+      //&__card-title {
+      //  -webkit-line-clamp: 2;
+      //  display: -webkit-box;
+      //  overflow: hidden;
+      //  text-overflow: ellipsis;
+      //  -webkit-box-orient: vertical;
+      //}
 
       &__description {
         font-size: 14px;
