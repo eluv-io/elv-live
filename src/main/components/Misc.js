@@ -394,7 +394,7 @@ export const TabsPanel = ({
             src={tabs[activeTabIndex].content?.video}
             loop
             muted
-            playsInline=""
+            playsInline
             autoPlay
           />
         </div>

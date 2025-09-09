@@ -424,7 +424,7 @@
 
       &__main-header {
         &__logo-image {
-          width: 75vw;
+          width: 65vw;
         }
 
         &__row-container {
@@ -442,10 +442,11 @@
 
         &__header {
           padding-bottom: 20px;
+          font-size: var(--font-size-header-2);
         }
 
         &__subheader-container-text {
-          padding-top: 40px;
+          padding-top: 20px;
         }
       }
     }
@@ -466,6 +467,7 @@
 
         &__header {
           padding-bottom: 10px;
+          font-size: var(--font-size-header-2);
         }
 
         &__headers {
@@ -500,10 +502,6 @@
 
       &__header-image {
         margin-bottom: 14px;
-      }
-
-      &__header {
-        font-size: 32px;
       }
 
       &__subheader {
