@@ -32,7 +32,7 @@ import EluvioColorLogo from "../../static/images/logos/eluvio-logo-hero";
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
 import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
 import AppIconStream from "../../static/icons/apps_new/3_Livestream_Manager";
-import AppIconCS from "../../static/icons/apps_new/4_Creator_Studio";
+import AppIconCS from "../../static/icons/apps_new/04_Creator_Studio";
 import AppIconEvie from "../../static/icons/apps_new/5_Evie";
 import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
 import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
