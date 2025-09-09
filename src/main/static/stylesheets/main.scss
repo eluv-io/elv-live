@@ -1868,6 +1868,10 @@
           padding-right: 16px;
         }
       }
+
+      .tabs__panel {
+        width: calc(100vw - 40px);
+      }
     }
 
     &--benefits {
