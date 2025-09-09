@@ -744,7 +744,7 @@ const AppsBlock = observer(({mobile}) => {
     >
       <div className="main-page-block padded-block">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
-          <h3 className="main-page-block__copy-header center-align">Content Fabric Apps & Tools</h3>
+          <h3 className="main-page-header__main-header__header">Content Fabric Apps & Tools</h3>
         </div>
         { content }
       </div>
@@ -782,7 +782,7 @@ const ClientBlock = ({mobile}) => {
   return (
     <div className="main-page-block main-page-block--light main-page-block__client-section">
       <div className="main-page-block__copy-container">
-        <h3 className="main-page-block__copy-header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
+        <h3 className="main-page-header__main-header__header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
       </div>
       <div className="main-page-block__client-section__row-container">
         <div className="main-page-block__client-section__buttons-container">
