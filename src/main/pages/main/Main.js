@@ -86,7 +86,7 @@ const HeaderBlock = observer(({mobile}) => {
                 to="/community"
               >
                 <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
-                See you at IBC!
+                See us at IBC!
               </Button>
             }
 
@@ -101,7 +101,7 @@ const HeaderBlock = observer(({mobile}) => {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
                 <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
-                See you at IBC!
+                See us at IBC!
               </Button>
             }
           </div>
