@@ -116,6 +116,7 @@ main:
             icon: play-arrow
             videoHash: hq__2Rir1mdLsymeGSdvUU9aZGKV28YNFh4bNGWegekwetoq5KXd87baU1Kxe7sq8GXJPEpBVQNWLQZX
             type: outline
+            mobile_link: https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__3zVGQVj3E1ory3F7BhQSZ36XVCNM&mt=v&ct=h&off=default
       -
         title: D2C/B2B Live, VoD, FAST/Linear Streaming at Scale
         description: |
@@ -187,7 +188,7 @@ main:
             label: Watch the Video
             icon: play-arrow
             videoHash: hq__4LenESnfuQ5PwC1egvYXNystZRn2cXkLjGRiWxDHMgadDYX7gJZ46UsyJ7TVm3vxyMDNX2cHhc
-#            link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
+            mobile_link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences

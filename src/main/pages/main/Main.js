@@ -285,7 +285,8 @@ const StreamingCard = observer(({
   image,
   color,
   logos=[],
-  actions=[]
+  actions=[],
+  mobile
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [videoVersionHash, setVideoVersionHash] = useState(null);
@@ -319,8 +320,8 @@ const StreamingCard = observer(({
               <Button
                 key={`use-case-button-${action.label}`}
                 className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
-                to={action.link}
-                onClick={action.videoHash ? () => {
+                to={action.link || mobile ? action.mobile_link : undefined}
+                onClick={(action.videoHash && !mobile) ? () => {
                   setVideoVersionHash(action.videoHash);
                   setShowModal(true);
                 } : null}
@@ -424,6 +425,7 @@ const StreamingUseCases = observer(({mobile}) => {
                     color={use_case_color}
                     logos={(logos || []).map(logo => logoMap[logo])}
                     actions={actions}
+                    mobile={mobile}
                   />
                 </SwiperSlide>
               );
