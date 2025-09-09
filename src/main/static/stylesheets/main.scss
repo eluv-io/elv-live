@@ -1750,7 +1750,8 @@
     }
 
     &__streaming-card {
-      width: 290px;
+      width: calc(100vw - 40px);
+      height: auto;
 
       &__title {
         font-size: 16px;
