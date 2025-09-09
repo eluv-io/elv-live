@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react";
 
 import {mainStore, uiStore} from "../../stores/Main";
@@ -7,7 +7,6 @@ import {MainHeader} from "./Shared";
 import {TabsList, TabsPanel, Video} from "../../components/Misc";
 
 import useScrollToElement from "../../../hooks/useScrollToElement";
-import Marquee from "react-fast-marquee";
 import {useNavigate} from "react-router";
 import {Swiper, SwiperSlide} from "swiper/react";
 
@@ -86,6 +85,7 @@ import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 import {Pagination} from "swiper";
+import {autorun} from "mobx";
 
 const AwardsBlock = observer(({mobile}) => {
   if(mobile) {
@@ -275,7 +275,7 @@ const VideoStack = observer(({mobile}) => {
   );
 });
 
-const StreamingCard = ({
+const StreamingCard = observer(({
   title,
   description,
   image,
@@ -346,13 +346,12 @@ const StreamingCard = ({
       </Modal>
     </div>
   );
-};
+});
 
 const StreamingUseCases = observer(({mobile}) => {
-  // const [title, setTitle] = useState("Streaming");
-  // const [titleColor, setTitleColor] = useState("purple");
+  const [title, setTitle] = useState("Streaming");
+  const [titleColor, setTitleColor] = useState("purple");
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const cardRefs = useRef([]);
 
   const { features } = mainStore.l10n.main.streaming_use_cases;
 
@@ -370,39 +369,16 @@ const StreamingUseCases = observer(({mobile}) => {
     "live-feed": LiveFeedImage
   };
 
-  // useEffect(() => {
-  //   let observer;
-  //
-  //   const timeoutId = setTimeout(() => {
-  //     observer = new IntersectionObserver(entries => {
-  //       entries.forEach((entry) => {
-  //         if(entry.isIntersecting) {
-  //           console.log('entry', entry.target.dataset)
-  //           // setCurrentSlideIndex(parseInt(entry.target.dataset.index));
-  //           setTitleColor(entry.target.dataset.color);
-  //           setTitle(entry.target.dataset.title);
-  //         }
-  //       });
-  //     }, {
-  //       root: null,
-  //       // rootMargin: "0px",
-  //       threshold: 0.5,
-  //     });
-  //
-  //     cardRefs.current.forEach(ref => {
-  //       if(ref) {
-  //         observer.observe(ref);
-  //       }
-  //     });
-  //   }, 100);
-  //
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //     if(observer) {
-  //       observer.disconnect();
-  //     }
-  //   };
-  // }, [features]);
+  useEffect(() => {
+    const disposer = autorun(() => {
+      const feature = features[currentSlideIndex];
+      if (feature?.use_case) {
+        setTitle(feature.use_case);
+        setTitleColor(feature.use_case_color || "purple");
+      }
+    });
+    return () => disposer();
+  }, [currentSlideIndex, features]);
 
   const HandleSlideChange = (swiper) => {
     setCurrentSlideIndex(swiper.realIndex);
@@ -413,7 +389,7 @@ const StreamingUseCases = observer(({mobile}) => {
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
           <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
-          {/*<span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor}`}>{ title }</span>*/}
+          <span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor}`}>{ title }</span>
         </h3>
       </div>
       <div className="main-page-block__streaming-cards-container">
@@ -425,79 +401,31 @@ const StreamingUseCases = observer(({mobile}) => {
             clickable: true
           }}
           autoHeight
-          // autoplay={{
-          //   delay: 1,
-          //   delay: 0,
-          //   disableOnInteraction: false,
-          //   pauseOnMouseEnter: true
-          // }}
           loop
           freeMode
           spaceBetween={12}
           slidesPerView="auto"
-          // effect="slide"
           onSlideChange={HandleSlideChange}
-          // breakpoints={{
-          //   320: {
-          //     slidesPerView: 1,
-          //     spaceBetween: 5
-          //   },
-          //   480: {
-          //     slidesPerView: 2,
-          //     spaceBetween: 7
-          //   },
-          //   1000: {
-          //     slidesPerView: 3.5,
-          //     spaceBetween: 12
-          //   },
-          //   1500: {
-          //     slidesPerView: 4,
-          //     spaceBetween: 12
-          //   }
-          // }}
         >
           {
-            features.map(feature => (
-              <SwiperSlide key={`streaming-card-${feature.title}`}>
-                <StreamingCard
-                  title={feature.title}
-                  description={feature.description}
-                  image={imageMap[feature.image]}
-                  color={feature.use_case_color}
-                  logos={(feature.logos || []).map(logo => logoMap[logo])}
-                  actions={feature.actions}
-                />
-              </SwiperSlide>
-            ))
+            features.map(feature => {
+              const {title, description, image, use_case_color, logos, actions} = feature;
+
+              return (
+                <SwiperSlide key={`streaming-card-${feature.title}`}>
+                  <StreamingCard
+                    title={title}
+                    description={description}
+                    image={imageMap[image]}
+                    color={use_case_color}
+                    logos={(logos || []).map(logo => logoMap[logo])}
+                    actions={actions}
+                  />
+                </SwiperSlide>
+              );
+            })
           }
         </Swiper>
-        {/*<Marquee*/}
-        {/*  direction="left"*/}
-        {/*  speed={65}*/}
-        {/*  loop={0}*/}
-        {/*  pauseOnHover*/}
-        {/*>*/}
-        {/*  {*/}
-        {/*    features.map((feature, i) => (*/}
-        {/*      <div*/}
-        {/*        key={`streaming-card-${i}`}*/}
-        {/*        className="main-page-block__streaming-card__wrapper"*/}
-        {/*        ref={(el) => (cardRefs.current[i] = el)}*/}
-        {/*        data-color={feature.use_case_color}*/}
-        {/*        data-title={feature.use_case}*/}
-        {/*      >*/}
-        {/*        <StreamingCard*/}
-        {/*          title={feature.title}*/}
-        {/*          description={feature.description}*/}
-        {/*          image={imageMap[feature.image]}*/}
-        {/*          color={feature.use_case_color}*/}
-        {/*          logos={(feature.logos || []).map(logo => logoMap[logo])}*/}
-        {/*          actions={feature.actions}*/}
-        {/*        />*/}
-        {/*      </div>*/}
-        {/*    ))*/}
-        {/*  }*/}
-        {/*</Marquee>*/}
       </div>
     </div>
   );
