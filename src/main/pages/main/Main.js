@@ -752,14 +752,6 @@ const AppsBlock = observer(({mobile}) => {
   );
 });
 
-const SiteCarouselSection = ({mobile}) => {
-  return (
-    <div className="main-page-block main-page-block--light main-page-block__site-carousel">
-      <SiteCarousel mobile={mobile} />
-    </div>
-  );
-};
-
 const ClientBlock = ({mobile}) => {
   let buttons;
 
@@ -780,19 +772,31 @@ const ClientBlock = ({mobile}) => {
   }
 
   return (
-    <div className="main-page-block main-page-block--light main-page-block__client-section">
-      <div className="main-page-block__copy-container">
-        <h3 className="main-page-header__main-header__header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
-      </div>
-      <div className="main-page-block__client-section__row-container">
-        <div className="main-page-block__client-section__buttons-container">
-          { buttons }
+    <>
+      <div className="main-page-block main-page-block--light main-page-block__client-section">
+        <div className="main-page-block__copy-container">
+          <h3 className="main-page-header__main-header__header">Used by the Most Innovative Sports, Entertainment & Creative Brands</h3>
         </div>
-        <div className="main-page-block__client-section__image-container">
-          <ImageIcon icon={mobile ? ClientGroupMobileImage : ClientGroupDesktopImage} />
+        <div className="main-page-block__client-section__row-container">
+          <div className="main-page-block__client-section__buttons-container">
+            { buttons }
+          </div>
+          {
+            !mobile &&
+            <div className="main-page-block__client-section__image-container">
+              <ImageIcon icon={ClientGroupDesktopImage} />
+            </div>
+          }
         </div>
       </div>
-    </div>
+      <div className="main-page-block main-page-block--light main-page-block__site-carousel">
+        <SiteCarousel mobile={mobile} />
+        {
+          mobile &&
+          <ImageIcon icon={ClientGroupMobileImage} />
+        }
+      </div>
+    </>
   );
 };
 
@@ -810,7 +814,6 @@ const MainPageMobile = () => {
         <BenefitsBlock mobile />
         <AppsBlock mobile />
         <ClientBlock mobile />
-        <SiteCarouselSection mobile />
       </div>
     </div>
   );
@@ -833,7 +836,6 @@ const MainPageDesktop = () => {
           <BenefitsBlock />
           <AppsBlock />
           <ClientBlock />
-          <SiteCarouselSection />
         </div>
       </div>
     </div>

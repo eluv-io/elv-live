@@ -1965,6 +1965,7 @@
     &__site-carousel {
       padding-left: 20px;
       padding-top: 45px;
+      gap: 0;
     }
   }
 }
@@ -2183,6 +2184,10 @@
     left: 0;
     position: absolute;
     top: 0;
+  }
+
+  @media screen and (max-width: $width-mobile) {
+    padding-bottom: 20px;
   }
 }
 
