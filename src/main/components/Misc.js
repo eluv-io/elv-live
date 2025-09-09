@@ -395,14 +395,6 @@ export const TabsPanel = ({
             // React doesn't handle muted attribute properly, which breaks autoplay
             dangerouslySetInnerHTML={{__html: `<video src=${tabs[activeTabIndex].content?.video} loop muted playsinline="" autoplay class="tabs__panel__video" />`}}
           />
-          {/*<video*/}
-          {/*  className="tabs__panel__video"*/}
-          {/*  src={tabs[activeTabIndex].content?.video}*/}
-          {/*  loop*/}
-          {/*  muted*/}
-          {/*  playsInline*/}
-          {/*  autoPlay*/}
-          {/*/>*/}
         </div>
       }
     </>
