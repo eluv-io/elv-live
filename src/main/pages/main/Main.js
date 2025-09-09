@@ -150,7 +150,11 @@ const HeaderBlock = observer(({mobile}) => {
 
             {
               mobile &&
-              <Button className="light header__button header__button--cta" onClick={() => setShowModal(true)}>
+              <Button
+                className="light header__button header__button--cta"
+                onClick={mobile ? undefined : () => setShowModal(true)}
+                to={mobile ? mainStore.l10n.main.benefits_block.learn_more_link : undefined}
+              >
                 <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
                 {mainStore.l10n.main.heading.cta_text}
               </Button>
@@ -455,7 +459,11 @@ const BenefitsBlock = observer(({mobile}) => {
               </button>
             </div>
           </Modal>
-          <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => setShowModal(true)}>
+          <Button
+            className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple"
+            onClick={mobile ? undefined : () => setShowModal(true)}
+            to={mobile ? mainStore.l10n.main.benefits_block.learn_more_link : undefined}
+          >
             <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
             Learn More
           </Button>
