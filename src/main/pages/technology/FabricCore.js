@@ -38,11 +38,11 @@ const FabricCore = observer(() => {
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} defaultOpen key={`fabric-core-accordion-item-${item.title}`}>
+                    <Accordion title={item.title} defaultOpen key={`fabric-core-accordion-item-${item.title}`} id={item.id}>
                       <RichText className="accordion__description-card" richText={item.description}/>
                     </Accordion>
                   )) :
-                  <Accordion title={section.header} hasHeader={false} defaultOpen>
+                  <Accordion title={section.header} hasHeader={false} defaultOpen id={section.id}>
                     <RichText className="accordion__description-card" richText={section.description}/>
                   </Accordion>
               }

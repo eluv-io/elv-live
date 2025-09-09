@@ -109,7 +109,7 @@ module.exports = (env) => {
         stream: require.resolve("stream-browserify"),
         url: require.resolve("url")
       },
-      extensions: [".js", ".jsx", ".mjs", ".scss", ".png", ".svg"],
+      extensions: [".js", ".jsx", ".mjs", ".scss", ".png", ".svg", ".webp"],
     },
     mode: "development",
     devtool: "eval-source-map",
@@ -186,7 +186,15 @@ module.exports = (env) => {
         {
           test: /\.csv$/,
           type: "asset/resource"
-        }
+        },
+        {
+          test: /\.(webp)$/i,
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "assets/images",
+          }
+        },
       ]
     }
   };

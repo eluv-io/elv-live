@@ -11,7 +11,7 @@ import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
-import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
+import {InfoIcon, MinusIcon, PlusIcon, XIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
 
 SwiperCore.use([Lazy, Pagination]);
@@ -305,14 +305,15 @@ export const Accordion = ({
   defaultOpen=false,
   children,
   triggerText,
-  hasHeader=true
+  hasHeader=true,
+  id
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div className={`accordion ${className}`}>
       <Action className={`accordion__header left-align ${hasHeader ? "" : "accordion__header--no-header-title"}`} onClick={() => setIsOpen(prevState => !prevState)} title={isOpen ? "Collapse" : "Expand"}>
-        <div className="accordion__header-container">
+        <div className="accordion__header-container" id={id || ""}>
           <div className="accordion__header-subtitle">{subtitle}</div>
           <div className={`accordion__header__title ${hasHeader ? "accordion__header__title--purple" : ""}`}>{title}</div>
           <div className="accordion__header-title-description">{titleDescription}</div>
@@ -366,6 +367,113 @@ export const Tooltip = ({className, content}) => {
           {content}
         </div>
       }
+    </div>
+  );
+};
+
+export const TabsPanel = ({
+  tabs,
+  activeTabIndex,
+  className,
+  children,
+  mobile
+}) => {
+  const mediaContent = (
+    <>
+      {
+        tabs[activeTabIndex].content?.image &&
+        <div className="tabs__panel__media-container">
+          <ImageIcon icon={tabs[activeTabIndex].content.image} className="tabs__panel__image" />
+        </div>
+      }
+      {
+        tabs[activeTabIndex].content?.video &&
+        <div className="tabs__panel__media-container">
+          <video
+            className="tabs__panel__video"
+            src={tabs[activeTabIndex].content?.video}
+            loop
+            muted
+            playsInline=""
+            autoPlay
+          />
+        </div>
+      }
+    </>
+  );
+  return (
+    <div className={`tabs__panel ${className}`}>
+      { mobile && mediaContent}
+      {
+        tabs[activeTabIndex].content?.subtitle &&
+        <div className="tabs__panel__subtitle">
+          {
+            tabs[activeTabIndex].content.subtitle
+          }
+        </div>
+      }
+      {
+        tabs[activeTabIndex].content?.title &&
+        <div className="tabs__panel__title">
+          {
+            tabs[activeTabIndex].content.title
+          }
+        </div>
+      }
+      {
+        tabs[activeTabIndex].content?.description &&
+        <div className="tabs__panel__description">
+          {
+            tabs[activeTabIndex].content?.description
+          }
+        </div>
+      }
+      { !mobile && mediaContent }
+    </div>
+  );
+};
+
+export const TabsList = ({
+  tabs=[],
+  className,
+  darkMode=false,
+  activeTabIndex,
+  setActiveTabIndex,
+  orientation="horizontal",
+  wrap=true
+}) => {
+  const isActive = (index) => {
+    if(activeTabIndex === index) { return true; }
+  };
+
+  const containerClassNames=["tabs", className].filter(e => !!e).join(" ");
+
+  return (
+    <div className={containerClassNames}>
+      <div className={`tabs__list ${orientation} ${wrap ? "wrap" : ""}`}>
+        {
+          tabs.map((tab, i) => {
+            const buttonClassNames = [
+              "tabs__button",
+              darkMode ? "tabs__button--dark" : "tabs__button--light",
+              isActive(i) ? "active" : "inactive",
+              orientation === "horizontal" ? "horizontal" : "vertical"
+            ]
+              .filter(e => !!e).join(" ");
+
+            return (
+              <Button
+                key={tab.title}
+                className={buttonClassNames}
+                onClick={() => setActiveTabIndex(i)}
+              >
+                {tab.title}
+                <ImageIcon icon={PlusIcon} height={10} width={10} style={isActive(i) ? {transform: "rotate(45deg)"} : null}/>
+              </Button>
+            );
+          })
+        }
+      </div>
     </div>
   );
 };

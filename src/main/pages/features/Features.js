@@ -113,8 +113,24 @@ const Features = () => {
   return (
     <div className="page">
       <div className="page__header-container">
-        <h1 className="features--purple-header">Platform Features</h1>
+        <h1 className="features--purple-header">Core Utilities</h1>
       </div>
+      <div className="page__content-block">
+        <InfoBox
+          icon={TechnologyIcons.LearnMoreTechnologyIcon}
+          header={copy.bangkok.header}
+          content={copy.bangkok.text}
+          links={[
+            {
+              to: copy.bangkok.links[0].link,
+              target: "_blank",
+              text: copy.bangkok.links[0].text,
+              icon: DocumentIcon
+            }
+          ]}
+        />
+      </div>
+
       <div className="page__content-block">
         <InfoBox
           icon={TechnologyIcons.LearnMoreTechnologyIcon}

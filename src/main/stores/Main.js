@@ -229,10 +229,15 @@ class MainStore {
     metadataUrl.searchParams.set("resolve", "false");
     metadataUrl.searchParams.set("resolve_ignore_errors", "true");
 
-    this.newsItems = ProduceMetadataLinks({
+    let newsItems = ProduceMetadataLinks({
       path: "/public/asset_metadata/info/news",
       metadata: yield (yield fetch(metadataUrl)).json()
     });
+
+    // Force sort by date
+    newsItems = (newsItems || []).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    this.newsItems = newsItems;
   });
 
   async SubmitHubspotForm({portalId, formId, data, consent}) {

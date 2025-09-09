@@ -22,6 +22,7 @@ const PrependClassName = (addition, className="") => {
 
 export const ActionComponent = React.forwardRef((props, ref) => {
   props = { ...props };
+  const location = useLocation();
 
   // Handle navlink
   const useNavLink = props.useNavLink;
@@ -35,8 +36,6 @@ export const ActionComponent = React.forwardRef((props, ref) => {
   delete props.basePath;
 
   if(useNavLink) {
-    const location = useLocation();
-
     const to = props.to || basePath || "";
     let routeActive;
     if(exact || location.pathname === "/") {
@@ -177,11 +176,11 @@ export const MenuButton = React.forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", HandleClickOutside);
+    document.addEventListener("mouseup", HandleClickOutside);
     document.addEventListener("keydown", HandleEscapeKey);
 
     return (() => {
-      document.removeEventListener("mousedown", HandleClickOutside);
+      document.removeEventListener("mouseup", HandleClickOutside);
       document.removeEventListener("keydown", HandleEscapeKey);
     });
   }, []);
@@ -192,12 +191,33 @@ export const MenuButton = React.forwardRef((props, ref) => {
   delete props.items;
   delete props.optionClassName;
 
+  const MenuItem = ({item, className}) => {
+    return (
+      <Action to={item.to} onClick={() => setMenuOpen(false)} className={[optionClassName, className].filter(e => !!e).join(" ")} {...item.props}>
+        <div className="menu-button__options--flex">
+          <div className="menu-button__item-title-row">
+            {
+              item.icon &&
+              <ImageIcon icon={item.icon} className="menu-button__item-icon" />
+            }
+            { item.label }
+          </div>
+          {
+            item.subtitle &&
+            <p className={`menu-button__item-subtitle${item.icon ? " indent" : ""}`}>
+              { item.subtitle }
+            </p>
+          }
+        </div>
+      </Action>
+    );
+  };
+
   return (
     <Action
       {...props}
       ref={combinedRef}
       onClick={event => {
-        event.preventDefault();
         event.stopPropagation();
         setMenuOpen(!menuOpen);
       }}
@@ -206,13 +226,28 @@ export const MenuButton = React.forwardRef((props, ref) => {
       { props.children }
       {
         menuOpen &&
-        <ul className="menu-button__options">
-          {(items || []).map((item, index) => (
-            <li key={`menu-button-${index}`} className="menu-button__item">
-              <Action to={item.to} onClick={() => setMenuOpen(false)} className={optionClassName} {...item.props}>{ item.label }</Action>
-            </li>
-          ))}
-        </ul>
+        <div className="menu-button__options-container">
+          <ul className="menu-button__options">
+            {(items || []).map((item, index) => (
+              <li key={`menu-button-${index}`} className="menu-button__item">
+                <MenuItem item={item} />
+                {
+                  item.items &&
+                    (
+                      <div className="menu-button__item-submenu-container">
+                        {
+                          item.items.map((subItem, subIndex) => (
+                            <MenuItem key={`menu-button-${index}-${subIndex}`} item={subItem} className={`${item.subItemProps?.faded ? "subtle" : ""} ${item.subItemProps?.indent ? "indent" : ""}`} />
+                          ))
+                        }
+                      </div>
+                    )
+                    // : <MenuItem item={item} />
+                }
+              </li>
+            ))}
+          </ul>
+        </div>
       }
     </Action>
   );

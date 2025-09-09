@@ -66,6 +66,13 @@
       color: var(--color-text-dark-1);
     }
   }
+
+  @media screen and (max-width: $width-mobile) {
+    &__content {
+      overflow-y: hidden;
+      width: 100%;
+    }
+  }
 }
 
 .modal-box {

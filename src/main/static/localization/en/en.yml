@@ -4,22 +4,22 @@ header:
   partners: Partners
   contact: Contact Us
   creators_and_publishers: Creators & Publishers
-  content_fabric: Content Fabric
-  content_fabric_protocol: The Content Fabric Protocol
-  eluvio_technology: Content Fabric Technology
-  eluvio_blockchain: Content Fabric Blockchain
+  content_fabric: Technology
+  content_fabric_protocol: Content Fabric Protocol
+  eluvio_technology: Content Technology
+  eluvio_blockchain: Blockchain Protocol
   fabric_core: Fabric Core
   creator_studio: Creator Studio
-  analytics: Analytics
-  ai_clip_search: AI Content Search
-  video_editor: Video Intelligence Editor
+  analytics: Content Analytics
+  ai_clip_search: AI Search
+  video_editor: Eluvio Video Intelligence Editor
   elv_media_wallet: Media Wallet
   embeddable_player: Embeddable Player
-  features: Features
+  core_utilities: Core Utilities
   media_wallet: Media Wallet
-  docs: Docs
+  docs: Eluvio Docs
   register: Try The Fabric
-  discover: Discover
+  try_the_fabric: Try The Fabric
   tenancy_levels: Tenancy Levels
   pricing: Pricing
   support: Support
@@ -29,42 +29,165 @@ header:
   profile: Profile
   discover_projects: Discover Projects
   projects: Projects
-  apps: Apps
+  apps: A/V Core
   sign_in: Sign In
+  monetization: Monetization
+  video_intelligence: Video Intelligence
+  resources: Resources
+  github: GitHub
+  team: Team
+  ai_labs: Eluvio AI Labs
+  learning_resources: Learning Resources
+  management_tools: Management Tools
+  all_features: All Features
+  fabric_browser: Fabric Browser
+  media_ingest: Media Ingest
+  live_stream_manager: Live Stream Manager
+  community: Community
+  careers: Careers
+  content_fabric_io: Content Fabric.io
 
 # Main Page
 main:
   heading:
-    header: Your Next Gen Content Distribution Solution
+    top_header: The Content Fabric
+    header: |
+      The Most Powerful Platform for Content Distribution & Monetization
     subheader: |
-      is a programmable streaming, content distribution, and storage network built for the Third Generation Internet.
+      The Content Fabric is a revolutionary protocol and global network, that transforms how content is delivered, monetized, and experienced in the digital world.
+    cta_text: Learn More
     featured_link_text: Check out the Bangkok Release
-    featured_link: "/content-fabric/fabric-core"
-  features_carousel:
-    - High Performance 4K and Interactive Streaming
-    - State-of-the-Art Blockchain Security and Payments
-    - 10X Less Expensive at Scale and Carbon Efficient
-    - Radically Simpler Than Traditional CDNs and Cloud
-    - Transparent, Tamper‑free, and AI Native
-  video_block:
-    subheader: Discover
-    header: The Content Fabric
+    featured_link: "/av-core/fabric-core"
+  video_stack:
+    header: Next Gen CDN & Full Feature Video Stack
     features:
-      - A novel protocol and utility network for any content
-      - Decentralized, Streaming, Distribution, and Storage at Scale
-      - Ultra-fast and Ultra-efficient
-      - 50X more efficient and up to 80% less costly than clouds and CDNs
-      - Data-driven, AI Native, Just-in-Time
-      - Tamper‑free Ownership, Versioning, and Access Control
-  features_block:
-    subheader: Resulting in
-    header: Advanced Full-Feature Platform For All Media
-    text: |
-      All-in-one Content Management & Distribution from source asset to audience. Replaces CDNs, Clouds & Aggregators for Video, App & Static Content with one Fabric protocol.
-
-      Low Latency 4K Streaming, Live and On Demand with Beautiful Quality & Advanced Features. Built in Blockchain Monetization and Web3 Native. Tokens, payments, tickets, wallets, and more.
-
-      [See Feature Details](/features/details)
+      - feature_title: Max Cost Savings
+        title: 10X Cost Savings and Low Carbon Footprint
+        subtitle: Novel Content Storage, Routing, and Just-in-Time Composition with Zero File Copies
+        description: |
+          Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings. 10x Less $$$ at Scale than Legacy CDN and Media Cloud.
+        media: ull
+        media_type: video
+      - feature_title: Max Quality
+        title: Global Streaming Like Never Before
+        subtitle: Just-in-Time, Ultra Low Latency  HTTP ABR /UDP/RTP/SRT/SMPTE 2022/2110
+        description: |
+          Ultra Low Latency Global OTT Streaming (D2C) Live and On Demand. Live Broadcast Feed distribution (B2B) to Millions of Receivers with Sub-second Latency. Optimized Multi-path Routing for Minimum Bandwidth Use, Maximum Cost Efficiency and Inherent Redundancy.
+        media: quality
+        media_type: image
+      - feature_title: Secure & Verifiable
+        title: Innovative Content Crypto
+        subtitle: Retain Full Control of your Content
+        description: |
+          Proves Provenance, Authenticity, and Verifiability
+          Secure & Tamper-Proof with Built-in Rights Management, Geo Windows, DRM, and Watermarking. Inline Verification Proofs for Video, Images and Metadata.
+        media: security
+        media_type: image
+      - feature_title: AI Native
+        title: Inline Video Intelligence
+        subtitle: Media and Data Combine Inline, Just-in-Time for Unlimited AI-Driven Content
+        description: |
+          Inline SOTA Multi-modal AI Stack provides frame-accurate Tagging, Summarization and Vectorized Search of all video, audio and image content with no file movement.
+          Powers unlimited AI-agentic pipelines for personalized highlights, channels, and compositions.
+        media: ai-native
+        media_type: image
+      - feature_title: Unlimited Monetization
+        title: Unlimited Monetization
+        subtitle: Built-in Subscription, Sell Through and Ad-Supported
+        description: |
+          Unlimited Variants and Versions created from one object without redistribution. Zero-code OTT Site Creation with Global Reach on Web, Mobile, Connected TV. Advanced Viewing Features for DVR, Multi-View, and Progressive VoD.
+        media: monetization
+        media_type: video
+  streaming_use_cases:
+    features:
+      -
+        title: Full Stack OTT Streaming and Global Monetization
+        description: |
+          Zero-code OTT sites creation with global reach across web/mobile/connected TV with advanced viewing features and built-in subscription and ad-supported monetization
+        image: streaming-1
+        use_case: Streaming
+        use_case_color: purple
+        actions:
+          -
+            label: Case Study
+            link: "/case-studies/epcr-tv"
+          -
+            label: Learn More
+            icon: play-arrow
+            videoHash: hq__2Rir1mdLsymeGSdvUU9aZGKV28YNFh4bNGWegekwetoq5KXd87baU1Kxe7sq8GXJPEpBVQNWLQZX
+            type: outline
+      -
+        title: D2C/B2B Live, VoD, FAST/Linear Streaming at Scale
+        description: |
+          Direct to Consumer Ultra Low Latency Streaming Globally. Live, VOD, Linear, 2D/3D Streaming to any Standard Player
+          Fully Integrated Encryption and DRM.
+          Dynamic Content Insertion / SCTE 35
+          Rights Management, Geo Fencing, and Entitlement Authorization Built In
+          Subscription, Transaction, Ad Supported, and Novel Selling Models.
+        image: streaming-2
+        use_case_color: purple
+        use_case: Streaming
+        actions:
+          -
+            label: Learn More
+            link: "/av-core/fabric-core"
+      -
+        title: Ultra Low Latency Live Feed Distribution for Broadcast
+        description: |
+          Business and affiliate live feed distribution SRT/MPEGTS/RTP with sub-second latency globally and optimized routing for minimum bandwidth use and maximum cost efficiency. Scales to millions of receivers.
+        image: broadcast
+        use_case: Broadcast
+        use_case_color: blue
+        actions:
+          -
+            label: Press Release
+            link: "/about/news/eluvio-scores-major-wins-ahead-of-ibc2025"
+      -
+        title: Live Event Streaming for VIPs, Commentary, and Remote Monitoring
+        description: |
+          Ultra-low latency, secure, efficient, and re-usable streaming video service for licensees, remote commentators and VIPs to globally leverage for live events. Remote users can watch live events with delays under 5 seconds in a feature-rich experience and flexible CMS/APIs to integrate with any booking/scheduling system.
+        image: live-streaming
+        use_case: Broadcast
+        use_case_color: blue
+        actions:
+          -
+            label: Case Study
+            link: https://www.telstrainternational.com/en/news-research/case-studies/telstra-eluvio-uefa-euro-2024-radio-international-sound-streaming-service
+      -
+        title: AI Generated Personalized Highlights, Clips & Compositions
+        description: |
+          Describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in AI models and new domain-specific models for sports play-by-play description and player identification. Create and add fine-tuned and domain specific models in collaboration with the Eluvio AI team.
+        image: video-ai
+        use_case: Video AI
+        use_case_color: violet
+        actions:
+          -
+            label: Learn More
+            link: /video-intelligence/video-editor
+      -
+        title: Complete APIs for Developing OTT & Media Rich Applications
+        description: |
+          Developer's dream toolkit - clean REST API, WASM programmable content , hash-based content versioning (ala GIT), edge just-in-time rendering including dynamic overlays and personalized renditions.
+        image: publishing-1
+        use_case: Publishing, Archive & Libraries
+        use_case_color: teal
+        actions:
+          -
+            label: Media Wallet
+            link: /media-wallet
+      -
+        title: Archive/Library AI Search, Hosting, Monetization
+        description: |
+          Simplified and organized media archive with flexible storage options (builtin or cloud of choice) and in-place servicing and utilization across business and consumer applications.
+        image: publishing-2
+        use_case: Publishing, Archive & Libraries
+        use_case_color: teal
+        actions:
+          -
+            label: Watch the Video
+            icon: play-arrow
+            videoHash: hq__4LenESnfuQ5PwC1egvYXNystZRn2cXkLjGRiWxDHMgadDYX7gJZ46UsyJ7TVm3vxyMDNX2cHhc
+#            link: https://embed.v3.contentfabric.io/?net=main&p&ct=h&oid=iq__4VTFVpnLX2ZNCQ8AyLECrYaKtire&mt=v
   experiences_block:
     header: Built for the Creator Economy
     subheader: Distribute & Monetize Stunning Content Experiences
@@ -93,9 +216,137 @@ main:
         link: /media-wallet
     creators: Creators & Content Businesses
     developers: Developers & Node Providers
-  projects_block:
-    header: Discover Next Gen Media Projects.
-    subheader: All built on the Content Fabric.
+  benefits_block:
+    video_version_hash: hq__HLVD7pSy8j3LswvAtEHX8JBJJfSsjFDNuALCvAiwdskWZjcbz4jYVSPCpGT9bvhoCtwfo6JcJb
+    learn_more_link: https://main.net955305.contentfabric.io/s/main/q/hq__nM2RnUe5ejUvnffTzD896R7VBavFq894xTGgfkeE8KK3fVgtY62zucsahTTzAVff21z12eaJh33/files/videos/eluvio-why-how.mp4
+    cards:
+      no_1:
+        title: |
+          Over 80% of the Internet is video.
+          $500B/yr $1.5T by 2030.
+        text_left: |
+          Yet The Internet is not designed for content.
+        text_right: |
+          Addresses, streams, manages files & bytes ... but not content.
+      no_2:
+        text:
+          -
+            |
+            Media applications are Trapped by Complexity.
+            Multi-tier, Multi-vendor.
+          -
+            |
+            CDNs & Media Clouds are costly, complex, slow and limit capability.
+          -
+            |
+            Especially with regard to multi versioned media & AI data.
+      no_3:
+        text_one: |
+          The Fabric’s Content Native Protocol
+        text_two: |
+          Eliminates complexity, maximizes efficiency, & is AI native.
+        text_three: |
+          Content Fabric Technology Deep Dive →
+        text_three_mobile: |
+          Technology Deep Dive →
+      no_4:
+        tabs:
+          -
+            label: AI Native
+            value: |
+              Media, Metadata, and Code Combine JIT for Data-Driven Outputs
+  
+              Built-in Multimodal AI for Search, Summarization, and Personalization
+  
+              AI-Assisted, JIT Personalized Highlights, Channels & Compositions. Comprehensive Open Source API (REST, WASM, Git-style Version Hashing)
+          -
+            label: Just-in-Time
+            value: |
+              Transcoding, packaging, composition JIT
+              
+              Data-driven, in the content, at scale
+          -
+            label: Tamper Proof
+            value: |
+              Trustless Encryption, DRM End-to-End
+              
+              Tamper-free, On Chain Versions, Provenance
+          -
+            label: Open
+            value: |
+              An open network of nodes running the Content Fabric Protocol
+          -
+            label: Inherently Fast
+            value: |
+              Decentralized, Content Native
+              
+              Publishing, Routing, JIT Streaming, Download 4K Live, VOD, Interactive
+          -
+            label: So Much Simpler
+            value: |
+              All ‘Media Cloud’ + ‘CDN’ Functions in One Dynamic Protocol
+              
+              Media, Data, and Processing inherently together - no file movement!
+          -
+            label: Hyper Efficient
+            value: |
+              Componentized multi-versioned output from source ‘Parts’. Infinite re-combination.
+      no_5:
+        text_one: |
+          We are a team of technologists specializing in scalable content distribution, real time video, trust-less security, multi-modal AI and blockchain ownership. Led by founders Michelle Munson and Serban Simu who previously created Aspera FASP.
+        text_two: |
+          Open architecture, full-stack Ethereum blockchain, open-source.
+        github_link: https://github.com/eluv-io
+      no_6:
+        text_left: |
+          Over 14 US Patents
+        text_right: |
+          HQ in Berkeley, CA UC Berkeley Xcel
+  apps_block:
+    apps:
+      -
+        title: Eluvio Video Intelligence Editor
+        description: |
+          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
+        link: video-intelligence/video-editor
+        image: evie
+      -
+        title: AI Content Search and Management
+        description: |
+          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
+        link: /video-intelligence/ai-search
+        image: ai-search
+      -
+        title: Content Analytics & Reporting
+        description: |
+          View and track comprehensive metrics for audience statistics, delivery quality of service (QoS), and sales transactions.
+        link: /monetization/analytics
+        image: analytics
+      -
+        title: Creator Studio
+        description: |
+          Zero Code Builder for OTT site creation with global reach across web/mobile/connected TV with Advanced Viewing Features and built-in subscription and ad-supported monetization.
+        link: monetization/creator-studio
+        image: creator-studio
+      -
+        title: Live Stream Manager
+        description: |
+          Create, monitor, preview, and manage all live streams in your Content Fabric tenancy. Drill down to view details such as time-to-first-byte, segment arrival time, and player buffer stats, and monitor all streams in a single view. Configure advanced viewing options such as DVR and multi-audio, and manage live stream recording and instant Live-to-VoD.
+        link: /av-core/fabric-core#tools
+        image: live-stream
+      -
+        title: Media Ingest
+        description: |
+          Easily ingest new video content to your Content Fabric tenancy locally from your computer with drag-and-drop upload or from remote cloud buckets. Configure target libraries, encryption and DRM from a simple web UI. The published content is globally streamable upon completion with no further transcoding or processing.
+        link: /av-core/fabric-core#tools
+        image: media-ingest
+      -
+        title: Fabric Browser
+        description: |
+          Fabric Browser provides comprehensive low-level browsing, version management, metadata management and access control configuration for all content objects.
+        link: /av-core/fabric-core#tools
+        image: fabric-browser
+
 
 
 
@@ -234,7 +485,7 @@ compatible_devices:
 # Other pages
 
 content_fabric:
-  title: The Content Fabric Protocol
+  title: Content Fabric Protocol
   header: Utility Blockchain Network for Content
   cards:
     1:
@@ -318,12 +569,12 @@ content_fabric:
       - text: "DAPP Sample"
         to: https://dapp-sample.app.eluv.io/
 
-  roadmap:
-    header: Current State & Roadmap
-    text: |
-      The Content Fabric main network has been released for production in 2019 and the Eluvio Media Wallet application suite in 2021.  Learn about the roadmap to creating the next-generation content space and tenancy scale-out layer, the Substrate/Polkadot Content Fabric and the new Eluvio creator stack.
-    links:
-      - text: "Roadmap"
+#  roadmap:
+#    header: Current State & Roadmap
+#    text: |
+#      The Content Fabric main network has been released for production in 2019 and the Eluvio Media Wallet application suite in 2021.  Learn about the roadmap to creating the next-generation content space and tenancy scale-out layer, the Substrate/Polkadot Content Fabric and the new Eluvio creator stack.
+#    links:
+#      - text: "Roadmap"
   community:
     header: Community
     text: |
@@ -337,17 +588,17 @@ content_fabric:
     links:
       - text: "Download"
   casablanca:
-    header: Eluvio Content Fabric Casablanca Release - Summer 2024
-    text: Learn about the latest Content Fabric release **Casablanca** - a massive step including advanced features for our applications and tools.
+    header: Eluvio Content Fabric Casablanca Release
+    text: Learn about the Casablanca generation including advanced features in the core, apps, and tools.
     links:
       - text: Master PDF
         link: https://main.net955305.contentfabric.io/s/main/q/hq__2u3QBsnT4wvxisxmhLACPtzYLJ4R7Jw7D4KzY9KUXavBf7vtokcMiiyeH78wEbVsnVYNjjTcjF/files/eluv.io/Eluvio%20Content%20Fabric%20Casablanca%20Release%20-%20Master%20PDF.pdf
   bangkok:
     header: Eluvio Content Fabric Bangkok Release - Summer 2025
-    text: Learn about the latest Content Fabric release **Bangkok** - a massive step including advanced features for our applications and tools.
+    text: Learn about the latest release Bangkok in this comprehensive white paper covering the advances in full stack streaming, live broadcast distribution, and our inline video intelligence.
     links:
-      - text: Download PDF
-        link: https://main.net955305.contentfabric.io/s/main/q/hq__GCi7G55EvQ4pwHP1ZH7sjsUvZfMbttyanUccQ6SbTNp76J6GkeSFWRdfhjRdXw9h8ERQDiGi29/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bangkok%20Release%20Whitepaper.pdf
+      - text: Master PDF
+        link: https://main.net955305.contentfabric.io/s/main/q/hq__3vk3GyxUaTqhqCMxDz5PRywdbxg6RKefwnnXWU5rDA7d6Q4TdWvRb1h5sFGZK5iWV4cWRFsENkM/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bangkok%20Release%20Whitepaper.pdf
 
 technology:
   title: Content Fabric Technology
@@ -372,8 +623,7 @@ technology:
     All participants including end users interact with the Content Fabric with a provable blockchain identity, releasing audience analytics from the hold of middle parties, making all engagement provable, and giving brands direct and measurable interaction with their audiences,
     and users control over their data.
 
-    The Content Fabric development is led by Serban Simu and Michelle Munson, founders of the industry standard Aspera high speed transfer technology, and is currently used by tier one creative enterprises to individual creators. The active mainnet and the testnet are EVM-compliant
-    blockchains, and have full stack implementations built on both Ethereum and Polkadot Substrate forks. The technology was recognized with the 2020 Hollywood Professional Association Engineering Excellence Award, multiple product awards, has 10 issued US patents, and has an active blockchain and creative developer community with multiple third party node providers and stakeholders.
+    The Content Fabric development is led by Serban Simu and Michelle Munson, founders of the industry standard Aspera high speed transfer technology, and is currently hosting hundreds of thousands of hours of video and over 500 live events a year. The active Fabric networks for production and test are EVM-compliant blockchains, and have full stack implementations built on both Ethereum and Polkadot Substrate forks. The technology has been recognized with numerous product awards (NAB Product of the Year 2024, 2025), SEICon Grand Prize, and the HPA Engineering Excellence Award, has 14 issued US patents, and has an active user base of the most innovative sports, entertainment and creative companies and developer community.
   architecture: Architecture
   how_it_works: How it works
   monetization: On-Chain Monetization
@@ -381,7 +631,7 @@ technology:
   on_chain_payments: On-Chain Payments
 
 blockchain:
-  title: Content Fabric Blockchain
+  title: Blockchain Protocol
   header: A Comprehensive Overview of the Blockchain Protocol
   pages:
     our_blockchain:
@@ -788,63 +1038,6 @@ blockchain:
 
       utility_token_circulation: ContentFabricTokenFlowImage
 
-    unique_benefits for_nft_media:
-      label: Unique Benefits for Content NFTs
-      text: |
-        The Content Fabric is the natural home for creative IP as NFTs, solving all major pain points and truly delivering upon the promised
-        brand loyalty and utility capabilities of Web3.
-
-        Some NFTs for creative IP have been stored, managed, and rendered in separate storage systems such as decentralized storage
-        or centralized cloud storage/Web2 systems. These have revealed shortcomings around
-        security, authenticity, uniqueness, rarity, chain of ownership, user experience, and cost/minting efficiency
-         and the weak link between NFTs as contracts and the media assets to which
-        they refer.
-        <br>
-        While these limitations may not matter as much for early adoption, static/JPEG based NFTs and a limited market, they fundamentally
-        restrict mainstream tokenized ownership, "token gating", and loyalty campaigns around content.
-        <b>The CFP addresses these shortcomings and brings deep and unparalleled benefits to content NFTs.</b>
-        <br><br>
-        **Automatic:** The CFP automatically mints NFTs (ERC 721 and 1155) from any
-          content object as a native function and as a uniquely versioned content object (with its own unique blockchain contract
-          address).
-         <br><br>
-        **Authenticity**: The NFT contract has a direct, inseparable link to the original content object that was used to create it.
-        The CFP hash is a cryptographic fingerprint that proves that the content referred to by the NFT is actually the same
-        as the original content, and can be verified through an open source proof. The original content stored in the Fabric
-        is also encrypted and all authorization to it uses on chain data or a valid transaction, making the original content
-        tamper free and truly unique. Many NFTs refer to storage of the digital content that is unprotected and, sometimes,
-        not verifiable.
-         <br><br>
-        **Uniqueness and Rarity**: Each NFT minted by the CFP is guaranteed unique, as it refers to a unique version of the
-        original content object, minted with a unique issue number among a finite set. Access to each unique NFT and its
-        viewing experience is enforced through a crypto wallet or a digital ticket code that is cryptographically verified against
-        a blockchain contract that backs the NFT batch and that particular issue number. A unique issue number can be
-        dynamically watermarked into the NFT when accessed with a ticket code or crypto wallet to display proof of ownership
-        to others.
-         <br><br>
-        **Any Content**: Unlike traditional NFT platforms that require a third party media storage or distribution system to
-        serve the digital content (static images, small videos), the Fabric can render any digital content—a full length movie,
-        concert, or even a continuous performance—as an NFT. This opens up virtually unlimited possibilities for collectible
-        experiences.
-         <br><br>
-        **Chain of Ownership and Secondary Payments**: Because the Fabric couples the transfer of ownership of NFTs to the
-        content contract, it is possible to have any royalty or other payments to creators part of every NFT transaction and to
-        enforce this in the availability of the content itself.
-        <br><br>
-        **User Experience**: All NFTs are content objects that can be directly authorized and displayed in user wallets as a native
-        media experience (video/audio streaming, resizing, live, continuous, with metadata, etc.) avoiding all separate content
-        storage and streaming systems. Key management can be delegated to the Fabric avoiding the challenges of tedious
-        crypto wallets.
-        <br><br>
-        **Dynamic Gamification and Generative Pipelines**: Functions such as spawning, burning, trait mixing, branching stories,
-        and permissioned offerings are natively supported by the Fabric’s dynamic content serving and blockchain policy
-        permissions, and generative NFTs can be created and served from single content objects with ease and low cost.
-        <br><br>
-        **Enables Low Cost Minting and Extreme Efficiency:** The Fabric content and blockchain efficiencies enable applications
-        to mint on demand, at high speed, with low cost. Applications can offer their users low cost, gas-free minting at scale,
-        and for any content experience the Fabric renders. The CFP’s “zero file copy” and dynamic, componentized distribution
-        protocol is dramatically more resource efficient (>50X) than traditional content storage and distribution networks and
-        along with its PoA/PoS blockchain, is a very efficient and low cost solution for the Creator Economy.
 
 core_apps:
   title: Content Fabric Application Suite
@@ -853,22 +1046,22 @@ core_apps:
     title: Content Fabric Application Suite
     items:
       - title: Creator Studio
-        to: "/apps/creator-studio"
+        to: "/monetization/creator-studio"
         icon: creator_studio
       - title: Analytics & Reporting
-        to: "/apps/analytics"
+        to: "/monetization/analytics"
         icon: analytics
       - title: AI Content Search and Management
-        to: "/apps/ai-clip-search"
+        to: "/video-intelligence/ai-search"
         icon: clip_search
       - title: Video Intelligence Editor
-        to: "/apps/video-editor"
+        to: "/video-intelligence/video-editor"
         icon: video_editor
       - title: Media Wallet
-        to: "/apps/media-wallet"
+        to: "/monetization/media-wallet"
         icon: media_wallet
       - title: Embeddable Player
-        to: "/apps/embeddable-player"
+        to: "/monetization/embeddable-player"
         icon: embeddable_player
   pages:
     video_editor:
@@ -1139,8 +1332,8 @@ core_apps:
                 - Safari for iPadOS 13+
                 - Safari for iOS 17.1+
     fabric_core:
-      header_title: Eluvio Core Applications
-      header_subtitle: An Overview of Our Application Suite
+      header_title: Fabric Core and Applications
+      header_subtitle: '"Bangkok Release" Summer/Fall 2025'
       header_video: hq__7GgQ1GY2wRsatqAitEqeBrZY4g3MkPWGzHyyF16xLR4iPbLTzZ2fWAUC4X5MKhUSjpwN4seyh
       sections:
         - title: Summary
@@ -1274,6 +1467,7 @@ core_apps:
                 - End users can view the media’s provenance (ownership) and its Fabric/C2PA version hash and supporting transactions for proof of authenticity and trustworthiness
 
             - title: Tools
+              id: tools
               description: |
                 <strong>Live Stream Manager</strong> provides easy automatic configuration, management and monitoring for live streams.
                 - Auto-probes the input source, configures streaming parameters
@@ -1314,6 +1508,15 @@ news:
   title: News
   back: Back to All News
 
+case_studies:
+  title: Content Fabric Case Study
+  items:
+    epcr_tv:
+      title: EPCR TV Case Study
+      description: |
+        Live Streaming D2C, Feed distribution to business partners,
+        VoD Replay, Archive with Full Stack Monetization
+
 partners:
   title: Our Partners
   text: |
@@ -1332,8 +1535,10 @@ contact:
   address: Eluvio, Inc. - HQ at 918 Parker Street Berkeley, CA 94710
 
 contact_form:
-  header: Inspired to create with us?
-  text: Send us a message to get started, we're excited to hear from you.
+  header: Inspired to use the Fabric?
+  text: |
+    Send us a message to get started,
+    we're excited to hear from you.
   email: Your Email
   message: Message
   send: Send
@@ -1360,7 +1565,7 @@ faq:
         You do, as the owner. The Fabric has a trustless security model with a unique end-to-end content encryption system where content is owned by the publishing user and re-encrypted to the recipient user using trustless cryptography.  It also combines the best of tamper proof storage and verification of your content, on chain authorization to sell and monetize, and  blockchain consensus. The digital content itself, not just the token is owned and authorized on the blockchain.
     - question: How do I get support?
       answer: |
-        Please email <a href="mailto:support@eluv.io">support@eluv.io</a> or join our community discord.  We have a 24x7x365 support team covered by our core team staff.
+        Please email <a href="mailto:support@eluv.io">support@eluv.io</a>.  We have a 24x7x365 support team covered by our core team staff.
     - question: Is my Eluvio wallet compatible with Metamask?
       answer: |
         Yes, your Eluvio wallet allows you to sign transactions on the mainnet955305 network  using your private keys and is fully compatible with Metamask and other Ethereum standard wallets.  It also has an option for email/Open ID sign in that allows you to access a Fabric-provided signing API.  All NFTS and ERC20 tokens minted on the Content Fabric blockchain are standards compliant. Contracts are open source and published at <a href="https://github.com/eluv-io" target="_blank">https://github.com/eluv-io</a>
@@ -1517,31 +1722,39 @@ footer:
       - text: "Content Fabric Technology"
         link: "/content-fabric/technology"
       - text: "Features & Functionality"
-        link: "/features/details"
-      - text: "Careers"
-        link: "https://apply.workable.com/eluvio/"
-  - title: "Discover"
+        link: "/av-core/core-utilities"
+  - title: "Quick Links"
     icon: "discover"
     links:
-      - text: "Projects"
+      - text: "Media Wallet Properties"
         link: "/wallet#/marketplaces"
       - text: "Get Started"
         link: "/about/contact"
       - text: "Github"
         link: "https://github.com/eluv-io"
-      - text: "Sign In"
+      - text: "Content Fabric Sign In"
         link: "https://contentfabric.io/"
   - title: "Community"
     icon: "link"
     links:
       - text: "See Us in the News"
         link: "/about/news"
-      - text: "Join our Community"
-        link: "https://live.eluv.io/community"
+      - text: "Latest Events - IBC2025"
+        link: "https://wallet.preview.contentfabric.io/ibc"
+      - text: "Careers"
+        link: "https://apply.workable.com/eluvio/"
   - title: "Resources"
     icon: "document"
     links:
-      - text: "Node & Validator Providers"
+      - text: "Protocol Whitepaper"
+        link: "whitepaper"
+        link_type: "doc"
+      - text: "Next Gen CDN Whitepaper"
+        link: "next-gen-whitepaper"
+        link_type: "doc"
+      - text: "Node Providers"
         link: "https://docs.eluv.io/providers/"
       - text: "API Developers"
         link: "https://docs.eluv.io/docs/"
+      - text: "Latest Release"
+        link: "/av-core/fabric-core"
