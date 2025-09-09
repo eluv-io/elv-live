@@ -148,12 +148,14 @@
     }
 
     &.light {
+      background: #EEE;
+
       .footer__links {
         background: var(--background-light-3);
       }
 
       .footer__link-section {
-        background: var(--background-light-1);
+        background: #eee;
       }
     }
 
@@ -163,7 +165,7 @@
       }
 
       .footer__link-section {
-        background: var(--background-dark-1);
+        background: var(--background-light-1);
       }
     }
   }
