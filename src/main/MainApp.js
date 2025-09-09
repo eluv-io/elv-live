@@ -125,7 +125,7 @@ const MainApp = () => {
           {/* Linked Pages */}
           <Route path="/case-studies/epcr-tv" element={<PageContainer padded><EpcrTvCaseStudy /></PageContainer>} />
           {/* Defaults */}
-          <Route path="/" element={<PageContainer unbound dark><MainPage /></PageContainer>} />
+          <Route path="/" element={<PageContainer unbound><MainPage /></PageContainer>} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </BrowserRouter>

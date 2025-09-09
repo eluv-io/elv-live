@@ -1,4 +1,6 @@
 .main-page-header {
+  background: var(--background-dark-1);
+  color: var(--color-text-dark-1);
   height: 700px;
   position: relative;
   user-select: none;
@@ -637,7 +639,7 @@
   }
 
   &--use-cases {
-    padding-bottom: 50px;
+    padding-bottom: 30px;
     padding-left: 75px;
 
     h3 {
@@ -1449,11 +1451,24 @@
 
   &__streaming-cards-container {
     width: calc(100vw - 90px);
+
+    .swiper-slide {
+      width: fit-content;
+    }
+
+    .swiper-wrapper {
+      padding-bottom: 20px;
+    }
+
+    .swiper-pagination-bullets {
+      bottom: 0;
+    }
   }
 
   &__streaming-card {
     aspect-ratio: 0.6977;
-    width: 411px;
+    //width: 411px;
+    height: 590px;
     background-color: var(--background-light-2);
     border-radius: 14px;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
@@ -1462,6 +1477,7 @@
     padding-bottom: 0;
     position: relative;
     margin-right: 12px;
+
 
     &__title-container {
       margin-bottom: 32px;

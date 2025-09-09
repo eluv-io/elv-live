@@ -85,6 +85,7 @@ import EluvioGroupDesktopImage from "../../static/images/main/team-card";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
+import {Pagination} from "swiper";
 
 const AwardsBlock = observer(({mobile}) => {
   if(mobile) {
@@ -350,7 +351,7 @@ const StreamingCard = ({
 const StreamingUseCases = observer(({mobile}) => {
   // const [title, setTitle] = useState("Streaming");
   // const [titleColor, setTitleColor] = useState("purple");
-  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const cardRefs = useRef([]);
 
   const { features } = mainStore.l10n.main.streaming_use_cases;
@@ -403,6 +404,10 @@ const StreamingUseCases = observer(({mobile}) => {
   //   };
   // }, [features]);
 
+  const HandleSlideChange = (swiper) => {
+    setCurrentSlideIndex(swiper.realIndex);
+  };
+
   return (
     <div className="main-page-block--light main-page-block--use-cases" style={{background: mobile ? "" : "linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%)"}}>
       <div className="main-page-block__copy-container">
@@ -412,21 +417,48 @@ const StreamingUseCases = observer(({mobile}) => {
         </h3>
       </div>
       <div className="main-page-block__streaming-cards-container">
-        <Marquee
-          direction="left"
-          speed={65}
-          loop={0}
-          pauseOnHover
+        <Swiper
+          className="carousel"
+          modules={[Pagination]}
+          pagination={{
+            enabled: true,
+            clickable: true
+          }}
+          autoHeight
+          // autoplay={{
+          //   delay: 1,
+          //   delay: 0,
+          //   disableOnInteraction: false,
+          //   pauseOnMouseEnter: true
+          // }}
+          loop
+          freeMode
+          spaceBetween={12}
+          slidesPerView="auto"
+          // effect="slide"
+          onSlideChange={HandleSlideChange}
+          // breakpoints={{
+          //   320: {
+          //     slidesPerView: 1,
+          //     spaceBetween: 5
+          //   },
+          //   480: {
+          //     slidesPerView: 2,
+          //     spaceBetween: 7
+          //   },
+          //   1000: {
+          //     slidesPerView: 3.5,
+          //     spaceBetween: 12
+          //   },
+          //   1500: {
+          //     slidesPerView: 4,
+          //     spaceBetween: 12
+          //   }
+          // }}
         >
           {
-            features.map((feature, i) => (
-              <div
-                key={`streaming-card-${i}`}
-                className="main-page-block__streaming-card__wrapper"
-                ref={(el) => (cardRefs.current[i] = el)}
-                data-color={feature.use_case_color}
-                data-title={feature.use_case}
-              >
+            features.map(feature => (
+              <SwiperSlide key={`streaming-card-${feature.title}`}>
                 <StreamingCard
                   title={feature.title}
                   description={feature.description}
@@ -435,10 +467,37 @@ const StreamingUseCases = observer(({mobile}) => {
                   logos={(feature.logos || []).map(logo => logoMap[logo])}
                   actions={feature.actions}
                 />
-              </div>
+              </SwiperSlide>
             ))
           }
-        </Marquee>
+        </Swiper>
+        {/*<Marquee*/}
+        {/*  direction="left"*/}
+        {/*  speed={65}*/}
+        {/*  loop={0}*/}
+        {/*  pauseOnHover*/}
+        {/*>*/}
+        {/*  {*/}
+        {/*    features.map((feature, i) => (*/}
+        {/*      <div*/}
+        {/*        key={`streaming-card-${i}`}*/}
+        {/*        className="main-page-block__streaming-card__wrapper"*/}
+        {/*        ref={(el) => (cardRefs.current[i] = el)}*/}
+        {/*        data-color={feature.use_case_color}*/}
+        {/*        data-title={feature.use_case}*/}
+        {/*      >*/}
+        {/*        <StreamingCard*/}
+        {/*          title={feature.title}*/}
+        {/*          description={feature.description}*/}
+        {/*          image={imageMap[feature.image]}*/}
+        {/*          color={feature.use_case_color}*/}
+        {/*          logos={(feature.logos || []).map(logo => logoMap[logo])}*/}
+        {/*          actions={feature.actions}*/}
+        {/*        />*/}
+        {/*      </div>*/}
+        {/*    ))*/}
+        {/*  }*/}
+        {/*</Marquee>*/}
       </div>
     </div>
   );
