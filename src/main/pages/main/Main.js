@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {observer} from "mobx-react";
+import {autorun} from "mobx";
 
 import {mainStore, uiStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
@@ -9,6 +10,7 @@ import {TabsList, TabsPanel, Video} from "../../components/Misc";
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import {useNavigate} from "react-router";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation, Pagination} from "swiper";
 
 import {NotificationBanner} from "../../components/Header";
 import SiteCarousel from "./SiteCarousel";
@@ -84,8 +86,6 @@ import EluvioGroupDesktopImage from "../../static/images/main/team-card";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
-import {Pagination} from "swiper";
-import {autorun} from "mobx";
 
 const AwardsBlock = observer(({mobile}) => {
   if(mobile) {
@@ -400,17 +400,22 @@ const StreamingUseCases = observer(({mobile}) => {
       <div className="main-page-block__streaming-cards-container">
         <Swiper
           className="carousel"
-          modules={[Pagination]}
+          modules={mobile ? [Pagination] : [Pagination]}
+          // navigation={!mobile}
           pagination={{
             enabled: true,
             clickable: true
           }}
           autoHeight
           loop
-          freeMode
           spaceBetween={12}
           slidesPerView="auto"
+          style={{
+            "--swiper-pagination-color": "#959595",
+            "--swiper-navigation-color": "#959595",
+          }}
           onSlideChange={HandleSlideChange}
+          onSwiper={swiper => window.swiper = swiper}
         >
           {
             features.map(feature => {
