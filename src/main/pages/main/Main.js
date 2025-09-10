@@ -21,7 +21,7 @@ import {
   BlockchainMenuIcon,
   BoltIcon,
   CodeSandboxIcon,
-  CubeIcon,
+  CubeIcon, IBCIcon,
   PlaySimpleIcon,
   XIcon
 } from "../../static/icons/Icons";
@@ -85,7 +85,7 @@ const HeaderBlock = observer(({mobile}) => {
                 className="light header__button header__button--cta"
                 to="/community"
               >
-                <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+                <ImageIcon icon={IBCIcon} width={18} height={15} />
                 See us at IBC!
               </Button>
             }
@@ -100,7 +100,7 @@ const HeaderBlock = observer(({mobile}) => {
             {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
-                <ImageIcon icon={PlaySimpleIcon} width={18} height={15} />
+                <ImageIcon icon={IBCIcon} width={18} height={15} />
                 See us at IBC!
               </Button>
             }
