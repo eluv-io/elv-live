@@ -33,8 +33,6 @@
     "@eluvio/elv-wallet-frame-client": "^2.1.4",
     "@paypal/react-paypal-js": "^4.0.2",
     "@react-hook/resize-observer": "^1.2.2",
-    "@splidejs/react-splide": "^0.7.12",
-    "@splidejs/splide-extension-auto-scroll": "^0.5.3",
     "@stripe/stripe-js": "^1.19.0",
     "country-codes-list": "^1.6.8",
     "dateformat": "^3.0.3",
