@@ -439,18 +439,13 @@ const BenefitsBlock = observer(({mobile}) => {
                   {
                     cards.no_4.tabs[activeTabIndex].value
                   }
-                  {
-                    mobile ? null :
-                      (
-                        <div className="main-page-block__benefit-card-4__icons">
-                          {
-                            [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
-                              <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
-                            ))
-                          }
-                        </div>
-                      )
-                  }
+                  <div className="main-page-block__benefit-card-4__icons">
+                    {
+                      [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
+                        <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
+                      ))
+                    }
+                  </div>
                 </div>
                 <div className="main-page-block__benefit-card-4__button-panel">
                   <TabsList
