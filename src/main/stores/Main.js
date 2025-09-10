@@ -204,6 +204,17 @@ class MainStore {
           (indexA < indexB ? -1 : 1);
       });
 
+    // Old sites that no longer have a path in the app
+    const oldSiteSlugs = [
+      "bayfront-jazz",
+      "black-eyed-peas",
+      "fuudge-property",
+      "martha-argerich",
+      "microsoft-elevenation",
+      "rita-ora",
+      "the-amazons-media-property"
+    ];
+
     this.featuredProperties = properties.map(property => {
       let url = new URL(this.walletAppUrl);
       if(property.main_page_url){
@@ -219,7 +230,8 @@ class MainStore {
         ...property,
         url
       };
-    });
+    })
+      .filter(item => !oldSiteSlugs.includes(item.slug));
   });
 
   LoadNews = flow(function * () {

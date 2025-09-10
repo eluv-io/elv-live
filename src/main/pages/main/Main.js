@@ -211,7 +211,6 @@ const StreamingCard = observer(({
   const iconMap = {
     "play-arrow": PlaySimpleIcon
   };
-  console.log(actions);
 
   return (
     <div className="main-page-block__streaming-card">
