@@ -20,8 +20,8 @@ const EpcrTvCaseStudy = observer(() => {
           items={
             Object.keys(epcrTvImages || {})
               .sort((a, b) => {
-                const numA = parseInt(a.replace("ClipSearch", ""), 10);
-                const numB = parseInt(b.replace("ClipSearch", ""), 10);
+                const numA = parseInt(a.replace("EPCRTV", ""), 10);
+                const numB = parseInt(b.replace("EPCRTV", ""), 10);
 
                 return numA - numB;
               })
