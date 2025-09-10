@@ -83,7 +83,7 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <Button
                 className="light header__button header__button--cta"
-                to="/community"
+                to="https://wallet.contentfabric.io/ibc"
               >
                 <ImageIcon icon={IBCIcon} width={18} height={15} />
                 See us at IBC!
