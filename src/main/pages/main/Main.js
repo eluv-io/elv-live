@@ -211,6 +211,7 @@ const StreamingCard = observer(({
   const iconMap = {
     "play-arrow": PlaySimpleIcon
   };
+  console.log(actions);
 
   return (
     <div className="main-page-block__streaming-card">
@@ -237,8 +238,10 @@ const StreamingCard = observer(({
               <Button
                 key={`use-case-button-${action.label}`}
                 className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
-                to={action.link || mobile ? action.mobile_link : undefined}
-                onClick={(action.videoHash && !mobile) ? () => {
+                to={action.link || (mobile ? action.mobile_link : undefined)}
+                onClick={(action.videoHash && !mobile) ? (event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
                   setVideoVersionHash(action.videoHash);
                   setShowModal(true);
                 } : null}

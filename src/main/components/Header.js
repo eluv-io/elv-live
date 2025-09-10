@@ -153,7 +153,7 @@ const Header = observer(() => {
             <Button to="https://wallet.contentfabric.io/" style={{paddingRight: "0"}} className="header__eluvio-logo-button">
               <ImageIcon icon={EluvioLogoIcon} title="Eluvio" className="header__eluvio-icon" />
             </Button>
-            <Button href={mainStore.walletAppUrl} target="_blank" className="light header__button header__button--discover">
+            <Button href="https://live.eluv.io/register" target="_blank" className="light header__button header__button--discover">
               { mainStore.l10n.header.try_the_fabric }
             </Button>
             <Button to="https://contentfabric.io/" target="_blank" className="light header__button header__button--fabric">
