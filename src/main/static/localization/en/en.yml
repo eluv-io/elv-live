@@ -315,6 +315,10 @@ main:
             label: Hyper Efficient
             value: |
               Componentized multi-versioned output from source ‘Parts’. Infinite re-combination.
+            value_mobile: |
+              Componentized multi-versioned
+              output from source ‘Parts’.
+              Infinite re-combination.
       no_5:
         text_one: |
           We are a team of technologists specializing in scalable content distribution, real time video, trust-less security, multi-modal AI and blockchain ownership. Led by founders Michelle Munson and Serban Simu who previously created Aspera FASP.

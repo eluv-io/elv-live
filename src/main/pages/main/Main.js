@@ -437,7 +437,7 @@ const BenefitsBlock = observer(({mobile}) => {
               <div className="main-page-block__benefit-card-4__row">
                 <div className="main-page-block__benefit-card-4__text-panel">
                   {
-                    cards.no_4.tabs[activeTabIndex].value
+                    mobile ? (cards.no_4.tabs[activeTabIndex].value_mobile || cards.no_4.tabs[activeTabIndex].value) : cards.no_4.tabs[activeTabIndex].value
                   }
                   <div className="main-page-block__benefit-card-4__icons">
                     {
