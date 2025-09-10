@@ -508,8 +508,8 @@ const AppsBlock = observer(({mobile}) => {
     "live-stream": LiveStreamManagerApp
   };
 
-  const HandleButtonClick = () => {
-    if(swiperRef.current.clickedSlide) {
+  const HandleButtonClick = (index) => {
+    if(mobile && swiperRef.current.clickedSlide) {
       const originalIndex = parseInt(swiperRef.current.clickedSlide.dataset.swiperSlideIndex, 10);
       // const physicalIndex = swiperRef.current.clickedIndex;
 
@@ -519,6 +519,8 @@ const AppsBlock = observer(({mobile}) => {
         swiperRef.current.slideToLoop(originalIndex);
         // swiperRef.current.slideTo(physicalIndex);
       }
+    } else {
+      setActiveTabIndex(index);
     }
   };
 
