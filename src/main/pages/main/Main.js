@@ -10,7 +10,7 @@ import {TabsList, TabsPanel, Video} from "../../components/Misc";
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import {useNavigate} from "react-router";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Pagination} from "swiper";
+import {Mousewheel, Pagination} from "swiper";
 
 import {NotificationBanner} from "../../components/Header";
 import SiteCarousel from "./SiteCarousel";
@@ -320,11 +320,15 @@ const StreamingUseCases = observer(({mobile}) => {
       <div className="main-page-block__streaming-cards-container">
         <Swiper
           className="carousel"
-          modules={mobile ? [Pagination] : [Pagination]}
+          modules={mobile ? [Pagination] : [Pagination, Mousewheel]}
           // navigation={!mobile}
           pagination={{
             enabled: true,
             clickable: true
+          }}
+          mousewheel={{
+            enabled: !mobile,
+            direction: "horizontal"
           }}
           autoHeight
           loop
