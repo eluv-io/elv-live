@@ -1335,6 +1335,7 @@
       flex-direction: row;
       justify-content: space-between;
       width: 100%;
+      margin-top: auto;
 
       svg {
         color: var(--color-highlight-11);
@@ -1990,6 +1991,10 @@
         .tabs {
           height: max-content;
         }
+      }
+
+      &__icons {
+        padding-bottom: 20px;
       }
     }
 
