@@ -68,7 +68,6 @@ import ClientGroupDesktopImage from "../../static/images/main/clients/client-gro
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 
 const HeaderBlock = observer(({mobile}) => {
-  const [showModal, setShowModal] = useState(false);
 
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
@@ -320,7 +319,6 @@ const StreamingUseCases = observer(({mobile}) => {
         <Swiper
           className="carousel"
           modules={mobile ? [Pagination] : [Pagination, Mousewheel]}
-          // navigation={!mobile}
           pagination={{
             enabled: true,
             clickable: true
@@ -485,6 +483,8 @@ const AppsBlock = observer(({mobile}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const blockRef = useRef(null);
   const {isInStickyZone} = useState(useScrollToElement(blockRef));
+  const toolbarRef = useRef(null);
+  const swiperRef = useRef(null);
 
   const {apps} = mainStore.l10n.main.apps_block;
 
@@ -508,8 +508,18 @@ const AppsBlock = observer(({mobile}) => {
     "live-stream": LiveStreamManagerApp
   };
 
-  const HandleButtonClick = (index) => {
-    setActiveTabIndex(index);
+  const HandleButtonClick = () => {
+    if(swiperRef.current.clickedSlide) {
+      const originalIndex = parseInt(swiperRef.current.clickedSlide.dataset.swiperSlideIndex, 10);
+      // const physicalIndex = swiperRef.current.clickedIndex;
+
+      setActiveTabIndex(originalIndex);
+
+      if(mobile && swiperRef?.current) {
+        swiperRef.current.slideToLoop(originalIndex);
+        // swiperRef.current.slideTo(physicalIndex);
+      }
+    }
   };
 
   let content;
@@ -517,8 +527,48 @@ const AppsBlock = observer(({mobile}) => {
   if(mobile) {
     content = (
       <>
+        <div ref={toolbarRef} className="main-page-block main-page-block__app-tabs-list--mobile">
+          <Swiper
+            className=""
+            spaceBetween={0}
+            loop
+            centeredSlides
+            pagination={{
+              enabled: false
+            }}
+            slidesPerView={4}
+            onSwiper={(swiper) => swiperRef.current = swiper}
+          >
+            {
+              appIcons.map((appData, index) => (
+                <SwiperSlide
+                  key={`button-${index}`}
+                  className="app-list-item-wrapper"
+                >
+                  <div
+                    key={`button-${index}`}
+                    className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : " app-list-item--inactive"}`}
+                  >
+                    <button
+                      type="button"
+                      className="app-list-item-button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        HandleButtonClick();
+                      }}
+                      tabIndex={index}
+                    >
+                      <ImageIcon icon={appData.icon} height="100%" width="100%" />
+                    </button>
+                  </div>
+                </SwiperSlide>
+              ))
+            }
+          </Swiper>
+        </div>
+
         {/* Tab panel */}
-        <div className="main-page-block main-page-block__app-tabs-panel">
+        <div className="main-page-block main-page-block__app-tabs-panel main-page-block main-page-block__app-tabs-panel--mobile">
           <div className="main-page-block__app-tabs-panel-content">
             <ImageIcon icon={apps[activeTabIndex].image ? appImageMap[apps[activeTabIndex].image] : null} />
             <div className="main-page-block__app-tabs-panel-content__text-column">
@@ -529,26 +579,6 @@ const AppsBlock = observer(({mobile}) => {
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* Tab toolbar */}
-        <div className="main-page-block main-page-block__app-tabs-list">
-          {
-            appIcons.map((appData, index) => (
-              <div
-                key={`button-${index}`}
-                className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : " app-list-item--inactive"}`}
-              >
-                <button
-                  type="button"
-                  className="app-list-item-button"
-                  onClick={() => HandleButtonClick(index)}
-                >
-                  <ImageIcon icon={appData.icon} height="100%" width="100%" />
-                </button>
-              </div>
-            ))
-          }
         </div>
       </>
     );
