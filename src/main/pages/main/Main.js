@@ -538,7 +538,7 @@ const AppsBlock = observer(({mobile}) => {
             pagination={{
               enabled: false
             }}
-            slidesPerView={4}
+            slidesPerView={4.5}
             onSwiper={(swiper) => swiperRef.current = swiper}
           >
             {

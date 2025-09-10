@@ -1875,6 +1875,7 @@
     &__app-tabs-list--mobile {
       width: 100%;
       height: max-content;
+      position: relative;
 
       .app-list-item-wrapper {
         padding-top: 10px;
@@ -1909,6 +1910,28 @@
             width: 100%;
           }
         }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 100%;
+        background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+        z-index: 2;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 100%;
+        z-index: 2;
+        background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
       }
     }
 
