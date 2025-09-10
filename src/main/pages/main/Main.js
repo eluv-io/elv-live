@@ -307,7 +307,7 @@ const StreamingUseCases = observer(({mobile}) => {
   };
 
   return (
-    <div className="main-page-block--light main-page-block--use-cases" style={{background: mobile ? "" : "linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%)"}}>
+    <div className="main-page-block--light main-page-block--use-cases" style={{background: "linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%)"}}>
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
           <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
