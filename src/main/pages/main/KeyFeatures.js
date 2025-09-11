@@ -3,7 +3,7 @@ import {Action} from "../../components/Actions";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Pagination} from "swiper";
+import {Pagination} from "swiper/modules";
 
 import {
   DiscoverIcon,

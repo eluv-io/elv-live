@@ -14,7 +14,7 @@ import {
 import TechnologyIcons from "../../static/icons/technology/TechnologyIcons";
 import SupportGrid from "./SupportGrid";
 import {CustomerServiceSection} from "./Support";
-import {Pagination} from "swiper";
+import {Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 const BannerBox = ({title, icon, paragraph, link}) => {

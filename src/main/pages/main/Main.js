@@ -10,7 +10,7 @@ import {TabsList, TabsPanel, Video} from "../../components/Misc";
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import {useNavigate} from "react-router";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Mousewheel, Pagination} from "swiper";
+import {Mousewheel, Pagination} from "swiper/modules";
 
 import {NotificationBanner} from "../../components/Header";
 import SiteCarousel from "./SiteCarousel";
@@ -481,6 +481,8 @@ const BenefitsBlock = observer(({mobile}) => {
 
 const AppsBlock = observer(({mobile}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
   const blockRef = useRef(null);
   const {isInStickyZone} = useState(useScrollToElement(blockRef));
   const toolbarRef = useRef(null);
@@ -525,11 +527,15 @@ const AppsBlock = observer(({mobile}) => {
             pagination={{
               enabled: false
             }}
-            slidesPerView={4.5}
+            slidesPerView={4}
             onSwiper={(swiper) => swiperRef.current = swiper}
             onSlideChange={(swiper) => {
               setActiveTabIndex(swiper.realIndex);
             }}
+            onTouchStart={() => {
+              setIsDragging(true);
+            }}
+            onTouchEnd={() => setIsDragging(false)}
           >
             {
               appIcons.map((appData, index) => (
@@ -539,7 +545,7 @@ const AppsBlock = observer(({mobile}) => {
                 >
                   <div
                     key={`button-${index}`}
-                    className={`app-list-item${activeTabIndex === index ? " app-list-item--active" : " app-list-item--inactive"}`}
+                    className={`app-list-item${(activeTabIndex === index && !isDragging) ? " app-list-item--active" : " app-list-item--inactive"}`}
                   >
                     <button
                       type="button"

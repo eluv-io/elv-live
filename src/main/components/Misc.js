@@ -5,7 +5,7 @@ import DOMPurify from "dompurify";
 import ImageIcon from "./ImageIcon";
 import Modal from "./Modal";
 import {Action, Button} from "./Actions";
-import SwiperCore, {Lazy, Pagination} from "swiper";
+import {Lazy, Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
@@ -14,8 +14,6 @@ import EluvioConfiguration from "EluvioConfiguration";
 import {InfoIcon, MinusIcon, PlusIcon, XIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
 import HeaderLoop from "../static/videos/header-loop.mp4";
-
-SwiperCore.use([Lazy, Pagination]);
 
 export const RichText = ({richText, children, className=""}) => {
   return (
@@ -240,6 +238,7 @@ export const Carousel = ({children, slidesPerView="auto", pagination=true, lazy=
   return (
     <div className={`carousel ${className}`}>
       <Swiper
+        modules={[Lazy, Pagination]}
         className="carousel__swiper"
         slidesPerView={slidesPerView}
         lazy={!lazy ? undefined :
@@ -448,7 +447,7 @@ export const TabsList = ({
 
   return (
     <div className={containerClassNames}>
-      <div className={`tabs__list ${orientation} ${wrap ? "wrap" : ""}`}>
+      <div className={`tabs__list ${orientation} ${wrap ? "" : ""}`}>
         {
           tabs.map((tab, i) => {
             const buttonClassNames = [

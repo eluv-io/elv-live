@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Pagination, Navigation} from "swiper";
+import {Navigation} from "swiper/modules";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
 import {Action} from "../../components/Actions";
-import {runInAction, toJS} from "mobx";
+import {runInAction} from "mobx";
 import {Video} from "../../components/Misc";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 
