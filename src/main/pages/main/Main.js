@@ -312,7 +312,7 @@ const StreamingUseCases = observer(({mobile}) => {
       <div className="main-page-block__copy-container">
         <h3 className="main-page-block__copy-header">
           <span className="main-page-block--subtle-title">Use Cases</span>&nbsp;
-          <span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor}`}>{ title }</span>
+          <span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor} main-page-block__streaming-card__title--header`}>{ title }</span>
         </h3>
       </div>
       <div className="main-page-block__streaming-cards-container">
