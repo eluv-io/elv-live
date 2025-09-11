@@ -509,19 +509,7 @@ const AppsBlock = observer(({mobile}) => {
   };
 
   const HandleButtonClick = (index) => {
-    if(mobile && swiperRef.current.clickedSlide) {
-      const originalIndex = parseInt(swiperRef.current.clickedSlide.dataset.swiperSlideIndex, 10);
-      // const physicalIndex = swiperRef.current.clickedIndex;
-
-      setActiveTabIndex(originalIndex);
-
-      if(mobile && swiperRef?.current) {
-        swiperRef.current.slideToLoop(originalIndex);
-        // swiperRef.current.slideTo(physicalIndex);
-      }
-    } else {
-      setActiveTabIndex(index);
-    }
+    setActiveTabIndex(index);
   };
 
   let content;
@@ -531,7 +519,6 @@ const AppsBlock = observer(({mobile}) => {
       <>
         <div ref={toolbarRef} className="main-page-block main-page-block__app-tabs-list--mobile">
           <Swiper
-            className=""
             spaceBetween={0}
             loop
             centeredSlides
@@ -540,6 +527,9 @@ const AppsBlock = observer(({mobile}) => {
             }}
             slidesPerView={4.5}
             onSwiper={(swiper) => swiperRef.current = swiper}
+            onSlideChange={(swiper) => {
+              setActiveTabIndex(swiper.realIndex);
+            }}
           >
             {
               appIcons.map((appData, index) => (
@@ -554,10 +544,6 @@ const AppsBlock = observer(({mobile}) => {
                     <button
                       type="button"
                       className="app-list-item-button"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        HandleButtonClick();
-                      }}
                       tabIndex={index}
                     >
                       <ImageIcon icon={appData.icon} height="100%" width="100%" />
