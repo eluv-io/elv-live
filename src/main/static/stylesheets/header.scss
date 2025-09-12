@@ -327,12 +327,14 @@
     font-size: var(--font-size-body-7);
     font-weight: 400;
     width: 100%;
-    display: flex;
+    //display: flex;
     flex-direction: row;
     gap: 6px;
     white-space: nowrap;
-    overflow-x: scroll;
-    scrollbar-width: none;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    flex-wrap: nowrap;
+    max-width: 100%;
 
     & > *:not(:last-child) {
       &::after {
@@ -345,6 +347,7 @@
       font-weight: 500;
       display: inline;
       white-space: nowrap;
+      max-width: 100%;
     }
 
     a {
@@ -360,7 +363,7 @@
     justify-content: center;
     padding: 5px;
     position: absolute;
-    right: 75px;
+    right: 10px;
   }
 
   &__close-icon {
@@ -376,6 +379,12 @@
 
     &__close-button {
       right: 20px;
+    }
+
+    &__text {
+      overflow-x: scroll;
+      scrollbar-width: none;
+      text-overflow: unset;
     }
   }
 }
