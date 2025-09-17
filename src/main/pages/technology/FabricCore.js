@@ -18,14 +18,10 @@ const FabricCore = observer(() => {
       </div>
       <Video versionHash={copy.header_video} className="main-page-block__video main-page-block__core-video" />
       <div className="page__content-block">
-        {
-          copy.sections.map(item => (
-            <div key={`fabric-core-section-${item.title}`} className="page__content-block">
-              <h3 className="page__content-block__header light">{item.title}</h3>
-              <RichText richText={item.description} className="page__copy fade-in--slow"/>
-            </div>
-          ))
-        }
+        <div key={`fabric-core-section-${copy.summary_section.title}`} className="page__content-block">
+          <h3 className="page__content-block__header light">{copy.summary_section.title}</h3>
+          <RichText richText={copy.summary_section.description} className="page__copy fade-in--slow"/>
+        </div>
       </div>
       <AppSuiteControlPanel />
       {

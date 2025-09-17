@@ -1363,6 +1363,14 @@ core_apps:
       header_title: Fabric Core and Applications
       header_subtitle: '"Bangkok Release" Summer/Fall 2025'
       header_video: hq__7GgQ1GY2wRsatqAitEqeBrZY4g3MkPWGzHyyF16xLR4iPbLTzZ2fWAUC4X5MKhUSjpwN4seyh
+      summary_section:
+        title: Summary
+        description: |
+          The <span style="color: var(--color-highlight-3)">**Eluvio Content Fabric - Bangkok Release**</span> provides transformational advantages for content distribution and monetization including speed; hyper-efficiency with 10x savings over CDN/media clouds; security; content provenance and verification; and AI native personalization--all based on innovation rather than brute force.
+          
+          Notably, Bangkok includes a new real-time transport distribution capability for global low latency propagation of live streams and dynamic generation of SRT (and any other encapsulating protocol needed) at each receiving endpoint. In addition to this low latency one-to-many broadcast streaming for satellite replacement, the same Content Fabric object can simultaneously perform D2C streaming distributions (for D2C live, live-to-VoD, catch up viewing, FAST channels, and supporting highlights/trailers shorts, etc.) by dynamically creating consumer HLS/DASH segmented streaming from the same source object, enabling unlimited re-use of the same live feed distributions for maximum simplification and cost savings.
+          
+          Eluvio extended the Fabric’s state-of-the-art multi-modal Eluvio AI Stack capabilities with the new Eluvio Video Intelligence Editor. “EVIE” provides comprehensive, in-place search, creation, editing and sharing of clips, highlights, compositions, and image curation--backed the just-in-time Fabric hosting, provenance and distribution. With Eluvio, there are no file copies, intermediary re-transcoding, or file exports/associated egress. Bangkok delivers unmatched capabilities for distribution and monetization.
       sections:
         - title: Summary
           description: |
