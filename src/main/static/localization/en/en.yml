@@ -1373,27 +1373,83 @@ core_apps:
           Eluvio extended the Fabric’s state-of-the-art multi-modal Eluvio AI Stack capabilities with the new Eluvio Video Intelligence Editor. “EVIE” provides comprehensive, in-place search, creation, editing and sharing of clips, highlights, compositions, and image curation--backed the just-in-time Fabric hosting, provenance and distribution. With Eluvio, there are no file copies, intermediary re-transcoding, or file exports/associated egress. Bangkok delivers unmatched capabilities for distribution and monetization.
       upper_accordion_sections:
         - header: Features
-          description: |
-            <span style="color: var(--color-highlight-3)">**Super Scale Low Latency Global Live Streaming to Millions**</span> with (<5 s) glass to glass latency, premium quality, encrypted with built in DRM, multi-audio, catch up DVR, and multi-view, at 10X less cost than traditional distribution.
-            
-            <span style="color: var(--color-highlight-3)">**Ultra Low Latency Global MPEG-TS/SRT/RTP Distribution to Affiliates**</span> to replace expensive satellite and dedicated fiber with sub second delivery globally.
-            
-            <span style="color: var(--color-highlight-3)">**Al-Generated, Personalized Highlights, Channels and Compositions**</span> from live recorded parts, and edit the Al suggested candidates.
-            
-            <span style="color: var(--color-highlight-3)">**Progressive Live to VoD with Zero Copies**</span> for highlights generation, Al tagging, transcription, summarization, clipping and search.
-            
-            <span style="color: var(--color-highlight-3)">**Eluvio Al Stack for Inline Multi-Modal Video, Audio and Image AI**</span> to describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in Al models and new domain-specific models. Users can create and add fine-tuned and domain specific models, and search via the <span style="color: var(--color-highlight-3)">**Eluvio AI Vector Search**</span>. The <span style="color: var(--color-highlight-3)">**new Eluvio Video Intelligence Editor (EVIE)**</span> enables users to create and share clips and post to social, with no file copies, exports or egress.
-            
-            <span style="color: var(--color-highlight-3)">**Host and Distribute Highlights, Live/VoD Linear Channels**</span> with New SCTE-35 Dynamic Ad Insertion, Streaming Support for 50+ D2C DRM and Packaging Combinations, and Create Archive content automatically with options to select the stored resolution, bit rate, and advanced audio combinations.
-            
-            <span style="color: var(--color-highlight-3)">**Creator Studio Site Builder**</span> provides easy, no code config of OTT sites with advanced Viewing Features (multi-view, DVR, casting) on Browser, Mobile, and Connected TV, including Roku, Tizen Media Wallet, TVOS, Android, and FireTV.
-            
-            <span style="color: var(--color-highlight-3)">**Subscription, Ad Supported, and Rewards**</span> with global payment and checkout with global reach <span style="color: var(--color-highlight-3)">**VAST Ad Server**</span> integration for frame-accurate dynamic insertion.
-            
-            <span style="color: var(--color-highlight-3)">**Advanced Real-time and Historical QoS, Audience and Revenue Analytics**</span> per user and in aggregate.
-            
-            <span style="color: var(--color-highlight-3)">**Advanced Built-in Rights Control**</span> including geographic windows and personalized access and <span style="color: var(--color-highlight-3)">**on screen content verification proofs and provenance**</span>.
+          blocks:
+            -
+              pre_line: true
+              description: |
+                <span style="color: var(--color-highlight-3)">**Super Scale Low Latency Global Live Streaming to Millions**</span> with (<5 s) glass to glass latency, premium quality, encrypted with built in DRM, multi-audio, catch up DVR, and multi-view, at 10X less cost than traditional distribution.
+    
+                <span style="color: var(--color-highlight-3)">**Ultra Low Latency Global MPEG-TS/SRT/RTP Distribution to Affiliates**</span> to replace expensive satellite and dedicated fiber with sub second delivery globally.
+    
+                <span style="color: var(--color-highlight-3)">**Al-Generated, Personalized Highlights, Channels and Compositions**</span> from live recorded parts, and edit the Al suggested candidates.
+    
+                <span style="color: var(--color-highlight-3)">**Progressive Live to VoD with Zero Copies**</span> for highlights generation, Al tagging, transcription, summarization, clipping and search.
+    
+                <span style="color: var(--color-highlight-3)">**Eluvio Al Stack for Inline Multi-Modal Video, Audio and Image AI**</span> to describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in Al models and new domain-specific models. Users can create and add fine-tuned and domain specific models, and search via the <span style="color: var(--color-highlight-3)">**Eluvio AI Vector Search**</span>. The <span style="color: var(--color-highlight-3)">**new Eluvio Video Intelligence Editor (EVIE)**</span> enables users to create and share clips and post to social, with no file copies, exports or egress.
+    
+                <span style="color: var(--color-highlight-3)">**Host and Distribute Highlights, Live/VoD Linear Channels**</span> with New SCTE-35 Dynamic Ad Insertion, Streaming Support for 50+ D2C DRM and Packaging Combinations, and Create Archive content automatically with options to select the stored resolution, bit rate, and advanced audio combinations.
+    
+                <span style="color: var(--color-highlight-3)">**Creator Studio Site Builder**</span> provides easy, no code config of OTT sites with advanced Viewing Features (multi-view, DVR, casting) on Browser, Mobile, and Connected TV, including Roku, Tizen Media Wallet, TVOS, Android, and FireTV.
+    
+                <span style="color: var(--color-highlight-3)">**Subscription, Ad Supported, and Rewards**</span> with global payment and checkout with global reach <span style="color: var(--color-highlight-3)">**VAST Ad Server**</span> integration for frame-accurate dynamic insertion.
+    
+                <span style="color: var(--color-highlight-3)">**Advanced Real-time and Historical QoS, Audience and Revenue Analytics**</span> per user and in aggregate.
+    
+                <span style="color: var(--color-highlight-3)">**Advanced Built-in Rights Control**</span> including geographic windows and personalized access and <span style="color: var(--color-highlight-3)">**on screen content verification proofs and provenance**</span>.
         - header: The Technology
+          sub_sections:
+            -
+              title: The Content Fabric
+              blocks:
+                -
+                  description: |
+                    Replaces brute force legacy streaming distribution (ingest, packager, transcoding, origin server, and CDN segment distribution) with its ‘content-native’ end-to-end protocol. Media, metadata and processing (code) are inherently linked together in a decentralized content object structure and composed in-protocol just-in-time to create streaming video (CMAF DASH/HLS, SRT) and other content. On client request, the protocol locates content parts in the global network through its novel fast content routing and produces streaming video including live, VoD, and composed sequences/channels through transcoding and packaging of the component “parts”. Cryptographically verifiable versions of streaming output and provenance are recorded in protocol through its tamper proof ledger, providing inherent proof of provenance and authenticity.
+            -
+              title: The Bangkok Release
+              blocks:
+                -
+                  description: |
+                    Provides ultra-low latency global distribution of high frame rate broadcast transport streams with SRT outputs (less than 500 milliseconds globally) using standard Internet and the Content Fabric in addition to direct-to-consumer HLS/DASH distribution, all from the same single source object. This offers dramatic cost savings and consolidation over satellite distribution for broadcasters and allows the OTT to consumer (D2C) and the direct distribution to affiliates (B2B) to be distributed globally from one feed, with the lowest possible latency, built-in authorization, windowing, end-to-end encryption, analytics, and data-driven personalization.
+            -
+              title: Eluvio Video Intelligence Editor (EVIE)
+              blocks:
+                -
+                  description: |
+                    Extends AI-native in-Fabric functions to provide automatic generation of highlights, captions, and summarization of content without creating any file copies, moving media, or egress. Eluvio enables in-Fabric task-specific models for high-accuracy captioning with a native stack of 10 AI models for content description running inline for universal video understanding and search. Bangkok brings this all together into one video pipeline that allows for live streams that become progressive VoD (with no file copies) to enable infinite re-combinations such as personalized highlights and topic-based channels, based on in-place AI assistance and suggestions.
+                -
+                  description: |
+                    The Eluvio Content Fabric Bangkok Release is designed to provide the <span style="color: var(--color-highlight-3)">**most powerful platform for distribution and monetization.**</span> It enables media companies to maximize their monetization potential, both on the top line, through expanded global distribution, content sales, and personalization, and on bottom line through the extreme cost efficiency achieved by the Fabric’s novel architecture and advanced video features. For example, European Professional Club Rugby recently launched EPCR TV, achieving over 70% profit and expanded distribution to their fans to more than 90 countries. The entire experience including full stack UI is streamed from the Content Fabric. Key benefits include:
+                  items:
+                    -
+                      title: Fast
+                      description: |
+                        - Ultra Low Latency Global Streaming (D2C) Live and On Demand
+                        - Live Feed Distribution to Millions of Receivers (B2B) with Sub-second Latency
+                        - Optimized Routing for Minimum Bandwidth Use and Maximum Cost Efficiency
+                    -
+                      title: Hyper-Efficient & Decentralized
+                      description: |
+                        - 10x Less $$$ at Scale than Legacy CDN and Media Cloud
+                        - Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings
+                    -
+                      title: Secure & Verifiable
+                      description: |
+                        - Secure & Tamper-Proof with Built-in Rights Management, Geo Windows, DRM, and Watermarking
+                        - Innovative Content Crypto Proves Provenance, Authenticity, and Verifiability
+                        - Inline Verification Proofs for Video, Images and Metadata
+                    -
+                      title: AI-Native
+                      description: |
+                        - Built-in Multi-modal Al Tagging, Summarization and Vectorized Search
+                        - Al-Assisted, JIT Personalized Highlights, Channels & Compositions
+                        - Comprehensive Open Source API (REST, WASM, Git-style Version Hashing)
+                    -
+                      title: Unlimited Monetization
+                      description: |
+                        - Zero-code OTT Site Creation with Global Reach on Web/Mobile/Connected TV
+                        - Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
+                        - Built-in Subscription, Sell Through and Ad-Supported Monetization
+
           description: |
             <span style="color: var(--color-highlight-3)">**The Content Fabric**</span> replaces brute force legacy streaming distribution (ingest, packager, transcoding, origin server, and CDN segment distribution) with its ‘content-native’ end-to-end protocol. Media, metadata and processing (code) are inherently linked together in a decentralized content object structure and composed in-protocol just-in-time to create streaming video (CMAF DASH/HLS, SRT) and other content. On client request, the protocol locates content parts in the global network through its novel fast content routing and produces streaming video including live, VoD, and composed sequences/channels through transcoding and packaging of the component “parts”. Cryptographically verifiable versions of streaming output and provenance are recorded in protocol through its tamper proof ledger, providing inherent proof of provenance and authenticity.
             

@@ -299,6 +299,29 @@
 }
 
 .accordion {
+  &--block {
+    background-color: var(--background-light-4);
+
+    &:last-child {
+      padding-bottom: 24px;
+    }
+
+    .accordion__header {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .accordion__header__title {
+      font-size: 16px;
+      padding-left: 28px;
+    }
+
+    .rich-text.accordion__description-card {
+      padding-top: 0;
+      padding-bottom: 8px;
+    }
+  }
+
   &__header-container {
     display: flex;
     flex-direction: column;
@@ -358,7 +381,10 @@
     background-color: var(--background-light-4);
     color: var(--color-text-light-3);
     padding: 32px 28px;
-    white-space: pre-line;
+
+    &--pre-line {
+      white-space: pre-line;
+    }
   }
 }
 
