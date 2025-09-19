@@ -15,7 +15,7 @@
   }
 
   &__media-wallet {
-    height: 520px;
+    height: 700px;
 
     .main-page-header__content {
       padding-top: 45px;
@@ -351,11 +351,21 @@
     width: 20px;
   }
 
+  @media screen and (max-width: $width-max) {
+    &__media-wallet {
+      height: 460px;
+    }
+  }
+
   @media screen and (max-width: $width-laptop) {
     &__main-header {
       &__header {
         font-size: var(--font-size-header-3);
       }
+    }
+
+    &__media-wallet {
+      height: 550px;
     }
   }
 
