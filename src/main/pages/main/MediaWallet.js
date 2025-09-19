@@ -59,7 +59,7 @@ const FeatureBlock1Mobile = observer(() => {
   } = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header main-page-header__media-wallet">
+    <div className="main-page-header main-page-header--no-bg main-page-header__media-wallet">
       <div className="main-page-header__content">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
@@ -100,7 +100,7 @@ const FeatureBlock1 = observer(() => {
   } = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header">
+    <div className="main-page-header main-page-header--no-bg">
       <div className="main-page-header__content">
         <div className="main-page-header__image-container">
           <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__top-image"/>
@@ -136,7 +136,7 @@ const FeatureBlock2 = observer(() => {
   const {header, subheader, tagline, button_text} = mainStore.l10n.media_wallet.feature_2;
 
   return (
-    <div className="main-page-header main-page-header__media-wallet">
+    <div className="main-page-header main-page-header--no-bg main-page-header__media-wallet">
       <div className="main-page-header__content">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
