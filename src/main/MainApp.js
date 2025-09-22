@@ -38,6 +38,7 @@ import VideoEditor from "./pages/apps/VideoEditor";
 import MediaWalletApp from "./pages/apps/MediaWalletApp";
 import EmbeddablePlayer from "./pages/apps/EmbeddablePlayer";
 import EpcrTvCaseStudy from "./pages/case-studies/EpcrTvCaseStudy";
+import LearningResources from "./pages/resources/LearningResources";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -96,11 +97,11 @@ const MainApp = () => {
           {/* Media Wallet Routes */}
           <Route path="/media-wallet" element={<PageContainer unbound dark><MediaWallet /></PageContainer>} />
           <Route path="/media-wallet/compatible-devices" element={<CompatibleDevices />} />
-          {/* Content Fabric Routes*/}
+          {/* Technology Routes*/}
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
           <Route path="/content-fabric/technology" element={<PageContainer padded><Technology /></PageContainer>} />
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
-          {/* Apps Routes */}
+          {/* A/V Core Routes */}
           <Route path="/av-core/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
           <Route path="/av-core/core-utilities" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           {/* Monetization Routes */}
@@ -111,8 +112,9 @@ const MainApp = () => {
           {/* Video Intelligence Routes */}
           <Route path="/video-intelligence/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
           <Route path="/video-intelligence/ai-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
-          {/* Community Routes */}
+          {/* Resources Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
+          <Route path="/resources/learning-resources" element={<PageContainer padded><LearningResources /></PageContainer>} />
           {/* Features Routes */}
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
