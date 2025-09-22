@@ -1,10 +1,13 @@
 .main-page-header {
   background: var(--background-dark-1);
   color: var(--color-text-dark-1);
-  height: 700px;
   position: relative;
   user-select: none;
   width: 100%;
+
+  &__top-section {
+    height: 700px;
+  }
 
   &--no-bg {
     background: transparent;
@@ -15,17 +18,13 @@
   }
 
   &__media-wallet {
-    height: 700px;
+    padding-bottom: 50px;
 
     .main-page-header__content {
       padding-top: 45px;
       padding-bottom: 0;
       position: unset;
       z-index: unset;
-    }
-
-    .main-page-block__text {
-      padding-bottom: 0;
     }
   }
 
@@ -351,21 +350,11 @@
     width: 20px;
   }
 
-  @media screen and (max-width: $width-max) {
-    &__media-wallet {
-      height: 460px;
-    }
-  }
-
   @media screen and (max-width: $width-laptop) {
     &__main-header {
       &__header {
         font-size: var(--font-size-header-3);
       }
-    }
-
-    &__media-wallet {
-      height: 550px;
     }
   }
 
@@ -451,10 +440,6 @@
     &__get-started-link {
       justify-content: center;
     }
-
-    &__media-wallet {
-      height: 820px;
-    }
   }
 
   @media screen and (max-width: $width-mobile) {
@@ -518,10 +503,6 @@
 
     &__content {
       height: calc(85vh - var(--header-height--mobile));
-    }
-
-    &__media-wallet {
-      height: 620px;
     }
 
     &__main-header {
@@ -1046,7 +1027,6 @@
   &__text {
     font-size: var(--font-size-body-2);
     font-weight: 500;
-    padding-bottom: 50px;
 
     &--shadow {
       text-shadow: var(--text-shadow-dark);
