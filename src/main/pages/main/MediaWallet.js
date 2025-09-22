@@ -136,7 +136,7 @@ const FeatureBlock2 = observer(() => {
   const {header, subheader, tagline, button_text} = mainStore.l10n.media_wallet.feature_2;
 
   return (
-    <div className="main-page-header main-page-header--no-bg main-page-header__media-wallet">
+    <div className="main-page-header--no-bg main-page-header__media-wallet">
       <div className="main-page-header__content">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
