@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import "./static/stylesheets/app.scss";
+import "@mantine/core/styles.css";
 
 import {createRoot} from "react-dom/client";
 import {observer, Provider} from "mobx-react";
@@ -39,6 +40,8 @@ import MediaWalletApp from "./pages/apps/MediaWalletApp";
 import EmbeddablePlayer from "./pages/apps/EmbeddablePlayer";
 import EpcrTvCaseStudy from "./pages/case-studies/EpcrTvCaseStudy";
 import LearningResources from "./pages/resources/LearningResources";
+import {MantineProvider} from "@mantine/core";
+import MantineTheme from "Styles/MantineTheme";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -114,7 +117,7 @@ const MainApp = () => {
           <Route path="/video-intelligence/ai-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
           {/* Resources Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
-          <Route path="/resources/learning-resources" element={<PageContainer padded><LearningResources /></PageContainer>} />
+          <Route path="/resources/learning-resources" element={<PageContainer unbound><LearningResources /></PageContainer>} />
           {/* Features Routes */}
           <Route path="/features" element={<Navigate replace to="/features/tenancy-levels" />} />
           <Route path="/features/tenancy-levels" element={<TenancyLevels />} />
@@ -137,7 +140,9 @@ const MainApp = () => {
 
 createRoot(document.getElementById("app")).render(
   <Provider {...Stores}>
-    <MainApp />
+    <MantineProvider theme={MantineTheme}>
+      <MainApp />
+    </MantineProvider>
   </Provider>
 );
 
