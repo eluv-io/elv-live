@@ -1095,7 +1095,7 @@ core_apps:
     video_editor:
       header: Content Fabric Application Suite
       title: Eluvio Video Intelligence Editor
-      walkthrough_video: hq__HYmWJqLhpKqWJwsR9BRX3vSh9qEPSfiukv9sqVK5XZdDKjnosQyqUgJi6CedBnsYhTAzoJ3iQx
+      walkthrough_video: hq__2C84z5aLtWkzLLb2zrU1UFYkrNbspymquGQWpiu8n8xRXAmG79tK9SkqwsvpsB8bnhmgK5eV6Wyj
       short_description: |
         Create and share clips from Fabric content with no file copies or re-transcodes.
         <br>
