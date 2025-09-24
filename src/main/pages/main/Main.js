@@ -85,7 +85,7 @@ const HeaderBlock = observer(({mobile}) => {
                 to="https://wallet.contentfabric.io/ibc"
               >
                 <ImageIcon icon={IBCIcon} width={18} height={15} />
-                See us at IBC!
+                IBC 2025 Recap - See it all here!
               </Button>
             }
 
@@ -100,7 +100,7 @@ const HeaderBlock = observer(({mobile}) => {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
                 <ImageIcon icon={IBCIcon} width={18} height={15} />
-                See us at IBC!
+                IBC 2025 Recap - See it all here!
               </Button>
             }
           </div>
