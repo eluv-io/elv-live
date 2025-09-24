@@ -1,13 +1,25 @@
+.sectionCard {
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.14);
+}
+
+.buttonRoot {
+  &:where([data-with-left-section]) {
+    padding-inline-start: 31px;
+  }
+}
+
 .buttonLeftIcon {
   color: var(--mantine-color-blue-0);
+  height: 30px;
+  width: 33px;
 }
 
 .buttonRightIcon {
-  color: var(--mantine-color-black-6);
+  color: var(--mantine-color-black-9);
   height: 15px;
   width: 15px;
 }
 
 .buttonInner {
-  /*justify-content: flex-start;*/
+  justify-content: flex-start;
 }

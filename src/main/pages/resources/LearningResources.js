@@ -2,29 +2,38 @@ import React from "react";
 import {BackgroundImage, Box, Button, Flex, Group, Text, Title} from "@mantine/core";
 import BgImage from "../../static/images/resources/narrow-wave.png";
 import {useNavigate} from "react-router";
-import {ArrowRightIcon, DocumentIcon} from "../../static/icons/Icons";
+import {ArrowRightShortIcon, DocumentIcon} from "../../static/icons/Icons";
 import ImageIcon from "Common/ImageIcon";
 import styles from "../../static/modules/LearningResources.module.css";
 
 const Card = ({title, description, action={}, primaryColor}) => {
   return (
-    <Box bg="white.0" flex="0 0 410px" h={312} bdrs={14} p="30px 35px 35px">
+    <Box bg="white.0" flex="0 0 410px" h={312} bdrs={14} p="31px 33px 35px" className={styles.sectionCard}>
       <Flex direction="column" gap={20} h="100%">
-        <Title c={primaryColor} size={28} lineClamp={2} fw={600}>{ title }</Title>
-        <Text mah={72} lineClamp={3} m="auto 0">{ description }</Text>
+        <Title c={primaryColor} fz={28} lineClamp={2} fw={600}>{ title }</Title>
+        <Text mah={72} lineClamp={3} m="auto 0" fz="1rem">{ description }</Text>
         <Button
-          classNames={{inner: styles.buttonInner}}
+          classNames={{
+            inner: styles.buttonInner,
+            root: styles.buttonRoot
+          }}
+          pt={14}
+          pb={14}
           variant="outline"
           radius={8}
           color={primaryColor}
-          size="md"
+          h={60}
           onClick={action.onClick}
           mt="auto"
-          leftSection={<ImageIcon icon={DocumentIcon} height={30} width={33} className={styles.buttonLeftIcon} />}
-          rightSection={<ImageIcon icon={ArrowRightIcon} className={styles.buttonRightIcon} />}
+          leftSection={
+            <ImageIcon icon={DocumentIcon} className={styles.buttonLeftIcon} />
+          }
+          rightSection={
+            <ImageIcon icon={ArrowRightShortIcon} className={styles.buttonRightIcon} />
+          }
           fullWidth
         >
-          <Text fw={700} c="black.6" size="1.125rem">
+          <Text fw={700} c="black.9" fz="1.125rem">
             { action.text }
           </Text>
         </Button>
@@ -42,8 +51,8 @@ const Section = ({
   return (
     <div>
       <Group wrap="nowrap" gap={8} mb={35}>
-        <Title size={32} c="gray.2" fw={600}>{ title }</Title>
-        <Title c={primaryColor} size={32} fw={600}>{ subtitle }</Title>
+        <Title fz={32} c="gray.2" fw={600}>{ title }</Title>
+        <Title c={primaryColor} fz={32} fw={600}>{ subtitle }</Title>
       </Group>
       <Flex direction="row" gap={25}>
         {

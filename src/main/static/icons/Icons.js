@@ -2,6 +2,7 @@ import AppleIcon from "./apple.svg";
 import ArrowCubeIcon from "./arrow-cube.svg";
 import ArrowLeftIcon from "./arrow-left.svg";
 import ArrowRightIcon from "./arrow-right.svg";
+import ArrowRightShortIcon from "./arrow-right-short";
 import BlockchainIcon from "./blockchain.svg";
 import BlockchainMenuIcon from "./blockchain-menu.svg";
 import BoltIcon from "./bolt.svg";
@@ -125,6 +126,7 @@ export {
   ArrowCubeIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  ArrowRightShortIcon,
   BarsIcon,
   BlockchainMenuIcon,
   BoltIcon,
