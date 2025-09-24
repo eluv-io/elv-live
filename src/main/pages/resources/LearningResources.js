@@ -1,22 +1,35 @@
 import React from "react";
-import {BackgroundImage, Box, Button, Flex, Group, Stack, Text, Title} from "@mantine/core";
+import {BackgroundImage, Box, Button, Flex, Group, Text, Title} from "@mantine/core";
 import BgImage from "../../static/images/resources/narrow-wave.png";
 import {useNavigate} from "react-router";
+import {ArrowRightIcon, DocumentIcon} from "../../static/icons/Icons";
+import ImageIcon from "Common/ImageIcon";
+import styles from "../../static/modules/LearningResources.module.css";
 
-const Card = ({title, description, action={}}) => {
+const Card = ({title, description, action={}, primaryColor}) => {
   return (
-    <Stack>
-      <Title>{ title }</Title>
-      <Text>{ description }</Text>
-      <Button
-        variant="outline"
-        radius={8}
-        color="highlight.8"
-        onClick={action.onClick}
-      >
-        { action.text }
-      </Button>
-    </Stack>
+    <Box bg="white.0" flex="0 0 410px" h={312} bdrs={14} p="30px 35px 35px">
+      <Flex direction="column" gap={20} h="100%">
+        <Title c={primaryColor} size={28} lineClamp={2} fw={600}>{ title }</Title>
+        <Text mah={72} lineClamp={3} m="auto 0">{ description }</Text>
+        <Button
+          classNames={{inner: styles.buttonInner}}
+          variant="outline"
+          radius={8}
+          color={primaryColor}
+          size="md"
+          onClick={action.onClick}
+          mt="auto"
+          leftSection={<ImageIcon icon={DocumentIcon} height={30} width={33} className={styles.buttonLeftIcon} />}
+          rightSection={<ImageIcon icon={ArrowRightIcon} className={styles.buttonRightIcon} />}
+          fullWidth
+        >
+          <Text fw={700} c="black.6" size="1.125rem">
+            { action.text }
+          </Text>
+        </Button>
+      </Flex>
+    </Box>
   );
 };
 
@@ -28,11 +41,11 @@ const Section = ({
 }) => {
   return (
     <div>
-      <Group wrap="nowrap" gap={8}>
-        <Title size={32} c="darkText.1" fw={600}>{ title }</Title>
+      <Group wrap="nowrap" gap={8} mb={35}>
+        <Title size={32} c="gray.2" fw={600}>{ title }</Title>
         <Title c={primaryColor} size={32} fw={600}>{ subtitle }</Title>
       </Group>
-      <Flex direction="row">
+      <Flex direction="row" gap={25}>
         {
           items.map(item => (
             <Card
@@ -40,6 +53,7 @@ const Section = ({
               title={item.title}
               description={item.description}
               action={item.action}
+              primaryColor={primaryColor}
             />
           ))
         }
@@ -51,7 +65,7 @@ const Section = ({
 const LearningResources = () => {
   const navigate = useNavigate();
   const data = [
-    {id: "resource-1", title: "Placeholder Title", description: "Quick description or the first paragraph of the document can go here. Zero-code OTT Max out at this length.", action: {text: "Link Text", onClick: () => navigate("/community")}},
+    {id: "resource-1", title: "Placeholder Title Longer Long Long Title", description: "Quick description or the first paragraph of the document can go here. Zero-code OTT Max out at this length.", action: {text: "Link Text", onClick: () => navigate("/community")}},
     {id: "resource-2", title: "Placeholder Title", description: "Quick description or the first paragraph of the document can go here. Zero-code OTT Max out at this length.", action: {text: "Link Text", onClick: () => navigate("")}},
     {id: "resource-3", title: "Placeholder Title", description: "Quick description or the first paragraph of the document can go here. Zero-code OTT Max out at this length.", action: {text: "Link Text", onClick: () => navigate("")}}
   ];
@@ -63,7 +77,7 @@ const LearningResources = () => {
           title="Document"
           subtitle="Category"
           items={data}
-          primaryColor="highlight.8"
+          primaryColor="purple.8"
         />
       </BackgroundImage>
     </Box>

@@ -1,0 +1,13 @@
+.buttonLeftIcon {
+  color: var(--mantine-color-blue-0);
+}
+
+.buttonRightIcon {
+  color: var(--mantine-color-black-6);
+  height: 15px;
+  width: 15px;
+}
+
+.buttonInner {
+  /*justify-content: flex-start;*/
+}
