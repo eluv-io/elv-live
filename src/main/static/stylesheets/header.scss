@@ -323,25 +323,39 @@
   margin-top: -50px;
   z-index: 5;
 
-  //&__text-container {
-  //  overflow-x: hidden;
-  //  text-overflow: ellipsis;
-  //  max-width: 100%;
-  //}
+  &__text-gradient-container {
+    &:hover {
+      .notification-banner__text-desktop {
+        -webkit-line-clamp: 2;
+        white-space: wrap;
+      }
 
-  &__text-wrapper {
-    position: relative;
+      .notification-banner__text-gradient {
+        visibility: hidden;
+      }
+    }
   }
 
   &__text-gradient {
     position: absolute;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.91) 100%);
     width: 50px;
-    height: 200%;
+    height: 150%;
     right: 0;
-    top: -50%;
+    top: -25%;
     z-index: 2;
     filter: blur(4px);
+  }
+
+  &__text-desktop {
+    &:hover {
+      -webkit-line-clamp: 2;
+      white-space: wrap;
+
+      .notification-banner__text-gradient {
+        visibility: hidden;
+      }
+    }
   }
 
   &__text {

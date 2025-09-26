@@ -41,15 +41,20 @@ export const NotificationBanner = observer(({className="", mobile}) => {
             </Flex>
           ) :
           (
-            <Flex direction="row" gap={6} justify="center" className="notification-banner__text-container" wrap="nowrap">
-              <Text lineClamp={1} fz={16} fw={500} truncate={"end"}>
-                {mainStore.notification.plain_text}
-              </Text>
-              <Action to={mainStore.notification.link}>
-                <Text fz={mobile ? 14 : 16} fw={700}>
-                  { mainStore.notification.link_text } →
+            <Flex direction="row" gap={6} justify="center" wrap="nowrap" w="100%">
+              <Box maw="100%" miw={0} pos="relative" className="notification-banner__text-gradient-container">
+                <Text className="notification-banner__text-desktop" lineClamp={1} fz={16} fw={500} truncate={"end"}>
+                  {mainStore.notification.plain_text}
                 </Text>
-              </Action>
+                <Box className="notification-banner__text-gradient" />
+              </Box>
+              <Box flex={1}>
+                <Action to={mainStore.notification.link}>
+                  <Text fz={mobile ? 14 : 16} fw={700}>
+                    { mainStore.notification.link_text } →
+                  </Text>
+                </Action>
+              </Box>
             </Flex>
           )
       }
