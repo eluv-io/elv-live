@@ -13,20 +13,46 @@ import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 import {runInAction} from "mobx";
 import UrlJoin from "url-join";
+import {Box, Flex, Text} from "@mantine/core";
 
-export const NotificationBanner = observer(({className=""}) => {
+export const NotificationBanner = observer(({className="", mobile}) => {
   if(!mainStore.notification) { return null; }
 
   return (
     <div className={`notification-banner ${className}`}>
       <h3>{ mainStore.notification.header }</h3>
-      <RichText richText={mainStore.notification.text} className="notification-banner__text" />
-      <button
-        onClick={() => mainStore.DismissNotification()}
-        className="notification-banner__close-button"
-      >
-        <ImageIcon icon={XIcon} title="Dismiss" className="notification-banner__close-icon" />
-      </button>
+      {
+        mobile ?
+          (
+            <Flex direction="row" wrap="nowrap" w="100%" gap={8}>
+              <Flex direction="row" wrap="nowrap" w="100%" miw={0} pos="relative">
+                <Text richText={mainStore.notification.plain_text} className="notification-banner__text" fz={14}>
+                  { mainStore.notification.plain_text }
+                </Text>
+                <Box className="notification-banner__text-gradient" />
+              </Flex>
+              <Box flex={1}>
+                <Action to={mainStore.notification.link}>
+                  <Text fz={14} fw={700} wrap="nowrap">
+                    { mainStore.notification.link_text } →
+                  </Text>
+                </Action>
+              </Box>
+            </Flex>
+          ) :
+          (
+            <Flex direction="row" gap={6} justify="center" className="notification-banner__text-container" wrap="nowrap">
+              <Text lineClamp={1} fz={16} fw={500} truncate={"end"}>
+                {mainStore.notification.plain_text}
+              </Text>
+              <Action to={mainStore.notification.link}>
+                <Text fz={mobile ? 14 : 16} fw={700}>
+                  { mainStore.notification.link_text } →
+                </Text>
+              </Action>
+            </Flex>
+          )
+      }
     </div>
   );
 });

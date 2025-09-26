@@ -689,7 +689,7 @@ const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
       <HeaderBlock mobile/>
-      <NotificationBanner className="mobile" />
+      <NotificationBanner mobile className="mobile" />
       <div className="page light no-padding">
         <VideoStack mobile />
         <StreamingUseCases mobile />
