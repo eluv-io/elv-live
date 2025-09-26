@@ -4,13 +4,12 @@ import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
 import {Action, Button, MenuButton} from "./Actions";
 import {uiStore, mainStore} from "../stores/Main";
-import {RichText} from "./Misc";
 import MobileNav from "./MobileNav";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo-dot.png";
 import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 
-import {MenuIcon, XIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
+import {MenuIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 import {runInAction} from "mobx";
 import UrlJoin from "url-join";
 import {Box, Flex, Text} from "@mantine/core";
