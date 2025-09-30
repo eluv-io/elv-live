@@ -74,24 +74,16 @@ const HeaderBlock = observer(({mobile}) => {
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <Box maw={1440}>
-        {/*<div className="main-page-header__main-header__row-container">*/}
         <Flex direction={mobile ? "column" : "row"} gap={mobile ? 30 : 50}>
           <Box flex={1} pt={{base: 0, sm: 30}}>
             <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 40px", sm: 0}} />
           </Box>
-          <Flex direction="column" flex={2} gap={mobile ? 25 : 32} align="center" ta={mobile ? "center" : ""}>
+          <Flex direction="column" flex={2} gap={mobile ? 25 : 32} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
               fz={{base: "1.25rem", sm: "1.75rem"}}
               fw={mobile ? 500 : 600}
               c="white.0"
-              styles={{
-                root: {
-                  "@media (max-height: 600px)": {
-                    fontSize: "0.875rem",
-                  }
-                }
-              }}
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
@@ -117,37 +109,7 @@ const HeaderBlock = observer(({mobile}) => {
               </Button>
             }
           </Flex>
-          {/*<div className="main-page-header__main-header__headers">*/}
-          {/*  <div className="main-page-header__main-header__top-header">{mainStore.l10n.main.heading.top_header}</div>*/}
-          {/*  <div className="main-page-header__main-header__title">{mainStore.l10n.main.heading.header}</div>*/}
-
-          {/*  {*/}
-          {/*    mobile &&*/}
-          {/*    <Button*/}
-          {/*      className="light header__button header__button--cta"*/}
-          {/*      to="https://wallet.contentfabric.io/ibc"*/}
-          {/*    >*/}
-          {/*      <ImageIcon icon={IBCIcon} width={18} height={15} />*/}
-          {/*      IBC 2025 Recap - See it all here!*/}
-          {/*    </Button>*/}
-          {/*  }*/}
-
-          {/*  <div className="main-page-header__main-header__subheader-container">*/}
-          {/*    <div className="main-page-header__main-header__subheader-container-text main-page-header__main-header__subheader-container-text--text-overlay">*/}
-          {/*      <span>*/}
-          {/*        <span className="main-page-header__main-header__subheader">{ mainStore.l10n.main.heading.subheader }</span>*/}
-          {/*      </span>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*  {*/}
-          {/*    !mobile &&*/}
-          {/*    <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">*/}
-          {/*      <ImageIcon icon={IBCIcon} width={18} height={15} />*/}
-          {/*      IBC 2025 Recap - See it all here!*/}
-          {/*    </Button>*/}
-          {/*  }*/}
         </Flex>
-          {/*</div>*/}
       </Box>
     </MainHeader>
   );
