@@ -356,8 +356,6 @@
   }
 
   @media screen and (max-width: $width-tablet) {
-    height: 83vh;
-
     &__content {
       flex-direction: column;
       gap: 50px;
@@ -442,7 +440,7 @@
   @media screen and (max-width: $width-mobile) {
     @media(max-height: 900px) {
       &__content {
-        padding: 40px 30px 20px 30px;
+        padding: 40px 20px 20px 20px;
       }
 
       &__main-header {

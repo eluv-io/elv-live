@@ -2,9 +2,17 @@ import {createTheme} from "@mantine/core";
 
 const theme = createTheme({
   htmlFontSize: "16px",
+  rootFontSize: "16px",
   fontFamily: "Inter, Helvetica Neue, helvetica, sans-serif",
   headings: {
     fontFamily: "Inter, Helvetica Neue, helvetica, sans-serif",
+  },
+  breakpoints: {
+    xs: "30em",
+    sm: "45em",
+    md: "60em",
+    lg: "90em",
+    xl: "100em"
   },
   colors: {
     purple: [
