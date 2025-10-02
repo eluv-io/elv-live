@@ -2,6 +2,8 @@ const functions = require("firebase-functions");
 const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
+const { createHash } = require("crypto");
+const {user} = require("firebase-functions/v1/auth");
 
 const WALLET_DEFAULTS = {
   "favicon": "/favicon.png",
@@ -140,7 +142,7 @@ async function GetPropertyMetaTags({db, network, mode, propertySlugOrId}) {
     const collection = `${network}-${mode}`;
     let propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
 
-    if(!propertyData || new Date(propertyData.updatedAt).getTime() < Date.now() - 60000) {
+    if(!propertyData || new Date(propertyData.updatedAt).getTime() < Date.now() - 30000) {
       await UpdateProperties({db, network, mode});
       propertyData = (await db.doc(`${collection}-properties/${propertySlugOrId}`).get())?.data();
     }
@@ -257,10 +259,79 @@ const protectedRoutes = [
   "/oidc"
 ];
 
+async function InterviewItemsAPI(db, req, res) {
+  const path = req.headers["x-forwarded-url"] || req.originalUrl;
+  const itemId = path.replace(/^\/items\//, "").split("?")[0];
+
+  res.setHeader("content-type", "application/json");
+
+  const authToken = (req.headers["Authorization"] || req.headers.authorization)?.replace("Bearer", "") || req.query.authorization || "";
+
+  if(Buffer.from(authToken.trim(), "base64").toString() !== itemId) {
+    res
+      .status(403)
+      .send({error: "Invalid authorization"});
+    return;
+  }
+
+  const ipHash =  createHash("sha1")
+    .update(req.headers["x-forwarded-for"] || req.connection.remoteAddress || "unknown")
+    .digest("hex");
+
+  let userConnections = (await db.doc(`interview-items-connections/${ipHash}`).get())?.data() || { connections: 0 };
+
+  if(userConnections.connections < 0 || Date.now() - userConnections.updatedAt > 30 * 1000){
+    // Somehow count did not get cleared
+    userConnections.connections = 0;
+  }
+
+  if(userConnections.lockedUntil && (new Date(userConnections.lockedUntil) > new Date())) {
+    res
+      .status(419)
+      .send({error: `Too many connections. Your access is locked until ${new Date(userConnections.lockedUntil).toISOString()}`});
+
+    return;
+  }
+
+  if(userConnections?.connections >= 5) {
+    const lockedUntil = Date.now() + 30 * 1000;
+      await db.doc(`interview-items-connections/${ipHash}`)
+        .set({lockedUntil}, {merge: true});
+    res
+      .status(419)
+      .send({error: `Too many connections. Your access is locked until ${new Date(lockedUntil).toISOString()}`});
+
+    return false;
+  }
+
+  await db.doc(`interview-items-connections/${ipHash}`)
+    .set({connections: userConnections?.connections + 1, updatedAt: Date.now()}, {merge: true});
+
+  await new Promise(resolve => setTimeout(resolve, 10000 * Math.random()));
+
+  userConnections = (await db.doc(`interview-items-connections/${ipHash}`).get())?.data() || { connections: 0 };
+  await db.doc(`interview-items-connections/${ipHash}`)
+    .set({connections: userConnections?.connections - 1, updatedAt: Date.now()}, {merge: true});
+
+  res.status(200).send(
+    JSON.stringify({
+      id: itemId,
+      name: "Common Item",
+      price: 9.99
+    })
+  );
+
+  return true;
+}
+
 async function PropertyMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   let host = req.headers["x-forwarded-host"] || req.hostname;
   let path = req.headers["x-forwarded-url"] || req.originalUrl;
+
+  if(path.startsWith("/items")) {
+    return InterviewItemsAPI(db, req, res);
+  }
 
   const protectedPath = protectedRoutes.find(route => path.startsWith(route));
   if(protectedPath || path.includes("/index.html")) {
@@ -268,9 +339,7 @@ async function PropertyMetadata(db, req, res) {
   }
 
   const network = ["demov3", "localhost"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
-  const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") ? "staging" : "production";
-  //const network = "demov3";
-  //const mode = "main";
+  const mode = network === "demov3" || host.includes(".preview") || host.includes(".dev") || host.includes("stg.") ? "staging" : "production";
 
   const { isCustomDomain, propertySlugOrId, redirect, googleVerificationId } = await FindPropertySlugOrId({db, host, path, network, mode});
 
