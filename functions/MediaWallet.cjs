@@ -274,8 +274,15 @@ async function InterviewItemsAPI(db, req, res) {
     return;
   }
 
+  if(!req.query.client_id || req.query.client_id === "eluvio") {
+    res
+      .status(403)
+      .send({error: "Invalid client ID"});
+    return;
+  }
+
   const ipHash =  createHash("sha1")
-    .update(req.headers["x-forwarded-for"] || req.connection.remoteAddress || "unknown")
+    .update(req.query.client_id)
     .digest("hex");
 
   let userConnections = (await db.doc(`interview-items-connections/${ipHash}`).get())?.data() || { connections: 0 };
