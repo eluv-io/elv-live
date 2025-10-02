@@ -16,7 +16,7 @@ const DevicesList = () => {
     <div className="compatible-devices__item-links">
       <a href={AppleDeviceCSV} download="Device Matrix - Apple TV.csv">Apple TV</a>
       <span className="compatible-devices__item-links-separator">|</span>
-      <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android TV</a>
+      <a href={AndroidDeviceCSV} download="Device Matrix - Android TV.csv">Android/Google TV</a>
       <span className="compatible-devices__item-links-separator">|</span>
       <a href={FireDeviceCSV} download="Device Matrix - FireTV.csv">Amazon Fire TV</a>
       <span className="compatible-devices__item-links-separator">|</span>
