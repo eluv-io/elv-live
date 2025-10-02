@@ -10,7 +10,7 @@ import {TabsList, TabsPanel, Video} from "../../components/Misc";
 import useScrollToElement from "../../../hooks/useScrollToElement";
 import {useNavigate} from "react-router";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Mousewheel, Pagination} from "swiper/modules";
+import {Autoplay, Mousewheel, Pagination} from "swiper/modules";
 
 import {NotificationBanner} from "../../components/Header";
 import SiteCarousel from "./SiteCarousel";
@@ -280,6 +280,7 @@ const StreamingUseCases = observer(({mobile}) => {
   const [title, setTitle] = useState("Streaming");
   const [titleColor, setTitleColor] = useState("purple");
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const swiperRef = useRef(null);
 
   const { features } = mainStore.l10n.main.streaming_use_cases;
 
@@ -312,6 +313,8 @@ const StreamingUseCases = observer(({mobile}) => {
     setCurrentSlideIndex(swiper.realIndex);
   };
 
+  const originalSpeed = 1500;
+
   return (
     <div className="main-page-block--light main-page-block--use-cases" style={{background: "linear-gradient(180deg, rgba(255, 255, 255, 1.00) 0%, rgba(192, 192, 212, 1) 100%)"}}>
       <div className="main-page-block__copy-container">
@@ -320,10 +323,26 @@ const StreamingUseCases = observer(({mobile}) => {
           <span className={`main-page-block__streaming-card__title main-page-block__streaming-card__title--${titleColor} main-page-block__streaming-card__title--header`}>{ title }</span>
         </h3>
       </div>
-      <div className="main-page-block__streaming-cards-container">
+      <div
+        className="main-page-block__streaming-cards-container"
+        onMouseEnter={() => {
+          swiperRef.current.autoplay.stop();
+          if(swiperRef.current.wrapperEl) {
+            swiperRef.current.wrapperEl.style.transitionDuration = "0s";
+          }
+        }}
+        onMouseLeave={() => {
+          if(swiperRef.current.wrapperEl) {
+            swiperRef.current.wrapperEl.style.transitionDuration = `${originalSpeed}ms`;
+          }
+
+          swiperRef.current.autoplay.start();
+        }}
+      >
         <Swiper
           className="carousel"
-          modules={mobile ? [Pagination] : [Pagination, Mousewheel]}
+          modules={mobile ? [Pagination] : [Pagination, Mousewheel, Autoplay]}
+          speed={3000}
           pagination={{
             enabled: true,
             clickable: true
@@ -331,6 +350,12 @@ const StreamingUseCases = observer(({mobile}) => {
           mousewheel={{
             enabled: !mobile,
             direction: "horizontal"
+          }}
+          autoplay={{
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
+            waitForTransition: false
           }}
           autoHeight
           loop
@@ -341,7 +366,10 @@ const StreamingUseCases = observer(({mobile}) => {
             "--swiper-navigation-color": "#959595",
           }}
           onSlideChange={HandleSlideChange}
-          onSwiper={swiper => window.swiper = swiper}
+          onSwiper={swiper => {
+            window.swiper = swiper;
+            swiperRef.current = swiper;
+          }}
         >
           {
             features.map(feature => {
