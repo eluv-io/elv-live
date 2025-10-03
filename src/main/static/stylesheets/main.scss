@@ -289,9 +289,7 @@
     text-align: left;
   }
 
-  &__apple-tv-button,
-  &__google-play-button,
-  &__amazon-appstore-button {
+  &__app-button {
     align-items: center;
     display: flex;
     height: 45px;
@@ -564,9 +562,7 @@
       gap: 10px;
     }
 
-    &__apple-tv-button,
-    &__google-play-button,
-    &__amazon-appstore-button {
+    &__app-button {
       height: 35px;
     }
 

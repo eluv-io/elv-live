@@ -468,12 +468,14 @@ media_wallet:
     google_button_text: Google Play
     amazon_button_text: Amazon Appstore
     roku_button_text: Roku
+    lg_button_text: LG
     button_subtext: Enjoy On
     apple_tv_url: "https://apps.apple.com/us/app/eluvio-media-wallet/id1591550411"
     getting_started_url: "https://embed.v3.contentfabric.io/?p=&net=main&oid=iq__4Rf9pwYJ4Y4fWoH8deogFTQw1wYW&mt=v&ct=h"
     google_play_url: "https://play.google.com/store/apps/details?id=app.eluvio.wallet"
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
     roku_channelstore_url: "https://channelstore.roku.com/en-gb/details/6fdb7c67cc944e0db2bad6c3f472beaf:406eb61dd4c5ea8334e27098831e89dc/eluvio-media-wallet"
+    lg_contentstore_url: "https://us.lgappstv.com/main/tvapp/detail?appId=1273688&catCode1=&moreYn=N&cateYn=N&orderType=0&headerName=&appRankCode=&sellrUsrNo="
     feature_image_subheader: See full list of devices
   feature_2:
     tagline: Enjoy on any browser
