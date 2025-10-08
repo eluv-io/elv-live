@@ -294,7 +294,7 @@ async function InterviewItemsAPI(db, req, res) {
 
   if(userConnections.lockedUntil && (new Date(userConnections.lockedUntil) > new Date())) {
     res
-      .status(419)
+      .status(429)
       .send({error: `Too many connections. Your access is locked until ${new Date(userConnections.lockedUntil).toISOString()}`});
 
     return;
@@ -305,7 +305,7 @@ async function InterviewItemsAPI(db, req, res) {
       await db.doc(`interview-items-connections/${ipHash}`)
         .set({lockedUntil}, {merge: true});
     res
-      .status(419)
+      .status(429)
       .send({error: `Too many connections. Your access is locked until ${new Date(lockedUntil).toISOString()}`});
 
     return false;
