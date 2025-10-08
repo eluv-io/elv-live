@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Pagination, Navigation} from "swiper";
+import {Navigation} from "swiper/modules";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import ImageIcon from "../../components/ImageIcon";
@@ -25,7 +25,7 @@ const SiteCard = observer(({mediaProperty, active, index}) => {
       <div className="site-carousel__placeholder" />
       {
         !loaded ? null :
-          video ?
+          (video && (Object.keys(video || {}).length > 0)) ?
             <div className="site-carousel__site-image site-carousel__site-video">
               { /* Cover the video element so it doesn't interfere with dragging the carousel */ }
               <div className="site-carousel__site-video-cover" />
@@ -61,9 +61,14 @@ const IsActive = ({index, activeIndex, length}) => {
     activeIndex === index - 1 ||
     activeIndex === index - 2 ||
     activeIndex === index - 3 ||
+    activeIndex === index - 4 ||
+    activeIndex === index - 5 ||
+    activeIndex === index - 6 ||
     activeIndex === (index + 1) % length ||
     activeIndex === (index + 2) % length ||
     activeIndex === (index + 3) % length ||
+    activeIndex === (index + 4) % length ||
+    activeIndex === (index + 5) % length ||
     index <= 1 && activeIndex >= length - 3
   );
 };
@@ -81,25 +86,24 @@ const SiteCarousel = observer(({mobile}) => {
     <Swiper
       className="site-carousel"
       spaceBetween={0}
-      slidesPerView={mobile ? 2 : 3.5}
+      slidesPerView={mobile ? 2 : 8.5}
       centeredSlides
       loop
-      initialSlide={2}
-      navigation
+      initialSlide={4}
+      navigation={!mobile}
       pagination={{
-        enabled: true,
-        clickable: true
+        enabled: false
       }}
       style={{
         "--swiper-pagination-color": "#fff",
         "--swiper-navigation-color": "#fff",
       }}
-      modules={[Pagination, Navigation]}
+      modules={mobile ? [] : [Navigation]}
       onSwiper={swiper => window.swiper = swiper}
       onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
     >
       {mainStore.featuredProperties.map((mediaProperty, index) =>
-        <SwiperSlide key={`site-${mediaProperty.propertyId}`} className={`site-carousel__slide ${activeSlide === index ? "site-carousel__slide--active" : ""}`}>
+        <SwiperSlide key={`site-${mediaProperty.propertyId}`} className={"site-carousel__slide"}>
           <SiteCard
             mediaProperty={mediaProperty}
             index={index}

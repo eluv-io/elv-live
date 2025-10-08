@@ -5,7 +5,7 @@ import {Action, Button} from "../../components/Actions";
 import {DiscoverIcon} from "../../static/icons/Icons";
 import ImageIcon from "../../components/ImageIcon";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {Pagination} from "swiper";
+import {Pagination} from "swiper/modules";
 
 import BackgroundImage from "../../static/images/main/release-singles-albums.jpg";
 import {EluvioPlayerParameters} from "@eluvio/elv-player-js/lib";

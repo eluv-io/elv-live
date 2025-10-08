@@ -1,0 +1,16 @@
+.headerSubduedText {
+  line-height: 132%;
+  opacity: 0.85;
+  text-shadow: 0 2px 7px rgb(0 0 0 / 95%);
+}
+
+.headerMainTitle {
+  letter-spacing: -0.05rem;
+  line-height: 132%;
+}
+
+@media (max-width: var(--mantine-breakpoint-md)) {
+  .headerSubduedText {
+    opacity: 1;
+  }
+}

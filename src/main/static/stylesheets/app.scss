@@ -2,7 +2,9 @@
 @import '../fonts/Inter/font.css';
 @import 'variables';
 @import 'base';
-@import '~swiper/swiper-bundle.min.css';
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
 @import 'modal';
 @import 'loader';
 @import 'actions';
@@ -23,3 +25,4 @@
 @import 'compatible-devices';
 @import 'register';
 @import 'test';
+@import 'case-study';

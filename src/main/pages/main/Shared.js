@@ -12,9 +12,13 @@ const HeaderVideo = observer(() => {
   );
 });
 
-export const MainHeader = ({children, video=true}) => {
+export const MainHeader = ({children, backgroundImage, video=true}) => {
   return (
-    <div className="main-page-header">
+    <div className="main-page-header main-page-header__image-bg" style={backgroundImage ? {
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat"
+    } : null}>
       { video ? <HeaderVideo /> : null }
       <div className="main-page-header__content">
         { children }

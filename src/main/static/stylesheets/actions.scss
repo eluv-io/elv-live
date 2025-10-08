@@ -4,7 +4,7 @@
   display: inline-flex;
   font-size: var(--font-size-body-3);
   font-weight: 600;
-  gap: 15px;
+  gap: 12px;
   height: 60px;
   justify-content: center;
   padding-left: 30px;
@@ -252,9 +252,10 @@
 
   &.light {
     color: var(--color-text-light-1);
+    font-weight: 600;
 
     &.inactive {
-      color: var(--color-text-light-5);
+      color: var(--color-text-light-12);
     }
 
     &.active {
@@ -293,7 +294,7 @@
   height: 100%;
   position: relative;
 
-  &__options {
+  &__options-container {
     border-radius: 0 0 5px 5px;
     left: 0;
     padding: 10px 25px;
@@ -302,6 +303,12 @@
     top: 100%;
     width: max-content;
     z-index: 999;
+
+    &--flex {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__item {
@@ -316,15 +323,68 @@
     }
   }
 
+  &__item-submenu-container {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      flex-basis: fit-content;
+    }
+
+    .subtle {
+      &.inactive {
+        color: var(--color-text-dark-7);
+
+        &:hover {
+          color: var(--color-highlight-3);
+        }
+      }
+
+      max-width: 600px;
+      white-space: pre-wrap;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .indent {
+      margin-left: 33px;
+    }
+  }
+
+  &__item-title-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__item-icon {
+    padding-right: 6px;
+  }
+
+  &__item-subtitle {
+    word-break: break-word;
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    color: var(--color-text-dark-6);
+    font-weight: 500;
+    line-height: 1.47rem;
+    white-space: pre-wrap;
+
+    &.indent {
+      margin-left: 20px;
+    }
+  }
+
   &.dark {
-    .menu-button__options {
+    .menu-button__options-container {
       background: var(--background-dark-2);
       color: var(--color-text-dark-1);
     }
   }
 
   &.light {
-    .menu-button__options {
+    .menu-button__options-container {
       background: var(--background-light-2);
       color: var(--color-text-light-1);
     }

@@ -1,12 +1,12 @@
 .header {
   align-items: center;
-  background: var(--background-dark-2);
-  color: var(--color-text-dark-1);
+  background: var(--background-light-2);
+  color: var(--color-text-light-12);
   display: flex;
   gap: 50px;
   height: var(--header-height);
   overflow: visible;
-  padding: 0 var(--horizontal-content-padding);
+  padding: 0 80px;
   position: relative;
   z-index: 10;
 
@@ -42,7 +42,7 @@
       }
     }
 
-    .menu-button__options {
+    .menu-button__options-container {
       padding-left: 15px;
       padding-right: 15px;
     }
@@ -55,7 +55,7 @@
   }
 
   &__logo-container {
-    height: 100%;
+    height: 40px;
   }
 
   &__logo {
@@ -63,6 +63,20 @@
     min-width: 80px;
     object-fit: contain;
     padding: 10px 0;
+  }
+
+  &__eluvio-icon {
+    height: 50px;
+    width: 50px;
+    color: var(--color-highlight-7);
+
+    &:hover {
+      filter: brightness(80%);
+    }
+
+    &:active {
+      filter: brightness(60%);
+    }
   }
 
   &__nav {
@@ -82,7 +96,7 @@
       &.active,
       &:active,
       &:focus-visible {
-        color: var(--color-highlight-1);
+        color: var(--color-highlight-7);
       }
     }
   }
@@ -103,8 +117,33 @@
       width: 30px;
     }
 
+    &.menu-button {
+      position: unset;
+    }
+
+    .menu-button__options-container {
+      top: calc(100%);
+      left: 0;
+      right: 0;
+      width: 100vw;
+      margin-left: -50vw;
+      transform: translateX(50%);
+      will-change: transform;
+      z-index: 10;
+      padding: 10px 25px 40px 0;
+    }
+
     .menu-button__options {
-      top: calc(100% + 3px);
+      display: flex;
+      flex-direction: row;
+      gap: 48px;
+      padding: 0;
+      margin-left: calc(80px + 50px + 85px + 10px);
+    }
+
+    .menu-button__item {
+      white-space: wrap;
+      width: max-content;
     }
   }
 
@@ -112,39 +151,61 @@
     align-items: center;
     display: flex;
     gap: 15px;
+    margin-left: auto;
   }
 
   &__button {
     font-size: 16px;
     height: 50px;
-    padding-inline: 20px;
+    border-radius: 28px;
+    padding: 12px 16px;
 
     &--fabric {
       background: transparent;
-      border: 1px solid #FFF;
-      color: #FFF;
+      border: 1px solid var(--background-light-7);
+      color: var(--color-text-light-11);
+      font-weight: 700;
 
       &:hover {
-        background: #000;
-        border: 1px solid var(--color-highlight-2);
-        color: var(--color-highlight-2);
+        background: transparent;
+        border: 1px solid var(--color-highlight-7);
+        color: var(--color-highlight-7);
       }
     }
 
     &--discover {
-      background: #FFF;
-      border: 0;
-      color: #000;
+      background: var(--color-text-light-11);
+      border: 1px solid rgba(255, 255, 255, 0.29);
+      font-weight: 700;
+      color: #FFF;
       gap: 10px;
 
       &:hover {
-        background: var(--color-highlight-2);
-        color: #FFF;
+        border: 1px solid var(--color-highlight-12);
+        color: var(--color-highlight-12);
 
         .action__icon {
           filter: grayscale(1) brightness(0%) invert(1);
         }
 
+      }
+    }
+
+    &--cta {
+      background: #FFF;
+      border: 0;
+      border-radius: 5px;
+      padding-left: 28px;
+      padding-right: 28px;
+      color: #000;
+      gap: 10px;
+
+      &:hover {
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%), var(--color-highlight-12);
+      }
+
+      &:active {
+        background: var(--color-highlight-12);
       }
     }
   }
@@ -173,12 +234,20 @@
     &__button {
       font-size: 14px;
       height: 35px;
-      padding-inline: 10px;
 
       .action__icon {
         height: 20px;
         width: 20px;
       }
+    }
+
+    .menu-button__options {
+      margin-left: calc(25px + 85px + 20px + 10px);
+    }
+
+    &__eluvio-icon {
+      height: 35px;
+      width: 35px;
     }
   }
 
@@ -242,74 +311,95 @@
 }
 
 .notification-banner {
-  background: var(--background-dark-3);
+  background: linear-gradient(180deg, #040307 0%, #040307 100%);
   color: var(--color-text-dark-1);
   display: flex;
   flex-flow: column wrap;
   font-size: var(--font-size-body-5);
   gap: 5px;
   justify-content: center;
-  padding: 20px var(--horizontal-content-padding) 20px;
+  padding: 15px var(--horizontal-content-padding) 15px;
   position: relative;
+  margin-top: -50px;
+  z-index: 5;
 
-  h3 {
-    font-size: var(--font-size-body-3);
-    max-width: 100%;
+  &__text-gradient-container {
+    &:hover {
+      .notification-banner__text-desktop {
+        -webkit-line-clamp: 2;
+        white-space: wrap;
+      }
+
+      .notification-banner__text-gradient {
+        visibility: hidden;
+      }
+    }
+  }
+
+  &__text-gradient {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.91) 100%);
+    width: 50px;
+    height: 150%;
+    right: -5px;
+    top: -25%;
+    z-index: 2;
+    filter: blur(4px);
+  }
+
+  &__text-desktop {
+    &:hover {
+      -webkit-line-clamp: 2;
+      white-space: wrap;
+
+      .notification-banner__text-gradient {
+        visibility: hidden;
+      }
+    }
   }
 
   &__text {
-    font-size: var(--font-size-body-4);
+    font-size: var(--font-size-body-7);
+    font-weight: 400;
+    width: 100%;
+    //display: flex;
+    flex-direction: row;
+    gap: 6px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    flex-wrap: nowrap;
     max-width: 100%;
+    position: relative;
+
+    & > *:not(:last-child) {
+      &::after {
+        content: " |";
+      }
+    }
 
     * {
+      font-size: var(--font-size-body-7);
+      font-weight: 500;
+      display: inline;
+      white-space: nowrap;
       max-width: 100%;
     }
 
-    h1 {
-      font-size: var(--font-size-body-1);
-    }
-
-    h2 {
-      font-size: var(--font-size-body-2);
-    }
-
-    h3 {
-      font-size: var(--font-size-body-3);
-    }
-
-    h4 {
-      font-size: var(--font-size-body-4);
-    }
-
-    h5 {
-      font-size: var(--font-size-body-5);
-    }
-
     a {
-      color: var(--color-highlight-5);
+      font-weight: 600;
+      color: var(--color-text-dark-1);
+      text-decoration: underline;
     }
-  }
-
-  &__close-button {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    position: absolute;
-    right: 75px;
-  }
-
-  &__close-icon {
-    height: 25px;
-    stroke-width: 3px;
-    width: 25px;
   }
 
   @media screen and (max-width: $width-tablet) {
-    padding: 10px 60px 15px 20px;
+    height: 70px;
+    margin-top: -70px;
 
-    &__close-button {
-      right: 20px;
+    &__text {
+      overflow-x: scroll;
+      scrollbar-width: none;
+      text-overflow: unset;
     }
   }
 }

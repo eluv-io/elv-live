@@ -6,13 +6,14 @@ import {Action, Button} from "../../components/Actions";
 import {Swiper, SwiperSlide} from "swiper/react";
 
 import {BlockchainIcon, PlayCircleIcon, PlaySimpleIcon, WalletIcon, FullDeviceListIcon} from "../../static/icons/Icons";
-import FeatureImage1 from "../../static/images/main/media_wallet/wallet-devices.png";
+import FeatureImage1 from "../../static/images/main/media_wallet/wallet-devices";
 import FeatureImage2 from "../../static/images/main/media_wallet/device_mockup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
 import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
 import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_appstore.png";
 import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
 import RokuButton from "../../static/images/main/media_wallet/Roku";
+import LGButton from "../../static/images/main/media_wallet/lg-button";
 
 import CarouselImages from "../../static/images/main/media_wallet/carousel";
 
@@ -22,28 +23,31 @@ const FeatureBlockActions = observer(() => {
     google_button_text,
     amazon_button_text,
     roku_button_text,
+    lg_button_text,
     apple_tv_url,
     amazon_appstore_url,
     google_play_url,
-    roku_channelstore_url
+    roku_channelstore_url,
+    lg_contentstore_url
   } = mainStore.l10n.media_wallet.feature_1;
+
+  const buttons = [
+    {label: apple_button_text, image: AppleTVButton, link: apple_tv_url, id: "apple-tv-button"},
+    {label: google_button_text, image: GooglePlayButton, link: google_play_url, id: "google-play-button"},
+    {label: amazon_button_text, image: AmazonAppstoreButton, link: amazon_appstore_url, id: "amazon-button"},
+    {label: roku_button_text, image: RokuButton, link: roku_channelstore_url, id: "roku-button"},
+    {label: lg_button_text, image: LGButton, link: lg_contentstore_url, id: "lg-button"},
+  ];
 
   return (
     <div className="main-page-header__actions">
-      <a href={apple_tv_url} target="_blank" className="main-page-header__apple-tv-button" rel="noreferrer">
-        <ImageIcon icon={AppleTVButton} label={apple_button_text}/>
-      </a>
-      <a href={google_play_url} target="_blank" className="main-page-header__google-play-button" rel="noreferrer">
-        <ImageIcon icon={GooglePlayButton} label={google_button_text}/>
-      </a>
-      <a href={amazon_appstore_url} target="_blank" className="main-page-header__amazon-appstore-button"
-         rel="noreferrer">
-        <ImageIcon icon={AmazonAppstoreButton} label={amazon_button_text}/>
-      </a>
-      <a href={roku_channelstore_url} target="_blank" className="main-page-header__amazon-appstore-button"
-         rel="noreferrer">
-        <ImageIcon icon={RokuButton} label={roku_button_text}/>
-      </a>
+      {
+        buttons.map(({id, link, label, image}) => (
+          <a key={id} href={link} target="_blank" className="main-page-header__app-button" rel="noreferrer">
+            <ImageIcon icon={image} label={label}/>
+          </a>
+        ))
+      }
     </div>
   );
 });
@@ -59,7 +63,7 @@ const FeatureBlock1Mobile = observer(() => {
   } = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header main-page-header__media-wallet">
+    <div className="main-page-header main-page-header--no-bg">
       <div className="main-page-header__content">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
@@ -100,7 +104,7 @@ const FeatureBlock1 = observer(() => {
   } = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header">
+    <div className="main-page-header main-page-header--no-bg main-page-header__top-section">
       <div className="main-page-header__content">
         <div className="main-page-header__image-container">
           <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__top-image"/>
@@ -136,7 +140,7 @@ const FeatureBlock2 = observer(() => {
   const {header, subheader, tagline, button_text} = mainStore.l10n.media_wallet.feature_2;
 
   return (
-    <div className="main-page-header main-page-header__media-wallet">
+    <div className="main-page-header--no-bg main-page-header__media-wallet">
       <div className="main-page-header__content">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">

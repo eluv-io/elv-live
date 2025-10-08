@@ -1,0 +1,28 @@
+.case-study {
+  &__header-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 75px;
+  }
+
+  &__header {
+    font-size: var(--font-size-body-7);
+    font-weight: 700;
+    font-style: italic;
+    text-transform: uppercase;
+    color: var(--color-text-light-9);
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 4rem;
+    color: var(--color-text-light-2);
+  }
+
+  &__description {
+    font-size: var(--font-size-body-3);
+    color: var(--color-text-light-3);
+    font-weight: 500;
+    white-space: pre-line;
+  }
+}

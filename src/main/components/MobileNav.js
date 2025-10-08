@@ -1,14 +1,109 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Action} from "./Actions";
-import {SocialIcons, XIcon} from "../static/icons/Icons";
+import {ExternalLinkIcon, NavIcons, SocialIcons, XIcon} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 import {mainStore, uiStore} from "../stores/Main";
 import {useLocation} from "react-router-dom";
 import {runInAction} from "mobx";
+import {ChevronLeftIcon} from "@eluvio/elv-player-js/lib/static/icons/Icons";
+import ImageIcon from "./ImageIcon";
+import UrlJoin from "url-join";
 
 const MobileNav = observer(({visible, Close}) => {
   const location = useLocation();
   const [originalLocation, setOriginalLocation] = useState(location.pathname);
+  const [navLinks, setNavLinks] = useState([]);
+
+  useEffect(() => {
+    runInAction(() => {
+      mainStore.LoadNews()
+        .then(() => {
+          const newsItems = (mainStore.newsItems || [])
+            .slice(0, 2)
+            .map(({title, slug, index}) => ({title, slug, index}));
+
+          const newsLinks = newsItems.map((item) => ({
+            label: item.title,
+            to: UrlJoin("/about/news", item.slug || item.index.toString()),
+            props: {useNavLink: true, exact: true}
+          }));
+
+          const links = [
+            {
+              label: mainStore.l10n.header.about,
+              children: [
+                {label: mainStore.l10n.header.news, to: "/about/news", props: {useNavLink: true, exact: true}, subItemProps: {indent: false, faded: true}},
+                ...newsLinks || []
+              ]
+            },
+            {
+              label: mainStore.l10n.header.content_fabric,
+              children: [
+                {label: mainStore.l10n.header.content_fabric_protocol, to: "/content-fabric", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricProtocolIcon},
+                {label: mainStore.l10n.header.eluvio_blockchain, to: "/content-fabric/blockchain", props: {useNavLink: true, exact: true}, icon: NavIcons.BlockchainNavIcon},
+                {label: mainStore.l10n.header.eluvio_technology, to: "/content-fabric/technology", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon}
+              ]
+            },
+            {
+              label: mainStore.l10n.header.apps,
+              children: [
+                {label: mainStore.l10n.header.fabric_core, to: "/av-core/fabric-core", props: {useNavLink: true, exact: true}, icon: NavIcons.FabricIcon},
+                {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
+                {
+                  label: mainStore.l10n.header.management_tools,
+                  to: "/av-core/fabric-core#tools",
+                  props: {useNavLink: true, exact: true},
+                  icon: NavIcons.ManagementToolsIcon,
+                }
+              ]
+            },
+            {
+              label: mainStore.l10n.header.monetization,
+              children: [
+                {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
+                {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
+                {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
+                {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
+              ]
+            },
+            {
+              label: mainStore.l10n.header.video_intelligence,
+              children: [
+                {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, icon: NavIcons.EvieIcon},
+                {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, icon: NavIcons.AiSearchIcon},
+                {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, icon: NavIcons.MIcon}
+              ]
+            },
+            {
+              label: mainStore.l10n.header.resources,
+              children: [
+                {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, icon: NavIcons.DocsIcon},
+                {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, icon: SocialIcons.GithubIcon},
+                {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/ibc", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
+                {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.ELightIcon}
+              ]
+            }
+          ];
+
+          setNavLinks(links);
+          setMenuHistory([links]);
+        });
+    });
+  }, []);
+
+  const [menuHistory, setMenuHistory] = useState([navLinks]);
+
+  const currentMenu = menuHistory[menuHistory.length - 1];
+
+  const navigateToSubMenu = useCallback((subMenu) => {
+    setMenuHistory(prevHistory => [...prevHistory, subMenu]);
+  }, []);
+
+  const navigateBack = useCallback(() => {
+    if(menuHistory.length > 1) {
+      setMenuHistory(prevHistory => prevHistory.slice(0, -1));
+    }
+  }, [menuHistory]);
 
   useEffect(() => {
     if(visible) {
@@ -54,68 +149,56 @@ const MobileNav = observer(({visible, Close}) => {
 
   return (
     <div className={`mobile-nav ${visible ? "" : "mobile-nav--hidden"}`}>
-      <Action icon={XIcon} className="dark mobile-nav__close-button mobile" onClick={Close} />
+      {/* Nav Header Toolbar */}
+      <div className="mobile-nav__header-toolbar">
+        {menuHistory.length > 1 && (
+          <Action icon={ChevronLeftIcon} className="light mobile-nav__back-button" onClick={navigateBack} />
+        )}
+        <Action icon={XIcon} className="light mobile-nav__close-button mobile" onClick={Close} />
+      </div>
+
+      {/* Nav app links */}
       <div className="mobile-nav__menu-content">
         <div className="mobile-nav__menu-links mobile-nav__menu-section mobile-nav__menu-primary-links">
-          <Action useNavLink exact to="/creators-and-publishers">
-            { mainStore.l10n.header.creators_and_publishers }
-          </Action>
-          <Action useNavLink exact to="/content-fabric">
-            { mainStore.l10n.header.content_fabric }
-          </Action>
-          <Action useNavLink exact to="/content-fabric/technology">
-            { mainStore.l10n.header.eluvio_technology }
-          </Action>
-          <Action useNavLink exact to="/content-fabric/blockchain">
-            { mainStore.l10n.header.eluvio_blockchain }
-          </Action>
-          <Action useNavLink exact to="/content-fabric/fabric-core">
-            { mainStore.l10n.header.fabric_core}
-          </Action>
-          <Action useNavLink exact to="/features/details">
-            { mainStore.l10n.header.features }
-          </Action>
-          <Action useNavLink exact to="/media-wallet">
-            { mainStore.l10n.header.media_wallet }
-          </Action>
-          <Action useNavLink exact to="https://docs.eluv.io/">
-            { mainStore.l10n.header.docs }
-          </Action>
-          <Action useNavLink exact to="/register">
-            { mainStore.l10n.header.register }
-          </Action>
-          <Action useNavLink exact to="https://contentfabric.io/">
-            { mainStore.l10n.header.sign_in }
-          </Action>
+          {
+            currentMenu.map((item, index) => (
+              item.children ?
+                (
+                  <Action key={index} onClick={() => navigateToSubMenu(item.children)} className={item.subItemProps?.faded ? "subtle" : ""}>
+                    {
+                      item.icon &&
+                      <ImageIcon icon={item.icon} className="mobile-nav__item-icon" />
+                    }
+                    { item.label }
+                  </Action>
+                ) :
+                (
+                  <Action key={index} useNavLink exact to={item.to} onClick={Close}>
+                    {
+                      item.icon &&
+                      <ImageIcon icon={item.icon} className="mobile-nav__item-icon" />
+                    }
+                    { item.label }
+                  </Action>
+                )
+            ))
+          }
         </div>
-        <hr className="mobile-nav__menu-section-line" />
 
-        <div className="mobile-nav__menu-links mobile-nav__menu-section mobile-nav__menu-secondary-links">
-          <Action useNavLink className="mobile-nav__link" exact to="/features/pricing">
-            { mainStore.l10n.header.pricing }
-          </Action>
-          <Action useNavLink className="mobile-nav__link" exact to="/features/tenancy-levels">
-            { mainStore.l10n.header.tenancy_levels }
-          </Action>
-          <Action useNavLink className="mobile-nav__link" exact to="/features/support">
-            { mainStore.l10n.header.support }
-          </Action>
-          <Action useNavLink className="mobile-nav__link" exact to="/about/partners">
-            { mainStore.l10n.header.partners }
-          </Action>
-          <Action useNavLink className="mobile-nav__link" exact to="/about/news">
-            { mainStore.l10n.header.news }
-          </Action>
-          <Action useNavLink className="mobile-nav__link" exact to="/about/contact">
-            { mainStore.l10n.header.contact }
-          </Action>
-          <div className="mobile-nav__menu-social-links">
-            <Action useNavLink className="dark" exact to="https://www.instagram.com/eluvioinc" icon={SocialIcons.InstagramIcon} label="Instagram" />
-            <Action useNavLink className="dark" exact to="https://x.com/eluvioinc" icon={SocialIcons.XLogoIcon} label="X" />
-            <Action useNavLink className="dark" exact to="https://www.facebook.com/EluvioInc" icon={SocialIcons.FacebookIcon} label="Facebook" />
-            <Action useNavLink className="dark" exact to="https://www.linkedin.com/company/eluv-io" icon={SocialIcons.LinkedInIcon} label="LinkedIn" />
+        {/* Nav external links */}
+        {
+          menuHistory.length <= 1 &&
+          <div className="mobile-nav__menu-links mobile-nav__menu-section mobile-nav__menu-secondary-links">
+            <Action useNavLink className="mobile-nav__link" exact to="https://contentfabric.io/">
+              { mainStore.l10n.header.content_fabric_io }
+              <ImageIcon icon={ExternalLinkIcon} />
+            </Action>
+            <Action useNavLink className="mobile-nav__link" exact to={mainStore.walletAppUrl}>
+              { mainStore.l10n.header.media_wallet }
+              <ImageIcon icon={NavIcons.EMobileIcon} />
+            </Action>
           </div>
-        </div>
+        }
       </div>
     </div>
   );

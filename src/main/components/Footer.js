@@ -4,7 +4,7 @@ import {Action} from "./Actions";
 import {mainStore} from "../stores/Main";
 
 import EluvioLogo from "../static/images/logos/eluvio-logo.svg";
-import {LinkIcon, DiscoverIcon, DocumentIcon, SocialIcons} from "../static/icons/Icons";
+import {LinkIcon, DocumentIcon, SocialIcons, DiscoverIcon} from "../static/icons/Icons";
 import {observer} from "mobx-react";
 
 const SocialLinks = ({dark=false}) => {
@@ -14,7 +14,6 @@ const SocialLinks = ({dark=false}) => {
     { name: "Facebook", link: "https://www.facebook.com/EluvioInc/", icon: SocialIcons.FacebookIcon },
     { name: "LinkedIn", link: "https://www.linkedin.com/company/eluv-io", icon: SocialIcons.LinkedInIcon },
     { name: "Github", link: "https://github.com/eluv-io", icon: SocialIcons.GithubIcon },
-    { name: "Discord", link: "https://discord.gg/Mu9GzdutwF", icon: SocialIcons.DiscordIcon }
   ];
 
   return (
@@ -40,6 +39,12 @@ const Links = observer(({dark=false}) => {
   const whitepaperDoc = require("../pages/technology/documents/EluvioContentFabricWhitepaper.pdf");
   const nextGenWhitepaperDoc = require("../pages/technology/documents/Eluvio Content Fabric - Next Generation CDN and Media Cloud.pdf");
 
+  const linkDocMap = {
+    "roadmap": roadmapDoc,
+    "whitepaper": whitepaperDoc,
+    "next-gen-whitepaper": nextGenWhitepaperDoc
+  };
+
   return (
     <div className="footer__links">
       {
@@ -50,32 +55,11 @@ const Links = observer(({dark=false}) => {
               { title }
             </h5>
             {
-              title === "Resources" &&
-              (
-                <>
-                  <Action
-                    href={whitepaperDoc}
-                    rel="noopener"
-                    target="_blank"
-                    className={`footer__link ${dark ? "dark" : "light"}`}
-                  >
-                    Protocol Whitepaper
-                  </Action>
-                  <Action
-                    href={nextGenWhitepaperDoc}
-                    rel="noopener"
-                    target="_blank"
-                    className={`footer__link ${dark ? "dark" : "light"}`}
-                  >
-                    Next Gen CDN Whitepaper
-                  </Action>
-                </>
-              )
-            }
-            {
-              links.map(({text, link}) => {
-                const to = link.startsWith("https://") ? undefined : link;
-                const href = link.startsWith("https://") ? link : undefined;
+              links.map(({text, link, link_type}) => {
+                const toPath = (link.startsWith("https://") || link_type === "doc") ? undefined : link;
+                const href = (link.startsWith("https://") || link_type === "doc") ? link : undefined;
+
+                const to = link_type === "doc" ? linkDocMap[link] : toPath;
 
                 return (
                   <Action
@@ -90,17 +74,6 @@ const Links = observer(({dark=false}) => {
                   </Action>
                 );
               })
-            }
-            {
-              title === "Resources" &&
-              <Action
-                href={roadmapDoc}
-                rel="noopener"
-                target="_blank"
-                className={`footer__link ${dark ? "dark" : "light"}`}
-              >
-                Current State & Roadmap
-              </Action>
             }
           </div>
         )
@@ -139,13 +112,15 @@ const TermsLinks = ({dark=false}) => {
 
 const Footer = ({dark=false, className=""}) => {
   return (
-    <footer className={`footer padded-block ${dark ? "dark" : "light"} ${className}`}>
-      <div className="footer__branding">
-        <ImageIcon icon={EluvioLogo} title="Eluvio" className="footer__logo" />
-        <SocialLinks dark={dark} />
+    <footer className={`footer ${dark ? "dark" : "light"} ${className}`}>
+      <div className="padded-block">
+        <div className="footer__branding">
+          <ImageIcon icon={EluvioLogo} title="Eluvio" className="footer__logo" />
+          <SocialLinks dark={dark} />
+        </div>
+        <Links dark={dark} />
+        <TermsLinks dark={dark} />
       </div>
-      <Links dark={dark} />
-      <TermsLinks dark={dark} />
     </footer>
   );
 };

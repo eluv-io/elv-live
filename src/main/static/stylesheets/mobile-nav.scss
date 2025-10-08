@@ -1,12 +1,12 @@
 .mobile-nav {
-  background: var(--background-dark-6);
-  color: var(--color-text-dark-1);
+  background: var(--background-light-1);
+  color: var(--color-text-light-12);
   display: block;
-  height: calc(100vh - var(--header-height));
+  height: 100vh;
   overflow-y: auto;
   position: fixed;
-  top: var(--header-height);
-  transition: opacity 0.2s ease;
+  top: 0;
+  transition: opacity 0.3s ease-in-out;
   width: 100%;
   z-index: 100;
 
@@ -62,20 +62,17 @@
     margin: 0 20px;
   }
 
-  &__menu-primary-links {
+
+  &__menu-primary-links,
+  &__menu-secondary-links {
     .action {
-      font-size: var(--font-size-body-1);
-      font-weight: 400;
+      text-align: left;
+      font-size: var(--font-size-header-5);
+      font-weight: 600;
 
       &:not(:last-child) {
         margin-bottom: 2rem;
       }
-    }
-  }
-
-  &__menu-secondary-links {
-    .image-icon--svg {
-      height: 16px;
     }
   }
 
@@ -85,6 +82,12 @@
 
     &:not(:last-child) {
       margin-bottom: 10px;
+    }
+
+    svg {
+      width: 28px;
+      height: 28px;
+      margin-left: 8px;
     }
   }
 
@@ -98,18 +101,22 @@
     margin-top: 50px;
   }
 
-  &__close-button {
-    background: var(--background-dark-6);
-    border-radius: 100%;
+  &__header-toolbar {
+    background-color: var(--background-light-2);
     display: flex;
+    flex-direction: row;
+    padding: 15px;
+  }
+
+  &__back-button,
+  &__close-button {
+    color: var(--color-icon-dark-1);
     height: 25px;
-    margin-left: auto;
-    opacity: 0.5;
-    padding: 2px;
-    position: fixed;
-    right: 20px;
-    top: calc(var(--header-height) + 20px);
     width: 25px;
+
+    svg {
+      stroke-width: 2px;
+    }
 
     &.action {
       width: 25px;
@@ -119,6 +126,15 @@
       height: 100%;
       width: 100%;
     }
+  }
+
+  &__close-button {
+    margin-left: auto;
+  }
+
+  &__item-icon {
+    width: 12px;
+    margin-right: 6px;
   }
 
   @media screen and (width >= CALC(#{$width-tablet} + 1px)) {
