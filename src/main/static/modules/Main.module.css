@@ -1,7 +1,6 @@
 .headerSubduedText {
   line-height: 132%;
-  opacity: 0.85;
-  text-shadow: 0 2px 7px rgb(0 0 0 / 95%);
+  text-shadow: 0 5px 7px rgb(0 0 0 / 98%);
 }
 
 .headerMainTitle {

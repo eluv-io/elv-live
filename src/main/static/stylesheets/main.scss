@@ -351,6 +351,10 @@
         font-size: var(--font-size-header-3);
       }
     }
+
+    &__content {
+      padding: 85px 80px 50px 90px;
+    }
   }
 
   @media screen and (max-width: $width-tablet) {
@@ -358,7 +362,6 @@
       flex-direction: column;
       gap: 50px;
       justify-content: unset;
-      padding: 20px;
     }
 
     &__main-header {

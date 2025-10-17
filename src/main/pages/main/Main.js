@@ -70,24 +70,25 @@ import {Box, Flex, Image, Text, Title} from "@mantine/core";
 import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
+  const isTablet = mobile && uiStore.pageWidth > 390;
 
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <Box maw={1440}>
-        <Flex direction={mobile ? "column" : "row"} gap={mobile ? 30 : 50}>
-          <Box flex={1} pt={{base: 0, sm: 30}}>
-            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 40px", sm: 0}} />
+        <Flex direction={mobile ? "column" : "row"} gap={mobile ? 30 : 50} align={mobile ? "center" : "flex-start"}>
+          <Box flex={1} pt={{base: 0, sm: 10, md: 30}} w={isTablet ? "80%" : "100%"}>
+            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", md: 0}} />
           </Box>
           <Flex direction="column" flex={2} gap={mobile ? 25 : 32} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
-              fz={{base: "1.25rem", sm: "1.75rem"}}
+              fz={{base: "1.25rem", sm: "1.675rem", md: "1.75rem"}}
               fw={mobile ? 500 : 600}
               c="white.0"
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
-            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
+            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.5rem", md: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
 
             {
               mobile &&
@@ -100,7 +101,7 @@ const HeaderBlock = observer(({mobile}) => {
               </Button>
             }
 
-            <Text c="white.0" fz={{base: "1.25rem", sm: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="white.0" fz={{base: "1.25rem", sm: "1.675rem", md: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
@@ -721,7 +722,7 @@ const ClientBlock = ({mobile}) => {
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
-      <HeaderBlock mobile/>
+      <HeaderBlock mobile />
       <NotificationBanner mobile className="mobile" />
       <div className="page light no-padding">
         <VideoStack mobile />
