@@ -431,11 +431,26 @@
 
   &__button {
     border-radius: 62px;
-    height: 40px;
     padding-left: 16px;
     padding-right: 16px;
-    font-size: 16px;
     font-weight: 700;
+
+    &.xs {
+      font-size: 12px;
+      height: 35px;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    &.sm {
+      height: 40px;
+      font-size: 16px;
+    }
+
+    &.md {
+      height: 40px;
+      font-size: 18px;
+    }
 
     &--dark {
       &.active {

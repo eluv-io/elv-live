@@ -66,7 +66,17 @@ import EluvioGroupDesktopImage from "../../static/images/main/team-card.jpg";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
-import {Box, Flex, Image, Text, Title} from "@mantine/core";
+import {
+  BackgroundImage,
+  Box,
+  Button as MantineButton,
+  Flex,
+  Image,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title
+} from "@mantine/core";
 import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
@@ -431,54 +441,76 @@ const BenefitsBlock = observer(({mobile}) => {
           </Button>
         </div>
 
-        <div className="main-page-block__benefit-cards-container">
-          <div className="main-page-block__benefit-cards">
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
-              <div className="main-page-block__benefit-card-1__column-text">
-                <div className="main-page-block__benefit-card-1__title">
+        <Box w="100%" mt={35}>
+          <SimpleGrid cols={{base: 1, sm: 2}}>
+            {/* Card 1 */}
+            <Box p={{base: "30px 90px", lg: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
+              <Flex direction="column" gap={32} justify="center" h="100%">
+                <Text fz={24} c="white.0" ta="center">
                   { cards.no_1.title }
-                </div>
-                <div className="main-page-block__benefit-card-1__row-text">
-                  <div className="main-page-block__benefit-card-1__description-text">
+                </Text>
+                <Flex direction={{base: "column", sm: "row"}} gap={28}>
+                  <Text c="white.5" fw={400} fz={16} ta={mobile ? "center" : ""}>
                     { mobile ? cards.no_1.text_left_mobile : cards.no_1.text_left }
-                  </div>
-                  <div className="main-page-block__benefit-card-1__description-text">
+                  </Text>
+                  <Text c="white.5" fw={400} fz={16} ta={mobile ? "center" : ""}>
                     { mobile ? cards.no_1.text_right_mobile : cards.no_1.text_right }
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
-              <div className="main-page-block__benefit-card-2__column">
+                  </Text>
+                </Flex>
+              </Flex>
+            </Box>
+            {/* Card 2 */}
+            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 90px", md: "30px 80px"}} bg="white.0">
+              <Flex direction="column" gap={20} h="100%" justify="center">
                 {
                   (mobile ? cards.no_2.text_mobile : cards.no_2.text).map((item, i) => (
-                    <div key={`card-2-item-${i}`}>{ item }</div>
+                    <Text key={`card-2-item-${i}`} ta="center" fw={i === 1 ? 600 : 500} fz={i === 0 ? 16 : 24} fs={i === 2 ? "italic" : "normal"}>
+                      { item }
+                    </Text>
                   ))
                 }
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
-              <div className="main-page-block__benefit-card-3__column">
-                <div>{ cards.no_3.text_one }</div>
-                <div>{ mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }</div>
-                <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>{ mobile ? cards.no_3.text_three_mobile : cards.no_3.text_three }</Button>
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
-              <div className="main-page-block__benefit-card-4__row">
-                <div className="main-page-block__benefit-card-4__text-panel">
-                  {
-                    mobile ? (cards.no_4.tabs[activeTabIndex].value_mobile || cards.no_4.tabs[activeTabIndex].value) : cards.no_4.tabs[activeTabIndex].value
-                  }
-                  <div className="main-page-block__benefit-card-4__icons">
-                    {
-                      [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
-                        <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
-                      ))
-                    }
-                  </div>
-                </div>
-                <div className="main-page-block__benefit-card-4__button-panel">
+              </Flex>
+            </Box>
+            {/* Card 3 */}
+            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 90px", md: "30px 45px 30px 65px"}} bg="white.0">
+              <Flex direction="column" gap={28} justify="center" h="100%">
+                <Text c="black.2" fw={500} fz={16}>
+                  { cards.no_3.text_one }
+                </Text>
+                <Text c="black.2" fw={600} fz={{md: 36, lg: 44}} lts={"-1px"} lh={1.25}>
+                  { mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }
+                </Text>
+                <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>
+                  <Text fz={{base: 14, lg: 16}}>
+                    { mobile ? cards.no_3.text_three_mobile : cards.no_3.text_three }
+                  </Text>
+                </Button>
+              </Flex>
+            </Box>
+            {/* Card 4 */}
+            <Box bdrs={12} className={styles.benefitCard} w="100%" h={"auto"}>
+              <Flex direction="row">
+                <Box bg="white.0" p={{base: "29px 25px", lg: "45px 40px"}} flex={3} justify="center" bdrs="12px 0 0 12px">
+                  <Stack gap={24} className={styles.benefitCard4LeftCol}>
+                    <Text fw={500} lh="147%" fz={{base: "12px", lg: "16px"}}>
+                      {
+                        mobile ? (cards.no_4.tabs[activeTabIndex].value_mobile || cards.no_4.tabs[activeTabIndex].value) : cards.no_4.tabs[activeTabIndex].value
+                      }
+                    </Text>
+                    <SimpleGrid cols={5} spacing={2}>
+                      {
+                        [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
+                          <ImageIcon
+                            key={`benefit-icon-${i}`}
+                            icon={iconItem}
+                            className={styles.benefitCard4Icon}
+                          />
+                        ))
+                      }
+                    </SimpleGrid>
+                  </Stack>
+                </Box>
+                <Box bg="black.2" p={{base: "29px 22px", lg: "29px 32px"}} bdrs="0 12px 12px 0" flex={2}>
                   <TabsList
                     tabs={(cards?.no_4?.tabs || []).map(tab => (
                       {title: tab.label}
@@ -488,26 +520,46 @@ const BenefitsBlock = observer(({mobile}) => {
                     orientation={mobile ? "horizontal" : "vertical"}
                     darkMode
                     wrap={false}
+                    size={uiStore.pageWidth < 1440 ? "xs" : "sm"}
                   />
-                </div>
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
-              <div>{ cards.no_5.text_one }</div>
-              <div>{ cards.no_5.text_two }</div>
-              <a
-                className="main-page-block__benefit-card-5__github-button"
-                href={cards.no_5.github_link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ImageIcon icon={SocialIcons.GithubIcon} />
-                Eluvio GitHub
-              </a>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team" style={{backgroundImage: `url(${mobile ? EluvioGroupMobileImage : EluvioGroupDesktopImage})`}} />
-          </div>
-        </div>
+                </Box>
+              </Flex>
+            </Box>
+            {/* Card 5 */}
+            <Box p={{base: "30px 70px", lg: "130px 78px"}} bg="black.2" bdrs={12} className={styles.benefitCard} justify="center">
+              <Stack gap={32}>
+                <Text c="white.0" fw={500} fz={{base: 16, md: 13, lg: 16}}>
+                  { cards.no_5.text_one }
+                </Text>
+                <Text c="white.0" fw={600} fz={{base: 24, md: 21, lg: 24}} lts="-0.5px">
+                  { cards.no_5.text_two }
+                </Text>
+                <MantineButton
+                  color="purple.0"
+                  bdrs={20}
+                  leftSection={<ImageIcon icon={SocialIcons.GithubIcon} color="var(--mantine-color-black-0)" />}
+                  w="fit-content"
+                  component="a"
+                  href={cards.no_5.github_link}
+                  target="_blank"
+                >
+                  <Text c="black.0" fz={{base: 16, md: 14, lg: 16}} fw={500}>
+                    Eluvio GitHub
+                  </Text>
+                </MantineButton>
+              </Stack>
+            </Box>
+            {/* Card 6 */}
+            <Box bg="black.2" bdrs={12} className={styles.benefitCard} id="eluvio-team">
+              <BackgroundImage
+                src={mobile ? EluvioGroupMobileImage : EluvioGroupDesktopImage}
+                h="100%"
+                w="100%"
+                bdrs={12}
+              />
+            </Box>
+          </SimpleGrid>
+        </Box>
       </div>
     </div>
   );

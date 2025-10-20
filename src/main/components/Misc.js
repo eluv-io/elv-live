@@ -437,6 +437,7 @@ export const TabsList = ({
   activeTabIndex,
   setActiveTabIndex,
   orientation="horizontal",
+  size="sm",
   wrap=true
 }) => {
   const isActive = (index) => {
@@ -454,7 +455,8 @@ export const TabsList = ({
               "tabs__button",
               darkMode ? "tabs__button--dark" : "tabs__button--light",
               isActive(i) ? "active" : "inactive",
-              orientation === "horizontal" ? "horizontal" : "vertical"
+              orientation === "horizontal" ? "horizontal" : "vertical",
+              size
             ]
               .filter(e => !!e).join(" ");
 

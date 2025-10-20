@@ -8,7 +8,21 @@
   line-height: 132%;
 }
 
-@media (max-width: var(--mantine-breakpoint-md)) {
+.benefitCard {
+  filter: drop-shadow(0 0 25px rgb(0 0 0 / 14%));
+}
+
+.benefitCard4LeftCol {
+  white-space: pre-line;
+}
+
+.benefitCard4Icon {
+  color: var(--mantine-color-neutral-0);
+  height: auto;
+  width: 100%
+}
+
+@media (max-width: 960px) {
   .headerSubduedText {
     opacity: 1;
   }
