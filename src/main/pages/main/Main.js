@@ -81,16 +81,14 @@ import {
 import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
-  const isTablet = mobile && uiStore.pageWidth > 390;
-
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <Box maw={1440}>
-        <Flex direction={mobile ? "column" : "row"} gap={mobile ? 30 : 50} align={mobile ? "center" : "flex-start"}>
-          <Box flex={1} pt={{base: 0, sm: 10, md: 30}} w={isTablet ? "80%" : "100%"}>
-            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", md: 0}} />
+        <Flex direction={mobile ? "column" : "row"} gap={{base: 20, md: 50}} align={mobile ? "center" : "flex-start"}>
+          <Box flex={1} pt={{base: 0, md: 30}} align="center" w="100%">
+            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", md: 0}} w={{base: "100%",sm: "60%", md: "100%"}} m="auto" />
           </Box>
-          <Flex direction="column" flex={2} gap={mobile ? 25 : 32} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
+          <Flex direction="column" flex={2} gap={{base: 20, md: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
               fz={{base: "1.25rem", sm: "1.675rem", md: "1.75rem"}}
@@ -99,7 +97,7 @@ const HeaderBlock = observer(({mobile}) => {
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
-            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.5rem", md: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
+            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.25rem", md: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
 
             {
               mobile &&
@@ -112,7 +110,7 @@ const HeaderBlock = observer(({mobile}) => {
               </Button>
             }
 
-            <Text c="white.0" fz={{base: "1.25rem", sm: "1.675rem", md: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", md: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
