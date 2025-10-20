@@ -5,7 +5,7 @@ const MIN_WIDTH=400;
 const MAX_WIDTH=1200;
 const SPREAD = MAX_WIDTH - MIN_WIDTH;
 
-const Carousel = ({children, elements=[], startIndex=0, minVisible=2, maxVisible=5, className="", placeholderClassname=""}) => {
+const Carousel = ({elements=[], startIndex=0, minVisible=2, maxVisible=5, className="", placeholderClassname=""}) => {
   const target = React.useRef(null);
   const [index, setIndex] = useState(startIndex);
   const [visible, setVisible] = useState(maxVisible);

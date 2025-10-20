@@ -110,11 +110,11 @@
     }
 
     &__privacy-policy {
-      justify-content: center;
-      display: flex;
       color: var(--color-text-light-6);
+      display: flex;
       font-size: var(--font-size-body-5);
       font-weight: 300;
+      justify-content: center;
       margin: 10px 0 30px;
     }
 

@@ -66,9 +66,9 @@
   &__menu-primary-links,
   &__menu-secondary-links {
     .action {
-      text-align: left;
       font-size: var(--font-size-header-5);
       font-weight: 600;
+      text-align: left;
 
       &:not(:last-child) {
         margin-bottom: 2rem;
@@ -85,9 +85,9 @@
     }
 
     svg {
-      width: 28px;
       height: 28px;
       margin-left: 8px;
+      width: 28px;
     }
   }
 
@@ -133,8 +133,8 @@
   }
 
   &__item-icon {
-    width: 12px;
     margin-right: 6px;
+    width: 12px;
   }
 
   @media screen and (width >= CALC(#{$width-tablet} + 1px)) {

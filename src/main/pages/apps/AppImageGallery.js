@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import ImageIcon from "../../components/ImageIcon";
 import LeftArrowIcon from "../../static/icons/arrow-left";

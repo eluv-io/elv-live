@@ -20,6 +20,7 @@ const PrependClassName = (addition, className="") => {
   return updatedClassName;
 };
 
+// eslint-disable-next-line react/display-name
 export const ActionComponent = React.forwardRef((props, ref) => {
   props = { ...props };
   const location = useLocation();
@@ -104,6 +105,7 @@ export const ActionComponent = React.forwardRef((props, ref) => {
   }
 });
 
+// eslint-disable-next-line react/display-name
 export const Button = React.forwardRef((props, ref) => {
   return (
     <ActionComponent
@@ -114,6 +116,7 @@ export const Button = React.forwardRef((props, ref) => {
   );
 });
 
+// eslint-disable-next-line react/display-name
 export const ButtonWithLoader = React.forwardRef((props, ref) => {
   const [loading, setLoading] = useState(false);
 
@@ -121,16 +124,6 @@ export const ButtonWithLoader = React.forwardRef((props, ref) => {
     <Button
       {...props}
       ref={ref}
-      children={
-        <>
-          <div className="loader-button__content">
-            { props.children }
-          </div>
-          <div className="loader-button__indicator">
-            <Loader />
-          </div>
-        </>
-      }
       onClick={async event => {
         if(loading) { return; }
 
@@ -143,10 +136,20 @@ export const ButtonWithLoader = React.forwardRef((props, ref) => {
         }
       }}
       className={PrependClassName(`loader-button ${loading ? "loading" : "normal"}`, props.className)}
-    />
+    >
+      <>
+        <div className="loader-button__content">
+          { props.children }
+        </div>
+        <div className="loader-button__indicator">
+          <Loader />
+        </div>
+      </>
+    </Button>
   );
 });
 
+// eslint-disable-next-line react/display-name
 export const Action = React.forwardRef((props, ref) => {
   return (
     <ActionComponent
@@ -157,6 +160,7 @@ export const Action = React.forwardRef((props, ref) => {
   );
 });
 
+// eslint-disable-next-line react/display-name
 export const MenuButton = React.forwardRef((props, ref) => {
   const [menuOpen, setMenuOpen] = useState(false);
 

@@ -11,9 +11,8 @@ import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
-import {InfoIcon, MinusIcon, PlusIcon, XIcon} from "../static/icons/Icons";
+import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
-import HeaderLoop from "../static/videos/header-loop.mp4";
 
 export const RichText = ({richText, children, className=""}) => {
   return (
@@ -375,7 +374,6 @@ export const TabsPanel = ({
   tabs,
   activeTabIndex,
   className,
-  children,
   mobile
 }) => {
   const mediaContent = (

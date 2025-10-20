@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
 
       return (
         <div className={`error-section ${this.props.className || ""}`}>
-          We're sorry, something went wrong
+          We&apos;re sorry, something went wrong
         </div>
       );
     }
@@ -31,6 +31,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const ErrorWrapper = Component => (
+  // eslint-disable-next-line react/display-name
   props =>
     <ErrorBoundary className={props._errorBoundaryClassname}>
       <Component {...props} />

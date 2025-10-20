@@ -6,22 +6,22 @@
   }
 
   &__header {
-    font-size: var(--font-size-body-7);
-    font-weight: 700;
-    font-style: italic;
-    text-transform: uppercase;
     color: var(--color-text-light-9);
+    font-size: var(--font-size-body-7);
+    font-style: italic;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   &__title {
-    font-weight: 600;
-    font-size: 4rem;
     color: var(--color-text-light-2);
+    font-size: 4rem;
+    font-weight: 600;
   }
 
   &__description {
-    font-size: var(--font-size-body-3);
     color: var(--color-text-light-3);
+    font-size: var(--font-size-body-3);
     font-weight: 500;
     white-space: pre-line;
   }

@@ -305,9 +305,9 @@
     z-index: 999;
 
     &--flex {
+      align-items: flex-start;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
     }
   }
 
@@ -340,10 +340,10 @@
         }
       }
 
-      max-width: 600px;
-      white-space: pre-wrap;
-      text-align: left;
       font-weight: 500;
+      max-width: 600px;
+      text-align: left;
+      white-space: pre-wrap;
     }
 
     .indent {
@@ -362,14 +362,14 @@
   }
 
   &__item-subtitle {
-    word-break: break-word;
-    width: 100%;
-    max-width: 600px;
-    text-align: left;
     color: var(--color-text-dark-6);
     font-weight: 500;
     line-height: 1.47rem;
+    max-width: 600px;
+    text-align: left;
     white-space: pre-wrap;
+    width: 100%;
+    word-break: break-word;
 
     &.indent {
       margin-left: 20px;
