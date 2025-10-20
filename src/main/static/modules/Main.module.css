@@ -23,7 +23,25 @@
   width: 100%
 }
 
-@media (max-width: 960px) {
+.useCaseCard {
+  border-radius: 14px;
+
+  &:hover {
+    .useCaseButtonContainer {
+      opacity: 1;
+    }
+  }
+}
+
+.useCaseButtonContainer {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, #FFF 64.9%);
+  border-radius: 0 0 14px 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 5;
+}
+
+@media (width <= 960px) {
   .headerSubduedText {
     opacity: 1;
   }

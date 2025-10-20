@@ -67,6 +67,7 @@ import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jp
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 import {
+  AspectRatio,
   BackgroundImage,
   Box,
   Button as MantineButton,
@@ -227,63 +228,82 @@ const StreamingCard = observer(({
     "play-arrow": PlaySimpleIcon
   };
 
+  const colorMap = {
+    purple: "purple.8",
+    blue: "blue.2",
+    violet: "purple.6",
+    teal: "green.0"
+  };
+
   return (
-    <div className="main-page-block__streaming-card">
-      <div className="main-page-block__streaming-card__content" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
-        <div className="main-page-block__streaming-card__text-content">
-          <p className={`main-page-block__streaming-card__title main-page-block__streaming-card__card-title main-page-block__streaming-card__title--${color}`}>{ title }</p>
-          <div className="main-page-block__streaming-card__description">{ description}</div>
-          {
-            logos.length > 0 &&
-            <div className="main-page-block__streaming-card__logos">
-              {
-                logos.map((logo, i) => (
-                  <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
-                ))
-              }
-            </div>
-          }
-        </div>
-      </div>
-      <div className="main-page-block__streaming-card__button-container">
-        <div className="main-page-block__streaming-card__button-flexbox">
-          {
-            actions.map(action => (
-              <Button
-                key={`use-case-button-${action.label}`}
-                className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
-                to={action.link || (mobile ? action.mobile_link : undefined)}
-                onClick={(action.videoHash && !mobile) ? (event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  setVideoVersionHash(action.videoHash);
-                  setShowModal(true);
-                } : null}
-              >
-                {
-                  action.icon &&
-                  <ImageIcon icon={iconMap[action.icon]} height={16} width={18} />
-                }
-                { action.label }
-              </Button>
-            ))
-          }
-        </div>
-      </div>
-      <Modal
-        active={showModal}
-        className="modal--modal-box header-modal"
-        Close={() => setShowModal(false)}
-        hideCloseButton
+    <AspectRatio ratio={.6961}>
+      <Box
+        bg="white.0"
+        bdrs={14}
+        mr={14}
+        w={410}
+        pos="relative"
+        className={styles.useCaseCard}
       >
-        <div className="main-page-header__modal-video modal-box">
-          <Video versionHash={videoVersionHash} className="main-page-block__video main-page-block__core-video" />
-          <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
-            <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
-          </button>
-        </div>
-      </Modal>
-    </div>
+        <Flex direction="column" h="100%" pt={30}>
+          <BackgroundImage src={image} h="100%" bdrs="0 0 14px 14px">
+            <Box pl={35} pr={35}>
+              <Text c={colorMap[color]} fz={24} fw={600} pb={20}>{ title }</Text>
+              <Text fz={16} fw={500} lh={1.45} lts="0.015rem">{ description }</Text>
+              {
+                logos.length > 0 &&
+                <div className="main-page-block__streaming-card__logos">
+                  {
+                    logos.map((logo, i) => (
+                      <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
+                    ))
+                  }
+                </div>
+              }
+            </Box>
+          </BackgroundImage>
+        </Flex>
+        {/* Hover actions */}
+        <Box w="100%" pos="absolute" p="120px 0 30px 36px" left={0} bottom={0} className={styles.useCaseButtonContainer}>
+          <Flex direction="row" gap={8}>
+            {
+              actions.map(action => (
+                <Button
+                  key={`use-case-button-${action.label}`}
+                  className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
+                  to={action.link || (mobile ? action.mobile_link : undefined)}
+                  onClick={(action.videoHash && !mobile) ? (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setVideoVersionHash(action.videoHash);
+                    setShowModal(true);
+                  } : null}
+                >
+                  {
+                    action.icon &&
+                    <ImageIcon icon={iconMap[action.icon]} height={16} width={18} />
+                  }
+                  { action.label }
+                </Button>
+              ))
+            }
+          </Flex>
+        </Box>
+        <Modal
+          active={showModal}
+          className="modal--modal-box header-modal"
+          Close={() => setShowModal(false)}
+          hideCloseButton
+        >
+          <div className="main-page-header__modal-video modal-box">
+            <Video versionHash={videoVersionHash} className="main-page-block__video main-page-block__core-video" />
+            <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
+              <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
+            </button>
+          </div>
+        </Modal>
+      </Box>
+    </AspectRatio>
   );
 });
 
@@ -444,7 +464,7 @@ const BenefitsBlock = observer(({mobile}) => {
         <Box w="100%" mt={35}>
           <SimpleGrid cols={{base: 1, md: 2}}>
             {/* Card 1 */}
-            <Box p={{base: "30px 90px", sm: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
+            <Box p={{base: "30px 90px", sm: "130px 90px", md: "100px 70px", lg: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
               <Flex direction="column" gap={32} justify="center" h="100%">
                 <Text fz={{base: 24}} c="white.0" ta="center">
                   { cards.no_1.title }
@@ -472,7 +492,7 @@ const BenefitsBlock = observer(({mobile}) => {
               </Flex>
             </Box>
             {/* Card 3 */}
-            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 90px", sm: "120px 90px", md: "30px 45px 30px 65px"}} bg="white.0">
+            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 90px", sm: "120px 90px", md: "20px 45px 20px 55px", lg: "30px 50px"}} bg="white.0">
               <Flex direction="column" gap={28} justify="center" h="100%">
                 <Text c="black.2" fw={500} fz={16}>
                   { cards.no_3.text_one }
@@ -481,7 +501,7 @@ const BenefitsBlock = observer(({mobile}) => {
                   { mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }
                 </Text>
                 <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>
-                  <Text fz={{base: 14, md: 16}}>
+                  <Text fz={{base: 14, lg: 16}}>
                     { mobile ? cards.no_3.text_three_mobile : cards.no_3.text_three }
                   </Text>
                 </Button>
@@ -490,9 +510,9 @@ const BenefitsBlock = observer(({mobile}) => {
             {/* Card 4 */}
             <Box bdrs={12} className={styles.benefitCard} w="100%" h={"auto"}>
               <Flex direction={mobile ? "column" : "row"}>
-                <Box bg="white.0" p={{base: "29px 25px", sm: "100px 90px 15px", md: "45px 40px"}} flex={3} justify="center" bdrs="12px 0 0 12px">
+                <Box bg="white.0" p={{base: "29px 25px", sm: "100px 90px 15px", md: "40px 35px"}} flex={3} justify="center" bdrs="12px 0 0 12px">
                   <Stack gap={24} className={styles.benefitCard4LeftCol}>
-                    <Text fw={500} lh="147%" fz={{base: "16px", md: "14px", lg: "16px"}}>
+                    <Text fw={500} lh="147%" fz={{base: "16px", md: "12px", lg: "16px"}}>
                       {
                         mobile ? (cards.no_4.tabs[activeTabIndex].value_mobile || cards.no_4.tabs[activeTabIndex].value) : cards.no_4.tabs[activeTabIndex].value
                       }
@@ -526,7 +546,7 @@ const BenefitsBlock = observer(({mobile}) => {
               </Flex>
             </Box>
             {/* Card 5 */}
-            <Box p={{base: "30px 70px", sm: "130px 78px"}} bg="black.2" bdrs={12} className={styles.benefitCard} justify="center">
+            <Box p={{base: "30px 70px", sm: "130px 78px", md: "50px 50px", lg: "130px 80px"}} bg="black.2" bdrs={12} className={styles.benefitCard} justify="center">
               <Stack gap={32}>
                 <Text c="white.0" fw={500} fz={{base: 16, md: 13, lg: 16}}>
                   { cards.no_5.text_one }
