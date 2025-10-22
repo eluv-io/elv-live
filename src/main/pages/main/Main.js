@@ -462,7 +462,7 @@ const BenefitsBlock = observer(({mobile}) => {
         <Box w="100%" mt={35}>
           <SimpleGrid cols={{base: 1, md: 2}}>
             {/* Card 1 */}
-            <Box p={{base: "30px 90px", sm: "130px 90px", md: "100px 70px", lg: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
+            <Box p={{base: "30px 40px", xs: "30px 90px", sm: "130px 90px", md: "100px 70px", lg: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
               <Flex direction="column" gap={32} justify="center" h="100%">
                 <Text fz={{base: 24}} c="white.0" ta="center">
                   { cards.no_1.title }
@@ -478,7 +478,7 @@ const BenefitsBlock = observer(({mobile}) => {
               </Flex>
             </Box>
             {/* Card 2 */}
-            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 90px", sm: "120px 90px", md: "30px 80px"}} bg="white.0">
+            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 40px", xs: "30px 90px", sm: "120px 90px", md: "30px 80px"}} bg="white.0">
               <Flex direction="column" gap={20} h="100%" justify="center">
                 {
                   (mobile ? cards.no_2.text_mobile : cards.no_2.text).map((item, i) => (
@@ -490,12 +490,12 @@ const BenefitsBlock = observer(({mobile}) => {
               </Flex>
             </Box>
             {/* Card 3 */}
-            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 90px", sm: "120px 90px", md: "20px 45px 20px 55px", lg: "30px 50px"}} bg="white.0">
+            <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 40px", xs: "30px 90px", sm: "120px 90px", md: "20px 45px 20px 55px", lg: "30px 50px"}} bg="white.0">
               <Flex direction="column" gap={28} justify="center" h="100%">
                 <Text c="black.2" fw={500} fz={16}>
                   { cards.no_3.text_one }
                 </Text>
-                <Text c="black.2" fw={600} fz={{sm: 44, md: 36, lg: 44}} lts={"-1px"} lh={1.25}>
+                <Text c="black.2" fw={600} fz={{base: 40, sm: 44, md: 36, lg: 44}} lts={"-1px"} lh={1.25}>
                   { mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }
                 </Text>
                 <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>
@@ -508,7 +508,7 @@ const BenefitsBlock = observer(({mobile}) => {
             {/* Card 4 */}
             <Box bdrs={12} className={styles.benefitCard} w="100%" h={"auto"}>
               <Flex direction={mobile ? "column" : "row"}>
-                <Box bg="white.0" p={{base: "29px 25px", sm: "100px 90px 15px", md: "40px 35px"}} flex={3} justify="center" bdrs="12px 0 0 12px">
+                <Box bg="white.0" p={{base: "29px 40px", sm: "100px 90px 15px", md: "40px 35px"}} flex={3} justify="center" bdrs="12px 0 0 12px">
                   <Stack gap={24} className={styles.benefitCard4LeftCol}>
                     <Text fw={500} lh="147%" fz={{base: "16px", md: "12px", lg: "16px"}}>
                       {
@@ -544,7 +544,7 @@ const BenefitsBlock = observer(({mobile}) => {
               </Flex>
             </Box>
             {/* Card 5 */}
-            <Box p={{base: "30px 70px", sm: "130px 78px", md: "50px 50px", lg: "130px 80px"}} bg="black.2" bdrs={12} className={styles.benefitCard} justify="center">
+            <Box p={{base: "30px 40px", xs: "30px 70px", sm: "130px 78px", md: "50px 50px", lg: "130px 80px"}} bg="black.2" bdrs={12} className={styles.benefitCard} justify="center">
               <Stack gap={32}>
                 <Text c="white.0" fw={500} fz={{base: 16, md: 13, lg: 16}}>
                   { cards.no_5.text_one }
