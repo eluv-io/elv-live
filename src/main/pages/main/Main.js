@@ -239,7 +239,7 @@ const StreamingCard = observer(({
         bg="white.0"
         bdrs={14}
         mr={14}
-        w={410}
+        w={{base: 350, xs: 410}}
         pos="relative"
         className={styles.useCaseCard}
       >
