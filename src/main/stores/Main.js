@@ -317,7 +317,7 @@ class MainStore {
     }
 
     // Notification seen status is set as just the length of the notification text, as it is very unlikely to be the same between distinct notifications.
-    const messageLength = notification.header.length + notification.text.length;
+    const messageLength = notification.header.length + (notification.plain_text.length || 0);
     const seen = parseInt(localStorage.getItem("dismissed-notification")) === messageLength;
 
     // eslint-disable-next-line getter-return
@@ -331,7 +331,7 @@ class MainStore {
 
     if(!notification) { return; }
 
-    const messageLength = notification.header.length + notification.text.length;
+    const messageLength = notification.header.length + (notification?.plain_text.length || 0);
     localStorage.setItem("dismissed-notification", messageLength);
 
     this.mainSite.notification.active = false;
