@@ -460,7 +460,7 @@ creators:
 
 media_wallet:
   feature_1:
-    tagline: Meet us on your TV
+    tagline: Meet us on your TVz
     header: Eluvio Media Wallet
     subheader: Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric
     subheader_2: Getting Started Video
@@ -1100,7 +1100,7 @@ core_apps:
     video_editor:
       header: Content Fabric Application Suite
       title: Eluvio Video Intelligence Editor
-      walkthrough_video: hq__2C84z5aLtWkzLLb2zrU1UFYkrNbspymquGQWpiu8n8xRXAmG79tK9SkqwsvpsB8bnhmgK5eV6Wyj
+      walkthrough_video: hq__HYmWJqLhpKqWJwsR9BRX3vSh9qEPSfiukv9sqVK5XZdDKjnosQyqUgJi6CedBnsYhTAzoJ3iQx
       short_description: |
         Create and share clips from Fabric content with no file copies or re-transcodes.
         <br>
