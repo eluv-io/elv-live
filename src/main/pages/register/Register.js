@@ -6,6 +6,7 @@ import {Action} from "../../components/Actions";
 import Logo from "../../static/images/logos/eluvio-logo-color.png";
 import Background from "../../static/images/register/background.jpg";
 import BackgroundMobile from "../../static/images/register/background_mobile.jpg";
+import {Box} from "@mantine/core";
 
 
 const HUBSPOT_PORTAL_ID = "6230377";
@@ -56,7 +57,9 @@ const Register = observer(() => {
           <img alt="Eluvio" src={Logo} className="register__copy__logo" />
           <h1 className="register__copy__header">{ content_fabric }</h1>
         </div>
-        <RegisterForm />
+        <Box bg="var(--background-light-2)" p={"20px 30px"}>
+          <RegisterForm />
+        </Box>
         <div className="register__mobile-footer" style={{backgroundImage: `url(${BackgroundMobile})`}}>
           {
             copy.map((text, i) =>
