@@ -335,7 +335,7 @@ main:
       -
         title: Eluvio Video Intelligence Editor
         description: |
-          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
+          Create and share clips from Fabric content with no file copies or re-transcodes. Clip live, set points via AI tags, and share instantly via streaming or download links. Browse AI-generated tags and publish highlights without duplication.
         link: video-intelligence/video-editor
         image: evie
       -
