@@ -24,7 +24,7 @@ const Analytics = observer(() => {
             </div>
             <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow no-border"/>
           </div>
-          <ImageIcon icon={AnalyticsHeader} />
+          <ImageIcon icon={AnalyticsHeader} className="application-info__header-image" />
           <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
         </div>
       </div>
