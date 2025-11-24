@@ -77,6 +77,7 @@ import LearningResourcesIcon from "./nav/learning-resources";
 import LiveStreamManagerIcon from "./nav/live-stream-manager";
 import MIcon from "./nav/video-intelligence/ai-labs-logo";
 import ManagementToolsIcon from "./nav/av-core/management-tools";
+import AudienceAnalyticsIcon from "./nav/av-core/analytics";
 import MediaIngestIcon from "./nav/media-ingest";
 import MonetizationIcon from "./nav/monetization/monetization";
 import PlayerIcon from "./nav/monetization/player";
@@ -100,6 +101,7 @@ const SocialIcons = {
 const NavIcons = {
   AboutNewsIcon,
   AiSearchIcon,
+  AudienceAnalyticsIcon,
   BlockchainNavIcon,
   CreatorStudioIcon,
   DocsIcon,

@@ -127,11 +127,12 @@ const Header = observer(() => {
                 to: "/av-core/fabric-core#tools",
                 props: {useNavLink: true, exact: true},
                 icon: NavIcons.ManagementToolsIcon,
-                // items: [
-                //   {label: mainStore.l10n.header.fabric_browser, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.ELightIcon},
-                //   {label: mainStore.l10n.header.media_ingest, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.MediaIngestIcon},
-                //   {label: mainStore.l10n.header.live_stream_manager, to: "/av-core/fabric-core#tools", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
-                // ]
+              },
+              {
+                label: mainStore.l10n.header.audience_analytics_qos,
+                to: "/monetization/analytics",
+                props: {useNavLink: true, exact: true},
+                icon: NavIcons.AudienceAnalyticsIcon,
               },
             ]}
           >
