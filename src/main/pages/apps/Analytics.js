@@ -7,6 +7,7 @@ import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Mis
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import * as analyticsImages from "../../static/images/apps/analytics";
 import AppImageGallery from "./AppImageGallery";
+import AnalyticsHeader from "../../static/images/main/analytics-section-header.jpg";
 
 const Analytics = observer(() => {
   const copy = mainStore.l10n.core_apps.pages.analytics;
@@ -21,8 +22,9 @@ const Analytics = observer(() => {
               <ImageIcon icon={ApplicationIcons.ContentAnalyticsIcon} className="application-info__icon"/>
               <div className="application-info__header-text light">{copy.title}</div>
             </div>
-            <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow"/>
+            <RichText richText={copy.short_description} className="application-info__short-description page__copy fade-in--slow no-border"/>
           </div>
+          <ImageIcon icon={AnalyticsHeader} />
           <RichText richText={copy.full_description} className="application-info__full-description page__copy fade-in--slow"/>
         </div>
       </div>
