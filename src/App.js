@@ -15,18 +15,18 @@ const SetHeight = () => {
 SetHeight();
 window.addEventListener("resize", SetHeight);
 
-const MAIN_SITE_PATHS = [
-  //"/",
-  "/community",
-  "/wallet",
-  "/content-fabric",
-  "/apps",
-  "/features",
-  "/about",
-  "/creators-and-publishers",
-  "/media-wallet",
-  "/register"
-];
+// const MAIN_SITE_PATHS = [
+//   //"/",
+//   "/community",
+//   "/wallet",
+//   "/content-fabric",
+//   "/apps",
+//   "/features",
+//   "/about",
+//   "/creators-and-publishers",
+//   "/media-wallet",
+//   "/register"
+// ];
 
 const Document = async (filename) => {
   const doc = await import("./main/static/documents/" + filename);

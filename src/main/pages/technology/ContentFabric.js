@@ -9,7 +9,6 @@ import BlockchainImage from "../../static/images/technology/blockchain-graphic.p
 import {DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
 import LearnMore from "./LearnMore";
 
-import TechnologyRoadmap from "./documents/Technology-Roadmap-Full.pdf";
 import {Action} from "../../components/Actions";
 
 const ContentFabric = observer(() => {

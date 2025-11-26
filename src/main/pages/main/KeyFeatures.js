@@ -70,7 +70,7 @@ const KeyFeatureCard = observer(({mobile, feature, flipped, setFlipped}) => {
                   (
                     <ul className="key-feature-card__text-list">
                       { feature.back.map(text => (
-                        <li className="key-feature-card__text-list-item">{ text }</li>
+                        <li key={text} className="key-feature-card__text-list-item">{ text }</li>
                       ))}
                     </ul>
                   ) :

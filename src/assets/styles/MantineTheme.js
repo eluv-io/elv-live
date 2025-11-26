@@ -8,11 +8,11 @@ const theme = createTheme({
     fontFamily: "Inter, Helvetica Neue, helvetica, sans-serif",
   },
   breakpoints: {
-    xs: "30em",
-    sm: "45em",
-    md: "60em",
-    lg: "90em",
-    xl: "100em"
+    xs: "480px",
+    sm: "720px",
+    md: "960px",
+    lg: "1440px",
+    xl: "1600px"
   },
   colors: {
     purple: [
@@ -66,6 +66,9 @@ const theme = createTheme({
       "#434343",
       "#465465",
     ],
+    neutral: [
+      "#665b83"
+    ]
     // highlight: [
     //   "#fa95ff", // highlight-6 (pink/lightest)
     //   "#d4c5ff", // highlight-12 (lavender)

@@ -39,6 +39,7 @@ header:
   ai_labs: Eluvio AI Labs
   learning_resources: Learning Resources
   management_tools: Management Tools
+  audience_analytics_qos: Audience Analytics and QoS
   all_features: All Features
   fabric_browser: Fabric Browser
   media_ingest: Media Ingest
@@ -335,7 +336,7 @@ main:
       -
         title: Eluvio Video Intelligence Editor
         description: |
-          Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
+          Create and share clips from Fabric content with no file copies or re-transcodes. Clip live, set points via AI tags, and share instantly via streaming or download links. Browse AI-generated tags and publish highlights without duplication.
         link: video-intelligence/video-editor
         image: evie
       -
@@ -1100,7 +1101,7 @@ core_apps:
     video_editor:
       header: Content Fabric Application Suite
       title: Eluvio Video Intelligence Editor
-      walkthrough_video: hq__2C84z5aLtWkzLLb2zrU1UFYkrNbspymquGQWpiu8n8xRXAmG79tK9SkqwsvpsB8bnhmgK5eV6Wyj
+      walkthrough_video: hq__HYmWJqLhpKqWJwsR9BRX3vSh9qEPSfiukv9sqVK5XZdDKjnosQyqUgJi6CedBnsYhTAzoJ3iQx
       short_description: |
         Create and share clips from Fabric content with no file copies or re-transcodes.
         <br>

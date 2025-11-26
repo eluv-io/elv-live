@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import UrlJoin from "url-join";

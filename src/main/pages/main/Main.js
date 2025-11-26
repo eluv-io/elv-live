@@ -66,28 +66,38 @@ import EluvioGroupDesktopImage from "../../static/images/main/team-card.jpg";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
-import {Box, Flex, Image, Text, Title} from "@mantine/core";
+import {
+  AspectRatio,
+  BackgroundImage,
+  Box,
+  Button as MantineButton,
+  Flex,
+  Image,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title
+} from "@mantine/core";
 import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
-
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
       <Box maw={1440}>
-        <Flex direction={mobile ? "column" : "row"} gap={mobile ? 30 : 50}>
-          <Box flex={1} pt={{base: 0, sm: 30}}>
-            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 40px", sm: 0}} />
+        <Flex direction={mobile ? "column" : "row"} gap={{base: 20, md: 50}} align={mobile ? "center" : "flex-start"}>
+          <Box flex={1} pt={{base: 0, md: 30}} align="center" w="100%">
+            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", md: 0}} w={{base: "100%",sm: "60%", md: "100%"}} m="auto" />
           </Box>
-          <Flex direction="column" flex={2} gap={mobile ? 25 : 32} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
+          <Flex direction="column" flex={2} gap={{base: 20, md: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
-              fz={{base: "1.25rem", sm: "1.75rem"}}
+              fz={{base: "1.25rem", sm: "1.675rem", md: "1.75rem"}}
               fw={mobile ? 500 : 600}
               c="white.0"
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
-            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
+            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.25rem", md: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
 
             {
               mobile &&
@@ -100,7 +110,7 @@ const HeaderBlock = observer(({mobile}) => {
               </Button>
             }
 
-            <Text c="white.0" fz={{base: "1.25rem", sm: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", md: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
@@ -216,63 +226,82 @@ const StreamingCard = observer(({
     "play-arrow": PlaySimpleIcon
   };
 
+  const colorMap = {
+    purple: "purple.8",
+    blue: "blue.2",
+    violet: "purple.6",
+    teal: "green.0"
+  };
+
   return (
-    <div className="main-page-block__streaming-card">
-      <div className="main-page-block__streaming-card__content" style={{backgroundImage: `url(${image})`, backgroundSize: "cover"}}>
-        <div className="main-page-block__streaming-card__text-content">
-          <p className={`main-page-block__streaming-card__title main-page-block__streaming-card__card-title main-page-block__streaming-card__title--${color}`}>{ title }</p>
-          <div className="main-page-block__streaming-card__description">{ description}</div>
-          {
-            logos.length > 0 &&
-            <div className="main-page-block__streaming-card__logos">
-              {
-                logos.map((logo, i) => (
-                  <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
-                ))
-              }
-            </div>
-          }
-        </div>
-      </div>
-      <div className="main-page-block__streaming-card__button-container">
-        <div className="main-page-block__streaming-card__button-flexbox">
-          {
-            actions.map(action => (
-              <Button
-                key={`use-case-button-${action.label}`}
-                className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
-                to={action.link || (mobile ? action.mobile_link : undefined)}
-                onClick={(action.videoHash && !mobile) ? (event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  setVideoVersionHash(action.videoHash);
-                  setShowModal(true);
-                } : null}
-              >
-                {
-                  action.icon &&
-                  <ImageIcon icon={iconMap[action.icon]} height={16} width={18} />
-                }
-                { action.label }
-              </Button>
-            ))
-          }
-        </div>
-      </div>
-      <Modal
-        active={showModal}
-        className="modal--modal-box header-modal"
-        Close={() => setShowModal(false)}
-        hideCloseButton
+    <AspectRatio ratio={.6961}>
+      <Box
+        bg="white.0"
+        bdrs={14}
+        mr={14}
+        w={{base: 320, xs: 410}}
+        pos="relative"
+        className={styles.useCaseCard}
       >
-        <div className="main-page-header__modal-video modal-box">
-          <Video versionHash={videoVersionHash} className="main-page-block__video main-page-block__core-video" />
-          <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
-            <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
-          </button>
-        </div>
-      </Modal>
-    </div>
+        <Flex direction="column" h="100%" pt={30}>
+          <BackgroundImage src={image} h="100%" bdrs="0 0 14px 14px">
+            <Box pl={35} pr={35}>
+              <Text c={colorMap[color]} fz={24} fw={600} pb={20}>{ title }</Text>
+              <Text fz={16} fw={500} lh={1.45} lts="0.015rem">{ description }</Text>
+              {
+                logos.length > 0 &&
+                <div className="main-page-block__streaming-card__logos">
+                  {
+                    logos.map((logo, i) => (
+                      <ImageIcon key={`logo-${i}`} icon={logo} className="main-page-block__streaming-card__logo" />
+                    ))
+                  }
+                </div>
+              }
+            </Box>
+          </BackgroundImage>
+        </Flex>
+        {/* Hover actions */}
+        <Box w="100%" pos="absolute" p="120px 0 30px 36px" left={0} bottom={0} className={styles.useCaseButtonContainer}>
+          <Flex direction="row" gap={8}>
+            {
+              actions.map(action => (
+                <Button
+                  key={`use-case-button-${action.label}`}
+                  className={`main-page-block__streaming-card__button main-page-block__streaming-card__button--${color} ${action.type === "outline" ? "outline" : ""}`}
+                  to={action.link || (mobile ? action.mobile_link : undefined)}
+                  onClick={(action.videoHash && !mobile) ? (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    setVideoVersionHash(action.videoHash);
+                    setShowModal(true);
+                  } : null}
+                >
+                  {
+                    action.icon &&
+                    <ImageIcon icon={iconMap[action.icon]} height={16} width={18} />
+                  }
+                  { action.label }
+                </Button>
+              ))
+            }
+          </Flex>
+        </Box>
+        <Modal
+          active={showModal}
+          className="modal--modal-box header-modal"
+          Close={() => setShowModal(false)}
+          hideCloseButton
+        >
+          <div className="main-page-header__modal-video modal-box">
+            <Video versionHash={videoVersionHash} className="main-page-block__video main-page-block__core-video" />
+            <button onClick={() => setShowModal(false)} className="modal__close-button light modal-box__close-button">
+              <ImageIcon icon={XIcon} title="Close" className="modal-box__close-button-icon" />
+            </button>
+          </div>
+        </Modal>
+      </Box>
+    </AspectRatio>
   );
 });
 
@@ -430,83 +459,127 @@ const BenefitsBlock = observer(({mobile}) => {
           </Button>
         </div>
 
-        <div className="main-page-block__benefit-cards-container">
-          <div className="main-page-block__benefit-cards">
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-1">
-              <div className="main-page-block__benefit-card-1__column-text">
-                <div className="main-page-block__benefit-card-1__title">
-                  { cards.no_1.title }
-                </div>
-                <div className="main-page-block__benefit-card-1__row-text">
-                  <div className="main-page-block__benefit-card-1__description-text">
-                    { mobile ? cards.no_1.text_left_mobile : cards.no_1.text_left }
-                  </div>
-                  <div className="main-page-block__benefit-card-1__description-text">
-                    { mobile ? cards.no_1.text_right_mobile : cards.no_1.text_right }
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-2">
-              <div className="main-page-block__benefit-card-2__column">
-                {
-                  (mobile ? cards.no_2.text_mobile : cards.no_2.text).map((item, i) => (
-                    <div key={`card-2-item-${i}`}>{ item }</div>
-                  ))
-                }
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-3">
-              <div className="main-page-block__benefit-card-3__column">
-                <div>{ cards.no_3.text_one }</div>
-                <div>{ mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }</div>
-                <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>{ mobile ? cards.no_3.text_three_mobile : cards.no_3.text_three }</Button>
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-4">
-              <div className="main-page-block__benefit-card-4__row">
-                <div className="main-page-block__benefit-card-4__text-panel">
+        <Flex w="100%" mt={35} justify="center">
+          <Box maw={1300}>
+            <SimpleGrid cols={{base: 1, md: 2}}>
+              {/* Card 1 */}
+              <Box p={{base: "30px 40px", xs: "30px 90px", sm: "130px 90px", md: "100px 70px", lg: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
+                <Flex direction="column" gap={32} justify="center" h="100%">
+                  <Text fz={{base: 24}} c="white.0" ta="center">
+                    { cards.no_1.title }
+                  </Text>
+                  <Flex direction={{base: "column", sm: "row"}} gap={28}>
+                    <Text c="white.5" fw={400} fz={{base: 16}} ta={mobile ? "center" : ""}>
+                      { mobile ? cards.no_1.text_left_mobile : cards.no_1.text_left }
+                    </Text>
+                    <Text c="white.5" fw={400} fz={{base: 16, sm: 14, md: 16}} ta={mobile ? "center" : ""}>
+                      { mobile ? cards.no_1.text_right_mobile : cards.no_1.text_right }
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Box>
+              {/* Card 2 */}
+              <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 40px", xs: "30px 90px", sm: "120px 90px", md: "30px 80px"}} bg="white.0">
+                <Flex direction="column" gap={20} h="100%" justify="center">
                   {
-                    mobile ? (cards.no_4.tabs[activeTabIndex].value_mobile || cards.no_4.tabs[activeTabIndex].value) : cards.no_4.tabs[activeTabIndex].value
+                    (mobile ? cards.no_2.text_mobile : cards.no_2.text).map((item, i) => (
+                      <Text key={`card-2-item-${i}`} ta="center" fw={i === 1 ? 600 : 500} fz={i === 0 ? 16 : 24} fs={i === 2 ? "italic" : "normal"}>
+                        { item }
+                      </Text>
+                    ))
                   }
-                  <div className="main-page-block__benefit-card-4__icons">
-                    {
-                      [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
-                        <ImageIcon key={`benefit-icon-${i}`} icon={iconItem} />
-                      ))
-                    }
-                  </div>
-                </div>
-                <div className="main-page-block__benefit-card-4__button-panel">
-                  <TabsList
-                    tabs={(cards?.no_4?.tabs || []).map(tab => (
-                      {title: tab.label}
-                    ))}
-                    activeTabIndex={activeTabIndex}
-                    setActiveTabIndex={setActiveTabIndex}
-                    orientation={mobile ? "horizontal" : "vertical"}
-                    darkMode
-                    wrap={false}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-5">
-              <div>{ cards.no_5.text_one }</div>
-              <div>{ cards.no_5.text_two }</div>
-              <a
-                className="main-page-block__benefit-card-5__github-button"
-                href={cards.no_5.github_link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ImageIcon icon={SocialIcons.GithubIcon} />
-                Eluvio GitHub
-              </a>
-            </div>
-            <div className="main-page-block__benefit-card main-page-block__benefit-card-6" id="eluvio-team" style={{backgroundImage: `url(${mobile ? EluvioGroupMobileImage : EluvioGroupDesktopImage})`}} />
-          </div>
-        </div>
+                </Flex>
+              </Box>
+              {/* Card 3 */}
+              <Box bdrs={12} className={styles.benefitCard} p={{base: "30px 40px", xs: "30px 90px", sm: "120px 90px", md: "20px 45px 20px 55px", lg: "30px 50px"}} bg="white.0">
+                <Flex direction="column" gap={28} justify="center" h="100%">
+                  <Text c="black.2" fw={500} fz={16}>
+                    { cards.no_3.text_one }
+                  </Text>
+                  <Text c="black.2" fw={600} fz={{base: 40, sm: 44, md: 36, lg: 44}} lts={"-1px"} lh={1.25}>
+                    { mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }
+                  </Text>
+                  <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>
+                    <Text fz={{base: 14, lg: 16}}>
+                      { mobile ? cards.no_3.text_three_mobile : cards.no_3.text_three }
+                    </Text>
+                  </Button>
+                </Flex>
+              </Box>
+              {/* Card 4 */}
+              <Box bdrs={12} className={styles.benefitCard} w="100%" h={"auto"}>
+                <Flex direction={mobile ? "column" : "row"}>
+                  <Box bg="white.0" p={{base: "29px 40px", sm: "100px 90px 15px", md: "40px 35px"}} flex={3} justify="center" bdrs="12px 0 0 12px">
+                    <Stack gap={24} className={styles.benefitCard4LeftCol}>
+                      <Text fw={500} lh="147%" fz={{base: "16px", md: "12px", lg: "16px"}}>
+                        {
+                          mobile ? (cards.no_4.tabs[activeTabIndex].value_mobile || cards.no_4.tabs[activeTabIndex].value) : cards.no_4.tabs[activeTabIndex].value
+                        }
+                      </Text>
+                      <SimpleGrid cols={5} spacing={{base: "20px", sm: "40px", md: "15px"}} p={{base: "0 15px", sm: "0 25px", md: "0 15px 0 0"}}>
+                        {
+                          [CubeIcon, BlockchainMenuIcon, BoltIcon, CodeSandboxIcon, ArrowCubeIcon].map((iconItem, i) => (
+                            <ImageIcon
+                              key={`benefit-icon-${i}`}
+                              icon={iconItem}
+                              className={styles.benefitCard4Icon}
+                            />
+                          ))
+                        }
+                      </SimpleGrid>
+                    </Stack>
+                  </Box>
+                  <Box bg="black.2" p={{base: "29px 22px", lg: "29px 32px"}} bdrs={mobile ? "0 0 12px 12px" : "0 12px 12px 0"} flex={2}>
+                    <TabsList
+                      tabs={(cards?.no_4?.tabs || []).map(tab => (
+                        {title: tab.label}
+                      ))}
+                      activeTabIndex={activeTabIndex}
+                      setActiveTabIndex={setActiveTabIndex}
+                      orientation={mobile ? "horizontal" : "vertical"}
+                      darkMode
+                      wrap={false}
+                      size={(uiStore.pageWidth < 1550 && uiStore.pageWidth > 980) ? "xs" : "sm"}
+                    />
+                  </Box>
+                </Flex>
+              </Box>
+              {/* Card 5 */}
+              <Box p={{base: "30px 40px", xs: "30px 70px", sm: "130px 78px", md: "50px 50px", lg: "130px 80px"}} bg="black.2" bdrs={12} className={styles.benefitCard} justify="center">
+                <Stack gap={32}>
+                  <Text c="white.0" fw={500} fz={{base: 16, md: 13, lg: 16}}>
+                    { cards.no_5.text_one }
+                  </Text>
+                  <Text c="white.0" fw={600} fz={{base: 24, md: 21, lg: 24}} lts="-0.5px">
+                    { cards.no_5.text_two }
+                  </Text>
+                  <MantineButton
+                    color="purple.0"
+                    bdrs={20}
+                    leftSection={<ImageIcon icon={SocialIcons.GithubIcon} color="var(--mantine-color-black-0)" />}
+                    w="fit-content"
+                    component="a"
+                    href={cards.no_5.github_link}
+                    target="_blank"
+                  >
+                    <Text c="black.0" fz={{base: 16, md: 14, lg: 16}} fw={500}>
+                      Eluvio GitHub
+                    </Text>
+                  </MantineButton>
+                </Stack>
+              </Box>
+              {/* Card 6 */}
+              <Box bg="black.2" bdrs={12} className={styles.benefitCard} id="eluvio-team">
+                <Image
+                  src={mobile ? EluvioGroupMobileImage : EluvioGroupDesktopImage}
+                  h="100%"
+                  w="100%"
+                  bdrs={12}
+                />
+              </Box>
+            </SimpleGrid>
+          </Box>
+        </Flex>
       </div>
     </div>
   );
@@ -721,7 +794,7 @@ const ClientBlock = ({mobile}) => {
 const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
-      <HeaderBlock mobile/>
+      <HeaderBlock mobile />
       <NotificationBanner mobile className="mobile" />
       <div className="page light no-padding">
         <VideoStack mobile />
