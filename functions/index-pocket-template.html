@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link id="__meta-favicon" rel="shortcut icon" href="@@FAVICON@@" />
+  <title>@@og:title@@</title>
+
+  <meta id="__meta-og:type" property="og:type" content="website" />
+  <meta id="__meta-og:site_name" property="og:site_name" content="@@og:site_name@@" />
+
+  <meta id="__meta-og:title" property="og:title" content="@@og:title@@" />
+  <meta id="__meta-og:description" property="og:description" name="description" content="@@og:description@@" />
+  <meta id="__meta-og:image" property="og:image" content="@@og:image@@" />
+  <meta id="__meta-og:image:alt" property="og:image:alt" content="@@og:image:alt@@" />
+  <meta id="__meta-og:url" property="og:url" content="@@og:url@@" />
+
+  <meta id="__meta-twitter:card" name="twitter:card" content="summary_large_image" />
+  <meta id="__meta-twitter:site" name="twitter:site" content="@@og:site_name@@" />
+  <meta id="__meta-twitter:title" name="twitter:title" content="@@og:title@@" />
+  <meta id="__meta-twitter:description" name="twitter:description" content="@@og:description@@" />
+  <meta id="__meta-twiter:image" property="twitter:image" content="@@og:image@@" />
+  <meta id="__meta-twitter:image:alt" property="twitter:image:alt" content="@@og:image:alt@@" />
+
+  @@additionalContent@@
+
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script type="text/javascript" src="/configuration.js"></script>
+  <script type="module" crossorigin src="/index.js"></script>
+  <link rel="stylesheet" crossorigin href="/index.css">
+
+  <script type="text/javascript">
+    if(window.location.pathname.includes("/index.html")) {
+      window.history.replaceState("", "", window.location.pathname.replace("/index.html", ""));
+    }
+
+    window.__pocketSlug = "@@pocketSlug@@";
+    window.__pocketHash = "@@pocketHash@@";
+  </script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

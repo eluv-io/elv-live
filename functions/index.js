@@ -15,6 +15,14 @@ const create_previewable_link_v2 = functions
   });
 
 // Eluv.io meta tag handling
+const GeneratePocketIndex = require("./PocketTV.cjs");
+const pocket_rewriter = functions
+  .https
+  .onRequest(async (req, res) => {
+    await GeneratePocketIndex(db, req, res);
+  });
+
+// Eluv.io meta tag handling
 const GenerateEluvioIndex = require("./EluvioSite.cjs");
 const create_index_html_v2 = functions
   .https
@@ -24,4 +32,5 @@ const create_index_html_v2 = functions
 
 exports.create_previewable_link_v2 = create_previewable_link_v2;
 exports.create_index_html_v2 = create_index_html_v2;
+exports.pocket_rewriter = pocket_rewriter;
 
