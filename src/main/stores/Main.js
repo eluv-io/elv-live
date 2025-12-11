@@ -2,7 +2,7 @@ import {configure, flow, makeAutoObservable, runInAction} from "mobx";
 import UIStore from "./UI";
 import EluvioConfiguration from "EluvioConfiguration";
 import UrlJoin from "url-join";
-import {Utils, ElvWalletClient} from "@eluvio/elv-client-js";
+import {Utils} from "@eluvio/elv-client-js";
 import SiteConfiguration from "@eluvio/elv-client-js/src/walletClient/Configuration";
 
 import LocalizationEN from "../static/localization/en/en.yml";
@@ -204,6 +204,16 @@ class MainStore {
           (indexA < indexB ? -1 : 1);
       });
 
+    // Deduplicate properties by propertyId (same property may appear in multiple tenants)
+    const seenPropertyIds = new Set();
+    const deduplicatedProperties = properties.filter(property => {
+      if(seenPropertyIds.has(property.propertyId)) {
+        return false;
+      }
+      seenPropertyIds.add(property.propertyId);
+      return true;
+    });
+
     // Old sites that no longer have a path in the app
     const oldSiteSlugs = [
       "bayfront-jazz",
@@ -215,7 +225,7 @@ class MainStore {
       "the-amazons-media-property"
     ];
 
-    this.featuredProperties = properties.map(property => {
+    this.featuredProperties = deduplicatedProperties.map(property => {
       let url = new URL(this.walletAppUrl);
       if(property.main_page_url){
         url = property.main_page_url;
