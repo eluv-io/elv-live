@@ -40,6 +40,10 @@
 
     window.__pocketSlug = "@@pocketSlug@@";
     window.__pocketHash = "@@pocketHash@@";
+
+    if(window.location.pathname === "/" && (window.__pocketSlug || window.__pocketHash)) {
+      window.location.pathname = window.__pocketSlug || window.__pocketHash;
+    }
   </script>
 </head>
   <body>

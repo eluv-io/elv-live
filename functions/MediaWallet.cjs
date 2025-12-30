@@ -3,7 +3,6 @@ const fs = require("fs");
 const Path = require("path");
 const axios = require("axios");
 const { createHash } = require("crypto");
-const {user} = require("firebase-functions/v1/auth");
 
 const WALLET_DEFAULTS = {
   "favicon": "/favicon.png",

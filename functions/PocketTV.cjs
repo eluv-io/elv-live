@@ -201,7 +201,7 @@ async function FindPocketSlugOrId({db, host, path, network, mode}) {
       isCustomDomain = true;
       const domainMapSlug = domainMap.property_slug;
       googleVerificationId = domainMap.google_site_verification_id;
-      redirect = path !== "/sitemap.xml" && pocketSlugOrId && pocketSlugOrId !== domainMapSlug;
+      redirect = path === "/";
       pocketSlugOrId = domainMapSlug;
     }
   } catch(error) {
@@ -239,7 +239,6 @@ async function PocketMetadata(db, req, res) {
   const protocol = req.headers["X-Forwarded-Protocol"] || req.protocol || "https";
   let host = req.headers["x-forwarded-host"] || req.hostname;
   let path = req.headers["x-forwarded-url"] || req.originalUrl;
-
 
   const network = ["dv3", "demov3", "localhost", "127.0.0.1"].find(demoHost => host.includes(demoHost)) ? "demov3" : "main";
   const mode = network === "demov3" || host.includes("-dev") || host.includes(".dev") || host.includes("stg.") ? "staging" : "production";
@@ -283,9 +282,10 @@ async function PocketMetadata(db, req, res) {
 
   if(isCustomDomain) {
     additionalContent += "\n<link rel=\"sitemap\" type=\"application/xml\" title=\"Sitemap\" href=\"/sitemap.xml\">\n";
-    html = html.replaceAll("@@pocketSlug@@", pocketSlugOrId);
-    html = html.replaceAll("@@pocketHash@@", metaTags?.property_hash);
   }
+
+  html = html.replaceAll("@@pocketSlug@@", pocketSlugOrId);
+  html = html.replaceAll("@@pocketHash@@", metaTags?.property_hash);
 
   html = html.replaceAll("@@additionalContent@@", additionalContent);
 
