@@ -95,11 +95,11 @@ const FeatureBlock1Mobile = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
-          <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank" rel="noreferrer">
-            <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
-            {subheader_2}
-          </a>
-          <Flex justify="center">
+          <Flex justify="center" direction="row" gap={16} align="center">
+            <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank" rel="noreferrer">
+              <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
+              {subheader_2}
+            </a>
             <Action className="main-page-header__get-started-link" to="/media-wallet">
               {learn_more_text}&nbsp;→
             </Action>
