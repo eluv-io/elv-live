@@ -182,9 +182,11 @@ const FeatureBlock2 = observer(() => {
             {subheader}
           </h2>
           <div className="main-page-header__actions">
-            <Button href={mainStore.walletAppUrl} target="_blank" className="main-page-header__button">
-              {button_text}
-            </Button>
+            <Action to="/register">
+              <Button href={mainStore.walletAppUrl} target="_blank" className="main-page-header__button">
+                {button_text}
+              </Button>
+            </Action>
           </div>
         </div>
         <ImageIcon icon={FeatureImage2} label="Example content" className="main-page-header__image"/>
