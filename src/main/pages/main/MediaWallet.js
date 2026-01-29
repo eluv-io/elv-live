@@ -45,22 +45,28 @@ const FeatureBlockActions = observer(() => {
     {label: samsung_button_text, image: SamsungButton, link: samsung_store_url, id: "samsung-button"}
   ];
 
+  const rows = [];
+  for(let i = 0; i < buttons.length; i += 3) {
+    rows.push(buttons.slice(i, i + 3));
+  }
+
   return (
-    <Flex gap={9} wrap="wrap">
-      {
-        buttons.map(({id, link, label, image}) => (
-          <a
-            key={id}
-            href={link}
-            target="_blank"
-            className="main-page-header__app-button"
-            rel="noreferrer"
-            style={{maxWidth: "calc((100% - 18px) / 3)"}}
-          >
-            <ImageIcon icon={image} label={label}/>
-          </a>
-        ))
-      }
+    <Flex direction="column" gap={9}>
+      {rows.map((row, rowIndex) => (
+        <Flex key={rowIndex} gap={9}>
+          {row.map(({id, link, label, image}) => (
+            <a
+              key={id}
+              href={link}
+              target="_blank"
+              className="main-page-header__app-button"
+              rel="noreferrer"
+            >
+              <ImageIcon icon={image} label={label}/>
+            </a>
+          ))}
+        </Flex>
+      ))}
     </Flex>
   );
 });
