@@ -98,7 +98,7 @@ const MainApp = () => {
           {/* Creators & Publishers Routes */}
           <Route path="/creators-and-publishers" element={<PageContainer unbound dark><Creators /></PageContainer>} />
           {/* Media Wallet Routes */}
-          <Route path="/media-wallet" element={<PageContainer unbound dark><MediaWallet /></PageContainer>} />
+          <Route path="/media-wallet" element={<PageContainer unbound padded><MediaWalletApp /></PageContainer>} />
           <Route path="/media-wallet/compatible-devices" element={<CompatibleDevices />} />
           {/* Technology Routes*/}
           <Route path="/content-fabric" element={<PageContainer padded><ContentFabric /></PageContainer>} />
@@ -110,7 +110,7 @@ const MainApp = () => {
           {/* Monetization Routes */}
           <Route path="/monetization/creator-studio" element={<PageContainer padded><CreatorStudio /></PageContainer>} />
           <Route path="/monetization/analytics" element={<PageContainer padded><Analytics /></PageContainer>} />
-          <Route path="/monetization/media-wallet" element={<PageContainer padded><MediaWalletApp /></PageContainer>} />
+          <Route path="/monetization/media-wallet" element={<PageContainer unbound dark><MediaWallet /></PageContainer>} />
           <Route path="/monetization/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
           {/* Video Intelligence Routes */}
           <Route path="/video-intelligence/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />

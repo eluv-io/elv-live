@@ -465,7 +465,7 @@ const BenefitsBlock = observer(({mobile}) => {
               {/* Card 1 */}
               <Box p={{base: "30px 40px", xs: "30px 90px", sm: "130px 90px", md: "100px 70px", lg: "130px 90px"}} bg="black.2" bdrs={12} className={styles.benefitCard}>
                 <Flex direction="column" gap={32} justify="center" h="100%">
-                  <Text fz={{base: 24}} c="white.0" ta="center">
+                  <Text fz={{base: 24}} c="white.0" ta="center" fw={600}>
                     { cards.no_1.title }
                   </Text>
                   <Flex direction={{base: "column", sm: "row"}} gap={28}>
