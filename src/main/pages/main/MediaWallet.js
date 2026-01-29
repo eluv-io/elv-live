@@ -14,8 +14,10 @@ import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_a
 import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
 import RokuButton from "../../static/images/main/media_wallet/Roku";
 import LGButton from "../../static/images/main/media_wallet/lg-button";
+import SamsungButton from "../../static/images/main/media_wallet/samsung-tv-apps";
 
 import CarouselImages from "../../static/images/main/media_wallet/carousel";
+import {Flex} from "@mantine/core";
 
 const FeatureBlockActions = observer(() => {
   const {
@@ -24,11 +26,13 @@ const FeatureBlockActions = observer(() => {
     amazon_button_text,
     roku_button_text,
     lg_button_text,
+    samsung_button_text,
     apple_tv_url,
     amazon_appstore_url,
     google_play_url,
     roku_channelstore_url,
-    lg_contentstore_url
+    lg_contentstore_url,
+    samsung_store_url
   } = mainStore.l10n.media_wallet.feature_1;
 
   const buttons = [
@@ -37,18 +41,26 @@ const FeatureBlockActions = observer(() => {
     {label: amazon_button_text, image: AmazonAppstoreButton, link: amazon_appstore_url, id: "amazon-button"},
     {label: roku_button_text, image: RokuButton, link: roku_channelstore_url, id: "roku-button"},
     {label: lg_button_text, image: LGButton, link: lg_contentstore_url, id: "lg-button"},
+    {label: samsung_button_text, image: SamsungButton, link: samsung_store_url, id: "samsung-button"}
   ];
 
   return (
-    <div className="main-page-header__actions">
+    <Flex gap={9} wrap="wrap">
       {
         buttons.map(({id, link, label, image}) => (
-          <a key={id} href={link} target="_blank" className="main-page-header__app-button" rel="noreferrer">
+          <a
+            key={id}
+            href={link}
+            target="_blank"
+            className="main-page-header__app-button"
+            rel="noreferrer"
+            style={{maxWidth: "calc((100% - 18px) / 3)"}}
+          >
             <ImageIcon icon={image} label={label}/>
           </a>
         ))
       }
-    </div>
+    </Flex>
   );
 });
 
@@ -57,6 +69,7 @@ const FeatureBlock1Mobile = observer(() => {
     header,
     subheader,
     subheader_2,
+    learn_more_text,
     tagline,
     getting_started_url,
     feature_image_subheader
@@ -79,6 +92,11 @@ const FeatureBlock1Mobile = observer(() => {
             <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
             {subheader_2}
           </a>
+          <Flex justify="center">
+            <Action className="main-page-header__get-started-link" to="/media-wallet">
+              {learn_more_text}&nbsp;→
+            </Action>
+          </Flex>
           <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__image-mobile"/>
           <Action to="compatible-devices" className="main-page-header__device-list">
             <ImageIcon icon={FullDeviceListIcon} />
@@ -98,6 +116,7 @@ const FeatureBlock1 = observer(() => {
     header,
     subheader,
     subheader_2,
+    learn_more_text,
     tagline,
     getting_started_url,
     feature_image_subheader
@@ -123,12 +142,15 @@ const FeatureBlock1 = observer(() => {
           <h2 className="main-page-header__copy main-page-header__copy--text main-page-header__copy--shadow">
             {subheader}
           </h2>
-          <div className="main-page-header__info-links">
+          <Flex gap={30} align="flex-start">
             <a className="main-page-header__get-started-link" href={getting_started_url} target="_blank" rel="noreferrer">
               <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
               {subheader_2}
             </a>
-          </div>
+            <Action className="main-page-header__get-started-link" to="/media-wallet">
+              {learn_more_text}&nbsp;→
+            </Action>
+          </Flex>
           <FeatureBlockActions />
         </div>
       </div>
