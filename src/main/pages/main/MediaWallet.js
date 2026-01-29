@@ -9,6 +9,7 @@ import {BlockchainIcon, PlayCircleIcon, PlaySimpleIcon, WalletIcon, FullDeviceLi
 import FeatureImage1 from "../../static/images/main/media_wallet/wallet-devices";
 import FeatureImage2 from "../../static/images/main/media_wallet/device_mockup_pc_mobile.png";
 import BackgroundImage from "../../static/images/main/media_wallet/08_background_image.jpg";
+import MobileBackgroundImage from "../../static/images/main/media_wallet/Media-Wallet-BG-Mobile.jpg";
 import AppleTVButton from "../../static/images/main/media_wallet/apple_store.png";
 import AmazonAppstoreButton from "../../static/images/main/media_wallet/amazon_appstore.png";
 import GooglePlayButton from "../../static/images/main/media_wallet/android_store.png";
@@ -229,7 +230,7 @@ const MediaWallet = observer(() => {
   const mobile = uiStore.pageWidth < 1000;
 
   return (
-    <div className="page dark no-padding page--image-background" style={{backgroundImage: `url('${BackgroundImage}')`}}>
+    <div className="page dark no-padding page--image-background" style={{backgroundImage: `url('${mobile ? MobileBackgroundImage : BackgroundImage}')`}}>
       {
         mobile ?
           <FeatureBlock1Mobile /> :
