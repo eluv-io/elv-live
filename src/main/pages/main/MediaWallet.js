@@ -169,8 +169,8 @@ const FeatureBlock2 = observer(() => {
   const {header, subheader, tagline, button_text} = mainStore.l10n.media_wallet.feature_2;
 
   return (
-    <div className="main-page-header--no-bg main-page-header__media-wallet">
-      <div className="main-page-header__content">
+    <Box>
+      <Flex p={{base: "45px 20px 0", md: "85px 80px 50px 90px"}} direction={{base: "column", md: "row"}}>
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
             {tagline}
@@ -182,14 +182,16 @@ const FeatureBlock2 = observer(() => {
             {subheader}
           </h2>
           <div className="main-page-header__actions">
-            <Button href={mainStore.walletAppUrl} target="_blank" className="main-page-header__button">
-              {button_text}
-            </Button>
+            <Action to="/register">
+              <Button href={mainStore.walletAppUrl} target="_blank" className="main-page-header__button">
+                {button_text}
+              </Button>
+            </Action>
           </div>
         </div>
         <ImageIcon icon={FeatureImage2} label="Example content" className="main-page-header__image"/>
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
 });
 
