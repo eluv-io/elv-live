@@ -51,7 +51,7 @@ const FeatureBlockActions = observer(() => {
   }
 
   return (
-    <Flex direction="column" gap={9}>
+    <Flex direction="column" gap={9} align="center">
       {rows.map((row, rowIndex) => (
         <Flex key={rowIndex} gap={9}>
           {row.map(({id, link, label, image}) => (
