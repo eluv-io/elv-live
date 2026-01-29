@@ -18,9 +18,9 @@ import LGButton from "../../static/images/main/media_wallet/lg-button";
 import SamsungButton from "../../static/images/main/media_wallet/samsung-tv-apps";
 
 import CarouselImages from "../../static/images/main/media_wallet/carousel";
-import {Flex} from "@mantine/core";
+import {Box, Flex} from "@mantine/core";
 
-const FeatureBlockActions = observer(() => {
+const FeatureBlockActions = observer(({mobile}) => {
   const {
     apple_button_text,
     google_button_text,
@@ -51,7 +51,7 @@ const FeatureBlockActions = observer(() => {
   }
 
   return (
-    <Flex direction="column" gap={9} align="center">
+    <Flex direction="column" gap={9} align={mobile ? "center" : "flex-start"}>
       {rows.map((row, rowIndex) => (
         <Flex key={rowIndex} gap={9}>
           {row.map(({id, link, label, image}) => (
@@ -83,8 +83,8 @@ const FeatureBlock1Mobile = observer(() => {
   } = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header main-page-header--no-bg">
-      <div className="main-page-header__content">
+    <Box p="40px 20px 30px">
+      <Flex align="flex-start" gap={80} justify="center">
         <div className="main-page-header__copy-container">
           <h4 className="main-page-header__copy main-page-header__copy--tagline main-page-header__copy--shadow">
             {tagline}
@@ -111,10 +111,10 @@ const FeatureBlock1Mobile = observer(() => {
           </Action>
           <div className="main-page-header__info-links">
           </div>
-          <FeatureBlockActions />
+          <FeatureBlockActions mobile />
         </div>
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
 });
 
@@ -130,8 +130,8 @@ const FeatureBlock1 = observer(() => {
   } = mainStore.l10n.media_wallet.feature_1;
 
   return (
-    <div className="main-page-header main-page-header--no-bg main-page-header__top-section">
-      <div className="main-page-header__content">
+    <Box p="140px 90px 50px 100px">
+      <Flex align="flex-start" gap={80} justify="center">
         <div className="main-page-header__image-container">
           <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__top-image"/>
           <Action to="/media-wallet/compatible-devices" className="main-page-header__device-list">
@@ -160,8 +160,8 @@ const FeatureBlock1 = observer(() => {
           </Flex>
           <FeatureBlockActions />
         </div>
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
 });
 
