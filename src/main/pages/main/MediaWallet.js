@@ -105,7 +105,7 @@ const FeatureBlock1Mobile = observer(() => {
             </Action>
           </Flex>
           <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__image-mobile"/>
-          <Action to="compatible-devices" className="main-page-header__device-list">
+          <Action to="/media-wallet/compatible-devices" className="main-page-header__device-list">
             <ImageIcon icon={FullDeviceListIcon} />
             {feature_image_subheader}
           </Action>
@@ -134,7 +134,7 @@ const FeatureBlock1 = observer(() => {
       <div className="main-page-header__content">
         <div className="main-page-header__image-container">
           <ImageIcon icon={FeatureImage1} label="Example content" className="main-page-header__top-image"/>
-          <Action to="compatible-devices" className="main-page-header__device-list">
+          <Action to="/media-wallet/compatible-devices" className="main-page-header__device-list">
             <ImageIcon icon={FullDeviceListIcon} />
             {feature_image_subheader}
           </Action>
