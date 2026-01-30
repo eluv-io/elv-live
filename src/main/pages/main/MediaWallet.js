@@ -100,7 +100,7 @@ const FeatureBlock1Mobile = observer(() => {
               <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
               {subheader_2}
             </a>
-            <Action className="main-page-header__get-started-link" to="/media-wallet">
+            <Action className="main-page-header__get-started-link" to="/monetization/media-wallet-details">
               {learn_more_text}&nbsp;→
             </Action>
           </Flex>
@@ -154,7 +154,7 @@ const FeatureBlock1 = observer(() => {
               <ImageIcon className="main-page-header__get-started-icon" icon={PlaySimpleIcon} />
               {subheader_2}
             </a>
-            <Action className="main-page-header__get-started-link" to="/media-wallet">
+            <Action className="main-page-header__get-started-link" to="/monetization/media-wallet-details">
               {learn_more_text}&nbsp;→
             </Action>
           </Flex>
