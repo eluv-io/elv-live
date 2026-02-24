@@ -67,7 +67,8 @@ const theme = createTheme({
       "#465465",
     ],
     neutral: [
-      "#665b83"
+      "#665b83",
+      "#11243e"
     ]
     // highlight: [
     //   "#fa95ff", // highlight-6 (pink/lightest)

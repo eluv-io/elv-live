@@ -24,7 +24,7 @@
     width: 100%;
 
     &__logo {
-      width: 200px;
+      height: 80px;
     }
 
     &__header-container {
@@ -42,6 +42,8 @@
     &__copy {
       font-size: var(--font-size-header-5);
       padding-top: 40px;
+      font-weight: 500;
+      color: var(--mantine-color-white);
     }
   }
 
@@ -220,7 +222,7 @@
     }
 
     .register__copy__logo {
-      width: 125px;
+      height: 50px;
     }
 
     .register__copy__header {
