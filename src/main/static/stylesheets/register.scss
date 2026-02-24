@@ -18,7 +18,7 @@
   &__copy {
     margin-left: auto;
     margin-right: 90px;
-    max-width: 600px;
+    max-width: 560px;
     padding-bottom: 30px;
     padding-left: 30px;
     width: 100%;
@@ -40,10 +40,11 @@
     }
 
     &__copy {
-      font-size: var(--font-size-header-5);
+      font-size: 1.25rem;
       padding-top: 40px;
       font-weight: 500;
       color: var(--mantine-color-white);
+      letter-spacing: 0.01875rem;
     }
   }
 
