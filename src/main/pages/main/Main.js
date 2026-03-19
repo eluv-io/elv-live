@@ -496,7 +496,7 @@ const BenefitsBlock = observer(({mobile}) => {
                   <Text c="black.2" fw={500} fz={16}>
                     { cards.no_3.text_one }
                   </Text>
-                  <Text c="black.2" fw={600} fz={{base: 40, sm: 44, md: 36, lg: 44}} lts={"-1px"} lh={1.25}>
+                  <Text c="black.2" fw={600} fz={{base: 30, sm: 34, lg: 44}} lts={"-1px"} lh={1.25} style={{whiteSpace: "pre"}}>
                     { mobile ? cards.no_3.text_two_mobile : cards.no_3.text_two }
                   </Text>
                   <Button className="main-page-block__streaming-card__button main-page-block__streaming-card__button--purple" onClick={() => navigate("/content-fabric/technology")}>
