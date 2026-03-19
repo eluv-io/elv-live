@@ -782,10 +782,12 @@ const ClientBlock = ({mobile}) => {
       </div>
       <div className="main-page-block main-page-block--light main-page-block__site-carousel">
         <SiteCarousel mobile={mobile} />
-        {
-          mobile &&
-          <ImageIcon icon={ClientGroupMobileImage} />
-        }
+        <Box pr={20}>
+          {
+            mobile &&
+            <ImageIcon icon={ClientGroupMobileImage} />
+          }
+        </Box>
       </div>
     </>
   );
