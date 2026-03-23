@@ -21,7 +21,7 @@ import {
   BlockchainMenuIcon,
   BoltIcon,
   CodeSandboxIcon,
-  CubeIcon, IBCIcon,
+  CubeIcon, NABIcon,
   PlaySimpleIcon,
   XIcon
 } from "../../static/icons/Icons";
@@ -103,19 +103,19 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <Button
                 className="light header__button header__button--cta"
-                to="https://wallet.contentfabric.io/ibc"
+                to="https://wallet.contentfabric.io/nab2026"
               >
-                <ImageIcon icon={IBCIcon} width={18} height={15} />
-                IBC 2025 Recap - See it all here!
+                <ImageIcon icon={NABIcon} width={50} />
+                See us at NAB
               </Button>
             }
 
             <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", md: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
-              <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/ibc">
-                <ImageIcon icon={IBCIcon} width={18} height={15} />
-                IBC 2025 Recap - See it all here!
+              <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/nab2026">
+                <ImageIcon icon={NABIcon} width={60} />
+                See us at NAB
               </Button>
             }
           </Flex>
