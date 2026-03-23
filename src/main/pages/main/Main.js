@@ -106,7 +106,7 @@ const HeaderBlock = observer(({mobile}) => {
                 to="https://wallet.contentfabric.io/nab2026"
               >
                 <ImageIcon icon={NABIcon} width={50} />
-                See us at NAB
+                See us at NAB 2026
               </Button>
             }
 
@@ -115,7 +115,7 @@ const HeaderBlock = observer(({mobile}) => {
               !mobile &&
               <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/nab2026">
                 <ImageIcon icon={NABIcon} width={60} />
-                See us at NAB
+                See us at NAB 2026
               </Button>
             }
           </Flex>
