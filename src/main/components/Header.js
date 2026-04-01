@@ -174,7 +174,7 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.docs, to: "https://docs.eluv.io/", props: {useNavLink: true}, icon: NavIcons.DocsIcon},
               // {label: mainStore.l10n.header.learning_resources, to: "", props: {useNavLink: true}, subtitle: "Subtitle text", icon: NavIcons.LearningResourcesIcon},
               {label: mainStore.l10n.header.github, to: "https://github.com/eluv-io", props: {useNavLink: true}, icon: SocialIcons.GithubIcon},
-              {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/ibc", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
+              {label: mainStore.l10n.header.community, to: "https://wallet.contentfabric.io/nab2026", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon},
               {label: mainStore.l10n.header.careers, to: "https://apply.workable.com/eluvio/", props: {useNavLink: true}, icon: NavIcons.EDarkFillIcon}
             ]}
           >
