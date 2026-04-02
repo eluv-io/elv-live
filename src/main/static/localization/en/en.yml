@@ -30,7 +30,7 @@ header:
   discover_projects: Discover Projects
   projects: Projects
   apps: A/V Core
-  bucharest: Eluvio Content Fabric Bucharest Release - 2026
+  bucharest: 2026 Core Platform - Bucharest Release
   sign_in: Sign In
   monetization: Monetization
   video_intelligence: Video Intelligence
@@ -1605,6 +1605,13 @@ content_fabric:
     links:
       - text: Master PDF
         link: https://main.net955305.contentfabric.io/s/main/q/hq__3vk3GyxUaTqhqCMxDz5PRywdbxg6RKefwnnXWU5rDA7d6Q4TdWvRb1h5sFGZK5iWV4cWRFsENkM/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bangkok%20Release%20Whitepaper.pdf
+  bucharest:
+    header: 2026 Core Platform - Bucharest Release
+    text: Learn about the new release Bucharest, our first fully unified platform for Broadcast, Streaming, and Inline AI Video Intelligence. See the summary and detailed feature guide.
+    links:
+      -
+        text: Learn More
+        link: /av-core/bucharest-release
 
 technology:
   title: Content Fabric Technology

@@ -5,7 +5,14 @@ import ImageIcon from "../../components/ImageIcon";
 import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 
-import {DocumentIcon, NodeGroupIcon, PlayCircleIcon, TechnologyIcons, Web3Icon} from "../../static/icons/Icons";
+import {
+  DocumentIcon,
+  LinkIcon,
+  NodeGroupIcon,
+  PlayCircleIcon,
+  TechnologyIcons,
+  Web3Icon
+} from "../../static/icons/Icons";
 import SupportGrid from "./SupportGrid";
 
 import StreamingAndReportingDoc from "../technology/documents/Eluvio Content Fabric Core Audio_Video Streaming and Reporting Features.pdf";
@@ -112,8 +119,19 @@ const Features = () => {
   const copy = mainStore.l10n.content_fabric;
   return (
     <div className="page">
-      <div className="page__header-container">
-        <h1 className="features--purple-header">Core Utilities</h1>
+      <div className="page__content-block">
+        <InfoBox
+          icon={TechnologyIcons.LearnMoreTechnologyIcon}
+          header={copy.bucharest.header}
+          content={copy.bucharest.text}
+          links={[
+            {
+              to: copy.bucharest.links[0].link,
+              text: copy.bucharest.links[0].text,
+              icon: LinkIcon
+            }
+          ]}
+        />
       </div>
       <div className="page__content-block">
         <InfoBox
