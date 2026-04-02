@@ -30,6 +30,7 @@ header:
   discover_projects: Discover Projects
   projects: Projects
   apps: A/V Core
+  bucharest: Eluvio Content Fabric Bucharest Release - 2026
   sign_in: Sign In
   monetization: Monetization
   video_intelligence: Video Intelligence
@@ -492,6 +493,974 @@ media_wallet:
     - Enjoy your personal media collection stored and streamed from the Eluvio Content Fabric including movies, live channels, interactive apps, books and more.
     - A full 'EVM' crypto wallet, sign on to your Eluvio Content Fabric address with your own private keys via Metamask or via email, Google or Apple ID. Manage all of your assets, tokens, and passes that prove your media ownership and your rewards.
 
+bucharest_core_platform:
+  header: 2026 Core Platform - Bucharest Release
+  subheader: Expanded Detailed Feature Structure
+  sections:
+    -
+      header: Broadcast Transformation
+      accordions:
+        -
+          title: Performance and Scale
+          items:
+            -
+              title: Fabric Core Protocol Transport Architecture
+              description: |
+                Fabric Core Protocol Transport Architecture
+                A decentralized, high-density multipoint routing architecture designed to replicate satellite-style one-to-many distribution without centralized infrastructure dependencies.
+
+                <div style="height: 1em"></div>
+
+                Key characteristics:
+                - any-to-any routing topology
+                - decentralized control plane
+                - no centralized origin bottlenecks
+                - high fan-out distribution without traffic duplication
+                - global routing graph optimized for deterministic latency
+                - endpoints within approximately 50 ms network proximity
+                - minimal packet loss compensation requirements
+                - terrestrial routing optimized to avoid cloud data center hairpin routing
+                - distributed content fabric nodes acting as routing relay points
+            -
+              title: Supported Input Protocols
+              description: |
+                Supported Input Protocols
+                Transport ingest formats:
+                  - MPEG Transport Stream (TS)
+                  - RTP TS encapsulation
+                  - SRT TS transport
+                  - UDP TS transport
+                  - multicast TS
+                  - unicast TS
+                Preserved timing features:
+                  - arrival timestamp preservation
+                  - RTP timestamp preservation
+                  - continuity counter preservation
+                  - clock drift detection capability
+            -
+              title: Supported Encoding Formats
+              description: |
+                Video encoding:
+                - H264 / AVC
+                - H265 / HEVC
+                - JPEG XS mezzanine compression
+                - raw TS passthrough
+                
+                Encoding characteristics:
+                - broadcast mezzanine quality support
+                - high bitrate mezzanine ingest compatibility
+                - low latency encoder alignment support
+            -
+              title: Fabric Internal Packaging Formats
+              description: |
+                Supported packaging representations:
+                - TS with timing metadata
+                - RTP encapsulated TS
+                - fragmented MP4 (FMP4)
+                - CMAF aligned packaging
+                - hybrid TS + FMP4 dual packaging pipelines
+                
+                <div style="height: 1em"></div>
+                
+                Packaging behaviors:
+                - preservation of packet level timing fidelity
+                - consistent segment boundary alignment
+                - deterministic fragment structure
+            -
+              title: Output Protocols
+              description: |
+                Supported output transport types:
+                broadcast outputs:
+                - SRT push
+                - SRT pull
+                - RTP push
+                - RTP pull
+                - UDP TS push
+                - multicast TS delivery
+                
+                <div style="height: 1em"></div>
+                
+                OTT outputs:
+                - FMP4 segment generation
+                - HLS manifest generation
+                - DASH MPD manifest generation
+                
+                <div style="height: 1em"></div>
+                
+                output targeting options:
+                - per receiver output definition
+                - per geographic region routing
+                - per node routing resolution
+                - dynamically resolved global endpoint URLs
+                - output replication across redundant paths
+            -
+              title: Transcoding and Transformation Capabilities
+              description: |
+                JPEG XS workflows:
+                - JPEG XS resolution downscale
+                - JPEG XS bitrate reduction
+                - JPEG XS → H264 transcode
+                - JPEG XS → H265 transcode
+                
+                <div style="height: 1em"></div>
+                
+                H264 / H265 workflows:
+                - bitrate ladder generation
+                - spatial resolution rescale
+                - GOP structure normalization
+                - encoding profile alignment
+                
+                <div style="height: 1em"></div>
+                
+                Packaging transformations:
+                - TS → FMP4 conversion
+                - TS → CMAF segmentation
+                - CMAF fragment alignment for adaptive bitrate streaming
+                
+                <div style="height: 1em"></div>
+                
+                Zero-copy transformation:
+                - avoids intermediate file materialization
+                operates on Fabric object parts directly
+            -
+              title: Latency Engineering
+              description: |
+                glass-to-glass latency targets:
+                - sub 500 milliseconds globally
+
+                <div style="height: 1em"></div>
+
+                latency optimization strategies:
+                - minimized buffer depth
+                - short segment duration CMAF chunks
+                - parallelized fragment generation
+                - optimized routing path selection
+                - minimized serialization delays
+
+                <div style="height: 1em"></div>
+
+                supports:
+                - real time sports production workflows
+                - interactive streaming environments
+                - synchronized global distribution events
+            -
+              title: Jitter Mitigation and Clock Drift Compensation
+              description: |
+                sub millisecond jitter smoothing:
+
+                <div style="height: 1em"></div>
+
+                metrics:
+                - inter-arrival time (IAT)
+                - RTP timestamp variance
+                - TS continuity consistency
+
+                <div style="height: 1em"></div>
+
+                correction algorithms:
+                - drift compensation
+                - timestamp interpolation
+                - jitter buffer smoothing
+                - reset event reconciliation
+                - RTP clock skew compensation
+            -
+              title: Recording and Persistence
+              description: |
+                zero copy recording architecture:
+
+                <div style="height: 1em"></div>
+
+                recording outputs:
+                - TS time indexed storage
+                - FMP4 mezzanine generation
+                - live stream archival
+                - live to VoD transformation
+
+                <div style="height: 1em"></div>
+
+                download support:
+                - full asset export
+                - mezzanine export
+                - ISO download workflows
+                - B2B asset delivery
+
+                <div style="height: 1em"></div>
+
+                archive features:
+                - timecode continuity preservation
+                - frame accurate persistence
+            -
+              title: Multipath Redundant Routing
+              description: |
+                global multipath routing architecture:
+
+                <div style="height: 1em"></div>
+
+                characteristics:
+                - disjoint routing graph
+                - independent route calculation
+                - no shared routing elements across redundant paths
+                - route diversity enforcement
+
+                <div style="height: 1em"></div>
+
+                failure resilience:
+                - link level redundancy
+                - node level redundancy
+                - path level redundancy
+            -
+              title: SMPTE 2022-7 Distributed Phase Lock
+              description: |
+                supports A/B redundant stream synchronization:
+
+                <div style="height: 1em"></div>
+
+                features:
+                  - decentralized synchronization logic
+                  - automatic phase alignment
+                  - sub millisecond stream alignment
+                  - no master timing node required
+                  - geographic independence of synchronization
+    
+
+        -
+          title: A/V Features
+          items:
+            -
+              title: Broadcast Mezzanine Fidelity Support
+              description: |
+                supports high bitrate mezzanine transport streams:
+                - minimal recompression workflows
+                - preservation of original encoder timing structure
+                - preservation of GOP alignment
+
+                <div style="height: 1em"></div>
+
+                frame timing continuity:
+                - precise timestamp preservation
+                - frame accurate synchronization across outputs
+            -
+              title: Adaptive Bitrate Compatibility
+              description: |
+                supports CMAF aligned fragment generation enabling:
+                
+                downstream OTT adaptive bitrate packaging.
+        -
+          title: Management
+          items:
+            -
+              title: New API as Global Switch Matrix
+              description: |
+                centralized logical routing layer enabling:
+
+                <div style="height: 1em"></div>
+
+                output definitions:
+                - preconfigured output endpoints
+                - region based endpoint grouping
+                - node specific endpoint targeting
+
+                <div style="height: 1em"></div>
+
+
+                routing control:
+                - dynamic input reassignment
+                - API controlled switching
+            -
+              title: Batch Switching Operations
+              description: |
+                bulk switching capabilities:
+                - thousands of outputs reassigned via single API call
+                - atomic routing updates
+                - coordinated switching across distributed nodes
+                
+                use cases:
+                - live event feed changes
+                - disaster recovery failover
+                - regional blackout switching
+            -
+              title: Managed Outputs
+              description: |
+                output configuration options:
+                endpoint configuration:
+                - receiver specific output
+                - general audience output
+                
+                routing scope:
+                - regional scope outputs
+                - node scope outputs
+                - globally resolved URL outputs
+        -
+          title: Security
+          items:
+            -
+              title: Encryption Architecture
+              description: |
+                multi-layer encryption stack:
+
+                <div style="height: 1em"></div>
+
+                content encryption:
+                - AES multi-layer encryption
+
+                <div style="height: 1em"></div>
+
+                key exchange:
+                - AFGH cryptographic scheme
+
+                <div style="height: 1em"></div>
+
+                transport encryption:
+                - SRT encryption
+            -
+              title: Secure Proxy Re-encryption
+              description: |
+                features:
+                - per session key generation
+                - isolated key space per session
+                - DRM compatibility for OTT playback
+            -
+              title: Fabric Policy Authorization Engine
+              description: |
+                authorization rule categories:
+
+                <div style="height: 1em"></div>
+
+                temporal controls:
+                - broadcast availability windows
+                - release windows
+
+                <div style="height: 1em"></div>
+
+                geographic controls:
+                - territory restriction enforcement
+
+                <div style="height: 1em"></div>
+
+                entitlement controls:
+                - wallet entitlement validation
+                - subscription validation
+                - purchase validation
+
+                <div style="height: 1em"></div>
+
+                ACL controls:
+                - endpoint level access control
+                - API access control
+
+                <div style="height: 1em"></div>
+
+                business logic:
+                - custom rule execution
+                - contextual access decisions
+        -
+          title: Analytics
+          items:
+            -
+              title: QoS Telemetry
+              description: |
+                protocol layer monitoring:
+
+                <div style="height: 1em"></div>
+
+                - UDP metrics:
+                  - packet loss
+                  - jitter variation
+                  - buffer overflow
+
+                <div style="height: 1em"></div>
+
+                - RTP metrics:
+                  - sequence discontinuities
+                  - timestamp discontinuities
+                  - timestamp drift
+
+                <div style="height: 1em"></div>
+
+                - TS metrics:
+                  - continuity counter errors
+                  - packet ordering anomalies
+
+                <div style="height: 1em"></div>
+
+                - SRT metrics:
+                  - retransmission rates
+                  - retry frequency
+                  - drop counts
+
+                <div style="height: 1em"></div>
+
+                - IAT metrics:
+                  - microburst detection
+                  - packet timing variance
+    -
+      header: D2C OTT Streaming and Full Stack Monetization
+      accordions:
+        -
+          title: Performance and Scale
+          items:
+            -
+              title: HLS and DASH Delivery Optimization
+              description: |
+                network sharding architecture:
+                - distribution sharded by adaptation rung
+                - caching efficiency improvements
+
+                <div style="height: 1em"></div>
+
+                variant scaling:
+                - 8x improvement in variant ladder serving scalability
+
+                <div style="height: 1em"></div>
+
+                JIT encoding pipeline:
+                - stereoscopic encoding generation
+                - high frame rate encoding generation
+                - 10bit encoding generation
+            -
+              title: DRM Pipeline Scaling
+              description: |
+                fragment level encryption:
+                - optimized encryption caching
+                - streamlined encryption pipeline
+
+                <div style="height: 1em"></div>
+
+                supported DRM modes:
+                - CENC
+                - CBCS
+                - AES128
+
+                <div style="height: 1em"></div>
+
+                scaling improvement:
+                - up to 4x increase in DRM variant handling capacity
+            -
+              title: Segment Delivery Optimization
+              description: |
+                latency reduction improvements:
+                - segment delivery latency reduced to 20–30 ms
+
+                <div style="height: 1em"></div>
+
+                scrubbing improvements:
+                - fast DVR scrubbing performance
+                - rapid timeline seek capability
+
+                <div style="height: 1em"></div>
+
+                startup improvements:
+                - reduced startup latency
+                - instant playback availability
+            -
+              title: Zero Impact Maintenance Architecture
+              description: |
+                infrastructure upgrades:
+                - rolling upgrade capability
+                - zero downtime deployment
+                - continuous service availability
+        -
+          title: A/V Features
+          items:
+            -
+              title: Premium Encoding Formats
+              description: |
+                video:
+                - stereoscopic 4K high frame rate encoding
+                - MV HEVC encoding
+                - AV1 encoding (planned)
+                - HDR encoding
+                - HDR10+ encoding
+                - Dolby Vision encoding (planned)
+
+                <div style="height: 1em"></div>
+
+                audio:
+                - Dolby Atmos audio encoding
+            -
+              title: Multi Language Content Support
+              description: |
+                supports:
+                - hundreds of subtitle tracks
+                - hundreds of language tracks
+                
+                subtitle formats:
+                - multi track subtitle support
+                - synchronized subtitle playback
+            -
+              title: Composition API
+              description: |
+                zero copy composition capabilities:
+
+                <div style="height: 1em"></div>
+
+                supports:
+                - edit list composition
+                - multi object composition
+                - clip composition
+                - highlight composition
+                - trailer composition
+            -
+              title: Timecode Support
+              description: |
+                frame accurate timecode preserved for:
+
+                <div style="height: 1em"></div>
+
+                archive workflows
+                
+                clip workflows
+                
+                download workflows
+        -
+          title: Management
+          items:
+            -
+              title: Creator Studio CMS
+              description: |
+                no code configuration environment enabling:
+
+                <div style="height: 1em"></div>
+
+                OTT storefront creation
+                
+                live portal configuration
+                
+                VoD portal configuration
+                
+                B2B portal configuration
+
+            -
+              title: Content Publishing Workflows
+              description: |
+                instant browsing of Fabric content objects
+                
+                zero copy publishing workflows
+
+                <div style="height: 1em"></div>
+
+                publishing features:
+                - trailer publishing
+                - highlight publishing
+                - clip publishing
+            -
+              title: Metadata Management
+              description: |
+                metadata capabilities:
+                
+                automatic transcription display
+                
+                chapter segmentation display
+                
+                play by play metadata display
+
+                <div style="height: 1em"></div>
+
+                content metadata configuration:
+                - artwork metadata
+                - title metadata
+                - localization metadata
+            -
+              title: Branding Configuration
+              description: |
+                supports:
+                - custom domain configuration
+                - custom layout configuration
+                - sports layout configuration
+                - entertainment layout configuration
+        -
+          title: Security
+          items:
+            -
+              title: Multi DRM Support
+              description: |
+                device class support:
+                - browser DRM
+                - mobile DRM
+                - connected TV DRM
+
+                <div style="height: 1em"></div>
+
+                hardware security levels:
+                - L1 hardware DRM enforcement
+                - configurable offline playback policies
+            -
+              title: Identity Integration
+              description: |
+                SSO support:
+                - JWT OIDC authentication
+                - SAML authentication
+
+                <div style="height: 1em"></div>
+
+                entitlement enforcement:
+                - wallet based entitlement validation
+                - purchase based entitlement validation
+        -
+          title: Analytics
+          items:
+            -
+              title: Streaming Analytics
+              description: |
+                metrics:
+                - real time latency measurements
+                - percentile latency reporting
+
+                <div style="height: 1em"></div>
+
+                latency percentiles:
+                - average latency
+                - 90th percentile latency
+                - 99th percentile latency
+            -
+              title: Audience Metrics
+              description: |
+                segmentation dimensions:
+                
+                content title
+                
+                user id
+                
+                wallet address
+                
+                user agent
+                
+                platform
+                
+                client IP geo resolution
+            -
+              title: Transaction Analytics
+              description: |
+                supports reporting on:
+                
+                subscription transactions
+                
+                one time purchase transactions
+
+                <div style="height: 1em"></div>
+
+                aggregation dimensions:
+                - currency
+                - country
+                - product
+            -
+              title: Download Analytics
+              description: |
+                metrics:
+                - download session counts
+                - download performance metrics
+
+                <div style="height: 1em"></div>
+
+                client side QoS telemetry integrated into Media Wallet.
+        -
+          title: Apps
+          items:
+            -
+              title: Media Wallet
+              description: |
+                OTT playback application capabilities:
+                
+                live playback
+                
+                VoD playback
+                
+                multiview playback
+                
+                timeline features:
+                - chapter markers
+                - DVR scrubbing controls
+                
+                AI features:
+                - transcription overlay
+                - play by play display
+                
+                device support:
+                - browser
+                - mobile
+                - connected TV
+                
+                connected TV platforms:
+                - Apple TV
+                - Android TV
+                - Roku
+                - FireTV
+                - LG TV
+                - Samsung TV
+            -
+              title: Embeddable Player
+              description: |
+                features:
+                
+                embedded playback experience
+                
+                timeline chapter display
+                
+                vertical video playback
+                
+                orientation switching
+                
+                DVR controls
+            -
+              title: Pocket TV
+              description: |
+                white label OTT microsites:
+
+                <div style="height: 1em"></div>
+
+                purchase experience:
+                - no login purchase workflow
+                - magic link return access
+
+                <div style="height: 1em"></div>
+
+                monetization models:
+                - ad supported content
+                - pay per view content
+                - episodic viewing
+                - sponsored content slates
+                
+                payment integration:
+                - Apple Pay
+                - Google Pay
+                no PII stored by platform.
+
+    -
+      header: Inline Video AI
+      accordions:
+        -
+          title: Foundations
+          items:
+            - title: Inline AI Inference Architecture
+              description: |
+                runs inference directly inside Fabric nodes.
+
+                <div style="height: 1em"></div>
+
+                zero copy AI processing:
+                - no media duplication
+                - no re segmentation
+                - no intermediate files
+
+                <div style="height: 1em"></div>
+
+                modalities supported:
+                
+                video
+                
+                audio
+                
+                text
+                
+                image
+                
+                telemetry
+            - title: Tagger Service
+              description: |
+                frame accurate tagging pipeline:
+
+                <div style="height: 1em"></div>
+
+                outputs:
+                - textual labels
+                - frame embeddings
+                - shot embeddings
+                - audio embeddings
+                - pose embeddings
+
+                <div style="height: 1em"></div>
+
+                storage layers:
+                
+                Tag Store
+                
+                Vector Store
+                
+                supports asynchronous persistence.
+
+            - title: Supported Model Categories
+              description: |
+                vision models:
+                - object detection
+                - object tracking
+                - motion tracking
+                - pose estimation
+                - scene classification
+                - landmark recognition
+                - celebrity recognition
+                - brand recognition
+
+                <div style="height: 1em"></div>
+
+                audio models:
+                - speech to text transcription
+                - speaker identification
+                - music identification
+
+                <div style="height: 1em"></div>
+
+                embedding models:
+                - OpenCLIP embeddings
+                - ImageBind embeddings
+                - MediaPipe embeddings
+        -
+          title: APIs
+          items:
+            - title: Generative AI pipelines
+              description: |
+                supports generation of:
+                
+                text outputs:
+                - summaries
+                - captions
+                - titles
+                - social descriptions
+                
+                structural outputs:
+                - chapter segmentation
+                - key moment labeling
+                
+                classification outputs:
+                - genre classification
+                - trope identification
+                - mood classification
+                
+                media outputs:
+                - highlight clips
+                - trailers
+                - short form content
+                - vertical video generation
+            - title: Multimodal Search APIs
+              description: |
+                query modalities:
+                
+                natural language queries
+                
+                image queries
+                
+                music queries
+
+                <div style="height: 1em"></div>
+
+                search results:
+                
+                frames
+                
+                shots
+                
+                clips
+                
+                scenes
+
+                <div style="height: 1em"></div>
+
+                retrieval architecture:
+                - vector similarity search
+                - RAG retrieval ranking
+                authorization aware search results.
+            - title: MCP Integration APIs
+              description: |
+                LLM integrated workflows:
+                
+                generate clips
+                
+                generate trailers
+                
+                generate thumbnails
+                
+                generate transcripts
+                
+                generate chapters
+                
+                generate descriptions
+                
+                generate vertical video
+                
+                search media libraries via prompt.
+
+                <div style="height: 1em"></div>
+
+                authentication:
+                - SSO authentication
+                - tenant level authorization
+        -
+          title: Apps (EVIE)
+          items:
+            - title: EVIE Titles and Events
+              description: |
+                AI assisted content intelligence workflows:
+
+                <div style="height: 1em"></div>
+
+                generates:
+                
+                synopses
+                
+                chapters
+                
+                transcriptions
+                
+                genre classification
+                
+                mood classification
+                
+                trope identification
+            - title: Scene level analysis
+              description: |
+                detects:
+                
+                motion patterns
+                
+                pose detection
+                
+                speaker detection
+                
+                brand detection
+                
+                celebrity detection
+                
+                telemetry signals
+            - title: In This Video panel
+              description: |
+                interactive synchronized display of:
+                
+                transcriptions
+                
+                chapters
+                
+                play by play data
+                
+                scene metadata
+            - title: Short form content generation
+              description: |
+                automatically generates:
+                
+                trailers
+                
+                highlight clips
+                
+                short form content
+                
+                vertical format video (9:16 from 16:9 source)
+            - title: Natural language workflow support
+              description: |
+                users can:
+
+                <div style="height: 1em"></div>
+
+                search content using prompts
+                
+                generate alternate synopses
+                
+                generate alternate clips
+                
+                generate vertical variants
+                
+                save generated assets
+                
+                share generated assets
+                
+                publish generated variants
 # Compatible Devices
 
 compatible_devices:

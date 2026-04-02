@@ -52,6 +52,7 @@ import FullDeviceListIcon from "./full-device-list.svg";
 import SearchIcon from "./search.svg";
 import IBCIcon from "./ibc-icon.svg";
 import NABIcon from "./nab-icon";
+import StarIcon from "./star";
 
 import InstagramIcon from "./social/instagram.svg";
 import TwitterIcon from "./social/twitter.svg";
@@ -119,7 +120,8 @@ const NavIcons = {
   ManagementToolsIcon,
   MediaIngestIcon,
   MonetizationIcon,
-  PlayerIcon
+  PlayerIcon,
+  StarIcon
 };
 
 export {
