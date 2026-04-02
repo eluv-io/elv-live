@@ -54,13 +54,25 @@ const MobileNav = observer(({visible, Close}) => {
                   to: "/av-core/fabric-core#tools",
                   props: {useNavLink: true, exact: true},
                   icon: NavIcons.ManagementToolsIcon,
+                },
+                {
+                  label: mainStore.l10n.header.audience_analytics_qos,
+                  to: "/monetization/analytics",
+                  props: {useNavLink: true, exact: true},
+                  icon: NavIcons.AudienceAnalyticsIcon,
+                },
+                {
+                  label: mainStore.l10n.header.bucharest,
+                  to: "/av-core/bucharest-release",
+                  props: {useNavLink: true, exact: true},
+                  icon: NavIcons.StarIcon
                 }
               ]
             },
             {
               label: mainStore.l10n.header.monetization,
               children: [
-                {label: mainStore.l10n.header.analytics, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
+                {label: mainStore.l10n.header.monetization, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
                 {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
                 {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
                 {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
