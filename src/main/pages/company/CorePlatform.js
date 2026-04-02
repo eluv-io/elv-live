@@ -33,8 +33,8 @@ const CorePlatform = () => {
     <div className="page light">
       <Box mb={36}>
         <Flex align="center" direction="column">
-          <Title fw={600} order={1} fz="2.5rem" c="neutral.1">{copy.header}</Title>
-          <Title order={2} fz="2rem" fw={600} c="purple.7">
+          <Title fw={600} order={1} fz={{base: "1.875rem", md: "2.5rem"}} c="neutral.1">{copy.header}</Title>
+          <Title order={2} fz={{base: "1.75rem", md: "2rem"}} fw={600} c="purple.7">
             {copy.subheader}
           </Title>
         </Flex>
@@ -44,7 +44,7 @@ const CorePlatform = () => {
       {
         copy.sections.map(section => (
           <Box key={`accordion-group-${section.header}`}>
-            <Title fw={600} order={1} fz="2.5rem" mb={36}>{ section.header }</Title>
+            <Title fw={600} order={1} fz={{base: "1.875rem", md: "2.5rem"}}mb={36}>{ section.header }</Title>
             {
               section.accordions.map(accordion => (
                 <AccordionSection
