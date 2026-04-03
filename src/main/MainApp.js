@@ -42,6 +42,7 @@ import EpcrTvCaseStudy from "./pages/case-studies/EpcrTvCaseStudy";
 import LearningResources from "./pages/resources/LearningResources";
 import {MantineProvider} from "@mantine/core";
 import MantineTheme from "Styles/MantineTheme";
+import CorePlatform from "./pages/company/CorePlatform";
 
 const expectedDomains = [
   "live.demov3.contentfabric.io",
@@ -107,6 +108,7 @@ const MainApp = () => {
           {/* A/V Core Routes */}
           <Route path="/av-core/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
           <Route path="/av-core/core-utilities" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
+          <Route path="/av-core/bucharest-release" element={<PageContainer padded><CorePlatform /></PageContainer>} />
           {/* Monetization Routes */}
           <Route path="/monetization/creator-studio" element={<PageContainer padded><CreatorStudio /></PageContainer>} />
           <Route path="/monetization/analytics" element={<PageContainer padded><Analytics /></PageContainer>} />

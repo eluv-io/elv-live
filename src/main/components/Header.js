@@ -134,6 +134,12 @@ const Header = observer(() => {
                 props: {useNavLink: true, exact: true},
                 icon: NavIcons.AudienceAnalyticsIcon,
               },
+              {
+                label: mainStore.l10n.header.bucharest,
+                to: "/av-core/bucharest-release",
+                props: {useNavLink: true, exact: true},
+                icon: NavIcons.StarIcon
+              }
             ]}
           >
             { mainStore.l10n.header.apps }
