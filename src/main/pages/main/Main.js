@@ -103,7 +103,7 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <Button
                 className="light header__button header__button--cta"
-                to="https://wallet.contentfabric.io/nab2026"
+                to="https://nab.eluv.io/"
               >
                 <ImageIcon icon={NABIcon} width={50} />
                 See us at NAB 2026
