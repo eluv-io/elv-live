@@ -197,8 +197,8 @@
       border-radius: 5px;
       color: #000;
       gap: 10px;
-      padding-left: 28px;
-      padding-right: 28px;
+      height: max-content;
+      padding: 25px 32px;
 
       &:hover {
         background: linear-gradient(0deg, rgb(255 255 255 / 20%) 0%, rgb(255 255 255 / 20%) 100%), var(--color-highlight-12);

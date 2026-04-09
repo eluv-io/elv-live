@@ -72,6 +72,7 @@ import {
   Box,
   Button as MantineButton,
   Flex,
+  Group,
   Image,
   SimpleGrid,
   Stack,
@@ -113,10 +114,22 @@ const HeaderBlock = observer(({mobile}) => {
             <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", md: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
-              <Button className="light header__button header__button--cta" to="https://wallet.contentfabric.io/nab2026">
-                <ImageIcon icon={NABIcon} width={60} />
-                See us at NAB 2026
-              </Button>
+              <>
+                <Button className="light header__button header__button--cta" to="https://nab.eluv.io/">
+                  <Stack gap={6}>
+                    <Text fz={28} fw={700} lh={1}>See the next generation</Text>
+                    <Group gap={8}>
+                      <Text fz={28} fw={700} lh={1}>Content Fabric at</Text>
+                      <ImageIcon icon={NABIcon} height={22} /><Text fz={28} fw={700} lh={1}>2026!</Text>
+                    </Group>
+                  </Stack>
+                </Button>
+                <Group>
+                  <Text fz={20} fw={500} c="white.6" style={{textShadow: "1px 1px 4px rgba(0,0,0,0.5)"}}>
+                    LIVE | PVOD | FAST | HIGHLIGHTS | ARCHIVE
+                  </Text>
+                </Group>
+              </>
             }
           </Flex>
         </Flex>
