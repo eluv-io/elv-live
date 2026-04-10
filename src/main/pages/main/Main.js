@@ -102,7 +102,7 @@ const HeaderBlock = observer(({mobile}) => {
 
             {
               mobile &&
-              <MantineButton color="white.0" radius={5} to="https://nab.eluv.io/" size="xs" h="auto" py="sm">
+              <MantineButton color="white.0" radius={5} component="a" href="https://nab.eluv.io/" target="_blank" size="xs" h="auto" py="sm">
                 <Stack gap={6} align="start">
                   <Text fz={15} fw={700} lh={1} c="black.0">See the next generation</Text>
                   <Group gap={8}>
@@ -116,7 +116,7 @@ const HeaderBlock = observer(({mobile}) => {
             <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
-              <MantineButton color="white.0" radius={5} to="https://nab.eluv.io/" size="md" h="auto" py="md">
+              <MantineButton color="white.0" radius={5} component="a" href="https://nab.eluv.io/" target="_blank" size="md" h="auto" py="md">
                 <Stack gap={6} align="start">
                   <Text fz={{base: 16, lg: 22}} fw={700} lh={1} c="black.0">See the next generation</Text>
                   <Group gap={8}>
