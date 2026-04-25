@@ -104,7 +104,7 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <MantineButton color="white.0" radius={5} component="a" href="https://nab.eluv.io/" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
                 <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
-                  Thanks to everyone who visited us at <ImageIcon icon={NABIcon} height={13} style={{display: "inline-block", verticalAlign: "middle"}} /> 2026! Check out our new Bucharest Release that won Best of Show!
+                  Thanks to everyone who visited us at <ImageIcon icon={NABIcon} height={13} style={{display: "inline-block", verticalAlign: "middle"}} /> 2026! Check out our new Bucharest Release that won Best of Show! →
                 </Text>
               </MantineButton>
             }
@@ -118,7 +118,7 @@ const HeaderBlock = observer(({mobile}) => {
                   <Text fz={15} fw={700} lh={1} c="black.0">Thanks to everyone who visited us at</Text><ImageIcon icon={NABIcon} height={13} />
                     <Text fz={15} fw={700} lh={1} c="black.0">2026!</Text>
                   </Group>
-                  <Text fz={15} fw={700} lh={1} c="black.0">Check out our new Bucharest Release that won Best of Show!</Text>
+                  <Text fz={15} fw={700} lh={1} c="black.0">Check out our new Bucharest Release that won Best of Show! →</Text>
                 </Stack>
               </MantineButton>
             }
