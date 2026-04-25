@@ -27,7 +27,7 @@ import {
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
-import EluvioColorLogo from "../../static/images/logos/eluvio-logo-hero";
+import EluvioColorLogo from "../../static/images/logos/logo_nab_win";
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
 import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
