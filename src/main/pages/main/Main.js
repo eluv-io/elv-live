@@ -249,9 +249,9 @@ const StreamingCard = observer(({
       >
         <Flex direction="column" h="100%" pt={30}>
           <BackgroundImage src={image} h="100%" bdrs="0 0 14px 14px">
-            <Box pl={35} pr={35}>
-              <Text c={colorMap[color]} fz={24} fw={600} pb={20}>{ title }</Text>
-              <Text fz={16} fw={500} lh={1.45} lts="0.015rem">{ description }</Text>
+            <Box pl={{base: 30, md: 35}} pr={{base: 30, md: 35}}>
+              <Text c={colorMap[color]} fz={{base: 18, md: 24}} fw={600} pb={{base: 18, md: 20}}>{ title }</Text>
+              <Text fz={{base: 13, md: 16}} fw={500} lh={1.45} lts="0.015rem">{ description }</Text>
               {
                 logos.length > 0 &&
                 <div className="main-page-block__streaming-card__logos">
