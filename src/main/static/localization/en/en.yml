@@ -480,7 +480,7 @@ media_wallet:
     amazon_appstore_url: "https://www.amazon.com/gp/product/B0CDLG65ML"
     roku_channelstore_url: "https://channelstore.roku.com/en-gb/details/6fdb7c67cc944e0db2bad6c3f472beaf:406eb61dd4c5ea8334e27098831e89dc/eluvio-media-wallet"
     lg_contentstore_url: "https://us.lgappstv.com/main/tvapp/detail?appId=1273688&catCode1=&moreYn=N&cateYn=N&orderType=0&headerName=&appRankCode=&sellrUsrNo="
-    samsung_store_url: "https://www.samsung.com/us/tvs/smart-tv/samsung-tv-apps/"
+    samsung_store_url: "https://www.samsung.com/us/tvs/smart-tv/samsung-tv-apps-detail/?appId=3202506040182"
     feature_image_subheader: See full list of devices
   feature_2:
     tagline: Enjoy on any browser
