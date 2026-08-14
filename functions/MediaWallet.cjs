@@ -335,6 +335,11 @@ async function PropertyMetadata(db, req, res) {
   let host = req.headers["x-forwarded-host"] || req.hostname;
   let path = req.headers["x-forwarded-url"] || req.originalUrl;
 
+  if(path.endsWith(".js") || path.endsWith(".css")) {
+    res.status(404).send();
+    return;
+  }
+
   if(path.startsWith("/items")) {
     return InterviewItemsAPI(db, req, res);
   }
