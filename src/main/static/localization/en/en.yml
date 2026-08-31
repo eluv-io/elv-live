@@ -2819,7 +2819,7 @@ footer:
       - text: "See Us in the News"
         link: "/about/news"
       - text: "Latest Events - IBC 2026"
-        link: "https://eluv.io/community"
+        link: "/community"
       - text: "Careers"
         link: "https://apply.workable.com/eluvio/"
   - title: "Resources"
