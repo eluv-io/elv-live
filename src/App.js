@@ -48,7 +48,7 @@ const Load = async () => {
   }
 
   if(path === "/community") {
-    window.location.href = "https://nab.eluv.io/";
+    window.location.href = "https://ibc.eluv.io/";
   } else if(path === "/privacy") {
     Document("PrivacyPolicy.html");
   } else if(path === "/terms") {
