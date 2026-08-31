@@ -140,7 +140,16 @@ module.exports = (env) => {
               }
             },
             "postcss-loader",
-            "sass-loader"
+            {
+              loader: "sass-loader",
+              options: {
+                // Dart Sass prepends a UTF-8 BOM when the compiled output contains
+                // non-ASCII characters. style-loader then injects that BOM at the top
+                // of the <style> block, which invalidates the first CSS rule
+                // (the New CSS Reset's `*:where(...) { all: unset }`). Disable it.
+                sassOptions: {charset: false}
+              }
+            }
           ]
         },
         {
