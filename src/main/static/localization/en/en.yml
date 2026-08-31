@@ -2820,6 +2820,7 @@ footer:
         link: "/about/news"
       - text: "Latest Events - IBC 2026"
         link: "/community"
+        link_type: "relative"
       - text: "Careers"
         link: "https://apply.workable.com/eluvio/"
   - title: "Resources"
