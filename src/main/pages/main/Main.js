@@ -21,13 +21,14 @@ import {
   BlockchainMenuIcon,
   BoltIcon,
   CodeSandboxIcon,
-  CubeIcon, NABIcon,
+  CubeIcon,
   PlaySimpleIcon,
   XIcon
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
-import EluvioColorLogo from "../../static/images/logos/logo_nab_win";
+import EluvioColorLogo from "../../static/images/logos/eluvio-logo-color.png";
+import IBC2026Logo from "../../static/images/main/ibc-2026-logo";
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
 import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
@@ -67,6 +68,7 @@ import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jp
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 import {
+  Anchor,
   AspectRatio,
   BackgroundImage,
   Box,
@@ -102,9 +104,9 @@ const HeaderBlock = observer(({mobile}) => {
 
             {
               mobile &&
-              <MantineButton color="white.0" radius={5} component="a" href="https://nab.eluv.io/" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
+              <MantineButton color="white.0" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
                 <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
-                  Thanks to everyone who visited us at <ImageIcon icon={NABIcon} height={13} style={{display: "inline-block", verticalAlign: "middle"}} /> 2026! Check out our new Bucharest Release that won Best of Show! →
+                  See us at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />. Check out <Anchor href="https://ibc.eluv.io" target="_blank" c="black.0" fw={700} underline="always" onClick={event => event.stopPropagation()}>ibc.eluv.io</Anchor> for the new product announcements, demo schedule and more →
                 </Text>
               </MantineButton>
             }
@@ -112,13 +114,26 @@ const HeaderBlock = observer(({mobile}) => {
             <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
-              <MantineButton color="white.0" radius={5} component="a" href="https://nab.eluv.io/" target="_blank" size="md" h="auto" py="md">
+              <MantineButton
+                color="white.0"
+                radius={5}
+                component="a"
+                href="https://eluv.io/community"
+                target="_blank"
+                size="md"
+                h="auto"
+                py="md"
+                maw={500}
+                justify="flex-start"
+                style={{whiteSpace: "normal"}}
+                styles={{label: {whiteSpace: "normal", overflow: "visible", textAlign: "left"}, inner: {height: "auto", justifyContent: "flex-start"}}}
+              >
                 <Stack gap={6} align="start">
                   <Group gap={8}>
-                  <Text fz={15} fw={700} lh={1} c="black.0">Thanks to everyone who visited us at</Text><ImageIcon icon={NABIcon} height={13} />
-                    <Text fz={15} fw={700} lh={1} c="black.0">2026!</Text>
+                    <Text fz={15} fw={700} lh={1.4} c="black.0">
+                      See us at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />. Check out <Anchor href="https://ibc.eluv.io" target="_blank" c="black.0" fw={700} underline="always" onClick={event => event.stopPropagation()}>ibc.eluv.io</Anchor> for the new product announcements, demo schedule and more →
+                    </Text>
                   </Group>
-                  <Text fz={15} fw={700} lh={1} c="black.0">Check out our new Bucharest Release that won Best of Show! →</Text>
                 </Stack>
               </MantineButton>
             }

@@ -56,8 +56,11 @@ const Links = observer(({dark=false}) => {
             </h5>
             {
               links.map(({text, link, link_type}) => {
-                const toPath = (link.startsWith("https://") || link_type === "doc") ? undefined : link;
-                const href = (link.startsWith("https://") || link_type === "doc") ? link : undefined;
+                const external = link.startsWith("https://") || link_type === "doc";
+                const relative = link_type === "relative";
+
+                const toPath = (external || relative) ? undefined : link;
+                const href = (external || relative) ? link : undefined;
 
                 const to = link_type === "doc" ? linkDocMap[link] : toPath;
 
@@ -66,7 +69,7 @@ const Links = observer(({dark=false}) => {
                     to={to}
                     href={href}
                     rel="noopener"
-                    target={href ? "_blank" : ""}
+                    target={href && !relative ? "_blank" : ""}
                     key={`footer-link-${title}-${text}`}
                     className={`footer__link ${dark ? "dark" : "light"}`}
                   >

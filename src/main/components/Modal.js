@@ -43,7 +43,8 @@ const Modal = observer(({children, active, hideCloseButton, Close, className=""}
   //   Close(false);
   // };
   const CloseModal = useCallback((event) => {
-    if(event.target.classList.contains("modal")) {
+    // No event = triggered by the close button; otherwise only close on backdrop click
+    if(!event || event.target.classList.contains("modal")) {
       Close();
     }
   }, [Close]);
