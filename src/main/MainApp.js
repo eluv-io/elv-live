@@ -117,7 +117,7 @@ const MainApp = () => {
           <Route path="/monetization/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
           {/* Video Intelligence Routes */}
           <Route path="/video-intelligence/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
-          <Route path="/video-intelligence/ai-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
+          <Route path="/video-intelligence/services" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
           {/* Resources Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
           <Route path="/resources/learning-resources" element={<PageContainer unbound><LearningResources /></PageContainer>} />

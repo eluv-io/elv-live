@@ -344,7 +344,7 @@ main:
         title: AI Content Search and Management
         description: |
           Automatically Generate Personalized Highlights and Compositions with AI Search, Summarization, Clipping & Sharing, with No File copies or Egress.
-        link: /video-intelligence/ai-search
+        link: /video-intelligence/services
         image: ai-search
       -
         title: Content Analytics & Reporting
@@ -2065,7 +2065,7 @@ core_apps:
         to: "/monetization/analytics"
         icon: analytics
       - title: AI Content Search and Management
-        to: "/video-intelligence/ai-search"
+        to: "/video-intelligence/services"
         icon: clip_search
       - title: Video Intelligence Editor
         to: "/video-intelligence/video-editor"
