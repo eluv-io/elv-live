@@ -8,8 +8,8 @@ import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import AppImageGallery from "./AppImageGallery";
 import * as clipSearchImages from "../../static/images/apps/clip-search";
 
-const AiClipSearch = observer(() => {
-  const copy = mainStore.l10n.core_apps.pages.ai_search;
+const VideoIntelligenceServices = observer(() => {
+  const copy = mainStore.l10n.core_apps.pages.video_intelligence_services;
 
   return (
     <div className="page light">
@@ -80,5 +80,5 @@ const AiClipSearch = observer(() => {
   );
 });
 
-export default AiClipSearch;
+export default VideoIntelligenceServices;
 

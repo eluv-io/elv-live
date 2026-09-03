@@ -34,7 +34,7 @@ import Register from "./pages/register/Register";
 import FabricCore from "./pages/technology/FabricCore";
 import CreatorStudio from "./pages/apps/CreatorStudio";
 import Analytics from "./pages/apps/Analytics";
-import AiClipSearch from "./pages/apps/AiClipSearch";
+import VideoIntelligenceServices from "./pages/apps/VideoIntelligenceServices";
 import VideoEditor from "./pages/apps/VideoEditor";
 import MediaWalletApp from "./pages/apps/MediaWalletApp";
 import EmbeddablePlayer from "./pages/apps/EmbeddablePlayer";
@@ -117,7 +117,7 @@ const MainApp = () => {
           <Route path="/monetization/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
           {/* Video Intelligence Routes */}
           <Route path="/video-intelligence/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
-          <Route path="/video-intelligence/services" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
+          <Route path="/video-intelligence/services" element={<PageContainer padded><VideoIntelligenceServices /></PageContainer>} />
           {/* Resources Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
           <Route path="/resources/learning-resources" element={<PageContainer unbound><LearningResources /></PageContainer>} />
