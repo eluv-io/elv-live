@@ -2082,14 +2082,8 @@ core_apps:
       title: Eluvio Video Intelligence Editor
       walkthrough_video: hq__27P5hS3frW3LXDFMzQsX4jyauiZ7BxM4rKZi3EhPcjPLL8H93YHzShYbDAkGHtnXasy6PoDT1tZC
       short_description: |
-        Create and share clips from Fabric content with no file copies or re-transcodes.
-        <br>
-        Clip live, set points via AI tags, and share instantly via streaming or download links.
-        <br>
-        Browse AI-generated tags and publish highlights without duplication.
+        is a next-generation AI video intelligence, search, editing, and composition environment built natively on the Eluvio Content Fabric. EVIE brings video, audio, metadata, and multimodal AI intelligence together in a single, media-synchronized browser workspace, enabling users to view, analyze, search, validate, clip, edit, and transform live and on-demand video with frame accuracy.
       full_description: |
-        <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Editor (EVIE)**</span> is a next-generation AI video intelligence, search, editing, and composition environment built natively on the Eluvio Content Fabric. EVIE brings video, audio, metadata, and multimodal AI intelligence together in a single, media-synchronized browser workspace, enabling users to view, analyze, search, validate, clip, edit, and transform live and on-demand video with frame accuracy.
-        
         <span style="color: var(--color-text-light-3); fontWeight: 600; marginBottom: 50px; fontSize: var(--font-size-header-3)">Frame-Accurate Video, Metadata, and Intelligence</span>
 
         EVIE provides frame-accurate timeline viewing and scrubbing for any playable Content Fabric media and its associated metadata, directly in the browser. Through **EVIE Titles & Events**, users can work with the complete intelligence associated with a film, television program, live event, or sports match—including transcripts, speakers, players and celebrities, objects and brands, OCR, motion and pose, topics, moods, themes, shots, beats, scenes, telemetry, embeddings, highlights, and other AI-generated or externally supplied metadata.
