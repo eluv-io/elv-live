@@ -2268,7 +2268,7 @@ core_apps:
       short_description: |
         Open Model Frame-Accurate, Multimodal AI — Inline Live and On-Demand Video, with Zero File Copies or Egress
       full_description: |
-        The <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Services**</span> provide a universal, open-model AI architecture for analyzing, understanding, searching, and transforming live and on-demand video directly within the Content Fabric. AI inference operates inline with the Fabric media pipeline and with frame accuracy across <span style="color: var(--color-highlight-3)">**video, audio, text, images, motion, pose, and telemetry**</span, creating multimodal intelligence precisely synchronized to the source media.
+        The <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Services**</span> provide a universal, open-model AI architecture for analyzing, understanding, searching, and transforming live and on-demand video directly within the Content Fabric. AI inference operates inline with the Fabric media pipeline and with frame accuracy across <span style="color: var(--color-highlight-3)">**video, audio, text, images, motion, pose, and telemetry**</span>, creating multimodal intelligence precisely synchronized to the source media.
         
         Unlike conventional video AI workflows that require media to be copied to separate AI infrastructure, analyzed, stored, and frequently re-transcoded, Eluvio AI operates directly against Content Fabric media. Model outputs—including labels, transcripts, descriptions, embeddings, vectors, identities, and other metadata—are written directly into the Fabric and immediately available for search, personalization, generation, and delivery. There are <span style="color: var(--color-highlight-3)">**zero file copies, zero media or metadata movement, and zero unnecessary re-transcoding or egress**</span> across the workflow.
 
@@ -2283,39 +2283,127 @@ core_apps:
       accordion_sections:
         - header: Key Features
           items:
-            - title: Fabric AI Content Tagging Service v2
+            - title: Frame-Accurate, Multimodal Video Intelligence
               description: |
-                - New Generative Image Transform (GIT) model for semantic tagging of individual frames
-                - New Large Multimodal model for semantic summarization by shot, clip, and whole video
-                - Fully integrated in Tagger service for one time and continuous tagging of video frames and segments and audio transcription
-                - Adds to celebrity/face recognition, automatic speech to text, logo recognition, OCR, activity detection and shot boundary detection
-                - Speech to Text now supports all major EU languages
-            - title: AI/ML Tags in Content Objects
+                - AI inference across **video, audio, text, images, motion, pose, and multidimensional telemetry**
+                - Frame- and segment-level intelligence synchronized directly to the source media timeline
+                - Combine intelligence from multiple models and modalities with frame accuracy
+                - Analyze individual frames, sampled frames, shots, beats, scenes, segments, or complete videos
+                - Real-time inline inference for both live and on-demand video
+                - No secondary metadata synchronization or alignment required
+
+            - title: Open-Model AI Runtime
               description: |
-                - All tags are frame accurate and time coded, and stored in the corresponding content object as JSON metadata
-                - Tags are metadata to drive any dynamic representation from the Fabric - clips, content/ad insertions, highlights
-                - Tags are viewable and downloadable on demand
-                - Tags are automatically aggregated by shot for further indexing
-                - All in place - no media or metadata has to move
-            - title: Fabric Search Service v2
+                - **17 built-in AI models and processors** for analysis, segmentation, summarization, transcription, identification, search, and generation
+                - Open runtime for frame-level, video-level, multimodal, and language models
+                - Run **Eluvio-developed, open-source, customer-specific, and third-party models**
+                - Extensible Runtime API for continuously incorporating new models
+                - Run AI directly against Content Fabric media without exporting or copying source files
+                - Select, run, and manage models and processors through the **EVIE AI Runtime**
+
+            - title: Multimodal Analysis & Understanding
               description: |
-                - Provides fast re-crawl and instant update across content object metadata (<3 seconds for typical indices)
-                - New state-of-the-art vector embedding algorithm supports high accuracy semantic and keyword queries
-                - New enhanced ranking and retrieval yields best matches in top 5 results
-                - Indexes any content object metadata such as 3rd party provided data feeds and AI tags published to the object
-                - API for searching across all or subset of tags by model
-                - Fabric fine-grained permissions restricts search results to authorized entities
-            - title: Clip Search v2
+                - Shot, beat, and scene segmentation
+                - Multimodal video and scene understanding
+                - Image, video, audio, text, and pose embeddings
+                - Multi-language speech-to-text with time-aligned transcripts
+                - Speaker detection and identification
+                - Celebrity, talent, and player identification
+                - Object, brand, and logo recognition
+                - OCR and on-screen text intelligence
+                - Motion, activity, focus, and pose analysis
+                - Topics, moods, themes, and semantic intelligence
+
+            - title: Summarization & Synopsis Generation
               description: |
-                - New UX for internal curators, partners and end users to search across content libraries and retrieve relevant clips and images matching semantic, text, and category based queries
-                - Now generates Summaries, Topics, Key Frames using Large Multi-Modal AI models in Fabric
-                - New multi modal search by Keyword, Prompt, or Image
-                - Playable/downloadable links are built dynamically and just-in-time from the full length source for extreme savings $$
-                - Eliminates manually identifying, cutting and storing clips or highlights
-                - New shareable links for copy-paste streaming or download
-                - New side panels display relevant tags, semantic descriptions
-                - Fully integrates with Video Editor to open and edit clip start/end points on demand (if permissioned) - Q4 2024
-                - Embeddable APIs for integration in any app
+                - **AI-generated summaries and synopses** for live and on-demand video
+                - Generate summaries at the segment, scene, title, or complete event level
+                - **“In This Video” key-moment identification**** automatically identifies important moments within a title, event, segment, or scene
+                - Personalized synopses configurable by **purpose, audience, length, and style**
+                - Automatically generate **chapters, chapter labels, and descriptions** using shot, beat, scene, topic, mood, and semantic intelligence
+                - Combine **video, audio, transcript, speaker, identity, and semantic intelligence** for context-aware descriptions
+                - Generate topics, themes, key moments, and structured summaries alongside narrative synopses
+                - Results remain synchronized to the media for immediate **search, navigation, personalization, highlights, and composition**
+                - Generate intelligence without copying or moving the underlying source video
+
+            - title: Fast Text, Tag & Multimodal Search
+              description: |
+                - Model outputs, tags, embeddings, vectors, transcripts, and metadata stored directly in the Content Fabric
+                - Fast **text, tag, semantic, and vector retrieval**
+                - Search individual titles, events, collections, or entire video libraries
+                - Deep multimodal search by **natural-language prompt, keyword, text, image, music, metadata, or selected visual region**
+                - Search across AI-generated intelligence and third-party or proprietary metadata
+                - Identify precise matching **frames, shots, scenes, moments, and clips**
+                - Combine sports play-by-play, statistics, telemetry, and other external data with AI intelligence
+                - Fine-grained Content Fabric authorization applied to search and results
+
+
+            - title: Live Video Intelligence
+              description: |
+                - AI inference operates inline as live content is published
+                - Frame-accurate intelligence written back to the Fabric in real time
+                - Analyze **live sports, broadcasts, and events** using the same architecture as on-demand libraries
+                - Combine AI with **play-by-play, player and ball tracking, audio intelligence, telemetry, and existing metadata**
+                - Identify and compose live and on-demand highlights
+                - Automatically identify key moments as events unfold
+
+            - title: AI-Driven Just-in-Time Media & Compositions — Highlights, Trailers, Reels & Compliance
+              description: |
+                Turn frame-accurate, multimodal AI intelligence directly into finished media experiences. AI and metadata are immediately actionable against source video to **dynamically drive clipping, composition, personalization, transformation, and delivery**.
+                
+                - Automatically create personalized **highlights, trailers, reels, shorts, social clips, chapter reels, and compliance reels**
+                - Combine **play-by-play, player and ball tracking, transcripts, audio intelligence, identities, topics, scenes, and other metadata** to identify and assemble relevant moments
+                - Generate compositions from precise **frames, shots, beats, scenes, segments, players, speakers, and events**
+                - Create **live and on-demand** compositions, including highlights as events unfold
+                - Use natural-language prompts to personalize **content, purpose, audience, length, and style**
+                - Dynamically transform media for different experiences and formats, including **shot-by-shot 9:16 vertical video from 16:9 sources**
+                - Represent compositions as references to **authoritative source media**, eliminating unnecessary derivative files
+                - Generate outputs just in time for **streaming, embedding, sharing, download, personalization, and monetization**
+                - Maintain **zero-copy, zero-movement workflows** with no unnecessary file copies, re-transcoding, intermediate storage, or egress
+                
+                The underlying composition, personalization, live highlights, and zero-copy generation capabilities are part of the Video Intelligence architecture described in the release.
+
+
+            - title: Dynamic Vertical Video
+              description: |
+                - Automatically transform **16:9 live and on-demand video into 9:16 vertical presentations**
+                - Live motion analysis and expert focus tracking
+                - Per-player jersey identification
+                - Shot-by-shot focal-point and crop-coordinate generation
+                - Just-in-time vertical video through the Content Fabric media pipeline
+                - No separate pre-encoded vertical stream or pre-generated vertical asset required
+
+            - title: Private Ground Truth & Custom Intelligence
+              description: |
+                - Create and manage proprietary ground-truth datasets
+                - Review and correct AI-generated results
+                - Customer-specific identification of **players, speakers, celebrities, talent, brands, and other entities**
+                - Deploy custom models against customer-labeled content
+                - Tenant-isolated security and Content Fabric authorization
+                - Continuously extend intelligence as models and customer data evolve
+
+            - title: Zero-Copy, Zero-Movement AI
+              description: |
+                - AI models execute directly against authoritative Content Fabric media
+                - **Zero file copies**
+                - **Zero media or metadata movement**
+                - **Zero unnecessary re-transcoding**
+                - No separate AI media pipeline or secondary metadata alignment
+                - AI outputs written directly into the Fabric
+                - Intelligence immediately available for **search, personalization, generation, and delivery**
+
+            - title: Agentic Video Intelligence
+              description: |
+                The **Eluvio MCP API** exposes major Content Fabric and Video Intelligence functions to LLMs, third-party applications, and AI agents, enabling complex video workflows through natural-language interfaces.
+
+                - Invoke models and analyze video through natural-language workflows
+                - Generate transcripts and update vector indices
+                - Search video and identify precise key moments
+                - Generate **chapters, summaries, synopses, and highlights**
+                - Create clips, trailers, shorts, reels, and other compositions
+                - Preserve Content Fabric authorization and owner-controlled permissions throughout agentic workflows
+                - Maintain the same **zero-copy architecture** from AI analysis through finished media output
+
     media_wallet:
       header: Content Fabric Application Suite
       title: Eluvio Media Wallet
