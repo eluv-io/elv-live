@@ -2588,242 +2588,419 @@ core_apps:
                 - Safari for iPadOS 13+
                 - Safari for iOS 17.1+
     fabric_core:
-      header_title: Fabric Core and Applications
-      header_subtitle: '"Bangkok Release" Summer/Fall 2025'
-      header_video: hq__7GgQ1GY2wRsatqAitEqeBrZY4g3MkPWGzHyyF16xLR4iPbLTzZ2fWAUC4X5MKhUSjpwN4seyh
+      header_title: Broadcast Transformation, D2C OTT Streaming & Monetization, Inline Video AI
+      header_subtitle: Content Fabric - Bucharest Release
+      header_video: hq__J8kACJ5CjKM3eBTyA44o6kHkVVh9T3NFp5bytgCA4EFyDeu6DD1vzVRtKPrKtayThpMcJPqZM1B
       summary_section:
-        title: Summary
+        title: Any-to-Any Distribution. Maximum Quality. Unlimited AI Personalization & Monetization
         description: |
-          The <span style="color: var(--color-highlight-3)">**Eluvio Content Fabric - Bangkok Release**</span> provides transformational advantages for content distribution and monetization including speed; hyper-efficiency with 10x savings over CDN/media clouds; security; content provenance and verification; and AI native personalization--all based on innovation rather than brute force.
-          
-          Notably, Bangkok includes a new real-time transport distribution capability for global low latency propagation of live streams and dynamic generation of SRT (and any other encapsulating protocol needed) at each receiving endpoint. In addition to this low latency one-to-many broadcast streaming for satellite replacement, the same Content Fabric object can simultaneously perform D2C streaming distributions (for D2C live, live-to-VoD, catch up viewing, FAST channels, and supporting highlights/trailers shorts, etc.) by dynamically creating consumer HLS/DASH segmented streaming from the same source object, enabling unlimited re-use of the same live feed distributions for maximum simplification and cost savings.
-          
-          Eluvio extended the Fabric’s state-of-the-art multi-modal Eluvio AI Stack capabilities with the new Eluvio Video Intelligence Editor. “EVIE” provides comprehensive, in-place search, creation, editing and sharing of clips, highlights, compositions, and image curation--backed the just-in-time Fabric hosting, provenance and distribution. With Eluvio, there are no file copies, intermediary re-transcoding, or file exports/associated egress. Bangkok delivers unmatched capabilities for distribution and monetization.
+          Building on the <span style="color: var(--color-highlight-3)">**Content Fabric Bangkok Release**</span>, the <span style="color: var(--color-highlight-3)">**Bucharest Release**</span> advances Eluvio's decentralized, zero-copy architecture into a unified platform for <span style="color: var(--color-highlight-3)">**global broadcast distribution, premium D2C streaming, monetization, and inline AI video intelligence.**</span><br />
+          The Content Fabric is established as a fundamentally different architecture for media: content, metadata, authorization, processing, and distribution operate directly on the Fabric rather than through chains of cloud storage, transcoding, origin, and CDN infrastructure. The <span style="color: var(--color-highlight-3)">**Bucharest Release builds on that foundation**</span>, extending the Fabric from streaming and media delivery into a comprehensive <span style="color: var(--color-highlight-3)">**any-to-any video distribution and intelligence platform**</span> spanning broadcast contribution and distribution, D2C OTT, Live-to-VoD, AI, personalization, monetization, and operations. <br />
+          One ingest workflow can now simultaneously serve <span style="color: var(--color-highlight-3)">**B2B broadcast affiliates and millions of D2C viewers**</span>, replacing satellite, dedicated fiber, legacy media clouds, and CDN workflows with a unified architecture. The Bucharest Release delivers <span style="color: var(--color-highlight-3)">**sub-500ms global broadcast distribution, super-scale low-latency consumer streaming, progressive Live-to-VoD, premium next-generation audio and video, frame-accurate personalization, and AI-driven media creation**</span>—without duplicating the source media or building separate distribution stacks.
+
+
+          The decentralized any-to-any architecture eliminates traffic duplication as distribution scales: <span style="color: var(--color-highlight-3)">**cost does not increase with receiver count and performance does not degrade as receiver count grows**</span>, with no egress fan-out charges, internal Fabric transit charges, or fees for unused distribution time.
+
+
+          In the Bucharest Release, that same zero-copy architecture extends across the entire media lifecycle—from <span style="color: var(--color-highlight-3)">**live contribution and broadcast distribution through D2C streaming, recording, AI analysis, search, composition, advertising, personalization, rights, provenance, monetization, and end-to-end operations.**</span>
       upper_accordion_sections:
         - header: Features
           blocks:
             -
               pre_line: true
               description: |
-                <span style="color: var(--color-highlight-3)">**Super Scale Low Latency Global Live Streaming to Millions**</span> with (<5 s) glass to glass latency, premium quality, encrypted with built in DRM, multi-audio, catch up DVR, and multi-view, at 10X less cost than traditional distribution.
-    
-                <span style="color: var(--color-highlight-3)">**Ultra Low Latency Global MPEG-TS/SRT/RTP Distribution to Affiliates**</span> to replace expensive satellite and dedicated fiber with sub second delivery globally.
-    
-                <span style="color: var(--color-highlight-3)">**Al-Generated, Personalized Highlights, Channels and Compositions**</span> from live recorded parts, and edit the Al suggested candidates.
-    
-                <span style="color: var(--color-highlight-3)">**Progressive Live to VoD with Zero Copies**</span> for highlights generation, Al tagging, transcription, summarization, clipping and search.
-    
-                <span style="color: var(--color-highlight-3)">**Eluvio Al Stack for Inline Multi-Modal Video, Audio and Image AI**</span> to describe, tag, transcribe, and summarize video and audio content in the Fabric (no file movement) with 10 built-in Al models and new domain-specific models. Users can create and add fine-tuned and domain specific models, and search via the <span style="color: var(--color-highlight-3)">**Eluvio AI Vector Search**</span>. The <span style="color: var(--color-highlight-3)">**new Eluvio Video Intelligence Editor (EVIE)**</span> enables users to create and share clips and post to social, with no file copies, exports or egress.
-    
-                <span style="color: var(--color-highlight-3)">**Host and Distribute Highlights, Live/VoD Linear Channels**</span> with New SCTE-35 Dynamic Ad Insertion, Streaming Support for 50+ D2C DRM and Packaging Combinations, and Create Archive content automatically with options to select the stored resolution, bit rate, and advanced audio combinations.
-    
-                <span style="color: var(--color-highlight-3)">**Creator Studio Site Builder**</span> provides easy, no code config of OTT sites with advanced Viewing Features (multi-view, DVR, casting) on Browser, Mobile, and Connected TV, including Roku, Tizen Media Wallet, TVOS, Android, and FireTV.
-    
-                <span style="color: var(--color-highlight-3)">**Subscription, Ad Supported, and Rewards**</span> with global payment and checkout with global reach <span style="color: var(--color-highlight-3)">**VAST Ad Server**</span> integration for frame-accurate dynamic insertion.
-    
-                <span style="color: var(--color-highlight-3)">**Advanced Real-time and Historical QoS, Audience and Revenue Analytics**</span> per user and in aggregate.
-    
-                <span style="color: var(--color-highlight-3)">**Advanced Built-in Rights Control**</span> including geographic windows and personalized access and <span style="color: var(--color-highlight-3)">**on screen content verification proofs and provenance**</span>.
-        - header: The Technology
-          sub_sections:
-            -
-              title: The Content Fabric
-              blocks:
-                -
-                  description: |
-                    Replaces brute force legacy streaming distribution (ingest, packager, transcoding, origin server, and CDN segment distribution) with its ‘content-native’ end-to-end protocol. Media, metadata and processing (code) are inherently linked together in a decentralized content object structure and composed in-protocol just-in-time to create streaming video (CMAF DASH/HLS, SRT) and other content. On client request, the protocol locates content parts in the global network through its novel fast content routing and produces streaming video including live, VoD, and composed sequences/channels through transcoding and packaging of the component “parts”. Cryptographically verifiable versions of streaming output and provenance are recorded in protocol through its tamper proof ledger, providing inherent proof of provenance and authenticity.
-            -
-              title: The Bangkok Release
-              blocks:
-                -
-                  description: |
-                    Provides ultra-low latency global distribution of high frame rate broadcast transport streams with SRT outputs (less than 500 milliseconds globally) using standard Internet and the Content Fabric in addition to direct-to-consumer HLS/DASH distribution, all from the same single source object. This offers dramatic cost savings and consolidation over satellite distribution for broadcasters and allows the OTT to consumer (D2C) and the direct distribution to affiliates (B2B) to be distributed globally from one feed, with the lowest possible latency, built-in authorization, windowing, end-to-end encryption, analytics, and data-driven personalization.
-            -
-              title: Eluvio Video Intelligence Editor (EVIE)
-              blocks:
-                -
-                  description: |
-                    Extends AI-native in-Fabric functions to provide automatic generation of highlights, captions, and summarization of content without creating any file copies, moving media, or egress. Eluvio enables in-Fabric task-specific models for high-accuracy captioning with a native stack of 10 AI models for content description running inline for universal video understanding and search. Bangkok brings this all together into one video pipeline that allows for live streams that become progressive VoD (with no file copies) to enable infinite re-combinations such as personalized highlights and topic-based channels, based on in-place AI assistance and suggestions.
-                -
-                  description: |
-                    The Eluvio Content Fabric Bangkok Release is designed to provide the <span style="color: var(--color-highlight-3)">**most powerful platform for distribution and monetization.**</span> It enables media companies to maximize their monetization potential, both on the top line, through expanded global distribution, content sales, and personalization, and on bottom line through the extreme cost efficiency achieved by the Fabric’s novel architecture and advanced video features. For example, European Professional Club Rugby recently launched EPCR TV, achieving over 70% profit and expanded distribution to their fans to more than 90 countries. The entire experience including full stack UI is streamed from the Content Fabric. Key benefits include:
-                  items:
-                    -
-                      title: Fast
-                      description: |
-                        - Ultra Low Latency Global Streaming (D2C) Live and On Demand
-                        - Live Feed Distribution to Millions of Receivers (B2B) with Sub-second Latency
-                        - Optimized Routing for Minimum Bandwidth Use and Maximum Cost Efficiency
-                    -
-                      title: Hyper-Efficient & Decentralized
-                      description: |
-                        - 10x Less $$$ at Scale than Legacy CDN and Media Cloud
-                        - Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings
-                    -
-                      title: Secure & Verifiable
-                      description: |
-                        - Secure & Tamper-Proof with Built-in Rights Management, Geo Windows, DRM, and Watermarking
-                        - Innovative Content Crypto Proves Provenance, Authenticity, and Verifiability
-                        - Inline Verification Proofs for Video, Images and Metadata
-                    -
-                      title: AI-Native
-                      description: |
-                        - Built-in Multi-modal Al Tagging, Summarization and Vectorized Search
-                        - Al-Assisted, JIT Personalized Highlights, Channels & Compositions
-                        - Comprehensive Open Source API (REST, WASM, Git-style Version Hashing)
-                    -
-                      title: Unlimited Monetization
-                      description: |
-                        - Zero-code OTT Site Creation with Global Reach on Web/Mobile/Connected TV
-                        - Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
-                        - Built-in Subscription, Sell Through and Ad-Supported Monetization
+                Reach broadcast affiliates worldwide through <span style="color: var(--color-highlight-3)">**sub-500ms MPEG-TS/SRT/RTP distribution with SMPTE 2022-7 decentralized multipath**</span>
 
-          description: |
-            <span style="color: var(--color-highlight-3)">**The Content Fabric**</span> replaces brute force legacy streaming distribution (ingest, packager, transcoding, origin server, and CDN segment distribution) with its ‘content-native’ end-to-end protocol. Media, metadata and processing (code) are inherently linked together in a decentralized content object structure and composed in-protocol just-in-time to create streaming video (CMAF DASH/HLS, SRT) and other content. On client request, the protocol locates content parts in the global network through its novel fast content routing and produces streaming video including live, VoD, and composed sequences/channels through transcoding and packaging of the component “parts”. Cryptographically verifiable versions of streaming output and provenance are recorded in protocol through its tamper proof ledger, providing inherent proof of provenance and authenticity.
-            
-            <span style="color: var(--color-highlight-3)">**The Bangkok release**</span> provides ultra-low latency global distribution of high frame rate broadcast transport streams with SRT outputs (less than 500 milliseconds globally) using standard Internet and the Content Fabric in addition to direct-to-consumer HLS/DASH distribution, all from the same single source object. This offers dramatic cost savings and consolidation over satellite distribution for broadcasters and allows the OTT to consumer (D2C) and the direct distribution to affiliates (B2B) to be distributed globally from one feed, with the lowest possible latency, built-in authorization, windowing, end-to-end encryption, analytics, and data-driven personalization.
-            
-            <span style="color: var(--color-highlight-3)">**Eluvio Video Intelligence Editor (EVIE)**</span> extends AI-native in-Fabric functions to provide automatic generation of highlights, captions, and summarization of content without creating any file copies, moving media, or egress. Eluvio enables in-Fabric task-specific models for high-accuracy captioning with a native stack of 10 AI models for content description running inline for universal video understanding and search. Bangkok brings this all together into one video pipeline that allows for live streams that become progressive VoD (with no file copies) to enable infinite re-combinations such as personalized highlights and topic-based channels, based on in-place AI assistance and suggestions.
-            
-            The Eluvio Content Fabric Bangkok Release is designed to provide the <span style="color: var(--color-highlight-3)">**most powerful platform for distribution and monetization**</span>. It enables media companies to maximize their monetization potential, both on the top line, through expanded global distribution, content sales, and personalization, and on bottom line through the extreme cost efficiency achieved by the Fabric’s novel architecture and advanced video features. For example, European Professional Club Rugby recently launched EPCR TV, achieving over 70% profit and expanded distribution to their fans to more than 90 countries. The entire experience including full stack UI is streamed from the Content Fabric. Key benefits include:
-            
-            <div><span style="color: var(--color-highlight-3)"><strong>Fast</strong></span></div>
-            
-            - Ultra Low Latency Global Streaming (D2C) Live and On Demand
-            - Live Feed Distribution to Millions of Receivers (B2B) with Sub-second Latency
-            - Optimized Routing for Minimum Bandwidth Use and Maximum Cost Efficiency
-            
-            <div><span style="color: var(--color-highlight-3)"><strong>Hyper-Efficient & Decentralized</strong></span></div>
-            
-            - 10x Less $$$ at Scale than Legacy CDN and Media Cloud
-            - Novel Content Storage and Routing Technology with Zero File Copies and Minimal Egress for Maximum Cost Savings
-            
-            <div><span style="color: var(--color-highlight-3)"><strong>Secure & Verifiable</strong></span></div>
-            
-            - Secure & Tamper-Proof with Built-in Rights Management, Geo Windows, DRM, and Watermarking
-            - Innovative Content Crypto Proves Provenance, Authenticity, and Verifiability
-            - Inline Verification Proofs for Video, Images and Metadata
-            
-            <div><span style="color: var(--color-highlight-3)"><strong>Al-Native</strong></span></div>
-            
-            - Built-in Multi-modal Al Tagging, Summarization and Vectorized Search
-            - Al-Assisted, JIT Personalized Highlights, Channels & Compositions
-            - Comprehensive Open Source API (REST, WASM, Git-style Version Hashing)
-            
-            <div><span style="color: var(--color-highlight-3)"><strong>Unlimited Monetization</strong></span></div>
-            
-            - Zero-code OTT Site Creation with Global Reach on Web/Mobile/Connected TV
-            - Advanced Viewing Features for DVR, Multi-View, and Progressive VoD
-            - Built-in Subscription, Sell Through and Ad-Supported Monetization
-            
-            Eluvio users include companies such as Amazon Studios/MGM, European Professional Club Rugby, Bedrock Streaming, FOX, Gladius Sports, SONY Pictures, Telstra Broadcast Services, UEFA, Warner Bros., WWE, and others. The technology has earned 13 issued US patents (two for Bangkok).
+                Stream to millions of D2C viewers over standard HLS/DASH
+
+                <span style="color: var(--color-highlight-3)">**Deliver full-stack whitelabel OTT properties**</span> for <span style="color: var(--color-highlight-3)">**streaming**</span> and <span style="color: var(--color-highlight-3)">**archive monetization.**</span> Tap dark markets, with ease, premium quality, and profitability
+
+                Progressively become VoD with <span style="color: var(--color-highlight-3)">**zero-copy recording, DVR, and instant replay**</span>
+
+                Deliver premium <span style="color: var(--color-highlight-3)">**stereoscopic HFR 4K, MV-HEVC, Dolby Vision, Dolby Atmos, HDR/HDR10+, multi-audio, and multilingual**</span> experiences
+
+                Feed inline, frame-accurate multimodal AI for <span style="color: var(--color-highlight-3)">**analysis, transcription, summarization, identification, tagging, and vector search**</span>
+
+                Dynamically drive <span style="color: var(--color-highlight-3)">**clipping, composition, personalization, transformation, and delivery**</span>
+
+                Generate personalized <span style="color: var(--color-highlight-3)">**highlights, trailers, reels, shorts, channels, and compositions**</span>
+
+                Insert personalized advertising, content, graphics, watermarks, and <span style="color: var(--color-highlight-3)">**AI-driven virtual signage**</span> just in time, at scale, without copies and redistribution
+
+                Support integrated <span style="color: var(--color-highlight-3)">**SVOD, TVOD, AVOD, entitlements, payments, rewards, and microtransactions**</span>
+
+                Enforce authorization, DRM, forensic watermarking, rights, and <span style="color: var(--color-highlight-3)">**C2PA-backed content provenance**</span>
+
+                Provide unified operational control, QoS, audience, and revenue intelligence across B2B and D2C distribution
+
+      zero_copy_section:
+        title: Zero-Copy Architecture Across the Entire Workflow
+        description: |
+          The defining advantage of the <span style="color: var(--color-highlight-3)">**Content Fabric — Bucharest Release**</span> is that these capabilities operate against the <span style="color: var(--color-highlight-3)">**same authoritative media and metadata.**</span>
+
+          <span style="color: var(--color-highlight-3)">**Ingest once. Distribute anywhere. Record once. Reuse everywhere.**</span>
+
+          Live broadcast distribution, D2C streaming, progressive Live-to-VoD, DVR, premium <span style="color: var(--color-highlight-3)">**MV-HEVC/HFR 4K and Dolby**</span> experiences, AI analysis and search, highlights and compositions, dynamic advertising, graphics, virtual signage, monetization, provenance, and analytics all operate within the same Content Fabric architecture.
+
+          That means fewer separate pipelines, fewer derivative files, less unnecessary transcoding and movement, and no need to repeatedly export media between broadcast, cloud, CDN, AI, and OTT systems—the architectural foundation behind the Fabric's combination of <span style="color: var(--color-highlight-3)">**scale, low latency, personalization, media reuse, and dramatically improved infrastructure economics.**</span>
 
       accordion_sections:
-        - header: Streaming and Distribution
+        - header: Streaming & Distribution — Performance and Scale
           items:
-            - title: Performance and Scale
+            - title: Super-scale low-latency global live streaming to millions
               description: |
-                Ultra-low latency HTTP live streaming with standard HLS/DASH ABR
-      
-                - <=1 second segment delivery times for 99% of clients and segments
-                - Deterministic 3-4 seconds end-to-end ultra low latency LIVE streaming latency standard CMAF DASH/HLS
-                - No custom player needed
-                - Holds at scale
-                - Independent of client location
-      
-                Using the new Performance Testbed for Scale Evaluation:
-      
-                150,000 clients in North America LIVE streaming 2 second fragmented mp4 video segments over standard HLS from Fabric in Europe:
-      
-                - Average segment serving latency: 300 milliseconds
-                - 99th percentile segment serving latency: 1 second
-                - Clients need not be geographically “close” to Fabric. 50-80ms from Fabric
-            - title: AV Features
+                - Deterministic <span style="color: var(--color-highlight-3)">**3-4 second glass-to-glass live streaming**</span> using standard CMAF HLS/DASH
+                - <span style="color: var(--color-highlight-3)">**≤1 second segment delivery times for 99% of clients and segments**</span>
+                - Standard HLS/DASH ABR — <span style="color: var(--color-highlight-3)">**no custom player required**</span>
+                - Performance holds at scale and is independent of client location
+                - Premium encrypted streaming with integrated DRM, authorization, DVR, multi-audio, multi-view, and casting
+                - Up to <span style="color: var(--color-highlight-3)">**10X lower cost**</span> than traditional CDN and media-cloud infrastructure at scale
+                - Bucharest Release performance enhancements include <span style="color: var(--color-highlight-3)">**≤30ms segment delivery latency, 8X increased live cross-variant serving, up to 4X DRM encryption variant scale, zero-impact global maintenance, and instant-on HFR streaming**</span>
+            - title: Ultra-low-latency global MPEG-TS / SRT / RTP broadcast distribution
               description: |
-                Live ingest with SRT, in addition to MPEG-TS/UDP, and RTMP
-                
-                Automatic Digital Video Recording (DVR) of live streams, Zero overhead
-                - Instant conversion of live streams to VoD
-                - Configurable by time code or SCTE signal
-                - Uses published live parts (no file copies)
-                
-                Multi-stream audio support in Live streaming in addition to VoD streaming
-                - Supports multiple languages, dubs, and audio stream variants in one live stream playout; already supported in VoD.
-                
-                Fast startup for Giant VoD Objects
-                - New optimizations in Fabric metadata allow PVOD objects with many variants (e.g. 100 audio languages) to start streaming instantly
-            - title: Security
+                - <span style="color: var(--color-highlight-3)">**Sub-500ms global latency**</span>
+                - <span style="color: var(--color-highlight-3)">**Sub-millisecond jitter**</span>
+                - <span style="color: var(--color-highlight-3)">**SMPTE 2022-7 decentralized multipath**</span> with phase-lock synchronization
+                - Fast global stream switching and failover
+                - Decentralized any-to-any routing
+                - Replace satellite, dedicated fiber, and ground-to-cloud multipoint distribution
+                - Cost does not increase and performance does not degrade as receiver count grows
+                - <span style="color: var(--color-highlight-3)">**No egress fan-out charges, internal Fabric transit charges, or fees for unused distribution time**</span>
+            - title: Flexible live contribution and ingest
               description: |
-                Forensic Watermarking in Live streaming (in addition to VoD)
-                - Per-session Forensic Watermarking integration using Nagra NexGuard A-B sequences with Fabric Just-in-Time transcoding and playout.
-                Forensic Watermarking in clips and short duration streaming
-                Microsoft PlayReady DRM in addition to Google Widevine and Apple Fairplay
-            - title: Content/Ad Insertion, Personalization, Graphics Enrichment
-              description: |
-                Frame Accurate Dynamic Content Insertion in Live and VoD Streams (FAST)
-                  - Fast - Just-in-time transcoding of ads and content in live and VoD streams
-                  - Flexible - New Dynamic Content Selector API allows for executing custom bitcode (business logic) to insert content in-Fabric or call 3rd Party ad services or proxies
-                  - Scalable - Server-side but fine grained and personalized insertion with no pre-transcoding or additional latency
-                  - New Controller API signals ad insertion from SCTE markers or on cue
-                
-                Dynamic Graphic Enrichment - now inline the Fabric JIT video pipeline, a new dynamic representation (in WASM bitcode) that generates image, text and other inline graphics and visible watermarks from HTML.
-                  - Can be parameterized by user and by content or offering for personalized and dynamic watermarks, graphic enhancements, or shoppable layers.
-            - title: Management, QoS and End-to-End Monitoring
-              description: |
-                Enhanced Live Stream Manager supports automatic and easy configuration
-                - Auto-probes the input source, configures streaming parameters
-                - Reconfigures live stream playout parameters and watermarks with soft reset
-                
-                Provides a “single pane of glass” for operational view of all streams and streaming performance (latency, QoS)
-                - All streams are visible in one dashboard. Individual stream drill-down displays segment delivery times, playout buffer levels and live view
-                - New per stream status monitoring reports configuration errors, monitors stream source health, and verifies stream availability.
-                
-                New Fabric Segment Delivery Metrics
-                - New Content Analytics and Reporting App provides real-time and historical statistics for streaming segment delivery times from Fabric. 99th percentile, average, max/min times for individual live stream objects and in aggregate.
-            - title: Content Authenticity, Provenance and Authorization
-              description: |
-                New Content Verification Proof API with C2PA Provenance
-                - New content verification proof API; Allows Fabric apps to automatically and cryptographically verify the version hash and authenticity of any content object or offering.
-                - C2PA content Verification Badge and provenance in Embeddable Player
-                - Player automatically verifies the version hash and authenticity of streams and images displayed
-                - End users can view the media’s provenance (ownership) and its Fabric/C2PA version hash and supporting transactions for proof of authenticity and trustworthiness
+                - SRT, MPEG-TS/UDP, and RTP
+                - RTMP ingest
+                - <span style="color: var(--color-highlight-3)">**JPEG XS and AVC/HEVC over UDP/RTP/SRT**</span>
+                - Ingest directly from cameras, encoders, broadcast trucks, venues, or remote locations
+                - SRT contribution for wide-area contribution and remote production
 
-            - title: Tools
-              id: tools
+        - header: Advanced Video & Audio
+          items:
+            - title: Premium next-generation video
               description: |
-                <strong>Live Stream Manager</strong> provides easy automatic configuration, management and monitoring for live streams.
-                - Auto-probes the input source, configures streaming parameters
-                - Reconfigures live stream playout parameters and watermarks with soft reset
-                - Stream Preview graphs real-time segment arrival time, player buffer levels
-                - Advanced panel configures Fabric node selection, DRM options, and player profile configuration for rapid troubleshooting
-                
-                <strong>Media Ingest</strong> provides simple drag and drop ingest of video files to Fabric libraries.
-                - Provides one shot ingest including upload, ingest transcoding and version finalization.
-                - Allows for targeting library, access control and configuration
-                
-                <strong>Fabric Browser</strong> provides comprehensive low level browsing, version management, metadata management and access control configuration for all content objects.
-                - Displays per object version and change history, contract information, access control settings, ownership, metadata, and linked assets
-                - Supports configuration of content types and dynamic offerings
-                - Provides search/filtering across all libraries by object id, version hash, title
-                - Stream Preview in all playable objects includes copy paste embed URL and advanced performance monitoring and configuration
-        - header: Universal AI Content Tagging and Search
+                - <span style="color: var(--color-highlight-3)">**Stereoscopic HFR 4K**</span>
+                - Side-by-Side (<span style="color: var(--color-highlight-3)">**SBS**</span>) stereoscopic video
+                - <span style="color: var(--color-highlight-3)">**MV-HEVC**</span>
+                - <span style="color: var(--color-highlight-3)">**Dolby Vision**</span>
+                - HDR and HDR10+
+                - High Frame Rate (HFR) with instant-on streaming
+                - AVC and HEVC
+                - <span style="color: var(--color-highlight-3)">**AV1 upcoming**</span>
+            - title: Advanced audio and language support
+              description: |
+                - <span style="color: var(--color-highlight-3)">**Dolby Atmos**</span>
+                - Multiple audio streams in live and VoD
+                - Multiple languages, dubs, and audio variants within a single playout
+                - Optimized Content Fabric asset architecture supporting <span style="color: var(--color-highlight-3)">**hundreds of audio-language and subtitle tracks**</span>
+                - Preserve complex audio, video, subtitle, and language combinations throughout live, VoD, archive, and D2C distribution
+            - title: Fast startup for giant VoD objects
+              description: |
+                - Fabric metadata optimizations enable premium VoD objects containing large numbers of variants to start streaming immediately
+                - Designed for titles with combinations such as <span style="color: var(--color-highlight-3)">**100+ audio languages**</span>
+                - Efficient handling of hundreds of language and subtitle tracks without replicating the underlying media
+
+        - header: Progressive Live-to-VoD, DVR & Recording
+          items:
+            - title: Automatic Digital Video Recording (DVR) of live streams with zero-copy overhead
+              description: |
+                - Automatically record live streams using already-published live parts
+                - <span style="color: var(--color-highlight-3)">**No file copies**</span>
+                - Instant and progressive conversion of live streams to VoD
+                - Configurable by timecode or SCTE signal
+                - Fast catch-up DVR and instant replay
+            - title: Progressive Live-to-VoD
+              description: |
+                - Access ongoing recordings while the event is still live
+                - Immediately apply <span style="color: var(--color-highlight-3)">**AI tagging, transcription, summarization, clipping, search, and highlight generation**</span>
+                - Generate derivative content without waiting for completion of the live program
+                - Reuse the authoritative live media parts for VoD and derivative experiences
+                - No unnecessary export, movement, storage, or re-transcoding
+
+        - header: End-to-end Security, DRM & Built-in Rights Control/Geo Fencing
+          items:
+            - title: Built-in content protection
+              description: |
+                - Multi-layer AES encryption
+                - Proxy re-encryption into per-session key spaces
+                - Per-session authorization
+                - Multi-DRM for D2C
+                - SRT encryption for B2B distribution
+                - <span style="color: var(--color-highlight-3)">**Google Widevine, Apple FairPlay, and Microsoft PlayReady**</span>
+                - Full Widevine parameterization
+            - title: Advanced authorization and Built in Rights/Geofencing
+              description: |
+                - Geographic restrictions
+                - Availability windows
+                - ACLs
+                - Entitlements
+                - Personalized access policies
+                - Consistent authorization across B2B SRT/TS and D2C HLS/DASH endpoints
+
+        - header: Forensic Watermarking for Live and VoD
           header_as_title: true
           description: |
-            - High accuracy automatic labeling, description, transcription, and summarization of content using multiple AI/ML models executing in Fabric as a service. 
-            - Tags are recorded in the metadata of Content Objects and indexed by the Fabric search service making them automatically searchable and actionable without moving content or metadata.
-            - Seamless integration into the Fabric’s dynamic streaming pipeline
-            - Automatic clip creation, content/ads insertion, and highlight generation, with no file movement.
-            <br>
-            <br>
+            - Per-session forensic watermarking
+            - <span style="color: var(--color-highlight-3)">**NAGRA NexGuard A/B sequence integration**</span>
+            - Fabric Just-in-Time transcoding and playout
+            - Forensic watermarking for live streaming, VoD, clips, and short-duration streams
+            - Personalized watermarking without requiring pre-generated media variants
 
-            Key new features include:
-              - New large generative AI models in Fabric for describing video content per-frame and generating whole content summaries
-              - Expanded face/celebrity detection, logo recognition, landmark recognition, OCR, shot boundary detection
-              - Easy extension of face and logo ground truth pools without retraining to identify athletes, and brands in tenant content
-              - New multi-language support in automatic speech-to-text transcription
-              - State-of-the-art multi-modal vector search that combines all 3rd party tags and AI/ML tags to provide accurate keyword and semantic queries of content using deep learning.
-              - New fast engine re-crawls content object metadata in seconds and allows users to configure content to be crawled (or not)
-              - Clip search API v2 returns matching clips with dynamic just-in-time playout from the source object (no manual cutting, file transfer, or egress)
+        - header: Content & Ad Insertion, Personalization and Graphics Enrichment
+          items:
+            - title: Frame-Accurate Dynamic Content Insertion in Live and VoD Streams (FAST)
+              description: |
+                - Fast just-in-time transcoding and insertion of ads and content
+                - <span style="color: var(--color-highlight-3)">**Dynamic Content Selector API**</span> executes custom bitcode/business logic in-Fabric
+                - Integrate third-party ad services and proxies
+                - Server-side, fine-grained, personalized insertion
+                - No pre-transcoding of personalized variants
+                - Controller API triggers insertion using <span style="color: var(--color-highlight-3)">**SCTE markers or on-cue events**</span>
+            - title: Native In-Fabric SSAI
+              description: |
+                - Server-side ad insertion integrated directly into the distribution pipeline
+                - Unlimited per-session personalization
+                - Frame-accurate dynamic insertion
+                - VAST ad server integration
+                - No separate media-processing pipeline required
+            - title: Dynamic Content Enrichment
+              description: |
+                - Inline with the Fabric JIT video pipeline
+                - Dynamic representation implemented in <span style="color: var(--color-highlight-3)">**WASM bitcode**</span>
+                - Generate images, text, graphics, and visible watermarks from HTML
+                - Parameterize by <span style="color: var(--color-highlight-3)">**user, content, audience, or offering**</span>
+                - Personalized watermarks
+                - Client side In This Video and Overlays / Smart Experiences
+            - title: AI-Personalized Vertical Video / Virtual Signage
+              description: |
+                - Frame-accurate AI inference and metadata applied to source feeds
+                - Per-frame rendering of <span style="color: var(--color-highlight-3)">**virtual signage and smart transformations**</span>
+                - Generate targeted broadcast TS or consumer streaming output just in time
+                - Personalize signage by viewer or audience group
+                - Source feed analyzed once
+                - Distribution requirements remain constant regardless of the number of personalized variants
+                - No player modification or duplicate distribution required
+
+        - header: AI-Generated Highlights, Channels & Compositions
+          header_as_title: true
+          description: |
+            - Generate personalized <span style="color: var(--color-highlight-3)">**highlights, clips, trailers, reels, shorts, channels, and compositions**</span>
+            - Create outputs directly from live recorded parts or VoD
+            - AI-generated candidate identification with human review and editing
+            - Combine AI intelligence with <span style="color: var(--color-highlight-3)">**play-by-play, player/ball tracking, transcripts, identities, audio, scenes, events, and other metadata**</span>
+            - Dynamically drive <span style="color: var(--color-highlight-3)">**clipping, composition, personalization, transformation, and delivery**</span>
+            - Generate live highlights as events unfold
+            - Generate personalized outputs just in time without pre-creating derivative files
+            - Browse, edit, publish, and share zero-copy clips and compositions through <span style="color: var(--color-highlight-3)">**EVIE**</span>
+            - Stream or publish compositions without file copies, exports, or egress
+
+        - header: Universal AI Content Tagging, Intelligence & Search
+          items:
+            - title: Inline multimodal AI inference
+              description: |
+                - High-accuracy automatic labeling, description, transcription, identification, segmentation, and summarization
+                - AI operates directly against Fabric video with <span style="color: var(--color-highlight-3)">**zero file movement**</span>
+                - Frame- and segment-level inference across live and VoD
+                - Video, audio, image, text, motion, pose, and metadata intelligence
+                - AI outputs recorded directly into Content Object metadata
+                - Intelligence automatically indexed and immediately actionable within Fabric streaming workflows
+            - title: Open-model AI Runtime
+              description: |
+                - Eluvio built-in AI models and processors
+                - Open-source models
+                - Customer-specific and third-party models
+                - Create and integrate <span style="color: var(--color-highlight-3)">**fine-tuned and domain-specific models**</span>
+                - Extend face, player, celebrity, and logo ground-truth pools without model retraining
+                - New and expanded models for:
+                  - Per-frame video description
+                  - Whole-content summaries and synopses
+                  - Face and celebrity detection
+                  - Player identification
+                  - Logo and brand recognition
+                  - Landmark recognition
+                  - OCR
+                  - Shot/beat/scene boundary detection
+                  - Motion, focus, and pose analysis
+                  - Multilingual speech-to-text and speaker intelligence
+            - title: Eluvio AI Vector Search
+              description: |
+                - State-of-the-art multimodal vector search
+                - Combine AI/ML intelligence with <span style="color: var(--color-highlight-3)">**third-party tags and metadata**</span>
+                - Natural-language, keyword, semantic, image, audio, transcript, metadata, and visual-region search
+                - Search down to precise <span style="color: var(--color-highlight-3)">**frames, shots, scenes, moments, and clips**</span>
+                - Fast indexing engine re-crawls Content Object metadata in seconds
+                - Configure which content is indexed
+                - Clip Search API returns matching clips with <span style="color: var(--color-highlight-3)">**dynamic JIT playout from the authoritative source object**</span>
+                - No manual cutting, file transfer, export, or egress
+            - title: Eluvio Video Intelligence Editor (EVIE)
+              description: |
+                - Search and inspect synchronized AI intelligence
+                - Review and correct AI results and ground truth
+                - Edit AI-suggested highlight candidates
+                - Frame-accurate clipping and composition
+                - Publish and share clips and compositions
+                - Integrated directly with Fabric live and VoD media
+                
+                
+                The Bucharest architecture extends AI directly into the media platform, providing inline, frame-accurate multimodal inference for live and VoD without file copying, file movement, or unnecessary transcoding.
+
+        - header: Management, QoS & End-to-End Monitoring
+          items:
+            - title: Enhanced Live Stream Manager
+              description: |
+                - Automatically probes input sources
+                - Automatically configures streaming parameters
+                - Reconfigures live-stream playout parameters and watermarks with soft reset
+                - Manage inputs, outputs, routing, health, and QoS
+                - Batch configuration for <span style="color: var(--color-highlight-3)">**tens or hundreds of feeds**</span>
+                - API and SDK automation
+                - Fast global switching and failover
+            - title: Single Pane of Glass
+              description: |
+                - Operational view of all live streams and streaming performance
+                - View latency and QoS across all streams
+                - Individual stream drill-down
+                - Segment delivery times
+                - Playout buffer levels
+                - Live stream preview
+                - Configuration error detection
+                - Source-health monitoring
+                - Stream-availability verification
+            - title: Fabric Segment Delivery Metrics
+              description: |
+                - Content Analytics and Reporting application
+                - Real-time and historical segment-delivery statistics
+                - <span style="color: var(--color-highlight-3)">**99th percentile, average, maximum, and minimum delivery times**</span>
+                - Per-stream and aggregate analysis
+                - Client-side QoS metrics
+                - Global receiver performance monitoring
+            - title: VIP Command Center
+              description: |
+                - Unlimited global multiview at ultra-low latency
+                - Desktop and mobile browser operation
+                - Brandable SSO
+                - Fabric policy-enforced visibility
+                - Access controls for <span style="color: var(--color-highlight-3)">**VIP, NOC, broadcast, and remote production teams**</span>
+
+        - header: Analytics & Reporting
+          header_as_title: true
+          description: |
+            - Advanced real-time and historical <span style="color: var(--color-highlight-3)">**QoS, audience, and revenue analytics**</span>
+            - Per-user and aggregate reporting
+            - Unified analytics across <span style="color: var(--color-highlight-3)">**B2B SRT/TS and D2C HTTP streams**</span>
+            - Global receiver map
+            - Per-receiver performance statistics
+            - Client-side QoS
+            - Audience and viewing metrics
+            - Sales and transaction reporting by <span style="color: var(--color-highlight-3)">**currency, product, and country**</span>
+            - Operational stream health and multilayer statistics
+
+        - header: Content Authenticity, Provenance & Authorization
+          items:
+            - title: Content Verification Proof API
+              description: |
+                - Cryptographically verify the <span style="color: var(--color-highlight-3)">**version hash and authenticity**</span> of any Content Object or offering
+                - Allow Fabric applications to automatically verify content authenticity
+            - title: C2PA Provenance
+              description: |
+                - C2PA Content Verification Badge in the Embeddable Player
+                - Player automatically verifies version hashes and authenticity of displayed streams and images
+                - End users can inspect media provenance and ownership
+                - Display Fabric/C2PA version hashes and supporting transactions
+                - Provide cryptographic proof of content authenticity and trustworthiness
+            - title: Rights and authorization
+              description: |
+                - Geographic windows and restrictions
+                - Availability windows
+                - Personalized access
+                - ACLs and entitlements
+                - Per-session authorization
+                - <span style="color: var(--color-highlight-3)">**On-screen content verification proofs and provenance**</span>
+                - End-to-end authorization across B2B and D2C distribution
+
+        - header: D2C OTT, Creator Studio & Applications
+          items:
+            - title: Creator Studio CMS
+              description: |
+                - No-code configuration and management of OTT properties
+                - Live, VoD, archive, and clip-based presentation
+                - Advanced branding and interactive experiences
+            - title: White-Label Media Wallet
+              description: |
+                - TV, browser, and native mobile experiences
+                - Multi-view
+                - DVR
+                - Casting
+                - Up-next autoplay
+                - AI-powered "<span style="color: var(--color-highlight-3)">**In This Video**</span>" data
+                - EVIE clips and compositions
+            - title: Connected TV and device support
+              description: |
+                - Roku
+                - Samsung Tizen
+                - tvOS / Apple TV
+                - Android / Google TV
+                - Fire TV
+                - Browser and mobile
+                - Expanded entertainment and sports layouts
+            - title: Pocket TV
+              description: |
+                - White-labeled microsites for live and episodic sales
+                - Single-click <span style="color: var(--color-highlight-3)">**Apple Pay and Google Pay**</span>
+                - No-login purchasing
+                - Magic-link return access
+                - No PII collection
+                - Embed directly into social posts, paid ads, and CRM campaigns
+
+        - header: Monetization, Advertising & Commerce
+          header_as_title: true
+          description: |
+            - <span style="color: var(--color-highlight-3)">**SVOD**</span>
+            - <span style="color: var(--color-highlight-3)">**TVOD**</span> rental and ownership
+            - Match-based live entitlements
+            - AVOD and ad-supported experiences
+            - Rewards and promotional experiences
+            - Microtransactions
+            - Global payments and checkout
+            - Apple Pay, Google Pay, and Stripe
+            - JWT/SSO
+            - <span style="color: var(--color-highlight-3)">**VAST ad server integration**</span>
+            - Native Fabric SSAI
+            - Unlimited per-session advertising personalization
+            - Frame-accurate dynamic ad insertion
+            - CableLabs-compliant Title Metadata API
+            - Territory-based offers and delta-only global updates
+
+        - header: Content Fabric Tools
+          items:
+            - title: Live Stream Manager
+              description: |
+                - Automatic input probing and configuration
+                - Playout and watermark configuration with soft reset
+                - Stream Preview with real-time segment-arrival and player-buffer graphs
+                - Advanced Fabric-node selection
+                - DRM configuration
+                - Player-profile configuration
+                - Rapid troubleshooting
+                - Multi-feed routing, health, QoS, switching, and automation
+            - title: Media Ingest
+              description: |
+                - Simple drag-and-drop video ingest into Fabric libraries
+                - One-shot <span style="color: var(--color-highlight-3)">**upload, ingest transcoding, and version finalization**</span>
+                - Target specific libraries
+                - Configure access controls
+                - Apply ingest configuration
+            - title: Fabric Browser
+              description: |
+                - Low-level browsing and management of all Content Objects
+                - Version and change history
+                - Contract and ownership information
+                - Access-control configuration
+                - Metadata and linked-asset management
+                - Content-type and dynamic-offering configuration
+                - Search/filter libraries by <span style="color: var(--color-highlight-3)">**Object ID, version hash, and title**</span>
+                - Stream Preview for playable objects
+                - Copy/paste embed URLs
+                - Advanced streaming performance monitoring and configuration
 
 
 news:

@@ -387,6 +387,11 @@
       margin-top: 1rem;
     }
 
+    // Two-or-more blank lines in the source get a bigger break
+    .rich-text--gap-lg {
+      margin-top: 2rem;
+    }
+
     &--pre-line {
       white-space: pre-line;
     }

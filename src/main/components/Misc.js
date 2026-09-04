@@ -15,7 +15,9 @@ import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
 
 // Tag blocks that had a blank line before them in the source so CSS can add a
-// gap there (markdown itself collapses blank lines).
+// gap there (markdown itself collapses blank lines). One blank line gets the
+// normal "rich-text--gap" spacing; two-or-more blank lines additionally get
+// "rich-text--gap-lg" for a bigger break between sections.
 const RemarkBlankLineGaps = () => {
   const walk = children => {
     if (!Array.isArray(children)) { return; }
@@ -23,16 +25,20 @@ const RemarkBlankLineGaps = () => {
     children.forEach((node, i) => {
       const prev = children[i - 1];
 
-      if (prev && prev.position && node.position &&
-          node.position.start.line - prev.position.end.line > 1) {
-        node.data = node.data || {};
-        node.data.hProperties = node.data.hProperties || {};
+      if (prev && prev.position && node.position) {
+        const blankLines = node.position.start.line - prev.position.end.line - 1;
 
-        const existing = node.data.hProperties.className;
-        node.data.hProperties.className = [
-          ...(Array.isArray(existing) ? existing : existing ? [existing] : []),
-          "rich-text--gap"
-        ];
+        if (blankLines >= 1) {
+          node.data = node.data || {};
+          node.data.hProperties = node.data.hProperties || {};
+
+          const existing = node.data.hProperties.className;
+          node.data.hProperties.className = [
+            ...(Array.isArray(existing) ? existing : existing ? [existing] : []),
+            "rich-text--gap",
+            ...(blankLines >= 2 ? ["rich-text--gap-lg"] : [])
+          ];
+        }
       }
 
       walk(node.children);
