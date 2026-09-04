@@ -124,7 +124,7 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
               {
                 label: mainStore.l10n.header.management_tools,
-                to: "/av-core/fabric-core#tools",
+                to: "/#tools",
                 props: {useNavLink: true, exact: true},
                 icon: NavIcons.ManagementToolsIcon,
               },

@@ -752,7 +752,7 @@ const AppsBlock = observer(({mobile}) => {
         scrollSnapAlign: "start"
       }}
     >
-      <div className="main-page-block padded-block">
+      <div className="main-page-block padded-block" id="tools">
         <div className="main-page-block__copy-container main-page-block__copy-container--center">
           <h3 className="main-page-header__main-header__header">Content Fabric Apps & Tools</h3>
         </div>

@@ -362,19 +362,19 @@ main:
         title: Live Stream Manager
         description: |
           Create, monitor, preview, and manage all live streams in your Content Fabric tenancy. Drill down to view details such as time-to-first-byte, segment arrival time, and player buffer stats, and monitor all streams in a single view. Configure advanced viewing options such as DVR and multi-audio, and manage live stream recording and instant Live-to-VoD.
-        link: /av-core/fabric-core#tools
+        link: /#tools
         image: live-stream
       -
         title: Media Ingest
         description: |
           Easily ingest new video content to your Content Fabric tenancy locally from your computer with drag-and-drop upload or from remote cloud buckets. Configure target libraries, encryption and DRM from a simple web UI. The published content is globally streamable upon completion with no further transcoding or processing.
-        link: /av-core/fabric-core#tools
+        link: /#tools
         image: media-ingest
       -
         title: Fabric Browser
         description: |
           Fabric Browser provides comprehensive low-level browsing, version management, metadata management and access control configuration for all content objects.
-        link: /av-core/fabric-core#tools
+        link: /#tools
         image: fabric-browser
 
 
