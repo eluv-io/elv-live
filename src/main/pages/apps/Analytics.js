@@ -3,7 +3,7 @@ import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 import ImageIcon from "../../components/ImageIcon";
 import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
-import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import {Accordion,  AccordionGroup, InfoBox, RichText} from "../../components/Misc";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import * as analyticsImages from "../../static/images/apps/analytics";
 import AppImageGallery from "./AppImageGallery";
