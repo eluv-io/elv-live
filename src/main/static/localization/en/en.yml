@@ -2220,48 +2220,157 @@ core_apps:
       header: Content Fabric Application Suite
       title: Analytics & Reporting
       short_description: |
-        View and track comprehensive metrics for streaming content and
-        <br>
-        delivery quality of service (QoS).
+        Analyze Viewership, Streaming QoS, Sales & Revenue
       full_description: |
-        With the <span style="color: var(--color-highlight-3)">**Content Analytics & Reporting**</span> app, Content Fabric users can review comprehensive viewing metrics/statistics for streaming and delivery quality of service (QoS).  The analytics data is collected throughout the Fabric continuously, and aggregated within the app via graphs, tables and other visualizations to provide comprehensive and easy viewing of real-time and past history for all content served.  Users can monitor in real time the number of viewers and Fabric performance per streaming event or Title, and run fine-grained multi-dimensional filter queries for metrics on past streaming and viewing sessions such as views by title, client geography, device, browser, and OS.   Users can also track the health of streaming by title or event including viewing in real time the Fabric metrics for streaming segment delivery times (average, 99th percentile, max, min), and the breakdown of views by adaptive bitrate segment resolution.  Finally, the entire history of all viewing sessions is viewable and filterable by date range including the content, timestamp, client authorization address, geo location, user agent details, viewing resolution, and viewing duration.
+        Understand how your content performs—from every stream and viewer session to every purchase and transaction.
+        
+        Eluvio Content Analytics & Reporting provides comprehensive real-time and historical intelligence across Content Fabric streaming and monetization. Track audience engagement, streaming quality of service (QoS), individual viewer sessions, segment delivery performance, product sales, and revenue from a unified analytics environment.
+        
+        Analyze performance across your entire Content Fabric tenancy or drill down from a title, live stream, product, country, or device all the way to an individual streaming session or sales transaction. Reporting data remains tenant-secured and private, encrypted using tenant keys and accessible only with authorized tenant credentials.
       accordion_sections:
         - header: Key Features
           items:
-            - title: Overview
+            - title: Audience & Viewership Analytics
               subtitle: Dashboard for Viewership and QoS Stats by Top Titles and Live Streams
               description: |
-                - Viewership history graph for all streamed content in user’s tenancy
-                - Session counts, unique viewer counts, total playout time
-                - Continuous time series graph for analysis over duration
-                - Filterable by past hour, 24 hours, 7 days, 30 days, past year
-                - Breakdown by streaming segment resolution
-                - See Top Content viewership stats
-                - Including sessions, unique viewers, total playout time
-                - Filter viewership history by title/live stream
-                - View Segment Delivery Metrics for selected sessions
-                - 99th percentile, average, max/min times for individual streams and in aggregate.
-            - title: Metrics View
+                Get a real-time and historical view of audience activity across all streamed content in your Content Fabric tenancy.
+                - Track sessions, unique viewers, and total playout time
+                - Continuous time-series viewership analysis
+                - Analyze the past hour, 24 hours, 7 days, 30 days, or past year
+                - Break down viewing by streaming segment resolution
+                - Identify top-performing titles and live streams
+                - Compare sessions, unique viewers, and total playout time across content
+                - Filter viewership history by individual title or live stream
+                
+                The Dashboard provides a consolidated view of audience activity and streaming performance, including peak sessions, latency, segment latency distributions, and top content.
+            - title: Streaming QoS & Segment Delivery Analytics
+              subtitle: Measure End-to-End Delivery Performance From the Fabric
               description: |
-                - View and Filter metrics for all streaming sessions by the following categories:
-                - Stream Metadata: Content Object ID, Content Object Version Hash, Title, Program Duration, DRM Type, Playout Resolution
-                - Viewer Geo: Client Country, Client City
-                - Viewer Session: User Authorization Address, Wallet Address or Ticket ID, Session ID
-                - Fabric Serving Node
-                - Browser and Device: Browser & Version, OS & Version, Device Name & Model
-                - Configure multi-category inclusion filters fast and easily
-                - View Segment Delivery Metrics for selected sessions
-                - 99th percentile, average, max/min times for individual streams and in aggregate.
-                - Export any view as CSV
-            - title: All Sessions View
+                View detailed Content Fabric delivery metrics for streaming sessions.
+                
+                - Measure 99th percentile, average, maximum, and minimum segment delivery times
+                - Analyze delivery performance for individual streams or in aggregate
+                - Correlate QoS with titles, viewers, geography, devices, and serving nodes
+                - Inspect playout duration, bitrate distribution, and streaming errors
+                - Analyze segment delivery performance for selected viewer sessions
+                - Compare streaming quality across content and configurations
+                
+                This makes it possible to move directly from a global QoS metric to the precise stream, viewer session, device, Fabric node, and content configuration associated with that performance.
+            - title: Multidimensional Streaming Metrics
+              subtitle: Analyze Individual Streaming Sessions
               description: |
-                - View all sessions over time filterable by date range
-                - Includes Title, Timestamp, OS, Browser, Duration, Session ID, and Client Authorization Address
-                - Individual session drill down with detailed content metadata, client geo info, authorization id, fabric node, user agent and device details
-                - View per session status, playout duration, bit rate distribution and errors
-            - title: Tenant Secured and Private
+                View and filter streaming metrics across multiple dimensions simultaneously to understand exactly what was streamed, to whom, where, on what device, and from which Fabric infrastructure.
+              sub_items:
+                - title: Stream Metadata
+                  description: |
+                    - Content Object ID
+                    - Content Object Version Hash
+                    - Title
+                    - Program duration
+                    - DRM type
+                    - Playout resolution
+                - title: Viewer Geography
+                  description: |
+                    - Client country
+                    - Client city
+                - title: Viewer Session & Authorization
+                  description: |
+                    - User authorization address
+                    - Wallet address or Ticket ID
+                    - Session ID
+                - title: Fabric Infrastructure
+                  description: |
+                    - Fabric serving node
+                - title: Browser & Device
+                  description: |
+                    - Browser and version
+                    - Operating system and version
+                    - Device name and model
+            - title: Individual Session Analytics
+              subtitle: From Global Audience Metrics to a Single Viewer Session
               description: |
-                - All Fabric reporting data is encrypted for the tenant using tenant keys and authorized for viewing with valid tenant credentials only
+                Drill down from aggregate viewership directly into an individual streaming session.
+                View all sessions over a selected date range and inspect:
+                - Title and timestamp
+                - Operating system and browser
+                - Session duration
+                - Session ID
+                - Client authorization address
+                - Detailed content metadata
+                - Viewer geographic information
+                - Authorization ID
+                - Fabric serving node
+                - User agent and device information
+                - Session status
+                - Playout duration
+                - Bitrate distribution
+                - Streaming errors
+                
+                This provides end-to-end visibility from the Content Fabric through to the individual playback session—making the same analytics environment useful for audience analysis, operations, customer support, and QoS troubleshooting.
+            - title: Sales Analytics & Reporting
+              subtitle: Understand What Sells, Where It Sells, and How Revenue Is Generated
+              description: |
+                Track comprehensive metrics for product sales and revenue by territory, product type, buyer, and payment method.
+                The Sales Analytics dashboard provides an aggregate view across purchases while supporting drilldown into individual transactions.
+                
+                Analyze Sales by Product, Country & Payment Processor
+                - Group and filter sales by country
+                - Analyze by product or entitlement
+                - Analyze by payment processor, including Stripe, Apple Pay, and other payment methods
+                - Identify top-selling products
+                - Identify leading purchasing countries
+                - Compare product and geographic sales performance
+                - Filter sales volumes across multiple dimensions
+                - Export results as CSV
+            - title: Individual Sales & Transaction Drilldown
+              subtitle: Move from aggregate revenue directly into individual purchases.
+              description: |
+                Analyze transactions by:
+                - Date range
+                - Transaction ID
+                - Buyer wallet address
+                - Payment processor
+                - Buyer email
+                - Currency
+                - Seller address
+                - Purchase geography
+                - Product SKU
+                - Item purchased
+                - Payment details
+                - Royalty details
+                
+                The result is a unified view of what was purchased, by whom, where, through which payment method, and how the resulting payment and royalty were processed.
+            - title: Revenue Reporting
+              subtitle: Complete Visibility Into Transactions & Revenue
+              description: |
+                Content Fabric Revenue Reporting provides a consolidated operational and financial view of monetization activity.
+                
+                The Transactions page includes:
+                - Overall sales
+                - Total transaction counts
+                - Transaction-status overview
+                - Payment processor reporting
+                - Detailed table of individual transactions
+                - Product-level sales
+                - Transaction-level detail
+            - title: Connect Streaming Performance Directly to Business Performance
+              description: |
+                Content Fabric Analytics & Reporting brings together information traditionally scattered across CDN analytics, player telemetry, audience measurement systems, commerce platforms, and payment reporting.
+
+                Start with overall viewership or revenue and progressively drill down:
+                
+                  Tenancy → Title / Live Stream → Audience → Geography → Device → Session → QoS
+                  or
+                  Revenue → Product → Country → Payment Processor → Buyer → Individual Transaction
+                  
+                  
+                  Because streaming, authorization, content metadata, and monetization operate within the Content Fabric, analytics can correlate these dimensions without requiring separate media-delivery and commerce reporting systems.
+                  
+                  The result is a unified operational and business intelligence layer for understanding what audiences are watching, how well it is being delivered, what they are buying, and how that activity translates into revenue.
+                  
+                  **Tenant-Secured and Private**
+                  All Fabric reporting data is encrypted for the tenant using tenant keys and is authorized for viewing only with valid tenant credentials—keeping audience, operational, and sales intelligence private to the tenant.
+
     video_intelligence_services:
       header: Content Fabric Application Suite
       title: Eluvio Video Intelligence Services

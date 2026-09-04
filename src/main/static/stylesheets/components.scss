@@ -382,8 +382,56 @@
     color: var(--color-text-light-3);
     padding: 32px 28px;
 
+    // Gap only where the source had a blank line (see remarkBlankLineGaps)
+    .rich-text--gap {
+      margin-top: 1rem;
+    }
+
     &--pre-line {
       white-space: pre-line;
+    }
+  }
+
+  // Accordion item that nests sub-accordions in its content
+  &--parent {
+    .accordion__description-card > .rich-text.accordion__nested-intro {
+      background-color: transparent;
+      color: var(--color-text-light-3);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      padding: 0;
+    }
+  }
+
+  &--sub {
+    > .accordion__header {
+      padding: 14px 25px 14px 0;
+    }
+
+    .accordion__header__title--purple {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    > .accordion__content {
+      padding-bottom: 4px;
+    }
+
+    .rich-text.accordion__sub-description {
+      background-color: transparent;
+      color: var(--color-text-light-3);
+      font-size: 1rem;
+      padding: 0;
+
+      // Bullets flush with the title
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style-position: inside;
+        }
+      }
     }
   }
 }

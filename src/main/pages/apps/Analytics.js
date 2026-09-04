@@ -39,8 +39,35 @@ const Analytics = observer(() => {
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} titleDescription={item.subtitle} key={`analytics-accordion-item-${item.title}`} defaultOpen>
-                      <RichText className="accordion__description-card" richText={item.description}/>
+                    <Accordion
+                      title={item.title}
+                      titleDescription={item.subtitle}
+                      className={item.sub_items ? "accordion--parent" : ""}
+                      key={`analytics-accordion-item-${item.title}`}
+                      defaultOpen
+                    >
+                      {
+                        item.sub_items ?
+                          <div className="accordion__description-card">
+                            {
+                              item.description &&
+                              <RichText className="accordion__nested-intro" richText={item.description}/>
+                            }
+                            {
+                              item.sub_items.map(subItem => (
+                                <Accordion
+                                  title={subItem.title}
+                                  className="accordion--sub"
+                                  key={`analytics-accordion-subitem-${subItem.title}`}
+                                  defaultOpen
+                                >
+                                  <RichText className="accordion__sub-description" richText={subItem.description}/>
+                                </Accordion>
+                              ))
+                            }
+                          </div> :
+                          <RichText className="accordion__description-card" richText={item.description}/>
+                      }
                     </Accordion>
                   )) :
                   <Accordion title={section.header} hasHeader={false} defaultOpen>

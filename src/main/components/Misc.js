@@ -14,11 +14,40 @@ import EluvioConfiguration from "EluvioConfiguration";
 import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
 import UrlJoin from "url-join";
 
+// Tag blocks that had a blank line before them in the source so CSS can add a
+// gap there (markdown itself collapses blank lines).
+const RemarkBlankLineGaps = () => {
+  const walk = children => {
+    if (!Array.isArray(children)) { return; }
+
+    children.forEach((node, i) => {
+      const prev = children[i - 1];
+
+      if (prev && prev.position && node.position &&
+          node.position.start.line - prev.position.end.line > 1) {
+        node.data = node.data || {};
+        node.data.hProperties = node.data.hProperties || {};
+
+        const existing = node.data.hProperties.className;
+        node.data.hProperties.className = [
+          ...(Array.isArray(existing) ? existing : existing ? [existing] : []),
+          "rich-text--gap"
+        ];
+      }
+
+      walk(node.children);
+    });
+  };
+
+  return tree => walk(tree.children);
+};
+
 export const RichText = ({richText, children, className=""}) => {
   return (
     <div className={`rich-text ${className}`}>
       { children }
       <ReactMarkdown
+        remarkPlugins={[RemarkBlankLineGaps]}
         rehypePlugins={[rehypeRaw]}
         components={{
           a: props => <Action {...props} to={props.href} />
