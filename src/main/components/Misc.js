@@ -11,7 +11,7 @@ import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
-import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
+import {DocumentIcon, InfoIcon, MinusIcon, PlusIcon, TechnologyIcons} from "../static/icons/Icons";
 import UrlJoin from "url-join";
 
 // Tag blocks that had a blank line before them in the source so CSS can add a
@@ -226,6 +226,29 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false, cl
         }
       </div>
     </div>
+  );
+};
+
+// Learn-more InfoBox linking to a Content Fabric release whitepaper, used across the
+// core apps and technology pages. Defaults to the current (Bucharest) release.
+export const ContentFabricInfoBox = ({release="bucharest", className=""}) => {
+  const copy = mainStore.l10n.content_fabric[release];
+
+  return (
+    <InfoBox
+      icon={TechnologyIcons.FabricBrowserIcon}
+      header={copy.header}
+      content={copy.text}
+      className={className}
+      links={[
+        {
+          to: copy.links[0].link,
+          target: "_blank",
+          text: copy.links[0].text,
+          icon: DocumentIcon
+        }
+      ]}
+    />
   );
 };
 

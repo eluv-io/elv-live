@@ -75,7 +75,8 @@ const MobileNav = observer(({visible, Close}) => {
                 {label: mainStore.l10n.header.monetization, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
                 {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
                 {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
-                {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
+                {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon},
+                {label: mainStore.l10n.header.fabric_core_bangkok, to: "/av-core/fabric-core-bangkok", props: {useNavLink: true, exact: true}, icon: NavIcons.StarIcon}
               ]
             },
             {

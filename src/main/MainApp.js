@@ -32,6 +32,7 @@ import MediaWallet from "./pages/main/MediaWallet";
 import CompatibleDevices from "./pages/main/CompatibleDevices";
 import Register from "./pages/register/Register";
 import FabricCore from "./pages/technology/FabricCore";
+import FabricCoreBangkok from "./pages/technology/FabricCoreBangkok";
 import CreatorStudio from "./pages/apps/CreatorStudio";
 import Analytics from "./pages/apps/Analytics";
 import VideoIntelligenceServices from "./pages/apps/VideoIntelligenceServices";
@@ -107,6 +108,7 @@ const MainApp = () => {
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
           {/* A/V Core Routes */}
           <Route path="/av-core/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
+          <Route path="/av-core/fabric-core-bangkok" element={<PageContainer padded><FabricCoreBangkok /></PageContainer>} />
           <Route path="/av-core/core-utilities" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           <Route path="/av-core/bucharest-release" element={<PageContainer padded><CorePlatform /></PageContainer>} />
           {/* Monetization Routes */}

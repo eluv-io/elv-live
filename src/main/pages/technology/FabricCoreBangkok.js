@@ -9,9 +9,7 @@ import AppImageGallery from "../apps/AppImageGallery";
 const SectionContent = ({
   sectionId,
   subSections,
-  blocks,
-  header,
-  collapsible
+  blocks
 }) => {
   if(subSections) {
     return (
@@ -32,34 +30,28 @@ const SectionContent = ({
       ))
     );
   } else if(blocks) {
-    const content = blocks.map((block, i) => (
-      block.items ?
-        (
-          block.items.map((blockItem, i) => (
-            <Accordion key={`block-item-accordion-${i}`} title={blockItem.title} className="accordion--block">
-              <RichText key={`block-${i}`} className="accordion__description-card" richText={blockItem.description} />
-            </Accordion>
-          ))
-        ) :
-        (
-          <div key={`block-wrapper-${i}`}>
-            <RichText key={`block-${i}`} className={`accordion__description-card ${block.pre_line ? "accordion__description-card--pre-line" : ""}`} richText={block.description} />
-          </div>
-        )
-    ));
-
     return (
-      collapsible ?
-        <Accordion title={header} hasHeader={false} defaultOpen id={sectionId}>
-          { content }
-        </Accordion> :
-        content
+      blocks.map((block, i) => (
+        block.items ?
+          (
+            block.items.map((blockItem, i) => (
+              <Accordion key={`block-item-accordion-${i}`} title={blockItem.title} className="accordion--block">
+                <RichText key={`block-${i}`} className="accordion__description-card" richText={blockItem.description} />
+              </Accordion>
+            ))
+          ) :
+          (
+            <div key={`block-wrapper-${i}`}>
+              <RichText key={`block-${i}`} className={`accordion__description-card ${block.pre_line ? "accordion__description-card--pre-line" : ""}`} richText={block.description} />
+            </div>
+          )
+      ))
     );
   }
 };
 
-const FabricCore = observer(() => {
-  const copy = mainStore.l10n.core_apps.pages.fabric_core;
+const FabricCoreBangkok = observer(() => {
+  const copy = mainStore.l10n.core_apps.pages.fabric_core_bangkok;
 
   return (
     <div className="page light">
@@ -75,18 +67,15 @@ const FabricCore = observer(() => {
         </div>
       </div>
 
-      <AppSuiteControlPanel />
       <div className="page__content-block">
         {
           copy.upper_accordion_sections.map(section => (
             <div key={`fabric-core-accordion-section-${section.title}`} className="page__content-block">
-              <AccordionGroup header={section.sub_sections ? section.header : ""}>
+              <AccordionGroup header={section.header}>
                 <SectionContent
                   sectionId={section.id}
                   subSections={section.sub_sections}
                   blocks={section.blocks}
-                  header={section.header}
-                  collapsible={!section.sub_sections}
                 />
                 {/*{*/}
                 {/*  section.sub_sections ?*/}
@@ -118,10 +107,7 @@ const FabricCore = observer(() => {
           ))
         }
       </div>
-      <div className="page__content-block">
-        <h3 className="page__content-block__header light">{copy.zero_copy_section.title}</h3>
-        <RichText richText={copy.zero_copy_section.description} className="page__copy fade-in--slow"/>
-      </div>
+      <AppSuiteControlPanel />
       {
         copy.accordion_sections.map(section => (
           <div className="page__content-block" key={`fabric-core-section-${section.header}`}>
@@ -130,19 +116,11 @@ const FabricCore = observer(() => {
             >
               {
                 section.items ?
-                  <>
-                    {
-                      section.items.map(item => (
-                        <Accordion title={item.title} defaultOpen key={`fabric-core-accordion-item-${item.title}`} id={item.id}>
-                          <RichText className="accordion__description-card" richText={item.description}/>
-                        </Accordion>
-                      ))
-                    }
-                    {
-                      section.description &&
-                      <RichText className="accordion__description-card" richText={section.description}/>
-                    }
-                  </> :
+                  section.items.map(item => (
+                    <Accordion title={item.title} defaultOpen key={`fabric-core-accordion-item-${item.title}`} id={item.id}>
+                      <RichText className="accordion__description-card" richText={item.description}/>
+                    </Accordion>
+                  )) :
                   <Accordion title={section.header} hasHeader={false} defaultOpen id={section.id}>
                     <RichText className="accordion__description-card" richText={section.description}/>
                   </Accordion>
@@ -164,11 +142,11 @@ const FabricCore = observer(() => {
         }
       />
       <div className="page__content-block">
-        <ContentFabricInfoBox />
+        <ContentFabricInfoBox release="bangkok" />
       </div>
     </div>
   );
 });
 
-export default FabricCore;
+export default FabricCoreBangkok;
 
