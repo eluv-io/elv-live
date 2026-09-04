@@ -6,7 +6,7 @@ import {ApplicationIcons} from "../../static/icons/Icons";
 import {Accordion, AccordionGroup, ContentFabricInfoBox, RichText} from "../../components/Misc";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import AppImageGallery from "./AppImageGallery";
-import * as clipSearchImages from "../../static/images/apps/clip-search";
+import * as videoIntelligenceServicesImages from "../../static/images/apps/video-intelligence-services";
 
 const VideoIntelligenceServices = observer(() => {
   const copy = mainStore.l10n.core_apps.pages.video_intelligence_services;
@@ -51,14 +51,14 @@ const VideoIntelligenceServices = observer(() => {
       }
       <AppImageGallery
         items={
-          Object.keys(clipSearchImages || {})
+          Object.keys(videoIntelligenceServicesImages || {})
             .sort((a, b) => {
-              const numA = parseInt(a.replace("ClipSearch", ""), 10);
-              const numB = parseInt(b.replace("ClipSearch", ""), 10);
+              const numA = parseInt(a.replace("VideoIntelligenceServices", ""), 10);
+              const numB = parseInt(b.replace("VideoIntelligenceServices", ""), 10);
 
               return numA - numB;
             })
-            .map(key => clipSearchImages[key])
+            .map(key => videoIntelligenceServicesImages[key])
         }
       />
       <div className="page__content-block">
