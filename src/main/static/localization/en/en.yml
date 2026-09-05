@@ -1605,14 +1605,14 @@ content_fabric:
     text: Learn about the latest release Bangkok in this comprehensive white paper covering the advances in full stack streaming, live broadcast distribution, and our inline video intelligence.
     links:
       - text: Master PDF
-        link: https://main.net955305.contentfabric.io/s/main/q/hq__2Ghi8f1ATsc3RUTsDQKxb3kGFuSbkTzTjxjcrgbxJN4gz7LtsgD3faxTRAafWSsvJ1A1Utu1m4U5/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bucharest%20Release%20Whitepaper.pdf
+        link: https://main.net955305.contentfabric.io/s/main/q/hq__2Ghi8f1ATsc3RUTsDQKxb3kGFuSbkTzTjxjcrgbxJN4gz7LtsgD3faxTRAafWSsvJ1A1Utu1m4U5/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bangkok%20Release%20Whitepaper.pdf
   bucharest:
     header: 2026 Core Platform - Bucharest Release
     text: Learn about the new release Bucharest, our first fully unified platform for Broadcast, Streaming, and Inline AI Video Intelligence. See the summary and detailed feature guide.
     links:
       -
         text: Master PDF
-        link: /av-core/bucharest-release
+        link: https://main.net955305.contentfabric.io/s/main/q/hq__2Ghi8f1ATsc3RUTsDQKxb3kGFuSbkTzTjxjcrgbxJN4gz7LtsgD3faxTRAafWSsvJ1A1Utu1m4U5/files/eluv.io/Eluvio%20Content%20Fabric%20-%20Bucharest%20Release%20Whitepaper.pdf
 
 technology:
   title: Content Fabric Technology
@@ -2591,7 +2591,7 @@ core_apps:
     fabric_core:
       header_title: Broadcast Transformation, D2C OTT Streaming & Monetization, Inline Video AI
       header_subtitle: Content Fabric - Bucharest Release
-      header_video: hq__J8kACJ5CjKM3eBTyA44o6kHkVVh9T3NFp5bytgCA4EFyDeu6DD1vzVRtKPrKtayThpMcJPqZM1B
+      header_video: hq__VyfhuKByaNEPDK2esTqTPGEvBjnY9B4dR3ANVTSSsP4VEmj5W9hZBub9ywPN8JncS1yQDVPRFtq
       summary_section:
         title: Any-to-Any Distribution. Maximum Quality. Unlimited AI Personalization & Monetization
         description: |
