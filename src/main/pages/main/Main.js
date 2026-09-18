@@ -103,7 +103,7 @@ const HeaderBlock = observer(({mobile}) => {
 
             {
               mobile &&
-              <MantineButton color="black.9" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
+              <MantineButton color="black.9" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal", "--button-hover": "#1F1F1F"}}>
                 <Text fz={15} fw={700} lh={1.4} c="white.0" style={{whiteSpace: "normal"}}>
                   Eluvio wins 2x at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026. Explore the award-winning Content Fabric and Video Intelligence →
                 </Text>
@@ -124,7 +124,7 @@ const HeaderBlock = observer(({mobile}) => {
                 py="md"
                 maw={500}
                 justify="flex-start"
-                style={{whiteSpace: "normal"}}
+                style={{whiteSpace: "normal", "--button-hover": "#1F1F1F"}}
                 styles={{label: {whiteSpace: "normal", overflow: "visible", textAlign: "left"}, inner: {height: "auto", justifyContent: "flex-start"}}}
               >
                 <Stack gap={6} align="start">
