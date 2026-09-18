@@ -87,10 +87,10 @@ const HeaderBlock = observer(({mobile}) => {
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage} autoHeight>
       <Box maw={1440}>
         <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "stretch"}>
-          <Flex flex={2} pt={{base: 0, lg: 30}} align="center" justify="center" w="100%">
+          <Flex flex={1} pt={{base: 0, lg: 30}} align="center" justify="center" w="100%">
             <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", lg: 0}} w={{base: "100%", sm: "60%", md: "90%", lg: "100%"}} m="auto" />
           </Flex>
-          <Flex direction="column" flex={3} gap={{base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
+          <Flex direction="column" flex={2} gap={{base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
               fz={{base: "1.25rem", sm: "1.675rem", lg: "1.75rem"}}
