@@ -19,42 +19,46 @@ export const NotificationBanner = observer(({className="", mobile}) => {
 
   return (
     <div className={`notification-banner ${className}`}>
-      <h3>{ mainStore.notification.header }</h3>
       {
         mobile ?
           (
-            <Flex direction="row" wrap="nowrap" w="100%" gap={8}>
-              <Flex direction="row" wrap="nowrap" w="100%" miw={0} pos="relative">
-                <Text richText={mainStore.notification.plain_text} className="notification-banner__text" fz={14}>
-                  { mainStore.notification.plain_text }
-                </Text>
-                <Box className="notification-banner__text-gradient" />
-              </Flex>
-              <Box flex={1}>
-                <Action to={mainStore.notification.link}>
-                  <Text fz={14} fw={700} wrap="nowrap">
-                    { mainStore.notification.link_text } →
+            <Flex direction="column" w="100%">
+              <h3>{ mainStore.notification.header }</h3>
+              <Flex direction="row" wrap="nowrap" w="100%" gap={8}>
+                <Flex direction="row" wrap="nowrap" w="100%" miw={0} pos="relative">
+                  <Text richText={mainStore.notification.plain_text} className="notification-banner__text" fz={14} truncate="end">
+                    { mainStore.notification.plain_text }
                   </Text>
-                </Action>
-              </Box>
+                </Flex>
+                <Box flex={1}>
+                  <Action to={mainStore.notification.link}>
+                    <Text fz={14} fw={700} wrap="nowrap" truncate="end">
+                      { mainStore.notification.link_text } →
+                    </Text>
+                  </Action>
+                </Box>
+              </Flex>
             </Flex>
           ) :
           (
-            <Flex direction="row" gap={6} justify="center" wrap="nowrap" w="100%">
-              <Box maw="100%" miw={0} pos="relative" className="notification-banner__text-gradient-container">
-                <Text className="notification-banner__text-desktop" lineClamp={1} fz={16} fw={500} truncate={"end"}>
-                  {mainStore.notification.plain_text}
-                </Text>
-                <Box className="notification-banner__text-gradient" />
-              </Box>
-              <Box flex={1}>
-                <Action to={mainStore.notification.link}>
-                  <Text fz={mobile ? 14 : 16} fw={700}>
-                    { mainStore.notification.link_text } →
+            <>
+              <h3>{ mainStore.notification.header }</h3>
+              <Flex direction="row" gap={6} justify="center" wrap="nowrap" w="100%">
+                <Box maw="100%" miw={0} pos="relative" className="notification-banner__text-gradient-container">
+                  <Text className="notification-banner__text-desktop" lineClamp={1} fz={16} fw={500} truncate={"end"}>
+                    {mainStore.notification.plain_text}
                   </Text>
-                </Action>
-              </Box>
-            </Flex>
+                  <Box className="notification-banner__text-gradient" />
+                </Box>
+                <Box flex={1}>
+                  <Action to={mainStore.notification.link}>
+                    <Text fz={mobile ? 14 : 16} fw={700} truncate="end">
+                      { mainStore.notification.link_text } →
+                    </Text>
+                  </Action>
+                </Box>
+              </Flex>
+            </>
           )
       }
     </div>

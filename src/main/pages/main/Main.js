@@ -27,8 +27,8 @@ import {
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
-import EluvioColorLogo from "../../static/images/logos/eluvio-logo-color.png";
-import IBC2026Logo from "../../static/images/main/ibc-2026-logo";
+import EluvioColorLogo from "../../static/images/logos/logo-ibc-2026-win.png";
+import IBC2026Logo from "../../static/images/main/ibc-2026-logo-mark";
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
 import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
@@ -38,7 +38,7 @@ import AppIconEvie from "../../static/icons/apps_new/5_Evie";
 import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
 import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
 
-import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
+import HeaderBackgroundImage from "../../static/images/main/dot-header-bg-light.webp";
 import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting.webp";
 import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management.webp";
 import EvieApp from "../../static/images/main/apps/01-eluvio-video-intelligence-editor.webp";
@@ -68,7 +68,6 @@ import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jp
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 import {
-  Anchor,
   AspectRatio,
   BackgroundImage,
   Box,
@@ -85,37 +84,37 @@ import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
   return (
-    <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
+    <MainHeader video={false} backgroundImage={HeaderBackgroundImage} autoHeight>
       <Box maw={1440}>
-        <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "flex-start"}>
-          <Box flex={1} pt={{base: 0, lg: 30}} align="center" w="100%">
-            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", lg: 0}} w={{base: "100%", sm: "60%", lg: "100%"}} m="auto" />
-          </Box>
-          <Flex direction="column" flex={2} gap={{base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
+        <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "stretch"}>
+          <Flex flex={2} pt={{base: 0, lg: 30}} align="center" justify="center" w="100%">
+            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", lg: 0}} w={{base: "100%", sm: "60%", md: "90%", lg: "100%"}} m="auto" />
+          </Flex>
+          <Flex direction="column" flex={3} gap={{base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
               fz={{base: "1.25rem", sm: "1.675rem", lg: "1.75rem"}}
               fw={mobile ? 500 : 600}
-              c="white.0"
+              c="var(--color-text-light-1)"
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
-            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.25rem", lg: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
+            <Title fw={600} c="var(--color-text-light-1)" fz={{base: "1.75rem", sm: "2.25rem", lg: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
 
             {
               mobile &&
-              <MantineButton color="white.0" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
-                <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
-                  See us at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />. Check out <Anchor href="https://ibc.eluv.io" target="_blank" c="black.0" fw={700} underline="always" onClick={event => event.stopPropagation()}>ibc.eluv.io</Anchor> for the new product announcements, demo schedule and more →
+              <MantineButton color="black.9" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
+                <Text fz={15} fw={700} lh={1.4} c="white.0" style={{whiteSpace: "normal"}}>
+                  Eluvio wins 2x at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026. Explore the award-winning Content Fabric and Video Intelligence →
                 </Text>
               </MantineButton>
             }
 
-            <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="var(--color-text-light-1)" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <MantineButton
-                color="white.0"
+                color="black.9"
                 radius={5}
                 component="a"
                 href="https://eluv.io/community"
@@ -130,8 +129,8 @@ const HeaderBlock = observer(({mobile}) => {
               >
                 <Stack gap={6} align="start">
                   <Group gap={8}>
-                    <Text fz={15} fw={700} lh={1.4} c="black.0">
-                      See us at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />. Check out <Anchor href="https://ibc.eluv.io" target="_blank" c="black.0" fw={700} underline="always" onClick={event => event.stopPropagation()}>ibc.eluv.io</Anchor> for the new product announcements, demo schedule and more →
+                    <Text fz={15} fw={700} lh={1.4} c="white.0">
+                      Eluvio wins 2x at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026. Explore the award-winning Content Fabric and Video Intelligence →
                     </Text>
                   </Group>
                 </Stack>
