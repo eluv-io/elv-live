@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
@@ -15,6 +15,23 @@ import UrlJoin from "url-join";
 import {Box, Flex, Text} from "@mantine/core";
 
 export const NotificationBanner = observer(({className="", mobile}) => {
+  const textRef = useRef(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  useEffect(() => {
+    const element = textRef.current;
+    if(!element) { return; }
+
+    const CheckTruncation = () => setIsTruncated(element.scrollWidth > element.clientWidth);
+
+    CheckTruncation();
+
+    const resizeObserver = new ResizeObserver(CheckTruncation);
+    resizeObserver.observe(element);
+
+    return () => resizeObserver.disconnect();
+  }, [mainStore.notification?.plain_text]);
+
   if(!mainStore.notification) { return null; }
 
   return (
@@ -43,16 +60,16 @@ export const NotificationBanner = observer(({className="", mobile}) => {
           (
             <>
               <h3>{ mainStore.notification.header }</h3>
-              <Flex direction="row" gap={6} justify="center" wrap="nowrap" w="100%">
-                <Box maw="100%" miw={0} pos="relative" className="notification-banner__text-gradient-container">
-                  <Text className="notification-banner__text-desktop" lineClamp={1} fz={16} fw={500} truncate={"end"}>
+              <Flex direction="row" gap={6} justify="flex-start" wrap="nowrap" w="100%">
+                <Box flex="0 1 auto" miw={0} pos="relative" className="notification-banner__text-gradient-container">
+                  <Text ref={textRef} className="notification-banner__text-desktop" lineClamp={1} fz={16} fw={500} truncate={"end"}>
                     {mainStore.notification.plain_text}
                   </Text>
-                  <Box className="notification-banner__text-gradient" />
+                  { isTruncated && <Box className="notification-banner__text-gradient" /> }
                 </Box>
-                <Box flex={1}>
+                <Box flex="0 0 auto">
                   <Action to={mainStore.notification.link}>
-                    <Text fz={mobile ? 14 : 16} fw={700} truncate="end">
+                    <Text fz={mobile ? 14 : 16} fw={700} wrap="nowrap">
                       { mainStore.notification.link_text } →
                     </Text>
                   </Action>
