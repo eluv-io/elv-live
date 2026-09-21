@@ -12,9 +12,9 @@ const HeaderVideo = observer(() => {
   );
 });
 
-export const MainHeader = ({children, backgroundImage, video=true, autoHeight=false}) => {
+export const MainHeader = ({children, backgroundImage, video=true}) => {
   return (
-    <div className={`main-page-header main-page-header__image-bg${autoHeight ? " main-page-header--auto-height" : ""}`} style={backgroundImage ? {
+    <div className="main-page-header main-page-header__image-bg" style={backgroundImage ? {
       backgroundImage: `url(${backgroundImage})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat"
@@ -23,7 +23,7 @@ export const MainHeader = ({children, backgroundImage, video=true, autoHeight=fa
       <div className="main-page-header__content">
         { children }
       </div>
-      {/*<div className="main-page-header__gradient" />*/}
+      <div className="main-page-header__gradient" />
     </div>
   );
 };
