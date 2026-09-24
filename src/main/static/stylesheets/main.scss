@@ -1070,7 +1070,7 @@
   }
 
   &__app-tabs-container {
-    min-height: 50vh;
+    //min-height: 50vh;
   }
 
   &__app-tabs {
@@ -1123,7 +1123,7 @@
   &__app-tabs-panel-content {
     display: flex;
     flex-direction: row;
-    gap: 0;
+    gap: 30px;
     width: 100%;
 
     .image-icon {

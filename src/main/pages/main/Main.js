@@ -27,8 +27,8 @@ import {
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
-import EluvioColorLogo from "../../static/images/logos/eluvio-logo-color.png";
-import IBC2026Logo from "../../static/images/main/ibc-2026-logo";
+import EluvioColorLogo from "../../static/images/logos/eluvio-best-of-show";
+import IBC2026Logo from "../../static/images/main/ibc-2026-logo-mark";
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
 import AppIconIngest from "../../static/icons/apps_new/2_Media_Ingest";
@@ -68,7 +68,6 @@ import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jp
 import ClientGroupDesktopImage from "../../static/images/main/clients/client-group-desktop";
 import ClientGroupMobileImage from "../../static/images/main/clients/client-group-mobile";
 import {
-  Anchor,
   AspectRatio,
   BackgroundImage,
   Box,
@@ -106,7 +105,7 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <MantineButton color="white.0" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
                 <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
-                  See us at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />. Check out <Anchor href="https://ibc.eluv.io" target="_blank" c="black.0" fw={700} underline="always" onClick={event => event.stopPropagation()}>ibc.eluv.io</Anchor> for the new product announcements, demo schedule and more →
+                  Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                 </Text>
               </MantineButton>
             }
@@ -131,7 +130,7 @@ const HeaderBlock = observer(({mobile}) => {
                 <Stack gap={6} align="start">
                   <Group gap={8}>
                     <Text fz={15} fw={700} lh={1.4} c="black.0">
-                      See us at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />. Check out <Anchor href="https://ibc.eluv.io" target="_blank" c="black.0" fw={700} underline="always" onClick={event => event.stopPropagation()}>ibc.eluv.io</Anchor> for the new product announcements, demo schedule and more →
+                      Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                     </Text>
                   </Group>
                 </Stack>
