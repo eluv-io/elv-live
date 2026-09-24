@@ -105,7 +105,7 @@ const HeaderBlock = observer(({mobile}) => {
               mobile &&
               <MantineButton color="white.0" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
                 <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
-                  Eluvio wins 2x at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026. Explore the award-winning Content Fabric and Video Intelligence →
+                  Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                 </Text>
               </MantineButton>
             }
@@ -130,7 +130,7 @@ const HeaderBlock = observer(({mobile}) => {
                 <Stack gap={6} align="start">
                   <Group gap={8}>
                     <Text fz={15} fw={700} lh={1.4} c="black.0">
-                      Eluvio wins 2x at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026. Explore the award-winning Content Fabric and Video Intelligence →
+                      Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                     </Text>
                   </Group>
                 </Stack>
