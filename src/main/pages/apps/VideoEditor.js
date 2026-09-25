@@ -3,8 +3,8 @@ import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import ImageIcon from "../../components/ImageIcon";
-import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
-import {Accordion, AccordionGroup, InfoBox, RichText, Video} from "../../components/Misc";
+import {ApplicationIcons} from "../../static/icons/Icons";
+import {Accordion, AccordionGroup, ContentFabricInfoBox, RichText, Video} from "../../components/Misc";
 import * as videoEditorImages from "../../static/images/apps/video-editor";
 import AppImageGallery from "./AppImageGallery";
 
@@ -65,19 +65,7 @@ const VideoEditor = observer(() => {
         }
       />
       <div className="page__content-block">
-        <InfoBox
-          icon={TechnologyIcons.FabricBrowserIcon}
-          header={mainStore.l10n.content_fabric.bangkok.header}
-          content={mainStore.l10n.content_fabric.bangkok.text}
-          links={[
-            {
-              to: mainStore.l10n.content_fabric.bangkok.links[0].link,
-              target: "_blank",
-              text: mainStore.l10n.content_fabric.bangkok.links[0].text,
-              icon: DocumentIcon
-            }
-          ]}
-        />
+        <ContentFabricInfoBox />
       </div>
     </div>
   );

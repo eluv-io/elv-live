@@ -1,9 +1,9 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {mainStore} from "../../stores/Main";
-import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import {Accordion, AccordionGroup, ContentFabricInfoBox, RichText} from "../../components/Misc";
 import ImageIcon from "../../components/ImageIcon";
-import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
+import {ApplicationIcons} from "../../static/icons/Icons";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 
 import * as creatorStudioImages from "../../static/images/apps/creator-studio";
@@ -63,19 +63,7 @@ const CreatorStudio = observer(() => {
         }
       />
       <div className="page__content-block">
-        <InfoBox
-          icon={TechnologyIcons.FabricBrowserIcon}
-          header={mainStore.l10n.content_fabric.bangkok.header}
-          content={mainStore.l10n.content_fabric.bangkok.text}
-          links={[
-            {
-              to: mainStore.l10n.content_fabric.bangkok.links[0].link,
-              target: "_blank",
-              text: mainStore.l10n.content_fabric.bangkok.links[0].text,
-              icon: DocumentIcon
-            }
-          ]}
-        />
+        <ContentFabricInfoBox />
       </div>
     </div>
   );

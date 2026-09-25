@@ -145,7 +145,7 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.all_features, to: "/av-core/core-utilities", props: {useNavLink: true, exact: true}, icon: NavIcons.FeaturesIcon},
               {
                 label: mainStore.l10n.header.management_tools,
-                to: "/av-core/fabric-core#tools",
+                to: "/#tools",
                 props: {useNavLink: true, exact: true},
                 icon: NavIcons.ManagementToolsIcon,
               },
@@ -174,7 +174,8 @@ const Header = observer(() => {
               {label: mainStore.l10n.header.monetization, to: "/monetization/analytics", props: {useNavLink: true, exact: true}, icon: NavIcons.MonetizationIcon},
               {label: mainStore.l10n.header.elv_media_wallet, to: "/monetization/media-wallet", props: {useNavLink: true, exact: true}, icon: NavIcons.EDarkFillIcon},
               {label: mainStore.l10n.header.creator_studio, to: "/monetization/creator-studio", props: {useNavLink: true, exact: true}, icon: NavIcons.LiveStreamManagerIcon},
-              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon}
+              {label: mainStore.l10n.header.embeddable_player, to: "/monetization/embeddable-player", props: {useNavLink: true, exact: true}, icon: NavIcons.PlayerIcon},
+              {label: mainStore.l10n.header.fabric_core_bangkok, to: "/av-core/fabric-core-bangkok", props: {useNavLink: true, exact: true}, icon: NavIcons.StarIcon}
             ]}
           >
             { mainStore.l10n.header.monetization }
@@ -186,7 +187,7 @@ const Header = observer(() => {
             useNavLink
             items={[
               {label: mainStore.l10n.header.video_editor, to: "/video-intelligence/video-editor", props: {useNavLink: true, exact: true}, icon: NavIcons.EvieIcon},
-              {label: mainStore.l10n.header.ai_clip_search, to: "/video-intelligence/ai-search", props: {useNavLink: true, exact: true}, icon: NavIcons.AiSearchIcon},
+              {label: mainStore.l10n.header.video_intelligence_services, to: "/video-intelligence/services", props: {useNavLink: true, exact: true}, icon: NavIcons.AiSearchIcon},
               {label: mainStore.l10n.header.ai_labs, to: "https://medium.com/@eluvio_ai", props: {useNavLink: true, exact: true}, icon: NavIcons.MIcon}
             ]}
           >

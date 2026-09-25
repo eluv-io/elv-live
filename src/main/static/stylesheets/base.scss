@@ -124,6 +124,13 @@ h4 {
   }
 }
 
+.page__copy {
+  // Two-or-more blank lines in the source get a bigger break (see remarkBlankLineGaps)
+  .rich-text--gap-lg {
+    margin-top: 2rem;
+  }
+}
+
 .page {
   &:not(.no-padding) {
     padding: 50px 0;

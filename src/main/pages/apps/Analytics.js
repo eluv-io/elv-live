@@ -2,8 +2,8 @@ import React from "react";
 import {mainStore} from "../../stores/Main";
 import {observer} from "mobx-react";
 import ImageIcon from "../../components/ImageIcon";
-import {ApplicationIcons, DocumentIcon, TechnologyIcons} from "../../static/icons/Icons";
-import {Accordion, AccordionGroup, InfoBox, RichText} from "../../components/Misc";
+import {ApplicationIcons} from "../../static/icons/Icons";
+import {Accordion, AccordionGroup, ContentFabricInfoBox, RichText} from "../../components/Misc";
 import AppSuiteControlPanel from "./AppSuiteControlPanel";
 import * as analyticsImages from "../../static/images/apps/analytics";
 import AppImageGallery from "./AppImageGallery";
@@ -39,8 +39,35 @@ const Analytics = observer(() => {
               {
                 section.items ?
                   section.items.map(item => (
-                    <Accordion title={item.title} titleDescription={item.subtitle} key={`analytics-accordion-item-${item.title}`} defaultOpen>
-                      <RichText className="accordion__description-card" richText={item.description}/>
+                    <Accordion
+                      title={item.title}
+                      titleDescription={item.subtitle}
+                      className={item.sub_items ? "accordion--parent" : ""}
+                      key={`analytics-accordion-item-${item.title}`}
+                      defaultOpen
+                    >
+                      {
+                        item.sub_items ?
+                          <div className="accordion__description-card">
+                            {
+                              item.description &&
+                              <RichText className="accordion__nested-intro" richText={item.description}/>
+                            }
+                            {
+                              item.sub_items.map(subItem => (
+                                <Accordion
+                                  title={subItem.title}
+                                  className="accordion--sub"
+                                  key={`analytics-accordion-subitem-${subItem.title}`}
+                                  defaultOpen
+                                >
+                                  <RichText className="accordion__sub-description" richText={subItem.description}/>
+                                </Accordion>
+                              ))
+                            }
+                          </div> :
+                          <RichText className="accordion__description-card" richText={item.description}/>
+                      }
                     </Accordion>
                   )) :
                   <Accordion title={section.header} hasHeader={false} defaultOpen>
@@ -64,19 +91,7 @@ const Analytics = observer(() => {
         }
       />
       <div className="page__content-block">
-        <InfoBox
-          icon={TechnologyIcons.FabricBrowserIcon}
-          header={mainStore.l10n.content_fabric.bangkok.header}
-          content={mainStore.l10n.content_fabric.bangkok.text}
-          links={[
-            {
-              to: mainStore.l10n.content_fabric.bangkok.links[0].link,
-              target: "_blank",
-              text: mainStore.l10n.content_fabric.bangkok.links[0].text,
-              icon: DocumentIcon
-            }
-          ]}
-        />
+        <ContentFabricInfoBox />
       </div>
     </div>
   );

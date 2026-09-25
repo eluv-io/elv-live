@@ -32,9 +32,10 @@ import MediaWallet from "./pages/main/MediaWallet";
 import CompatibleDevices from "./pages/main/CompatibleDevices";
 import Register from "./pages/register/Register";
 import FabricCore from "./pages/technology/FabricCore";
+import FabricCoreBangkok from "./pages/technology/FabricCoreBangkok";
 import CreatorStudio from "./pages/apps/CreatorStudio";
 import Analytics from "./pages/apps/Analytics";
-import AiClipSearch from "./pages/apps/AiClipSearch";
+import VideoIntelligenceServices from "./pages/apps/VideoIntelligenceServices";
 import VideoEditor from "./pages/apps/VideoEditor";
 import MediaWalletApp from "./pages/apps/MediaWalletApp";
 import EmbeddablePlayer from "./pages/apps/EmbeddablePlayer";
@@ -107,6 +108,7 @@ const MainApp = () => {
           <Route path="/content-fabric/blockchain" element={<PageContainer padded><Blockchain /></PageContainer>} />
           {/* A/V Core Routes */}
           <Route path="/av-core/fabric-core" element={<PageContainer padded><FabricCore /></PageContainer>} />
+          <Route path="/av-core/fabric-core-bangkok" element={<PageContainer padded><FabricCoreBangkok /></PageContainer>} />
           <Route path="/av-core/core-utilities" element={<PageContainer padded after={<FAQs />}><Features /></PageContainer>} />
           <Route path="/av-core/bucharest-release" element={<PageContainer padded><CorePlatform /></PageContainer>} />
           {/* Monetization Routes */}
@@ -117,7 +119,7 @@ const MainApp = () => {
           <Route path="/monetization/embeddable-player" element={<PageContainer padded><EmbeddablePlayer /></PageContainer>} />
           {/* Video Intelligence Routes */}
           <Route path="/video-intelligence/video-editor" element={<PageContainer padded><VideoEditor /></PageContainer>} />
-          <Route path="/video-intelligence/ai-search" element={<PageContainer padded><AiClipSearch /></PageContainer>} />
+          <Route path="/video-intelligence/services" element={<PageContainer padded><VideoIntelligenceServices /></PageContainer>} />
           {/* Resources Routes */}
           <Route path="/community" element={<PageContainer padded></PageContainer>} />
           <Route path="/resources/learning-resources" element={<PageContainer unbound><LearningResources /></PageContainer>} />

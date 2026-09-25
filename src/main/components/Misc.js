@@ -11,14 +11,49 @@ import {mainStore, uiStore} from "../stores/Main";
 import {observer} from "mobx-react";
 import {InitializeEluvioPlayer, EluvioPlayerParameters} from "@eluvio/elv-player-js/lib/index";
 import EluvioConfiguration from "EluvioConfiguration";
-import {InfoIcon, MinusIcon, PlusIcon} from "../static/icons/Icons";
+import {DocumentIcon, InfoIcon, MinusIcon, PlusIcon, TechnologyIcons} from "../static/icons/Icons";
 import UrlJoin from "url-join";
+
+// Tag blocks that had a blank line before them in the source so CSS can add a
+// gap there (markdown itself collapses blank lines). One blank line gets the
+// normal "rich-text--gap" spacing; two-or-more blank lines additionally get
+// "rich-text--gap-lg" for a bigger break between sections.
+const RemarkBlankLineGaps = () => {
+  const walk = children => {
+    if (!Array.isArray(children)) { return; }
+
+    children.forEach((node, i) => {
+      const prev = children[i - 1];
+
+      if (prev && prev.position && node.position) {
+        const blankLines = node.position.start.line - prev.position.end.line - 1;
+
+        if (blankLines >= 1) {
+          node.data = node.data || {};
+          node.data.hProperties = node.data.hProperties || {};
+
+          const existing = node.data.hProperties.className;
+          node.data.hProperties.className = [
+            ...(Array.isArray(existing) ? existing : existing ? [existing] : []),
+            "rich-text--gap",
+            ...(blankLines >= 2 ? ["rich-text--gap-lg"] : [])
+          ];
+        }
+      }
+
+      walk(node.children);
+    });
+  };
+
+  return tree => walk(tree.children);
+};
 
 export const RichText = ({richText, children, className=""}) => {
   return (
     <div className={`rich-text ${className}`}>
       { children }
       <ReactMarkdown
+        remarkPlugins={[RemarkBlankLineGaps]}
         rehypePlugins={[rehypeRaw]}
         components={{
           a: props => <Action {...props} to={props.href} />
@@ -191,6 +226,29 @@ export const InfoBox = ({header, subheader, content, icon, links, dark=false, cl
         }
       </div>
     </div>
+  );
+};
+
+// Learn-more InfoBox linking to a Content Fabric release whitepaper, used across the
+// core apps and technology pages. Defaults to the current (Bucharest) release.
+export const ContentFabricInfoBox = ({release="bucharest", className=""}) => {
+  const copy = mainStore.l10n.content_fabric[release];
+
+  return (
+    <InfoBox
+      icon={TechnologyIcons.FabricBrowserIcon}
+      header={copy.header}
+      content={copy.text}
+      className={className}
+      links={[
+        {
+          to: copy.links[0].link,
+          target: "_blank",
+          text: copy.links[0].text,
+          icon: DocumentIcon
+        }
+      ]}
+    />
   );
 };
 
