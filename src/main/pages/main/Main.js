@@ -55,13 +55,13 @@ import VideoStackMonetization from "../../static/images/main/video-stack/05-Mone
 
 import LiveFeedImage from "../../static/images/main/use-cases/live-feed";
 
-import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/ai-generated-personalized-highlights-clips-compositions.webp";
+import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/AI-Generated-Personalized-Highlights-Clips-Compositions.jpg";
 import UseCaseArchiveLibraryImage from "../../static/images/main/use-cases/archive-library-ai-search-hosting-monetization";
-import UseCaseCompleteAPIsImage from "../../static/images/main/use-cases/complete-apis-developing-ott-media-rich-applications.webp";
-import UseCaseD2CB2BImage from "../../static/images/main/use-cases/d2c-b2b-live-vod-fast-linear-streaming-scale.webp";
+import UseCaseCompleteAPIsImage from "../../static/images/main/use-cases/Complete-APIs-for-Developing-OTT-&-Media-Rich-Applications.jpg";
+import UseCaseD2CB2BImage from "../../static/images/main/use-cases/D2C-B2B-Live,-VoD,-FAST-Linear-Streaming-at-Scale.jpg";
 import UseCaseLinearStreamingAtScaleImage from "../../static/images/main/use-cases/linear-streaming-at-scale.webp";
 import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/live-event-streaming-vips-commentary-remote-monitoring.webp";
-import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
+import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/Ultra-Low-Latency-Live-Feed-Distribution-for-Broadcast.jpg";
 
 import EluvioGroupDesktopImage from "../../static/images/main/team-card.jpg";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
