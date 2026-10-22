@@ -214,7 +214,7 @@ class MainStore {
       return true;
     });
 
-    // Old sites that no longer have a path in the app
+    // Old sites that no longer have a path in the app and should be excluded
     const oldSiteSlugs = [
       "bayfront-jazz",
       "black-eyed-peas",
@@ -222,7 +222,22 @@ class MainStore {
       "martha-argerich",
       "microsoft-elevenation",
       "rita-ora",
-      "the-amazons-media-property"
+      "the-amazons-media-property",
+      "maskverse",
+      "production-xuxaverso-property",
+      "production-todas-as-flores-property",
+      "production-masked-singer-property",
+      "the-walking-dead-media-property",
+      "the-pie-media-property",
+      "vsn",
+      "persian-swan-property",
+      "mihi-nihil-property",
+      "angels-and-airwaves",
+      "indiefliex-property",
+      "miss-excel-property",
+      "milanku",
+      "etu-media-property",
+      "the-cannonball-run-property"
     ];
 
     this.featuredProperties = deduplicatedProperties.map(property => {
