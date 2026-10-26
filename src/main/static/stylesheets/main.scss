@@ -2302,19 +2302,20 @@
 
 .site-carousel {
   align-items: flex-start;
-  background-color: var(--background-light-2);
+
+  // "Tray" gradient behind the posters, mimicking the Discover page
+  background:
+    linear-gradient(180deg, rgb(62 59 109 / 40%) 0%, rgb(151 144 255 / 0%) 100%),
+    var(--background-light-2);
   display: flex;
   height: max-content;
   max-width: 100%;
   padding-bottom: 50px;
+  padding-top: 24px;
   width: 100%;
 
   &__slide {
-    &:not(&--active) {
-      .site-carousel__site-image {
-        padding: 3.25px;
-      }
-    }
+    padding: 0 6px;
   }
 
   &__site {
@@ -2324,10 +2325,10 @@
   }
 
   &__site-image {
-    border-radius: 3px;
+    border-radius: 4px;
+    box-shadow: 0 0 16px rgb(0 0 0 / 30%);
     height: 100%;
     object-fit: cover;
-    transition: padding 0.5s ease, margin 0.5s ease;
     width: 100%;
   }
 
