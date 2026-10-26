@@ -15,6 +15,19 @@
     transition: height 0.15s ease, background-color 0.15s linear, color 0.15s linear, border 0.15s linear, stroke 0.15s linear, fill 0.15s linear, opacity 0.15s linear, font-size 0.15s linear, filter 0.15s linear;
   }
 
+  &--transparent {
+    background: transparent;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    // Opaque while a dropdown is expanded
+    &:has(.menu-button__options-container) {
+      background: var(--background-light-2);
+    }
+  }
+
   &--compact {
     height: var(--header-height--compact);
 

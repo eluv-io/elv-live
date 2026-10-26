@@ -14,6 +14,26 @@
     }
   }
 
+  &--light {
+    background-color: #FFF;
+    box-sizing: content-box; // Extend behind the transparent site header
+    color: #000;
+    padding-top: var(--header-height);
+
+    &.main-page-header__image-bg::after {
+      display: none;
+    }
+
+    .main-page-header__gradient {
+      display: none;
+    }
+
+    .main-page-header__content {
+      height: calc(100% - var(--header-height));
+      top: var(--header-height);
+    }
+  }
+
   &__media-wallet {
     padding-bottom: 50px;
 

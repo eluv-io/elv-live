@@ -54,8 +54,9 @@ header:
 main:
   heading:
     top_header: The Content Fabric
+    header_highlight: The Most Powerful Platform
     header: |
-      The Most Powerful Platform for Content Distribution & Monetization
+      for Content Distribution & Monetization
     subheader: |
       Radically efficient, fast and AI native, the Content Fabric provides transformational advantages for video over IP, and eliminates decade-level constraints in content distribution and monetization.
     cta_text: Learn More

@@ -27,7 +27,7 @@ import {
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
-import EluvioColorLogo from "../../static/images/logos/eluvio-best-of-show";
+import EluvioColorLogo from "../../static/images/logos/eluvio-best-of-show-black";
 import IBC2026Logo from "../../static/images/main/ibc-2026-logo-mark";
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
@@ -38,7 +38,7 @@ import AppIconEvie from "../../static/icons/apps_new/5_Evie";
 import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
 import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
 
-import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
+import HeaderBackgroundImage from "../../static/images/main/dot-header-bg-light.jpg";
 import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting.webp";
 import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management.webp";
 import EvieApp from "../../static/images/main/apps/01-eluvio-video-intelligence-editor.webp";
@@ -84,7 +84,7 @@ import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
   return (
-    <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
+    <MainHeader video={false} backgroundImage={HeaderBackgroundImage} light>
       <Box maw={1440}>
         <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "flex-start"}>
           <Box flex={1} pt={{base: 0, lg: 30}} align="center" w="100%">
@@ -95,26 +95,29 @@ const HeaderBlock = observer(({mobile}) => {
               order={2}
               fz={{base: "1.25rem", sm: "1.675rem", lg: "1.75rem"}}
               fw={mobile ? 500 : 600}
-              c="white.0"
+              c="#000"
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
-            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.25rem", lg: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
+            <Title fw={600} c="#000" fz={{base: "1.75rem", sm: "2.25rem", lg: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>
+              <Text component="span" inherit c="#9D33F3">{ mainStore.l10n.main.heading.header_highlight }</Text>{" "}
+              { mainStore.l10n.main.heading.header }
+            </Title>
 
             {
               mobile &&
-              <MantineButton color="white.0" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
-                <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
+              <MantineButton color="#000" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
+                <Text fz={15} fw={700} lh={1.4} c="#FFF" style={{whiteSpace: "normal"}}>
                   Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                 </Text>
               </MantineButton>
             }
 
-            <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="#000" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <MantineButton
-                color="white.0"
+                color="#000"
                 radius={5}
                 component="a"
                 href="https://eluv.io/community"
@@ -129,7 +132,7 @@ const HeaderBlock = observer(({mobile}) => {
               >
                 <Stack gap={6} align="start">
                   <Group gap={8}>
-                    <Text fz={15} fw={700} lh={1.4} c="black.0">
+                    <Text fz={15} fw={700} lh={1.4} c="#FFF">
                       Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                     </Text>
                   </Group>

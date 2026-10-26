@@ -12,6 +12,7 @@ import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 import {MenuIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 import {runInAction} from "mobx";
 import UrlJoin from "url-join";
+import {useLocation} from "react-router";
 import {Box, Flex, Text} from "@mantine/core";
 
 export const NotificationBanner = observer(({className="", mobile}) => {
@@ -84,6 +85,8 @@ export const NotificationBanner = observer(({className="", mobile}) => {
 
 const Header = observer(() => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const location = useLocation();
+  const transparent = location.pathname === "/";
 
   useEffect(() => {
     runInAction(() => mainStore.LoadNews());
@@ -102,7 +105,7 @@ const Header = observer(() => {
   return (
     <>
       {/*{ notificationBanner }*/}
-      <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""}`}>
+      <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""} ${transparent ? "header--transparent" : ""}`}>
         <Action useNavLink to="/" className="header__logo-container">
           <ImageIcon icon={uiStore.isWalletPage ? EluvioLogoIcon : EluvioLogo} title="Eluvio" className="header__logo" />
         </Action>
