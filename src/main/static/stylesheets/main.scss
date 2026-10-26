@@ -775,8 +775,12 @@
     }
   }
 
+  &__site-carousel {
+    padding-top: 28px;
+  }
+
   &__client-section {
-    padding: 80px 75px 40px;
+    padding: 80px 75px 20px;
 
     &__row-container {
       align-items: center;
@@ -2305,7 +2309,7 @@
 
   // "Tray" gradient behind the posters, mimicking the Discover page
   background:
-    linear-gradient(180deg, rgb(62 59 109 / 40%) 0%, rgb(151 144 255 / 0%) 100%),
+    linear-gradient(180deg, rgb(62 59 109 / 30%) 0%, rgb(151 144 255 / 0%) 100%),
     var(--background-light-2);
   display: flex;
   height: max-content;
