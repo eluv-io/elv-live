@@ -106,8 +106,8 @@ const HeaderBlock = observer(({mobile}) => {
 
             {
               mobile &&
-              <MantineButton color="#000" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
-                <Text fz={15} fw={700} lh={1.4} c="#FFF" style={{whiteSpace: "normal"}}>
+              <MantineButton color="#000" className={styles.headerCtaButton} radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
+                <Text fz={15} fw={700} lh={1.4} c="inherit" style={{whiteSpace: "normal"}}>
                   Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                 </Text>
               </MantineButton>
@@ -118,6 +118,7 @@ const HeaderBlock = observer(({mobile}) => {
               !mobile &&
               <MantineButton
                 color="#000"
+                className={styles.headerCtaButton}
                 radius={5}
                 component="a"
                 href="https://eluv.io/community"
@@ -132,7 +133,7 @@ const HeaderBlock = observer(({mobile}) => {
               >
                 <Stack gap={6} align="start">
                   <Group gap={8}>
-                    <Text fz={15} fw={700} lh={1.4} c="#FFF">
+                    <Text fz={15} fw={700} lh={1.4} c="inherit">
                       Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                     </Text>
                   </Group>
