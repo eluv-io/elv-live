@@ -85,8 +85,8 @@ import styles from "../../static/modules/Main.module.css";
 const HeaderBlock = observer(({mobile}) => {
   return (
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage} light>
-      <Flex direction="column" w="100%">
-      <Box maw={1440} w="100%">
+      <Flex direction="column" maw={1440} w="100%">
+      <Box w="100%">
         <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "flex-start"}>
           <Box flex={1} pt={{base: 0, lg: 30}} align="center" w="100%">
             <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", lg: 0}} w={{base: "100%", sm: "100%", lg: "100%"}} m="auto" />
@@ -147,7 +147,7 @@ const HeaderBlock = observer(({mobile}) => {
       {
         // 95px of space above and below the banner
         !mobile &&
-        <Flex align="center" py={95} maw={1440} w="100%">
+        <Flex align="center" py={95} w="100%">
           <NotificationBanner className="inline" />
         </Flex>
       }
