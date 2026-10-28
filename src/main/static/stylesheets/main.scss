@@ -462,6 +462,10 @@
   }
 
   @media screen and (max-width: $width-mobile) {
+    &__content {
+      padding: 60px 20px 0 20px;
+    }
+
     @media(height <= 900px) {
       &__content {
         padding: 40px 20px 20px;

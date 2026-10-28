@@ -391,9 +391,7 @@
     --notification-banner-gap: 24px;
 
     &__card {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 6px;
+      gap: 12px;
     }
   }
 }

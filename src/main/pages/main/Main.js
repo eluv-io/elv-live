@@ -87,11 +87,11 @@ const HeaderBlock = observer(({mobile}) => {
     <MainHeader video={false} backgroundImage={HeaderBackgroundImage} light>
       <Flex direction="column" maw={1440} w="100%">
       <Box w="100%">
-        <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "flex-start"}>
+        <Flex direction={mobile ? "column" : "row"} gap={mobile ? 20 : 50} align={mobile ? "center" : "flex-start"}>
           <Box flex={1} pt={{base: 0, lg: 30}} align="center" w="100%">
-            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", lg: 0}} w={{base: "100%", sm: "100%", lg: "100%"}} m="auto" />
+            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={0} w="clamp(200px, 45vw, 400px)" m="auto" />
           </Box>
-          <Flex direction="column" flex={2} gap={{base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
+          <Flex direction="column" flex={2} gap={mobile ? 10 : {base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
               fz={{base: "1.25rem", sm: "1.675rem", lg: "1.75rem"}}
@@ -107,14 +107,14 @@ const HeaderBlock = observer(({mobile}) => {
 
             {
               mobile &&
-              <MantineButton color="#000" className={styles.headerCtaButton} radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
+              <MantineButton color="#000" className={styles.headerCtaButton} radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" my={10} style={{whiteSpace: "normal"}}>
                 <Text fz={15} fw={700} lh={1.4} c="inherit" style={{whiteSpace: "normal"}}>
                   Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                 </Text>
               </MantineButton>
             }
 
-            <Text c="#000" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="#000" fz={mobile ? 20 : {base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <MantineButton
@@ -144,13 +144,10 @@ const HeaderBlock = observer(({mobile}) => {
           </Flex>
         </Flex>
       </Box>
-      {
-        // 47px of space above and below the banner
-        !mobile &&
-        <Flex align="center" py={47} w="100%">
-          <NotificationBanner className="inline" />
-        </Flex>
-      }
+      {/* Space above and below the banner */}
+      <Flex align="center" pt={mobile ? 20 : 47} pb={47} w="100%">
+        <NotificationBanner mobile={mobile} className="inline" />
+      </Flex>
       </Flex>
     </MainHeader>
   );
@@ -828,7 +825,6 @@ const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
       <HeaderBlock mobile />
-      <NotificationBanner mobile className="mobile" />
       <div className="page light no-padding">
         <VideoStack mobile />
         <StreamingUseCases mobile />
