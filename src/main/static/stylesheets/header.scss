@@ -378,14 +378,12 @@
 
   // Rendered in the hero's flow (centered in the space below the content) instead of floating over its bottom edge
   &.inline {
-    height: auto;
+    // Reserve the collapsed card's height so the card can expand over the surrounding space without resizing the layout
+    height: 42px;
     width: 100%;
 
     .notification-banner__card {
-      bottom: auto;
-      left: auto;
-      position: relative;
-      right: auto;
+      inset: 0 0 auto;
     }
   }
 
