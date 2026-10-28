@@ -15,17 +15,17 @@ import UrlJoin from "url-join";
 import {useLocation} from "react-router";
 import {Text} from "@mantine/core";
 
-export const NotificationBanner = observer(({className="", mobile}) => {
+export const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
 
   return (
     <div className={`notification-banner ${className}`}>
       <div className="notification-banner__card">
-        <Text c="inherit" className="notification-banner__text-desktop" fz={mobile ? 12 : 11} fw={500} lh={1.4}>
+        <Text c="inherit" className="notification-banner__text-desktop" fz={16} fw={500} lh={1.4}>
           { mainStore.notification.plain_text }
         </Text>
         <Action to={mainStore.notification.link} className="notification-banner__link">
-          <Text c="inherit" fz={mobile ? 12 : 11} fw={700} wrap="nowrap">
+          <Text c="inherit" fz={16} fw={700} wrap="nowrap">
             { mainStore.notification.link_text } →
           </Text>
         </Action>

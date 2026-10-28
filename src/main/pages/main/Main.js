@@ -145,9 +145,9 @@ const HeaderBlock = observer(({mobile}) => {
         </Flex>
       </Box>
       {
-        // 95px of space above and below the banner
+        // 47px of space above and below the banner
         !mobile &&
-        <Flex align="center" py={95} w="100%">
+        <Flex align="center" py={47} w="100%">
           <NotificationBanner className="inline" />
         </Flex>
       }
