@@ -33,6 +33,11 @@
       object-position: top;
     }
 
+    // Fade the video out into the page background, finishing just below the notification banner
+    > div.main-page-header__video {
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent 100%);
+    }
+
     // In flow so the hero sizes to its content
     .main-page-header__content {
       height: auto;
