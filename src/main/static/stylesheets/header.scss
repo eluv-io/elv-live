@@ -375,7 +375,12 @@
 
   &__link {
     flex: 0 0 auto;
+    transition: color 0.2s;
     white-space: nowrap;
+
+    &:hover {
+      color: var(--color-highlight-7);
+    }
   }
 
   // Rendered in the hero's flow (centered in the space below the content) instead of floating over its bottom edge
