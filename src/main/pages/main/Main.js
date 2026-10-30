@@ -146,7 +146,7 @@ const HeaderBlock = observer(({mobile}) => {
         </Flex>
       </Box>
       {/* Space above and below the banner; the background video fades out in the space below */}
-      <Flex align="center" pt={mobile ? 20 : 47} pb={mobile ? 100 : 140} w="100%">
+      <Flex align="center" pt={mobile ? 20 : 47} pb={mobile ? 90 : 120} w="100%">
         <NotificationBanner mobile={mobile} className="inline" />
       </Flex>
       </Flex>
