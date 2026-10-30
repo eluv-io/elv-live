@@ -33,9 +33,9 @@
       object-position: top;
     }
 
-    // Fade the video out into the page background, finishing just below the notification banner
+    // Keep the video fully visible behind the notification banner, then fade it out into the page background below it
     > div.main-page-header__video {
-      mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 120px), transparent 100%);
     }
 
     // In flow so the hero sizes to its content
