@@ -38,7 +38,7 @@ import AppIconEvie from "../../static/icons/apps_new/5_Evie";
 import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
 import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
 
-import HeaderBackgroundVideoDesktop from "../../static/images/main/bg-Wave-Loop-Desktop.mp4";
+import HeaderBackgroundVideoDesktop from "../../static/images/main/bg-Wave-Loop-Desktop-compressed.mp4";
 import HeaderBackgroundVideoMobile from "../../static/images/main/bg-Wave-Loop-Mobile-compressed.mp4";
 import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting.webp";
 import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management.webp";
