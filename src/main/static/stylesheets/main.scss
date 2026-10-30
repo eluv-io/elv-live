@@ -29,6 +29,10 @@
       display: none;
     }
 
+    .main-page-header__video {
+      object-position: top;
+    }
+
     // In flow so the hero sizes to its content
     .main-page-header__content {
       height: auto;
