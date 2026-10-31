@@ -14,6 +14,38 @@
     }
   }
 
+  &--light {
+    background-color: #FFF;
+    box-sizing: content-box; // Extend behind the transparent site header
+    color: #000;
+    height: auto;
+    padding-top: var(--header-height);
+
+    &.main-page-header__image-bg::after {
+      display: none;
+    }
+
+    .main-page-header__gradient {
+      display: none;
+    }
+
+    .main-page-header__video {
+      object-position: top;
+    }
+
+    // Keep the video fully visible behind the notification banner, then fade it out into the page background below it
+    > div.main-page-header__video {
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 100px), transparent 100%);
+    }
+
+    // In flow so the hero sizes to its content
+    .main-page-header__content {
+      height: auto;
+      position: relative;
+      top: auto;
+    }
+  }
+
   &__media-wallet {
     padding-bottom: 50px;
 
@@ -42,7 +74,7 @@
     height: 100%;
     justify-content: center;
     left: 0;
-    padding: 120px 90px 50px 100px;
+    padding: 60px 90px 0 100px;
     position: absolute;
     top: 0;
     width: 100%;
@@ -351,7 +383,7 @@
     }
 
     &__content {
-      padding: 85px 80px 50px 90px;
+      padding: 60px 80px 0 90px;
     }
   }
 
@@ -439,6 +471,10 @@
   }
 
   @media screen and (max-width: $width-mobile) {
+    &__content {
+      padding: 60px 20px 0 20px;
+    }
+
     @media(height <= 900px) {
       &__content {
         padding: 40px 20px 20px;
@@ -632,6 +668,7 @@
 
   &--video-stack {
     padding-bottom: 0;
+    padding-top: 10px;
   }
 
   &--benefits {
@@ -755,8 +792,12 @@
     }
   }
 
+  &__site-carousel {
+    padding-top: 28px;
+  }
+
   &__client-section {
-    padding: 80px 75px 40px;
+    padding: 80px 75px 20px;
 
     &__row-container {
       align-items: center;
@@ -2282,19 +2323,20 @@
 
 .site-carousel {
   align-items: flex-start;
-  background-color: var(--background-light-2);
+
+  // "Tray" gradient behind the posters, mimicking the Discover page
+  background:
+    linear-gradient(180deg, rgb(62 59 109 / 30%) 0%, rgb(151 144 255 / 0%) 100%),
+    var(--background-light-2);
   display: flex;
   height: max-content;
   max-width: 100%;
   padding-bottom: 50px;
+  padding-top: 24px;
   width: 100%;
 
   &__slide {
-    &:not(&--active) {
-      .site-carousel__site-image {
-        padding: 3.25px;
-      }
-    }
+    padding: 0 6px;
   }
 
   &__site {
@@ -2304,10 +2346,10 @@
   }
 
   &__site-image {
-    border-radius: 3px;
+    border-radius: 4px;
+    box-shadow: 0 0 16px rgb(0 0 0 / 30%);
     height: 100%;
     object-fit: cover;
-    transition: padding 0.5s ease, margin 0.5s ease;
     width: 100%;
   }
 

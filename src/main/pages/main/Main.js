@@ -27,7 +27,7 @@ import {
 } from "../../static/icons/Icons";
 import {SocialIcons} from "../../static/icons/Icons";
 
-import EluvioColorLogo from "../../static/images/logos/eluvio-best-of-show";
+import EluvioColorLogo from "../../static/images/logos/eluvio-best-of-show-black";
 import IBC2026Logo from "../../static/images/main/ibc-2026-logo-mark";
 
 import AppIconFB from "../../static/icons/apps_new/1_Fabric_Browser";
@@ -38,7 +38,8 @@ import AppIconEvie from "../../static/icons/apps_new/5_Evie";
 import AppIconAI from "../../static/icons/apps_new/6_AI_Search";
 import AppIconAnalytics from "../../static/icons/apps_new/7_Analytics";
 
-import HeaderBackgroundImage from "../../static/images/main/dot-header-bg.webp";
+import HeaderBackgroundVideoDesktop from "../../static/images/main/bg-Wave-Loop-Desktop-compressed.mp4";
+import HeaderBackgroundVideoMobile from "../../static/images/main/bg-Wave-Loop-Mobile-compressed.mp4";
 import AnalyticsApp from "../../static/images/main/apps/03-content-analytics-and-reporting.webp";
 import AiSearchApp from "../../static/images/main/apps/02-ai-content-search-and management.webp";
 import EvieApp from "../../static/images/main/apps/01-eluvio-video-intelligence-editor.webp";
@@ -55,13 +56,13 @@ import VideoStackMonetization from "../../static/images/main/video-stack/05-Mone
 
 import LiveFeedImage from "../../static/images/main/use-cases/live-feed";
 
-import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/ai-generated-personalized-highlights-clips-compositions.webp";
+import UseCaseAiGeneratedImage from "../../static/images/main/use-cases/AI-Generated-Personalized-Highlights-Clips-Compositions.jpg";
 import UseCaseArchiveLibraryImage from "../../static/images/main/use-cases/archive-library-ai-search-hosting-monetization";
-import UseCaseCompleteAPIsImage from "../../static/images/main/use-cases/complete-apis-developing-ott-media-rich-applications.webp";
-import UseCaseD2CB2BImage from "../../static/images/main/use-cases/d2c-b2b-live-vod-fast-linear-streaming-scale.webp";
+import UseCaseCompleteAPIsImage from "../../static/images/main/use-cases/Complete-APIs-for-Developing-OTT-&-Media-Rich-Applications.jpg";
+import UseCaseD2CB2BImage from "../../static/images/main/use-cases/D2C-B2B-Live,-VoD,-FAST-Linear-Streaming-at-Scale.jpg";
 import UseCaseLinearStreamingAtScaleImage from "../../static/images/main/use-cases/linear-streaming-at-scale.webp";
 import UseCaseLiveEventStreamingImage from "../../static/images/main/use-cases/live-event-streaming-vips-commentary-remote-monitoring.webp";
-import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/ultra-low-latency-live-feed-distribution-broadcast.webp";
+import UseCaseUltraLowLatencyImage from "../../static/images/main/use-cases/Ultra-Low-Latency-Live-Feed-Distribution-for-Broadcast.jpg";
 
 import EluvioGroupDesktopImage from "../../static/images/main/team-card.jpg";
 import EluvioGroupMobileImage from "../../static/images/main/team-card-mobile.jpg";
@@ -84,37 +85,42 @@ import styles from "../../static/modules/Main.module.css";
 
 const HeaderBlock = observer(({mobile}) => {
   return (
-    <MainHeader video={false} backgroundImage={HeaderBackgroundImage}>
-      <Box maw={1440}>
-        <Flex direction={mobile ? "column" : "row"} gap={{base: 20, lg: 50}} align={mobile ? "center" : "flex-start"}>
+    <MainHeader videoSrc={mobile ? HeaderBackgroundVideoMobile : HeaderBackgroundVideoDesktop} light>
+      <Flex direction="column" maw={1440} w="100%">
+      <Box w="100%">
+        <Flex direction={mobile ? "column" : "row"} gap={mobile ? 20 : 50} align={mobile ? "center" : "flex-start"}>
           <Box flex={1} pt={{base: 0, lg: 30}} align="center" w="100%">
-            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={{base: "0 70px", sm: "0 30px", lg: 0}} w={{base: "100%", sm: "60%", lg: "100%"}} m="auto" />
+            <Image src={EluvioColorLogo} h="auto" flex={1} maw="100%" p={0} w="clamp(200px, 45vw, 400px)" m="auto" />
           </Box>
-          <Flex direction="column" flex={2} gap={{base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
+          <Flex direction="column" flex={2} gap={mobile ? 10 : {base: 20, lg: 32}} align={mobile ? "center" : "flex-start"} ta={mobile ? "center" : ""}>
             <Title
               order={2}
               fz={{base: "1.25rem", sm: "1.675rem", lg: "1.75rem"}}
               fw={mobile ? 500 : 600}
-              c="white.0"
+              c="#000"
             >
               { mainStore.l10n.main.heading.top_header }
             </Title>
-            <Title fw={600} c="white.0" fz={{base: "1.75rem", sm: "2.25rem", lg: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>{ mainStore.l10n.main.heading.header }</Title>
+            <Title fw={600} c="#000" fz={{base: "1.75rem", sm: "2.25rem", lg: "2.875rem"}} lh="137%" className={styles.headerMainTitle}>
+              <Text component="span" inherit c="#9D33F3">{ mainStore.l10n.main.heading.header_highlight }</Text>{" "}
+              { mainStore.l10n.main.heading.header }
+            </Title>
 
             {
               mobile &&
-              <MantineButton color="white.0" radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" style={{whiteSpace: "normal"}}>
-                <Text fz={15} fw={700} lh={1.4} c="black.0" style={{whiteSpace: "normal"}}>
+              <MantineButton color="#000" className={styles.headerCtaButton} radius={5} component="a" href="https://eluv.io/community" target="_blank" size="xs" h="auto" py="sm" my={10} style={{whiteSpace: "normal"}}>
+                <Text fz={15} fw={700} lh={1.4} c="inherit" style={{whiteSpace: "normal"}}>
                   Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                 </Text>
               </MantineButton>
             }
 
-            <Text c="white.0" fz={{base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
+            <Text c="#000" fz={mobile ? 20 : {base: "1.25rem", sm: "1.5rem", lg: "1.75rem"}} fw={mobile ? 500 : 600} className={styles.headerSubduedText}>{ mainStore.l10n.main.heading.subheader }</Text>
             {
               !mobile &&
               <MantineButton
-                color="white.0"
+                color="#000"
+                className={styles.headerCtaButton}
                 radius={5}
                 component="a"
                 href="https://eluv.io/community"
@@ -129,7 +135,7 @@ const HeaderBlock = observer(({mobile}) => {
               >
                 <Stack gap={6} align="start">
                   <Group gap={8}>
-                    <Text fz={15} fw={700} lh={1.4} c="black.0">
+                    <Text fz={15} fw={700} lh={1.4} c="inherit">
                       Eluvio Content Fabric and Video Intelligence wins 2X Best of Show at &nbsp;<ImageIcon icon={IBC2026Logo} height={25} style={{display: "inline-block", verticalAlign: "middle"}} />&nbsp; IBC 2026! Learn more →
                     </Text>
                   </Group>
@@ -139,6 +145,11 @@ const HeaderBlock = observer(({mobile}) => {
           </Flex>
         </Flex>
       </Box>
+      {/* Space above and below the banner; the background video fades out in the space below */}
+      <Flex align="center" pt={mobile ? 20 : 47} pb={mobile ? 90 : 120} w="100%">
+        <NotificationBanner mobile={mobile} className="inline" />
+      </Flex>
+      </Flex>
     </MainHeader>
   );
 });
@@ -815,7 +826,6 @@ const MainPageMobile = () => {
   return (
     <div className="page dark no-padding">
       <HeaderBlock mobile />
-      <NotificationBanner mobile className="mobile" />
       <div className="page light no-padding">
         <VideoStack mobile />
         <StreamingUseCases mobile />
@@ -832,7 +842,6 @@ const MainPageDesktop = () => {
     <div>
       <div className="page dark no-padding">
         <HeaderBlock />
-        <NotificationBanner className="desktop" />
       </div>
       <div className="main-page__blocks--light">
         <VideoStack />

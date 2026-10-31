@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {observer} from "mobx-react";
 import ImageIcon from "./ImageIcon";
@@ -12,78 +12,32 @@ import EluvioLogoIcon from "../static/images/logos/eluvio-e-logo-purple.svg";
 import {MenuIcon, NavIcons, SocialIcons} from "../static/icons/Icons";
 import {runInAction} from "mobx";
 import UrlJoin from "url-join";
-import {Box, Flex, Text} from "@mantine/core";
+import {useLocation} from "react-router";
+import {Text} from "@mantine/core";
 
-export const NotificationBanner = observer(({className="", mobile}) => {
-  const textRef = useRef(null);
-  const [isTruncated, setIsTruncated] = useState(false);
-
-  useEffect(() => {
-    const element = textRef.current;
-    if(!element) { return; }
-
-    const CheckTruncation = () => setIsTruncated(element.scrollWidth > element.clientWidth);
-
-    CheckTruncation();
-
-    const resizeObserver = new ResizeObserver(CheckTruncation);
-    resizeObserver.observe(element);
-
-    return () => resizeObserver.disconnect();
-  }, [mainStore.notification?.plain_text]);
-
+export const NotificationBanner = observer(({className=""}) => {
   if(!mainStore.notification) { return null; }
 
   return (
     <div className={`notification-banner ${className}`}>
-      {
-        mobile ?
-          (
-            <Flex direction="column" w="100%">
-              <h3>{ mainStore.notification.header }</h3>
-              <Flex direction="row" wrap="nowrap" w="100%" gap={8}>
-                <Flex direction="row" wrap="nowrap" w="100%" miw={0} pos="relative">
-                  <Text richText={mainStore.notification.plain_text} className="notification-banner__text" fz={14} truncate="end">
-                    { mainStore.notification.plain_text }
-                  </Text>
-                </Flex>
-                <Box flex={1}>
-                  <Action to={mainStore.notification.link}>
-                    <Text fz={14} fw={700} wrap="nowrap" truncate="end">
-                      { mainStore.notification.link_text } →
-                    </Text>
-                  </Action>
-                </Box>
-              </Flex>
-            </Flex>
-          ) :
-          (
-            <>
-              <h3>{ mainStore.notification.header }</h3>
-              <Flex direction="row" gap={6} justify="flex-start" wrap="nowrap" w="100%">
-                <Box flex="0 1 auto" miw={0} pos="relative" className="notification-banner__text-gradient-container">
-                  <Text ref={textRef} className="notification-banner__text-desktop" lineClamp={1} fz={16} fw={500} truncate={"end"}>
-                    {mainStore.notification.plain_text}
-                  </Text>
-                  { isTruncated && <Box className="notification-banner__text-gradient" /> }
-                </Box>
-                <Box flex="0 0 auto">
-                  <Action to={mainStore.notification.link}>
-                    <Text fz={mobile ? 14 : 16} fw={700} wrap="nowrap">
-                      { mainStore.notification.link_text } →
-                    </Text>
-                  </Action>
-                </Box>
-              </Flex>
-            </>
-          )
-      }
+      <div className="notification-banner__card">
+        <Text c="inherit" className="notification-banner__text-desktop" fz={16} fw={500} lh={1.4}>
+          { mainStore.notification.plain_text }
+        </Text>
+        <Action to={mainStore.notification.link} className="notification-banner__link">
+          <Text c="inherit" fz={16} fw={700} wrap="nowrap">
+            { mainStore.notification.link_text } →
+          </Text>
+        </Action>
+      </div>
     </div>
   );
 });
 
 const Header = observer(() => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const location = useLocation();
+  const transparent = location.pathname === "/";
 
   useEffect(() => {
     runInAction(() => mainStore.LoadNews());
@@ -102,7 +56,7 @@ const Header = observer(() => {
   return (
     <>
       {/*{ notificationBanner }*/}
-      <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""}`}>
+      <header className={`header ${uiStore.isWalletPage ? "header--compact" : ""} ${transparent ? "header--transparent" : ""}`}>
         <Action useNavLink to="/" className="header__logo-container">
           <ImageIcon icon={uiStore.isWalletPage ? EluvioLogoIcon : EluvioLogo} title="Eluvio" className="header__logo" />
         </Action>
